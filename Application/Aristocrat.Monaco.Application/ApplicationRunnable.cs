@@ -478,12 +478,12 @@ namespace Aristocrat.Monaco.Application
 
         private void LoadOperatorMenuLauncher()
         {
-            //WritePendingActionToMessageDisplay(ResourceKeys.CreatingOperatorMenuLauncher);
-            //var node =
-            //    MonoAddinsHelper.GetSingleSelectedExtensionNode<TypeExtensionNode>(OperatorMenuLauncherExtensionPath);
-            //_operatorMenuLauncher = (IService)node.CreateInstance();
-            //_operatorMenuLauncher.Initialize();
-            //ServiceManager.GetInstance().AddService(_operatorMenuLauncher);
+            WritePendingActionToMessageDisplay(ResourceKeys.CreatingOperatorMenuLauncher);
+            var node =
+                MonoAddinsHelper.GetSingleSelectedExtensionNode<TypeExtensionNode>(OperatorMenuLauncherExtensionPath);
+            _operatorMenuLauncher = (IService)node.CreateInstance();
+            _operatorMenuLauncher.Initialize();
+            ServiceManager.GetInstance().AddService(_operatorMenuLauncher);
         }
 
         private void LoadTicketCreators()

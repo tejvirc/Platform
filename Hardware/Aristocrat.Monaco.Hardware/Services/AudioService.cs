@@ -301,10 +301,10 @@
 
                 CreateSoundSystem();
             }
-            else
-            {
-                Disable();
-            }
+            //else
+            //{
+            //    Disable();
+            //}
         }
 
         public void OnDeviceStateChanged(string deviceId, DeviceState newState)
@@ -344,7 +344,7 @@
                 case DeviceState.NotPresent:
                 case DeviceState.Unplugged:
                 case DeviceState.All:
-                    Disable();
+                    //Disable();
                     _lastState = null; // just assign anything other than active
                     break;
             }

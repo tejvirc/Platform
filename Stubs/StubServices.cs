@@ -8,9 +8,9 @@
 
     public interface IService1 { }
 
-    public class Localizer : IService, IService1
+    public class PlatformDisplay : IService, IService1
     {
-        public string Name => "Stub Localizer";
+        public string Name => "Stub PlatformDisplay";
 
         public ICollection<Type> ServiceTypes => new[] { typeof(IService1) };
 
@@ -30,23 +30,6 @@
         public string Name => "Stub WindowLauncher";
 
         public ICollection<Type> ServiceTypes => new[] { typeof(IService2) };
-
-        public void Initialize()
-        {
-        }
-    }
-
-    #endregion
-
-    #region Stub Service 3
-
-    public interface IService3 { }
-
-    public class PlatformDisplay : IService, IService3
-    {
-        public string Name => "Stub PlatformDisplay";
-
-        public ICollection<Type> ServiceTypes => new[] { typeof(IService3) };
 
         public void Initialize()
         {

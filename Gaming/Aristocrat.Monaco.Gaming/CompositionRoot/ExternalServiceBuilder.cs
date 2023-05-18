@@ -22,7 +22,7 @@
     using Hardware.Contracts.IO;
     using Hardware.Contracts.Persistence;
     using Hardware.Contracts.TowerLight;
-    using Hardware.Contracts.VHD;
+    //using Hardware.Contracts.VHD;
     using Kernel;
     using Kernel.Contracts;
     using Kernel.Contracts.Components;
@@ -52,7 +52,7 @@
             @this.RegisterInstance(serviceManager.GetService<IPathMapper>());
             @this.RegisterInstance(serviceManager.GetService<IPersistentStorageManager>());
             @this.RegisterInstance(serviceManager.GetService<IPropertiesManager>());
-            @this.RegisterInstance(serviceManager.GetService<IButtonDeckDisplay>());
+            //@this.RegisterInstance(serviceManager.GetService<IButtonDeckDisplay>());
             @this.RegisterInstance(serviceManager.GetService<IBank>());
             @this.RegisterInstance(serviceManager.GetService<ISystemDisableManager>());
             @this.RegisterInstance(serviceManager.GetService<IMessageDisplay>());
@@ -60,7 +60,7 @@
             @this.RegisterInstance(serviceManager.GetService<ITransactionCoordinator>());
             @this.RegisterInstance(serviceManager.GetService<IButtonService>());
             @this.RegisterInstance(serviceManager.GetService<IOperatorMenuLauncher>());
-            @this.RegisterInstance(serviceManager.GetService<IVirtualDisk>());
+            //@this.RegisterInstance(serviceManager.GetService<IVirtualDisk>());
             @this.RegisterInstance(serviceManager.GetService<IIO>());
             @this.RegisterInstance(serviceManager.GetService<IIdProvider>());
             @this.RegisterInstance(serviceManager.GetService<ITransactionHistory>());
@@ -76,7 +76,7 @@
             @this.RegisterInstance(serviceManager.GetService<IOperatingHoursMonitor>());
             @this.RegisterInstance(serviceManager.GetService<ISessionInfoService>());
             @this.RegisterInstance(serviceManager.GetService<IPersistenceProvider>());
-            @this.RegisterInstance(serviceManager.GetService<ICabinetDetectionService>());
+            //@this.RegisterInstance(serviceManager.GetService<ICabinetDetectionService>());
             @this.RegisterInstance(serviceManager.GetService<IEdgeLightingStateManager>());
             @this.RegisterInstance(serviceManager.GetService<IEdgeLightingController>());
             @this.RegisterInstance(serviceManager.GetService<IConfigurationSettingsManager>());

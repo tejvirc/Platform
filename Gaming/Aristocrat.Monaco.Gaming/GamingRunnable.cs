@@ -9,6 +9,9 @@
     using Application.Contracts.Media;
     using Application.Contracts.OperatorMenu;
     using Application.Contracts.TiltLogger;
+    using Aristocrat.Monaco.Hardware.Contracts.Button;
+    using Aristocrat.Monaco.Hardware.Contracts.Door;
+    using Aristocrat.Monaco.Hardware.Contracts.IO;
     using Common;
     using CompositionRoot;
     using Consumers;
@@ -31,6 +34,7 @@
     using Progressives;
     using Runtime;
     using SimpleInjector;
+    using Vgt.Client12.Testing.Tools;
 
     /// <summary>
     ///     This the base class for all gaming layers.
@@ -39,14 +43,16 @@
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
-        private static readonly TimeSpan ShutdownTimeout = TimeSpan.FromSeconds(30);
+        //private static readonly TimeSpan ShutdownTimeout = TimeSpan.FromSeconds(30);
 
         private Container _container;
         private ContainerService _containerService;
 
         private SharedConsumerContext _sharedConsumerContext;
 
-        private ManualResetEvent _shutdownEvent = new ManualResetEvent(false);
+        //private ManualResetEvent _shutdownEvent = new ManualResetEvent(false);
+
+        private bool _keepRunning = true;
 
         /// <inheritdoc />
         protected override void OnInitialize()
@@ -72,8 +78,54 @@
             // send notification that all Components have been registered
             _container.GetInstance<IInitializationProvider>().SystemInitializationCompleted();
 
-            // Keep it running...
-            _shutdownEvent.WaitOne();
+            //// Keep it running...
+            //_shutdownEvent.WaitOne();
+
+            // For Linux research, just sit here waiting for input
+            var disableMgr = ServiceManager.GetInstance().GetService<ISystemDisableManager>();
+            var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
+            while (_keepRunning)
+            {
+                Console.WriteLine("\n\n\n\n\n\n");
+                if (disableMgr.IsDisabled)
+                {
+                    foreach (var disable in disableMgr.CurrentDisableKeys)
+                    {
+                        Console.WriteLine($"    {disable}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Enabled");
+                }
+
+                Console.WriteLine();
+                Console.WriteLine("Press:");
+                Console.WriteLine("<1> = insert $1        - debug coin event");
+                Console.WriteLine("<c> = collect          - input event");
+                Console.WriteLine("<a> = open logic door  - input event");
+                Console.WriteLine("<s> = close logic door - input event");
+                Console.WriteLine("<d> = open main door   - input event");
+                Console.WriteLine("<f> = close main door  - input event");
+                Console.WriteLine("<q> = quit             - exit requested event");
+                Console.WriteLine("? ");
+                var key = Console.ReadKey().KeyChar;
+                Console.WriteLine();
+                switch (key)
+                {
+                    case '1': Console.WriteLine("Inserting $1");         eventBus.Publish(new DebugCoinEvent(1000));                     break;
+                    case 'c': Console.WriteLine("Collecting");           eventBus.Publish(new UpEvent((int)ButtonLogicalId.Collect));    break;
+                    case 'a': Console.WriteLine("Opening logic door");   eventBus.Publish(new InputEvent(45, true));                     break;
+                    case 's': Console.WriteLine("Closing logic door");   eventBus.Publish(new InputEvent(45, false));                    break;
+                    case 'd': Console.WriteLine("Opening main door");    eventBus.Publish(new InputEvent(49, true));                     break;
+                    case 'f': Console.WriteLine("Closing main door");    eventBus.Publish(new InputEvent(49, false));                    break;
+                    case 'q': Console.WriteLine("Requesting shutdown");  eventBus.Publish(new ExitRequestedEvent(ExitAction.ShutDown));  break;
+                }
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Shutting down...");
+            Console.WriteLine();
 
             Unload();
             Thread.Sleep(500);
@@ -83,8 +135,9 @@
         /// <inheritdoc />
         protected override void OnStop()
         {
-            // Allow OnRun to exit
-            _shutdownEvent.Set();
+            //// Allow OnRun to exit
+            //_shutdownEvent.Set();
+            _keepRunning = false;
 
             Logger.Info("Gaming Stopped");
         }
@@ -111,15 +164,15 @@
                     _sharedConsumerContext.Dispose();
                 }
 
-                if (_shutdownEvent != null)
-                {
-                    _shutdownEvent.Close();
-                }
+                //if (_shutdownEvent != null)
+                //{
+                //    _shutdownEvent.Close();
+                //}
             }
 
             _container = null;
             _sharedConsumerContext = null;
-            _shutdownEvent = null;
+            //_shutdownEvent = null;
         }
 
         /// <summary>
@@ -241,14 +294,14 @@
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IPlayerService>() as IService);
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IGameCategoryService>() as IService);
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IGameHelpTextProvider>() as IService);
-            serviceManager.AddServiceAndInitialize(_container.GetInstance<IBrowserProcessManager>());
+            //serviceManager.AddServiceAndInitialize(_container.GetInstance<IBrowserProcessManager>());
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IAttendantService>());
             serviceManager.AddService(_container.GetInstance<IBarkeeperPropertyProvider>() as IService);
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IBarkeeperHandler>() as IService);
             serviceManager.AddServiceAndInitialize(_container.GetInstance<ICashoutController>() as IService);
             serviceManager.AddService(_container.GetInstance<IUserActivityService>());
             serviceManager.AddService(_container.GetInstance<ITowerLightManager>());
-            serviceManager.AddServiceAndInitialize(_container.GetInstance<IGamingAccessEvaluation>());
+            //serviceManager.AddServiceAndInitialize(_container.GetInstance<IGamingAccessEvaluation>());
             serviceManager.AddService(_container.GetInstance<IFundsTransferDisable>() as IService);
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IAutoPlayStatusProvider>() as IService);
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IAttractConfigurationProvider>() as IService);
@@ -292,11 +345,11 @@
             serviceManager.RemoveService(_container.GetInstance<IPlayerService>() as IService);
             serviceManager.RemoveService(_container.GetInstance<IPlayerSessionHistory>() as IService);
             serviceManager.RemoveService(_container.GetInstance<IGameHelpTextProvider>() as IService);
-            serviceManager.RemoveService(_container.GetInstance<IBrowserProcessManager>());
+            //serviceManager.RemoveService(_container.GetInstance<IBrowserProcessManager>());
             serviceManager.RemoveService(_container.GetInstance<IAttendantService>());
             serviceManager.RemoveService(_container.GetInstance<IUserActivityService>());
             serviceManager.RemoveService(_container.GetInstance<ITowerLightManager>());
-            serviceManager.RemoveService(_container.GetInstance<IGamingAccessEvaluation>());
+            //serviceManager.RemoveService(_container.GetInstance<IGamingAccessEvaluation>());
             serviceManager.RemoveService(_container.GetInstance<ICashoutController>() as IService);
             serviceManager.RemoveService(_container.GetInstance<IBarkeeperPropertyProvider>() as IService);
             serviceManager.RemoveService(_container.GetInstance<IBarkeeperHandler>() as IService);

@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming
 {
     using System;
-    using Cabinet.Contracts;
+    //using Cabinet.Contracts;
     using Hardware.Contracts;
     using Hardware.Contracts.Cabinet;
     using Kernel;
@@ -28,9 +28,10 @@
                 return true;
             }
 
-            // Check for the expected third monitor of the right size.
-            return ServiceManager.GetInstance().GetService<ICabinetDetectionService>()
-                .GetDisplayDeviceByItsRole(DisplayRole.VBD) != null;
+            //// Check for the expected third monitor of the right size.
+            //return ServiceManager.GetInstance().GetService<ICabinetDetectionService>()
+            //    .GetDisplayDeviceByItsRole(DisplayRole.VBD) != null;
+            return false;
         }
 
         /// <summary>
@@ -39,17 +40,19 @@
         /// <returns>True if the usb button deck exists.</returns>
         public static bool CheckForUsbButtonDeckHardware()
         {
-            if (CheckForVirtualButtonDeckHardware())
-            {
-                //// for the one who needs to simulate VBD on an LCD rig.
-                return false;
-            }
+            //if (CheckForVirtualButtonDeckHardware())
+            //{
+            //    //// for the one who needs to simulate VBD on an LCD rig.
+            //    return false;
+            //}
 
-            // Are we simulating the hardware?
-            var properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
-            var usbButtonDeck = properties.GetValue(HardwareConstants.UsbButtonDeck, "FALSE");
+            //// Are we simulating the hardware?
+            //var properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+            //var usbButtonDeck = properties.GetValue(HardwareConstants.UsbButtonDeck, "FALSE");
 
-            return usbButtonDeck.Equals("TRUE", StringComparison.InvariantCultureIgnoreCase);
+            //return usbButtonDeck.Equals("TRUE", StringComparison.InvariantCultureIgnoreCase);
+
+            return false;
         }
     }
 }

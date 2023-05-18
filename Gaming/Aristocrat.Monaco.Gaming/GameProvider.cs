@@ -13,7 +13,7 @@
     using Application.Contracts.Drm;
     using Application.Contracts.Localization;
     using Aristocrat.PackageManifest.Extension.v100;
-    using Cabinet.Contracts;
+    //using Cabinet.Contracts;
     using Common;
     using Contracts;
     using Contracts.Configuration;
@@ -80,7 +80,7 @@
         private readonly IPersistentStorageManager _storageManager;
         private readonly IDigitalRights _digitalRights;
         private readonly IConfigurationProvider _configurationProvider;
-        private readonly ICabinetDetectionService _cabinetDetectionService;
+        //private readonly ICabinetDetectionService _cabinetDetectionService;
 
         private readonly double _multiplier;
         private readonly object _sync = new();
@@ -101,8 +101,8 @@
             IProgressiveLevelProvider progressiveProvider,
             IIdProvider idProvider,
             IDigitalRights digitalRights,
-            IConfigurationProvider configurationProvider,
-            ICabinetDetectionService cabinetDetectionService)
+            IConfigurationProvider configurationProvider/*,
+            ICabinetDetectionService cabinetDetectionService*/)
         {
             _pathMapper = pathMapper ?? throw new ArgumentNullException(nameof(pathMapper));
             _storageManager = storageManager ?? throw new ArgumentNullException(nameof(storageManager));
@@ -118,7 +118,7 @@
             _idProvider = idProvider ?? throw new ArgumentNullException(nameof(idProvider));
             _digitalRights = digitalRights ?? throw new ArgumentNullException(nameof(digitalRights));
             _configurationProvider = configurationProvider ?? throw new ArgumentNullException(nameof(configurationProvider));
-            _cabinetDetectionService = cabinetDetectionService ?? throw new ArgumentNullException(nameof(cabinetDetectionService));
+            //_cabinetDetectionService = cabinetDetectionService ?? throw new ArgumentNullException(nameof(cabinetDetectionService));
 
             _multiplier = properties.GetValue(ApplicationConstants.CurrencyMultiplierKey, 1d);
 
@@ -668,21 +668,21 @@
                 var largeTopPickIcon = topPickIcons?.Count > 0 ? topPickIcons[0] : null;
                 var smallTopPickIcon = topPickIcons?.Count > 1 ? topPickIcons[1] : null;
 
-                var mainDisplay = _cabinetDetectionService.GetDisplayDeviceByItsRole(DisplayRole.Main);
-                if (mainDisplay == null)
-                {
-                    throw new InvalidDataException("Missing Main Display. Cabinet Detection Service could not register Main Display.");
-                }
+                //var mainDisplay = _cabinetDetectionService.GetDisplayDeviceByItsRole(DisplayRole.Main);
+                //if (mainDisplay == null)
+                //{
+                //    throw new InvalidDataException("Missing Main Display. Cabinet Detection Service could not register Main Display.");
+                //}
 
                 var mainDisplayRect = Rectangle.Empty;
-                if (mainDisplay.Bounds != Rectangle.Empty)
-                {
-                    mainDisplayRect = mainDisplay.Bounds;
-                }
-                else if (mainDisplay.WorkingArea != Rectangle.Empty)
-                {
-                    mainDisplayRect = mainDisplay.WorkingArea;
-                }
+                //if (mainDisplay.Bounds != Rectangle.Empty)
+                //{
+                //    mainDisplayRect = mainDisplay.Bounds;
+                //}
+                //else if (mainDisplay.WorkingArea != Rectangle.Empty)
+                //{
+                //    mainDisplayRect = mainDisplay.WorkingArea;
+                //}
 
                 var isPortraitEgm = false;
                 if (mainDisplayRect != Rectangle.Empty)
@@ -1449,24 +1449,24 @@
 
         private void CheckState()
         {
-            lock (_sync)
-            {
-                if (_games.All(g => !g.Enabled))
-                {
-                    if (!_disableManager.CurrentDisableKeys.Contains(ApplicationConstants.NoGamesEnabledDisableKey))
-                    {
-                        _disableManager.Disable(
-                            ApplicationConstants.NoGamesEnabledDisableKey,
-                            SystemDisablePriority.Normal,
-                            () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AllGamesDisabled),
-                            false);
-                    }
-                }
-                else if (_disableManager.CurrentDisableKeys.Contains(ApplicationConstants.NoGamesEnabledDisableKey))
-                {
-                    _disableManager.Enable(ApplicationConstants.NoGamesEnabledDisableKey);
-                }
-            }
+            //lock (_sync)
+            //{
+            //    if (_games.All(g => !g.Enabled))
+            //    {
+            //        if (!_disableManager.CurrentDisableKeys.Contains(ApplicationConstants.NoGamesEnabledDisableKey))
+            //        {
+            //            _disableManager.Disable(
+            //                ApplicationConstants.NoGamesEnabledDisableKey,
+            //                SystemDisablePriority.Normal,
+            //                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AllGamesDisabled),
+            //                false);
+            //        }
+            //    }
+            //    else if (_disableManager.CurrentDisableKeys.Contains(ApplicationConstants.NoGamesEnabledDisableKey))
+            //    {
+            //        _disableManager.Enable(ApplicationConstants.NoGamesEnabledDisableKey);
+            //    }
+            //}
         }
 
         private void HandleUpgrade(GameDetail game)

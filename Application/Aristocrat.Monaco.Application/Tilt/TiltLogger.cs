@@ -63,7 +63,7 @@
 
         private ITime _timeService;
 
-        //private IOperatorMenuLauncher _operatorMenuLauncher;
+        private IOperatorMenuLauncher _operatorMenuLauncher;
 
         private IEventBus _eventBus;
 
@@ -125,7 +125,7 @@
             _persistentStorage = ServiceManager.GetInstance().GetService<IPersistentStorageManager>();
             _eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
             _timeService = ServiceManager.GetInstance().TryGetService<ITime>();
-            //_operatorMenuLauncher = ServiceManager.GetInstance().GetService<IOperatorMenuLauncher>();
+            _operatorMenuLauncher = ServiceManager.GetInstance().GetService<IOperatorMenuLauncher>();
 
             ConfigurationParse();
 
@@ -732,19 +732,19 @@
                             }
                         }
 
-                        //if (_operatorMenuLauncher.IsShowing && eventTypeRolled)
-                        //{
-                        //    var eventString = (string)dataAccessor[nextIndex - 1, Events];
-                        //    if (!string.IsNullOrEmpty(eventString))
-                        //    {
-                        //        var eventDescription = FromDelimitedString(eventString);
-                        //        if (_reloadEventHistory.TryGetValue(eventDescription.Type, out _))
-                        //        {
-                        //            _reloadEventHistory[eventDescription.Type] = ValueTuple.Create(true, true);
-                        //            _reloadAllView = true;
-                        //        }
-                        //    }
-                        //}
+                        if (_operatorMenuLauncher.IsShowing && eventTypeRolled)
+                        {
+                            var eventString = (string)dataAccessor[nextIndex - 1, Events];
+                            if (!string.IsNullOrEmpty(eventString))
+                            {
+                                var eventDescription = FromDelimitedString(eventString);
+                                if (_reloadEventHistory.TryGetValue(eventDescription.Type, out _))
+                                {
+                                    _reloadEventHistory[eventDescription.Type] = ValueTuple.Create(true, true);
+                                    _reloadAllView = true;
+                                }
+                            }
+                        }
 
                         _eventTypeIndex[key] = index;
 
@@ -788,11 +788,11 @@
                             var dataSize = eventString.Length;
                             Debug.Assert(dataSize <= blockSize, $"TiltLogger log data exceeded - {blockSize} blockSize");
 
-                            //if (_operatorMenuLauncher.IsShowing && _reloadEventHistory.TryGetValue(description.Type, out _))
-                            //{
-                            //    _reloadEventHistory[description.Type] = ValueTuple.Create(true, nextIndex >= eventTypesValue.Max);
-                            //    _reloadAllView = true;
-                            //}
+                            if (_operatorMenuLauncher.IsShowing && _reloadEventHistory.TryGetValue(description.Type, out _))
+                            {
+                                _reloadEventHistory[description.Type] = ValueTuple.Create(true, nextIndex >= eventTypesValue.Max);
+                                _reloadAllView = true;
+                            }
 
                             Logger.Debug($"LogToPersistence - ADDING {key} INDEX {index} - {eventString.ToString(CultureInfo.InvariantCulture)}");
                         }

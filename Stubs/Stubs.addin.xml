@@ -8,18 +8,13 @@
   </Runtime>
 
   <Dependencies>
+    <!-- The line below is necessary for the /Kernel/WindowLauncher and /Kernel/PlatformDisplay extensions -->
     <Addin id="Bootstrap" version="1.0" />
-    <Addin id="AccountingRunnable" version="1.0" />
-    <!-- The line below is necessary for the /Kernel/PathMapping extension in this file -->
-    <Addin id="Monaco.Kernel" version="1.0" />
-    <!-- The line below is necessary to make Monaco.Hardware addin load correctly, but also for the IOImplementation extension -->
+    <!-- The line below is necessary for the "/Hardware/IO/IOImplementations extension -->
     <Addin id="Monaco.Hardware" version="1.0" />
+    <!-- The line below is necessary for the "/Application/IOperatorMenu extension -->
+    <Addin id="Monaco.Application" version="1.0" />
   </Dependencies>
-
-  <!-- Extend the layer -->
-  <Extension path="/Accounting/BootExtender">
-    <BootExtender type="Stubs.SimpleRunnable" />
-  </Extension>
 
   <!-- Provide WindowLauncher service that Application layer would normally provide -->
   <Extension path="/Kernel/WindowLauncher">
@@ -36,9 +31,9 @@
     <DeviceImplementation ProtocolName="Stub" type="Stubs.StubIOImplementation"/>
   </Extension>
 
-  <!-- For some reason, the /Logs path is mapped in a gaming addin.xml file, even though the path is used in the Application layer -->
-  <Extension path="/Kernel/PathMapping">
-    <PathMapping platformPath="/Logs" fileSystemPath="../logs" createIfNotExists="true" />
+  <!-- Provide a stub IOperatorMenu implementation that is normally provided by Application.UI (WPF) -->
+  <Extension path="/Application/IOperatorMenu">
+    <IOperatorMenu type="Stubs.StubOperatorMenu" />
   </Extension>
 
 </Addin>

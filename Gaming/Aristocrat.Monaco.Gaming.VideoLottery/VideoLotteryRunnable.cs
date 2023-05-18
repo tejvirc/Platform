@@ -11,21 +11,21 @@
     using Kernel;
     using ScreenSaver;
     using SimpleInjector;
-    using UI;
-    using UI.CompositionRoot;
-    using UI.PlayerInfoDisplay;
-    using UI.Views.Lobby;
-    using UI.Views.MediaDisplay.Handlers;
+    //using UI;
+    //using UI.CompositionRoot;
+    //using UI.PlayerInfoDisplay;
+    //using UI.Views.Lobby;
+    //using UI.Views.MediaDisplay.Handlers;
 
     [CLSCompliant(false)]
     public sealed class VideoLotteryRunnable : GamingRunnable
     {
         protected override void ConfigureContainer(Container container)
         {
-            container.Register<ILobby, LobbyLauncher>(Lifestyle.Singleton);
-            container.Register<ILobbyStateManager, LobbyStateManager>(Lifestyle.Singleton);
-            container.Register<IBrowserProcessManager, BrowserProcessManager>(Lifestyle.Singleton);
-            container.AddOverlayMessageStrategies();
+            //container.Register<ILobby, LobbyLauncher>(Lifestyle.Singleton);
+            //container.Register<ILobbyStateManager, LobbyStateManager>(Lifestyle.Singleton);
+            //container.Register<IBrowserProcessManager, BrowserProcessManager>(Lifestyle.Singleton);
+            //container.AddOverlayMessageStrategies();
 
             // RG based properties
             container.Collection.Append<IPropertyProvider, PropertyProvider>(Lifestyle.Singleton);
@@ -34,9 +34,9 @@
 
             // we have to register in UI level dues to PlayerInfoDisplayManagerFactory and PlayerInfoDisplayFeatureProvider
             // and we want to avoid Aristocrat.Monaco.Gaming
-            container.Register<IPlayerInfoDisplayManagerFactory, PlayerInfoDisplayManagerFactory>(Lifestyle.Singleton);
-            container.Register<IPlayerInfoDisplayFeatureProvider, PlayerInfoDisplayFeatureProvider>(Lifestyle.Singleton);
-            container.Register<IGameResourcesModelProvider, GameResourcesModelProvider>(Lifestyle.Singleton);
+            //container.Register<IPlayerInfoDisplayManagerFactory, PlayerInfoDisplayManagerFactory>(Lifestyle.Singleton);
+            //container.Register<IPlayerInfoDisplayFeatureProvider, PlayerInfoDisplayFeatureProvider>(Lifestyle.Singleton);
+            //container.Register<IGameResourcesModelProvider, GameResourcesModelProvider>(Lifestyle.Singleton);
 
             container.Register<ScreenSaverMonitor>(Lifestyle.Singleton);
             container.Register<ScreenSaverWindowLauncher>(Lifestyle.Singleton);

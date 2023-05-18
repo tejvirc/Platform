@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\..\..\Build\shared.props" />	
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
+    <RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
     <RootNamespace>Vgt.Client12.Testing.Tools</RootNamespace>
     <AssemblyTitle>DebugCurrencyHandler</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
-    <UseWPF>true</UseWPF>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <Platform>x64</Platform>
   </PropertyGroup>

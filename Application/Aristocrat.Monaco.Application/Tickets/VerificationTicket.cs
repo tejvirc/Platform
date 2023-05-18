@@ -142,8 +142,8 @@
                         "Cashout Tickets",
                         string.Format(NumberFormatInfo.CurrentInfo, "{0:N0}", totalVoucherOutCountP));
 
-                    var access = ServiceManager.GetService<IOperatorMenuAccess>();
-                    var technicianMode = access?.HasTechnicianMode ?? false;
+                    //var access = ServiceManager.GetService<IOperatorMenuAccess>();
+                    var technicianMode = /*access?.HasTechnicianMode ??*/ false;
                     foreach (var dict in VTicketPage2MeterNames)
                     {
                         // VLT-10481 : ignore technician access meter

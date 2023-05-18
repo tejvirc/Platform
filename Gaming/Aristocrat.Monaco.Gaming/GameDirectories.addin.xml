@@ -6,10 +6,10 @@
 	</Dependencies>
 
 	<Extension path="/Kernel/PathMapping">
-		<PathMapping platformPath="/Packages" fileSystemPath="..\packages" createIfNotExists="true" absolutePathName="imagesPath" />
-		<PathMapping platformPath="/Games" fileSystemPath="..\..\Games" createIfNotExists="true" />
-		<PathMapping platformPath="/Runtime" fileSystemPath="..\..\Runtime" createIfNotExists="true" />
-		<PathMapping platformPath="/Logs" fileSystemPath="..\logs" createIfNotExists="true" />
+		<PathMapping platformPath="/Packages" fileSystemPath="../packages" createIfNotExists="true" absolutePathName="imagesPath" />
+		<PathMapping platformPath="/Games" fileSystemPath="../../Games" createIfNotExists="true" />
+		<PathMapping platformPath="/Runtime" fileSystemPath="../../Runtime" createIfNotExists="true" />
+		<PathMapping platformPath="/Logs" fileSystemPath="../logs" createIfNotExists="true" />
 	</Extension>
 
 </Addin>

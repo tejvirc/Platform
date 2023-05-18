@@ -39,7 +39,7 @@
         private readonly IMediaPlayerResizeManager _resizeManager;
         private readonly IRuntimeFlagHandler _runtimeFlag;
         private readonly IRuntime _runtime;
-        private readonly ICabinetDetectionService _cabinetDetectionService;
+        //private readonly ICabinetDetectionService _cabinetDetectionService;
         private readonly IPropertiesManager _propertiesManager;
 
         private bool _disposed;
@@ -65,15 +65,15 @@
             IMediaPlayerResizeManager resizeManager,
             IRuntimeFlagHandler runtimeFlag,
             IRuntime runtime,
-            ICabinetDetectionService cabinetDetectionService,
+            //ICabinetDetectionService cabinetDetectionService,
             IPropertiesManager propertiesManager)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _resizeManager = resizeManager ?? throw new ArgumentNullException(nameof(resizeManager));
             _runtimeFlag = runtimeFlag ?? throw new ArgumentNullException(nameof(runtimeFlag));
             _runtime = runtime ?? throw new ArgumentNullException(nameof(runtime));
-            _cabinetDetectionService = cabinetDetectionService ??
-                                       throw new ArgumentNullException(nameof(cabinetDetectionService));
+            //_cabinetDetectionService = cabinetDetectionService ??
+            //                           throw new ArgumentNullException(nameof(cabinetDetectionService));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
         }
 
@@ -114,7 +114,7 @@
         /// <inheritdoc />
         public void Initialize()
         {
-            _showConfirmation = _cabinetDetectionService.IsTouchVbd();
+            _showConfirmation = /*_cabinetDetectionService.IsTouchVbd()*/ false;
             _serviceButtonState = GameButtonState.NotSet;
 
             _eventBus.Subscribe<GameInitializationCompletedEvent>(this, HandleEvent);

@@ -5,7 +5,7 @@
     using Contracts.Lobby;
     using Kernel;
     using log4net;
-    using Monaco.UI.Common;
+    //using Monaco.UI.Common;
     using System;
     using System.ComponentModel;
     using System.Diagnostics;
@@ -52,7 +52,7 @@
         private bool _isTimeLimitDlgVisible;
         private DateTime _lastTimerTick = DateTime.MinValue;
 
-        private ITimer _playLimitTimer;
+        //private ITimer _playLimitTimer;
         private CancellationTokenSource _spinGuardCancellationSource;
         private bool _responsibleGamingEnabled;
         private int _sessionCount;
@@ -360,8 +360,8 @@
             _responsibleGamingEnabled = _config.ResponsibleGamingTimeLimitEnabled;
             if (_responsibleGamingEnabled)
             {
-                _playLimitTimer = new DispatcherTimerAdapter();
-                _playLimitTimer.Tick += PlayLimitTimerTick;
+                //_playLimitTimer = new DispatcherTimerAdapter();
+                //_playLimitTimer.Tick += PlayLimitTimerTick;
 
                 _sessionElapsedTime = TimeSpan.Zero;
 
@@ -612,7 +612,7 @@
             //// Need to do this stuff for any cash out event, button or auto.
             lock (_stateLock)
             {
-                _playLimitTimer?.Stop();
+                //_playLimitTimer?.Stop();
                 _properties.SetProperty(LobbyConstants.LobbyPlayTimeRemainingInSeconds, -1);
                 _properties.SetProperty(LobbyConstants.LobbyPlayTimeElapsedInSeconds, 0);
                 _sessionElapsedTime = TimeSpan.Zero;
@@ -631,42 +631,42 @@
         {
             Logger.Debug("OnGamePlayDisabled.");
             // Do not enter if we already stopped.
-            if (_playLimitTimer != null)
-            {
-                lock (_stateLock)
-                {
-                    if (_state == ResponsibleGamingSessionState.Started)
-                    {
-                        UpdateElapsedTimeFromOverride();
-                        _playLimitTimer.Stop();
+            //if (_playLimitTimer != null)
+            //{
+            //    lock (_stateLock)
+            //    {
+            //        if (_state == ResponsibleGamingSessionState.Started)
+            //        {
+            //            UpdateElapsedTimeFromOverride();
+            //            _playLimitTimer.Stop();
 
-                        // We are pausing the timer, add how much time has passed to elapsed time.
-                        // DispatchTimer does not support pause.  Stopping/disabling resets the timer.
-                        var elapsed = UpdateElapsedTimeSinceTick();
+            //            // We are pausing the timer, add how much time has passed to elapsed time.
+            //            // DispatchTimer does not support pause.  Stopping/disabling resets the timer.
+            //            var elapsed = UpdateElapsedTimeSinceTick();
 
-                        if (_dialogShownTime.HasValue)
-                        {
-                            //adjust the timer so that when we enable the dialog will time out in less than a minute
-                            var newInterval = _playLimitTimer.Interval - elapsed;
-                            if (newInterval.TotalSeconds < 1)
-                            {
-                                //protect against bad stuff
-                                newInterval = TimeSpan.FromSeconds(1);
-                            }
+            //            if (_dialogShownTime.HasValue)
+            //            {
+            //                //adjust the timer so that when we enable the dialog will time out in less than a minute
+            //                var newInterval = _playLimitTimer.Interval - elapsed;
+            //                if (newInterval.TotalSeconds < 1)
+            //                {
+            //                    //protect against bad stuff
+            //                    newInterval = TimeSpan.FromSeconds(1);
+            //                }
 
-                            _playLimitTimer.Interval = newInterval;
-                        }
+            //                _playLimitTimer.Interval = newInterval;
+            //            }
 
-                        FireStateChange(ResponsibleGamingSessionState.Paused);
-                    }
-                    else if (_state == ResponsibleGamingSessionState.Stopped)
-                    {
-                        FireStateChange(ResponsibleGamingSessionState.Disabled);
-                    }
+            //            FireStateChange(ResponsibleGamingSessionState.Paused);
+            //        }
+            //        else if (_state == ResponsibleGamingSessionState.Stopped)
+            //        {
+            //            FireStateChange(ResponsibleGamingSessionState.Disabled);
+            //        }
 
-                    // if already Paused or Disabled, we do nothing
-                }
-            }
+            //        // if already Paused or Disabled, we do nothing
+            //    }
+            //}
         }
 
         /// <inheritdoc />
@@ -674,54 +674,54 @@
         {
             Logger.Debug("OnGamePlayEnabled.");
 
-            if (_playLimitTimer != null)
-            {
-                lock (_stateLock)
-                {
-                    // Un-pause timer (if it was running).
-                    if (_state == ResponsibleGamingSessionState.Paused)
-                    {
-                        UpdateElapsedTimeFromOverride();
+            //if (_playLimitTimer != null)
+            //{
+            //    lock (_stateLock)
+            //    {
+            //        // Un-pause timer (if it was running).
+            //        if (_state == ResponsibleGamingSessionState.Paused)
+            //        {
+            //            UpdateElapsedTimeFromOverride();
 
-                        if (_dialogResetDueToOperatorMenu && UpdateDialogShownTime)
-                        {
-                            // we were already running a timer before the operator menu
-                            // this allows us to keep that elapsed time and continue the timer
-                            _dialogShownTime = DateTime.UtcNow;
-                        }
+            //            if (_dialogResetDueToOperatorMenu && UpdateDialogShownTime)
+            //            {
+            //                // we were already running a timer before the operator menu
+            //                // this allows us to keep that elapsed time and continue the timer
+            //                _dialogShownTime = DateTime.UtcNow;
+            //            }
 
-                        if (_disabledOnStartup && IsTimeLimitDialogVisible && UpdateDialogShownTime)
-                        {
-                            _dialogShownTime = DateTime.UtcNow;
-                            StartPlayTimer();
-                        }
-                        else if (_dialogShownTime.HasValue)
-                        {
-                            // a dialog is up and we are timing it to see if we should dismiss it.
-                            _playLimitTimer.Start();
-                            _lastTimerTick = DateTime.UtcNow;
-                        }
-                        else
-                        {
-                            StartPlayTimer();
-                        }
+            //            if (_disabledOnStartup && IsTimeLimitDialogVisible && UpdateDialogShownTime)
+            //            {
+            //                _dialogShownTime = DateTime.UtcNow;
+            //                StartPlayTimer();
+            //            }
+            //            else if (_dialogShownTime.HasValue)
+            //            {
+            //                // a dialog is up and we are timing it to see if we should dismiss it.
+            //                _playLimitTimer.Start();
+            //                _lastTimerTick = DateTime.UtcNow;
+            //            }
+            //            else
+            //            {
+            //                StartPlayTimer();
+            //            }
 
-                        FireStateChange(ResponsibleGamingSessionState.Started);
-                    }
-                    else if (_state == ResponsibleGamingSessionState.Disabled)
-                    {
-                        // no longer disabled
-                        FireStateChange(ResponsibleGamingSessionState.Stopped);
-                    }
-                }
+            //            FireStateChange(ResponsibleGamingSessionState.Started);
+            //        }
+            //        else if (_state == ResponsibleGamingSessionState.Disabled)
+            //        {
+            //            // no longer disabled
+            //            FireStateChange(ResponsibleGamingSessionState.Stopped);
+            //        }
+            //    }
 
-                if (IsTimeLimitDialogVisible)
-                {
-                    // if we are enabling the system after the dialog is already up, then we should
-                    // clear this flag, since we are no longer doing the reset.
-                    _dialogResetDueToOperatorMenu = false;
-                }
-            }
+            //    if (IsTimeLimitDialogVisible)
+            //    {
+            //        // if we are enabling the system after the dialog is already up, then we should
+            //        // clear this flag, since we are no longer doing the reset.
+            //        _dialogResetDueToOperatorMenu = false;
+            //    }
+            //}
         }
 
         public void ResetDialog(bool resetDueToOperatorMenu)
@@ -880,11 +880,11 @@
 
             if (disposing)
             {
-                if (_playLimitTimer != null)
-                {
-                    _playLimitTimer.Stop();
-                    _playLimitTimer = null;
-                }
+                //if (_playLimitTimer != null)
+                //{
+                //    _playLimitTimer.Stop();
+                //    _playLimitTimer = null;
+                //}
 
                 lock (_spinGuardLock)
                 {
@@ -970,50 +970,50 @@
             ShowTimeLimitDlgPending = true;
         }
 
-        private void PlayLimitTimerTick(object sender, EventArgs e)
-        {
-            Logger.Debug($"Play Limit Timer Tick.  Dialog Visible: {IsTimeLimitDialogVisible} SessionPlayBreakHit: {SessionPlayBreakHit} DialogShown (timed): {_dialogShownTime.HasValue}");
-            lock (_timerLock)
-            {
-                _lastTimerTick = DateTime.UtcNow;
+        //private void PlayLimitTimerTick(object sender, EventArgs e)
+        //{
+        //    Logger.Debug($"Play Limit Timer Tick.  Dialog Visible: {IsTimeLimitDialogVisible} SessionPlayBreakHit: {SessionPlayBreakHit} DialogShown (timed): {_dialogShownTime.HasValue}");
+        //    lock (_timerLock)
+        //    {
+        //        _lastTimerTick = DateTime.UtcNow;
 
-                if (!UpdateElapsedTimeFromOverride())
-                {
-                    _sessionElapsedTime += _playLimitTimer.Interval;
-                }
+        //        if (!UpdateElapsedTimeFromOverride())
+        //        {
+        //            _sessionElapsedTime += _playLimitTimer.Interval;
+        //        }
 
-                if (ResponsibleGamingMode == ResponsibleGamingMode.Continuous && IsTimeLimitDialogVisible)
-                {
-                    AcceptTimeLimit((int)Buttons.YesOk); //we are dismissing the dialog for the user after a timeout
-                }
-                else if (ResponsibleGamingMode == ResponsibleGamingMode.Segmented && IsTimeLimitDialogVisible &&
-                         !SessionPlayBreakHit && _dialogShownTime.HasValue)
-                {
-                    DismissPlayBreak();
-                }
-                else
-                {
-                    if (!ShowTimeLimitDlgPending && !IsTimeLimitDialogVisible)
-                    {
-                        //don't do this if we are already pending or visible
-                        if (ResponsibleGamingMode == ResponsibleGamingMode.Segmented &&
-                            (_sessionElapsedTime >= _sessionLength || IsTimeForPlayBreak()) ||
-                            ResponsibleGamingMode == ResponsibleGamingMode.Continuous && IsAlcTimeToShowDialog())
-                        {
-                            InitiateShowTimeLimitDialog();
-                        }
-                    }
+        //        if (ResponsibleGamingMode == ResponsibleGamingMode.Continuous && IsTimeLimitDialogVisible)
+        //        {
+        //            AcceptTimeLimit((int)Buttons.YesOk); //we are dismissing the dialog for the user after a timeout
+        //        }
+        //        else if (ResponsibleGamingMode == ResponsibleGamingMode.Segmented && IsTimeLimitDialogVisible &&
+        //                 !SessionPlayBreakHit && _dialogShownTime.HasValue)
+        //        {
+        //            DismissPlayBreak();
+        //        }
+        //        else
+        //        {
+        //            if (!ShowTimeLimitDlgPending && !IsTimeLimitDialogVisible)
+        //            {
+        //                //don't do this if we are already pending or visible
+        //                if (ResponsibleGamingMode == ResponsibleGamingMode.Segmented &&
+        //                    (_sessionElapsedTime >= _sessionLength || IsTimeForPlayBreak()) ||
+        //                    ResponsibleGamingMode == ResponsibleGamingMode.Continuous && IsAlcTimeToShowDialog())
+        //                {
+        //                    InitiateShowTimeLimitDialog();
+        //                }
+        //            }
 
-                    var newInterval = GetTimerInterval();
-                    if (newInterval != _playLimitTimer.Interval)
-                    {
-                        StartPlayTimer(); // set new timer interval
-                    }
+        //            var newInterval = GetTimerInterval();
+        //            if (newInterval != _playLimitTimer.Interval)
+        //            {
+        //                StartPlayTimer(); // set new timer interval
+        //            }
 
-                    SaveSessionElapsedTime();
-                }
-            }
-        }
+        //            SaveSessionElapsedTime();
+        //        }
+        //    }
+        //}
 
         private TimeSpan GetTimerInterval()
         {
@@ -1096,12 +1096,12 @@
 
         private void StartPlayTimer()
         {
-            var interval = GetTimerInterval();
-            Logger.Debug($"Starting Play Timer: {interval.TotalSeconds} Seconds");
-            _playLimitTimer.Interval = interval;
-            _lastTimerTick = DateTime.UtcNow;
-            _playLimitTimer.Stop();
-            _playLimitTimer.Start();
+            //var interval = GetTimerInterval();
+            //Logger.Debug($"Starting Play Timer: {interval.TotalSeconds} Seconds");
+            //_playLimitTimer.Interval = interval;
+            //_lastTimerTick = DateTime.UtcNow;
+            //_playLimitTimer.Stop();
+            //_playLimitTimer.Start();
         }
 
         private void SaveSessionElapsedTime()

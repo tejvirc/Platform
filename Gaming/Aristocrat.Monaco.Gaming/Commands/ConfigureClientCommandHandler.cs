@@ -8,7 +8,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
     using Accounting.Contracts;
     using Application.Contracts;
     using Application.Contracts.Extensions;
-    using Cabinet.Contracts;
+    //using Cabinet.Contracts;
     using Common;
     using Consumers;
     using Contracts;
@@ -33,13 +33,13 @@ namespace Aristocrat.Monaco.Gaming.Commands
         private readonly IGameHistory _gameHistory;
         private readonly IGameRecovery _gameRecovery;
         private readonly IGameDiagnostics _gameDiagnostics;
-        private readonly ILobbyStateManager _lobbyStateManager;
+        //private readonly ILobbyStateManager _lobbyStateManager;
         private readonly IPlayerBank _playerBank;
         private readonly IPropertiesManager _properties;
         private readonly IRuntime _runtime;
         private readonly IGameCategoryService _gameCategoryService;
         private readonly IGameProvider _gameProvider;
-        private readonly ICabinetDetectionService _cabinetDetectionService;
+        //private readonly ICabinetDetectionService _cabinetDetectionService;
         private readonly IGameHelpTextProvider _gameHelpTextProvider;
         private readonly IHardwareHelper _hardwareHelper;
         private readonly IAttendantService _attendantService;
@@ -53,13 +53,13 @@ namespace Aristocrat.Monaco.Gaming.Commands
             IGameHistory gameHistory,
             IGameRecovery gameRecovery,
             IGameDiagnostics gameDiagnostics,
-            ILobbyStateManager lobbyStateManager,
+            //ILobbyStateManager lobbyStateManager,
             IPropertiesManager properties,
             IPlayerBank bank,
             IAudio audio,
             IGameProvider gameProvider,
             IGameCategoryService gameCategoryService,
-            ICabinetDetectionService cabinetDetectionService,
+            //ICabinetDetectionService cabinetDetectionService,
             IGameHelpTextProvider gameHelpTextProvider,
             IHardwareHelper hardwareHelper,
             IAttendantService attendantService,
@@ -69,13 +69,13 @@ namespace Aristocrat.Monaco.Gaming.Commands
             _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
             _gameRecovery = gameRecovery ?? throw new ArgumentNullException(nameof(gameRecovery));
             _gameDiagnostics = gameDiagnostics ?? throw new ArgumentNullException(nameof(gameDiagnostics));
-            _lobbyStateManager = lobbyStateManager ?? throw new ArgumentNullException(nameof(lobbyStateManager));
+            //_lobbyStateManager = lobbyStateManager ?? throw new ArgumentNullException(nameof(lobbyStateManager));
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _playerBank = bank ?? throw new ArgumentNullException(nameof(bank));
             _audio = audio ?? throw new ArgumentNullException(nameof(audio));
             _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _gameCategoryService = gameCategoryService ?? throw new ArgumentNullException(nameof(gameCategoryService));
-            _cabinetDetectionService = cabinetDetectionService ?? throw new ArgumentNullException(nameof(cabinetDetectionService));
+            //_cabinetDetectionService = cabinetDetectionService ?? throw new ArgumentNullException(nameof(cabinetDetectionService));
             _gameHelpTextProvider = gameHelpTextProvider ?? throw new ArgumentNullException(nameof(gameHelpTextProvider));
             _hardwareHelper = hardwareHelper ?? throw new ArgumentNullException(nameof(hardwareHelper));
             _attendantService = attendantService ?? throw new ArgumentNullException(nameof(attendantService));
@@ -103,7 +103,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
             var maxVolumeLevel = _audio.GetMaxVolume(_properties, _gameCategoryService, showVolumeControlInLobbyOnly);
 
             var useWinLimit = _properties.GetValue(GamingConstants.UseGambleWinLimit, false);
-            var singleGameAutoLaunch = _lobbyStateManager.AllowSingleGameAutoLaunch;
+            var singleGameAutoLaunch = /*_lobbyStateManager.AllowSingleGameAutoLaunch;*/ true;
 
             var continuousPlayButtons = _properties.GetValue(GamingConstants.ContinuousPlayModeButtonsToUse, new [] { ContinuousPlayButton.Play }).ToList()
                 .Select(
@@ -153,7 +153,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 { "/Runtime/ContinuousPlay&buttons", string.Join(",", continuousPlayButtons) },
                 { "/Runtime/Hardware/EdgeLightSharedMemoryName", EdgeLightRuntimeParameters.EdgeLightSharedMemoryName },
                 { "/Runtime/Hardware/EdgeLightSharedMutexName", EdgeLightRuntimeParameters.EdgeLightSharedMutexName },
-                { "/Runtime/Hardware/VBD&type", _cabinetDetectionService.ButtonDeckType },
+                { "/Runtime/Hardware/VBD&type", /*_cabinetDetectionService.ButtonDeckType*/ string.Empty },
                 { "/Runtime/MinimumWagerCredits", denomination.MinimumWagerCredits.ToString() },
                 { "/Runtime/MaximumWagerCredits", denomination.MaximumWagerCredits.ToString() },
                 { "/Runtime/MaximumWagerInsideCredits", denomination.MaximumWagerCredits.ToString() },
@@ -364,14 +364,14 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 }
             }
 
-            foreach (var displayDevice in _cabinetDetectionService.ExpectedDisplayDevices.Where(d => d.Role != DisplayRole.Unknown))
-            {
-                var diagonalDisplayFlag = ConfigureClientConstants.DiagonalDisplayFlag(displayDevice.Role);
-                if (diagonalDisplayFlag != null)
-                {
-                    parameters[diagonalDisplayFlag] = Math.Round(displayDevice.PhysicalSize.Diagonal, 2).ToString(CultureInfo.InvariantCulture);
-                }
-            }
+            //foreach (var displayDevice in _cabinetDetectionService.ExpectedDisplayDevices.Where(d => d.Role != DisplayRole.Unknown))
+            //{
+            //    var diagonalDisplayFlag = ConfigureClientConstants.DiagonalDisplayFlag(displayDevice.Role);
+            //    if (diagonalDisplayFlag != null)
+            //    {
+            //        parameters[diagonalDisplayFlag] = Math.Round(displayDevice.PhysicalSize.Diagonal, 2).ToString(CultureInfo.InvariantCulture);
+            //    }
+            //}
 
             _runtime.UpdateParameters(parameters, ConfigurationTarget.GameConfiguration);
             _runtime.UpdateParameters(marketParameters, ConfigurationTarget.MarketConfiguration);

@@ -10,7 +10,7 @@
     /// </summary>
     public class UpdateButtonDeckImageCommandHandler : ICommandHandler<UpdateButtonDeckImage>
     {
-        private readonly IButtonDeckDisplay _buttonDeckDisplay;
+        //private readonly IButtonDeckDisplay _buttonDeckDisplay;
         private readonly IGameDiagnostics _gameDiagnostics;
         private readonly ISystemDisableManager _systemDisableManager;
 
@@ -21,11 +21,11 @@
         /// <param name="systemDisableManager">An <see cref="ISystemDisableManager" /> instance.</param>
         /// <param name="gameDiagnostics">An <see cref="IGameDiagnostics" /> instance.</param>
         public UpdateButtonDeckImageCommandHandler(
-            IButtonDeckDisplay buttonDeckDisplay,
+            //IButtonDeckDisplay buttonDeckDisplay,
             ISystemDisableManager systemDisableManager,
             IGameDiagnostics gameDiagnostics)
         {
-            _buttonDeckDisplay = buttonDeckDisplay ?? throw new ArgumentNullException(nameof(buttonDeckDisplay));
+            //_buttonDeckDisplay = buttonDeckDisplay ?? throw new ArgumentNullException(nameof(buttonDeckDisplay));
 
             _systemDisableManager =
                 systemDisableManager ?? throw new ArgumentNullException(nameof(systemDisableManager));
@@ -36,11 +36,11 @@
         /// <inheritdoc />
         public void Handle(UpdateButtonDeckImage command)
         {
-            // Don't draw game graphics when disabled.
-            if (!_systemDisableManager.IsDisabled || _gameDiagnostics.IsActive)
-            {
-                _buttonDeckDisplay.DrawFromSharedMemory();
-            }
+            //// Don't draw game graphics when disabled.
+            //if (!_systemDisableManager.IsDisabled || _gameDiagnostics.IsActive)
+            //{
+            //    _buttonDeckDisplay.DrawFromSharedMemory();
+            //}
         }
     }
 }

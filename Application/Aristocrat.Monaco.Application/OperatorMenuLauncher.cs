@@ -183,9 +183,9 @@
                 _isHidden = false;
 
                 var serviceManager = ServiceManager.GetInstance();
-                var access = serviceManager.GetService<IOperatorMenuAccess>();
+                //var access = serviceManager.GetService<IOperatorMenuAccess>();
 
-                var role = access.TechnicianMode ? ApplicationConstants.TechnicianRole : ApplicationConstants.DefaultRole;
+                var role = /*access.TechnicianMode ? ApplicationConstants.TechnicianRole :*/ ApplicationConstants.DefaultRole;
                 var propertyManager = serviceManager.GetService<IPropertiesManager>();
                 propertyManager.SetProperty(ApplicationConstants.RolePropertyKey, role);
 

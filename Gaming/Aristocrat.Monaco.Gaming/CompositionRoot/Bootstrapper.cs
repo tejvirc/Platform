@@ -148,7 +148,7 @@
             container.RegisterInstance<IProgressiveCalculatorFactory>(progressiveCalculatorFactory);
             container.Register<IProgressiveMeterManager, ProgressiveMeterManager>(Lifestyle.Singleton);
 
-            container.Register<IGamingAccessEvaluation, AccessEvaluationService>(Lifestyle.Singleton);
+            //container.Register<IGamingAccessEvaluation, AccessEvaluationService>(Lifestyle.Singleton);
             container.Register<IHandProvider, PokerHandProvider>(Lifestyle.Singleton);
             container.Register<IGameRoundInfoParserFactory, GameRoundInfoParserFactory>(Lifestyle.Singleton);
             container.RegisterManyAsCollection(typeof(IGameRoundInfoParser), typeof(IGameRoundInfoParser).Assembly);
