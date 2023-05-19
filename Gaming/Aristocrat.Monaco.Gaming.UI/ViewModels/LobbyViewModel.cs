@@ -1393,7 +1393,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         ///     True if the return to lobby button is enabled, false otherwise
         /// </summary>
         public bool ReturnToLobbyAllowed => (!_gameHistory.IsRecoveryNeeded && _gameState.Idle || _isGambleFeatureActive) && !_transferOutHandler.InProgress &&
-                                            !_gameHistory.HasPendingCashOut && !ContainsAnyState(LobbyState.Chooser);
+                                            !_gameHistory.HasPendingCashOut && !ContainsAnyState(LobbyState.Chooser) && !_lobbyStateManager.AllowSingleGameAutoLaunch;
 
         /// <summary>
         ///     Controls whether the machine can be put into reserve
@@ -1416,7 +1416,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             set
             {
                 _gameCount = value;
-                _lobbyStateManager.IsSingleGame = _lobbyStateManager.AllowGameInCharge || UniqueThemeIds <= 1;
+                _lobbyStateManager.IsSingleGame = UniqueThemeIds <= 1;
                 RaisePropertyChanged(nameof(GameCount));
                 RaisePropertyChanged(nameof(MarginInputs));
             }
