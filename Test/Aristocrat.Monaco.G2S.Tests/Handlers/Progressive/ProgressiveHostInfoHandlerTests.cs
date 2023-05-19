@@ -10,7 +10,7 @@
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Protocol.v21;
     using Aristocrat.Monaco.G2S.Handlers.Progressive;
-    using Aristocrat.Monaco.G2S.Services;
+    using Aristocrat.Monaco.G2S.Services.Progressive;
     using Aristocrat.Monaco.Gaming.Contracts.Progressives;
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Test.Common;

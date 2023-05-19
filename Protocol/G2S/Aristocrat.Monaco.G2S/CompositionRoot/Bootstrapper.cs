@@ -20,6 +20,7 @@
     using Aristocrat.G2S.Emdi;
     using Aristocrat.Monaco.G2S.Common;
     using Aristocrat.Monaco.G2S.Common.Data.Models;
+    using Aristocrat.Monaco.G2S.Services.Progressive;
     using Common.CertificateManager;
     using Data.Hosts;
     using Data.Profile;

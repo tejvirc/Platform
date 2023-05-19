@@ -9,7 +9,7 @@
     using Aristocrat.G2S.Client.Devices.v21;
     using Aristocrat.G2S.Protocol.v21;
     using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
-    using Aristocrat.Monaco.G2S.Services;
+    using Aristocrat.Monaco.G2S.Services.Progressive;
     using G2S.Consumers;
     using G2S.Handlers;
     using Hardware.Contracts.HardMeter;

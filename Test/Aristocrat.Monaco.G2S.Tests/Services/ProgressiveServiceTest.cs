@@ -19,6 +19,7 @@
     using Moq;
     using Test.Common;
     using Aristocrat.Monaco.Accounting.Contracts;
+    using Aristocrat.Monaco.G2S.Services.Progressive;
 
     [TestClass]
     public class ProgressiveServiceTest

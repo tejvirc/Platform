@@ -31,6 +31,7 @@
     using SimpleInjector;
     using Aristocrat.Monaco.Application.Contracts.Protocol;
     using System.Collections.Generic;
+    using Aristocrat.Monaco.G2S.Services.Progressive;
 
     /// <summary>
     ///     Handle the base level G2S communications including meter managements and system events.

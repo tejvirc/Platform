@@ -10,6 +10,7 @@
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Client.Devices.v21;
     using Aristocrat.G2S.Emdi;
+    using Aristocrat.Monaco.G2S.Services.Progressive;
     using Common.CertificateManager;
     using Gaming.Contracts;
     using Hardware.Contracts;
@@ -161,15 +162,12 @@
             Start(context);
         }
 
-        public void AddProgressiveDevices()
+        public void AddProgressiveDevices(IProgressiveDeviceManager progressiveDeviceManager)
         {
             var hosts = _properties.GetValues<IHost>(Constants.RegisteredHosts).ToList();
             var defaultHost = hosts.OrderBy(h => h.Index).FirstOrDefault(h => !h.IsEgm() && h.Registered);
 
-            var progService = ServiceManager.GetInstance().TryGetService<IProgressiveService>();
-            if(progService == null) return;
-
-            foreach (var id in progService.VertexProgressiveIds)
+            foreach (var id in progressiveDeviceManager.VertexProgressiveIds)
             {
                 if (_egm.GetDevice<IProgressiveDevice>(id) != null) continue;
                 var device = (IProgressiveDevice)_deviceFactory.Create(
@@ -177,7 +175,7 @@
                              hosts.Where(h => !h.IsEgm() && h.Registered),
                              () => new ProgressiveDevice(id, _deviceStateObserver));
 
-                progService.DevicesProgIds.Add(device.Id, id);
+                progressiveDeviceManager.DeviceProgIdMap.Add(device.Id, id);
             }
         }
 
@@ -345,7 +343,7 @@
                         hosts.Where(h => !h.IsEgm() && h.Registered),
                         () => new ProgressiveDevice(id, _deviceStateObserver));
 
-                        progressiveService?.DevicesProgIds.Add(id, id);
+                        progressiveService?.DeviceProgIdMap.Add(id, id);
                     }
                 }
 

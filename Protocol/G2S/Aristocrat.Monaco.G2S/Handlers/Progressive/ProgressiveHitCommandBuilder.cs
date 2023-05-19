@@ -8,7 +8,7 @@
     using Accounting.Contracts.Transactions;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Protocol.v21;
-    using Aristocrat.Monaco.G2S.Services;
+    using Aristocrat.Monaco.G2S.Services.Progressive;
     using Aristocrat.Monaco.Kernel;
     using Gaming.Contracts;
     using Gaming.Contracts.Progressives;
