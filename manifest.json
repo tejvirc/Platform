@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "7XB4oVWq/pbV8JoKQX73IHw/fpMrYQy/i+cAeuGUq04="
+          "hash": "2pvSQNtYV8g2CWTeQ3/pUZvdRPhPQxvsXXjACXS0p+E="
         }
       },
       "is_incremental": false,
@@ -4716,7 +4716,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConstants.html",
-          "hash": "cKwqOt13y7Y6vW1bHC7U2zQAi5WQ6JjYIOgJlXyPOII="
+          "hash": "mlEaNxv9WNAe/TodUP9UJAGFsKxw5hJqHcGxyTHLF+E="
         }
       },
       "is_incremental": false,
@@ -8856,7 +8856,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Detection.DeviceDetection.html",
-          "hash": "A1A4/hbIevJeFAUik9KFG4tORWh4xtOa5bTmQtsrH4I="
+          "hash": "gy1GgoWnyKydWRkEpRLu6hxpJTb6BHjpalOkB/CyTiA="
         }
       },
       "is_incremental": false,
@@ -13044,7 +13044,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.ViewModels.DeviceConfigViewModel.html",
-          "hash": "Yxm3XWRYTedp0TBff3bjH2BpqNnLxXti01sSqPZ78jk="
+          "hash": "A2cAQsdPkJhU5GGCgTnXL6aoShSdop2dujazNIOGPi4="
         }
       },
       "is_incremental": false,
@@ -13056,7 +13056,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.ViewModels.DeviceViewModel.html",
-          "hash": "+6gLWydnf6q01a1/yxol+dhYlfiljc0kDOWC98tTwrc="
+          "hash": "HFBfJEToDw/8tc4xqSLmySoSxiIpcEHlgUqtqiVU3zo="
         }
       },
       "is_incremental": false,
@@ -13272,7 +13272,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.ViewModels.HardwareConfigBaseViewModel.TickValueProperties.html",
-          "hash": "CVJ+EyKzSa08sGxYbOjrVNIpD75InCyLWMX7+yLPtko="
+          "hash": "NKyQpmpiQp6wgaTSkAO4FJI7JhtKehOwQPdS5OBsRo4="
         }
       },
       "is_incremental": false,
@@ -63570,7 +63570,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter-1.html",
-          "hash": "6ZJnMNnc8WHrd+LYW4hHnYCl9Wkf5P4Cz4wA3zXUt8g="
+          "hash": "FVBsgqO/WMZralElZLABCod07C6jeeWt2BJfl8D3EIE="
         }
       },
       "is_incremental": false,
@@ -65202,7 +65202,19 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Fake.FakeCommunicator.html",
-          "hash": "q3BhnC2uQ2GkXnAPK3m0mZs3rlFkyPg9uhxFOdrkIhQ="
+          "hash": "1CcGbqBbKyCYUm6tqBoxZUKeunoWsSyCEq2vsaJOJNo="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/hardware/Aristocrat.Monaco.Hardware.Fake.FakeRelmCommunicator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Fake.FakeRelmCommunicator.html",
+          "hash": "Nm/EhqXFVRqiZ6j8QCpYofi7KM86OZR6i4nMTWpN+oM="
         }
       },
       "is_incremental": false,
@@ -65214,7 +65226,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Fake.html",
-          "hash": "jFLrEVnriEvq2u2DjvMpPU7nwfbR7b6CSW91tcyx9Jw="
+          "hash": "xcHzDB0T2LaU+vnWMGPblolZ4cQv+B5w7G+TYH6VBO0="
         }
       },
       "is_incremental": false,
@@ -65706,7 +65718,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Reel.ReelControllerAdapter.html",
-          "hash": "LdC0T1l7Eno0w8WI6fUd40yTa1XcKsQZTkqOqoy1a8M="
+          "hash": "3XbOJo9njPHeZUBB6jgGpV80MFZKl267yQjR4wo2lVo="
         }
       },
       "is_incremental": false,
@@ -82437,7 +82449,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 6836,
+          "total_file_count": 6837,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
