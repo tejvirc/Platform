@@ -247,7 +247,7 @@
     <value>??The list contains a null element.??</value>
   </data>
   <data name="MaximumValueReachedCashOutText1" xml:space="preserve">
-    <value>La valeur maximale a été atteinte.</value>
+    <value>???Credit Limit has been reached.???</value>
   </data>
   <data name="MaximumValueReachedCashOutText2" xml:space="preserve">
     <value>Un ticket d’encaissement est en cours d’impression.</value>

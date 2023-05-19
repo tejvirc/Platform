@@ -4293,7 +4293,7 @@ Max: Should be less than the Large Win Limit</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="MaximumValueReachedCashOutText1" xml:space="preserve">
-    <value>Maximum value has been reached.</value>
+    <value>Credit Limit has been reached.</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="MaximumValueReachedCashOutText2" xml:space="preserve">

@@ -19862,7 +19862,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Maximum value has been reached..
+		///   Looks up a localized string similar to Credit Limit has been reached..
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
@@ -54871,7 +54871,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Maximum value has been reached..
+		///		Looks up a localized string similar to Credit Limit has been reached..
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
@@ -81342,7 +81342,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		MaximumTimeTakenByLP,
 		/// <summary>
-		///   Looks up a localized string similar to Maximum value has been reached..
+		///   Looks up a localized string similar to Credit Limit has been reached..
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
