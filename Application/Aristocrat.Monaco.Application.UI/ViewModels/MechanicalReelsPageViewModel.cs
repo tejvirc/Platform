@@ -2,8 +2,11 @@
 {
     using System;
     using System.Collections.ObjectModel;
+    using System.IO;
     using System.Linq;
+    using System.Threading;
     using System.Threading.Tasks;
+    using System.Windows;
     using System.Windows.Input;
     using System.Windows.Media;
     using Aristocrat.Monaco.Hardware.Contracts.Reel.ImplementationCapabilities;
@@ -743,7 +746,10 @@
                 return;
             }
 
-            _reelAnimationCapabilities.RemoveAllControllerAnimations(new System.Threading.CancellationToken());
+            CancellationToken token = new CancellationToken();
+            string currentDir = Directory.GetCurrentDirectory();
+            _reelAnimationCapabilities.RemoveAllControllerAnimations(token);
+            _reelAnimationCapabilities.LoadControllerAnimationFile(new Hardware.Contracts.Reel.ControlData.AnimationFile($@"{currentDir}\Reel\LightShows\AllWhite5Reels.lightshow"), token);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Usb.ReelController.Relm
 {
+    using Aristocrat.RelmReels.Messages;
     using Contracts.Communicator;
     using Contracts.Reel.ControlData;
     using Contracts.SharedDevice;
@@ -140,8 +141,15 @@
 
         public Task<bool> LoadControllerAnimationFile(AnimationFile file, CancellationToken token)
         {
-            // TODO: Implement loading of animation file in driver and wire up here
-            throw new NotImplementedException();
+            if (_relmCommunicator is null)
+            {
+                return Task.FromResult(false);
+            }
+
+            _relmCommunicator.Download(file.Path, BitmapVerification.CRC32, token);
+            Logger.Debug($"Downloading Animation file: {file.Path}");
+
+            return Task.FromResult(true);
         }
 
         public Task<bool> LoadControllerAnimationFiles(IEnumerable<AnimationFile> files, CancellationToken token)

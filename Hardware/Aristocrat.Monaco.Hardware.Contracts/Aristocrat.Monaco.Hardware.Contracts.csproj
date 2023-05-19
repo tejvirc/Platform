@@ -106,4 +106,9 @@
 		<PackageReference Include="Mono.Addins" Version="1.0.0" />
 		<PackageReference Include="System.Diagnostics.DiagnosticSource" Version="4.5.1" />
 	</ItemGroup>
+	<ItemGroup>
+	  <None Update="Reel\LightShows\AllWhite5Reels.lightshow">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
 </Project>

@@ -5,5 +5,18 @@
     /// </summary>
     public class AnimationFile
     {
+        /// <summary>
+        /// The path to the animation file
+        /// </summary>
+        public string Path { get; }
+
+        /// <summary>
+        /// Create an AnimationFile
+        /// </summary>
+        /// <param name="path"></param>
+        public AnimationFile(string path)
+        {
+            Path = path;
+        }
     }
 }
