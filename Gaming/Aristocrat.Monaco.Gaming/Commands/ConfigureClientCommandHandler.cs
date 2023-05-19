@@ -366,6 +366,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
             {
                 parameters.Add("/Runtime/DisplayHandCount", "true");
                 parameters.Add("/Runtime/HandCountValue",_handCountProvider.HandCount.ToString());
+                parameters.Add("/Runtime/MinResidualCreditInCents", _properties.GetValue(AccountingConstants.HandCountMinimumRequiredCredits, AccountingConstants.HandCountDefaultRequiredCredits).MillicentsToCents().ToString());
             }
 
             if (_gameRecovery.IsRecovering && _gameHistory.LoadRecoveryPoint(out var data))
