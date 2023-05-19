@@ -989,7 +989,12 @@
                     iDevice != null &&
                     iDevice.Manufacturer.Contains(ApplicationConstants.Fake))
                 {
-                    return;
+                    if (config.Manufacturer.Equals(iDevice.Manufacturer))
+                    {
+                        return;
+                    }
+
+                    _deviceDiscoveryStatus[config.DeviceType] = false;
                 }
 
                 if (config.Manufacturer.Contains(ApplicationConstants.Fake) ||
@@ -1279,7 +1284,23 @@
                 if (!device.Manufacturers.Contains(ApplicationConstants.Fake))
                 {
                     Logger.Debug($"adding fake manufacturer for device {device.DeviceType} {device.DeviceName} with protocol {device.Protocol}");
-                    device.Manufacturers.Add(ApplicationConstants.Fake);
+
+                    var availableFakeDevices = available.Devices.Where(
+                        d => d.Type == device.DeviceType.ToString() &&
+                             d.Name.Contains(ApplicationConstants.Fake));
+
+                    if (availableFakeDevices.Any())
+                    {
+                        foreach (var availableDevice in availableFakeDevices)
+                        {
+                            device.Manufacturers.Add(availableDevice.Name);
+                            device.AddFakeConfiguration(availableDevice);
+                        }
+                    }
+                    else
+                    {
+                        device.Manufacturers.Add(ApplicationConstants.Fake);
+                    }
                 }
 
                 if (string.IsNullOrEmpty(device.Protocol))
