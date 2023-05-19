@@ -1443,9 +1443,10 @@
                 this,
                 _ =>
                 {
-                    if (_doorOpenAlarmCanBeStopped)
+                    _auditMenuWindowOpen = true;
+                    if (_doorOpenAlarmOperatorCanCancel)
                     {
-                        _auditMenuWindowOpen = true;
+                        StopOpenDoorAlarm();
                     }
                 });
             _eventBus.Subscribe<OperatorMenuExitingEvent>(
