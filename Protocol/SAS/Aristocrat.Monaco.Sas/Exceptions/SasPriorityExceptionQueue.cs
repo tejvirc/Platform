@@ -6,11 +6,11 @@
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
-    using Aristocrat.Monaco.Kernel;
-    using Aristocrat.Monaco.Sas.Contracts.Events;
     using Aristocrat.Sas.Client;
-    using Hardware.Contracts;
+    using Contracts.Events;
+    using Kernel;
     using log4net;
+    using Newtonsoft.Json;
     using Protocol.Common.Storage.Entity;
     using Storage.Models;
 
@@ -33,7 +33,7 @@
         private const int QueueSize = 25;
         private readonly ISasExceptionCollection _noExceptionsPending = new GenericExceptionBuilder(GeneralExceptionCode.None);
         private Queue<ISasExceptionCollection> _exceptions;
-        private readonly object _lockObject = new object();
+        private readonly object _lockObject = new();
         private bool _disposed;
 
         /// <summary>
@@ -43,7 +43,7 @@
         ///     Since the reset cannot be posted until after handpay pending is posted we always get the correct order.
         /// </summary>
         private readonly Dictionary<GeneralExceptionCode, int> _exceptionPriority =
-            new Dictionary<GeneralExceptionCode, int>
+            new()
             {
                 { GeneralExceptionCode.SystemValidationRequest, 1 },
                 { GeneralExceptionCode.TicketHasBeenInserted, 2 },
@@ -63,18 +63,18 @@
                 { GeneralExceptionCode.AuthenticationComplete, 16 },
                 { GeneralExceptionCode.ExceptionBufferOverflow, 17 }
             };
-        
+
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
         private readonly ISasExceptionHandler _exceptionHandler;
         private readonly IEventBus _eventBus;
-        private readonly IList<SasGroup> _registeredGroups = new List<SasGroup>();
+        private readonly List<SasGroup> _registeredGroups = new();
 
         /// <summary>
         ///     flags that indicate which of the priority exceptions are currently active
         /// </summary>
         private int _priorityExceptionFlag;
 
-        private readonly Dictionary<GeneralExceptionCode, List<Action>> _handlers = new Dictionary<GeneralExceptionCode, List<Action>>();
+        private readonly Dictionary<GeneralExceptionCode, List<Action>> _handlers = new();
         private bool _pendingExceptionRead;
         private int _pendingPriorityException = -1;
 
@@ -112,7 +112,9 @@
             var exceptionQueue = _unitOfWorkFactory.Invoke(
                 x => x.Repository<ExceptionQueue>().Queryable().FirstOrDefault(e => e.ClientId == ClientNumber));
             var persistedCollection = exceptionQueue != null
-                ? StorageUtilities.GetListFromByteArray<ISasExceptionCollection>(exceptionQueue.Queue)
+                ? JsonConvert.DeserializeObject<List<ISasExceptionCollection>>(
+                    exceptionQueue.Queue,
+                    new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto })
                 : new List<ISasExceptionCollection>();
             _exceptions = new Queue<ISasExceptionCollection>(persistedCollection);
 
@@ -331,7 +333,7 @@
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="disposing"></param>
         protected virtual void Dispose(bool disposing)
@@ -407,27 +409,28 @@
             Task.Run(
                 () =>
                 {
-                    byte[] queue;
+                    string queue;
                     int priority;
                     lock (_lockObject)
                     {
-                        queue = StorageUtilities.ToByteArray(_exceptions.ToList());
+                        queue = JsonConvert.SerializeObject(
+                            _exceptions.ToList(),
+                            Formatting.None,
+                            new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
                         priority = _pendingPriorityException;
                     }
 
                     try
                     {
-                        using (var work = _unitOfWorkFactory.Create())
-                        {
-                            work.BeginTransaction(IsolationLevel.Serializable);
-                            var repository = work.Repository<ExceptionQueue>();
-                            var persistence = repository.Queryable().FirstOrDefault(x => x.ClientId == ClientNumber) ??
-                                              new ExceptionQueue { ClientId = ClientNumber };
-                            persistence.Queue = queue;
-                            persistence.PriorityQueue = priority;
-                            repository.AddOrUpdate(persistence);
-                            work.Commit();
-                        }
+                        using var work = _unitOfWorkFactory.Create();
+                        work.BeginTransaction(IsolationLevel.Serializable);
+                        var repository = work.Repository<ExceptionQueue>();
+                        var persistence = repository.Queryable().FirstOrDefault(x => x.ClientId == ClientNumber) ??
+                                          new ExceptionQueue { ClientId = ClientNumber };
+                        persistence.Queue = queue;
+                        persistence.PriorityQueue = priority;
+                        repository.AddOrUpdate(persistence);
+                        work.Commit();
                     }
                     catch (Exception e) when (e is ObjectDisposedException || e is InvalidOperationException)
                     {

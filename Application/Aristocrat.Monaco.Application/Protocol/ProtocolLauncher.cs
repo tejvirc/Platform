@@ -23,7 +23,7 @@
 
         private readonly Dictionary<string, IRunnable> _runningProtocols = new();
 
-        private readonly List<Task> _runningProtocolTasks = new();
+        private readonly List<Task<string>> _runningProtocolTasks = new();
         private readonly List<ProtocolTypeExtensionNode> _protocolTypeExtensionNodes = new();
         private IEventBus _eventBus;
         private readonly List<CommsProtocol> _protocols;
@@ -106,14 +106,15 @@
             _eventBus.Publish(new ProtocolLoadedEvent(runnables.Select(x => x.Item1).ToArray()));
         }
 
-        private static async Task RunProtocol(Task<(string name, IRunnable runable)> initializeTask)
+        private static async Task<string> RunProtocol(Task<(string name, IRunnable runable)> initializeTask)
         {
-            var (_, runnable) = await initializeTask.ConfigureAwait(false);
+            var (name, runnable) = await initializeTask.ConfigureAwait(false);
             await Task.Run(
                 () =>
                 {
                     runnable.Run();
                 });
+            return name;
         }
 
         private void RunProtocols()
@@ -127,16 +128,18 @@
             _runningProtocolTasks.AddRange(runningProtocols.Select(RunProtocol).ToArray());
             initialization.WaitForCompletion();
             Task.WaitAny(_runningProtocolTasks.ToArray());
+            var names = new List<string>();
             foreach (var completedTask in _runningProtocolTasks.Where(x => x.IsCompleted))
             {
+                names.Add(completedTask.Result);
                 completedTask.Dispose();
             }
 
             _runningProtocolTasks.RemoveAll(x => x.IsCompleted);
-
             var protocolsDisposed = new List<string>();
             foreach (var runningProtocol in _runningProtocols.Where(
-                runningProtocol => runningProtocol.Value.RunState == RunnableState.Stopped))
+                         runningProtocol => runningProtocol.Value.RunState == RunnableState.Stopped ||
+                                            names.Contains(runningProtocol.Key)))
             {
                 runningProtocol.Value.Stop();
                 (runningProtocol.Value as IDisposable)?.Dispose();
