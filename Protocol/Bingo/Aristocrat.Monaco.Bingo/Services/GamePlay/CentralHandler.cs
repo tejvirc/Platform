@@ -477,6 +477,7 @@
                         else
                         {
                             bingoCard.DaubedBits = cardPlayed.BitPattern;
+                            bingoCard.IsGameEndWin = cardPlayed.IsGameEndWin;
                         }
                     }
 
