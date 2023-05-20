@@ -192,6 +192,16 @@
             Invoke(client => client.UpdateTimeRemaining(new UpdateTimeRemainingRequest { TimeRemaining = message }));
         }
 
+        public void SendTouch(int inputCount, IntPtr inputStruct)
+        {
+            Invoke(client => client.SendTouch(inputCount, inputStruct));
+        }
+
+        public void SendMouse(IntPtr inputStruct)
+        {
+            Invoke(client => client.SendMouse(inputStruct));
+        }
+
         public void Shutdown()
         {
             lock (_sync)

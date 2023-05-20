@@ -140,6 +140,7 @@
 
             str.Append($"--game \"{GameDllPath}\" ");
             str.Append("--wcf ");
+            str.Append("--windowmode direct ");
             str.Append($"--log \"{LogPath}\" ");
             str.Append($"--variation {Variation} ");
             str.Append($"--denomination {Denomination} ");

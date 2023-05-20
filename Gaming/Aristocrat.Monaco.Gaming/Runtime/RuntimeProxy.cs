@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ServiceModel.Channels;
     using System.Threading;
     using Client;
     using Contracts.Central;
@@ -90,6 +91,16 @@
         public void UpdateTimeRemaining(string message)
         {
             _serviceProvider.Client?.UpdateTimeRemaining(message);
+        }
+
+        public void SendTouch(int inputCount, IntPtr inputStruct)
+        {
+            _serviceProvider.Client?.SendTouch(inputCount, inputStruct);
+        }
+
+        public void SendMouse(IntPtr inputStruct)
+        {
+            _serviceProvider.Client?.SendMouse(inputStruct);
         }
 
         public void Shutdown()

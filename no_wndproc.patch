@@ -1,0 +1,18 @@
+diff --git a/Shared/Aristocrat.Monaco.UI.Common/TouchWindowHelper.cs b/Shared/Aristocrat.Monaco.UI.Common/TouchWindowHelper.cs
+index dd624d985..1747e5cd0 100644
+--- a/Shared/Aristocrat.Monaco.UI.Common/TouchWindowHelper.cs
++++ b/Shared/Aristocrat.Monaco.UI.Common/TouchWindowHelper.cs
+@@ -44,11 +44,11 @@
+         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+         {
+             // Handle messages...
+-            if (msg == WindowsServices.WM_TOUCH) //WM_TOUCH
++/*            if (msg == WindowsServices.WM_TOUCH) //WM_TOUCH
+             {
+                 handled = HandleTouch(wParam, lParam);
+                 return new IntPtr(1);
+-            }
++            }*/
+ 
+             return IntPtr.Zero;
+         }
