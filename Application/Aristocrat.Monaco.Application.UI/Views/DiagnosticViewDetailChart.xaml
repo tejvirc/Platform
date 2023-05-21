@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+             xmlns:helpers="http://monaco.aristocrat.com/common"
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:oxy="http://oxyplot.org/wpf"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
@@ -17,6 +18,26 @@
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="TextBox"
+                   BasedOn="{StaticResource MonacoTextBox}">
+                <Setter Property="MinHeight"
+                        Value="0" />
+                <Setter Property="FontSize"
+                        Value="16" />
+                <Setter Property="Padding"
+                        Value="4 5 4 5" />
+            </Style>
+            <Style TargetType="CheckBox"
+                   BasedOn="{StaticResource MonacoCheckBox}">
+                <Setter Property="FontSize"
+                        Value="14" />
+                <Setter Property="helpers:CheckBoxHelper.CheckBoxPartWidth"
+                        Value="30" />
+                <Setter Property="helpers:CheckBoxHelper.CheckMarkPartWidth"
+                        Value="15" />
+                <Setter Property="helpers:CheckBoxHelper.CheckMarkPartHeight"
+                        Value="13" />
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid AutomationProperties.AutomationId="Grid1_3F3843CE">
@@ -161,8 +182,7 @@
                                 <StackPanel Orientation="Horizontal"
                                             Margin="4"
                                             AutomationProperties.AutomationId="StackPanel27_3F3843CE">
-                                    <CheckBox Style="{StaticResource MonacoCheckBox}"
-                                              Margin="2"
+                                    <CheckBox Margin="2"
                                               IsChecked="{Binding MetricEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                               AutomationProperties.AutomationId="CheckBox28_3F3843CE" />
                                     <TextBox MinWidth="200"
