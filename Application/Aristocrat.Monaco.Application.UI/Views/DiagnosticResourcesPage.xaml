@@ -5,6 +5,7 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                               xmlns:helpers="http://monaco.aristocrat.com/common"
                                xmlns:local="clr-namespace:Aristocrat.Monaco.Application.UI.Views"
                                common:DialogParticipation.Register="{Binding}"
                                xmlns:lvcwpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
@@ -17,7 +18,28 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="TextBox"
+                   BasedOn="{StaticResource MonacoTextBox}">
+                <Setter Property="MinHeight"
+                        Value="0" />
+                <Setter Property="FontSize"
+                        Value="16" />
+                <Setter Property="Padding"
+                        Value="4 5 4 5" />
+            </Style>
+            <Style TargetType="CheckBox"
+                   BasedOn="{StaticResource MonacoCheckBox}">
+                <Setter Property="FontSize"
+                        Value="14" />
+                <Setter Property="helpers:CheckBoxHelper.CheckBoxPartWidth"
+                        Value="30" />
+                <Setter Property="helpers:CheckBoxHelper.CheckMarkPartWidth"
+                        Value="15" />
+                <Setter Property="helpers:CheckBoxHelper.CheckMarkPartHeight"
+                        Value="13" />
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid AutomationProperties.AutomationId="Grid0_73D1C618">
@@ -68,7 +90,7 @@
                                     AutomationProperties.AutomationId="StackPanel9_73D1C618">
                             <CheckBox IsChecked="{Binding MetricEnabled, Mode=TwoWay}"
                                       AutomationProperties.AutomationId="CheckBox10_73D1C618" />
-                            <TextBox MinWidth="350"
+                            <TextBox MinWidth="200"
                                      Text="{Binding Label, Mode=OneWay}"
                                      IsHitTestVisible="False"
                                      Focusable="False"
