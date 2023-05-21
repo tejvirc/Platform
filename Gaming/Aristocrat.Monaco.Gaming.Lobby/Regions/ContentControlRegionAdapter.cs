@@ -46,7 +46,13 @@ public class ContentControlRegionAdapter : RegionAdapter<ContentControl>
             {
                 if (e.Action == NotifyCollectionChangedAction.Add && !region.ActiveViews.Any())
                 {
-                    region.ActivateView(e.NewItems?[0]);
+                    var view = e.NewItems?[0];
+                    if (view == null)
+                    {
+                        throw new InvalidOperationException("Added view item cannot be null");
+                    }
+
+                    region.ActivateView(view);
                 }
             };
     }

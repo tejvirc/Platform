@@ -45,12 +45,14 @@ public class ViewCollection : IEnumerable<object>, INotifyCollectionChanged
             case NotifyCollectionChangedAction.Add:
             {
                 UpdateFilteredViews();
-                var views = e.NewItems?.Cast<ViewItem>().Where(x => _filter(x)).ToList();
-                if (views != null)
+
+                var items = e.NewItems?.Cast<ViewItem>().ToList();
+                if (items != null)
                 {
-                    foreach (var view in views)
+                    foreach (var item in items)
                     {
-                        OnAdded(view);
+                        item.ItemChanged += OnItemChanged;
+                        OnAdded(item.View);
                     }
                 }
 
@@ -62,11 +64,38 @@ public class ViewCollection : IEnumerable<object>, INotifyCollectionChanged
                 var items = e.OldItems?.Cast<ViewItem>().Where(x => _filter(x));
                 if (items != null)
                 {
-                    OnRemoved(items);
+                    foreach (var item in items)
+                    {
+                        item.ItemChanged -= OnItemChanged;
+                        OnRemoved(item.View);
+                    }
                 }
 
                 break;
             }
+        }
+    }
+
+    private void OnItemChanged(object? sender, EventArgs e)
+    {
+        if (sender is not ViewItem item)
+        {
+            return;
+        }
+
+        var oldIndex = _filteredViews.IndexOf(item.View);
+
+        UpdateFilteredViews();
+
+        var newIndex = _filteredViews.IndexOf(item.View);
+
+        if (oldIndex != -1 && newIndex == -1)
+        {
+            OnCollectionChanged(NotifyCollectionChangedAction.Remove, new[] { item.View }, oldIndex);
+        }
+        else if (oldIndex == -1 && newIndex != -1)
+        {
+            OnCollectionChanged(NotifyCollectionChangedAction.Add, new[] { item.View }, newIndex);
         }
     }
 
@@ -78,13 +107,22 @@ public class ViewCollection : IEnumerable<object>, INotifyCollectionChanged
     private void OnAdded(object view)
     {
         var index = _filteredViews.IndexOf(view);
-        OnCollectionChanged(NotifyCollectionChangedAction.Add, new[] { view }, index);
+
+        if (index != -1)
+        {
+            OnCollectionChanged(NotifyCollectionChangedAction.Add, new[] { view }, index);
+        }
     }
 
     private void OnRemoved(object view)
     {
         var index = _filteredViews.IndexOf(view);
+
         UpdateFilteredViews();
-        OnCollectionChanged(NotifyCollectionChangedAction.Remove, new[] { view }, index);
+
+        if (index != -1)
+        {
+            OnCollectionChanged(NotifyCollectionChangedAction.Remove, new[] { view }, index);
+        }
     }
 }

@@ -51,13 +51,16 @@ public abstract class Region : IRegion
             throw new ArgumentNullException(nameof(view));
         }
 
-        var viewName = _items.Where(x => ReferenceEquals(x.View, view)).Select(x => x.ViewName).FirstOrDefault();
-        if (viewName == null)
+        var viewItem = _items.FirstOrDefault(x => ReferenceEquals(x.View, view));
+        if (viewItem == null)
         {
             throw new ArgumentOutOfRangeException(nameof(view));
         }
 
-        DeactivateView(viewName);
+        if (viewItem.IsActive)
+        {
+            viewItem.IsActive = false;
+        }
     }
 
     public void DeactivateView(string viewName) => DeactivateView(GetView(viewName));
@@ -79,7 +82,7 @@ public abstract class Region : IRegion
             throw new ArgumentException($@"Region already contains {viewName} view", nameof(viewName));
         }
 
-        _items.Add(new ViewItem { ViewName = viewName, View = view });
+        _items.Add(new ViewItem(viewName, view));
     }
 
     public void RemoveView(string viewName)
@@ -142,6 +145,9 @@ public abstract class Region : IRegion
 
     private bool NavigateTo(ViewItem item)
     {
-        return _regionNavigator.NavigateTo(item.ViewName);
+        ActivateView(item.View);
+
+        return true;
+        // return _regionNavigator.NavigateTo(item.ViewName);
     }
 }

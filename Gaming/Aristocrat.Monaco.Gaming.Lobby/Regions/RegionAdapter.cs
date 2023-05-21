@@ -26,4 +26,3 @@ public abstract class RegionAdapter<TElement> : IRegionAdapter<TElement>
 
     protected abstract void Adapt(IRegion region, TElement element);
 }
-

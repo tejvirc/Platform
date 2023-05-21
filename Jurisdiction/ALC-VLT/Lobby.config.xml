@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <LobbyConfiguration>
   <MultiLanguageEnabled>true</MultiLanguageEnabled>
-  <ResponsibleGamingTimeLimitEnabled>true</ResponsibleGamingTimeLimitEnabled>
   <LargeGameIconsEnabled>true</LargeGameIconsEnabled>
   <HasIdleAttractVideo>false</HasIdleAttractVideo>
   <BottomAttractVideoEnabled>true</BottomAttractVideoEnabled>
   <DaysAsNew>0</DaysAsNew>
+  <ResponsibleGamingTimeLimitEnabled>true</ResponsibleGamingTimeLimitEnabled>
   <ResponsibleGamingTimeLimits>
     <double>60</double>
-	<double>90</double>
-	<double>120</double>
-	<double>145</double>
-	<double>150</double>
+	  <double>90</double>
+	  <double>120</double>
+	  <double>145</double>
+	  <double>150</double>
   </ResponsibleGamingTimeLimits>
   <ResponsibleGamingSessionLimit>5</ResponsibleGamingSessionLimit>
   <ResponsibleGamingInfo Pages="5" ExitStrategy="PressBash" PrintHelpline="false" FullScreen="false" Timeout="120" />
   <LobbyUiDirectoryPath>../jurisdiction/ALC-VLT/ui/</LobbyUiDirectoryPath>
   <SkinFilenames>
-	<string>ALCUI.xaml</string>
-	<string>ALCUI.fr.ca.xaml</string>
+	  <string>ALCUI.xaml</string>
+	  <string>ALCUI.fr.ca.xaml</string>
   </SkinFilenames>
   <LocaleCodes>
-	<string>en-ca</string>
-	<string>fr-ca</string>
+	  <string>en-ca</string>
+	  <string>fr-ca</string>
   </LocaleCodes>
   <LanguageButtonResourceKeys>
-	<string>EnglishOff</string>
-	<string>FrenchOff</string>
+	  <string>EnglishOff</string>
+	  <string>FrenchOff</string>
   </LanguageButtonResourceKeys>
   <DefaultLoadingScreenFilename>../jurisdiction/ALC-VLT/ui/Images/BS_LoadingScreen.png</DefaultLoadingScreenFilename>
   <DefaultTopAttractVideoFilename>../jurisdiction/ALC-VLT/ui/Videos/LobbyAttract.bk2</DefaultTopAttractVideoFilename>
@@ -44,21 +44,21 @@
   <ResponsibleGamingMode>Continuous</ResponsibleGamingMode>
   <ClockMode>Locale</ClockMode>
   <DefaultGameDisplayOrderByThemeId>
-	<string>ATI_StoneAge_10166713</string>
-        <string>ATI_StoneAge</string>
-	<string>ATI_MissKitty</string>
-	<string>ATI_WildYukon</string>
-	<string>ATI_FlaminHits_500</string>
-	<string>ATI_FlaminHits_1000</string>
-	<string>ATI_FortunesOfTheNile</string>
-	<string>ATI_Chili7s</string>
-	<string>ATI_WildLeprecoins</string>
-	<string>ATI_DragonMagic</string>	
-	<string>ATI_FastFrankies_500</string>
-	<string>ATI_FastFrankies_1000</string>
-	<string>ATI_SunMoon</string>
-	<string>ATI_CaptainCoinsKeno_500</string>
-  	<string>ATI_CaptainCoinsKeno_1000</string>		
+	  <string>ATI_StoneAge_10166713</string>
+    <string>ATI_StoneAge</string>
+	  <string>ATI_MissKitty</string>
+	  <string>ATI_WildYukon</string>
+	  <string>ATI_FlaminHits_500</string>
+	  <string>ATI_FlaminHits_1000</string>
+	  <string>ATI_FortunesOfTheNile</string>
+	  <string>ATI_Chili7s</string>
+	  <string>ATI_WildLeprecoins</string>
+	  <string>ATI_DragonMagic</string>	
+	  <string>ATI_FastFrankies_500</string>
+	  <string>ATI_FastFrankies_1000</string>
+	  <string>ATI_SunMoon</string>
+	  <string>ATI_CaptainCoinsKeno_500</string>
+    <string>ATI_CaptainCoinsKeno_1000</string>		
   </DefaultGameDisplayOrderByThemeId>
   <TimeLimitDialogTemplate>TimeLimitAlcDialogTemplate</TimeLimitDialogTemplate>
   <EdgeLightingOverrideUseGen8IdleMode>false</EdgeLightingOverrideUseGen8IdleMode>

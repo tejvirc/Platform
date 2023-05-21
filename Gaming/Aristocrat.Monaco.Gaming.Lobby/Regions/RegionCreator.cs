@@ -11,8 +11,5 @@ public class RegionCreator<TStrategy> : IRegionCreator<TStrategy> where TStrateg
         _strategy = strategy;
     }
 
-    public void Create(FrameworkElement element)
-    {
-        _strategy.CreateRegion(element);
-    }
+    public void Create(FrameworkElement element) => _strategy.CreateRegion(element);
 }

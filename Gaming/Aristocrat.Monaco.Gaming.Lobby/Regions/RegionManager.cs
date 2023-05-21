@@ -77,6 +77,11 @@ public class RegionManager : DependencyObject, IRegionManager
         obj.SetValueSync(RegionNameProperty, value);
     }
 
+    public void AddRegion(IRegion region)
+    {
+        _regions.Add(region.Name, region);
+    }
+
     public void RegisterView<TView>(string regionName, string viewName)
         where TView : class
     {
@@ -93,7 +98,7 @@ public class RegionManager : DependencyObject, IRegionManager
         _regionViewRegistry.RegisterViewWithRegion<TView>(regionName, viewName);
     }
 
-    public bool NavigateViewAsync(string regionName, string viewName)
+    public bool NavigateToView(string regionName, string viewName)
     {
         if (string.IsNullOrWhiteSpace(regionName))
         {

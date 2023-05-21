@@ -65,8 +65,8 @@
     /// </summary>
     public partial class LobbyViewModel : BaseEntityViewModel, IMessageDisplayHandler, IDisposable, IPlayerInfoDisplayScreensContainer
     {
-        // private const double IdleTimerIntervalSeconds = 15.0;
-        // private const double IdleTextTimerIntervalSeconds = 30.0;
+        private const double IdleTimerIntervalSeconds = 15.0;
+        private const double IdleTextTimerIntervalSeconds = 30.0;
         private const double RotateTopImageIntervalInSeconds = 10.0;
         private const double RotateTopperImageIntervalInSeconds = 10.0;
         private const double RotateSoftErrorTextIntervalInSeconds = 3.0;
@@ -428,8 +428,8 @@
             GameList = new ObservableCollection<GameInfo>();
 
             GameSelectCommand = new ActionCommand<object>(LaunchGameFromUi);
-            PreviousPageCommand = new ActionCommand<object>(PrevPage);
-            NextPageCommand = new ActionCommand<object>(NextPage);
+            //PreviousPageCommand = new ActionCommand<object>(PrevPage);
+            //NextPageCommand = new ActionCommand<object>(NextPage);
             AddCreditsCommand = new ActionCommand<object>(BankPressed);
             CashOutCommand = new ActionCommand<object>(CashOutPressed);
             ServiceCommand = new ActionCommand<object>(ServicePressed);
@@ -575,15 +575,15 @@
         /// </summary>
         public ICommand GameSelectCommand { get; }
 
-        /// <summary>
-        ///     Gets the previous page command
-        /// </summary>
-        public ICommand PreviousPageCommand { get; }
+        ///// <summary>
+        /////     Gets the previous page command
+        ///// </summary>
+        //public ICommand PreviousPageCommand { get; }
 
-        /// <summary>
-        ///     Gets the next page command
-        /// </summary>
-        public ICommand NextPageCommand { get; }
+        ///// <summary>
+        /////     Gets the next page command
+        ///// </summary>
+        //public ICommand NextPageCommand { get; }
 
         /// <summary>
         ///     Gets the command to insert credits

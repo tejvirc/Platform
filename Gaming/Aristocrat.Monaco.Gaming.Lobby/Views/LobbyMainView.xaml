@@ -3,12 +3,33 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Aristocrat.Monaco.Gaming.Lobby.Views"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:views="clr-namespace:Aristocrat.Monaco.Gaming.Lobby.Views"
+             xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.Lobby.ViewModels"
+             xmlns:regions="clr-namespace:Aristocrat.Monaco.Gaming.Lobby.Regions"
              mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance Type=viewModels:LobbyMainViewModel, IsDesignTimeCreatable=False}"
              d:DesignHeight="450" d:DesignWidth="800">
 
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <mah:MetroContentControl Grid.Row="0" regions:RegionManager.Region="{x:Static regions:RegionNames.Chooser}" />
+        <mah:MetroContentControl Grid.Row="1" regions:RegionManager.Region="{x:Static regions:RegionNames.Upi}" />
+        <mah:MetroContentControl Grid.Row="2" regions:RegionManager.Region="{x:Static regions:RegionNames.PaidMeter}" />
+        <mah:MetroContentControl Grid.Row="3" regions:RegionManager.Region="{x:Static regions:RegionNames.Banner}" />
+        <mah:MetroContentControl Grid.Row="4" regions:RegionManager.Region="{x:Static regions:RegionNames.Notification}" />
+        <mah:MetroContentControl Grid.Row="5" regions:RegionManager.Region="{x:Static regions:RegionNames.InfoBar}" />
+        <mah:MetroContentControl Grid.Row="6" regions:RegionManager.Region="{x:Static regions:RegionNames.ReplayNav}" />
     </Grid>
 
 </UserControl>

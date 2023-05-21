@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 
 public class RegionViewRegistry : IRegionViewRegistry
 {
@@ -15,7 +16,14 @@ public class RegionViewRegistry : IRegionViewRegistry
             _registrations.Add(regionName, new List<RegionViewRegistration>());
         }
 
-        var registration = new RegionViewRegistration { RegionName = regionName, ViewName = viewName, ViewCreator = () => Activator.CreateInstance(typeof(TView)) };
+        var viewType = typeof(TView);
+
+        var registration = new RegionViewRegistration
+        {
+            RegionName = regionName,
+            ViewName = viewName,
+            ViewCreator = () => Application.Current.GetService(viewType)
+        };
 
         var index = _registrations[regionName].IndexOf(registration);
         if (index >= 0)
@@ -28,13 +36,14 @@ public class RegionViewRegistry : IRegionViewRegistry
         }
     }
 
-    public IDictionary<string, object?> GetViews(string regionName)
+    public (string Name, object View)[] GetViews(string regionName)
     {
         if (!_registrations.TryGetValue(regionName, out var registrations))
         {
-            throw new ArgumentOutOfRangeException(nameof(regionName));
+            return Array.Empty<(string, object)>();
         }
 
-        return registrations.ToDictionary(v => v.ViewName, v => v.ViewCreator.Invoke());
+        return registrations.Select(v => (v.ViewName, v.ViewCreator.Invoke()))
+            .ToArray();
     }
 }

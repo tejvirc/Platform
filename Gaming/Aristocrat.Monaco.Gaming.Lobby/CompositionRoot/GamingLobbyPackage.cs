@@ -1,9 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.CompositionRoot;
 
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using Common.Container;
 using Consumers;
 using Contracts.Lobby;
 using Kernel;
@@ -30,13 +28,13 @@ public class GamingLobbyPackage : IPackage
 
         container.Register<IScreenMapper, ScreenMapper>();
 
-        container.Register<IRegionManager, RegionManager>();
+        container.Register<IRegionManager, RegionManager>(Lifestyle.Singleton);
 
-        container.Register<IRegionViewRegistry, RegionViewRegistry>();
+        container.Register<IRegionViewRegistry, RegionViewRegistry>(Lifestyle.Singleton);
 
         container.Register<IRegionNavigator, RegionNavigator>();
 
-        container.Register<DelayedRegionCreationStrategy>(Lifestyle.Singleton);
+        container.Register<DelayedRegionCreationStrategy>();
 
         container.Register(typeof(IRegionCreator<>), typeof(RegionCreator<>), Lifestyle.Transient);
 
@@ -44,8 +42,6 @@ public class GamingLobbyPackage : IPackage
         regionAdapterMapper.Register<ContentControlRegionAdapter>(typeof(ContentControl));
 
         container.RegisterInstance<IRegionAdapterMapper>(regionAdapterMapper);
-
-        //container.RegisterManyForOpenGeneric(typeof(IRegionCreator<>), Assembly.GetExecutingAssembly());
 
         container.RegisterLobby();
 

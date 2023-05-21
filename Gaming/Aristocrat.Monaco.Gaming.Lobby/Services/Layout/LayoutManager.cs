@@ -9,6 +9,7 @@ using Hardware.Contracts.Cabinet;
 using Kernel;
 using log4net;
 using Models;
+using Regions;
 using Store;
 using Toolkit.Mvvm.Extensions;
 using UI.Common;
@@ -24,17 +25,20 @@ public class LayoutManager : ILayoutManager
     private readonly IPropertiesManager _properties;
     private readonly IWpfWindowLauncher _windowLauncher;
     private readonly ICabinetDetectionService _cabinetDetection;
+    private readonly IRegionManager _regionManager;
 
     private readonly List<Window> _windows = new();
 
     public LayoutManager(
         IPropertiesManager properties,
         IWpfWindowLauncher windowLauncher,
-        ICabinetDetectionService cabinetDetection)
+        ICabinetDetectionService cabinetDetection,
+        IRegionManager regionManager)
     {
         _properties = properties;
         _windowLauncher = windowLauncher;
         _cabinetDetection = cabinetDetection;
+        _regionManager = regionManager;
     }
 
     public void CreateWindows()
@@ -42,6 +46,18 @@ public class LayoutManager : ILayoutManager
         Execute.OnUIThread(
             () =>
             {
+                _regionManager.RegisterView<LobbyMainView>(RegionNames.Main, ViewNames.Lobby);
+                _regionManager.RegisterView<AttractMainView>(RegionNames.Main, ViewNames.Attract);
+                _regionManager.RegisterView<LoadingMainView>(RegionNames.Main, ViewNames.Loading);
+
+                _regionManager.RegisterView<ChooserView>(RegionNames.Chooser, ViewNames.Chooser);
+                _regionManager.RegisterView<StandardUpiView>(RegionNames.Upi, ViewNames.StandardUpi);
+                _regionManager.RegisterView<ReplayNavView>(RegionNames.ReplayNav, ViewNames.ReplayNav);
+                _regionManager.RegisterView<InfoBarView>(RegionNames.InfoBar, ViewNames.InfoBar);
+                _regionManager.RegisterView<PaidMeterView>(RegionNames.PaidMeter, ViewNames.PaidMeter);
+                _regionManager.RegisterView<BannerView>(RegionNames.Banner, ViewNames.Banner);
+                _regionManager.RegisterView<NotificationView>(RegionNames.Notification, ViewNames.Notification);
+
                 _windowLauncher.Hide(StatusWindowName);
 
                 _windowLauncher.CreateWindow<Shell>(ShellWindowName);
@@ -49,11 +65,11 @@ public class LayoutManager : ILayoutManager
                 Logger.Debug("Creating shell windows");
                 var shellWindow = _windowLauncher.GetWindow(ShellWindowName);
 
-                var mainGameWindow = new GameMain { Owner = shellWindow }
-                    .ShowWithTouch();
+                //var mainGameWindow = new GameMain { Owner = shellWindow }
+                //    .ShowWithTouch();
 
                 _windows.Add(shellWindow);
-                _windows.Add(mainGameWindow);
+                //_windows.Add(mainGameWindow);
 
                 //if (_cabinetDetection.Family == HardwareFamily.Unknown ||
                 //    _cabinetDetection.GetDisplayDeviceByItsRole(DisplayRole.Top) != null)

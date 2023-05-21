@@ -4,6 +4,6 @@ public class RegionNavigator : IRegionNavigator
 {
     public bool NavigateTo(string viewName)
     {
-        throw new System.NotImplementedException();
+        return false;
     }
 }

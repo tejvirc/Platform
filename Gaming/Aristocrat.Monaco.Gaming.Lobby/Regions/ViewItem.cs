@@ -1,10 +1,39 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Regions;
 
-public struct ViewItem
+using System;
+
+public class ViewItem
 {
-    public string ViewName { get; init; }
+    private bool _isActive;
 
-    public object View { get; init; }
+    public ViewItem(string viewName, object view)
+    {
+        ViewName = viewName;
+        View = view;
+    }
 
-    public bool IsActive { get; set; }
+    public event EventHandler? ItemChanged;
+
+    public string ViewName { get; }
+
+    public object View { get; }
+
+    public bool IsActive
+    {
+        get => _isActive;
+
+        set
+        {
+            if (_isActive == value)
+            {
+                return;
+            }
+
+            _isActive = value;
+
+            OnItemChanged();
+        }
+    }
+
+    private void OnItemChanged() => ItemChanged?.Invoke(this, EventArgs.Empty);
 }

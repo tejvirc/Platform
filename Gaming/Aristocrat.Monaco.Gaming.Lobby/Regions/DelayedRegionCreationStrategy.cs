@@ -5,11 +5,15 @@ using System.Windows;
 
 public class DelayedRegionCreationStrategy : IRegionCreationStrategy
 {
+    private readonly IRegionManager _regionManager;
     private readonly IRegionAdapterMapper _regionAdapterMapper;
+    private readonly IRegionViewRegistry _regionViewRegistry;
 
-    public DelayedRegionCreationStrategy(IRegionAdapterMapper regionAdapterMapper)
+    public DelayedRegionCreationStrategy(IRegionManager regionManager, IRegionAdapterMapper regionAdapterMapper, IRegionViewRegistry regionViewRegistry)
     {
+        _regionManager = regionManager;
         _regionAdapterMapper = regionAdapterMapper;
+        _regionViewRegistry = regionViewRegistry;
     }
 
     public void CreateRegion(FrameworkElement element)
@@ -44,7 +48,21 @@ public class DelayedRegionCreationStrategy : IRegionCreationStrategy
     {
         var regionAdapter = _regionAdapterMapper.GetAdapter(element.GetType());
 
-        regionAdapter.CreateRegion(regionName, element);
+        var region = regionAdapter.CreateRegion(regionName, element);
+
+        PopulateViews(region);
+
+        _regionManager.AddRegion(region);
+    }
+
+    private void PopulateViews(IRegion region)
+    {
+        var views = _regionViewRegistry.GetViews(region.Name);
+
+        foreach (var (name, view) in views)
+        {
+            region.AddView(name, view);
+        }
     }
 
     private static string? GetRegionName(DependencyObject element) =>

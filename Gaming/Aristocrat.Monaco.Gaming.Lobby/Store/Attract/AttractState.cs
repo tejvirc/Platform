@@ -18,4 +18,6 @@ public record AttractState
     public string? CurrentLanguage { get; set; }
 
     public bool IsAttractPlaying { get; set; }
+
+    public bool IsMultiLanguage { get; set; }
 }

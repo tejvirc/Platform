@@ -49,8 +49,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Behaviors\" />
+    <Folder Include="Controls\" />
     <Folder Include="Services\Game\" />
     <Folder Include="Services\EdgeLighting\" />
     <Folder Include="Store\Attract\" />
+    <Folder Include="Store\ResponsibleGaming\" />
   </ItemGroup>
 </Project>

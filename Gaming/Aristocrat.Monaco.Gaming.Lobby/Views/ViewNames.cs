@@ -10,17 +10,15 @@ public static class ViewNames
 
     public const string ButtonDeck = "ButtonDeck";
 
-    public const string LobbyMain = "LobbyMain";
+    public const string Attract = "Attract";
 
-    public const string LobbyTop = "LobbyTop";
+    public const string Loading = "Loading";
 
-    public const string LobbyTopper = "LobbyTopper";
-
-    public const string LobbyButtonDeck = "LobbyButtonDeck";
+    public const string Lobby = "Lobby";
 
     public const string Chooser = "Chooser";
 
-    public const string InfoBanner = "InfoBanner";
+    public const string InfoBar = "InfoBar";
 
     public const string StandardUpi = "Upi";
 
@@ -29,4 +27,10 @@ public static class ViewNames
     public const string PaidMeter = "PaidMeter";
 
     public const string Reserve = "Reserve";
+
+    public const string ReplayNav = "ReplayNav";
+
+    public const string Banner = "Banner";
+
+    public const string Notification = "Notification";
 }
