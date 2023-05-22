@@ -128,18 +128,6 @@
         GamesUpdateTime,
 
         /// <summary>
-        /// Game Round Count. 
-        /// </summary>
-        [CounterType("General")]
-        [Instance("")]
-        [Category("Aristocrat Runtime Host")]
-        [Counter("Gamerounds")]
-        [Label("Game Round Count")]
-        [Unit("#")]
-        [MaxRange(100)]
-        Gamerounds,
-
-        /// <summary>
         /// Total Time spent in IPC Communication(ms).
         /// </summary>
         [CounterType("General")]
@@ -186,30 +174,6 @@
         [Unit("ms")]
         [MaxRange(1000)]
         SwapbufferTime,
-
-        /// <summary>
-        /// Total Bet.
-        /// </summary>
-        [CounterType("General")]
-        [Instance("")]
-        [Category("Aristocrat Runtime Host")]
-        [Counter("Total Bet")]
-        [Label("Total Bet")]
-        [Unit("#")]
-        [MaxRange(100)]
-        TotalBet,
-
-        /// <summary>
-        /// Total Win.
-        /// </summary>
-        [CounterType("General")]
-        [Instance("")]
-        [Category("Aristocrat Runtime Host")]
-        [Counter("Total Win")]
-        [Label("Total Win")]
-        [Unit("#")]
-        [MaxRange(100)]
-        TotalWin,
 
         /// <summary>
         /// GDK CPU usage
