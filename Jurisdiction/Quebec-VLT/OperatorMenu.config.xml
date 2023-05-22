@@ -19,6 +19,9 @@ as follows:
     <Setting Name="CreditBalanceVisible" Value="true" />
     <Setting Name="HardwareDiagnosticsEnabled" Value="true" />
     <Setting Name="ShowOperatorRole" Value="true" />
+    <Menu Type="StatusMainPageLoader">
+      <Page Type="StatusPageViewModel" Access="GameIdleZeroCredits" />
+    </Menu>
     <Menu Type="IdentificationMainPageLoader">
         <Page Type="MachineSettingsPageViewModel" PrintButtonEnabled="false" Access="ZeroGamesPlayed" />
         <Page TabType="SerialGatPageLoader" Visible="false" />
@@ -123,7 +126,7 @@ as follows:
         <Page Type="IOPageViewModel" PrintButtonEnabled="true" />
     </Menu>
     <Menu Type="OptionsMainPageLoader" Visible="true">
-        <Page Type="OptionsPageViewModel">
+        <Page Type="OptionsPageViewModel" Access="GameIdleZeroCredits">
             <Setting Name="VolumeControlVisible" Value="true" />
             <Setting Name="OutOfServiceVisible" Value="true" />
         </Page>
@@ -138,6 +141,10 @@ as follows:
         <AccessRuleSet Name="ReadOnly">
             <Rule Restriction="ReadOnly" />
         </AccessRuleSet>
+      <AccessRuleSet Name="GameIdleZeroCredits">
+        <Rule Restriction="GameIdle" />
+        <Rule Restriction="ZeroCredits" />
+      </AccessRuleSet>
         <AccessRuleSet Name="TechnicianZeroCredits">
             <Rule DeviceName="Jackpot" />
             <Rule Restriction="ZeroCredits" />

@@ -3,8 +3,13 @@
     using System;
     using System.Collections.Generic;
     using System.Windows.Input;
+    using Aristocrat.Monaco.Application.Contracts;
+    using Aristocrat.Monaco.Application.Contracts.Localization;
     using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
+    using Aristocrat.Monaco.Application.UI.Events;
     using Aristocrat.Monaco.Hardware.Contracts.Ticket;
+    using Aristocrat.Monaco.Localization.Properties;
+    using Aristocrat.MVVM;
     using MVVM.Command;
     using OperatorMenu;
 
@@ -58,6 +63,41 @@
         {
             VolumeViewModel.OnUnloaded();
             base.OnUnloaded();
+        }
+
+        protected override void OnInputStatusChanged()
+        {
+            var active = true;
+            var text = string.Empty;
+            switch (AccessRestriction)
+            {
+                case OperatorMenuAccessRestriction.InGameRound:
+                    text = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EndGameRoundBeforeOutOfServiceText);
+                    active = false;
+                    break;
+                case OperatorMenuAccessRestriction.ZeroCredits:
+                    // Override the Zero-Credits requirement if this property is set.
+                    if (!(bool)PropertiesManager.GetProperty(
+                        ApplicationConstants.MachineSetupConfigEnterOutOfServiceWithCreditsEnabled,
+                        false))
+                    {
+                        text = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EnteringOutOfServiceModeRequiresZeroCreditsText);
+                        active = false;
+                    }
+                    break;
+            }
+
+            OutOfServiceViewModel.OutOfServiceModeButtonIsEnabled = active;
+            InputStatusText = text;
+
+            if (!active && PopupOpen)
+            {
+                MvvmHelper.ExecuteOnUI(
+                    () =>
+                    {
+                        EventBus.Publish(new OperatorMenuPopupEvent(false, string.Empty));
+                    });
+            }
         }
 
         protected override IEnumerable<Ticket> GenerateTicketsForPrint(OperatorMenuPrintData dataType)
