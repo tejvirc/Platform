@@ -81,7 +81,7 @@
             <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings">
   <h1 id="Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings" data-uid="Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings">Interface IGameOrderSettings
   </h1>
-  <div class="markdown level0 summary"><p>Maintains the game order.</p>
+  <div class="markdown level0 summary"><p>Maintains the attract and Icon order for games.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   
@@ -120,7 +120,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_Exists_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.Exists(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IGameOrderSettings.cs/#L56" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IGameOrderSettings.cs/#L71" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_Exists_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.Exists*"></a>
@@ -128,7 +128,7 @@
   <h4 id="Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_Exists_System_String_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.Exists(System.String)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_Exists_System_String_" class="expander" data-toggle="collapse">Exists(String)</a></h4>
   
   <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_Exists_System_String_" class="collapse in">
-  <div class="markdown level1 summary"><p>Checked to see if a game already exists in the game order</p>
+  <div class="markdown level1 summary"><p>Checked to see if a game already exists in the icon order</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -172,24 +172,79 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_GetPositionPriority_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.GetPositionPriority(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_GetAttractPositionPriority_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.GetAttractPositionPriority(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IGameOrderSettings.cs/#L30" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IGameOrderSettings.cs/#L38" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
-  <a id="Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_GetPositionPriority_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.GetPositionPriority*"></a>
+  <a id="Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_GetAttractPositionPriority_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.GetAttractPositionPriority*"></a>
   
-  <h4 id="Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_GetPositionPriority_System_String_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.GetPositionPriority(System.String)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_GetPositionPriority_System_String_" class="expander" data-toggle="collapse">GetPositionPriority(String)</a></h4>
+  <h4 id="Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_GetAttractPositionPriority_System_String_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.GetAttractPositionPriority(System.String)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_GetAttractPositionPriority_System_String_" class="expander" data-toggle="collapse">GetAttractPositionPriority(String)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_GetPositionPriority_System_String_" class="collapse in">
-  <div class="markdown level1 summary"><p>Gets the position priority (sort order) value</p>
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_GetAttractPositionPriority_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the attract position priority (sort order) value</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">int GetPositionPriority(string gameId)</code></pre>
+    <pre><code class="lang-csharp hljs">int GetAttractPositionPriority(string gameId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">gameId</span>
+        <p><p>The theme Id for the game</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_GetIconPositionPriority_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.GetIconPositionPriority(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IGameOrderSettings.cs/#L45" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_GetIconPositionPriority_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.GetIconPositionPriority*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_GetIconPositionPriority_System_String_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.GetIconPositionPriority(System.String)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_GetIconPositionPriority_System_String_" class="expander" data-toggle="collapse">GetIconPositionPriority(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_GetIconPositionPriority_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the icon position priority (sort order) value</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int GetIconPositionPriority(string gameId)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -230,7 +285,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_OnGameAdded_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.OnGameAdded(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IGameOrderSettings.cs/#L44" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IGameOrderSettings.cs/#L59" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_OnGameAdded_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.OnGameAdded*"></a>
@@ -239,7 +294,7 @@
   
   <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_OnGameAdded_System_String_" class="collapse in">
   <div class="markdown level1 summary"><p>Invoked when a game is added/enabled.  This adds the new game in the
-last order position.</p>
+last order position of icon order.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -277,7 +332,7 @@ last order position.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_RemoveGame_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.RemoveGame(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IGameOrderSettings.cs/#L50" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IGameOrderSettings.cs/#L65" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_RemoveGame_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.RemoveGame*"></a>
@@ -285,7 +340,7 @@ last order position.</p>
   <h4 id="Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_RemoveGame_System_String_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.RemoveGame(System.String)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_RemoveGame_System_String_" class="expander" data-toggle="collapse">RemoveGame(String)</a></h4>
   
   <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_RemoveGame_System_String_" class="collapse in">
-  <div class="markdown level1 summary"><p>Removes a game from the game order</p>
+  <div class="markdown level1 summary"><p>Removes a game from the icon game order</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -320,24 +375,79 @@ last order position.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_SetGameOrder_System_Collections_Generic_IEnumerable_System_String__System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.SetGameOrder(System.Collections.Generic.IEnumerable%7BSystem.String%7D%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_SetAttractOrderFromConfig_System_Collections_Generic_IList_Aristocrat_Monaco_Gaming_Contracts_IGameInfo__System_Collections_Generic_IList_System_String__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.SetAttractOrderFromConfig(System.Collections.Generic.IList%7BAristocrat.Monaco.Gaming.Contracts.IGameInfo%7D%2CSystem.Collections.Generic.IList%7BSystem.String%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IGameOrderSettings.cs/#L23" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IGameOrderSettings.cs/#L16" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
-  <a id="Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_SetGameOrder_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.SetGameOrder*"></a>
+  <a id="Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_SetAttractOrderFromConfig_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.SetAttractOrderFromConfig*"></a>
   
-  <h4 id="Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_SetGameOrder_System_Collections_Generic_IEnumerable_System_String__System_Boolean_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.SetGameOrder(System.Collections.Generic.IEnumerable{System.String},System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_SetGameOrder_System_Collections_Generic_IEnumerable_System_String__System_Boolean_" class="expander" data-toggle="collapse">SetGameOrder(IEnumerable&lt;String&gt;, Boolean)</a></h4>
+  <h4 id="Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_SetAttractOrderFromConfig_System_Collections_Generic_IList_Aristocrat_Monaco_Gaming_Contracts_IGameInfo__System_Collections_Generic_IList_System_String__" data-uid="Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.SetAttractOrderFromConfig(System.Collections.Generic.IList{Aristocrat.Monaco.Gaming.Contracts.IGameInfo},System.Collections.Generic.IList{System.String})"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_SetAttractOrderFromConfig_System_Collections_Generic_IList_Aristocrat_Monaco_Gaming_Contracts_IGameInfo__System_Collections_Generic_IList_System_String__" class="expander" data-toggle="collapse">SetAttractOrderFromConfig(IList&lt;IGameInfo&gt;, IList&lt;String&gt;)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_SetGameOrder_System_Collections_Generic_IEnumerable_System_String__System_Boolean_" class="collapse in">
-  <div class="markdown level1 summary"><p>Sets the game order based on the saved order configuration.  y = Order[k] is the theme Id of the game at order position k.</p>
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_SetAttractOrderFromConfig_System_Collections_Generic_IList_Aristocrat_Monaco_Gaming_Contracts_IGameInfo__System_Collections_Generic_IList_System_String__" class="collapse in">
+  <div class="markdown level1 summary"><p>Sets the game attract order.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void SetGameOrder(IEnumerable&lt;string&gt; gameOrder, bool operatorChanged)</code></pre>
+    <pre><code class="lang-csharp hljs">void SetAttractOrderFromConfig(IList&lt;IGameInfo&gt; games, IList&lt;string&gt; gameOrderConfig)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameInfo.html">IGameInfo</a>&gt;</span>
+        <span class="parametername">games</span>
+        <p><p>Enabled games</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>&gt;</span>
+        <span class="parametername">gameOrderConfig</span>
+        <p><p>Config of ordered list found in lobby.config.xml</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_SetIconOrder_System_Collections_Generic_IEnumerable_System_String__System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.SetIconOrder(System.Collections.Generic.IEnumerable%7BSystem.String%7D%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IGameOrderSettings.cs/#L31" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_SetIconOrder_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.SetIconOrder*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_SetIconOrder_System_Collections_Generic_IEnumerable_System_String__System_Boolean_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.SetIconOrder(System.Collections.Generic.IEnumerable{System.String},System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_SetIconOrder_System_Collections_Generic_IEnumerable_System_String__System_Boolean_" class="expander" data-toggle="collapse">SetIconOrder(IEnumerable&lt;String&gt;, Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_SetIconOrder_System_Collections_Generic_IEnumerable_System_String__System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"><p>Sets the icon game order based on the saved order configuration.  y = Order[k] is the theme Id of the game at order
+position k.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void SetIconOrder(IEnumerable&lt;string&gt; gameOrder, bool operatorChanged)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -374,23 +484,24 @@ last order position.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_SetGameOrderFromConfig_System_Collections_Generic_IList_Aristocrat_Monaco_Gaming_Contracts_IGameInfo__System_Collections_Generic_IList_System_String__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.SetGameOrderFromConfig(System.Collections.Generic.IList%7BAristocrat.Monaco.Gaming.Contracts.IGameInfo%7D%2CSystem.Collections.Generic.IList%7BSystem.String%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_SetIconOrderFromConfig_System_Collections_Generic_IList_Aristocrat_Monaco_Gaming_Contracts_IGameInfo__System_Collections_Generic_IList_System_String__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.SetIconOrderFromConfig(System.Collections.Generic.IList%7BAristocrat.Monaco.Gaming.Contracts.IGameInfo%7D%2CSystem.Collections.Generic.IList%7BSystem.String%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IGameOrderSettings.cs/#L16" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IGameOrderSettings.cs/#L23" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
-  <a id="Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_SetGameOrderFromConfig_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.SetGameOrderFromConfig*"></a>
+  <a id="Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_SetIconOrderFromConfig_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.SetIconOrderFromConfig*"></a>
   
-  <h4 id="Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_SetGameOrderFromConfig_System_Collections_Generic_IList_Aristocrat_Monaco_Gaming_Contracts_IGameInfo__System_Collections_Generic_IList_System_String__" data-uid="Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.SetGameOrderFromConfig(System.Collections.Generic.IList{Aristocrat.Monaco.Gaming.Contracts.IGameInfo},System.Collections.Generic.IList{System.String})"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_SetGameOrderFromConfig_System_Collections_Generic_IList_Aristocrat_Monaco_Gaming_Contracts_IGameInfo__System_Collections_Generic_IList_System_String__" class="expander" data-toggle="collapse">SetGameOrderFromConfig(IList&lt;IGameInfo&gt;, IList&lt;String&gt;)</a></h4>
+  <h4 id="Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_SetIconOrderFromConfig_System_Collections_Generic_IList_Aristocrat_Monaco_Gaming_Contracts_IGameInfo__System_Collections_Generic_IList_System_String__" data-uid="Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.SetIconOrderFromConfig(System.Collections.Generic.IList{Aristocrat.Monaco.Gaming.Contracts.IGameInfo},System.Collections.Generic.IList{System.String})"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_SetIconOrderFromConfig_System_Collections_Generic_IList_Aristocrat_Monaco_Gaming_Contracts_IGameInfo__System_Collections_Generic_IList_System_String__" class="expander" data-toggle="collapse">SetIconOrderFromConfig(IList&lt;IGameInfo&gt;, IList&lt;String&gt;)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_SetGameOrderFromConfig_System_Collections_Generic_IList_Aristocrat_Monaco_Gaming_Contracts_IGameInfo__System_Collections_Generic_IList_System_String__" class="collapse in">
-  <div class="markdown level1 summary"></div>
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_SetIconOrderFromConfig_System_Collections_Generic_IList_Aristocrat_Monaco_Gaming_Contracts_IGameInfo__System_Collections_Generic_IList_System_String__" class="collapse in">
+  <div class="markdown level1 summary"><p>Sets the icon order.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void SetGameOrderFromConfig(IList&lt;IGameInfo&gt; games, IList&lt;string&gt; gameOrderConfig)</code></pre>
+    <pre><code class="lang-csharp hljs">void SetIconOrderFromConfig(IList&lt;IGameInfo&gt; games, IList&lt;string&gt; gameOrderConfig)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -399,14 +510,16 @@ last order position.</p>
       <td>
         <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameInfo.html">IGameInfo</a>&gt;</span>
         <span class="parametername">games</span>
-        <p>
+        <p><p>Enabled games</p>
+</p>
       </td>
     </tr>
     <tr>
       <td>
         <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>&gt;</span>
         <span class="parametername">gameOrderConfig</span>
-        <p>
+        <p><p>Config of ordered list found in lobby.config.xml</p>
+</p>
       </td>
     </tr>
   </table>
@@ -425,24 +538,24 @@ last order position.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_UpdatePositionPriority_System_String_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.UpdatePositionPriority(System.String%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_UpdateIconPositionPriority_System_String_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.UpdateIconPositionPriority(System.String%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IGameOrderSettings.cs/#L37" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IGameOrderSettings.cs/#L52" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
-  <a id="Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_UpdatePositionPriority_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.UpdatePositionPriority*"></a>
+  <a id="Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_UpdateIconPositionPriority_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.UpdateIconPositionPriority*"></a>
   
-  <h4 id="Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_UpdatePositionPriority_System_String_System_Int32_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.UpdatePositionPriority(System.String,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_UpdatePositionPriority_System_String_System_Int32_" class="expander" data-toggle="collapse">UpdatePositionPriority(String, Int32)</a></h4>
+  <h4 id="Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_UpdateIconPositionPriority_System_String_System_Int32_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IGameOrderSettings.UpdateIconPositionPriority(System.String,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_UpdateIconPositionPriority_System_String_System_Int32_" class="expander" data-toggle="collapse">UpdateIconPositionPriority(String, Int32)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_UpdatePositionPriority_System_String_System_Int32_" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_IGameOrderSettings_UpdateIconPositionPriority_System_String_System_Int32_" class="collapse in">
   <div class="markdown level1 summary"><p>Sets the position priority for an individual game</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void UpdatePositionPriority(string gameId, int newPosition)</code></pre>
+    <pre><code class="lang-csharp hljs">void UpdateIconPositionPriority(string gameId, int newPosition)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
