@@ -241,7 +241,12 @@
         /// <summary>
         ///     The disable key for when the progressive host is offline
         /// </summary>
-        public static readonly Guid ProgresssiveHostOfflineKey = new("{8298BDB8-C120-4150-A998-4E347A739E39}");
+        public static readonly Guid ProgressiveHostOfflineKey = new("{8298BDB8-C120-4150-A998-4E347A739E39}");
+
+        /// <summary>
+        ///     The disable key for when the progressive host fails registration
+        /// </summary>
+        public static readonly Guid ProgressiveHostRegistrationFailedKey = new("{E28B34A9-03E4-4770-A20D-4A4799DEFB38}");
 
         /// <summary>
         ///     Indicates if side bet games are enabled

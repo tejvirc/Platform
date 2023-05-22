@@ -43,7 +43,7 @@
         public void ConsumerTest()
         {
             _linkedAdapter.Setup(x => x.ReportLinkDown(ProtocolNames.Bingo)).Verifiable();
-            _systemDisable.Setup(x => x.Disable(BingoConstants.ProgresssiveHostOfflineKey, SystemDisablePriority.Normal, It.IsAny<Func<string>>(), null)).Verifiable();
+            _systemDisable.Setup(x => x.Disable(BingoConstants.ProgressiveHostOfflineKey, SystemDisablePriority.Normal, It.IsAny<Func<string>>(), null)).Verifiable();
 
             _target.Consume(new ProgressiveHostOfflineEvent());
             _linkedAdapter.Verify();

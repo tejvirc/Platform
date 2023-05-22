@@ -7,7 +7,7 @@
     using Aristocrat.Bingo.Client.Messages.Progressives;
     using Services.Progressives;
 
-    public class DisableByProgressiveResponseHandler : IMessageHandler<ProgressiveUpdateResponse, DisableByProgressiveMessage>
+    public class DisableByProgressiveResponseHandler : IProgressiveMessageHandler<ProgressiveUpdateResponse, DisableByProgressiveMessage>
     {
         private readonly IProgressiveUpdateHandler _updateHandler;
 

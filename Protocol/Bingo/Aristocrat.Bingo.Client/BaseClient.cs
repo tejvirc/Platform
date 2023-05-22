@@ -87,24 +87,22 @@
                 Client = CreateClient(callInvoker);
                 MonitorConnection();
                 Connected?.Invoke(this, new ConnectedEventArgs());
+                return true;
             }
             catch (RpcException rpcException)
             {
                 Logger.Error($"Failed to connect the {GetType().Name}", rpcException);
-                return false;
             }
             catch (OperationCanceledException operationCanceled)
             {
                 Logger.Error($"Failed to connect the {GetType().Name}", operationCanceled);
-                return false;
             }
             catch (Exception ex)
             {
                 Logger.Error($"Failed to connect to the {GetType().Name}", ex);
-                return false;
             }
 
-            return true;
+            return false;
         }
 
         public virtual async Task<bool> Stop()

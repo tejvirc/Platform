@@ -13,7 +13,7 @@
 
     public static class ContainerExtensions
     {
-        public static Container RegisterClient(this Container container, params Assembly[] assemblies)
+        public static Container RegisterClient(this Container container, bool isBingoProgressiveEnabled, params Assembly[] assemblies)
         {
             /*
              * Set the DNS Resolution to native the default does not always resolve host names correctly.
@@ -22,9 +22,9 @@
              */
             Environment.SetEnvironmentVariable(GrpcConstants.GrpcDnsResolver, GrpcConstants.GrpcDefaultDnsResolver);
 
-            return container.RegisterClient()
-                .AddCommandProcessors()
-                .RegisterMessageHandlers(assemblies.Append(Assembly.GetExecutingAssembly()).ToArray());
+            return container.RegisterClient(isBingoProgressiveEnabled)
+                .AddCommandProcessors(isBingoProgressiveEnabled)
+                .RegisterMessageHandlers(isBingoProgressiveEnabled, assemblies.Append(Assembly.GetExecutingAssembly()).ToArray());
         }
 
         public static Container WithGrpcLogging(this Container container, bool enabled)
@@ -40,25 +40,37 @@
             return container;
         }
 
-        private static Container RegisterClient(this Container container)
+        private static Container RegisterClient(this Container container, bool isBingoProgressiveEnabled)
         {
             var clientRegistration = Lifestyle.Singleton.CreateRegistration<BingoClient>(container);
-            var progressiveClientRegistration = Lifestyle.Singleton.CreateRegistration<ProgressiveClient>(container);
-            container.Collection.Register<IClient>(new Registration[] { clientRegistration, progressiveClientRegistration });
+
+            if (isBingoProgressiveEnabled)
+            {
+                var progressiveClientRegistration = Lifestyle.Singleton.CreateRegistration<ProgressiveClient>(container);
+                container.Collection.Register<IClient>(
+                    new Registration[] { clientRegistration, progressiveClientRegistration });
+
+                container.AddRegistration<IClientEndpointProvider<ProgressiveApi.ProgressiveApiClient>>(progressiveClientRegistration);
+                container.RegisterSingleton<IProgressiveAuthorizationProvider, ProgressiveAuthorizationProvider>();
+                container.RegisterSingleton<ProgressiveClientAuthorizationInterceptor>();
+                container.RegisterSingleton<IProgressiveRegistrationService, ProgressiveRegistrationService>();
+                container.RegisterSingleton<IProgressiveClaimService, ProgressiveClaimService>();
+                container.RegisterSingleton<IProgressiveAwardService, ProgressiveAwardService>();
+                var progressiveCommand = Lifestyle.Singleton.CreateRegistration<ProgressiveCommandService>(container);
+                container.AddRegistration<IProgressiveCommandService>(progressiveCommand);
+            }
+            else
+            {
+                container.Collection.Register<IClient>(
+                    new Registration[] { clientRegistration });
+            }
 
             container.AddRegistration<IClientEndpointProvider<ClientApi.ClientApiClient>>(clientRegistration);
-            container.AddRegistration<IClientEndpointProvider<ProgressiveApi.ProgressiveApiClient>>(progressiveClientRegistration);
 
             container.RegisterSingleton<IBingoAuthorizationProvider, BingoAuthorizationProvider>();
-            container.RegisterSingleton<IProgressiveAuthorizationProvider, ProgressiveAuthorizationProvider>();
             container.RegisterSingleton<BingoClientAuthorizationInterceptor>();
-            container.RegisterSingleton<ProgressiveClientAuthorizationInterceptor>();
             container.RegisterSingleton<LoggingInterceptor>();
             container.RegisterSingleton<IRegistrationService, RegistrationService>();
-            container.RegisterSingleton<IProgressiveRegistrationService, ProgressiveRegistrationService>();
-            container.RegisterSingleton<IProgressiveClaimService, ProgressiveClaimService>();
-            container.RegisterSingleton<IProgressiveAwardService, ProgressiveAwardService>();
-
             container.RegisterSingleton<IReportTransactionService, ReportTransactionService>();
             container.RegisterSingleton<IReportEventService, ReportEventService>();
             container.RegisterSingleton<IActivityReportService, ActivityReportService>();
@@ -66,9 +78,6 @@
 
             var command = Lifestyle.Singleton.CreateRegistration<CommandService>(container);
             container.AddRegistration<ICommandService>(command);
-
-            var progressiveCommand = Lifestyle.Singleton.CreateRegistration<ProgressiveCommandService>(container);
-            container.AddRegistration<IProgressiveCommandService>(progressiveCommand);
 
             var gamePlay = Lifestyle.Singleton.CreateRegistration<GameOutcomeService>(container);
             container.AddRegistration<IGameOutcomeService>(gamePlay);
@@ -117,25 +126,41 @@
             return container;
         }
 
-        private static Container RegisterMessageHandlers(this Container container, params Assembly[] assemblies)
+        private static Container RegisterMessageHandlers(this Container container, bool isBingoProgressiveEnabled, params Assembly[] assemblies)
         {
             container.RegisterSingleton<IMessageHandlerFactory, MessageHandlerFactory>();
             container.Register(typeof(IMessageHandler<,>), assemblies, Lifestyle.Transient);
+
+            if (isBingoProgressiveEnabled)
+            {
+                container.RegisterSingleton<IProgressiveMessageHandlerFactory, ProgressiveMessageHandlerFactory>();
+                container.Register(typeof(IProgressiveMessageHandler<,>), assemblies, Lifestyle.Transient);
+            }
+
             return container;
         }
 
-        private static Container AddCommandProcessors(this Container container)
+        private static Container AddCommandProcessors(this Container container, bool isBingoProgressiveEnabled)
         {
             var factory = new CommandProcessorFactory(container);
             factory.Register<EnableCommandProcessor>(EnableCommand.Descriptor, Lifestyle.Transient);
             factory.Register<DisableCommandProcessor>(DisableCommand.Descriptor, Lifestyle.Transient);
             container.RegisterInstance<ICommandProcessorFactory>(factory);
 
-            var progressiveFactory = new ProgressiveCommandProcessorFactory(container);
-            progressiveFactory.Register<ProgressiveUpdateCommandProcessor>(ProgressiveLevelUpdate.Descriptor, Lifestyle.Transient);
-            progressiveFactory.Register<EnableByProgressiveCommandProcessor>(EnableByProgressive.Descriptor, Lifestyle.Transient);
-            progressiveFactory.Register<DisableByProgressiveCommandProcessor>(DisableByProgressive.Descriptor, Lifestyle.Transient);
-            container.RegisterInstance<IProgressiveCommandProcessorFactory>(progressiveFactory);
+            if (isBingoProgressiveEnabled)
+            {
+                var progressiveFactory = new ProgressiveCommandProcessorFactory(container);
+                progressiveFactory.Register<ProgressiveUpdateCommandProcessor>(
+                    ProgressiveLevelUpdate.Descriptor,
+                    Lifestyle.Transient);
+                progressiveFactory.Register<EnableByProgressiveCommandProcessor>(
+                    EnableByProgressive.Descriptor,
+                    Lifestyle.Transient);
+                progressiveFactory.Register<DisableByProgressiveCommandProcessor>(
+                    DisableByProgressive.Descriptor,
+                    Lifestyle.Transient);
+                container.RegisterInstance<IProgressiveCommandProcessorFactory>(progressiveFactory);
+            }
 
             return container;
         }

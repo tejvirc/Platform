@@ -16,8 +16,8 @@
     {
         private DisableByProgressiveCommandProcessor _target;
 
-        private readonly Mock<IMessageHandlerFactory> _messageHandler =
-            new Mock<IMessageHandlerFactory>(MockBehavior.Default);
+        private readonly Mock<IProgressiveMessageHandlerFactory> _messageHandler =
+            new Mock<IProgressiveMessageHandlerFactory>(MockBehavior.Default);
 
         [TestInitialize]
         public void MyTestInitialize()

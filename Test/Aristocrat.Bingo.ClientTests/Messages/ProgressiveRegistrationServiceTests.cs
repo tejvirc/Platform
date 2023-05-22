@@ -17,7 +17,7 @@
     {
         private readonly Mock<IClientEndpointProvider<ProgressiveApi.ProgressiveApiClient>> _clientEnpointProvider =
             new Mock<IClientEndpointProvider<ProgressiveApi.ProgressiveApiClient>>(MockBehavior.Default);
-        private readonly Mock<IMessageHandlerFactory> _messageHandler = new Mock<IMessageHandlerFactory>(MockBehavior.Default);
+        private readonly Mock<IProgressiveMessageHandlerFactory> _messageHandler = new Mock<IProgressiveMessageHandlerFactory>(MockBehavior.Default);
         private readonly Mock<IProgressiveAuthorizationProvider> _authorizationProvider =
             new Mock<IProgressiveAuthorizationProvider>(MockBehavior.Default);
         private readonly Mock<IProgressiveLevelInfoProvider> _progressiveLevelInfoProvider =

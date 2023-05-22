@@ -33,7 +33,7 @@
         public override void Consume(ProgressiveHostOnlineEvent @event)
         {
             _protocolLinkedProgressiveAdapter.ReportLinkUp(ProtocolNames.Bingo);
-            _disableManager.Enable(BingoConstants.ProgresssiveHostOfflineKey);
+            _disableManager.Enable(BingoConstants.ProgressiveHostOfflineKey);
         }
     }
 }

@@ -37,7 +37,7 @@
         {
             _protocolLinkedProgressiveAdapter.ReportLinkDown(ProtocolNames.Bingo);
             _disableManager.Disable(
-                BingoConstants.ProgresssiveHostOfflineKey,
+                BingoConstants.ProgressiveHostOfflineKey,
                 SystemDisablePriority.Normal,
                 () => $"{Resources.ProgressiveHostDisconnected}");
         }

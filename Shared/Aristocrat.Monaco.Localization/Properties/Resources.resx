@@ -11675,7 +11675,7 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
   <data name="TransactionReportingQueueAlmostFullHelp" xml:space="preserve">
     <value>Too many transaction requests are pending with the Server. This lockup will be removed when the Server acknowledges the requests.</value>
     <comment>Aristocrat.Monaco.Bingo</comment>
-  </data>  
+  </data>
   <data name="ProgressiveHostDisconnected" xml:space="preserve">
     <value>Progressive Host Disconnected</value>
     <comment>Aristocrat.Monaco.Bingo</comment>
@@ -11691,5 +11691,17 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
   <data name="PackagesMustMatch" xml:space="preserve">
     <value>All games of this type must use the same package</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="ProgressiveHostRegistrationFailed" xml:space="preserve">
+    <value>Progressive Host Registration Failed</value>
+    <comment>Aristocrat.Monaco.Bingo</comment>
+  </data>
+  <data name="ProgressiveHostRegistrationFailedHelp" xml:space="preserve">
+    <value>Ensure the EGM is configured for progressives on the AMC and progressive system. Reboot the machine  to reestablish communication.</value>
+    <comment>Aristocrat.Monaco.Bingo</comment>
+  </data>
+  <data name="ProgressiveHostDisconnectedHelp" xml:space="preserve">
+    <value>Ensure communication cable is properly connected and host is online. If lockup persists after connection is restored, host system may need to send enable command, or reboot the machine to reestablish communication.</value>
+    <comment>Aristocrat.Monaco.Bingo</comment>
   </data>
 </root>

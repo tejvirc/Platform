@@ -12,9 +12,9 @@
     public class EnableByProgressiveCommandProcessor : IProgressiveCommandProcessor
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
-        private readonly IMessageHandlerFactory _handlerFactory;
+        private readonly IProgressiveMessageHandlerFactory _handlerFactory;
 
-        public EnableByProgressiveCommandProcessor(IMessageHandlerFactory handlerFactory)
+        public EnableByProgressiveCommandProcessor(IProgressiveMessageHandlerFactory handlerFactory)
         {
             _handlerFactory = handlerFactory ?? throw new ArgumentNullException(nameof(handlerFactory));
         }

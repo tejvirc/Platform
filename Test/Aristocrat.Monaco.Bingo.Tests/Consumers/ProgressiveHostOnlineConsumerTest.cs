@@ -43,7 +43,7 @@
         public void ConsumerTest()
         {
             _linkedAdapter.Setup(x => x.ReportLinkUp(ProtocolNames.Bingo)).Verifiable();
-            _systemDisable.Setup(x => x.Enable(BingoConstants.ProgresssiveHostOfflineKey)).Verifiable();
+            _systemDisable.Setup(x => x.Enable(BingoConstants.ProgressiveHostOfflineKey)).Verifiable();
 
             _target.Consume(new ProgressiveHostOnlineEvent());
             _linkedAdapter.Verify();

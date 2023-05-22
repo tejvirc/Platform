@@ -12,9 +12,9 @@
     public class ProgressiveUpdateCommandProcessor : IProgressiveCommandProcessor
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
-        private readonly IMessageHandlerFactory _handlerFactory;
+        private readonly IProgressiveMessageHandlerFactory _handlerFactory;
 
-        public ProgressiveUpdateCommandProcessor(IMessageHandlerFactory handlerFactory)
+        public ProgressiveUpdateCommandProcessor(IProgressiveMessageHandlerFactory handlerFactory)
         {
             _handlerFactory = handlerFactory ?? throw new ArgumentNullException(nameof(handlerFactory));
         }

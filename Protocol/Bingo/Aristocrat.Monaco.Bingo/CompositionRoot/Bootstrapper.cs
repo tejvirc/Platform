@@ -17,27 +17,30 @@
         ///     Initializes the container.
         /// </summary>
         /// <returns>the container</returns>
-        public static Container InitializeContainer(this Container container, IPropertiesManager propertiesManager)
+        public static Container InitializeContainer(this Container container, IPropertiesManager propertiesManager, bool isBingoProgressiveEnabled)
         {
-            return container.ConfigureContainer(propertiesManager);
+            return container.ConfigureContainer(propertiesManager, isBingoProgressiveEnabled);
         }
 
-        private static Container ConfigureContainer(this Container container, IPropertiesManager propertiesManager)
+        private static Container ConfigureContainer(this Container container, IPropertiesManager propertiesManager, bool isBingoProgressiveEnabled)
         {
             var loggingEnabled =
                 propertiesManager.GetValue(BingoConstants.EnableGrpcLogging, Constants.False).ToUpper();
             return container.AddExternalServices()
                 .AddPersistenceStorage()
-                .RegisterClient(Assembly.GetExecutingAssembly())
-                .AddInternalServices()
+                .RegisterClient(isBingoProgressiveEnabled, Assembly.GetExecutingAssembly())
+                .AddInternalServices(isBingoProgressiveEnabled)
                 .WithGrpcLogging(loggingEnabled == Constants.True)
-                .ConfigureServices()
+                .ConfigureServices(isBingoProgressiveEnabled)
                 .ConfigureConsumers();
         }
 
-        private static Container ConfigureServices(this Container container)
+        private static Container ConfigureServices(this Container container, bool isBingoProgressiveEnabled)
         {
-            container.RegisterSingleton<IProgressiveController, ProgressiveController>();
+            if (isBingoProgressiveEnabled)
+            {
+                container.RegisterSingleton<IProgressiveController, ProgressiveController>();
+            }
 
             return container;
         }

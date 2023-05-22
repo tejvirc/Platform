@@ -29,14 +29,14 @@
 
     public static class InternalServiceBuilder
     {
-        public static Container AddInternalServices(this Container container)
+        public static Container AddInternalServices(this Container container, bool isBingoProgressiveEnabled)
         {
             container.RegisterSingleton<IClientConfigurationProvider, BingoClientConfigurationProvider>();
             container.RegisterSingleton<INetworkInformationProvider, NetworkInformationProvider>();
             return container
                 .SetupBingoGamePlay()
-                .SetupProgressives()
-                .SetupCommandHandlers()
+                .SetupProgressives(isBingoProgressiveEnabled)
+                .SetupCommandHandlers(isBingoProgressiveEnabled)
                 .SetupCommandFactory()
                 .SetupGameEndWinStrategy()
                 .SetupJackpotStrategy();
@@ -73,18 +73,30 @@
             return container;
         }
 
-        private static Container SetupProgressives(this Container container)
+        private static Container SetupProgressives(this Container container, bool isBingoProgressiveEnabled)
         {
-            container.RegisterSingleton<IProgressiveUpdateHandler, ProgressiveHandler>();
-            container.RegisterSingleton<IProgressiveLevelInfoProvider, ProgressiveLevelInfoProvider>();
-            container.RegisterSingleton<IProgressiveInfoHandler, ProgressiveHandler>();
+            if (isBingoProgressiveEnabled)
+            {
+                container.RegisterSingleton<IProgressiveClientConnectionState, ProgressiveClientConnectionState>();
+                container.RegisterSingleton<IProgressiveUpdateHandler, ProgressiveHandler>();
+                container.RegisterSingleton<IProgressiveLevelInfoProvider, ProgressiveLevelInfoProvider>();
+                container.RegisterSingleton<IProgressiveInfoHandler, ProgressiveHandler>();
+            }
+
             return container;
         }
 
-        private static Container SetupCommandHandlers(this Container container)
+        private static Container SetupCommandHandlers(this Container container, bool isBingoProgressiveEnabled)
         {
             container.Register(typeof(ICommandHandler<>), Assembly.GetExecutingAssembly());
             container.RegisterSingleton<ICommandHandlerFactory, CommandHandlerFactory>();
+
+            if (isBingoProgressiveEnabled)
+            {
+                container.Register(typeof(IProgressiveCommandHandler<>), Assembly.GetExecutingAssembly());
+                container.RegisterSingleton<IProgressiveCommandHandlerFactory, ProgressiveCommandHandlerFactory>();
+            }
+
             return container;
         }
 

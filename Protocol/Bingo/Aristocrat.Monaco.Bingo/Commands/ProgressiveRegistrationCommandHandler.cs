@@ -10,7 +10,7 @@
     using Kernel;
     using Protocol.Common.Storage.Entity;
 
-    public class ProgressiveRegistrationCommandHandler : ICommandHandler<ProgressiveRegistrationCommand>
+    public class ProgressiveRegistrationCommandHandler : IProgressiveCommandHandler<ProgressiveRegistrationCommand>
     {
         private readonly IProgressiveRegistrationService _registrationService;
         private readonly IPropertiesManager _properties;

@@ -21,7 +21,7 @@
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IEnumerable<IClient> _clients;
-        private readonly IMessageHandlerFactory _messageHandlerFactory;
+        private readonly IProgressiveMessageHandlerFactory _messageHandlerFactory;
         private readonly IProgressiveAuthorizationProvider _authorization;
         private readonly IProgressiveLevelInfoProvider _progressiveLevelInfoProvider;
         private bool _disposed;
@@ -29,7 +29,7 @@
         public ProgressiveRegistrationService(
             IClientEndpointProvider<ProgressiveApi.ProgressiveApiClient> endpointProvider,
             IEnumerable<IClient> clients,
-            IMessageHandlerFactory messageHandlerFactory,
+            IProgressiveMessageHandlerFactory messageHandlerFactory,
             IProgressiveAuthorizationProvider authorization,
             IProgressiveLevelInfoProvider progressiveLevelInfoProvider)
             : base(endpointProvider)

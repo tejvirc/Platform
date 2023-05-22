@@ -24902,6 +24902,42 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Ensure communication cable is properly connected a....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		public static string ProgressiveHostDisconnectedHelp {
+			get {
+				return ResourceManager.GetString("ProgressiveHostDisconnectedHelp", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Progressive Host Registration Failed.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		public static string ProgressiveHostRegistrationFailed {
+			get {
+				return ResourceManager.GetString("ProgressiveHostRegistrationFailed", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Ensure the EGM is configured for progressives on t....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		public static string ProgressiveHostRegistrationFailedHelp {
+			get {
+				return ResourceManager.GetString("ProgressiveHostRegistrationFailedHelp", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Progressive Id.
 		/// </summary>
         /// <remarks>
@@ -59500,6 +59536,42 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Ensure communication cable is properly connected a....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		public static string ProgressiveHostDisconnectedHelp {
+			get {
+				return "ProgressiveHostDisconnectedHelp";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Progressive Host Registration Failed.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		public static string ProgressiveHostRegistrationFailed {
+			get {
+				return "ProgressiveHostRegistrationFailed";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Ensure the EGM is configured for progressives on t....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		public static string ProgressiveHostRegistrationFailedHelp {
+			get {
+				return "ProgressiveHostRegistrationFailedHelp";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Progressive Id.
 		/// </summary>
         /// <remarks>
@@ -83429,6 +83501,27 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Bingo
         /// </remarks>
 		ProgressiveHostDisconnected,
+		/// <summary>
+		///   Looks up a localized string similar to Ensure communication cable is properly connected a....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		ProgressiveHostDisconnectedHelp,
+		/// <summary>
+		///   Looks up a localized string similar to Progressive Host Registration Failed.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		ProgressiveHostRegistrationFailed,
+		/// <summary>
+		///   Looks up a localized string similar to Ensure the EGM is configured for progressives on t....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		ProgressiveHostRegistrationFailedHelp,
 		/// <summary>
 		///   Looks up a localized string similar to Progressive Id.
 		/// </summary>

@@ -47,10 +47,18 @@
                 () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisabledDuringInitialization),
                 false);
             var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
+
+            var isBingoProgressiveEnabled = ServiceManager.GetInstance().GetService<IMultiProtocolConfigurationProvider>().MultiProtocolConfiguration
+                .Any(x => x.IsProgressiveHandled && x.Protocol == CommsProtocol.Bingo);
+
             eventBus.Subscribe<BingoDisplayConfigurationStartedEvent>(this, async (_, _) =>
             {
                 eventBus.Unsubscribe<BingoDisplayConfigurationStartedEvent>(this);
                 await _container.GetInstance<IBingoClientConnectionState>().Start();
+                if (isBingoProgressiveEnabled)
+                {
+                    await _container.GetInstance<IProgressiveClientConnectionState>().Start();
+                }
                 disableManager.Enable(Initializing);
             });
 
@@ -73,7 +81,7 @@
             }
 
             _container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
-            _container.InitializeContainer(propertiesManager)
+            _container.InitializeContainer(propertiesManager, isBingoProgressiveEnabled)
                 .AddBingoOverlay()
                 .AddGameRoundHistoryDetails()
                 .AddEventConsumers();
@@ -100,6 +108,13 @@
             _shutdownEvent.WaitOne();
 
             _container.GetInstance<IBingoClientConnectionState>().Stop().WaitForCompletion();
+            var isBingoProgressiveEnabled = ServiceManager.GetInstance().GetService<IMultiProtocolConfigurationProvider>().MultiProtocolConfiguration
+                .Any(x => x.IsProgressiveHandled && x.Protocol == CommsProtocol.Bingo);
+            if (isBingoProgressiveEnabled)
+            {
+                _container.GetInstance<IProgressiveClientConnectionState>().Stop().WaitForCompletion();
+            }
+
             ServiceManager.GetInstance().RemoveService(_container.GetInstance<IGameRoundDetailsDisplayProvider>());
             ServiceManager.GetInstance().RemoveService(_container.GetInstance<IGameRoundPrintFormatter>());
             eventBus.UnsubscribeAll(this);

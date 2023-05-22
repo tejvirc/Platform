@@ -130,7 +130,7 @@
             Logger.Debug("Received a disable by progressive message");
 
             _systemDisable.Disable(
-                BingoConstants.ProgresssiveHostOfflineKey,
+                BingoConstants.ProgressiveHostOfflineKey,
                 SystemDisablePriority.Normal,
                 () => $"{Resources.DisabledByProgressiveHost}");
 
@@ -148,7 +148,7 @@
 
             Logger.Debug("Received an enable by progressive message");
 
-            _systemDisable.Enable(BingoConstants.ProgresssiveHostOfflineKey);
+            _systemDisable.Enable(BingoConstants.ProgressiveHostOfflineKey);
 
             return Task.FromResult(true);
         }
