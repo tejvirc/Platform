@@ -46,7 +46,7 @@
                         Convert.ToString(nodes.Count, CultureInfo.InvariantCulture));
                 }
 
-                var typeExtensionNode = (TypeExtensionNode)nodes[0];
+                TypeExtensionNode typeExtensionNode = (TypeExtensionNode)nodes[0];
 
                 _instance = (IServiceManager)typeExtensionNode.CreateInstance();
             }

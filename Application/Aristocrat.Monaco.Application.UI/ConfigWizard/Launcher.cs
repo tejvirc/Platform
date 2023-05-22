@@ -29,7 +29,7 @@
         ///     Displays the window and blocks until it is closed.
         /// </summary>
         protected override void OnRun()
-        {
+        {//zhg
             // This blocks until the dialog is closed.
             _windowLauncher.CreateWindow<SelectionWindow>(WindowName, true);
         }

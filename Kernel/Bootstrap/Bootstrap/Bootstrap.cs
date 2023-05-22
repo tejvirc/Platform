@@ -131,8 +131,14 @@
             Logger.Debug($"_softBootTime: {_softBootTime} kind:{_softBootTime.Kind}");
             Logger.Debug($"_hardBootTime: {_hardBootTime} kind:{_softBootTime.Kind}");
 
+            //zhg*** StatusDisplayView.xaml
             LoadKernel();
+
+            // HardwareRunnable --> OnRun --> RunBootExtender --> ApplicationRunnable
+            // --> ConfigWizardLauncher --> SelectWindow(ConfigWizard)
             RunBootExtender();
+
+            // close StatusDisplayView.xaml
             UnloadKernel(false);
 
             Logger.Info($"Shutting down ({_exitAction})...");
@@ -297,7 +303,7 @@
                 }
             }
         }
-
+        //zhg
         private void LoadRequiredService(string name, string serviceExtensionPath)
         {
             OutputStatus("Creating " + name);
@@ -389,6 +395,7 @@
             LoadRequiredService("Message Display", MessageDisplayExtensionPath);
             LoadRequiredService("Path Mapper", PathMapperExtensionPath);
             LoadRequiredService("Window Launcher", WindowLauncherExtensionPath);
+            //zhg*** show StatusDisplayView.xaml(initialize and run the service if it has IRunnable interface)
             LoadRequiredService("Platform Display", PlatformDisplayExtensionPath);
             LoadRequiredService("System Disable Manager", SystemDisableManagerExtensionPath);
             LoadRequiredService("Component Registry", ComponentRegistryExtensionPath);
@@ -408,6 +415,7 @@
             Logger.Info("Done.");
 
             OutputStatus("Loading Kernel Runnables");
+            //zhg: start Test.Integration.KeyConverter(IRunnable)
             _runnablesManager.StartRunnables(RunnablesExtensionPath);
             Logger.Info("Done.");
         }

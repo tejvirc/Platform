@@ -56,7 +56,7 @@
     }
 
     [CollectionDataContract(ItemName = "Actions")]
-    public class RobotActions : HashSet<Actions>
+    public class d : HashSet<Actions>
     {
     }
 

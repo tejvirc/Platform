@@ -9,7 +9,7 @@ namespace Aristocrat.Monaco.Application.UI.Views
     using Kernel.Contracts;
     using Monaco.UI.Common;
     using MVVM;
-
+    using System.Windows.Controls;
     /// <summary>
     ///     Interaction logic for SelectionWindow.xaml
     ///     This is just a navigation window that holds the configuration
@@ -21,6 +21,7 @@ namespace Aristocrat.Monaco.Application.UI.Views
         private readonly BaseWindow _windowInfo = new BaseWindow();
         private readonly WindowToScreenMapper _screenMapper = new WindowToScreenMapper(DisplayRole.Main, showCursor: true);
         private readonly IEventBus _eventBus;
+        //private Button button1;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="SelectionWindow" /> class.
@@ -35,6 +36,8 @@ namespace Aristocrat.Monaco.Application.UI.Views
             _eventBus.Subscribe<CloseConfigWindowEvent>(this, _ => CloseWindow());
 
             ContentElement = ConfigPage;
+
+            //button1.AddHandler(Button.ClickEvent, new RoutedEventHandler((sender, arg) => { }));
         }
 
         /// <summary>

@@ -495,15 +495,18 @@ namespace Aristocrat.Monaco.Application
             {
                 _firstBoot = true;
 
+                //zhg**
                 if (RunState == RunnableState.Running)
                 {
                     var node =
-                        MonoAddinsHelper.GetSingleSelectedExtensionNode<TypeExtensionNode>(
-                            ConfigurationWizardExtensionPath);
+                        MonoAddinsHelper.GetSingleSelectedExtensionNode<TypeExtensionNode>(ConfigurationWizardExtensionPath);
+
+                    //zhg: _configurationWizard of type Application.UI.ConfigWizard.Launcher 
                     _configurationWizard = (IRunnable)node.CreateInstance();
                     _configurationWizard.Initialize();
                     WritePendingActionToMessageDisplay(ResourceKeys.RunningConfigurationWizard);
                     _configurationWizard.Run();
+
                     lock (_thisLock)
                     {
                         // Stop could have set the wizard to null on another thread

@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Accounting\Monaco.Accounting.Contracts\Monaco.Accounting.Contracts.csproj" />
+    <ProjectReference Include="..\..\Accounting\Monaco.Accounting.UI\Monaco.Accounting.UI.csproj" />
     <ProjectReference Include="..\..\Accounting\Monaco.Accounting\Monaco.Accounting.csproj" />
     <ProjectReference Include="..\..\Application\Aristocrat.Monaco.Application.UI\Aristocrat.Monaco.Application.UI.csproj" />
     <ProjectReference Include="..\..\Application\Aristocrat.Monaco.Application\Aristocrat.Monaco.Application.csproj" />

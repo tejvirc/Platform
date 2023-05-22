@@ -11,7 +11,8 @@
   <Dependencies>
     <Addin id="Bootstrap" version="1.0" />
   </Dependencies>
-
+  
+  <!-- zhg -->
   <Extension path="/Kernel/BootExtender">
     <BootExtender type="Aristocrat.Monaco.Hardware.HardwareRunnable" />
   </Extension>

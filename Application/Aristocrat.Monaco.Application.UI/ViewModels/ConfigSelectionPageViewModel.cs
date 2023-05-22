@@ -114,6 +114,7 @@
 
                 Logger.Debug($"Navigating to {_selectableConfigurationPages[_lastWizardSelectedIndex].PageName} selection page...");
 
+                //zhg: load Terms and Conditions Page
                 _currentPageLoader = _selectableConfigurationPages[_lastWizardSelectedIndex];
                 _pageTitle = _currentPageLoader?.PageName;
             }

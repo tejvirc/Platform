@@ -351,7 +351,7 @@
             else if (_configuration.KeyUpEvents.ContainsKey(key))
             {
                 Logger.Debug($"Handling key up: [{key}]");
-
+                //zhg if Keys.Z, instatiate RobotController
                 var evt = Activator.CreateInstance(_configuration.KeyUpEvents[key].type, _configuration.KeyUpEvents[key].args.ToArray()) as IEvent;
 
                 PostEvent(evt);
