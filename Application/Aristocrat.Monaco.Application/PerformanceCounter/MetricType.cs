@@ -92,6 +92,42 @@
         ClrBytes,
 
         /// <summary>
+        /// GDK CPU usage
+        /// </summary>
+        [CounterType("CPU")]
+        [Instance("GDKRuntimeHost")]
+        [Category("Process")]
+        [Counter("% Processor Time")]
+        [Label("Game CPU")]
+        [Unit("%")]
+        [MaxRange(100)]
+        GdkProcessorTime,
+
+        /// <summary>
+        ///     GDK thread count
+        /// </summary>
+        [CounterType("General")]
+        [Instance("GDKRuntimeHost")]
+        [Category("Process")]
+        [Counter("Thread Count")]
+        [Label("Game Threads")]
+        [Unit("#")]
+        [MaxRange(200)]
+        GdkThreadCount,
+
+        /// <summary>
+        ///     GDK memory usage
+        /// </summary>
+        [CounterType("Memory")]
+        [Instance("GDKRuntimeHost")]
+        [Category("Process")]
+        [Counter("Private Bytes")]
+        [Label("Game Memory")]
+        [Unit("MB")]
+        [MaxRange(1000)]
+        GdkPrivateBytes,
+
+        /// <summary>
         /// Number of frames dropped.
         /// </summary>
         [CounterType("General")]
@@ -173,42 +209,6 @@
         [Label("Swapbuffer Time")]
         [Unit("ms")]
         [MaxRange(1000)]
-        SwapbufferTime,
-
-        /// <summary>
-        /// GDK CPU usage
-        /// </summary>
-        [CounterType("CPU")]
-        [Instance("GDKRuntimeHost")]
-        [Category("Process")]
-        [Counter("% Processor Time")]
-        [Label("Game CPU")]
-        [Unit("%")]
-        [MaxRange(100)]
-        GdkProcessorTime,
-
-        /// <summary>
-        ///     GDK thread count
-        /// </summary>
-        [CounterType("General")]
-        [Instance("GDKRuntimeHost")]
-        [Category("Process")]
-        [Counter("Thread Count")]
-        [Label("Game Threads")]
-        [Unit("#")]
-        [MaxRange(200)]
-        GdkThreadCount,
-
-        /// <summary>
-        ///     GDK memory usage
-        /// </summary>
-        [CounterType("Memory")]
-        [Instance("GDKRuntimeHost")]
-        [Category("Process")]
-        [Counter("Private Bytes")]
-        [Label("Game Memory")]
-        [Unit("MB")]
-        [MaxRange(1000)]
-        GdkPrivateBytes
+        SwapbufferTime
     }
 }
