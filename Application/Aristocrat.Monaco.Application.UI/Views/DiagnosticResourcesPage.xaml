@@ -20,26 +20,6 @@
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style TargetType="TextBox"
-                   BasedOn="{StaticResource MonacoTextBox}">
-                <Setter Property="MinHeight"
-                        Value="0" />
-                <Setter Property="FontSize"
-                        Value="16" />
-                <Setter Property="Padding"
-                        Value="4 5 4 5" />
-            </Style>
-            <Style TargetType="CheckBox"
-                   BasedOn="{StaticResource MonacoCheckBox}">
-                <Setter Property="FontSize"
-                        Value="14" />
-                <Setter Property="helpers:CheckBoxHelper.CheckBoxPartWidth"
-                        Value="30" />
-                <Setter Property="helpers:CheckBoxHelper.CheckMarkPartWidth"
-                        Value="15" />
-                <Setter Property="helpers:CheckBoxHelper.CheckMarkPartHeight"
-                        Value="13" />
-            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid AutomationProperties.AutomationId="Grid0_73D1C618">
@@ -88,9 +68,11 @@
                         <StackPanel Orientation="Horizontal"
                                     Margin="4"
                                     AutomationProperties.AutomationId="StackPanel9_73D1C618">
-                            <CheckBox IsChecked="{Binding MetricEnabled, Mode=TwoWay}"
+                            <CheckBox Style="{StaticResource MonacoCheckBoxSmall}"
+                                      IsChecked="{Binding MetricEnabled, Mode=TwoWay}"
                                       AutomationProperties.AutomationId="CheckBox10_73D1C618" />
-                            <TextBox MinWidth="200"
+                            <TextBox Style="{StaticResource MonacoTextBoxSmall}"
+                                     MinWidth="200"
                                      Text="{Binding Label, Mode=OneWay}"
                                      IsHitTestVisible="False"
                                      Focusable="False"
@@ -98,7 +80,8 @@
                                      BorderThickness="1"
                                      Foreground="{Binding MetricColor}"
                                      AutomationProperties.AutomationId="TextBox11_73D1C618" />
-                            <TextBox Width="80"
+                            <TextBox Style="{StaticResource MonacoTextBoxSmall}"
+                                     Width="80"
                                      Text="{Binding CurrentValue, Mode=OneWay}"
                                      IsHitTestVisible="False"
                                      Focusable="False"
