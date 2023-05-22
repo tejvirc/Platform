@@ -15,6 +15,7 @@
     using ManagedBink;
     using Monaco.UI.Common;
     using MVVM;
+    using Runtime.Client;
     using ViewModels;
     using Cursors = System.Windows.Input.Cursors;
 
@@ -55,6 +56,7 @@
 
         private void WinHostCtrl_OnLoaded(object sender, RoutedEventArgs e)
         {
+            GameVirtualButtonDeckWindowCtrl.SetDisplayId(DisplayId.Vbd);
             ViewModel.GameVirtualButtonDeckHwnd = GameVirtualButtonDeckWindowCtrl.Handle;
         }
 

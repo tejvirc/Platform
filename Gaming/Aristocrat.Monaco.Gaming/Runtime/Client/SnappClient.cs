@@ -192,14 +192,28 @@
             Invoke(client => client.UpdateTimeRemaining(new UpdateTimeRemainingRequest { TimeRemaining = message }));
         }
 
-        public void SendTouch(int inputCount, IntPtr inputStruct)
+        public void SendTouch(DisplayId displayId, uint pointerId, TouchState touchState, uint pointerX, uint pointerY)
         {
-            Invoke(client => client.SendTouch(inputCount, inputStruct));
+            Invoke(client => client.UpdateTouch(new UpdateTouchNotification()
+            {
+                DisplayId = (V1.DisplayId) displayId,
+                PointerId = pointerId,
+                TouchState = (UpdateTouchNotification.Types.TouchState) touchState,
+                PointerX = pointerX,
+                PointerY = pointerY
+            }));
         }
 
-        public void SendMouse(IntPtr inputStruct)
+        public void SendMouse(DisplayId displayId, MouseButton mouseButton, MouseState mouseState, uint mouseX, uint mouseY)
         {
-            Invoke(client => client.SendMouse(inputStruct));
+            Invoke(client => client.UpdateMouse(new UpdateMouseNotification()
+            {
+                DisplayId = (V1.DisplayId) displayId,
+                MouseButton = (UpdateMouseNotification.Types.MouseButton) mouseButton,
+                MouseState = (UpdateMouseNotification.Types.MouseState) mouseState,
+                MouseX = mouseX,
+                MouseY = mouseY
+            }));
         }
 
         public void Shutdown()

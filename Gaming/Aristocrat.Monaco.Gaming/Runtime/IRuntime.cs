@@ -41,9 +41,9 @@
 
         void BeginGameRoundResponse(BeginGameRoundResult result, IEnumerable<Outcome> outcomes, CancellationTokenSource cancellationTokenSource = null);
 
-        void SendTouch(int inputCount, IntPtr inputStruct);
+        void SendTouch(DisplayId displayId, uint pointerId, TouchState touchState, uint pointerX, uint pointerY);
 
-        void SendMouse(IntPtr inputStruct);
+        void SendMouse(DisplayId displayId, MouseButton mouseButton, MouseState mouseState, uint mouseX, uint mouseY);
 
         void Shutdown();
     }

@@ -93,14 +93,14 @@
             _serviceProvider.Client?.UpdateTimeRemaining(message);
         }
 
-        public void SendTouch(int inputCount, IntPtr inputStruct)
+        public void SendTouch(DisplayId displayId, uint pointerId, TouchState touchState, uint pointerX, uint pointerY)
         {
-            _serviceProvider.Client?.SendTouch(inputCount, inputStruct);
+            _serviceProvider.Client?.SendTouch(displayId, pointerId, touchState, pointerX, pointerY);
         }
 
-        public void SendMouse(IntPtr inputStruct)
+        public void SendMouse(DisplayId displayId, MouseButton mouseButton, MouseState mouseState, uint mouseX, uint mouseY)
         {
-            _serviceProvider.Client?.SendMouse(inputStruct);
+            _serviceProvider.Client?.SendMouse(displayId, mouseButton, mouseState, mouseX, mouseY);
         }
 
         public void Shutdown()

@@ -9,6 +9,7 @@
     using Cabinet.Contracts;
     using Kernel;
     using MediaDisplay;
+    using Runtime.Client;
     using ViewModels;
 
     /// <summary>
@@ -91,6 +92,7 @@
 
         private void WinHostCtrl_OnLoaded(object sender, RoutedEventArgs e)
         {
+            GameTopWindowCtrl.SetDisplayId(DisplayId.Secondary);
             ViewModel.GameTopHwnd = GameTopWindowCtrl.Handle;
         }
 

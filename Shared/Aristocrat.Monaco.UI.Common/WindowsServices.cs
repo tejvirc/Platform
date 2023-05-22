@@ -29,6 +29,15 @@ namespace Aristocrat.Monaco.UI.Common
         /// <summary></summary>
         public const int WM_LBUTTONUP = 0x202;
 
+        /// <summary></summary>
+        public const int WM_POINTERUPDATE = 0x245;
+
+        /// <summary></summary>
+        public const int WM_POINTERDOWN = 0x246;
+
+        /// <summary></summary>
+        public const int WM_POINTERUP = 0x247;
+
         // Touch event flags ((TOUCHINPUT.dwFlags) [winuser.h]
         /// <summary></summary>
         public const int TOUCHEVENTF_MOVE = 0x0001;

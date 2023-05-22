@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.Views.Controls
 {
     using System;
+    using System.Drawing;
     using System.Reflection;
     using System.Windows.Forms;
     using Contracts;
@@ -8,12 +9,14 @@
     using Monaco.UI.Common;
     using Runtime;
     using log4net;
+    using Runtime.Client;
 
     public class NativeFormsControl : Control
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IRuntime _runtime;
+        private DisplayId _displayId = 0;
 
         public NativeFormsControl()
         {
@@ -21,51 +24,38 @@
             WindowsServices.RegisterTouchWindow(Handle, WindowsServices.TouchWindowFlag.FineTouch);
         }
 
+        public void SetDisplayId(DisplayId displayId)
+        {
+            _displayId = displayId;
+        }
+
         protected override void WndProc(ref Message msg)
         {
-            if (msg.Msg == WindowsServices.WM_TOUCH)
+            if (msg.Msg >= WindowsServices.WM_POINTERUPDATE && msg.Msg <= WindowsServices.WM_POINTERUP
+                || msg.Msg >= WindowsServices.WM_MOUSEMOVE && msg.Msg <= WindowsServices.WM_LBUTTONUP)
             {
-                var inputCount = msg.WParam.ToInt32() & 0xffff;
-                _runtime.SendTouch(inputCount, msg.LParam);
-                msg.Result = IntPtr.Zero;
-                return;
-/*
-                var inputs = new WindowsServices.TOUCHINPUT[inputCount];
-                if (WindowsServices.GetTouchInputInfo(msg.LParam, inputCount, inputs))
+                var pointerX = msg.LParam.ToInt32() & 0xffff;
+                var pointerY = msg.LParam.ToInt32() << 16;
+                var point = new Point(pointerX, pointerY);
+                point = PointToClient(point);
+
+                if (msg.Msg >= WindowsServices.WM_POINTERUPDATE && msg.Msg <= WindowsServices.WM_POINTERUP)
                 {
-                    foreach (var input in inputs)
-                    {
-                        var xPos = input.x / 100;
-                        var yPos = input.y / 100;
-                        var fing = input.dwID;
-
-                        if ((input.dwFlags & WindowsServices.TOUCHEVENTF_DOWN) > 0)
-                        {
-                            Logger.Debug($"GAME TOUCH DOWN {fing}@{xPos},{yPos}");
-                        }
-                        else if ((input.dwFlags & WindowsServices.TOUCHEVENTF_UP) > 0)
-                        {
-                            Logger.Debug($"GAME TOUCH UPPP {fing}@{xPos},{yPos}");
-                        }
-                        else if ((input.dwFlags & WindowsServices.TOUCHEVENTF_MOVE) > 0)
-                        {
-                            Logger.Debug($"GAME TOUCH MOVE {fing}@{xPos},{yPos}");
-                        }
-                    }
-
-                    WindowsServices.CloseTouchInputHandle(msg.LParam);
-                    msg.Result = IntPtr.Zero;
-                    return;
-                }*/
+                    var pointerId = (uint) (msg.WParam.ToInt32() & 0xffff);
+                    var touchState = (TouchState) (msg.Msg - WindowsServices.WM_POINTERUPDATE + 1);
+                    _runtime.SendTouch(_displayId, pointerId, touchState, (uint) point.X, (uint) point.Y);
+                }
+                else if (msg.Msg >= WindowsServices.WM_MOUSEMOVE && msg.Msg <= WindowsServices.WM_LBUTTONUP)
+                {
+                    var mouseButton = (MouseButton) (msg.Msg == WindowsServices.WM_MOUSEMOVE ? 0 : 1);
+                    var mouseState = (MouseState) (msg.Msg - WindowsServices.WM_MOUSEMOVE + 1);
+                    _runtime.SendMouse(_displayId, mouseButton, mouseState, (uint) point.X, (uint) point.Y);
+                }
             }
-            else if (msg.Msg >= WindowsServices.WM_LBUTTONDOWN && msg.Msg <= WindowsServices.WM_LBUTTONUP)
+            else
             {
-                _runtime.SendMouse(msg.LParam);
-                msg.Result = IntPtr.Zero;
-                return;
+                base.WndProc(ref msg);
             }
-
-            base.WndProc(ref msg);
         }
     }
 }

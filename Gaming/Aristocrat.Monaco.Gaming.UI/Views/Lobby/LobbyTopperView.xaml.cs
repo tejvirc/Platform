@@ -9,6 +9,7 @@
     using Cabinet.Contracts;
     using Kernel;
     using MediaDisplay;
+    using Runtime.Client;
     using ViewModels;
 
     /// <summary>
@@ -88,6 +89,7 @@
 
         private void WinHostCtrl_OnLoaded(object sender, RoutedEventArgs e)
         {
+            GameTopperWindowCtrl.SetDisplayId(DisplayId.Topper);
             ViewModel.GameTopperHwnd = GameTopperWindowCtrl.Handle;
         }
 

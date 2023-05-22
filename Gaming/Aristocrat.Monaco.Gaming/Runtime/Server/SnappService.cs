@@ -623,6 +623,11 @@
             return EmptyResult;
         }
 
+        public override CheckMysteryJackpotResponse CheckMysteryJackpot(CheckMysteryJackpotRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
         public override Empty SelectDenomination(SelectDenominationRequest request)
         {
             Logger.Debug($"Select Denomination with denom: {request.Denomination}");

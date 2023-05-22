@@ -32,10 +32,12 @@
     using Monaco.UI.Common;
     using MVVM;
     using Overlay;
+    using Runtime.Client;
     using Utils;
     using ViewModels;
     using MouseEventArgs = System.Windows.Forms.MouseEventArgs;
     using TouchAction = Hardware.Contracts.Touch.TouchAction;
+    using TouchState = Hardware.Contracts.Touch.TouchState;
 
     /// <summary>
     ///     Interaction logic for LobbyView.xaml
@@ -107,8 +109,7 @@
             ////_timeLimitDlg.IsVisibleChanged += OnChildWindowIsVisibleChanged;
             ////_msgOverlay.IsVisibleChanged += OnChildWindowIsVisibleChanged;
 
-            GameBottomWindowCtrl.MouseDown += GameBottomWindowCtrl_MouseDown;
-            GameBottomWindowCtrl.MouseUp += GameBottomWindowCtrl_MouseUp;
+            this.MouseDown += LobbyView_MouseDown;
 
             SizeChanged += LobbyView_SizeChanged;
 
@@ -613,20 +614,6 @@
             Activate();
         }
 
-        private void GameBottomWindowCtrl_MouseUp(object sender, MouseEventArgs e)
-        {
-            var ti = new TouchInfo
-            {
-                X = e.X,
-                Y = e.Y,
-                State = TouchState.Up,
-                Action = e.Button == MouseButtons.Left ? TouchAction.LeftMouse : TouchAction.None
-            };
-
-            /* only accept left mouse clicks */
-            ViewModel.PostTouchEvent(ti);
-        }
-
         private void GameBottomWindowCtrl_MouseDown(object sender, MouseEventArgs e)
         {
             var ti = new TouchInfo
@@ -635,6 +622,21 @@
                 Y = e.Y,
                 State = TouchState.Down,
                 Action = e.Button == MouseButtons.Left ? TouchAction.LeftMouse : TouchAction.None
+            };
+
+            /* only accept left mouse clicks */
+            ViewModel.PostTouchEvent(ti);
+        }
+
+        private void LobbyView_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var relativePosition = e.GetPosition(this);
+            var ti = new TouchInfo
+            {
+                X = (int) relativePosition.X,
+                Y = (int) relativePosition.Y,
+                State = TouchState.Down,
+                Action = TouchAction.LeftMouse
             };
 
             /* only accept left mouse clicks */
@@ -657,8 +659,8 @@
 
         private void WinHostCtrl_OnLoaded(object sender, RoutedEventArgs e)
         {
+            GameBottomWindowCtrl.SetDisplayId(DisplayId.Primary);
             ViewModel.GameBottomHwnd = GameBottomWindowCtrl.Handle;
-
             ViewModel.OnHwndLoaded();
         }
 
@@ -789,6 +791,7 @@
             if (!_vbdLoaded)
             {
                 _vbd = new VirtualButtonDeckView { ViewModel = ViewModel };
+                _vbd.GameVirtualButtonDeckWindowCtrl.MouseDown += GameBottomWindowCtrl_MouseDown;
                 SetStylusSettings(_vbd);
                 _lobbyWindows.Add(_vbd);
                 ShowWithTouch(_vbd);
@@ -916,8 +919,13 @@
             */
 
             Logger.Debug("Closing VirtualButtonDeckView");
-            _vbd?.Close();
+            if (_vbd != null)
+            {
+                _vbd.GameVirtualButtonDeckWindowCtrl.MouseDown -= GameBottomWindowCtrl_MouseDown;
+                _vbd.Close();
+            }
             _vbdOverlay?.Close();
+
             Logger.Debug("Closing ButtonDeckSimulatorView");
             _buttonDeckSimulator?.Close();
             Logger.Debug("Closing TestToolView");
@@ -945,9 +953,10 @@
 
             _lobbyWindows.Clear();
 
-            GameBottomWindowCtrl.MouseDown -= GameBottomWindowCtrl_MouseDown;
-            GameBottomWindowCtrl.MouseUp -= GameBottomWindowCtrl_MouseUp;
-
+/*            GameBottomWindowCtrl.MouseDown -= GameBottomWindowCtrl_MouseDown;
+            this.MouseDown -= GameBottomWindowCtrl_MouseDown;
+            GameBottomWindowCtrl.touch
+*/
             SizeChanged -= LobbyView_SizeChanged;
         }
 

@@ -142,4 +142,37 @@
         Failed,
         TimedOut
     }
+
+    public enum DisplayId
+    {
+        Unknown = 0,
+        Primary = 1,
+        Secondary = 2,
+        Vbd = 3,
+        Topper = 4
+    }
+
+    public enum TouchState
+    {
+        None = 0,
+        Update = 1,
+        Down = 2,
+        Up = 3
+    }
+
+    public enum MouseButton
+    {
+        None = 0,
+        Left = 1,
+        Right = 2,
+        Middle = 3
+    };
+
+    public enum MouseState
+    {
+        Invalid = 0,
+        Update = 1,
+        Down = 2,
+        Up = 3
+    }
 }
