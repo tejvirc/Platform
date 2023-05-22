@@ -19,6 +19,7 @@
             DataContextChanged += OnDataContextChanged;
         }
 
+        //zhg!!! Save Properties Changes
         private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (DataContext is OperatorMenuPageViewModelBase viewModel)
@@ -29,6 +30,7 @@
             }
         }
 
+        //zhg!!!
         private void SetTrigger(string commandName, string eventName)
         {
             var invokeCommandAction = new InvokeCommandAction { CommandParameter = this };

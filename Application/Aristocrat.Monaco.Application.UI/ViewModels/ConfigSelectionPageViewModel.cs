@@ -522,6 +522,7 @@
 
         private void BeginConfigWizardPages()
         {
+            //zhg: add configwizard pages
             LoadWizards();
 
             if (!_selectablePagesDone)

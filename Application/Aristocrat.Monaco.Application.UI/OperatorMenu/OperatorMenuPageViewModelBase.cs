@@ -101,6 +101,8 @@
             PrintSelectedButtonCommand = new ActionCommand<object>(_ => Print(OperatorMenuPrintData.SelectedItem));
             PrintCurrentPageButtonCommand = new ActionCommand<object>(_ => Print(OperatorMenuPrintData.CurrentPage));
             PrintLast15ButtonCommand = new ActionCommand<object>(_ => Print(OperatorMenuPrintData.Last15));
+
+            //zhg!!!
             LoadedCommand = new ActionCommand<object>(OnLoaded);
             UnloadedCommand = new ActionCommand<object>(OnUnloaded);
             EventViewerScrolledCommand = new ActionCommand<ScrollChangedEventArgs>(OnEventViewerScrolledCommand);

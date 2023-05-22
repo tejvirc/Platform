@@ -22,6 +22,7 @@
             WizardNavigator.CanNavigateBackward = false;
         }
 
+        //zhg!!!
         protected override void OnUnloaded()
         {
             // If configurable devices are disabled, validation may not occur so persist configs on unload just in case
