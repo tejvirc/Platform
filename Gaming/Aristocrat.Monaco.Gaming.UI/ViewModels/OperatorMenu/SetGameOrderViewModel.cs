@@ -66,7 +66,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             GameList = new ObservableCollection<GameOrderData>(LoadGames().OrderBy(GameOrder));
         }
 
-        private int GameOrder(GameOrderData game) => _gameOrderSettings.GetPositionPriority(game.ThemeId);
+        private int GameOrder(GameOrderData game) => _gameOrderSettings.GetIconPositionPriority(game.ThemeId);
 
         public ActionCommand<object> UpCommand { get; }
         public ActionCommand<object> DownCommand { get; }
@@ -86,7 +86,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
         public override void Save()
         {
-            _gameOrderSettings.SetGameOrder(GameList.Select(o => o.ThemeId), true);
+            _gameOrderSettings.SetIconOrder(GameList.Select(o => o.ThemeId), true);
         }
 
         private List<GameOrderData> LoadGames()

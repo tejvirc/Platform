@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming
+namespace Aristocrat.Monaco.Gaming
 {
     using System;
     using System.Collections.Generic;
@@ -17,6 +17,7 @@
     public class GameOrderSettings : IGameOrderSettings
     {
         private const string GameOrderBlobField = @"GameOrderBlob";
+        private const string WasOperatorChangedField = @"WasOperatorChanged";
         private const PersistenceLevel BlockGameOrderDataLevel = PersistenceLevel.Critical;
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
@@ -25,7 +26,11 @@
 
         private readonly object _sync = new object();
 
-        private IList<string> _gameOrder = new List<string>();
+        private IList<string> _iconOrder = new List<string>();
+        private IList<string> _attractOrder = new List<string>();
+        private IList<string> _iconOrderConfig = new List<string>();
+        private IList<string> _attractOrderConfig = new List<string>();
+        private bool _wasOperatorChanged;
 
         public GameOrderSettings(IPersistentStorageManager storageManager, IEventBus eventBus)
         {
@@ -41,20 +46,20 @@
               LoadGameOrder();
         } 
 
-        public IList<string> Order
+        public IList<string> IconOrder
         {
             get
             {
                 lock (_sync)
                 {
-                    return _gameOrder;
+                    return _iconOrder;
                 }
             }
             internal set
             {
                 lock (_sync)
                 {
-                    _gameOrder = value;
+                    _iconOrder = value;
                 }
             }
         }
@@ -70,82 +75,138 @@
         {
         }
 
-        public void SetGameOrderFromConfig(IList<IGameInfo> games, IList<string> gameOrderConfig)
+        public void SetAttractOrderFromConfig(IList<IGameInfo> games, IList<string> gameOrderConfig)
         {
-            // Load from saved game order if it exists
-            if (Order.Any() || games == null || !games.Any())
+            if (games == null || !games.Any() || gameOrderConfig == null || !gameOrderConfig.Any())
             {
                 return;
             }
 
-            // Load from config order list the first time
+            if (_attractOrderConfig.SequenceEqual(gameOrderConfig) && _attractOrder.Any())
+            {
+                return;
+            }
+
+            var gamesInConfig = games.Where(o => gameOrderConfig.Contains(o.ThemeId)).ToList();
+            var gamesInConfigWithSort = new List<(IGameInfo game, int priority)>();
+
+            foreach (var game in gamesInConfig)
+            {
+                var index = gameOrderConfig.IndexOf(game.ThemeId);
+                gamesInConfigWithSort.Add((game, index));
+            }
+
+            var gamesInConfigSorted = gamesInConfigWithSort.OrderBy(o => o.priority).Select(o => o.game.ThemeId);
+            var gamesNotInConfig = games.Where(o => !gamesInConfig.Contains(o)).ToList();
+            var gamesNotInConfigWithSort = new List<(IGameInfo game, int priority)>();
+
+            foreach (var game in gamesNotInConfig)
+            {
+                var index = games.IndexOf(game);
+                gamesNotInConfigWithSort.Add((game, index));
+            }
+
+            var gamesNotInConfigSorted = gamesNotInConfigWithSort
+                .OrderByDescending(o => o.game.InstallDateTime)
+                .ThenBy(o => o.priority)
+                .Select(o => o.game.ThemeId);
+
+            var gameIdList = new List<string>(gamesNotInConfigSorted);
+
+            //adds known games below unknown games as they might be newer for attract
+            gameIdList.AddRange(gamesInConfigSorted);
+
+            _attractOrderConfig = gameOrderConfig;
+
+            _attractOrder = new List<string>(gameIdList);
+        }
+
+        public void SetIconOrderFromConfig(IList<IGameInfo> games, IList<string> gameOrderConfig)
+        {
+            if (_wasOperatorChanged || games == null || !games.Any() || gameOrderConfig == null)
+            {
+                return;
+            }
+
+            // No need to update the order if we're already using it
+            if (_iconOrderConfig.SequenceEqual(gameOrderConfig) && IconOrder.Any())
+            {
+                return;
+            }
+
+            // Load from config order list
             if (gameOrderConfig.Any())
             {
                 var gamesInConfig = games.Where(o => gameOrderConfig.Contains(o.ThemeId)).ToList();
-                var gamesInConfigWithSort = new List<KeyValuePair<IGameInfo, int>>();
+                var gamesInConfigWithSort = new List<(IGameInfo game, int priority)>();
 
                 // put the config file index into a key value pair to sort
                 foreach (var game in gamesInConfig)
                 {
                     var index = gameOrderConfig.IndexOf(game.ThemeId);
-                    gamesInConfigWithSort.Add(new KeyValuePair<IGameInfo, int>(game, index));
+                    gamesInConfigWithSort.Add((game, index));
                 }
 
-                var gamesInConfigSorted = gamesInConfigWithSort.OrderBy(o => o.Value).Select(o => o.Key.ThemeId);
-
+                var gamesInConfigSorted = gamesInConfigWithSort.OrderBy(o => o.priority).Select(o => o.game.ThemeId);
                 var gamesNotInConfig = games.Where(o => !gamesInConfig.Contains(o)).ToList();
-                var gamesNotInConfigWithSort = new List<KeyValuePair<IGameInfo, int>>();
+                var gamesNotInConfigWithSort = new List<(IGameInfo game, int priority)>();
 
                 // put the initial list order into a key value pair as a secondary sort
                 foreach (var game in gamesNotInConfig)
                 {
                     var index = games.IndexOf(game);
-                    gamesNotInConfigWithSort.Add(new KeyValuePair<IGameInfo, int>(game, index));
+                    gamesNotInConfigWithSort.Add((game, index));
                 }
 
                 // Sort First by newest install, then if install date is ==, sort by the initial game order
                 // which I believe is determined by filename
                 var gamesNotInConfigSorted = gamesNotInConfigWithSort
-                    .OrderByDescending(o => o.Key.InstallDateTime)
-                    .ThenBy(o => o.Value)
-                    .Select(o => o.Key.ThemeId);
+                    .OrderByDescending(o => o.game.InstallDateTime)
+                    .ThenBy(o => o.priority)
+                    .Select(o => o.game.ThemeId);
+                var gameIdList = new List<string>(gamesInConfigSorted);
 
-                // We assume anything not in the config is a game added to the system that should be displayed first.
-                // Ordered by newest install date first.
-                var gameIdList = new List<string>(gamesNotInConfigSorted);
+                //adds unknown games to the bottom of the icon list.
+                gameIdList.AddRange(gamesNotInConfigSorted);
 
-                // Then we order everything else by the jurisdictional config file
-                gameIdList.AddRange(gamesInConfigSorted);
+                // Finally, keep track of which order we're using so we can skip this if we've already loaded it
+                _iconOrderConfig = gameOrderConfig;
 
-                SetGameOrder(gameIdList, false);
+                SetIconOrder(gameIdList, false);
             }
         }
 
         /// <inheritdoc />
-        public void SetGameOrder(IEnumerable<string> gameOrder, bool operatorChanged)
+        public void SetIconOrder(IEnumerable<string> gameOrder, bool operatorChanged)
         {
             lock (_sync)
             {
-                _gameOrder = new List<string>(gameOrder);
+                _iconOrder = new List<string>(gameOrder);
                 SaveGameOrder(operatorChanged);
             }
         }
 
         /// <inheritdoc />
-        public int GetPositionPriority(string gameId)
+        public int GetAttractPositionPriority(string gameId)
+        {
+            return (_attractOrder?.IndexOf(gameId) ?? -1) + 1;
+        }
+
+        /// <inheritdoc />
+        public int GetIconPositionPriority(string gameId)
         {
             // Add 1 to this because the operator expects order to begin with 1, not 0
-            return (Order?.IndexOf(gameId) ?? -1) + 1; 
+            return (IconOrder?.IndexOf(gameId) ?? -1) + 1; 
         }
 
 
         /// <inheritdoc />
-        public void UpdatePositionPriority(string gameId, int newPosition)
+        public void UpdateIconPositionPriority(string gameId, int newPosition)
         {
             // Assume the new position order is based on a starting value of 1
             newPosition--;
 
-            var order = new List<string>(Order);
+            var order = new List<string>(IconOrder);
             if (order.Contains(gameId))
             {
                 order.Remove(gameId);
@@ -164,7 +225,7 @@
                 order.Insert(newPosition, gameId);
             }
 
-            SetGameOrder(order, false);
+            SetIconOrder(order, false);
 
             Logger.Debug($"Updated position for Theme Id - {gameId} to {newPosition}");
         }
@@ -174,9 +235,9 @@
         {
             lock (_sync)
             {
-                if (!_gameOrder.Contains(themeId))
+                if (!_iconOrder.Contains(themeId))
                 {
-                    _gameOrder.Insert(0, themeId);
+                    _iconOrder.Insert(0, themeId);
                     SaveGameOrder(false);
 
                     Logger.Debug($"Added Theme Id - {themeId}");
@@ -189,9 +250,9 @@
         {
             lock (_sync)
             {
-                if (_gameOrder.Contains(themeId))
+                if (_iconOrder.Contains(themeId))
                 {
-                    _gameOrder.Remove(themeId);
+                    _iconOrder.Remove(themeId);
                     SaveGameOrder(false);
 
                     Logger.Debug($"Removed Theme Id - {themeId}");
@@ -204,7 +265,7 @@
         {
             lock (_sync)
             {
-                return _gameOrder.Contains(themeId);
+                return _iconOrder.Contains(themeId);
             }
         }
 
@@ -213,7 +274,7 @@
             lock (_sync)
             {
                 byte[] byteArray;
-                if (_gameOrder.Count == 0)
+                if (_iconOrder.Count == 0)
                 {
                     // This can happen if all games removed during testing.  Write the
                     // special hack for empty/default byte blob to persistent storage.
@@ -222,24 +283,26 @@
                 else
                 {
                     // serialize the Theme Ids into JSON & convert to a Byte array.
-                    var gameOrderString = JsonConvert.SerializeObject(_gameOrder, Formatting.None);
+                    var gameOrderString = JsonConvert.SerializeObject(_iconOrder, Formatting.None);
                     byteArray = Encoding.UTF8.GetBytes(gameOrderString);
                 }
 
                 using (var transaction = _gameOrderAccessor.StartTransaction())
                 {
                     transaction[GameOrderBlobField] = byteArray;
+                    transaction[WasOperatorChangedField] = operatorChanged;
                     transaction.Commit();
                 }
 
-                _eventBus.Publish(new GameOrderChangedEvent(Order, operatorChanged));
+                _eventBus.Publish(new GameIconOrderChangedEvent(IconOrder, operatorChanged));
 
-                Logger.Debug("Game order saved");
+                Logger.Debug("Game icon order saved");
             }
         }
 
         private void LoadGameOrder()
         {
+            _wasOperatorChanged = (bool)_gameOrderAccessor[WasOperatorChangedField];
             var byteArray = (byte[])_gameOrderAccessor[GameOrderBlobField];
             if (byteArray != null)
             {
@@ -256,13 +319,13 @@
 
                 lock (_sync)
                 {
-                    _gameOrder = JsonConvert.DeserializeObject<List<string>>(jsonText);
+                    _iconOrder = JsonConvert.DeserializeObject<List<string>>(jsonText);
                 }
             }
 
-            if (_gameOrder == null)
+            if (_iconOrder == null)
             {
-                _gameOrder = new List<string>();
+                _iconOrder = new List<string>();
             }
         }
     }
