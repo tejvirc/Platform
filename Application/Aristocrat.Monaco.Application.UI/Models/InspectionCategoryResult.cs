@@ -8,7 +8,9 @@
     [CLSCompliant(false)]
     public class InspectionCategoryResult : BaseEntityViewModel
     {
+        public const string BadMark = "X";
         public const string CheckMark = "\x221A";
+        public const string QuestionMark = "?";
 
         public InspectionCategoryResult(InspectionResultData data)
         {
@@ -17,19 +19,19 @@
             switch (data.Status)
             {
                 case InspectionPageStatus.Untested:
-                    StatusText = "?";
+                    StatusText = QuestionMark;
                     break;
                 case InspectionPageStatus.Good:
                     StatusText = CheckMark;
                     break;
                 case InspectionPageStatus.Bad:
-                    StatusText = "X";
+                    StatusText = BadMark;
                     break;
             }
 
             Status = data.Status;
-            FirmwareMessage = data.FirmwareVersion;
-            FailureMessage = string.Join("; ", data.CombinedTestFailures);
+            FirmwareMessage = data.CombinedFirmwareVersions(Environment.NewLine);
+            FailureMessage = data.CombinedTestFailures(Environment.NewLine);
 
             RaisePropertyChanged(
                 nameof(Category),

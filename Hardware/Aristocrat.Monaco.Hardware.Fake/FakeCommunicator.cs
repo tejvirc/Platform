@@ -156,6 +156,15 @@
             _eventBus?.UnsubscribeAll(this);
             _eventBus?.Subscribe<FakeDeviceConnectedEvent>(this, HandleEvent);
 
+            if (DeviceType == DeviceType.ReelController)
+            {
+                MvvmHelper.ExecuteOnUI(() =>
+                    {
+                        _simWindow?.Close();
+                    }
+                );
+            }
+
             return base.Close();
         }
 

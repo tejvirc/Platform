@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.KansasHHRJurisdiction" filterid="KansasHHRLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.KansasHHRJurisdiction" filterid="KansasHHRLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.KansasHHRJurisdiction" filterid="KansasHHRLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -133,10 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="KansasHHRLocaleConfig">
     <FilePath FilePath="..\jurisdiction\KansasHHR\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="KansasHHRLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
-    <FilePath FilePath="..\jurisdiction\KansasHHR\resources\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\KansasHHR\Lobby.config.xml" filterid="KansasHHRLobbyConfig" />

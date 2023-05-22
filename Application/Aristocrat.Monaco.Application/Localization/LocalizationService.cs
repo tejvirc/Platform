@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Globalization;
-    using System.IO;
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
@@ -27,7 +26,7 @@
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private const string CultureProvidersExtensionPath = "/Application/Localization/Providers";
-        private const string OverridesResourcesDictionary = "Resources";
+        private const string OverridesResourcesDictionaryFormat = "Resources_{0}";
 
         private readonly IEventBus _eventBus;
         private readonly IPropertiesManager _properties;
@@ -235,7 +234,7 @@
 
         private void Handle(LocalizationConfigurationEvent evt)
         {
-            Configure(evt.OverridePaths);
+            Configure(evt.OverrideKeys);
         }
 
         private void Restore()
@@ -252,7 +251,7 @@
             }
         }
 
-        private void Configure(IEnumerable<string> overridePaths)
+        private void Configure(IEnumerable<string> overrideKeys)
         {
             if (_configured)
             {
@@ -265,7 +264,7 @@
 
                 ConfigureProviders();
 
-                LoadOverrides(overridePaths);
+                LoadOverrides(overrideKeys);
 
                 CommitToStorage();
 
@@ -334,62 +333,32 @@
             }
         }
 
-        private void LoadOverrides(IEnumerable<string> overridePaths)
+        private void LoadOverrides(IEnumerable<string> overrideKeys)
         {
             Logger.Debug("Loading override resources...");
 
-            foreach (var path in overridePaths)
+            foreach (var key in overrideKeys)
             {
-                try
-                {
-                    Logger.Debug($"Scanning assemblies in {path}...");
-
-                    var assemblyPaths = new List<string>();
-
-                    if (Directory.Exists(path))
-                    {
-                        assemblyPaths.AddRange(Directory.EnumerateFiles(path, "*.dll"));
-                    }
-                    else if (File.Exists(path))
-                    {
-                        assemblyPaths.Add(path);
-                    }
-                    else
-                    {
-                        throw new FileNotFoundException($"File or directory not found: {path}");
-                    }
-
-                    foreach (var assemblyPath in assemblyPaths)
-                    {
-                        LoadResources(assemblyPath);
-                    }
-
-                    Logger.Debug($"Completed scanning assemblies in {path}.");
-                }
-                catch (Exception ex)
-                {
-                    Logger.Error($"Failed loading override resources at {path}", ex);
-                }
+                LoadResources(key);
             }
 
             Logger.Debug("Completed loading override resources.");
         }
 
-        private void LoadResources(string assemblyPath)
+        private void LoadResources(string overrideKey)
         {
-            Logger.Debug($"Loading resources from {assemblyPath}...");
+            Logger.Debug($"Loading resources for {overrideKey}...");
 
             try
             {
-                var assembly = Assembly.LoadFrom(assemblyPath);
-                _localizer.LoadResources(assembly, OverridesResourcesDictionary);
+                _localizer.LoadResources(string.Format(OverridesResourcesDictionaryFormat, overrideKey));
             }
             catch (Exception ex)
             {
-                Logger.Error($"Failed loading resources from {assemblyPath}...", ex);
+                Logger.Error($"Failed loading resources for {overrideKey}...", ex);
             }
 
-            Logger.Debug($"Completed loading resources from {assemblyPath}...");
+            Logger.Debug($"Completed loading resources for {overrideKey}...");
         }
 
         private void AddCultures(params CultureInfo[] cultures)

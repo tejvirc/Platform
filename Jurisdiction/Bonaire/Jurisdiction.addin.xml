@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.BonaireJurisdiction" filterid="BonaireLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.BonaireJurisdiction" filterid="BonaireLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.BonaireJurisdiction" filterid="BonaireLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -139,9 +136,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="BonaireLocaleConfig">
     <FilePath FilePath="..\jurisdiction\Bonaire\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="BonaireLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\Bonaire\Lobby.config.xml" filterid="BonaireLobbyConfig" />

@@ -280,6 +280,7 @@
                               HorizontalAlignment="Left"
                               DisplayMemberPath="Description"
                               SelectedValuePath="Value"
+                              Width="240"
                               ItemsSource="{Binding GameStartMethods}"
                               SelectedValue="{Binding GameStartMethod, Mode=TwoWay}"
                               AutomationProperties.AutomationId="ComboBox34_2AB589A7">

@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.MichiganDetroitJurisdiction" filterid="MichiganDetroitLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.MichiganDetroitJurisdiction" filterid="MichiganDetroitLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.MichiganDetroitJurisdiction" filterid="MichiganDetroitLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -133,9 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="MichiganDetroitLocaleConfig">
     <FilePath FilePath="..\jurisdiction\MichiganDetroit\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="MichiganDetroitLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\MichiganDetroit\Lobby.config.xml" filterid="MichiganDetroitLobbyConfig" />

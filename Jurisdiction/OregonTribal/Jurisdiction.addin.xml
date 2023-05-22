@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.OregonTribalJurisdiction" filterid="OregonTribalLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.OregonTribalJurisdiction" filterid="OregonTribalLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.OregonTribalJurisdiction" filterid="OregonTribalLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -133,9 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="OregonTribalLocaleConfig">
     <FilePath FilePath="..\jurisdiction\OregonTribal\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="OregonTribalLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\OregonTribal\Lobby.config.xml" filterid="OregonTribalLobbyConfig" />

@@ -1,5 +1,4 @@
 <Addin id="RomaniaJurisdiction" namespace="Client12Addins" version="1.0">
-
   <Dependencies>
     <Addin id="Monaco.Kernel" version="1.0" />
     <Addin id="Monaco.Hardware" version="1.0" />
@@ -13,12 +12,10 @@
     <Addin id="SasConfiguration" version="1.0" />
     <Addin id="Sas.Client" version="1.0" />
   </Dependencies>
-
   <Runtime>
     <Import assembly="..\..\bin\Aristocrat.Monaco.Kernel.dll" />
     <Import assembly="..\..\bin\Aristocrat.Monaco.Gaming.Class3.dll" />
   </Runtime>
-
   <Extension path="/Kernel/SelectableAddinConfiguration/Jurisdiction">
     <SelectableJurisdiction name="Romania" description="Top level Romania jurisdiction group" id="JUR000153,JUR000998,JUR000999,JUR000033">
       <AddinConfigurationGroupReference name="BaseOperatorMenus" />
@@ -46,9 +43,6 @@
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.RomaniaJurisdiction" filterid="RomaniaLocaleConfig" />
-      </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.RomaniaJurisdiction" filterid="RomaniaLocaleOverrides" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.RomaniaJurisdiction" filterid="RomaniaLobbyConfig" />
@@ -78,9 +72,9 @@
         <NodeSpecification addinId="Client12Addins.RomaniaJurisdiction" filterid="RomaniaDisplayMetersConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Accounting/TransferOutProviders">
-        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Wat.WatOffProvider" order="0" filterid="RomaniaAccountingTransferProviders"/>
-        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Vouchers.VoucherOutProvider" order="1" filterid="RomaniaAccountingTransferProviders"/>
-        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Handpay.HandpayProvider" order="2" filterid="RomaniaAccountingTransferProviders"/>
+        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Wat.WatOffProvider" order="0" filterid="RomaniaAccountingTransferProviders" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Vouchers.VoucherOutProvider" order="1" filterid="RomaniaAccountingTransferProviders" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Handpay.HandpayProvider" order="2" filterid="RomaniaAccountingTransferProviders" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Accounting/TransactionHistories">
         <NodeSpecification addinId="Client12Addins.RomaniaJurisdiction" filterid="RomaniaTransactionConfiguration" />
@@ -94,7 +88,7 @@
       <ExtensionPointConfiguration extensionPath="/SAS/DefaultConfiguration">
         <NodeSpecification addinId="Client12Addins.RomaniaJurisdiction" filterid="RomaniaSASDefaultConfig" />
       </ExtensionPointConfiguration>
-	  <ExtensionPointConfiguration extensionPath="/HardMeterMapping/Configuration">
+      <ExtensionPointConfiguration extensionPath="/HardMeterMapping/Configuration">
         <NodeSpecification addinId="Client12Addins.RomaniaJurisdiction" filterid="RomaniaHardMeterMappingConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Currency/Configuration">
@@ -102,23 +96,18 @@
       </ExtensionPointConfiguration>
     </SelectableJurisdiction>
   </Extension>
-
   <Extension path="/Currency/Configuration">
     <FilePath FilePath="..\jurisdiction\Romania\Currencies.config.xml" filterid="RomaniaCurrencyConfig" />
   </Extension>
-
   <Extension path="/SAS/DefaultConfiguration">
     <FilePath FilePath="..\jurisdiction\Romania\SASDefault.config.xml" filterid="RomaniaSASDefaultConfig" />
   </Extension>
-
   <Extension path="/Platform/Discovery/Configuration">
     <FilePath FilePath="..\jurisdiction\Romania\ConfiguredDevices.config.xml" filterid="RomaniaHardwareConfig" />
   </Extension>
-
   <Extension path="/TiltLogger/Configuration">
     <FilePath FilePath="..\jurisdiction\Romania\TiltLogger.config.xml" filterid="RomaniaTiltLoggerConfig" />
   </Extension>
-
   <Extension path="/DoorMonitor/Configuration">
     <DoorMonitorConfiguration>
       <DoorOpenAlarm RepeatSeconds="0" LoopCount="7" OperatorCanCancel="true">
@@ -126,11 +115,9 @@
       </DoorOpenAlarm>
     </DoorMonitorConfiguration>
   </Extension>
-
   <Extension path="/ConfigWizard/Configuration">
     <FilePath FilePath="..\jurisdiction\Romania\ConfigWizard.config.xml" filterid="RomaniaConfigWizardConfig" />
   </Extension>
-
   <Extension path="/OperatorMenu/Sound/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" Name="Ding" filterid="RomaniaOperatorMenuSoundConfig" />
     <FilePath FilePath="..\jurisdiction\DefaultAssets\feature_bell.ogg" Name="Feature Bell" filterid="RomaniaOperatorMenuSoundConfig" />
@@ -138,105 +125,62 @@
     <FilePath FilePath="..\jurisdiction\DefaultAssets\collect.ogg" Name="Collect" filterid="RomaniaOperatorMenuSoundConfig" />
     <FilePath FilePath="..\jurisdiction\DefaultAssets\snd_print_ticket.ogg" Name="Send Print Ticket" filterid="RomaniaOperatorMenuSoundConfig" />
   </Extension>
-
   <Extension path="/OperatorMenu/GamePreferences/Sounds">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" Name="Ding" filterid="RomaniaGamePreferencesSounds" />
     <FilePath FilePath="..\jurisdiction\DefaultAssets\ReelClick.ogg" Name="ReelClick" filterid="RomaniaGamePreferencesSounds" />
     <FilePath FilePath="..\jurisdiction\DefaultAssets\CardFlip.ogg" Name="CardFlip" filterid="RomaniaGamePreferencesSounds" />
     <FilePath FilePath="..\jurisdiction\DefaultAssets\BallDrop.ogg" Name="BallDrop" filterid="RomaniaGamePreferencesSounds" />
   </Extension>
-
   <Extension path="/OperatorMenu/Configuration">
     <FilePath FilePath="..\jurisdiction\Romania\OperatorMenu.config.xml" filterid="RomaniaOperatorMenuConfig" />
   </Extension>
-
   <Extension path="/Locale/Configuration" filterid="RomaniaLocaleConfig">
     <FilePath FilePath="..\jurisdiction\Romania\Locale.config.xml" />
   </Extension>
-  
-  <Extension path="/Locale/Overrides" filterid="RomaniaLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
-    <FilePath FilePath="..\jurisdiction\Romania\resources\" />
-  </Extension>
-
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\Romania\Lobby.config.xml" filterid="RomaniaLobbyConfig" />
   </Extension>
-
   <Extension path="/Accounting/Configuration">
     <FilePath FilePath="..\jurisdiction\Romania\Accounting.config.xml" filterid="RomaniaAccountingConfig" />
   </Extension>
-
   <Extension path="/Application/JurisdictionConfiguration">
     <FilePath FilePath="..\jurisdiction\Romania\Application.config.xml" filterid="RomaniaApplicationConfig" />
   </Extension>
-
   <Extension path="/Gaming/Configuration">
     <FilePath FilePath="..\jurisdiction\Romania\Gaming.config.xml" filterid="RomaniaGamingConfig" />
   </Extension>
-
   <Extension path="/TowerLight/Configuration">
     <FilePath FilePath="..\jurisdiction\Romania\TowerLight.config.xml" filterid="RomaniaTowerLightConfig" />
   </Extension>
-  
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.Eurasia.config.xml" filterid="RomaniaHardMeterMappingConfig" />
   </Extension>
-  
   <Extension path="/Hardware/PrintableRegions">
     <FilePath FilePath="..\jurisdiction\Romania\printable_regions.xml" filterid="RomaniaPrintableRegionsConfig" />
   </Extension>
-
   <Extension path="/Hardware/PrintableTemplates">
-    <FilePath FilePath="..\jurisdiction\Romania\printable_templates.xml"
-              filterid="RomaniaPrintableTemplatesConfig" />
+    <FilePath FilePath="..\jurisdiction\Romania\printable_templates.xml" filterid="RomaniaPrintableTemplatesConfig" />
   </Extension>
-
   <Extension path="/Hardware/PrinterOverrides">
     <FilePath FilePath="..\jurisdiction\Romania\PrinterOverrides.xml" filterid="RomaniaPrinterOverridesConfig" />
   </Extension>
-
   <Extension path="/ErrorMessage/Configuration">
     <FilePath FilePath="..\jurisdiction\Romania\ErrorMessage.config.xml" filterid="RomaniaErrorMessageConfig" />
   </Extension>
-
   <Extension path="/Application/OperatorMenu/DisplayMeters">
     <FilePath FilePath="..\jurisdiction\Romania\DisplayMeters.config.xml" filterid="RomaniaDisplayMetersConfig" />
   </Extension>
-
   <Extension path="/Accounting/TransactionHistories" filterid="RomaniaTransactionConfiguration">
-    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.BillTransaction" 
-	                            maxTransactions="50"
-                                persistenceLevel="Critical" />
-    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayTransaction" 
-	                            maxTransactions="50"
-                                persistenceLevel="Critical" 
-								isPrintable="true" />
-    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction"
-                                maxTransactions="50"
-                                persistenceLevel="Critical" />
-    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.VoucherOutTransaction"
-                                maxTransactions="50"
-                                persistenceLevel="Critical"
-                                isPrintable="true" />
-    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.Wat.WatTransaction"
-                                maxTransactions="100"
-                                persistenceLevel="Critical" />
-    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.WatOnTransaction"
-                                maxTransactions="100"
-                                persistenceLevel="Critical" />
-    <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Progressives.JackpotTransaction" 
-	                            maxTransactions="50" 
-								persistenceLevel="Critical" 
-								isPrintable="true" />
-    <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Bonus.BonusTransaction" 
-	                            maxTransactions="100" 
-								persistenceLevel="Critical" 
-								isPrintable="true" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.BillTransaction" maxTransactions="50" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction" maxTransactions="50" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.VoucherOutTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.Wat.WatTransaction" maxTransactions="100" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.WatOnTransaction" maxTransactions="100" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Progressives.JackpotTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Bonus.BonusTransaction" maxTransactions="100" persistenceLevel="Critical" isPrintable="true" />
   </Extension>
-
   <Extension path="/Accounting/BootExtender" filterid="RomaniaAccountingRunnable">
     <BootExtender type="Aristocrat.Monaco.Gaming.Class3.Class3Runnable" />
   </Extension>
-
 </Addin>

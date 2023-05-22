@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.MissouriJurisdiction" filterid="MissouriLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.MissouriJurisdiction" filterid="MissouriLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.MissouriJurisdiction" filterid="MissouriLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -133,9 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="MissouriLocaleConfig">
     <FilePath FilePath="..\jurisdiction\Missouri\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="MissouriLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\Missouri\Lobby.config.xml" filterid="MissouriLobbyConfig" />

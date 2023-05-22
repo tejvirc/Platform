@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.EuropeJurisdiction" filterid="EuropeLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.EuropeJurisdiction" filterid="EuropeLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.EuropeJurisdiction" filterid="EuropeLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -139,10 +136,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="EuropeLocaleConfig">
     <FilePath FilePath="..\jurisdiction\Europe\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="EuropeLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
-    <FilePath FilePath="..\jurisdiction\Europe\resources\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\Europe\Lobby.config.xml" filterid="EuropeLobbyConfig" />

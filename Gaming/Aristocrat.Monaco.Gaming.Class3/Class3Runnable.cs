@@ -40,14 +40,13 @@
                 typeof(Consumers.Consumes<>).Assembly);
         }
 
+
         protected override void LoadUi(Container container)
         {
-            var properties = container.GetInstance<IPropertiesManager>();
-
             var lobbyStateManager = container.GetInstance<ILobbyStateManager>();
             lobbyStateManager.IsTabView = true;
             lobbyStateManager.ResetAttractOnInterruption = true;
-            lobbyStateManager.AllowGameInCharge = (bool)properties.GetProperty(GamingConstants.AllowGameInCharge, false);
+            lobbyStateManager.AllowGameInCharge = true;
 
             // This info needs to be available before the lobby is loaded
             LoadLobbyConfig(container);
@@ -75,10 +74,7 @@
             if (config != null)
             {
                 config.LocaleCodes = config.LocaleCodes.Select(s => s.ToUpperInvariant()).ToArray();
-                if (config.ResponsibleGamingInfo == null)
-                {
-                    config.ResponsibleGamingInfo = new ResponsibleGamingInfoOptions();
-                }
+                config.ResponsibleGamingInfo ??= new ResponsibleGamingInfoOptions();
             }
 
             container.GetInstance<IPropertiesManager>().SetProperty(GamingConstants.LobbyConfig, config);

@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.MexicoJurisdiction" filterid="MexicoLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.MexicoJurisdiction" filterid="MexicoLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.MexicoJurisdiction" filterid="MexicoLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -139,9 +136,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="MexicoLocaleConfig">
     <FilePath FilePath="..\jurisdiction\Mexico\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="MexicoLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\Mexico\Lobby.config.xml" filterid="MexicoLobbyConfig" />

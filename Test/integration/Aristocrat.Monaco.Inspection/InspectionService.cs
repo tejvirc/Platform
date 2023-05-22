@@ -31,6 +31,8 @@
 
         private static readonly string InspectorName = "QC Inspection Tool";
         private static readonly string AutomationFilename = "AutomationInstructions.xml";
+        private static readonly string VersionFilename = "version.txt";
+        private static readonly string UnknownVersion = "?.?.?.?";
 
         private readonly IEventBus _events;
         private readonly IPropertiesManager _properties;
@@ -66,7 +68,10 @@
 
         public void Initialize()
         {
-            var inspectorNameAndVersion = $"{InspectorName}, v{Assembly.GetExecutingAssembly().GetName().Version}";
+            var version = File.Exists(VersionFilename)
+                ? new StreamReader(VersionFilename).ReadToEnd()
+                : UnknownVersion;
+            var inspectorNameAndVersion = $"{InspectorName}, v{version}";
             Logger.Debug($"Set IsInspectionOnly => true, InspectionNameAndVersion={inspectorNameAndVersion}");
             _properties.SetProperty(KernelConstants.IsInspectionOnly, true);
             _properties.SetProperty(KernelConstants.InspectionNameAndVersion, inspectorNameAndVersion);
@@ -91,7 +96,7 @@
                 {
                     Category = _currentCategory,
                     Status = InspectionPageStatus.Untested,
-                    FirmwareVersion = string.Empty,
+                    FirmwareVersions = new List<string>(),
                     FailureMessages = new List<string>()
                 });
             }
@@ -115,7 +120,7 @@
             }
 
             Logger.Debug($"SetFirmwareVersion {CurrentData.Category}/{firmwareVersion}");
-            CurrentData.FirmwareVersion = firmwareVersion;
+            CurrentData.FirmwareVersions.Add(firmwareVersion);
         }
 
         public void SetWizard(IInspectionWizard wizard) => _wizard = wizard;

@@ -207,6 +207,7 @@
                 { GamingConstants.AutoPlayAllowed, (configuration.AutoPlay?.Allowed ?? true, false) },
                 { GamingConstants.DisplayVoucherIssuedMessage, (configuration.Messages?.VoucherIssued?.Display ?? true, false) },
                 { GamingConstants.GameStartMethod, (InitFromStorage(GamingConstants.GameStartMethod), true) },
+                { GamingConstants.GameConfigurableStartMethods, (configuration.PhysicalButtons?.GameStartButtons?.GameConfigurableButtons ?? new[] { GameStartConfigurableMethod.MaxBet }, false) },
                 { GamingConstants.GameStartMethodConfigurable, (configuration.PhysicalButtons?.GameStartButtons?.Configurable ?? false, false) },
                 { GamingConstants.GameStartMethodSettingVisible, (configuration.PhysicalButtons?.GameStartButtons?.SettingsVisible ?? true, false) },
                 { GamingConstants.ReportCashoutButtonPressWithZeroCredit, (configuration.PhysicalButtons?.CashOutButton?.ReportToHostWithZeroCredit ?? false, false) },

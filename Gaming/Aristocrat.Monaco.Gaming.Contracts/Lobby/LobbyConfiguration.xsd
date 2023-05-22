@@ -44,6 +44,8 @@
       <xs:element minOccurs="0" maxOccurs="1" name="RotateTopImage" type="xs:boolean" default="false" />
       <xs:element minOccurs="0" maxOccurs="1" name="RotateTopperImage" type="xs:boolean" default="false" />
       <xs:element minOccurs="0" maxOccurs="1" name="DefaultGameDisplayOrderByThemeId" type="ArrayOfString" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DefaultGameOrderLightningLinkEnabled" type="ArrayOfString" />
+      <xs:element minOccurs="0" maxOccurs="1" name="DefaultGameOrderLightningLinkDisabled" type="ArrayOfString" />
       <xs:element minOccurs="0" maxOccurs="1" name="NonCashCashoutFailureMessageEnabled" type="xs:boolean" default="false" />
       <xs:element minOccurs="0" maxOccurs="1" name="MinimumWagerCreditsAsFilter" type="xs:boolean" default="false" />
       <xs:element minOccurs="0" maxOccurs="1" name="MaxDisplayedGames" type="xs:int" default="15" />

@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.NewYorkStateJurisdiction" filterid="NewYorkStateLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.NewYorkStateJurisdiction" filterid="NewYorkStateLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.NewYorkStateJurisdiction" filterid="NewYorkStateLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -133,9 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="NewYorkStateLocaleConfig">
     <FilePath FilePath="..\jurisdiction\NewYorkState\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="NewYorkStateLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\NewYorkState\Lobby.config.xml" filterid="NewYorkStateLobbyConfig" />

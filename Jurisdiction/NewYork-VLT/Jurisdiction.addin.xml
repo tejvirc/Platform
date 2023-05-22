@@ -43,9 +43,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.NewYorkVLTJurisdiction" filterid="NewYorkVLTLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.NewYorkVLTJurisdiction" filterid="NewYorkVLTLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.NewYorkVLTJurisdiction" filterid="NewYorkVLTLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -135,10 +132,6 @@
   <Extension path="/Locale/Configuration">
     <FilePath FilePath="..\jurisdiction\NewYork-VLT\Locale.config.xml" filterid="NewYorkLocaleConfig" />
   </Extension>
-  <Extension path="/Locale/Overrides" filterid="NewYorkVLTLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\VLT\" />
-    <FilePath FilePath="..\jurisdiction\NewYork-VLT\resources\" />
-  </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\NewYork-VLT\Lobby.config.xml" filterid="NewYorkLobbyConfig" />
   </Extension>
@@ -171,7 +164,7 @@
   </Extension>
   <Extension path="/MGAM/Configuration">
     <FilePath FilePath="..\jurisdiction\NewYork-VLT\MGAM.config.xml" filterid="NewYorkVLTMGAMConfig" />
-  </Extension> 
+  </Extension>
   <Extension path="/Application/OperatorMenu/DisplayMeters">
     <FilePath FilePath="..\jurisdiction\NewYork-VLT\DisplayMeters.config.xml" filterid="NewYorkVLTDisplayMetersConfig" />
   </Extension>

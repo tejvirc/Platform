@@ -191,9 +191,11 @@
                 RefreshDisplays();
             }
 
-            var monitorInfo = MachineSettingsUtilities.GetDisplayIdentifications(Localizer.For(CultureFor.Operator));
-            var touchInfo = $"Touch: {MachineSettingsUtilities.GetTouchScreenIdentificationWithoutVbd(Localizer.For(CultureFor.Operator))}";
-            Inspection?.SetFirmwareVersion(string.Join(Environment.NewLine, monitorInfo, touchInfo));
+            MachineSettingsUtilities.GetDisplayIdentificationList(Localizer.For(CultureFor.Operator))
+                .ForEach(m => Inspection?.SetFirmwareVersion(m));
+            MachineSettingsUtilities.GetTouchScreenIdentificationsWithoutVbd(Localizer.For(CultureFor.Operator))
+                .ToList()
+                .ForEach(t => Inspection?.SetFirmwareVersion($"Touch: {t}"));
 
             base.OnLoaded();
         }

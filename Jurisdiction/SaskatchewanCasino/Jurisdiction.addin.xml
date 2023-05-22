@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.SaskatchewanCasinoJurisdiction" filterid="SaskatchewanCasinoLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.SaskatchewanCasinoJurisdiction" filterid="SaskatchewanCasinoLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.SaskatchewanCasinoJurisdiction" filterid="SaskatchewanCasinoLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -133,9 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="SaskatchewanCasinoLocaleConfig">
     <FilePath FilePath="..\jurisdiction\SaskatchewanCasino\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="SaskatchewanCasinoLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\SaskatchewanCasino\Lobby.config.xml" filterid="SaskatchewanCasinoLobbyConfig" />

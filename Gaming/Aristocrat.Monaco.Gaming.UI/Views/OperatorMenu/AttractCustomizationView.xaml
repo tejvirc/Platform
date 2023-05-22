@@ -1,4 +1,4 @@
-﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.AttractCustomizationView"
+<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.AttractCustomizationView"
                                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -136,18 +136,18 @@
                 <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.AttractModeCustomizationListCaption}}"
                            Margin="10 25 0 0"
                            AutomationProperties.AutomationId="TextBlock28_10458B8D" />
-                <DataGrid x:Name="GameListDataGrid"
-                          MaxWidth="800"
-                          MaxHeight="700"
-                          ItemsSource="{Binding ConfiguredAttractInfo}"
-                          AutoGenerateColumns="False"
-                          CanUserAddRows="False"
-                          SelectedItem="{Binding SelectedItem}"
-                          ScrollViewer.CanContentScroll="True"
-                          ColumnHeaderHeight="0"
-                          HeadersVisibility="None"
-                          Margin="10 0 0 0"
-                          AutomationProperties.AutomationId="DataGrid29_10458B8D">
+                <DataGrid
+                    x:Name="GameListDataGrid"
+                    MaxWidth="800"
+                    MaxHeight="800"
+                    ItemsSource="{Binding ConfiguredAttractInfo}"
+                    AutoGenerateColumns="False"
+                    CanUserAddRows="False"
+                    SelectedItem="{Binding SelectedItem}"
+                    ScrollViewer.CanContentScroll="True"
+                    HeadersVisibility="None"
+                    Margin="10 0 0 0"
+                    AutomationProperties.AutomationId="DataGrid29_10458B8D">
                     <DataGrid.Columns>
                         <DataGridTemplateColumn AutomationProperties.AutomationId="DataGridTemplateColumn30_10458B8D">
                             <DataGridTemplateColumn.CellTemplate>

@@ -46,7 +46,7 @@
                     themeId = g.ThemeId,
                     paytableId = g.PaytableId,
                     denomId = d,
-                    gamePosPriority = _gameOrderSettings.GetPositionPriority(g.ThemeId),
+                    gamePosPriority = _gameOrderSettings.GetIconPositionPriority(g.ThemeId),
                     gameComboTag = g.GameTags.Select(t => new gameComboTag{gameTag = t.ToG2SGameTagString()}).ToArray()
                 }).ToArray();
 

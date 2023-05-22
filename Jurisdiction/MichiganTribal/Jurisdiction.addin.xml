@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.MichiganTribalJurisdiction" filterid="MichiganTribalLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.MichiganTribalJurisdiction" filterid="MichiganTribalLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.MichiganTribalJurisdiction" filterid="MichiganTribalLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -133,9 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="MichiganTribalLocaleConfig">
     <FilePath FilePath="..\jurisdiction\MichiganTribal\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="MichiganTribalLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\MichiganTribal\Lobby.config.xml" filterid="MichiganTribalLobbyConfig" />
