@@ -13217,11 +13217,29 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Bet/Max Bet Button.
+		/// </summary>
+		public static string GameStartMethodBetOrMaxBetButton {
+			get {
+				return ResourceManager.GetString("GameStartMethodBetOrMaxBetButton", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Line/Reel Button.
 		/// </summary>
 		public static string GameStartMethodLineOrReelButton {
 			get {
 				return ResourceManager.GetString("GameStartMethodLineOrReelButton", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Line/Reel/Max Bet Button.
+		/// </summary>
+		public static string GameStartMethodLineReelorMaxBetButton {
+			get {
+				return ResourceManager.GetString("GameStartMethodLineReelorMaxBetButton", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -47875,11 +47893,29 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Bet/Max Bet Button.
+		/// </summary>
+		public static string GameStartMethodBetOrMaxBetButton {
+			get {
+				return "GameStartMethodBetOrMaxBetButton";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Line/Reel Button.
 		/// </summary>
 		public static string GameStartMethodLineOrReelButton {
 			get {
 				return "GameStartMethodLineOrReelButton";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Line/Reel/Max Bet Button.
+		/// </summary>
+		public static string GameStartMethodLineReelorMaxBetButton {
+			get {
+				return "GameStartMethodLineReelorMaxBetButton";
 			}
 		}
 
@@ -76865,9 +76901,17 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// </summary>
 		GameStartMethodBetButton,
 		/// <summary>
+		///   Looks up a localized string similar to Bet/Max Bet Button.
+		/// </summary>
+		GameStartMethodBetOrMaxBetButton,
+		/// <summary>
 		///   Looks up a localized string similar to Line/Reel Button.
 		/// </summary>
 		GameStartMethodLineOrReelButton,
+		/// <summary>
+		///   Looks up a localized string similar to Line/Reel/Max Bet Button.
+		/// </summary>
+		GameStartMethodLineReelorMaxBetButton,
 		/// <summary>
 		///   Looks up a localized string similar to Feature Statistics.
 		/// </summary>
