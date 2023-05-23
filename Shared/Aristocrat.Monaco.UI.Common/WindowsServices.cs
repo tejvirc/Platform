@@ -30,6 +30,9 @@ namespace Aristocrat.Monaco.UI.Common
         public const int WM_LBUTTONUP = 0x202;
 
         /// <summary></summary>
+        public const int MK_LBUTTON = 0x1;
+
+        /// <summary></summary>
         public const int WM_POINTERUPDATE = 0x245;
 
         /// <summary></summary>

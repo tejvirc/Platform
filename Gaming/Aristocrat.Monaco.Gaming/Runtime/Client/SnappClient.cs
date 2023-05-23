@@ -380,9 +380,7 @@
 
             try
             {
-                localLogger.Warn($"Invoke {callback.Method.Name}...");
                 var result = callback(_runtimeStub);
-                localLogger.Warn($"Result {result}");
                 return result;
             }
             catch (Exception ex) when (IsRuntimePresumedDead(ex))

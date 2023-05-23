@@ -47,7 +47,13 @@
                 }
                 else if (msg.Msg >= WindowsServices.WM_MOUSEMOVE && msg.Msg <= WindowsServices.WM_LBUTTONUP)
                 {
-                    var mouseButton = (MouseButton) (msg.Msg == WindowsServices.WM_MOUSEMOVE ? 0 : 1);
+                    if (msg.Msg == WindowsServices.WM_MOUSEMOVE && (msg.WParam.ToInt32() & WindowsServices.MK_LBUTTON) == 0)
+                    {
+                        // Don't send moves unless the left button is down.
+                        return;
+                    }
+
+                    var mouseButton = MouseButton.Left;
                     var mouseState = (MouseState) (msg.Msg - WindowsServices.WM_MOUSEMOVE + 1);
                     _runtime.SendMouse(_displayId, mouseButton, mouseState, (uint) point.X, (uint) point.Y);
                 }
