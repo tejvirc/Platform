@@ -24,10 +24,10 @@ as follows:
     <Formats>
       <Format id="1">
         <PositivePattern>0</PositivePattern>
-        <DecimalSeparator>.</DecimalSeparator>
-        <GroupSeparator></GroupSeparator>
-        <MinorUnits>Cêntimo</MinorUnits>
-        <MinorUnitsPlural>Cêntimos</MinorUnitsPlural>
+        <GroupSeparator>,</GroupSeparator>
+        <DecimalSeparator></DecimalSeparator>
+        <DecimalDigits>0</DecimalDigits>
+        <MinorUnits></MinorUnits>
       </Format>
     </Formats>
   </CurrencyInfo>
@@ -59,7 +59,7 @@ as follows:
         <DecimalSeparator>.</DecimalSeparator>
         <GroupSeparator>,</GroupSeparator>
         <Symbol>BGN</Symbol>
-        <MinorUnitSymbol></MinorUnitSymbol>
+        <MinorUnitSymbol>BGN</MinorUnitSymbol>
         <MinorUnits>Stotinka</MinorUnits>
         <MinorUnitsPlural>Stotinki</MinorUnitsPlural>
       </Format>
@@ -68,7 +68,7 @@ as follows:
         <DecimalSeparator>,</DecimalSeparator>
         <GroupSeparator>.</GroupSeparator>
         <Symbol>BGN</Symbol>
-        <MinorUnitSymbol></MinorUnitSymbol>
+        <MinorUnitSymbol>BGN</MinorUnitSymbol>
         <MinorUnits>Stotinka</MinorUnits>
         <MinorUnitsPlural>Stotinki</MinorUnitsPlural>
       </Format>
@@ -102,6 +102,8 @@ as follows:
       <Format id="1">
         <MinorUnitSymbol>¢</MinorUnitSymbol>
         <Symbol>R$</Symbol>
+        <DecimalSeparator>,</DecimalSeparator>
+        <GroupSeparator>.</GroupSeparator>
       </Format>
     </Formats>
   </CurrencyInfo>
@@ -140,11 +142,11 @@ as follows:
     <CurrencyCode>CDF</CurrencyCode>
     <Formats>
       <Format id="1">
-        <PositivePattern>0</PositivePattern>
-        <DecimalSeparator>.</DecimalSeparator>
-        <GroupSeparator></GroupSeparator>
-        <Symbol>CF</Symbol>
-        <MinorUnits>Centime</MinorUnits>
+        <PositivePattern>1</PositivePattern>
+        <DecimalSeparator>,</DecimalSeparator>
+        <GroupSeparator>&#032;</GroupSeparator>
+        <Symbol>CDF</Symbol>
+        <MinorUnits>CDF</MinorUnits>
         <MinorUnitsPlural>Centimes</MinorUnitsPlural>
       </Format>
     </Formats>
@@ -237,6 +239,19 @@ as follows:
     </Formats>
   </CurrencyInfo>
   <CurrencyInfo>
+    <CurrencyCode>DJF</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>1</PositivePattern>
+        <DecimalDigits>2</DecimalDigits>
+        <DecimalSeparator>.</DecimalSeparator>
+        <GroupSeparator>,</GroupSeparator>
+        <Symbol>Fdj</Symbol>
+        <MinorUnitSymbol>Fdj</MinorUnitSymbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
     <CurrencyCode>DKK</CurrencyCode>
     <Formats>
       <Format id="1">
@@ -314,7 +329,7 @@ as follows:
       <Format id="2">
         <MinorUnitSymbol>¢</MinorUnitSymbol>
         <PositivePattern>1</PositivePattern>
-		<DecimalDigits>2</DecimalDigits>
+		    <DecimalDigits>2</DecimalDigits>
         <DecimalSeparator>,</DecimalSeparator>
         <GroupSeparator>.</GroupSeparator>
       </Format>
@@ -352,10 +367,6 @@ as follows:
         <MinorUnitSymbol>p</MinorUnitSymbol>
         <MinorUnits>Penny</MinorUnits>
       </Format>
-      <Format id="2">
-        <MinorUnitSymbol>¢</MinorUnitSymbol>
-        <MinorUnits>Penny</MinorUnits>
-      </Format>
     </Formats>
   </CurrencyInfo>
   <CurrencyInfo>
@@ -385,7 +396,6 @@ as follows:
         <DecimalSeparator>,</DecimalSeparator>
         <GroupSeparator>.</GroupSeparator>
         <MinorUnitSymbol>¢</MinorUnitSymbol>
-        <DecimalSeparator>,</DecimalSeparator>
         <GroupSeparator>.</GroupSeparator>
       </Format>
     </Formats>
@@ -407,7 +417,6 @@ as follows:
         <DecimalSeparator>,</DecimalSeparator>
         <GroupSeparator>.</GroupSeparator>
         <MinorUnitSymbol>¢</MinorUnitSymbol>
-        <DecimalSeparator>,</DecimalSeparator>
         <GroupSeparator>.</GroupSeparator>
       </Format>
     </Formats>
@@ -427,8 +436,9 @@ as follows:
     <CurrencyCode>KES</CurrencyCode>
     <Formats>
       <Format id="1">
-        <DecimalSeparator>,</DecimalSeparator>
-        <GroupSeparator></GroupSeparator>
+        <DecimalSeparator></DecimalSeparator>
+        <GroupSeparator>,</GroupSeparator>
+        <DecimalDigits>0</DecimalDigits>
         <Symbol>KSh</Symbol>
       </Format>
     </Formats>
@@ -437,7 +447,8 @@ as follows:
     <CurrencyCode>KMF</CurrencyCode>
     <Formats>
       <Format id="1">
-       <PositivePattern>0</PositivePattern>
+        <PositivePattern>0</PositivePattern>
+        <GroupSeparator>&#032;</GroupSeparator>
       </Format>
     </Formats>
   </CurrencyInfo>
@@ -464,6 +475,7 @@ as follows:
     <CurrencyCode>LKR</CurrencyCode>
     <Formats>
       <Format id="1">
+        <Symbol>Rs</Symbol>
         <MinorUnitSymbol>¢</MinorUnitSymbol>
     </Format>
     </Formats>
@@ -496,8 +508,9 @@ as follows:
     <CurrencyCode>MGA</CurrencyCode>
     <Formats>
       <Format id="1">
-        <DecimalDigits>2</DecimalDigits>
-        <DecimalSeparator>,</DecimalSeparator>
+        <PositivePattern>1</PositivePattern>
+        <DecimalDigits>0</DecimalDigits>
+        <DecimalSeparator></DecimalSeparator>
         <GroupSeparator></GroupSeparator>
         <MinorUnits>iriambilanja</MinorUnits>
         <MinorUnitsPlural>iriambilanja</MinorUnitsPlural>
@@ -528,11 +541,21 @@ as follows:
     </Formats>
   </CurrencyInfo>
   <CurrencyInfo>
+    <CurrencyCode>MUR</CurrencyCode>
+    <Formats>
+      <Format>
+        <GroupSeparator>,</GroupSeparator>
+        <MinorUnits>c</MinorUnits>
+        <MinorUnitsPlural>Cents</MinorUnitsPlural>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
     <CurrencyCode>MWK</CurrencyCode>
     <Formats>
       <Format id="1">
-        <MinorUnits>Tambala</MinorUnits>
-        <MinorUnitsPlural>Tambala</MinorUnitsPlural>
+        <DecimalSeparator></DecimalSeparator>
+        <DecimalDigits>0</DecimalDigits>
       </Format>
     </Formats>
   </CurrencyInfo>
@@ -562,20 +585,12 @@ as follows:
     <CurrencyCode>MZN</CurrencyCode>
     <Formats>
       <Format id="1">
-        <PositivePattern>0</PositivePattern>
+        <PositivePattern>1</PositivePattern>
         <DecimalSeparator>.</DecimalSeparator>
-        <GroupSeparator></GroupSeparator>
-        <Symbol>Mt</Symbol>
+        <GroupSeparator>,</GroupSeparator>
+        <Symbol>MT</Symbol>
         <MinorUnits>Centavo</MinorUnits>
         <MinorUnitsPlural>Centavos</MinorUnitsPlural>
-      </Format>
-    </Formats>
-  </CurrencyInfo>
-  <CurrencyInfo>
-    <CurrencyCode>MUR</CurrencyCode>
-    <Formats>
-      <Format>
-        <GroupSeparator></GroupSeparator>
       </Format>
     </Formats>
   </CurrencyInfo>
@@ -584,7 +599,7 @@ as follows:
     <Formats>
       <Format id="1">
         <DecimalSeparator>.</DecimalSeparator>
-        <GroupSeparator></GroupSeparator>
+        <GroupSeparator>,</GroupSeparator>
         <Symbol>N$</Symbol>
       </Format>
     </Formats>
@@ -702,10 +717,10 @@ as follows:
     <CurrencyCode>RWF</CurrencyCode>
     <Formats>
       <Format id="1">
-        <DecimalDigits>2</DecimalDigits>
-        <GroupSeparator></GroupSeparator>
-        <MinorUnits>Centime</MinorUnits>
-        <MinorUnitsPlural>Centimes</MinorUnitsPlural>
+        <PositivePattern>1</PositivePattern>
+        <DecimalDigits>0</DecimalDigits>
+        <GroupSeparator>,</GroupSeparator>
+        <Symbol>RWF</Symbol>
       </Format>
     </Formats>
   </CurrencyInfo>
@@ -713,8 +728,8 @@ as follows:
     <CurrencyCode>SCR</CurrencyCode>
     <Formats>
       <Format id="1">
-        <Symbol>Rs</Symbol>
-        <GroupSeparator></GroupSeparator>
+        <Symbol>SR</Symbol>
+        <GroupSeparator>,</GroupSeparator>
       </Format>
     </Formats>
   </CurrencyInfo>
@@ -758,10 +773,10 @@ as follows:
       <Format id="1">
         <PositivePattern>0</PositivePattern>
         <DecimalDigits>2</DecimalDigits>
-        <GroupSeparator></GroupSeparator>
-        <Symbol>SS</Symbol>
+        <GroupSeparator>,</GroupSeparator>
+        <Symbol>SOS</Symbol>
         <MinorUnits>Senti</MinorUnits>
-        <MinorUnitsPlural>Senti</MinorUnitsPlural>
+        <MinorUnitsPlural>Sentis</MinorUnitsPlural>
       </Format>
     </Formats>
   </CurrencyInfo>
@@ -770,10 +785,9 @@ as follows:
     <Formats>
       <Format id="1">
         <PositivePattern>0</PositivePattern>
-        <DecimalSeparator>.</DecimalSeparator>
-        <GroupSeparator></GroupSeparator>
-        <MinorUnits>Cêntimo</MinorUnits>
-        <MinorUnitsPlural>Cêntimos</MinorUnitsPlural>
+        <DecimalDigits>0</DecimalDigits>
+        <DecimalSeparator></DecimalSeparator>
+        <GroupSeparator>&#032;</GroupSeparator>
       </Format>
     </Formats>
   </CurrencyInfo>
@@ -947,10 +961,10 @@ as follows:
     <CurrencyCode>ZMW</CurrencyCode>
     <Formats>
       <Format id="1">
-        <GroupSeparator></GroupSeparator>
+        <DecimalDigits>0</DecimalDigits>
+        <DecimalSeparator></DecimalSeparator>
+        <GroupSeparator>,</GroupSeparator>
         <Symbol>ZK</Symbol>
-        <MinorUnits>Ngwee</MinorUnits>
-        <MinorUnitsPlural>Ngwee</MinorUnitsPlural>
       </Format>
     </Formats>
   </CurrencyInfo>
