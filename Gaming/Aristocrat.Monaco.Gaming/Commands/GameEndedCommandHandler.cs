@@ -9,7 +9,6 @@
     using Accounting.Contracts.Handpay;
     using Accounting.Contracts.TransferOut;
     using Application.Contracts.Extensions;
-    using Aristocrat.Monaco.Accounting.Contracts.HandCount;
     using Common.PerformanceCounters;
     using Contracts;
     using Contracts.Barkeeper;
@@ -43,7 +42,6 @@
         private readonly ITransactionHistory _transactionHistory;
         private readonly IBarkeeperHandler _barkeeperHandler;
         private readonly IProgressiveGameProvider _progressiveGameProvider;
-        private readonly IHandCountService _handCountServiceProvider;
         private readonly IMaxWinOverlayService _maxWinOverlayService;
 
         private readonly bool _meterFreeGames;
@@ -66,7 +64,6 @@
             IBarkeeperHandler barkeeperHandler,
             IProgressiveGameProvider progressiveGameProvider,
             IProgressiveLevelProvider progressiveLevelProvider,
-            IHandCountService handCountServiceProvider,
             IMaxWinOverlayService maxWinOverlayService)
         {
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
@@ -82,7 +79,6 @@
             _barkeeperHandler = barkeeperHandler ?? throw new ArgumentNullException(nameof(barkeeperHandler));
             _progressiveGameProvider = progressiveGameProvider ?? throw new ArgumentNullException(nameof(progressiveGameProvider));
             _progressiveLevelProvider = progressiveLevelProvider ?? throw new ArgumentNullException(nameof(progressiveGameProvider));
-            _handCountServiceProvider = handCountServiceProvider ?? throw new ArgumentNullException(nameof(handCountServiceProvider));
 
             _meterFreeGames = _properties.GetValue(GamingConstants.MeterFreeGamesIndependently, false);
             _maxWinOverlayService = maxWinOverlayService ?? throw new ArgumentNullException(nameof(maxWinOverlayService));
@@ -113,7 +109,6 @@
             {
                 _runtime.UpdateBalance(_bank.Credits);
             }
-            _handCountServiceProvider.CheckIfBelowResetThreshold();
         }
 
         private void IncrementMeters()

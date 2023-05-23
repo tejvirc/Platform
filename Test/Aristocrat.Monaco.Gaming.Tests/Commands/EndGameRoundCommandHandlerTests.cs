@@ -5,7 +5,6 @@
     using System.Linq;
     using Accounting.Contracts;
     using Application.Contracts;
-    using Aristocrat.Monaco.Accounting.Contracts.HandCount;
     using Aristocrat.Monaco.Accounting.Contracts.Handpay;
     using Aristocrat.Monaco.Gaming.Contracts.Progressives;
     using Aristocrat.Monaco.Gaming.Progressives;
@@ -40,7 +39,6 @@
         private readonly Mock<IBarkeeperHandler> _barkeeperHandler = new Mock<IBarkeeperHandler>();
         private readonly Mock<IProgressiveGameProvider> _progressiveGame = new Mock<IProgressiveGameProvider>();
         private readonly Mock<IProgressiveLevelProvider> _progressiveLevel = new Mock<IProgressiveLevelProvider>();
-        private readonly Mock<IHandCountService> _handCountServiceProvider = new Mock<IHandCountService>();
         private readonly Mock<IMaxWinOverlayService> _maxWinOverlayService = new Mock<IMaxWinOverlayService>();
         private readonly Mock<IGameHistoryLog> _gameHistory = new Mock<IGameHistoryLog>();
         private Mock<IScopedTransaction> _transactionScope;
@@ -131,7 +129,6 @@
 
             _history.Verify(m => m.EndGame());
             _transactionScope.Verify(m => m.Complete());
-            _handCountServiceProvider.Verify(m => m.CheckIfBelowResetThreshold());
         }
 
         [TestMethod]
@@ -255,7 +252,6 @@
             bool nullBarkeeperHandler = false,
             bool nullProgressiveGame = false,
             bool nullProgressiveLevel = false,
-            bool nullHandCountServiceProvider = false,
             bool nullMaxWinOverlayService = false)
         {
             return new GameEndedCommandHandler(
@@ -272,7 +268,6 @@
                 nullBarkeeperHandler ? null : _barkeeperHandler.Object,
                 nullProgressiveGame ? null : _progressiveGame.Object,
                 nullProgressiveLevel ? null : _progressiveLevel.Object,
-                nullHandCountServiceProvider ? null : _handCountServiceProvider.Object,
                 nullMaxWinOverlayService ? null: _maxWinOverlayService.Object
                 );
         }

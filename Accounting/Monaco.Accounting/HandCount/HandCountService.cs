@@ -4,7 +4,6 @@
     using Contracts;
     using Contracts.HandCount;
     using Aristocrat.Monaco.Application.Contracts;
-    using Aristocrat.Monaco.Hardware.Contracts.Door;
     using Aristocrat.Monaco.Hardware.Contracts.Persistence;
     using Aristocrat.Monaco.Kernel.Contracts;
     using Aristocrat.Monaco.Kernel.Contracts.Events;
@@ -13,8 +12,6 @@
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    using System.Timers;
-    using Aristocrat.Monaco.Gaming.Contracts;
 
     /// <summary>
     ///     Definition of the HandCountService class.
@@ -26,7 +23,6 @@
 
         private readonly IPropertiesManager _properties;
         private readonly IEventBus _eventBus;
-        private readonly IMeterManager _meters;
         private readonly IMeter _handCountMeter;
         private readonly IMeter _residualAmountMeter;
         private readonly IPersistentStorageManager _storage;
@@ -34,15 +30,7 @@
         private readonly ITransactionHistory _transactions;
         private readonly ITransactionCoordinator _transactionCoordinator;
 
-        private bool _startedWithRecovery = false;
-
-
-        private Timer _initResetTimer;
-        private const double ResetTimerIntervalInMs = 15000;
-
-        private bool _resetTimerIsRunning;
         private bool _disposed;
-
         /// <summary>
         ///     Constructs the service by retrieving all necessary services from the service manager. This
         ///     constructor is necessary because this is a service in the accounting layer where DI is not used.
@@ -74,17 +62,19 @@
             )
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
-            _meters = meters ?? throw new ArgumentNullException(nameof(meters));
+
+            if (meters == null)
+            {
+                throw new ArgumentNullException(nameof(meters));
+            }
+            _handCountMeter = meters.GetMeter(AccountingMeters.HandCount);
+            _residualAmountMeter = meters.GetMeter(AccountingMeters.ResidualAmount);
+
             _properties = propertyProvider ?? throw new ArgumentNullException(nameof(propertyProvider));
-            _handCountMeter = _meters.GetMeter(AccountingMeters.HandCount);
-            _residualAmountMeter = _meters.GetMeter(AccountingMeters.ResidualAmount);
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
             _transactions = transactions ?? throw new ArgumentNullException(nameof(transactions));
             _transactionCoordinator = transactionCoordinator ?? throw new ArgumentNullException(nameof(transactionCoordinator));
-
-            _initResetTimer = new Timer(ResetTimerIntervalInMs);
-            _initResetTimer.Elapsed += InitHandCountReset;
         }
 
         public string Name => typeof(HandCountService).FullName;
@@ -100,101 +90,14 @@
         public void Initialize()
         {
             _eventBus.Subscribe<InitializationCompletedEvent>(this, HandleEvent);
-            _eventBus.Subscribe<HandCountResetTimerElapsedEvent>(this, x => HandCountResetTimerElapsed(x.ResidualAmount));
-
-            _eventBus.Subscribe<RecoveryStartedEvent>(this, x =>
-            {
-                _startedWithRecovery = true;
-                SuspendResetHandcount();
-            });
-
-            _eventBus.Subscribe<TransferOutStartedEvent>(this, x =>
-            {
-                _startedWithRecovery = true;
-                SuspendResetHandcount();
-            });
-
-            _eventBus.Subscribe<OpenEvent>(this, x => SuspendResetHandcount());
-            _eventBus.Subscribe<SystemDisabledEvent>(this, x => SuspendResetHandcount());
-
-            _eventBus.Subscribe<ClosedEvent>(this, x => CheckIfBelowResetThreshold());
-            _eventBus.Subscribe<SystemEnabledEvent>(this, x => CheckIfBelowResetThreshold());
-
-            //If bank balance is changed and new balance is above the min required credits,
-            //suspend the reset hand count if underway.
-            _eventBus.Subscribe<BankBalanceChangedEvent>(this, HandleEvent);
         }
-
-        private void HandleEvent(BankBalanceChangedEvent obj)
-        {
-            var minimumRequiredCredits = (long)_properties.GetProperty(AccountingConstants.HandCountMinimumRequiredCredits,
-                                                                       AccountingConstants.HandCountDefaultRequiredCredits);
-
-            if (obj.NewBalance > obj.OldBalance)
-            {
-                SuspendResetHandcount();
-                CheckIfBelowResetThreshold();
-            }
-        }
-
         private void HandleEvent(InitializationCompletedEvent obj)
         {
             SendHandCountChangedEvent();
-
-            //Recovery scenario when machine restarted during reset hand count check
-            if (!_startedWithRecovery)
-            {
-                CheckIfBelowResetThreshold();
-            }
-        }
-
-        private void SuspendResetHandcount()
-        {
-            Logger.Debug("SuspendResetHandcount");
-
-            _initResetTimer.Stop();
-
-            if (_resetTimerIsRunning)
-            {
-                _eventBus.Publish(new HandCountResetTimerCancelledEvent());
-                _resetTimerIsRunning = false;
-            }
-        }
-
-        public void CheckIfBelowResetThreshold()
-        {
-            Logger.Debug("CheckIfBelowResetThreshold");
-
-            var balance = (long)_properties.GetProperty(PropertyKey.CurrentBalance, 0L);
-            var minimumRequiredCredits = (long)_properties.GetProperty(AccountingConstants.HandCountMinimumRequiredCredits,
-                                                                       AccountingConstants.HandCountDefaultRequiredCredits);
-
-            if (balance < minimumRequiredCredits && (balance > 0 || HandCount > 0))
-            {
-                Logger.Debug($"CheckIfBelowResetThreshold: balance={balance} HandCount={HandCount} start init reset timer");
-                _initResetTimer.Start();
-            }
-        }
-
-        private void InitHandCountReset(object sender, ElapsedEventArgs e)
-        {
-            if (!_resetTimerIsRunning)
-            {
-                _eventBus.Publish(new HandCountResetTimerStartedEvent());
-                _resetTimerIsRunning = true;
-            }
-        }
-
-        private void HandCountResetTimerElapsed(long residualAmount)
-        {
-            _resetTimerIsRunning = false;
-            ResetHandCount(residualAmount);
         }
 
         public void IncrementHandCount()
         {
-            SuspendResetHandcount();
-
             _handCountMeter.Increment(1);
             SendHandCountChangedEvent();
             Logger.Info($"IncrementHandCount to {HandCount}");
@@ -205,13 +108,9 @@
             _handCountMeter.Increment(-n);
             SendHandCountChangedEvent();
             Logger.Info($"DecreaseHandCount by {n} to {HandCount}");
-
-            //Hands count are reset when cashout happens
-            //Check if need to reset hand count
-            CheckIfBelowResetThreshold();
         }
 
-        private void ResetHandCount(long residualAmount)
+        public void ResetHandCount(long residualAmount)
         {
             try
             {
@@ -223,8 +122,6 @@
 
                 using (var scope = _storage.ScopedTransaction())
                 {
-                    _initResetTimer.Stop();
-
                     if (residualAmount > 0)
                     {
                         var transactionId = _transactionCoordinator.RequestTransaction(RequestorId, 0, TransactionType.Write, true);
@@ -242,14 +139,18 @@
 
                     var handCountNeedsReset = HandCount > 0;
                     if (handCountNeedsReset)
-                        _handCountMeter.Increment(-HandCount);
+                    {
+                         DecreaseHandCount(HandCount);
+                    }
 
                     _residualAmountMeter.Increment(residualAmount);
 
                     scope.Complete();
 
                     if (handCountNeedsReset)
+                    {
                         SendHandCountChangedEvent();
+                    }
                 }
             }
             catch (BankException ex)
@@ -286,8 +187,6 @@
 
             if (disposing)
             {
-                SuspendResetHandcount();
-                _initResetTimer.Dispose();
                 _eventBus.UnsubscribeAll(this);
             }
 

@@ -32,8 +32,8 @@
         void DecreaseHandCount(int n);
 
         /// <summary>
-        ///     Check if reset is required because we are below the minimum amount of credits
+        ///     Reset the hand count and credit to 0, add residual credits to the residual credit meter.
         /// </summary>
-        void CheckIfBelowResetThreshold();
+        void ResetHandCount(long amount);
     }
 }
