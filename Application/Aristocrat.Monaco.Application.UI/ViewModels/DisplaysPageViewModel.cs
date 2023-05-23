@@ -8,6 +8,7 @@
     using System.Windows;
     using System.Windows.Input;
     using Application.Settings;
+    using Aristocrat.MVVM;
     using Cabinet.Contracts;
     using ConfigWizard;
     using Contracts;
@@ -44,6 +45,7 @@
         private bool _touchScreenButtonsEnabled = true;
         private bool _calibrateTouchScreenVisible;
         private bool _testTouchScreenVisible = true;
+        private bool _isInspection = false;
 
         public DisplaysPageViewModel(bool isWizard) : base(isWizard)
         {
@@ -52,11 +54,14 @@
                 OnEnterIdentifyScreenCommand);
             EnterColorTestCommand = new ActionCommand<object>(
                 OnEnterColorTestCommand);
+            EnterCalibrateSerialTouchScreenCommand = new ActionCommand<object>(
+                OnEnterCalibrateSerialTouchScreenCommand);
             EnterCalibrateTouchScreenCommand = new ActionCommand<object>(
                 OnEnterCalibrateTouchScreenCommand);
             CabinetService = ServiceManager.GetInstance().GetService<ICabinetDetectionService>();
             SerialTouchService = ServiceManager.GetInstance().GetService<ISerialTouchService>();
             SerialTouchCalibration = ServiceManager.GetInstance().GetService<ISerialTouchCalibration>();
+            TouchCalibrationService = ServiceManager.GetInstance().GetService<ITouchCalibration>();
         }
 
         public override bool CanCalibrateTouchScreens => false;
@@ -70,11 +75,15 @@
 
         public ICommand EnterColorTestCommand { get; }
 
+        public ICommand EnterCalibrateSerialTouchScreenCommand { get; }
+
         public ICommand EnterCalibrateTouchScreenCommand { get; }
 
         public ICabinetDetectionService CabinetService { get; }
 
         public ISerialTouchService SerialTouchService { get; }
+
+        public ITouchCalibration TouchCalibrationService { get; }
 
         public ISerialTouchCalibration SerialTouchCalibration { get; }
 
@@ -180,15 +189,16 @@
                 EventBus.Subscribe<DeviceConnectedEvent>(this, _ => RefreshDisplays());
                 EventBus.Subscribe<DeviceDisconnectedEvent>(this, _ => RefreshDisplays());
 
-                var isInspection = (bool)ServiceManager.GetInstance().GetService<IPropertiesManager>().GetProperty(KernelConstants.IsInspectionOnly, false);
-                if (CabinetService.ExpectedDisplayDevicesWithSerialTouch != null)
+                _isInspection = (bool)PropertiesManager.GetProperty(KernelConstants.IsInspectionOnly, false);
+if (CabinetService.ExpectedDisplayDevicesWithSerialTouch?.Any() == true || _isInspection)
+
                 {
-                    CalibrateTouchScreenVisible = TestTouchScreenVisible = CabinetService.ExpectedDisplayDevicesWithSerialTouch.Count() > 0 || isInspection;
+                    CalibrateTouchScreenVisible = TestTouchScreenVisible = true;
                 }
                 else
                 {
                     var touchDevicesAvailable = DisplaysDetected.Where(d => d.TouchDevice != null).ToList();
-                    TestTouchScreenVisible = touchDevicesAvailable.Any() || isInspection;
+                    TestTouchScreenVisible = touchDevicesAvailable.Any();
                 }
 
                 RefreshDisplays();
@@ -352,12 +362,20 @@
             }
         }
 
-        private void OnEnterCalibrateTouchScreenCommand(object obj)
+        private void OnEnterCalibrateSerialTouchScreenCommand(object obj)
         {
             TestsEnabled = false;
             EventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.Displays));
             Inspection?.SetTestName("Serial Touchscreen Calibration");
             InvokeSerialTouchCalibration();
+        }
+
+        private void OnEnterCalibrateTouchScreenCommand(object obj)
+        {
+            TestsEnabled = false;
+            EventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.Displays));
+            Inspection?.SetTestName("Touchscreen Calibration");
+            InvokeTouchCalibration();
         }
 
         private async void OnEnterColorTestCommand(object obj)
@@ -451,8 +469,7 @@
                     };
 
                     screenIdentifyWindow.Show();
-                    var isInspection = (bool)PropertiesManager.GetProperty(KernelConstants.IsInspectionOnly, false);
-                    await Task.Delay(isInspection ? IdentifyWindowDisplayTimeForInspection : IdentifyWindowDisplayTime, _cancellationTokenSource.Token);
+                    await Task.Delay(_isInspection ? IdentifyWindowDisplayTimeForInspection : IdentifyWindowDisplayTime, _cancellationTokenSource.Token);
                     screenIdentifyWindow.Close();
                     screenIdentifyWindow = null;
                 }
@@ -512,6 +529,21 @@
             }
         }
 
+        private void InvokeTouchCalibration()
+        {
+            Logger.Debug($"InvokelTouchCalibration - TouchService.Initialized");
+
+            if (TouchCalibrationService.IsCalibrating)
+            {
+                TouchCalibrationService.CalibrateNextDevice();
+            }
+            else
+            {
+                EventBus.Subscribe<TouchCalibrationCompletedEvent>(this, OnTouchCalibrationCompleted);
+                TouchCalibrationService.BeginCalibration();
+            }
+        }
+
         private void OnSerialTouchCalibrationCompleted(SerialTouchCalibrationCompletedEvent e)
         {
             if (SerialTouchService.PendingCalibration)
@@ -531,6 +563,38 @@
                 EventBus.Publish(new HardwareDiagnosticTestFinishedEvent(HardwareDiagnosticDeviceCategory.Displays));
                 TestsEnabled = true;
             }
+        }
+
+        private void OnTouchCalibrationCompleted(TouchCalibrationCompletedEvent e)
+        {
+            Logger.Debug($"OnSerialTouchCalibrationCompleted Success {e.Success}");
+
+            if (e.Success)
+            {
+                EventBus.Unsubscribe<TouchCalibrationCompletedEvent>(this);
+                EventBus.Publish(new HardwareDiagnosticTestFinishedEvent(HardwareDiagnosticDeviceCategory.Displays));
+                EventBus.Publish(new CloseConfigWindowEvent());
+
+
+                // Update displays now that calibration is completed.
+                // ObservableCollection can only be updated on UI thread.
+                MvvmHelper.ExecuteOnUI(
+                () =>
+                {
+                    DisplaysDetected.Clear();
+
+                    DisplaysDetected.AddRange(
+                        CabinetService.ExpectedDisplayDevices.OrderBy(d => d.PositionY).Select(
+                            x => new DisplayDetected(
+                                x,
+                                GetMappedTouchDevice(x)
+                                )));
+
+                    RefreshDisplays();
+                });
+            }
+
+            TestsEnabled = true;
         }
     }
 }
