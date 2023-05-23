@@ -691,9 +691,35 @@ public partial class ConfigWizardConfigurationLimitsPageCreditLimit {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
 public partial class ConfigWizardConfigurationLimitsPageHandpayLimit {
     
+    private bool visibleField;
+    
+    private bool visibleFieldSpecified;
+    
     private bool checkboxEditableField;
     
     private bool checkboxEditableFieldSpecified;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public bool Visible {
+        get {
+            return this.visibleField;
+        }
+        set {
+            this.visibleField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool VisibleSpecified {
+        get {
+            return this.visibleFieldSpecified;
+        }
+        set {
+            this.visibleFieldSpecified = value;
+        }
+    }
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]

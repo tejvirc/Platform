@@ -139,6 +139,12 @@ namespace Aristocrat.Monaco.Application
                         ApplicationConstants.ConfigWizardCreditLimitCheckboxEditable)
                 },
                 {
+                    ApplicationConstants.ConfigWizardHandpayLimitVisible,
+                    Tuple.Create(
+                        (object)(configWizardConfiguration.LimitsPage?.HandpayLimit?.Visible ?? true),
+                        ApplicationConstants.ConfigWizardHandpayLimitVisible)
+                },
+                {
                     ApplicationConstants.ConfigWizardHandpayLimitCheckboxEditable,
                     Tuple.Create(
                         (object)(configWizardConfiguration.LimitsPage?.HandpayLimit?.CheckboxEditable ?? true),

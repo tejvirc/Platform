@@ -929,6 +929,9 @@
         public const string ConfigWizardCreditLimitCheckboxEditable = "ConfigWizard.LimitsPage.CreditLimit.CheckboxEditable";
 
         /// <summary> Property manager key for ConfigWizardLimitsPageEnabled. </summary>
+        public const string ConfigWizardHandpayLimitVisible = "ConfigWizard.LimitsPage.HandpayLimit.Visible";
+
+        /// <summary> Property manager key for ConfigWizardLimitsPageEnabled. </summary>
         public const string ConfigWizardHandpayLimitCheckboxEditable = "ConfigWizard.LimitsPage.HandpayLimit.CheckboxEditable";
 
         /// <summary> Property manager key for ConfigWizardHardwarePageRequirePrinter. </summary>
