@@ -21,6 +21,7 @@
     using Aristocrat.G2S.Communicator.ServiceModel;
     using Aristocrat.G2S.Emdi;
     using Common.CertificateManager;
+    using CoreWCF.Description;
     using Data.Hosts;
     using Data.Profile;
     using Gaming.Contracts.Session;
@@ -31,6 +32,7 @@
     using log4net;
     using Meters;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
     using Monaco.Common.Container;
     using Monaco.Common.Scheduler;
     using Monaco.Common.Storage;
@@ -167,15 +169,18 @@
             @this.Register<ReceiveEndpointProvider>(Lifestyle.Singleton);
             @this.Register<ICommunicator>(() => @this.GetInstance<ReceiveEndpointProvider>(), Lifestyle.Singleton);
             @this.Register<G2SService>(Lifestyle.Singleton);
+            @this.Register<ServiceDebugBehavior>(Lifestyle.Singleton);
             @this.Register<IWcfApplicationRuntime>(() =>
             {
                 var properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
                 var port = properties.GetValue(Constants.Port, Constants.DefaultPort);
                 return new AspNetCoreWebRuntime(port, r =>
                 {
+                    r.AddLogging(l => l.ClearProviders());
                     MapService<ICommunicator>();
                     MapService<G2SService>();
                     MapService<MessageBuilder>();
+                    MapService<ServiceDebugBehavior>();
                     MapInterfacedService<IReceiveEndpointProvider, ReceiveEndpointProvider>();
 
                     void MapService<T>() where T : class => r.AddSingleton(@this.GetInstance<T>());

@@ -86,19 +86,11 @@
             var debugBehavior = _app.GetRequiredService<ServiceDebugBehavior>();
             if (debugBehavior != null && Address.IsSecure())
             {
-                var customBinding = new CoreWCF.Channels.CustomBinding();
-                customBinding.Elements.Add(new CoreWCF.Channels.HttpsTransportBindingElement
-                {
-                    RequireClientCertificate = true
-                });
-
-                //debugBehavior.HttpsHelpPageBinding = customBinding;
-                // PlanA: CoreWCF.Description.ServiceDebugBehavior has not contained HttpsHelpPageBinding or something to add HelpPage CustomBinding. For more details see: https://github.com/CoreWCF/CoreWCF/blob/453d91f0b0595c71747cd962b0c916660b0580dc/src/CoreWCF.Primitives/src/CoreWCF/Description/ServiceDebugBehavior.cs
-                debugBehavior.HttpHelpPageEnabled = true;
+                debugBehavior.HttpHelpPageEnabled = false;
+                debugBehavior.HttpsHelpPageEnabled = true;
             }
 #endif
 
-            //_serviceHost.Open();
             _app.Start();
         }
 
