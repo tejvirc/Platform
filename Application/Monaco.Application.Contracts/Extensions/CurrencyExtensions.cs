@@ -468,5 +468,13 @@
             return
                 $"{region.CurrencyEnglishName} {region.ISOCurrencySymbol} {FormattedCurrencyString(defaultDescriptionAmount, false, culture)}";
         }
+
+        /// <summary>
+        /// Update the Currency Culture manually
+        /// </summary>
+        public static void UpdateCurrencyCulture()
+        {
+            CurrencyCultureInfo = CultureInfo.CurrentCulture;
+        }
     }
 }
