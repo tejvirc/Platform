@@ -73,6 +73,7 @@
         }
 
         /// <inheritdoc />
+        //zhg ***
         public (Image manifest, string path, long size, bool deviceChanged, ExitAction? action) InstallPackage(
             string packageId,
             Action updateAction = null)
