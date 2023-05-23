@@ -35,7 +35,7 @@
                 || msg.Msg >= WindowsServices.WM_MOUSEMOVE && msg.Msg <= WindowsServices.WM_LBUTTONUP)
             {
                 var pointerX = msg.LParam.ToInt32() & 0xffff;
-                var pointerY = msg.LParam.ToInt32() << 16;
+                var pointerY = msg.LParam.ToInt32() >> 16;
                 var point = new Point(pointerX, pointerY);
                 point = PointToClient(point);
 
