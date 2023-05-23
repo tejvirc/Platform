@@ -18,12 +18,14 @@
             _stateManager = stateManager;
         }
 
-        public Task<bool> LoadControllerAnimationFile(AnimationFile file, CancellationToken token)
+        public HashSet<AnimationData> AnimationFiles => _implementation.AnimationFiles;
+
+        public Task<bool> LoadControllerAnimationFile(AnimationData data, CancellationToken token)
         {
-            return _implementation.LoadAnimationFile(file, token);
+            return _implementation.LoadAnimationFile(data, token);
         }
 
-        public Task<bool> LoadControllerAnimationFiles(IEnumerable<AnimationFile> files, CancellationToken token)
+        public Task<bool> LoadControllerAnimationFiles(IEnumerable<AnimationData> files, CancellationToken token)
         {
             return _implementation.LoadAnimationFiles(files, token);
         }

@@ -28,12 +28,14 @@
         public event EventHandler<LightAnimationEventArgs> ReelAnimationCompleted;
 #pragma warning restore 67
 
-        public Task<bool> LoadAnimationFile(AnimationFile file, CancellationToken token)
+        public HashSet<AnimationData> AnimationFiles => _communicator.AnimationFiles;
+
+        public Task<bool> LoadAnimationFile(AnimationData data, CancellationToken token)
         {
-            return _communicator.LoadControllerAnimationFile(file, token);
+            return _communicator.LoadControllerAnimationFile(data, token);
         }
 
-        public Task<bool> LoadAnimationFiles(IEnumerable<AnimationFile> files, CancellationToken token)
+        public Task<bool> LoadAnimationFiles(IEnumerable<AnimationData> files, CancellationToken token)
         {
             return _communicator.LoadControllerAnimationFiles(files, token);
         }

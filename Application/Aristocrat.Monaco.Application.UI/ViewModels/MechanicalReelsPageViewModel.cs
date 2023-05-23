@@ -15,6 +15,7 @@
     using Hardware.Contracts.EdgeLighting;
     using Hardware.Contracts.Reel;
     using Hardware.Contracts.Reel.Capabilities;
+    using Hardware.Contracts.Reel.ControlData;
     using Hardware.Contracts.Reel.Events;
     using Hardware.Contracts.SharedDevice;
     using Kernel;
@@ -106,7 +107,10 @@
             MinimumBrightness = 1;
             MaximumBrightness = 100;
 
-            LightTestButtonClicked = new ActionCommand<object>(TestRemoveAllAnimations);
+            LightTestButtonClicked = new ActionCommand<object>(_ =>
+            {
+                Task.Run(() => TestRemoveAllAnimations().ConfigureAwait(false));
+            });
         }
 
         public MechanicalReelsLightTestViewModel LightTestViewModel { get; }
@@ -739,17 +743,17 @@
             ReelController.ReelOffsets = offsets;
         }
 
-        private void TestRemoveAllAnimations(object sender)
+        private async Task TestRemoveAllAnimations()
         {
             if (_reelAnimationCapabilities is null)
             {
                 return;
             }
 
-            CancellationToken token = new CancellationToken();
+            var cts = new CancellationTokenSource();
             string currentDir = Directory.GetCurrentDirectory();
-            _reelAnimationCapabilities.RemoveAllControllerAnimations(token);
-            _reelAnimationCapabilities.LoadControllerAnimationFile(new Hardware.Contracts.Reel.ControlData.AnimationFile($@"{currentDir}\Reel\LightShows\AllWhite5Reels.lightshow"), token);
+            await _reelAnimationCapabilities.RemoveAllControllerAnimations(cts.Token);
+            await _reelAnimationCapabilities.LoadControllerAnimationFile(new Hardware.Contracts.Reel.ControlData.AnimationData($@"{currentDir}\Reel\LightShows\AllWhite5Reels.lightshow", AnimationType.LightShow), default);
         }
     }
 }

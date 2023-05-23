@@ -10,25 +10,30 @@
     /// </summary>
     public interface IReelAnimationCapabilities : IReelControllerCapability
     {
-        // TODO: Remove "Controller" from all the method names.T
-        // This was added to lower the % of duplicated lines SonarQube was seeing.T
+        // TODO: Remove "Controller" from all the method names.
+        // This was added to lower the % of duplicated lines SonarQube was seeing.
         //  This interface should match IAnimationImplementation
         //  Once more code is added the % will be much lower.
 
         /// <summary>
+        /// Contains all the loaded animation files
+        /// </summary>
+        public HashSet<AnimationData> AnimationFiles { get; }
+
+        /// <summary>
         ///     Loads an animation file onto the controller.
         /// </summary>
-        /// <param name="file">The animation file.</param>
+        /// <param name="data">The animation file.</param>
         /// <param name="token">The cancellation token.</param>
         /// <returns></returns>
-        Task<bool> LoadControllerAnimationFile(AnimationFile file, CancellationToken token);
+        Task<bool> LoadControllerAnimationFile(AnimationData data, CancellationToken token);
         
         /// <summary>
         ///     Loads animation files onto the controller.
         /// </summary>
         /// <param name="files">The animation files.</param>
         /// <param name="token">The cancellation token.</param>
-        Task<bool> LoadControllerAnimationFiles(IEnumerable<AnimationFile> files, CancellationToken token);
+        Task<bool> LoadControllerAnimationFiles(IEnumerable<AnimationData> files, CancellationToken token);
         
         /// <summary>
         ///     Instructs the controller to prepare a light show animation.

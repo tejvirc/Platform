@@ -33,19 +33,24 @@
         event EventHandler<LightAnimationEventArgs> ReelAnimationCompleted;
 
         /// <summary>
+        /// Contains all the loaded animation files
+        /// </summary>
+        HashSet<AnimationData> AnimationFiles { get; }
+
+        /// <summary>
         ///     Loads an animation file onto the controller.
         /// </summary>
-        /// <param name="file">The animation file.</param>
+        /// <param name="data">The animation file.</param>
         /// <param name="token">The cancellation token.</param>
         /// <returns></returns>
-        Task<bool> LoadAnimationFile(AnimationFile file, CancellationToken token);
+        Task<bool> LoadAnimationFile(AnimationData data, CancellationToken token);
         
         /// <summary>
         ///     Loads animation files onto the controller.
         /// </summary>
         /// <param name="files">The animation files.</param>
         /// <param name="token">The cancellation token.</param>
-        Task<bool> LoadAnimationFiles(IEnumerable<AnimationFile> files, CancellationToken token);
+        Task<bool> LoadAnimationFiles(IEnumerable<AnimationData> files, CancellationToken token);
         
         /// <summary>
         ///     Instructs the controller to prepare a light show animation.

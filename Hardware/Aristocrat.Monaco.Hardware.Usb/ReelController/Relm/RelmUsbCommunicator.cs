@@ -1,10 +1,13 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Usb.ReelController.Relm
 {
+    using Aristocrat.RelmReels.Communicator.Downloads;
     using Aristocrat.RelmReels.Messages;
+    using Aristocrat.RelmReels.Messages.Interrupts;
     using Contracts.Communicator;
     using Contracts.Reel.ControlData;
     using Contracts.SharedDevice;
     using log4net;
+    using Newtonsoft.Json.Linq;
     using RelmReels;
     using RelmReels.Communicator;
     using RelmReels.Messages.Commands;
@@ -12,9 +15,13 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Reflection;
+    using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
+    using static System.Net.WebRequestMethods;
+    using AnimationData = Contracts.Reel.ControlData.AnimationData;
     using DeviceConfiguration = RelmReels.Messages.Queries.DeviceConfiguration;
     using IRelmCommunicator = Contracts.Communicator.IRelmCommunicator;
 
@@ -28,7 +35,7 @@
 
         public RelmUsbCommunicator()
         {
-            _relmCommunicator = new RelmCommunicator(new VerificationFactory());
+            _relmCommunicator = new RelmCommunicator(new VerificationFactory(), RelmConstants.DefaultKeepAlive);
         }
         
 #pragma warning disable 67
@@ -38,6 +45,8 @@
 
         public event EventHandler<ProgressEventArgs> DownloadProgressed;
 #pragma warning restore 67
+
+        public HashSet<AnimationData> AnimationFiles { get; } = new();
 
         public int ReelCount => _relmCommunicator?.Configuration.NumReels ?? 0;
 
@@ -92,6 +101,8 @@
             }
 
             await _relmCommunicator?.SendCommandAsync(new Reset())!;
+            _relmCommunicator!.KeepAliveEnabled = true;
+
             await _relmCommunicator?.SendQueryAsync<RelmVersionInfo>()!;
             await _relmCommunicator?.SendQueryAsync<DeviceConfiguration>()!;
             await HomeReels();
@@ -139,23 +150,78 @@
             throw new NotImplementedException();
         }
 
-        public Task<bool> LoadControllerAnimationFile(AnimationFile file, CancellationToken token)
+        public async Task<bool> LoadControllerAnimationFile(AnimationData data, CancellationToken token)
         {
             if (_relmCommunicator is null)
             {
-                return Task.FromResult(false);
+                return false;
             }
 
-            _relmCommunicator.Download(file.Path, BitmapVerification.CRC32, token);
-            Logger.Debug($"Downloading Animation file: {file.Path}");
+            Logger.Debug($"Downloading Animation file: {data.Path}");
 
-            return Task.FromResult(true);
+            StoredFile storedFile = await _relmCommunicator.Download(data.Path, BitmapVerification.CRC32, token);
+
+            CalculateAnimationHash command = new()
+            {
+                AnimationId = (int)storedFile.FileId,
+                Verification = BitmapVerification.CRC32
+            };
+
+            var hashCompleted = await _relmCommunicator.SendCommandWithResponseAsync(command, token);
+
+            data.Name = storedFile.Filename;
+            data.Hash = hashCompleted.Hash;
+            data.AnimationId = (int)storedFile.FileId;
+
+            AnimationFiles.Add(data);
+
+            Logger.Debug($"Finished downloading animation file: [{data.Path}]" +
+                         $"\nName: {data.Name}" +
+                         $"\nAnimationId: {data.AnimationId}" +
+                         $"\nHash: {Encoding.Default.GetString(hashCompleted.Hash)}"
+            );
+
+            return true;
         }
 
-        public Task<bool> LoadControllerAnimationFiles(IEnumerable<AnimationFile> files, CancellationToken token)
+        public async Task<bool> LoadControllerAnimationFiles(IEnumerable<AnimationData> files, CancellationToken token)
         {
-            // TODO: Implement loading of animation files in driver and wire up here
-            throw new NotImplementedException();
+            if (_relmCommunicator is null)
+            {
+                return false;
+            }
+
+            Logger.Debug($"Downloading {files.Count()} Animation files");
+
+            foreach (AnimationData file in files)
+            {
+                Logger.Debug($"Downloading Animation file: {file.Path}");
+
+                StoredFile storedFile = await _relmCommunicator.Download(file.Path, BitmapVerification.CRC32, token);
+
+                CalculateAnimationHash command = new ()
+                {
+                    AnimationId = (int)storedFile.FileId,
+                    Verification = BitmapVerification.CRC32
+                };
+
+                AnimationHashCompleted hashCompleted = await _relmCommunicator.SendCommandWithResponseAsync(command, token);
+
+                file.Name = storedFile.Filename;
+                file.Hash = hashCompleted.Hash;
+                file.AnimationId = (int)storedFile.FileId;
+
+                AnimationFiles.Add(file);
+
+                Logger.Debug($"Finished downloading animation file: [{file.Path}]" +
+                             $"\nName: {file.Name}" + 
+                             $"\nAnimationId: {file.AnimationId}" + 
+                             $"\nHash: {Encoding.Default.GetString(hashCompleted.Hash)}"
+                             );
+
+            }
+
+            return true;
         }
 
         public Task<bool> PrepareControllerAnimation(LightShowFile file, CancellationToken token)
@@ -164,17 +230,17 @@
             throw new NotImplementedException();
         }
 
-        public Task<bool> RemoveAllControllerAnimations(CancellationToken token)
+        public async Task<bool> RemoveAllControllerAnimations(CancellationToken token)
         {
             if (_relmCommunicator is null)
             {
-                return Task.FromResult(false);
+                return false;
             }
 
-            _relmCommunicator.SendCommandAsync(new RemoveAllAnimationFiles(), token);
+            await _relmCommunicator.SendCommandAsync(new RemoveAllAnimationFiles(), token);
             Logger.Debug($"Removing all animation files from controller");
 
-            return Task.FromResult(true);
+            return true;
         }
 
         public Task<bool> PrepareControllerAnimations(IEnumerable<LightShowFile> files, CancellationToken token)
