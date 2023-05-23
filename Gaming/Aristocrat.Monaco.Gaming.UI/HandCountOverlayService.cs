@@ -62,6 +62,7 @@
             _handCountService = handCountService ?? throw new ArgumentNullException(nameof(handCountService));
 
             _initResetTimer = new Timer(ResetTimerIntervalInMs);
+            _initResetTimer.AutoReset = false;
             _initResetTimer.Elapsed += InitHandCountReset;
         }
 
