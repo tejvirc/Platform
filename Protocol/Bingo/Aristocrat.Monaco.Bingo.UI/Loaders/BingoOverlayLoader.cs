@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Bingo.UI.Loaders
 {
     using System;
-    using Common;
     using Gaming.Contracts;
     using Kernel;
     using Models;

@@ -1,7 +1,6 @@
 namespace Aristocrat.Bingo.Client
 {
     using System;
-    using System.Linq;
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
@@ -75,11 +74,7 @@ namespace Aristocrat.Bingo.Client
             {
                 await Stop().ConfigureAwait(false);
                 using var configuration = _configurationProvider.CreateConfiguration();
-                var credentials = configuration.Certificates.Any()
-                    ? new SslCredentials(
-                        string.Join(Environment.NewLine, configuration.Certificates.Select(x => x.ConvertToPem())))
-                    : ChannelCredentials.Insecure;
-                _channel = GrpcChannel.ForAddress(configuration.Address, new GrpcChannelOptions() { Credentials = credentials });
+                _channel = GrpcChannel.ForAddress(configuration.Address, new GrpcChannelOptions());
                 var callInvoker = _channel.Intercept(_communicationInterceptor);
                 if (configuration.ConnectionTimeout > TimeSpan.Zero)
                 {
@@ -165,7 +160,7 @@ namespace Aristocrat.Bingo.Client
         private void MonitorConnection()
         {
             Task.Run(async () => await MonitorConnectionAsync(_channel)).ContinueWith(
-                async e =>
+                async _ =>
                 {
                     Logger.Error("Monitor Connection Failed Forcing a disconnect");
                     await Stop();
