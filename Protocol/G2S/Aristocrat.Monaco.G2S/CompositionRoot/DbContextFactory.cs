@@ -8,7 +8,6 @@
     using System.Threading;
     using Kernel;
     using Monaco.Common.Storage;
-    using Aristocrat.Monaco.Protocol.Common.Storage;
 
     /// <summary>
     ///     An implementation of <see cref="IMonacoContextFactory" />
@@ -16,10 +15,9 @@
     public class DbContextFactory : IMonacoContextFactory, IService, IDisposable
     {
         private readonly string _connectionString;
+        private readonly ManualResetEventSlim _exclusiveLock = new(true);
 
         private bool _disposed;
-
-        private ManualResetEventSlim _exclusiveLock = new ManualResetEventSlim(true);
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="DbContextFactory" /> class.
@@ -41,7 +39,6 @@
             }
 
             _connectionString = ConnectionString(pathMapper);
-            new MonacoContext(_connectionString).Database.EnsureCreated();
         }
 
         /// <inheritdoc />
@@ -55,15 +52,14 @@
         public DbContext CreateDbContext()
         {
             _exclusiveLock.Wait();
-            return new MonacoContext(_connectionString);
+            return CreateContext();
         }
 
         /// <inheritdoc />
         public DbContext Lock()
         {
             _exclusiveLock.Reset();
-
-            return new MonacoContext(_connectionString);
+            return CreateContext();
         }
 
         /// <inheritdoc />
@@ -102,8 +98,6 @@
                 _exclusiveLock.Dispose();
             }
 
-            _exclusiveLock = null;
-
             _disposed = true;
         }
 
@@ -112,14 +106,27 @@
             var dir = pathMapper.GetDirectory(Constants.DataPath);
             var path = Path.GetFullPath(dir.FullName);
 
-            
-
             var sqlBuilder = new SqlConnectionStringBuilder
             {
                 DataSource = Path.Combine(path, Constants.DatabaseFileName)
             };
 
             return sqlBuilder.ConnectionString;
+        }
+
+        private DbContext CreateContext()
+        {
+            var context = new MonacoContext(_connectionString);
+            try
+            {
+                context.Database.EnsureCreated();
+                return context;
+            }
+            catch
+            {
+                context.Dispose();
+                throw;
+            }
         }
     }
 }

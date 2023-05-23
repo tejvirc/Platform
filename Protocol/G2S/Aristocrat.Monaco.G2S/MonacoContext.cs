@@ -1,20 +1,18 @@
 ﻿namespace Aristocrat.Monaco.G2S
 {
     using System;
-    using System.IO;
     using System.Linq;
+    using Common.CertificateManager.Mapping;
+    using Common.CertificateManager.Models;
+    using Common.GAT.Storage;
+    using Common.Mapping;
+    using Common.PackageManager.Storage;
+    using Data.CommConfig;
+    using Data.Mapping;
+    using Data.Model;
+    using Data.OptionConfig;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-    using System.Reflection;
-    using Data.Model;
-    using Data.CommConfig;
-    using Aristocrat.Monaco.G2S.Data.OptionConfig;
-    using Aristocrat.Monaco.G2S.Common.GAT.Storage;
-    using Aristocrat.Monaco.G2S.Common.CertificateManager.Models;
-    using Aristocrat.Monaco.G2S.Common.PackageManager.Storage;
-    using Aristocrat.Monaco.G2S.Common.CertificateManager.Mapping;
-    using Aristocrat.Monaco.G2S.Common.Mapping;
-    using Aristocrat.Monaco.G2S.Data.Mapping;
 
     /// <summary>
     ///     A Monaco specific DbContext implementation
@@ -33,7 +31,7 @@
         public DbSet<EventHandlerLog> EventHandlerLog { get; set; }
         public DbSet<EventSubscription> EventSubscription { get; set; }
         public DbSet<SupportedEvent> SupportedEvent { get; set; }
-        public DbSet<MeterSubscription> MeterSubscription { get; set; } 
+        public DbSet<MeterSubscription> MeterSubscription { get; set; }
         public DbSet<CommHostConfig> CommHostConfig { get; set; }
         public DbSet<CommHostConfigItem> CommHostConfigItem { get; set; }
         public DbSet<CommHostConfigDevice> CommHostConfigDevice { get; set; }
@@ -49,7 +47,7 @@
         public DbSet<GatSpecialFunctionParameter> GatSpecialFunctionParameter { get; set; }
         public DbSet<PkiConfiguration> PkiConfiguration { get; set; }
         public DbSet<Certificate> Certificate { get; set; }
-        public DbSet<Common.PackageManager.Storage.Module> Module { get; set; }
+        public DbSet<Module> Module { get; set; }
         public DbSet<PackageError> PackageError { get; set; }
         public DbSet<Package> Package { get; set; }
         public DbSet<Script> Script { get; set; }
@@ -61,11 +59,6 @@
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var sqliteFile = _connectionString.Replace("Data Source=", string.Empty, StringComparison.OrdinalIgnoreCase);
-            if (sqliteFile.EndsWith(".sqlite") && !File.Exists(sqliteFile))
-            {
-                using (var fs = File.Create(sqliteFile)) { }
-            }
             optionsBuilder.UseSqlite(_connectionString);
         }
 

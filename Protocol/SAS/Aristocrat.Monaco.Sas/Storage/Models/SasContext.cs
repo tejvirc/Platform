@@ -88,11 +88,6 @@
         /// <param name="optionsBuilder"></param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var sqliteFile = _connectionString.Replace("Data Source=", string.Empty, StringComparison.OrdinalIgnoreCase);
-            if (sqliteFile.EndsWith(".sqlite") && !File.Exists(sqliteFile))
-            {
-                using (var fs = File.Create(sqliteFile)) { }
-            }
             optionsBuilder.UseSqlite(_connectionString);
         }
 

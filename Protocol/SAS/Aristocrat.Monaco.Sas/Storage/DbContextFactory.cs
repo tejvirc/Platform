@@ -15,9 +15,8 @@
     public class DbContextFactory : IMonacoContextFactory, IService, IDisposable
     {
         private readonly IConnectionStringResolver _connectionStringResolver;
+        private readonly ManualResetEventSlim _exclusiveLock = new(true);
         private bool _disposed;
-
-        private ManualResetEventSlim _exclusiveLock = new ManualResetEventSlim(true);
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="DbContextFactory" /> class.
@@ -26,7 +25,6 @@
         {
             _connectionStringResolver = connectionStringResolver ??
                                         throw new ArgumentNullException(nameof(connectionStringResolver));
-            new SasContext(_connectionStringResolver).Database.EnsureCreated();
         }
 
         /// <inheritdoc />
@@ -40,15 +38,14 @@
         public DbContext CreateDbContext()
         {
             _exclusiveLock.Wait();
-            return new SasContext(_connectionStringResolver);
+            return CreateContext();
         }
 
         /// <inheritdoc />
         public DbContext Lock()
         {
             _exclusiveLock.Reset();
-
-            return new SasContext(_connectionStringResolver);
+            return CreateContext();
         }
 
         /// <inheritdoc />
@@ -87,9 +84,22 @@
                 _exclusiveLock.Dispose();
             }
 
-            _exclusiveLock = null;
-
             _disposed = true;
+        }
+
+        private DbContext CreateContext()
+        {
+            var context = new SasContext(_connectionStringResolver);
+            try
+            {
+                context.Database.EnsureCreated();
+                return context;
+            }
+            catch
+            {
+                context.Dispose();
+                throw;
+            }
         }
     }
 }
