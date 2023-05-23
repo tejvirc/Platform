@@ -131,19 +131,19 @@
         /// Number of frames dropped.
         /// </summary>
         [CounterType("General")]
-        [Instance("")]
+        [Instance("0")]
         [Category("Aristocrat Runtime Host")]
         [Counter("Frame Drops")]
         [Label("Frame Drops")]
         [Unit("#")]
-        [MaxRange(100)]
+        [MaxRange(10000)]
         FrameDrops,
 
         /// <summary>
         /// Number of frames per second.
         /// </summary>
         [CounterType("General")]
-        [Instance("")]
+        [Instance("0")]
         [Category("Aristocrat Runtime Host")]
         [Counter("Framerate")]
         [Label("Framerate")]
@@ -155,7 +155,7 @@
         /// Update Time(ms).
         /// </summary>
         [CounterType("General")]
-        [Instance("")]
+        [Instance("0")]
         [Category("Aristocrat Runtime Host")]
         [Counter("Game Update Time(ms)")]
         [Label("Update Time")]
@@ -167,7 +167,7 @@
         /// Total Time spent in IPC Communication(ms).
         /// </summary>
         [CounterType("General")]
-        [Instance("")]
+        [Instance("0")]
         [Category("Aristocrat Runtime Host")]
         [Counter("IPC Blocking Time Acc(ms)")]
         [Label("IPC Blocking Time Acc")]
@@ -179,7 +179,7 @@
         /// Dotnet memory usage
         /// </summary>
         [CounterType("General")]
-        [Instance("")]
+        [Instance("0")]
         [Category("Aristocrat Runtime Host")]
         [Counter("Render Time(ms)")]
         [Label("Render Time")]
@@ -191,7 +191,7 @@
         /// Runtime Update Time(ms).
         /// </summary>
         [CounterType("General")]
-        [Instance("")]
+        [Instance("0")]
         [Category("Aristocrat Runtime Host")]
         [Counter("Runtime Update Time(ms)")]
         [Label("Runtime Update Time")]
@@ -203,7 +203,7 @@
         /// Swapbuffer Time(ms).
         /// </summary>
         [CounterType("General")]
-        [Instance("")]
+        [Instance("0")]
         [Category("Aristocrat Runtime Host")]
         [Counter("Swapbuffer Time(ms)")]
         [Label("Swapbuffer Time")]
