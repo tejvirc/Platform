@@ -55,12 +55,17 @@
             _clientEnpointProvider.Setup(x => x.IsConnected).Returns(true).Verifiable();
             _clientEnpointProvider.Setup(x => x.Client).Returns(client.Object).Verifiable();
 
-            var request = new ProgressiveInfoRequest
+            var progressiveGame = new ProgressiveGame
             {
                 GameTitleId = gameTitleId,
-                MachineSerial = machineSerial,
                 MaxBet = maxBet,
                 Denomination = denom
+            };
+
+            var request = new ProgressiveInfoRequest
+            {
+                MachineSerial = machineSerial,
+                Games = { progressiveGame }
             };
 
             var info = CreateProgressiveInfoResponse(gameTitleId);
@@ -109,7 +114,6 @@
         {
             var info = new ProgressiveInfoResponse
             {
-                GameTitleId = gameTitleId,
                 AuthToken = "ABC123",
             };
 

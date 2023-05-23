@@ -49,12 +49,19 @@
         {
             Logger.Debug($"Progressive RegisterClient called, MachineSerial={message.MachineSerial}, GameTitleId={message.GameTitleId}");
 
+            // TODO must add a ProgressiveGame for every GameTitleId/Denomination pair
+
+            var game = new ProgressiveGame
+            {
+                GameTitleId = message.GameTitleId,
+                Denomination = 1, // TODO set denom
+                MaxBet = 1 // TODO set max bet
+            };
+
             var request = new ProgressiveInfoRequest
             {
                 MachineSerial = message.MachineSerial,
-                GameTitleId = message.GameTitleId,
-                Denomination = 1,   // TODO set denom
-                MaxBet = 1          // TODO set max bet
+                Games = { game }
             };
 
             var result = await Invoke(
@@ -86,7 +93,7 @@
             var progressiveInfoMessage = new ProgressiveInfoMessage(
                 ResponseCode.Ok,
                 true,
-                result.GameTitleId,
+                message.GameTitleId, // TODO result no longer has a game title id
                 result.AuthToken,
                 progressiveLevels,
                 metersToReport);
