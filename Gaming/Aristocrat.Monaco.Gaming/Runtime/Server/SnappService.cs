@@ -212,7 +212,7 @@
             return new RuntimeRequestResponse { Result = command.Result };
         }
 
-        public override Empty RuntimeStateChange(RuntimeStateNotication request)
+        public override Empty RuntimeStateChange(RuntimeStateNotification request)
         {
             Logger.Debug($"OnRuntimeStateChange {request.From} {request.To}");
 
@@ -226,7 +226,7 @@
             return EmptyResult;
         }
 
-        public override Empty ButtonStatesChanged(ButtonStatesChangedNotfication request)
+        public override Empty ButtonStatesChanged(ButtonStatesChangedNotification request)
         {
             Logger.Debug($"OnButtonStatesChanged - count: {request.ButtonStates.Count} ");
 
@@ -650,6 +650,12 @@
             _handlerFactory.Create<UpdateBetOptions>().Handle(betOptions);
 
             return EmptyResult;
+        }
+
+        public override CheckMysteryJackpotResponse CheckMysteryJackpot(CheckMysteryJackpotRequest request)
+        {
+            //TODO
+            return new CheckMysteryJackpotResponse();
         }
     }
 }
