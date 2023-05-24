@@ -112,17 +112,10 @@
             if (_propertyProvider.TryGetValue(propertyName, out var possiblePropertyProvider))
             {
                 var oldValue = possiblePropertyProvider.GetProperty(propertyName);
-                possiblePropertyProvider.SetProperty(propertyName, propertyValue);
-
-                if (oldValue == null)
+                var propertyChangedOrAdded = oldValue == null ? propertyValue != null : !oldValue.Equals(propertyValue);
+                if (propertyChangedOrAdded)
                 {
-                    if (propertyValue != null)
-                    {
-                        eventBus.Publish(new PropertyChangedEvent(propertyName));
-                    }
-                }
-                else if (!oldValue.Equals(propertyValue))
-                {
+                    possiblePropertyProvider.SetProperty(propertyName, propertyValue);
                     eventBus.Publish(new PropertyChangedEvent(propertyName));
                 }
             }
