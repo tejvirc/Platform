@@ -174,7 +174,11 @@
 
         private void RequestGame()
         {
-            if (!IsRequestGameValid())
+            if (IsRegularRobots())
+            {
+                return;
+            }
+            else if (!IsRequestGameValid())
             {
                 _logger.Info($"RequestGame was not valid!", GetType().Name);
                 return;
