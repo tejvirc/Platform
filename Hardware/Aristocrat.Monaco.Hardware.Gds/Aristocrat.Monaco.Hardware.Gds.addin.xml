@@ -1,8 +1,8 @@
 ﻿<Addin id="GdsDevices" namespace="Client12Addins" version="1.0">
 
   <Runtime>
-    <Import assembly="Aristocrat.Monaco.Hardware.Gds.dll"/>
-    <Import assembly="Aristocrat.Monaco.Hardware.Contracts.dll"/>
+    <Import assembly="Aristocrat.Monaco.Hardware.Gds.dll" />
+    <Import assembly="Aristocrat.Monaco.Hardware.Contracts.dll" />
   </Runtime>
 
   <Dependencies>
@@ -10,15 +10,27 @@
   </Dependencies>
 
   <Extension path="/Hardware/IdReader/IdReaderImplementations">
-    <DeviceImplementation ProtocolName="Any" type="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds"/>
+    <DeviceImplementation ProtocolName="Any" type="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds" />
   </Extension>
 
   <Extension path="/Hardware/NoteAcceptor/NoteAcceptorImplementations">
-    <DeviceImplementation ProtocolName="Any" type="Aristocrat.Monaco.Hardware.Gds.NoteAcceptor.NoteAcceptorGds"/>
+    <DeviceImplementation ProtocolName="Any" type="Aristocrat.Monaco.Hardware.Gds.NoteAcceptor.NoteAcceptorGds" />
   </Extension>
 
   <Extension path="/Hardware/Printer/PrinterImplementations">
-    <DeviceImplementation ProtocolName="Any" type="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds"/>
+    <DeviceImplementation ProtocolName="JCM TCL" type="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds" />
+  </Extension>
+
+  <Extension path="/Hardware/Printer/PrinterImplementations">
+    <DeviceImplementation ProtocolName="GDS" type="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds" />
+  </Extension>
+
+  <Extension path="/Hardware/Printer/PrinterImplementations">
+    <DeviceImplementation ProtocolName="Nanoptix TCL" type="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds" />
+  </Extension>
+
+  <Extension path="/Hardware/Printer/PrinterImplementations">
+    <DeviceImplementation ProtocolName="EpicTTL" type="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds" />
   </Extension>
 
   <Extension path="/Hardware/ReelController/ReelControllerImplementations">

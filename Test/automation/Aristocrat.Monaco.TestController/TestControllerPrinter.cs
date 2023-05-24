@@ -6,10 +6,8 @@
     using Aristocrat.Monaco.Hardware.Gds;
     using Aristocrat.Monaco.Hardware.Printer;
     using DataModel;
-    using Hardware.Contracts;
     using Hardware.Contracts.IO;
     using Hardware.Contracts.Printer;
-    using Hardware.Contracts.SharedDevice;
     using Kernel;
     using Newtonsoft.Json;
 
@@ -26,13 +24,16 @@
 
             if (printer != null)
             {
-                PrinterAdapter adapter = printer as PrinterAdapter;
-                GdsDeviceBase device = adapter?.PrinterImplementation as GdsDeviceBase;
-
-                if (device != null)
+                var adapter = printer as PrinterAdapter;
+                switch (adapter?.PrinterImplementation)
                 {
-                    device.Open();
-                    result = device.Initialize(device.Communicator).Result;
+                    case GdsDeviceBase gds:
+                        gds.Open();
+                        result = gds.Initialize(gds.Communicator).Result;
+                        break;
+                    case IPrinterImplementation impl:
+                        result = impl.Open();
+                        break;
                 }
             }
 
@@ -217,7 +218,9 @@
 
             return new CommandResult
             {
-                data = responseInfo, Result = true, Info = $"returning last {currentCount} printed tickets"
+                data = responseInfo,
+                Result = true,
+                Info = $"returning last {currentCount} printed tickets"
             };
         }
 

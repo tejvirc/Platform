@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Diagnostics;
     using System.Linq;
     using System.Reflection;
@@ -18,6 +17,7 @@
     using Aristocrat.Monaco.Application.Contracts.Extensions;
     using Aristocrat.Monaco.Application.Contracts.TiltLogger;
     using Aristocrat.Monaco.G2S.Handlers;
+    using Aristocrat.Monaco.Gaming.UI.ViewModels;
     using Aristocrat.Monaco.Hardware.Contracts;
     using Aristocrat.Monaco.Hardware.Contracts.Display;
     using Aristocrat.Monaco.Hardware.Contracts.IdReader;
@@ -41,7 +41,6 @@
     using Wait;
     using HardwareFaultClearEvent = Hardware.Contracts.NoteAcceptor.HardwareFaultClearEvent;
     using HardwareFaultEvent = Hardware.Contracts.NoteAcceptor.HardwareFaultEvent;
-    using Aristocrat.Monaco.Gaming.UI.ViewModels;
 
     [ServiceBehavior(
         InstanceContextMode = InstanceContextMode.Single,
@@ -146,10 +145,10 @@
             _tiltLogger = ServiceManager.GetInstance().GetService<ITiltLogger>();
 
 
-			//
-			// Call the InitializeV2 in the new Partial Class object
-			//
-			InitializeV2();
+            //
+            // Call the InitializeV2 in the new Partial Class object
+            //
+            InitializeV2();
 
         }
 
@@ -253,7 +252,7 @@
             {
                 Log($"Requesting game {gameInfo.ThemeName} with Denom {Denomination} be loaded.");
                 _eventBus.Publish(new DenominationSelectedEvent(gameInfo.Id, Denomination));
-                Task.Delay(1000).ContinueWith(_ => { _eventBus.Publish(new GameLoadRequestedEvent() { GameId = gameInfo.Id, Denomination = Denomination }); });       
+                Task.Delay(1000).ContinueWith(_ => { _eventBus.Publish(new GameLoadRequestedEvent() { GameId = gameInfo.Id, Denomination = Denomination }); });
                 gameFound = true;
             }
 
@@ -550,37 +549,37 @@
             return result;
         }
 
-		public CommandResult InsertTicket(string validation_id, string id)	 	 
-		{	 	 
-            try	 	 
-		    {	 	 
-		        _bnaTicketTransactionID++;	 	 
-		    }	 	 
-		    catch (OverflowException)	 	 
-		    {	 	 
-		        _bnaTicketTransactionID = 0;	 	 
-		    }	 	 
-		 
-		    _eventBus.Publish(new FakeDeviceMessageEvent	 	 
-		    {	 	 
-		        Message = new TicketValidated	 	 
-		        {	 	 
-		                ReportId = GdsConstants.ReportId.NoteAcceptorAcceptNoteOrTicket,	 	 
-		            TransactionId = _bnaTicketTransactionID,	 	 
-		                Code = validation_id	 	 
-		        }	 	 
-		    });	 	 
-		 
-		    var result = new CommandResult()	 	 
-		    {	 	 
-		        data = new Dictionary<string, object> { ["response-to"] = $"/BNA/{id}/Ticket/Insert" },	 	 
-		        Result = true,	 	 
-		        Info = "Inserting ticket"	 	 
-		    };	 	 
-		 
-		    return result;	 	 
-		}
-		
+        public CommandResult InsertTicket(string validation_id, string id)
+        {
+            try
+            {
+                _bnaTicketTransactionID++;
+            }
+            catch (OverflowException)
+            {
+                _bnaTicketTransactionID = 0;
+            }
+
+            _eventBus.Publish(new FakeDeviceMessageEvent
+            {
+                Message = new TicketValidated
+                {
+                    ReportId = GdsConstants.ReportId.NoteAcceptorAcceptNoteOrTicket,
+                    TransactionId = _bnaTicketTransactionID,
+                    Code = validation_id
+                }
+            });
+
+            var result = new CommandResult()
+            {
+                data = new Dictionary<string, object> { ["response-to"] = $"/BNA/{id}/Ticket/Insert" },
+                Result = true,
+                Info = "Inserting ticket"
+            };
+
+            return result;
+        }
+
         public CommandResult PlayerCardEvent(bool inserted, string data)
         {
             _automata.CardEvent(inserted, data);
@@ -620,25 +619,25 @@
                     switch (evt)
                     {
                         case InputEvent i:
-                        {
-                            _eventBus.Publish(i);
-                            break;
-                        }
+                            {
+                                _eventBus.Publish(i);
+                                break;
+                            }
                         case HardwareFaultEvent hf:
-                        {
-                            _eventBus.Publish(hf);
-                            break;
-                        }
+                            {
+                                _eventBus.Publish(hf);
+                                break;
+                            }
                         case HardwareFaultClearEvent hfc:
-                        {
-                            _eventBus.Publish(hfc);
-                            break;
-                        }
+                            {
+                                _eventBus.Publish(hfc);
+                                break;
+                            }
                         case LegitimacyLockUpEvent lle:
-                        {
-                            _eventBus.Publish(lle);
-                            break;
-                        }
+                            {
+                                _eventBus.Publish(lle);
+                                break;
+                            }
                     }
                 }
             }
@@ -873,14 +872,14 @@
 
         public CommandResult GetGameLineMessages()
         {
-            string messages = "";            
+            string messages = "";
             foreach (DisplayableMessage message in _gameLineMessages)
             {
                 messages = messages + message.Message + "\n";
             }
             return new CommandResult
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Game/Messages/Get", ["Messages"] = messages},
+                data = new Dictionary<string, object> { ["response-to"] = "/Game/Messages/Get", ["Messages"] = messages },
                 Result = true,
             };
         }
@@ -924,170 +923,170 @@
                     switch (type)
                     {
                         case PlatformInfoEnum.ProcessMetrics:
-                        {
-                            var metrics = new Dictionary<string, string>();
-                            _processMonitor.GetMetrics(metrics);
-                            desiredInfo = JsonConvert.SerializeObject(metrics, Formatting.Indented);
-                            desiredInfoFound = true;
-                            break;
-                        }
+                            {
+                                var metrics = new Dictionary<string, string>();
+                                _processMonitor.GetMetrics(metrics);
+                                desiredInfo = JsonConvert.SerializeObject(metrics, Formatting.Indented);
+                                desiredInfoFound = true;
+                                break;
+                            }
                         case PlatformInfoEnum.GameInfo:
-                        {
-                            var games = _pm.GetValues<IGameProfile>(GamingConstants.Games).Where(g => g.Enabled).ToArray();
+                            {
+                                var games = _pm.GetValues<IGameProfile>(GamingConstants.Games).Where(g => g.Enabled).ToArray();
 
-                            Array.ForEach(games, g => data.AppendLine(g.ThemeName));
+                                Array.ForEach(games, g => data.AppendLine(g.ThemeName));
 
-                            desiredInfo = data.ToString();
-                            desiredInfoFound = true;
-                            break;
-                        }
+                                desiredInfo = data.ToString();
+                                desiredInfoFound = true;
+                                break;
+                            }
                         case PlatformInfoEnum.PlayerBalance:
-                        {
-                            if (_bank == null) _bank = ServiceManager.GetInstance().TryGetService<IBank>();
-                            desiredInfo = _bank.QueryBalance().ToString();
-                            desiredInfoFound = true;
-                            break;
-                        }
+                            {
+                                if (_bank == null) _bank = ServiceManager.GetInstance().TryGetService<IBank>();
+                                desiredInfo = _bank.QueryBalance().ToString();
+                                desiredInfoFound = true;
+                                break;
+                            }
                         case PlatformInfoEnum.State:
-                        {
-                            desiredInfo = _platformState.ToString();
-                            desiredInfoFound = true;
-                            break;
-                        }
+                            {
+                                desiredInfo = _platformState.ToString();
+                                desiredInfoFound = true;
+                                break;
+                            }
                         case PlatformInfoEnum.Printer:
-                        {
-                            var printer = ServiceManager.GetInstance().TryGetService<IPrinter>();
-                            desiredInfo = printer?.ToAString();
-                            desiredInfoFound = printer != null;
-                            break;
-                        }
+                            {
+                                var printer = ServiceManager.GetInstance().TryGetService<IPrinter>();
+                                desiredInfo = printer?.ToAString();
+                                desiredInfoFound = printer != null;
+                                break;
+                            }
                         case PlatformInfoEnum.NoteAcceptor:
-                        {
-                            var na = ServiceManager.GetInstance().TryGetService<INoteAcceptor>();
-                            desiredInfo = na?.ToAString();
-                            desiredInfoFound = na != null;
-                            break;
-                        }
+                            {
+                                var na = ServiceManager.GetInstance().TryGetService<INoteAcceptor>();
+                                desiredInfo = na?.ToAString();
+                                desiredInfoFound = na != null;
+                                break;
+                            }
                         case PlatformInfoEnum.Os:
-                        {
-                            var os = ServiceManager.GetInstance().TryGetService<IOSService>();
-                            desiredInfo = os?.ToAString();
-                            desiredInfoFound = os != null;
-                            break;
-                        }
+                            {
+                                var os = ServiceManager.GetInstance().TryGetService<IOSService>();
+                                desiredInfo = os?.ToAString();
+                                desiredInfoFound = os != null;
+                                break;
+                            }
                         case PlatformInfoEnum.Io:
-                        {
-                            var io = ServiceManager.GetInstance().TryGetService<IIO>();
-                            desiredInfo = io?.ToAString();
-                            desiredInfoFound = io != null;
-                            break;
-                        }
+                            {
+                                var io = ServiceManager.GetInstance().TryGetService<IIO>();
+                                desiredInfo = io?.ToAString();
+                                desiredInfoFound = io != null;
+                                break;
+                            }
                         case PlatformInfoEnum.Display:
-                        {
-                            var display = ServiceManager.GetInstance().TryGetService<IDisplayService>();
-                            desiredInfo = display?.ToAString();
-                            desiredInfoFound = display != null;
-                            break;
-                        }
+                            {
+                                var display = ServiceManager.GetInstance().TryGetService<IDisplayService>();
+                                desiredInfo = display?.ToAString();
+                                desiredInfoFound = display != null;
+                                break;
+                            }
                         case PlatformInfoEnum.Id:
-                        {
-                            var id = ServiceManager.GetInstance().TryGetService<IIdReader>();
-                            desiredInfo = id?.ToAString();
-                            desiredInfoFound = id != null;
-                            break;
-                        }
+                            {
+                                var id = ServiceManager.GetInstance().TryGetService<IIdReader>();
+                                desiredInfo = id?.ToAString();
+                                desiredInfoFound = id != null;
+                                break;
+                            }
                         case PlatformInfoEnum.Network:
-                        {
-                            var net = ServiceManager.GetInstance().TryGetService<INetworkService>();
-                            desiredInfo = net?.ToAString();
-                            desiredInfoFound = net != null;
-                            break;
-                        }
+                            {
+                                var net = ServiceManager.GetInstance().TryGetService<INetworkService>();
+                                desiredInfo = net?.ToAString();
+                                desiredInfoFound = net != null;
+                                break;
+                            }
                         case PlatformInfoEnum.Jurisdiction:
-                        {
-                            desiredInfo = _pm.GetProperty(ApplicationConstants.JurisdictionKey, "").ToString();
-                            desiredInfoFound = true;
-                            break;
-                        }
+                            {
+                                desiredInfo = _pm.GetProperty(ApplicationConstants.JurisdictionKey, "").ToString();
+                                desiredInfoFound = true;
+                                break;
+                            }
                         case PlatformInfoEnum.Protocol:
-                        {
-                            desiredInfo = _pm.GetProperty(ApplicationConstants.ActiveProtocol, "").ToString();
-                            desiredInfoFound = true;
-                            break;
-                        }
+                            {
+                                desiredInfo = _pm.GetProperty(ApplicationConstants.ActiveProtocol, "").ToString();
+                                desiredInfoFound = true;
+                                break;
+                            }
                         case PlatformInfoEnum.CurrentLockups:
-                        {
-                            desiredInfo = JsonConvert.SerializeObject(_currentLockups.Values, Formatting.Indented);
-                            desiredInfoFound = true;
-                            break;
-                        }
+                            {
+                                desiredInfo = JsonConvert.SerializeObject(_currentLockups.Values, Formatting.Indented);
+                                desiredInfoFound = true;
+                                break;
+                            }
                         case PlatformInfoEnum.TowerLightState:
-                        {
-                            desiredInfo = JsonConvert.SerializeObject(_towerLightStates, Formatting.Indented);
-                            desiredInfoFound = true;
-                            break;
-                        }
+                            {
+                                desiredInfo = JsonConvert.SerializeObject(_towerLightStates, Formatting.Indented);
+                                desiredInfoFound = true;
+                                break;
+                            }
                         case PlatformInfoEnum.Meters:
-                        {
-                            var meterManager = ServiceManager.GetInstance().TryGetService<IMeterManager>();
-                            desiredInfo = meterManager?.ToAString();
-                            desiredInfoFound = meterManager != null;
-                            break;
-                        }
+                            {
+                                var meterManager = ServiceManager.GetInstance().TryGetService<IMeterManager>();
+                                desiredInfo = meterManager?.ToAString();
+                                desiredInfoFound = meterManager != null;
+                                break;
+                            }
                         case PlatformInfoEnum.IsRobotModeRunning:
-                        {
-                            desiredInfo = _automata.IsRobotModeRunning.ToString();
-                            desiredInfoFound = true;
-                            break;
-                        }
+                            {
+                                desiredInfo = _automata.IsRobotModeRunning.ToString();
+                                desiredInfoFound = true;
+                                break;
+                            }
                         case PlatformInfoEnum.Detailed:
-                        {
-                            var metrics = new Dictionary<string, string>();
-                            _processMonitor.GetMetrics(metrics);
-                            dataMulti.Add(PlatformInfoEnum.ProcessMetrics ,JsonConvert.SerializeObject(metrics, Formatting.Indented));
+                            {
+                                var metrics = new Dictionary<string, string>();
+                                _processMonitor.GetMetrics(metrics);
+                                dataMulti.Add(PlatformInfoEnum.ProcessMetrics, JsonConvert.SerializeObject(metrics, Formatting.Indented));
 
-                            var printer = ServiceManager.GetInstance().TryGetService<IPrinter>();
-                            dataMulti.Add(PlatformInfoEnum.Printer, printer.ToAString());
+                                var printer = ServiceManager.GetInstance().TryGetService<IPrinter>();
+                                dataMulti.Add(PlatformInfoEnum.Printer, printer.ToAString());
 
-                            var na = ServiceManager.GetInstance().TryGetService<INoteAcceptor>();
-                            dataMulti.Add(PlatformInfoEnum.NoteAcceptor, na.ToAString());
+                                var na = ServiceManager.GetInstance().TryGetService<INoteAcceptor>();
+                                dataMulti.Add(PlatformInfoEnum.NoteAcceptor, na.ToAString());
 
-                            var os = ServiceManager.GetInstance().TryGetService<IOSService>();
-                            dataMulti.Add(PlatformInfoEnum.Os, os.ToAString());
+                                var os = ServiceManager.GetInstance().TryGetService<IOSService>();
+                                dataMulti.Add(PlatformInfoEnum.Os, os.ToAString());
 
-                            var io = ServiceManager.GetInstance().TryGetService<IIO>();
-                            dataMulti.Add(PlatformInfoEnum.Io, io.ToAString());
+                                var io = ServiceManager.GetInstance().TryGetService<IIO>();
+                                dataMulti.Add(PlatformInfoEnum.Io, io.ToAString());
 
-                            var display = ServiceManager.GetInstance().TryGetService<IDisplayService>();
-                            dataMulti.Add(PlatformInfoEnum.Display, display.ToAString());
+                                var display = ServiceManager.GetInstance().TryGetService<IDisplayService>();
+                                dataMulti.Add(PlatformInfoEnum.Display, display.ToAString());
 
-                            var id = ServiceManager.GetInstance().TryGetService<IIdReader>();
-                            dataMulti.Add(PlatformInfoEnum.Id, id.ToAString());
+                                var id = ServiceManager.GetInstance().TryGetService<IIdReader>();
+                                dataMulti.Add(PlatformInfoEnum.Id, id.ToAString());
 
-                            var net = ServiceManager.GetInstance().TryGetService<INetworkService>();
-                            dataMulti.Add(PlatformInfoEnum.Network, net.ToAString());
+                                var net = ServiceManager.GetInstance().TryGetService<INetworkService>();
+                                dataMulti.Add(PlatformInfoEnum.Network, net.ToAString());
 
-                            dataMulti.Add(PlatformInfoEnum.Jurisdiction, _pm.GetProperty(ApplicationConstants.JurisdictionKey, "").ToString());
+                                dataMulti.Add(PlatformInfoEnum.Jurisdiction, _pm.GetProperty(ApplicationConstants.JurisdictionKey, "").ToString());
 
-                            data.AppendLine($"Protocol: {_pm.GetProperty(ApplicationConstants.ActiveProtocol, "").ToString()}");
-                            dataMulti.Add(PlatformInfoEnum.Protocol, _pm.GetProperty(ApplicationConstants.ActiveProtocol, "").ToString());
+                                data.AppendLine($"Protocol: {_pm.GetProperty(ApplicationConstants.ActiveProtocol, "").ToString()}");
+                                dataMulti.Add(PlatformInfoEnum.Protocol, _pm.GetProperty(ApplicationConstants.ActiveProtocol, "").ToString());
 
-                            var games = _pm.GetValues<IGameProfile>(GamingConstants.Games).ToList();
-                            dataMulti.Add(PlatformInfoEnum.GameInfo, JsonConvert.SerializeObject(games, Formatting.Indented));
+                                var games = _pm.GetValues<IGameProfile>(GamingConstants.Games).ToList();
+                                dataMulti.Add(PlatformInfoEnum.GameInfo, JsonConvert.SerializeObject(games, Formatting.Indented));
 
-                            dataMulti.Add(PlatformInfoEnum.CurrentLockups, JsonConvert.SerializeObject(_currentLockups, Formatting.Indented));
+                                dataMulti.Add(PlatformInfoEnum.CurrentLockups, JsonConvert.SerializeObject(_currentLockups, Formatting.Indented));
 
-                            dataMulti.Add(PlatformInfoEnum.IsRobotModeRunning, _automata.IsRobotModeRunning.ToString());
+                                dataMulti.Add(PlatformInfoEnum.IsRobotModeRunning, _automata.IsRobotModeRunning.ToString());
 
-                            desiredInfo = data.ToString();
-                            desiredInfoFound = true;
-                            break;
-                        }
+                                desiredInfo = data.ToString();
+                                desiredInfoFound = true;
+                                break;
+                            }
                         default:
-                        {
-                            desiredInfoFound = false;
-                            break;
-                        }
+                            {
+                                desiredInfoFound = false;
+                                break;
+                            }
                     }
 
                     dataMulti.Add(type, desiredInfo);
@@ -1129,149 +1128,149 @@
             try
             {
                 //foreach (string type in option)
-                    ConfigOptionInfo optName = (ConfigOptionInfo)Enum.Parse(typeof(ConfigOptionInfo), option);
+                ConfigOptionInfo optName = (ConfigOptionInfo)Enum.Parse(typeof(ConfigOptionInfo), option);
 
-                    switch (optName)
-                    {
-                        case ConfigOptionInfo.CreditLimit:
-                            {
-                                var maxCreditLimit = _pm.GetValue(AccountingConstants.MaxCreditMeter, long.MaxValue) / 1000;
+                switch (optName)
+                {
+                    case ConfigOptionInfo.CreditLimit:
+                        {
+                            var maxCreditLimit = _pm.GetValue(AccountingConstants.MaxCreditMeter, long.MaxValue) / 1000;
 
-                                desiredInfo = maxCreditLimit.ToString();
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.EftAftTransferLimit:
-                            {
-                                //get AftTransferLimit
-                                var features = _pm.GetValue(Sas.Contracts.SASProperties.SasProperties.SasFeatureSettings, new SasFeatures());
+                            desiredInfo = maxCreditLimit.ToString();
+                            desiredInfoFound = true;
+                            break;
+                        }
+                    case ConfigOptionInfo.EftAftTransferLimit:
+                        {
+                            //get AftTransferLimit
+                            var features = _pm.GetValue(Sas.Contracts.SASProperties.SasProperties.SasFeatureSettings, new SasFeatures());
 
-                                desiredInfo = features.TransferLimit.ToString();
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.EftAftTransferInMode:
-                            {
-                                //get AftInEnabled
-                                desiredInfo = _pm.GetValue(Sas.Contracts.SASProperties.SasProperties.SasFeatureSettings, new SasFeatures()).TransferInAllowed.ToString();
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.EftAftTransferOutMode:
-                            {
-                                //get AftOutEnabled
-                                desiredInfo = _pm.GetValue(Sas.Contracts.SASProperties.SasProperties.SasFeatureSettings, new SasFeatures()).TransferOutAllowed.ToString();
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.BillAcceptorDriver:
-                            {
-                                //get BillAcceptorDriver
-                                desiredInfo = "Bill Acceptor Drover Not Implemented";
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.PrinterDriver:
-                            {
-                                //get PrinterDriver
-                                desiredInfo = "Not Implemented";
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.VoucherInLimit:
-                            {
-                                //get VoucherInLimit
-                                desiredInfo = "Not Implemented";
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.VoucherOutLimit:
-                            {
-                                //get VoucherOutLimit
-                                var voucherOutLimit = ((long)_pm.GetProperty(AccountingConstants.VoucherOutLimit, long.MaxValue)) / 1000;
-                                desiredInfo = voucherOutLimit.ToString();                                    
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.PrintPromoTickets:
-                            {
-                                //get PrintPromoTickets
-                                desiredInfo = "Not Implemented";
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.ValidationType:
-                            {
-                                //var validationType = Sas.Contracts.SASProperties.SasValidationType;
-                                //desiredInfo = validationType.ToString();
-                                //desiredInfoFound = true;
-                                desiredInfo = "Not Implemented";
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.SerialNumber:
-                            {
-                                desiredInfo = "Not Implemented";
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.MachineId:
-                            {
-                                desiredInfo = "Not Implemented";
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.Protocol:
-                            {
-                                desiredInfo = _pm.GetProperty(ApplicationConstants.Protocol, "").ToString();
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.SasHost1Address:
-                            {
-                                var hosts = _pm.GetValue(Sas.Contracts.SASProperties.SasProperties.SasHosts, Enumerable.Empty<Host>());
-                                desiredInfo = string.Join(" : ", hosts.Select(x => x.ComPort.ToString()));
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.SasHost2Address:
-                            {
-                                desiredInfo = "Not Implemented";
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.GameDenomValidation:
-                            {
-                                desiredInfo = "Not Implemented";
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.G2SHostUri:
-                            {
-                                desiredInfo = "Not Implemented";
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.ZoneId:
-                            {
-                                desiredInfo = "Not Implemented";
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.LargeWinLimit:
-                            {
-                                var largeWinLimit = ((long)_pm.GetProperty(AccountingConstants.LargeWinLimit, AccountingConstants.DefaultLargeWinLimit)) / 1000;
-                                desiredInfo = largeWinLimit.ToString();
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.HandpayLimit:
-                            {
-                                var handpayLimit = ((long)_pm.GetProperty(AccountingConstants.HandpayLimit, AccountingConstants.DefaultHandpayLimit)) / 1000;
-                                desiredInfo = handpayLimit.ToString();
-                                desiredInfoFound = true;
-                                break;
-                            }
+                            desiredInfo = features.TransferLimit.ToString();
+                            desiredInfoFound = true;
+                            break;
+                        }
+                    case ConfigOptionInfo.EftAftTransferInMode:
+                        {
+                            //get AftInEnabled
+                            desiredInfo = _pm.GetValue(Sas.Contracts.SASProperties.SasProperties.SasFeatureSettings, new SasFeatures()).TransferInAllowed.ToString();
+                            desiredInfoFound = true;
+                            break;
+                        }
+                    case ConfigOptionInfo.EftAftTransferOutMode:
+                        {
+                            //get AftOutEnabled
+                            desiredInfo = _pm.GetValue(Sas.Contracts.SASProperties.SasProperties.SasFeatureSettings, new SasFeatures()).TransferOutAllowed.ToString();
+                            desiredInfoFound = true;
+                            break;
+                        }
+                    case ConfigOptionInfo.BillAcceptorDriver:
+                        {
+                            //get BillAcceptorDriver
+                            desiredInfo = "Bill Acceptor Drover Not Implemented";
+                            desiredInfoFound = true;
+                            break;
+                        }
+                    case ConfigOptionInfo.PrinterDriver:
+                        {
+                            //get PrinterDriver
+                            desiredInfo = "Not Implemented";
+                            desiredInfoFound = true;
+                            break;
+                        }
+                    case ConfigOptionInfo.VoucherInLimit:
+                        {
+                            //get VoucherInLimit
+                            desiredInfo = "Not Implemented";
+                            desiredInfoFound = true;
+                            break;
+                        }
+                    case ConfigOptionInfo.VoucherOutLimit:
+                        {
+                            //get VoucherOutLimit
+                            var voucherOutLimit = ((long)_pm.GetProperty(AccountingConstants.VoucherOutLimit, long.MaxValue)) / 1000;
+                            desiredInfo = voucherOutLimit.ToString();
+                            desiredInfoFound = true;
+                            break;
+                        }
+                    case ConfigOptionInfo.PrintPromoTickets:
+                        {
+                            //get PrintPromoTickets
+                            desiredInfo = "Not Implemented";
+                            desiredInfoFound = true;
+                            break;
+                        }
+                    case ConfigOptionInfo.ValidationType:
+                        {
+                            //var validationType = Sas.Contracts.SASProperties.SasValidationType;
+                            //desiredInfo = validationType.ToString();
+                            //desiredInfoFound = true;
+                            desiredInfo = "Not Implemented";
+                            desiredInfoFound = true;
+                            break;
+                        }
+                    case ConfigOptionInfo.SerialNumber:
+                        {
+                            desiredInfo = "Not Implemented";
+                            desiredInfoFound = true;
+                            break;
+                        }
+                    case ConfigOptionInfo.MachineId:
+                        {
+                            desiredInfo = "Not Implemented";
+                            desiredInfoFound = true;
+                            break;
+                        }
+                    case ConfigOptionInfo.Protocol:
+                        {
+                            desiredInfo = _pm.GetProperty(ApplicationConstants.Protocol, "").ToString();
+                            desiredInfoFound = true;
+                            break;
+                        }
+                    case ConfigOptionInfo.SasHost1Address:
+                        {
+                            var hosts = _pm.GetValue(Sas.Contracts.SASProperties.SasProperties.SasHosts, Enumerable.Empty<Host>());
+                            desiredInfo = string.Join(" : ", hosts.Select(x => x.ComPort.ToString()));
+                            desiredInfoFound = true;
+                            break;
+                        }
+                    case ConfigOptionInfo.SasHost2Address:
+                        {
+                            desiredInfo = "Not Implemented";
+                            desiredInfoFound = true;
+                            break;
+                        }
+                    case ConfigOptionInfo.GameDenomValidation:
+                        {
+                            desiredInfo = "Not Implemented";
+                            desiredInfoFound = true;
+                            break;
+                        }
+                    case ConfigOptionInfo.G2SHostUri:
+                        {
+                            desiredInfo = "Not Implemented";
+                            desiredInfoFound = true;
+                            break;
+                        }
+                    case ConfigOptionInfo.ZoneId:
+                        {
+                            desiredInfo = "Not Implemented";
+                            desiredInfoFound = true;
+                            break;
+                        }
+                    case ConfigOptionInfo.LargeWinLimit:
+                        {
+                            var largeWinLimit = ((long)_pm.GetProperty(AccountingConstants.LargeWinLimit, AccountingConstants.DefaultLargeWinLimit)) / 1000;
+                            desiredInfo = largeWinLimit.ToString();
+                            desiredInfoFound = true;
+                            break;
+                        }
+                    case ConfigOptionInfo.HandpayLimit:
+                        {
+                            var handpayLimit = ((long)_pm.GetProperty(AccountingConstants.HandpayLimit, AccountingConstants.DefaultHandpayLimit)) / 1000;
+                            desiredInfo = handpayLimit.ToString();
+                            desiredInfoFound = true;
+                            break;
+                        }
                     case ConfigOptionInfo.PrintHandpayReceipt:
                         {
                             var printHandpayReceipt = _pm.GetValue(AccountingConstants.EnableReceipts, false);
@@ -1280,11 +1279,11 @@
                             break;
                         }
                     default:
-                            {
-                                desiredInfoFound = false;
-                                break;
-                            }
-                    }
+                        {
+                            desiredInfoFound = false;
+                            break;
+                        }
+                }
             }
 
 
@@ -1327,79 +1326,79 @@
                             }
                         case ConfigOptionInfo.EftAftTransferInMode:
                             {
-                                
+
                                 break;
                             }
                         case ConfigOptionInfo.EftAftTransferOutMode:
                             {
-                                
+
                                 break;
                             }
                         case ConfigOptionInfo.BillAcceptorDriver:
                             {
-                                
+
                                 break;
                             }
                         case ConfigOptionInfo.PrinterDriver:
                             {
-                                
+
                                 break;
                             }
                         case ConfigOptionInfo.VoucherInLimit:
                             {
-                                
+
                                 break;
                             }
                         case ConfigOptionInfo.VoucherOutLimit:
                             {
                                 //get VoucherOutLimit
-                                _pm.SetProperty(AccountingConstants.VoucherOutLimit, Convert.ToDecimal(value).DollarsToMillicents());                                
-                                break;                               
+                                _pm.SetProperty(AccountingConstants.VoucherOutLimit, Convert.ToDecimal(value).DollarsToMillicents());
+                                break;
                             }
                         case ConfigOptionInfo.PrintPromoTickets:
                             {
-                                bool allowVoucherOutNonCash = Equals(value,"true");
+                                bool allowVoucherOutNonCash = Equals(value, "true");
                                 _pm.SetProperty(AccountingConstants.VoucherOutNonCash, allowVoucherOutNonCash);
                                 break;
                             }
                         case ConfigOptionInfo.ValidationType:
                             {
-                                
+
                                 break;
                             }
                         case ConfigOptionInfo.SerialNumber:
                             {
-                                
+
                                 break;
                             }
                         case ConfigOptionInfo.MachineId:
                             {
-                                
+
                                 break;
                             }
                         case ConfigOptionInfo.Protocol:
                             {
-                                
+
                                 break;
                             }
                         case ConfigOptionInfo.SasHost1Address:
                             {
-                                
+
                                 break;
                             }
                         case ConfigOptionInfo.SasHost2Address:
                             {
-                                
+
                                 break;
                             }
                         case ConfigOptionInfo.GameDenomValidation:
                             {
-                                
+
                                 break;
                             }
                         case ConfigOptionInfo.G2SHostUri:
                             {
-                                
+
                                 break;
                             }
                         case ConfigOptionInfo.HostCashoutAction:
@@ -1410,17 +1409,17 @@
                             }
                         case ConfigOptionInfo.ZoneId:
                             {
-                                
+
                                 break;
                             }
                         case ConfigOptionInfo.LargeWinLimit:
                             {
-                               _pm.SetProperty(AccountingConstants.LargeWinLimit, Convert.ToDecimal(value).DollarsToMillicents());                                
+                                _pm.SetProperty(AccountingConstants.LargeWinLimit, Convert.ToDecimal(value).DollarsToMillicents());
                                 break;
                             }
                         case ConfigOptionInfo.HandpayLimit:
                             {
-                                _pm.SetProperty(AccountingConstants.HandpayLimit, Convert.ToDecimal(value).DollarsToMillicents());                                
+                                _pm.SetProperty(AccountingConstants.HandpayLimit, Convert.ToDecimal(value).DollarsToMillicents());
                                 break;
                             }
                         case ConfigOptionInfo.PrintHandpayReceipt:
@@ -1431,7 +1430,7 @@
                             }
                         default:
                             {
-                                
+
                                 break;
                             }
                     }
@@ -1440,7 +1439,7 @@
 
             }
             catch (Exception ex)
-            {                
+            {
                 _logger.Error(ex.ToString());
             }
 
@@ -1625,60 +1624,60 @@
                 switch (type)
                 {
                     case LockupTypeEnum.MainDoor:
-                    {
-                        evt = new InputEvent(49, state);
-                        break;
-                    }
+                        {
+                            evt = new InputEvent(49, state);
+                            break;
+                        }
                     case LockupTypeEnum.BellyDoor:
-                    {
-                        evt = new InputEvent(51, state);
-                        break;
-                    }
+                        {
+                            evt = new InputEvent(51, state);
+                            break;
+                        }
                     case LockupTypeEnum.CashDoor:
-                    {
-                        evt = new InputEvent(50, state);
-                        break;
-                    }
+                        {
+                            evt = new InputEvent(50, state);
+                            break;
+                        }
                     case LockupTypeEnum.Stacker:
-                    {
-                        if (state)
                         {
-                            evt = new Hardware.Contracts.NoteAcceptor.HardwareFaultEvent(
-                                NoteAcceptorFaultTypes.StackerDisconnected);
-                        }
-                        else
-                        {
-                            evt = new Hardware.Contracts.NoteAcceptor.HardwareFaultClearEvent(
-                                NoteAcceptorFaultTypes.StackerDisconnected);
-                        }
+                            if (state)
+                            {
+                                evt = new Hardware.Contracts.NoteAcceptor.HardwareFaultEvent(
+                                    NoteAcceptorFaultTypes.StackerDisconnected);
+                            }
+                            else
+                            {
+                                evt = new Hardware.Contracts.NoteAcceptor.HardwareFaultClearEvent(
+                                    NoteAcceptorFaultTypes.StackerDisconnected);
+                            }
 
-                        break;
-                    }
+                            break;
+                        }
                     case LockupTypeEnum.SecondaryCashDoor:
-                    {
-                        evt = new InputEvent(1024, state);
-                        break;
-                    }
+                        {
+                            evt = new InputEvent(1024, state);
+                            break;
+                        }
                     case LockupTypeEnum.LogicDoor:
-                    {
-                        evt = new InputEvent(45, state);
-                        break;
-                    }
+                        {
+                            evt = new InputEvent(45, state);
+                            break;
+                        }
                     case LockupTypeEnum.TopBox:
-                    {
-                        evt = new InputEvent(46, state);
-                        break;
-                    }
+                        {
+                            evt = new InputEvent(46, state);
+                            break;
+                        }
                     case LockupTypeEnum.DropDoor:
-                    {
-                        evt = new InputEvent(1037, state);
-                        break;
-                    }
+                        {
+                            evt = new InputEvent(1037, state);
+                            break;
+                        }
                     case LockupTypeEnum.Legitimacy:
-                    {
-                        evt = new LegitimacyLockUpEvent();
-                        break;
-                    }
+                        {
+                            evt = new LegitimacyLockUpEvent();
+                            break;
+                        }
                     default:
                         throw new ArgumentOutOfRangeException(nameof(type), type, null);
                 }
@@ -1742,8 +1741,8 @@
         };
 
         private byte _bnaNoteTransactionId = 0;
-		private byte _bnaTicketTransactionID = 0;
-		
+        private byte _bnaTicketTransactionID = 0;
+
         private class RecoveryCompletePlaceHolder
         {
 
