@@ -16,7 +16,7 @@
     using Protocol.Common.Storage.Entity;
     using Stateless;
 
-    public sealed class BingoClientConnectionState : BaseClientConnectionState<BingoClient>, IBingoClientConnectionState
+    public class BingoClientConnectionState : BaseClientConnectionState<BingoClient>, IBingoClientConnectionState
     {
         private readonly ICommandHandlerFactory _commandFactory;
 
@@ -119,6 +119,5 @@
 
             await base.OnDisconnected();
         }
-
     }
 }

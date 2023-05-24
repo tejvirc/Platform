@@ -11,6 +11,7 @@
     using Aristocrat.Bingo.Client;
     using Aristocrat.Bingo.Client.Configuration;
     using Aristocrat.Bingo.Client.Messages;
+    using Aristocrat.Bingo.Client.Messages.Interceptor;
     using Aristocrat.Monaco.Gaming.Contracts;
     using Commands;
     using Common;
@@ -25,7 +26,27 @@
     [TestClass]
     public class BingoClientConnectionStateTests
     {
-        private BingoClientConnectionState _target;
+        public class BingoClientConnectionStateTester : BingoClientConnectionState
+        {
+            public BingoClientConnectionStateTester(
+                IEventBus eventBus,
+                IEnumerable<IClient> clients,
+                IClientConfigurationProvider configurationProvider,
+                IPropertiesManager propertiesManager,
+                ISystemDisableManager systemDisable,
+                IUnitOfWorkFactory unitOfWorkFactory,
+                ICommandHandlerFactory commandFactory) :
+                base(eventBus, clients, configurationProvider, propertiesManager, systemDisable, unitOfWorkFactory, commandFactory)
+            {
+            }
+
+            public void SetClients(IEnumerable<IClient> clients)
+            {
+                Clients = clients;
+            }
+        }
+
+        private BingoClientConnectionStateTester _target;
         private readonly Mock<IEventBus> _eventBus = new(MockBehavior.Default);
         private readonly Mock<IClient> _client = new(MockBehavior.Default);
         private readonly Mock<ICommandHandlerFactory> _commandFactory = new(MockBehavior.Default);
@@ -85,7 +106,7 @@
                 .Returns(bingoConfig);
 
             var clients = new List<IClient> { _client.Object };
-            _target = new BingoClientConnectionState(
+            _target = new BingoClientConnectionStateTester(
                 _eventBus.Object,
                 clients,
                 _configurationProvider.Object,
@@ -93,6 +114,9 @@
                 _systemDisableManager.Object,
                 _unitOfWorkFactory.Object,
                _commandFactory.Object);
+
+            // Force the clients for unit testing
+            _target.SetClients(new List<IClient> { _client.Object });
         }
 
         [TestCleanup]
@@ -106,7 +130,7 @@
         [DataRow(false, true, false, false, false, false, false, DisplayName = "Client null")]
         [DataRow(false, false, true, false, false, false, false, DisplayName = "ConfigurationProvider null")]
         [DataRow(false, false, false, true, false, false, false, DisplayName = "PropertiesManager null")]
-        [DataRow(false, false, false, false, false, false, false, DisplayName = "SystemDisableManager null")]
+        [DataRow(false, false, false, false, true, false, false, DisplayName = "SystemDisableManager null")]
         [DataRow(false, false, false, false, false, true, false, DisplayName = "UnitOfWorkFactory null")]
         [DataRow(false, false, false, false, false, false, true, DisplayName =  "CommandFactory null")]
         [DataTestMethod]
@@ -120,7 +144,7 @@
             bool systemDisableManagerNull,
             bool unitOfWorkFactoryNull)
         {
-            _target = new BingoClientConnectionState(
+            _target = new BingoClientConnectionStateTester(
                 eventBusNull ? null : _eventBus.Object,
                 clientNull ? null : new List<IClient> { _client.Object },
                 configurationNull ? null : _configurationProvider.Object,
