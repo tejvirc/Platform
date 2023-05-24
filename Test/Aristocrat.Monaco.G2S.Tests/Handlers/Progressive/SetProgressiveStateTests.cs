@@ -78,7 +78,7 @@
         public async Task WhenHandleCommandWithDisableProgressiveStateExpectSuccess()
         {
             MoqServiceManager.CreateInstance(MockBehavior.Default);
-            MoqServiceManager.CreateAndAddService<IProgressiveService>(MockBehavior.Default);
+
             var deviceMock = new Mock<IProgressiveDevice>();
             deviceMock.SetupGet(m => m.DeviceClass).Returns(DeviceClass.G2S_progressive);
             deviceMock.SetupGet(m => m.HostEnabled).Returns(true);
@@ -92,10 +92,18 @@
 
             command.Command.disableText = "disable_text";
 
+
+            Mock<IProgressiveService> progressiveService = new Mock<IProgressiveService>();
+            progressiveService.Setup(s => s.SetProgressiveDeviceState(
+                command.Command.enable,
+                deviceMock.Object,
+                command.Command.disableText
+                )).Verifiable();
+            MoqServiceManager.AddService(progressiveService);
+
             await handler.Handle(command);
 
-            deviceMock.VerifySet(d => d.DisableText = command.Command.disableText);
-            deviceMock.VerifySet(d => d.HostEnabled = false);
+            progressiveService.Verify();
         }
 
         [TestMethod]

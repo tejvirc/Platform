@@ -15,7 +15,7 @@
         ///     Currently this will happen any time that SetProgressiveValue is called, though it may be moved if a more suitable location is found.
         ///     If there is no progressive host with the offline check enabled then this returns out.
         /// </summary>
-        void ReceiveProgressiveValueUpdate();
+        void OnReceiveProgressiveValueUpdate();
 
         /// <summary>
         ///     Set the state of a progressive device

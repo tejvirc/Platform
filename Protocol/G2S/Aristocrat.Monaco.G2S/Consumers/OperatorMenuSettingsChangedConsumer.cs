@@ -69,12 +69,11 @@
                 _eventLift.Report(optionConfigDevice, EventCode.G2S_OCE004, optionConfigDevice.DeviceList(optionConfigStatus));
             }
 
-            foreach(var progressiveDevice in progressiveDevices)
+            var progressiveService = ServiceManager.GetInstance().TryGetService<IProgressiveService>();
+            if (progressiveService == null) return;
+            progressiveService.OnConfiguredProgressives(true);
+            foreach (var progressiveDevice in progressiveDevices)
             {
-                var progressiveService = ServiceManager.GetInstance().TryGetService<IProgressiveService>();
-                if(progressiveService == null) return;
-                progressiveService.UpdateVertexProgressives(true);
-
                 var progressiveStatus = new progressiveStatus();
                 _progressiveCommandBuilder.Build(progressiveDevice, progressiveStatus);
                 _eventLift.Report(progressiveDevice, EventCode.G2S_PGE006, progressiveDevice.DeviceList(progressiveStatus));

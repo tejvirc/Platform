@@ -211,11 +211,11 @@
                         progService.engine = engine;
                         if (vertexProgIds != null && vertexProgIds.Count > 0)
                         {
-                            progService?.UpdateVertexProgressives(false, true);
+                            progService?.OnConfiguredProgressives(false, true);
                         }
                         else
                         {
-                            progService?.UpdateVertexProgressives();
+                            progService?.OnConfiguredProgressives();
                         }
                     }
                 }

@@ -25,7 +25,7 @@
         public Dictionary<int, int> DeviceProgIdMap { get; set; } = new Dictionary<int, int>();
 
         /// <inheritdoc />
-        public void UpdateVertexProgressives(bool fromConfig = false, bool fromBase = false)
+        public void OnConfiguredProgressives(bool fromConfig = false, bool fromBase = false)
         {
             if (!_g2sProgressivesEnabled)
             {
@@ -36,6 +36,10 @@
             {
                 (engine as G2SEngine).AddProgressiveDevices(this);
             }
+
+            _progressiveHost = _egm.Hosts.FirstOrDefault(h => h.IsProgressiveHost);
+            var interval = _progressiveHost?.OfflineTimerInterval.TotalMilliseconds > 0 ? _progressiveHost.OfflineTimerInterval.TotalMilliseconds : 100;
+            _progressiveHostOfflineTimer.Interval = interval;
 
             var propertiesManager = ServiceManager.GetInstance().TryGetService<IPropertiesManager>();
             if (fromConfig)
@@ -74,7 +78,7 @@
                 device.ProgressiveId = success ? newId : oldId;
 
                 var progLevels = levelProvider.GetProgressiveLevels().Where(l => l.ProgressiveId == device.ProgressiveId && l.DeviceId != 0);
-                if (progLevels != null && progLevels.Count() > 0)
+                if (progLevels?.Any() == true)
                 {
                     foreach (var level in progLevels)
                     {

@@ -19,6 +19,7 @@
         private readonly IG2SEgm _egm;
         private readonly IProgressiveLevelProvider _progressiveProvider;
         private readonly ICommandBuilder<IProgressiveDevice, progressiveValueAck> _progressiveValueAckCommandBuilder;
+        private readonly IProgressiveService _progressiveService;
 
         /// <summary>
         /// 
@@ -26,32 +27,34 @@
         /// <param name="egm">The G2S EGM</param>
         /// <param name="progressiveValueAckCommandBuilder">Progressive Value Ack Command Builder instance</param>
         /// <param name="progressiveProvider">Progressive provider instance</param>
+        /// <param name="progressiveService">Progressive Service Instance</param>
         public SetProgressiveValue(IG2SEgm egm,
             ICommandBuilder<IProgressiveDevice, progressiveValueAck> progressiveValueAckCommandBuilder,
-            IProgressiveLevelProvider progressiveProvider)
+            IProgressiveLevelProvider progressiveProvider,
+            IProgressiveService progressiveService)
         {
             _egm = egm ?? throw new ArgumentNullException(nameof(egm));
             _progressiveProvider = progressiveProvider ?? throw new ArgumentNullException(nameof(progressiveProvider));
             _progressiveValueAckCommandBuilder = progressiveValueAckCommandBuilder ??
                 throw new ArgumentNullException(nameof(progressiveValueAckCommandBuilder));
+            _progressiveService = progressiveService ?? throw new ArgumentNullException(nameof(progressiveService));
         }
 
         /// <inheritdoc />
         public async Task<Error> Verify(ClassCommand<progressive, setProgressiveValue> command)
         {
-            Error error = await Sanction.OwnerAndGuests<IProgressiveDevice>(_egm, command);
-            var progressiveService = ServiceManager.GetInstance().TryGetService<IProgressiveService>();
-            if(progressiveService == null) return new Error(ErrorCode.G2S_APX999);
-
-            if (command.IClass.deviceId > 0)
+            Error error = await Sanction.OnlyOwner<IProgressiveDevice>(_egm, command);
+            if (error == null && command.IClass.deviceId > 0)
             {
+                if (_progressiveService == null) return new Error(ErrorCode.G2S_APX999);
+
                 var device = _egm.GetDevice<IProgressiveDevice>(command.IClass.deviceId);
-                List<ProgressiveLevel> levels = _progressiveProvider.GetProgressiveLevels().Where(l => l.ProgressiveId == device.ProgressiveId && (progressiveService.VertexDeviceIds.TryGetValue(l.DeviceId, out int value) ? value : l.DeviceId) == device.Id).ToList();
+                List<ProgressiveLevel> levels = _progressiveProvider.GetProgressiveLevels().Where(l => l.ProgressiveId == device.ProgressiveId && (_progressiveService.VertexDeviceIds.TryGetValue(l.DeviceId, out int value) ? value : l.DeviceId) == device.Id).ToList();
                 var lvl = levels.FirstOrDefault();
 
                 foreach (var l in command.Command.setLevelValue)
                 {
-                    var levelId = progressiveService.LevelIds.GetMonacoProgressiveLevelId(lvl.GameId, l.progId, l.levelId);
+                    var levelId = _progressiveService.LevelIds.GetMonacoProgressiveLevelId(lvl.GameId, l.progId, l.levelId);
                     var progLevel = levels.Where(p => p.ProgressiveId == l.progId && p.LevelId == levelId).FirstOrDefault();
                     if (progLevel == null)
                     {
@@ -77,32 +80,30 @@
             {
                 return;
             }
+            if (_progressiveService == null) return;
 
-            var progressiveService = ServiceManager.GetInstance().TryGetService<IProgressiveService>();
-            if (progressiveService == null) return;
+            _progressiveService.OnReceiveProgressiveValueUpdate();
 
-            progressiveService.ReceiveProgressiveValueUpdate();
-
-            List<ProgressiveLevel> levels = _progressiveProvider.GetProgressiveLevels().Where(l => l.ProgressiveId == device.ProgressiveId && (progressiveService.VertexDeviceIds.TryGetValue(l.DeviceId, out int value) ? value : l.DeviceId) == device.Id).ToList();
+            List<ProgressiveLevel> levels = _progressiveProvider.GetProgressiveLevels().Where(l => l.ProgressiveId == device.ProgressiveId && (_progressiveService.VertexDeviceIds.TryGetValue(l.DeviceId, out int value) ? value : l.DeviceId) == device.Id).ToList();
             var lvl = levels.FirstOrDefault();
 
             List<ProgressiveLevel> levelsToUpdate = new List<ProgressiveLevel>();
             foreach (var level in command.Command.setLevelValue)
             {
                 long progValueSeq = level.progValueSeq;
-                if (progressiveService.ProgressiveValues != null)
+                if (_progressiveService.ProgressiveValues != null)
                 {
-                    foreach (var key in progressiveService.ProgressiveValues.Keys)
+                    foreach (var key in _progressiveService.ProgressiveValues.Keys)
                     {
-                        if (progressiveService.ProgressiveValues[key].ProgressiveValueSequence >= progValueSeq)
+                        if (_progressiveService.ProgressiveValues[key].ProgressiveValueSequence >= progValueSeq)
                         {
-                            progValueSeq = progressiveService.ProgressiveValues[key].ProgressiveValueSequence + 1;
+                            progValueSeq = _progressiveService.ProgressiveValues[key].ProgressiveValueSequence + 1;
                         }
                     }
                 }
 
                 var progLevel = levels.FirstOrDefault(p => p.ProgressiveId == level.progId && p.LevelId ==
-                                    progressiveService.LevelIds.GetMonacoProgressiveLevelId(lvl.GameId, level.progId, level.levelId));
+                                    _progressiveService.LevelIds.GetMonacoProgressiveLevelId(lvl.GameId, level.progId, level.levelId));
                 progLevel.CurrentValue = level.progValueAmt;
 
                 ProgressiveValue newValue = new ProgressiveValue();
@@ -113,13 +114,13 @@
                 newValue.ProgressiveValueSequence = level.progValueSeq;
 
 
-                if (progressiveService.ProgressiveValues.ContainsKey($"{progLevel.ProgressiveId}|{progLevel.LevelId}"))
+                if (_progressiveService.ProgressiveValues.ContainsKey($"{progLevel.ProgressiveId}|{progLevel.LevelId}"))
                 {
-                    progressiveService.ProgressiveValues[$"{progLevel.ProgressiveId}|{progLevel.LevelId}"] = newValue;
+                    _progressiveService.ProgressiveValues[$"{progLevel.ProgressiveId}|{progLevel.LevelId}"] = newValue;
                 }
                 else
                 {
-                    progressiveService.ProgressiveValues.Add($"{progLevel.ProgressiveId}|{progLevel.LevelId}", newValue);
+                    _progressiveService.ProgressiveValues.Add($"{progLevel.ProgressiveId}|{progLevel.LevelId}", newValue);
                 }
 
                 levelsToUpdate.Add(progLevel);
@@ -130,7 +131,7 @@
                 _progressiveProvider.UpdateProgressiveLevels(level.ProgressivePackName, level.GameId,
                     level.Denomination.FirstOrDefault(), new List<ProgressiveLevel> { level });
 
-                progressiveService.UpdateLinkedProgressiveLevels(level.ProgressiveId, level.LevelId, level.CurrentValue.MillicentsToCents());
+                _progressiveService.UpdateLinkedProgressiveLevels(level.ProgressiveId, level.LevelId, level.CurrentValue.MillicentsToCents());
             }
 
             var response = command.GenerateResponse<progressiveValueAck>();

@@ -36,6 +36,6 @@
         /// <param name="fromBase">
         ///     True to load progressive devices from 
         /// </param>
-        void UpdateVertexProgressives(bool fromConfig = false, bool fromBase = false);
+        void OnConfiguredProgressives(bool fromConfig = false, bool fromBase = false);
     }
 }

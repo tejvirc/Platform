@@ -35,7 +35,7 @@
 
     public partial class ProgressiveService : IProgressiveService, IService, IDisposable, IProtocolProgressiveEventHandler
     {
-        private const int DefaultNoProgInfo = 30000;
+        private const int DefaultNoProgInfoTimeout = 30000;
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -65,6 +65,7 @@
         private IList<(string poolName, long amountInPennies)> _pendingAwards;
         private bool _progressiveRecovery;
         private IEnumerable<IViewableLinkedProgressiveLevel> _currentLinkedProgressiveLevelsHit;
+        private IHostControl _progressiveHost = null;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ProgressiveService" /> class.
@@ -114,13 +115,14 @@
             if (_g2sProgressivesEnabled)
             {
                 SubscribeEvents();
-                _progressiveValueUpdateTimer = new Timer(DefaultNoProgInfo);
-                _progressiveValueUpdateTimer.Elapsed += EventUpdateTimerElapsed;
-                _progressiveHostOfflineTimer = new Timer(100); //Start it off with a default 100 millisecond interval, once the host comes online it will update below in ReceiveProgressiveValueUpdate method.
-                _progressiveHostOfflineTimer.Elapsed += ProgressiveHostOfflineTimerElapsed;
+
+                //Setup the progressive host monitoring timers. They will be started once we actually connect. 
+                _progressiveValueUpdateTimer = new Timer(DefaultNoProgInfoTimeout);
+                _progressiveValueUpdateTimer.Elapsed += ProgressiveValueUpdateTimerElapsed;
                 LastProgressiveUpdateTime = DateTime.UtcNow;
-                _progressiveValueUpdateTimer.Start();
-                _progressiveHostOfflineTimer.Start();
+                _progressiveHostOfflineTimer = new Timer();
+                _progressiveHostOfflineTimer.Elapsed += ProgressiveHostOfflineTimerElapsed;
+                _disableProvider.Disable(SystemDisablePriority.Immediate, G2SDisableStates.CommsOffline);
 
                 Configure();
             }
@@ -174,11 +176,14 @@
                     _protocolProgressiveEventsRegistry.UnSubscribeProgressiveEvent<LinkedProgressiveHitEvent>(
                         ProtocolNames.G2S, this);
 
-                    _progressiveValueUpdateTimer.Stop();
-                    _progressiveValueUpdateTimer.Dispose();
+                    _progressiveHostOfflineTimer?.Stop();
+                    _progressiveHostOfflineTimer?.Dispose();
+                    _progressiveValueUpdateTimer?.Stop();
+                    _progressiveValueUpdateTimer?.Dispose();
                 }
             }
 
+            _progressiveHostOfflineTimer = null;
             _progressiveValueUpdateTimer = null;
 
             _disposed = true;
@@ -212,14 +217,9 @@
                 return;
             }
 
-            var devices = _egm.GetDevices<IProgressiveDevice>();
+            var devices = _egm.GetDevices<IProgressiveDevice>().ToList();
             foreach (var progressiveHostInfo in progressiveHostInfos)
             {
-                if (progressiveHostInfo == null)
-                {
-                    continue;
-                }
-
                 var progressiveDevice = devices.Where(d => d.ProgressiveId == progressiveHostInfo.progressiveLevel.FirstOrDefault().progId).FirstOrDefault();
                 if (progressiveDevice == null)
                 {
@@ -252,20 +252,31 @@
 
                 if (!levelsMatched)
                 {
-                    _disableProvider.Disable(SystemDisablePriority.Immediate, G2SDisableStates.LevelMismatch, true);
+                    _disableProvider.Disable(SystemDisablePriority.Immediate, G2SDisableStates.LevelMismatch);
                     return;
                 }
 
                 _disableProvider.Enable(G2SDisableStates.LevelMismatch);
             }
+
+
+            //ensure the progressive value update timer is set to correct monitor timeout
+            var updateTimeout = devices.Select(device => device.NoProgressiveInfo).Prepend(int.MaxValue).Min();
+
+            if (updateTimeout is <= 0 or int.MaxValue)
+            {
+                updateTimeout = DefaultNoProgInfoTimeout;
+            }
+
+            _progressiveValueUpdateTimer.Interval = updateTimeout;
         }
 
-        private IEnumerable<progressiveHostInfo> GetProgressiveHostInfo()
+        private List<progressiveHostInfo> GetProgressiveHostInfo()
         {
             var infoToReturn = new List<progressiveHostInfo>();
             var devices = _egm.GetDevices<IProgressiveDevice>();
 
-            foreach (ProgressiveDevice progressiveDevice in devices)
+            foreach (var progressiveDevice in devices)
             {
                 var timeout = TimeSpan.MaxValue;
                 var currentUtcNow = DateTime.UtcNow;
@@ -279,16 +290,12 @@
                     {
                         Logger.Info($"Command was unsuccessful, posting {EventCode.G2S_PGE106} event");
                     }
-
-                    infoToReturn.Add(null);
                     continue;
                 }
 
                 if (!progressiveHostInfo.IsValid())
                 {
-                    Logger.Info("Received ProgressiveHostInfo  is invalid");
-
-                    infoToReturn.Add(null);
+                    Logger.Info("Received ProgressiveHostInfo is invalid");
                     continue;
                 }
 
@@ -424,11 +431,14 @@
             if (theEvent.GetType() == typeof(TransportUpEvent))
             {
                 _disableProvider.Enable(G2SDisableStates.CommsOffline);
+                _disableProvider.Disable(SystemDisablePriority.Immediate, G2SDisableStates.ProgressiveValueNotReceived);
+                _progressiveHostOfflineTimer.Start();
                 Task.Run(OnTransportUp);
             }
             else
             {
-                _disableProvider.Disable(SystemDisablePriority.Immediate, G2SDisableStates.CommsOffline, true);
+                _disableProvider.Disable(SystemDisablePriority.Immediate, G2SDisableStates.CommsOffline);
+                _progressiveHostOfflineTimer.Stop();
             }
         }
 

@@ -15,7 +15,7 @@
         /// </summary>
         /// <param name="this">The log4net instance to add as a trace source.</param>
         /// <param name="defaultSwitchValue">The default switch value.</param>
-        public static void AddAsTraceSource(this ILog @this, string defaultSwitchValue = @"Verbose")
+        public static void AddAsTraceSource(this ILog @this, string defaultSwitchValue = @"Error")
         {
             const string sourceName = @"G2S";
             const string listenerName = @"Log4Net";
