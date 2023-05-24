@@ -32,9 +32,8 @@
         protected StateMachine<State, Trigger>.TriggerWithParameters<ConfigurationFailureReason> FailedConfigurationTrigger;
         protected readonly IEventBus EventBus;
         protected readonly ISystemDisableManager SystemDisable;
-
+        protected IEnumerable<IClient> _clients;
         private static readonly TimeSpan NoMessagesTimeout = TimeSpan.FromMilliseconds(40_000);
-        private readonly IEnumerable<IClient> _clients;
         private readonly IClientConfigurationProvider _configurationProvider;
         private Timer _timeoutTimer;
         private bool _disposed;
@@ -58,12 +57,23 @@
                 throw new ArgumentNullException(nameof(clients));
             }
 
-            _clients = clients.AsEnumerable().Where(x => x is TClientType);
+            Clients = clients.AsEnumerable().Where(x => x is TClientType);
         }
 
         public event EventHandler ClientConnected;
 
         public event EventHandler ClientDisconnected;
+
+        // Exposing this for unit testing
+        protected IEnumerable<IClient> Clients
+        {
+            get => _clients;
+            set
+            {
+                _clients = value;
+                RegisterEventListeners();
+            }
+        }
 
         public TimeSpan NoMessagesConnectionTimeout { get; set; } = NoMessagesTimeout;
 
@@ -76,7 +86,7 @@
 
             EventBus.UnsubscribeAll(this);
             RegistrationState.Deactivate();
-            foreach (var client in _clients)
+            foreach (var client in Clients)
             {
                 client.Disconnected -= OnClientDisconnected;
                 client.Connected -= OnClientConnected;
@@ -164,7 +174,7 @@
             TokenSource?.Dispose();
             TokenSource = null;
 
-            foreach (var client in _clients)
+            foreach (var client in Clients)
             {
                 await client.Stop().ConfigureAwait(false);
             }
@@ -173,7 +183,7 @@
         private async Task ConnectClient(CancellationToken token)
         {
             SetupFirewallRule();
-            foreach (var client in _clients)
+            foreach (var client in Clients)
             {
                 while (!await client.Start().ConfigureAwait(false) && !token.IsCancellationRequested)
                 {
@@ -187,7 +197,7 @@
         private void SetupFirewallRule()
         {
             using var configuration = _configurationProvider.CreateConfiguration();
-            foreach (var client in _clients)
+            foreach (var client in Clients)
             {
                 Firewall.AddRule(client.FirewallRuleName, (ushort)configuration.Address.Port, Firewall.Direction.Out);
             }
@@ -202,7 +212,7 @@
                     string.Equals(ApplicationConstants.MachineId, evt.PropertyName, StringComparison.Ordinal) ||
                     string.Equals(ApplicationConstants.SerialNumber, evt.PropertyName, StringComparison.Ordinal));
             EventBus.Subscribe<ForceReconnectionEvent>(this, HandleRestartingEvent);
-            foreach (var client in _clients)
+            foreach (var client in Clients)
             {
                 client.Connected += OnClientConnected;
                 client.Disconnected += OnClientDisconnected;
