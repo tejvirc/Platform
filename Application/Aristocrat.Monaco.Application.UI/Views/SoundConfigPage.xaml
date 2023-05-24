@@ -30,8 +30,8 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <ComboBox MinWidth="250"
-                  Grid.Row="0"
+        <StackPanel Grid.Row="0">
+            <ComboBox MinWidth="250"
                   Margin="0 10"
                   ItemsSource="{common:Enumeration {x:Type audio:VolumeLevel}}"
                   SelectedIndex="0"
@@ -39,6 +39,7 @@
                   SelectedValuePath="Value"
                   SelectedValue="{Binding SelectedVolumeLevel}"
                   IsEnabled="{Binding Path=CanEditVolume}"/>
+        </StackPanel>
         <StackPanel Grid.Row="1" Margin="0 10"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Left"
