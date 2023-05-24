@@ -18,7 +18,6 @@
         private readonly IG2SEgm _egm;
         private readonly IEventPersistenceManager _eventPersistenceManager;
         private readonly ITransportStateObserver _transportStateObserver;
-        private readonly IMtpClient _mtpClient;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="HostFactory" /> class.
@@ -36,8 +35,7 @@
             ITransportStateObserver transportStateObserver,
             ICommunicationsStateObserver commsStateObserver,
             IDeviceObserver deviceStateObserver,
-            IEventPersistenceManager eventPersistenceManager,
-            IMtpClient mtpClient)
+            IEventPersistenceManager eventPersistenceManager)
         {
             _egm = egm ?? throw new ArgumentNullException(nameof(egm));
             _transportStateObserver =
@@ -47,8 +45,6 @@
             _deviceFactory = deviceFactory ?? throw new ArgumentNullException(nameof(deviceFactory));
             _eventPersistenceManager =
                 eventPersistenceManager ?? throw new ArgumentNullException(nameof(eventPersistenceManager));
-            _mtpClient =
-                mtpClient ?? throw new ArgumentNullException(nameof(mtpClient));
         }
 
         /// <inheritdoc />
@@ -118,8 +114,7 @@
                     _egm.Address,
                     host.RequiredForPlay,
                     _transportStateObserver,
-                    _commsStateObserver,
-                    _mtpClient));
+                    _commsStateObserver));
             _deviceFactory.Create(
                 host,
                 () => new EventHandlerDevice(host.Id, _deviceStateObserver, _eventPersistenceManager));

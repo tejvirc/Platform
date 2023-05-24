@@ -29,7 +29,7 @@
     ///     means for configuration control, transactions, information exchanges, and event reporting. The multicast service is
     ///     used by a host to send messages to a plurality of EGMs.
     /// </remarks>
-    public class CommunicationsDevice : HostOrientedDevice<communications>, ICommunicationsDevice
+    public partial class CommunicationsDevice : HostOrientedDevice<communications>, ICommunicationsDevice
     {
         private const bool NegotiateNamespaces = false;
         private const int ReconnectDelay = 1000;
@@ -44,8 +44,6 @@
         private readonly ICommunicationsStateObserver _communicationsStateObserver;
 
         private readonly StateMachine<t_commsStates, CommunicationTrigger> _state;
-
-        private readonly IMtpClient _mtpClient;
 
         private readonly object _timerLock = new object();
         private readonly ITransportStateObserver _transportStateObserver;
@@ -71,7 +69,6 @@
         /// <param name="requiredForPlay">Is the device required to play.</param>
         /// <param name="transportStateObserver">An <see cref="ITransportStateObserver" /> instance.</param>
         /// <param name="communicationsStateObserver">An <see cref="ICommunicationsStateObserver" /> instance.</param>
-        /// <param name="mtpClient">An instance of a IMtpClient.</param>
 
         public CommunicationsDevice(
             int deviceId,
@@ -79,16 +76,15 @@
             Uri address,
             bool requiredForPlay,
             ITransportStateObserver transportStateObserver,
-            ICommunicationsStateObserver communicationsStateObserver,
-            IMtpClient mtpClient)
+            ICommunicationsStateObserver communicationsStateObserver)
             : base(deviceId, deviceObserver)
         {
             _transportStateObserver = transportStateObserver;
             _communicationsStateObserver = communicationsStateObserver;
-            _mtpClient = mtpClient ?? throw new ArgumentNullException(nameof(mtpClient));
             _address = address;
             RequiredForPlay = requiredForPlay;
             AllowMulticast = true;
+            ConfigureMtpClient();
 
             SetDefaults();
 
@@ -163,7 +159,7 @@
 
             EndCommsTimer();
 
-            _mtpClient.Close();
+            CloseMtpConnections();
 
             _open = false;
 
@@ -314,45 +310,6 @@
             }
         }
 
-        /// <inheritdoc />
-        public void CreateDeviceConnection(string multicastId, int deviceId, int communicationId, string deviceClass, string address, byte[] currentKey, long currentMsgId, byte[] newKey, long keyChangeId, long lastMessageId)
-        {
-            _mtpClient.CreateDeviceConnection(multicastId, deviceId, communicationId, deviceClass, address, currentKey, currentMsgId, newKey, keyChangeId, lastMessageId);
-        }
-
-        /// <inheritdoc />
-        public void RemoveDeviceConnection(string multicastId)
-        {
-            _mtpClient.RemoveDeviceConnection(multicastId);
-        }
-
-        /// <inheritdoc />
-        public void UpdateSecurityParameters(string multicastId, byte[] currentKey, long currentMsgId, byte[] newKey, long keyChangeId, long lastMessageId)
-        {
-            _mtpClient.UpdateSecurityParameters(multicastId, currentKey, currentMsgId, newKey, keyChangeId, lastMessageId);
-        }
-
-        /// <inheritdoc />
-        public void ConnectConsumer(IMessageConsumer consumer)
-        {
-            _mtpClient.ConnectConsumer(consumer);
-        }
-
-        /// <inheritdoc />
-        public void OpenMtp()
-        {
-            _mtpClient.Open();
-        }
-
-        /// <inheritdoc />
-        public Session SendKeyUpdateRequest(object command)
-        {
-            var getKeyUpdate = command as getMcastKeyUpdate;
-            var keyUpdateRequest = InternalCreateClass();
-            keyUpdateRequest.Item = getKeyUpdate;
-            return Queue.SendRequest(keyUpdateRequest);
-        }
-
         /// <summary>
         ///     Releases allocated resources.
         /// </summary>
@@ -405,6 +362,11 @@
                         _commsOnlineTimer = null;
                     }
                 }
+
+                foreach (var connection in _mtpConnections)
+                    connection.Value.Dispose();
+
+                _messageBuilder.Dispose();
 
                 SourceTrace.TraceInformation(
                     G2STrace.Source,
