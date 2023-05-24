@@ -93,7 +93,7 @@
             Logger.Debug($"BingoSingleGamePlayResponseMeta = {meta}");
 
             var cards = meta.Cards.Select(
-                cardMeta => new CardPlayed(cardMeta.Serial, cardMeta.DaubBitPattern, cardMeta.GewClaimable)).ToList();
+                cardMeta => new CardPlayed(cardMeta.Serial, cardMeta.DaubBitPattern, cardMeta.GewClaimable, cardMeta.CardType == CardType.Golden)).ToList();
 
             var wins = meta.WinResults.Select(
                     winMeta => new WinResult(

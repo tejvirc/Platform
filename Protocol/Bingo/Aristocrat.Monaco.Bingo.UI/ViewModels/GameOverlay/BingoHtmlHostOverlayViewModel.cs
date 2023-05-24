@@ -598,7 +598,14 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
                     cardInstance.CyclingPatterns = new List<BingoPattern>();
                     _ballCallNumbers = new List<BallCallNumber>();
                     Logger.Debug("Sending new bingo card numbers to overlay");
-                    return new BingoLiveData { ActiveCard = cardInstance.InstanceNumber, ClearBingoCard = true, BingoCardNumbers = cardInstance.BingoCardNumbers, CardIsEnabled = cardInstance.Enabled };
+                    return new BingoLiveData
+                        {
+                            ActiveCard = cardInstance.InstanceNumber,
+                            ClearBingoCard = true,
+                            BingoCardNumbers = cardInstance.BingoCardNumbers,
+                            CardIsEnabled = cardInstance.Enabled,
+                            CardIsGolden = card.BingoCard.IsGolden
+                        };
                 },
                 token);
 

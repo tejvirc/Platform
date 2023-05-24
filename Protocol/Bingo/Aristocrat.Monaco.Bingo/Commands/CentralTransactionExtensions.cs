@@ -114,7 +114,7 @@
 
         private static CardPlayed ToCardPlayed(BingoCard card)
         {
-            return new CardPlayed(card.SerialNumber, card.DaubedBits, card.IsGameEndWin);
+            return new CardPlayed(card.SerialNumber, card.DaubedBits, card.IsGameEndWin, card.IsGolden);
         }
 
         private static WinResult ToWinResult(BingoPattern pattern)

@@ -20,6 +20,7 @@
     using Common.GameOverlay;
     using Common.Storage;
     using Common.Storage.Model;
+    using Extensions;
     using Gaming.Contracts;
     using Gaming.Contracts.Central;
     using Humanizer;
@@ -382,7 +383,7 @@
                 orderedPayout.Select(
                     winResult => ProcessWins(gameOutcome, winResult, processedOutcomes, description, token)));
 
-            // Only the main game will use allow combined outcomes event. Side bet games are always assumed to be true.
+            // Only the main game will allow combined outcomes event. Side bet games are always assumed to combine outcomes.
             if (processedOutcomes.Any() && gameOutcome.GameIndex == 0)
             {
                 _eventBus.Publish(new AllowCombinedOutcomesEvent(AllowCombinedOutcomes(processedOutcomes)));
