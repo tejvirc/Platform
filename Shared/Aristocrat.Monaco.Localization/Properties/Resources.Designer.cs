@@ -22583,7 +22583,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to 1 ?.
+		///   Looks up a localized string similar to 1 ¢.
 		/// </summary>
         /// <remarks>
         /// Monaco.Accounting.Contracts
@@ -30670,6 +30670,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string TestModeDisabledStatus {
 			get {
 				return ResourceManager.GetString("TestModeDisabledStatus", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Zero credits are required to enter Test Mode.
+		/// </summary>
+		public static string TestModeDisabledStatusCredits {
+			get {
+				return ResourceManager.GetString("TestModeDisabledStatusCredits", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -57592,7 +57601,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to 1 ?.
+		///		Looks up a localized string similar to 1 ¢.
 		/// </summary>
         /// <remarks>
         /// Monaco.Accounting.Contracts
@@ -65679,6 +65688,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string TestModeDisabledStatus {
 			get {
 				return "TestModeDisabledStatus";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Zero credits are required to enter Test Mode.
+		/// </summary>
+		public static string TestModeDisabledStatusCredits {
+			get {
+				return "TestModeDisabledStatusCredits";
 			}
 		}
 
@@ -82888,7 +82906,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		One,
 		/// <summary>
-		///   Looks up a localized string similar to 1 ?.
+		///   Looks up a localized string similar to 1 ¢.
 		/// </summary>
         /// <remarks>
         /// Monaco.Accounting.Contracts
@@ -87508,6 +87526,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		TestModeDisabledStatus,
+		/// <summary>
+		///   Looks up a localized string similar to Zero credits are required to enter Test Mode.
+		/// </summary>
+		TestModeDisabledStatusCredits,
 		/// <summary>
 		///   Looks up a localized string similar to Device must be connected and not in fault state to....
 		/// </summary>

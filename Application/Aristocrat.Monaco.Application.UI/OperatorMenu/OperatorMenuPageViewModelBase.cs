@@ -458,6 +458,10 @@
                     TestWarningText = Localizer.For(CultureFor.Operator)
                         .GetString(ResourceKeys.TestModeDisabledStatusDoor);
                     break;
+                case OperatorMenuAccessRestriction.ZeroCredits:
+                    TestWarningText = Localizer.For(CultureFor.Operator)
+                        .GetString(ResourceKeys.TestModeDisabledStatusCredits);
+                    break;
             }
         }
 

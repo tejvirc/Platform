@@ -1292,4 +1292,7 @@ Do you really want to do partial reset????</value>
     <value>???EKey device is required to perform game re-configuration???</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
+  <data name="TestModeDisabledStatusCredits" xml:space="preserve">
+    <value>??Zéro crédits are required to enter Test Mode??</value>
+  </data>
 </root>

@@ -69,6 +69,7 @@ as follows:
     <Page Type="NoteAcceptorViewModel" PrintButtonEnabled="true" Access="MainLogicZeroCreditsGameIdle">
       <Setting Name="ActivationTimeVisible" Value="true" />
       <Setting Name="EgmCanEnableDenominations" Value="false" />
+      <AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
     </Page>
     <Page Type="LampsPageViewModel" PrintButtonEnabled="false" >
       <AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
@@ -144,6 +145,10 @@ as follows:
     </AccessRuleSet>
     <AccessRuleSet Name="ReadOnly">
       <Rule Restriction="ReadOnly" />
+    </AccessRuleSet>
+    <AccessRuleSet Name="TestMode">
+      <Rule Restriction="GameIdle" />
+      <Rule Restriction="ZeroCredits" />
     </AccessRuleSet>
     <AccessRuleSet Name="GameIdleZeroCredits">
       <Rule Restriction="GameIdle" />
