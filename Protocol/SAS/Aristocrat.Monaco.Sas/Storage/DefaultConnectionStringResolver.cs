@@ -1,8 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Sas.Storage
 {
-    using System.Data.SqlClient;
     using System.IO;
     using Kernel;
+    using Microsoft.Data.Sqlite;
     using Protocol.Common.Storage;
 
     /// <summary>
@@ -23,7 +23,7 @@
         {
             var dir = pathMapper.GetDirectory(DataPath);
             var path = Path.GetFullPath(dir.FullName);
-            var sqlBuilder = new SqlConnectionStringBuilder
+            var sqlBuilder = new SqliteConnectionStringBuilder
             {
                 DataSource = Path.Combine(path, DatabaseFileName)
             };

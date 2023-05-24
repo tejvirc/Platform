@@ -3,10 +3,10 @@
     using System;
     using System.Collections.Generic;
     using Microsoft.EntityFrameworkCore;
-    using System.Data.SqlClient;
     using System.IO;
     using System.Threading;
     using Kernel;
+    using Microsoft.Data.Sqlite;
     using Monaco.Common.Storage;
 
     /// <summary>
@@ -106,7 +106,7 @@
             var dir = pathMapper.GetDirectory(Constants.DataPath);
             var path = Path.GetFullPath(dir.FullName);
 
-            var sqlBuilder = new SqlConnectionStringBuilder
+            var sqlBuilder = new SqliteConnectionStringBuilder
             {
                 DataSource = Path.Combine(path, Constants.DatabaseFileName)
             };

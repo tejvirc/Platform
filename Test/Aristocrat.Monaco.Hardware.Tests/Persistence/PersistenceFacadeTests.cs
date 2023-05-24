@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Tests.Persistence
 {
     using System;
-    using System.Data.SqlClient;
     using Microsoft.Data.Sqlite;
     using System.IO;
     using System.Linq;

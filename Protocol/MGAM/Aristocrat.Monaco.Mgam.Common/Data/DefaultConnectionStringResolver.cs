@@ -1,8 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Mgam.Common.Data
 {
-    using System.Data.SqlClient;
     using System.IO;
     using Kernel;
+    using Microsoft.Data.Sqlite;
     using Protocol.Common.Storage;
 
     /// <summary>
@@ -22,7 +22,7 @@
 
             var path = Path.GetFullPath(dir.FullName);
 
-            var sqlBuilder = new SqlConnectionStringBuilder
+            var sqlBuilder = new SqliteConnectionStringBuilder
             {
                 DataSource = Path.Combine(path, MgamConstants.DatabaseFileName)
             };

@@ -1,8 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Common.Storage
 {
-    using System.Data.SqlClient;
     using System.IO;
     using Kernel;
+    using Microsoft.Data.Sqlite;
     using Protocol.Common.Storage;
 
     public class DefaultConnectionStringResolver : IConnectionStringResolver
@@ -16,12 +16,14 @@
         {
             var dir = pathMapper.GetDirectory(DataPath);
             var path = Path.GetFullPath(dir.FullName);
-            var sqlBuilder = new SqlConnectionStringBuilder
+            var builder = new SqliteConnectionStringBuilder
             {
-                DataSource = Path.Combine(path, DatabaseFileName)
+                DataSource = Path.Combine(path, DatabaseFileName),
+                Pooling = true,
+                DefaultTimeout = 15,
+                Password = "tk7tjBLQ8GpySFNZTHYD"
             };
-
-            _connectionString = sqlBuilder.ConnectionString;
+            _connectionString = builder.ConnectionString;
         }
         
         public string Resolve()

@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Monaco.G2S.CompositionRoot
 {
     using System;
-    using System.Data.SqlClient;
     using System.IO;
     using System.Linq;
     using System.Net;
@@ -31,6 +30,7 @@
     using Kernel;
     using log4net;
     using Meters;
+    using Microsoft.Data.Sqlite;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
     using Monaco.Common.Container;
@@ -276,7 +276,7 @@
             var dir = ServiceManager.GetInstance().GetService<IPathMapper>().GetDirectory(Constants.DataPath);
             var path = Path.GetFullPath(dir.FullName);
 
-            var sqlBuilder = new SqlConnectionStringBuilder
+            var sqlBuilder = new SqliteConnectionStringBuilder
             {
                 DataSource = Path.Combine(path, Constants.DatabaseFileName)
             };

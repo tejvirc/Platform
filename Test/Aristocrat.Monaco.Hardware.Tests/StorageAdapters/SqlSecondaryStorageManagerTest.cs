@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.SqlClient;
     using Microsoft.Data.Sqlite;
     using System.IO;
     using System.Linq;
