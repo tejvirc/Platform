@@ -268,6 +268,7 @@
         private bool _vbdInfoBarOpenRequested;
         private bool _isGambleFeatureActive;
         private int _handCount;
+        private readonly bool _handCountServiceEnabled;
 
         /****** UPI ******/
         /* TODO: Make UpiViewModel to break up this class */
@@ -548,7 +549,7 @@
             _ageWarningTimer.AgeWarningNeeded = Config.DisplayAgeWarning && !_gameHistory.IsRecoveryNeeded && HasZeroCredits;
 
             SendLanguageChangedEvent(true);
-
+            _handCountServiceEnabled = _properties.GetValue(AccountingConstants.HandCountServiceEnabled, false);
             IsDemonstrationMode = _properties.GetValue(ApplicationConstants.DemonstrationMode, false);
 
             Volume = new LobbyVolumeViewModel(OnUserInteraction);
@@ -4638,9 +4639,24 @@
 
         private bool IsDisabledByHandCount()
         {
-            var handCountServiceEnabled = (bool)_properties.GetProperty(AccountingConstants.HandCountServiceEnabled, false);
 
-            if (!handCountServiceEnabled)
+            if (!_handCountServiceEnabled)
+            {
+                return false;
+            }
+
+            if (!IsCreditAboveAcceptableResidual() || HandCount == 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool IsCreditAboveAcceptableResidual()
+        {
+
+            if (!_handCountServiceEnabled)
             {
                 return false;
             }
@@ -4651,11 +4667,27 @@
 
             var minimumRequiredCreditsInDollars = (double)minimumRequiredCredits.MillicentsToDollars();
 
-            if (RedeemableCredits < minimumRequiredCreditsInDollars || HandCount == 0)
+            if (RedeemableCredits < minimumRequiredCreditsInDollars)
             {
-                return true;
+                return false;
             }
-            return false;
+
+            return true;
+        }
+
+        private bool ResidualCreditsAboveMinimumBet()
+        {
+
+            if (!_handCountServiceEnabled || (BaseState != LobbyState.Game))
+            {
+                return false;
+            }
+
+            var (_, denom) = _properties.GetActiveGame();
+            var minimumWagerInMillicents = denom.MinimumWagerCredits * denom.Value;
+            var redeemableCreditsInMillicents = _bank.QueryBalance();
+
+            return redeemableCreditsInMillicents >= minimumWagerInMillicents;
         }
 
         private void UpdatePaidMeterValue(double paidCashAmount)
@@ -4763,6 +4795,16 @@
         private void UpdateLamps()
         {
             IList<ButtonLampState> buttonsLampState = new List<ButtonLampState>();
+
+            // After cashout if there are still residual credit in the machine, do not turn off all buttons.
+            // Only turn off the cashout button
+            if (ResidualCreditsAboveMinimumBet())
+            {
+                DetermineCollectLampState(ref buttonsLampState);
+                _buttonLamps?.SetLampState(buttonsLampState);
+                return;
+            }
+
             DetermineUnusedLampStates(ref buttonsLampState);
             DetermineNavLampStates(ref buttonsLampState);
             DetermineBashLampState(ref buttonsLampState);
