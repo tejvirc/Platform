@@ -50,6 +50,7 @@
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.Button;
+    using Progressives;
     using Timers;
     using Utils;
     using Vgt.Client12.Application.OperatorMenu;
@@ -123,6 +124,7 @@
         private readonly IAudio _audio;
         private readonly ICashoutController _cashoutController;
         private readonly IAttractConfigurationProvider _attractInfoProvider;
+        private readonly IProgressiveConfigurationProvider _progressiveProvider;
         private readonly IPlayerInfoDisplayManager _playerInfoDisplayManager;
         private readonly IReserveService _reserveService;
         // Broadcasting platform messages to a game
@@ -293,7 +295,8 @@
                 ServiceManager.GetInstance().TryGetService<ICabinetDetectionService>(),
                 ServiceManager.GetInstance().TryGetService<IAudio>(),
                 ServiceManager.GetInstance().TryGetService<ICashoutController>(),
-                ServiceManager.GetInstance().TryGetService<IAttractConfigurationProvider>())
+                ServiceManager.GetInstance().TryGetService<IAttractConfigurationProvider>(),
+                ServiceManager.GetInstance().TryGetService<IProgressiveConfigurationProvider>())
         {
         }
 
@@ -317,7 +320,8 @@
             ICabinetDetectionService cabinetDetectionService,
             IAudio audio,
             ICashoutController cashoutController,
-            IAttractConfigurationProvider attractInfoProvider)
+            IAttractConfigurationProvider attractInfoProvider,
+            IProgressiveConfigurationProvider progressiveProvider)
         {
             if (buttonDeckDisplay == null)
             {
@@ -344,6 +348,7 @@
             _audio = audio ?? throw new ArgumentNullException(nameof(audio));
             _cashoutController = cashoutController ?? throw new ArgumentNullException(nameof(cashoutController));
             _attractInfoProvider = attractInfoProvider ?? throw new ArgumentNullException(nameof(attractInfoProvider));
+            _progressiveProvider = progressiveProvider ?? throw new ArgumentNullException(nameof(progressiveProvider));
             ProgressiveLabelDisplay = new ProgressiveLobbyIndicatorViewModel(this);
 
             _operatorMenu = containerService.Container.GetInstance<IOperatorMenuLauncher>();
@@ -2093,8 +2098,7 @@
                                   TopperAttractVideoPath = game.LocaleGraphics[ActiveLocaleCode].TopperAttractVideo,
                                   BottomAttractVideoPath = game.LocaleGraphics[ActiveLocaleCode].BottomAttractVideo,
                                   LoadingScreenPath = game.LocaleGraphics[ActiveLocaleCode].LoadingScreen,
-                                  HasProgressiveOrBonusValue = !string.IsNullOrEmpty(game.DisplayMeterName),
-                                  ProgressiveOrBonusValue = GetProgressiveOrBonusValue(game.Id, denom),
+                                  ProgressiveOrBonusValue = GetProgressiveOrBonusValue(game.Id, denom, game.Denominations.Single(d => d.Value == denom).BetOption),
                                   ProgressiveIndicator = ProgressiveLobbyIndicator.Disabled,
                                   Denomination = denom,
                                   BetOption = game.Denominations.Single(d => d.Value == denom).BetOption,
@@ -2403,7 +2407,7 @@
             // Update any progressive values displayed the lobby each time we enter the lobby
             foreach (var game in GameList)
             {
-                game.ProgressiveOrBonusValue = GetProgressiveOrBonusValue(game.GameId, game.Denomination);
+                game.ProgressiveOrBonusValue = GetProgressiveOrBonusValue(game.GameId, game.Denomination, game.BetOption);
                 ProgressiveLabelDisplay.UpdateGameProgressiveText(game);
                 ProgressiveLabelDisplay.UpdateGameAssociativeSapText(game);
             }
@@ -3969,7 +3973,7 @@
             // We just need to change what is needed the currency format and the icon.  This way it will be fast.
             foreach (var game in GameList)
             {
-                game.ProgressiveOrBonusValue = GetProgressiveOrBonusValue(game.GameId, game.Denomination);
+                game.ProgressiveOrBonusValue = GetProgressiveOrBonusValue(game.GameId, game.Denomination, game.BetOption);
                 ProgressiveLabelDisplay.UpdateGameProgressiveText(game);
                 if (IsExtraLargeGameIconTabActive)
                 {
@@ -4111,25 +4115,41 @@
             return null;
         }
 
-        private string GetProgressiveOrBonusValue(int gameId, long denomId)
+        private string GetProgressiveOrBonusValue(int gameId, long denomId, string betOption = null)
         {
+            Logger.Debug($"GetProgressiveOrBonusValue(gameId={gameId}, denomId={denomId}, betOption={betOption}");
             var game = _properties.GetValues<IGameDetail>(GamingConstants.Games).SingleOrDefault(g => g.Id == gameId);
-            if (string.IsNullOrEmpty(game?.DisplayMeterName))
+            if (!string.IsNullOrEmpty(game?.DisplayMeterName))
             {
-                return string.Empty;
+                var currentValue = game.InitialValue;
+
+                var meter =
+                    _gameStorage.GetValues<InGameMeter>(gameId, denomId, GamingConstants.InGameMeters)
+                        .FirstOrDefault(m => m.MeterName == game.DisplayMeterName);
+                if (meter != null)
+                {
+                    currentValue = meter.Value;
+                }
+
+                Logger.Debug($"DisplayMeterName={game.DisplayMeterName}, JackpotValue={currentValue}");
+                return (currentValue / CurrencyExtensions.CurrencyMinorUnitsPerMajorUnit).FormattedCurrencyString();
             }
 
-            var currentValue = game.InitialValue;
-
-            var meter =
-                _gameStorage.GetValues<InGameMeter>(gameId, denomId, GamingConstants.InGameMeters)
-                    .FirstOrDefault(m => m.MeterName == game.DisplayMeterName);
-            if (meter != null)
+            var levels = _progressiveProvider.ViewProgressiveLevels(gameId, denomId).ToList();
+            if (levels.Any() && !string.IsNullOrWhiteSpace(betOption))
             {
-                currentValue = meter.Value;
+                var match = levels.FirstOrDefault(
+                    p => string.IsNullOrEmpty(p.BetOption) || p.BetOption == betOption);
+
+                if (match != null)
+                {
+                    Logger.Debug($"Found {levels.Count} levels, returning first JackpotValue={match.CurrentValue}");
+                    return match.CurrentValue.MillicentsToDollars().FormattedCurrencyString();
+                }
             }
 
-            return (currentValue / CurrencyExtensions.CurrencyMinorUnitsPerMajorUnit).FormattedCurrencyString();
+            Logger.Debug("Returning empty progressive value");
+            return string.Empty;
         }
 
         private void DismissResponsibleGamingDialog(int choiceIndex)
@@ -5319,8 +5339,7 @@
                 TopAttractVideoPath = game.LocaleGraphics[ActiveLocaleCode].TopAttractVideo,
                 BottomAttractVideoPath = game.LocaleGraphics[ActiveLocaleCode].BottomAttractVideo,
                 LoadingScreenPath = game.LocaleGraphics[ActiveLocaleCode].LoadingScreen,
-                HasProgressiveOrBonusValue = !string.IsNullOrEmpty(game.DisplayMeterName),
-                ProgressiveOrBonusValue = GetProgressiveOrBonusValue(game.Id, denomId),
+                ProgressiveOrBonusValue = GetProgressiveOrBonusValue(game.Id, denomId, game.Denominations.Single(d => d.Value == denomId).BetOption),
                 Denomination = denomId,
                 BetOption = game.Denominations.Single(d => d.Value == denomId).BetOption,
                 FilteredDenomination = Config.MinimumWagerCreditsAsFilter ? game.MinimumWagerCredits * denomId : denomId,
