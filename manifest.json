@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "UwHj61z9LiXL16B6R2EpuCHWrae0TbLdER+GKWDHaos="
+          "hash": "MlVl8irrwA75dK8Djz/pCA0FPXbzskNQ8tvTQtYT89M="
         }
       },
       "is_incremental": false,
@@ -1128,7 +1128,7 @@
       "output": {
         ".html": {
           "relative_path": "api/accounting/Aristocrat.Monaco.Accounting.Contracts.Handpay.IHandpayProvider.html",
-          "hash": "/EB3EYxxnIerfDJ3ze0AV97vGkBdND9lcZkKN5HIMf4="
+          "hash": "vcgMkeqRNn1FiQvwfMmfXh6tZt4SDNMDCU/eiAUrOKk="
         }
       },
       "is_incremental": false,
@@ -1700,6 +1700,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/accounting/Aristocrat.Monaco.Accounting.Contracts.Transactions.IRecoveryTransaction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/accounting/Aristocrat.Monaco.Accounting.Contracts.Transactions.IRecoveryTransaction.html",
+          "hash": "TbLIdzDsBQJIQCxrRpuhni5TyW5q38c8afrmEd2V5hQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/accounting/Aristocrat.Monaco.Accounting.Contracts.Transactions.ITransactionConnector.yml",
       "output": {
         ".html": {
@@ -1776,7 +1788,7 @@
       "output": {
         ".html": {
           "relative_path": "api/accounting/Aristocrat.Monaco.Accounting.Contracts.Transactions.html",
-          "hash": "ScuSkNj2qjwmrJYfvFXxZz/gqoUVdkfECt5g6JScmq0="
+          "hash": "m/yl68B/WjueWZ+nTGA6ZejEVwiLLxyWOP62k3fDPaQ="
         }
       },
       "is_incremental": false,
@@ -1788,7 +1800,7 @@
       "output": {
         ".html": {
           "relative_path": "api/accounting/Aristocrat.Monaco.Accounting.Contracts.TransferOut.ITransferOutProvider.html",
-          "hash": "eIsRHNojK/sJpZlGCCfuYKNXvz2DUFw89Yv6W6fTpwI="
+          "hash": "ugxNgoIXyFBgW3GQm6fp/VpE+W45hOSYQg4YhvWnRW0="
         }
       },
       "is_incremental": false,
@@ -2076,7 +2088,7 @@
       "output": {
         ".html": {
           "relative_path": "api/accounting/Aristocrat.Monaco.Accounting.Contracts.Vouchers.IVoucherOutProvider.html",
-          "hash": "8FIpyoe7a4g/9/5Xxv2o9WwTKyrB0t7sUcAndjR+MBM="
+          "hash": "nk1xMSXi2YA2fcV1tGyf9LDZtJ6tCed/8cijANwxdos="
         }
       },
       "is_incremental": false,
@@ -2136,7 +2148,7 @@
       "output": {
         ".html": {
           "relative_path": "api/accounting/Aristocrat.Monaco.Accounting.Contracts.Wat.IWatOffProvider.html",
-          "hash": "lJS8kU7XmsRkBze9zz9XjsIZNo9WW4GGOSF3hGUHglI="
+          "hash": "nFP9RWjUvF+XhtI27gMUb0imiGV/2r5slMaknSjALqg="
         }
       },
       "is_incremental": false,
@@ -2460,7 +2472,7 @@
       "output": {
         ".html": {
           "relative_path": "api/accounting/Aristocrat.Monaco.Accounting.Handpay.HandpayProvider.html",
-          "hash": "ymuHq9w3ZSnhHp4+zQ7erh8OfqcFh7tJI+G8nryL0NM="
+          "hash": "cW8OTQ1x6vvcvxRSHVo5wmzdXnkWiGl/LoWAebGEE5Q="
         }
       },
       "is_incremental": false,
@@ -2796,7 +2808,7 @@
       "output": {
         ".html": {
           "relative_path": "api/accounting/Aristocrat.Monaco.Accounting.TransferOutHandler.html",
-          "hash": "4m+tbQPGYR7GHAKitGXg3JQArgUeB5FTJ/pT7jx6QN4="
+          "hash": "cH6KSBKmC36JOfL5rgDbggAdlGLsgD/AR8QIRSLg/F0="
         }
       },
       "is_incremental": false,
@@ -3360,7 +3372,7 @@
       "output": {
         ".html": {
           "relative_path": "api/accounting/Aristocrat.Monaco.Accounting.Vouchers.VoucherOutProvider.html",
-          "hash": "SZfCg2MylDQ5nch9UQHSHnq4/Dcm6XVS6h336suEtzQ="
+          "hash": "DiOruB1MuP4ug2g4aGfPB0iUv1CNjbUFWE/gjr/UwC0="
         }
       },
       "is_incremental": false,
@@ -3384,7 +3396,7 @@
       "output": {
         ".html": {
           "relative_path": "api/accounting/Aristocrat.Monaco.Accounting.Wat.WatOffProvider.html",
-          "hash": "8VKoxmaUnznJTN7+r5W2MmP6wiUq21e6BZdDndwVqKo="
+          "hash": "g2sCVTL/ZNDqWT6wCwKnq+uLgp86R8YBMqccpO0adHs="
         }
       },
       "is_incremental": false,
@@ -14959,6 +14971,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -15043,6 +15058,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -24163,9 +24181,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -41290,9 +41305,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -82461,7 +82473,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 6838,
+          "total_file_count": 6839,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {

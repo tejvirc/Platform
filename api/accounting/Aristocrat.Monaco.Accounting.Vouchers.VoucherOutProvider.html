@@ -508,7 +508,7 @@ public class VoucherOutProvider : TransferOutProviderBase, IVoucherOutProvider, 
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Vouchers_VoucherOutProvider_Recover_System_Guid_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Vouchers.VoucherOutProvider.Recover(System.Guid%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_Vouchers_VoucherOutProvider_Recover_Aristocrat_Monaco_Accounting_Contracts_Transactions_IRecoveryTransaction_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.Vouchers.VoucherOutProvider.Recover(Aristocrat.Monaco.Accounting.Contracts.Transactions.IRecoveryTransaction%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/Vouchers/VoucherOutProvider.cs/#L147" title="View Source"><i class="fa fa-code"></i></a>
@@ -516,23 +516,23 @@ public class VoucherOutProvider : TransferOutProviderBase, IVoucherOutProvider, 
   
   <a id="Aristocrat_Monaco_Accounting_Vouchers_VoucherOutProvider_Recover_" data-uid="Aristocrat.Monaco.Accounting.Vouchers.VoucherOutProvider.Recover*"></a>
   
-  <h4 id="Aristocrat_Monaco_Accounting_Vouchers_VoucherOutProvider_Recover_System_Guid_System_Threading_CancellationToken_" data-uid="Aristocrat.Monaco.Accounting.Vouchers.VoucherOutProvider.Recover(System.Guid,System.Threading.CancellationToken)"><a href="#collapsible-Aristocrat_Monaco_Accounting_Vouchers_VoucherOutProvider_Recover_System_Guid_System_Threading_CancellationToken_" class="expander" data-toggle="collapse">Recover(Guid, CancellationToken)</a></h4>
+  <h4 id="Aristocrat_Monaco_Accounting_Vouchers_VoucherOutProvider_Recover_Aristocrat_Monaco_Accounting_Contracts_Transactions_IRecoveryTransaction_System_Threading_CancellationToken_" data-uid="Aristocrat.Monaco.Accounting.Vouchers.VoucherOutProvider.Recover(Aristocrat.Monaco.Accounting.Contracts.Transactions.IRecoveryTransaction,System.Threading.CancellationToken)"><a href="#collapsible-Aristocrat_Monaco_Accounting_Vouchers_VoucherOutProvider_Recover_Aristocrat_Monaco_Accounting_Contracts_Transactions_IRecoveryTransaction_System_Threading_CancellationToken_" class="expander" data-toggle="collapse">Recover(IRecoveryTransaction, CancellationToken)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Accounting_Vouchers_VoucherOutProvider_Recover_System_Guid_System_Threading_CancellationToken_" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Accounting_Vouchers_VoucherOutProvider_Recover_Aristocrat_Monaco_Accounting_Contracts_Transactions_IRecoveryTransaction_System_Threading_CancellationToken_" class="collapse in">
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public async Task&lt;bool&gt; Recover(Guid transactionId, CancellationToken cancellationToken)</code></pre>
+    <pre><code class="lang-csharp hljs">public async Task&lt;bool&gt; Recover(IRecoveryTransaction transaction, CancellationToken cancellationToken)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">Guid</a></span>
-        <span class="parametername">transactionId</span>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.Transactions.IRecoveryTransaction.html">IRecoveryTransaction</a></span>
+        <span class="parametername">transaction</span>
         <p>
       </td>
     </tr>
@@ -561,7 +561,7 @@ public class VoucherOutProvider : TransferOutProviderBase, IVoucherOutProvider, 
   
   
   <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.TransferOut.ITransferOutProvider.html#Aristocrat_Monaco_Accounting_Contracts_TransferOut_ITransferOutProvider_Recover_System_Guid_System_Threading_CancellationToken_">ITransferOutProvider.Recover(Guid, CancellationToken)</a></div>
+      <div><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.TransferOut.ITransferOutProvider.html#Aristocrat_Monaco_Accounting_Contracts_TransferOut_ITransferOutProvider_Recover_Aristocrat_Monaco_Accounting_Contracts_Transactions_IRecoveryTransaction_System_Threading_CancellationToken_">ITransferOutProvider.Recover(IRecoveryTransaction, CancellationToken)</a></div>
   
   
   
