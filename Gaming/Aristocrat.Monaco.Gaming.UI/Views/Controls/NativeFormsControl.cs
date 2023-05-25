@@ -37,7 +37,6 @@
                 var pointerX = msg.LParam.ToInt32() & 0xffff;
                 var pointerY = msg.LParam.ToInt32() >> 16;
                 var point = new Point(pointerX, pointerY);
-                point = PointToClient(point);
 
                 if (msg.Msg >= WindowsServices.WM_POINTERUPDATE && msg.Msg <= WindowsServices.WM_POINTERUP)
                 {
