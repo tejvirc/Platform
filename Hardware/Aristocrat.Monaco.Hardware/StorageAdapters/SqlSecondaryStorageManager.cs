@@ -8,6 +8,7 @@
     using System.Management;
     using System.Reflection;
     using System.Text.RegularExpressions;
+    using Aristocrat.Monaco.Hardware.Persistence;
     using Cabinet.Contracts;
     using Contracts.Persistence;
     using Kernel;
@@ -202,11 +203,10 @@
             {
                 DataSource = filePath,
                 Pooling = true,
-                Password = password,
+                Password = SqliteStoreConstants.DatabasePassword,
                 DefaultTimeout = 15
             };
-
-            return $"{sqlBuilder.ConnectionString};";
+            return $"{sqlBuilder.ConnectionString};FailIfMissing=True;Journal Mode=WAL;Synchronous=FULL;";
         }
 
         private static bool IsValidSqlFile(string filePath, string password)

@@ -38,7 +38,8 @@
 
             var sqlBuilder = new SqliteConnectionStringBuilder
             {
-                DataSource = Path.Combine(path, DatabaseFileName)
+                DataSource = Path.Combine(path, DatabaseFileName),
+                Password = DatabasePassword
             };
 
             _connectionString = sqlBuilder.ConnectionString;

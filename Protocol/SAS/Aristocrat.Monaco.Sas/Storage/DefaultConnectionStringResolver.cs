@@ -12,6 +12,7 @@
     {
         private const string DataPath = @"/Data";
         private const string DatabaseFileName = @"Database_Sas.sqlite";
+        private const string DatabasePassword = @"tk7tjBLQ8GpySFNZTHYD";
 
         private readonly string _connectionString;
 
@@ -25,7 +26,8 @@
             var path = Path.GetFullPath(dir.FullName);
             var sqlBuilder = new SqliteConnectionStringBuilder
             {
-                DataSource = Path.Combine(path, DatabaseFileName)
+                DataSource = Path.Combine(path, DatabaseFileName),
+                Password = DatabasePassword
             };
 
             _connectionString = sqlBuilder.ConnectionString;
