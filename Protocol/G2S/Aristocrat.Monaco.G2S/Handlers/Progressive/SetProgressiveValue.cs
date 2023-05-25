@@ -96,9 +96,11 @@
                 if (_progressiveService.ProgressiveValues != null)
                 {
                     var key = $"{level.progId}|{monacoLevelId}";
-                    if (_progressiveService.ProgressiveValues[key].ProgressiveValueSequence >= progValueSeq)
+                    ProgressiveValue previousProgValue;
+                    if (_progressiveService.ProgressiveValues.TryGetValue(key, out previousProgValue))
                     {
-                        continue;
+                        if (previousProgValue.ProgressiveValueSequence >= progValueSeq)
+                            continue;
                     }
                 }
 
