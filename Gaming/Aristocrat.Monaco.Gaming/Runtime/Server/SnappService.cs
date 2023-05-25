@@ -212,7 +212,7 @@
             return new RuntimeRequestResponse { Result = command.Result };
         }
 
-        public override Empty RuntimeStateChange(RuntimeStateNotification request)
+        public override Empty RuntimeStateChange(RuntimeStateNotication request)
         {
             Logger.Debug($"OnRuntimeStateChange {request.From} {request.To}");
 
@@ -226,7 +226,7 @@
             return EmptyResult;
         }
 
-        public override Empty ButtonStatesChanged(ButtonStatesChangedNotification request)
+        public override Empty ButtonStatesChanged(ButtonStatesChangedNotfication request)
         {
             Logger.Debug($"OnButtonStatesChanged - count: {request.ButtonStates.Count} ");
 
