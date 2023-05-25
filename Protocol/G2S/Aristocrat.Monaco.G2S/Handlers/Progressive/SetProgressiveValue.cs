@@ -85,8 +85,6 @@
             List<ProgressiveLevel> levels = _progressiveProvider.GetProgressiveLevels().Where(l => l.ProgressiveId == device.ProgressiveId && (_progressiveService.VertexDeviceIds.TryGetValue(l.DeviceId, out int value) ? value : l.DeviceId) == device.Id).ToList();
             var lvl = levels.FirstOrDefault();
 
-            List<ProgressiveLevel> levelsToUpdate = new List<ProgressiveLevel>();
-
             foreach (var level in command.Command.setLevelValue)
             {
                 var monacoLevelId = _progressiveService.LevelIds.GetMonacoProgressiveLevelId(lvl.GameId, level.progId, level.levelId);
@@ -98,18 +96,11 @@
                 progLevel.CurrentValue = level.progValueAmt;
                 progLevel.ProgressiveValueSequence = level.progValueSeq;
                 progLevel.ProgressiveValueText = level.progValueText;
-                levelsToUpdate.Add(progLevel);
+
+                _progressiveService.UpdateLinkedProgressiveLevels(progLevel.ProgressiveId, progLevel.LevelId, progLevel.CurrentValue.MillicentsToCents());
             }
 
-            foreach (var level in levelsToUpdate)
-            {
-                _progressiveProvider.UpdateProgressiveLevels(level.ProgressivePackName, level.GameId,
-                    level.Denomination.FirstOrDefault(), new List<ProgressiveLevel> { level });
-            }
-
-            if(levelsToUpdate.Any())
-                _progressiveService.OnReceiveProgressiveValueUpdate();
-
+            _progressiveService.OnReceiveProgressiveValueUpdate();
             var response = command.GenerateResponse<progressiveValueAck>();
             await _progressiveValueAckCommandBuilder.Build(device, response.Command);
         }
