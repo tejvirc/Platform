@@ -144,7 +144,7 @@
 
         public bool CanRecover(Guid transactionId) => false;
 
-        public async Task<bool> Recover(Guid transactionId, CancellationToken cancellationToken)
+        public async Task<bool> Recover(IRecoveryTransaction transaction, CancellationToken cancellationToken)
         {
             // There is nothing to recover for vouchers
             return await Task.FromResult(false);
