@@ -752,8 +752,20 @@
 
             var cts = new CancellationTokenSource();
             string currentDir = Directory.GetCurrentDirectory();
+            LightShowFile lightShow = new();
+
+            lightShow.Tag = 1; //"MyTag"
+            lightShow.Step = -1;
+            lightShow.LoopCount = 10;
+            lightShow.ReelIndex = 1;
+
             await _reelAnimationCapabilities.RemoveAllControllerAnimations(cts.Token);
             await _reelAnimationCapabilities.LoadControllerAnimationFile(new Hardware.Contracts.Reel.ControlData.AnimationData($@"{currentDir}\Reel\LightShows\AllWhite5Reels.lightshow", AnimationType.LightShow), default);
+
+            lightShow.Id = _reelAnimationCapabilities.AnimationFiles.First().AnimationId;
+
+            await _reelAnimationCapabilities.PrepareControllerAnimation(lightShow, cts.Token);
+            await _reelAnimationCapabilities.PlayControllerAnimations(cts.Token);
         }
     }
 }

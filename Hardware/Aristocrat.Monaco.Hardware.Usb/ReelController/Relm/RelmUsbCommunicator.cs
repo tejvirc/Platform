@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Usb.ReelController.Relm
 {
+    using Aristocrat.Monaco.Common.Animation;
     using Aristocrat.RelmReels.Communicator.Downloads;
     using Aristocrat.RelmReels.Messages;
     using Aristocrat.RelmReels.Messages.Interrupts;
@@ -17,6 +18,7 @@
     using System.IO;
     using System.Linq;
     using System.Reflection;
+    using System.Runtime.CompilerServices;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
@@ -24,6 +26,7 @@
     using AnimationData = Contracts.Reel.ControlData.AnimationData;
     using DeviceConfiguration = RelmReels.Messages.Queries.DeviceConfiguration;
     using IRelmCommunicator = Contracts.Communicator.IRelmCommunicator;
+    using RelmAnimationData = RelmReels.Messages.Commands.AnimationData;
 
     internal class RelmUsbCommunicator : IRelmCommunicator
     {
@@ -224,10 +227,30 @@
             return true;
         }
 
-        public Task<bool> PrepareControllerAnimation(LightShowFile file, CancellationToken token)
+        public async Task<bool> PrepareControllerAnimation(LightShowFile file, CancellationToken token)
         {
-            // TODO: Implement prepare light show animation in driver and wire up here
-            throw new NotImplementedException();
+            if (_relmCommunicator is null)
+            {
+                return false;
+            }
+
+            PrepareLightShowAnimations prepareCommand = new PrepareLightShowAnimations();
+            RelmAnimationData animationData = new RelmAnimationData()
+            {
+                AnimationId = (uint)file.Id,
+                LoopCount = (sbyte)file.LoopCount,
+                ReelIndex = (sbyte)file.ReelIndex,
+                Tag = (uint)file.Tag,
+                Step = file.Step
+            };
+
+            prepareCommand.Animations.Add(animationData);
+            prepareCommand.Count = (short)prepareCommand.Animations.Count;
+
+            await _relmCommunicator.SendCommandAsync(prepareCommand, token);
+            Logger.Debug($"Preparing animation with id: {animationData.AnimationId}");
+
+            return true;
         }
 
         public async Task<bool> RemoveAllControllerAnimations(CancellationToken token)
@@ -261,16 +284,49 @@
             throw new NotImplementedException();
         }
 
-        public Task<bool> PlayControllerAnimations(CancellationToken token)
+        public async Task<bool> PlayControllerAnimations(CancellationToken token)
         {
-            // TODO: Implement play animations in driver and wire up here
-            throw new NotImplementedException();
+            if (_relmCommunicator is null)
+            {
+                return false;
+            }
+
+            StartAnimations startCommand = new StartAnimations();
+
+            Logger.Debug($"Playing prepared animations");
+            await _relmCommunicator.SendCommandAsync(startCommand, token);
+
+            return true;
         }
 
-        public Task<bool> StopControllerLightShowAnimations(IEnumerable<LightShowFile> files, CancellationToken token)
+        public async Task<bool> StopControllerLightShowAnimations(IEnumerable<LightShowFile> files, CancellationToken token)
         {
-            // TODO: Implement stop light show animations in driver and wire up here
-            throw new NotImplementedException();
+            if (_relmCommunicator is null)
+            {
+                return false;
+            }
+
+            StopLightShowAnimation stopCommand = new()
+            {
+                Count = (short)files.Count(),
+                AnimationData = new()
+            };
+
+            foreach (var file in files)
+            {
+                StopAnimationData stopAnimationData = new()
+                {
+                    AnimationId = (uint)file.Id,
+                    TagId = (uint)file.Tag
+                };
+
+                stopCommand.AnimationData.Add(stopAnimationData);
+            }
+
+            Logger.Debug($"Stopping {stopCommand.Count} animations:");
+            await _relmCommunicator.SendCommandAsync(stopCommand, token);
+
+            return true;
         }
 
         public Task<bool> StopAllControllerLightShows(CancellationToken token)
