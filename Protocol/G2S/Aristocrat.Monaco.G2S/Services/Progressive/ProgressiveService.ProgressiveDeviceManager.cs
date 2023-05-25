@@ -82,7 +82,10 @@
                 {
                     foreach (var level in progLevels)
                     {
-                        VertexDeviceIds.AddOrUpdate(level.DeviceId, device.Id);
+                        if (LevelIds.VertexContainsLevel(level))
+                        {
+                            VertexDeviceIds.AddOrUpdate(level.DeviceId, device.Id);
+                        }
                     }
                 }
             }

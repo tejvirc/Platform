@@ -419,12 +419,37 @@
 
                 Int32.TryParse(_progressiveId, out int parsedID);
                 level.ProgressiveId = parsedID;
-
-                var duplicateIDs = _progressives.ViewProgressiveLevels().Where(l => l.LevelName == level.LevelName && l.ProgressiveId == level.ProgressiveId &&
-                                                                                        l.LevelId == level.LevelId && l.GameId == level.GameId).ToList();
-
                 newLevels.Add(level);
-                UpdateLevelWithDuplicateProgressiveId(duplicateIDs.Where(l => l.ResetValue != level.ResetValue).FirstOrDefault() as ProgressiveLevel, newLevels);
+
+                if (IsConfigurableId)
+                {
+                    var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+                    Dictionary<string, int> configuredLevelIds = (Dictionary<string, int>)propertiesManager.GetProperty(
+                        GamingConstants.ProgressiveConfiguredLevelIds, new Dictionary<string, int>());
+
+                    var levelsLessThanSelected = _progressives.ViewProgressiveLevels().Where(l => l.GameId == level.GameId && l.LevelName == level.LevelName &&
+                                                    l.ProgressiveId < level.ProgressiveId && l.LevelId == level.LevelId && l.ResetValue != level.ResetValue).ToList();
+                    if (levelsLessThanSelected.Count() > 0)
+                    {
+                        int totalLevels = _progressives.ViewProgressiveLevels().Where(l => l.GameId == level.GameId).Count();
+
+                        for (int i = 0; i < levelsLessThanSelected.Count(); i++)
+                        {
+                            ProgressiveLevel l = levelsLessThanSelected.ElementAt(i) as ProgressiveLevel;
+                            bool success = configuredLevelIds.ContainsKey($"{l.GameId}|{l.ProgressiveId}|{l.LevelId}");
+                            if (!success)
+                            {
+                                l.ProgressiveId = totalLevels + i;
+                                newLevels.Add(l);
+                            }
+                        }
+                    }
+
+                    var duplicateIds =_progressives.ViewProgressiveLevels().Where(l => l.LevelName == level.LevelName && l.ProgressiveId == level.ProgressiveId &&
+                                                                                            l.LevelId == level.LevelId && l.GameId == level.GameId).ToList();
+
+                    UpdateLevelWithDuplicateProgressiveId(duplicateIds.Where(l => l.ResetValue != level.ResetValue).FirstOrDefault() as ProgressiveLevel, newLevels);
+                }
             }
 
             ProgressiveLevels = new ObservableCollection<LevelModel>();

@@ -34,7 +34,10 @@
             command.hostLocked = device.HostLocked;
 
             var progService = ServiceManager.GetInstance().TryGetService<IProgressiveService>();
-            if(progService == null) return Task.CompletedTask;
+            if (progService == null)
+            {
+                return Task.CompletedTask;
+            }
 
             List<ProgressiveLevel> levels = _progressives.GetProgressiveLevels().Where(l => l.ProgressiveId == device.ProgressiveId && (progService.VertexDeviceIds.TryGetValue(l.DeviceId, out int value) ? value : l.DeviceId) == device.Id).ToList();
 
@@ -43,10 +46,15 @@
             foreach(ProgressiveLevel level in levels)
             {
                 var levelId = progService.LevelIds.GetVertexProgressiveLevelId(level.GameId, level.ProgressiveId, level.LevelId);
-                if (levelId == -1) levelId = level.LevelId;
+                if (levelId == -1)
+                {
+                    continue;
+                }
 
                 if (statuses.Where(s => s.levelId == levelId).Count() > 0)
+                {
                     continue;
+                }
 
                 levelStatus status = new levelStatus();
 

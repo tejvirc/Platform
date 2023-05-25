@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.G2S
 {
+    using Aristocrat.Monaco.Gaming.Contracts.Progressives;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -85,6 +86,13 @@
             keyParts[2] = newLevelId.ToString();
             string updatedKey = string.Join("|", keyParts);
             return (updatedKey, oldLevelId);
+        }
+
+        /// <inheritdoc />
+        public bool VertexContainsLevel(ProgressiveLevel level)
+        {
+            string key = ConstructKey(level.GameId, level.ProgressiveId, level.LevelId);
+            return _vertexProgressiveLevelIds.ContainsKey(key);
         }
     }
 }

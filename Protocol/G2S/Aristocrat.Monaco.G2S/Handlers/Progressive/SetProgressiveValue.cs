@@ -61,7 +61,7 @@
                         error = new Error(ErrorCode.G2S_PGX003);
                         break;
                     }
-                    if (l.progValueAmt > progLevel.MaximumValue || l.progValueAmt < progLevel.InitialValue)
+                    if (l.progValueAmt > progLevel.MaximumValue || l.progValueAmt < progLevel.ResetValue)
                     {
                         error = new Error(ErrorCode.G2S_PGX004);
                         break;
