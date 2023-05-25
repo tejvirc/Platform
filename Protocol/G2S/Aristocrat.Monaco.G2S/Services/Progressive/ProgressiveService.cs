@@ -119,7 +119,7 @@
                 //Setup the progressive host monitoring timers. They will be started once we actually connect. 
                 _progressiveValueUpdateTimer = new Timer(DefaultNoProgInfoTimeout);
                 _progressiveValueUpdateTimer.Elapsed += ProgressiveValueUpdateTimerElapsed;
-                LastProgressiveUpdateTime = DateTime.UtcNow;
+                _lastProgressiveUpdateTime = DateTime.UtcNow;
                 _progressiveHostOfflineTimer = new Timer();
                 _progressiveHostOfflineTimer.Elapsed += ProgressiveHostOfflineTimerElapsed;
                 _disableProvider.Disable(SystemDisablePriority.Immediate, G2SDisableStates.CommsOffline);

@@ -8,6 +8,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using Aristocrat.G2S.Protocol.v21;
+    using Aristocrat.Monaco.G2S.DisableProvider;
+    using Aristocrat.Monaco.Kernel;
+    using System.Timers;
 
     public partial class ProgressiveService : IProgressiveLevelManager, IProtocolProgressiveIdProvider
     {
@@ -48,7 +51,35 @@
                     ProtocolNames.G2S);
             }
 
+            OnReceiveProgressiveValueUpdate();
+
             return linkedLevel;
+        }
+
+        private DateTime _lastProgressiveUpdateTime;
+
+        private void ProgressiveHostOfflineTimerElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
+        {
+            _progressiveHostOfflineTimer.Stop();
+            _disableProvider.Disable(SystemDisablePriority.Immediate, G2SDisableStates.CommsOffline);
+        }
+
+        private void ProgressiveValueUpdateTimerElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
+        {
+            _progressiveValueUpdateTimer.Stop();
+            _disableProvider.Disable(SystemDisablePriority.Immediate, G2SDisableStates.ProgressiveValueNotReceived);
+        }
+
+        private void OnReceiveProgressiveValueUpdate()
+        {
+            _progressiveHostOfflineTimer.Stop();
+            _progressiveHostOfflineTimer.Start();
+            _progressiveValueUpdateTimer.Stop();
+            _progressiveValueUpdateTimer.Start();
+
+            _disableProvider.Enable(G2SDisableStates.CommsOffline);
+            _disableProvider.Enable(G2SDisableStates.ProgressiveValueNotReceived);
+            _lastProgressiveUpdateTime = DateTime.UtcNow;
         }
 
         private static LinkedProgressiveLevel LinkedProgressiveLevel(int progId, int levelId, long valueInCents)
@@ -81,6 +112,5 @@
                 levelId = vertexLevelId;
             }
         }
-
     }
 }

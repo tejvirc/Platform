@@ -100,7 +100,6 @@
                 _progressiveService.UpdateLinkedProgressiveLevels(progLevel.ProgressiveId, progLevel.LevelId, progLevel.CurrentValue.MillicentsToCents());
             }
 
-            _progressiveService.OnReceiveProgressiveValueUpdate();
             var response = command.GenerateResponse<progressiveValueAck>();
             await _progressiveValueAckCommandBuilder.Build(device, response.Command);
         }

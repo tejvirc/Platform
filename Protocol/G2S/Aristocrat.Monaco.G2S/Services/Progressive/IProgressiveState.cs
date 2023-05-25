@@ -6,18 +6,6 @@
     public interface IProgressiveState
     {
         /// <summary>
-        ///     Last update SetProgressive Value Received Time
-        /// </summary>
-        DateTime LastProgressiveUpdateTime { get; set; }
-
-        /// <summary>
-        ///     This method is called whenever the ProgressiveHostOfflineTimer should be reset.
-        ///     Currently this will happen any time that SetProgressiveValue is called, though it may be moved if a more suitable location is found.
-        ///     If there is no progressive host with the offline check enabled then this returns out.
-        /// </summary>
-        void OnReceiveProgressiveValueUpdate();
-
-        /// <summary>
         ///     Set the state of a progressive device
         /// </summary>
         /// <param name="state">

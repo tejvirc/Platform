@@ -14,22 +14,6 @@
     public partial class ProgressiveService : IProgressiveState
     {
         /// <inheritdoc />
-        public DateTime LastProgressiveUpdateTime { get; set; }
-
-        /// <inheritdoc />
-        public void OnReceiveProgressiveValueUpdate()
-        {
-            _progressiveHostOfflineTimer.Stop();
-            _progressiveHostOfflineTimer.Start();
-            _progressiveValueUpdateTimer.Stop();
-            _progressiveValueUpdateTimer.Start();
-
-            _disableProvider.Enable(G2SDisableStates.CommsOffline);
-            _disableProvider.Enable(G2SDisableStates.ProgressiveValueNotReceived);
-            LastProgressiveUpdateTime = DateTime.UtcNow;
-        }
-
-        /// <inheritdoc />
         public void SetProgressiveDeviceState(bool state, IProgressiveDevice device, string hostReason = null)
         {
             if (state)
@@ -79,18 +63,6 @@
                 }
                 _disableProvider.Disable(SystemDisablePriority.Immediate, reason);
             }
-        }
-
-        private void ProgressiveHostOfflineTimerElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
-        {
-            _progressiveHostOfflineTimer.Stop();
-            _disableProvider.Disable(SystemDisablePriority.Immediate, G2SDisableStates.CommsOffline);
-        }
-
-        private void ProgressiveValueUpdateTimerElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
-        {
-            _progressiveValueUpdateTimer.Stop();
-            _disableProvider.Disable(SystemDisablePriority.Immediate, G2SDisableStates.ProgressiveValueNotReceived);
         }
     }
 }
