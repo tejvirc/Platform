@@ -479,6 +479,12 @@
                         {
                             bingoCard.DaubedBits = cardPlayed.BitPattern;
                             bingoCard.IsGameEndWin = cardPlayed.IsGameEndWin;
+                            
+                            if (cardPlayed.IsGolden && cardPlayed.IsGolden != bingoCard.IsGolden)
+                            {
+                                bingoCard.IsGolden = cardPlayed.IsGolden;
+                                _eventBus.Publish(new BingoGameGoldenCardEvent(cardPlayed.IsGolden, outcome.GameIndex));
+                            }
                         }
                     }
 

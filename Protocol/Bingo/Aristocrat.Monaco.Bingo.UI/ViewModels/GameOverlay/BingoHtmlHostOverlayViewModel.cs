@@ -121,6 +121,7 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
             _eventBus.Subscribe<BingoGameBallCallEvent>(this, Handle);
             _eventBus.Subscribe<BingoGameNewCardEvent>(this, Handle);
             _eventBus.Subscribe<BingoGameDisableCardEvent>(this, Handle);
+            _eventBus.Subscribe<BingoGameGoldenCardEvent>(this, Handle);
             _eventBus.Subscribe<SceneChangedEvent>(this, Handle);
             _eventBus.Subscribe<GamePlayInitiatedEvent>(this, Handle);
             _eventBus.Subscribe<BingoGamePatternEvent>(this, Handle);
@@ -632,6 +633,25 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
                     cardInstance.CyclingPatterns = new List<BingoPattern>();
                     Logger.Debug($"Disabling bingo card {cardInstance.InstanceNumber} on overlay");
                     return new BingoLiveData { ActiveCard = cardInstance.InstanceNumber, ClearBingoCard = true, CardIsEnabled = cardInstance.Enabled, CardIsVisible = cardInstance.Visible };
+                },
+                token);
+        }
+
+        private async Task Handle(BingoGameGoldenCardEvent e, CancellationToken token)
+        {
+            Logger.Debug($"Handling {e} for game index {e.GameIndex}");
+            if (!_bingoInstances.ContainsKey(e.GameIndex))
+            {
+                Logger.Debug($"No card exists for game index {e.GameIndex}");
+                return;
+            }
+            await UpdateOverlay(
+                () =>
+                {
+                    var cardInstance = _bingoInstances[e.GameIndex];
+                    cardInstance.Card.IsGolden = e.IsGolden;
+                    Logger.Debug($"Setting IsGolden to {e.IsGolden} for bingo card {cardInstance.InstanceNumber} on overlay");
+                    return new BingoLiveData { ActiveCard = cardInstance.InstanceNumber, CardIsGolden = cardInstance.Card.IsGolden };
                 },
                 token);
         }
