@@ -55,8 +55,6 @@
                 OnEnterIdentifyScreenCommand);
             EnterColorTestCommand = new ActionCommand<object>(
                 OnEnterColorTestCommand);
-            EnterCalibrateSerialTouchScreenCommand = new ActionCommand<object>(
-                OnEnterCalibrateSerialTouchScreenCommand);
             EnterCalibrateTouchScreenCommand = new ActionCommand<object>(
                 OnEnterCalibrateTouchScreenCommand);
             CabinetService = ServiceManager.GetInstance().GetService<ICabinetDetectionService>();
@@ -75,8 +73,6 @@
         public ICommand EnterIdentifyScreenCommand { get; }
 
         public ICommand EnterColorTestCommand { get; }
-
-        public ICommand EnterCalibrateSerialTouchScreenCommand { get; }
 
         public ICommand EnterCalibrateTouchScreenCommand { get; }
 
@@ -187,8 +183,7 @@
                 EventBus.Subscribe<DeviceDisconnectedEvent>(this, _ => RefreshDisplays());
 
                 _isInspection = (bool)PropertiesManager.GetProperty(KernelConstants.IsInspectionOnly, false);
-if (CabinetService.ExpectedDisplayDevicesWithSerialTouch?.Any() == true || _isInspection)
-
+                if (CabinetService.ExpectedDisplayDevicesWithSerialTouch?.Any() == true || _isInspection)
                 {
                     CalibrateTouchScreenVisible = TestTouchScreenVisible = true;
                 }
@@ -353,20 +348,19 @@ if (CabinetService.ExpectedDisplayDevicesWithSerialTouch?.Any() == true || _isIn
             }
         }
 
-        private void OnEnterCalibrateSerialTouchScreenCommand(object obj)
-        {
-            TestsEnabled = false;
-            EventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.Displays));
-            Inspection?.SetTestName("Serial Touchscreen Calibration");
-            InvokeSerialTouchCalibration();
-        }
-
         private void OnEnterCalibrateTouchScreenCommand(object obj)
         {
             TestsEnabled = false;
             EventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.Displays));
-            Inspection?.SetTestName("Touchscreen Calibration");
-            InvokeTouchCalibration();
+
+            if (CabinetService.ExpectedDisplayDevicesWithSerialTouch?.Any() == true)
+            {
+                InvokeSerialTouchCalibration();
+            }
+            else
+            {
+                InvokeTouchCalibration();
+            }
         }
 
         private async void OnEnterColorTestCommand(object obj)
@@ -504,6 +498,7 @@ if (CabinetService.ExpectedDisplayDevicesWithSerialTouch?.Any() == true || _isIn
 
         private void InvokeSerialTouchCalibration()
         {
+            Inspection?.SetTestName("Serial Touchscreen Calibration");
             Logger.Debug($"InvokeSerialTouchCalibration - SerialTouchService.Initialized {SerialTouchService.Initialized}");
 
             if (SerialTouchService.Initialized)
@@ -522,7 +517,8 @@ if (CabinetService.ExpectedDisplayDevicesWithSerialTouch?.Any() == true || _isIn
 
         private void InvokeTouchCalibration()
         {
-            Logger.Debug($"InvokelTouchCalibration - TouchService.Initialized");
+            Inspection?.SetTestName("Touchscreen Calibration");
+            Logger.Debug($"InvokeTouchCalibration - TouchService.Initialized");
 
             if (TouchCalibrationService.IsCalibrating)
             {
@@ -558,7 +554,7 @@ if (CabinetService.ExpectedDisplayDevicesWithSerialTouch?.Any() == true || _isIn
 
         private void OnTouchCalibrationCompleted(TouchCalibrationCompletedEvent e)
         {
-            Logger.Debug($"OnSerialTouchCalibrationCompleted Success {e.Success}");
+            Logger.Debug($"OnTouchCalibrationCompleted Success {e.Success}");
 
             if (e.Success)
             {
