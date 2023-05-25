@@ -40,6 +40,7 @@
 
                 if (msg.Msg >= WindowsServices.WM_POINTERUPDATE && msg.Msg <= WindowsServices.WM_POINTERUP)
                 {
+                    point = PointToClient(point);
                     var pointerId = (uint) (msg.WParam.ToInt32() & 0xffff);
                     var touchState = (TouchState) (msg.Msg - WindowsServices.WM_POINTERUPDATE + 1);
                     _runtime.SendTouch(_displayId, pointerId, touchState, (uint) point.X, (uint) point.Y);
