@@ -215,7 +215,11 @@
 
         private void HandleEvent(CashoutNotificationEvent evt)
         {
-            MessageOverlayDisplay.ShowVoucherNotification = evt.PaperIsInChute;
+            if (Config?.DisplayVoucherNotification ?? false)
+            {
+                MessageOverlayDisplay.ShowVoucherNotification = evt.PaperIsInChute;
+            }
+
             if (evt.PaperIsInChute && !_systemDisableManager.IsDisabled)
             {
                 PlayLoopingAlert(Sound.PaperInChute, -1);

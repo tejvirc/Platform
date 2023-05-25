@@ -37,6 +37,7 @@
   <AttractVideoNoBonusFilename>../jurisdiction/Quebec-VLT/ui/Videos/Attract_NoBonus.bk2</AttractVideoNoBonusFilename>
   <AttractVideoWithBonusFilename>../jurisdiction/Quebec-VLT/ui/Videos/Attract_Bonus.bk2</AttractVideoWithBonusFilename>
   <AlternateAttractModeLanguage>true</AlternateAttractModeLanguage>
+  <DisplayVoucherNotification>false</DisplayVoucherNotification>
   <ClockMode>Military</ClockMode>
   <DefaultGameDisplayOrderByThemeId>
       <string>ATI_WildYukon</string>
