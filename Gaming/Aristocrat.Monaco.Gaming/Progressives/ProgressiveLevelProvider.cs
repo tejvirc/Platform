@@ -6,7 +6,6 @@
     using System.Reflection;
     using Application.Contracts;
     using Application.Contracts.Extensions;
-    using Common;
     using Contracts;
     using Contracts.Meters;
     using Contracts.Progressives;
@@ -26,8 +25,8 @@
         private readonly IPropertiesManager _properties;
         private readonly ISharedSapProvider _sharedSapProvider;
 
-        private readonly List<ProgressiveLevel> _levels = new List<ProgressiveLevel>();
-        private readonly object _sync = new object();
+        private readonly List<ProgressiveLevel> _levels = new();
+        private readonly object _sync = new();
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         public ProgressiveLevelProvider(
@@ -43,6 +42,8 @@
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _sharedSapProvider = sharedSapProvider ?? throw new ArgumentNullException(nameof(sharedSapProvider));
         }
+
+        public event EventHandler<ProgressivesAddedEventArgs> ProgressivesAdded;
 
         public void LoadProgressiveLevels(IGameDetail gameDetails, IEnumerable<ProgressiveDetail> progressiveDetails)
         {
@@ -64,7 +65,7 @@
                 {
                     var denominations = ToDenoms(gameDetails, detail.Denomination.ToList()).ToList();
 
-                    _levels.AddRange(
+                    var addedLevels =
                         ToProgressiveLevels(
                             gameDetails.Id,
                             denominations,
@@ -72,7 +73,9 @@
                             detail,
                             gameDetails.CentralAllowed
                                 ? gameDetails.CdsGameInfos.Select(x => new WagerInfos(x.Id, x.MaxWagerCredits))
-                                : gameDetails.WagerCategories.Select(x => new WagerInfos(x.Id, x.MaxWagerCredits))));
+                                : gameDetails.WagerCategories.Select(x => new WagerInfos(x.Id, x.MaxWagerCredits)));
+                    _levels.AddRange(addedLevels);
+                    ProgressivesAdded?.Invoke(this, new ProgressivesAddedEventArgs(addedLevels));
                 }
             }
         }
@@ -341,7 +344,7 @@
             _gameStorage.SetValue(gameId, denomination, packName, progressiveLevels);
         }
 
-        private IEnumerable<ProgressiveLevel> ToProgressiveLevels(
+        private IReadOnlyCollection<ProgressiveLevel> ToProgressiveLevels(
             int gameId,
             IReadOnlyCollection<long> denominations,
             BetOptionList betOptions,

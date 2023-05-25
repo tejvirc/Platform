@@ -1,9 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts.Progressives
 {
     using ProtoBuf;
-    using System;
     using System.Collections.Generic;
-    using System.Runtime.Serialization;
 
     /// <summary>
     ///     The fundamental data structure for a progressive level defined by a game. <see cref="IProgressiveLevelProvider" />

@@ -601,8 +601,7 @@
             }
 
             using var scope = _storageManager.ScopedTransaction();
-            var result = InstallNewGame(game, paytableConfiguration);
-            _progressiveProvider.LoadProgressiveLevels(result, progressiveDetails);
+            var result = InstallNewGame(game, progressiveDetails, paytableConfiguration);
             scope.Complete();
 
             return result;
@@ -1084,6 +1083,7 @@
 
         private IGameDetail InstallNewGame(
             GameDetail gameDetail,
+            List<ProgressiveDetail> progressiveDetails,
             ServerPaytableConfiguration paytableConfiguration = null)
         {
             if (!gameDetail.New)
@@ -1146,7 +1146,7 @@
 
                 // This is only used to track whether or not the game was added in GetOrCreateGame. Reset to avoid reentry
                 gameDetail.New = false;
-
+                _progressiveProvider.LoadProgressiveLevels(gameDetail, progressiveDetails);
                 _bus.Publish(new GameAddedEvent(gameDetail.Id, gameDetail.ThemeId));
             }
 
@@ -1183,8 +1183,7 @@
                     }
                     else if (!serverControlledPaytables)
                     {
-                        InstallNewGame(gameDetail);
-                        _progressiveProvider.LoadProgressiveLevels(gameDetail, progressiveDetails);
+                        InstallNewGame(gameDetail, progressiveDetails);
                     }
                     else
                     {

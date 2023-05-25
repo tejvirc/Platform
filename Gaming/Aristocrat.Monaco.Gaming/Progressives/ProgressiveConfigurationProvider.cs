@@ -25,9 +25,8 @@
         private readonly IEventBus _eventBus;
         private readonly IPropertiesManager _properties;
 
-        private readonly ConcurrentDictionary<(int gameId, long denom), IList<ProgressiveLevel>> _levelCache =
-            new ConcurrentDictionary<(int gameId, long denom), IList<ProgressiveLevel>>();
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly ConcurrentDictionary<(int gameId, long denom), IList<ProgressiveLevel>> _levelCache = new();
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly double _multiplier;
 
         private bool _disposed;
@@ -50,7 +49,7 @@
 
             _multiplier = properties.GetValue(ApplicationConstants.CurrencyMultiplierKey, 1d);
             AddLevelCacheData(_levelProvider.GetProgressiveLevels());
-            _eventBus.Subscribe<GameAddedEvent>(this, Handle);
+            _levelProvider.ProgressivesAdded += ProgressiveAddedHandler;
         }
 
         public IReadOnlyCollection<IViewableProgressiveLevel> AssignLevelsToGame(
@@ -144,7 +143,7 @@
 
                 _eventBus.Publish(new GameDenomChangedEvent(game.Id, game, denom, _multiplier));
             }
-            
+
             using var storage = _storage.ScopedTransaction();
             if (sharedSapLevels.Any())
             {
@@ -176,11 +175,9 @@
 
                                 return level;
                             })));
-            using (var scope = _storage.ScopedTransaction())
-            {
-                _levelProvider.UpdateProgressiveLevels(progressiveGrouping);
-                scope.Complete();
-            }
+            using var scope = _storage.ScopedTransaction();
+            _levelProvider.UpdateProgressiveLevels(progressiveGrouping);
+            scope.Complete();
         }
 
         public ProgressiveErrors ValidateLinkedProgressive(
@@ -286,7 +283,7 @@
 
             if (disposing)
             {
-                _eventBus.UnsubscribeAll(this);
+                _levelProvider.ProgressivesAdded -= ProgressiveAddedHandler;
             }
 
             _disposed = true;
@@ -304,9 +301,9 @@
             return GetProgressiveLevels(gameId, denom).Where(x => x.ProgressivePackName == packName);
         }
 
-        private void Handle(GameAddedEvent evt)
+        private void ProgressiveAddedHandler(object sender, ProgressivesAddedEventArgs eventArgs)
         {
-            AddLevelCacheData(_levelProvider.GetProgressiveLevels().Where(x => x.GameId == evt.GameId));
+            AddLevelCacheData(eventArgs.AddedLevels);
         }
 
         private void AddLevelCacheData(IEnumerable<ProgressiveLevel> progressiveLevels)
