@@ -28,6 +28,7 @@
         private readonly string _originalAddress;
         private readonly int _originalHostId;
         private readonly TimeSpan _originalOfflineTimerInterval;
+        private readonly TimeSpan _recommendedOfflineTimerInterval;
         private readonly bool _originalRegistered;
         private readonly bool _originalRequiredForPlay;
         private readonly bool _originalIsProgressiveHost;
@@ -72,6 +73,7 @@
             _originalIsProgressiveHost = _isProgressiveHost = isProgressiveHost;
             _originalOfflineTimerInterval = TimeSpan.FromSeconds(offlineTimerInterval);
             _offlineTimerInterval = TimeSpan.FromSeconds(offlineTimerInterval);
+            _recommendedOfflineTimerInterval = TimeSpan.FromSeconds(30);
 
 
             IMultiProtocolConfigurationProvider MPCProvider = ServiceManager.GetInstance().TryGetService<IMultiProtocolConfigurationProvider>();
@@ -117,12 +119,18 @@
             get => _offlineTimerInterval.TotalSeconds;
             set
             {
-                if(SetProperty(ref _offlineTimerInterval, TimeSpan.FromSeconds(value), nameof(OfflineTimerInterval)))
+                if (SetProperty(ref _offlineTimerInterval, TimeSpan.FromSeconds(value), nameof(OfflineTimerInterval)))
                 {
                     RaisePropertyChanged(nameof(CanSave));
                 }
+                RaisePropertyChanged(nameof(IsOfflineTimerIntervalUnderRecommended));
             }
         }
+
+        /// <summary>
+        ///     Gets whether the current offline timer interval is under the default recommended 
+        /// </summary>
+        public bool IsOfflineTimerIntervalUnderRecommended => _offlineTimerInterval.TotalSeconds < _recommendedOfflineTimerInterval.TotalSeconds;
 
         /// <summary>
         ///     Gets or sets the host address

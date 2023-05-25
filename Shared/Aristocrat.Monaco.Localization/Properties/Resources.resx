@@ -11730,4 +11730,16 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>Progressive State Disabled</value>
     <comment>Aristocrat.Monaco.G2S</comment>
   </data>
+  <data name="ProgressiveHost" xml:space="preserve">
+    <value>Progressive Host</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="ProgressiveHostOfflineIntervalLabel" xml:space="preserve">
+    <value>Offline Timer Interval (seconds)</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="ProgressiveHostOfflineIntervalWarning" xml:space="preserve">
+    <value>Setting this lower than the default 30 seconds can result in excessive EGM lockups. </value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
 </root>

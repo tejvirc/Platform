@@ -25004,6 +25004,42 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Progressive Host.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		public static string ProgressiveHost {
+			get {
+				return ResourceManager.GetString("ProgressiveHost", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Offline Timer Interval (seconds).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		public static string ProgressiveHostOfflineIntervalLabel {
+			get {
+				return ResourceManager.GetString("ProgressiveHostOfflineIntervalLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Setting this lower than the default 30 seconds can....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		public static string ProgressiveHostOfflineIntervalWarning {
+			get {
+				return ResourceManager.GetString("ProgressiveHostOfflineIntervalWarning", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Progressive Id.
 		/// </summary>
         /// <remarks>
@@ -59716,6 +59752,42 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Progressive Host.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		public static string ProgressiveHost {
+			get {
+				return "ProgressiveHost";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Offline Timer Interval (seconds).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		public static string ProgressiveHostOfflineIntervalLabel {
+			get {
+				return "ProgressiveHostOfflineIntervalLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Setting this lower than the default 30 seconds can....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		public static string ProgressiveHostOfflineIntervalWarning {
+			get {
+				return "ProgressiveHostOfflineIntervalWarning";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Progressive Id.
 		/// </summary>
         /// <remarks>
@@ -83714,6 +83786,27 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Sas.UI
         /// </remarks>
 		ProgressiveFeatureLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Progressive Host.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		ProgressiveHost,
+		/// <summary>
+		///   Looks up a localized string similar to Offline Timer Interval (seconds).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		ProgressiveHostOfflineIntervalLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Setting this lower than the default 30 seconds can....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		ProgressiveHostOfflineIntervalWarning,
 		/// <summary>
 		///   Looks up a localized string similar to Progressive Id.
 		/// </summary>
