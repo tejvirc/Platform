@@ -61,11 +61,8 @@
                 status.progId = level.ProgressiveId;
                 status.levelId = levelId;
                 status.progValueAmt = level.CurrentValue;
-
-                ProgressiveValue progVal = progService.ProgressiveValues.ContainsKey($"{level.ProgressiveId}|{level.LevelId}") ?
-                    progService.ProgressiveValues[$"{level.ProgressiveId}|{level.LevelId}"] : null;
-                status.progValueText = progVal?.ProgressiveValueText ?? string.Empty;
-                status.progValueSeq = progVal?.ProgressiveValueSequence ?? 0;
+                status.progValueText = level.ProgressiveValueText;
+                status.progValueSeq = level.ProgressiveValueSequence;
 
                 statuses.Add(status);
             }

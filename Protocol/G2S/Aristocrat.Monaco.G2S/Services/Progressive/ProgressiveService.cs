@@ -798,11 +798,6 @@
                     _pendingAwards.Remove(award);
 
                     UpdatePendingAwards();
-
-                    if (!_pendingAwards.Any())
-                    {
-                        //UpdateProgressiveValues();
-                    }
                 }
                 _currentLinkedProgressiveLevelsHit = null;
             }

@@ -89,39 +89,15 @@
 
             foreach (var level in command.Command.setLevelValue)
             {
-                long progValueSeq = level.progValueSeq;
                 var monacoLevelId = _progressiveService.LevelIds.GetMonacoProgressiveLevelId(lvl.GameId, level.progId, level.levelId);
                 var progLevel = levels.FirstOrDefault(p => p.ProgressiveId == level.progId && p.LevelId == monacoLevelId);
 
-                if (_progressiveService.ProgressiveValues != null)
-                {
-                    var key = $"{level.progId}|{monacoLevelId}";
-                    ProgressiveValue previousProgValue;
-                    if (_progressiveService.ProgressiveValues.TryGetValue(key, out previousProgValue))
-                    {
-                        if (previousProgValue.ProgressiveValueSequence >= progValueSeq)
-                            continue;
-                    }
-                }
+                if (progLevel.ProgressiveValueSequence >= level.progValueSeq)
+                    continue;
 
                 progLevel.CurrentValue = level.progValueAmt;
-
-                ProgressiveValue newValue = new ProgressiveValue();
-                newValue.LevelId = monacoLevelId;
-                newValue.ProgressiveId = level.progId;
-                newValue.ProgressiveValueAmount = level.progValueAmt;
-                newValue.ProgressiveValueText = level.progValueText ?? string.Empty;
-                newValue.ProgressiveValueSequence = level.progValueSeq;
-
-                if (_progressiveService.ProgressiveValues.ContainsKey($"{progLevel.ProgressiveId}|{progLevel.LevelId}"))
-                {
-                    _progressiveService.ProgressiveValues[$"{progLevel.ProgressiveId}|{progLevel.LevelId}"] = newValue;
-                }
-                else
-                {
-                    _progressiveService.ProgressiveValues.Add($"{progLevel.ProgressiveId}|{progLevel.LevelId}", newValue);
-                }
-
+                progLevel.ProgressiveValueSequence = level.progValueSeq;
+                progLevel.ProgressiveValueText = level.progValueText;
                 levelsToUpdate.Add(progLevel);
             }
 
@@ -129,11 +105,10 @@
             {
                 _progressiveProvider.UpdateProgressiveLevels(level.ProgressivePackName, level.GameId,
                     level.Denomination.FirstOrDefault(), new List<ProgressiveLevel> { level });
-
-                _progressiveService.UpdateLinkedProgressiveLevels(level.ProgressiveId, level.LevelId, level.CurrentValue.MillicentsToCents());
             }
 
-            _progressiveService.OnReceiveProgressiveValueUpdate();
+            if(levelsToUpdate.Any())
+                _progressiveService.OnReceiveProgressiveValueUpdate();
 
             var response = command.GenerateResponse<progressiveValueAck>();
             await _progressiveValueAckCommandBuilder.Build(device, response.Command);

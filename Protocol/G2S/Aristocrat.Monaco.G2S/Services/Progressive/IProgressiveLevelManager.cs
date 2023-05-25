@@ -12,12 +12,6 @@
         ProgressiveLevelIdManager LevelIds { get; }
 
         /// <summary>
-        /// The array of the last ProgressiveValues assigned in the SetProgressiveValue command.
-        /// The key is stored as "ProgressiveID|LevelID"
-        /// </summary>
-        Dictionary<string, ProgressiveValue> ProgressiveValues { get; set; }
-
-        /// <summary>
         ///     Gets the specified simple meters for the specified progressive device
         /// </summary>
         /// <param name="deviceId">

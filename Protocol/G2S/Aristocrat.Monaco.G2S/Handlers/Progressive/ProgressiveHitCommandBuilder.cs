@@ -51,10 +51,12 @@
 
             if (transaction.ValueSequence == 1L) // If unset, set this to be used for the corresponding progressiveCommit and Vertex recovery
             {
-                List<ProgressiveLevel> levels = _progressiveProvider.GetProgressiveLevels().Where(l => l.ProgressiveId == device.ProgressiveId && (progressiveService.VertexDeviceIds.TryGetValue(l.DeviceId, out int value) ? value : l.DeviceId) == device.Id).ToList();
-                var lvl = levels.FirstOrDefault();
-                transaction.ValueSequence = progressiveService.ProgressiveValues[$"{transaction.ProgressiveId}|{transaction.LevelId}"].ProgressiveValueSequence;
-                _transactionHistory.UpdateTransaction(transaction);
+                var level = _progressiveProvider.GetProgressiveLevels().First(l => l.ProgressiveId == device.ProgressiveId && l.LevelId == transaction.LevelId && (progressiveService.VertexDeviceIds.TryGetValue(l.DeviceId, out int value) ? value : l.DeviceId) == device.Id);
+                if (level != null)
+                {
+                    transaction.ValueSequence = level.ProgressiveValueSequence;
+                    _transactionHistory.UpdateTransaction(transaction);
+                }
             }
 
             var levelId = progressiveService.LevelIds.GetVertexProgressiveLevelId(transaction.GameId, transaction.ProgressiveId, transaction.LevelId);

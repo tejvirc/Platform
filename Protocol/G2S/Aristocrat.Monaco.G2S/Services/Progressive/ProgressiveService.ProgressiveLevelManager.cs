@@ -15,9 +15,6 @@
         public ProgressiveLevelIdManager LevelIds { get; } = new ProgressiveLevelIdManager();
 
         /// <inheritdoc />
-        public Dictionary<string, ProgressiveValue> ProgressiveValues { get; set; } = new Dictionary<string, ProgressiveValue>();
-
-        /// <inheritdoc />
         public IEnumerable<simpleMeter> GetProgressiveLevelMeters(int deviceId, params string[] includedMeters)
         {
             return MeterMap.ProgressiveMeters
