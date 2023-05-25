@@ -100,7 +100,7 @@ as follows:
       <Setting Name="AllowRemoteHandpayResetVisible" Value="false" />
       <Setting Name="LargeWinHandpayResetMethodVisible" Value="false" />
     </Page>
-    <Page Type="VoucherSettingsPageViewModel" Access="Technician"/>
+    <Page Type="VoucherSettingsPageViewModel" Access="Technician" FieldAccess="ReadOnly" />
     <Page Type="CustomSAPViewModel" Access="MainLogicTechnicianZeroCreditsGameIdle"/>
     <Page Type="AddSAPLevelViewModel" Access="MainLogicTechnicianZeroCreditsGameIdle"/>
     <Page Type="BarkeeperConfigurationViewModel" TabType="BarkeeperConfigurationViewLoader" Visible="false"/>
