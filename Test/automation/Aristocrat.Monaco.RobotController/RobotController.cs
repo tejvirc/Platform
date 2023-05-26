@@ -361,8 +361,8 @@
 
                 if (serviceWaiter.WaitForServices())
                 {
-                    ServicesUtilities.RegisterControllerServices(_container, this);
-                    InitializeController();
+                    ServicesUtilities.InitializeContainer(_container, this);
+                    SetupControllerServices();
                 }
             });
         }
@@ -389,7 +389,7 @@
             _logger.Info($"InProgressRequests : {req}", GetType().Name);
         }
 
-        private void InitializeController()
+        private void SetupControllerServices()
         {
             _configPath = Path.Combine(_container.GetInstance<IPathMapper>().GetDirectory(HardwareConstants.DataPath).FullName, Constants.ConfigurationFileName);
             _gameProvider = _container.GetInstance<IGameProvider>();

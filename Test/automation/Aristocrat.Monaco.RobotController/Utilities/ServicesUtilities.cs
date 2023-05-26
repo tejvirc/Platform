@@ -10,7 +10,7 @@
 
     internal static class ServicesUtilities
     {
-        internal static void RegisterControllerServices(Container container, object context = null)
+        internal static void InitializeContainer(Container container, object context = null)
         {
             if (container == null)
             {
