@@ -1,11 +1,13 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts.Communicator
 {
+    using System;
     using System.Threading.Tasks;
     using Reel.Capabilities;
 
     /// <summary>
     ///     Interface that defines a Relm Communicator
     /// </summary>
+    [CLSCompliant(false)]
     public interface IRelmCommunicator : ICommunicator,
         IDfuDriver,
         IReelAnimationCapabilities,

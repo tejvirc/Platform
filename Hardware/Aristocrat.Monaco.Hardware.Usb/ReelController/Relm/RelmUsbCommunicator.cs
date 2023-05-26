@@ -160,28 +160,18 @@
                 return false;
             }
 
-            Logger.Debug($"Downloading Animation file: {data.Path}");
+            Logger.Debug($"Downloading Animation data: {data.Path}");
 
             StoredFile storedFile = await _relmCommunicator.Download(data.Path, BitmapVerification.CRC32, token);
 
-            CalculateAnimationHash command = new()
-            {
-                AnimationId = (int)storedFile.FileId,
-                Verification = BitmapVerification.CRC32
-            };
-
-            var hashCompleted = await _relmCommunicator.SendCommandWithResponseAsync(command, token);
-
             data.Name = storedFile.Filename;
-            data.Hash = hashCompleted.Hash;
             data.AnimationId = (int)storedFile.FileId;
 
             AnimationFiles.Add(data);
 
-            Logger.Debug($"Finished downloading animation file: [{data.Path}]" +
+            Logger.Debug($"Finished downloading animation data: [{data.Path}]" +
                          $"\nName: {data.Name}" +
-                         $"\nAnimationId: {data.AnimationId}" +
-                         $"\nHash: {Encoding.Default.GetString(hashCompleted.Hash)}"
+                         $"\nAnimationId: {data.AnimationId}"
             );
 
             return true;
@@ -198,28 +188,18 @@
 
             foreach (AnimationData file in files)
             {
-                Logger.Debug($"Downloading Animation file: {file.Path}");
+                Logger.Debug($"Downloading Animation data: {file.Path}");
 
                 StoredFile storedFile = await _relmCommunicator.Download(file.Path, BitmapVerification.CRC32, token);
 
-                CalculateAnimationHash command = new ()
-                {
-                    AnimationId = (int)storedFile.FileId,
-                    Verification = BitmapVerification.CRC32
-                };
-
-                AnimationHashCompleted hashCompleted = await _relmCommunicator.SendCommandWithResponseAsync(command, token);
-
                 file.Name = storedFile.Filename;
-                file.Hash = hashCompleted.Hash;
                 file.AnimationId = (int)storedFile.FileId;
 
                 AnimationFiles.Add(file);
 
-                Logger.Debug($"Finished downloading animation file: [{file.Path}]" +
+                Logger.Debug($"Finished downloading animation data: [{file.Path}]" +
                              $"\nName: {file.Name}" + 
-                             $"\nAnimationId: {file.AnimationId}" + 
-                             $"\nHash: {Encoding.Default.GetString(hashCompleted.Hash)}"
+                             $"\nAnimationId: {file.AnimationId}"
                              );
 
             }
@@ -227,7 +207,7 @@
             return true;
         }
 
-        public async Task<bool> PrepareControllerAnimation(LightShowFile file, CancellationToken token)
+        public async Task<bool> PrepareControllerAnimation(LightShowData data, CancellationToken token)
         {
             if (_relmCommunicator is null)
             {
@@ -237,18 +217,17 @@
             PrepareLightShowAnimations prepareCommand = new PrepareLightShowAnimations();
             RelmAnimationData animationData = new RelmAnimationData()
             {
-                AnimationId = (uint)file.Id,
-                LoopCount = (sbyte)file.LoopCount,
-                ReelIndex = (sbyte)file.ReelIndex,
-                Tag = (uint)file.Tag,
-                Step = file.Step
+                AnimationId = (uint)data.Id,
+                LoopCount = data.LoopCount,
+                ReelIndex = data.ReelIndex,
+                Tag = data.Tag.HashDjb2(),
+                Step = data.Step
             };
 
             prepareCommand.Animations.Add(animationData);
-            prepareCommand.Count = (short)prepareCommand.Animations.Count;
 
-            await _relmCommunicator.SendCommandAsync(prepareCommand, token);
             Logger.Debug($"Preparing animation with id: {animationData.AnimationId}");
+            await _relmCommunicator.SendCommandAsync(prepareCommand, token);
 
             return true;
         }
@@ -266,7 +245,7 @@
             return true;
         }
 
-        public Task<bool> PrepareControllerAnimations(IEnumerable<LightShowFile> files, CancellationToken token)
+        public Task<bool> PrepareControllerAnimations(IEnumerable<LightShowData> files, CancellationToken token)
         {
             // TODO: Implement prepare light show animations in driver and wire up here
             throw new NotImplementedException();
@@ -299,7 +278,7 @@
             return true;
         }
 
-        public async Task<bool> StopControllerLightShowAnimations(IEnumerable<LightShowFile> files, CancellationToken token)
+        public async Task<bool> StopControllerLightShowAnimations(IEnumerable<LightShowData> files, CancellationToken token)
         {
             if (_relmCommunicator is null)
             {
@@ -317,7 +296,7 @@
                 StopAnimationData stopAnimationData = new()
                 {
                     AnimationId = (uint)file.Id,
-                    TagId = (uint)file.Tag
+                    TagId = file.Tag.HashDjb2()
                 };
 
                 stopCommand.AnimationData.Add(stopAnimationData);
@@ -433,7 +412,7 @@
                 return Task.FromResult(false);
             }
 
-            _relmCommunicator.SendCommandAsync(new TiltReelController());
+            //_relmCommunicator.SendCommandAsync(new TiltReelController());
 
             return Task.FromResult(true);
         }

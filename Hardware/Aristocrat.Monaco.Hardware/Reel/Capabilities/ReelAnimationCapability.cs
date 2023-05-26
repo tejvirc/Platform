@@ -35,12 +35,12 @@
             return _implementation.RemoveAllAnimations(token);
         }
 
-        public Task<bool> PrepareControllerAnimation(LightShowFile file, CancellationToken token)
+        public Task<bool> PrepareControllerAnimation(LightShowData data, CancellationToken token)
         {
-            return _implementation.PrepareAnimation(file, token);
+            return _implementation.PrepareAnimation(data, token);
         }
 
-        public Task<bool> PrepareControllerAnimations(IEnumerable<LightShowFile> files, CancellationToken token)
+        public Task<bool> PrepareControllerAnimations(IEnumerable<LightShowData> files, CancellationToken token)
         {
             return _implementation.PrepareAnimations(files, token);
         }
@@ -60,7 +60,7 @@
             return _implementation.PlayAnimations(token);
         }
 
-        public Task<bool> StopControllerLightShowAnimations(IEnumerable<LightShowFile> files, CancellationToken token)
+        public Task<bool> StopControllerLightShowAnimations(IEnumerable<LightShowData> files, CancellationToken token)
         {
             return _implementation.StopLightShowAnimations(files, token);
         }

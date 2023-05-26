@@ -40,12 +40,12 @@
             return _communicator.LoadControllerAnimationFiles(files, token);
         }
 
-        public Task<bool> PrepareAnimation(LightShowFile file, CancellationToken token)
+        public Task<bool> PrepareAnimation(LightShowData data, CancellationToken token)
         {
-            return _communicator.PrepareControllerAnimation(file, token);
+            return _communicator.PrepareControllerAnimation(data, token);
         }
 
-        public Task<bool> PrepareAnimations(IEnumerable<LightShowFile> files, CancellationToken token)
+        public Task<bool> PrepareAnimations(IEnumerable<LightShowData> files, CancellationToken token)
         {
             return _communicator.PrepareControllerAnimations(files, token);
         }
@@ -65,7 +65,7 @@
             return _communicator.PlayControllerAnimations(token);
         }
 
-        public Task<bool> StopLightShowAnimations(IEnumerable<LightShowFile> files, CancellationToken token)
+        public Task<bool> StopLightShowAnimations(IEnumerable<LightShowData> files, CancellationToken token)
         {
             return _communicator.StopControllerLightShowAnimations(files, token);
         }

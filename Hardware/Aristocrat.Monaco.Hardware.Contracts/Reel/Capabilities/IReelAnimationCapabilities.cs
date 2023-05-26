@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
@@ -8,6 +9,7 @@
     /// <summary>
     ///     The public interface for reel controller animation capabilities
     /// </summary>
+    [CLSCompliant(false)]
     public interface IReelAnimationCapabilities : IReelControllerCapability
     {
         // TODO: Remove "Controller" from all the method names.
@@ -21,9 +23,9 @@
         public HashSet<AnimationData> AnimationFiles { get; }
 
         /// <summary>
-        ///     Loads an animation file onto the controller.
+        ///     Loads an animation data onto the controller.
         /// </summary>
-        /// <param name="data">The animation file.</param>
+        /// <param name="data">The animation data.</param>
         /// <param name="token">The cancellation token.</param>
         /// <returns></returns>
         Task<bool> LoadControllerAnimationFile(AnimationData data, CancellationToken token);
@@ -38,16 +40,16 @@
         /// <summary>
         ///     Instructs the controller to prepare a light show animation.
         /// </summary>
-        /// <param name="file">The light show file.</param>
+        /// <param name="data">The light show data.</param>
         /// <param name="token">The cancellation token.</param>
-        Task<bool> PrepareControllerAnimation(LightShowFile file, CancellationToken token);
+        Task<bool> PrepareControllerAnimation(LightShowData data, CancellationToken token);
         
         /// <summary>
         ///     Instructs the controller to prepare light show animations.
         /// </summary>
         /// <param name="files">The light show files.</param>
         /// <param name="token">The cancellation token.</param>
-        Task<bool> PrepareControllerAnimations(IEnumerable<LightShowFile> files, CancellationToken token);
+        Task<bool> PrepareControllerAnimations(IEnumerable<LightShowData> files, CancellationToken token);
         
         /// <summary>
         ///     Instructs the controller to prepare a curve animation.
@@ -80,7 +82,7 @@
         /// </summary>
         /// <param name="files">The light show files.</param>
         /// <param name="token">The cancellation token.</param>
-        Task<bool> StopControllerLightShowAnimations(IEnumerable<LightShowFile> files, CancellationToken token);
+        Task<bool> StopControllerLightShowAnimations(IEnumerable<LightShowData> files, CancellationToken token);
         
         /// <summary>
         ///     Instructs the controller to stop playing all light show animations.

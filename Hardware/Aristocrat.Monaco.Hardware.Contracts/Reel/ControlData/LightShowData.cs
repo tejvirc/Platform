@@ -1,9 +1,12 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData
 {
+    using System;
+
     /// <summary>
     ///     The data associated with a reel controller light show file
     /// </summary>
-    public class LightShowFile
+    [CLSCompliant(false)]
+    public class LightShowData
     {
         /// <summary>
         /// The Animation Id
@@ -13,17 +16,17 @@
         /// <summary>
         /// The tag hash
         /// </summary>
-        public int Tag { get; set; }
+        public string Tag { get; set; }
 
         /// <summary>
         /// Number of times to loop the animation
         /// </summary>
-        public byte LoopCount { get; set; }
+        public sbyte LoopCount { get; set; }
 
         /// <summary>
         /// The reel to apply the animation to
         /// </summary>
-        public byte ReelIndex { get; set; }
+        public sbyte ReelIndex { get; set; }
 
         /// <summary>
         /// The step at which to play the animation.
