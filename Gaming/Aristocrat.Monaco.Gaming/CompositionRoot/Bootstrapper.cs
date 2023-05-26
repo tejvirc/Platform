@@ -222,7 +222,7 @@
             //            container.RegisterSingleton<PerformanceInterceptor>();
             //#endif
 
-            // Register the consumers
+            //zhg**** Register the consumers
             container.ConfigureConsumers();
 
             container.RegisterExternalServices();
@@ -236,7 +236,7 @@
             {
                 throw new ArgumentNullException(nameof(@this));
             }
-            //zhg***
+
             @this.RegisterManyForOpenGeneric(typeof(IConsumer<>), typeof(Consumers.Consumes<>).Assembly);
         }
     }

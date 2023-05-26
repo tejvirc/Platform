@@ -18,7 +18,7 @@
     public sealed class Class3Runnable : GamingRunnable
     {
         protected override void ConfigureContainer(Container container)
-        {
+        {   
             container.Register<ILobby, LobbyLauncher>(Lifestyle.Singleton);
             container.Register<ILobbyStateManager, LobbyStateManager>(Lifestyle.Singleton);
             container.Register<IBrowserProcessManager, BrowserProcessManager>(Lifestyle.Singleton);
@@ -34,7 +34,7 @@
             container.Register<IResponsibleGaming, ResponsibleGaming>(Lifestyle.Singleton);
 
             // Additional registrations go here
-
+            //zhg****:Consumers
             container.RegisterManyForOpenGeneric(
                 typeof(IConsumer<>),
                 typeof(Consumers.Consumes<>).Assembly);

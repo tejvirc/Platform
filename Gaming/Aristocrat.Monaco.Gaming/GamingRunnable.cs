@@ -55,6 +55,7 @@
 
             _container.Options.AllowOverridingRegistrations = true;
 
+            //zhg****
             ConfigureContainer(_container);
 
             _container.Options.AllowOverridingRegistrations = false;
