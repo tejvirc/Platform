@@ -17,6 +17,7 @@
     using Localization.Properties;
     using System.Timers;
     using Hardware.Contracts;
+    using Aristocrat.Monaco.Accounting.Contracts.Transactions;
 
     /// <summary>
     ///     An <see cref="ITransferOutProvider" /> that transfers funds off the EGM by ticking
@@ -163,7 +164,7 @@
         }
 
         /// <inheritdoc />
-        public async Task<bool> Recover(Guid transactionId, CancellationToken cancellationToken)
+        public async Task<bool> Recover(IRecoveryTransaction recoveryTransaction, CancellationToken cancellationToken)
         {
             if (Active)
             {
@@ -171,9 +172,9 @@
             }
 
             var transaction = _transactions.RecallTransactions<HardMeterOutTransaction>()
-                .FirstOrDefault(t => t.BankTransactionId == transactionId);
+                .FirstOrDefault(t => t.BankTransactionId == recoveryTransaction.TransactionId);
 
-            Logger.Debug($"Checking hard meter out recovery - {transactionId}");
+            Logger.Debug($"Checking hard meter out recovery - {recoveryTransaction.TransactionId}");
             if (transaction != null)
             {
                 if (transaction.State == HardMeterOutState.Pending)
