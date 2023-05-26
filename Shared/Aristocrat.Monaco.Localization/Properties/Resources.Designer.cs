@@ -22583,7 +22583,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to 1 ¢.
+		///   Looks up a localized string similar to 1 ?.
 		/// </summary>
         /// <remarks>
         /// Monaco.Accounting.Contracts
@@ -57601,7 +57601,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to 1 ¢.
+		///		Looks up a localized string similar to 1 ?.
 		/// </summary>
         /// <remarks>
         /// Monaco.Accounting.Contracts
@@ -82906,7 +82906,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		One,
 		/// <summary>
-		///   Looks up a localized string similar to 1 ¢.
+		///   Looks up a localized string similar to 1 ?.
 		/// </summary>
         /// <remarks>
         /// Monaco.Accounting.Contracts

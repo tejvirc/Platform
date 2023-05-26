@@ -864,4 +864,7 @@ Do you really want to do partial reset????</value>
   <data name="TestModeDisabledStatusCredits" xml:space="preserve">
     <value>??Zéro crédits are required to enter Test Mode??</value>
   </data>
+  <data name="IdleTextDefault" xml:space="preserve">
+    <value>INSÉRER L'ARGENT</value>
+  </data>
 </root>

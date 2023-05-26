@@ -1838,7 +1838,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             var idleText = (string)_properties.GetProperty(GamingConstants.IdleText, string.Empty);
             if (string.IsNullOrWhiteSpace(IdleText))
             {
-                idleText = (string)LobbyView.TryFindResource(LobbyIdleTextDefaultResourceKey) ?? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.IdleTextDefault);
+                idleText = (string)LobbyView.TryFindResource(LobbyIdleTextDefaultResourceKey) ?? Localizer.For(CultureFor.Player).GetString(ResourceKeys.IdleTextDefault);
                 _properties.SetProperty(GamingConstants.IdleText, idleText);
             }
 
@@ -3905,6 +3905,10 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
             ClockTimer.UpdateTime();
             SendLanguageChangedEvent();
+
+            var idleText = (string)LobbyView.TryFindResource(LobbyIdleTextDefaultResourceKey) ?? Localizer.For(CultureFor.Player).GetString(ResourceKeys.IdleTextDefault);
+            IdleText = idleText;
+
             RaisePropertyChanged(nameof(NoGamesForThisLanguageErrorIsVisible));
         }
 
