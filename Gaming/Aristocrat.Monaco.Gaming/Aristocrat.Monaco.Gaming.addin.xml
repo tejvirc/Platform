@@ -3,7 +3,7 @@
     <Runtime>
         <Import assembly="Aristocrat.Monaco.Gaming.dll"/>
         <Import assembly="Aristocrat.Monaco.Gaming.Contracts.dll" />
-    <Import assembly="Aristocrat.Monaco.Gaming.VideoLottery.dll"/>
+        <Import assembly="Aristocrat.Monaco.Gaming.VideoLottery.dll"/>
   </Runtime>
 
     <Dependencies>

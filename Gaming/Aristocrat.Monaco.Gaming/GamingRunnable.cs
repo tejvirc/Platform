@@ -232,7 +232,10 @@
             _containerService = new ContainerService(_container);
 
             serviceManager.AddService(_containerService);
+
+            //zhg*
             serviceManager.AddService(_sharedConsumerContext);
+
             serviceManager.AddService(_container.GetInstance<IGameDiagnostics>() as IService);
             serviceManager.AddService(_container.GetInstance<IGameMeterManager>());
             serviceManager.AddService(_container.GetInstance<IProgressiveMeterManager>());

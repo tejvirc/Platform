@@ -579,6 +579,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         /// <summary>
         ///     Gets the game selected command
         /// </summary>
+        //zhg***
         public ICommand GameSelectCommand { get; }
 
         /// <summary>
@@ -1871,7 +1872,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     LobbyView.CreateAndShowDisableCountdownWindow();
                     _broadcastDisableCountdownMessagePending = true;
                 }
-
+                //zhg
                 SendTrigger(LobbyTrigger.InitiateRecovery, false);
             }
             else
@@ -1891,6 +1892,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     if (game != null)
                     {
                         _gameLaunchOnStartup = true;
+                        //zhg
                         SendTrigger(LobbyTrigger.LaunchGame, game);
                     }
                     else
@@ -2096,6 +2098,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         ///     Launches the game from the UI.
         /// </summary>
         /// <param name="info">The GameInfo for the game</param>
+        //zhg***
         public void LaunchGameFromUi(object info)
         {
             OnUserInteraction();
@@ -2131,6 +2134,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     _lobbyStateManager.AllowGameAutoLaunch = !_systemDisableManager.DisableImmediately;
 
                     Logger.Debug($"LaunchGameFromUI. GameReady={GameReady}. CurrentState={CurrentState}.");
+                    //zhg***
                     if (!GameReady && !IsInState(LobbyState.GameLoading)) // GameReady will be true if game process has not exited
                     {
                         SendTrigger(LobbyTrigger.LaunchGame, game);
@@ -2339,7 +2343,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                        GameList.FirstOrDefault(g => g.Enabled);
             }
         }
-
+        //zhg
         private void OnChooserEnter()
         {
             Logger.Debug("Entering Chooser");
@@ -2396,7 +2400,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             {
                 _operatorMenu.EnableKey(GamingConstants.OperatorMenuDisableKey);
             }
-
+            //zhg
             if (_launchGameAfterAgeWarning != null)
             {
                 SendTrigger(LobbyTrigger.LaunchGame, _launchGameAfterAgeWarning);

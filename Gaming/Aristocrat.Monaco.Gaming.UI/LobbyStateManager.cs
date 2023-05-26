@@ -191,6 +191,7 @@
                 {
                     if (trigger == LobbyTrigger.LaunchGame && parameter is GameInfo info)
                     {
+                        //zhg***
                         _state.Fire(_launchGameTrigger, info);
                     }
                     else if (trigger == LobbyTrigger.LaunchGameForDiagnostics && parameter is GameInfo gameInfo)

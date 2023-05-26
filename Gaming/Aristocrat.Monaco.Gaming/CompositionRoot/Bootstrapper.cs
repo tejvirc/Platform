@@ -236,7 +236,7 @@
             {
                 throw new ArgumentNullException(nameof(@this));
             }
-
+            //zhg***
             @this.RegisterManyForOpenGeneric(typeof(IConsumer<>), typeof(Consumers.Consumes<>).Assembly);
         }
     }

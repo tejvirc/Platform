@@ -97,6 +97,7 @@
 
             _ipc.StartComms();
 
+            //zhg!!!
             _processId = _process.StartGameProcess(request);
 
             Logger.Info("Game process Started.");

@@ -26,6 +26,7 @@
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _consumerContext = consumerContext ?? this;
+            //zhg****
             _eventBus.Subscribe(_consumerContext, Consume, filter);
         }
 
