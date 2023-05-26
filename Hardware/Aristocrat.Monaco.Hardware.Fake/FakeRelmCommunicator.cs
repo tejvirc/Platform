@@ -17,6 +17,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Contracts.Reel.Events;
+    using Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities;
 
     public class FakeRelmCommunicator : IRelmCommunicator
     {
@@ -146,6 +147,8 @@
             }
         }
 
+        HashSet<AnimationData> IReelAnimationCapabilities.AnimationFiles => throw new NotImplementedException();
+
         /// <inheritdoc/>
         public Task RequestDeviceStatuses()
         {
@@ -268,25 +271,25 @@
         }
 
         /// <inheritdoc/>
-        public Task<bool> LoadControllerAnimationFile(AnimationFile file, CancellationToken token)
+        public Task<bool> LoadControllerAnimationFile(AnimationData file, CancellationToken token)
         {
             throw new NotImplementedException();
         }
         
         /// <inheritdoc/>
-        public Task<bool> LoadControllerAnimationFiles(IEnumerable<AnimationFile> files, CancellationToken token)
+        public Task<bool> LoadControllerAnimationFiles(IEnumerable<AnimationData> files, CancellationToken token)
         {
             throw new NotImplementedException();
         }
 
         /// <inheritdoc/>
-        public Task<bool> PrepareControllerAnimation(LightShowFile file, CancellationToken token)
+        public Task<bool> PrepareControllerAnimation(LightShowData file, CancellationToken token)
         {
             throw new NotImplementedException();
         }
 
         /// <inheritdoc/>
-        public Task<bool> PrepareControllerAnimations(IEnumerable<LightShowFile> files, CancellationToken token)
+        public Task<bool> PrepareControllerAnimations(IEnumerable<LightShowData> files, CancellationToken token)
         {
             throw new NotImplementedException();
         }
@@ -318,7 +321,7 @@
         }
 
         /// <inheritdoc/>
-        public Task<bool> StopControllerLightShowAnimations(IEnumerable<LightShowFile> files, CancellationToken token)
+        public Task<bool> StopControllerLightShowAnimations(IEnumerable<LightShowData> files, CancellationToken token)
         {
             throw new NotImplementedException();
         }
@@ -499,6 +502,11 @@
             }
 
             _disposed = true;
+        }
+
+        Task<bool> IReelAnimationCapabilities.RemoveAllControllerAnimations(CancellationToken token)
+        {
+            throw new NotImplementedException();
         }
     }
 }

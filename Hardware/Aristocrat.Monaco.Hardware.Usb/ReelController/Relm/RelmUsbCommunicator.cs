@@ -1,14 +1,14 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Usb.ReelController.Relm
 {
-    using Aristocrat.Monaco.Common.Animation;
     using Aristocrat.RelmReels.Communicator.Downloads;
     using Aristocrat.RelmReels.Messages;
-    using Aristocrat.RelmReels.Messages.Interrupts;
+    using Common;
     using Contracts.Communicator;
+    using Contracts.Reel;
     using Contracts.Reel.ControlData;
+    using Contracts.Reel.Events;
     using Contracts.SharedDevice;
     using log4net;
-    using Newtonsoft.Json.Linq;
     using RelmReels;
     using RelmReels.Communicator;
     using RelmReels.Messages.Commands;
@@ -18,19 +18,14 @@
     using System.IO;
     using System.Linq;
     using System.Reflection;
-    using System.Runtime.CompilerServices;
-    using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
-    using Common;
-    using Contracts.Reel;
-    using Contracts.Reel.Events;
-    using static System.Net.WebRequestMethods;
     using AnimationData = Contracts.Reel.ControlData.AnimationData;
     using DeviceConfiguration = RelmReels.Messages.Queries.DeviceConfiguration;
     using IRelmCommunicator = Contracts.Communicator.IRelmCommunicator;
-    using RelmReelStatus = RelmReels.Messages.ReelStatus;
+    using ReelStatus = Contracts.Reel.ReelStatus;
     using RelmAnimationData = RelmReels.Messages.Commands.AnimationData;
+    using RelmReelStatus = RelmReels.Messages.ReelStatus;
 
     internal class RelmUsbCommunicator : IRelmCommunicator
     {
@@ -421,7 +416,7 @@
                 return Task.FromResult(false);
             }
 
-            _relmCommunicator.SendCommandAsync(new TiltReelController());
+            //_relmCommunicator.SendCommandAsync(new TiltReelController());
             return Task.FromResult(true);
         }
 

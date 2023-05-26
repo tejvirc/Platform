@@ -16,11 +16,6 @@
         public string Name { get; set; }
 
         /// <summary>
-        /// The hash of the file
-        /// </summary>
-        public byte[] Hash { get; set; }
-
-        /// <summary>
         /// The id of the file
         /// </summary>
         public int AnimationId { get; set; }

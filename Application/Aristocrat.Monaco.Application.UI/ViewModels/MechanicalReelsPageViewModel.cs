@@ -796,7 +796,7 @@
 
         private async Task TestRemoveAllAnimations()
         {
-            if (_reelAnimationCapabilities is null)
+            if (_animationCapabilities is null)
             {
                 return;
             }
@@ -810,13 +810,13 @@
             lightShow.LoopCount = -1;
             lightShow.ReelIndex = -1;
 
-            await _reelAnimationCapabilities.RemoveAllControllerAnimations(cts.Token);
-            await _reelAnimationCapabilities.LoadControllerAnimationFile(new Hardware.Contracts.Reel.ControlData.AnimationData($@"{currentDir}\Reel\LightShows\AllWhite5Reels.lightshow", AnimationType.LightShow), default);
+            await _animationCapabilities.RemoveAllControllerAnimations(cts.Token);
+            await _animationCapabilities.LoadControllerAnimationFile(new Hardware.Contracts.Reel.ControlData.AnimationData($@"{currentDir}\Reel\LightShows\AllWhite5Reels.lightshow", AnimationType.LightShow), default);
 
-            lightShow.Id = _reelAnimationCapabilities.AnimationFiles.First().AnimationId;
+            lightShow.Id = _animationCapabilities.AnimationFiles.First().AnimationId;
 
-            await _reelAnimationCapabilities.PrepareControllerAnimation(lightShow, cts.Token);
-            await _reelAnimationCapabilities.PlayControllerAnimations(cts.Token);
+            await _animationCapabilities.PrepareControllerAnimation(lightShow, cts.Token);
+            await _animationCapabilities.PlayControllerAnimations(cts.Token);
         }
     }
 }
