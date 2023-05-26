@@ -26,7 +26,7 @@
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _consumerContext = consumerContext ?? this;
-            //zhg****
+            //zhg****:Register GameSelectedEvent
             _eventBus.Subscribe(_consumerContext, Consume, filter);
         }
 

@@ -398,6 +398,7 @@
                 .PermitIf(LobbyTrigger.GameLoaded, LobbyState.Game, () => AllowSingleGameAutoLaunch)
                 .OnExit(CallStateExit);
 
+            //zhg****:GameSelectedEvent
             _state.Configure(LobbyState.GameLoading)
                 .OnEntryFrom(_launchGameTrigger, CallStateEntry)
                 .Permit(LobbyTrigger.GameLoaded, LobbyState.Game)
