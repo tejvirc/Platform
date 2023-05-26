@@ -11,16 +11,21 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
+    using Common;
+    using Contracts.Reel;
+    using Contracts.Reel.Events;
     using DeviceConfiguration = RelmReels.Messages.Queries.DeviceConfiguration;
     using IRelmCommunicator = Contracts.Communicator.IRelmCommunicator;
+    using RelmReelStatus = RelmReels.Messages.ReelStatus;
 
     internal class RelmUsbCommunicator : IRelmCommunicator
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
-
+        
         private bool _disposed;
         private RelmCommunicator _relmCommunicator;
         private uint _firmwareSize;
@@ -37,6 +42,8 @@
 
         public event EventHandler<ProgressEventArgs> DownloadProgressed;
 #pragma warning restore 67
+        
+        public event EventHandler<ReelStatusReceivedEventArgs> StatusesReceived;
 
         public int ReelCount => _relmCommunicator?.Configuration.NumReels ?? 0;
 
@@ -95,7 +102,6 @@
 
             await _relmCommunicator?.SendQueryAsync<RelmVersionInfo>()!;
             await _relmCommunicator?.SendQueryAsync<DeviceConfiguration>()!;
-            await HomeReels();
 
             var configuration = _relmCommunicator?.Configuration ?? new DeviceConfiguration();
             Logger.Debug($"Reel controller connected with {configuration.NumReels} reel and {configuration.NumLights} lights. {configuration}");
@@ -103,6 +109,9 @@
             var firmwareSize = await _relmCommunicator?.SendQueryAsync<FirmwareSize>()!;
             _firmwareSize = firmwareSize.Size;
             Logger.Debug($"Reel controller firmware size is {_firmwareSize}");
+
+            RequestDeviceStatuses().FireAndForget();
+            HomeReels().FireAndForget();
         }
 
         public bool Close()
@@ -287,8 +296,26 @@
 
         public Task<bool> TiltReels()
         {
-            // TODO: Implement tilt reels in driver and wire up
-            throw new NotImplementedException();
+            if (_relmCommunicator is null)
+            {
+                return Task.FromResult(false);
+            }
+
+            _relmCommunicator.SendCommandAsync(new TiltReelController());
+            return Task.FromResult(true);
+        }
+
+        public async Task RequestDeviceStatuses()
+        {
+            if (_relmCommunicator is null)
+            {
+                return;
+            }
+
+            var deviceStatuses = await _relmCommunicator.SendQueryAsync<DeviceStatuses>();
+            var statuses = deviceStatuses.ReelStatuses.Select(ConvertToReelStatus).ToList();
+
+            StatusesReceived?.Invoke(this, new ReelStatusReceivedEventArgs(statuses));
         }
 
         private void Dispose(bool disposing)
@@ -307,6 +334,15 @@
             }
 
             _disposed = true;
+        }
+
+        private ReelStatus ConvertToReelStatus(DeviceStatus<RelmReelStatus> deviceReelStatus)
+        {
+            return new ReelStatus
+            {
+                ReelId = deviceReelStatus.Id + 1,
+                Connected = deviceReelStatus.Status != RelmReelStatus.Disconnected
+            };
         }
     }
 }

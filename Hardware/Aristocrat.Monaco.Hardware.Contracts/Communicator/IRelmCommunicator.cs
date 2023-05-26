@@ -1,7 +1,9 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts.Communicator
 {
+    using System;
     using System.Threading.Tasks;
     using Reel.Capabilities;
+    using Reel.Events;
 
     /// <summary>
     ///     Interface that defines a Relm Communicator
@@ -12,6 +14,11 @@
         IReelSynchronizationCapabilities,
         IReelBrightnessCapabilities
     {
+        /// <summary>
+        ///     Event that occurs when component statuses are received.
+        /// </summary>
+        public event EventHandler<ReelStatusReceivedEventArgs> StatusesReceived;
+
         /// <summary>
         ///     Initializes the communicator.
         /// </summary>
@@ -44,5 +51,10 @@
         /// </summary>
         /// <returns>Whether or not the reels where tilted</returns>
         Task<bool> TiltReels();
+
+        /// <summary>
+        ///     Requests the statuses from the reel controller.
+        /// </summary>
+        Task RequestDeviceStatuses();
     }
 }

@@ -10,7 +10,6 @@
     using Common;
     using Contracts;
     using Contracts.Communicator;
-    using Contracts.Gds.Reel;
     using Contracts.Persistence;
     using Contracts.Reel;
     using Contracts.Reel.Capabilities;
@@ -78,7 +77,7 @@
 
         public IReadOnlyDictionary<int, ReelLogicalState> ReelStates => _stateManager?.ReelStates;
 
-        public IReadOnlyDictionary<int, ReelStatus> ReelsStatus => Implementation?.ReelsStatus;
+        public IReadOnlyDictionary<int, ReelStatus> ReelsStatus => Implementation?.ReelStatuses;
 
         public IReadOnlyDictionary<int, int> Steps => _steps;
 
