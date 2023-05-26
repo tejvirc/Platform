@@ -1,5 +1,8 @@
 ﻿namespace Aristocrat.Monaco.UI.Common.Converters
 {
+    using Aristocrat.Monaco.Application.Contracts.Extensions;
+    using Aristocrat.Monaco.Application.Contracts.Localization;
+    using Aristocrat.Monaco.Localization.Properties;
     using System;
     using System.Globalization;
     using System.Windows.Data;
@@ -11,6 +14,17 @@
         private readonly string _displayFormatter;
         private readonly string _zeroPercentageText;
         private readonly bool _displayText;
+
+        /// <summary>
+        ///     Creates the PercentageTextValueConvert with default settings
+        /// </summary>
+        public PercentageTextValueConvert()
+        {
+            _editingFormatter = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PercentageEditingFormatter);
+            _displayFormatter = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PercentageDisplayFormatter);
+            _zeroPercentageText = string.Empty;
+            _displayText = true;
+        }
 
         /// <summary>
         ///     Creates the PercentageTextValueConvert
@@ -32,13 +46,20 @@
         {
             if (value == null) return string.Empty;
 
+            if (value is double)
+            {
+                value = System.Convert.ToDecimal(value);
+            }
+
             if (value is decimal percentage)
             {
+                var currencyCulture = CurrencyExtensions.CurrencyCultureInfo ?? culture;
+
                 if (percentage != 0)
                 {
                     // Value is valid and not zero. Display as raw number if editing, or with symbols if not.
-                    return _displayText ? string.Format(_displayFormatter, percentage)
-                                        : string.Format(_editingFormatter, percentage);
+                    return _displayText ? string.Format(currencyCulture, _displayFormatter, percentage)
+                                        : string.Format(currencyCulture, _editingFormatter, percentage);
                 }
                 else
                 {
@@ -49,7 +70,7 @@
                     if  (!string.IsNullOrEmpty(_zeroPercentageText)) return _zeroPercentageText;
 
                     // Otherwise, just display the result of formatting the value of zero, as normal.
-                    return string.Format(_displayFormatter, percentage);
+                    return string.Format(currencyCulture, _displayFormatter, percentage);
                 }
             }
             else

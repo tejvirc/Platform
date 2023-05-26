@@ -22,16 +22,20 @@
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
+    using Common;
+    using Contracts.Reel;
+    using Contracts.Reel.Events;
     using static System.Net.WebRequestMethods;
     using AnimationData = Contracts.Reel.ControlData.AnimationData;
     using DeviceConfiguration = RelmReels.Messages.Queries.DeviceConfiguration;
     using IRelmCommunicator = Contracts.Communicator.IRelmCommunicator;
+    using RelmReelStatus = RelmReels.Messages.ReelStatus;
     using RelmAnimationData = RelmReels.Messages.Commands.AnimationData;
 
     internal class RelmUsbCommunicator : IRelmCommunicator
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
-
+        
         private bool _disposed;
         private RelmCommunicator _relmCommunicator;
         private uint _firmwareSize;
@@ -48,6 +52,9 @@
 
         public event EventHandler<ProgressEventArgs> DownloadProgressed;
 #pragma warning restore 67
+        
+        public event EventHandler<ReelStatusReceivedEventArgs> StatusesReceived;
+
 
         public HashSet<AnimationData> AnimationFiles { get; } = new();
 
@@ -108,7 +115,6 @@
 
             await _relmCommunicator?.SendQueryAsync<RelmVersionInfo>()!;
             await _relmCommunicator?.SendQueryAsync<DeviceConfiguration>()!;
-            await HomeReels();
 
             var configuration = _relmCommunicator?.Configuration ?? new DeviceConfiguration();
             Logger.Debug($"Reel controller connected with {configuration.NumReels} reel and {configuration.NumLights} lights. {configuration}");
@@ -116,6 +122,9 @@
             var firmwareSize = await _relmCommunicator?.SendQueryAsync<FirmwareSize>()!;
             _firmwareSize = firmwareSize.Size;
             Logger.Debug($"Reel controller firmware size is {_firmwareSize}");
+
+            RequestDeviceStatuses().FireAndForget();
+            HomeReels().FireAndForget();
         }
 
         public bool Close()
@@ -412,9 +421,21 @@
                 return Task.FromResult(false);
             }
 
-            //_relmCommunicator.SendCommandAsync(new TiltReelController());
-
+            _relmCommunicator.SendCommandAsync(new TiltReelController());
             return Task.FromResult(true);
+        }
+
+        public async Task RequestDeviceStatuses()
+        {
+            if (_relmCommunicator is null)
+            {
+                return;
+            }
+
+            var deviceStatuses = await _relmCommunicator.SendQueryAsync<DeviceStatuses>();
+            var statuses = deviceStatuses.ReelStatuses.Select(ConvertToReelStatus).ToList();
+
+            StatusesReceived?.Invoke(this, new ReelStatusReceivedEventArgs(statuses));
         }
 
         private void Dispose(bool disposing)
@@ -433,6 +454,15 @@
             }
 
             _disposed = true;
+        }
+
+        private ReelStatus ConvertToReelStatus(DeviceStatus<RelmReelStatus> deviceReelStatus)
+        {
+            return new ReelStatus
+            {
+                ReelId = deviceReelStatus.Id + 1,
+                Connected = deviceReelStatus.Status != RelmReelStatus.Disconnected
+            };
         }
     }
 }

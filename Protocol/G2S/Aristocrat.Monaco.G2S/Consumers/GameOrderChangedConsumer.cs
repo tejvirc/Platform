@@ -7,9 +7,9 @@
     using Gaming.Contracts;
 
     /// <summary>
-    ///     Handles the <see cref="GameOrderChangedEvent" /> event.
+    ///     Handles the <see cref="GameIconOrderChangedEvent" /> event.
     /// </summary>
-    public class GameOrderChangedConsumer : Consumes<GameOrderChangedEvent>
+    public class GameOrderChangedConsumer : Consumes<GameIconOrderChangedEvent>
     {
         private readonly IG2SEgm _egm;
         private readonly IEventLift _eventLift;
@@ -28,7 +28,7 @@
         }
 
         /// <inheritdoc />
-        public override void Consume(GameOrderChangedEvent theEvent)
+        public override void Consume(GameIconOrderChangedEvent theEvent)
         {
             if (!theEvent.OperatorChanged)
             {

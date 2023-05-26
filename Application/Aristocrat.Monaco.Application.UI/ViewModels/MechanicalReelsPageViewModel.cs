@@ -36,7 +36,7 @@
         private const int LightsOffTime = 250;
         
         private readonly IReelBrightnessCapabilities _brightnessCapabilities;
-        private readonly IReelAnimationCapabilities _reelAnimationCapabilities;
+        private readonly IReelAnimationCapabilities _animationCapabilities;
         private readonly IEdgeLightingController _edgeLightController;
         private readonly PatternParameters _solidBlackPattern = new SolidColorPatternParameters
         {
@@ -54,7 +54,9 @@
 
         private string _reelCount;
         private bool _reelsEnabled;
+        private bool _lightAnimationTestScreenHidden = true;
         private bool _lightTestScreenHidden = true;
+        private bool _reelAnimationTestScreenHidden = true;
         private bool _reelTestScreenHidden = true;
         private bool _settingsScreenHidden;
         private bool _selfTestEnabled = true;
@@ -65,26 +67,9 @@
 
         public MechanicalReelsPageViewModel(bool isWizard) : base(DeviceType.ReelController, isWizard)
         {
-            ShowLightTestCommand = new ActionCommand<object>(_ =>
-            {
-                LightTestScreenHidden = false;
-                ReelTestScreenHidden = true;
-                SettingsScreenHidden = true;
-            });
-            ShowReelTestCommand = new ActionCommand<object>(_ =>
-            {
-                LightTestScreenHidden = true;
-                ReelTestScreenHidden = false;
-                SettingsScreenHidden = true;
-                LightTestViewModel?.CancelTest();
-            });
-            ShowSettingsCommand = new ActionCommand<object>(_ =>
-            {
-                LightTestScreenHidden = true;
-                ReelTestScreenHidden = true;
-                SettingsScreenHidden = false;
-                LightTestViewModel?.CancelTest();
-            });
+            ShowLightTestCommand = new ActionCommand<object>(_ => ShowLightTest());
+            ShowReelTestCommand = new ActionCommand<object>(_ => ShowReelTest());
+            ShowSettingsCommand = new ActionCommand<object>(_ => ShowSettings());
 
             _edgeLightController = ServiceManager.GetInstance().GetService<IEdgeLightingController>();
             LightTestViewModel = new(ReelController, _edgeLightController, Inspection);
@@ -101,7 +86,7 @@
 
             if (ReelController.HasCapability<IReelAnimationCapabilities>())
             {
-                _reelAnimationCapabilities = ReelController.GetCapability<IReelAnimationCapabilities>();
+                _animationCapabilities = ReelController.GetCapability<IReelAnimationCapabilities>();
             }
 
             MinimumBrightness = 1;
@@ -113,7 +98,35 @@
             });
         }
 
+        public bool LightAnimationTestScreenHidden
+        {
+            get => _lightAnimationTestScreenHidden;
+
+            set
+            {
+                _lightAnimationTestScreenHidden = value;
+                RaisePropertyChanged(nameof(LightAnimationTestScreenHidden));
+                RaisePropertyChanged(nameof(LightTestButtonHidden));
+
+                LightTestViewModel.CancelTest();
+            }
+        }
+
         public MechanicalReelsLightTestViewModel LightTestViewModel { get; }
+
+        public bool ReelAnimationTestScreenHidden
+        {
+            get => _reelAnimationTestScreenHidden;
+
+            set
+            {
+                _reelAnimationTestScreenHidden = value;
+                RaisePropertyChanged(nameof(ReelAnimationTestScreenHidden));
+                RaisePropertyChanged(nameof(ReelTestButtonHidden));
+
+                LightTestViewModel.CancelTest();
+            }
+        }
 
         public MechanicalReelsTestViewModel ReelTestViewModel { get; }
 
@@ -129,7 +142,7 @@
             }
         }
 
-        public bool ReelTestButtonHidden => !ReelTestScreenHidden;
+        public bool ReelTestButtonHidden => !ReelTestScreenHidden || !ReelAnimationTestScreenHidden;
 
         public bool LightTestScreenHidden
         {
@@ -145,7 +158,7 @@
             }
         }
 
-        public bool LightTestButtonHidden => !LightTestScreenHidden;
+        public bool LightTestButtonHidden => !LightTestScreenHidden || !LightAnimationTestScreenHidden;
 
         public bool SettingsScreenHidden
         {
@@ -228,6 +241,8 @@
 
         public ObservableCollection<ReelInfoItem> ReelInfo { get; set; } = new();
 
+        public bool IsAnimationController => _animationCapabilities != null;
+
         public int Brightness
         {
             get => _brightness;
@@ -285,6 +300,52 @@
                     _brightnessCapabilities.DefaultReelBrightness = value;
                 }
             }
+        }
+
+        private void ShowLightTest()
+        {
+            if (ReelController is null)
+            {
+                return;
+            }
+
+            LightAnimationTestScreenHidden = !IsAnimationController;
+            LightTestScreenHidden = IsAnimationController;
+
+            ReelAnimationTestScreenHidden = true;
+            ReelTestScreenHidden = true;
+            SettingsScreenHidden = true;
+            RaisePropertyChanged(nameof(IsAnimationController));
+        }
+
+        private void ShowReelTest()
+        {
+            if (ReelController is null)
+            {
+                return;
+            }
+
+            LightTestViewModel?.CancelTest();
+
+            ReelAnimationTestScreenHidden = !IsAnimationController;
+            ReelTestScreenHidden = IsAnimationController;
+            
+            LightAnimationTestScreenHidden = true;
+            LightTestScreenHidden = true;
+            SettingsScreenHidden = true;
+            RaisePropertyChanged(nameof(IsAnimationController));
+        }
+
+        private void ShowSettings()
+        {
+            LightTestViewModel?.CancelTest();
+
+            SettingsScreenHidden = false;
+            
+            LightAnimationTestScreenHidden = true;
+            LightTestScreenHidden = true;
+            ReelAnimationTestScreenHidden = true;
+            ReelTestScreenHidden = true;
         }
 
         private void ClearPattern(ref IEdgeLightToken token)
@@ -413,16 +474,6 @@
             }
 
             RaisePropertyChanged(nameof(TestModeToolTipDisabled));
-        }
-
-        private void OnSelfTestCmd(object obj)
-        {
-            SelfTest(false);
-        }
-
-        private void OnSelfTestClearCmd(object obj)
-        {
-            SelfTest(true);
         }
 
         private async void SelfTest(bool clearNvm)
