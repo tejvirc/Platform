@@ -8,7 +8,7 @@
     using SimpleInjector;
     using System;
 
-    internal static class ServicesUtilities
+    internal static class ServicesHelpers
     {
         internal static void InitializeContainer(Container container, object context = null)
         {
