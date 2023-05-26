@@ -14,6 +14,9 @@
     public class FakePrinterAdapter : IPrinterImplementation
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private static readonly TimeSpan FieldOfInterestDelay = TimeSpan.FromMilliseconds(50);
+        private static readonly TimeSpan PrintingDelay = TimeSpan.FromMilliseconds(500);
+
         private readonly IEventBus _eventBus;
         private bool _disposed;
 
@@ -47,10 +50,10 @@
         public bool IsEnabled { get; set; }
 
         /// <inheritdoc />
-        public int Crc { get; }
+        public int Crc => 0;
 
         /// <inheritdoc />
-        public string Protocol { get; }
+        public string Protocol { get; set; }
 
         /// <inheritdoc />
         public event EventHandler<EventArgs> Initialized;
@@ -137,6 +140,7 @@
         /// <inheritdoc />
         public void UpdateConfiguration(IDeviceConfiguration internalConfiguration)
         {
+            Protocol = internalConfiguration.Protocol;
         }
 
         /// <summary>
@@ -147,26 +151,21 @@
         /// </param>
         public void Dispose()
         {
-            if (_disposed)
-            {
-                return;
-            }
-
-            _eventBus?.UnsubscribeAll(this);
-            _disposed = true;
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         /// <inheritdoc />
-        public int VendorId { get; }
+        public int VendorId => 0;
 
         /// <inheritdoc />
-        public int ProductId { get; }
+        public int ProductId => 0;
 
         /// <inheritdoc />
-        public bool IsDfuCapable { get; }
+        public bool IsDfuCapable => false;
 
         /// <inheritdoc />
-        public bool IsDfuInProgress { get; }
+        public bool IsDfuInProgress => false;
 
         /// <inheritdoc />
         public event EventHandler<ProgressEventArgs> DownloadProgressed;
@@ -202,28 +201,27 @@
         /// <inheritdoc />
         public Task<DfuStatus> Download(Stream firmware)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(DfuStatus.ErrUnknown);
         }
 
         /// <inheritdoc />
         public Task<DfuStatus> Upload(Stream firmware)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(DfuStatus.ErrUnknown);
         }
 
         /// <inheritdoc />
         public void Abort()
         {
-            throw new NotImplementedException();
         }
 
         public Task<bool> Initialize(IGdsCommunicator communicator)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
 
         /// <inheritdoc />
-        public bool CanRetract { get; }
+        public bool CanRetract => true;
 
         /// <inheritdoc />
         public PrinterFaultTypes Faults { get; set; }
@@ -276,17 +274,21 @@
         }
 
         /// <inheritdoc />
-        public Task<bool> PrintTicket(string ticket)
+        public async Task<bool> PrintTicket(string ticket)
         {
             Logger.Info("Printed ticket with fake printer adapter");
-            return Task.FromResult(true);
+            await Task.Delay(PrintingDelay);
+            return true;
         }
 
         /// <inheritdoc />
-        public Task<bool> PrintTicket(string ticket, Func<Task> onFieldOfInterest)
+        public async Task<bool> PrintTicket(string ticket, Func<Task> onFieldOfInterest)
         {
             Logger.Info("Printed ticket with fake printer adapter");
-            return Task.FromResult(true);
+            await Task.Delay(FieldOfInterestDelay);
+            await (onFieldOfInterest?.Invoke() ?? Task.CompletedTask);
+            await Task.Delay(PrintingDelay);
+            return true;
         }
 
         /// <inheritdoc />
@@ -308,6 +310,21 @@
         {
             Logger.Info("File transferred for fake printer adapter");
             return Task.FromResult(true);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                _eventBus?.UnsubscribeAll(this);
+            }
+
+            _disposed = true;
         }
 
         /// <summary>Handle a <see cref="FakePrinterEvent" />.</summary>
