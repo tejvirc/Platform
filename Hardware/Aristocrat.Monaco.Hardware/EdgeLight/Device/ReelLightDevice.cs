@@ -129,7 +129,6 @@
             IList<int> lightIdentifiers = null;
             try
             {
-
                 if (_lightingCapabilities is not null)
                 {
                     lightIdentifiers = await _lightingCapabilities.GetReelLightIdentifiers();
@@ -140,9 +139,10 @@
                 Logger.Error($"GetReelLightIdentifiers failed : {ex.Message}");
             }
 
-            if (lightIdentifiers != null)
+            var reels = Controller.ConnectedReels;
+
+            if (lightIdentifiers != null && reels != null)
             {
-                var reels = Controller.ConnectedReels;
                 if (reels.Count > 0 && lightIdentifiers.Count > 0)
                 {
                     lock (_lock)

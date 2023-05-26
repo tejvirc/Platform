@@ -960,6 +960,9 @@
         /// <summary> Fake </summary>
         public const string Fake = "Fake";
 
+        /// <summary> Relm Sim </summary>
+        public const string RelmSim = "RelmSim";
+
         /// <summary> GDS </summary>
         public const string GDS = "GDS";
 

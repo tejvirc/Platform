@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using Accounting.Contracts;
     using Application.Contracts.Extensions;
@@ -1393,7 +1393,7 @@
         ///     True if the return to lobby button is enabled, false otherwise
         /// </summary>
         public bool ReturnToLobbyAllowed => (!_gameHistory.IsRecoveryNeeded && _gameState.Idle || _isGambleFeatureActive) && !_transferOutHandler.InProgress &&
-                                            !_gameHistory.HasPendingCashOut && !ContainsAnyState(LobbyState.Chooser);
+                                            !_gameHistory.HasPendingCashOut && !ContainsAnyState(LobbyState.Chooser) && !_lobbyStateManager.AllowSingleGameAutoLaunch;
 
         /// <summary>
         ///     Controls whether the machine can be put into reserve
@@ -1416,7 +1416,7 @@
             set
             {
                 _gameCount = value;
-                _lobbyStateManager.IsSingleGame = _lobbyStateManager.AllowGameInCharge || UniqueThemeIds <= 1;
+                _lobbyStateManager.IsSingleGame = UniqueThemeIds <= 1;
                 RaisePropertyChanged(nameof(GameCount));
                 RaisePropertyChanged(nameof(MarginInputs));
             }
@@ -1534,7 +1534,7 @@
         }
 
         private bool ShowAttractMode => IsAttractEnabled()
-                                        && HasZeroCredits
+                                        && _lobbyStateManager.CanAttractModeStart
                                         && !IsIdleTextScrolling
                                         && !MessageOverlayDisplay.ShowVoucherNotification
                                         && !MessageOverlayDisplay.ShowProgressiveGameDisabledNotification
@@ -4932,7 +4932,7 @@
                     return;
                 }
 
-                if (!IsIdleTextScrolling && HasZeroCredits)
+                if (!IsIdleTextScrolling && _lobbyStateManager.CanAttractModeStart)
                 {
                     var interval = _attractMode
                         ? Config.AttractSecondaryTimerIntervalInSeconds

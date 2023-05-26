@@ -75,6 +75,11 @@
         bool ResetAttractOnInterruption { get; set; }
 
         /// <summary>
+        ///     Property indicating if attract mode can start. If no credits are present or we are in show mode, we can start the attract mode.
+        /// </summary>
+        bool CanAttractModeStart { get; }
+
+        /// <summary>
         ///     Property indicating the last type of cash inserted (Currency vs Voucher vs Wat)
         /// </summary>
         CashInType LastCashInType { get; set; }

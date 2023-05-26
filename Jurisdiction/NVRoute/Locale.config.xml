@@ -14,6 +14,5 @@ as follows:
   <Operator DateFormat="M/d/yyyy" />
   <Overrides>
     <string>C3</string>
-    <string>NVRoute</string>
   </Overrides>
 </LocaleConfiguration>

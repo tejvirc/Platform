@@ -18,6 +18,7 @@
 
   <Extension path="/Hardware/ReelController/ReelControllerImplementations">
     <DeviceImplementation ProtocolName="RELM" type="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController"/>
+    <DeviceImplementation ProtocolName="RelmSim" type="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController"/>
   </Extension>
 
 </Addin>
