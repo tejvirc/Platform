@@ -3836,7 +3836,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 GameCount = DisplayedGameList.Count;
             }
 
-            if (IsTabView)
+            if (_lobbyStateManager?.IsTabView ?? false)
             {
                 var gameToSelect = DisplayedGameList.FirstOrDefault(game => game.GameId == _selectedGame?.GameId);
                 if (gameToSelect is null)
@@ -5282,7 +5282,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private void HandleLcdButtonDeckButtonPress(LcdButtonDeckLobby lobbyAction)
         {
-            if (!IsTabView)
+            if (!(_lobbyStateManager?.IsTabView ?? false))
             {
                 return;
             }
