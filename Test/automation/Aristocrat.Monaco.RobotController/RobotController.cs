@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Threading;
     using System.Threading.Tasks;
     using Aristocrat.Monaco.Accounting.Contracts;
     using Aristocrat.Monaco.Gaming.Contracts;
@@ -78,6 +79,9 @@
                 Interval = 1000,
             };
             _sanityChecker.Elapsed += CheckSanity;
+
+            _eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
+            _container = new Container();
         }
 
         ~RobotController() => Dispose(false);
@@ -86,8 +90,7 @@
 
         protected override void OnInitialize()
         {
-            _eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-            WaitForServices();
+            AddServices();
             SubscribeToRobotEnabler();
         }
 
@@ -130,14 +133,16 @@
                 }
                 _automator = null;
                 _eventBus = null;
+
                 if (_container is not null)
                 {
                     _container.Dispose();
                 }
+
                 _container = null;
             }
-            Disposed = true;
 
+            Disposed = true;
         }
 
         protected override void OnRun()
@@ -284,16 +289,6 @@
             }
         }
 
-        private void SetupClassProperties()
-        {
-            _configPath = Path.Combine(_container.GetInstance<IPathMapper>().GetDirectory(HardwareConstants.DataPath).FullName, Constants.ConfigurationFileName);
-            _gameProvider = _container.GetInstance<IGameProvider>();
-            _stateChecker = _container.GetInstance<StateChecker>();
-            _propertiesManager = _container.GetInstance<IPropertiesManager>();
-            _automator = _container.GetInstance<Automation>();
-            _logger = _container.GetInstance<RobotLogger>();
-        }
-
         private bool SetCurrentlyActiveGameIfAny()
         {
             if (_propertiesManager.GetValue(GamingConstants.SelectedGameId, 0) == 0)
@@ -351,7 +346,7 @@
             });
         }
 
-        private void WaitForServices()
+        private void AddServices()
         {
             Task.Run(() =>
             {
@@ -366,9 +361,8 @@
 
                 if (serviceWaiter.WaitForServices())
                 {
-                    _container = InitializeContainer();
-                    _container.RegisterInstance(this);
-                    SetupClassProperties();
+                    RegisterServices(_container);
+                    InitializeServices();
                 }
             });
         }
@@ -395,10 +389,27 @@
             _logger.Info($"InProgressRequests : {req}", GetType().Name);
         }
 
-        private Container InitializeContainer()
+        private void InitializeServices()
         {
+            _configPath = Path.Combine(_container.GetInstance<IPathMapper>().GetDirectory(HardwareConstants.DataPath).FullName, Constants.ConfigurationFileName);
+            _gameProvider = _container.GetInstance<IGameProvider>();
+            _stateChecker = _container.GetInstance<StateChecker>();
+            _propertiesManager = _container.GetInstance<IPropertiesManager>();
+            _automator = _container.GetInstance<Automation>();
+            _logger = _container.GetInstance<RobotLogger>();
+        }
+
+        private void RegisterServices(Container container)
+        {
+            if (container == null)
+            {
+                throw new ArgumentException($"{nameof(container)} is null.");
+            }
+
             var serviceManager = ServiceManager.GetInstance();
-            var container = new Container();
+
+            container.RegisterInstance(this);
+
             container.RegisterInstance(serviceManager.GetService<IEventBus>());
             container.RegisterInstance(serviceManager.GetService<IPropertiesManager>());
             container.RegisterInstance(serviceManager.GetService<IContainerService>().Container.GetInstance<ILobbyStateManager>());
@@ -407,21 +418,22 @@
             container.RegisterInstance(serviceManager.GetService<IContainerService>().Container.GetInstance<IBank>());
             container.RegisterInstance(serviceManager.GetService<IContainerService>().Container.GetInstance<IPathMapper>());
             container.RegisterInstance(serviceManager.GetService<IContainerService>().Container.GetInstance<IGameService>());
+
             container.Register<RobotLogger>(Lifestyle.Singleton);
             container.Register<Automation>(Lifestyle.Singleton);
             container.Register<StateChecker>(Lifestyle.Singleton);
-            container.Register<CashoutOperations>(Lifestyle.Singleton);
-            container.Register<GameOperations>(Lifestyle.Singleton);
-            container.Register<PlayerOperations>(Lifestyle.Singleton);
-            container.Register<TouchOperations>(Lifestyle.Singleton);
-            container.Register<LockUpOperations>(Lifestyle.Singleton);
-            container.Register<OperatingHoursOperations>(Lifestyle.Singleton);
-            container.Register<GameHelpOperations>(Lifestyle.Singleton);
-            container.Register<ServiceRequestOperations>(Lifestyle.Singleton);
-            container.Register<BalanceOperations>(Lifestyle.Singleton);
-            container.Register<RebootRequestOperations>(Lifestyle.Singleton);
-            container.Register<AuditMenuOperations>(Lifestyle.Singleton);
-            return container;
+
+            container.Register<CashoutOperations>(Lifestyle.Transient);
+            container.Register<GameOperations>(Lifestyle.Transient);
+            container.Register<PlayerOperations>(Lifestyle.Transient);
+            container.Register<TouchOperations>(Lifestyle.Transient);
+            container.Register<LockUpOperations>(Lifestyle.Transient);
+            container.Register<OperatingHoursOperations>(Lifestyle.Transient);
+            container.Register<GameHelpOperations>(Lifestyle.Transient);
+            container.Register<ServiceRequestOperations>(Lifestyle.Transient);
+            container.Register<BalanceOperations>(Lifestyle.Transient);
+            container.Register<RebootRequestOperations>(Lifestyle.Transient);
+            container.Register<AuditMenuOperations>(Lifestyle.Transient);
         }
     }
 }
