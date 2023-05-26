@@ -78,7 +78,8 @@
 
             foreach (var supportedDevice in hardwareConfiguration.SupportedDevices.Devices)
             {
-                if (supportedDevice.Protocol == ApplicationConstants.Fake)
+                if (supportedDevice.Protocol == ApplicationConstants.Fake
+                    || supportedDevice.Protocol == ApplicationConstants.RelmSim)
                 {
                     continue;
                 }

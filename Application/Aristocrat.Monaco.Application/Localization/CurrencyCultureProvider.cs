@@ -444,7 +444,6 @@
                 return (minorUnits, minorUnitsPlural);
             }
 
-            //var defaults = _currencyDefaults[currencyCode];
             var format = GetCurrencyOverrideFormat(currencyCode);
 
             minorUnits = format?.MinorUnits;
@@ -520,7 +519,8 @@
 
                     SetFormatOverrides(overrides, cultureInfo, ref minorUnitSymbol);
 
-                    if (MatchCulture(currencyDescription, cultureInfo))
+                    if (configuredCurrency?.Format?.id == overrides.id ||
+                        configuredCurrency?.Format == null && MatchCulture(currencyDescription, cultureInfo))
                     {
                         return overrides;
                     }

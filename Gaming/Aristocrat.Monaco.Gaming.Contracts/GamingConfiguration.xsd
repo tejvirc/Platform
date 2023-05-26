@@ -343,6 +343,15 @@
               </xs:element>
               <xs:element minOccurs="0" maxOccurs="1" name="GameStartButtons">
                 <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="1" name="GameConfigurableButtons">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element minOccurs="0" maxOccurs="unbounded" name="Button" type="GameStartConfigurableMethod" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
                   <xs:attribute name="SettingsVisible" type="xs:boolean" use="optional" default="true" />
                   <xs:attribute name="Method" type="GameStartMethodOption" use="optional" default="Bet" />
                   <xs:attribute name="Configurable" type="xs:boolean" use="optional" default="false" />
@@ -499,8 +508,17 @@
   <xs:simpleType name="GameStartMethodOption">
     <xs:restriction base="xs:string">
       <xs:enumeration value="Bet" />
+      <xs:enumeration value="BetOrMaxBet" />
       <xs:enumeration value="LineOrReel" />
+      <xs:enumeration value="LineReelOrMaxBet" />
       <xs:enumeration value="None" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="GameStartConfigurableMethod">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Bet" />
+      <xs:enumeration value="MaxBet" />
+      <xs:enumeration value="LineOrReel" />
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="GameTypes">

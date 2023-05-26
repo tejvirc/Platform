@@ -812,6 +812,11 @@
         public const string GameStartMethod = @"GameStartMethod";
 
         /// <summary>
+        ///     Determines "Way to Start game" that can be changed by the game (say bet or line etc)
+        /// </summary>
+        public const string GameConfigurableStartMethods = @"GameConfigurableStartMethod";
+
+        /// <summary>
         ///     Determines whether "Way to Start game" option is configurable or not
         /// </summary>
         public const string GameStartMethodConfigurable = @"GameStartMethod.Configurable";
@@ -1207,6 +1212,11 @@
         ///     Whether denomination selection lobby is required/allowed
         /// </summary>
         public const string DenomSelectionLobby = "GamingConfiguration.DenomSelectionLobby.Mode";
+
+        /// <summary>
+        ///     Command Line argument for enabling slow recovery
+        /// </summary>
+        public const string UseSlowRecovery = "UseSlowRecovery";
 
         /// <summary>
         ///     Whether Autocomplete game round is enabled

@@ -9,6 +9,7 @@ namespace Aristocrat.Monaco.Accounting
     using System.Threading.Tasks;
     using Common;
     using Contracts;
+    using Contracts.Transactions;
     using Contracts.TransferOut;
     using Handpay;
     using Hardware.Contracts;
@@ -809,7 +810,7 @@ namespace Aristocrat.Monaco.Accounting
 
             foreach (var (instance, _) in _providers)
             {
-                if (await instance.Recover(transaction.TransactionId, token))
+                if (await instance.Recover(transaction, token))
                 {
                     break;
                 }
@@ -838,7 +839,7 @@ namespace Aristocrat.Monaco.Accounting
         private delegate IEnumerable<ITransferOutProvider> ProvidersFilter(IEnumerable<(ITransferOutProvider instance, bool permitted)> providers);
 
         [Entity(PersistenceLevel.Critical)]
-        private sealed class TransferOutTransaction : IDisposable
+        private sealed class TransferOutTransaction : IRecoveryTransaction, IDisposable
         {
             private CancellationTokenSource _cts;
 

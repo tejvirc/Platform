@@ -3048,6 +3048,8 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
     public partial class GamingConfigurationPhysicalButtonsGameStartButtons {
         
+        private GameStartConfigurableMethod[] gameConfigurableButtonsField;
+        
         private bool settingsVisibleField;
         
         private GameStartMethodOption methodField;
@@ -3058,6 +3060,17 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             this.settingsVisibleField = true;
             this.methodField = GameStartMethodOption.Bet;
             this.configurableField = false;
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayItemAttribute("Button", IsNullable=false)]
+        public GameStartConfigurableMethod[] GameConfigurableButtons {
+            get {
+                return this.gameConfigurableButtonsField;
+            }
+            set {
+                this.gameConfigurableButtonsField = value;
+            }
         }
         
         /// <remarks/>
@@ -3100,13 +3113,34 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
+    public enum GameStartConfigurableMethod {
+        
+        /// <remarks/>
+        Bet,
+        
+        /// <remarks/>
+        MaxBet,
+        
+        /// <remarks/>
+        LineOrReel,
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
     public enum GameStartMethodOption {
         
         /// <remarks/>
         Bet,
         
         /// <remarks/>
+        BetOrMaxBet,
+        
+        /// <remarks/>
         LineOrReel,
+        
+        /// <remarks/>
+        LineReelOrMaxBet,
         
         /// <remarks/>
         None,

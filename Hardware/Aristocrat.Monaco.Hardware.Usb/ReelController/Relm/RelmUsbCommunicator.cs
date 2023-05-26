@@ -27,7 +27,7 @@
 
         public RelmUsbCommunicator()
         {
-            _relmCommunicator = new RelmCommunicator(new VerificationFactory());
+            _relmCommunicator = new RelmCommunicator(new VerificationFactory(), RelmConstants.DefaultKeepAlive);
         }
         
 #pragma warning disable 67
@@ -91,6 +91,8 @@
             }
 
             await _relmCommunicator?.SendCommandAsync(new Reset())!;
+            _relmCommunicator!.KeepAliveEnabled = true;
+
             await _relmCommunicator?.SendQueryAsync<RelmVersionInfo>()!;
             await _relmCommunicator?.SendQueryAsync<DeviceConfiguration>()!;
             await HomeReels();

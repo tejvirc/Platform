@@ -58,7 +58,7 @@
             _gameConfiguration = new Mock<IGameConfigurationProvider>();
             _attendantService.Setup(attendant => attendant.IsServiceRequested).Returns(true);
             _propertiesManager.Setup(manager => manager.GetProperty(It.IsAny<string>(), It.IsAny<object>()))
-                .Returns<string, object>((s, o) => o);
+                .Returns<string, object>((_, o) => o);
             var currentGame = new Mock<IGameDetail>();
             currentGame.Setup(m => m.Denominations)
                 .Returns(new List<IDenomination> { new Mock<IDenomination>().Object });
@@ -71,6 +71,9 @@
             _gameCategoryService.Setup(m => m.SelectedGameCategorySetting).Returns(new GameCategorySetting());
             _lobbyStateManager.Setup(m => m.AllowSingleGameAutoLaunch).Returns(false);
             _cabinetDetectionService.Setup(m => m.ButtonDeckType).Returns(It.IsAny<string>());
+            _propertiesManager
+                .Setup(m => m.GetProperty(GamingConstants.GameConfigurableStartMethods, It.IsAny<object>()))
+                .Returns(Array.Empty<GameStartConfigurableMethod>());
 
             CurrencyExtensions.SetCultureInfo(CultureInfo.CurrentCulture, null, null, true, true, "c");
         }
@@ -145,8 +148,10 @@
             Assert.IsNotNull(handler);
         }
 
-        [DataRow(GameStartMethodOption.Bet, "Bet, MaxBet")]
-        [DataRow(GameStartMethodOption.LineOrReel, "Line, MaxBet")]
+        [DataRow(GameStartMethodOption.BetOrMaxBet, "Bet, MaxBet")]
+        [DataRow(GameStartMethodOption.LineReelOrMaxBet, "Line, MaxBet")]
+        [DataRow(GameStartMethodOption.Bet, "Bet")]
+        [DataRow(GameStartMethodOption.LineOrReel, "Line")]
         [DataRow(GameStartMethodOption.None, "")]
         [DataTestMethod]
         public void CheckGameStartMethod(GameStartMethodOption param, string expectedResult)
@@ -157,7 +162,7 @@
                         It.IsAny<IDictionary<string, string>>(),
                         ConfigurationTarget.GameConfiguration))
                 .Callback<IDictionary<string, string>, ConfigurationTarget>(
-                    (dictionary, target) => localDict = dictionary);
+                    (dictionary, _) => localDict = dictionary);
 
             var handler = new ConfigureClientCommandHandler(
                 _runtime.Object,
@@ -199,7 +204,7 @@
                         It.IsAny<IDictionary<string, string>>(),
                         ConfigurationTarget.GameConfiguration))
                 .Callback<IDictionary<string, string>, ConfigurationTarget>(
-                    (dictionary, target) => localDict = dictionary);
+                    (dictionary, _) => localDict = dictionary);
 
             var handler = new ConfigureClientCommandHandler(
                 _runtime.Object,
@@ -245,7 +250,7 @@
                         It.IsAny<IDictionary<string, string>>(),
                         ConfigurationTarget.GameConfiguration))
                 .Callback<IDictionary<string, string>, ConfigurationTarget>(
-                    (dictionary, target) => localDict = dictionary);
+                    (dictionary, _) => localDict = dictionary);
 
             var handler = new ConfigureClientCommandHandler(
                 _runtime.Object,
@@ -288,7 +293,7 @@
                         It.IsAny<IDictionary<string, string>>(),
                         ConfigurationTarget.GameConfiguration))
                 .Callback<IDictionary<string, string>, ConfigurationTarget>(
-                    (dictionary, target) => localDict = dictionary);
+                    (dictionary, _) => localDict = dictionary);
 
             var handler = new ConfigureClientCommandHandler(
                 _runtime.Object,

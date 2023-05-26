@@ -259,7 +259,7 @@
         {
             if (WizardNavigator != null)
             {
-                WizardNavigator.CanNavigateBackward = false;
+                WizardNavigator.CanNavigateBackward = !IsInspection;
                 WizardNavigator.CanNavigateForward = !IsInspection || (_ItemsPicked == ItemPick.All);
             }
         }

@@ -122,7 +122,6 @@
                     level.HiddenValue = cSapLevel.HiddenValue;
                     level.Overflow = cSapLevel.Overflow;
                     level.OverflowTotal = cSapLevel.OverflowTotal;
-                    level.ResetValue = cSapLevel.ResetValue;
                 }
             }
 

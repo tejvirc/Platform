@@ -151,10 +151,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources_NewYorkVLT.resx</DependentUpon>
     </Compile>
-    <Compile Update="Overrides\Resources_NGIC.Designer.cs">
+    <Compile Update="Overrides\Resources_NIGC.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Resources_NGIC.resx</DependentUpon>
+      <DependentUpon>Resources_NIGC.resx</DependentUpon>
     </Compile>
     <Compile Update="Overrides\Resources_NSW.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -351,9 +351,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources_NewYorkVLT.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Overrides\Resources_NGIC.resx">
+    <EmbeddedResource Update="Overrides\Resources_NIGC.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources_NGIC.Designer.cs</LastGenOutput>
+      <LastGenOutput>Resources_NIGC.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Overrides\Resources_NSW.resx">
       <Generator>ResXFileCodeGenerator</Generator>

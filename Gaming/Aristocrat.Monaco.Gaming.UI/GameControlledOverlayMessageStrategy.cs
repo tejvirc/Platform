@@ -197,7 +197,7 @@
                 _presentationService.PresentOverriddenPresentation(presentations);
             }
 
-            if(data != null)
+            if(data != null && overriddenPresentations.Any())
             {
                 data.GameHandlesHandPayPresentation = true;
             }
