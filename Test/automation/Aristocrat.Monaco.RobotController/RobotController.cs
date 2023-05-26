@@ -80,7 +80,6 @@
             };
             _sanityChecker.Elapsed += CheckSanity;
 
-            _eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
             _container = new Container();
         }
 
@@ -397,6 +396,7 @@
             _propertiesManager = _container.GetInstance<IPropertiesManager>();
             _automator = _container.GetInstance<Automation>();
             _logger = _container.GetInstance<RobotLogger>();
+            _eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
         }
     }
 }
