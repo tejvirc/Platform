@@ -19,7 +19,7 @@
     /// <seealso cref="T:System.IDisposable" />
     public abstract class DeviceAdapter<TImplementation> : IDeviceAdapter,
         IDisposable
-        where TImplementation : IGdsDevice
+        where TImplementation : IHardwareDevice, IDfuDevice
     {
         private const string CommunicatorsExtensionPath = "/Hardware/CommunicatorDrivers";
 
@@ -28,7 +28,7 @@
         private readonly List<string> _errorList = new List<string>();
         private readonly List<string> _warningList = new List<string>();
 
-        private IGdsCommunicator _communicator;
+        private ICommunicator _communicator;
         private Component _component;
         private IEventBus _eventBus;
         private IDfuProvider _dfuProvider;
@@ -303,9 +303,11 @@
 
             _communicator?.Dispose();
 
-            _communicator = AddinFactory.CreateAddin<IGdsCommunicator>(
-                CommunicatorsExtensionPath,
-                config.Mode == ComConfiguration.RS232CommunicationMode ? config.Protocol : config.Mode);
+            var protocolName = config.Mode == ComConfiguration.RS232CommunicationMode || config.Protocol == ComConfiguration.RelmProtocol
+                ? config.Protocol
+                : config.Mode;
+            _communicator = AddinFactory.CreateAddin<ICommunicator>(CommunicatorsExtensionPath, protocolName);
+
             if (_communicator == null)
             {
                 var errorMessage = $"Cannot load {config.Mode} communicator";

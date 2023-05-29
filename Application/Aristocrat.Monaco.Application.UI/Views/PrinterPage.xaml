@@ -1,6 +1,6 @@
 ﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.PrinterPage"
                                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
@@ -12,284 +12,472 @@
                                mc:Ignorable="d" 
                                Background="Transparent"
                                d:DataContext="{d:DesignInstance {x:Type printer:PrinterViewModel}}">
-
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <Style TargetType="Label" BasedOn="{StaticResource MonacoLabel}">
-                <Setter Property="Margin" Value="0 0 10 10" />
-                <Setter Property="VerticalAlignment" Value="Center" />
+            <Style TargetType="Label"
+                   BasedOn="{StaticResource MonacoLabel}">
+                <Setter Property="Margin"
+                        Value="0 0 10 10" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
             </Style>
-
-            <Style TargetType="TextBlock" BasedOn="{StaticResource MonacoTextBlock}">
-                <Setter Property="Margin" Value="0 0 0 10" />
-                <Setter Property="VerticalAlignment" Value="Center" />
+            <Style TargetType="TextBlock"
+                   BasedOn="{StaticResource MonacoTextBlock}">
+                <Setter Property="Margin"
+                        Value="0 0 0 10" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
             </Style>
-
-            <Style TargetType="Button" BasedOn="{StaticResource MonacoButton}">
-                <Setter Property="Width" Value="200" />
+            <Style TargetType="Button"
+                   BasedOn="{StaticResource MonacoButton}">
+                <Setter Property="Width"
+                        Value="200" />
             </Style>
-
-            <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource MonacoCheckBoxGeneral}">
-                <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Style TargetType="{x:Type CheckBox}"
+                   BasedOn="{StaticResource MonacoCheckBoxGeneral}">
+                <Setter Property="HorizontalAlignment"
+                        Value="Center" />
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid>
+    <Grid AutomationProperties.AutomationId="Grid0_5E78AF2B">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition1_5E78AF2B" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition2_5E78AF2B" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition3_5E78AF2B" />
         </Grid.RowDefinitions>
-
-        <Border Grid.Row="0">
-            <Grid>
+        <Border Grid.Row="0"
+                AutomationProperties.AutomationId="Border4_5E78AF2B">
+            <Grid AutomationProperties.AutomationId="Grid5_5E78AF2B">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" MinHeight="350"/>
+                    <RowDefinition Height="Auto"
+                                   MinHeight="350"
+                                   AutomationProperties.AutomationId="RowDefinition6_5E78AF2B" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*"
+                                      AutomationProperties.AutomationId="ColumnDefinition7_5E78AF2B" />
+                    <ColumnDefinition Width="*"
+                                      AutomationProperties.AutomationId="ColumnDefinition8_5E78AF2B" />
                 </Grid.ColumnDefinitions>
-
-                <Grid Grid.Row="0" Grid.Column="0">
+                <Grid Grid.Row="0"
+                      Grid.Column="0"
+                      AutomationProperties.AutomationId="Grid9_5E78AF2B">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition10_5E78AF2B" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition11_5E78AF2B" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition12_5E78AF2B" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition13_5E78AF2B" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition14_5E78AF2B" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition15_5E78AF2B" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition16_5E78AF2B" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition17_5E78AF2B" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition18_5E78AF2B" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto"
+                                          AutomationProperties.AutomationId="ColumnDefinition19_5E78AF2B" />
+                        <ColumnDefinition Width="*"
+                                          AutomationProperties.AutomationId="ColumnDefinition20_5E78AF2B" />
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc ManufacturerLabel}" />
-                    <TextBlock Grid.Row="0" Grid.Column="1" Foreground="{Binding ManufacturerForeground}">
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           Content="{lex:Loc ManufacturerLabel}"
+                           AutomationProperties.AutomationId="Label21_5E78AF2B" />
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="1"
+                               Foreground="{Binding ManufacturerForeground}"
+                               AutomationProperties.AutomationId="TextBlock22_5E78AF2B">
                         <TextBlock.Style>
-                            <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                            <Style TargetType="TextBlock"
+                                   BasedOn="{StaticResource {x:Type TextBlock}}">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ManufacturerText, Mode=OneWay, TargetNullValue=''}" Value="">
-                                        <Setter Property="Text" Value="{lex:BLoc NotAvailable}"/>
+                                    <DataTrigger Binding="{Binding ManufacturerText, Mode=OneWay, TargetNullValue=''}"
+                                                 Value=""
+                                                 AutomationProperties.AutomationId="DataTrigger23_5E78AF2B">
+                                        <Setter Property="Text"
+                                                Value="{lex:BLoc NotAvailable}" />
                                     </DataTrigger>
                                 </Style.Triggers>
-                                <Setter Property="Text" Value="{Binding ManufacturerText, Mode=OneWay}"/>
+                                <Setter Property="Text"
+                                        Value="{Binding ManufacturerText, Mode=OneWay}" />
                             </Style>
                         </TextBlock.Style>
                     </TextBlock>
-
-                    <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc ModelLabel}" />
-                    <TextBlock Grid.Row="1" Grid.Column="1" Foreground="{Binding ModelForeground}">
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           Content="{lex:Loc ModelLabel}"
+                           AutomationProperties.AutomationId="Label24_5E78AF2B" />
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="1"
+                               Foreground="{Binding ModelForeground}"
+                               AutomationProperties.AutomationId="TextBlock25_5E78AF2B">
                         <TextBlock.Style>
-                            <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                            <Style TargetType="TextBlock"
+                                   BasedOn="{StaticResource {x:Type TextBlock}}">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ModelText, Mode=OneWay, TargetNullValue=''}" Value="">
-                                        <Setter Property="Text" Value="{lex:BLoc NotAvailable}"/>
+                                    <DataTrigger Binding="{Binding ModelText, Mode=OneWay, TargetNullValue=''}"
+                                                 Value=""
+                                                 AutomationProperties.AutomationId="DataTrigger26_5E78AF2B">
+                                        <Setter Property="Text"
+                                                Value="{lex:BLoc NotAvailable}" />
                                     </DataTrigger>
                                 </Style.Triggers>
-                                <Setter Property="Text" Value="{Binding ModelText, Mode=OneWay}"/>
+                                <Setter Property="Text"
+                                        Value="{Binding ModelText, Mode=OneWay}" />
                             </Style>
                         </TextBlock.Style>
                     </TextBlock>
-
-                    <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc ProtocolLabel}" />
-                    <TextBlock Grid.Row="2" Grid.Column="1" Foreground="{Binding ProtocolForeground}">
+                    <Label Grid.Row="2"
+                           Grid.Column="0"
+                           Content="{lex:Loc ProtocolLabel}"
+                           AutomationProperties.AutomationId="Label27_5E78AF2B" />
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="1"
+                               Foreground="{Binding ProtocolForeground}"
+                               AutomationProperties.AutomationId="TextBlock28_5E78AF2B">
                         <TextBlock.Style>
-                            <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                            <Style TargetType="TextBlock"
+                                   BasedOn="{StaticResource {x:Type TextBlock}}">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ProtocolText, Mode=OneWay, TargetNullValue=''}" Value="">
-                                        <Setter Property="Text" Value="{lex:BLoc NotAvailable}"/>
+                                    <DataTrigger Binding="{Binding ProtocolText, Mode=OneWay, TargetNullValue=''}"
+                                                 Value=""
+                                                 AutomationProperties.AutomationId="DataTrigger29_5E78AF2B">
+                                        <Setter Property="Text"
+                                                Value="{lex:BLoc NotAvailable}" />
                                     </DataTrigger>
                                 </Style.Triggers>
-                                <Setter Property="Text" Value="{Binding ProtocolText, Mode=OneWay}"/>
+                                <Setter Property="Text"
+                                        Value="{Binding ProtocolText, Mode=OneWay}" />
                             </Style>
                         </TextBlock.Style>
                     </TextBlock>
-
-                    <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc Port}"
-                                   Visibility="{Binding PortVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
-                    <TextBlock Grid.Row="3" Grid.Column="1" Foreground="{Binding PortForeground}" 
-                                       Visibility="{Binding PortVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
+                    <Label Grid.Row="3"
+                           Grid.Column="0"
+                           Content="{lex:Loc Port}"
+                           Visibility="{Binding PortVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                           AutomationProperties.AutomationId="Label30_5E78AF2B" />
+                    <TextBlock Grid.Row="3"
+                               Grid.Column="1"
+                               Foreground="{Binding PortForeground}"
+                               Visibility="{Binding PortVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                               AutomationProperties.AutomationId="TextBlock31_5E78AF2B">
                         <TextBlock.Style>
-                            <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                            <Style TargetType="TextBlock"
+                                   BasedOn="{StaticResource {x:Type TextBlock}}">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding PortText, Mode=OneWay, TargetNullValue=''}" Value="">
-                                        <Setter Property="Text" Value="{lex:BLoc NotAvailable}"/>
+                                    <DataTrigger Binding="{Binding PortText, Mode=OneWay, TargetNullValue=''}"
+                                                 Value=""
+                                                 AutomationProperties.AutomationId="DataTrigger32_5E78AF2B">
+                                        <Setter Property="Text"
+                                                Value="{lex:BLoc NotAvailable}" />
                                     </DataTrigger>
                                 </Style.Triggers>
-                                <Setter Property="Text" Value="{Binding PortText, Mode=OneWay}"/>
+                                <Setter Property="Text"
+                                        Value="{Binding PortText, Mode=OneWay}" />
                             </Style>
                         </TextBlock.Style>
                     </TextBlock>
-
-                    <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc SerialNumberLabel}" />
-                    <TextBlock Grid.Row="4" Grid.Column="1" Foreground="{Binding SerialNumberForeground}">
+                    <Label Grid.Row="4"
+                           Grid.Column="0"
+                           Content="{lex:Loc SerialNumberLabel}"
+                           AutomationProperties.AutomationId="Label33_5E78AF2B" />
+                    <TextBlock Grid.Row="4"
+                               Grid.Column="1"
+                               Foreground="{Binding SerialNumberForeground}"
+                               AutomationProperties.AutomationId="TextBlock34_5E78AF2B">
                         <TextBlock.Style>
-                            <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                            <Style TargetType="TextBlock"
+                                   BasedOn="{StaticResource {x:Type TextBlock}}">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding SerialNumberText, Mode=OneWay, TargetNullValue=''}" Value="">
-                                        <Setter Property="Text" Value="{lex:BLoc NotAvailable}"/>
+                                    <DataTrigger Binding="{Binding SerialNumberText, Mode=OneWay, TargetNullValue=''}"
+                                                 Value=""
+                                                 AutomationProperties.AutomationId="DataTrigger35_5E78AF2B">
+                                        <Setter Property="Text"
+                                                Value="{lex:BLoc NotAvailable}" />
                                     </DataTrigger>
                                 </Style.Triggers>
-                                <Setter Property="Text" Value="{Binding SerialNumberText, Mode=OneWay}"/>
+                                <Setter Property="Text"
+                                        Value="{Binding SerialNumberText, Mode=OneWay}" />
                             </Style>
                         </TextBlock.Style>
                     </TextBlock>
-
-                    <Label Grid.Row="5" Grid.Column="0" Content="{lex:Loc FirmwareVersionLabel}" />
-                    <TextBlock Grid.Row="5" Grid.Column="1" Foreground="{Binding FirmwareVersionForeground}">
+                    <Label Grid.Row="5"
+                           Grid.Column="0"
+                           Content="{lex:Loc FirmwareVersionLabel}"
+                           AutomationProperties.AutomationId="Label36_5E78AF2B" />
+                    <TextBlock Grid.Row="5"
+                               Grid.Column="1"
+                               Foreground="{Binding FirmwareVersionForeground}"
+                               AutomationProperties.AutomationId="TextBlock37_5E78AF2B">
                         <TextBlock.Style>
-                            <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                            <Style TargetType="TextBlock"
+                                   BasedOn="{StaticResource {x:Type TextBlock}}">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding FirmwareVersionText, Mode=OneWay, TargetNullValue=''}" Value="">
-                                        <Setter Property="Text" Value="{lex:BLoc NotAvailable}"/>
+                                    <DataTrigger
+                                            Binding="{Binding FirmwareVersionText, Mode=OneWay, TargetNullValue=''}"
+                                                 Value=""
+                                                 AutomationProperties.AutomationId="DataTrigger38_5E78AF2B">
+                                        <Setter Property="Text"
+                                                Value="{lex:BLoc NotAvailable}" />
                                     </DataTrigger>
                                 </Style.Triggers>
-                                <Setter Property="Text" Value="{Binding FirmwareVersionText, Mode=OneWay}"/>
+                                <Setter Property="Text"
+                                        Value="{Binding FirmwareVersionText, Mode=OneWay}" />
                             </Style>
                         </TextBlock.Style>
                     </TextBlock>
-
-                    <Label Grid.Row="6" Grid.Column="0" Content="{lex:Loc FirmwareRevisionLabel}" />
-                    <TextBlock Grid.Row="6" Grid.Column="1" Foreground="{Binding FirmwareRevisionForeground}">
+                    <Label Grid.Row="6"
+                           Grid.Column="0"
+                           Content="{lex:Loc FirmwareRevisionLabel}"
+                           AutomationProperties.AutomationId="Label39_5E78AF2B" />
+                    <TextBlock Grid.Row="6"
+                               Grid.Column="1"
+                               Foreground="{Binding FirmwareRevisionForeground}"
+                               AutomationProperties.AutomationId="TextBlock40_5E78AF2B">
                         <TextBlock.Style>
-                            <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                            <Style TargetType="TextBlock"
+                                   BasedOn="{StaticResource {x:Type TextBlock}}">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding FirmwareRevisionText, Mode=OneWay, TargetNullValue=''}" Value="">
-                                        <Setter Property="Text" Value="{lex:BLoc NotAvailable}"/>
+                                    <DataTrigger
+                                            Binding="{Binding FirmwareRevisionText, Mode=OneWay, TargetNullValue=''}"
+                                                 Value=""
+                                                 AutomationProperties.AutomationId="DataTrigger41_5E78AF2B">
+                                        <Setter Property="Text"
+                                                Value="{lex:BLoc NotAvailable}" />
                                     </DataTrigger>
                                 </Style.Triggers>
-                                <Setter Property="Text" Value="{Binding FirmwareRevisionText, Mode=OneWay}"/>
+                                <Setter Property="Text"
+                                        Value="{Binding FirmwareRevisionText, Mode=OneWay}" />
                             </Style>
                         </TextBlock.Style>
                     </TextBlock>
-
-                    <Label Grid.Row="7" Grid.Column="0" Content="{lex:Loc FirmwareCRCLabel}"/>
-                    <TextBlock Grid.Row="7" Grid.Column="1" Foreground="{Binding FirmwareCrcForeground}">
+                    <Label Grid.Row="7"
+                           Grid.Column="0"
+                           Content="{lex:Loc FirmwareCRCLabel}"
+                           AutomationProperties.AutomationId="Label42_5E78AF2B" />
+                    <TextBlock Grid.Row="7"
+                               Grid.Column="1"
+                               Foreground="{Binding FirmwareCrcForeground}"
+                               AutomationProperties.AutomationId="TextBlock43_5E78AF2B">
                         <TextBlock.Style>
-                            <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                            <Style TargetType="TextBlock"
+                                   BasedOn="{StaticResource {x:Type TextBlock}}">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding FirmwareCrcText, Mode=OneWay, TargetNullValue=''}" Value="">
-                                        <Setter Property="Text" Value="{lex:BLoc NotAvailable}"/>
+                                    <DataTrigger Binding="{Binding FirmwareCrcText, Mode=OneWay, TargetNullValue=''}"
+                                                 Value=""
+                                                 AutomationProperties.AutomationId="DataTrigger44_5E78AF2B">
+                                        <Setter Property="Text"
+                                                Value="{lex:BLoc NotAvailable}" />
                                     </DataTrigger>
                                 </Style.Triggers>
-                                <Setter Property="Text" Value="{Binding FirmwareCrcText, Mode=OneWay}"/>
+                                <Setter Property="Text"
+                                        Value="{Binding FirmwareCrcText, Mode=OneWay}" />
                             </Style>
                         </TextBlock.Style>
                     </TextBlock>
-
-                    <Label Grid.Row="8" Grid.Column="0" Content="{lex:Loc ActivationTimeLabel}" 
-                           Visibility="{Binding ActivationVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
-                    <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding ActivationTime}"
-                                       Foreground="{Binding ActivationForeground}"
-                                       Visibility="{Binding ActivationVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
+                    <Label Grid.Row="8"
+                           Grid.Column="0"
+                           Content="{lex:Loc ActivationTimeLabel}"
+                           Visibility="{Binding ActivationVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                           AutomationProperties.AutomationId="Label45_5E78AF2B" />
+                    <TextBlock Grid.Row="8"
+                               Grid.Column="1"
+                               Text="{Binding ActivationTime}"
+                               Foreground="{Binding ActivationForeground}"
+                               Visibility="{Binding ActivationVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                               AutomationProperties.AutomationId="TextBlock46_5E78AF2B" />
                 </Grid>
-                <Grid Grid.Row="0" Grid.Column="1" Grid.IsSharedSizeScope="True">
+                <Grid Grid.Row="0"
+                      Grid.Column="1"
+                      Grid.IsSharedSizeScope="True"
+                      AutomationProperties.AutomationId="Grid47_5E78AF2B">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition48_5E78AF2B" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition49_5E78AF2B" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition50_5E78AF2B" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition51_5E78AF2B" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition52_5E78AF2B" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition53_5E78AF2B" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition54_5E78AF2B" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition55_5E78AF2B" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition56_5E78AF2B" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" SharedSizeGroup="A" />
-                        <ColumnDefinition Width="Auto" SharedSizeGroup="B" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto"
+                                          SharedSizeGroup="A"
+                                          AutomationProperties.AutomationId="ColumnDefinition57_5E78AF2B" />
+                        <ColumnDefinition Width="Auto"
+                                          SharedSizeGroup="B"
+                                          AutomationProperties.AutomationId="ColumnDefinition58_5E78AF2B" />
+                        <ColumnDefinition Width="*"
+                                          AutomationProperties.AutomationId="ColumnDefinition59_5E78AF2B" />
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc StateLabel}" />
-                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding StateText}" Foreground="{Binding StateForeground}" />
-
-                    <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc SelfTestLabel}" />
-                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding SelfTestText}" Foreground="{Binding SelfTestForeground}" />
-
-                    <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" MinHeight="60" VerticalAlignment="Top">
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           Content="{lex:Loc StateLabel}"
+                           AutomationProperties.AutomationId="Label60_5E78AF2B" />
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="1"
+                               Text="{Binding StateText}"
+                               Foreground="{Binding StateForeground}"
+                               AutomationProperties.AutomationId="TextBlock61_5E78AF2B" />
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           Content="{lex:Loc SelfTestLabel}"
+                           AutomationProperties.AutomationId="Label62_5E78AF2B" />
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="1"
+                               Text="{Binding SelfTestText}"
+                               Foreground="{Binding SelfTestForeground}"
+                               AutomationProperties.AutomationId="TextBlock63_5E78AF2B" />
+                    <Grid Grid.Row="2"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="2"
+                          MinHeight="60"
+                          VerticalAlignment="Top"
+                          AutomationProperties.AutomationId="Grid64_5E78AF2B">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" SharedSizeGroup="A" />
-                            <ColumnDefinition Width="Auto" SharedSizeGroup="B" MinWidth="150"/>
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto"
+                                              SharedSizeGroup="A"
+                                              AutomationProperties.AutomationId="ColumnDefinition65_5E78AF2B" />
+                            <ColumnDefinition Width="Auto"
+                                              SharedSizeGroup="B"
+                                              MinWidth="150"
+                                              AutomationProperties.AutomationId="ColumnDefinition66_5E78AF2B" />
+                            <ColumnDefinition Width="*"
+                                              AutomationProperties.AutomationId="ColumnDefinition67_5E78AF2B" />
                         </Grid.ColumnDefinitions>
-
-                        <Label Grid.Column="0" Content="{lex:Loc StatusLabel}"  />
-                        <TextBlock Grid.Column="1" Grid.RowSpan="6" Name="Status" Text="{Binding StatusText}" 
-                                   Foreground="{Binding StatusForeground}" />
+                        <Label Grid.Column="0"
+                               Content="{lex:Loc StatusLabel}"
+                               AutomationProperties.AutomationId="Label68_5E78AF2B" />
+                        <TextBlock Grid.Column="1"
+                                   Grid.RowSpan="6"
+                                   Name="Status"
+                                   Text="{Binding StatusText}"
+                                   Foreground="{Binding StatusForeground}"
+                                   AutomationProperties.AutomationId="TextBlock69_5E78AF2B" />
                     </Grid>
-
-                    <StackPanel Grid.Row="3" Grid.Column ="0" Grid.ColumnSpan="3" Margin="0 20 0 0" Orientation="Horizontal" 
-                                Visibility="{Binding ShowPrintLanguageSettings, Converter={StaticResource TrueVisibleFalseCollapsed}}">
-                        <Grid>
+                    <StackPanel Grid.Row="3"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="3"
+                                Margin="0 20 0 0"
+                                Orientation="Horizontal"
+                                Visibility="{Binding ShowPrintLanguageSettings, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                AutomationProperties.AutomationId="StackPanel70_5E78AF2B">
+                        <Grid AutomationProperties.AutomationId="Grid71_5E78AF2B">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"
+                                                  AutomationProperties.AutomationId="ColumnDefinition72_5E78AF2B" />
+                                <ColumnDefinition Width="Auto"
+                                                  AutomationProperties.AutomationId="ColumnDefinition73_5E78AF2B" />
+                                <ColumnDefinition Width="Auto"
+                                                  AutomationProperties.AutomationId="ColumnDefinition74_5E78AF2B" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"
+                                               AutomationProperties.AutomationId="RowDefinition75_5E78AF2B" />
                             </Grid.RowDefinitions>
-
-                            <Label Grid.Row="0" Grid.Column ="0" Margin="0 5 0 0" Content="{lex:Loc PrintLanguage}"/>
-                            <CheckBox Name="PrintLanguageOverrideCheckbox" Grid.Row="0" Grid.Column ="1" Margin="27 5 0 5" Width="46"
+                            <Label Grid.Row="0"
+                                   Grid.Column="0"
+                                   Margin="0 5 0 0"
+                                   Content="{lex:Loc PrintLanguage}"
+                                   AutomationProperties.AutomationId="Label76_5E78AF2B" />
+                            <CheckBox Name="PrintLanguageOverrideCheckbox"
+                                      Grid.Row="0"
+                                      Grid.Column="1"
+                                      Margin="27 5 0 5"
+                                      Width="46"
                                       IsChecked="{Binding PrintLanguageOverrideIsChecked, Mode=TwoWay}"
                                       IsEnabled="{Binding PrintLanguageOverrideIsEnabled}"
-                                      Visibility="{Binding ShowOperatorOverrideCheckBox, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
-                            <ComboBox Grid.Row="0" Grid.Column="2" Width="300" HorizontalAlignment="Left" Margin="27 0 0 0" 
+                                      Visibility="{Binding ShowOperatorOverrideCheckBox, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                      AutomationProperties.AutomationId="CheckBox77_5E78AF2B" />
+                            <ComboBox Grid.Row="0"
+                                      Grid.Column="2"
+                                      Width="300"
+                                      HorizontalAlignment="Left"
+                                      Margin="27 0 0 0"
                                       IsEnabled="{Binding SelectedPrintLanguageIsEnabled}"
                                       ItemsSource="{Binding PrintLanguages}"
                                       DisplayMemberPath="Item2"
                                       SelectedValuePath="Item2"
-                                      SelectedValue="{Binding SelectedPrintLanguage}"/>
+                                      SelectedValue="{Binding SelectedPrintLanguage}"
+                                      AutomationProperties.AutomationId="ComboBox78_5E78AF2B" />
                         </Grid>
                     </StackPanel>
                 </Grid>
-           </Grid>
+            </Grid>
         </Border>
-
-        <Border Grid.Row="1" Margin="0 15 0 0" VerticalAlignment="Bottom">
-            <StackPanel Orientation="Horizontal">
-                <Button Content="{lex:Loc FormFeedButton}" 
+        <Border Grid.Row="1"
+                Margin="0 15 0 0"
+                VerticalAlignment="Bottom"
+                AutomationProperties.AutomationId="Border79_5E78AF2B">
+            <StackPanel Orientation="Horizontal"
+                        AutomationProperties.AutomationId="StackPanel80_5E78AF2B">
+                <Button Content="{lex:Loc FormFeedButton}"
                         Command="{Binding FormFeedButtonCommand}"
-                        IsEnabled="{Binding PrinterButtonsEnabled}" />
-                <Button Content="{lex:Loc PrintDiagnosticButton}" 
+                        IsEnabled="{Binding PrinterButtonsEnabled}"
+                        AutomationProperties.AutomationId="Button81_5E78AF2B" />
+                <Button Content="{lex:Loc PrintDiagnosticButton}"
                         Command="{Binding PrintDiagnosticButtonCommand}"
-                        IsEnabled="{Binding PrinterButtonsEnabled}" />
-                <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.SelfTestLabel}}" 
+                        IsEnabled="{Binding PrinterButtonsEnabled}"
+                        AutomationProperties.AutomationId="Button82_5E78AF2B" />
+                <Button Content="{lex:Loc SelfTestLabel}"
                         Name="SelfTestButton"
                         Command="{Binding SelfTestButtonCommand}"
-                        Visibility="{Binding IsSelfTestVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
-                        IsEnabled="{Binding PrinterButtonsEnabled}" />
-                <Button Content="{lex:Loc SelfTestClearNVM}" 
+                        Visibility="{Binding IsSelfTestVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                        IsEnabled="{Binding PrinterButtonsEnabled}"
+                        AutomationProperties.AutomationId="Button83_5E78AF2B" />
+                <Button Content="{lex:Loc SelfTestClearNVM}"
                         Command="{Binding SelfTestClearButtonCommand}"
-                        Visibility="{Binding IsSelfTestVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
-                        IsEnabled="{Binding PrinterButtonsEnabled}" />
-                <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintTestTicket}}" 
+                        Visibility="{Binding IsSelfTestVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                        IsEnabled="{Binding PrinterButtonsEnabled}"
+                        AutomationProperties.AutomationId="Button84_5E78AF2B" />
+                <Button Content="{lex:Loc PrintTestTicket}"
                         Name="PrintTestTicketButton"
-                        Command="{Binding PrintTestTicketCommand}">
+                        Command="{Binding PrintTestTicketCommand}"
+                        AutomationProperties.AutomationId="Button85_5E78AF2B">
                     <Button.IsEnabled>
                         <MultiBinding Converter="{StaticResource BoolAndConverter}">
-                            <Binding Path="TestModeEnabled"/>
-                            <Binding Path="PrinterButtonsEnabled"/>
+                            <Binding Path="TestModeEnabled" />
+                            <Binding Path="PrinterButtonsEnabled" />
                         </MultiBinding>
                     </Button.IsEnabled>
                 </Button>
-                <Button Name="WarningButton" Style="{StaticResource MonacoWarningButton}"
+                <Button Name="WarningButton"
+                        Style="{StaticResource MonacoWarningButton}"
                         Command="{Binding ShowInfoPopupCommand}"
-                        Visibility="{Binding TestModeEnabled, Converter={StaticResource TrueHiddenFalseVisible}}">
+                        Visibility="{Binding TestModeEnabled, Converter={StaticResource TrueHiddenFalseVisible}}"
+                        AutomationProperties.AutomationId="Button86_5E78AF2B">
                     <Button.CommandParameter>
                         <MultiBinding Converter="{StaticResource MultiValueConverter}">
-                            <Binding ElementName="WarningButton"/>
-                            <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=Control}" Path="DataContext.TestWarningText" />
+                            <Binding ElementName="WarningButton" />
+                            <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=Control}"
+                                     Path="DataContext.TestWarningText" />
                         </MultiBinding>
                     </Button.CommandParameter>
                 </Button>

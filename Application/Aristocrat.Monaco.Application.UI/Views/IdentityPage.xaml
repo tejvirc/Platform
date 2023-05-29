@@ -19,14 +19,16 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Controls/LiveSetting.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Controls/LiveSetting.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <StackPanel x:Name="Root" HorizontalAlignment="Left">
-        <Label Content="{lex:Loc SerialNumberLabel}"/>
+    <StackPanel x:Name="Root" HorizontalAlignment="Left"
+                AutomationProperties.AutomationId="StackPanel0_C095EB08">
+        <Label Content="{lex:Loc SerialNumberLabel}"
+               AutomationProperties.AutomationId="Label1_C095EB08" />
         <helpers:AlphaNumericTextBox
                  MinWidth="300" 
                  IsAlphaNumeric="True"
@@ -35,7 +37,8 @@
                  ErrorText="{Binding SerialNumber.ErrorFromView, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" 
                  MaxLength="{Binding SerialNumber.MaxLength, Mode=OneWay}" />
 
-        <Label Content="{lex:Loc AssetNumber}" />
+        <Label Content="{lex:Loc AssetNumber}" 
+               AutomationProperties.AutomationId="Label2_C095EB08" />
         <helpers:AlphaNumericTextBox
                  PreviewTextInput="NumberValidationTextBox"
                  IsReadOnly="False"
@@ -51,55 +54,61 @@
         <ContentControl
             IsTabStop="False"
             ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
-            Content="{Binding Area}"/>
+            Content="{Binding Area}"
+            AutomationProperties.AutomationId="ContentControl4_C095EB08" />
 
         <!-- Zone -->
         <Label Content="{lex:Loc ZoneText}"
-               Visibility="{Binding Zone.IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
+               Visibility="{Binding Zone.IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
+               AutomationProperties.AutomationId="Label5_C095EB08" />
         <ContentControl
             IsTabStop="False"
             ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
-            Content="{Binding Zone}"/>
+            Content="{Binding Zone}"
+            AutomationProperties.AutomationId="ContentControl6_C095EB08" />
 
         <!-- Bank -->
         <Label Content="{lex:Loc BankText}"
-               Visibility="{Binding Bank.IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
+               Visibility="{Binding Bank.IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
+               AutomationProperties.AutomationId="Label7_C095EB08" />
         <ContentControl
             IsTabStop="False"
             ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
-            Content="{Binding Bank}"/>
+            Content="{Binding Bank}"
+                        AutomationProperties.AutomationId="ContentControl8_C095EB08" />
 
         <!-- Position -->
         <Label Content="{lex:Loc PositionText}"
-               Visibility="{Binding Position.IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
-        <ContentControl
-            IsTabStop="False"
-            ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
-            Content="{Binding Position}"/>
-
+               Visibility="{Binding Position.IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+               AutomationProperties.AutomationId="Label9_C095EB08" />
+        <ContentControl IsTabStop="False"
+                        ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
+                        Content="{Binding Position}"
+                        AutomationProperties.AutomationId="ContentControl10_C095EB08" />
         <!-- Location -->
         <Label Content="{lex:Loc Location}"
-               Visibility="{Binding Location.IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
-        <ContentControl
-            IsTabStop="False"
-            ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
-            Content="{Binding Location}"/>
-
+               Visibility="{Binding Location.IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+               AutomationProperties.AutomationId="Label11_C095EB08" />
+        <ContentControl IsTabStop="False"
+                        ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
+                        Content="{Binding Location}"
+                        AutomationProperties.AutomationId="ContentControl12_C095EB08" />
         <!-- DeviceName -->
         <Label Content="{lex:Loc DeviceName}"
-               Visibility="{Binding DeviceName.IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
-        <ContentControl
-            IsTabStop="False"
-            ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
-            Content="{Binding DeviceName}"/>
-
-        <CheckBox HorizontalAlignment="Left" 
-                  IsChecked="{Binding PrintIdentityTicket}" 
-                  Style="{DynamicResource MonacoCheckBoxGeneral}" 
-                  Visibility="{Binding PrintTicketEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
-        <Label Content="{lex:Loc PrintIdentityTicketText}" 
-               Focusable="True"  
-               Visibility="{Binding PrintTicketEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
+               Visibility="{Binding DeviceName.IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+               AutomationProperties.AutomationId="Label13_C095EB08" />
+        <ContentControl IsTabStop="False"
+                        ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"
+                        Content="{Binding DeviceName}"
+                        AutomationProperties.AutomationId="ContentControl14_C095EB08" />
+        <CheckBox HorizontalAlignment="Left"
+                  IsChecked="{Binding PrintIdentityTicket}"
+                  Style="{DynamicResource MonacoCheckBoxGeneral}"
+                  Visibility="{Binding PrintTicketEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                  AutomationProperties.AutomationId="CheckBox15_C095EB08" />
+        <Label Content="{lex:Loc PrintIdentityTicketText}"
+               Focusable="True"
+               Visibility="{Binding PrintTicketEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+               AutomationProperties.AutomationId="Label16_C095EB08" />
     </StackPanel>
 </operatorMenu:OperatorMenuPage>
-

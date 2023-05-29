@@ -17,12 +17,11 @@
 
         private const string Fake = "Fake";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly ICabinetDetectionService _cabinetIdentificationService;
 
-        private readonly List<SerialPortInfo> _logicalSerialPorts =
-            new List<SerialPortInfo>();
+        private readonly List<SerialPortInfo> _logicalSerialPorts = new ();
 
         private readonly IList<SerialPortInfo> _serialPorts;
 
@@ -36,9 +35,10 @@
 
         public SerialPortsService(SerialPortEnumerator enumerator)
         {
+            _cabinetIdentificationService = ServiceManager.GetInstance().TryGetService<ICabinetDetectionService>();
+
             PopulateLogicalSerialPorts();
 
-            _cabinetIdentificationService = ServiceManager.GetInstance().TryGetService<ICabinetDetectionService>();
             _serialPorts = enumerator.EnumerateSerialPorts().Join(
                 _logicalSerialPorts,
                 x => new { x.Address, x.SerialPortType },
@@ -53,12 +53,15 @@
 
             void PopulateLogicalSerialPorts()
             {
+                // Actual EGMs start COM ports at an offset of 3, as designed in the FPGA.
+                var offset = (_cabinetIdentificationService?.Family ?? HardwareFamily.Unknown) == HardwareFamily.Unknown  ? 0 : 3;
+
                 for (var i = 0; i < 13; i++)
                 {
                     _logicalSerialPorts.Add(
                         new SerialPortInfo
                         {
-                            Address = i, LogicalPortName = $"COM{i + 3}", SerialPortType = SerialPortType.Rs232
+                            Address = i, LogicalPortName = $"COM{i + offset}", SerialPortType = SerialPortType.Rs232
                         });
                 }
             }

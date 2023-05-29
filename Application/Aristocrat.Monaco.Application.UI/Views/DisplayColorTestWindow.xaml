@@ -9,47 +9,67 @@
              xmlns:loc="http://monaco.aristocrat.com/localization"
              xmlns:common="http://monaco.aristocrat.com/common"
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
-             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              d:DataContext="{d:DesignInstance Type=viewModels:DisplayColorTestsViewModel, IsDesignTimeCreatable=True}"
              mc:Ignorable="d" BorderThickness="0" WindowStyle="None" ResizeMode="NoResize" x:Name="ColorTestWindow" Height="720" Width="1024" >
     <common:BaseWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </common:BaseWindow.Resources>
-
-    <i:Interaction.Behaviors>
+    <b:Interaction.Behaviors>
         <common:TouchWindowBehavior />
-        <common:HighDpiWindowBehavior/>
-    </i:Interaction.Behaviors>
-
-    <Grid>
+        <common:HighDpiWindowBehavior />
+    </b:Interaction.Behaviors>
+    <Grid AutomationProperties.AutomationId="Grid0_E1990149">
         <Grid.RowDefinitions>
-            <RowDefinition  Height="*"/>
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition1_E1990149" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_E1990149" />
         </Grid.RowDefinitions>
-        <ItemsControl Grid.Row="0" ItemsSource="{Binding SelectedTest.Colors}">
+        <ItemsControl Grid.Row="0"
+                      ItemsSource="{Binding SelectedTest.Colors}"
+                      AutomationProperties.AutomationId="ItemsControl3_E1990149">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid Columns="{Binding SelectedTest.Cols}" Rows="{Binding SelectedTest.Rows}"/>
+                    <UniformGrid Columns="{Binding SelectedTest.Cols}"
+                                 Rows="{Binding SelectedTest.Rows}"
+                                 AutomationProperties.AutomationId="UniformGrid4_E1990149" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Rectangle>
+                    <Rectangle AutomationProperties.AutomationId="Rectangle5_E1990149">
                         <Rectangle.Fill>
-                            <SolidColorBrush Color="{Binding}" />
+                            <SolidColorBrush Color="{Binding}"
+                                             AutomationProperties.AutomationId="SolidColorBrush6_E1990149" />
                         </Rectangle.Fill>
                     </Rectangle>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <StackPanel Grid.Row="1" HorizontalAlignment="Stretch" Orientation="Horizontal" Name="ControlsPanel" Background="{StaticResource Brush1}">
-            <ComboBox Margin="100 10 10 10" ItemsSource="{Binding ColorTests}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedTest}" SelectedIndex="0" Name="ColorTestsComboBox"/>
-            <Button Padding="10 0 10 0" Margin="10" Name="ExitButton" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExitText}}" Click="OnExitButtonPressed"/>
+        <StackPanel Grid.Row="1"
+                    HorizontalAlignment="Stretch"
+                    Orientation="Horizontal"
+                    Name="ControlsPanel"
+                    Background="{StaticResource Brush1}"
+                    AutomationProperties.AutomationId="StackPanel7_E1990149">
+            <ComboBox Margin="100 10 10 10"
+                      ItemsSource="{Binding ColorTests}"
+                      DisplayMemberPath="Name"
+                      SelectedItem="{Binding SelectedTest}"
+                      SelectedIndex="0"
+                      Name="ColorTestsComboBox"
+                      AutomationProperties.AutomationId="ComboBox8_E1990149" />
+            <Button Padding="10 0 10 0"
+                    Margin="10"
+                    Name="ExitButton"
+                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExitText}}"
+                    Click="OnExitButtonPressed"
+                    AutomationProperties.AutomationId="Button9_E1990149" />
         </StackPanel>
     </Grid>
 </common:BaseWindow>
-

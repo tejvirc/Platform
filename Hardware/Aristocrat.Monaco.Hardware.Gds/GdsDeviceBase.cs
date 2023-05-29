@@ -9,9 +9,9 @@
     using System.Collections.Concurrent;
     using System.Diagnostics;
     using System.IO;
-    using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
+    using Contracts.Dfu;
     using InvokerQueue = System.Collections.Concurrent.ConcurrentQueue<System.Action<Contracts.Gds.GdsSerializableMessage>>;
     using ReportQueue = System.Collections.Concurrent.BlockingCollection<(object Report, long Expiry)>;
 
@@ -212,7 +212,18 @@
         }
 
         /// <inheritdoc/>
-        public override async Task<bool> Initialize(IGdsCommunicator communicator)
+        public override async Task<bool> Initialize(ICommunicator communicator)
+        {
+            if (communicator is not IGdsCommunicator gdsCommunicator)
+            {
+                throw new ArgumentException("GDS devices must be initialized with IGdsCommunicator");
+            }
+
+            return await Initialize(gdsCommunicator);
+        }
+
+        /// <inheritdoc/>
+        public virtual async Task<bool> Initialize(IGdsCommunicator communicator)
         {
             IsInitialized = false;
             try

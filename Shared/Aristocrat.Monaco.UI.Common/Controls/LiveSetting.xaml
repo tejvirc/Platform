@@ -1,111 +1,151 @@
-﻿<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:converters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters"
-    xmlns:local="clr-namespace:Aristocrat.Monaco.UI.Common.Controls"
-    xmlns:lex="http://wpflocalizeextension.codeplex.com"
-    xmlns:loc="http://monaco.aristocrat.com/localization"
-    xmlns:models="clr-namespace:Aristocrat.Monaco.UI.Common.Models;assembly=Aristocrat.Monaco.UI.Common"
-    mc:Ignorable="d">
-
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:converters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters"
+                    xmlns:local="clr-namespace:Aristocrat.Monaco.UI.Common.Controls"
+                    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                    xmlns:loc="http://monaco.aristocrat.com/localization"
+                    xmlns:models="clr-namespace:Aristocrat.Monaco.UI.Common.Models;assembly=Aristocrat.Monaco.UI.Common"
+                    mc:Ignorable="d">
     <!-- Editors for live settings in the Operator Menu, etc. -->
-
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+        <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
     </ResourceDictionary.MergedDictionaries>
-
     <!-- Converters -->
-    <converters:StringFormatConverter x:Key="UneditedStringConverter" StringFormat="{lex:Loc LiveSettingStatusUnedited}"/>
-    <converters:StringFormatConverter x:Key="EditedStringConverter" StringFormat="{lex:Loc LiveSettingStatusEdited}"/>
-    <converters:StringFormatConverter x:Key="ConflictedStringConverter" StringFormat="{lex:Loc LiveSettingStatusConflicted}"/>
-
+    <converters:StringFormatConverter x:Key="UneditedStringConverter"
+                                      StringFormat="{lex:Loc Key={x:Static loc:ResourceKeys.LiveSettingStatusUnedited}}" />
+    <converters:StringFormatConverter x:Key="EditedStringConverter"
+                                      StringFormat="{lex:Loc Key={x:Static loc:ResourceKeys.LiveSettingStatusEdited}}" />
+    <converters:StringFormatConverter x:Key="ConflictedStringConverter"
+                                      StringFormat="{lex:Loc Key={x:Static loc:ResourceKeys.LiveSettingStatusConflicted}}" />
     <!-- Styles the little triangle that decorates live settings -->
-    <SolidColorBrush x:Key="UneditedColor" Color="#4000bfff"></SolidColorBrush>
-    <SolidColorBrush x:Key="EditedColor" Color="DeepSkyBlue"></SolidColorBrush>
-    <SolidColorBrush x:Key="ConflictedColor" Color="Orange"></SolidColorBrush>
-    <Style x:Key="LiveSettingStatusDecorator" TargetType="Polygon">
-        <Setter Property="IsHitTestVisible" Value="False"></Setter>
-        <Setter Property="HorizontalAlignment" Value="Right"></Setter>
-        <Setter Property="VerticalAlignment" Value="Top"></Setter>
-        <Setter Property="Points" Value="20,0 0,0 20,20"></Setter>
-        <Setter Property="Margin" Value="0,5,5,0"></Setter>
-        <Setter Property="Width" Value="20"></Setter>
-        <Setter Property="Height" Value="20"></Setter>
+    <SolidColorBrush x:Key="UneditedColor"
+                     Color="#4000bfff"
+                     AutomationProperties.AutomationId="SolidColorBrush0_22718B7C"></SolidColorBrush>
+    <SolidColorBrush x:Key="EditedColor"
+                     Color="DeepSkyBlue"
+                     AutomationProperties.AutomationId="SolidColorBrush1_22718B7C"></SolidColorBrush>
+    <SolidColorBrush x:Key="ConflictedColor"
+                     Color="Orange"
+                     AutomationProperties.AutomationId="SolidColorBrush2_22718B7C"></SolidColorBrush>
+    <Style x:Key="LiveSettingStatusDecorator"
+           TargetType="Polygon">
+        <Setter Property="IsHitTestVisible"
+                Value="False"></Setter>
+        <Setter Property="HorizontalAlignment"
+                Value="Right"></Setter>
+        <Setter Property="VerticalAlignment"
+                Value="Top"></Setter>
+        <Setter Property="Points"
+                Value="20,0 0,0 20,20"></Setter>
+        <Setter Property="Margin"
+                Value="0,5,5,0"></Setter>
+        <Setter Property="Width"
+                Value="20"></Setter>
+        <Setter Property="Height"
+                Value="20"></Setter>
         <Style.Triggers>
-            <DataTrigger Binding="{Binding Status}" Value="Unedited">
-                <Setter Property="Fill" Value="{StaticResource UneditedColor}"/>
+            <DataTrigger Binding="{Binding Status}"
+                         Value="Unedited"
+                         AutomationProperties.AutomationId="DataTrigger3_22718B7C">
+                <Setter Property="Fill"
+                        Value="{StaticResource UneditedColor}" />
             </DataTrigger>
-            <DataTrigger Binding="{Binding Status}" Value="Edited">
-                <Setter Property="Fill" Value="{StaticResource EditedColor}"/>
+            <DataTrigger Binding="{Binding Status}"
+                         Value="Edited"
+                         AutomationProperties.AutomationId="DataTrigger4_22718B7C">
+                <Setter Property="Fill"
+                        Value="{StaticResource EditedColor}" />
             </DataTrigger>
-            <DataTrigger Binding="{Binding Status}" Value="Conflicted">
-                <Setter Property="Fill" Value="{StaticResource ConflictedColor}"/>
+            <DataTrigger Binding="{Binding Status}"
+                         Value="Conflicted"
+                         AutomationProperties.AutomationId="DataTrigger5_22718B7C">
+                <Setter Property="Fill"
+                        Value="{StaticResource ConflictedColor}" />
             </DataTrigger>
         </Style.Triggers>
     </Style>
-
     <!-- Styles the status tooltip on live settings -->
-    <Style x:Key="ToolTipTextStyle" TargetType="TextBlock" d:DataContext="{d:DesignInstance models:LiveStringSetting}">
+    <Style x:Key="ToolTipTextStyle"
+           TargetType="TextBlock"
+           d:DataContext="{d:DesignInstance models:LiveStringSetting}">
         <Style.Triggers>
-            <DataTrigger Binding="{Binding Status}" Value="Unedited">
+            <DataTrigger Binding="{Binding Status}"
+                         Value="Unedited"
+                         AutomationProperties.AutomationId="DataTrigger6_22718B7C">
                 <Setter Property="Text">
                     <Setter.Value>
                         <MultiBinding Converter="{StaticResource UneditedStringConverter}">
-                            <Binding Path="LiveValue" Mode="OneWay"/>
+                            <Binding Path="LiveValue"
+                                     Mode="OneWay" />
                         </MultiBinding>
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Status}" Value="Edited">
+            <DataTrigger Binding="{Binding Status}"
+                         Value="Edited"
+                         AutomationProperties.AutomationId="DataTrigger7_22718B7C">
                 <Setter Property="Text">
                     <Setter.Value>
                         <MultiBinding Converter="{StaticResource EditedStringConverter}">
-                            <Binding Path="LiveValue" Mode="OneWay"/>
+                            <Binding Path="LiveValue"
+                                     Mode="OneWay" />
                         </MultiBinding>
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Status}" Value="Conflicted">
+            <DataTrigger Binding="{Binding Status}"
+                         Value="Conflicted"
+                         AutomationProperties.AutomationId="DataTrigger8_22718B7C">
                 <Setter Property="Text">
                     <Setter.Value>
                         <MultiBinding Converter="{StaticResource ConflictedStringConverter}">
-                            <Binding Path="LiveValue" Mode="OneWay"/>
+                            <Binding Path="LiveValue"
+                                     Mode="OneWay" />
                         </MultiBinding>
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
         </Style.Triggers>
     </Style>
-
     <!-- A text box that edits a live string setting -->
-    <DataTemplate x:Key="LiveStringSettingTextBoxEditor" DataType="models:LiveStringSetting">
-        <Grid Width="300" MinWidth="300" HorizontalAlignment="Left"
-            Visibility="{Binding IsVisible, Mode=OneWay, Converter={StaticResource TrueVisibleFalseCollapsed}}">
-            <local:AlphaNumericTextBox
-                TextWrapping="Wrap"
-                Width="300" MinWidth="300" HorizontalAlignment="Left"
-                Text="{Binding EditedValue, Mode=TwoWay,
-                    UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
-                ErrorText="{Binding ErrorFromView, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
-                MaxLength="{Binding MaxLength, Mode=OneWay}"
-                IsReadOnly="{Binding IsReadOnly, Mode=OneWay}"
-                IsAlphaNumeric="{Binding IsAlphaNumeric, Mode=OneWay}"
-                CharacterCasing="{Binding CharacterCasing, Mode=OneWay}"
-                ToolTipService.IsEnabled="{Binding IsQuiet, Mode=OneWay, Converter={StaticResource InverseBoolConverter}}">
+    <DataTemplate x:Key="LiveStringSettingTextBoxEditor"
+                  DataType="models:LiveStringSetting">
+        <Grid Width="300"
+              MinWidth="300"
+              HorizontalAlignment="Left"
+              Visibility="{Binding IsVisible, Mode=OneWay, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+              AutomationProperties.AutomationId="Grid9_22718B7C">
+            <local:AlphaNumericTextBox TextWrapping="Wrap"
+                                       Width="300"
+                                       MinWidth="300"
+                                       HorizontalAlignment="Left"
+                                       Text="{Binding EditedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                       ErrorText="{Binding ErrorFromView, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                                       MaxLength="{Binding MaxLength, Mode=OneWay}"
+                                       IsReadOnly="{Binding IsReadOnly, Mode=OneWay}"
+                                       IsAlphaNumeric="{Binding IsAlphaNumeric, Mode=OneWay}"
+                                       CharacterCasing="{Binding CharacterCasing, Mode=OneWay}"
+                                       ToolTipService.IsEnabled="{Binding IsQuiet, Mode=OneWay, Converter={StaticResource InverseBoolConverter}}">
                 <local:AlphaNumericTextBox.IsEnabled>
-                    <MultiBinding Converter="{StaticResource BoolAndConverter}" Mode="OneWay">
-                        <Binding Path="IsReadOnly" Converter="{StaticResource InverseBoolConverter}" Mode="OneWay"/>
-                        <Binding Path="Parent.IsInputEnabled" Mode="OneWay"/>
+                    <MultiBinding Converter="{StaticResource BoolAndConverter}"
+                                  Mode="OneWay">
+                        <Binding Path="IsReadOnly"
+                                 Converter="{StaticResource InverseBoolConverter}"
+                                 Mode="OneWay" />
+                        <Binding Path="Parent.IsInputEnabled"
+                                 Mode="OneWay" />
                     </MultiBinding>
                 </local:AlphaNumericTextBox.IsEnabled>
                 <local:AlphaNumericTextBox.ToolTip>
-                    <TextBlock Style="{StaticResource ToolTipTextStyle}"/>
+                    <TextBlock Style="{StaticResource ToolTipTextStyle}"
+                               AutomationProperties.AutomationId="TextBlock10_22718B7C" />
                 </local:AlphaNumericTextBox.ToolTip>
             </local:AlphaNumericTextBox>
             <Polygon Style="{StaticResource LiveSettingStatusDecorator}"
-                Visibility="{Binding IsQuiet, Mode=OneWay, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
+                     Visibility="{Binding IsQuiet, Mode=OneWay, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                     AutomationProperties.AutomationId="Polygon11_22718B7C" />
         </Grid>
     </DataTemplate>
 </ResourceDictionary>

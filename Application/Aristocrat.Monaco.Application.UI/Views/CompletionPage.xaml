@@ -4,7 +4,7 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                FocusManager.FocusedElement="{Binding ElementName=Finished}"
-                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
@@ -20,11 +20,13 @@
         </ResourceDictionary>
     </UserControl.Resources>
     
-    <StackPanel Orientation="Vertical" Margin="10">
-        <Label Content="{lex:Loc ConfigComplete}" Foreground="{StaticResource LightBrush4}"/>
+    <StackPanel Orientation="Vertical" Margin="10"
+                AutomationProperties.AutomationId="StackPanel0_FF774B31">
+        <Label Content="{lex:Loc ConfigComplete}" Foreground="{StaticResource LightBrush4}"
+               AutomationProperties.AutomationId="Label1_FF774B31" />
         <Label Content="{lex:Loc GameSetupMessage}" Margin="0 20 0 0"
                Visibility="{Binding ShowGameSetupMessage, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
-               Foreground="{StaticResource LightBrush4}"/>
+               Foreground="{StaticResource LightBrush4}"
+               AutomationProperties.AutomationId="Label2_FF774B31" />
     </StackPanel>
 </operatorMenu:OperatorMenuPage>
-

@@ -36,9 +36,14 @@
         /// <summary>
         ///     Updates the list of available cultures using the given resource location.
         /// </summary>
+        /// <param name="resourceDictionary">The dictionary to look up.</param>
+        void LoadResources(string resourceDictionary);
+
+        /// <summary>
+        ///     Updates the list of available cultures using the given resource location.
+        /// </summary>
         /// <param name="resourceAssembly">The resource assembly.</param>
         /// <param name="resourceDictionary">The dictionary to look up.</param>
-        /// <returns>True, if the update was successful.</returns>
         void LoadResources(Assembly resourceAssembly, string resourceDictionary);
 
         /// <summary>

@@ -12,7 +12,6 @@
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
                                common:DialogParticipation.Register="{Binding}">
-
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -20,50 +19,60 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid x:Name="MainGrid">
+    <Grid x:Name="MainGrid"
+          AutomationProperties.AutomationId="Grid0_12852CC8">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition1_12852CC8" />
         </Grid.RowDefinitions>
         <DataGrid ItemsSource="{Binding Path=ProgressiveData, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   Width="{Binding ElementName=MainGrid, Path=ActualWidth}"
                   RowHeight="26"
-                  ScrollViewer.CanContentScroll="True" >
+                  ScrollViewer.CanContentScroll="True"
+                  AutomationProperties.AutomationId="DataGrid2_12852CC8">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{lex:Loc DateAndTimeHeader}"
                                     IsReadOnly="True"
                                     Binding="{Binding TransactionDateTime}"
-                                    MinWidth="200"/>
+                                    MinWidth="200"
+                                    AutomationProperties.AutomationId="DataGridTextColumn3_12852CC8" />
                 <DataGridTextColumn Header="{lex:Loc AmountHeader}"
                                     IsReadOnly="True"
-                                    Binding="{Binding Amount}"/>
+                                    Binding="{Binding Amount}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn4_12852CC8" />
                 <DataGridTextColumn Header="{lex:Loc LevelId}"
                                     IsReadOnly="True"
-                                    Binding="{Binding LevelId}"/>
+                                    Binding="{Binding LevelId}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn5_12852CC8" />
                 <DataGridTextColumn Header="{lex:Loc ProgressiveId}"
                                     IsReadOnly="True"
-                                    Binding="{Binding ProgressiveId}"/>
+                                    Binding="{Binding ProgressiveId}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn6_12852CC8" />
                 <DataGridTextColumn Header="{lex:Loc GameName}"
                                     IsReadOnly="True"
-                                    Binding="{Binding GameName}"/>
+                                    Binding="{Binding GameName}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn7_12852CC8" />
                 <DataGridTextColumn Header="{lex:Loc GameId}"
                                     IsReadOnly="True"
-                                    Binding="{Binding GameId}"/>
+                                    Binding="{Binding GameId}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn8_12852CC8" />
                 <DataGridTextColumn Header="{lex:Loc DenomId}"
                                     IsReadOnly="True"
-                                    Binding="{Binding DenomId}"/>
+                                    Binding="{Binding DenomId}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn9_12852CC8" />
                 <DataGridTextColumn Header="{lex:Loc IncrementRate}"
                                     IsReadOnly="True"
-                                    Binding="{Binding IncrementRate}"/>
+                                    Binding="{Binding IncrementRate}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn10_12852CC8" />
                 <DataGridTextColumn Header="{lex:Loc ResetValue}"
                                     IsReadOnly="True"
-                                    Binding="{Binding ResetValue}"/>
+                                    Binding="{Binding ResetValue}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn11_12852CC8" />
                 <DataGridTextColumn Header="{lex:Loc MaxValue}"
                                     IsReadOnly="True"
-                                    Binding="{Binding MaxValue}"/>
+                                    Binding="{Binding MaxValue}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn12_12852CC8" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
 </operatorMenu:OperatorMenuPage>
-
-

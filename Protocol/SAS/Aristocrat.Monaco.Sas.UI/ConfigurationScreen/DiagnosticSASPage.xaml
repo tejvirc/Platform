@@ -19,109 +19,181 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource MonacoCheckBoxGeneral}">
-                <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Style TargetType="{x:Type CheckBox}"
+                   BasedOn="{StaticResource MonacoCheckBoxGeneral}">
+                <Setter Property="HorizontalAlignment"
+                        Value="Center" />
             </Style>
-            
-            <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource MonacoRadioButton}">
-                <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Style TargetType="{x:Type RadioButton}"
+                   BasedOn="{StaticResource MonacoRadioButton}">
+                <Setter Property="HorizontalAlignment"
+                        Value="Center" />
             </Style>
-
-            <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MonacoComboBox}">
-                <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Style TargetType="{x:Type ComboBox}"
+                   BasedOn="{StaticResource MonacoComboBox}">
+                <Setter Property="HorizontalAlignment"
+                        Value="Center" />
             </Style>
-            <Style TargetType="{x:Type Label}" BasedOn="{StaticResource MonacoLabel}">
-                <Setter Property="HorizontalAlignment" Value="Left"/>
-                <Setter Property="VerticalContentAlignment" Value="Center"/>
-                <Setter Property="MinWidth" Value="120"/>
+            <Style TargetType="{x:Type Label}"
+                   BasedOn="{StaticResource MonacoLabel}">
+                <Setter Property="HorizontalAlignment"
+                        Value="Left" />
+                <Setter Property="VerticalContentAlignment"
+                        Value="Center" />
+                <Setter Property="MinWidth"
+                        Value="120" />
             </Style>
-            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource MonacoTextBlock}">
-                <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+            <Style TargetType="{x:Type TextBlock}"
+                   BasedOn="{StaticResource MonacoTextBlock}">
+                <Setter Property="HorizontalAlignment"
+                        Value="Left"></Setter>
             </Style>
-            <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource MonacoTabItem}">
-                <Setter Property="controls:ControlsHelper.ContentCharacterCasing" Value="Normal" />
+            <Style TargetType="{x:Type TabItem}"
+                   BasedOn="{StaticResource MonacoTabItem}">
+                <Setter Property="controls:ControlsHelper.ContentCharacterCasing"
+                        Value="Normal" />
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid Name="MainGrid">
+    <Grid Name="MainGrid"
+          AutomationProperties.AutomationId="Grid0_4873B111">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition1_4873B111" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition2_4873B111" />
         </Grid.RowDefinitions>
-        <GroupBox Header="{lex:Loc SasMonitoringFilters}">
-            <Grid Width="{Binding ElementName=MainGrid, Path=ActualWidth}">
+        <GroupBox Header="{lex:Loc Key={x:Static loc:ResourceKeys.SasMonitoringFilters}}"
+                  AutomationProperties.AutomationId="GroupBox3_4873B111">
+            <Grid Width="{Binding ElementName=MainGrid, Path=ActualWidth}"
+                  AutomationProperties.AutomationId="Grid4_4873B111">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"
+                                      AutomationProperties.AutomationId="ColumnDefinition5_4873B111" />
+                    <ColumnDefinition Width="Auto"
+                                      AutomationProperties.AutomationId="ColumnDefinition6_4873B111" />
+                    <ColumnDefinition Width="Auto"
+                                      AutomationProperties.AutomationId="ColumnDefinition7_4873B111" />
+                    <ColumnDefinition Width="Auto"
+                                      AutomationProperties.AutomationId="ColumnDefinition8_4873B111" />
+                    <ColumnDefinition Width="Auto"
+                                      AutomationProperties.AutomationId="ColumnDefinition9_4873B111" />
+                    <ColumnDefinition Width="Auto"
+                                      AutomationProperties.AutomationId="ColumnDefinition10_4873B111" />
+                    <ColumnDefinition Width="Auto"
+                                      AutomationProperties.AutomationId="ColumnDefinition11_4873B111" />
+                    <ColumnDefinition Width="Auto"
+                                      AutomationProperties.AutomationId="ColumnDefinition12_4873B111" />
                 </Grid.ColumnDefinitions>
-                <controls:ToggleSwitch Grid.Column="0"
-                                             IsEnabled="{Binding CanMonitorHost1}"
-                                             IsOn="{Binding MonitoringSasHost}"
-                                             mah:ControlsHelper.CornerRadius="0"
-                                             common:ToggleSwitchButtonHelper.OffContent="{lex:Loc Host1Label}"
-                                             common:ToggleSwitchButtonHelper.OnContent="{lex:Loc Host2Label}"
-                                             HorizontalAlignment="Left" />
-                <StackPanel Orientation="Horizontal" Grid.Column="1">
-                    <CheckBox IsChecked="{Binding MonitoringSyncPoll}" />
-                    <Label Content="{lex:Loc Sync}" VerticalAlignment="Center"/>
+                <mah:ToggleSwitch Grid.Column="0"
+                                        IsEnabled="{Binding CanMonitorHost1}"
+                                        IsOn="{Binding MonitoringSasHost}"
+                                        mah:ControlsHelper.CornerRadius="0"
+                                        common:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.Host1Label}}"
+                                        common:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.Host2Label}}"
+                                        HorizontalAlignment="Left" />
+                <StackPanel Orientation="Horizontal"
+                            Grid.Column="1"
+                            AutomationProperties.AutomationId="StackPanel13_4873B111">
+                    <CheckBox IsChecked="{Binding MonitoringSyncPoll}"
+                              AutomationProperties.AutomationId="CheckBox14_4873B111" />
+                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.Sync}}"
+                           VerticalAlignment="Center"
+                           AutomationProperties.AutomationId="Label15_4873B111" />
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Column="2">
-                    <CheckBox IsChecked="{Binding MonitoringGeneralPoll}" />
-                    <Label Content="{lex:Loc GeneralPoll}" VerticalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal"
+                            Grid.Column="2"
+                            AutomationProperties.AutomationId="StackPanel16_4873B111">
+                    <CheckBox IsChecked="{Binding MonitoringGeneralPoll}"
+                              AutomationProperties.AutomationId="CheckBox17_4873B111" />
+                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.GeneralPoll}}"
+                           VerticalAlignment="Center"
+                           AutomationProperties.AutomationId="Label18_4873B111" />
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Column="3">
-                    <CheckBox IsChecked="{Binding MonitoringNoActivity}" />
-                    <Label Content="{lex:Loc ShowNoActivityLabel}" VerticalAlignment="Center" />
+                <StackPanel Orientation="Horizontal"
+                            Grid.Column="3"
+                            AutomationProperties.AutomationId="StackPanel19_4873B111">
+                    <CheckBox IsChecked="{Binding MonitoringNoActivity}"
+                              AutomationProperties.AutomationId="CheckBox20_4873B111" />
+                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.ShowNoActivityLabel}}"
+                           VerticalAlignment="Center"
+                           AutomationProperties.AutomationId="Label21_4873B111" />
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Column="4">
-                    <CheckBox IsChecked="{Binding MonitoringIncomingPackets}" />
-                    <Label Content="{lex:Loc SasIncomingData}" VerticalAlignment="Center" />
+                <StackPanel Orientation="Horizontal"
+                            Grid.Column="4"
+                            AutomationProperties.AutomationId="StackPanel22_4873B111">
+                    <CheckBox IsChecked="{Binding MonitoringIncomingPackets}"
+                              AutomationProperties.AutomationId="CheckBox23_4873B111" />
+                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.SasIncomingData}}"
+                           VerticalAlignment="Center"
+                           AutomationProperties.AutomationId="Label24_4873B111" />
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Column="5">
-                    <CheckBox IsChecked="{Binding MonitoringOutgoingPackets}" />
-                    <Label Content="{lex:Loc SasOutgoingData}" VerticalAlignment="Center" />
+                <StackPanel Orientation="Horizontal"
+                            Grid.Column="5"
+                            AutomationProperties.AutomationId="StackPanel25_4873B111">
+                    <CheckBox IsChecked="{Binding MonitoringOutgoingPackets}"
+                              AutomationProperties.AutomationId="CheckBox26_4873B111" />
+                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.SasOutgoingData}}"
+                           VerticalAlignment="Center"
+                           AutomationProperties.AutomationId="Label27_4873B111" />
                 </StackPanel>
-                <Button Content="{Binding MonitorButtonName}" Margin="15 0 0 0" Command="{Binding ToggleMonitoringCommand}" HorizontalAlignment="Right" Grid.Column="6"/>
-                <Button Content="{lex:Loc Clear}" Margin="10 0 0 0" Command="{Binding ClearSasDataCommand}" Grid.Column="7"/>
+                <Button Content="{Binding MonitorButtonName}"
+                        Margin="15 0 0 0"
+                        Command="{Binding ToggleMonitoringCommand}"
+                        HorizontalAlignment="Right"
+                        Grid.Column="6"
+                        AutomationProperties.AutomationId="Button28_4873B111" />
+                <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.Clear}}"
+                        Margin="10 0 0 0"
+                        Command="{Binding ClearSasDataCommand}"
+                        Grid.Column="7"
+                        AutomationProperties.AutomationId="Button29_4873B111" />
             </Grid>
-            </GroupBox>
-
-        <Grid Name="InnerGrid" Grid.Row="1">
+        </GroupBox>
+        <Grid Name="InnerGrid"
+              Grid.Row="1"
+              AutomationProperties.AutomationId="Grid30_4873B111">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"
+                                  AutomationProperties.AutomationId="ColumnDefinition31_4873B111" />
+                <ColumnDefinition Width="*"
+                                  AutomationProperties.AutomationId="ColumnDefinition32_4873B111" />
             </Grid.ColumnDefinitions>
-
-            <GroupBox Grid.Column="0" Header="{lex:Loc Statistics}" Margin="0 10"  DataContext="{Binding SelectedSasDiagnostics}">
-                <TabControl Background="Transparent" TabStripPlacement="Top">
-                    <TabItem Header="{lex:Loc SasComms}">
-                        <local:SasCommsStats/>
+            <GroupBox Grid.Column="0"
+                      Header="{lex:Loc Key={x:Static loc:ResourceKeys.Statistics}}"
+                      Margin="0 10"
+                      DataContext="{Binding SelectedSasDiagnostics}"
+                      AutomationProperties.AutomationId="GroupBox33_4873B111">
+                <TabControl Background="Transparent"
+                            TabStripPlacement="Top"
+                            AutomationProperties.AutomationId="TabControl34_4873B111">
+                    <TabItem Header="{lex:Loc Key={x:Static loc:Resources.SasComms}}"
+                             AutomationProperties.AutomationId="TabItem35_4873B111">
+                        <local:SasCommsStats />
                     </TabItem>
-                    <TabItem Header="{lex:Loc SasGeneral}">
-                        <local:SasGeneralStatistics/>
+                    <TabItem Header="{lex:Loc Key={x:Static loc:ResourceKeys.SasGeneral}}"
+                             AutomationProperties.AutomationId="TabItem36_4873B111">
+                        <local:SasGeneralStatistics />
                     </TabItem>
-                    <TabItem Header="{lex:Loc SasPerformance}">
-                        <local:SasPerformanceStats/>
+                    <TabItem Header="{lex:Loc Key={x:Static loc:ResourceKeys.SasPerformance}}"
+                             AutomationProperties.AutomationId="TabItem37_4873B111">
+                        <local:SasPerformanceStats />
                     </TabItem>
-                    <TabItem Header="{lex:Loc SasErrors}">
-                        <local:SasErrorStats/>
+                    <TabItem Header="{lex:Loc Key={x:Static loc:ResourceKeys.SasErrors}}"
+                             AutomationProperties.AutomationId="TabItem38_4873B111">
+                        <local:SasErrorStats />
                     </TabItem>
                 </TabControl>
             </GroupBox>
-
-            <GroupBox Header="{lex:Loc PollData}" Margin="10 10 0 0" Name="PollDataGroupBox" Grid.Column="1">
-                <local:SasPollData/>
+            <GroupBox Header="{lex:Loc Key={x:Static loc:ResourceKeys.PollData}}"
+                      Margin="10 10 0 0"
+                      Name="PollDataGroupBox"
+                      Grid.Column="1"
+                      AutomationProperties.AutomationId="GroupBox39_4873B111">
+                <local:SasPollData />
             </GroupBox>
         </Grid>
-        </Grid>
+    </Grid>
 </operatorMenu:OperatorMenuPage>

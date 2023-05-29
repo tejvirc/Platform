@@ -19,30 +19,35 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid>
+    <Grid AutomationProperties.AutomationId="Grid0_73D1C618">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>     <!-- graph area -->
-            <RowDefinition Height="Auto"/>  <!-- navigation buttons -->
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition1_73D1C618" />
+            <!-- graph area -->
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_73D1C618" />
+            <!-- navigation buttons -->
         </Grid.RowDefinitions>
-
         <!-- graph area -->
         <Grid Grid.Row="0">
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>     <!-- graph or details (mutually exclusive) -->
-                    <RowDefinition Height="Auto"/>  <!-- legend -->
+                    <RowDefinition Height="*"
+                               AutomationProperties.AutomationId="RowDefinition4_73D1C618" />     <!-- graph or details (mutually exclusive) -->
+                    <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition5_73D1C618" />  <!-- legend -->
                 </Grid.RowDefinitions>
 
                 <!-- graph -->
                 <GroupBox Grid.Row="0" 
                           Header="{lex:Loc ApplicationPerformance}" 
                           Background="Transparent"
-                          Visibility="{Binding Visibility, ElementName=EnterDiagnosticChartModeButton}">
+                          Visibility="{Binding Visibility, ElementName=EnterDiagnosticChartModeButton}"
+                          AutomationProperties.AutomationId="GroupBox6_73D1C618">
                     <lvcwpf:CartesianChart x:Name="Chart" 
                                            Content="{Binding MonacoChart, Mode=TwoWay}"/>
                 </GroupBox>
@@ -50,54 +55,65 @@
                 <!-- legend -->
                 <ItemsControl Grid.Row="1" ItemsSource="{Binding Metrics}"
                     Margin="0 10 0 0"
-                    Visibility="{Binding Visibility, ElementName=EnterDiagnosticChartModeButton}">
+                    Visibility="{Binding Visibility, ElementName=EnterDiagnosticChartModeButton}"
+                          AutomationProperties.AutomationId="ItemsControl7_73D1C618">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <WrapPanel IsItemsHost="True"/>
+                            <WrapPanel IsItemsHost="True"
+                                   AutomationProperties.AutomationId="WrapPanel8_73D1C618" />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="4">
-                                <CheckBox IsChecked="{Binding MetricEnabled, Mode=TwoWay}"/>
+                            <StackPanel Orientation="Horizontal" Margin="4"
+                                    AutomationProperties.AutomationId="StackPanel9_73D1C618">
+                                <CheckBox IsChecked="{Binding MetricEnabled, Mode=TwoWay}"
+                                      AutomationProperties.AutomationId="CheckBox10_73D1C618" />
                                 <TextBox MinWidth="350" 
                                     Text="{Binding Label, Mode=OneWay}" 
                                     IsHitTestVisible="False" Focusable="False" IsReadOnly="True"
                                     BorderThickness="1"
-                                    Foreground="{Binding MetricColor}" />
+                                     Foreground="{Binding MetricColor}"
+                                     AutomationProperties.AutomationId="TextBox11_73D1C618" />
                                 <TextBox Width="80"  
                                     Text="{Binding CurrentValue, Mode=OneWay}" 
                                     IsHitTestVisible="False" Focusable="False" IsReadOnly="True"
                                     BorderThickness="0 1 1 1" 
-                                    Foreground="{Binding MetricColor}"/>
+                                    Foreground="{Binding MetricColor}"
+                                     AutomationProperties.AutomationId="TextBox12_73D1C618" />
                             </StackPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
             <!-- details -->
-            <local:DiagnosticViewDetailChart Grid.Row="0" x:Name="TestControl" 
+            <local:DiagnosticViewDetailChart Grid.Row="0"
+                                             x:Name="TestControl"
                                              DataContext="{Binding TestDiagnosticPerformanceCounterChartViewModel}"
-                                             Visibility="{Binding Visibility, ElementName=ExitDiagnosticChartModeButton}"/>
+                                             Visibility="{Binding Visibility, ElementName=ExitDiagnosticChartModeButton}" />
         </Grid>
-
         <!-- navigation buttons -->
-        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 10 0 0">
-            <Button HorizontalAlignment="Left" 
-                    Content="View Memory" 
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    Margin="0 10 0 0"
+                    AutomationProperties.AutomationId="StackPanel13_73D1C618">
+            <Button HorizontalAlignment="Left"
+                    Content="View Memory"
                     Command="{Binding ViewMemoryCommand}"
-                    Visibility="{Binding InDiagnosticViewChartMode, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
-            <Button Name="EnterDiagnosticChartModeButton" 
-                    Content="View Performance Details" 
+                    Visibility="{Binding InDiagnosticViewChartMode, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                    AutomationProperties.AutomationId="Button14_73D1C618" />
+            <Button Name="EnterDiagnosticChartModeButton"
+                    Content="View Performance Details"
                     HorizontalAlignment="Center"
                     Visibility="{Binding InDiagnosticViewChartMode, Converter={StaticResource TrueCollapsedFalseVisible}}"
-                    Command="{Binding ToggleDiagnosticChartViewModeCommand}"/>
-            <Button Name="ExitDiagnosticChartModeButton" Visibility="{Binding InDiagnosticViewChartMode, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                    Command="{Binding ToggleDiagnosticChartViewModeCommand}"
+                    AutomationProperties.AutomationId="Button15_73D1C618" />
+            <Button Name="ExitDiagnosticChartModeButton"
+                    Visibility="{Binding InDiagnosticViewChartMode, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     Command="{Binding ToggleDiagnosticChartViewModeCommand}"
                     Content="End Performance Details"
-                    HorizontalAlignment="Center"/>
+                    HorizontalAlignment="Center"
+                    AutomationProperties.AutomationId="Button16_73D1C618" />
         </StackPanel>
     </Grid>
-
 </operatorMenu:OperatorMenuPage>
-

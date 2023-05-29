@@ -15,19 +15,25 @@
     <common:BaseWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </common:BaseWindow.Resources>
     <b:Interaction.Behaviors>
         <behaviors:TouchWindowBehavior />
     </b:Interaction.Behaviors>
-    <Canvas Name="TouchCanvas" Background="Transparent">
+    <InkCanvas Name="TouchCanvas" Background="Transparent"
+               AutomationProperties.AutomationId="Canvas0_9577AC4">
         <Label Canvas.Top="50" Canvas.Left="50"
                Width="{Binding Path=ActualWidth, ElementName=TouchCanvas}"
-               Content="{lex:Loc DrawOnTouchableArea}" />
-        <Button Canvas.Bottom="50" Canvas.Left="50" Name="ExitButton" Click="OnExitButtonPressed"
-                Content="{lex:Loc ExitText}" Margin="10" />
-    </Canvas>
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.DrawOnTouchableArea}}"
+               AutomationProperties.AutomationId="Label1_9577AC4" />
+        <Button InkCanvas.Bottom="50"
+                InkCanvas.Left="50"
+                x:Name="ExitButton"
+                Click="OnExitButtonPressed"
+                Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExitText}}"
+                Margin="10"
+                AutomationProperties.AutomationId="Button2_9577AC4" />
+    </InkCanvas>
 </common:BaseWindow>
-

@@ -15,85 +15,119 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid>
+    <Grid AutomationProperties.AutomationId="Grid0_3E20046D">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition1_3E20046D" />
+            <ColumnDefinition Width="*"
+                              AutomationProperties.AutomationId="ColumnDefinition2_3E20046D" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition3_3E20046D" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition4_3E20046D" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition5_3E20046D" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition6_3E20046D" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition7_3E20046D" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition8_3E20046D" />
         </Grid.RowDefinitions>
-
-        <Label Grid.Column="0" Grid.Row="0" 
+        <Label Grid.Column="0"
+               Grid.Row="0"
                VerticalAlignment="Center"
-               Content="{lex:Loc CentralServerIpAddressLabel}" />
-        <TextBox Grid.Column="1" Grid.Row="0" MinWidth="200" 
-                 Margin="20 0 0 0" 
-                 HorizontalAlignment="Left" VerticalAlignment="Center"
-                 Text="{Binding IpAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=true, ValidatesOnDataErrors=true}" />
-
-        <Label Grid.Column="0" Grid.Row="1" 
-               Margin="0 20 0 0" 
-               VerticalAlignment="Center" 
-               Content="{lex:Loc CentralServerTcpPortNumberLabel}" />
-        <helpers:AlphaNumericTextBox Grid.Column="1" Grid.Row="1" MinWidth="200" 
-                                     Margin="20 20 0 0" 
-                                     HorizontalAlignment="Left" VerticalAlignment="Center"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.CentralServerIpAddressLabel}}"
+               AutomationProperties.AutomationId="Label9_3E20046D" />
+        <TextBox Grid.Column="1"
+                 Grid.Row="0"
+                 MinWidth="200"
+                 Margin="20 0 0 0"
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Center"
+                 Text="{Binding IpAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=true, ValidatesOnDataErrors=true}"
+                 AutomationProperties.AutomationId="TextBox10_3E20046D" />
+        <Label Grid.Column="0"
+               Grid.Row="1"
+               Margin="0 20 0 0"
+               VerticalAlignment="Center"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.CentralServerTcpPortNumberLabel}}"
+               AutomationProperties.AutomationId="Label11_3E20046D" />
+        <helpers:AlphaNumericTextBox Grid.Column="1"
+                                     Grid.Row="1"
+                                     MinWidth="200"
+                                     Margin="20 20 0 0"
+                                     HorizontalAlignment="Left"
+                                     VerticalAlignment="Center"
                                      IsReadOnly="False"
                                      IsAlphaNumeric="False"
                                      Text="{Binding TcpPortNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
-
-        <Label Grid.Column="0" Grid.Row="2" 
-               Margin="0 20 0 0" 
-               VerticalAlignment="Center" 
-               Content="{lex:Loc CentralServerEncryptionKeyLabel}" /> 
-        <TextBox Grid.Column="1" Grid.Row="2" MinWidth="200" 
-                 Margin="20 20 0 0" 
-                 HorizontalAlignment="Left" VerticalAlignment="Center"
-                 Text="{Binding EncryptionKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=true, ValidatesOnDataErrors=true}" />
-
-        <Label Grid.Column="0" Grid.Row="3" 
-               Margin="0 20 0 0" 
-               VerticalAlignment="Center" 
-               Content="{lex:Loc CentralServerUdpPortNumberLabel}" />
-        <helpers:AlphaNumericTextBox Grid.Column="1" Grid.Row="3" MinWidth="200" 
-                                     Margin="20 20 0 0" 
-                                     HorizontalAlignment="Left" VerticalAlignment="Center"
+        <Label Grid.Column="0"
+               Grid.Row="2"
+               Margin="0 20 0 0"
+               VerticalAlignment="Center"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.CentralServerEncryptionKeyLabel}}"
+               AutomationProperties.AutomationId="Label12_3E20046D" />
+        <TextBox Grid.Column="1"
+                 Grid.Row="2"
+                 MinWidth="200"
+                 Margin="20 20 0 0"
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Center"
+                 Text="{Binding EncryptionKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=true, ValidatesOnDataErrors=true}"
+                 AutomationProperties.AutomationId="TextBox13_3E20046D" />
+        <Label Grid.Column="0"
+               Grid.Row="3"
+               Margin="0 20 0 0"
+               VerticalAlignment="Center"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.CentralServerUdpPortNumberLabel}}"
+               AutomationProperties.AutomationId="Label14_3E20046D" />
+        <helpers:AlphaNumericTextBox Grid.Column="1"
+                                     Grid.Row="3"
+                                     MinWidth="200"
+                                     Margin="20 20 0 0"
+                                     HorizontalAlignment="Left"
+                                     VerticalAlignment="Center"
                                      IsReadOnly="False"
                                      IsAlphaNumeric="False"
                                      Text="{Binding UdpPortNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
-
-        <Label Grid.Column="0" Grid.Row="4" 
-               Margin="0 20 0 0" 
-               VerticalAlignment="Center" 
-               Content="{lex:Loc ManualHandicapModeLabel}" />
-        <ComboBox Grid.Column="1" Grid.Row="4" Width="200" 
-                  Margin="20 20 0 0" 
+        <Label Grid.Column="0"
+               Grid.Row="4"
+               Margin="0 20 0 0"
+               VerticalAlignment="Center"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.ManualHandicapModeLabel}}"
+               AutomationProperties.AutomationId="Label15_3E20046D" />
+        <ComboBox Grid.Column="1"
+                  Grid.Row="4"
+                  Width="200"
+                  Margin="20 20 0 0"
                   HorizontalAlignment="Left"
                   ItemsSource="{Binding ManualHandicapModes}"
-                  Text="{Binding ManualHandicapMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-
-        <StackPanel Grid.Column="0" Grid.Row="5" Margin="5 20 0 0"
-                    HorizontalAlignment="Left" VerticalAlignment="Top" 
-                    Orientation="Horizontal" 
-                    Visibility="{Binding IsWizardPage, Converter={StaticResource TrueCollapsedFalseVisible}}">
-            <Button Content="{lex:Loc ApplyLabel}" 
-                    IsEnabled="{Binding IsConfigChanged}" 
-                    Command="{Binding ApplyServerConfigurationCommand}"/>
+                  Text="{Binding ManualHandicapMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  AutomationProperties.AutomationId="ComboBox16_3E20046D" />
+        <StackPanel Grid.Column="0"
+                    Grid.Row="5"
+                    Margin="5 20 0 0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Orientation="Horizontal"
+                    Visibility="{Binding IsWizardPage, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                    AutomationProperties.AutomationId="StackPanel17_3E20046D">
+            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ApplyLabel}}"
+                    IsEnabled="{Binding IsConfigChanged}"
+                    Command="{Binding ApplyServerConfigurationCommand}"
+                    AutomationProperties.AutomationId="Button18_3E20046D" />
             <Button Margin="0 15 0 0"
                     Style="{StaticResource MonacoWarningButton}"
                     Name="ApplyInfoButton"
-                    Command="{Binding ShowInfoPopupCommand}">
+                    Command="{Binding ShowInfoPopupCommand}"
+                    AutomationProperties.AutomationId="Button19_3E20046D">
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource MultiValueConverter}">
                         <Binding ElementName="ApplyInfoButton" />

@@ -11,85 +11,111 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type CalendarButton}">
-                    <Grid>
+                    <Grid AutomationProperties.AutomationId="Grid0_9E12167E">
                         <Rectangle x:Name="SelectedBackground"
                                    Fill="{TemplateBinding Background}"
-                                   Opacity="0" />
+                                   Opacity="0"
+                                   AutomationProperties.AutomationId="Rectangle1_9E12167E" />
                         <Rectangle x:Name="Background"
                                    Fill="{TemplateBinding Background}"
-                                   Opacity="0" />
+                                   Opacity="0"
+                                   AutomationProperties.AutomationId="Rectangle2_9E12167E" />
                         <ContentPresenter x:Name="NormalText"
                                           Margin="1 0 1 1"
                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                          TextElement.Foreground="{TemplateBinding Foreground}" />
+                                          TextElement.Foreground="{TemplateBinding Foreground}"
+                                          AutomationProperties.AutomationId="ContentPresenter3_9E12167E" />
                         <Rectangle x:Name="CalendarButtonFocusVisual"
                                    IsHitTestVisible="false"
-                                   Stroke="{DynamicResource MahApps.Brushes.Accent3}"
-                                   Visibility="Collapsed" />
+                                   Stroke="{DynamicResource MahApps.Brushes.Accent}"
+                                   Visibility="Collapsed"
+                                   AutomationProperties.AutomationId="Rectangle4_9E12167E" />
                         <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup x:Name="CommonStates">
+                            <VisualStateGroup x:Name="CommonStates"
+                                              AutomationProperties.AutomationId="VisualStateGroup5_9E12167E">
                                 <VisualStateGroup.Transitions>
-                                    <VisualTransition GeneratedDuration="0:0:0.1" />
+                                    <VisualTransition GeneratedDuration="0:0:0.1"
+                                                      AutomationProperties.AutomationId="VisualTransition6_9E12167E" />
                                 </VisualStateGroup.Transitions>
-                                <VisualState x:Name="Normal" />
-                                <VisualState x:Name="MouseOver">
-                                    <Storyboard>
+                                <VisualState x:Name="Normal"
+                                             AutomationProperties.AutomationId="VisualState7_9E12167E" />
+                                <VisualState x:Name="MouseOver"
+                                             AutomationProperties.AutomationId="VisualState8_9E12167E">
+                                    <Storyboard AutomationProperties.AutomationId="Storyboard9_9E12167E">
                                         <DoubleAnimation Storyboard.TargetName="Background"
                                                          Storyboard.TargetProperty="Opacity"
                                                          To=".5"
-                                                         Duration="0" />
+                                                         Duration="0"
+                                                         AutomationProperties.AutomationId="DoubleAnimation10_9E12167E" />
                                     </Storyboard>
                                 </VisualState>
-                                <VisualState x:Name="Pressed">
-                                    <Storyboard>
+                                <VisualState x:Name="Pressed"
+                                             AutomationProperties.AutomationId="VisualState11_9E12167E">
+                                    <Storyboard AutomationProperties.AutomationId="Storyboard12_9E12167E">
                                         <DoubleAnimation Storyboard.TargetName="Background"
                                                          Storyboard.TargetProperty="Opacity"
                                                          To=".5"
-                                                         Duration="0" />
+                                                         Duration="0"
+                                                         AutomationProperties.AutomationId="DoubleAnimation13_9E12167E" />
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
-                            <VisualStateGroup x:Name="SelectionStates">
+                            <VisualStateGroup x:Name="SelectionStates"
+                                              AutomationProperties.AutomationId="VisualStateGroup14_9E12167E">
                                 <VisualStateGroup.Transitions>
-                                    <VisualTransition GeneratedDuration="0" />
+                                    <VisualTransition GeneratedDuration="0"
+                                                      AutomationProperties.AutomationId="VisualTransition15_9E12167E" />
                                 </VisualStateGroup.Transitions>
-                                <VisualState x:Name="Unselected" />
-                                <VisualState x:Name="Selected">
-                                    <Storyboard>
+                                <VisualState x:Name="Unselected"
+                                             AutomationProperties.AutomationId="VisualState16_9E12167E" />
+                                <VisualState x:Name="Selected"
+                                             AutomationProperties.AutomationId="VisualState17_9E12167E">
+                                    <Storyboard AutomationProperties.AutomationId="Storyboard18_9E12167E">
                                         <DoubleAnimation Storyboard.TargetName="SelectedBackground"
                                                          Storyboard.TargetProperty="Opacity"
                                                          To=".75"
-                                                         Duration="0" />
+                                                         Duration="0"
+                                                         AutomationProperties.AutomationId="DoubleAnimation19_9E12167E" />
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
-                            <VisualStateGroup x:Name="ActiveStates">
+                            <VisualStateGroup x:Name="ActiveStates"
+                                              AutomationProperties.AutomationId="VisualStateGroup20_9E12167E">
                                 <VisualStateGroup.Transitions>
-                                    <VisualTransition GeneratedDuration="0" />
+                                    <VisualTransition GeneratedDuration="0"
+                                                      AutomationProperties.AutomationId="VisualTransition21_9E12167E" />
                                 </VisualStateGroup.Transitions>
-                                <VisualState x:Name="Active" />
-                                <VisualState x:Name="Inactive">
-                                    <Storyboard>
-
+                                <VisualState x:Name="Active"
+                                             AutomationProperties.AutomationId="VisualState22_9E12167E" />
+                                <VisualState x:Name="Inactive"
+                                             AutomationProperties.AutomationId="VisualState23_9E12167E">
+                                    <Storyboard AutomationProperties.AutomationId="Storyboard24_9E12167E">
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalText"
                                                                        Storyboard.TargetProperty="(TextElement.Foreground)"
-                                                                       Duration="0">
-                                            <DiscreteObjectKeyFrame Value="{DynamicResource MahApps.Brushes.Gray2}" />
+                                                                       Duration="0"
+                                                                       AutomationProperties.AutomationId="ObjectAnimationUsingKeyFrames25_9E12167E">
+                                            <DiscreteObjectKeyFrame Value="{DynamicResource MahApps.Brushes.Gray2}"
+                                                                    AutomationProperties.AutomationId="DiscreteObjectKeyFrame26_9E12167E" />
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
-                            <VisualStateGroup x:Name="CalendarButtonFocusStates">
+                            <VisualStateGroup x:Name="CalendarButtonFocusStates"
+                                              AutomationProperties.AutomationId="VisualStateGroup27_9E12167E">
                                 <VisualStateGroup.Transitions>
-                                    <VisualTransition GeneratedDuration="0" />
+                                    <VisualTransition GeneratedDuration="0"
+                                                      AutomationProperties.AutomationId="VisualTransition28_9E12167E" />
                                 </VisualStateGroup.Transitions>
-                                <VisualState x:Name="CalendarButtonFocused">
-                                    <Storyboard>
+                                <VisualState x:Name="CalendarButtonFocused"
+                                             AutomationProperties.AutomationId="VisualState29_9E12167E">
+                                    <Storyboard AutomationProperties.AutomationId="Storyboard30_9E12167E">
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CalendarButtonFocusVisual"
                                                                        Storyboard.TargetProperty="Visibility"
-                                                                       Duration="0">
-                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                                       Duration="0"
+                                                                       AutomationProperties.AutomationId="ObjectAnimationUsingKeyFrames31_9E12167E">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    AutomationProperties.AutomationId="DiscreteObjectKeyFrame32_9E12167E">
                                                 <DiscreteObjectKeyFrame.Value>
                                                     <Visibility>Visible</Visibility>
                                                 </DiscreteObjectKeyFrame.Value>
@@ -97,12 +123,15 @@
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
-                                <VisualState x:Name="CalendarButtonUnfocused">
-                                    <Storyboard>
+                                <VisualState x:Name="CalendarButtonUnfocused"
+                                             AutomationProperties.AutomationId="VisualState33_9E12167E">
+                                    <Storyboard AutomationProperties.AutomationId="Storyboard34_9E12167E">
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CalendarButtonFocusVisual"
                                                                        Storyboard.TargetProperty="Visibility"
-                                                                       Duration="0">
-                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                                       Duration="0"
+                                                                       AutomationProperties.AutomationId="ObjectAnimationUsingKeyFrames35_9E12167E">
+                                            <DiscreteObjectKeyFrame KeyTime="0"
+                                                                    AutomationProperties.AutomationId="DiscreteObjectKeyFrame36_9E12167E">
                                                 <DiscreteObjectKeyFrame.Value>
                                                     <Visibility>Collapsed</Visibility>
                                                 </DiscreteObjectKeyFrame.Value>
@@ -114,38 +143,52 @@
                         </VisualStateManager.VisualStateGroups>
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsFocused" Value="True">
-                            <Setter TargetName="CalendarButtonFocusVisual" Property="Visibility" Value="Visible" />
+                        <Trigger Property="IsFocused"
+                                 Value="True"
+                                 AutomationProperties.AutomationId="Trigger37_9E12167E">
+                            <Setter TargetName="CalendarButtonFocusVisual"
+                                    Property="Visibility"
+                                    Value="Visible" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
     </Style>
-
-    <Style x:Key="CalendarDayButtonStyle" TargetType="{x:Type CalendarDayButton}">
-        <Setter Property="FontFamily" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Calendar}}, Path=FontFamily, Mode=OneWay}" />
-        <Setter Property="FontSize" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Calendar}}, Path=FontSize, Mode=OneWay}" />
-        <Setter Property="HorizontalContentAlignment" Value="Center" />
-        <Setter Property="MinHeight" Value="5" />
-        <Setter Property="MinWidth" Value="5" />
+    <Style x:Key="CalendarDayButtonStyle"
+           TargetType="{x:Type CalendarDayButton}">
+        <Setter Property="FontFamily"
+                Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Calendar}}, Path=FontFamily, Mode=OneWay}" />
+        <Setter Property="FontSize"
+                Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Calendar}}, Path=FontSize, Mode=OneWay}" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Center" />
+        <Setter Property="MinHeight"
+                Value="5" />
+        <Setter Property="MinWidth"
+                Value="5" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type CalendarDayButton}">
-                    <Grid>
+                    <Grid AutomationProperties.AutomationId="Grid38_9E12167E">
                         <Rectangle x:Name="TodayBackground"
                                    Fill="{DynamicResource MahApps.Brushes.Accent}"
-                                   Opacity="0" />
+                                   Opacity="0"
+                                   AutomationProperties.AutomationId="Rectangle39_9E12167E" />
                         <Rectangle x:Name="SelectedBackground"
                                    Fill="{DynamicResource MahApps.Brushes.Accent4}"
-                                   Opacity="0" />
+                                   Opacity="0"
+                                   AutomationProperties.AutomationId="Rectangle40_9E12167E" />
                         <Border Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}" />
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                AutomationProperties.AutomationId="Border41_9E12167E" />
                         <Rectangle x:Name="HighlightBackground"
                                    Fill="{DynamicResource MahApps.Brushes.Accent4}"
-                                   Opacity="0" />
+                                   Opacity="0"
+                                   AutomationProperties.AutomationId="Rectangle42_9E12167E" />
                         <Path x:Name="Blackout"
                               Margin="3"
                               HorizontalAlignment="Stretch"
@@ -154,109 +197,154 @@
                               Fill="{DynamicResource MahApps.Brushes.Accent3}"
                               Opacity="0"
                               RenderTransformOrigin="0.5,0.5"
-                              Stretch="Fill" />
+                              Stretch="Fill"
+                              AutomationProperties.AutomationId="Path43_9E12167E" />
                         <ContentPresenter x:Name="NormalText"
                                           Margin="5 1 5 1"
                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                          TextElement.Foreground="{TemplateBinding Foreground}" />
+                                          TextElement.Foreground="{TemplateBinding Foreground}"
+                                          AutomationProperties.AutomationId="ContentPresenter44_9E12167E" />
                         <Rectangle x:Name="DayButtonFocusVisual"
                                    IsHitTestVisible="false"
                                    Stroke="{DynamicResource MahApps.Brushes.Accent3}"
-                                   Visibility="Collapsed" />
+                                   Visibility="Collapsed"
+                                   AutomationProperties.AutomationId="Rectangle45_9E12167E" />
                         <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup x:Name="CommonStates">
+                            <VisualStateGroup x:Name="CommonStates"
+                                              AutomationProperties.AutomationId="VisualStateGroup46_9E12167E">
                                 <VisualStateGroup.Transitions>
-                                    <VisualTransition GeneratedDuration="0:0:0.1" />
+                                    <VisualTransition GeneratedDuration="0:0:0.1"
+                                                      AutomationProperties.AutomationId="VisualTransition47_9E12167E" />
                                 </VisualStateGroup.Transitions>
-                                <VisualState x:Name="Normal" />
-                                <VisualState x:Name="MouseOver">
-                                    <Storyboard>
+                                <VisualState x:Name="Normal"
+                                             AutomationProperties.AutomationId="VisualState48_9E12167E" />
+                                <VisualState x:Name="MouseOver"
+                                             AutomationProperties.AutomationId="VisualState49_9E12167E">
+                                    <Storyboard AutomationProperties.AutomationId="Storyboard50_9E12167E">
                                         <DoubleAnimation Storyboard.TargetName="HighlightBackground"
                                                          Storyboard.TargetProperty="Opacity"
                                                          To="0.75"
-                                                         Duration="0" />
+                                                         Duration="0"
+                                                         AutomationProperties.AutomationId="DoubleAnimation51_9E12167E" />
                                     </Storyboard>
                                 </VisualState>
-                                <VisualState x:Name="Pressed">
-                                    <Storyboard>
+                                <VisualState x:Name="Pressed"
+                                             AutomationProperties.AutomationId="VisualState52_9E12167E">
+                                    <Storyboard AutomationProperties.AutomationId="Storyboard53_9E12167E">
                                         <DoubleAnimation Storyboard.TargetName="HighlightBackground"
                                                          Storyboard.TargetProperty="Opacity"
                                                          To="0.9"
-                                                         Duration="0" />
+                                                         Duration="0"
+                                                         AutomationProperties.AutomationId="DoubleAnimation54_9E12167E" />
                                     </Storyboard>
                                 </VisualState>
-                                <VisualState x:Name="Disabled">
-                                    <Storyboard>
+                                <VisualState x:Name="Disabled"
+                                             AutomationProperties.AutomationId="VisualState55_9E12167E">
+                                    <Storyboard AutomationProperties.AutomationId="Storyboard56_9E12167E">
                                         <DoubleAnimation Storyboard.TargetName="HighlightBackground"
                                                          Storyboard.TargetProperty="Opacity"
                                                          To="0"
-                                                         Duration="0" />
+                                                         Duration="0"
+                                                         AutomationProperties.AutomationId="DoubleAnimation57_9E12167E" />
                                         <DoubleAnimation Storyboard.TargetName="NormalText"
                                                          Storyboard.TargetProperty="Opacity"
                                                          To=".35"
-                                                         Duration="0" />
+                                                         Duration="0"
+                                                         AutomationProperties.AutomationId="DoubleAnimation58_9E12167E" />
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
-                            <VisualStateGroup x:Name="ActiveStates">
+                            <VisualStateGroup x:Name="ActiveStates"
+                                              AutomationProperties.AutomationId="VisualStateGroup59_9E12167E">
                                 <VisualStateGroup.Transitions>
-                                    <VisualTransition GeneratedDuration="0" />
+                                    <VisualTransition GeneratedDuration="0"
+                                                      AutomationProperties.AutomationId="VisualTransition60_9E12167E" />
                                 </VisualStateGroup.Transitions>
-                                <VisualState x:Name="Active" />
-                                <VisualState x:Name="Inactive">
-                                    <Storyboard>
+                                <VisualState x:Name="Active"
+                                             AutomationProperties.AutomationId="VisualState61_9E12167E" />
+                                <VisualState x:Name="Inactive"
+                                             AutomationProperties.AutomationId="VisualState62_9E12167E">
+                                    <Storyboard AutomationProperties.AutomationId="Storyboard63_9E12167E">
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalText"
                                                                        Storyboard.TargetProperty="(TextElement.Foreground)"
-                                                                       Duration="0">
-                                            <DiscreteObjectKeyFrame Value="{DynamicResource MahApps.Brushes.Gray2}" />
+                                                                       Duration="0"
+                                                                       AutomationProperties.AutomationId="ObjectAnimationUsingKeyFrames64_9E12167E">
+                                            <DiscreteObjectKeyFrame Value="{DynamicResource MahApps.Brushes.Gray2}"
+                                                                    AutomationProperties.AutomationId="DiscreteObjectKeyFrame65_9E12167E" />
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
-                            <VisualStateGroup x:Name="BlackoutDayStates">
+                            <VisualStateGroup x:Name="BlackoutDayStates"
+                                              AutomationProperties.AutomationId="VisualStateGroup66_9E12167E">
                                 <VisualStateGroup.Transitions>
-                                    <VisualTransition GeneratedDuration="0" />
+                                    <VisualTransition GeneratedDuration="0"
+                                                      AutomationProperties.AutomationId="VisualTransition67_9E12167E" />
                                 </VisualStateGroup.Transitions>
-                                <VisualState x:Name="NormalDay" />
-                                <VisualState x:Name="BlackoutDay">
-                                    <Storyboard>
+                                <VisualState x:Name="NormalDay"
+                                             AutomationProperties.AutomationId="VisualState68_9E12167E" />
+                                <VisualState x:Name="BlackoutDay"
+                                             AutomationProperties.AutomationId="VisualState69_9E12167E">
+                                    <Storyboard AutomationProperties.AutomationId="Storyboard70_9E12167E">
                                         <DoubleAnimation Storyboard.TargetName="Blackout"
                                                          Storyboard.TargetProperty="Opacity"
                                                          To="1"
-                                                         Duration="0" />
+                                                         Duration="0"
+                                                         AutomationProperties.AutomationId="DoubleAnimation71_9E12167E" />
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="DayButtonFocusVisual" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="NormalText" Property="TextElement.Foreground" Value="{DynamicResource MahApps.Brushes.Accent}" />
+                        <Trigger Property="IsSelected"
+                                 Value="True"
+                                 AutomationProperties.AutomationId="Trigger72_9E12167E">
+                            <Setter TargetName="DayButtonFocusVisual"
+                                    Property="Visibility"
+                                    Value="Visible" />
+                            <Setter TargetName="NormalText"
+                                    Property="TextElement.Foreground"
+                                    Value="{DynamicResource MahApps.Brushes.Accent` }" />
                         </Trigger>
-                        <MultiDataTrigger>
+                        <MultiDataTrigger AutomationProperties.AutomationId="MultiDataTrigger73_9E12167E">
                             <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Calendar}}, Path=IsTodayHighlighted}" Value="True" />
-                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsToday}" Value="True" />
-                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsSelected}" Value="True" />
+                                <Condition
+                                        Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Calendar}}, Path=IsTodayHighlighted}"
+                                           Value="True" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsToday}"
+                                           Value="True" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsSelected}"
+                                           Value="True" />
                             </MultiDataTrigger.Conditions>
-                            <Setter TargetName="DayButtonFocusVisual" Property="Stroke" Value="{DynamicResource MahApps.Brushes.Gray1}" />
-                            <Setter TargetName="DayButtonFocusVisual" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="NormalText" Property="TextElement.Foreground" Value="{DynamicResource MahApps.Brushes.Accent}" />
+                            <Setter TargetName="DayButtonFocusVisual"
+                                    Property="Stroke"
+                                    Value="{DynamicResource MahApps.Brushes.Gray1}" />
+                            <Setter TargetName="DayButtonFocusVisual"
+                                    Property="Visibility"
+                                    Value="Visible" />
+                            <Setter TargetName="NormalText"
+                                    Property="TextElement.Foreground"
+                                    Value="{DynamicResource MahApps.Brushes.Accent}" />
                         </MultiDataTrigger>
-                        <MultiDataTrigger>
+                        <MultiDataTrigger AutomationProperties.AutomationId="MultiDataTrigger74_9E12167E">
                             <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Calendar}}, Path=IsTodayHighlighted}" Value="True" />
-                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsToday}" Value="True" />
+                                <Condition
+                                        Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Calendar}}, Path=IsTodayHighlighted}"
+                                           Value="True" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsToday}"
+                                           Value="True" />
                             </MultiDataTrigger.Conditions>
                             <Setter TargetName="NormalText" Property="TextElement.Foreground" Value="{DynamicResource MahApps.Brushes.Selected.Foreground}" />
                             <Setter TargetName="TodayBackground" Property="Opacity" Value="1" />
                         </MultiDataTrigger>
-                        <MultiTrigger>
+                        <MultiTrigger AutomationProperties.AutomationId="MultiTrigger75_9E12167E">
                             <MultiTrigger.Conditions>
-                                <Condition Property="IsToday" Value="True" />
-                                <Condition Property="IsBlackedOut" Value="True" />
+                                <Condition Property="IsToday"
+                                           Value="True" />
+                                <Condition Property="IsBlackedOut"
+                                           Value="True" />
                             </MultiTrigger.Conditions>
                             <Setter TargetName="Blackout" Property="Fill" Value="{DynamicResource MahApps.Brushes.Accent}" />
                             <Setter TargetName="TodayBackground" Property="Opacity" Value="0.5" />
@@ -265,13 +353,17 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
     </Style>
-
-    <Style x:Key="CalendarItemStyle" TargetType="{x:Type CalendarItem}">
-        <Setter Property="Margin" Value="0 3" />
-        <Setter Property="Padding" Value="2" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
+    <Style x:Key="CalendarItemStyle"
+           TargetType="{x:Type CalendarItem}">
+        <Setter Property="Margin"
+                Value="0 3" />
+        <Setter Property="Padding"
+                Value="2" />
+        <Setter Property="SnapsToDevicePixels"
+                Value="True" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type CalendarItem}">
@@ -284,21 +376,28 @@
                                        FontWeight="Bold"
                                        Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}"
                                        Opacity="0.8"
-                                       Text="{Binding}" />
+                                       Text="{Binding}"
+                                       AutomationProperties.AutomationId="TextBlock76_9E12167E" />
                         </DataTemplate>
                     </ControlTemplate.Resources>
-                    <Grid x:Name="PART_Root">
+                    <Grid x:Name="PART_Root"
+                          AutomationProperties.AutomationId="Grid77_9E12167E">
                         <Border Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-                            <Grid Margin="{TemplateBinding Padding}">
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                AutomationProperties.AutomationId="Border78_9E12167E">
+                            <Grid Margin="{TemplateBinding Padding}"
+                                  AutomationProperties.AutomationId="Grid79_9E12167E">
                                 <Grid.Resources>
-                                    <ControlTemplate x:Key="PreviousButtonTemplate" TargetType="{x:Type Button}">
-                                        <Grid Cursor="Hand">
+                                    <ControlTemplate x:Key="PreviousButtonTemplate"
+                                                     TargetType="{x:Type Button}">
+                                        <Grid Cursor="Hand"
+                                              AutomationProperties.AutomationId="Grid80_9E12167E">
                                             <Rectangle Fill="{DynamicResource MahApps.Brushes.Accent}"
                                                        Opacity="0.1"
-                                                       Stretch="Fill" />
+                                                       Stretch="Fill"
+                                                       AutomationProperties.AutomationId="Rectangle81_9E12167E" />
                                             <Path x:Name="path"
                                                   Width="6"
                                                   Height="10"
@@ -308,35 +407,47 @@
                                                   Data="M288.75,232.25 L288.75,240.625 L283,236.625 z"
                                                   Fill="white"
                                                   Opacity="0.7"
-                                                  Stretch="Fill" />
+                                                  Stretch="Fill"
+                                                  AutomationProperties.AutomationId="Path82_9E12167E" />
                                             <VisualStateManager.VisualStateGroups>
-                                                <VisualStateGroup x:Name="CommonStates">
-                                                    <VisualState x:Name="Normal" />
-                                                    <VisualState x:Name="MouseOver">
-                                                        <Storyboard>
+                                                <VisualStateGroup x:Name="CommonStates"
+                                                                  AutomationProperties.AutomationId="VisualStateGroup83_9E12167E">
+                                                    <VisualState x:Name="Normal"
+                                                                 AutomationProperties.AutomationId="VisualState84_9E12167E" />
+                                                    <VisualState x:Name="MouseOver"
+                                                                 AutomationProperties.AutomationId="VisualState85_9E12167E">
+                                                        <Storyboard
+                                                                AutomationProperties.AutomationId="Storyboard86_9E12167E">
                                                             <DoubleAnimation Storyboard.TargetName="path"
                                                                              Storyboard.TargetProperty="Opacity"
                                                                              To="1"
-                                                                             Duration="0" />
+                                                                             Duration="0"
+                                                                             AutomationProperties.AutomationId="DoubleAnimation87_9E12167E" />
                                                         </Storyboard>
                                                     </VisualState>
-                                                    <VisualState x:Name="Disabled">
-                                                        <Storyboard>
+                                                    <VisualState x:Name="Disabled"
+                                                                 AutomationProperties.AutomationId="VisualState88_9E12167E">
+                                                        <Storyboard
+                                                                AutomationProperties.AutomationId="Storyboard89_9E12167E">
                                                             <DoubleAnimation Storyboard.TargetName="path"
                                                                              Storyboard.TargetProperty="Opacity"
                                                                              To=".5"
-                                                                             Duration="0" />
+                                                                             Duration="0"
+                                                                             AutomationProperties.AutomationId="DoubleAnimation90_9E12167E" />
                                                         </Storyboard>
                                                     </VisualState>
                                                 </VisualStateGroup>
                                             </VisualStateManager.VisualStateGroups>
                                         </Grid>
                                     </ControlTemplate>
-                                    <ControlTemplate x:Key="NextButtonTemplate" TargetType="{x:Type Button}">
-                                        <Grid Cursor="Hand">
+                                    <ControlTemplate x:Key="NextButtonTemplate"
+                                                     TargetType="{x:Type Button}">
+                                        <Grid Cursor="Hand"
+                                              AutomationProperties.AutomationId="Grid91_9E12167E">
                                             <Rectangle Fill="{DynamicResource MahApps.Brushes.Accent}"
                                                        Opacity="0.1"
-                                                       Stretch="Fill" />
+                                                       Stretch="Fill"
+                                                       AutomationProperties.AutomationId="Rectangle92_9E12167E" />
                                             <Path x:Name="path"
                                                   Width="6"
                                                   Height="10"
@@ -346,130 +457,175 @@
                                                   Data="M282.875,231.875 L282.875,240.375 L288.625,236 z"
                                                   Fill="white"
                                                   Opacity="0.7"
-                                                  Stretch="Fill" />
+                                                  Stretch="Fill"
+                                                  AutomationProperties.AutomationId="Path93_9E12167E" />
                                             <VisualStateManager.VisualStateGroups>
-                                                <VisualStateGroup x:Name="CommonStates">
-                                                    <VisualState x:Name="Normal" />
-                                                    <VisualState x:Name="MouseOver">
-                                                        <Storyboard>
+                                                <VisualStateGroup x:Name="CommonStates"
+                                                                  AutomationProperties.AutomationId="VisualStateGroup94_9E12167E">
+                                                    <VisualState x:Name="Normal"
+                                                                 AutomationProperties.AutomationId="VisualState95_9E12167E" />
+                                                    <VisualState x:Name="MouseOver"
+                                                                 AutomationProperties.AutomationId="VisualState96_9E12167E">
+                                                        <Storyboard
+                                                                AutomationProperties.AutomationId="Storyboard97_9E12167E">
                                                             <DoubleAnimation Storyboard.TargetName="path"
                                                                              Storyboard.TargetProperty="Opacity"
                                                                              To="1"
-                                                                             Duration="0" />
+                                                                             Duration="0"
+                                                                             AutomationProperties.AutomationId="DoubleAnimation98_9E12167E" />
                                                         </Storyboard>
                                                     </VisualState>
-                                                    <VisualState x:Name="Disabled">
-                                                        <Storyboard>
+                                                    <VisualState x:Name="Disabled"
+                                                                 AutomationProperties.AutomationId="VisualState99_9E12167E">
+                                                        <Storyboard
+                                                                AutomationProperties.AutomationId="Storyboard100_9E12167E">
                                                             <DoubleAnimation Storyboard.TargetName="path"
                                                                              Storyboard.TargetProperty="Opacity"
                                                                              To=".2"
-                                                                             Duration="0" />
+                                                                             Duration="0"
+                                                                             AutomationProperties.AutomationId="DoubleAnimation101_9E12167E" />
                                                         </Storyboard>
                                                     </VisualState>
                                                 </VisualStateGroup>
                                             </VisualStateManager.VisualStateGroups>
                                         </Grid>
                                     </ControlTemplate>
-                                    <ControlTemplate x:Key="HeaderButtonTemplate" TargetType="{x:Type Button}">
-                                        <Grid Cursor="Hand">
+                                    <ControlTemplate x:Key="HeaderButtonTemplate"
+                                                     TargetType="{x:Type Button}">
+                                        <Grid Cursor="Hand"
+                                              AutomationProperties.AutomationId="Grid102_9E12167E">
                                             <ContentPresenter x:Name="buttonContent"
                                                               Margin="1 4 1 9"
                                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                                               Content="{TemplateBinding Content}"
                                                               ContentTemplate="{TemplateBinding ContentTemplate}"
-                                                              Opacity="0.7" />
+                                                              Opacity="0.7"
+                                                              AutomationProperties.AutomationId="ContentPresenter103_9E12167E" />
                                             <VisualStateManager.VisualStateGroups>
-                                                <VisualStateGroup x:Name="CommonStates">
-                                                    <VisualState x:Name="Normal" />
-                                                    <VisualState x:Name="MouseOver">
-                                                        <Storyboard>
+                                                <VisualStateGroup x:Name="CommonStates"
+                                                                  AutomationProperties.AutomationId="VisualStateGroup104_9E12167E">
+                                                    <VisualState x:Name="Normal"
+                                                                 AutomationProperties.AutomationId="VisualState105_9E12167E" />
+                                                    <VisualState x:Name="MouseOver"
+                                                                 AutomationProperties.AutomationId="VisualState106_9E12167E">
+                                                        <Storyboard
+                                                                AutomationProperties.AutomationId="Storyboard107_9E12167E">
                                                             <DoubleAnimation Storyboard.TargetName="buttonContent"
                                                                              Storyboard.TargetProperty="Opacity"
                                                                              To="1"
-                                                                             Duration="0" />
+                                                                             Duration="0"
+                                                                             AutomationProperties.AutomationId="DoubleAnimation108_9E12167E" />
                                                         </Storyboard>
                                                     </VisualState>
-                                                    <VisualState x:Name="Disabled">
-                                                        <Storyboard>
+                                                    <VisualState x:Name="Disabled"
+                                                                 AutomationProperties.AutomationId="VisualState109_9E12167E">
+                                                        <Storyboard
+                                                                AutomationProperties.AutomationId="Storyboard110_9E12167E">
                                                             <DoubleAnimation Storyboard.TargetName="buttonContent"
                                                                              Storyboard.TargetProperty="Opacity"
                                                                              To=".5"
-                                                                             Duration="0" />
+                                                                             Duration="0"
+                                                                             AutomationProperties.AutomationId="DoubleAnimation111_9E12167E" />
                                                         </Storyboard>
                                                     </VisualState>
                                                 </VisualStateGroup>
                                             </VisualStateManager.VisualStateGroups>
                                         </Grid>
                                     </ControlTemplate>
-
-                                    <Style x:Key="PreviousCalendarButtonStyle" TargetType="{x:Type Button}">
-                                        <Setter Property="Template" Value="{StaticResource PreviousButtonTemplate}" />
+                                    <Style x:Key="PreviousCalendarButtonStyle"
+                                           TargetType="{x:Type Button}">
+                                        <Setter Property="Template"
+                                                Value="{StaticResource PreviousButtonTemplate}" />
                                     </Style>
-                                    <Style x:Key="NextCalendarButtonStyle" TargetType="{x:Type Button}">
-                                        <Setter Property="Template" Value="{StaticResource NextButtonTemplate}" />
+                                    <Style x:Key="NextCalendarButtonStyle"
+                                           TargetType="{x:Type Button}">
+                                        <Setter Property="Template"
+                                                Value="{StaticResource NextButtonTemplate}" />
                                     </Style>
-                                    <Style x:Key="HeaderCalendarButtonStyle" TargetType="{x:Type Button}">
-                                        <Setter Property="Template" Value="{StaticResource HeaderButtonTemplate}" />
+                                    <Style x:Key="HeaderCalendarButtonStyle"
+                                           TargetType="{x:Type Button}">
+                                        <Setter Property="Template"
+                                                Value="{StaticResource HeaderButtonTemplate}" />
                                     </Style>
                                 </Grid.Resources>
-
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto"
+                                                      AutomationProperties.AutomationId="ColumnDefinition112_9E12167E" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto"
+                                                   AutomationProperties.AutomationId="RowDefinition113_9E12167E" />
+                                    <RowDefinition Height="*"
+                                                   AutomationProperties.AutomationId="RowDefinition114_9E12167E" />
                                 </Grid.RowDefinitions>
-
                                 <Grid Grid.Row="0"
                                       HorizontalAlignment="Stretch"
-                                      Background="{DynamicResource MahApps.Brushes.Accent}">
+                                      Background="{DynamicResource MahApps.Brushes.Accent}"
+                                      AutomationProperties.AutomationId="Grid115_9E12167E">
                                     <Button x:Name="PART_HeaderButton"
                                             Grid.Row="0"
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             Focusable="False"
                                             FontWeight="Bold"
-                                            Style="{StaticResource HeaderCalendarButtonStyle}" />
+                                            Style="{StaticResource HeaderCalendarButtonStyle}"
+                                            AutomationProperties.AutomationId="Button116_9E12167E" />
                                     <Button x:Name="PART_PreviousButton"
                                             Grid.Row="0"
                                             Width="28"
                                             Height="20"
                                             HorizontalAlignment="Left"
                                             Focusable="False"
-                                            Style="{StaticResource PreviousCalendarButtonStyle}" />
+                                            Style="{StaticResource PreviousCalendarButtonStyle}"
+                                            AutomationProperties.AutomationId="Button117_9E12167E" />
                                     <Button x:Name="PART_NextButton"
                                             Grid.Row="0"
                                             Width="28"
                                             Height="20"
                                             HorizontalAlignment="Right"
                                             Focusable="False"
-                                            Style="{StaticResource NextCalendarButtonStyle}" />
+                                            Style="{StaticResource NextCalendarButtonStyle}"
+                                            AutomationProperties.AutomationId="Button118_9E12167E" />
                                 </Grid>
                                 <Grid x:Name="PART_MonthView"
                                       Grid.Row="1"
                                       Margin="6 -1 6 6"
                                       HorizontalAlignment="Stretch"
                                       VerticalAlignment="Stretch"
-                                      Visibility="Visible">
+                                      Visibility="Visible"
+                                      AutomationProperties.AutomationId="Grid119_9E12167E">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*"
+                                                          AutomationProperties.AutomationId="ColumnDefinition120_9E12167E" />
+                                        <ColumnDefinition Width="*"
+                                                          AutomationProperties.AutomationId="ColumnDefinition121_9E12167E" />
+                                        <ColumnDefinition Width="*"
+                                                          AutomationProperties.AutomationId="ColumnDefinition122_9E12167E" />
+                                        <ColumnDefinition Width="*"
+                                                          AutomationProperties.AutomationId="ColumnDefinition123_9E12167E" />
+                                        <ColumnDefinition Width="*"
+                                                          AutomationProperties.AutomationId="ColumnDefinition124_9E12167E" />
+                                        <ColumnDefinition Width="*"
+                                                          AutomationProperties.AutomationId="ColumnDefinition125_9E12167E" />
+                                        <ColumnDefinition Width="*"
+                                                          AutomationProperties.AutomationId="ColumnDefinition126_9E12167E" />
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*"
+                                                       AutomationProperties.AutomationId="RowDefinition127_9E12167E" />
+                                        <RowDefinition Height="*"
+                                                       AutomationProperties.AutomationId="RowDefinition128_9E12167E" />
+                                        <RowDefinition Height="*"
+                                                       AutomationProperties.AutomationId="RowDefinition129_9E12167E" />
+                                        <RowDefinition Height="*"
+                                                       AutomationProperties.AutomationId="RowDefinition130_9E12167E" />
+                                        <RowDefinition Height="*"
+                                                       AutomationProperties.AutomationId="RowDefinition131_9E12167E" />
+                                        <RowDefinition Height="*"
+                                                       AutomationProperties.AutomationId="RowDefinition132_9E12167E" />
+                                        <RowDefinition Height="*"
+                                                       AutomationProperties.AutomationId="RowDefinition133_9E12167E" />
                                     </Grid.RowDefinitions>
                                 </Grid>
                                 <Grid x:Name="PART_YearView"
@@ -477,17 +633,25 @@
                                       Margin="6 -3 7 6"
                                       HorizontalAlignment="Stretch"
                                       VerticalAlignment="Stretch"
-                                      Visibility="Hidden">
+                                      Visibility="Hidden"
+                                      AutomationProperties.AutomationId="Grid134_9E12167E">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*"
+                                                          AutomationProperties.AutomationId="ColumnDefinition135_9E12167E" />
+                                        <ColumnDefinition Width="*"
+                                                          AutomationProperties.AutomationId="ColumnDefinition136_9E12167E" />
+                                        <ColumnDefinition Width="*"
+                                                          AutomationProperties.AutomationId="ColumnDefinition137_9E12167E" />
+                                        <ColumnDefinition Width="*"
+                                                          AutomationProperties.AutomationId="ColumnDefinition138_9E12167E" />
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*"
+                                                       AutomationProperties.AutomationId="RowDefinition139_9E12167E" />
+                                        <RowDefinition Height="*"
+                                                       AutomationProperties.AutomationId="RowDefinition140_9E12167E" />
+                                        <RowDefinition Height="*"
+                                                       AutomationProperties.AutomationId="RowDefinition141_9E12167E" />
                                     </Grid.RowDefinitions>
                                 </Grid>
                             </Grid>
@@ -498,32 +662,55 @@
                                    Stretch="Fill"
                                    Stroke="{DynamicResource ControlsDisabledBrush}"
                                    StrokeThickness="1"
-                                   Visibility="Collapsed" />
+                                   Visibility="Collapsed"
+                                   AutomationProperties.AutomationId="Rectangle142_9E12167E" />
                         <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup x:Name="CommonStates">
-                                <VisualState x:Name="Normal" />
-                                <VisualState x:Name="Disabled">
-                                    <Storyboard>
+                            <VisualStateGroup x:Name="CommonStates"
+                                              AutomationProperties.AutomationId="VisualStateGroup143_9E12167E">
+                                <VisualState x:Name="Normal"
+                                             AutomationProperties.AutomationId="VisualState144_9E12167E" />
+                                <VisualState x:Name="Disabled"
+                                             AutomationProperties.AutomationId="VisualState145_9E12167E">
+                                    <Storyboard AutomationProperties.AutomationId="Storyboard146_9E12167E">
                                         <DoubleAnimation Storyboard.TargetName="PART_DisabledVisual"
                                                          Storyboard.TargetProperty="Opacity"
                                                          To="1"
-                                                         Duration="0" />
+                                                         Duration="0"
+                                                         AutomationProperties.AutomationId="DoubleAnimation147_9E12167E" />
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="PART_DisabledVisual" Property="Visibility" Value="Visible" />
+                        <Trigger Property="IsEnabled"
+                                 Value="False"
+                                 AutomationProperties.AutomationId="Trigger148_9E12167E">
+                            <Setter TargetName="PART_DisabledVisual"
+                                    Property="Visibility"
+                                    Value="Visible" />
                         </Trigger>
-                        <DataTrigger Binding="{Binding DisplayMode, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Calendar}}}" Value="Year">
-                            <Setter TargetName="PART_MonthView" Property="Visibility" Value="Hidden" />
-                            <Setter TargetName="PART_YearView" Property="Visibility" Value="Visible" />
+                        <DataTrigger
+                                Binding="{Binding DisplayMode, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Calendar}}}"
+                                     Value="Year"
+                                     AutomationProperties.AutomationId="DataTrigger149_9E12167E">
+                            <Setter TargetName="PART_MonthView"
+                                    Property="Visibility"
+                                    Value="Hidden" />
+                            <Setter TargetName="PART_YearView"
+                                    Property="Visibility"
+                                    Value="Visible" />
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding DisplayMode, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Calendar}}}" Value="Decade">
-                            <Setter TargetName="PART_MonthView" Property="Visibility" Value="Hidden" />
-                            <Setter TargetName="PART_YearView" Property="Visibility" Value="Visible" />
+                        <DataTrigger
+                                Binding="{Binding DisplayMode, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Calendar}}}"
+                                     Value="Decade"
+                                     AutomationProperties.AutomationId="DataTrigger150_9E12167E">
+                            <Setter TargetName="PART_MonthView"
+                                    Property="Visibility"
+                                    Value="Hidden" />
+                            <Setter TargetName="PART_YearView"
+                                    Property="Visibility"
+                                    Value="Visible" />
                         </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -546,17 +733,18 @@
                 <ControlTemplate TargetType="{x:Type Calendar}">
                     <Grid x:Name="PART_Root"
                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                          Background="Transparent">
+                          Background="Transparent"
+                          AutomationProperties.AutomationId="Grid151_9E12167E">
                         <CalendarItem x:Name="PART_CalendarItem"
                                       Background="{TemplateBinding Background}"
                                       BorderBrush="{TemplateBinding BorderBrush}"
                                       BorderThickness="{TemplateBinding BorderThickness}"
                                       SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                      Style="{TemplateBinding CalendarItemStyle}" />
+                                      Style="{TemplateBinding CalendarItemStyle}"
+                                      AutomationProperties.AutomationId="CalendarItem152_9E12167E" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-    
 </ResourceDictionary>

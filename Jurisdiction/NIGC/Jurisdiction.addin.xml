@@ -13,7 +13,7 @@
     <Addin id="SasConfiguration" version="1.0" />
     <Addin id="Sas.Client" version="1.0" />
     <Addin id="BingoBase" version="1.0" />
-    <Addin id="BingoConfiguration" version="1.0"/>
+    <Addin id="BingoConfiguration" version="1.0" />
   </Dependencies>
   <Runtime>
     <Import assembly="..\..\bin\Aristocrat.Monaco.Kernel.dll" />
@@ -46,9 +46,6 @@
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.NIGCJurisdiction" filterid="NIGCLocaleConfig" />
-      </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.NIGCJurisdiction" filterid="NIGCLocaleOverrides" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.NIGCJurisdiction" filterid="NIGCLobbyConfig" />
@@ -100,7 +97,7 @@
       <ExtensionPointConfiguration extensionPath="/HardMeterMapping/Configuration">
         <NodeSpecification addinId="Client12Addins.NIGCJurisdiction" filterid="NIGCHardMeterMappingConfig" />
       </ExtensionPointConfiguration>
-	  <ExtensionPointConfiguration extensionPath="/NIGC/Certificate/Configuration">
+      <ExtensionPointConfiguration extensionPath="/NIGC/Certificate/Configuration">
         <NodeSpecification addinId="Client12Addins.NIGCJurisdiction" filterid="NIGCCertificateConfig" />
       </ExtensionPointConfiguration>
     </SelectableJurisdiction>
@@ -142,10 +139,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="NIGCLocaleConfig">
     <FilePath FilePath="..\jurisdiction\NIGC\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="NIGCLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C2\" />
-    <FilePath FilePath="..\jurisdiction\NIGC\resources\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\NIGC\Lobby.config.xml" filterid="NIGCLobbyConfig" />

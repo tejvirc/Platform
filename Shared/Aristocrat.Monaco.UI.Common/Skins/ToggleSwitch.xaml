@@ -15,81 +15,97 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:ToggleSwitch}" x:Name="ControlTemplateParent">
-                    <Grid >
-                        <Grid x:Name="PART_SwitchTrack">
+                    <Grid AutomationProperties.AutomationId="Grid0_35CD297B">
+                        <Grid x:Name="PART_SwitchTrack" AutomationProperties.AutomationId="Grid1_35CD297B">
                             <Border x:Name="normal"
                                     Background="{TemplateBinding Background}"
                                     BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="{TemplateBinding BorderThickness}"
-                                    CornerRadius="{Binding Path=(controls:ControlsHelper.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
-                                <Grid Margin="{TemplateBinding Padding}" ClipToBounds="True">
+                                    CornerRadius="{Binding Path=(controls:ControlsHelper.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
+                                    AutomationProperties.AutomationId="Border2_35CD297B">
+                                <Grid Margin="{TemplateBinding Padding}" ClipToBounds="True"
+                                      AutomationProperties.AutomationId="Grid3_35CD297B">
                                     <!--<Rectangle Fill="{TemplateBinding OnSwitchBrush}" />-->
                                     <!--<Rectangle Fill="{TemplateBinding OffSwitchBrush}" RenderTransformOrigin="0.5,0.5">
                                         <Rectangle.RenderTransform>
-                                            <TranslateTransform x:Name="PART_BackgroundTranslate" />
+                                            <TranslateTransform x:Name="PART_BackgroundTranslate"
+                                                                AutomationProperties.AutomationId="TranslateTransform6_35CD297B" />
                                         </Rectangle.RenderTransform>
                                     </Rectangle>-->
                                 </Grid>
                             </Border>
                             <Border x:Name="disabled"
                                     Background="{DynamicResource ControlsDisabledBrush}"
-                                    BorderBrush="{DynamicResource ControlsDisabledBrush}"                                    
+                                    BorderBrush="{DynamicResource ControlsDisabledBrush}"
                                     BorderThickness="{TemplateBinding BorderThickness}"
                                     Opacity="0"
-                                    CornerRadius="{Binding Path=(controls:ControlsHelper.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
-                            </Border>
+                                    CornerRadius="{Binding Path=(controls:ControlsHelper.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
+                                    AutomationProperties.AutomationId="Border7_35CD297B"></Border>
                             <Border x:Name="PART_ThumbIndicator"
                                     Width="{Binding Path=Width, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ResourceKey=ScaleConv}, ConverterParameter=0.5}"
                                     HorizontalAlignment="Left"
                                     Background="{TemplateBinding BorderBrush}"
-                                    CornerRadius="{Binding Path=(controls:ControlsHelper.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
+                                    CornerRadius="{Binding Path=(controls:ControlsHelper.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
+                                    AutomationProperties.AutomationId="Border8_35CD297B">
                                 <Border.RenderTransform>
-                                    <TranslateTransform x:Name="PART_ThumbTranslate" />
+                                    <TranslateTransform x:Name="PART_ThumbTranslate"
+                                                        AutomationProperties.AutomationId="TranslateTransform9_35CD297B" />
                                 </Border.RenderTransform>
                                 <Border.Effect>
-                                    <DropShadowEffect Color="{DynamicResource Color3}" 
+                                    <DropShadowEffect Color="{DynamicResource Color3}"
                                                       Direction="180"
-                                                      ShadowDepth="1" 
+                                                      ShadowDepth="1"
                                                       Opacity="1"
-                                                      BlurRadius="15" />
+                                                      BlurRadius="15"
+                                                      AutomationProperties.AutomationId="DropShadowEffect10_35CD297B" />
                                 </Border.Effect>
                             </Border>
-                            <Border>
-                                <Grid>
+                            <Border AutomationProperties.AutomationId="Border11_35CD297B">
+                                <Grid AutomationProperties.AutomationId="Grid12_35CD297B">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*"
+                                                          AutomationProperties.AutomationId="ColumnDefinition13_35CD297B" />
+                                        <ColumnDefinition Width="*"
+                                                          AutomationProperties.AutomationId="ColumnDefinition14_35CD297B" />
                                     </Grid.ColumnDefinitions>
-
                                     <controls:ContentControlEx x:Name="PART_OffContent"
-                                                               Grid.Column="0" 
-                                                               VerticalAlignment="Center" 
-                                                               HorizontalAlignment="Center" 
+                                                               Grid.Column="0"
+                                                               VerticalAlignment="Center"
+                                                               HorizontalAlignment="Center"
                                                                ContentCharacterCasing="{Binding (controls:ControlsHelper.ContentCharacterCasing), RelativeSource={RelativeSource TemplatedParent}}"
-                                                               Content="{Binding Path=(helpers:ToggleSwitchButtonHelper.OffContent), RelativeSource={RelativeSource TemplatedParent}}" 
+                                                               Content="{Binding Path=(helpers:ToggleSwitchButtonHelper.OffContent), RelativeSource={RelativeSource TemplatedParent}}"
                                                                Foreground="{Binding Path=(helpers:ToggleSwitchButtonHelper.OffBrush), RelativeSource={RelativeSource TemplatedParent}}" />
                                     <controls:ContentControlEx x:Name="PART_OnContent"
-                                                               Grid.Column="1" 
-                                                               VerticalAlignment="Center" 
-                                                               HorizontalAlignment="Center" 
+                                                               Grid.Column="1"
+                                                               VerticalAlignment="Center"
+                                                               HorizontalAlignment="Center"
                                                                ContentCharacterCasing="{Binding (controls:ControlsHelper.ContentCharacterCasing), RelativeSource={RelativeSource TemplatedParent}}"
-                                                               Content="{Binding Path=(helpers:ToggleSwitchButtonHelper.OnContent), RelativeSource={RelativeSource TemplatedParent}}" 
+                                                               Content="{Binding Path=(helpers:ToggleSwitchButtonHelper.OnContent), RelativeSource={RelativeSource TemplatedParent}}"
                                                                Foreground="{Binding Path=(helpers:ToggleSwitchButtonHelper.OnBrush), RelativeSource={RelativeSource TemplatedParent}}" />
-                                    <ContentPresenter Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" />
+                                    <ContentPresenter Grid.Column="0"
+                                                      Grid.ColumnSpan="2"
+                                                      HorizontalAlignment="Center"
+                                                      AutomationProperties.AutomationId="ContentPresenter15_35CD297B" />
                                 </Grid>
                             </Border>
                         </Grid>
-                        <Thumb x:Name="PART_DraggingThumb" Background="Transparent">
+                        <Thumb x:Name="PART_DraggingThumb"
+                               Background="Transparent"
+                               AutomationProperties.AutomationId="Thumb16_35CD297B">
                             <Thumb.Template>
                                 <ControlTemplate>
-                                    <Grid Background="{TemplateBinding Background}" />
+                                    <Grid Background="{TemplateBinding Background}"
+                                          AutomationProperties.AutomationId="Grid17_35CD297B" />
                                 </ControlTemplate>
                             </Thumb.Template>
                         </Thumb>
                         <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup x:Name="CommonStates">
-                                <VisualState x:Name="Normal"/>
-                                <VisualState x:Name="Disabled"/>
+                            <VisualStateGroup x:Name="CommonStates"
+                                              AutomationProperties.AutomationId="VisualStateGroup18_35CD297B">
+                                <VisualState x:Name="Normal"
+                                             AutomationProperties.AutomationId="VisualState19_35CD297B" />
+                                <VisualState x:Name="Disabled"
+                                             AutomationProperties.AutomationId="VisualState20_35CD297B" />
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                         <behaviours:Interaction.Triggers>
@@ -102,10 +118,18 @@
                         </behaviours:Interaction.Triggers>
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="PART_ThumbIndicator" Property="Opacity" Value="0.55" />
-                            <Setter TargetName="PART_OnContent" Property="Opacity" Value="0.55" />
-                            <Setter TargetName="PART_OffContent" Property="Opacity" Value="0.55" />
+                        <Trigger Property="IsEnabled"
+                                 Value="False"
+                                 AutomationProperties.AutomationId="Trigger21_35CD297B">
+                            <Setter TargetName="PART_ThumbIndicator"
+                                    Property="Opacity"
+                                    Value="0.55" />
+                            <Setter TargetName="PART_OnContent"
+                                    Property="Opacity"
+                                    Value="0.55" />
+                            <Setter TargetName="PART_OffContent"
+                                    Property="Opacity"
+                                    Value="0.55" />
                         </Trigger>
                         <Trigger Property="IsOn" Value="True">
                             <Setter TargetName="PART_OnContent" Property="Foreground" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(helpers:ToggleSwitchButtonHelper.OnBrush)}" />

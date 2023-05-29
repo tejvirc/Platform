@@ -10,9 +10,9 @@
                                lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
                                lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                mc:Ignorable="d"
-                               d:DesignHeight="600" d:DesignWidth="1080"
+                               d:DesignHeight="600"
+                               d:DesignWidth="1080"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:DisplaysPageViewModel}}">
-
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -20,56 +20,92 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid>
+    <Grid AutomationProperties.AutomationId="Grid0_86EADED7">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition1_86EADED7" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_86EADED7" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition3_86EADED7" />
         </Grid.RowDefinitions>
-        <ScrollViewer Margin="0,0,0,5" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" Grid.Row="0">
-            <StackPanel Margin="5">
-                <Label Content="{lex:Loc Detected}" HorizontalAlignment="Left" />
-                <ItemsControl ItemsSource="{Binding DisplaysDetected}">
+        <ScrollViewer Margin="0,0,0,5"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalAlignment="Left"
+                      Grid.Row="0"
+                      AutomationProperties.AutomationId="ScrollViewer4_86EADED7">
+            <StackPanel Margin="5"
+                        AutomationProperties.AutomationId="StackPanel5_86EADED7">
+                <Label Content="{lex:Loc Detected}"
+                       HorizontalAlignment="Left"
+                       AutomationProperties.AutomationId="Label6_86EADED7" />
+                <ItemsControl ItemsSource="{Binding DisplaysDetected}"
+                              AutomationProperties.AutomationId="ItemsControl7_86EADED7">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border Name="DisplayStatusBorder" BorderThickness="3" Background="{DynamicResource DarkBrush1}" BorderBrush="{DynamicResource Brush3}" Margin="0 4 0 0">
-                                <StackPanel Width="200" HorizontalAlignment="Center">
-                                    <TextBlock Name="DisplayName" Foreground="{DynamicResource Brush3}" Margin="5 0"
+                            <Border Name="DisplayStatusBorder"
+                                    BorderThickness="3"
+                                    Background="{DynamicResource DarkBrush1}"
+                                    BorderBrush="{DynamicResource Brush3}"
+                                    Margin="0 4 0 0"
+                                    AutomationProperties.AutomationId="Border8_86EADED7">
+                                <StackPanel Width="200"
+                                            HorizontalAlignment="Center"
+                                            AutomationProperties.AutomationId="StackPanel9_86EADED7">
+                                    <TextBlock Name="DisplayName"
+                                               Foreground="{DynamicResource Brush3}"
+                                               Margin="5 0"
                                                Text="{Binding DisplayName}"
-                                               FontSize="{StaticResource LabelFontSize}"/>
-                                    <TextBlock Name="DisplayStatus" Foreground="White" Margin="10 0"
+                                               FontSize="{StaticResource LabelFontSize}"
+                                               AutomationProperties.AutomationId="TextBlock10_86EADED7" />
+                                    <TextBlock Name="DisplayStatus"
+                                               Foreground="White"
+                                               Margin="10 0"
                                                Text="{Binding DisplayStatus}"
-                                               FontSize="{StaticResource LabelFontSize}"/>
-                                    <TextBlock Name="TouchScreenName" Foreground="{DynamicResource Brush3}" Margin="5 0"
+                                               FontSize="{StaticResource LabelFontSize}"
+                                               AutomationProperties.AutomationId="TextBlock11_86EADED7" />
+                                    <TextBlock Name="TouchScreenName"
+                                               Foreground="{DynamicResource Brush3}"
+                                               Margin="5 0"
                                                Text="{Binding TouchName}"
-                                               FontSize="{StaticResource LabelFontSize}"/>
-                                    <TextBlock Name="TouchScreenStatus" Foreground="White" Margin="10 0"
+                                               FontSize="{StaticResource LabelFontSize}"
+                                               AutomationProperties.AutomationId="TextBlock12_86EADED7" />
+                                    <TextBlock Name="TouchScreenStatus"
+                                               Foreground="White"
+                                               Margin="10 0"
                                                Text="{Binding TouchStatus}"
-                                               FontSize="{StaticResource LabelFontSize}"/>
+                                               FontSize="{StaticResource LabelFontSize}"
+                                               AutomationProperties.AutomationId="TextBlock13_86EADED7" />
                                 </StackPanel>
                             </Border>
                             <DataTemplate.Triggers>
-                                <DataTrigger
-                                    Binding="{Binding IsTouchDisconnected}"
-                                    Value="True">
-                                    <Setter Property="Foreground" TargetName="TouchScreenStatus" Value="Red" />
+                                <DataTrigger Binding="{Binding IsTouchDisconnected}"
+                                             Value="True"
+                                             AutomationProperties.AutomationId="DataTrigger14_86EADED7">
+                                    <Setter Property="Foreground"
+                                            TargetName="TouchScreenStatus"
+                                            Value="Red" />
                                 </DataTrigger>
-                                <DataTrigger
-                                    Binding="{Binding IsTouchDisconnected}"
-                                    Value="False">
-                                    <Setter Property="Foreground" TargetName="TouchScreenStatus" Value="White" />
+                                <DataTrigger Binding="{Binding IsTouchDisconnected}"
+                                             Value="False"
+                                             AutomationProperties.AutomationId="DataTrigger15_86EADED7">
+                                    <Setter Property="Foreground"
+                                            TargetName="TouchScreenStatus"
+                                            Value="White" />
                                 </DataTrigger>
-
-                                <DataTrigger
-                                    Binding="{Binding IsDisplayConnected}"
-                                    Value="False">
-                                    <Setter Property="Foreground" TargetName="DisplayStatus" Value="Red" />
+                                <DataTrigger Binding="{Binding IsDisplayConnected}"
+                                             Value="False"
+                                             AutomationProperties.AutomationId="DataTrigger16_86EADED7">
+                                    <Setter Property="Foreground"
+                                            TargetName="DisplayStatus"
+                                            Value="Red" />
                                 </DataTrigger>
-                                <DataTrigger
-                                    Binding="{Binding IsDisplayConnected}"
-                                    Value="True">
-                                    <Setter Property="Foreground" TargetName="DisplayStatus" Value="White" />
+                                <DataTrigger Binding="{Binding IsDisplayConnected}"
+                                             Value="True"
+                                             AutomationProperties.AutomationId="DataTrigger17_86EADED7">
+                                    <Setter Property="Foreground"
+                                            TargetName="DisplayStatus"
+                                            Value="White" />
                                 </DataTrigger>
                             </DataTemplate.Triggers>
                         </DataTemplate>
@@ -77,47 +113,63 @@
                 </ItemsControl>
             </StackPanel>
         </ScrollViewer>
-
-        <StackPanel MinHeight="50" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,5"
+        <StackPanel MinHeight="50"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Margin="0,0,0,5"
                     Visibility="{Binding IsCabinetThatAllowsChangingBrightness, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                    Grid.Row="1">
+                    Grid.Row="1"
+                    AutomationProperties.AutomationId="StackPanel18_86EADED7">
             <Label Content="{lex:Loc VideoDisplayBrightness}"
-                   VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+                   VerticalAlignment="Bottom" HorizontalAlignment="Left" 
+                   AutomationProperties.AutomationId="Label19_86EADED7" />
             <Slider Style="{StaticResource MonacoSlider}" MinWidth="400" IsEnabled="{Binding InputEnabled}"
                     TickFrequency="10"
                     IsSnapToTickEnabled="True"
                     Minimum="{Binding MinimumBrightness, Mode=OneWay}"
                     Maximum="{Binding MaximumBrightness, Mode=OneWay}"
-                    Value="{Binding BrightnessValue}" />
+                    Value="{Binding BrightnessValue}"
+                    AutomationProperties.AutomationId="Slider20_86EADED7" />
         </StackPanel>
-        
-        <Border Grid.Row="2" Margin="0 15 0 0" VerticalAlignment="Bottom">
-            <StackPanel Orientation="Horizontal">
-                <Button Name="EnterTouchScreenPixelBtn" Content="{lex:Loc TestTouchScreen}"
-                    Height="50" Width="240"
-                    IsEnabled="{Binding TouchScreenButtonsEnabled, Mode=OneWay}"
-                    Command="{Binding EnterTouchScreenCommand}"
-                    CommandParameter="{Binding ElementName=EnterTouchScreenPixelBtn}" 
-                    Visibility="{Binding TestTouchScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
+        <Border Grid.Row="2"
+                Margin="0 15 0 0"
+                VerticalAlignment="Bottom"
+                AutomationProperties.AutomationId="Border21_86EADED7">
+            <StackPanel Orientation="Horizontal"
+                        AutomationProperties.AutomationId="StackPanel22_86EADED7">
+                <Button Name="EnterTouchScreenPixelBtn"
+                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.TestTouchScreen}}"
+                        Height="50"
+                        Width="240"
+                        IsEnabled="{Binding TouchScreenButtonsEnabled, Mode=OneWay}"
+                        Command="{Binding EnterTouchScreenCommand}"
+                        CommandParameter="{Binding ElementName=EnterTouchScreenPixelBtn}"
+                        Visibility="{Binding TestTouchScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                        AutomationProperties.AutomationId="Button23_86EADED7" />
                 <Button Name="CalibrateTouchScreenButton"
                         Content="{lex:Loc CalibrateTouchScreen}" Height="50" Width="240"
                         IsEnabled="{Binding TouchScreenButtonsEnabled, Mode=OneWay}"
                         Command="{Binding EnterCalibrateTouchScreenCommand}"
-                        CommandParameter="{Binding ElementName=CalibrateTouchScreenButton}" 
-                        Visibility="{Binding CalibrateTouchScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
+                        CommandParameter="{Binding ElementName=CalibrateTouchScreenButton}"
+                        Visibility="{Binding CalibrateTouchScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                        AutomationProperties.AutomationId="Button24_86EADED7" />
                 <Button Name="EnterIdentifyScreenBtn"
                         Content="{lex:Loc IdentifyVideoDisplay}" Height="50" Width="240"
                         IsEnabled="{Binding TestsEnabled, Mode=OneWay}"
                         Command="{Binding EnterIdentifyScreenCommand}"
-                        CommandParameter="{Binding ElementName=EnterIdentifyScreenBtn}" />
+                        CommandParameter="{Binding ElementName=EnterIdentifyScreenBtn}"
+                        AutomationProperties.AutomationId="Button25_86EADED7" />
                 <Button Name="EnterColorTestButton"
                         Content="{lex:Loc EnterDisplayColorTest}" Height="50" Width="240"
                         IsEnabled="{Binding TestsEnabled, Mode=OneWay}"
                         Command="{Binding EnterColorTestCommand}"
-                        CommandParameter="{Binding ElementName=EnterColorTestButton}" />
-                <Button Name="WarningButton" Style="{StaticResource MonacoWarningButton}"
+                        CommandParameter="{Binding ElementName=EnterColorTestButton}"
+                        AutomationProperties.AutomationId="Button26_86EADED7" />
+                <Button Name="WarningButton"
+                        Style="{StaticResource MonacoWarningButton}"
                         Command="{Binding ShowInfoPopupCommand}"
-                        Visibility="{Binding TestModeEnabled, Converter={StaticResource TrueHiddenFalseVisible}}">
+                        Visibility="{Binding TestModeEnabled, Converter={StaticResource TrueHiddenFalseVisible}}"
+                        AutomationProperties.AutomationId="Button27_86EADED7">
                     <Button.CommandParameter>
                         <MultiBinding Converter="{StaticResource MultiValueConverter}">
                             <Binding ElementName="WarningButton" />

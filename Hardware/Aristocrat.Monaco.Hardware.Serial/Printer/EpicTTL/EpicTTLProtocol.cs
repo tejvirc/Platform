@@ -10,6 +10,7 @@
     using System.Threading.Tasks;
     using Contracts.Gds;
     using Contracts.Gds.Printer;
+    using Contracts.SharedDevice;
     using log4net;
     using Protocols;
 
@@ -17,6 +18,7 @@
     ///     Manage outgoing messages per the TTL protocol.  Poll for status when no other
     ///     commands are pending.  Process responses.
     /// </summary>
+    [SearchableSerialProtocol(DeviceType.Printer)]
     public class EpicTTLProtocol : SerialPrinter
     {
         private const int TenSecondsMs = 10000;

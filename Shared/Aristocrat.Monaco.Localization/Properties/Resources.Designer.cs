@@ -7637,6 +7637,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Device detected!.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string DeviceDetected {
+			get {
+				return ResourceManager.GetString("DeviceDetected", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Device GUID.
 		/// </summary>
         /// <remarks>
@@ -16202,6 +16214,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Inspection Setup.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string InspectionSetup {
+			get {
+				return ResourceManager.GetString("InspectionSetup", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Inspection Summary.
 		/// </summary>
         /// <remarks>
@@ -16210,6 +16234,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string InspectionSummaryTitle {
 			get {
 				return ResourceManager.GetString("InspectionSummaryTitle", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Inspector.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string InspectorLabel {
+			get {
+				return ResourceManager.GetString("InspectorLabel", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -16396,6 +16432,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string InvalidCertificateIssuerErrorMessage {
 			get {
 				return ResourceManager.GetString("InvalidCertificateIssuerErrorMessage", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to detected but is invalid.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string InvalidDeviceDetectedTemplate {
+			get {
+				return ResourceManager.GetString("InvalidDeviceDetectedTemplate", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -20858,6 +20906,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to No device detected.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string NoDeviceDetected {
+			get {
+				return ResourceManager.GetString("NoDeviceDetected", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to NO DOLLARS EXACTLY.
 		/// </summary>
         /// <remarks>
@@ -22504,6 +22564,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string OrClearCredits {
 			get {
 				return ResourceManager.GetString("OrClearCredits", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Order #.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string OrderNumberLabel {
+			get {
+				return ResourceManager.GetString("OrderNumberLabel", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -27469,6 +27541,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ScrollToLabel {
 			get {
 				return ResourceManager.GetString("ScrollToLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Searching ....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Searching {
+			get {
+				return ResourceManager.GetString("Searching", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -42211,6 +42295,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Device detected!.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string DeviceDetected {
+			get {
+				return "DeviceDetected";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Device GUID.
 		/// </summary>
         /// <remarks>
@@ -50776,6 +50872,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Inspection Setup.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string InspectionSetup {
+			get {
+				return "InspectionSetup";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Inspection Summary.
 		/// </summary>
         /// <remarks>
@@ -50784,6 +50892,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string InspectionSummaryTitle {
 			get {
 				return "InspectionSummaryTitle";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Inspector.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string InspectorLabel {
+			get {
+				return "InspectorLabel";
 			}
 		}
 
@@ -50970,6 +51090,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string InvalidCertificateIssuerErrorMessage {
 			get {
 				return "InvalidCertificateIssuerErrorMessage";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to detected but is invalid.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string InvalidDeviceDetectedTemplate {
+			get {
+				return "InvalidDeviceDetectedTemplate";
 			}
 		}
 
@@ -55432,6 +55564,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to No device detected.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string NoDeviceDetected {
+			get {
+				return "NoDeviceDetected";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to NO DOLLARS EXACTLY.
 		/// </summary>
         /// <remarks>
@@ -57078,6 +57222,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string OrClearCredits {
 			get {
 				return "OrClearCredits";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Order #.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string OrderNumberLabel {
+			get {
+				return "OrderNumberLabel";
 			}
 		}
 
@@ -62043,6 +62199,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ScrollToLabel {
 			get {
 				return "ScrollToLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Searching ....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Searching {
+			get {
+				return "Searching";
 			}
 		}
 
@@ -73532,6 +73700,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		Detected,
 		/// <summary>
+		///   Looks up a localized string similar to Device detected!.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		DeviceDetected,
+		/// <summary>
 		///   Looks up a localized string similar to Device GUID.
 		/// </summary>
         /// <remarks>
@@ -78397,12 +78572,26 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		InspectionFailedText,
 		/// <summary>
+		///   Looks up a localized string similar to Inspection Setup.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		InspectionSetup,
+		/// <summary>
 		///   Looks up a localized string similar to Inspection Summary.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		InspectionSummaryTitle,
+		/// <summary>
+		///   Looks up a localized string similar to Inspector.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		InspectorLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Installed on .
 		/// </summary>
@@ -78509,6 +78698,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.G2S.Common
         /// </remarks>
 		InvalidCertificateIssuerErrorMessage,
+		/// <summary>
+		///   Looks up a localized string similar to detected but is invalid.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		InvalidDeviceDetectedTemplate,
 		/// <summary>
 		///   Looks up a localized string similar to Invalid Bill or Voucher Inserted.
 		/// </summary>
@@ -81048,6 +81244,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// </summary>
 		NoCustomSapLevelsAdded,
 		/// <summary>
+		///   Looks up a localized string similar to No device detected.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		NoDeviceDetected,
+		/// <summary>
 		///   Looks up a localized string similar to NO DOLLARS EXACTLY.
 		/// </summary>
         /// <remarks>
@@ -81997,6 +82200,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application
         /// </remarks>
 		OrClearCredits,
+		/// <summary>
+		///   Looks up a localized string similar to Order #.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		OrderNumberLabel,
 		/// <summary>
 		///   Looks up a localized string similar to OS Image Version.
 		/// </summary>
@@ -84832,6 +85042,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Monaco.Accounting.UI
         /// </remarks>
 		ScrollToLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Searching ....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		Searching,
 		/// <summary>
 		///   Looks up a localized string similar to Secondary Stacker Door Closed.
 		/// </summary>

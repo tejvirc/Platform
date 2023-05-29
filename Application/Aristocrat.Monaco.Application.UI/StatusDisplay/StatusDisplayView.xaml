@@ -19,35 +19,39 @@
     <common:BaseWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
             <Style TargetType="GroupBox">
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="GroupBox">
-                            <Grid>
+                            <Grid AutomationProperties.AutomationId="Grid0_631FA6B">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto"
+                                                   AutomationProperties.AutomationId="RowDefinition1_631FA6B" />
+                                    <RowDefinition Height="*"
+                                                   AutomationProperties.AutomationId="RowDefinition2_631FA6B" />
                                 </Grid.RowDefinitions>
                                 <Border Grid.Row="0"
                                         BorderThickness="1"
                                         CornerRadius="2,2,0,0"
                                         Background="{StaticResource ConfigTitleBarBrush}"
-                                        BorderBrush="{StaticResource HighlightBrush1}">
+                                        BorderBrush="{StaticResource HighlightBrush1}"
+                                        AutomationProperties.AutomationId="Border3_631FA6B">
                                     <ContentPresenter Margin="4"
                                                       ContentSource="Header"
                                                       TextBlock.Foreground="White"
-                                                      RecognizesAccessKey="True" />
+                                                      RecognizesAccessKey="True"
+                                                      AutomationProperties.AutomationId="ContentPresenter4_631FA6B" />
                                 </Border>
-
                                 <Border Grid.Row="1"
                                         BorderThickness="1,0,1,1"
                                         CornerRadius="0,0,2,2"
                                         BorderBrush="{StaticResource HighlightBrush1}"
-                                        Background="Transparent">
-                                    <ContentPresenter Margin="4" />
+                                        Background="Transparent"
+                                        AutomationProperties.AutomationId="Border5_631FA6B">
+                                    <ContentPresenter Margin="4"
+                                                      AutomationProperties.AutomationId="ContentPresenter6_631FA6B" />
                                 </Border>
                             </Grid>
                         </ControlTemplate>
@@ -64,37 +68,44 @@
     <Grid>
         <Grid.Background>
             <LinearGradientBrush StartPoint="0,.3"
-                                 EndPoint="1,.7">
+                                 EndPoint="1,.7"
+                                 AutomationProperties.AutomationId="LinearGradientBrush8_631FA6B">
                 <GradientStop Color="{StaticResource MahApps.Colors.SystemChromeBlackMedium}"
                               Offset="0"/>
                 <GradientStop Color="{StaticResource DarkColor1}"
-                              Offset=".1"/>
+                              Offset=".1"
+                              AutomationProperties.AutomationId="GradientStop10_631FA6B" />
                 <GradientStop Color="{StaticResource DarkColor2}"
-                              Offset=".4"/>
+                              Offset=".4"
+                              AutomationProperties.AutomationId="GradientStop11_631FA6B" />
                 <GradientStop Color="{StaticResource Color1}"
-                              Offset=".9"/>
+                              Offset=".9"
+                              AutomationProperties.AutomationId="GradientStop12_631FA6B" />
             </LinearGradientBrush>
         </Grid.Background>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
+            <ColumnDefinition AutomationProperties.AutomationId="ColumnDefinition13_631FA6B" />
+            <ColumnDefinition AutomationProperties.AutomationId="ColumnDefinition14_631FA6B" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition AutomationProperties.AutomationId="RowDefinition15_631FA6B" />
+            <RowDefinition AutomationProperties.AutomationId="RowDefinition16_631FA6B" />
         </Grid.RowDefinitions>
-        <GroupBox Grid.Row="0" Grid.Column="0" Header="{lex:Loc CurrentStatus}" Background="Transparent" >
+        <GroupBox Grid.Row="0" Grid.Column="0" Header="{lex:Loc CurrentStatus}" Background="Transparent" 
+                  AutomationProperties.AutomationId="GroupBox17_631FA6B">
             <statusDisplay:DisplayBox x:Name="StatusBox"/>
         </GroupBox>
-        <GroupBox Grid.Row="0" Grid.Column="1" Header="{lex:Loc Messages}" Background="Transparent">
+        <GroupBox Grid.Row="0" Grid.Column="1" Header="{lex:Loc Messages}" Background="Transparent"
+                  AutomationProperties.AutomationId="GroupBox18_631FA6B">
             <statusDisplay:DisplayBox x:Name="InformativeBox"/>
         </GroupBox>
-        <GroupBox Grid.Row="1" Grid.Column="0" Header="{lex:Loc HardErrors}" Background="Transparent">
+        <GroupBox Grid.Row="1" Grid.Column="0" Header="{lex:Loc HardErrors}" Background="Transparent"
+                  AutomationProperties.AutomationId="GroupBox19_631FA6B">
             <statusDisplay:DisplayBox x:Name="HardErrorBox"/>
         </GroupBox>
-        <GroupBox Grid.Row="1" Grid.Column="1" Header="{lex:Loc SoftErrors}" Background="Transparent">
+        <GroupBox Grid.Row="1" Grid.Column="1" Header="{lex:Loc SoftErrors}" Background="Transparent"
+                  AutomationProperties.AutomationId="GroupBox20_631FA6B">
             <statusDisplay:DisplayBox x:Name="SoftErrorBox"/>
         </GroupBox>
     </Grid>
 </common:BaseWindow>
-

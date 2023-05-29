@@ -130,5 +130,11 @@
         public int MechanicalReels { get; set; }
 
         public int[] MechanicalReelHomeSteps { get; set; }
+
+        public int MaximumWagerInsideCredits { get; set; }
+
+        public int MaximumWagerOutsideCredits { get; set; }
+
+        public bool NextToMaxBetTopAwardMultiplier { get; set; }
     }
 }

@@ -5,336 +5,424 @@
                     xmlns:lex="http://wpflocalizeextension.codeplex.com"
                     xmlns:loc="http://monaco.aristocrat.com/localization"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
-
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
     </ResourceDictionary.MergedDictionaries>
-
     <mvvm:TemplateDictionary x:Key="DayOfWeek">
         <DataTemplate x:Key="{x:Static sys:DayOfWeek.Sunday}">
-            <TextBlock Text="{lex:Loc Sunday}" />
+            <TextBlock Text="{lex:Loc Sunday}" 
+                       AutomationProperties.AutomationId="TextBlock0_92C8EE06" />
         </DataTemplate>
         <DataTemplate x:Key="{x:Static sys:DayOfWeek.Monday}">
-            <TextBlock Text="{lex:Loc Monday}" />
+            <TextBlock Text="{lex:Loc Monday}"
+                       AutomationProperties.AutomationId="TextBlock1_92C8EE06" />
         </DataTemplate>
         <DataTemplate x:Key="{x:Static sys:DayOfWeek.Tuesday}">
-            <TextBlock Text="{lex:Loc Tuesday}" />
+            <TextBlock Text="{lex:Loc Tuesday}" 
+                       AutomationProperties.AutomationId="TextBlock2_92C8EE06"/>
         </DataTemplate>
         <DataTemplate x:Key="{x:Static sys:DayOfWeek.Wednesday}">
-            <TextBlock Text="{lex:Loc Wednesday}" />
+            <TextBlock Text="{lex:Loc Wednesday}" 
+                       AutomationProperties.AutomationId="TextBlock3_92C8EE06" />
         </DataTemplate>
         <DataTemplate x:Key="{x:Static sys:DayOfWeek.Thursday}">
-            <TextBlock Text="{lex:Loc Thursday}" />
+            <TextBlock Text="{lex:Loc Thursday}"
+                       AutomationProperties.AutomationId="TextBlock4_92C8EE06" />
         </DataTemplate>
         <DataTemplate x:Key="{x:Static sys:DayOfWeek.Friday}">
-            <TextBlock Text="{lex:Loc Friday}" />
+            <TextBlock Text="{lex:Loc Friday}" 
+                       AutomationProperties.AutomationId="TextBlock5_92C8EE06"/>
         </DataTemplate>
         <DataTemplate x:Key="{x:Static sys:DayOfWeek.Saturday}">
-            <TextBlock Text="{lex:Loc Saturday}" />
+            <TextBlock Text="{lex:Loc Saturday}" 
+                       AutomationProperties.AutomationId="TextBlock6_92C8EE06" />
         </DataTemplate>
     </mvvm:TemplateDictionary>
-
     <DataTemplate DataType="{x:Type local:MachineSettings}">
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-            <StackPanel Orientation="Vertical">
-                <StackPanel Orientation="Horizontal">
+        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled"
+                      AutomationProperties.AutomationId="ScrollViewer7_92C8EE06">
+            <StackPanel Orientation="Vertical"
+                        AutomationProperties.AutomationId="StackPanel8_92C8EE06">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel9_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc JurisdictionLabel}" />
+                               Text="{lex:Loc JurisdictionLabel}" 
+                               AutomationProperties.AutomationId="TextBlock10_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding Jurisdiction}" />
+                               Text="{Binding Jurisdiction}"
+                               AutomationProperties.AutomationId="TextBlock11_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel12_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc EnableShowMode}" />
+                               Text="{lex:Loc EnableShowMode}" 
+                               AutomationProperties.AutomationId="TextBlock13_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding ShowMode}" />
+                               Text="{Binding ShowMode}"
+                               AutomationProperties.AutomationId="TextBlock14_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel15_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc ShowGameRules}" />
+                               Text="{lex:Loc ShowGameRules}" 
+                               AutomationProperties.AutomationId="TextBlock16_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding GameRules}" />
+                               Text="{Binding GameRules}"
+                               AutomationProperties.AutomationId="TextBlock17_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel18_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc ProtocolLabel}" />
+                               Text="{lex:Loc ProtocolLabel}" 
+                               AutomationProperties.AutomationId="TextBlock19_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding Protocols}" />
+                               Text="{Binding Protocols}"
+                               AutomationProperties.AutomationId="TextBlock20_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel21_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc NoteAcceptorEnabled}" />
+                               Text="{lex:Loc NoteAcceptorEnabled}" 
+                               AutomationProperties.AutomationId="TextBlock22_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding NoteAcceptorEnabled}" />
+                               Text="{Binding NoteAcceptorEnabled}"
+                               AutomationProperties.AutomationId="TextBlock23_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel24_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc NoteAcceptorManufacturer}" />
+                               Text="{lex:Loc NoteAcceptorManufacturer}" 
+                               AutomationProperties.AutomationId="TextBlock25_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding NoteAcceptorManufacturer}" />
+                               Text="{Binding NoteAcceptorManufacturer}"
+                               AutomationProperties.AutomationId="TextBlock26_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel27_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc Printer_Enabled}" />
+                               Text="{lex:Loc Printer_Enabled}" 
+                               AutomationProperties.AutomationId="TextBlock28_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding PrinterEnabled}" />
+                               Text="{Binding PrinterEnabled}"
+                               AutomationProperties.AutomationId="TextBlock29_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel30_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc PrinterManufacturer}" />
+                               Text="{lex:Loc PrinterManufacturer}" 
+                               AutomationProperties.AutomationId="TextBlock31_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding PrinterManufacturer}" />
+                               Text="{Binding PrinterManufacturer}"
+                               AutomationProperties.AutomationId="TextBlock32_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel33_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc IdReaderEnabled}" />
+                               Text="{lex:Loc IdReaderEnabled}" 
+                               AutomationProperties.AutomationId="TextBlock34_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding IdReaderEnabled}" />
+                               Text="{Binding IdReaderEnabled}"
+                               AutomationProperties.AutomationId="TextBlock35_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel36_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc IdReaderManufacturer}" />
+                               Text="{lex:Loc IdReaderManufacturer}"
+                               AutomationProperties.AutomationId="TextBlock37_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding IdReaderManufacturer}" />
+                               Text="{Binding IdReaderManufacturer}"
+                               AutomationProperties.AutomationId="TextBlock38_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel39_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
                                Text="{lex:Loc HardMetersEnabled}"
-                               Visibility="{Binding HardMeterVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
+                               Visibility="{Binding HardMeterVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
+                               AutomationProperties.AutomationId="TextBlock40_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding HardMetersEnabled}" 
-                               Visibility="{Binding HardMeterVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
+                               Text="{Binding HardMetersEnabled}"
+                               Visibility="{Binding HardMeterVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                               AutomationProperties.AutomationId="TextBlock41_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel42_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
                                Text="{lex:Loc HardMetersAvailableMeterMappings}" 
-                               Visibility="{Binding HardMeterVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
+                               Visibility="{Binding HardMeterVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                               AutomationProperties.AutomationId="TextBlock43_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding HardMeterMapSelectionValue}" 
-                               Visibility="{Binding HardMeterVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
+                               Text="{Binding HardMeterMapSelectionValue}"
+                               Visibility="{Binding HardMeterVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                               AutomationProperties.AutomationId="TextBlock44_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel45_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
                                Text="{lex:Loc HardMeterIncrementValue}" 
-                               Visibility="{Binding HardMeterVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
+                               Visibility="{Binding HardMeterVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
+                               AutomationProperties.AutomationId="TextBlock46_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding HardMeterTickValueDisplay}" 
-                               Visibility="{Binding HardMeterVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
+                               Text="{Binding HardMeterTickValueDisplay}"
+                               Visibility="{Binding HardMeterVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                               AutomationProperties.AutomationId="TextBlock47_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel48_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc DoorOpticSensorEnabled}" />
+                               Text="{lex:Loc DoorOpticSensorEnabled}" 
+                               AutomationProperties.AutomationId="TextBlock49_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding DoorOpticSensorEnabled}" />
+                               Text="{Binding DoorOpticSensorEnabled}"
+                               AutomationProperties.AutomationId="TextBlock50_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel51_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc ReelControllerEnabled}" />
+                               Text="{lex:Loc ReelControllerEnabled}" 
+                               AutomationProperties.AutomationId="TextBlock52_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding ReelControllerEnabled}" />
+                               Text="{Binding ReelControllerEnabled}"
+                               AutomationProperties.AutomationId="TextBlock53_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel54_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc ReelControllerManufacturer}" />
+                               Text="{lex:Loc ReelControllerManufacturer}" 
+                               AutomationProperties.AutomationId="TextBlock55_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding ReelControllerManufacturer}" />
+                               Text="{Binding ReelControllerManufacturer}"
+                               AutomationProperties.AutomationId="TextBlock56_92C8EE06" />
                 </StackPanel>
-                
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel57_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc BellEnabled}" />
+                               Text="{lex:Loc BellEnabled}" 
+                               AutomationProperties.AutomationId="TextBlock58_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding BellEnabled}" />
+                               Text="{Binding BellEnabled}"
+                               AutomationProperties.AutomationId="TextBlock59_92C8EE06" />
                 </StackPanel>
-                
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel60_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc Currency}" />
+                               Text="{lex:Loc Currency}" 
+                               AutomationProperties.AutomationId="TextBlock61_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding CurrencyDescription}" />
+                               Text="{Binding CurrencyDescription}"
+                               AutomationProperties.AutomationId="TextBlock62_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel63_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc RequireZeroCredit}" />
+                               Text="{lex:Loc RequireZeroCredit}" 
+                               AutomationProperties.AutomationId="TextBlock64_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding RequireZeroCreditsForOutOfService}" />
+                               Text="{Binding RequireZeroCreditsForOutOfService}"
+                               AutomationProperties.AutomationId="TextBlock65_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel66_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc DisabledNotes}" />
+                               Text="{lex:Loc DisabledNotes}" 
+                               AutomationProperties.AutomationId="TextBlock67_92C8EE06" />
                     <DataGrid IsHitTestVisible="False"
                               VerticalAlignment="Top"
                               ItemsSource="{Binding DisabledNotes}"
                               ColumnWidth="*"
                               IsReadOnly="True"
                               AutoGenerateColumns="False"
-                              Visibility="{Binding DisabledNotesVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
+                              Visibility="{Binding DisabledNotesVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                              AutomationProperties.AutomationId="DataGrid68_92C8EE06">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="{lex:Loc Denom}" Binding="{Binding DenomDisplay}" />
-                            <DataGridTextColumn Header="{lex:Loc IsoCode}" Binding="{Binding IsoCode}" />
+                            <DataGridTextColumn Header="{lex:Loc Denom}" Binding="{Binding DenomDisplay}" AutomationProperties.AutomationId="DataGridTextColumn69_92C8EE06" />
+                            <DataGridTextColumn Header="{lex:Loc IsoCode}" Binding="{Binding IsoCode}"  AutomationProperties.AutomationId="DataGridTextColumn70_92C8EE06" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel71_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc BillAcceptanceLimit}" />
+                               Text="{lex:Loc BillAcceptanceLimit}" 
+                               AutomationProperties.AutomationId="TextBlock72_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding MaxCreditsInDisplay}" />
+                               Text="{Binding MaxCreditsInDisplay}"
+                               AutomationProperties.AutomationId="TextBlock73_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel74_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc ExcessiveRejectDisable}" />
+                               Text="{lex:Loc ExcessiveRejectDisable}" 
+                               AutomationProperties.AutomationId="TextBlock75_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding ExcessiveRejectDisable}" />
+                               Text="{Binding ExcessiveRejectDisable}"
+                               AutomationProperties.AutomationId="TextBlock76_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel77_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc MasterSoundVolumeLabel}" />
+                               Text="{lex:Loc MasterSoundVolumeLabel}" 
+                               AutomationProperties.AutomationId="TextBlock78_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding DefaultVolumeLevelDisplay}" />
+                               Text="{Binding DefaultVolumeLevelDisplay}"
+                               AutomationProperties.AutomationId="TextBlock79_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel80_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc VolumeControlLocationTitle}" />
+                               Text="{lex:Loc VolumeControlLocationTitle}" 
+                               AutomationProperties.AutomationId="TextBlock81_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding VolumeControlLocation}" />
+                               Text="{Binding VolumeControlLocation}"
+                               AutomationProperties.AutomationId="TextBlock82_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel83_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc AllowVoucherIn}" />
+                               Text="{lex:Loc AllowVoucherIn}" 
+                               AutomationProperties.AutomationId="TextBlock84_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding VoucherIn}" />
+                               Text="{Binding VoucherIn}"
+                               AutomationProperties.AutomationId="TextBlock85_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel86_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc BarcodeType}" />
+                               Text="{lex:Loc BarcodeType}" 
+                               AutomationProperties.AutomationId="TextBlock87_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding BarcodeType}" />
+                               Text="{Binding BarcodeType}"
+                               AutomationProperties.AutomationId="TextBlock88_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel89_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc ValidationLength}" />
+                               Text="{lex:Loc ValidationLength}" 
+                               AutomationProperties.AutomationId="TextBlock90_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding ValidationLength}" />
+                               Text="{Binding ValidationLength}"
+                               AutomationProperties.AutomationId="TextBlock91_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel92_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc LayoutType}" />
+                               Text="{lex:Loc LayoutType}" 
+                               AutomationProperties.AutomationId="TextBlock93_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding LayoutType}" />
+                               Text="{Binding LayoutType}"
+                               AutomationProperties.AutomationId="TextBlock94_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel95_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc PropertyName}" />
+                               Text="{lex:Loc PropertyName}" 
+                               AutomationProperties.AutomationId="TextBlock96_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding TicketTextLine1}" />
+                               Text="{Binding TicketTextLine1}"
+                               AutomationProperties.AutomationId="TextBlock97_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel98_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc PropertyAddressLine1}" />
+                               Text="{lex:Loc PropertyAddressLine1}" 
+                               AutomationProperties.AutomationId="TextBlock99_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding TicketTextLine2}" />
+                               Text="{Binding TicketTextLine2}"
+                               AutomationProperties.AutomationId="TextBlock100_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel101_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc PropertyAddressLine2}" />
+                               Text="{lex:Loc PropertyAddressLine2}" 
+                               AutomationProperties.AutomationId="TextBlock102_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding TicketTextLine3}" />
+                               Text="{Binding TicketTextLine3}"
+                               AutomationProperties.AutomationId="TextBlock103_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel104_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc OperatingHours}" />
+                               Text="{lex:Loc OperatingHours}" 
+                               AutomationProperties.AutomationId="TextBlock105_92C8EE06" />
                     <DataGrid IsHitTestVisible="False"
                               VerticalAlignment="Top"
                               ItemsSource="{Binding OperatingHours}"
                               ColumnWidth="*"
                               IsReadOnly="True"
-                              AutoGenerateColumns="False">
+                              AutoGenerateColumns="False"
+                              AutomationProperties.AutomationId="DataGrid106_92C8EE06">
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn Header="{lex:Loc Day}" CellTemplateSelector="{mvvm:TemplateSelector Property=Day, TemplateDictionary={StaticResource DayOfWeek}}" />
-                            <DataGridTextColumn Header="{lex:Loc Time}" Binding="{Binding Time}" />
-                            <DataGridTextColumn Header="{lex:Loc Enabled}" Binding="{Binding Enabled}" />
+                            <DataGridTemplateColumn Header="{lex:Loc Day}" CellTemplateSelector="{mvvm:TemplateSelector Property=Day, TemplateDictionary={StaticResource DayOfWeek}}" AutomationProperties.AutomationId="DataGridTemplateColumn107_92C8EE06"/>
+                            <DataGridTextColumn Header="{lex:Loc Time}" Binding="{Binding Time}" AutomationProperties.AutomationId="DataGridTextColumn108_92C8EE06" />
+                            <DataGridTextColumn Header="{lex:Loc Enabled}" Binding="{Binding Enabled}" AutomationProperties.AutomationId="DataGridTextColumn109_92C8EE06" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel110_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc DemonstrationMode}" />
+                               Text="{lex:Loc DemonstrationMode}" 
+                               AutomationProperties.AutomationId="TextBlock111_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding DemonstrationMode}" />
+                               Text="{Binding DemonstrationMode}"
+                               AutomationProperties.AutomationId="TextBlock112_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel113_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc DeletePackageAfterInstall}" />
+                               Text="{lex:Loc DeletePackageAfterInstall}" 
+                               AutomationProperties.AutomationId="TextBlock114_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding DeletePackageAfterInstall}" />
+                               Text="{Binding DeletePackageAfterInstall}"
+                               AutomationProperties.AutomationId="TextBlock115_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel116_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc ScreenBrightness}" />
+                               Text="{lex:Loc ScreenBrightness}" 
+                               AutomationProperties.AutomationId="TextBlock117_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding ScreenBrightness}" />
+                               Text="{Binding ScreenBrightness}"
+                               AutomationProperties.AutomationId="TextBlock118_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel119_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc MediaDisplayEnabled}" />
+                               Text="{lex:Loc MediaDisplayEnabled}" 
+                               AutomationProperties.AutomationId="TextBlock120_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding MediaDisplayEnabled}" />
+                               Text="{Binding MediaDisplayEnabled}"
+                               AutomationProperties.AutomationId="TextBlock121_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel122_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc RebootWhilePrinting}" />
+                               Text="{lex:Loc RebootWhilePrinting}" 
+                               AutomationProperties.AutomationId="TextBlock123_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding RebootWhilePrintingBehavior}" />
+                               Text="{Binding RebootWhilePrintingBehavior}"
+                               AutomationProperties.AutomationId="TextBlock124_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel125_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc ReserveGamingMachine}" />
+                               Text="{lex:Loc ReserveGamingMachine}" 
+                               AutomationProperties.AutomationId="TextBlock126_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding ReserveServiceEnabled}" />
+                               Text="{Binding ReserveServiceEnabled}"
+                               AutomationProperties.AutomationId="TextBlock127_92C8EE06" />
                 </StackPanel>
-
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel128_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc ReserveMachineDuration}" />
-                    <TextBlock Style="{DynamicResource SettingValueStyle}">
-                        <Run Text="{Binding ReserveServiceTimeoutInMinutes, Mode=OneWay}"/>
-                        <Run Text="{lex:Loc Minutes}"/>
+                               Text="{lex:Loc ReserveMachineDuration}" 
+                               AutomationProperties.AutomationId="TextBlock129_92C8EE06" />
+                    <TextBlock Style="{DynamicResource SettingValueStyle}"
+                               AutomationProperties.AutomationId="TextBlock130_92C8EE06">
+                        <Run Text="{Binding ReserveServiceTimeoutInMinutes, Mode=OneWay}"
+                             AutomationProperties.AutomationId="Run131_92C8EE06" />
+                        <Run Text="{lex:Loc Minutes}"
+                             AutomationProperties.AutomationId="Run132_92C8EE06" />
                     </TextBlock>
                 </StackPanel>
             </StackPanel>

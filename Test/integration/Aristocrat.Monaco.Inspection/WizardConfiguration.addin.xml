@@ -29,9 +29,11 @@
     <AddinConfigurationGroup name="InspectionWizardPages" description="Inspection-only wizard addins">
       <ExtensionPointConfiguration extensionPath="/Application/Inspection/Wizards">
         <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.ConfigWizard"
-                           typeName="Aristocrat.Monaco.Application.UI.Loaders.MachineSettingsPageLoader" order="1" />
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.TimeConfigPageLoader" order="1" />
         <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.ConfigWizard"
-                           typeName="Aristocrat.Monaco.Application.UI.Loaders.PrinterPageLoader" order="2" />
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.MachineSettingsPageLoader" order="3" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.ConfigWizard"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.PrinterPageLoader" order="5" />
         <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.ConfigWizard"
                            typeName="Aristocrat.Monaco.Application.UI.Loaders.NoteAcceptorPageLoader" order="10" />
         <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.ConfigWizard"

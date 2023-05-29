@@ -4,10 +4,10 @@
                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"             
                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                               mc:Ignorable="d"
+                              xmlns:loc="http://monaco.aristocrat.com/localization"
+                              xmlns:lex="http://wpflocalizeextension.codeplex.com"
                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
-                              xmlns:lex="http://wpflocalizeextension.codeplex.com"
-                              xmlns:loc="http://monaco.aristocrat.com/localization"
                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
                               lex:ResxLocalizationProvider.DefaultDictionary="Resources"
                               Background="Transparent"
@@ -17,10 +17,55 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
                 <ResourceDictionary Source="../Resources/Templates.TimeZoneEditor.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <ContentControl Content="{Binding}" ContentTemplate="{StaticResource TimeZoneEditorTemplate}" />
+    <Grid AutomationProperties.AutomationId="Grid0_282D57AA">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition0_282D57AA" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition1_282D57AA" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_282D57AA" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition3_282D57AA" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition4_282D57AA" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition5_282D57AA" />
+        </Grid.RowDefinitions>
+
+        <ContentControl Content="{Binding}"
+                        ContentTemplate="{StaticResource TimeZoneEditorTemplate}"
+                        AutomationProperties.AutomationId="ContentControl0_282D57AA" />
+
+        <Label Grid.Row="1"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.OrderNumberLabel}}"
+               AutomationProperties.AutomationId="Label0_282D57AA"
+               Visibility="{Binding IsInspection, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
+        <TextBox Grid.Row="2"
+                 Width="400"
+                 Margin="5,0,0,0"
+                 HorizontalAlignment="Left"
+                 Text="{Binding OrderNumber, Mode=TwoWay}"
+                 AutomationProperties.AutomationId="TextBox0_282D57AA"
+                 Visibility="{Binding IsInspection, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
+
+        <Label Grid.Row="3"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.InspectorLabel}}"
+               AutomationProperties.AutomationId="Label1_282D57AA"
+               Visibility="{Binding IsInspection, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
+        <TextBox Grid.Row="4"
+                 Width="400"
+                 Margin="5,0,0,0"
+                 HorizontalAlignment="Left"
+                 Text="{Binding InspectorInitials, Mode=TwoWay}"
+                 AutomationProperties.AutomationId="TextBox1_282D57AA"
+                 Visibility="{Binding IsInspection, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
+
+    </Grid>
 </operatorMenu:OperatorMenuPage>

@@ -19,7 +19,8 @@
     using Kernel;
     using log4net;
 
-    public class ReelControllerAdapter : DeviceAdapter<IReelControllerImplementation>, IReelController,
+    public class ReelControllerAdapter : DeviceAdapter<IReelControllerImplementation>,
+        IReelController,
         IStorageAccessor<ReelControllerOptions>
     {
         private const string DeviceImplementationsExtensionPath = "/Hardware/ReelController/ReelControllerImplementations";
@@ -404,6 +405,9 @@
             Implementation?.UpdateConfiguration(InternalConfiguration);
             RegisterComponent();
             Initialized = true;
+
+            _supportedCapabilities = ReelCapabilitiesFactory.CreateAll(_reelControllerImplementation, _stateManager)
+                .ToDictionary(x => x.Key, x => x.Value);
 
             InitializeReels().WaitForCompletion();
             SetReelOffsets(_reelOffsets.ToArray());

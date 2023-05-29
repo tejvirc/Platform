@@ -157,17 +157,6 @@ namespace Aristocrat.Bingo.Client
                 ConnectivityState.TransientFailure or
                 ConnectivityState.Connecting;
 
-        private void MonitorConnection()
-        {
-            Task.Run(async () => await MonitorConnectionAsync(_channel)).ContinueWith(
-                async _ =>
-                {
-                    Logger.Error("Monitor Connection Failed Forcing a disconnect");
-                    await Stop();
-                },
-                TaskContinuationOptions.OnlyOnFaulted);
-        }
-
         private static RpcConnectionState GetConnectionState(ConnectivityState state) =>
             state switch
             {
@@ -202,6 +191,16 @@ namespace Aristocrat.Bingo.Client
         private void OnAuthorizationFailed(object sender, EventArgs e)
         {
             Stop().RunAndForget();
+        }
+
+        private void MonitorConnection()
+        {
+            Task.Run(async () => await MonitorConnectionAsync(_channel).ConfigureAwait(false)).RunAndForget(
+                async e =>
+                {
+                    Logger.Error("Monitor Connection Failed Forcing a disconnect", e);
+                    await Stop().ConfigureAwait(false);
+                });
         }
 
         private async Task MonitorConnectionAsync(GrpcChannel channel)

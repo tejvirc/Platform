@@ -1,54 +1,75 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls">
-
-    <Style x:Key="MonacoRadioButton" TargetType="RadioButton">
-        <Setter Property="Background" Value="Transparent" />
+    <Style x:Key="MonacoRadioButton"
+           TargetType="RadioButton">
+        <Setter Property="Background"
+                Value="Transparent" />
         <Setter Property="BorderBrush">
             <Setter.Value>
-                <LinearGradientBrush StartPoint="1,1" EndPoint="0,0">
+                <LinearGradientBrush StartPoint="1,1"
+                                     EndPoint="0,0"
+                                     AutomationProperties.AutomationId="LinearGradientBrush0_B4C6FD09">
                     <GradientStop Color="{DynamicResource Color3}"
-                                  Offset="0"/>
+                                  Offset="0"
+                                  AutomationProperties.AutomationId="GradientStop1_B4C6FD09" />
                     <GradientStop Color="{DynamicResource LightColor5}"
-                                  Offset=".8"/>
+                                  Offset=".8"
+                                  AutomationProperties.AutomationId="GradientStop2_B4C6FD09" />
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
-        <Setter Property="BorderThickness" Value="2" />
-        <Setter Property="controls:ControlsHelper.FocusBorderBrush" Value="{DynamicResource FocusBorderBrush}" />
-        <Setter Property="controls:ControlsHelper.MouseOverBorderBrush" Value="{DynamicResource MouseOverHighlightBrush}" />
-        <Setter Property="FontFamily" Value="{DynamicResource MonacoFontFamily}" />
-        <Setter Property="FontSize" Value="{DynamicResource ContentFontSize}" />
-        <Setter Property="Foreground" Value="{DynamicResource LightBrush4}" />
-        <Setter Property="HorizontalContentAlignment" Value="Left" />
-        <Setter Property="Padding" Value="6 0 0 0" />
+        <Setter Property="BorderThickness"
+                Value="2" />
+        <Setter Property="controls:ControlsHelper.FocusBorderBrush"
+                Value="{DynamicResource FocusBorderBrush}" />
+        <Setter Property="controls:ControlsHelper.MouseOverBorderBrush"
+                Value="{DynamicResource MouseOverHighlightBrush}" />
+        <Setter Property="FontFamily"
+                Value="{DynamicResource MonacoFontFamily}" />
+        <Setter Property="FontSize"
+                Value="{DynamicResource ContentFontSize}" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource LightBrush4}" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Left" />
+        <Setter Property="Padding"
+                Value="6 0 0 0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="RadioButton">
-                    <Grid>
+                    <Grid AutomationProperties.AutomationId="Grid3_B4C6FD09">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition x:Name="LeftCol" Width="25" />
-                            <ColumnDefinition x:Name="RightCol" Width="*" />
+                            <ColumnDefinition x:Name="LeftCol"
+                                              Width="25"
+                                              AutomationProperties.AutomationId="ColumnDefinition4_B4C6FD09" />
+                            <ColumnDefinition x:Name="RightCol"
+                                              Width="*"
+                                              AutomationProperties.AutomationId="ColumnDefinition5_B4C6FD09" />
                         </Grid.ColumnDefinitions>
-                        <Grid x:Name="PART_CHECKBOX">
+                        <Grid x:Name="PART_CHECKBOX"
+                              AutomationProperties.AutomationId="Grid6_B4C6FD09">
                             <Rectangle Margin="-6 0" Fill="{DynamicResource MahApps.Brushes.Transparent}" />
                             <Ellipse x:Name="normal"
                                      Width="25"
                                      Height="25"
                                      Fill="{TemplateBinding Background}"
                                      Stroke="{TemplateBinding BorderBrush}"
-                                     StrokeThickness="2" />
+                                     StrokeThickness="2"
+                                     AutomationProperties.AutomationId="Ellipse8_B4C6FD09" />
                             <Ellipse x:Name="Checked1"
                                      Width="12"
                                      Height="12"
                                      Fill="{TemplateBinding Foreground}"
-                                     Opacity="0" />
+                                     Opacity="0"
+                                     AutomationProperties.AutomationId="Ellipse9_B4C6FD09" />
                             <Ellipse x:Name="disabled"
                                      Width="22"
                                      Height="22"
                                      Fill="{DynamicResource ControlsDisabledBrush}"
                                      Opacity="0"
-                                     StrokeThickness="2" />
+                                     StrokeThickness="2"
+                                     AutomationProperties.AutomationId="Ellipse10_B4C6FD09" />
                         </Grid>
                         <ContentPresenter x:Name="contentPresenter"
                                           Grid.Column="1"
@@ -59,59 +80,93 @@
                                           ContentStringFormat="{TemplateBinding ContentStringFormat}"
                                           ContentTemplate="{TemplateBinding ContentTemplate}"
                                           ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
-                                          RecognizesAccessKey="True" />
+                                          RecognizesAccessKey="True"
+                                          AutomationProperties.AutomationId="ContentPresenter11_B4C6FD09" />
                         <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup x:Name="CommonStates">
-                                <VisualState x:Name="Normal" />
-                                <VisualState x:Name="Disabled">
-                                    <Storyboard>
+                            <VisualStateGroup x:Name="CommonStates"
+                                              AutomationProperties.AutomationId="VisualStateGroup12_B4C6FD09">
+                                <VisualState x:Name="Normal"
+                                             AutomationProperties.AutomationId="VisualState13_B4C6FD09" />
+                                <VisualState x:Name="Disabled"
+                                             AutomationProperties.AutomationId="VisualState14_B4C6FD09">
+                                    <Storyboard AutomationProperties.AutomationId="Storyboard15_B4C6FD09">
                                         <DoubleAnimation Storyboard.TargetName="contentPresenter"
                                                          Storyboard.TargetProperty="(UIElement.Opacity)"
                                                          To=".55"
-                                                         Duration="0" />
+                                                         Duration="0"
+                                                         AutomationProperties.AutomationId="DoubleAnimation16_B4C6FD09" />
                                         <DoubleAnimation Storyboard.TargetName="disabled"
                                                          Storyboard.TargetProperty="(UIElement.Opacity)"
                                                          To=".6"
-                                                         Duration="0" />
+                                                         Duration="0"
+                                                         AutomationProperties.AutomationId="DoubleAnimation17_B4C6FD09" />
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
-                            <VisualStateGroup x:Name="CheckStates">
-                                <VisualState x:Name="Checked">
-                                    <Storyboard>
+                            <VisualStateGroup x:Name="CheckStates"
+                                              AutomationProperties.AutomationId="VisualStateGroup18_B4C6FD09">
+                                <VisualState x:Name="Checked"
+                                             AutomationProperties.AutomationId="VisualState19_B4C6FD09">
+                                    <Storyboard AutomationProperties.AutomationId="Storyboard20_B4C6FD09">
                                         <DoubleAnimation Storyboard.TargetName="Checked1"
                                                          Storyboard.TargetProperty="(UIElement.Opacity)"
                                                          To="1"
-                                                         Duration="0" />
+                                                         Duration="0"
+                                                         AutomationProperties.AutomationId="DoubleAnimation21_B4C6FD09" />
                                     </Storyboard>
                                 </VisualState>
-                                <VisualState x:Name="Unchecked" />
-                                <VisualState x:Name="Indeterminate" />
+                                <VisualState x:Name="Unchecked"
+                                             AutomationProperties.AutomationId="VisualState22_B4C6FD09" />
+                                <VisualState x:Name="Indeterminate"
+                                             AutomationProperties.AutomationId="VisualState23_B4C6FD09" />
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="normal" Property="Stroke" Value="{DynamicResource HighlightBrush1}" />
+                        <Trigger Property="IsPressed"
+                                 Value="True"
+                                 AutomationProperties.AutomationId="Trigger24_B4C6FD09">
+                            <Setter TargetName="normal"
+                                    Property="Stroke"
+                                    Value="{DynamicResource HighlightBrush1}" />
                         </Trigger>
-                        <Trigger Property="IsFocused" Value="True">
-                            <Setter TargetName="normal" Property="Stroke" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(controls:ControlsHelper.FocusBorderBrush)}" />
+                        <Trigger Property="IsFocused"
+                                 Value="True"
+                                 AutomationProperties.AutomationId="Trigger25_B4C6FD09">
+                            <Setter TargetName="normal"
+                                    Property="Stroke"
+                                    Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(controls:ControlsHelper.FocusBorderBrush)}" />
                         </Trigger>
-                        <Trigger Property="IsChecked" Value="True">
-                            <Setter TargetName="normal" Property="Fill" Value="{DynamicResource DarkBrush1}" />
+                        <Trigger Property="IsChecked"
+                                 Value="True"
+                                 AutomationProperties.AutomationId="Trigger26_B4C6FD09">
+                            <Setter TargetName="normal"
+                                    Property="Fill"
+                                    Value="{DynamicResource DarkBrush1}" />
                         </Trigger>
-                        <Trigger Property="controls:ToggleButtonHelper.ContentDirection" Value="RightToLeft">
-                            <Setter Property="Padding" Value="0 0 6 0" />
-                            <Setter TargetName="LeftCol" Property="Width" Value="*" />
-                            <Setter TargetName="PART_CHECKBOX" Property="Grid.Column" Value="1" />
-                            <Setter TargetName="RightCol" Property="Width" Value="18" />
-                            <Setter TargetName="contentPresenter" Property="Grid.Column" Value="0" />
+                        <Trigger Property="controls:ToggleButtonHelper.ContentDirection"
+                                 Value="RightToLeft"
+                                 AutomationProperties.AutomationId="Trigger27_B4C6FD09">
+                            <Setter Property="Padding"
+                                    Value="0 0 6 0" />
+                            <Setter TargetName="LeftCol"
+                                    Property="Width"
+                                    Value="*" />
+                            <Setter TargetName="PART_CHECKBOX"
+                                    Property="Grid.Column"
+                                    Value="1" />
+                            <Setter TargetName="RightCol"
+                                    Property="Width"
+                                    Value="18" />
+                            <Setter TargetName="contentPresenter"
+                                    Property="Grid.Column"
+                                    Value="0" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
     </Style>
-
 </ResourceDictionary>

@@ -41,8 +41,16 @@
             schemas.Add("", xsdFilePath);
             foreach (var file in fileList)
             {
-                var accountingXml = XDocument.Load(file);
-                accountingXml.Validate(
+                XDocument xDocument;
+                try
+                {
+                    xDocument = XDocument.Load(file);
+                }
+                catch (Exception exception)
+                {
+                    throw new Exception($"Failed to load XDocument from file \"{file}\": {exception.Message}", exception);
+                }
+                xDocument.Validate(
                     schemas,
                     (o, e) =>
                     {

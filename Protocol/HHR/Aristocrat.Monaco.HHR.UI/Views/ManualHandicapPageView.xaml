@@ -21,99 +21,136 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <converters:HorseNumberToVisibilityConverter x:Key="HorseNumToVisibilityConverter"/>
-
-            <SolidColorBrush x:Key="HeaderColor1" Color="GreenYellow"/>
-
-            <Style x:Key="HeaderStyle" TargetType="{x:Type TextBlock}">
-                <Setter Property="Foreground" Value="{StaticResource HeaderColor1}"/>
-                <Setter Property="FontSize" Value="36"/>
-                <Setter Property="Typography.Capitals" Value="SmallCaps"/>
-                <Setter Property="FontFamily" Value="Arial"/>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
+            <converters:HorseNumberToVisibilityConverter x:Key="HorseNumToVisibilityConverter" />
+            <SolidColorBrush x:Key="HeaderColor1"
+                             Color="GreenYellow"
+                             AutomationProperties.AutomationId="SolidColorBrush0_20C7B95F" />
+            <Style x:Key="HeaderStyle"
+                   TargetType="{x:Type TextBlock}">
+                <Setter Property="Foreground"
+                        Value="{StaticResource HeaderColor1}" />
+                <Setter Property="FontSize"
+                        Value="36" />
+                <Setter Property="Typography.Capitals"
+                        Value="SmallCaps" />
+                <Setter Property="FontFamily"
+                        Value="Arial" />
+                <Setter Property="HorizontalAlignment"
+                        Value="Center" />
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid HorizontalAlignment="Center" Width="Auto" VerticalAlignment="Top">
-
+    <Grid HorizontalAlignment="Center"
+          Width="Auto"
+          VerticalAlignment="Top"
+          AutomationProperties.AutomationId="Grid1_20C7B95F">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_20C7B95F" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition3_20C7B95F" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition4_20C7B95F" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition5_20C7B95F" />
         </Grid.RowDefinitions>
-
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition6_20C7B95F" />
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition7_20C7B95F" />
         </Grid.ColumnDefinitions>
-
-        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 -20 0 0">
-
-            <TextBlock Style="{StaticResource HeaderStyle}" HorizontalAlignment="Left" >
-                <Run Text="{lex:Loc HhrRemainingRacesToHandicapTitle}" />
-                <Run Foreground="White" FontSize="40" FontWeight="Bold"
-                     Text="{Binding RemainingRacesToHandicap, Mode=OneWay}" />
+        <StackPanel Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="0 -20 0 0"
+                    AutomationProperties.AutomationId="StackPanel8_20C7B95F">
+            <TextBlock Style="{StaticResource HeaderStyle}"
+                       HorizontalAlignment="Left"
+                       AutomationProperties.AutomationId="TextBlock9_20C7B95F">
+                <Run Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrRemainingRacesToHandicapTitle}}"
+                     AutomationProperties.AutomationId="Run10_20C7B95F" />
+                <Run Foreground="White"
+                     FontSize="40"
+                     FontWeight="Bold"
+                     Text="{Binding RemainingRacesToHandicap, Mode=OneWay}"
+                     AutomationProperties.AutomationId="Run11_20C7B95F" />
             </TextBlock>
-
-            <Border BorderBrush="{StaticResource HeaderColor1}" BorderThickness="0 2 0 0 "/>
-
+            <Border BorderBrush="{StaticResource HeaderColor1}"
+                    BorderThickness="0 2 0 0 "
+                    AutomationProperties.AutomationId="Border12_20C7B95F" />
         </StackPanel>
-
         <!--
             Panel for the race positions - the green containers that get a horse number placed into them
         -->
-        <StackPanel Name="HorsePositionPanel" Width="Auto"
-                    Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
-                    Orientation="Vertical" HorizontalAlignment="Center">
-
-            <TextBlock Text="{lex:Loc HhrYourPicksTitle}" 
-                       Style="{StaticResource HeaderStyle}" Margin="0 20 0 0"/>
-
-            <DataGrid x:Name="HosePositionDataGrid" ItemsSource="{Binding Path=CurrentHorsePicks}" 
-                      Margin="0 10 0 0" Width="Auto" 
-                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+        <StackPanel Name="HorsePositionPanel"
+                    Width="Auto"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Orientation="Vertical"
+                    HorizontalAlignment="Center"
+                    AutomationProperties.AutomationId="StackPanel13_20C7B95F">
+            <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrYourPicksTitle}}"
+                       Style="{StaticResource HeaderStyle}"
+                       Margin="0 20 0 0"
+                       AutomationProperties.AutomationId="TextBlock14_20C7B95F" />
+            <DataGrid x:Name="HosePositionDataGrid"
+                      ItemsSource="{Binding Path=CurrentHorsePicks}"
+                      Margin="0 10 0 0"
+                      Width="Auto"
+                      HorizontalAlignment="Center"
+                      HorizontalContentAlignment="Center"
                       Focusable="False"
-                      AutoGenerateColumns="False" Background="Black" BorderThickness="0">
-
+                      AutoGenerateColumns="False"
+                      Background="Black"
+                      BorderThickness="0"
+                      AutomationProperties.AutomationId="DataGrid15_20C7B95F">
                 <DataGrid.CellStyle>
                     <Style TargetType="{x:Type DataGridCell}">
-                        <Setter Property="Background" Value="Black"/>
-                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Background"
+                                Value="Black" />
+                        <Setter Property="BorderThickness"
+                                Value="0" />
                         <Setter Property="LayoutTransform">
                             <Setter.Value>
-                                <TransformGroup>
-                                    <RotateTransform Angle="90" />
+                                <TransformGroup AutomationProperties.AutomationId="TransformGroup16_20C7B95F">
+                                    <RotateTransform Angle="90"
+                                                     AutomationProperties.AutomationId="RotateTransform17_20C7B95F" />
                                 </TransformGroup>
                             </Setter.Value>
                         </Setter>
                         <Style.Triggers>
-                            <Trigger Property="DataGridCell.IsSelected" Value="True">
+                            <Trigger Property="DataGridCell.IsSelected"
+                                     Value="True"
+                                     AutomationProperties.AutomationId="Trigger18_20C7B95F">
                                 <Setter Property="BorderBrush">
                                     <Setter.Value>
-                                        <SolidColorBrush Color="Black" />
+                                        <SolidColorBrush Color="Black"
+                                                         AutomationProperties.AutomationId="SolidColorBrush19_20C7B95F" />
                                     </Setter.Value>
                                 </Setter>
                                 <Setter Property="Background">
                                     <Setter.Value>
-                                        <SolidColorBrush Color="Black" />
+                                        <SolidColorBrush Color="Black"
+                                                         AutomationProperties.AutomationId="SolidColorBrush20_20C7B95F" />
                                     </Setter.Value>
                                 </Setter>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
                 </DataGrid.CellStyle>
-
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
-                        <Setter Property="Background" Value="Black"/>
-                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Background"
+                                Value="Black" />
+                        <Setter Property="BorderThickness"
+                                Value="0" />
                         <Setter Property="LayoutTransform">
                             <Setter.Value>
-                                <TransformGroup>
-                                    <RotateTransform Angle="90" />
+                                <TransformGroup AutomationProperties.AutomationId="TransformGroup21_20C7B95F">
+                                    <RotateTransform Angle="90"
+                                                     AutomationProperties.AutomationId="RotateTransform22_20C7B95F" />
                                 </TransformGroup>
                             </Setter.Value>
                         </Setter>
@@ -122,101 +159,117 @@
                         </Setter>
                     </Style>
                 </DataGrid.ColumnHeaderStyle>
-
                 <DataGrid.RowHeaderStyle>
                     <Style TargetType="{x:Type DataGridRowHeader}">
-                        <Setter Property="Background" Value="Black"/>
-                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Background"
+                                Value="Black" />
+                        <Setter Property="BorderThickness"
+                                Value="0" />
                         <Setter Property="Visibility">
                             <Setter.Value>Collapsed</Setter.Value>
                         </Setter>
                     </Style>
                 </DataGrid.RowHeaderStyle>
-
                 <DataGrid.RowStyle>
                     <Style TargetType="{x:Type DataGridRow}">
-                        <Setter Property="Background" Value="Black"/>
-                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Background"
+                                Value="Black" />
+                        <Setter Property="BorderThickness"
+                                Value="0" />
                     </Style>
                 </DataGrid.RowStyle>
-
                 <DataGrid.LayoutTransform>
-                    <TransformGroup>
-                        <RotateTransform Angle="-90" />
+                    <TransformGroup AutomationProperties.AutomationId="TransformGroup23_20C7B95F">
+                        <RotateTransform Angle="-90"
+                                         AutomationProperties.AutomationId="RotateTransform24_20C7B95F" />
                     </TransformGroup>
                 </DataGrid.LayoutTransform>
-
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn>
+                    <DataGridTemplateColumn AutomationProperties.AutomationId="DataGridTemplateColumn25_20C7B95F">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate DataType="{x:Type models:HorsePositionModel}">
-                                <local:HorsePosition
-                                    Margin="5 0 5 0"
-                                    HorseNumber="{Binding HorseNumber}"
-                                    Position="{Binding HorsePosition}"
-                                    HorseNumberVisible="{Binding PositionSelected,
-                                        Converter={StaticResource TrueVisibleFalseHidden},
-                                        Mode=OneWay,
-                                        UpdateSourceTrigger=PropertyChanged}"/>
+                                <local:HorsePosition Margin="5 0 5 0"
+                                                     HorseNumber="{Binding HorseNumber}"
+                                                     Position="{Binding HorsePosition}"
+                                                     HorseNumberVisible="{Binding PositionSelected, Converter={StaticResource TrueVisibleFalseHidden}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
-
             </DataGrid>
         </StackPanel>
-
         <!--
             Panel for the touchable horse number icons that get set in the above pick positions 
         -->
-        <StackPanel Name="HorseNumbersPanel" Width="Auto"
-                    Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
-                    Orientation="Vertical" HorizontalAlignment="Center">
-
-            <TextBlock Text="{lex:Loc HhrHorseTitle}" 
-                       Style="{StaticResource HeaderStyle}" Margin="0 10 0 0"/>
-
-            <DataGrid ItemsSource="{Binding Path=CurrentHorseNumbers}" x:Name="HorseNumberPanel"
-                      HorizontalAlignment="Center" HorizontalContentAlignment="Center"
-                      AutoGenerateColumns="False" Focusable="False" Background="Black" BorderThickness="0"
-                      Width="Auto" Height="Auto" Margin="0 10 0 0">
-
+        <StackPanel Name="HorseNumbersPanel"
+                    Width="Auto"
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Orientation="Vertical"
+                    HorizontalAlignment="Center"
+                    AutomationProperties.AutomationId="StackPanel26_20C7B95F">
+            <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrHorseTitle}}"
+                       Style="{StaticResource HeaderStyle}"
+                       Margin="0 10 0 0"
+                       AutomationProperties.AutomationId="TextBlock27_20C7B95F" />
+            <DataGrid ItemsSource="{Binding Path=CurrentHorseNumbers}"
+                      x:Name="HorseNumberPanel"
+                      HorizontalAlignment="Center"
+                      HorizontalContentAlignment="Center"
+                      AutoGenerateColumns="False"
+                      Focusable="False"
+                      Background="Black"
+                      BorderThickness="0"
+                      Width="Auto"
+                      Height="Auto"
+                      Margin="0 10 0 0"
+                      AutomationProperties.AutomationId="DataGrid28_20C7B95F">
                 <DataGrid.CellStyle>
                     <Style TargetType="{x:Type DataGridCell}">
-                        <Setter Property="Background" Value="Black"/>
-                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Background"
+                                Value="Black" />
+                        <Setter Property="BorderThickness"
+                                Value="0" />
                         <Setter Property="LayoutTransform">
                             <Setter.Value>
-                                <TransformGroup>
-                                    <RotateTransform Angle="90" />
+                                <TransformGroup AutomationProperties.AutomationId="TransformGroup29_20C7B95F">
+                                    <RotateTransform Angle="90"
+                                                     AutomationProperties.AutomationId="RotateTransform30_20C7B95F" />
                                 </TransformGroup>
                             </Setter.Value>
                         </Setter>
                         <Style.Triggers>
-                            <Trigger Property="DataGridCell.IsSelected" Value="True">
+                            <Trigger Property="DataGridCell.IsSelected"
+                                     Value="True"
+                                     AutomationProperties.AutomationId="Trigger31_20C7B95F">
                                 <Setter Property="BorderBrush">
                                     <Setter.Value>
-                                        <SolidColorBrush Color="Black" />
+                                        <SolidColorBrush Color="Black"
+                                                         AutomationProperties.AutomationId="SolidColorBrush32_20C7B95F" />
                                     </Setter.Value>
                                 </Setter>
                                 <Setter Property="Background">
                                     <Setter.Value>
-                                        <SolidColorBrush Color="Black" />
+                                        <SolidColorBrush Color="Black"
+                                                         AutomationProperties.AutomationId="SolidColorBrush33_20C7B95F" />
                                     </Setter.Value>
                                 </Setter>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
                 </DataGrid.CellStyle>
-
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
-                        <Setter Property="Background" Value="Black"/>
-                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Background"
+                                Value="Black" />
+                        <Setter Property="BorderThickness"
+                                Value="0" />
                         <Setter Property="LayoutTransform">
                             <Setter.Value>
-                                <TransformGroup>
-                                    <RotateTransform Angle="90" />
+                                <TransformGroup AutomationProperties.AutomationId="TransformGroup34_20C7B95F">
+                                    <RotateTransform Angle="90"
+                                                     AutomationProperties.AutomationId="RotateTransform35_20C7B95F" />
                                 </TransformGroup>
                             </Setter.Value>
                         </Setter>
@@ -225,69 +278,69 @@
                         </Setter>
                     </Style>
                 </DataGrid.ColumnHeaderStyle>
-
                 <DataGrid.RowHeaderStyle>
                     <Style TargetType="{x:Type DataGridRowHeader}">
-                        <Setter Property="Background" Value="Black"/>
-                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Background"
+                                Value="Black" />
+                        <Setter Property="BorderThickness"
+                                Value="0" />
                         <Setter Property="Visibility">
                             <Setter.Value>Collapsed</Setter.Value>
                         </Setter>
                     </Style>
                 </DataGrid.RowHeaderStyle>
-
                 <DataGrid.RowStyle>
                     <Style TargetType="{x:Type DataGridRow}">
-                        <Setter Property="Background" Value="Black"/>
-                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Background"
+                                Value="Black" />
+                        <Setter Property="BorderThickness"
+                                Value="0" />
                     </Style>
                 </DataGrid.RowStyle>
-
                 <DataGrid.LayoutTransform>
-                    <TransformGroup>
-                        <RotateTransform Angle="-90" />
+                    <TransformGroup AutomationProperties.AutomationId="TransformGroup36_20C7B95F">
+                        <RotateTransform Angle="-90"
+                                         AutomationProperties.AutomationId="RotateTransform37_20C7B95F" />
                     </TransformGroup>
                 </DataGrid.LayoutTransform>
-
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn>
+                    <DataGridTemplateColumn AutomationProperties.AutomationId="DataGridTemplateColumn38_20C7B95F">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate DataType="{x:Type models:HorseModel}">
-                                <local:ManualHandicapHorseNumber
-                                    Margin="5 0 5 0"
-                                    MaxWidth="48"
-                                    MaxHeight="48"
-                                    HorseSelected="False"
-                                    HorseNumber="{Binding Number,
-                                        UpdateSourceTrigger=PropertyChanged}"
-                                    Visibility="{Binding RacePosition,
-                                        Converter={StaticResource HorseNumToVisibilityConverter},
-                                        UpdateSourceTrigger=PropertyChanged}"
-                                    OnClickHandler="{Binding DataContext.HorseNumberClicked,
-                                        RelativeSource={RelativeSource AncestorType=UserControl},
-                                        UpdateSourceTrigger=PropertyChanged}" />
+                                <local:ManualHandicapHorseNumber Margin="5 0 5 0"
+                                                                 MaxWidth="48"
+                                                                 MaxHeight="48"
+                                                                 HorseSelected="False"
+                                                                 HorseNumber="{Binding Number, UpdateSourceTrigger=PropertyChanged}"
+                                                                 Visibility="{Binding RacePosition, Converter={StaticResource HorseNumToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                                                 OnClickHandler="{Binding DataContext.HorseNumberClicked, RelativeSource={RelativeSource AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
-
             </DataGrid>
         </StackPanel>
-
-        <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 20 0 0"
-                   Text="{lex:Loc HhrManualHandicapDisclaimerMessage}" 
-                   FontSize="12" HorizontalAlignment="Center" TextAlignment="Center"
+        <TextBlock Grid.Row="3"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Margin="0 20 0 0"
+                   Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrManualHandicapDisclaimerMessage}}"
+                   FontSize="12"
+                   HorizontalAlignment="Center"
+                   TextAlignment="Center"
                    Foreground="{StaticResource HeaderColor1}"
-                   Visibility="{Binding IsQuickPick, Converter={StaticResource TrueVisibleFalseHidden},
-                                        Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-
-        <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 20 0 0"
-                   Text="{lex:Loc HhrManualHandicapDisclaimerMessageAuto}" 
-                   FontSize="12" HorizontalAlignment="Center" TextAlignment="Center"
-                   Foreground="{StaticResource HeaderColor1}" 
-                   Visibility="{Binding IsQuickPick, Converter={StaticResource TrueHiddenFalseVisible},
-                                        Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                   Visibility="{Binding IsQuickPick, Converter={StaticResource TrueVisibleFalseHidden}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                   AutomationProperties.AutomationId="TextBlock39_20C7B95F" />
+        <TextBlock Grid.Row="3"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Margin="0 20 0 0"
+                   Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrManualHandicapDisclaimerMessageAuto}}"
+                   FontSize="12"
+                   HorizontalAlignment="Center"
+                   TextAlignment="Center"
+                   Foreground="{StaticResource HeaderColor1}"
+                   Visibility="{Binding IsQuickPick, Converter={StaticResource TrueHiddenFalseVisible}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                   AutomationProperties.AutomationId="TextBlock40_20C7B95F" />
     </Grid>
-
 </menu:HHRMenuPage>
-    

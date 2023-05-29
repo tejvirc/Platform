@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.UnregulatedClassIIIJurisdiction" filterid="UnregulatedClassIIILocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.UnregulatedClassIIIJurisdiction" filterid="UnregulatedClassIIILocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.UnregulatedClassIIIJurisdiction" filterid="UnregulatedClassIIILobbyConfig" />
       </ExtensionPointConfiguration>
@@ -139,9 +136,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="UnregulatedClassIIILocaleConfig">
     <FilePath FilePath="..\jurisdiction\UnregulatedClassIII\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="UnregulatedClassIIILocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\UnregulatedClassIII\Lobby.config.xml" filterid="UnregulatedClassIIILobbyConfig" />

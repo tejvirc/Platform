@@ -22,7 +22,7 @@
         /// <summary>
         ///     Gets or sets the current transfer flags
         /// </summary>
-        public AftTransferFlags CurrentTransferFlags { get; set; }
+        public AftTransferFlags CurrentTransferFlags { get; set; } = AftTransferFlags.Default;
 
         /// <inheritdoc />
         public object Clone()

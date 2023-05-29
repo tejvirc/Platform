@@ -5,7 +5,7 @@
                                xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
-                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:extensions="clr-namespace:Aristocrat.Monaco.UI.Common.Extensions;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
@@ -13,31 +13,29 @@
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:views="clr-namespace:Aristocrat.Monaco.Application.UI.Views"
-                               xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+                               xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
                                common:DialogParticipation.Register="{Binding}"
                                mc:Ignorable="d"
                                FocusManager.FocusedElement="{Binding ElementName=NextButton}"
                                Background="Transparent"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:InspectionPageViewModel}}">
-
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml"/>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
             <GridLength x:Key="GoldenRatioGridLength">1.618*</GridLength>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid>
+    <Grid AutomationProperties.AutomationId="Grid0_61B35ED2">
         <Grid.RowDefinitions>
-            <RowDefinition Height="0"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0"
+                           AutomationProperties.AutomationId="RowDefinition1_61B35ED2" />
+            <RowDefinition Height="1*"
+                           AutomationProperties.AutomationId="RowDefinition2_61B35ED2" />
         </Grid.RowDefinitions>
-
-        <i:Interaction.Triggers>
+        <b:Interaction.Triggers>
             <events:RoutedEventTrigger RoutedEvent="{x:Static FrameworkElement.SizeChangedEvent}"
                                        Target="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
                 <common:AdaptToOrientationGridAction FirstRowHeightWhenPortrait="{StaticResource GoldenRatioGridLength}" />
@@ -45,118 +43,166 @@
             <events:RoutedEventTrigger RoutedEvent="{x:Static FrameworkElement.LoadedEvent}">
                 <common:AdaptToOrientationGridAction FirstRowHeightWhenPortrait="{StaticResource GoldenRatioGridLength}" />
             </events:RoutedEventTrigger>
-        </i:Interaction.Triggers>
-
-        <Viewbox Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill">
-            <Image Source="../Resources/InspectionLogoPortrait.png" />
+        </b:Interaction.Triggers>
+        <Viewbox Grid.Row="0"
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Center"
+                 Stretch="UniformToFill"
+                 AutomationProperties.AutomationId="Viewbox3_61B35ED2">
+            <Image Source="../Resources/InspectionLogoPortrait.png"
+                   AutomationProperties.AutomationId="Image4_61B35ED2" />
         </Viewbox>
-
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1"
+              AutomationProperties.AutomationId="Grid5_61B35ED2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition6_61B35ED2" />
+                <RowDefinition Height="*"
+                               AutomationProperties.AutomationId="RowDefinition7_61B35ED2" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition8_61B35ED2" />
             </Grid.RowDefinitions>
-
-            <Border Background="{StaticResource ConfigTitleBarBrush}">
-                <StackPanel Orientation="Horizontal">
+            <Border Background="{StaticResource ConfigTitleBarBrush}"
+                    AutomationProperties.AutomationId="Border9_61B35ED2">
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel10_61B35ED2">
                     <iconPacks:PackIconFontAwesome Kind="CogSolid"
                                                    Width="35"
                                                    Height="35"
                                                    VerticalAlignment="Center"
                                                    Margin="10,0,5,0"
-                                                   Foreground="{StaticResource HighlightBrush1}"/>
+                                                   Foreground="{StaticResource HighlightBrush1}" />
                     <Label HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            Margin="0,5"
                            Content="{Binding PageTitle}"
                            Foreground="{StaticResource LightBrush4}"
-                           FontWeight="Bold"/>
+                           FontWeight="Bold"
+                           AutomationProperties.AutomationId="Label11_61B35ED2" />
                 </StackPanel>
             </Border>
-
-            <ContentControl Grid.Row="1" 
+            <ContentControl Grid.Row="1"
                             Margin="20,10,20,0"
-                            Content="{Binding CurrentPage}" />
-
+                            Content="{Binding CurrentPage}"
+                            AutomationProperties.AutomationId="ContentControl12_61B35ED2" />
             <Grid Grid.Row="2"
-                  HorizontalAlignment="Stretch" VerticalAlignment="Bottom"
-                  Margin="20">
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Bottom"
+                  Margin="20"
+                  AutomationProperties.AutomationId="Grid13_61B35ED2">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"
+                                      AutomationProperties.AutomationId="ColumnDefinition14_61B35ED2" />
+                    <ColumnDefinition Width="Auto"
+                                      AutomationProperties.AutomationId="ColumnDefinition15_61B35ED2" />
+                    <ColumnDefinition Width="Auto"
+                                      AutomationProperties.AutomationId="ColumnDefinition16_61B35ED2" />
+                    <ColumnDefinition Width="*"
+                                      AutomationProperties.AutomationId="ColumnDefinition17_61B35ED2" />
+                    <ColumnDefinition Width="Auto"
+                                      AutomationProperties.AutomationId="ColumnDefinition18_61B35ED2" />
+                    <ColumnDefinition Width="Auto"
+                                      AutomationProperties.AutomationId="ColumnDefinition19_61B35ED2" />
+                    <ColumnDefinition Width="Auto"
+                                      AutomationProperties.AutomationId="ColumnDefinition20_61B35ED2" />
                 </Grid.ColumnDefinitions>
-
-                <views:InspectionIdControl HorizontalAlignment="Left" 
+                <views:InspectionIdControl HorizontalAlignment="Left"
                                            VerticalAlignment="Center" />
                 <Button Grid.Column="1"
-                        Name="ReportButton" Command="{Binding ReportButtonClicked}"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.ReportFailure}}"
+                        Name="ReportButton"
+                        Command="{Binding ReportButtonClicked}"
+                        Content="{lex:Loc ReportFailure}"
                         Visibility="{Binding IsReportFailureVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                        Margin="0,0,20,0" controls:ControlsHelper.CornerRadius="3"/>
-                <Button Grid.Column="1" 
+                        Margin="0,0,20,0"
+                        controls:ControlsHelper.CornerRadius="3"
+                        AutomationProperties.AutomationId="Button21_61B35ED2" />
+                <Button Grid.Column="1"
                         Visibility="{Binding IsReportFailureVisible, Converter={StaticResource TrueCollapsedFalseVisible}}"
-                        Width="90" Height="45" HorizontalAlignment="Center" Margin="0,0,30,0"
+                        Width="90"
+                        Height="45"
+                        HorizontalAlignment="Center"
+                        Margin="0,0,30,0"
                         Command="{Binding PrintButtonCommand}"
-                        Style="{StaticResource MonacoButton1}">
-                    <Grid>
-                        <iconPacks:PackIconFontAwesome Kind="Print" Width="25" Height="25"/>
+                        Style="{StaticResource MonacoButton1}"
+                        AutomationProperties.AutomationId="Button22_61B35ED2">
+                    <Grid AutomationProperties.AutomationId="Grid23_61B35ED2">
+                        <iconPacks:PackIconFontAwesome Kind="PrintSolid"
+                                                       Width="25"
+                                                       Height="25" />
                     </Grid>
                 </Button>
                 <TextBlock Grid.Column="2"
                            Text="{Binding TestNameText, UpdateSourceTrigger=PropertyChanged}"
                            Foreground="SkyBlue"
                            HorizontalAlignment="Left"
-                           VerticalAlignment="Center"/>
+                           VerticalAlignment="Center"
+                           AutomationProperties.AutomationId="TextBlock24_61B35ED2" />
                 <TextBlock Grid.Column="3"
                            Text="{Binding ReportText, UpdateSourceTrigger=PropertyChanged}"
                            Margin="20 0"
                            HorizontalAlignment="Right"
-                           VerticalAlignment="Center">
+                           VerticalAlignment="Center"
+                           AutomationProperties.AutomationId="TextBlock25_61B35ED2">
                     <TextBlock.Style>
-                        <Style TargetType="TextBlock" 
+                        <Style TargetType="TextBlock"
                                BasedOn="{StaticResource {x:Type TextBlock}}">
-                            <Setter Property="Foreground" Value="{DynamicResource YellowBrush}"/>
+                            <Setter Property="Foreground"
+                                    Value="{DynamicResource YellowBrush}" />
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding ReportStatus, UpdateSourceTrigger=PropertyChanged}" Value="Untested">
-                                    <Setter Property="Foreground" Value="{DynamicResource YellowBrush}"/>
+                                <DataTrigger Binding="{Binding ReportStatus, UpdateSourceTrigger=PropertyChanged}"
+                                             Value="Untested"
+                                             AutomationProperties.AutomationId="DataTrigger26_61B35ED2">
+                                    <Setter Property="Foreground"
+                                            Value="{DynamicResource YellowBrush}" />
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding ReportStatus, UpdateSourceTrigger=PropertyChanged}" Value="Good">
-                                    <Setter Property="Foreground" Value="{DynamicResource GreenBrush}"/>
+                                <DataTrigger Binding="{Binding ReportStatus, UpdateSourceTrigger=PropertyChanged}"
+                                             Value="Good"
+                                             AutomationProperties.AutomationId="DataTrigger27_61B35ED2">
+                                    <Setter Property="Foreground"
+                                            Value="{DynamicResource GreenBrush}" />
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding ReportStatus, UpdateSourceTrigger=PropertyChanged}" Value="Bad">
-                                    <Setter Property="Foreground" Value="{DynamicResource RedBrush}"/>
+                                <DataTrigger Binding="{Binding ReportStatus, UpdateSourceTrigger=PropertyChanged}"
+                                             Value="Bad"
+                                             AutomationProperties.AutomationId="DataTrigger28_61B35ED2">
+                                    <Setter Property="Foreground"
+                                            Value="{DynamicResource RedBrush}" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
                 <Button Grid.Column="4"
-                        Name="ClearConfigButton" Command="{Binding ClearConfigButtonClicked}"
+                        Name="ClearConfigButton"
+                        Command="{Binding ClearConfigButtonClicked}"
                         Content="{lex:Loc ClearConfig}"
                         Visibility="{Binding IsClearConfigVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                        Margin="0,0,20,0" controls:ControlsHelper.CornerRadius="3"/>
+                        Margin="0,0,20,0"
+                        controls:ControlsHelper.CornerRadius="3"
+                        AutomationProperties.AutomationId="Button29_61B35ED2" />
                 <Button Grid.Column="4"
-                        Name="AutoTestButton" Command="{Binding AutoTestButtonClicked}"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.AutoTest}}"
+                        Name="AutoTestButton"
+                        Command="{Binding AutoTestButtonClicked}"
+                        Content="{lex:Loc AutoTest}"
                         Visibility="{Binding IsReportFailureVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                        Margin="0,0,20,0" controls:ControlsHelper.CornerRadius="3"/>
+                        Margin="0,0,20,0"
+                        controls:ControlsHelper.CornerRadius="3"
+                        AutomationProperties.AutomationId="Button30_61B35ED2" />
                 <Button Grid.Column="5"
-                        Name="BackButton" Command="{Binding BackButtonClicked}"
+                        Name="BackButton"
+                        Command="{Binding BackButtonClicked}"
                         Content="{lex:Loc Key={x:Static loc:ResourceKeys.BackText}}"
-                        IsEnabled="{Binding CanNavigateBackward}"
                         Visibility="{Binding IsBackButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                        Margin="0,0,20,0" controls:ControlsHelper.CornerRadius="3"/>
+                        Margin="0,0,20,0"
+                        controls:ControlsHelper.CornerRadius="3"
+                        AutomationProperties.AutomationId="Button31_61B35ED2" />
                 <Button Grid.Column="6"
-                        Name="NextButton" Command="{Binding NextButtonClicked}"
+                        Name="NextButton"
+                        Command="{Binding NextButtonClicked}"
                         extensions:FocusExtension.IsFocused="{Binding NextButtonFocused}"
                         Content="{Binding NextButtonText}"
-                        Margin="0" controls:ControlsHelper.CornerRadius="3" />
+                        Margin="0"
+                        controls:ControlsHelper.CornerRadius="3"
+                        AutomationProperties.AutomationId="Button32_61B35ED2" />
             </Grid>
         </Grid>
     </Grid>

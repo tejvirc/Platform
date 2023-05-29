@@ -2,42 +2,56 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                     xmlns:helpers="clr-namespace:Aristocrat.Monaco.UI.Common.Controls.Helpers">
-
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Controls.Button.xaml" />
     </ResourceDictionary.MergedDictionaries>
-
-    <Style x:Key="MonacoListViewButton" BasedOn="{StaticResource MonacoButton}" TargetType="Button">
-        <Setter Property="Padding" Value="0"/>
-        <Setter Property="Height" Value="35" />
-        <Setter Property="Width" Value="100" />
-        <Setter Property="FontSize" Value="14"/>
+    <Style x:Key="MonacoListViewButton"
+           BasedOn="{StaticResource MonacoButton}"
+           TargetType="Button">
+        <Setter Property="Padding"
+                Value="0" />
+        <Setter Property="Height"
+                Value="35" />
+        <Setter Property="Width"
+                Value="100" />
+        <Setter Property="FontSize"
+                Value="14" />
     </Style>
-
     <Style x:Key="MonacoGridViewScrollViewerStyle"
            BasedOn="{StaticResource {x:Static GridView.GridViewScrollViewerStyleKey}}"
            TargetType="{x:Type ScrollViewer}">
-        <Setter Property="Focusable" Value="false" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="helpers:ListViewHelper.AllowsColumnReorder" Value="False" />
+        <Setter Property="Focusable"
+                Value="false" />
+        <Setter Property="SnapsToDevicePixels"
+                Value="True" />
+        <Setter Property="helpers:ListViewHelper.AllowsColumnReorder"
+                Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ScrollViewer}">
-                    <Grid Background="{TemplateBinding Background}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                    <Grid Background="{TemplateBinding Background}"
+                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                          AutomationProperties.AutomationId="Grid0_E634FC16">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*"
+                                              AutomationProperties.AutomationId="ColumnDefinition1_E634FC16" />
+                            <ColumnDefinition Width="Auto"
+                                              AutomationProperties.AutomationId="ColumnDefinition2_E634FC16" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*"
+                                           AutomationProperties.AutomationId="RowDefinition3_E634FC16" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition4_E634FC16" />
                         </Grid.RowDefinitions>
-                        <DockPanel Margin="{TemplateBinding Padding}">
+                        <DockPanel Margin="{TemplateBinding Padding}"
+                                   AutomationProperties.AutomationId="DockPanel5_E634FC16">
                             <ScrollViewer DockPanel.Dock="Top"
                                           Focusable="false"
                                           HorizontalScrollBarVisibility="Hidden"
                                           SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                          VerticalScrollBarVisibility="Hidden">
+                                          VerticalScrollBarVisibility="Hidden"
+                                          AutomationProperties.AutomationId="ScrollViewer6_E634FC16">
                                 <GridViewHeaderRowPresenter Margin="2 0 2 0"
                                                             AllowsColumnReorder="{Binding Path =(helpers:ListViewHelper.AllowsColumnReorder), RelativeSource={RelativeSource TemplatedParent}}"
                                                             ColumnHeaderContainerStyle="{Binding TemplatedParent.View.ColumnHeaderContainerStyle, RelativeSource={RelativeSource TemplatedParent}}"
@@ -47,14 +61,16 @@
                                                             ColumnHeaderTemplateSelector="{Binding TemplatedParent.View.ColumnHeaderTemplateSelector, RelativeSource={RelativeSource TemplatedParent}}"
                                                             ColumnHeaderToolTip="{Binding TemplatedParent.View.ColumnHeaderToolTip, RelativeSource={RelativeSource TemplatedParent}}"
                                                             Columns="{Binding TemplatedParent.View.Columns, RelativeSource={RelativeSource TemplatedParent}}"
-                                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                            AutomationProperties.AutomationId="GridViewHeaderRowPresenter7_E634FC16" />
                             </ScrollViewer>
                             <ScrollContentPresenter x:Name="PART_ScrollContentPresenter"
                                                     CanContentScroll="{TemplateBinding CanContentScroll}"
                                                     Content="{TemplateBinding Content}"
                                                     ContentTemplate="{TemplateBinding ContentTemplate}"
                                                     KeyboardNavigation.DirectionalNavigation="Local"
-                                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                    AutomationProperties.AutomationId="ScrollContentPresenter8_E634FC16" />
                         </DockPanel>
                         <ScrollBar x:Name="PART_HorizontalScrollBar"
                                    Grid.Row="1"
@@ -64,7 +80,8 @@
                                    Orientation="Horizontal"
                                    ViewportSize="{TemplateBinding ViewportWidth}"
                                    Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
-                                   Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
+                                   Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                   AutomationProperties.AutomationId="ScrollBar9_E634FC16" />
                         <ScrollBar x:Name="PART_VerticalScrollBar"
                                    Grid.Column="1"
                                    Cursor="Arrow"
@@ -73,7 +90,8 @@
                                    Orientation="Vertical"
                                    ViewportSize="{TemplateBinding ViewportHeight}"
                                    Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
-                                   Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
+                                   Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                   AutomationProperties.AutomationId="ScrollBar10_E634FC16" />
                         <!-- this is from original style, but we don't want it!!!
                         <DockPanel Background="{Binding Background, ElementName=PART_VerticalScrollBar}"
                                    Grid.Column="1"
@@ -94,27 +112,46 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="MonacoGridViewColumnHeader" TargetType="{x:Type GridViewColumnHeader}">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="BorderThickness" Value="0 0 0 0" />
-        <Setter Property="controls:ControlsHelper.ContentCharacterCasing" Value="Upper" />
-        <Setter Property="Cursor" Value="Hand" />
-        <Setter Property="FontSize" Value="18"></Setter>
-        <Setter Property="FontWeight" Value="DemiBold" />
-        <Setter Property="Foreground" Value="{DynamicResource Brush3}" />
-        <Setter Property="HorizontalContentAlignment" Value="Left" />
-        <Setter Property="Margin" Value="1" />
-        <Setter Property="MinHeight" Value="30" />
-        <Setter Property="MinWidth" Value="150" />
-        <Setter Property="Padding" Value="5 4 4 5" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
+    <Style x:Key="MonacoGridViewColumnHeader"
+           TargetType="{x:Type GridViewColumnHeader}">
+        <Setter Property="Background"
+                Value="Transparent" />
+        <Setter Property="BorderBrush"
+                Value="Transparent" />
+        <Setter Property="BorderThickness"
+                Value="0 0 0 0" />
+        <Setter Property="controls:ControlsHelper.ContentCharacterCasing"
+                Value="Upper" />
+        <Setter Property="Cursor"
+                Value="Hand" />
+        <Setter Property="FontSize"
+                Value="18"></Setter>
+        <Setter Property="FontWeight"
+                Value="DemiBold" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource Brush3}" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Left" />
+        <Setter Property="Margin"
+                Value="1" />
+        <Setter Property="MinHeight"
+                Value="30" />
+        <Setter Property="MinWidth"
+                Value="150" />
+        <Setter Property="Padding"
+                Value="5 4 4 5" />
+        <Setter Property="SnapsToDevicePixels"
+                Value="True" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="GridViewColumnHeader">
-                    <Grid>
-                        <Rectangle Fill="Transparent" IsHitTestVisible="True" />
-                        <Border x:Name="HeaderBorder" Padding="{TemplateBinding Padding}">
+                    <Grid AutomationProperties.AutomationId="Grid11_E634FC16">
+                        <Rectangle Fill="Transparent"
+                                   IsHitTestVisible="True"
+                                   AutomationProperties.AutomationId="Rectangle12_E634FC16" />
+                        <Border x:Name="HeaderBorder"
+                                Padding="{TemplateBinding Padding}"
+                                AutomationProperties.AutomationId="Border13_E634FC16">
                             <controls:ContentControlEx x:Name="HeaderContent"
                                                        Margin="0 0 0 1"
                                                        Padding="{TemplateBinding Padding}"
@@ -131,7 +168,8 @@
                         <Thumb x:Name="PART_HeaderGripper"
                                Margin="0 0 -9 0"
                                HorizontalAlignment="Right"
-                               Style="{DynamicResource GridViewColumnHeaderGripper}" />
+                               Style="{DynamicResource GridViewColumnHeaderGripper}"
+                               AutomationProperties.AutomationId="Thumb14_E634FC16" />
                     </Grid>
                     <!--<ControlTemplate.Triggers>
                         <Trigger Property="IsPressed" Value="true">
@@ -145,17 +183,23 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
         <Style.Triggers>
-            <Trigger Property="Role" Value="Floating">
-                <Setter Property="Opacity" Value="0.7" />
+            <Trigger Property="Role"
+                     Value="Floating"
+                     AutomationProperties.AutomationId="Trigger15_E634FC16">
+                <Setter Property="Opacity"
+                        Value="0.7" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="GridViewColumnHeader">
-                            <Canvas Name="PART_FloatingHeaderCanvas">
+                            <Canvas Name="PART_FloatingHeaderCanvas"
+                                    AutomationProperties.AutomationId="Canvas16_E634FC16">
                                 <Rectangle Width="{TemplateBinding ActualWidth}"
                                            Height="{TemplateBinding ActualHeight}"
-                                           Fill="#60000000" />
+                                           Fill="#60000000"
+                                           AutomationProperties.AutomationId="Rectangle17_E634FC16" />
                             </Canvas>
                         </ControlTemplate>
                     </Setter.Value>
@@ -163,25 +207,37 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-
     <!--
         Do not set CanContentScroll=True below. This breaks the scrolling for groups with more items that will fit on screen.
         It also (setting true) has the ugly side effect of scrolling the entire group and not the items. The downside is we lose
         virtualisation http://serialseb.blogspot.com/2007/09/wpf-tips-7-smooth-scrolling.html
     -->
-    <Style x:Key="MonacoListView" TargetType="{x:Type ListView}">
-        <Setter Property="AlternationCount" Value="2" />
-        <Setter Property="OverridesDefaultStyle" Value="true" />
-        <Setter Property="ScrollViewer.CanContentScroll" Value="False" />
-        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
-        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
-        <Setter Property="SnapsToDevicePixels" Value="true" />
-        <Setter Property="Margin" Value="3,10,2,10" />
-        <Setter Property="Foreground" Value="{DynamicResource LightBrush4}" />
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="ItemContainerStyle" Value="{DynamicResource MonacoListViewItem}" />
+    <Style x:Key="MonacoListView"
+           TargetType="{x:Type ListView}">
+        <Setter Property="AlternationCount"
+                Value="2" />
+        <Setter Property="OverridesDefaultStyle"
+                Value="true" />
+        <Setter Property="ScrollViewer.CanContentScroll"
+                Value="False" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
+                Value="Auto" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
+                Value="Auto" />
+        <Setter Property="SnapsToDevicePixels"
+                Value="true" />
+        <Setter Property="Margin"
+                Value="3,10,2,10" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource LightBrush4}" />
+        <Setter Property="Background"
+                Value="Transparent" />
+        <Setter Property="BorderBrush"
+                Value="Transparent" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="ItemContainerStyle"
+                Value="{DynamicResource MonacoListViewItem}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListView">
@@ -189,56 +245,81 @@
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-                        
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                            AutomationProperties.AutomationId="Border18_E634FC16">
                         <ScrollViewer Padding="{TemplateBinding Padding}"
                                       CanContentScroll="{TemplateBinding ScrollViewer.CanContentScroll}"
                                       Focusable="False"
                                       HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
                                       SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                       Style="{DynamicResource MonacoGridViewScrollViewerStyle}"
-                                      VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
-                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                      VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                      AutomationProperties.AutomationId="ScrollViewer19_E634FC16">
+                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                            AutomationProperties.AutomationId="ItemsPresenter20_E634FC16" />
                         </ScrollViewer>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsGrouping" Value="true">
-                            <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
+                        <Trigger Property="IsGrouping"
+                                 Value="true"
+                                 AutomationProperties.AutomationId="Trigger21_E634FC16">
+                            <Setter Property="ScrollViewer.CanContentScroll"
+                                    Value="false" />
                         </Trigger>
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter TargetName="Border" Property="BorderBrush" Value="Transparent" />
+                        <Trigger Property="IsEnabled"
+                                 Value="false"
+                                 AutomationProperties.AutomationId="Trigger22_E634FC16">
+                            <Setter TargetName="Border"
+                                    Property="BorderBrush"
+                                    Value="Transparent" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
         <Style.Resources>
-            <Style TargetType="{x:Type GridViewColumnHeader}" BasedOn="{StaticResource MonacoGridViewColumnHeader}"></Style>
+            <Style TargetType="{x:Type GridViewColumnHeader}"
+                   BasedOn="{StaticResource MonacoGridViewColumnHeader}"></Style>
         </Style.Resources>
     </Style>
-
     <Style x:Key="VirtualisedMonacoListView"
            BasedOn="{StaticResource MonacoListView}"
            TargetType="{x:Type ListView}">
-        <Setter Property="ScrollViewer.CanContentScroll" Value="True" />
-        <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="True" />
-        <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="True" />
-        <Setter Property="VirtualizingStackPanel.VirtualizationMode" Value="Recycling" />
+        <Setter Property="ScrollViewer.CanContentScroll"
+                Value="True" />
+        <Setter Property="ScrollViewer.IsDeferredScrollingEnabled"
+                Value="True" />
+        <Setter Property="VirtualizingStackPanel.IsVirtualizing"
+                Value="True" />
+        <Setter Property="VirtualizingStackPanel.VirtualizationMode"
+                Value="Recycling" />
     </Style>
-
-    <Style x:Key="MonacoListViewItem" TargetType="{x:Type ListViewItem}">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Foreground" Value="{DynamicResource LightBrush4}" />
-        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-        <Setter Property="Margin" Value="0" />
-        <Setter Property="Padding" Value="0" />
-        <Setter Property="MinHeight" Value="45" />
-        <Setter Property="FontSize" Value="18"></Setter>
-        <Setter Property="FontWeight" Value="Regular" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
+    <Style x:Key="MonacoListViewItem"
+           TargetType="{x:Type ListViewItem}">
+        <Setter Property="Background"
+                Value="Transparent" />
+        <Setter Property="BorderBrush"
+                Value="Transparent" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource LightBrush4}" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Stretch" />
+        <Setter Property="Margin"
+                Value="0" />
+        <Setter Property="Padding"
+                Value="0" />
+        <Setter Property="MinHeight"
+                Value="45" />
+        <Setter Property="FontSize"
+                Value="18"></Setter>
+        <Setter Property="FontWeight"
+                Value="Regular" />
+        <Setter Property="SnapsToDevicePixels"
+                Value="True" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListViewItem}">
@@ -246,24 +327,43 @@
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-                        <Grid Background="{TemplateBinding Background}">
-                            <GridViewRowPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                            AutomationProperties.AutomationId="Border23_E634FC16">
+                        <Grid Background="{TemplateBinding Background}"
+                              AutomationProperties.AutomationId="Grid24_E634FC16">
+                            <GridViewRowPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                  AutomationProperties.AutomationId="GridViewRowPresenter25_E634FC16">
                                 <GridViewRowPresenter.Resources>
-                                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MonacoListViewButton}"></Style>
+                                    <Style TargetType="{x:Type Button}"
+                                           BasedOn="{StaticResource MonacoListViewButton}"></Style>
                                     <Style TargetType="{x:Type TextBlock}">
-                                        <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, Path=Foreground}" />
+                                        <Setter Property="Foreground"
+                                                Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, Path=Foreground}" />
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" Value="True">
-                                                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Selected.Foreground}" />
+                                            <DataTrigger
+                                                    Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}"
+                                                         Value="True"
+                                                         AutomationProperties.AutomationId="DataTrigger26_E634FC16">
+                                                <Setter Property="Foreground"
+                                                        Value="{DynamicResource MahApps.Brushes.Selected.Foreground}" />
                                             </DataTrigger>
-                                            <DataTrigger Binding="{Binding Path=IsEnabled, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" Value="False">
-                                                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Gray}" />
+                                            <DataTrigger
+                                                    Binding="{Binding Path=IsEnabled, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                                         Value="False"
+                                                         AutomationProperties.AutomationId="DataTrigger27_E634FC16">
+                                                <Setter Property="Foreground"
+                                                        Value="{DynamicResource MahApps.Brushes.Gray}" />
                                             </DataTrigger>
-                                            <MultiDataTrigger>
+                                            <MultiDataTrigger
+                                                    AutomationProperties.AutomationId="MultiDataTrigger28_E634FC16">
                                                 <MultiDataTrigger.Conditions>
-                                                    <Condition Binding="{Binding Path=IsEnabled, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" Value="False" />
-                                                    <Condition Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" Value="True" />
+                                                    <Condition
+                                                            Binding="{Binding Path=IsEnabled, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                                               Value="False" />
+                                                    <Condition
+                                                            Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}"
+                                                               Value="True" />
                                                 </MultiDataTrigger.Conditions>
                                                 <MultiDataTrigger.Setters>
                                                     <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Selected.Foreground}" />
@@ -278,28 +378,38 @@
                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                               SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                              Visibility="Collapsed" />
+                                              Visibility="Collapsed"
+                                              AutomationProperties.AutomationId="ContentPresenter29_E634FC16" />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="GridView.ColumnCollection" Value="{x:Null}">
-                            <Setter TargetName="contentPresenter" Property="Visibility" Value="Visible" />
+                        <Trigger Property="GridView.ColumnCollection"
+                                 Value="{x:Null}"
+                                 AutomationProperties.AutomationId="Trigger30_E634FC16">
+                            <Setter TargetName="contentPresenter"
+                                    Property="Visibility"
+                                    Value="Visible" />
                         </Trigger>
-                        <Trigger Property="IsSelected" Value="true">
+                        <Trigger Property="IsSelected" Value="true"
+                                 AutomationProperties.AutomationId="Trigger31_E634FC16">
                             <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Selected.Foreground}" />
                             <Setter TargetName="Bd" Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}" />
                             <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Highlight}" />
                         </Trigger>
-                        <Trigger Property="IsMouseOver" Value="True">
+                        <Trigger Property="IsMouseOver" Value="True"
+                                 AutomationProperties.AutomationId="Trigger32_E634FC16">
                             <Setter TargetName="Bd" Property="Background" Value="{DynamicResource MahApps.Brushes.Accent3}" />
                         </Trigger>
-                        <Trigger Property="IsEnabled" Value="False">
+                        <Trigger Property="IsEnabled" Value="False"
+                                 AutomationProperties.AutomationId="Trigger33_E634FC16">
                             <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Gray}" />
                         </Trigger>
-                        <MultiTrigger>
+                        <MultiTrigger AutomationProperties.AutomationId="MultiTrigger34_E634FC16">
                             <MultiTrigger.Conditions>
-                                <Condition Property="IsEnabled" Value="False" />
-                                <Condition Property="IsSelected" Value="True" />
+                                <Condition Property="IsEnabled"
+                                           Value="False" />
+                                <Condition Property="IsSelected"
+                                           Value="True" />
                             </MultiTrigger.Conditions>
                             <MultiTrigger.Setters>
                                 <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Selected.Foreground}" />
@@ -307,10 +417,12 @@
                                 <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Gray7}" />
                             </MultiTrigger.Setters>
                         </MultiTrigger>
-                        <MultiTrigger>
+                        <MultiTrigger AutomationProperties.AutomationId="MultiTrigger35_E634FC16">
                             <MultiTrigger.Conditions>
-                                <Condition Property="IsSelected" Value="true" />
-                                <Condition Property="Selector.IsSelectionActive" Value="True" />
+                                <Condition Property="IsSelected"
+                                           Value="true" />
+                                <Condition Property="Selector.IsSelectionActive"
+                                           Value="True" />
                             </MultiTrigger.Conditions>
                             <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Selected.Foreground}" />
                             <Setter TargetName="Bd" Property="Background" Value="{DynamicResource MahApps.Brushes.Accent2}" />
@@ -320,9 +432,9 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
     </Style>
-
     <!--  Gives the impression that items cannot be selected on the ListView  -->
     <Style x:Key="NonSelectableListViewContainerStyle" TargetType="{x:Type ListViewItem}">
         <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Gray1}" />
@@ -338,47 +450,60 @@
                     <Border x:Name="Bd"
                             Background="{TemplateBinding Background}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-                        <GridViewRowPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                            AutomationProperties.AutomationId="Border36_E634FC16">
+                        <GridViewRowPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                              AutomationProperties.AutomationId="GridViewRowPresenter37_E634FC16" />
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
+                        <Trigger Property="IsMouseOver" Value="True"
+                                 AutomationProperties.AutomationId="Trigger38_E634FC16">
                             <Setter TargetName="Bd" Property="Background" Value="{DynamicResource MahApps.Brushes.Accent3}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
         <Style.Triggers>
-            <Trigger Property="ItemsControl.AlternationIndex" Value="0">
-                <Setter Property="Background" Value="{DynamicResource AlternateRow1BackgroundBrush}" />
+            <Trigger Property="ItemsControl.AlternationIndex"
+                     Value="0"
+                     AutomationProperties.AutomationId="Trigger39_E634FC16">
+                <Setter Property="Background"
+                        Value="{DynamicResource AlternateRow1BackgroundBrush}" />
             </Trigger>
-            <Trigger Property="ItemsControl.AlternationIndex" Value="1">
-                <Setter Property="Background" Value="{DynamicResource AlternateRow2BackgroundBrush}" />
-                <Setter Property="Border.BorderThickness" Value="0 1 0 1" />
+            <Trigger Property="ItemsControl.AlternationIndex"
+                     Value="1"
+                     AutomationProperties.AutomationId="Trigger40_E634FC16">
+                <Setter Property="Background"
+                        Value="{DynamicResource AlternateRow2BackgroundBrush}" />
+                <Setter Property="Border.BorderThickness"
+                        Value="0 1 0 1" />
             </Trigger>
         </Style.Triggers>
     </Style>
-
-    <Style x:Key="GridViewColumnHeaderGripper" TargetType="Thumb">
-        <Setter Property="Background" Value="Transparent" />
+    <Style x:Key="GridViewColumnHeaderGripper"
+           TargetType="Thumb">
+        <Setter Property="Background"
+                Value="Transparent" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Thumb}">
                     <Border Margin="0 0 0 2"
                             Padding="{TemplateBinding Padding}"
-                            Background="Transparent">
+                            Background="Transparent"
+                            AutomationProperties.AutomationId="Border41_E634FC16">
                         <Rectangle Width="1"
                                    HorizontalAlignment="Center"
-                                   Fill="{TemplateBinding Background}" />
+                                   Fill="{TemplateBinding Background}"
+                                   AutomationProperties.AutomationId="Rectangle42_E634FC16" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="Width" Value="18" />
+        <Setter Property="Width"
+                Value="18" />
     </Style>
-
-    
-    
 </ResourceDictionary>

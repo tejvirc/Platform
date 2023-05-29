@@ -15,70 +15,118 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid Margin="0 -10 0 0">
+    <Grid Margin="0 -10 0 0"
+          AutomationProperties.AutomationId="Grid0_41282DC0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition1_41282DC0" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_41282DC0" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition3_41282DC0" />
         </Grid.RowDefinitions>
-
-        <GroupBox Grid.Row="0" Header="{lex:Loc KeyedOnCredits}">
-            <Grid Margin="20 -10 0 0">
+        <GroupBox Grid.Row="0"
+                  Header="{lex:Loc KeyedOnCredits}"
+                  AutomationProperties.AutomationId="GroupBox4_41282DC0">
+            <Grid Margin="20 -10 0 0"
+                  AutomationProperties.AutomationId="Grid5_41282DC0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition6_41282DC0" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition7_41282DC0" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition8_41282DC0" />
                 </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                    <Label  Content="{lex:Loc CreditType}" HorizontalAlignment="Left" Margin="0 10 0 0"/>
-                    <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding Credits}" MinWidth="300" Margin="8 0 0 0" IsEnabled="{Binding InputEnabled}"
-                              DisplayMemberPath="CreditType"  SelectedItem="{Binding SelectedCredit}"/>
+                <StackPanel Grid.Row="0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            AutomationProperties.AutomationId="StackPanel9_41282DC0">
+                    <Label Content="{lex:Loc CreditType}"
+                           HorizontalAlignment="Left"
+                           Margin="0 10 0 0"
+                           AutomationProperties.AutomationId="Label10_41282DC0" />
+                    <ComboBox HorizontalAlignment="Left"
+                              ItemsSource="{Binding Credits}"
+                              MinWidth="300"
+                              Margin="8 0 0 0"
+                              IsEnabled="{Binding InputEnabled}"
+                              DisplayMemberPath="CreditType"
+                              SelectedItem="{Binding SelectedCredit}"
+                              AutomationProperties.AutomationId="ComboBox11_41282DC0" />
                 </StackPanel>
-                <StackPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 5 0 0">
-                    <Label Content="{lex:Loc KeyedOnCreditValue}" HorizontalAlignment="Left"/>
-                    <helpers:CurrencyTextBox MinWidth="300" Margin="8 0 0 0" IsEnabled="{Binding KeyedOnInputEnabled}"
-                                             IsReadOnly="False" PreventNegatives="True"
+                <StackPanel Grid.Row="1"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Margin="0 5 0 0"
+                            AutomationProperties.AutomationId="StackPanel12_41282DC0">
+                    <Label Content="{lex:Loc KeyedOnCreditValue}"
+                           HorizontalAlignment="Left"
+                           AutomationProperties.AutomationId="Label13_41282DC0" />
+                    <helpers:CurrencyTextBox MinWidth="300"
+                                             Margin="8 0 0 0"
+                                             IsEnabled="{Binding KeyedOnInputEnabled}"
+                                             IsReadOnly="False"
+                                             PreventNegatives="True"
                                              Number="{Binding Path=KeyedOnCreditAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
                 </StackPanel>
-                <Button Grid.Row="2" HorizontalAlignment="Left" Margin="8 10 0 0" Width="250" IsEnabled="{Binding KeyedOnCreditsAllowed}"
+                <Button Grid.Row="2"
+                        HorizontalAlignment="Left"
+                        Margin="8 10 0 0"
+                        Width="250"
+                        IsEnabled="{Binding KeyedOnCreditsAllowed}"
                         Content="{lex:Loc KeyedOnCreditsConfirmButtonLabel}"
-                        Command="{Binding ConfirmKeyOnCreditsCommand}"/>
+                        Command="{Binding ConfirmKeyOnCreditsCommand}"
+                        AutomationProperties.AutomationId="Button14_41282DC0" />
             </Grid>
         </GroupBox>
-
-        <GroupBox Grid.Row="1" Header="{lex:Loc KeyedOffCredits}" Margin="0 10 0 0">
-            <StackPanel Margin="20 -10 0 0">
-                <DataGrid ItemsSource="{Binding Credits}" x:Name="Grid" 
-                          HorizontalAlignment="Left" RowBackground="Transparent">
+        <GroupBox Grid.Row="1"
+                  Header="{lex:Loc KeyedOffCredits}"
+                  Margin="0 10 0 0"
+                  AutomationProperties.AutomationId="GroupBox15_41282DC0">
+            <StackPanel Margin="20 -10 0 0"
+                        AutomationProperties.AutomationId="StackPanel16_41282DC0">
+                <DataGrid ItemsSource="{Binding Credits}"
+                          x:Name="Grid"
+                          HorizontalAlignment="Left"
+                          RowBackground="Transparent"
+                          AutomationProperties.AutomationId="DataGrid17_41282DC0">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="{lex:Loc CreditType}"
                                             loc:Localizer.For="Operator"
                                             Width="300"
-                                            Binding="{Binding CreditType}" />
+                                            Binding="{Binding CreditType}"
+                                            AutomationProperties.AutomationId="DataGridTextColumn18_41282DC0" />
                         <DataGridTextColumn Header="{lex:Loc Value}"
                                             loc:Localizer.For="Operator"
                                             Width="150"
                                             Binding="{Binding FormattedValue, UpdateSourceTrigger=PropertyChanged}"
                                             HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
-                                            CellStyle="{StaticResource DataGridCellRight}">
-                        </DataGridTextColumn>
+                                            CellStyle="{StaticResource DataGridCellRight}"
+                                            AutomationProperties.AutomationId="DataGridTextColumn19_41282DC0"/>
+                        
                         <DataGridTemplateColumn Header="{lex:Loc KeyOff}"
                                                 loc:Localizer.For="Operator"
                                                 Width="250"
                                                 HeaderStyle="{StaticResource DataGridColumnHeaderCenter}"
-                                                CellStyle="{StaticResource DataGridCellCenter}">
+                                                CellStyle="{StaticResource DataGridCellCenter}"
+                                                AutomationProperties.AutomationId="DataGridTemplateColumn20_41282DC0">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <CheckBox DataContext="{Binding}" IsChecked="{Binding KeyOff, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                                    <CheckBox DataContext="{Binding}"
+                                              IsChecked="{Binding KeyOff, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                              AutomationProperties.AutomationId="CheckBox21_41282DC0">
                                         <CheckBox.IsEnabled>
                                             <MultiBinding Converter="{StaticResource BoolAndConverter}">
-                                                <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type operatorMenu:OperatorMenuPage}}" Path="DataContext.InputEnabled" />
-                                                <Binding Path="HasCredits" UpdateSourceTrigger="PropertyChanged" />
+                                                <Binding
+                                                        RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type operatorMenu:OperatorMenuPage}}"
+                                                         Path="DataContext.InputEnabled" />
+                                                <Binding Path="HasCredits"
+                                                         UpdateSourceTrigger="PropertyChanged" />
                                             </MultiBinding>
                                         </CheckBox.IsEnabled>
                                     </CheckBox>
@@ -87,9 +135,13 @@
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-                <Button HorizontalAlignment="Left" Margin="8 5 0 0" Width="250" IsEnabled="{Binding KeyOffCreditsButtonEnabled}"
+                <Button HorizontalAlignment="Left" 
+                        Margin="8 5 0 0"
+                        Width="250" 
+                        IsEnabled="{Binding KeyOffCreditsButtonEnabled}"
                         Content="{lex:Loc KeyedOffCreditsConfirmButtonLabel}"
-                        Command="{Binding ConfirmKeyOffCreditsCommand}"/>
+                        Command="{Binding ConfirmKeyOffCreditsCommand}"
+                        AutomationProperties.AutomationId="Button22_41282DC0" />
             </StackPanel>
         </GroupBox>
     </Grid>

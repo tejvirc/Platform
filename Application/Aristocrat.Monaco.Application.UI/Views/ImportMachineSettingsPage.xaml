@@ -1,8 +1,8 @@
 ﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.ImportMachineSettingsPage"
                                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
@@ -12,94 +12,114 @@
                                xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                xmlns:models="clr-namespace:Aristocrat.Monaco.Application.UI.Models"
-                               mc:Ignorable="d" 
+                               mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance viewModels:ImportMachineSettingsViewModel}"
                                common:DialogParticipation.Register="{Binding}">
-
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <Style x:Key="SettingNameStyle" 
-                   TargetType="TextBlock" 
+            <Style x:Key="SettingNameStyle"
+                   TargetType="TextBlock"
                    BasedOn="{StaticResource {x:Type TextBlock}}">
-                <Setter Property="Margin" Value="0 0 20 10" />
-                <Setter Property="FontSize" Value="{DynamicResource Heading4FontSize}" />
-                <Setter Property="TextWrapping" Value="Wrap" />
-                <Setter Property="VerticalAlignment" Value="Top" />
-                <Setter Property="HorizontalAlignment" Value="Left" />
-                <Setter Property="Width" Value="600" />
+                <Setter Property="Margin"
+                        Value="0 0 20 10" />
+                <Setter Property="FontSize"
+                        Value="{DynamicResource Heading4FontSize}" />
+                <Setter Property="TextWrapping"
+                        Value="Wrap" />
+                <Setter Property="VerticalAlignment"
+                        Value="Top" />
+                <Setter Property="HorizontalAlignment"
+                        Value="Left" />
+                <Setter Property="Width"
+                        Value="600" />
             </Style>
-
-            <Style x:Key="SettingValueStyle" 
-                   TargetType="TextBlock" 
+            <Style x:Key="SettingValueStyle"
+                   TargetType="TextBlock"
                    BasedOn="{StaticResource {x:Type TextBlock}}">
                 <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.ThemeBackground}" />
                 <Setter Property="TextWrapping" Value="Wrap" />
                 <Setter Property="VerticalAlignment" Value="Top" />
                 <Setter Property="HorizontalAlignment" Value="Left" />
             </Style>
-
-            <DataTemplate x:Key="SettingsViewer" DataType="models:ConfigurationSetting">
-                <Grid>
+            <DataTemplate x:Key="SettingsViewer"
+                          DataType="models:ConfigurationSetting">
+                <Grid AutomationProperties.AutomationId="Grid0_6D542D7F">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*"
+                                       AutomationProperties.AutomationId="RowDefinition1_6D542D7F" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition2_6D542D7F" />
                     </Grid.RowDefinitions>
-
-                    <Border Grid.Row="0">
-                        <ContentControl Content="{Binding Settings}" />
+                    <Border Grid.Row="0"
+                            AutomationProperties.AutomationId="Border3_6D542D7F">
+                        <ContentControl Content="{Binding Settings}"
+                                        AutomationProperties.AutomationId="ContentControl4_6D542D7F" />
                     </Border>
-
-                    <Border Grid.Row="1" Padding="0 15 0 5">
-                        <Label Content="{Binding Name}" Foreground="{DynamicResource MahApps.Brushes.ThemeBackground}" />
+                    <Border Grid.Row="1"
+                            Padding="0 15 0 5"
+                            AutomationProperties.AutomationId="Border5_6D542D7F">
+                        <Label Content="{Binding Name}"
+                               Foreground="{DynamicResource MahApps.Brushes.ThemeBackground}"
+                               AutomationProperties.AutomationId="Label6_6D542D7F" />
                     </Border>
                 </Grid>
             </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid x:Name="MainGrid" VerticalAlignment="Top" HorizontalAlignment="Left">
-
+    <Grid x:Name="MainGrid"
+          VerticalAlignment="Top"
+          HorizontalAlignment="Left"
+          AutomationProperties.AutomationId="Grid7_6D542D7F">
         <Border Visibility="{Binding IsSuccess, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                Padding="10 20 10 10">
+                Padding="10 20 10 10"
+                AutomationProperties.AutomationId="Border8_6D542D7F">
             <controls:FlipView ItemsSource="{Binding ConfigurationSettings}"
                                ItemTemplate="{StaticResource SettingsViewer}"
                                IsBannerEnabled="False"
                                MouseHoverBorderEnabled="False"
                                Width="{Binding ElementName=MainGrid, Path=ActualWidth}">
                 <controls:FlipView.Resources>
-                    <SolidColorBrush x:Key="BlackBrush" Color="{StaticResource MahApps.Colors.ThemeBackground}" />
-                    <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource DarkColor1}" />
+                    <SolidColorBrush x:Key="BlackBrush"
+                                     Color="{StaticResource MahApps.Colors.ThemeBackground}"
+                                     AutomationProperties.AutomationId="SolidColorBrush9_6D542D7F" />
+                    <SolidColorBrush x:Key="WhiteBrush"
+                                     Color="{StaticResource DarkColor1}"
+                                     AutomationProperties.AutomationId="SolidColorBrush10_6D542D7F" />
                 </controls:FlipView.Resources>
             </controls:FlipView>
         </Border>
-
-        <Border Visibility="{Binding IsSuccess, Converter={StaticResource TrueCollapsedFalseVisible}}">
-            <StackPanel Orientation="Vertical">
+        <Border Visibility="{Binding IsSuccess, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                AutomationProperties.AutomationId="Border11_6D542D7F">
+            <StackPanel Orientation="Vertical"
+                        AutomationProperties.AutomationId="StackPanel12_6D542D7F">
                 <TextBlock TextWrapping="Wrap"
-                           Text="{lex:Loc ImportSettingsText}" />
-                <StackPanel Orientation="Horizontal" Margin="0 20 0 0">
+                           Text="{lex:Loc ImportSettingsText}"
+                           AutomationProperties.AutomationId="TextBlock13_6D542D7F" />
+                <StackPanel Orientation="Horizontal"
+                            Margin="0 20 0 0"
+                            AutomationProperties.AutomationId="StackPanel14_6D542D7F">
                     <Button Width="100"
                             Content="{lex:Loc Import}"
-                            Command="{Binding ImportCommand}" />
-                    <controls:ProgressRing Margin="20 0 0 0" 
-                                           Foreground="{DynamicResource MahApps.Brushes.Accent}" 
-                                           Height="40" 
-                                           Width="40" 
-                                           IsActive="{Binding IsInProgress}" 
+                            Command="{Binding ImportCommand}"
+                            AutomationProperties.AutomationId="Button15_6D542D7F" />
+                    <controls:ProgressRing Margin="20 0 0 0"
+                                           Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                                           Height="40"
+                                           Width="40"
+                                           IsActive="{Binding IsInProgress}"
                                            VerticalAlignment="Center" />
                 </StackPanel>
                 <Label Content="{lex:Loc ImportSettingsErrorText}"  
                        Margin="0 20 0 0"
-                       Style="{StaticResource MonacoLabel}" 
-                       Foreground="{StaticResource RedBrush}"  
-                       FontSize="{StaticResource NormalFontSize}" 
-                       Visibility="{Binding IsError, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
+                       Style="{StaticResource MonacoLabel}"
+                       Foreground="{StaticResource RedBrush}"
+                       FontSize="{StaticResource NormalFontSize}"
+                       Visibility="{Binding IsError, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                       AutomationProperties.AutomationId="Label16_6D542D7F" />
             </StackPanel>
         </Border>
     </Grid>
-
 </operatorMenu:OperatorMenuPage>

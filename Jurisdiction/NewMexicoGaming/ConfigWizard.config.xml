@@ -20,7 +20,7 @@ as follows:
         <PrintIdentity Visibility="Hidden"/>
     </IdentityPage>  
     <CompletionPage ShowGameSetupMessage="true"/>
-    <HardMetersConfig Configurable="false" Enable="true"/>
+    <HardMetersConfig CanReconfigure="true"/>
     <ProtocolConfiguration>
         <ProtocolsAllowed>
             <Protocol Name="G2S"/>

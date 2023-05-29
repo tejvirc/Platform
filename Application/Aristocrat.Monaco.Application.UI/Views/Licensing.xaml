@@ -1,8 +1,8 @@
 ﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.Licensing"
                                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                xmlns:dialog="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
@@ -11,65 +11,107 @@
                                lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
-                               d:DataContext="{d:DesignInstance viewModels:LicenseViewModel, IsDesignTimeCreatable=False}" 
+                               d:DataContext="{d:DesignInstance viewModels:LicenseViewModel, IsDesignTimeCreatable=False}"
                                FocusManager.FocusedElement="{Binding ElementName=MainMenu}"
                                dialog:DialogParticipation.Register="{Binding}"
                                Background="Transparent">
-
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <Style TargetType="Label" BasedOn="{StaticResource MonacoLabel}">
-                <Setter Property="Margin" Value="0 0 10 10" />
-                <Setter Property="VerticalAlignment" Value="Center" />
+            <Style TargetType="Label"
+                   BasedOn="{StaticResource MonacoLabel}">
+                <Setter Property="Margin"
+                        Value="0 0 10 10" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
             </Style>
-
-            <Style TargetType="TextBlock" BasedOn="{StaticResource MonacoTextBlock}">
-                <Setter Property="Margin" Value="0 0 0 10" />
-                <Setter Property="VerticalAlignment" Value="Center" />
+            <Style TargetType="TextBlock"
+                   BasedOn="{StaticResource MonacoTextBlock}">
+                <Setter Property="Margin"
+                        Value="0 0 0 10" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
             </Style>
-
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid x:Name="MainGrid">
+    <Grid x:Name="MainGrid"
+          AutomationProperties.AutomationId="Grid0_1D4F2826">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition1_1D4F2826" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition2_1D4F2826" />
         </Grid.RowDefinitions>
-
-        <Grid Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Grid Grid.Row="0"
+              VerticalAlignment="Stretch"
+              HorizontalAlignment="Stretch"
+              AutomationProperties.AutomationId="Grid3_1D4F2826">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition4_1D4F2826" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition5_1D4F2826" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition6_1D4F2826" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition7_1D4F2826" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition8_1D4F2826" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="350"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="350"
+                                  AutomationProperties.AutomationId="ColumnDefinition9_1D4F2826" />
+                <ColumnDefinition Width="Auto"
+                                  AutomationProperties.AutomationId="ColumnDefinition10_1D4F2826" />
             </Grid.ColumnDefinitions>
-
-            <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc LicenseId}"/>
-            <TextBlock Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Text="{Binding Id}"/>
-
-            <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc LicenseConfiguration}" />
-            <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Text="{Binding LicenseConfiguration}"/>
-
-            <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc TimeRemaining}" />
-            <TextBlock Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Text="{Binding TimeRemaining}"/>
-
-            <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc JurisdictionId}" />
-            <TextBlock Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Text="{Binding JurisdictionId}"/>
-
-            <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc EnabledGamesLimit}" />
-            <TextBlock Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Text="{Binding EnabledGamesLimit}"/>
+            <Label Grid.Row="0"
+                   Grid.Column="0"
+                   Content="{lex:Loc LicenseId}"
+                   AutomationProperties.AutomationId="Label11_1D4F2826" />
+            <TextBlock Grid.Row="0"
+                       Grid.Column="1"
+                       VerticalAlignment="Center"
+                       Text="{Binding Id}"
+                       AutomationProperties.AutomationId="TextBlock12_1D4F2826" />
+            <Label Grid.Row="1"
+                   Grid.Column="0"
+                   Content="{lex:Loc LicenseConfiguration}"
+                   AutomationProperties.AutomationId="Label13_1D4F2826" />
+            <TextBlock Grid.Row="1"
+                       Grid.Column="1"
+                       VerticalAlignment="Center"
+                       Text="{Binding LicenseConfiguration}"
+                       AutomationProperties.AutomationId="TextBlock14_1D4F2826" />
+            <Label Grid.Row="2"
+                   Grid.Column="0"
+                   Content="{lex:Loc TimeRemaining}"
+                   AutomationProperties.AutomationId="Label15_1D4F2826" />
+            <TextBlock Grid.Row="2"
+                       Grid.Column="1"
+                       VerticalAlignment="Center"
+                       Text="{Binding TimeRemaining}"
+                       AutomationProperties.AutomationId="TextBlock16_1D4F2826" />
+            <Label Grid.Row="3"
+                   Grid.Column="0"
+                   Content="{lex:Loc JurisdictionId}"
+                   AutomationProperties.AutomationId="Label17_1D4F2826" />
+            <TextBlock Grid.Row="3"
+                       Grid.Column="1"
+                       VerticalAlignment="Center"
+                       Text="{Binding JurisdictionId}"
+                       AutomationProperties.AutomationId="TextBlock18_1D4F2826" />
+            <Label Grid.Row="4"
+                   Grid.Column="0"
+                   Content="{lex:Loc EnabledGamesLimit}"
+                   AutomationProperties.AutomationId="Label19_1D4F2826" />
+            <TextBlock Grid.Row="4"
+                       Grid.Column="1"
+                       VerticalAlignment="Center"
+                       Text="{Binding EnabledGamesLimit}"
+                       AutomationProperties.AutomationId="TextBlock20_1D4F2826" />
         </Grid>
-
         <DataGrid Grid.Row="1"
                   Margin="0 10"
                   ItemsSource="{Binding Licenses, Mode=OneWay}"
@@ -78,24 +120,26 @@
                   ScrollViewer.CanContentScroll="True"
                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
-                  Visibility="{Binding HasLicenses, Converter={StaticResource TrueVisibleFalseCollapsed}}">
-
+                  Visibility="{Binding HasLicenses, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                  AutomationProperties.AutomationId="DataGrid21_1D4F2826">
             <DataGrid.ColumnHeaderStyle>
-                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MonacoDataGridColumnHeader}">
-                    <Setter Property="FontSize" Value="16"/>
+                <Style TargetType="DataGridColumnHeader"
+                       BasedOn="{StaticResource MonacoDataGridColumnHeader}">
+                    <Setter Property="FontSize"
+                            Value="16" />
                 </Style>
             </DataGrid.ColumnHeaderStyle>
-
             <DataGrid.CellStyle>
-                <Style TargetType="DataGridCell" BasedOn="{StaticResource MonacoDataGridCell}">
-                    <Setter Property="FontSize" Value="16"/>
+                <Style TargetType="DataGridCell"
+                       BasedOn="{StaticResource MonacoDataGridCell}">
+                    <Setter Property="FontSize"
+                            Value="16" />
                 </Style>
             </DataGrid.CellStyle>
-
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{lex:Loc SoftwareLicense}" Binding="{Binding}" />
+                <DataGridTextColumn Header="{lex:Loc SoftwareLicense}" Binding="{Binding}" 
+                                    AutomationProperties.AutomationId="DataGridTextColumn22_1D4F2826" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
-
 </operatorMenu:OperatorMenuPage>

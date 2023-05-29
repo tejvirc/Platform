@@ -35,7 +35,7 @@
 
         // Mock Services
         private Mock<IPropertiesManager> _propertiesManager;
-        EventLogTicketCreator _target;
+        private EventLogTicketCreator _target;
         private Mock<ITime> _time;
         private Mock<IIO> _iio;
 

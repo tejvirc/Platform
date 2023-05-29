@@ -18,57 +18,60 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid>
+    <Grid AutomationProperties.AutomationId="Grid0_62364A9">
         <Label HorizontalAlignment="Center"
                VerticalAlignment="Center"
                HorizontalContentAlignment="Center"
                VerticalContentAlignment="Center"
                Style="{StaticResource MonacoLabel}"
                Content="{lex:Loc NoProgressiveGamesEnabled}"
-               Visibility="{Binding HasGames, Mode=OneWay, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
-
+               Visibility="{Binding HasGames, Mode=OneWay, Converter={StaticResource TrueCollapsedFalseVisible}}"
+               AutomationProperties.AutomationId="Label1_62364A9" />
         <DataGrid Margin="0"
                   HorizontalAlignment="Center"
                   VerticalAlignment="Top"
                   ItemsSource="{Binding ProgressiveSummary}"
-                  ScrollViewer.CanContentScroll="True" 
+                  ScrollViewer.CanContentScroll="True"
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
                   MaxWidth="1600"
                   MaxHeight="600"
-                  EnableRowVirtualization="False" 
+                  EnableRowVirtualization="False"
                   AutoGenerateColumns="False"
                   Height="Auto"
                   IsEnabled="True"
-                  Visibility="{Binding HasGames, Mode=OneWay, Converter={StaticResource TrueVisibleFalseCollapsed}}">
-
+                  Visibility="{Binding HasGames, Mode=OneWay, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                  AutomationProperties.AutomationId="DataGrid2_62364A9">
             <DataGrid.ColumnHeaderStyle>
-                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MonacoDataGridColumnHeader}">
-                    <Setter Property="FontSize" Value="14"/>
+                <Style TargetType="DataGridColumnHeader"
+                       BasedOn="{StaticResource MonacoDataGridColumnHeader}">
+                    <Setter Property="FontSize"
+                            Value="14" />
                 </Style>
             </DataGrid.ColumnHeaderStyle>
             <DataGrid.Columns>
-                <DataGridTemplateColumn Header="{lex:Loc ProgressiveLevel}">
+                <DataGridTemplateColumn Header="{lex:Loc ProgressiveLevel}"
+                                        AutomationProperties.AutomationId="DataGridTemplateColumn3_62364A9">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="models:ProgressiveSummaryModel">
-                            <commonControls:SmartLongNameTextBlock ContentText="{Binding ProgressiveLevel}" ContentMaxWidth="350"/>
+                            <commonControls:SmartLongNameTextBlock ContentText="{Binding ProgressiveLevel}"
+                                                                   ContentMaxWidth="350" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn 
-                    Header="{lex:Loc CurrentValue}"
-                    Binding="{Binding CurrentValue}"/>
-                <DataGridTextColumn 
-                    Header="{lex:Loc ConfiguredGame}"
-                    Binding="{Binding ConfiguredGame}"/>
-                <DataGridTextColumn 
-                    Header="{lex:Loc WinLevel}" 
-                    Binding="{Binding WinLevel}"/>
+                <DataGridTextColumn Header="{lex:Loc CurrentValue}"
+                                    Binding="{Binding CurrentValue}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn4_62364A9" />
+                <DataGridTextColumn Header="{lex:Loc ConfiguredGame}"
+                                    Binding="{Binding ConfiguredGame}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn5_62364A9" />
+                <DataGridTextColumn Header="{lex:Loc WinLevel}"
+                                    Binding="{Binding WinLevel}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn6_62364A9" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

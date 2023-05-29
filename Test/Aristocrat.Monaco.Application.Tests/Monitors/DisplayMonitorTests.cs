@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Application.Monitors;
+    using Aristocrat.Cabinet;
     using Cabinet.Contracts;
     using Contracts;
     using Hardware.Contracts.ButtonDeck;
@@ -731,6 +732,7 @@
             mainTouch.SetupGet(v => v.Name).Returns("mane");
             mainTouch.SetupGet(v => v.Id).Returns(0);
             mainTouch.SetupSet(v => v.Status = DeviceStatus.Disconnected);
+            mainTouch.SetupGet(v => v.CommunicationType).Returns(CommunicationTypes.Serial);
             _touchDeviceMocks.Add(mainTouch);
 
             _cabinetDetectionService.Setup(x => x.CabinetExpectedDevices).Returns(Devices);
@@ -782,7 +784,7 @@
             }
         }
 
-        private Mock<T> CreateDeviceMock<T>(DeviceType type, DeviceStatus status = DeviceStatus.Connected)
+        private Mock<T> CreateDeviceMock<T>(DeviceType type, DeviceStatus status = DeviceStatus.Unknown)
             where T : class, IDevice
         {
             var mock = _mockRepository.Create<T>();
@@ -818,14 +820,17 @@
             var mainTouch = CreateDeviceMock<ITouchDevice>(DeviceType.Touch);
             mainTouch.SetupGet(v => v.Name).Returns("mane");
             mainTouch.SetupGet(v => v.Id).Returns(103);
+            mainTouch.SetupGet(v => v.CommunicationType).Returns(CommunicationTypes.HID);
             _touchDeviceMocks.Add(mainTouch);
             var topTouch = CreateDeviceMock<ITouchDevice>(DeviceType.Touch);
             topTouch.SetupGet(v => v.Name).Returns("topp");
             topTouch.SetupGet(v => v.Id).Returns(102);
+            topTouch.SetupGet(v => v.CommunicationType).Returns(CommunicationTypes.HID);
             _touchDeviceMocks.Add(topTouch);
             var vbdTouch = CreateDeviceMock<ITouchDevice>(DeviceType.Touch);
             vbdTouch.SetupGet(v => v.Name).Returns("v'beed");
             vbdTouch.SetupGet(v => v.Id).Returns(104);
+            vbdTouch.SetupGet(v => v.CommunicationType).Returns(CommunicationTypes.HID);
             _touchDeviceMocks.Add(vbdTouch);
 
             _cabinetDetectionService.Setup(s => s.GetDisplayRoleMappedToTouchDevice(It.Is<ITouchDevice>(d => d.Id == 103))).Returns(mainVideo.Object.Role);

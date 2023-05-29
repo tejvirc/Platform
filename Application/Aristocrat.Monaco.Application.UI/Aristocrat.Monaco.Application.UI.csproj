@@ -100,7 +100,7 @@
     <ProjectReference Include="..\..\Test\integration\DebugCurrencyHandler\DebugCurrencyHandler\DebugCurrencyHandler.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="2.0.1-beta0023" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="2.0.1-beta0034" />
     <PackageReference Include="Aristocrat.MVVM" Version="3.0.0-beta0003" />
     <PackageReference Include="Aristocrat.Simulation.HarkeyReels" Version="2.0.1-beta0003" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />
@@ -112,6 +112,8 @@
     <PackageReference Include="MindFusion.Keyboard.Wpf" Version="5.0.3" />
     <PackageReference Include="Mono.Addins" Version="1.4.1" />
     <PackageReference Include="Mono.Addins.CecilReflector" Version="1.4.1" />
+    <PackageReference Include="QRCoder" Version="1.4.3" />
+    <PackageReference Include="QRCoder.Xaml" Version="1.4.3" />
     <PackageReference Include="OxyPlot.Wpf" Version="2.1.0" />
     <PackageReference Include="WPFLocalizeExtension" Version="3.9.4" />
   </ItemGroup>

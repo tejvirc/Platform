@@ -42,9 +42,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.PennsylvaniaVLTJurisdiction" filterid="PennsylvaniaVLTLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.PennsylvaniaVLTJurisdiction" filterid="PennsylvaniaVLTLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.PennsylvaniaVLTJurisdiction" filterid="PennsylvaniaVLTLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -130,10 +127,6 @@
   </Extension>
   <Extension path="/Locale/Configuration">
     <FilePath FilePath="..\jurisdiction\Pennsylvania-VLT\Locale.config.xml" filterid="PennsylvaniaVLTLocaleConfig" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="PennsylvaniaVLTLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\VLT\" />
-    <FilePath FilePath="..\jurisdiction\Pennsylvania-VLT\resources\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\Pennsylvania-VLT\Lobby.config.xml" filterid="PennsylvaniaVLTLobbyConfig" />

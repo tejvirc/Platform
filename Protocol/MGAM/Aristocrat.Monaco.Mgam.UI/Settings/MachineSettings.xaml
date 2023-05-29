@@ -3,40 +3,42 @@
                     xmlns:local="clr-namespace:Aristocrat.Monaco.Mgam.UI.Settings"
                     xmlns:lex="http://wpflocalizeextension.codeplex.com"
                     xmlns:loc="http://monaco.aristocrat.com/localization">
-
     <DataTemplate DataType="{x:Type local:MachineSettings}">
-
-        <Grid>
+        <Grid AutomationProperties.AutomationId="Grid0_C437F9AC">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition1_C437F9AC" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition2_C437F9AC" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition3_C437F9AC" />
             </Grid.RowDefinitions>
-
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto"
+                                  AutomationProperties.AutomationId="ColumnDefinition4_C437F9AC" />
+                <ColumnDefinition Width="*"
+                                  AutomationProperties.AutomationId="ColumnDefinition5_C437F9AC" />
             </Grid.ColumnDefinitions>
-
             <TextBlock Grid.Column="0"
                        Style="{DynamicResource SettingNameStyle}"
                        Grid.Row="0"
-                       Text="{lex:Loc DirectoryPort}" />
+                       Text="{lex:Loc DirectoryPort}"
+                       AutomationProperties.AutomationId="TextBlock6_C437F9AC" />
             <TextBlock Grid.Column="1"
                        Style="{DynamicResource SettingValueStyle}"
                        Grid.Row="0"
-                       Text="{Binding DirectoryPort}" />
-
+                       Text="{Binding DirectoryPort}"
+                       AutomationProperties.AutomationId="TextBlock7_C437F9AC" />
             <TextBlock Grid.Column="0"
                        Style="{DynamicResource SettingNameStyle}"
                        Grid.Row="1"
-                       Text="{lex:Loc ServiceName}" />
+                       Text="{lex:Loc ServiceName}"
+                       AutomationProperties.AutomationId="TextBlock8_C437F9AC" />
             <TextBlock Grid.Column="1"
                        Style="{DynamicResource SettingValueStyle}"
                        Grid.Row="1"
-                       Text="{Binding ServiceName}" />
+                       Text="{Binding ServiceName}"
+                       AutomationProperties.AutomationId="TextBlock9_C437F9AC" />
         </Grid>
-
     </DataTemplate>
-
 </ResourceDictionary>

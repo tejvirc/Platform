@@ -235,8 +235,7 @@
             // Store the validated selected game
             Logger.Info(
                 $"New game selected, replay={request.IsReplay}. Game Id: {request.GameId} with a denom of {request.Denomination}");
-            _propertiesManager.SetProperty(GamingConstants.SelectedGameId, request.GameId);
-            _propertiesManager.SetProperty(GamingConstants.SelectedDenom, request.Denomination);
+            _propertiesManager.SetActiveGame(request.GameId, request.Denomination);
             _propertiesManager.SetProperty(GamingConstants.SelectedBetOption, request.BetOption);
 
             if (!request.IsReplay)

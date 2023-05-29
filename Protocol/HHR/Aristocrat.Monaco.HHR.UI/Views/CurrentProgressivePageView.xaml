@@ -1,88 +1,116 @@
 ﻿<menu:HHRMenuPage x:Class="Aristocrat.Monaco.Hhr.UI.Views.CurrentProgressivePageView"
-                                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-                                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                                 xmlns:menu="clr-namespace:Aristocrat.Monaco.Hhr.UI.Menu"
-                                 xmlns:common="http://monaco.aristocrat.com/common"
-                                 xmlns:convertors="clr-namespace:Aristocrat.Monaco.Hhr.UI.Converters"
-                                 xmlns:models="clr-namespace:Aristocrat.Monaco.Hhr.UI.Models"
-                                 mc:Ignorable="d"
-                                 d:DesignHeight="300" d:DesignWidth="808">
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:menu="clr-namespace:Aristocrat.Monaco.Hhr.UI.Menu"
+                  xmlns:common="http://monaco.aristocrat.com/common"
+                  xmlns:convertors="clr-namespace:Aristocrat.Monaco.Hhr.UI.Converters"
+                  xmlns:models="clr-namespace:Aristocrat.Monaco.Hhr.UI.Models"
+                  mc:Ignorable="d"
+                  d:DesignHeight="300"
+                  d:DesignWidth="808">
     <UserControl.Resources>
         <ResourceDictionary>
-            <convertors:IndexToWidthOfStackGrid x:Key="IndexToWidthOfStackGrid"/>
+            <convertors:IndexToWidthOfStackGrid x:Key="IndexToWidthOfStackGrid" />
             <common:CurrencyConverter x:Key="CurrencyConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <StackPanel Orientation="Vertical"  HorizontalAlignment="Center" VerticalAlignment="Center" >
+    <StackPanel Orientation="Vertical"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                AutomationProperties.AutomationId="StackPanel0_8240C67D">
         <!-- Header - Current Progressive By Bet-->
-        <Image Source="../Resources/Progressive/CurrentProgressiveByBet.png"/>
-        <Grid>
+        <Image Source="../Resources/Progressive/CurrentProgressiveByBet.png"
+               AutomationProperties.AutomationId="Image1_8240C67D" />
+        <Grid AutomationProperties.AutomationId="Grid2_8240C67D">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="*"
+                               AutomationProperties.AutomationId="RowDefinition3_8240C67D" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition4_8240C67D" />
+                <RowDefinition Height="*"
+                               AutomationProperties.AutomationId="RowDefinition5_8240C67D" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*"
+                                  AutomationProperties.AutomationId="ColumnDefinition6_8240C67D" />
+                <ColumnDefinition Width="Auto"
+                                  AutomationProperties.AutomationId="ColumnDefinition7_8240C67D" />
+                <ColumnDefinition Width="*"
+                                  AutomationProperties.AutomationId="ColumnDefinition8_8240C67D" />
             </Grid.ColumnDefinitions>
-
-            <ItemsControl Grid.Column="1" Grid.Row="1" ItemsSource="{Binding ProgressivePools}">
+            <ItemsControl Grid.Column="1"
+                          Grid.Row="1"
+                          ItemsSource="{Binding ProgressivePools}"
+                          AutomationProperties.AutomationId="ItemsControl9_8240C67D">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal" />
+                        <StackPanel Orientation="Horizontal"
+                                    AutomationProperties.AutomationId="StackPanel10_8240C67D" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
-
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="models:ProgressivePoolModel">
-                        <HeaderedItemsControl ItemsSource="{Binding CurrentAmount}" AlternationCount="100" >
+                        <HeaderedItemsControl ItemsSource="{Binding CurrentAmount}"
+                                              AlternationCount="100"
+                                              AutomationProperties.AutomationId="HeaderedItemsControl11_8240C67D">
                             <HeaderedItemsControl.Template>
                                 <ControlTemplate TargetType="HeaderedItemsControl">
-
-                                        <StackPanel>
-                                            <ContentPresenter ContentSource="Header" />
-                                            <ItemsPresenter />
-                                        </StackPanel>
+                                    <StackPanel AutomationProperties.AutomationId="StackPanel12_8240C67D">
+                                        <ContentPresenter ContentSource="Header"
+                                                          AutomationProperties.AutomationId="ContentPresenter13_8240C67D" />
+                                        <ItemsPresenter AutomationProperties.AutomationId="ItemsPresenter14_8240C67D" />
+                                    </StackPanel>
                                 </ControlTemplate>
                             </HeaderedItemsControl.Template>
-
                             <HeaderedItemsControl.Header>
                                 <!-- Header for each Progressive pool like BET20,BET200 etc -->
-                                <StackPanel Margin="0 30 0 10">
-                                    <Image Source="../Resources/Progressive/Bet.png" Height="30"/>
-                                    <TextBlock  Text="{Binding Bet}" FontWeight="Bold" Foreground="YellowGreen" FontSize="31"
-                                                    Margin="0 -14 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <StackPanel Margin="0 30 0 10"
+                                            AutomationProperties.AutomationId="StackPanel15_8240C67D">
+                                    <Image Source="../Resources/Progressive/Bet.png"
+                                           Height="30"
+                                           AutomationProperties.AutomationId="Image16_8240C67D" />
+                                    <TextBlock Text="{Binding Bet}"
+                                               FontWeight="Bold"
+                                               Foreground="YellowGreen"
+                                               FontSize="31"
+                                               Margin="0 -14 0 0"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               AutomationProperties.AutomationId="TextBlock17_8240C67D" />
                                 </StackPanel>
                             </HeaderedItemsControl.Header>
-
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Vertical" />
+                                    <StackPanel Orientation="Vertical"
+                                                AutomationProperties.AutomationId="StackPanel18_8240C67D" />
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
-
                             <!-- Amount in Each level of a progressive pool -->
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid HorizontalAlignment="Center" VerticalAlignment="Center"
-                                          Width="{Binding Path=(ItemsControl.AlternationIndex), 
-                                          RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource IndexToWidthOfStackGrid}}"
-                                          Height="39" Margin="20 10 0 0">
+                                    <Grid HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Width="{Binding Path=(ItemsControl.AlternationIndex), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource IndexToWidthOfStackGrid}}"
+                                          Height="39"
+                                          Margin="20 10 0 0"
+                                          AutomationProperties.AutomationId="Grid19_8240C67D">
                                         <Grid.Background>
-                                            <ImageBrush ImageSource="../Resources/Progressive/GridStack_1.png"/>
+                                            <ImageBrush ImageSource="../Resources/Progressive/GridStack_1.png"
+                                                        AutomationProperties.AutomationId="ImageBrush20_8240C67D" />
                                         </Grid.Background>
-
-                                        <TextBlock FontWeight="Bold" FontSize="30" HorizontalAlignment="Center" Foreground="White"
-                                                   VerticalAlignment="Center" Text="{Binding Converter={StaticResource CurrencyConverter}}" />
+                                        <TextBlock FontWeight="Bold"
+                                                   FontSize="30"
+                                                   HorizontalAlignment="Center"
+                                                   Foreground="White"
+                                                   VerticalAlignment="Center"
+                                                   Text="{Binding Converter={StaticResource CurrencyConverter}}"
+                                                   AutomationProperties.AutomationId="TextBlock21_8240C67D" />
                                     </Grid>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
-                        </HeaderedItemsControl >
+                        </HeaderedItemsControl>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

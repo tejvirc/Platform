@@ -4,7 +4,7 @@
     xmlns:behaviors="clr-namespace:Aristocrat.Monaco.UI.Common.Behaviors;assembly=Aristocrat.Monaco.UI.Common"
     xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
     xmlns:views="clr-namespace:Aristocrat.Monaco.Application.UI.Views"
-    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
     Title="Inspection Wizard" WindowStyle="None"
     Initialized="Window_Initialized" Name="MainWindow"
     Closing="MainWindow_Closing"
@@ -18,10 +18,10 @@
         </ResourceDictionary>
     </common:BaseWindow.Resources>
 
-    <i:Interaction.Behaviors>
+    <b:Interaction.Behaviors>
         <behaviors:TouchWindowBehavior/>
         <behaviors:HighDpiWindowBehavior/>
-    </i:Interaction.Behaviors>
+    </b:Interaction.Behaviors>
 
     <views:InspectionPage x:Name="ConfigPage"/>
 

@@ -1,8 +1,8 @@
 ﻿<UserControl x:Class="Aristocrat.Monaco.Gaming.UI.Views.Overlay.RGInfo"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events;assembly=Aristocrat.Monaco.UI.Common"
              xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
@@ -12,11 +12,11 @@
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}"
              Background="Transparent"
-             d:DesignHeight="300" d:DesignWidth="300">
-
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             AutomationProperties.AutomationId="UserControl0_610F9F94">
     <UserControl.Resources>
         <ResourceDictionary>
-
             <!-- Apply MahApps.Metro styles to all controls -->
             <ResourceDictionary.MergedDictionaries>
                 <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
@@ -30,45 +30,54 @@
                 <ResourceDictionary Source="../../Skins/Styles.xaml" />
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
             <converters:EqualityVisibilityConverter x:Key="EqualToVisible"></converters:EqualityVisibilityConverter>
         </ResourceDictionary>
     </UserControl.Resources>
 
     <b:Interaction.Triggers>
         <events:RoutedEventTrigger RoutedEvent="Control.MouseLeftButtonDown">
-            <events:EventToCommandAction Command="{Binding TouchResponsibleGamingInfoCommand}"/>
+            <events:EventToCommandAction Command="{Binding TouchResponsibleGamingInfoCommand}" />
         </events:RoutedEventTrigger>
     </b:Interaction.Triggers>
-
-    <Grid>
+    <Grid AutomationProperties.AutomationId="Grid1_610F9F94">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition2_610F9F94" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition3_610F9F94" />
         </Grid.RowDefinitions>
-
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition4_610F9F94" />
+            <ColumnDefinition Width="*"
+                              AutomationProperties.AutomationId="ColumnDefinition5_610F9F94" />
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition6_610F9F94" />
         </Grid.ColumnDefinitions>
-
-        <ItemsControl ItemsSource="{Binding Path=ResponsibleGaming.Pages}" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="3">
+        <ItemsControl ItemsSource="{Binding Path=ResponsibleGaming.Pages}"
+                      Grid.Column="0"
+                      Grid.RowSpan="2"
+                      Grid.ColumnSpan="3"
+                      AutomationProperties.AutomationId="ItemsControl7_610F9F94">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas />
+                    <Canvas AutomationProperties.AutomationId="Canvas8_610F9F94" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
                 <Style>
-                    <Setter Property="Canvas.Left" Value="0" />
-                    <Setter Property="Canvas.Top" Value="0" />
+                    <Setter Property="Canvas.Left"
+                            Value="0" />
+                    <Setter Property="Canvas.Top"
+                            Value="0" />
                 </Style>
             </ItemsControl.ItemContainerStyle>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Image Stretch="None" IsHitTestVisible="False" 
-                           common:ImageHelper.SourceResourceKey="{Binding BackgroundKey}">
+                    <Image Stretch="None"
+                           IsHitTestVisible="False"
+                           common:ImageHelper.SourceResourceKey="{Binding BackgroundKey}"
+                           AutomationProperties.AutomationId="Image9_610F9F94">
                         <Image.Visibility>
                             <MultiBinding Converter="{StaticResource EqualToVisible}">
                                 <Binding Path="DataContext.ResponsibleGaming.InfoPageIndex"
@@ -80,94 +89,131 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-
-        <Image Stretch="None" Grid.Row="1" Grid.Column="1" Margin="4" Visibility="{Binding IsResponsibleGamingInfoFullScreen, Converter={StaticResource TrueCollapsedFalseVisible}}">
+        <Image Stretch="None"
+               Grid.Row="1"
+               Grid.Column="1"
+               Margin="4"
+               Visibility="{Binding IsResponsibleGamingInfoFullScreen, Converter={StaticResource TrueCollapsedFalseVisible}}"
+               AutomationProperties.AutomationId="Image10_610F9F94">
             <Image.Style>
                 <Style TargetType="Image">
-                    <Setter Property="Source" Value="{DynamicResource RGInfoPressToReturn}" />
+                    <Setter Property="Source"
+                            Value="{DynamicResource RGInfoPressToReturn}" />
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding HasZeroCredits}" Value="True">
-                            <Setter Property="Source" Value="{DynamicResource RGInfoPressToReturnZeroCredits}" />
+                        <DataTrigger Binding="{Binding HasZeroCredits}"
+                                     Value="True"
+                                     AutomationProperties.AutomationId="DataTrigger11_610F9F94">
+                            <Setter Property="Source"
+                                    Value="{DynamicResource RGInfoPressToReturnZeroCredits}" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </Image.Style>
         </Image>
-
-        <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="10,0,0,30" VerticalAlignment="Center" 
-                    Visibility="{Binding IsResponsibleGamingInfoFullScreen, Converter={StaticResource TrueVisibleFalseCollapsed}}">
-            <Grid>
+        <StackPanel Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                    Orientation="Horizontal"
+                    Margin="10,0,0,30"
+                    VerticalAlignment="Center"
+                    Visibility="{Binding IsResponsibleGamingInfoFullScreen, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                    AutomationProperties.AutomationId="StackPanel12_610F9F94">
+            <Grid AutomationProperties.AutomationId="Grid13_610F9F94">
                 <Grid.Style>
                     <Style TargetType="Grid">
-                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Setter Property="Visibility"
+                                Value="Collapsed" />
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding ResponsibleGaming.IsExitButtonVisible}" 
-                                         Value="true">
-                                <Setter Property="Visibility" Value="Visible" />
+                            <DataTrigger Binding="{Binding ResponsibleGaming.IsExitButtonVisible}"
+                                         Value="true"
+                                         AutomationProperties.AutomationId="DataTrigger14_610F9F94">
+                                <Setter Property="Visibility"
+                                        Value="Visible" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </Grid.Style>
-                
                 <Image Stretch="None"
                        Margin="0 0 0 0"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
-                       Source="{DynamicResource ButtonBorder}" />
-
+                       Source="{DynamicResource ButtonBorder}"
+                       AutomationProperties.AutomationId="Image15_610F9F94" />
                 <Button x:Name="btnExit"
                         Margin="5 9 0 0"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Command="{Binding Path=ExitResponsibleGamingInfoCommand}"
-                        Style="{StaticResource stlFlatButton}">
+                        Style="{StaticResource stlFlatButton}"
+                        AutomationProperties.AutomationId="Button16_610F9F94">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
-                            <Image Name="leftArrowImage" Stretch="None" Source="{DynamicResource ExitNormal}"/>
+                            <Image Name="leftArrowImage"
+                                   Stretch="None"
+                                   Source="{DynamicResource ExitNormal}"
+                                   AutomationProperties.AutomationId="Image17_610F9F94" />
                             <ControlTemplate.Triggers>
-                                <Trigger Property="IsPressed" Value="true">
-                                    <Setter TargetName="leftArrowImage" Property="Source" Value="{DynamicResource ExitSelected}"/>
+                                <Trigger Property="IsPressed"
+                                         Value="true"
+                                         AutomationProperties.AutomationId="Trigger18_610F9F94">
+                                    <Setter TargetName="leftArrowImage"
+                                            Property="Source"
+                                            Value="{DynamicResource ExitSelected}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
             </Grid>
-
-            <Grid Margin="15 0 0 0">
+            <Grid Margin="15 0 0 0"
+                  AutomationProperties.AutomationId="Grid19_610F9F94">
                 <Grid.Style>
                     <Style TargetType="Grid">
-                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Setter Property="Visibility"
+                                Value="Collapsed" />
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding ResponsibleGaming.IsPrintHelplineButtonVisible}" 
-                                         Value="true">
-                                <Setter Property="Visibility" Value="Visible" />
+                            <DataTrigger Binding="{Binding ResponsibleGaming.IsPrintHelplineButtonVisible}"
+                                         Value="true"
+                                         AutomationProperties.AutomationId="DataTrigger20_610F9F94">
+                                <Setter Property="Visibility"
+                                        Value="Visible" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </Grid.Style>
-                
-                <Image Stretch="None" 
+                <Image Stretch="None"
                        Margin="0 0 0 0"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
-                       Source="{DynamicResource ButtonBorder}" />
-                
+                       Source="{DynamicResource ButtonBorder}"
+                       AutomationProperties.AutomationId="Image21_610F9F94" />
                 <Button x:Name="btnPrintHelpline"
-                    Margin="5,9,0,0"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Command="{Binding Path=PrintHelplineMessageCommand}"
-                    Style="{StaticResource stlFlatButton}">
+                        Margin="5,9,0,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Command="{Binding Path=PrintHelplineMessageCommand}"
+                        Style="{StaticResource stlFlatButton}"
+                        AutomationProperties.AutomationId="Button22_610F9F94">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
-                            <Image Name="helplineImage" Stretch="None" Source="{DynamicResource PrintHelplineNormal}"/>
+                            <Image Name="helplineImage"
+                                   Stretch="None"
+                                   Source="{DynamicResource PrintHelplineNormal}"
+                                   AutomationProperties.AutomationId="Image23_610F9F94" />
                             <ControlTemplate.Triggers>
-                                <Trigger Property="IsPressed" Value="true">
-                                    <Setter TargetName="helplineImage" Property="Source" Value="{DynamicResource PrintHelplineSelected}"/>
+                                <Trigger Property="IsPressed"
+                                         Value="true"
+                                         AutomationProperties.AutomationId="Trigger24_610F9F94">
+                                    <Setter TargetName="helplineImage"
+                                            Property="Source"
+                                            Value="{DynamicResource PrintHelplineSelected}" />
                                 </Trigger>
-                                <Trigger Property="IsEnabled" Value="False">
-                                    <Setter TargetName="helplineImage" Property="Source" Value="{DynamicResource PrintHelplineDisabled}"/>
+                                <Trigger Property="IsEnabled"
+                                         Value="False"
+                                         AutomationProperties.AutomationId="Trigger25_610F9F94">
+                                    <Setter TargetName="helplineImage"
+                                            Property="Source"
+                                            Value="{DynamicResource PrintHelplineDisabled}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -175,22 +221,29 @@
                 </Button>
             </Grid>
         </StackPanel>
-
         <Button x:Name="btnRGLeft"
                 Margin="10"
-                Grid.Column="0" 
+                Grid.Column="0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Visibility="{Binding ResponsibleGaming.IsBackButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                 IsEnabled="{Binding ResponsibleGaming.IsBackButtonEnabled}"
                 Command="{Binding Path=ResponsibleGaming.LeftInfoPageNavigationCommand}"
-                Style="{StaticResource stlFlatButton}">
+                Style="{StaticResource stlFlatButton}"
+                AutomationProperties.AutomationId="Button26_610F9F94">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Image Name="leftArrowImage" Stretch="None" Source="{DynamicResource LeftArrowNormal}"/>
+                    <Image Name="leftArrowImage"
+                           Stretch="None"
+                           Source="{DynamicResource LeftArrowNormal}"
+                           AutomationProperties.AutomationId="Image27_610F9F94" />
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsPressed" Value="true">
-                            <Setter TargetName="leftArrowImage" Property="Source" Value="{DynamicResource LeftArrowPressed}"/>
+                        <Trigger Property="IsPressed"
+                                 Value="true"
+                                 AutomationProperties.AutomationId="Trigger28_610F9F94">
+                            <Setter TargetName="leftArrowImage"
+                                    Property="Source"
+                                    Value="{DynamicResource LeftArrowPressed}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -198,18 +251,26 @@
         </Button>
         <Button x:Name="btnRGRight"
                 Margin="10"
-                Grid.Column="2" 
+                Grid.Column="2"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Visibility="{Binding ResponsibleGaming.IsForwardButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                 Command="{Binding Path=ResponsibleGaming.RightInfoPageNavigationCommand}"
-                Style="{StaticResource stlFlatButton}">
+                Style="{StaticResource stlFlatButton}"
+                AutomationProperties.AutomationId="Button29_610F9F94">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Image Name="rightArrowImage" Stretch="None" Source="{DynamicResource RightArrowNormal}"/>
+                    <Image Name="rightArrowImage"
+                           Stretch="None"
+                           Source="{DynamicResource RightArrowNormal}"
+                           AutomationProperties.AutomationId="Image30_610F9F94" />
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsPressed" Value="true">
-                            <Setter TargetName="rightArrowImage" Property="Source" Value="{DynamicResource RightArrowPressed}"/>
+                        <Trigger Property="IsPressed"
+                                 Value="true"
+                                 AutomationProperties.AutomationId="Trigger31_610F9F94">
+                            <Setter TargetName="rightArrowImage"
+                                    Property="Source"
+                                    Value="{DynamicResource RightArrowPressed}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

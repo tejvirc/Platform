@@ -1,8 +1,8 @@
 ﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.MultiProtocolConfigPage"
                                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
@@ -10,64 +10,89 @@
                                lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.Application.UI.Converters"
-                               mc:Ignorable="d" 
+                               mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance viewModels:MultiProtocolConfigPageViewModel, IsDesignTimeCreatable=True}">
-
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converters:ProtocolNameToDisplayNameConverter x:Key="ProtocolNameToDisplayNameConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid>
+    <Grid AutomationProperties.AutomationId="Grid0_6B945F92">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition1_6B945F92" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_6B945F92" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition3_6B945F92" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition4_6B945F92" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition5_6B945F92" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition6_6B945F92" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition7_6B945F92" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition8_6B945F92" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition9_6B945F92" />
         </Grid.RowDefinitions>
-
-        <Label Grid.Row="0" Content="{lex:Loc MultiProtocolValidationSelection}"
-               Visibility="{Binding IsValidationProtocolsEmpty, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
-        <ComboBox Grid.Row="1" Width="Auto" MinWidth="300"
-                  ItemsSource="{Binding ValidationProtocols, Converter={StaticResource ProtocolNameToDisplayNameConverter}}" 
-                  SelectedItem="{Binding ValidationProtocol, Converter={StaticResource ProtocolNameToDisplayNameConverter}}" 
+        <Label Grid.Row="0"
+               Content="{lex:Loc MultiProtocolValidationSelection}"
+               Visibility="{Binding IsValidationProtocolsEmpty, Converter={StaticResource TrueCollapsedFalseVisible}}"
+               AutomationProperties.AutomationId="Label10_6B945F92" />
+        <ComboBox Grid.Row="1"
+                  Width="Auto"
+                  MinWidth="300"
+                  ItemsSource="{Binding ValidationProtocols, Converter={StaticResource ProtocolNameToDisplayNameConverter}}"
+                  SelectedItem="{Binding ValidationProtocol, Converter={StaticResource ProtocolNameToDisplayNameConverter}}"
                   IsEnabled="{Binding IsValidationComboBoxEnabled}"
-                  Visibility="{Binding IsValidationProtocolsEmpty, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
-        <Label Grid.Row="2" Margin="0 20 0 0"
+                  Visibility="{Binding IsValidationProtocolsEmpty, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                  AutomationProperties.AutomationId="ComboBox11_6B945F92" />
+        <Label Grid.Row="2"
+               Margin="0 20 0 0"
                Content="{lex:Loc MultiProtocolFundTransferSelection}"
-               Visibility="{Binding IsFundTransferProtocolsEmpty, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
-        <ComboBox Grid.Row="3" Width="Auto" MinWidth="300"
+               Visibility="{Binding IsFundTransferProtocolsEmpty, Converter={StaticResource TrueCollapsedFalseVisible}}"
+               AutomationProperties.AutomationId="Label12_6B945F92" />
+        <ComboBox Grid.Row="3"
+                  Width="Auto"
+                  MinWidth="300"
                   ItemsSource="{Binding FundTransferProtocols, Converter={StaticResource ProtocolNameToDisplayNameConverter}}"
-                  SelectedItem="{Binding FundTransferProtocol, Converter={StaticResource ProtocolNameToDisplayNameConverter}}" 
+                  SelectedItem="{Binding FundTransferProtocol, Converter={StaticResource ProtocolNameToDisplayNameConverter}}"
                   IsEnabled="{Binding IsFundTransferComboBoxEnabled}"
-                  Visibility="{Binding IsFundTransferProtocolsEmpty, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
-        <Label Grid.Row="4" Margin="0 20 0 0"
+                  Visibility="{Binding IsFundTransferProtocolsEmpty, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                  AutomationProperties.AutomationId="ComboBox13_6B945F92" />
+        <Label Grid.Row="4"
+               Margin="0 20 0 0"
                Content="{lex:Loc MultiProtocolProgressiveSelection}"
-               Visibility="{Binding IsProgressiveProtocolsEmpty, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
-        <ComboBox Grid.Row="5" Width="Auto" MinWidth="300"
+               Visibility="{Binding IsProgressiveProtocolsEmpty, Converter={StaticResource TrueCollapsedFalseVisible}}"
+               AutomationProperties.AutomationId="Label14_6B945F92" />
+        <ComboBox Grid.Row="5"
+                  Width="Auto"
+                  MinWidth="300"
                   ItemsSource="{Binding ProgressiveProtocols, Converter={StaticResource ProtocolNameToDisplayNameConverter}}"
                   SelectedItem="{Binding ProgressiveProtocol, Converter={StaticResource ProtocolNameToDisplayNameConverter}}"
                   IsEnabled="{Binding IsProgressiveComboBoxEnabled}"
-                  Visibility="{Binding IsProgressiveProtocolsEmpty, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
-        <Label Grid.Row="6" Margin="0 20 0 0"
+                  Visibility="{Binding IsProgressiveProtocolsEmpty, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                  AutomationProperties.AutomationId="ComboBox15_6B945F92" />
+        <Label Grid.Row="6"
+               Margin="0 20 0 0"
                Content="{lex:Loc CentralDeterminationSystemSelection}"
-               Visibility="{Binding IsCentralDeterminationSystemsEmpty, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
-        <ComboBox Grid.Row="7" Width="Auto" MinWidth="300"
+               Visibility="{Binding IsCentralDeterminationSystemsEmpty, Converter={StaticResource TrueCollapsedFalseVisible}}"
+               AutomationProperties.AutomationId="Label16_6B945F92" />
+        <ComboBox Grid.Row="7"
+                  Width="Auto"
+                  MinWidth="300"
                   ItemsSource="{Binding CentralDeterminationSystemProtocols, Converter={StaticResource ProtocolNameToDisplayNameConverter}}"
                   SelectedItem="{Binding CentralDeterminationSystemProtocol, Converter={StaticResource ProtocolNameToDisplayNameConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   IsEnabled="{Binding IsCentralDeterminationSystemComboBoxEnabled}"
-                  Visibility="{Binding IsCentralDeterminationSystemsEmpty, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
+                  Visibility="{Binding IsCentralDeterminationSystemsEmpty, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                  AutomationProperties.AutomationId="ComboBox17_6B945F92" />
     </Grid>
 </operatorMenu:OperatorMenuPage>
-

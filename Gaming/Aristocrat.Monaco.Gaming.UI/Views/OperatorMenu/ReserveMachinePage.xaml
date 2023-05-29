@@ -13,47 +13,63 @@
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance viewModels:ReserveMachineViewModel}">
-
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <Style TargetType="TextBox" BasedOn="{StaticResource MonacoTextBox}">
-                <Setter Property="HorizontalAlignment" Value="Left" />
-                <Setter Property="MinWidth" Value="300" />
+            <Style TargetType="TextBox"
+                   BasedOn="{StaticResource MonacoTextBox}">
+                <Setter Property="HorizontalAlignment"
+                        Value="Left" />
+                <Setter Property="MinWidth"
+                        Value="300" />
             </Style>
-
-            <Style TargetType="ComboBox" BasedOn="{StaticResource MonacoComboBox}">
-                <Setter Property="HorizontalAlignment" Value="Left" />
-                <Setter Property="MinWidth" Value="300" />
+            <Style TargetType="ComboBox"
+                   BasedOn="{StaticResource MonacoComboBox}">
+                <Setter Property="HorizontalAlignment"
+                        Value="Left" />
+                <Setter Property="MinWidth"
+                        Value="300" />
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid>
+    <Grid AutomationProperties.AutomationId="Grid0_6976406C">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition1_6976406C" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_6976406C" />
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Margin="10" IsEnabled="{Binding InputEnabledByRuleOverride}">
-            <Label Content="{lex:Loc EnableMachineReserve}"/>
+        <StackPanel Grid.Row="0"
+                    Margin="10"
+                    IsEnabled="{Binding InputEnabledByRuleOverride}"
+                    AutomationProperties.AutomationId="StackPanel3_6976406C">
+            <Label Content="{lex:Loc EnableMachineReserve}"
+                   AutomationProperties.AutomationId="Label4_6976406C" />
             <mah:ToggleSwitch
-                IsEnabled="{Binding IsReserveMachineOptionEnabled, UpdateSourceTrigger=PropertyChanged}"
-                IsOn="{Binding AllowPlayerToReserveMachine, UpdateSourceTrigger=PropertyChanged}"
-                mah:ControlsHelper.ContentCharacterCasing="Upper"
-                mah:ControlsHelper.CornerRadius="0"
-                common:ToggleSwitchButtonHelper.OffContent="{lex:Loc Off}"
-                common:ToggleSwitchButtonHelper.OnContent="{lex:Loc On}" />
+                    IsEnabled="{Binding IsReserveMachineOptionEnabled, UpdateSourceTrigger=PropertyChanged}"
+                    IsOn="{Binding AllowPlayerToReserveMachine, UpdateSourceTrigger=PropertyChanged}"
+                    mah:ControlsHelper.ContentCharacterCasing="Upper"
+                    mah:ControlsHelper.CornerRadius="0"
+                    common:ToggleSwitchButtonHelper.OffContent="{lex:Loc Off}"
+                    common:ToggleSwitchButtonHelper.OnContent="{lex:Loc On}" />
         </StackPanel>
-        <StackPanel Grid.Row="1" Margin="10" IsEnabled="{Binding InputEnabledByRuleOverride}">
+        <StackPanel Grid.Row="1"
+                    Margin="10"
+                    IsEnabled="{Binding InputEnabledByRuleOverride}"
+                    AutomationProperties.AutomationId="StackPanel5_6976406C">
             <Label Content="{lex:Loc ReserveMachineDuration}"
-                   HorizontalAlignment="Left" />
-            <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding ReserveMachineDuration}"
-                      SelectedValue="{Binding ReserveMachineDurationSelection}" SelectedValuePath="Value"
-                      DisplayMemberPath="Key" Margin="0, 10, 0, 0"
-                      IsEnabled="{Binding IsReserveMachineDurationEnabled, UpdateSourceTrigger=PropertyChanged}" />
+                   HorizontalAlignment="Left"
+                   AutomationProperties.AutomationId="Label6_6976406C" />
+            <ComboBox HorizontalAlignment="Left"
+                      ItemsSource="{Binding ReserveMachineDuration}"
+                      SelectedValue="{Binding ReserveMachineDurationSelection}"
+                      SelectedValuePath="Value"
+                      DisplayMemberPath="Key"
+                      Margin="0, 10, 0, 0"
+                      IsEnabled="{Binding IsReserveMachineDurationEnabled, UpdateSourceTrigger=PropertyChanged}"
+                      AutomationProperties.AutomationId="ComboBox7_6976406C" />
         </StackPanel>
     </Grid>
 </operatorMenu:OperatorMenuPage>

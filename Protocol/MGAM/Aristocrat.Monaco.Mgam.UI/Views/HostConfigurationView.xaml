@@ -1,7 +1,7 @@
 ﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Mgam.UI.Views.HostConfigurationView"
                                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Mgam.UI.ViewModels"
@@ -9,88 +9,153 @@
                                lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
                                lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
-                               mc:Ignorable="d" 
-                               d:DesignHeight="604.982" d:DesignWidth="887.454"
+                               mc:Ignorable="d"
+                               d:DesignHeight="604.982"
+                               d:DesignWidth="887.454"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:HostConfigurationViewModel}, IsDesignTimeCreatable=True}">
-
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <Style TargetType="Label" BasedOn="{StaticResource MonacoLabel}">
-                <Setter Property="VerticalAlignment" Value="Center" />
+            <Style TargetType="Label"
+                   BasedOn="{StaticResource MonacoLabel}">
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
             </Style>
-
-            <Style TargetType="TextBox" BasedOn="{StaticResource MonacoTextBox}">
-                <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="VerticalContentAlignment" Value="Center" />
-                <Setter Property="HorizontalAlignment" Value="Left" />
-                <Setter Property="Width" Value="200" />
-                <Setter Property="Height" Value="50" />
-                <Setter Property="Margin" Value="10" />
+            <Style TargetType="TextBox"
+                   BasedOn="{StaticResource MonacoTextBox}">
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+                <Setter Property="VerticalContentAlignment"
+                        Value="Center" />
+                <Setter Property="HorizontalAlignment"
+                        Value="Left" />
+                <Setter Property="Width"
+                        Value="200" />
+                <Setter Property="Height"
+                        Value="50" />
+                <Setter Property="Margin"
+                        Value="10" />
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid>
+    <Grid AutomationProperties.AutomationId="Grid0_25953563">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition1_25953563" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_25953563" />
+            <RowDefinition Height="20"
+                           AutomationProperties.AutomationId="RowDefinition3_25953563" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition4_25953563" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition5_25953563" />
+            <RowDefinition Height="50"
+                           AutomationProperties.AutomationId="RowDefinition6_25953563" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition7_25953563" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition8_25953563" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition9_25953563" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition10_25953563" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="15"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition11_25953563" />
+            <ColumnDefinition Width="15"
+                              AutomationProperties.AutomationId="ColumnDefinition12_25953563" />
+            <ColumnDefinition Width="*"
+                              AutomationProperties.AutomationId="ColumnDefinition13_25953563" />
         </Grid.ColumnDefinitions>
-
-        <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc DirectoryPort}" />
-        <TextBox Grid.Row="0" Grid.Column="2"  InputScope="Number" IsEnabled="{Binding InputEnabled}" 
-                 Text="{Binding DirectoryPort, Mode=TwoWay, NotifyOnValidationError=True, 
-            UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, 
-            Converter={StaticResource EmptyToDefaultValue}, ConverterParameter=0 }" />
-
-
-        <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc ServiceName}" />
-        <TextBox Grid.Row="1" Grid.Column="2"  InputScope="Number" IsEnabled="{Binding InputEnabled}"
-                 Text="{Binding ServiceName, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
-
-        <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc UseUdpBroadcasting}" />
-        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="2">
-            <CheckBox  Width="46" IsChecked="{Binding UseUdpBroadcasting, Mode=TwoWay}" HorizontalAlignment="Left" Margin="10,0,0,0" IsEnabled="{Binding InputEnabled}"/>
-            <Label Content="{lex:Loc UdpBroadcastingNote}" Margin="15,0,0,0" />
+        <Label Grid.Row="0"
+               Grid.Column="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.DirectoryPort}}"
+               AutomationProperties.AutomationId="Label14_25953563" />
+        <TextBox Grid.Row="0"
+                 Grid.Column="2"
+                 InputScope="Number"
+                 IsEnabled="{Binding InputEnabled}"
+                 Text="{Binding DirectoryPort, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Converter={StaticResource EmptyToDefaultValue}, ConverterParameter=0 }"
+                 AutomationProperties.AutomationId="TextBox15_25953563" />
+        <Label Grid.Row="1"
+               Grid.Column="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.ServiceName}}"
+               AutomationProperties.AutomationId="Label16_25953563" />
+        <TextBox Grid.Row="1"
+                 Grid.Column="2"
+                 InputScope="Number"
+                 IsEnabled="{Binding InputEnabled}"
+                 Text="{Binding ServiceName, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                 AutomationProperties.AutomationId="TextBox17_25953563" />
+        <Label Grid.Row="3"
+               Grid.Column="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.UseUdpBroadcasting}}"
+               AutomationProperties.AutomationId="Label18_25953563" />
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="3"
+                    Grid.Column="2"
+                    AutomationProperties.AutomationId="StackPanel19_25953563">
+            <CheckBox Width="46"
+                      IsChecked="{Binding UseUdpBroadcasting, Mode=TwoWay}"
+                      HorizontalAlignment="Left"
+                      Margin="10,0,0,0"
+                      IsEnabled="{Binding InputEnabled}"
+                      AutomationProperties.AutomationId="CheckBox20_25953563" />
+            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.UdpBroadcastingNote}}"
+                   Margin="15,0,0,0"
+                   AutomationProperties.AutomationId="Label21_25953563" />
         </StackPanel>
-
-
-        <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc DirectoryIpAddress}" />
-        <TextBox Grid.Row="4" Grid.Column="2"  InputScope="Number"
-                 Text="{Binding DirectoryIpAddress, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+        <Label Grid.Row="4"
+               Grid.Column="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.DirectoryIpAddress}}"
+               AutomationProperties.AutomationId="Label22_25953563" />
+        <TextBox Grid.Row="4"
+                 Grid.Column="2"
+                 InputScope="Number"
+                 Text="{Binding DirectoryIpAddress, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                 AutomationProperties.AutomationId="TextBox23_25953563">
             <TextBox.IsEnabled>
                 <MultiBinding Converter="{StaticResource BoolAndConverter}">
-                    <Binding Path="UseUdpBroadcasting" Converter="{StaticResource InverseBoolConverter}" />
+                    <Binding Path="UseUdpBroadcasting"
+                             Converter="{StaticResource InverseBoolConverter}" />
                     <Binding Path="InputEnabled" />
                 </MultiBinding>
             </TextBox.IsEnabled>
         </TextBox>
-
-        <Label Grid.Row="6" Grid.Column="0" Content="{lex:Loc MacAddressLabel}" />
-        <TextBox Grid.Row="6" Grid.Column="2" Text="{Binding MacAddress, Mode=OneWay}" IsEnabled="false" />
-
-        <Label Grid.Row="7" Grid.Column="0" Content="{lex:Loc DeviceName}" />
-        <TextBox Grid.Row="7" Grid.Column="2" Text="{Binding DeviceName, Mode=OneWay}" IsEnabled="false"
-            Width="400" Height="Auto" TextWrapping="Wrap"/>
-
-        <Label Grid.Row="8" Grid.Column="0" Content="{lex:Loc DeviceGuid}" />
-        <TextBox Grid.Row="8" Grid.Column="2" Text="{Binding DeviceId, Mode=OneWay}" Width="400" IsEnabled="false" />
+        <Label Grid.Row="6"
+               Grid.Column="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.MacAddressLabel}}"
+               AutomationProperties.AutomationId="Label24_25953563" />
+        <TextBox Grid.Row="6"
+                 Grid.Column="2"
+                 Text="{Binding MacAddress, Mode=OneWay}"
+                 IsEnabled="false"
+                 AutomationProperties.AutomationId="TextBox25_25953563" />
+        <Label Grid.Row="7"
+               Grid.Column="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceName}}"
+               AutomationProperties.AutomationId="Label26_25953563" />
+        <TextBox Grid.Row="7"
+                 Grid.Column="2"
+                 Text="{Binding DeviceName, Mode=OneWay}"
+                 IsEnabled="false"
+                 Width="400"
+                 Height="Auto"
+                 TextWrapping="Wrap"
+                 AutomationProperties.AutomationId="TextBox27_25953563" />
+        <Label Grid.Row="8"
+               Grid.Column="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceGuid}}"
+               AutomationProperties.AutomationId="Label28_25953563" />
+        <TextBox Grid.Row="8"
+                 Grid.Column="2"
+                 Text="{Binding DeviceId, Mode=OneWay}"
+                 Width="400"
+                 IsEnabled="false"
+                 AutomationProperties.AutomationId="TextBox29_25953563" />
     </Grid>
-
 </operatorMenu:OperatorMenuPage>

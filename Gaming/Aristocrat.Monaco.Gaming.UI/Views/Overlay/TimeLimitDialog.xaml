@@ -1,12 +1,13 @@
 ﻿<UserControl x:Class="Aristocrat.Monaco.Gaming.UI.Views.Overlay.TimeLimitDialog"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:overlay="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Overlay"
-        mc:Ignorable="d"
-        Width="1920" Height="1080">
-
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:overlay="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Overlay"
+             mc:Ignorable="d"
+             Width="1920"
+             Height="1080"
+             AutomationProperties.AutomationId="UserControl0_EB0DD700">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -23,13 +24,9 @@
             <overlay:TimeLimitDialogTemplateSelector x:Key="TimeLimitDialogSelector" />
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
-        <ContentControl 
-            Content="{Binding}"
-            ContentTemplateSelector="{StaticResource TimeLimitDialogSelector}"  />
+    <Grid AutomationProperties.AutomationId="Grid1_EB0DD700">
+        <ContentControl Content="{Binding}"
+                        ContentTemplateSelector="{StaticResource TimeLimitDialogSelector}"
+                        AutomationProperties.AutomationId="ContentControl2_EB0DD700" />
     </Grid>
-
 </UserControl>
-
-
-

@@ -52,7 +52,6 @@
     using Timers;
     using Utils;
     using Vgt.Client12.Application.OperatorMenu;
-    using Views.Controls;
     using Views.Lobby;
     using Size = System.Windows.Size;
 #if !(RETAIL)
@@ -430,6 +429,12 @@
             GameSelectCommand = new ActionCommand<object>(LaunchGameFromUi);
             PreviousPageCommand = new ActionCommand<object>(PrevPage);
             NextPageCommand = new ActionCommand<object>(NextPage);
+            PreviousTabCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.PreviousTab));
+            NextTabCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.NextTab));
+            PreviousGameCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.PreviousGame));
+            NextGameCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.NextGame));
+            ChangeDenomCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.ChangeDenom));
+            SelectGameCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.LaunchGame));
             AddCreditsCommand = new ActionCommand<object>(BankPressed);
             CashOutCommand = new ActionCommand<object>(CashOutPressed);
             ServiceCommand = new ActionCommand<object>(ServicePressed);
@@ -568,7 +573,7 @@
         /// <summary>
         ///     Is the current tab hosting extra large game icons
         /// </summary>
-        public bool IsExtraLargeGameIconTabActive => GameTabInfo.SelectedCategory == GameCategory.LightningLink;
+        public bool IsExtraLargeGameIconTabActive => IsTabView && GameTabInfo.SelectedCategory == GameCategory.LightningLink;
 
         /// <summary>
         ///     Gets the game selected command
@@ -584,6 +589,36 @@
         ///     Gets the next page command
         /// </summary>
         public ICommand NextPageCommand { get; }
+
+        /// <summary>
+        ///     Gets the Previous Tab command
+        /// </summary>
+        public ICommand PreviousTabCommand { get; set; }
+
+        /// <summary>
+        ///     Gets the Next Tab command
+        /// </summary>
+        public ICommand NextTabCommand { get; set; }
+
+        /// <summary>
+        ///     Gets the Previous Game command
+        /// </summary>
+        public ICommand PreviousGameCommand { get; set; }
+
+        /// <summary>
+        ///     Gets the Next Game command
+        /// </summary>
+        public ICommand NextGameCommand { get; set; }
+
+        /// <summary>
+        ///     Gets the Change Denom command
+        /// </summary>
+        public ICommand ChangeDenomCommand { get; set; }
+
+        /// <summary>
+        ///     Gets the Select Game command
+        /// </summary>
+        public ICommand SelectGameCommand { get; set; }
 
         /// <summary>
         ///     Gets the command to insert credits
@@ -1446,20 +1481,19 @@
             get
             {
                 var gameCount = DisplayedGameList?.Count ?? 0;
-                var (rows, cols) = IsExtraLargeGameIconTabActive
-                    ? GameRowColumnCalculator.ExtraLargeIconRowColCount
-                    : GameRowColumnCalculator.CalculateRowColCount(gameCount);
+                var gameControlHeight = GameControlHeight;
+                var gameIconSize = DisplayedGameList?.FirstOrDefault()?.GameIconSize ?? Size.Empty;
+                var anyVisibleGameHasProgressiveLabel = DisplayedGameList?.Any(x => x.HasProgressiveLabelDisplay) ?? false;
+                Logger.Debug($"MarginInputs: GameWindowHeight={gameControlHeight}, GameIconSize={gameIconSize}");
                 return new GameGridMarginInputs(
                     gameCount,
                     IsTabView,
                     GameTabInfo.SelectedSubTab?.IsVisible ?? false,
-                    DisplayedGameList?.Reverse().Take(rows <= 0 ? 0 : gameCount - ((rows - 1) * cols))
-                        .Any(x => x.HasProgressiveLabelDisplay) ?? false,
-                    GameControlHeight,
+                    anyVisibleGameHasProgressiveLabel,
+                    gameControlHeight,
                     IsExtraLargeGameIconTabActive,
-                    DisplayedGameList?.FirstOrDefault()?.GameIconSize ?? Size.Empty,
-                    ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelTwoEnabled,
-                    DisplayedGameList?.Any(g => g.HasProgressiveLabelDisplay) ?? false);
+                    gameIconSize,
+                    ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelTwoEnabled);
             }
         }
 
@@ -1975,9 +2009,8 @@
             var gameList = GetOrderedGames(games);
 
             GameTabInfo.SetupGameTypeTabs(gameList);
-            ProgressiveLabelDisplay.UpdateProgressiveIndicator(gameList);
-
             GameList = gameList;
+            ProgressiveLabelDisplay.UpdateProgressiveIndicator(gameList);
         }
 
         private void DisplayNotificationMessage(DisplayableMessage displayableMessage)
@@ -2078,37 +2111,44 @@
         {
             OnUserInteraction();
             PlayAudioFile(Sound.Touch);
-            if (info is GameInfo game)
+            if (info is not GameInfo game)
             {
-                if (IsTabView)
-                {
-                    SetSelectedGame(game);
-                }
+                game = _selectedGame;
+            }
 
-                if (CurrentState == LobbyState.AgeWarningDialog)
+            if (game == null)
+            {
+                return;
+            }
+
+            if (IsTabView)
+            {
+                SetSelectedGame(game);
+            }
+
+            if (CurrentState == LobbyState.AgeWarningDialog)
+            {
+                _launchGameAfterAgeWarning = game;
+            }
+            else
+            {
+                if (_systemDisableManager.IsDisabled && CurrentState != LobbyState.Disabled && !_gameRecovery.IsRecovering)
                 {
-                    _launchGameAfterAgeWarning = game;
+                    Logger.Debug("LaunchGameFromUi triggering disable instead of game launch");
+                    SendTrigger(LobbyTrigger.Disable);
                 }
                 else
                 {
-                    if (_systemDisableManager.IsDisabled && CurrentState != LobbyState.Disabled && !_gameRecovery.IsRecovering)
+                    _lobbyStateManager.AllowGameAutoLaunch = !_systemDisableManager.DisableImmediately;
+
+                    Logger.Debug($"LaunchGameFromUI. GameReady={GameReady}. CurrentState={CurrentState}.");
+                    if (!GameReady && !IsInState(LobbyState.GameLoading)) // GameReady will be true if game process has not exited
                     {
-                        Logger.Debug("LaunchGameFromUi triggering disable instead of game launch");
-                        SendTrigger(LobbyTrigger.Disable);
+                        SendTrigger(LobbyTrigger.LaunchGame, game);
                     }
                     else
                     {
-                        _lobbyStateManager.AllowGameAutoLaunch = !_systemDisableManager.DisableImmediately;
-
-                        Logger.Debug($"LaunchGameFromUI. GameReady={GameReady}. CurrentState={CurrentState}.");
-                        if (!GameReady && !IsInState(LobbyState.GameLoading)) // GameReady will be true if game process has not exited
-                        {
-                            SendTrigger(LobbyTrigger.LaunchGame, game);
-                        }
-                        else
-                        {
-                            Logger.Debug("Rejecting Game Launch because runtime process has not yet exited.");
-                        }
+                        Logger.Debug("Rejecting Game Launch because runtime process has not yet exited.");
                     }
                 }
             }
@@ -2346,6 +2386,7 @@
             }
 
             ProgressiveLabelDisplay.UpdateMultipleGameAssociativeSapText();
+            RaisePropertyChanged(nameof(MarginInputs));
 
             UpdateLamps();
             UpdateLcdButtonDeckRenderSetting(true);
@@ -3485,6 +3526,14 @@
             RefreshDisplayedGameList();
         }
 
+        private void VbdButtonClick(LcdButtonDeckLobby lobbyAction)
+        {
+#if DEBUG
+            OnUserInteraction();
+            HandleLcdButtonDeckButtonPress(lobbyAction);
+#endif
+        }
+
         private void LaunchGameOrRecovery()
         {
             Logger.Debug("LaunchGameOrRecovery Method");
@@ -3807,8 +3856,7 @@
 
         }
 
-
-        private void SetSelectedGame(GameInfo gameInfo)
+        private void SetSelectedGame(GameInfo gameInfo, bool selectFirstDenom = false)
         {
             // Unselect the previous selected game
             if (_selectedGame != null)
@@ -3822,8 +3870,11 @@
             if (_selectedGame != null)
             {
                 _selectedGame.IsSelected = true;
+                if (selectFirstDenom)
+                {
+                    _selectedGame.IncrementSelectedDenomination();
+                }
             }
-
         }
 
         private void NavigateSelectionTo(SelectionNavigation navigationOption)
@@ -3856,7 +3907,7 @@
 
                     var gameToSelect = DisplayedGameList[selectedGameIndex];
 
-                    SetSelectedGame(gameToSelect);
+                    SetSelectedGame(gameToSelect, true);
                     break;
 
                 default:
@@ -4413,6 +4464,11 @@
             var gameName = (string)obj[0];
             var denom = (long)obj[1];
 
+            LaunchGameWithSpecificDenomination(gameName, denom);
+        }
+
+        private void LaunchGameWithSpecificDenomination(string gameName, long denom)
+        {
             var selectedGame = _gameList.FirstOrDefault(g => g.Name == gameName && g.Denomination == denom);
 
             Logger.Debug($"gameId: {selectedGame?.GameId}, gameName: {gameName}, denom: {denom}");
@@ -5105,7 +5161,14 @@
                     PlayAudioFile(Sound.Touch);
                     break;
                 case LcdButtonDeckLobby.ChangeDenom:
-                    GameTabInfo.IncrementSelectedDenomination();
+                    if (_selectedGame.Category == GameCategory.LightningLink)
+                    {
+                        _selectedGame.IncrementSelectedDenomination();
+                    }
+                    else
+                    {
+                        GameTabInfo.IncrementSelectedDenomination();
+                    }
                     PlayAudioFile(Sound.Touch);
                     break;
                 case LcdButtonDeckLobby.NextTab:
@@ -5122,7 +5185,14 @@
                 case LcdButtonDeckLobby.LaunchGame:
                     if (_selectedGame != null)
                     {
-                        LaunchGameFromUi(_selectedGame);
+                        if (_selectedGame.Category == GameCategory.LightningLink && _selectedGame.SelectedDenomination != null)
+                        {
+                            LaunchGameWithSpecificDenomination(_selectedGame.Name, _selectedGame.SelectedDenomination.Denomination);
+                        }
+                        else
+                        {
+                            LaunchGameFromUi(_selectedGame);
+                        }
                     }
                     break;
             }

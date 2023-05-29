@@ -11,7 +11,9 @@
              loc:Localizer.For="Player"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}"
-             Width="auto" Height="auto">
+             Width="auto"
+             Height="auto"
+             AutomationProperties.AutomationId="UserControl0_39EE8395">
     <UserControl.Resources>
         <ResourceDictionary>
             <!-- Apply MahApps.Metro styles to all controls -->
@@ -29,62 +31,93 @@
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Controls.TextBlock.xaml"/>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Controls.Button.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-
-            <Style x:Key="LocalListBoxStyle" 
+            <Style x:Key="LocalListBoxStyle"
                    TargetType="{x:Type ListBox}"
                    BasedOn="{StaticResource MonacoListBox}">
-                <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="Background" Value="Transparent" />
-                <Setter Property="Focusable" Value="False" />
+                <Setter Property="BorderThickness"
+                        Value="0" />
+                <Setter Property="Background"
+                        Value="Transparent" />
+                <Setter Property="Focusable"
+                        Value="False" />
                 <Setter Property="ItemsPanel">
                     <Setter.Value>
                         <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal" />
+                            <WrapPanel Orientation="Horizontal"
+                                       AutomationProperties.AutomationId="WrapPanel1_39EE8395" />
                         </ItemsPanelTemplate>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="Margin" Value="0" />
-                <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="False"/>
+                <Setter Property="Margin"
+                        Value="0" />
+                <Setter Property="VirtualizingStackPanel.IsVirtualizing"
+                        Value="False" />
             </Style>
-
-            <Style x:Key="LocalListBoxItemStyle" 
+            <Style x:Key="LocalListBoxItemStyle"
                    TargetType="{x:Type ListBoxItem}"
                    BasedOn="{StaticResource MonacoListBoxItem}">
-                <Setter Property="Margin" Value="0 0 50 0" />
-                <Setter Property="FontSize" Value="36"></Setter>
-                <Setter Property="FontWeight" Value="ExtraBold"/>
-                <Setter Property="BorderBrush" Value="{DynamicResource Brush3}" />
-                <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="False"/>
+                <Setter Property="Margin"
+                        Value="0 0 50 0" />
+                <Setter Property="FontSize"
+                        Value="36"></Setter>
+                <Setter Property="FontWeight"
+                        Value="ExtraBold" />
+                <Setter Property="BorderBrush"
+                        Value="{DynamicResource Brush3}" />
+                <Setter Property="VirtualizingStackPanel.IsVirtualizing"
+                        Value="False" />
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-
     <UserControl.Background>
-        <SolidColorBrush Color="Black" Opacity="{Binding MessageOverlayDisplay.MessageOverlayData.Opacity}"></SolidColorBrush>
+        <SolidColorBrush Color="Black"
+                         Opacity="{Binding MessageOverlayDisplay.MessageOverlayData.Opacity}"
+                         AutomationProperties.AutomationId="SolidColorBrush2_39EE8395"></SolidColorBrush>
     </UserControl.Background>
-
-    <Grid>
-        <GroupBox VerticalAlignment="Center" Margin="0" Width="1200" Height="300" 
-                  Visibility="{Binding IsInOperatorMenu, Converter={StaticResource TrueCollapsedFalseVisible}}" 
-                  Style="{StaticResource MonacoGroupBox}">
-            <Grid>
-                <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Bottom" 
-                            HorizontalAlignment="Left" Margin="0 0 0 150">
-                    <TextBlock Text="{lex:Loc SelectPayModeText}" 
-                               Style="{DynamicResource MonacoTextBlock}" FontSize="36" FontFamily="Arial" FontWeight="ExtraBold" />
-                    <TextBlock Text="{lex:Loc TurnAttendantKeyToCommitText}" 
-                               Style="{DynamicResource MonacoTextBlock}" FontSize="36" FontFamily="Arial" FontWeight="ExtraBold" />
+    <Grid AutomationProperties.AutomationId="Grid3_39EE8395">
+        <GroupBox VerticalAlignment="Center"
+                  Margin="0"
+                  Width="1200"
+                  Height="300"
+                  Visibility="{Binding IsInOperatorMenu, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                  Style="{StaticResource MonacoGroupBox}"
+                  AutomationProperties.AutomationId="GroupBox4_39EE8395">
+            <Grid AutomationProperties.AutomationId="Grid5_39EE8395">
+                <StackPanel Grid.Row="0"
+                            Orientation="Vertical"
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Left"
+                            Margin="0 0 0 150"
+                            AutomationProperties.AutomationId="StackPanel6_39EE8395">
+                    <TextBlock Text="{lex:Loc SelectPayModeText}"
+                               Style="{DynamicResource MonacoTextBlock}"
+                               FontSize="36"
+                               FontFamily="Arial"
+                               FontWeight="ExtraBold"
+                               AutomationProperties.AutomationId="TextBlock7_39EE8395" />
+                    <TextBlock Text="{lex:Loc TurnAttendantKeyToCommitText}"
+                               Style="{DynamicResource MonacoTextBlock}"
+                               FontSize="36"
+                               FontFamily="Arial"
+                               FontWeight="ExtraBold"
+                               AutomationProperties.AutomationId="TextBlock8_39EE8395" />
                 </StackPanel>
-                <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Bottom"  HorizontalAlignment="Center">
+                <StackPanel Grid.Row="1"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Center"
+                            AutomationProperties.AutomationId="StackPanel9_39EE8395">
                     <ListBox ItemsSource="{Binding MenuSelectionPayOptions}"
-                     SelectedItem="{Binding SelectedMenuSelectionPayOption, Mode=TwoWay}"
-                     ItemContainerStyle="{StaticResource LocalListBoxItemStyle}"
-                     Style="{StaticResource LocalListBoxStyle}"
-                     SelectionMode="Single">
+                             SelectedItem="{Binding SelectedMenuSelectionPayOption, Mode=TwoWay}"
+                             ItemContainerStyle="{StaticResource LocalListBoxItemStyle}"
+                             Style="{StaticResource LocalListBoxStyle}"
+                             SelectionMode="Single"
+                             AutomationProperties.AutomationId="ListBox10_39EE8395">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock>
-                                    <lex:EnumRun EnumValue="{Binding}" PrependType="True" />
+                                <TextBlock AutomationProperties.AutomationId="TextBlock11_39EE8395">
+                                    <lex:EnumRun EnumValue="{Binding}"
+                                                 PrependType="True" />
                                 </TextBlock>
                             </DataTemplate>
                         </ListBox.ItemTemplate>

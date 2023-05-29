@@ -1,20 +1,21 @@
 ﻿<UserControl x:Class="Aristocrat.Monaco.Gaming.UI.Views.Lobby.MultiLanguageUpi"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:uicommon="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
              xmlns:controls1="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Controls"
              xmlns:common="http://monaco.aristocrat.com/common"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             AutomationProperties.AutomationId="UserControl0_6CF61223">
     <UserControl.Resources>
         <ResourceDictionary>
-
             <!-- Apply MahApps.Metro styles to all controls -->
             <ResourceDictionary.MergedDictionaries>
                 <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
@@ -25,56 +26,70 @@
 
                 <ResourceDictionary Source="../../Skins/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <converters:IntToBoolConverter x:Key="IntToBool"/>
-            <converters:MarginConverter x:Key="MarginConverter"/>
+            <converters:IntToBoolConverter x:Key="IntToBool" />
+            <converters:MarginConverter x:Key="MarginConverter" />
             <common:BitmapToImageSourceConverter x:Key="BitmapToImageConverter" />
-
             <system:Int32 x:Key="AllDenom">-1</system:Int32>
             <system:Int32 x:Key="DenomA">1</system:Int32>
             <system:Int32 x:Key="DenomB">5</system:Int32>
             <system:Int32 x:Key="DenomC">25</system:Int32>
-
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid x:Name="UpiGrid" Width="1881">
-
+    <Grid x:Name="UpiGrid"
+          Width="1881"
+          AutomationProperties.AutomationId="Grid1_6CF61223">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width=".102*"/>
-            <ColumnDefinition Width=".142*"/>
-            <ColumnDefinition Width=".168*"/>
-            <ColumnDefinition Width=".419*"/>
-            <ColumnDefinition Width=".168*"/>
+            <ColumnDefinition Width=".102*"
+                              AutomationProperties.AutomationId="ColumnDefinition2_6CF61223" />
+            <ColumnDefinition Width=".142*"
+                              AutomationProperties.AutomationId="ColumnDefinition3_6CF61223" />
+            <ColumnDefinition Width=".168*"
+                              AutomationProperties.AutomationId="ColumnDefinition4_6CF61223" />
+            <ColumnDefinition Width=".419*"
+                              AutomationProperties.AutomationId="ColumnDefinition5_6CF61223" />
+            <ColumnDefinition Width=".168*"
+                              AutomationProperties.AutomationId="ColumnDefinition6_6CF61223" />
         </Grid.ColumnDefinitions>
-        <Image Grid.ColumnSpan="5" Grid.Column="0" Source="{DynamicResource UpiBackground}"/>
-
-        <Label Grid.Column="0" 
-               Content="{Binding ClockTimer.CurrentTime}" 
-               Margin="0 30 0 0" 
-               FontSize="28" 
-               Foreground="Gold" 
-               HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Image Grid.Column="1" 
-               Source="{DynamicResource BankImage}" Stretch="None" 
-               Margin="{Binding ActiveLocaleCode, Converter={StaticResource MarginConverter}}" 
-               HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Label Grid.Column="1" 
-               Content="{Binding FormattedCredits}" 
-               Margin="0 10 0 0" 
-               FontSize="44" FontFamily="Impact" 
-               Foreground="White" 
-               HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-        <ContentControl x:Name="CashOutWrapper" 
-                        Grid.Column="2" 
-                        controls1:MouseEvents.MouseDown="{Binding CashOutWrapperMouseDownCommand}">
+        <Image Grid.ColumnSpan="5"
+               Grid.Column="0"
+               Source="{DynamicResource UpiBackground}"
+               AutomationProperties.AutomationId="Image7_6CF61223" />
+        <Label Grid.Column="0"
+               Content="{Binding ClockTimer.CurrentTime}"
+               Margin="0 30 0 0"
+               FontSize="28"
+               Foreground="Gold"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               AutomationProperties.AutomationId="Label8_6CF61223" />
+        <Image Grid.Column="1"
+               Source="{DynamicResource BankImage}"
+               Stretch="None"
+               Margin="{Binding ActiveLocaleCode, Converter={StaticResource MarginConverter}}"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Top"
+               AutomationProperties.AutomationId="Image9_6CF61223" />
+        <Label Grid.Column="1"
+               Content="{Binding FormattedCredits}"
+               Margin="0 10 0 0"
+               FontSize="44"
+               FontFamily="Impact"
+               Foreground="White"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               AutomationProperties.AutomationId="Label10_6CF61223" />
+        <ContentControl x:Name="CashOutWrapper"
+                        Grid.Column="2"
+                        controls1:MouseEvents.MouseDown="{Binding CashOutWrapperMouseDownCommand}"
+                        AutomationProperties.AutomationId="ContentControl11_6CF61223">
             <Button x:Name="btnCashOut"
                     Margin="38 0 24 0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     IsEnabled="{Binding Path=CashOutEnabled}"
                     Command="{Binding Path=CashOutCommand}"
-                    Style="{StaticResource stlFlatButton}">
+                    Style="{StaticResource stlFlatButton}"
+                    AutomationProperties.AutomationId="Button12_6CF61223">
                 <!-- Ex: Jurisdiction resources
                 <Image>
                     <Image.Style>
@@ -90,35 +105,46 @@
                 </Image>-->
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
-                        <Image Name="cashOutImage" Source="{DynamicResource CashOutNormal}"/>
+                        <Image Name="cashOutImage"
+                               Source="{DynamicResource CashOutNormal}"
+                               AutomationProperties.AutomationId="Image13_6CF61223" />
                         <ControlTemplate.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=btnCashOut, Path=IsEnabled}" Value="False">
-                                <Setter TargetName="cashOutImage" Property="Source" Value="{DynamicResource CashOutDisabled}" />
+                            <DataTrigger Binding="{Binding ElementName=btnCashOut, Path=IsEnabled}"
+                                         Value="False"
+                                         AutomationProperties.AutomationId="DataTrigger14_6CF61223">
+                                <Setter TargetName="cashOutImage"
+                                        Property="Source"
+                                        Value="{DynamicResource CashOutDisabled}" />
                             </DataTrigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
         </ContentControl>
-
-        <StackPanel x:Name="DenomPanel" 
-                    Grid.Column="3" 
-                    Orientation="Horizontal" 
-                    Margin="15" 
-                    HorizontalAlignment="Center" 
-                    controls1:MouseEvents.PreviewMouseDown="{Binding UpiPreviewMouseDownCommand}">
+        <StackPanel x:Name="DenomPanel"
+                    Grid.Column="3"
+                    Orientation="Horizontal"
+                    Margin="15"
+                    HorizontalAlignment="Center"
+                    controls1:MouseEvents.PreviewMouseDown="{Binding UpiPreviewMouseDownCommand}"
+                    AutomationProperties.AutomationId="StackPanel15_6CF61223">
             <RadioButton Style="{StaticResource stlFlatToggleButton}"
-                         Margin="0 0 12 0" 
+                         Margin="0 0 12 0"
                          Command="{Binding Path=DenomFilterPressedCommand}"
-                         IsChecked="{Binding DenomFilter,
-                                    Converter={StaticResource IntToBool}, 
-                                    ConverterParameter={StaticResource AllDenom}}">
+                         IsChecked="{Binding DenomFilter, Converter={StaticResource IntToBool}, ConverterParameter={StaticResource AllDenom}}"
+                         AutomationProperties.AutomationId="RadioButton16_6CF61223">
                 <RadioButton.Template>
                     <ControlTemplate TargetType="ToggleButton">
-                        <Image Name="AllDenomImage" Source="{DynamicResource AllDenomOff}"/>
+                        <Image Name="AllDenomImage"
+                               Source="{DynamicResource AllDenomOff}"
+                               AutomationProperties.AutomationId="Image17_6CF61223" />
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="AllDenomImage" Property="Source" Value="{DynamicResource AllDenomOn}"/>
+                            <Trigger Property="IsChecked"
+                                     Value="True"
+                                     AutomationProperties.AutomationId="Trigger18_6CF61223">
+                                <Setter TargetName="AllDenomImage"
+                                        Property="Source"
+                                        Value="{DynamicResource AllDenomOn}" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -127,15 +153,20 @@
             <RadioButton Style="{StaticResource stlFlatToggleButton}"
                          Margin="0 0 12 0"
                          Command="{Binding Path=DenomFilterPressedCommand}"
-                         IsChecked="{Binding DenomFilter,
-                                    Converter={StaticResource IntToBool}, 
-                                    ConverterParameter={StaticResource DenomA}}">
+                         IsChecked="{Binding DenomFilter, Converter={StaticResource IntToBool}, ConverterParameter={StaticResource DenomA}}"
+                         AutomationProperties.AutomationId="RadioButton19_6CF61223">
                 <RadioButton.Template>
                     <ControlTemplate TargetType="ToggleButton">
-                        <Image Name="DenomAImage" Source="{DynamicResource Denom1CentOff}"/>
+                        <Image Name="DenomAImage"
+                               Source="{DynamicResource Denom1CentOff}"
+                               AutomationProperties.AutomationId="Image20_6CF61223" />
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="DenomAImage" Property="Source" Value="{DynamicResource Denom1CentOn}"/>
+                            <Trigger Property="IsChecked"
+                                     Value="True"
+                                     AutomationProperties.AutomationId="Trigger21_6CF61223">
+                                <Setter TargetName="DenomAImage"
+                                        Property="Source"
+                                        Value="{DynamicResource Denom1CentOn}" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -143,16 +174,21 @@
             </RadioButton>
             <RadioButton Style="{StaticResource stlFlatToggleButton}"
                          Command="{Binding Path=DenomFilterPressedCommand}"
-                         Margin="0 0 12 0" 
-                         IsChecked="{Binding DenomFilter,
-                                    Converter={StaticResource IntToBool}, 
-                                    ConverterParameter={StaticResource DenomB}}">
+                         Margin="0 0 12 0"
+                         IsChecked="{Binding DenomFilter, Converter={StaticResource IntToBool}, ConverterParameter={StaticResource DenomB}}"
+                         AutomationProperties.AutomationId="RadioButton22_6CF61223">
                 <RadioButton.Template>
                     <ControlTemplate TargetType="ToggleButton">
-                        <Image Name="DenomBImage" Source="{DynamicResource Denom5CentOff}"/>
+                        <Image Name="DenomBImage"
+                               Source="{DynamicResource Denom5CentOff}"
+                               AutomationProperties.AutomationId="Image23_6CF61223" />
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="DenomBImage" Property="Source" Value="{DynamicResource Denom5CentOn}"/>
+                            <Trigger Property="IsChecked"
+                                     Value="True"
+                                     AutomationProperties.AutomationId="Trigger24_6CF61223">
+                                <Setter TargetName="DenomBImage"
+                                        Property="Source"
+                                        Value="{DynamicResource Denom5CentOn}" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -160,22 +196,26 @@
             </RadioButton>
             <RadioButton Style="{StaticResource stlFlatToggleButton}"
                          Command="{Binding Path=DenomFilterPressedCommand}"
-                         IsChecked="{Binding DenomFilter,
-                                    Converter={StaticResource IntToBool}, 
-                                    ConverterParameter={StaticResource DenomC}}">
+                         IsChecked="{Binding DenomFilter, Converter={StaticResource IntToBool}, ConverterParameter={StaticResource DenomC}}"
+                         AutomationProperties.AutomationId="RadioButton25_6CF61223">
                 <RadioButton.Template>
                     <ControlTemplate TargetType="ToggleButton">
-                        <Image Name="DenomCImage" Source="{DynamicResource Denom25CentOff}"/>
+                        <Image Name="DenomCImage"
+                               Source="{DynamicResource Denom25CentOff}"
+                               AutomationProperties.AutomationId="Image26_6CF61223" />
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="DenomCImage" Property="Source" Value="{DynamicResource Denom25CentOn}"/>
+                            <Trigger Property="IsChecked"
+                                     Value="True"
+                                     AutomationProperties.AutomationId="Trigger27_6CF61223">
+                                <Setter TargetName="DenomCImage"
+                                        Property="Source"
+                                        Value="{DynamicResource Denom25CentOn}" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </RadioButton.Template>
             </RadioButton>
         </StackPanel>
-
         <ToggleButton x:Name="LanguageButton"
                       Style="{StaticResource stlFlatToggleButton}"
                       IsChecked="{Binding IsPrimaryLanguageSelected}"
@@ -184,11 +224,14 @@
                       Grid.Column="4"
                       Margin="24 0 38 0"
                       HorizontalAlignment="Center"
-                      VerticalAlignment="Center">
+                      VerticalAlignment="Center"
+                      AutomationProperties.AutomationId="ToggleButton28_6CF61223">
             <ToggleButton.Template>
                 <ControlTemplate TargetType="ToggleButton">
                     <!-- Show language not selected.  So if, for example, we are in french, display English text.-->
-                    <Image Name="LanguageImage" uicommon:ImageHelper.SourceResourceKey="{Binding LanguageButtonResourceKey}"/>
+                    <Image Name="LanguageImage"
+                           uicommon:ImageHelper.SourceResourceKey="{Binding LanguageButtonResourceKey}"
+                           AutomationProperties.AutomationId="Image29_6CF61223" />
                 </ControlTemplate>
             </ToggleButton.Template>
         </ToggleButton>

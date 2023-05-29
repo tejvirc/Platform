@@ -1,182 +1,241 @@
 ﻿<UserControl x:Class="Aristocrat.Monaco.Hhr.UI.Controls.HHRButton"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:menu="clr-namespace:Aristocrat.Monaco.Hhr.UI.Menu"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             AutomationProperties.AutomationId="UserControl0_F124108D">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
             <!--Button Template for HHR button -->
-            <ControlTemplate x:Key = "ButtonTemplate" TargetType = "Button">
-                <Grid>
-                    <Border x:Name="Border" Background="{TemplateBinding Background}"/>
+            <ControlTemplate x:Key="ButtonTemplate"
+                             TargetType="Button">
+                <Grid AutomationProperties.AutomationId="Grid1_F124108D">
+                    <Border x:Name="Border"
+                            Background="{TemplateBinding Background}"
+                            AutomationProperties.AutomationId="Border2_F124108D" />
                 </Grid>
             </ControlTemplate>
-
             <!--Specific button template for Bet button as left half will decrease the bet and right half will increase the bet  -->
-            <ControlTemplate TargetType="{x:Type Button}" x:Key = "BetButtonTemplate" >
-                <Grid >
-                    <Grid Height="100" Width="200">
-                        <Border x:Name="Border" Background="{TemplateBinding Background}"/>
-                        <Grid>
-                            <Grid>
+            <ControlTemplate TargetType="{x:Type Button}"
+                             x:Key="BetButtonTemplate">
+                <Grid AutomationProperties.AutomationId="Grid3_F124108D">
+                    <Grid Height="100"
+                          Width="200"
+                          AutomationProperties.AutomationId="Grid4_F124108D">
+                        <Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                AutomationProperties.AutomationId="Border5_F124108D" />
+                        <Grid AutomationProperties.AutomationId="Grid6_F124108D">
+                            <Grid AutomationProperties.AutomationId="Grid7_F124108D">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"
+                                                      AutomationProperties.AutomationId="ColumnDefinition8_F124108D" />
+                                    <ColumnDefinition Width="*"
+                                                      AutomationProperties.AutomationId="ColumnDefinition9_F124108D" />
                                 </Grid.ColumnDefinitions>
-                                <Button Grid.Column="0" Background="Transparent"  Width="100" Template="{StaticResource ButtonTemplate}" Command="{Binding}" CommandParameter="{x:Static menu:Command.BetDown}"/>
-                                <Button Grid.Column="1"  Width="100" Background="Transparent" Template="{StaticResource ButtonTemplate}" Command="{Binding}" CommandParameter="{x:Static menu:Command.BetUp}"/>
-
+                                <Button Grid.Column="0"
+                                        Background="Transparent"
+                                        Width="100"
+                                        Template="{StaticResource ButtonTemplate}"
+                                        Command="{Binding}"
+                                        CommandParameter="{x:Static menu:Command.BetDown}"
+                                        AutomationProperties.AutomationId="Button10_F124108D" />
+                                <Button Grid.Column="1"
+                                        Width="100"
+                                        Background="Transparent"
+                                        Template="{StaticResource ButtonTemplate}"
+                                        Command="{Binding}"
+                                        CommandParameter="{x:Static menu:Command.BetUp}"
+                                        AutomationProperties.AutomationId="Button11_F124108D" />
                             </Grid>
                         </Grid>
                     </Grid>
-                    <ContentPresenter Content = "{TemplateBinding Content}" HorizontalAlignment = "Center" VerticalAlignment = "Center" />
+                    <ContentPresenter Content="{TemplateBinding Content}"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      AutomationProperties.AutomationId="ContentPresenter12_F124108D" />
                 </Grid>
             </ControlTemplate>
-
-            <Style x:Key="ButtonStyle" TargetType="Button">
-                <Setter Property="Template" Value="{StaticResource ButtonTemplate}"/>
-                <Setter Property="Height" Value="100" />
-                <Setter Property="Width" Value="200" />
-                <Setter Property="Margin" Value="10 0 0 0" />
-                <Setter Property="CommandParameter" Value="{Binding Command}"/>
-                <Setter Property="Command" Value="{Binding}"/>
-                <Setter Property="Visibility" Value="{Binding Visibility, Converter={StaticResource TrueVisibleFalseHidden}}"/>
+            <Style x:Key="ButtonStyle"
+                   TargetType="Button">
+                <Setter Property="Template"
+                        Value="{StaticResource ButtonTemplate}" />
+                <Setter Property="Height"
+                        Value="100" />
+                <Setter Property="Width"
+                        Value="200" />
+                <Setter Property="Margin"
+                        Value="10 0 0 0" />
+                <Setter Property="CommandParameter"
+                        Value="{Binding Command}" />
+                <Setter Property="Command"
+                        Value="{Binding}" />
+                <Setter Property="Visibility"
+                        Value="{Binding Visibility, Converter={StaticResource TrueVisibleFalseHidden}}" />
                 <Style.Triggers>
-
-                    <DataTrigger Binding="{Binding Command}" Value = "Help">
+                    <DataTrigger Binding="{Binding Command}"
+                                 Value="Help"
+                                 AutomationProperties.AutomationId="DataTrigger13_F124108D">
                         <Setter Property="Button.Background">
                             <Setter.Value>
-                                <ImageBrush ImageSource="../Resources/ButtHelp.png"/>
+                                <ImageBrush ImageSource="../Resources/ButtHelp.png"
+                                            AutomationProperties.AutomationId="ImageBrush14_F124108D" />
                             </Setter.Value>
                         </Setter>
                     </DataTrigger>
-
-                    <DataTrigger Binding="{Binding Command}" Value = "ReturnToGame">
+                    <DataTrigger Binding="{Binding Command}"
+                                 Value="ReturnToGame"
+                                 AutomationProperties.AutomationId="DataTrigger15_F124108D">
                         <Setter Property="Button.Background">
                             <Setter.Value>
-                                <ImageBrush ImageSource="../Resources/ButtReturn.png"/>
+                                <ImageBrush ImageSource="../Resources/ButtReturn.png"
+                                            AutomationProperties.AutomationId="ImageBrush16_F124108D" />
                             </Setter.Value>
                         </Setter>
                     </DataTrigger>
-
-                    <DataTrigger Binding="{Binding Command}" Value = "ManualHandicap">
+                    <DataTrigger Binding="{Binding Command}"
+                                 Value="ManualHandicap"
+                                 AutomationProperties.AutomationId="DataTrigger17_F124108D">
                         <Setter Property="Button.Background">
                             <Setter.Value>
-                                <ImageBrush ImageSource="../Resources/ButtManHan.png"/>
+                                <ImageBrush ImageSource="../Resources/ButtManHan.png"
+                                            AutomationProperties.AutomationId="ImageBrush18_F124108D" />
                             </Setter.Value>
                         </Setter>
                     </DataTrigger>
-
-                    <DataTrigger Binding="{Binding Command}" Value = "CommitWager">
+                    <DataTrigger Binding="{Binding Command}"
+                                 Value="CommitWager"
+                                 AutomationProperties.AutomationId="DataTrigger19_F124108D">
                         <Setter Property="Button.Background">
                             <Setter.Value>
-                                <ImageBrush ImageSource="../Resources/ButtManHan.png"/>
+                                <ImageBrush ImageSource="../Resources/ButtManHan.png"
+                                            AutomationProperties.AutomationId="ImageBrush20_F124108D" />
                             </Setter.Value>
                         </Setter>
                     </DataTrigger>
-
-                    <DataTrigger Binding="{Binding Command}" Value = "NextRace">
+                    <DataTrigger Binding="{Binding Command}"
+                                 Value="NextRace"
+                                 AutomationProperties.AutomationId="DataTrigger21_F124108D">
                         <Setter Property="Button.Background">
                             <Setter.Value>
-                                <ImageBrush ImageSource="../Resources/ButtNext.png"/>
+                                <ImageBrush ImageSource="../Resources/ButtNext.png"
+                                            AutomationProperties.AutomationId="ImageBrush22_F124108D" />
                             </Setter.Value>
                         </Setter>
                     </DataTrigger>
-
-                    <DataTrigger Binding="{Binding Command}" Value = "RaceStats">
+                    <DataTrigger Binding="{Binding Command}"
+                                 Value="RaceStats"
+                                 AutomationProperties.AutomationId="DataTrigger23_F124108D">
                         <Setter Property="Button.Background">
                             <Setter.Value>
-                                <ImageBrush ImageSource="../Resources/ButtStats.png"/>
+                                <ImageBrush ImageSource="../Resources/ButtStats.png"
+                                            AutomationProperties.AutomationId="ImageBrush24_F124108D" />
                             </Setter.Value>
                         </Setter>
                     </DataTrigger>
-
-                    <DataTrigger Binding="{Binding Command}" Value = "Bet">
-                        <Setter Property="Template" Value="{StaticResource BetButtonTemplate}"/>
+                    <DataTrigger Binding="{Binding Command}"
+                                 Value="Bet"
+                                 AutomationProperties.AutomationId="DataTrigger25_F124108D">
+                        <Setter Property="Template"
+                                Value="{StaticResource BetButtonTemplate}" />
                         <Setter Property="Button.Background">
                             <Setter.Value>
-                                <ImageBrush ImageSource="../Resources/ButtBet.png"/>
+                                <ImageBrush ImageSource="../Resources/ButtBet.png"
+                                            AutomationProperties.AutomationId="ImageBrush26_F124108D" />
                             </Setter.Value>
                         </Setter>
                     </DataTrigger>
-
-                    <DataTrigger Binding="{Binding Command}" Value = "QuickPick">
+                    <DataTrigger Binding="{Binding Command}"
+                                 Value="QuickPick"
+                                 AutomationProperties.AutomationId="DataTrigger27_F124108D">
                         <Setter Property="Button.Background">
                             <Setter.Value>
-                                <ImageBrush ImageSource="../Resources/ButtQuickPick.png"/>
+                                <ImageBrush ImageSource="../Resources/ButtQuickPick.png"
+                                            AutomationProperties.AutomationId="ImageBrush28_F124108D" />
                             </Setter.Value>
                         </Setter>
                     </DataTrigger>
-
-                    <DataTrigger Binding="{Binding Command}" Value = "AutoPick">
+                    <DataTrigger Binding="{Binding Command}"
+                                 Value="AutoPick"
+                                 AutomationProperties.AutomationId="DataTrigger29_F124108D">
                         <Setter Property="Button.Background">
                             <Setter.Value>
-                                <ImageBrush ImageSource="../Resources/ButtAutoPick.png"/>
+                                <ImageBrush ImageSource="../Resources/ButtAutoPick.png"
+                                            AutomationProperties.AutomationId="ImageBrush30_F124108D" />
                             </Setter.Value>
                         </Setter>
                     </DataTrigger>
-
-                    <DataTrigger Binding="{Binding Command}" Value = "Back">
+                    <DataTrigger Binding="{Binding Command}"
+                                 Value="Back"
+                                 AutomationProperties.AutomationId="DataTrigger31_F124108D">
                         <Setter Property="Button.Background">
                             <Setter.Value>
-                                <ImageBrush ImageSource="../Resources/ButtBack.png"/>
+                                <ImageBrush ImageSource="../Resources/ButtBack.png"
+                                            AutomationProperties.AutomationId="ImageBrush32_F124108D" />
                             </Setter.Value>
                         </Setter>
                     </DataTrigger>
-
-                    <DataTrigger Binding="{Binding Command}" Value = "Race">
+                    <DataTrigger Binding="{Binding Command}"
+                                 Value="Race"
+                                 AutomationProperties.AutomationId="DataTrigger33_F124108D">
                         <Setter Property="Button.Background">
                             <Setter.Value>
-                                <ImageBrush ImageSource="../Resources/ButtRace.png"/>
+                                <ImageBrush ImageSource="../Resources/ButtRace.png"
+                                            AutomationProperties.AutomationId="ImageBrush34_F124108D" />
                             </Setter.Value>
                         </Setter>
                     </DataTrigger>
-
-                    <DataTrigger Binding="{Binding Command}" Value = "ExitHelp">
+                    <DataTrigger Binding="{Binding Command}"
+                                 Value="ExitHelp"
+                                 AutomationProperties.AutomationId="DataTrigger35_F124108D">
                         <Setter Property="Button.Background">
                             <Setter.Value>
-                                <ImageBrush ImageSource="../Resources/ButtExitHelp.png"/>
+                                <ImageBrush ImageSource="../Resources/ButtExitHelp.png"
+                                            AutomationProperties.AutomationId="ImageBrush36_F124108D" />
                             </Setter.Value>
                         </Setter>
                     </DataTrigger>
-
-                    <DataTrigger Binding="{Binding Command}" Value = "Next">
+                    <DataTrigger Binding="{Binding Command}"
+                                 Value="Next"
+                                 AutomationProperties.AutomationId="DataTrigger37_F124108D">
                         <Setter Property="Button.Background">
                             <Setter.Value>
-                                <ImageBrush ImageSource="../Resources/ButtNext2.png"/>
+                                <ImageBrush ImageSource="../Resources/ButtNext2.png"
+                                            AutomationProperties.AutomationId="ImageBrush38_F124108D" />
                             </Setter.Value>
                         </Setter>
                     </DataTrigger>
-
-                    <DataTrigger Binding="{Binding Command}" Value = "Reset">
+                    <DataTrigger Binding="{Binding Command}"
+                                 Value="Reset"
+                                 AutomationProperties.AutomationId="DataTrigger39_F124108D">
                         <Setter Property="Button.Background">
                             <Setter.Value>
-                                <ImageBrush ImageSource="../Resources/ButtReset.png"/>
+                                <ImageBrush ImageSource="../Resources/ButtReset.png"
+                                            AutomationProperties.AutomationId="ImageBrush40_F124108D" />
                             </Setter.Value>
                         </Setter>
                     </DataTrigger>
-
-                    <DataTrigger Binding="{Binding Command}" Value = "PlayNow">
+                    <DataTrigger Binding="{Binding Command}"
+                                 Value="PlayNow"
+                                 AutomationProperties.AutomationId="DataTrigger41_F124108D">
                         <Setter Property="Button.Background">
                             <Setter.Value>
-                                <ImageBrush ImageSource="../Resources/ButtPlayNow!.png"/>
+                                <ImageBrush ImageSource="../Resources/ButtPlayNow!.png"
+                                            AutomationProperties.AutomationId="ImageBrush42_F124108D" />
                             </Setter.Value>
                         </Setter>
                     </DataTrigger>
-
                 </Style.Triggers>
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Button Style="{StaticResource ButtonStyle}"></Button>
-
+    <Button Style="{StaticResource ButtonStyle}"
+            AutomationProperties.AutomationId="Button43_F124108D"></Button>
 </UserControl>

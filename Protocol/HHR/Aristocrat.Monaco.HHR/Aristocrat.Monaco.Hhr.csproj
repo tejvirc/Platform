@@ -57,7 +57,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="2.0.1-beta0023" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="2.0.1-beta0034" />
     <PackageReference Include="Aristocrat.SQLite.Core" Version="1.0.110-beta0001" />
     <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />

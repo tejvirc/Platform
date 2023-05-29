@@ -1,8 +1,8 @@
 ﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.IdleTextView"
                                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
@@ -13,45 +13,45 @@
                                mc:Ignorable="d" 
                                d:DataContext="{d:DesignInstance {x:Type viewModels:IdleTextViewModel}}"
                                Background="Transparent">
-
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid>
+    <Grid AutomationProperties.AutomationId="Grid0_58204F48">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition1_58204F48" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_58204F48" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition3_58204F48" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition4_58204F48" />
         </Grid.ColumnDefinitions>
-
         <Label Grid.Row="0"
-               Content="{lex:Loc IdleTextTitle}" />
-
+               Content="{lex:Loc IdleTextTitle}"
+               AutomationProperties.AutomationId="Label5_58204F48" />
         <common:TouchTextBox Grid.Row="1"
-                 Height="200"
-                 Width="800"
-                 IsReadOnly="False"
-                 Text="{Binding IdleText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 AcceptsReturn="False"
-                 TextWrapping="Wrap"
-                 MaxLength="255"
-                 InputScope="Default" />
-
-        <Button Grid.Row="2" 
+                             Height="200"
+                             Width="800"
+                             IsReadOnly="False"
+                             Text="{Binding IdleText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             AcceptsReturn="False"
+                             TextWrapping="Wrap"
+                             MaxLength="255"
+                             InputScope="Default" />
+        <Button Grid.Row="2"
                 Margin="0 10 0 0"
                 HorizontalAlignment="Left"
                 MinWidth="100"
                 Content="{lex:Loc ApplyLabel}" 
                 IsEnabled="{Binding InputEnabled}"
-                Command="{Binding ApplyCommand}" />
+                Command="{Binding ApplyCommand}"
+                AutomationProperties.AutomationId="Button6_58204F48" />
     </Grid>
 </operatorMenu:OperatorMenuPage>
-

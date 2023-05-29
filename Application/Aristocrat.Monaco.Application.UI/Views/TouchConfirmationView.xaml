@@ -17,15 +17,21 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
+    <Grid AutomationProperties.AutomationId="Grid0_1002EA44">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition1_1002EA44" />
+            <RowDefinition Height="20"
+                           AutomationProperties.AutomationId="RowDefinition2_1002EA44" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="{lex:Loc TouchCalibrationDialogText}" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="0"
+                   Text="{lex:Loc TouchCalibrationDialogText}"
+                   TextWrapping="Wrap"
+                   HorizontalAlignment="Center"
+                   AutomationProperties.AutomationId="TextBlock3_1002EA44" />
     </Grid>
 </operatorMenu:OperatorMenuPage>

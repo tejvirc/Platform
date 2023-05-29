@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.SingaporeClubsJurisdiction" filterid="SingaporeClubsLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.SingaporeClubsJurisdiction" filterid="SingaporeClubsLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.SingaporeClubsJurisdiction" filterid="SingaporeClubsLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -139,10 +136,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="SingaporeClubsLocaleConfig">
     <FilePath FilePath="..\jurisdiction\SingaporeClubs\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="SingaporeClubsLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
-    <FilePath FilePath="..\jurisdiction\SingaporeClubs\resources\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\SingaporeClubs\Lobby.config.xml" filterid="SingaporeClubsLobbyConfig" />

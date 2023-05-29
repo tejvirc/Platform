@@ -9,32 +9,52 @@
         <ResourceDictionary Source="Controls.Label.xaml" />
         <ResourceDictionary Source="Reskin.xaml" />
     </ResourceDictionary.MergedDictionaries>
-
-    <Style x:Key="MonacoListBoxLabel" TargetType="{x:Type Label}" BasedOn="{StaticResource MonacoLabel}">
-        <Setter Property="FontSize" Value="11"/>
-        <Setter Property="Margin" Value="0,-10,0,0"/>
-        <Setter Property="Foreground" Value="{DynamicResource LightBrush4}" />
+    <Style x:Key="MonacoListBoxLabel"
+           TargetType="{x:Type Label}"
+           BasedOn="{StaticResource MonacoLabel}">
+        <Setter Property="FontSize"
+                Value="11" />
+        <Setter Property="Margin"
+                Value="0,-10,0,0" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource LightBrush4}" />
     </Style>
-
-    <Style x:Key="MonacoListBoxLabelHeader" TargetType="{x:Type Label}" BasedOn="{StaticResource MonacoLabel}">
-        <Setter Property="FontSize" Value="15"/>
-        <Setter Property="Foreground" Value="{DynamicResource LightBrush4}" />
+    <Style x:Key="MonacoListBoxLabelHeader"
+           TargetType="{x:Type Label}"
+           BasedOn="{StaticResource MonacoLabel}">
+        <Setter Property="FontSize"
+                Value="15" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource LightBrush4}" />
     </Style>
-
-    <Style x:Key="MonacoListBox" TargetType="{x:Type ListBox}">
-        <Setter Property="ItemContainerStyle" Value="{DynamicResource MonacoListBoxItem}" />
-        <Setter Property="Margin" Value="3,3,2,1" />
-        <Setter Property="Foreground" Value="{DynamicResource LightBrush4}" />
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="BorderThickness" Value="2" />
-        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-        <Setter Property="ScrollViewer.CanContentScroll" Value="True" />
-        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
-        <Setter Property="ScrollViewer.PanningMode" Value="Both" />
-        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
+    <Style x:Key="MonacoListBox"
+           TargetType="{x:Type ListBox}">
+        <Setter Property="ItemContainerStyle"
+                Value="{DynamicResource MonacoListBoxItem}" />
+        <Setter Property="Margin"
+                Value="3,3,2,1" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource LightBrush4}" />
+        <Setter Property="Background"
+                Value="Transparent" />
+        <Setter Property="BorderBrush"
+                Value="Transparent" />
+        <Setter Property="BorderThickness"
+                Value="2" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Stretch" />
+        <Setter Property="ScrollViewer.CanContentScroll"
+                Value="True" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
+                Value="Auto" />
+        <Setter Property="ScrollViewer.PanningMode"
+                Value="Both" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
+                Value="Auto" />
+        <Setter Property="SnapsToDevicePixels"
+                Value="True" />
+        <Setter Property="Stylus.IsFlicksEnabled"
+                Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListBox}">
@@ -42,203 +62,301 @@
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                            AutomationProperties.AutomationId="Border0_FDE84D7">
                         <ScrollViewer Padding="{TemplateBinding Padding}"
                                       CanContentScroll="{TemplateBinding ScrollViewer.CanContentScroll}"
                                       Focusable="False"
                                       HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
                                       SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                      VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
-                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                      VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                      AutomationProperties.AutomationId="ScrollViewer1_FDE84D7">
+                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                            AutomationProperties.AutomationId="ItemsPresenter2_FDE84D7" />
                         </ScrollViewer>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsGrouping" Value="false">
-                            <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
+                        <Trigger Property="IsGrouping"
+                                 Value="false"
+                                 AutomationProperties.AutomationId="Trigger3_FDE84D7">
+                            <Setter Property="ScrollViewer.CanContentScroll"
+                                    Value="false" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
         <Style.Triggers>
-            <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Gray9}" />
+            <Trigger Property="IsEnabled"
+                     Value="False"
+                     AutomationProperties.AutomationId="Trigger4_FDE84D7">
+                <Setter Property="BorderBrush"
+                        Value="{DynamicResource MahApps.Brushes.Gray9}" />
             </Trigger>
-            <Trigger Property="VirtualizingStackPanel.IsVirtualizing" Value="True">
+            <Trigger Property="VirtualizingStackPanel.IsVirtualizing"
+                     Value="True"
+                     AutomationProperties.AutomationId="Trigger5_FDE84D7">
                 <Setter Property="ItemsPanel">
                     <Setter.Value>
                         <ItemsPanelTemplate>
-                            <VirtualizingStackPanel />
+                            <VirtualizingStackPanel AutomationProperties.AutomationId="VirtualizingStackPanel6_FDE84D7" />
                         </ItemsPanelTemplate>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="ScrollViewer.CanContentScroll" Value="True" />
+                <Setter Property="ScrollViewer.CanContentScroll"
+                        Value="True" />
             </Trigger>
         </Style.Triggers>
     </Style>
-
     <Style x:Key="VirtualisedMonacoListBox"
            BasedOn="{StaticResource MonacoListBox}"
            TargetType="{x:Type ListBox}">
-        <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="True" />
-        <Setter Property="VirtualizingStackPanel.VirtualizationMode" Value="Recycling" />
+        <Setter Property="VirtualizingStackPanel.IsVirtualizing"
+                Value="True" />
+        <Setter Property="VirtualizingStackPanel.VirtualizationMode"
+                Value="Recycling" />
     </Style>
-
-    <Style x:Key="MonacoListBoxItem" TargetType="{x:Type ListBoxItem}">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="Foreground" Value="{DynamicResource LightBrush4}" />
-        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, Mode=OneWay, FallbackValue=Stretch, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
-        <Setter Property="Margin" Value="0" />
-        <Setter Property="MinHeight" Value="40" />
-        <Setter Property="Padding" Value="5 0 0 0" />
-        <Setter Property="RenderOptions.ClearTypeHint" Value="{Binding Path=(RenderOptions.ClearTypeHint), Mode=OneWay, FallbackValue=Auto, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="FontSize" Value="18"></Setter>
-        <Setter Property="FontWeight" Value="Regular" />
+    <Style x:Key="MonacoListBoxItem"
+           TargetType="{x:Type ListBoxItem}">
+        <Setter Property="Background"
+                Value="Transparent" />
+        <Setter Property="BorderBrush"
+                Value="Transparent" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource LightBrush4}" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="{Binding HorizontalContentAlignment, Mode=OneWay, FallbackValue=Stretch, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+        <Setter Property="Margin"
+                Value="0" />
+        <Setter Property="MinHeight"
+                Value="40" />
+        <Setter Property="Padding"
+                Value="5 0 0 0" />
+        <Setter Property="RenderOptions.ClearTypeHint"
+                Value="{Binding Path=(RenderOptions.ClearTypeHint), Mode=OneWay, FallbackValue=Auto, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" />
+        <Setter Property="SnapsToDevicePixels"
+                Value="True" />
+        <Setter Property="FontSize"
+                Value="18"></Setter>
+        <Setter Property="FontWeight"
+                Value="Regular" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                    <Grid Background="{TemplateBinding Background}" RenderOptions.ClearTypeHint="{TemplateBinding RenderOptions.ClearTypeHint}">
+                    <Grid Background="{TemplateBinding Background}"
+                          RenderOptions.ClearTypeHint="{TemplateBinding RenderOptions.ClearTypeHint}"
+                          AutomationProperties.AutomationId="Grid7_FDE84D7">
                         <Border x:Name="Border"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                        <Grid Margin="{TemplateBinding BorderThickness}">
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                AutomationProperties.AutomationId="Border8_FDE84D7" />
+                        <Grid Margin="{TemplateBinding BorderThickness}"
+                              AutomationProperties.AutomationId="Grid9_FDE84D7">
                             <ContentPresenter Margin="{TemplateBinding Padding}"
                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                              AutomationProperties.AutomationId="ContentPresenter10_FDE84D7" />
                         </Grid>
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Selected.Foreground}" />
-                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}" />
+                        <Trigger Property="IsSelected"
+                                 Value="True"
+                                 AutomationProperties.AutomationId="Trigger11_FDE84D7">
+                            <Setter Property="Foreground"
+                                    Value="{DynamicResource MahApps.Brushes.Selected.Foreground}" />
+                            <Setter TargetName="Border"
+                                    Property="Background"
+                                    Value="{DynamicResource Aristocrat.Bingo.Client}" />
                         </Trigger>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource MahApps.Brushes.Accent3}" />
+                        <Trigger Property="IsMouseOver"
+                                 Value="True"
+                                 AutomationProperties.AutomationId="Trigger12_FDE84D7">
+                            <Setter TargetName="Border"
+                                    Property="Background"
+                                    Value="{DynamicResource MahApps.Brushes.Accent3}" />
                         </Trigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Gray7}" />
+                        <Trigger Property="IsEnabled"
+                                 Value="False"
+                                 AutomationProperties.AutomationId="Trigger13_FDE84D7">
+                            <Setter Property="Foreground"
+                                    Value="{DynamicResource MahApps.Brushes.Gray7}" />
                         </Trigger>
-                        <MultiTrigger>
+                        <MultiTrigger AutomationProperties.AutomationId="MultiTrigger14_FDE84D7">
                             <MultiTrigger.Conditions>
-                                <Condition Property="IsEnabled" Value="False" />
-                                <Condition Property="IsSelected" Value="True" />
+                                <Condition Property="IsEnabled"
+                                           Value="False" />
+                                <Condition Property="IsSelected"
+                                           Value="True" />
                             </MultiTrigger.Conditions>
-                            <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Selected.Foreground}" />
-                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource MahApps.Brushes.Gray7}" />
+                            <Setter Property="Foreground"
+                                    Value="{DynamicResource MahApps.Brushes.Selected.Foreground}" />
+                            <Setter TargetName="Border"
+                                    Property="Background"
+                                    Value="{DynamicResource GrayBrush7}" />
                         </MultiTrigger>
-                        <MultiTrigger>
+                        <MultiTrigger AutomationProperties.AutomationId="MultiTrigger15_FDE84D7">
                             <MultiTrigger.Conditions>
-                                <Condition Property="IsSelected" Value="True" />
-                                <Condition Property="Selector.IsSelectionActive" Value="True" />
+                                <Condition Property="IsSelected"
+                                           Value="True" />
+                                <Condition Property="Selector.IsSelectionActive"
+                                           Value="True" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource MahApps.Brushes.Accent2}" />
+                            <Setter TargetName="Border"
+                                    Property="Background"
+                                    Value="{DynamicResource MahApps.Brushes.Accent2}" />
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, Mode=OneWay, FallbackValue=Center, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+        <Setter Property="VerticalContentAlignment"
+                Value="{Binding VerticalContentAlignment, Mode=OneWay, FallbackValue=Center, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
     </Style>
-
-    <Style x:Key="MonacoUnselectableListBoxItem" TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource MonacoListBoxItem}">
+    <Style x:Key="MonacoUnselectableListBoxItem"
+           TargetType="{x:Type ListBoxItem}"
+           BasedOn="{StaticResource MonacoListBoxItem}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                    <Grid Background="{TemplateBinding Background}" RenderOptions.ClearTypeHint="{TemplateBinding RenderOptions.ClearTypeHint}">
+                    <Grid Background="{TemplateBinding Background}"
+                          RenderOptions.ClearTypeHint="{TemplateBinding RenderOptions.ClearTypeHint}"
+                          AutomationProperties.AutomationId="Grid16_FDE84D7">
                         <Border x:Name="Border"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                        <Grid Margin="{TemplateBinding BorderThickness}">
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                AutomationProperties.AutomationId="Border17_FDE84D7" />
+                        <Grid Margin="{TemplateBinding BorderThickness}"
+                              AutomationProperties.AutomationId="Grid18_FDE84D7">
                             <ContentPresenter Margin="{TemplateBinding Padding}"
                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                              AutomationProperties.AutomationId="ContentPresenter19_FDE84D7" />
                         </Grid>
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Foreground" Value="{DynamicResource LightBrush4}" />
-                            <Setter TargetName="Border" Property="Background" Value="Transparent" />
+                        <Trigger Property="IsSelected"
+                                 Value="True"
+                                 AutomationProperties.AutomationId="Trigger20_FDE84D7">
+                            <Setter Property="Foreground"
+                                    Value="{DynamicResource LightBrush4}" />
+                            <Setter TargetName="Border"
+                                    Property="Background"
+                                    Value="Transparent" />
                         </Trigger>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Border" Property="Background" Value="Transparent" />
+                        <Trigger Property="IsMouseOver"
+                                 Value="True"
+                                 AutomationProperties.AutomationId="Trigger21_FDE84D7">
+                            <Setter TargetName="Border"
+                                    Property="Background"
+                                    Value="Transparent" />
                         </Trigger>
-                        <MultiTrigger>
+                        <MultiTrigger AutomationProperties.AutomationId="MultiTrigger22_FDE84D7">
                             <MultiTrigger.Conditions>
-                                <Condition Property="IsSelected" Value="True" />
-                                <Condition Property="Selector.IsSelectionActive" Value="True" />
+                                <Condition Property="IsSelected"
+                                           Value="True" />
+                                <Condition Property="Selector.IsSelectionActive"
+                                           Value="True" />
                             </MultiTrigger.Conditions>
-                            <Setter Property="Foreground" Value="{DynamicResource LightBrush4}" />
-                            <Setter TargetName="Border" Property="Background" Value="Transparent" />
+                            <Setter Property="Foreground"
+                                    Value="{DynamicResource LightBrush4}" />
+                            <Setter TargetName="Border"
+                                    Property="Background"
+                                    Value="Transparent" />
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
-    <Style x:Key="MonacoNoFocusListBoxItem" TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource MonacoUnselectableListBoxItem}">
-        <Setter Property="Focusable" Value="False" />
+    <Style x:Key="MonacoNoFocusListBoxItem"
+           TargetType="{x:Type ListBoxItem}"
+           BasedOn="{StaticResource MonacoUnselectableListBoxItem}">
+        <Setter Property="Focusable"
+                Value="False" />
     </Style>
-
-    <Style x:Key="MonacoScrollButtonsListBoxItem" TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource MonacoUnselectableListBoxItem}">
-        <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="MinHeight" Value="0"/>
+    <Style x:Key="MonacoScrollButtonsListBoxItem"
+           TargetType="{x:Type ListBoxItem}"
+           BasedOn="{StaticResource MonacoUnselectableListBoxItem}">
+        <Setter Property="HorizontalAlignment"
+                Value="Stretch" />
+        <Setter Property="MinHeight"
+                Value="0" />
     </Style>
-
-    <Style x:Key="MonacoScrollButtonsListBox" TargetType="{x:Type ListBox}" BasedOn="{StaticResource MonacoListBox}">
-        <Setter Property="ItemContainerStyle" Value="{DynamicResource MonacoScrollButtonsListBoxItem}" />
-        <Setter Property="AllowDrop" Value="False" />
-        <Setter Property="Focusable" Value="False" />
-        <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Setter Property="IsTabStop" Value="False" />
-        <Setter Property="ScrollViewer.CanContentScroll" Value="False" />
-        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden" />
-        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden" />
-        <Setter Property="SelectionMode" Value="Single" />
-        <Setter Property="VerticalAlignment" Value="Top" />
+    <Style x:Key="MonacoScrollButtonsListBox"
+           TargetType="{x:Type ListBox}"
+           BasedOn="{StaticResource MonacoListBox}">
+        <Setter Property="ItemContainerStyle"
+                Value="{DynamicResource MonacoScrollButtonsListBoxItem}" />
+        <Setter Property="AllowDrop"
+                Value="False" />
+        <Setter Property="Focusable"
+                Value="False" />
+        <Setter Property="HorizontalAlignment"
+                Value="Left" />
+        <Setter Property="IsTabStop"
+                Value="False" />
+        <Setter Property="ScrollViewer.CanContentScroll"
+                Value="False" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
+                Value="Hidden" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
+                Value="Hidden" />
+        <Setter Property="SelectionMode"
+                Value="Single" />
+        <Setter Property="VerticalAlignment"
+                Value="Top" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListBox}">
                     <Border Padding="{TemplateBinding Padding}"
-                                    Background="{TemplateBinding Background}"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                    SnapsToDevicePixels="True">
-                        <Grid>
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            SnapsToDevicePixels="True"
+                            AutomationProperties.AutomationId="Border23_FDE84D7">
+                        <Grid AutomationProperties.AutomationId="Grid24_FDE84D7">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"
+                                                  AutomationProperties.AutomationId="ColumnDefinition25_FDE84D7" />
+                                <ColumnDefinition Width="*"
+                                                  AutomationProperties.AutomationId="ColumnDefinition26_FDE84D7" />
                             </Grid.ColumnDefinitions>
-                            <ScrollViewer x:Name="LB_ScrollViewer" Padding="{TemplateBinding Padding}"
+                            <ScrollViewer x:Name="LB_ScrollViewer"
+                                          Padding="{TemplateBinding Padding}"
                                           CanContentScroll="{TemplateBinding ScrollViewer.CanContentScroll}"
                                           Focusable="False"
                                           SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                          AutomationProperties.AutomationId="ScrollViewer27_FDE84D7"
                                           VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
-                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                                AutomationProperties.AutomationId="ItemsPresenter28_FDE84D7" />
                                 <b:Interaction.Triggers>
                                     <!--<events:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
                                         <events:EventToCommandAction Command="{Binding EventViewerScrolledCommand}"/>
                                     </events:RoutedEventTrigger>-->
                                 </b:Interaction.Triggers>
                             </ScrollViewer>
-
-                            <DockPanel Grid.Column="1" LastChildFill="False">
-                                <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center">
+                            <DockPanel Grid.Column="1"
+                                       LastChildFill="False"
+                                       AutomationProperties.AutomationId="DockPanel29_FDE84D7">
+                                <StackPanel Orientation="Horizontal"
+                                            DockPanel.Dock="Right"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            AutomationProperties.AutomationId="StackPanel30_FDE84D7">
                                     <controls:DataGridScrollButtons HorizontalAlignment="Right"
-                                                                                  VerticalAlignment="Center"
-                                                                                  ScrollGrid="{Binding ElementName=LB_ScrollViewer}"
-                                                                                  Visibility="{Binding CanContentScroll, Converter={StaticResource TrueVisibleFalseCollapsed}, RelativeSource={RelativeSource Self}}"
-                                                                                  Margin="5 25 0 0"/>
-
+                                                                    VerticalAlignment="Center"
+                                                                    ScrollGrid="{Binding ElementName=LB_ScrollViewer}"
+                                                                    Visibility="{Binding CanContentScroll, Converter={StaticResource TrueVisibleFalseCollapsed}, RelativeSource={RelativeSource Self}}"
+                                                                    Margin="5 25 0 0" />
                                 </StackPanel>
                             </DockPanel>
                         </Grid>
@@ -247,6 +365,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-
 </ResourceDictionary>

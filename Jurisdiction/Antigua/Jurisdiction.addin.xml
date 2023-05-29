@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.AntiguaJurisdiction" filterid="AntiguaLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.AntiguaJurisdiction" filterid="AntiguaLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.AntiguaJurisdiction" filterid="AntiguaLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -139,9 +136,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="AntiguaLocaleConfig">
     <FilePath FilePath="..\jurisdiction\Antigua\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="AntiguaLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\Antigua\Lobby.config.xml" filterid="AntiguaLobbyConfig" />

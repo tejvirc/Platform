@@ -14,41 +14,55 @@
                                d:DataContext="{d:DesignInstance {x:Type viewModels:DemonstrationPageViewModel}}"
                                Background="Transparent"
                                common:DialogParticipation.Register="{Binding}">
-
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
             <system:Double x:Key="HeadingFontSize">15</system:Double>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid>
+    <Grid AutomationProperties.AutomationId="Grid0_8C2BEDD8">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition1_8C2BEDD8" />
         </Grid.RowDefinitions>
-
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition2_8C2BEDD8" />
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition3_8C2BEDD8" />
         </Grid.ColumnDefinitions>
-
-        <StackPanel Grid.Row="0" Grid.Column="0" Name="DemonstrationText" HorizontalAlignment="Left">
-            <Label Content="{lex:Loc DemonstrationExitSummeryText}" Height="Auto"
-                   FontSize="{StaticResource Heading3FontSize}" />
-            <TextBlock Text="{lex:Loc DemonstrationExitDetailsText1}" Height="Auto"
-                       FontSize="{StaticResource HeadingFontSize}" />
-            <TextBlock Text="{lex:Loc DemonstrationExitDetailsText2}" Height="Auto"
-                       FontSize="{StaticResource HeadingFontSize}" />
+        <StackPanel Grid.Row="0"
+                    Grid.Column="0"
+                    Name="DemonstrationText"
+                    HorizontalAlignment="Left"
+                    AutomationProperties.AutomationId="StackPanel4_8C2BEDD8">
+            <Label Content="{lex:Loc DemonstrationExitSummeryText}"
+                   Height="Auto"
+                   FontSize="{StaticResource Heading3FontSize}"
+                   AutomationProperties.AutomationId="Label5_8C2BEDD8" />
+            <TextBlock Text="{lex:Loc DemonstrationExitDetailsText1}"
+                       Height="Auto"
+                       FontSize="{StaticResource HeadingFontSize}"
+                       AutomationProperties.AutomationId="TextBlock6_8C2BEDD8" />
+            <TextBlock Text="{lex:Loc DemonstrationExitDetailsText2}"
+                       Height="Auto"
+                       FontSize="{StaticResource HeadingFontSize}"
+                       AutomationProperties.AutomationId="TextBlock7_8C2BEDD8" />
             <TextBlock Text="{lex:Loc DemonstrationExitDetailsText3}"
-                       FontSize="{StaticResource HeadingFontSize}" />
+                       FontSize="{StaticResource HeadingFontSize}"
+                       AutomationProperties.AutomationId="TextBlock8_8C2BEDD8" />
         </StackPanel>
-
-        <Button Grid.Row="0" Grid.Column="1" Name="DemonstrationExitButton"
+        <Button Grid.Row="0"
+                Grid.Column="1"
+                Name="DemonstrationExitButton"
                 Content="{lex:Loc DemonstrationExitButtonText}"
                 Command="{Binding DemonstrationExitButtonClickCommand}"
-                Margin="50,0,0,0" IsEnabled="True" Width="180" VerticalAlignment="Bottom" />
+                Margin="50,0,0,0"
+                IsEnabled="True"
+                Width="180"
+                VerticalAlignment="Bottom"
+                AutomationProperties.AutomationId="Button9_8C2BEDD8" />
     </Grid>
 </operatorMenu:OperatorMenuPage>

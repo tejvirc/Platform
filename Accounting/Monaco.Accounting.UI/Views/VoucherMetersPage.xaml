@@ -12,7 +12,6 @@
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:VoucherMetersPageViewModel}}">
-
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -22,30 +21,41 @@
             <converters:DataTableValueVisibilityConverter x:Key="DataTableValueVisibilityConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid>
+    <Grid AutomationProperties.AutomationId="Grid0_D1FE7F80">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition1_D1FE7F80" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_D1FE7F80" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition3_D1FE7F80" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition4_D1FE7F80" />
         </Grid.RowDefinitions>
         <Border HorizontalAlignment="Left"
-                Visibility="{Binding IsVoucherInVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
-            <DataGrid ItemsSource="{Binding VoucherInMeters}" x:Name="VoucherInGrid"
-                      HorizontalAlignment="Left">
+                Visibility="{Binding IsVoucherInVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                AutomationProperties.AutomationId="Border5_D1FE7F80">
+            <DataGrid ItemsSource="{Binding VoucherInMeters}"
+                      x:Name="VoucherInGrid"
+                      HorizontalAlignment="Left"
+                      AutomationProperties.AutomationId="DataGrid6_D1FE7F80">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{lex:Loc Meter}"
                                         Width="350"
-                                        Binding="{Binding Name}" />
+                                        Binding="{Binding Name}" 
+                                        AutomationProperties.AutomationId="DataGridTextColumn7_D1FE7F80" />
                     <DataGridTextColumn Header="{lex:Loc Count}"
                                         Width="500"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
-                                        CellStyle="{StaticResource DataGridCellRight}">
+                                        CellStyle="{StaticResource DataGridCellRight}"
+                                        AutomationProperties.AutomationId="DataGridTextColumn8_D1FE7F80">
                         <DataGridTextColumn.Binding>
                             <MultiBinding Converter="{StaticResource DataTableValueVisibilityConverter}">
-                                <Binding Path="Count" UpdateSourceTrigger="PropertyChanged" Mode="OneWay" />
-                                <Binding Path="DataContext.ShowCategoryCounts" ElementName="VoucherOutGrid" />
+                                <Binding Path="Count"
+                                         UpdateSourceTrigger="PropertyChanged"
+                                         Mode="OneWay" />
+                                <Binding Path="DataContext.ShowCategoryCounts"
+                                         ElementName="VoucherOutGrid" />
                             </MultiBinding>
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
@@ -53,43 +63,66 @@
                                         Width="500"
                                         Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
-                                        CellStyle="{StaticResource DataGridCellRight}" />
+                                        CellStyle="{StaticResource DataGridCellRight}"
+                                        AutomationProperties.AutomationId="DataGridTextColumn9_D1FE7F80" />
                 </DataGrid.Columns>
             </DataGrid>
         </Border>
-
-        <Border Grid.Row="1" Margin="0,10,0,30" BorderThickness="0 1 0 0" BorderBrush="{StaticResource Brush3}"
+        <Border Grid.Row="1"
+                Margin="0,10,0,30"
+                BorderThickness="0 1 0 0"
+                BorderBrush="{StaticResource Brush3}"
                 HorizontalAlignment="Left"
-                Visibility="{Binding IsVoucherInVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
-            <Grid Margin="0 10 0 0">
+                Visibility="{Binding IsVoucherInVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                AutomationProperties.AutomationId="Border10_D1FE7F80">
+            <Grid Margin="0 10 0 0"
+                  AutomationProperties.AutomationId="Grid11_D1FE7F80">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="{Binding ElementName=VoucherInGrid, Path=Columns[0].ActualWidth}" />
-                    <ColumnDefinition Width="{Binding ElementName=VoucherInGrid, Path=Columns[1].ActualWidth}" />
-                    <ColumnDefinition Width="{Binding ElementName=VoucherInGrid, Path=Columns[2].ActualWidth}" />
+                    <ColumnDefinition Width="{Binding ElementName=VoucherInGrid, Path=Columns[0].ActualWidth}"
+                                      AutomationProperties.AutomationId="ColumnDefinition12_D1FE7F80" />
+                    <ColumnDefinition Width="{Binding ElementName=VoucherInGrid, Path=Columns[1].ActualWidth}"
+                                      AutomationProperties.AutomationId="ColumnDefinition13_D1FE7F80" />
+                    <ColumnDefinition Width="{Binding ElementName=VoucherInGrid, Path=Columns[2].ActualWidth}"
+                                      AutomationProperties.AutomationId="ColumnDefinition14_D1FE7F80" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{lex:Loc VoucherInLabelContent}" Margin="5 0" />
-                <TextBlock Grid.Column="1" HorizontalAlignment="Right" Margin="5 0"
-                           Text="{Binding VoucherInTotalCount, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
-                <TextBlock Grid.Column="2" HorizontalAlignment="Right" Margin="5 0"
-                           Text="{Binding VoucherInTotalValue, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+                <TextBlock Text="{lex:Loc VoucherInLabelContent}" 
+                           Margin="5 0" 
+                           AutomationProperties.AutomationId="TextBlock15_D1FE7F80" />
+                <TextBlock Grid.Column="1" 
+                           HorizontalAlignment="Right" 
+                           Margin="5 0"
+                           Text="{Binding VoucherInTotalCount, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" 
+                           AutomationProperties.AutomationId="TextBlock16_D1FE7F80" />
+                <TextBlock Grid.Column="2" 
+                           HorizontalAlignment="Right" 
+                           Margin="5 0"
+                           Text="{Binding VoucherInTotalValue, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" 
+                           AutomationProperties.AutomationId="TextBlock17_D1FE7F80" />
             </Grid>
         </Border>
-
-        <Border Grid.Row="2" HorizontalAlignment="Left">
-            <DataGrid ItemsSource="{Binding VoucherOutMeters}" 
-                      x:Name="VoucherOutGrid">
+        <Border Grid.Row="2"
+                HorizontalAlignment="Left"
+                AutomationProperties.AutomationId="Border18_D1FE7F80">
+            <DataGrid ItemsSource="{Binding VoucherOutMeters}"
+                      x:Name="VoucherOutGrid"
+                      AutomationProperties.AutomationId="DataGrid19_D1FE7F80">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{lex:Loc Meter}"
                                         Width="350"
-                                        Binding="{Binding Name}" />
+                                        Binding="{Binding Name}" 
+                                        AutomationProperties.AutomationId="DataGridTextColumn20_D1FE7F80" />
                     <DataGridTextColumn Header="{lex:Loc Count}"
                                         Width="500"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
-                                        CellStyle="{StaticResource DataGridCellRight}">
+                                        CellStyle="{StaticResource DataGridCellRight}"
+                                        AutomationProperties.AutomationId="DataGridTextColumn21_D1FE7F80">
                         <DataGridTextColumn.Binding>
                             <MultiBinding Converter="{StaticResource DataTableValueVisibilityConverter}">
-                                <Binding Path="Count" UpdateSourceTrigger="PropertyChanged" Mode="OneWay" />
-                                <Binding Path="DataContext.ShowCategoryCounts" ElementName="VoucherOutGrid" />
+                                <Binding Path="Count"
+                                         UpdateSourceTrigger="PropertyChanged"
+                                         Mode="OneWay" />
+                                <Binding Path="DataContext.ShowCategoryCounts"
+                                         ElementName="VoucherOutGrid" />
                             </MultiBinding>
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
@@ -97,39 +130,52 @@
                                         Width="500"
                                         Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
-                                        CellStyle="{StaticResource DataGridCellRight}" />
+                                        CellStyle="{StaticResource DataGridCellRight}"
+                                        AutomationProperties.AutomationId="DataGridTextColumn22_D1FE7F80" />
                 </DataGrid.Columns>
             </DataGrid>
         </Border>
-
-        <Border Grid.Row="3" Margin="0,10,0,0" BorderThickness="0 1 0 0" BorderBrush="{StaticResource Brush3}"
-                HorizontalAlignment="Left">
-            <Grid Margin="0 10 0 0">
+        <Border Grid.Row="3"
+                Margin="0,10,0,0"
+                BorderThickness="0 1 0 0"
+                BorderBrush="{StaticResource Brush3}"
+                HorizontalAlignment="Left"
+                AutomationProperties.AutomationId="Border23_D1FE7F80">
+            <Grid Margin="0 10 0 0"
+                  AutomationProperties.AutomationId="Grid24_D1FE7F80">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="{Binding ElementName=VoucherOutGrid, Path=Columns[0].ActualWidth}" />
-                    <ColumnDefinition Width="{Binding ElementName=VoucherOutGrid, Path=Columns[1].ActualWidth}" />
-                    <ColumnDefinition Width="{Binding ElementName=VoucherOutGrid, Path=Columns[2].ActualWidth}" />
+                    <ColumnDefinition Width="{Binding ElementName=VoucherOutGrid, Path=Columns[0].ActualWidth}"
+                                      AutomationProperties.AutomationId="ColumnDefinition25_D1FE7F80" />
+                    <ColumnDefinition Width="{Binding ElementName=VoucherOutGrid, Path=Columns[1].ActualWidth}"
+                                      AutomationProperties.AutomationId="ColumnDefinition26_D1FE7F80" />
+                    <ColumnDefinition Width="{Binding ElementName=VoucherOutGrid, Path=Columns[2].ActualWidth}"
+                                      AutomationProperties.AutomationId="ColumnDefinition27_D1FE7F80" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{lex:Loc VoucherOutLabelContent}" Margin="5 0" />
+                <TextBlock Text="{lex:Loc VoucherOutLabelContent}" Margin="5 0" 
+                           AutomationProperties.AutomationId="TextBlock28_D1FE7F80" />
                 <TextBlock Grid.Column="1" HorizontalAlignment="Right" Margin="5 0"
-                           Text="{Binding VoucherOutTotalCount, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+                           Text="{Binding VoucherOutTotalCount, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
+                           AutomationProperties.AutomationId="TextBlock29_D1FE7F80" />
                 <TextBlock Grid.Column="2" HorizontalAlignment="Right" Margin="5 0"
-                           Text="{Binding VoucherOutTotalValue, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
+                           Text="{Binding VoucherOutTotalValue, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" 
+                           AutomationProperties.AutomationId="TextBlock30_D1FE7F80" />
             </Grid>
         </Border>
 
-		<DataGrid Grid.Row="4" ItemsSource="{Binding RejectionMeters}" Margin="0 50 0 0" x:Name="RejectionMetersGrid">
+		<DataGrid Grid.Row="4" ItemsSource="{Binding RejectionMeters}" Margin="0 50 0 0" x:Name="RejectionMetersGrid"
+                  AutomationProperties.AutomationId="DataGrid31_D1FE7F80">
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="{lex:Loc Meter}"
                                     Width="350"
-                                    Binding="{Binding Name}" />
+                                    Binding="{Binding Name}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn32_D1FE7F80" />
 				<DataGridTextColumn Header="{lex:Loc Count}" 
                                     HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
                                     CellStyle="{StaticResource DataGridCellRight}"
                                     Width="500"
-                                    Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}" />
-			</DataGrid.Columns>
-		</DataGrid>
-	</Grid>
+                                    Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn33_D1FE7F80" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
 </operatorMenu:OperatorMenuPage>
-

@@ -17,36 +17,44 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid>
+    <Grid AutomationProperties.AutomationId="Grid0_57F2B9A7">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition1_57F2B9A7" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition2_57F2B9A7" />
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition3_57F2B9A7" />
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition4_57F2B9A7" />
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition5_57F2B9A7" />
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Column="0" Content="{lex:Loc MaxCreditsInLabel}" Margin="0,0,10,0"/>
+        <Label Grid.Column="0" Content="{lex:Loc MaxCreditsInLabel}" Margin="0,0,10,0"
+               AutomationProperties.AutomationId="Label6_57F2B9A7" />
         <common:CurrencyTextBox Grid.Column="1"
-                                Width="180" 
-                                IsReadOnly="False" 
-                                IsEnabled="{Binding MaxCreditsInEnabled}" 
+                                Width="180"
+                                IsReadOnly="False"
+                                IsEnabled="{Binding MaxCreditsInEnabled}"
                                 PreventNegatives="True"
                                 Number="{Binding MaxCreditsIn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=true}" />
         <Button Grid.Column="2" Margin="10,0,0,0" 
                 Content="{lex:Loc Clear}" 
                 MinWidth="100"
-                IsEnabled="{Binding InputEnabled}" Command="{Binding ClearCommand}" />
+                IsEnabled="{Binding InputEnabled}" Command="{Binding ClearCommand}" 
+                AutomationProperties.AutomationId="Button7_57F2B9A7" />
         <Button Grid.Column="3" Margin="10 0 0 0" 
                 Content="{lex:Loc ApplyLabel}" 
                 MinWidth="100"
-                IsEnabled="{Binding InputEnabled}" Command="{Binding ApplyCommand}" />
+                IsEnabled="{Binding InputEnabled}"
+                Command="{Binding ApplyCommand}"
+                AutomationProperties.AutomationId="Button8_57F2B9A7" />
     </Grid>
 </operatorMenu:OperatorMenuPage>

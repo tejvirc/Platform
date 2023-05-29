@@ -17,39 +17,46 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <converters:DateTimeFormatConverter x:Key="DateTimeFormat"/>
+            <converters:DateTimeFormatConverter x:Key="DateTimeFormat" />
         </ResourceDictionary>
     </UserControl.Resources>
-
     <DataGrid ItemsSource="{Binding Doors}"
               AutoGenerateColumns="False"
               CanUserResizeColumns="False"
               CanUserReorderColumns="False"
               CanUserSortColumns="False"
-              IsReadOnly="True">
+              IsReadOnly="True"
+              AutomationProperties.AutomationId="DataGrid0_C063434">
         <DataGrid.Columns>
-            <DataGridTextColumn Header="{lex:Loc NameLabel}" 
-                                loc:Localizer.For="Operator" 
-                                MinWidth="250" 
-                                Binding="{Binding Name, Mode=OneWay}" />
-            <DataGridTextColumn Header="{lex:Loc ActionLabel}" 
-                                loc:Localizer.For="Operator" 
-                                MinWidth="150" 
-                                Binding="{Binding Action, Mode=OneWay}" />
-            <DataGridTemplateColumn Header="{lex:Loc LastOpenedLabel}" 
-                                loc:Localizer.For="Operator" 
-                                MinWidth="150">
+            <DataGridTextColumn Header="{lex:Loc NameLabel}"
+                                loc:Localizer.For="Operator"
+                                MinWidth="250"
+                                Binding="{Binding Name, Mode=OneWay}"
+                                AutomationProperties.AutomationId="DataGridTextColumn1_C063434" />
+            <DataGridTextColumn Header="{lex:Loc ActionLabel}"
+                                loc:Localizer.For="Operator"
+                                MinWidth="150"
+                                Binding="{Binding Action, Mode=OneWay}"
+                                AutomationProperties.AutomationId="DataGridTextColumn2_C063434" />
+            <DataGridTemplateColumn Header="{lex:Loc LastOpenedLabel}"
+                                    loc:Localizer.For="Operator"
+                                    MinWidth="150"
+                                    AutomationProperties.AutomationId="DataGridTemplateColumn3_C063434">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate DataType="{x:Type viewModels:DoorViewModel}">
-                        <TextBlock Width="Auto">
+                        <TextBlock Width="Auto"
+                                   AutomationProperties.AutomationId="TextBlock4_C063434">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock" BasedOn="{StaticResource MonacoTextBlock}">
                                     <Setter Property="Text" Value="{lex:Loc NotAvailable}"/>
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Ignored}" Value="False">
-                                            <Setter Property="Text" Value="{Binding LastOpened, Converter={StaticResource DateTimeFormat}}" />
+                                        <DataTrigger Binding="{Binding Ignored}"
+                                                     Value="False"
+                                                     AutomationProperties.AutomationId="DataTrigger5_C063434">
+                                            <Setter Property="Text"
+                                                    Value="{Binding LastOpened, Converter={StaticResource DateTimeFormat}}" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
@@ -59,9 +66,8 @@
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
             <DataGridTextColumn Binding="{Binding Message, Mode=OneWay}"
-                                Foreground="Yellow"/>
+                                Foreground="Yellow"
+                                AutomationProperties.AutomationId="DataGridTextColumn6_C063434" />
         </DataGrid.Columns>
     </DataGrid>
-    
 </operatorMenu:OperatorMenuPage>
-

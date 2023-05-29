@@ -1,8 +1,8 @@
 ﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.G2S.UI.Views.SecurityConfigurationView"
                                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
                                lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
@@ -12,238 +12,489 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                FocusManager.FocusedElement="{Binding ElementName=ScepEnabledCheckbox}"
                                Background="Transparent"
-                               mc:Ignorable="d" d:DesignHeight="800" d:DesignWidth="1000"
+                               mc:Ignorable="d"
+                               d:DesignHeight="800"
+                               d:DesignWidth="1000"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:SecurityConfigurationViewModel}}">
-
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid>
-        <controls:MetroTabControl controls:TabControlHelper.Underlined="TabItems" Background="Transparent">
-            <TabItem Header="SCEP" IsEnabled="{Binding TabsActive}">
-                <AdornerDecorator>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width=".5*"/>
-                        <ColumnDefinition Width="20"/>
-                        <ColumnDefinition Width=".5*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0" Margin="0,20,0,10">
-                        <CheckBox Name="ScepEnabledCheckbox"
-                                  Tag="{lex:Loc SecurityConfiguration_ScepEnabled}" 
-                                  IsChecked="{Binding Path=EnrollmentEnabled, Mode=TwoWay}"
-                                  IsEnabled="{Binding Path=ScepEnabled, Mode=OneWay}"
-                                  Style="{DynamicResource MonacoCheckBoxGeneral}"/>
-                        <Label Content="{lex:Loc SecurityConfiguration_ScepEnabled}" VerticalAlignment="Center" />
-                    </StackPanel>
-
-                    <Label Grid.Column="0" Grid.Row="1" Content="{lex:Loc SecurityConfiguration_ManagerLocation}" />
-                    <TextBox Grid.Column="0" Grid.Row="2" Text="{Binding Path=CertificateManagerLocation, ValidatesOnDataErrors=True, Mode=TwoWay}" IsEnabled="{Binding Path=EnrollmentEditEnabled, Mode=OneWay}" InputScope="Url" Margin="5,0,0,0" />
-
-                    <Label Grid.Column="0" Grid.Row="3" Content="{lex:Loc CertificatePreSharedSecretTitle}" />
-                    <TextBox Grid.Column="0" Grid.Row="4" Text="{Binding Path=PreSharedSecret, ValidatesOnDataErrors=True, Mode=TwoWay}" 
-                             IsEnabled="{Binding Path=EnrollmentEditEnabled, Mode=OneWay}" InputScope="Password" Margin="5,0,0,0" />
-
-                    <Label Grid.Column="0" Grid.Row="5" Content="{lex:Loc SecurityConfiguration_Scep_CaIdent}"  />
-                    <TextBox Grid.Column="0" Grid.Row="6" Text="{Binding Identity, ValidatesOnDataErrors=True, Mode=TwoWay}" 
-                             IsEnabled="{Binding Path=EnrollmentEditEnabled}" InputScope="Default" Margin="5,0,0,0" />
-
-                    <Label Grid.Column="0" Grid.Row="7" Content="{lex:Loc SecurityConfiguration_Scep_UsernameField}" />
-                    <TextBox Grid.Column="0" Grid.Row="8" Text="{Binding Path=UserName, ValidatesOnDataErrors=True, Mode=TwoWay}" 
-                             IsEnabled="{Binding Path=EnrollmentEditEnabled}" InputScope="LogOnName" Margin="5,0,0,0"/>
-
-                    <Grid Grid.Column="0" Grid.Row="9" >
+    <Grid AutomationProperties.AutomationId="Grid0_27D35EF7">
+        <controls:MetroTabControl controls:TabControlHelper.Underlined="TabItems"
+                                  Background="Transparent">
+            <TabItem Header="SCEP"
+                     IsEnabled="{Binding TabsActive}"
+                     AutomationProperties.AutomationId="TabItem1_27D35EF7">
+                <AdornerDecorator AutomationProperties.AutomationId="AdornerDecorator2_27D35EF7">
+                    <Grid AutomationProperties.AutomationId="Grid3_27D35EF7">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition4_27D35EF7" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition5_27D35EF7" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition6_27D35EF7" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition7_27D35EF7" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition8_27D35EF7" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition9_27D35EF7" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition10_27D35EF7" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition11_27D35EF7" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition12_27D35EF7" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition13_27D35EF7" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition14_27D35EF7" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition15_27D35EF7" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition16_27D35EF7" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition17_27D35EF7" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width=".5*"/>
-                            <ColumnDefinition Width="20"/>
-                            <ColumnDefinition Width=".5*"/>
+                            <ColumnDefinition Width=".5*"
+                                              AutomationProperties.AutomationId="ColumnDefinition18_27D35EF7" />
+                            <ColumnDefinition Width="20"
+                                              AutomationProperties.AutomationId="ColumnDefinition19_27D35EF7" />
+                            <ColumnDefinition Width=".5*"
+                                              AutomationProperties.AutomationId="ColumnDefinition20_27D35EF7" />
                         </Grid.ColumnDefinitions>
-
-                        <Label Grid.Column="0" Grid.Row="0" Content="{lex:Loc SecurityConfiguration_KeySize}" />
-                        <ComboBox Grid.Column="0" Grid.Row="1" IsEnabled="{Binding Path=EnrollmentEditEnabled}" 
-                                  ItemsSource="{Binding KeySizes}" SelectedItem="{Binding KeySize}" 
-                                  Margin="5,0,0,0" Width="100" HorizontalAlignment="Left"/>
-
-                        <Label Grid.Column="2" Grid.Row="0" Content="{lex:Loc SecurityConfiguration_Scep_ManualPollingInterval}" />
-                        <TextBox Grid.Column="2" Grid.Row="1" 
-                                 Text="{Binding Path=ManualPollingInterval, ValidatesOnDataErrors=True, Mode=TwoWay}" 
-                                 IsEnabled="{Binding Path=EnrollmentEnabled}" InputScope="Number" 
-                                 Margin="5,0,0,0" Width="150" HorizontalAlignment="Left"/>
+                        <StackPanel Orientation="Horizontal"
+                                    Grid.Column="0"
+                                    Grid.Row="0"
+                                    Margin="0,20,0,10"
+                                    AutomationProperties.AutomationId="StackPanel21_27D35EF7">
+                            <CheckBox Name="ScepEnabledCheckbox"
+                                      Tag="{lex:Loc Key={x:Static loc:ResourceKeys.SecurityConfiguration_ScepEnabled}}"
+                                      IsChecked="{Binding Path=EnrollmentEnabled, Mode=TwoWay}"
+                                      IsEnabled="{Binding Path=ScepEnabled, Mode=OneWay}"
+                                      Style="{DynamicResource MonacoCheckBoxGeneral}"
+                                      AutomationProperties.AutomationId="CheckBox22_27D35EF7" />
+                            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.SecurityConfiguration_ScepEnabled}}"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="Label23_27D35EF7" />
+                        </StackPanel>
+                        <Label Grid.Column="0"
+                               Grid.Row="1"
+                               Content="{lex:Loc Key={x:Static loc:ResourceKeys.SecurityConfiguration_ManagerLocation}}"
+                               AutomationProperties.AutomationId="Label24_27D35EF7" />
+                        <TextBox Grid.Column="0"
+                                 Grid.Row="2"
+                                 Text="{Binding Path=CertificateManagerLocation, ValidatesOnDataErrors=True, Mode=TwoWay}"
+                                 IsEnabled="{Binding Path=EnrollmentEditEnabled, Mode=OneWay}"
+                                 InputScope="Url"
+                                 Margin="5,0,0,0"
+                                 AutomationProperties.AutomationId="TextBox25_27D35EF7" />
+                        <Label Grid.Column="0"
+                               Grid.Row="3"
+                               Content="{lex:Loc Key={x:Static loc:ResourceKeys.CertificatePreSharedSecretTitle}}"
+                               AutomationProperties.AutomationId="Label26_27D35EF7" />
+                        <TextBox Grid.Column="0"
+                                 Grid.Row="4"
+                                 Text="{Binding Path=PreSharedSecret, ValidatesOnDataErrors=True, Mode=TwoWay}"
+                                 IsEnabled="{Binding Path=EnrollmentEditEnabled, Mode=OneWay}"
+                                 InputScope="Password"
+                                 Margin="5,0,0,0"
+                                 AutomationProperties.AutomationId="TextBox27_27D35EF7" />
+                        <Label Grid.Column="0"
+                               Grid.Row="5"
+                               Content="{lex:Loc Key={x:Static loc:ResourceKeys.SecurityConfiguration_Scep_CaIdent}}"
+                               AutomationProperties.AutomationId="Label28_27D35EF7" />
+                        <TextBox Grid.Column="0"
+                                 Grid.Row="6"
+                                 Text="{Binding Identity, ValidatesOnDataErrors=True, Mode=TwoWay}"
+                                 IsEnabled="{Binding Path=EnrollmentEditEnabled}"
+                                 InputScope="Default"
+                                 Margin="5,0,0,0"
+                                 AutomationProperties.AutomationId="TextBox29_27D35EF7" />
+                        <Label Grid.Column="0"
+                               Grid.Row="7"
+                               Content="{lex:Loc Key={x:Static loc:ResourceKeys.SecurityConfiguration_Scep_UsernameField}}"
+                               AutomationProperties.AutomationId="Label30_27D35EF7" />
+                        <TextBox Grid.Column="0"
+                                 Grid.Row="8"
+                                 Text="{Binding Path=UserName, ValidatesOnDataErrors=True, Mode=TwoWay}"
+                                 IsEnabled="{Binding Path=EnrollmentEditEnabled}"
+                                 InputScope="LogOnName"
+                                 Margin="5,0,0,0"
+                                 AutomationProperties.AutomationId="TextBox31_27D35EF7" />
+                        <Grid Grid.Column="0"
+                              Grid.Row="9"
+                              AutomationProperties.AutomationId="Grid32_27D35EF7">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"
+                                               AutomationProperties.AutomationId="RowDefinition33_27D35EF7" />
+                                <RowDefinition Height="Auto"
+                                               AutomationProperties.AutomationId="RowDefinition34_27D35EF7" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width=".5*"
+                                                  AutomationProperties.AutomationId="ColumnDefinition35_27D35EF7" />
+                                <ColumnDefinition Width="20"
+                                                  AutomationProperties.AutomationId="ColumnDefinition36_27D35EF7" />
+                                <ColumnDefinition Width=".5*"
+                                                  AutomationProperties.AutomationId="ColumnDefinition37_27D35EF7" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0"
+                                   Grid.Row="0"
+                                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.SecurityConfiguration_KeySize}}"
+                                   AutomationProperties.AutomationId="Label38_27D35EF7" />
+                            <ComboBox Grid.Column="0"
+                                      Grid.Row="1"
+                                      IsEnabled="{Binding Path=EnrollmentEditEnabled}"
+                                      ItemsSource="{Binding KeySizes}"
+                                      SelectedItem="{Binding KeySize}"
+                                      Margin="5,0,0,0"
+                                      Width="100"
+                                      HorizontalAlignment="Left"
+                                      AutomationProperties.AutomationId="ComboBox39_27D35EF7" />
+                            <Label Grid.Column="2"
+                                   Grid.Row="0"
+                                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.SecurityConfiguration_Scep_ManualPollingInterval}}"
+                                   AutomationProperties.AutomationId="Label40_27D35EF7" />
+                            <TextBox Grid.Column="2"
+                                     Grid.Row="1"
+                                     Text="{Binding Path=ManualPollingInterval, ValidatesOnDataErrors=True, Mode=TwoWay}"
+                                     IsEnabled="{Binding Path=EnrollmentEnabled}"
+                                     InputScope="Number"
+                                     Margin="5,0,0,0"
+                                     Width="150"
+                                     HorizontalAlignment="Left"
+                                     AutomationProperties.AutomationId="TextBox41_27D35EF7" />
+                        </Grid>
+                        <StackPanel Orientation="Horizontal"
+                                    Grid.Column="0"
+                                    Grid.Row="10"
+                                    Margin="5,20,0,0"
+                                    AutomationProperties.AutomationId="StackPanel42_27D35EF7">
+                            <CheckBox
+                                    Tag="{lex:Loc Key={x:Static loc:ResourceKeys.SecurityConfiguration_ValidateDomain}}"
+                                      IsChecked="{Binding Path=ValidateDomain, Mode=TwoWay}"
+                                      IsEnabled="{Binding Path=EnrollmentEnabled}"
+                                      AutomationProperties.AutomationId="CheckBox43_27D35EF7" />
+                            <Label
+                                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.SecurityConfiguration_ValidateDomain}}"
+                                   AutomationProperties.AutomationId="Label44_27D35EF7" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="0"
+                                    Grid.Row="11"
+                                    Grid.ColumnSpan="3"
+                                    Orientation="Horizontal"
+                                    Margin="5,25,0,0"
+                                    AutomationProperties.AutomationId="StackPanel45_27D35EF7">
+                            <Button Content="{Binding RequestButtonCaption}"
+                                    Command="{Binding EnrollCertificateCommand}"
+                                    Margin="0,0,0,0"
+                                    Width="350"
+                                    AutomationProperties.AutomationId="Button46_27D35EF7" />
+                            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.Buttons_GetThumbprint}}"
+                                    Command="{Binding GetThumbprintCommand}"
+                                    Margin="40,0,0,0"
+                                    Width="350"
+                                    AutomationProperties.AutomationId="Button47_27D35EF7" />
+                        </StackPanel>
                     </Grid>
-
-                    <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="10" Margin="5,20,0,0">
-                        <CheckBox Tag="{lex:Loc SecurityConfiguration_ValidateDomain}" 
-                                  IsChecked="{Binding Path=ValidateDomain, Mode=TwoWay}" 
-                                  IsEnabled="{Binding Path=EnrollmentEnabled}" />
-                        <Label Content="{lex:Loc SecurityConfiguration_ValidateDomain}" />
-                    </StackPanel>
-
-                    <StackPanel Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="5,25,0,0">
-                        <Button Content="{Binding RequestButtonCaption}" 
-                                Command="{Binding EnrollCertificateCommand}" Margin="0,0,0,0" Width="350" />
-                        <Button Content="{lex:Loc Buttons_GetThumbprint}" 
-                                Command="{Binding GetThumbprintCommand}" Margin="40,0,0,0"  Width="350"/>
-                    </StackPanel>
-
-                </Grid>
                 </AdornerDecorator>
             </TabItem>
-            <TabItem Header="OCSP">
+            <TabItem Header="OCSP"
+                     AutomationProperties.AutomationId="TabItem48_27D35EF7">
                 <TabItem.Style>
-                    <Style TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
-                        <Setter Property="IsEnabled" Value="False" />
+                    <Style TargetType="TabItem"
+                           BasedOn="{StaticResource {x:Type TabItem}}">
+                        <Setter Property="IsEnabled"
+                                Value="False" />
                         <Style.Triggers>
-                            <MultiDataTrigger>
+                            <MultiDataTrigger AutomationProperties.AutomationId="MultiDataTrigger49_27D35EF7">
                                 <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding TabsActive}" Value="True" />
-                                    <Condition Binding="{Binding ShowSCEPRequestStatus}" Value="False" />
+                                    <Condition Binding="{Binding TabsActive}"
+                                               Value="True" />
+                                    <Condition Binding="{Binding ShowSCEPRequestStatus}"
+                                               Value="False" />
                                 </MultiDataTrigger.Conditions>
-                                <Setter Property="IsEnabled" Value="True" />
+                                <Setter Property="IsEnabled"
+                                        Value="True" />
                             </MultiDataTrigger>
                         </Style.Triggers>
                     </Style>
                 </TabItem.Style>
-                <AdornerDecorator>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width=".5*"/>
-                        <ColumnDefinition Width="20"/>
-                        <ColumnDefinition Width=".5*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <StackPanel Orientation="Horizontal" Grid.Row="0" IsEnabled="True" Margin="0,20,0,10">
-                        <!--IsEnabled="{Binding Path=EnrollmentEnabled}" >-->
-                        <CheckBox Tag="{lex:Loc SecurityConfiguration_OcspEnabled}" 
-                                  IsChecked="{Binding Path=RenewalEnabled, Mode=TwoWay}" 
-                                  Style="{DynamicResource MonacoCheckBoxGeneral}"/>
-                        <Label Content="{lex:Loc SecurityConfiguration_OcspEnabled}" VerticalAlignment="Center"/>
-                    </StackPanel>
-
-                    <Label Grid.Column="0" Grid.Row="1" Content="{lex:Loc SecurityConfiguration_OcspResponderAddress}" />
-                    <TextBox Grid.Column="0" Grid.Row="2" Text="{Binding Path=CertificateStatusLocation, ValidatesOnDataErrors=True, Mode=TwoWay}" IsEnabled="{Binding Path=RenewalEnabled}" InputScope="Url" Margin="5,5,0,0"/>
-                    <Label Grid.Column="1" Grid.Row="2" Content="{lex:Loc SecurityConfiguration_RequiredText}" 
-                           VerticalAlignment="Center" Foreground="{lex:Loc SecurityConfiguration_RequiredForegroundColor}"
-                           Visibility="{Binding Path=RenewalEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
-
-                    <Label Grid.Column="0" Grid.Row="3" Content="{lex:Loc SecurityConfiguration_MaxPeriodOffline}" />
-                    <TextBox Grid.Column="0" Grid.Row="4" Text="{Binding OfflinePeriod, ValidatesOnDataErrors=True, Mode=TwoWay}" IsEnabled="{Binding Path=RenewalEnabled}" InputScope="Number" Margin="5,5,0,0"/>
-
-                    <Label Grid.Column="0" Grid.Row="5" Content="{lex:Loc SecurityConfiguration_ReAuthenticatePeriod}" />
-                    <TextBox Grid.Column="0" Grid.Row="6" Text="{Binding ReAuthenticatedPeriod, ValidatesOnDataErrors=True, Mode=TwoWay}" IsEnabled="{Binding Path=RenewalEnabled}" InputScope="Number" Margin="5,5,0,0"/>
-
-                    <Label Grid.Column="0" Grid.Row="7" Content="{lex:Loc SecurityConfiguration_AcceptPreviousCertPeriod}" />
-                    <TextBox Grid.Column="0" Grid.Row="8" Text="{Binding AcceptPreviouslyGoodCertificatePeriod, ValidatesOnDataErrors=True, Mode=TwoWay}" IsEnabled="{Binding Path=RenewalEnabled}" InputScope="Number" Margin="5,5,0,0"/>
-
-                    <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="9" Margin="5,5,0,0">
-                        <!--IsEnabled="{Binding Path=EnrollmentEnabled}" >-->
-                        <CheckBox Tag="{lex:Loc SecurityConfiguration_NoncesEnabled}" 
-                                  IsChecked="{Binding NoncesEnabled, Mode=TwoWay}" 
-                                  Style="{DynamicResource MonacoCheckBoxGeneral}"/>
-                        <Label Content="{lex:Loc SecurityConfiguration_NoncesEnabled}" VerticalAlignment="Center"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="10">
-                        <Button Content="{lex:Loc SecurityConfiguration_OcspResponderTest}" Command="{Binding TestCertificateStatusCommand}" Margin="0,10,0,0" />
-                    </StackPanel>
+                <AdornerDecorator AutomationProperties.AutomationId="AdornerDecorator50_27D35EF7">
+                    <Grid AutomationProperties.AutomationId="Grid51_27D35EF7">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition52_27D35EF7" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition53_27D35EF7" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition54_27D35EF7" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition55_27D35EF7" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition56_27D35EF7" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition57_27D35EF7" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition58_27D35EF7" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition59_27D35EF7" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition60_27D35EF7" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition61_27D35EF7" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition62_27D35EF7" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition63_27D35EF7" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition64_27D35EF7" />
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition65_27D35EF7" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width=".5*"
+                                              AutomationProperties.AutomationId="ColumnDefinition66_27D35EF7" />
+                            <ColumnDefinition Width="20"
+                                              AutomationProperties.AutomationId="ColumnDefinition67_27D35EF7" />
+                            <ColumnDefinition Width=".5*"
+                                              AutomationProperties.AutomationId="ColumnDefinition68_27D35EF7" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal"
+                                    Grid.Row="0"
+                                    IsEnabled="True"
+                                    Margin="0,20,0,10"
+                                    AutomationProperties.AutomationId="StackPanel69_27D35EF7">
+                            <!--IsEnabled="{Binding Path=EnrollmentEnabled}" >-->
+                            <CheckBox Tag="{lex:Loc Key={x:Static loc:ResourceKeys.SecurityConfiguration_OcspEnabled}}"
+                                      IsChecked="{Binding Path=RenewalEnabled, Mode=TwoWay}"
+                                      Style="{DynamicResource MonacoCheckBoxGeneral}"
+                                      AutomationProperties.AutomationId="CheckBox70_27D35EF7" />
+                            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.SecurityConfiguration_OcspEnabled}}"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="Label71_27D35EF7" />
+                        </StackPanel>
+                        <Label Grid.Column="0"
+                               Grid.Row="1"
+                               Content="{lex:Loc Key={x:Static loc:ResourceKeys.SecurityConfiguration_OcspResponderAddress}}"
+                               AutomationProperties.AutomationId="Label72_27D35EF7" />
+                        <TextBox Grid.Column="0"
+                                 Grid.Row="2"
+                                 Text="{Binding Path=CertificateStatusLocation, ValidatesOnDataErrors=True, Mode=TwoWay}"
+                                 IsEnabled="{Binding Path=RenewalEnabled}"
+                                 InputScope="Url"
+                                 Margin="5,5,0,0"
+                                 AutomationProperties.AutomationId="TextBox73_27D35EF7" />
+                        <Label Grid.Column="1"
+                               Grid.Row="2"
+                               Content="{lex:Loc Key={x:Static loc:ResourceKeys.SecurityConfiguration_RequiredText}}"
+                               VerticalAlignment="Center"
+                               Foreground="{lex:Loc Key={x:Static loc:ResourceKeys.SecurityConfiguration_RequiredForegroundColor}}"
+                               Visibility="{Binding Path=RenewalEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                               AutomationProperties.AutomationId="Label74_27D35EF7" />
+                        <Label Grid.Column="0"
+                               Grid.Row="3"
+                               Content="{lex:Loc Key={x:Static loc:ResourceKeys.SecurityConfiguration_MaxPeriodOffline}}"
+                               AutomationProperties.AutomationId="Label75_27D35EF7" />
+                        <TextBox Grid.Column="0"
+                                 Grid.Row="4"
+                                 Text="{Binding OfflinePeriod, ValidatesOnDataErrors=True, Mode=TwoWay}"
+                                 IsEnabled="{Binding Path=RenewalEnabled}"
+                                 InputScope="Number"
+                                 Margin="5,5,0,0"
+                                 AutomationProperties.AutomationId="TextBox76_27D35EF7" />
+                        <Label Grid.Column="0"
+                               Grid.Row="5"
+                               Content="{lex:Loc Key={x:Static loc:ResourceKeys.SecurityConfiguration_ReAuthenticatePeriod}}"
+                               AutomationProperties.AutomationId="Label77_27D35EF7" />
+                        <TextBox Grid.Column="0"
+                                 Grid.Row="6"
+                                 Text="{Binding ReAuthenticatedPeriod, ValidatesOnDataErrors=True, Mode=TwoWay}"
+                                 IsEnabled="{Binding Path=RenewalEnabled}"
+                                 InputScope="Number"
+                                 Margin="5,5,0,0"
+                                 AutomationProperties.AutomationId="TextBox78_27D35EF7" />
+                        <Label Grid.Column="0"
+                               Grid.Row="7"
+                               Content="{lex:Loc Key={x:Static loc:ResourceKeys.SecurityConfiguration_AcceptPreviousCertPeriod}}"
+                               AutomationProperties.AutomationId="Label79_27D35EF7" />
+                        <TextBox Grid.Column="0"
+                                 Grid.Row="8"
+                                 Text="{Binding AcceptPreviouslyGoodCertificatePeriod, ValidatesOnDataErrors=True, Mode=TwoWay}"
+                                 IsEnabled="{Binding Path=RenewalEnabled}"
+                                 InputScope="Number"
+                                 Margin="5,5,0,0"
+                                 AutomationProperties.AutomationId="TextBox80_27D35EF7" />
+                        <StackPanel Orientation="Horizontal"
+                                    Grid.Column="0"
+                                    Grid.Row="9"
+                                    Margin="5,5,0,0"
+                                    AutomationProperties.AutomationId="StackPanel81_27D35EF7">
+                            <!--IsEnabled="{Binding Path=EnrollmentEnabled}" >-->
+                            <CheckBox
+                                    Tag="{lex:Loc Key={x:Static loc:ResourceKeys.SecurityConfiguration_NoncesEnabled}}"
+                                      IsChecked="{Binding NoncesEnabled, Mode=TwoWay}"
+                                      Style="{DynamicResource MonacoCheckBoxGeneral}"
+                                      AutomationProperties.AutomationId="CheckBox82_27D35EF7" />
+                            <Label
+                                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.SecurityConfiguration_NoncesEnabled}}"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="Label83_27D35EF7" />
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical"
+                                    Grid.Column="0"
+                                    Grid.Row="10"
+                                    AutomationProperties.AutomationId="StackPanel84_27D35EF7">
+                            <Button
+                                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.SecurityConfiguration_OcspResponderTest}}"
+                                    Command="{Binding TestCertificateStatusCommand}"
+                                    Margin="0,10,0,0"
+                                    AutomationProperties.AutomationId="Button85_27D35EF7" />
+                        </StackPanel>
                     </Grid>
-                    </AdornerDecorator>
+                </AdornerDecorator>
             </TabItem>
         </controls:MetroTabControl>
-
-        <Grid Margin="-20,-200,-20,0" Visibility="{Binding Path=ShowSCEPRequestStatus, Converter={StaticResource TrueVisibleFalseCollapsed}}" >
-            <Border Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,368,0,176" >
-                <DockPanel LastChildFill="True">
-                    <Label DockPanel.Dock="Top" Content="{lex:Loc StatusText}"  HorizontalAlignment="Center" />
-                        <Label DockPanel.Dock="Top" Margin="10"  Content="{Binding RequestStatus}" HorizontalAlignment="Center" Visibility="Visible" />
-                    <Button DockPanel.Dock="Bottom" Margin="10" Content="{lex:Loc Cancel}" Command="{Binding CancelRequestCommand}" HorizontalAlignment="Center" />
+        <Grid Margin="-20,-200,-20,0"
+              Visibility="{Binding Path=ShowSCEPRequestStatus, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+              AutomationProperties.AutomationId="Grid86_27D35EF7">
+            <Border Background="White"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    Margin="0,368,0,176"
+                    AutomationProperties.AutomationId="Border87_27D35EF7">
+                <DockPanel LastChildFill="True"
+                           AutomationProperties.AutomationId="DockPanel88_27D35EF7">
+                    <Label DockPanel.Dock="Top"
+                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.StatusText}}"
+                           HorizontalAlignment="Center"
+                           AutomationProperties.AutomationId="Label89_27D35EF7" />
+                    <Label DockPanel.Dock="Top"
+                           Margin="10"
+                           Content="{Binding RequestStatus}"
+                           HorizontalAlignment="Center"
+                           Visibility="Visible"
+                           AutomationProperties.AutomationId="Label90_27D35EF7" />
+                    <Button DockPanel.Dock="Bottom"
+                            Margin="10"
+                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.Cancel}}"
+                            Command="{Binding CancelRequestCommand}"
+                            HorizontalAlignment="Center"
+                            AutomationProperties.AutomationId="Button91_27D35EF7" />
                 </DockPanel>
             </Border>
         </Grid>
-
-        <Grid Margin="-20,-200,-20,0" Visibility="{Binding Path=ShowOSCPRequestStatus, Converter={StaticResource TrueVisibleFalseCollapsed}}" >
-            <Border Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,368,0,176" >
-                <DockPanel LastChildFill="True">
-                    <Label DockPanel.Dock="Top" Content="{lex:Loc StatusText}"  HorizontalAlignment="Center" />
-                    <Label DockPanel.Dock="Top" Margin="10"  Content="{Binding RequestStatus}" HorizontalAlignment="Center" Visibility="Visible" />
+        <Grid Margin="-20,-200,-20,0"
+              Visibility="{Binding Path=ShowOSCPRequestStatus, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+              AutomationProperties.AutomationId="Grid92_27D35EF7">
+            <Border Background="White"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    Margin="0,368,0,176"
+                    AutomationProperties.AutomationId="Border93_27D35EF7">
+                <DockPanel LastChildFill="True"
+                           AutomationProperties.AutomationId="DockPanel94_27D35EF7">
+                    <Label DockPanel.Dock="Top"
+                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.StatusText}}"
+                           HorizontalAlignment="Center"
+                           AutomationProperties.AutomationId="Label95_27D35EF7" />
+                    <Label DockPanel.Dock="Top"
+                           Margin="10"
+                           Content="{Binding RequestStatus}"
+                           HorizontalAlignment="Center"
+                           Visibility="Visible"
+                           AutomationProperties.AutomationId="Label96_27D35EF7" />
                 </DockPanel>
             </Border>
         </Grid>
-        
-        <Grid Margin="-20,-320,-20,0" Visibility="{Binding Path=ShowThumbprint, Converter={StaticResource TrueVisibleFalseCollapsed}}" >
-            <Border Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Center" >
-                <DockPanel LastChildFill="True">
-                    <Label Content="{lex:Loc SecurityConfiguration_Thumbprint}" DockPanel.Dock="Top" HorizontalAlignment="Center" />
-                    <Button DockPanel.Dock="Bottom" Content="{lex:Loc Close}" Command="{Binding ClosePopupCommand}" HorizontalAlignment="Center" />
-                    <Label Margin="10" DockPanel.Dock="Top" Content="{Binding Thumbprint}" HorizontalAlignment="Center"/>
+        <Grid Margin="-20,-320,-20,0"
+              Visibility="{Binding Path=ShowThumbprint, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+              AutomationProperties.AutomationId="Grid97_27D35EF7">
+            <Border Background="White"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    AutomationProperties.AutomationId="Border98_27D35EF7">
+                <DockPanel LastChildFill="True"
+                           AutomationProperties.AutomationId="DockPanel99_27D35EF7">
+                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.SecurityConfiguration_Thumbprint}}"
+                           DockPanel.Dock="Top"
+                           HorizontalAlignment="Center"
+                           AutomationProperties.AutomationId="Label100_27D35EF7" />
+                    <Button DockPanel.Dock="Bottom"
+                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.Close}}"
+                            Command="{Binding ClosePopupCommand}"
+                            HorizontalAlignment="Center"
+                            AutomationProperties.AutomationId="Button101_27D35EF7" />
+                    <Label Margin="10"
+                           DockPanel.Dock="Top"
+                           Content="{Binding Thumbprint}"
+                           HorizontalAlignment="Center"
+                           AutomationProperties.AutomationId="Label102_27D35EF7" />
                 </DockPanel>
             </Border>
         </Grid>
-
-        <Grid Margin="-20,-35,-20,0" Visibility="{Binding Path=ShowInvalidServerResponse, Converter={StaticResource TrueVisibleFalseCollapsed}}" >
-            <Border Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,468,0,126" >
-                <DockPanel LastChildFill="True">
-                    <Label Content="{lex:Loc StatusText}" DockPanel.Dock="Top" HorizontalAlignment="Center" />
-                    <Label Content="{lex:Loc SecurityConfiguration_InvalidServerResponse}" DockPanel.Dock="Top" Margin="10" HorizontalAlignment="Center" />
-                    <Button DockPanel.Dock="Bottom" Content="{lex:Loc Close}" Command="{Binding ClosePopupCommand}" HorizontalAlignment="Center" />
+        <Grid Margin="-20,-35,-20,0"
+              Visibility="{Binding Path=ShowInvalidServerResponse, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+              AutomationProperties.AutomationId="Grid103_27D35EF7">
+            <Border Background="White"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    Margin="0,468,0,126"
+                    AutomationProperties.AutomationId="Border104_27D35EF7">
+                <DockPanel LastChildFill="True"
+                           AutomationProperties.AutomationId="DockPanel105_27D35EF7">
+                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.StatusText}}"
+                           DockPanel.Dock="Top"
+                           HorizontalAlignment="Center"
+                           AutomationProperties.AutomationId="Label106_27D35EF7" />
+                    <Label
+                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.SecurityConfiguration_InvalidServerResponse}}"
+                           DockPanel.Dock="Top"
+                           Margin="10"
+                           HorizontalAlignment="Center"
+                           AutomationProperties.AutomationId="Label107_27D35EF7" />
+                    <Button DockPanel.Dock="Bottom"
+                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.Close}}"
+                            Command="{Binding ClosePopupCommand}"
+                            HorizontalAlignment="Center"
+                            AutomationProperties.AutomationId="Button108_27D35EF7" />
                 </DockPanel>
             </Border>
         </Grid>
-
-        <Grid Margin="-20,-35,-20,0" Visibility="{Binding Path=ShowInvalidCertStatusLocation, Converter={StaticResource TrueVisibleFalseCollapsed}}" >
-            <Border Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,468,0,126" >
-                <DockPanel LastChildFill="True">
-                    <Label Content="{lex:Loc StatusText}" DockPanel.Dock="Top" HorizontalAlignment="Center" />
-                    <Label Content="{lex:Loc SecurityConfiguration_InvalidCertLocation}" DockPanel.Dock="Top" Margin="10" HorizontalAlignment="Center" />
-                    <Button DockPanel.Dock="Bottom" Content="{lex:Loc Close}" Command="{Binding ClosePopupCommand}" HorizontalAlignment="Center" />
+        <Grid Margin="-20,-35,-20,0"
+              Visibility="{Binding Path=ShowInvalidCertStatusLocation, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+              AutomationProperties.AutomationId="Grid109_27D35EF7">
+            <Border Background="White"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    Margin="0,468,0,126"
+                    AutomationProperties.AutomationId="Border110_27D35EF7">
+                <DockPanel LastChildFill="True"
+                           AutomationProperties.AutomationId="DockPanel111_27D35EF7">
+                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.StatusText}}"
+                           DockPanel.Dock="Top"
+                           HorizontalAlignment="Center"
+                           AutomationProperties.AutomationId="Label112_27D35EF7" />
+                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.SecurityConfiguration_InvalidCertLocation}}"
+                           DockPanel.Dock="Top"
+                           Margin="10"
+                           HorizontalAlignment="Center"
+                           AutomationProperties.AutomationId="Label113_27D35EF7" />
+                    <Button DockPanel.Dock="Bottom"
+                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.Close}}"
+                            Command="{Binding ClosePopupCommand}"
+                            HorizontalAlignment="Center"
+                            AutomationProperties.AutomationId="Button114_27D35EF7" />
                 </DockPanel>
             </Border>
         </Grid>
-
     </Grid>
 </operatorMenu:OperatorMenuPage>
-
-
-

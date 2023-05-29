@@ -18,45 +18,63 @@
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Controls.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <Style TargetType="Label" BasedOn="{StaticResource MonacoLabel}">
-                <Setter Property="Margin" Value="0 0 10 10" />
-                <Setter Property="VerticalAlignment" Value="Center" />
+            <Style TargetType="Label"
+                   BasedOn="{StaticResource MonacoLabel}">
+                <Setter Property="Margin"
+                        Value="0 0 10 10" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
             </Style>
-
-            <Style TargetType="TextBlock" BasedOn="{StaticResource MonacoTextBlock}">
-                <Setter Property="Margin" Value="0 0 0 10" />
-                <Setter Property="VerticalAlignment" Value="Center" />
+            <Style TargetType="TextBlock"
+                   BasedOn="{StaticResource MonacoTextBlock}">
+                <Setter Property="Margin"
+                        Value="0 0 0 10" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
+    <Grid AutomationProperties.AutomationId="Grid0_301ADE38">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition1_301ADE38" />
+            <ColumnDefinition Width="*"
+                              AutomationProperties.AutomationId="ColumnDefinition2_301ADE38" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition3_301ADE38" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition4_301ADE38" />
         </Grid.RowDefinitions>
-        <Label Grid.Column="0" Grid.Row="0"
+        <Label Grid.Column="0"
+               Grid.Row="0"
                VerticalAlignment="Center"
-               Content="{lex:Loc Address}" />
-        <common:AlphaNumericTextBox Grid.Column="1" Grid.Row="0" MinWidth="200"
+               Content="{lex:Loc Address}"
+               AutomationProperties.AutomationId="Label5_301ADE38" />
+        <common:AlphaNumericTextBox Grid.Column="1"
+                                    Grid.Row="0"
+                                    MinWidth="200"
                                     Margin="20 0 0 0"
-                                    HorizontalAlignment="Left" VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
                                     IsReadOnly="False"
                                     IsAlphaNumeric="True"
                                     SkipRegexCheck="True"
                                     IsEnabled="{Binding InputEnabled}"
                                     Text="{Binding HostName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
-        <Label Grid.Column="0" Grid.Row="1"
+        <Label Grid.Column="0"
+               Grid.Row="1"
                Margin="0 20 0 0"
                VerticalAlignment="Center"
-               Content="{lex:Loc Port}" />
-        <common:AlphaNumericTextBox Grid.Column="1" Grid.Row="1" MinWidth="200"
+               Content="{lex:Loc Port}"
+               AutomationProperties.AutomationId="Label6_301ADE38" />
+        <common:AlphaNumericTextBox Grid.Column="1"
+                                    Grid.Row="1"
+                                    MinWidth="200"
                                     Margin="20 20 0 0"
-                                    HorizontalAlignment="Left" VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
                                     IsReadOnly="False"
                                     IsAlphaNumeric="False"
                                     IsEnabled="{Binding InputEnabled}"

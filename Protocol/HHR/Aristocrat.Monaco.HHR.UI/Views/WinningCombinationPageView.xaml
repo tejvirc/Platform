@@ -18,144 +18,271 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <Style x:Key="BorderStyle" TargetType="Border">
-                <Setter Property="BorderThickness" Value="1" />
-                <Setter Property="Width" Value="122" />
-                <Setter Property="Height" Value="62" />
-                <Setter Property="Margin" Value="1" />
+            <Style x:Key="BorderStyle"
+                   TargetType="Border">
+                <Setter Property="BorderThickness"
+                        Value="1" />
+                <Setter Property="Width"
+                        Value="122" />
+                <Setter Property="Height"
+                        Value="62" />
+                <Setter Property="Margin"
+                        Value="1" />
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding}" Value = "False">
+                    <DataTrigger Binding="{Binding}"
+                                 Value="False"
+                                 AutomationProperties.AutomationId="DataTrigger0_9170C024">
                         <Setter Property="Border.Background">
                             <Setter.Value>
-                                <ImageBrush ImageSource="../Resources/Help/EmptyPattern.png"/>
+                                <ImageBrush ImageSource="../Resources/Help/EmptyPattern.png"
+                                            AutomationProperties.AutomationId="ImageBrush1_9170C024" />
                             </Setter.Value>
                         </Setter>
                     </DataTrigger>
-                    <DataTrigger Binding="{Binding}" Value = "True">
+                    <DataTrigger Binding="{Binding}"
+                                 Value="True"
+                                 AutomationProperties.AutomationId="DataTrigger2_9170C024">
                         <Setter Property="Border.Background">
                             <Setter.Value>
-                                <ImageBrush ImageSource="../Resources/Help/PatternTile.png"/>
+                                <ImageBrush ImageSource="../Resources/Help/PatternTile.png"
+                                            AutomationProperties.AutomationId="ImageBrush3_9170C024" />
                             </Setter.Value>
                         </Setter>
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
-
             <common:NumberToVisibilityConverter x:Key="NumberToVisible" />
             <common:CurrencyConverter x:Key="CurrencyConverter" />
             <converters:ByteToBitsConverter x:Key="ByteToBitsConverter" />
-
-            <Style TargetType="TextBlock" x:Key="BoldWhiteTextBlock">
-                <Setter Property="Foreground" Value="White" />
-                <Setter Property="FontWeight" Value="Bold" />
-                <Setter Property="VerticalAlignment" Value="Center" />
+            <Style TargetType="TextBlock"
+                   x:Key="BoldWhiteTextBlock">
+                <Setter Property="Foreground"
+                        Value="White" />
+                <Setter Property="FontWeight"
+                        Value="Bold" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
             </Style>
-            <Style TargetType="TextBlock" x:Key="CombinationPrizeTextBlock">
-                <Setter Property="Foreground" Value="White" />
-                <Setter Property="FontWeight" Value="Bold" />
-                <Setter Property="VerticalAlignment" Value="Top" />
-                <Setter Property="FontSize" Value="15" />
+            <Style TargetType="TextBlock"
+                   x:Key="CombinationPrizeTextBlock">
+                <Setter Property="Foreground"
+                        Value="White" />
+                <Setter Property="FontWeight"
+                        Value="Bold" />
+                <Setter Property="VerticalAlignment"
+                        Value="Top" />
+                <Setter Property="FontSize"
+                        Value="15" />
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <StackPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Image Source="../Resources/Help/WinningCombinationLabel.png" Height="30"/>
-
+    <StackPanel AutomationProperties.AutomationId="StackPanel4_9170C024">
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    AutomationProperties.AutomationId="StackPanel5_9170C024">
+            <Image Source="../Resources/Help/WinningCombinationLabel.png"
+                   Height="30"
+                   AutomationProperties.AutomationId="Image6_9170C024" />
             <!--   <TextBlock Style="{StaticResource BoldWhiteTextBlock}" FontSize="26" Margin="30,0,0,0"
-                       Text="{Binding CurrentWinningPattern.Wager, StringFormat='{lex:Loc WagerStringFormat}', Converter={StaticResource CurrencyConverter}}" /> -->
-            <TextBlock Style="{StaticResource BoldWhiteTextBlock}" FontSize="26" Margin="30,0,0,0"
-                       Text="{lex:Loc WagerStringFormat}" />
-            <TextBlock Style="{StaticResource BoldWhiteTextBlock}" FontSize="26" Margin="0,0,0,0"
-                       Text="{Binding CurrentWinningPattern.Wager}" />
-
-            <Image Source="../Resources/Help/RaceSet.png" Height="30" Margin="30 0 0 0"/>
-
-            <TextBlock Style="{StaticResource BoldWhiteTextBlock}" FontSize="40" Margin="0,0,0,0"
-                       Text="{Binding CurrentWinningPattern.RaceSet}"/>
+                       Text="{Binding CurrentWinningPattern.Wager, StringFormat='{lex:Loc Key={x:Static loc:ResourceKeys.WagerStringFormat}}', Converter={StaticResource CurrencyConverter}}" /> -->
+            <TextBlock Style="{StaticResource BoldWhiteTextBlock}"
+                       FontSize="26"
+                       Margin="30,0,0,0"
+                       Text="{lex:Loc Key={x:Static loc:ResourceKeys.WagerStringFormat}}"
+                       AutomationProperties.AutomationId="TextBlock7_9170C024" />
+            <TextBlock Style="{StaticResource BoldWhiteTextBlock}"
+                       FontSize="26"
+                       Margin="0,0,0,0"
+                       Text="{Binding CurrentWinningPattern.Wager}"
+                       AutomationProperties.AutomationId="TextBlock8_9170C024" />
+            <Image Source="../Resources/Help/RaceSet.png"
+                   Height="30"
+                   Margin="30 0 0 0"
+                   AutomationProperties.AutomationId="Image9_9170C024" />
+            <TextBlock Style="{StaticResource BoldWhiteTextBlock}"
+                       FontSize="40"
+                       Margin="0,0,0,0"
+                       Text="{Binding CurrentWinningPattern.RaceSet}"
+                       AutomationProperties.AutomationId="TextBlock10_9170C024" />
         </StackPanel>
-        <HeaderedItemsControl Margin ="0 30 0 0 " ItemsSource="{Binding CurrentWinningPattern.Patterns, Converter={StaticResource ByteToBitsConverter}}">
+        <HeaderedItemsControl Margin="0 30 0 0 "
+                              ItemsSource="{Binding CurrentWinningPattern.Patterns, Converter={StaticResource ByteToBitsConverter}}"
+                              AutomationProperties.AutomationId="HeaderedItemsControl11_9170C024">
             <HeaderedItemsControl.Template>
                 <ControlTemplate TargetType="HeaderedItemsControl">
-                    <Border>
-                        <Grid>
+                    <Border AutomationProperties.AutomationId="Border12_9170C024">
+                        <Grid AutomationProperties.AutomationId="Grid13_9170C024">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto"
+                                               AutomationProperties.AutomationId="RowDefinition14_9170C024" />
+                                <RowDefinition Height="Auto"
+                                               AutomationProperties.AutomationId="RowDefinition15_9170C024" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto"
+                                                  AutomationProperties.AutomationId="ColumnDefinition16_9170C024" />
+                                <ColumnDefinition Width="Auto"
+                                                  AutomationProperties.AutomationId="ColumnDefinition17_9170C024" />
                             </Grid.ColumnDefinitions>
-                            <ContentPresenter Grid.Row="0" Grid.Column="1" ContentSource="Header" />
-                            <Grid Grid.Row="1" Grid.Column="0">
+                            <ContentPresenter Grid.Row="0"
+                                              Grid.Column="1"
+                                              ContentSource="Header"
+                                              AutomationProperties.AutomationId="ContentPresenter18_9170C024" />
+                            <Grid Grid.Row="1"
+                                  Grid.Column="0"
+                                  AutomationProperties.AutomationId="Grid19_9170C024">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*"
+                                                   AutomationProperties.AutomationId="RowDefinition20_9170C024" />
+                                    <RowDefinition Height="*"
+                                                   AutomationProperties.AutomationId="RowDefinition21_9170C024" />
+                                    <RowDefinition Height="*"
+                                                   AutomationProperties.AutomationId="RowDefinition22_9170C024" />
+                                    <RowDefinition Height="*"
+                                                   AutomationProperties.AutomationId="RowDefinition23_9170C024" />
+                                    <RowDefinition Height="*"
+                                                   AutomationProperties.AutomationId="RowDefinition24_9170C024" />
                                 </Grid.RowDefinitions>
-                                <Image Grid.Row="0" Source="../Resources/Help/Race1.png"  Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                <Image Grid.Row="1" Source="../Resources/Help/Race2.png"  Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                <Image Grid.Row="2" Source="../Resources/Help/Race3.png"  Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                <Image Grid.Row="3" Source="../Resources/Help/Race4.png"  Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                <Image Grid.Row="4" Source="../Resources/Help/Race5.png"  Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Image Grid.Row="0"
+                                       Source="../Resources/Help/Race1.png"
+                                       Height="20"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       AutomationProperties.AutomationId="Image25_9170C024" />
+                                <Image Grid.Row="1"
+                                       Source="../Resources/Help/Race2.png"
+                                       Height="20"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       AutomationProperties.AutomationId="Image26_9170C024" />
+                                <Image Grid.Row="2"
+                                       Source="../Resources/Help/Race3.png"
+                                       Height="20"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       AutomationProperties.AutomationId="Image27_9170C024" />
+                                <Image Grid.Row="3"
+                                       Source="../Resources/Help/Race4.png"
+                                       Height="20"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       AutomationProperties.AutomationId="Image28_9170C024" />
+                                <Image Grid.Row="4"
+                                       Source="../Resources/Help/Race5.png"
+                                       Height="20"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       AutomationProperties.AutomationId="Image29_9170C024" />
                             </Grid>
-                            <ItemsPresenter Grid.Row="1" Grid.Column="1" />
+                            <ItemsPresenter Grid.Row="1"
+                                            Grid.Column="1"
+                                            AutomationProperties.AutomationId="ItemsPresenter30_9170C024" />
                         </Grid>
                     </Border>
                 </ControlTemplate>
             </HeaderedItemsControl.Template>
             <HeaderedItemsControl.HeaderTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <Grid AutomationProperties.AutomationId="Grid31_9170C024">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*"
+                                              AutomationProperties.AutomationId="ColumnDefinition32_9170C024" />
+                            <ColumnDefinition Width="*"
+                                              AutomationProperties.AutomationId="ColumnDefinition33_9170C024" />
+                            <ColumnDefinition Width="*"
+                                              AutomationProperties.AutomationId="ColumnDefinition34_9170C024" />
+                            <ColumnDefinition Width="*"
+                                              AutomationProperties.AutomationId="ColumnDefinition35_9170C024" />
+                            <ColumnDefinition Width="*"
+                                              AutomationProperties.AutomationId="ColumnDefinition36_9170C024" />
+                            <ColumnDefinition Width="*"
+                                              AutomationProperties.AutomationId="ColumnDefinition37_9170C024" />
+                            <ColumnDefinition Width="*"
+                                              AutomationProperties.AutomationId="ColumnDefinition38_9170C024" />
+                            <ColumnDefinition Width="*"
+                                              AutomationProperties.AutomationId="ColumnDefinition39_9170C024" />
                         </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0" Source="../Resources/Help/Place1.png" Height="20" HorizontalAlignment="Left"/>
-                        <Image Grid.Column="1" Source="../Resources/Help/Place2.png" Height="20" HorizontalAlignment="Left"/>
-                        <Image Grid.Column="2" Source="../Resources/Help/Place3.png" Height="20" HorizontalAlignment="Left"/>
-                        <Image Grid.Column="3" Source="../Resources/Help/Place4.png" Height="20" HorizontalAlignment="Left"/>
-                        <Image Grid.Column="4" Source="../Resources/Help/Place5.png" Height="20" HorizontalAlignment="Left"/>
-                        <Image Grid.Column="5" Source="../Resources/Help/Place6.png" Height="20" HorizontalAlignment="Left"/>
-                        <Image Grid.Column="6" Source="../Resources/Help/Place7.png" Height="20" HorizontalAlignment="Left"/>
-                        <Image Grid.Column="7" Source="../Resources/Help/Place8.png" Height="20" HorizontalAlignment="Left"/>
+                        <Image Grid.Column="0"
+                               Source="../Resources/Help/Place1.png"
+                               Height="20"
+                               HorizontalAlignment="Left"
+                               AutomationProperties.AutomationId="Image40_9170C024" />
+                        <Image Grid.Column="1"
+                               Source="../Resources/Help/Place2.png"
+                               Height="20"
+                               HorizontalAlignment="Left"
+                               AutomationProperties.AutomationId="Image41_9170C024" />
+                        <Image Grid.Column="2"
+                               Source="../Resources/Help/Place3.png"
+                               Height="20"
+                               HorizontalAlignment="Left"
+                               AutomationProperties.AutomationId="Image42_9170C024" />
+                        <Image Grid.Column="3"
+                               Source="../Resources/Help/Place4.png"
+                               Height="20"
+                               HorizontalAlignment="Left"
+                               AutomationProperties.AutomationId="Image43_9170C024" />
+                        <Image Grid.Column="4"
+                               Source="../Resources/Help/Place5.png"
+                               Height="20"
+                               HorizontalAlignment="Left"
+                               AutomationProperties.AutomationId="Image44_9170C024" />
+                        <Image Grid.Column="5"
+                               Source="../Resources/Help/Place6.png"
+                               Height="20"
+                               HorizontalAlignment="Left"
+                               AutomationProperties.AutomationId="Image45_9170C024" />
+                        <Image Grid.Column="6"
+                               Source="../Resources/Help/Place7.png"
+                               Height="20"
+                               HorizontalAlignment="Left"
+                               AutomationProperties.AutomationId="Image46_9170C024" />
+                        <Image Grid.Column="7"
+                               Source="../Resources/Help/Place8.png"
+                               Height="20"
+                               HorizontalAlignment="Left"
+                               AutomationProperties.AutomationId="Image47_9170C024" />
                     </Grid>
                 </DataTemplate>
             </HeaderedItemsControl.HeaderTemplate>
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid HorizontalAlignment="Left" Rows="5" Columns="8"/>
+                    <UniformGrid HorizontalAlignment="Left"
+                                 Rows="5"
+                                 Columns="8"
+                                 AutomationProperties.AutomationId="UniformGrid48_9170C024" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Border Style="{StaticResource BorderStyle}"></Border>
+                    <Border Style="{StaticResource BorderStyle}"
+                            AutomationProperties.AutomationId="Border49_9170C024"></Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </HeaderedItemsControl>
-
-        <StackPanel Orientation="Horizontal">
-            <Image Source="../Resources/Help/CombinationPrize.png" Height="30" Margin="60,0,0,0"/>
-            <DockPanel Margin="20,20,0,0">
-                <TextBlock Style="{StaticResource CombinationPrizeTextBlock}" DockPanel.Dock="Bottom" VerticalAlignment="Bottom"
-                           Text="{lex:Loc IncludesProgressiveResetValues}" 
-                           Visibility="{Binding CurrentWinningPattern.IncludesProgressiveResetValues, Converter={StaticResource TrueVisibleFalseHidden}}" />
-                <TextBlock Style="{StaticResource CombinationPrizeTextBlock}" DockPanel.Dock="Left"
-                           Text="{Binding CurrentWinningPattern.GuaranteedCredits, StringFormat='{lex:Loc GuaranteedCreditsStringFormat}'}" />
-                <TextBlock Style="{StaticResource CombinationPrizeTextBlock}" DockPanel.Dock="Right"
-                           Text="{Binding CurrentWinningPattern.ExtraWinnings, StringFormat='{lex:Loc ExtraWinningsStringFormat}', Converter={StaticResource CurrencyConverter}}" 
-                           Visibility="{Binding CurrentWinningPattern.ExtraWinnings, Converter={StaticResource NumberToVisible}, ConverterParameter=0.0}" />
+        <StackPanel Orientation="Horizontal"
+                    AutomationProperties.AutomationId="StackPanel50_9170C024">
+            <Image Source="../Resources/Help/CombinationPrize.png"
+                   Height="30"
+                   Margin="60,0,0,0"
+                   AutomationProperties.AutomationId="Image51_9170C024" />
+            <DockPanel Margin="20,20,0,0"
+                       AutomationProperties.AutomationId="DockPanel52_9170C024">
+                <TextBlock Style="{StaticResource CombinationPrizeTextBlock}"
+                           DockPanel.Dock="Bottom"
+                           VerticalAlignment="Bottom"
+                           Text="{lex:Loc Key={x:Static loc:ResourceKeys.IncludesProgressiveResetValues}}"
+                           Visibility="{Binding CurrentWinningPattern.IncludesProgressiveResetValues, Converter={StaticResource TrueVisibleFalseHidden}}"
+                           AutomationProperties.AutomationId="TextBlock53_9170C024" />
+                <TextBlock Style="{StaticResource CombinationPrizeTextBlock}"
+                           DockPanel.Dock="Left"
+                           Text="{Binding CurrentWinningPattern.GuaranteedCredits, StringFormat='{lex:Loc Key={x:Static loc:ResourceKeys.GuaranteedCreditsStringFormat}}'}"
+                           AutomationProperties.AutomationId="TextBlock54_9170C024" />
+                <TextBlock Style="{StaticResource CombinationPrizeTextBlock}"
+                           DockPanel.Dock="Right"
+                           Text="{Binding CurrentWinningPattern.ExtraWinnings, StringFormat='{lex:Loc Key={x:Static loc:ResourceKeys.ExtraWinningsStringFormat}}', Converter={StaticResource CurrencyConverter}}"
+                           Visibility="{Binding CurrentWinningPattern.ExtraWinnings, Converter={StaticResource NumberToVisible}, ConverterParameter=0.0}"
+                           AutomationProperties.AutomationId="TextBlock55_9170C024" />
             </DockPanel>
         </StackPanel>
     </StackPanel>

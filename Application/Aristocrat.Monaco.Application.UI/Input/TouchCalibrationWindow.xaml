@@ -11,17 +11,25 @@
         <behaviors:TouchWindowBehavior />
     </b:Interaction.Behaviors>
     <Grid x:Name="ContentView" Margin="75,50,75,0">
-        <Viewbox Stretch="Uniform">
-            <Grid VerticalAlignment="Center"> 
+        <Viewbox Stretch="Uniform" AutomationProperties.AutomationId="Viewbox1_CCCCAC70">
+            <Grid VerticalAlignment="Center" AutomationProperties.AutomationId="Grid2_CCCCAC70"> 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*"
+                                   AutomationProperties.AutomationId="RowDefinition3_CCCCAC70" />
+                    <RowDefinition Height="*"
+                                   AutomationProperties.AutomationId="RowDefinition4_CCCCAC70" />
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Content="Touch Screen Calibration Process" FontSize="120" />
-                <Label Grid.Row="1" HorizontalAlignment="Center" FontSize="40" Margin="0,10,0,0"
-                       Content="1. With a single finger, touch the monitor that displays this text&#xA;2. If the touch does not switch to the next monitor, then &#xA;    use the large play button to switch to the next monitor&#xA;3. Repeat for each monitor" />
+                <Label Grid.Row="0"
+                       Content="Touch Screen Calibration Process"
+                       FontSize="120"
+                       AutomationProperties.AutomationId="Label5_CCCCAC70" />
+                <Label Grid.Row="1"
+                       HorizontalAlignment="Center"
+                       FontSize="40"
+                       Margin="0,10,0,0"
+                       Content="1. With a single finger, touch the monitor that displays this text&#xA;2. If the touch does not switch to the next monitor, then &#xA;    use the large play button to switch to the next monitor&#xA;3. Repeat for each monitor"
+                       AutomationProperties.AutomationId="Label6_CCCCAC70" />
             </Grid>
         </Viewbox>
     </Grid>
 </common:BaseWindow>
-

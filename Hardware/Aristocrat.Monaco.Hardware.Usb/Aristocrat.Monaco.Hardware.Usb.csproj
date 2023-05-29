@@ -33,6 +33,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
     <ProjectReference Include="..\Aristocrat.Monaco.Hardware.Contracts\Aristocrat.Monaco.Hardware.Contracts.csproj" />
   </ItemGroup>
   <ItemGroup>
@@ -41,6 +42,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Aristocrat.RelmReels" Version="0.1.9" />
     <PackageReference Include="HidSharp" Version="2.0.2" />
     <PackageReference Include="log4net" Version="2.0.13" />
   </ItemGroup>

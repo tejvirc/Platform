@@ -44,14 +44,8 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.RhodeIslandJurisdiction" filterid="RhodeIslandLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.RhodeIslandJurisdiction" filterid="RhodeIslandLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.RhodeIslandJurisdiction" filterid="RhodeIslandLobbyConfig" />
-      </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.RhodeIslandJurisdiction" filterid="RhodeIslandLocaleOverrides" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Accounting/Configuration">
         <NodeSpecification addinId="Client12Addins.RhodeIslandJurisdiction" filterid="RhodeIslandAccountingConfig" />
@@ -136,10 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="RhodeIslandLocaleConfig">
     <FilePath FilePath="..\jurisdiction\RhodeIsland\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="RhodeIslandLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
-    <FilePath FilePath="..\jurisdiction\RhodeIsland\resources\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\RhodeIsland\Lobby.config.xml" filterid="RhodeIslandLobbyConfig" />

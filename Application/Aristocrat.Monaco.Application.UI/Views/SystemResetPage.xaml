@@ -13,10 +13,10 @@
                                loc:Localizer.For="Operator"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:SystemResetPageViewModel}}"
-                               d:DesignWidth="800" d:DesignHeight="600"
+                               d:DesignWidth="800"
+                               d:DesignHeight="600"
                                Background="Transparent"
                                common:DialogParticipation.Register="{Binding}">
-
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -24,40 +24,69 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid>
+    <Grid AutomationProperties.AutomationId="Grid0_ED0F5ED8">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition1_ED0F5ED8" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition2_ED0F5ED8" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition3_ED0F5ED8" />
         </Grid.RowDefinitions>
-
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition4_ED0F5ED8" />
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition5_ED0F5ED8" />
         </Grid.ColumnDefinitions>
-
-        <StackPanel Grid.Row="0" Grid.Column="0" Name="PartialResetText" HorizontalAlignment="Left">
-            <Label Content="{lex:Loc PartialClearHeadingText}" Height="Auto" 
-                   FontSize="{StaticResource Heading3FontSize}" Margin="0,0,0,8" />
-            <TextBlock Text="{lex:Loc PartialClearSummeryText}" Height="Auto" 
-                       FontSize="{StaticResource ContentFontSize}" Margin="5,0,0,32" TextWrapping="Wrap" />
-
-            <Label Content="{lex:Loc PartialClearDetailsText1}" Height="Auto" 
-                   FontSize="{StaticResource Heading4FontSize}" Margin="0,0,0,8" />
-            <TextBlock Text="{lex:Loc PartialClearDetailsText2}" Margin="5,0,0,32" 
-                       FontSize="{StaticResource ContentFontSize}" Height="Auto" TextWrapping="Wrap" />
-
-            <Label Content="{lex:Loc PartialClearDetailsText3}" Height="Auto" 
-                   FontSize="{StaticResource Heading4FontSize}" Margin="0,0,0,8" />
-            <TextBlock Text="{lex:Loc PartialClearDetailsText4}" Margin="5,0,0,8" 
-                       FontSize="{StaticResource ContentFontSize}" Height="Auto" TextWrapping="Wrap" />
+        <StackPanel Grid.Row="0"
+                    Grid.Column="0"
+                    Name="PartialResetText"
+                    HorizontalAlignment="Left"
+                    AutomationProperties.AutomationId="StackPanel6_ED0F5ED8">
+            <Label Content="{lex:Loc PartialClearHeadingText}"
+                   Height="Auto"
+                   FontSize="{StaticResource Heading3FontSize}"
+                   Margin="0,0,0,8"
+                   AutomationProperties.AutomationId="Label7_ED0F5ED8" />
+            <TextBlock Text="{lex:Loc PartialClearSummeryText}"
+                       Height="Auto"
+                       FontSize="{StaticResource ContentFontSize}"
+                       Margin="5,0,0,32"
+                       TextWrapping="Wrap"
+                       AutomationProperties.AutomationId="TextBlock8_ED0F5ED8" />
+            <Label Content="{lex:Loc PartialClearDetailsText1}"
+                   Height="Auto"
+                   FontSize="{StaticResource Heading4FontSize}"
+                   Margin="0,0,0,8"
+                   AutomationProperties.AutomationId="Label9_ED0F5ED8" />
+            <TextBlock Text="{lex:Loc PartialClearDetailsText2}"
+                       Margin="5,0,0,32"
+                       FontSize="{StaticResource ContentFontSize}"
+                       Height="Auto"
+                       TextWrapping="Wrap"
+                       AutomationProperties.AutomationId="TextBlock10_ED0F5ED8" />
+            <Label Content="{lex:Loc PartialClearDetailsText3}"
+                   Height="Auto"
+                   FontSize="{StaticResource Heading4FontSize}"
+                   Margin="0,0,0,8"
+                   AutomationProperties.AutomationId="Label11_ED0F5ED8" />
+            <TextBlock Text="{lex:Loc PartialClearDetailsText4}"
+                       Margin="5,0,0,8"
+                       FontSize="{StaticResource ContentFontSize}"
+                       Height="Auto"
+                       TextWrapping="Wrap"
+                       AutomationProperties.AutomationId="TextBlock12_ED0F5ED8" />
         </StackPanel>
 
         <Button Grid.Row="1" Grid.Column="0" Name="PartialResetButton"
-                Content="{lex:Loc PartialClearButtonContent}"
+                Content="{lex:Loc Key={x:Static loc:ResourceKeys.PartialClearButtonContent}}"
                 Command="{Binding PartialResetButtonClickCommand}"
                 IsEnabled="{Binding PartialResetButtonActive}"
-                Margin="5,40,0,0" Width="180" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                Margin="5,40,0,0"
+                Width="180"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                AutomationProperties.AutomationId="Button13_ED0F5ED8" />
     </Grid>
 </operatorMenu:OperatorMenuPage>
