@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
+    using Transactions;
 
     /// <summary>
     ///     Provides a standard API to transfer funds off of the EGM
@@ -48,9 +49,9 @@
         ///     Allows the provider to recover the transaction Id. The provider may not have a matching transaction or may not need
         ///     to recover the transaction.
         /// </summary>
-        /// <param name="transactionId">The transaction Id for the transfer.</param>
+        /// <param name="transaction">The recovery transaction for the transfer.</param>
         /// <param name="cancellationToken">A cancellation token used to end the transfer</param>
         /// <returns>true if the transaction was recovered/completed, else false</returns>
-        Task<bool> Recover(Guid transactionId, CancellationToken cancellationToken);
+        Task<bool> Recover(IRecoveryTransaction transaction, CancellationToken cancellationToken);
     }
 }

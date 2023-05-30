@@ -4,7 +4,8 @@
     using System.Collections.Generic;
     using System.Globalization;
     using Application.Contracts.Extensions;
-    using Aristocrat.Monaco.Gaming.Contracts.Configuration;
+    using Application.Contracts.Currency;
+    using Contracts.Configuration;
     using Contracts;
     using Contracts.Lobby;
     using Gaming.Commands;
@@ -72,7 +73,14 @@
                 .Setup(m => m.GetProperty(GamingConstants.GameConfigurableStartMethods, It.IsAny<object>()))
                 .Returns(Array.Empty<GameStartConfigurableMethod>());
 
-            CurrencyExtensions.SetCultureInfo(CultureInfo.CurrentCulture, null, null, true, true, "c");
+            // set up currency
+            string minorUnitSymbol = "c";
+            string cultureName = "en-US";
+            CultureInfo culture = new CultureInfo(cultureName);
+
+            RegionInfo region = new RegionInfo(cultureName);
+            CurrencyExtensions.Currency = new Currency(region.ISOCurrencySymbol, region, culture, minorUnitSymbol);
+            CurrencyExtensions.SetCultureInfo(region.ISOCurrencySymbol, culture, null, null, true, true, minorUnitSymbol);
         }
 
         [TestMethod]

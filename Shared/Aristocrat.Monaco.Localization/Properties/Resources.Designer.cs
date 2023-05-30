@@ -21368,6 +21368,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to (no sub-unit).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string NoSubUnitText {
+			get {
+				return ResourceManager.GetString("NoSubUnitText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to No such host is known.
 		/// </summary>
         /// <remarks>
@@ -56116,6 +56128,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to (no sub-unit).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string NoSubUnitText {
+			get {
+				return "NoSubUnitText";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to No such host is known.
 		/// </summary>
         /// <remarks>
@@ -81685,6 +81709,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		NoSlotGames,
+		/// <summary>
+		///   Looks up a localized string similar to (no sub-unit).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		NoSubUnitText,
 		/// <summary>
 		///   Looks up a localized string similar to No such host is known.
 		/// </summary>

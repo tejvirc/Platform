@@ -8,6 +8,8 @@
     using ViewModels;
     using Views;
     using Monaco.Localization.Properties;
+    using Localization;
+    using Hardware.Contracts.NoteAcceptor;
 
     /// <summary>
     ///     This class interacts with the configuration screen launcher
@@ -25,7 +27,11 @@
 
         protected override IOperatorMenuPageViewModel CreateViewModel()
         {
-            return new MachineSetupPageViewModel();
+            var serviceManager = ServiceManager.GetInstance();
+            var localization = serviceManager.GetService<ILocalization>();
+            var currencyProvider = localization.GetProvider(CultureFor.Currency) as CurrencyCultureProvider;
+            
+            return new MachineSetupPageViewModel(currencyProvider, serviceManager.TryGetService<INoteAcceptor>());
         }
 
         public override bool GetVisible()

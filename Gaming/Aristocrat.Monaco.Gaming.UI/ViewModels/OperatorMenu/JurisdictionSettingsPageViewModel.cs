@@ -6,7 +6,9 @@
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
     using Application.UI.OperatorMenu;
-    using Aristocrat.Monaco.Application.Contracts.Extensions;
+    using Application.Contracts.Currency;
+    using Application.Localization;
+    using Application.UI.ViewModels;
     using Contracts;
     using Contracts.Tickets;
     using Hardware.Contracts.HardMeter;
@@ -28,7 +30,10 @@
         {
             Jurisdiction = PropertiesManager.GetValue(ApplicationConstants.JurisdictionKey, string.Empty);
 
-            Currency = CurrencyExtensions.DescriptionWithMinorSymbol;
+            var localization =
+                ServiceManager.GetInstance().GetService<ILocalization>();
+            var currencyProvider = localization.GetProvider(CultureFor.Currency) as CurrencyCultureProvider;
+            Currency = currencyProvider?.ConfiguredCurrency.DisplayName;
 
             _defaultAnyGameMinimum = PropertiesManager.GetValue(GamingConstants.AnyGameMinimumReturnToPlayer, int.MinValue);
             _defaultAnyGameMaximum = PropertiesManager.GetValue(GamingConstants.AnyGameMaximumReturnToPlayer, int.MaxValue);
