@@ -4715,7 +4715,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             }
 
             var (_, denom) = _properties.GetActiveGame();
-            var minimumWagerInMillicents = denom.MinimumWagerCredits * denom.Value;
+            var minimumWagerInMillicents = (denom?.MinimumWagerCredits ?? 0) * (denom?.Value ?? 0);
             var redeemableCreditsInMillicents = _bank.QueryBalance();
 
             return redeemableCreditsInMillicents >= minimumWagerInMillicents;
