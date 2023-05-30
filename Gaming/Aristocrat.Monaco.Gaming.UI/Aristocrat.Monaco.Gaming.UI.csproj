@@ -60,7 +60,7 @@
   <ItemGroup>
     <PackageReference Include="Aristocrat.BinkWpf" Version="2.0.0-beta0019" />
     <PackageReference Include="Aristocrat.MVVM" Version="3.0.0-beta0003" />
-    <PackageReference Include="Aristocrat.Cabinet" Version="2.0.1-beta0034" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="2.0.1-beta0046" />
     <PackageReference Include="CefSharp.Common.NETCore" Version="110.0.250" />
     <PackageReference Include="CefSharp.OffScreen.NETCore" Version="110.0.250" />
     <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="5.0.103" />
