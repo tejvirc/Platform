@@ -152,9 +152,12 @@
                 GameEndWinClaimAccepted = false
             };
 
+            var mainGameInfo = new AdditionalGamePlayInfo(0, 123, 1000, 100, 0);
+            var gamePlayInfo = new List<AdditionalGamePlayInfo> { mainGameInfo };
+
             var transactions = new List<CentralTransaction>
             {
-                new(1, DateTime.UtcNow, 123, 1000, string.Empty, string.Empty, 100, 1, Enumerable.Empty < IAdditionalGamePlayInfo >())
+                new(1, DateTime.UtcNow, 123, string.Empty, 1, gamePlayInfo)
                 {
                     Descriptions = new List<IOutcomeDescription> { description },
                     OutcomeState = OutcomeState.Acknowledged
@@ -194,9 +197,12 @@
                 GameEndWinClaimAccepted = false
             };
 
+            var mainGameInfo = new AdditionalGamePlayInfo(0, 123, 1000, 100, 0);
+            var gamePlayInfo = new List<AdditionalGamePlayInfo> { mainGameInfo };
+
             var transactions = new List<CentralTransaction>
             {
-                new(1, DateTime.UtcNow, 123, 1000, string.Empty, string.Empty, 100, 1, Enumerable.Empty < IAdditionalGamePlayInfo >())
+                new(1, DateTime.UtcNow, 123, string.Empty, 1, gamePlayInfo)
                 {
                     Descriptions = new List<IOutcomeDescription> { description },
                     OutcomeState = OutcomeState.Acknowledged
@@ -237,9 +243,12 @@
                 GameEndWinClaimAccepted = false
             };
 
+            var mainGameInfo = new AdditionalGamePlayInfo(0, 123, 1000, 100, 0);
+            var gamePlayInfo = new List<AdditionalGamePlayInfo> { mainGameInfo };
+
             var transactions = new List<CentralTransaction>
             {
-                new(1, DateTime.UtcNow, 123, 1000, string.Empty, string.Empty, 100, 1, Enumerable.Empty < IAdditionalGamePlayInfo >())
+                new(1, DateTime.UtcNow, 123, string.Empty, 1, gamePlayInfo)
                 {
                     Descriptions = new List<IOutcomeDescription> { description },
                     OutcomeState = OutcomeState.Acknowledged
@@ -277,9 +286,12 @@
                 GameEndWinClaimAccepted = false
             };
 
+            var mainGameInfo = new AdditionalGamePlayInfo(0, 123, 1000, 100, 0);
+            var gamePlayInfo = new List<AdditionalGamePlayInfo> { mainGameInfo };
+
             var transactions = new List<CentralTransaction>
             {
-                new(1, DateTime.UtcNow, 123, 1000, string.Empty, string.Empty, 100, 1, Enumerable.Empty < IAdditionalGamePlayInfo >())
+                new(1, DateTime.UtcNow, 123, string.Empty, 1, gamePlayInfo)
                 {
                     Descriptions = new List<IOutcomeDescription> { description },
                     OutcomeState = OutcomeState.Committed
@@ -317,9 +329,12 @@
                 GameEndWinClaimAccepted = true
             };
 
+            var mainGameInfo = new AdditionalGamePlayInfo(0, 123, 1000, 100, 0);
+            var gamePlayInfo = new List<AdditionalGamePlayInfo> { mainGameInfo };
+
             var transactions = new List<CentralTransaction>
             {
-                new(1, DateTime.UtcNow, 123, 1000, string.Empty, string.Empty, 100, 1, Enumerable.Empty < IAdditionalGamePlayInfo >())
+                new(1, DateTime.UtcNow, 123, string.Empty, 1, gamePlayInfo)
                 {
                     Descriptions = new List<IOutcomeDescription> { description },
                     OutcomeState = OutcomeState.Committed,
@@ -390,7 +405,10 @@
                 GameEndWinClaimAccepted = gewAlreadyClaimed
             };
 
-            var transaction = new CentralTransaction(1, DateTime.UtcNow, 123, 1000, string.Empty, string.Empty, 100, 1, Enumerable.Empty<IAdditionalGamePlayInfo>())
+            var mainGameInfo = new AdditionalGamePlayInfo(0, 123, 1000, 100, 0);
+            var gamePlayInfo = new List<AdditionalGamePlayInfo> { mainGameInfo };
+
+            var transaction = new CentralTransaction(1, DateTime.UtcNow, 123, string.Empty, 1, gamePlayInfo)
             {
                 Descriptions = new List<IOutcomeDescription> { description },
                 AssociatedTransactions = new List<long> { gameId },
@@ -456,9 +474,13 @@
             };
 
             var joinedBalls = description.BallCallNumbers.Take(joinedBallIndex);
+
+            var mainGameInfo = new AdditionalGamePlayInfo(0, 123, 1000, 100, 0);
+            var gamePlayInfo = new List<AdditionalGamePlayInfo> { mainGameInfo };
+
             var transactions = new List<CentralTransaction>
             {
-                new(1, DateTime.UtcNow, 123, 1000, string.Empty, string.Empty, 100, 1, Enumerable.Empty < IAdditionalGamePlayInfo >())
+                new(1, DateTime.UtcNow, 123, string.Empty, 1, gamePlayInfo)
                 {
                     Descriptions = new List<IOutcomeDescription> { description },
                     OutcomeState = OutcomeState.Committed,

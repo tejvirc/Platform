@@ -14,6 +14,11 @@
         int Quantity { get; }
 
         /// <summary>
+        ///     Gets the total win of the outcome
+        /// </summary>
+        long TotalWin { get; }
+
+        /// <summary>
         ///     Additional game play requests
         /// </summary>
         IEnumerable<IAdditionalGamePlayInfo> AdditionalInfo { get; }

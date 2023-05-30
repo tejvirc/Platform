@@ -280,41 +280,57 @@
             Logger.Debug($"BeginGameRoundAsync({request})");
 
             OutcomeRequest outcomeRequest = null;
-            var additionalInfo = new List<IAdditionalGamePlayInfo>();
+            var gamePlayInfo = new List<AdditionalGamePlayInfo>();
 
             if (request.OutcomeRequest?.Is(CentralOutcome.Descriptor) ?? false)
             {
                 var central = request.OutcomeRequest.Unpack<CentralOutcome>();
+                gamePlayInfo.Add(
+                    new AdditionalGamePlayInfo(
+                        (int)central.GameIndex,
+                        (int)central.GameId,
+                        (long)request.Denomination,
+                        (long)request.BetAmount,
+                        (int)central.TemplateId));
+
                 outcomeRequest = new OutcomeRequest(
                     (int)central.OutcomeCount,
-                    (int)central.TemplateId,
-                    (int)central.GameId,
-                    Enumerable.Empty<IAdditionalGamePlayInfo>());
+                    0,
+                    gamePlayInfo);
             }
             else if (request.OutcomeRequest?.Is(MultiGameCentralOutcome.Descriptor) ?? false)
             {
                 var outcomes = request.OutcomeRequest.Unpack<MultiGameCentralOutcome>();
-                foreach (var central in outcomes.Outcomes)
+                foreach (var outcome in outcomes.Outcomes)
                 {
-                    var currentRequest = new OutcomeRequest((int)central.OutcomeCount, (int)central.TemplateId, (int)central.GameId, additionalInfo);
-                    if (outcomeRequest is null)
+                    if (gamePlayInfo.IsNullOrEmpty())
                     {
-                        // main game request
-                        outcomeRequest = currentRequest;
+                        gamePlayInfo.Add(
+                            new AdditionalGamePlayInfo(
+                                (int)outcome.GameIndex,
+                                (int)outcome.GameId,
+                                (long)request.Denomination,
+                                (long)request.BetAmount,
+                                (int)outcome.TemplateId));
                     }
                     else
                     {
-                        if (!_subGameBetOptions.TryGetValue((int)central.GameId, out var subGameBetOptions))
+                        if (!_subGameBetOptions.TryGetValue((int)outcome.GameId, out var subGameBetOptions))
                         {
-                            throw new KeyNotFoundException($"No sub game bet options for game id {(int)central.GameId}");
+                            throw new KeyNotFoundException($"No sub game bet options for game id {(int)outcome.GameId}");
                         }
 
-                        // additional game requests
-                        additionalInfo.Add(new AdditionalGamePlayInfo((int)central.GameIndex, (long)subGameBetOptions.Denomination, (long)subGameBetOptions.Wager));
-
-                        Logger.Debug($"Added additionalInfo gameIndex={(int)central.GameIndex}, denom={subGameBetOptions.Denomination}, wagerAmount={subGameBetOptions.Wager}");
+                        gamePlayInfo.Add(
+                            new AdditionalGamePlayInfo(
+                                (int)outcome.GameIndex,
+                                (int)outcome.GameId,
+                                (long)subGameBetOptions.Denomination,
+                                (long)subGameBetOptions.Wager,
+                                (int)outcome.TemplateId));
                     }
                 }
+
+                outcomeRequest = new OutcomeRequest(outcomes.Outcomes.Count, 0, gamePlayInfo);
             }
 
             if (request.GameDetails.FirstOrDefault()?.Is(GameInfo.Descriptor) ?? false)
@@ -328,8 +344,7 @@
                     (int)details.BetLinePreset,
                     request.Data.ToByteArray(),
                     outcomeRequest,
-                    (int)request.WagerCategoryId,
-                    additionalInfo);
+                    (int)request.WagerCategoryId);
 
                 // This will be run asynchronously from this method only
                 _handlerFactory.Create<BeginGameRoundAsync>().Handle(command);

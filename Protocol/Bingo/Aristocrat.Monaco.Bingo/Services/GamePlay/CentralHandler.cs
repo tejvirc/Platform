@@ -697,7 +697,7 @@
                         _properties.GetValue(ApplicationConstants.SerialNumber, string.Empty),
                         outcome.GameDetails.GameSerial,
                         pattern.CardSerial,
-                        CurrentTransaction.WagerAmount.MillicentsToCents()),
+                        CurrentTransaction.AdditionalInfo.First().WagerAmount),
                     token).ConfigureAwait(false);
             }
             // Otherwise it's a standard win.

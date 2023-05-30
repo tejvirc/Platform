@@ -16,9 +16,10 @@
     public class BingoRoundPrintFormatterTests
     {
         private BingoRoundPrintFormatter _target;
-        private readonly Mock<ICentralProvider> _centralProvider = new();
+        private readonly Mock<ICentralProvider> _centralProvider = new();       
 
-        private readonly CentralTransaction _centralTransaction = new(1, DateTime.Now, 123, 1000, string.Empty, string.Empty, 1000, 1, Enumerable.Empty<IAdditionalGamePlayInfo>())
+        private readonly CentralTransaction _centralTransaction = new
+            (1, DateTime.Now, 1, string.Empty, 1, Enumerable.Empty<AdditionalGamePlayInfo>())
         {
             LogSequence = CentralTransactionLogSequenceNumber, TransactionId = CentralTransactionId
         };

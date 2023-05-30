@@ -82,18 +82,26 @@
 
             if (command.Request is not null)
             {
-                if (command.Request is ITemplateRequest request)
+                foreach (var gameInfo in command.Request.AdditionalInfo)
                 {
+                    if (gameInfo is not ITemplateRequest request)
+                    {
+                        continue;
+                    }
+
                     var cdsInfo = game?.CdsGameInfos?.SingleOrDefault(w =>
                         w.Id.Equals(request.TemplateId.ToString()));
 
-                    if (cdsInfo is null)
+                    if (cdsInfo is not null)
                     {
-                        _gamePlayState.InitializationFailed();
-                        Failed($"wager category is null: {request.TemplateId}");
-                        return;
+                        continue;
                     }
+
+                    _gamePlayState.InitializationFailed();
+                    Failed($"wager category is null: {request.TemplateId}");
+                    return;
                 }
+
 
                 // Special case for recovery and replay
                 if (_gameDiagnostics.IsActive && _gameDiagnostics.Context is IDiagnosticContext<IGameHistoryLog> context)

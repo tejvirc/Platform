@@ -19,23 +19,15 @@
         ///     Gets one or more outcomes from a central determinant provider
         /// </summary>
         /// <param name="gameId">The unique game Id</param>
-        /// <param name="denomination">The selected denomination</param>
         /// <param name="wagerCategory">The associated wager category</param>
-        /// <param name="templateId">The associated templateId</param>
-        /// <param name="wager">The wager amount</param>
         /// <param name="request">The outcome request</param>
         /// <param name="recovering">true, if the request is occurring during recovery</param>
-        /// <param name="additionalInfo">game play info for multiple game plays</param>
         /// <returns>true, if the request was successful</returns>
         bool RequestOutcomes(
             int gameId,
-            long denomination,
             string wagerCategory,
-            string templateId,
-            long wager,
             IOutcomeRequest request,
-            bool recovering,
-            IEnumerable<IAdditionalGamePlayInfo> additionalInfo);
+            bool recovering);
 
         /// <summary>
         ///     Called when the outcomes are received from the central determinant host

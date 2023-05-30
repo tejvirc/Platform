@@ -28,29 +28,20 @@
         /// <param name="deviceId">The transaction device identifier</param>
         /// <param name="transactionDateTime">The date and time of the transaction</param>
         /// <param name="gameId">The originating game play Id</param>
-        /// <param name="denomination">The originating denomination</param>
         /// <param name="wagerCategory">The originating wager category</param>
-        /// <param name="templateId">The template identifier that was used</param>
-        /// <param name="wagerAmount">The initial wager amount</param>
         /// <param name="outcomesRequested">The number of requested outcomes</param>
         /// <param name="additionalInfo">additional game info for side bet or wonder 4 games</param>
         public CentralTransaction(
             int deviceId,
             DateTime transactionDateTime,
             int gameId,
-            long denomination,
             string wagerCategory,
-            string templateId,
-            long wagerAmount,
             int outcomesRequested,
             IEnumerable<IAdditionalGamePlayInfo> additionalInfo)
             : base(deviceId, transactionDateTime)
         {
             GameId = gameId;
-            Denomination = denomination;
             WagerCategory = wagerCategory;
-            TemplateId = templateId;
-            WagerAmount = wagerAmount;
             OutcomesRequested = outcomesRequested;
 
             OutcomeState = OutcomeState.Requested;
@@ -66,30 +57,16 @@
         public OutcomeState OutcomeState { get; set; }
 
         /// <summary>
-        ///     Gets the game Id associated with the outcome
+        ///     Gets the game Id associated with the transaction
         /// </summary>
         public int GameId { get; private set; }
 
-        /// <summary>
-        ///     Gets the denomination associated with the outcome
-        /// </summary>
-        public long Denomination { get; private set; }
 
         /// <summary>
         ///     Gets the wager category associated with the outcome
         /// </summary>
         public string WagerCategory { get; private set; }
-
-        /// <summary>
-        ///     Gets the template identifier used for the outcome
-        /// </summary>
-        public string TemplateId { get; private set; }
-
-        /// <summary>
-        ///     Gets the wager amount
-        /// </summary>
-        public long WagerAmount { get; private set; }
-
+        
         /// <summary>
         ///     Gets the number of requested outcomes
         /// </summary>
@@ -117,7 +94,7 @@
         public IEnumerable<IOutcomeDescription> Descriptions { get; set; }
 
         /// <summary>
-        ///     Gets or sets optional additional game information when playing side bet or wonder 4 games
+        ///     Gets or sets additional game information
         /// </summary>
         public IEnumerable<IAdditionalGamePlayInfo> AdditionalInfo { get; set; }
 
@@ -164,10 +141,7 @@
                 DeviceId,
                 TransactionDateTime,
                 GameId,
-                Denomination,
                 WagerCategory,
-                TemplateId,
-                WagerAmount,
                 OutcomesRequested,
                 AdditionalInfo)
             {
@@ -192,10 +166,7 @@
 
             OutcomeState = (OutcomeState)values["OutcomeState"];
             GameId = (int)values["GameId"];
-            Denomination = (long)values["Denomination"];
             WagerCategory = (string)values["WagerCategory"];
-            TemplateId = (string)values["TemplateId"];
-            WagerAmount = (long)values["WagerAmount"];
             OutcomesRequested = (int)values["OutcomesRequested"];
 
             var outcomes = (string)values["Outcomes"];
@@ -214,10 +185,10 @@
 
             var additionalInfo = (string)values["AdditionalInfo"];
             AdditionalInfo = !string.IsNullOrEmpty(outcomes)
-                ? JsonConvert.DeserializeObject<List<IAdditionalGamePlayInfo>>(
+                ? JsonConvert.DeserializeObject<List<AdditionalGamePlayInfo>>(
                     additionalInfo,
                     new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto })
-                : Enumerable.Empty<IAdditionalGamePlayInfo>();
+                : Enumerable.Empty<AdditionalGamePlayInfo>();
 
             var associated = (string)values["AssociatedTransactions"];
             AssociatedTransactions = !string.IsNullOrEmpty(associated)
@@ -236,10 +207,7 @@
             {
                 transaction[element, "OutcomeState"] = OutcomeState;
                 transaction[element, "GameId"] = GameId;
-                transaction[element, "Denomination"] = Denomination;
                 transaction[element, "WagerCategory"] = WagerCategory;
-                transaction[element, "TemplateId"] = TemplateId;
-                transaction[element, "WagerAmount"] = WagerAmount;
                 transaction[element, "OutcomesRequested"] = OutcomesRequested;
                 transaction[element, "Outcomes"] = JsonConvert.SerializeObject(Outcomes, Formatting.None);
                 transaction[element, "Descriptions"] = JsonConvert.SerializeObject(
@@ -262,7 +230,7 @@
         public override string ToString()
         {
             return
-                $"{typeof(CentralTransaction)} [DeviceId={DeviceId}, LogSequence={LogSequence}, DateTime={TransactionDateTime}, TransactionId={TransactionId}, LogSequence={LogSequence}, GameId={GameId}, Denom={Denomination}, Wager={WagerAmount}, State={OutcomeState}, Exception={Exception}";
+                $"{typeof(CentralTransaction)} [DeviceId={DeviceId}, LogSequence={LogSequence}, DateTime={TransactionDateTime}, TransactionId={TransactionId}, LogSequence={LogSequence}, GameId = {GameId}, State={OutcomeState}, Exception={Exception}";
         }
 
         /// <inheritdoc />

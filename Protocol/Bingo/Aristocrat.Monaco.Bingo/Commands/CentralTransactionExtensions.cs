@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Commands
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Application.Contracts.Extensions;
@@ -77,13 +78,17 @@
             int titleId,
             int? subGameTitleId)
         {
+            //TODO: This needs to be reworked once we have the bet data for the sub game from the manifest.
             var requests = new List<RequestSingleGameOutcomeMessage>();
+
+            var mainGameInfo = transaction.AdditionalInfo.FirstOrDefault(x => x.GameIndex == 0)
+                               ?? throw new ArgumentNullException(nameof(transaction.AdditionalInfo));
 
             // create play request for main game
             var message = new RequestSingleGameOutcomeMessage(
                 0,
-                transaction.WagerAmount.MillicentsToCents(),
-                transaction.Denomination.MillicentsToCents(),
+                mainGameInfo.WagerAmount,
+                mainGameInfo.Denomination,
                 details.BetLinePresetId,
                 details.BetPerLine,
                 details.NumberLines,
@@ -93,11 +98,13 @@
             requests.Add(message);
 
             // create play requests for any additional games
-            if (transaction.AdditionalInfo.Any()  && subGameTitleId.HasValue)
+            if (transaction.AdditionalInfo.Count() > 1 && subGameTitleId.HasValue)
             {
+                //Remove main game. TODO Remove this once we have real bet data for sub games
+                var subGames = transaction.AdditionalInfo.Where((x, i) => i > 0);
                 // create multi-game request
                 requests.AddRange(
-                    transaction.AdditionalInfo.Select(
+                    subGames.Select(
                         game => new RequestSingleGameOutcomeMessage(
                             game.GameIndex,
                             game.WagerAmount,

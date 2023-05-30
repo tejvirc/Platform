@@ -10,6 +10,7 @@
     {
         public static centralLog ToCentralLog(this CentralTransaction @this, IGameProvider games)
         {
+            var gameInfo = @this.AdditionalInfo.Single();
             var game = games.GetGame(@this.GameId);
 
             return new centralLog
@@ -21,9 +22,9 @@
                 gamePlayId = @this.GameId,
                 themeId = game?.ThemeId,
                 paytableId = game?.PaytableId,
-                denomId = @this.Denomination,
+                denomId = gameInfo!.Denomination,
                 wagerCategory = @this.WagerCategory,
-                wagerAmt = @this.WagerAmount,
+                wagerAmt = gameInfo.WagerAmount,
                 outcomeQty = @this.OutcomesRequested,
                 outcomeDateTime = @this.TransactionDateTime,
                 outcomeException = (int)@this.Exception,

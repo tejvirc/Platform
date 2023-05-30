@@ -5,33 +5,26 @@
     /// <summary>
     ///     An implementation of <see cref="IOutcomeRequest" /> for central determinant games
     /// </summary>
-    public class OutcomeRequest : IOutcomeRequest, ITemplateRequest
+    public class OutcomeRequest : IOutcomeRequest
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="OutcomeRequest" /> class.
         /// </summary>
         /// <param name="quantity">The requested outcome count</param>
-        /// <param name="templateId">The template Id for the game round</param>
-        /// <param name="gameId">The game id associated with the request</param>
-        /// <param name="additionalInfo">additional game play information</param>
-        public OutcomeRequest(int quantity, int templateId, int gameId, IEnumerable<IAdditionalGamePlayInfo> additionalInfo)
+        /// <param name="totalWin"></param>
+        /// <param name="gamePlayInfo">additional game play information</param>
+        public OutcomeRequest(int quantity, long totalWin, IEnumerable<AdditionalGamePlayInfo> gamePlayInfo)
         {
             Quantity = quantity;
-            TemplateId = templateId;
-            GameId = gameId;
-            AdditionalInfo = additionalInfo;
+            TotalWin = totalWin;
+            AdditionalInfo = gamePlayInfo;
         }
-
-        /// <inheritdoc />
-        public int TemplateId { get; }
 
         /// <inheritdoc />
         public int Quantity { get; }
 
-        /// <summary>
-        ///     The id of the game requesting the outcome
-        /// </summary>
-        public int GameId { get; }
+        /// <inheritdoc />
+        public long TotalWin { get; }
 
         /// <summary>
         ///     Additional game play requests

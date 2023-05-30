@@ -61,8 +61,7 @@
                 1,
                 new byte[] { 1 },
                 null,
-                (int)wagerCategoryId,
-                Enumerable.Empty<IAdditionalGamePlayInfo>()
+                (int)wagerCategoryId
             );
             var game = new Mock<IGameDetail>(MockBehavior.Strict);
             var denom = new Mock<IDenomination>();
@@ -72,14 +71,14 @@
             wagerCategory2.Setup(x => x.Id).Returns(wagerCategoryId.ToString());
             denom.Setup(x => x.Value).Returns(12345L);
             game.Setup(x => x.Id).Returns(1);
-            game.Setup(x => x.Denominations).Returns(new [] { denom.Object });
-            game.Setup(x => x.WagerCategories).Returns(new [] { wagerCategory1.Object, wagerCategory2.Object });
+            game.Setup(x => x.Denominations).Returns(new[] { denom.Object });
+            game.Setup(x => x.WagerCategories).Returns(new[] { wagerCategory1.Object, wagerCategory2.Object });
 
             _properties.Setup(x => x.GetProperty(GamingConstants.IsGameRunning, false)).Returns(true);
 
             _properties.Setup(x => x.GetProperty(GamingConstants.SelectedDenom, 0L)).Returns(12345L);
             _properties.Setup(x => x.GetProperty(GamingConstants.SelectedGameId, 0)).Returns(1);
-            _properties.Setup(x => x.GetProperty(GamingConstants.Games, null)).Returns(new [] { game.Object });
+            _properties.Setup(x => x.GetProperty(GamingConstants.Games, null)).Returns(new[] { game.Object });
             _recovery.Setup(x => x.IsRecovering).Returns(false);
             _gameDiagnostics.Setup(x => x.IsActive).Returns(true);
             _properties.Setup(x => x.SetProperty(GamingConstants.SelectedWagerCategory, wagerCategory2.Object))
@@ -105,8 +104,7 @@
                 1,
                 new byte[] { 1 },
                 null,
-                0, // no wager category provided
-                Enumerable.Empty<IAdditionalGamePlayInfo>()
+                0 // no wager category provided
             );
             var game = new Mock<IGameDetail>(MockBehavior.Strict);
             var denom = new Mock<IDenomination>();
@@ -116,14 +114,14 @@
             wagerCategory2.Setup(x => x.Id).Returns("2");
             denom.Setup(x => x.Value).Returns(12345L);
             game.Setup(x => x.Id).Returns(1);
-            game.Setup(x => x.Denominations).Returns(new [] { denom.Object });
-            game.Setup(x => x.WagerCategories).Returns(new [] { wagerCategory1.Object, wagerCategory2.Object });
+            game.Setup(x => x.Denominations).Returns(new[] { denom.Object });
+            game.Setup(x => x.WagerCategories).Returns(new[] { wagerCategory1.Object, wagerCategory2.Object });
 
             _properties.Setup(x => x.GetProperty(GamingConstants.IsGameRunning, false)).Returns(true);
 
             _properties.Setup(x => x.GetProperty(GamingConstants.SelectedDenom, 0L)).Returns(12345L);
             _properties.Setup(x => x.GetProperty(GamingConstants.SelectedGameId, 0)).Returns(1);
-            _properties.Setup(x => x.GetProperty(GamingConstants.Games, null)).Returns(new [] { game.Object });
+            _properties.Setup(x => x.GetProperty(GamingConstants.Games, null)).Returns(new[] { game.Object });
             _recovery.Setup(x => x.IsRecovering).Returns(false);
             _gameDiagnostics.Setup(x => x.IsActive).Returns(true);
             _properties.Setup(x => x.SetProperty(GamingConstants.SelectedWagerCategory, wagerCategory1.Object))

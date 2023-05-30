@@ -54,8 +54,12 @@
         public void MyTestInitialize()
         {
             var dateTime = new DateTime(2000);
+
+            var mainGameInfo = new AdditionalGamePlayInfo(0, 3, 1, 1000, 0);
+            var gamePlayInfo = new List<AdditionalGamePlayInfo> { mainGameInfo };
+
             var outcome =
-                new CentralTransaction(2, dateTime, 3, 1, "standard", "standard", 1000, 4, Enumerable.Empty<IAdditionalGamePlayInfo>())
+                new CentralTransaction(2, dateTime, 3, "standard", 4, gamePlayInfo)
                 {
                     OutcomeState = OutcomeState.Committed,
                 };
@@ -157,12 +161,15 @@
             var defaultBetDetails = new BetDetails(0, 0, 0, 0, 0);
             var machineSerial = "123";
             Mock<IGameDetail> gameDetail = new(MockBehavior.Default);
-
             var dateTime = new DateTime(2000);
 
-            var outcome = new CentralTransaction(2, dateTime, currentTransactionGameId, 1, "standard", "standard", 1000, 4, Enumerable.Empty<IAdditionalGamePlayInfo>());
+            var mainGameInfo = new AdditionalGamePlayInfo(0, currentTransactionGameId, 1, 1000, 0);
+            var gamePlayInfo = new List<AdditionalGamePlayInfo> { mainGameInfo };
+
+            var outcome = new CentralTransaction(2, dateTime, currentTransactionGameId, "standard", 4, gamePlayInfo);
             _gamePlayState.Setup(x => x.SetGameEndHold(true)).Verifiable();
             _gameProvider.Setup(x => x.GetGame(currentTransactionGameId)).Returns(gameDetail.Object).Verifiable();
+
             _properties.Setup(x => x.GetProperty(ApplicationConstants.SerialNumber, string.Empty)).Returns(machineSerial).Verifiable();
             _properties.Setup(x => x.GetProperty(GamingConstants.SelectedBetDetails, It.IsAny<BetDetails>())).Returns(defaultBetDetails).Verifiable();
             _commandHandlerFactory.Setup(x => x.Execute(It.IsAny<object>(), It.IsAny<CancellationToken>())).Returns(Task.CompletedTask).Verifiable();
@@ -408,12 +415,14 @@
             using var source = new CancellationTokenSource();
             const long largeWinLimit = 10L;
 
-            List<IAdditionalGamePlayInfo> _additionalGamePlayInfo = new() { new AdditionalGamePlayInfo(1, 25, 25) };
+            var mainGameInfo = new AdditionalGamePlayInfo(0, 3, 1, 1000, 0);
+            var sideBetGameInfo = new AdditionalGamePlayInfo(1, 1, 25, 25, 0);
+            var gamePlayInfo = new List<AdditionalGamePlayInfo> { mainGameInfo, sideBetGameInfo };
 
             _centralProvider.Reset();
             var dateTime = new DateTime(2000);
             var outcome =
-                new CentralTransaction(2, dateTime, 3, 1, "standard", "standard", 1000, 2, _additionalGamePlayInfo)
+                new CentralTransaction(2, dateTime, 3, "standard", 2, gamePlayInfo)
                 {
                     OutcomeState = OutcomeState.Committed,
                 };
@@ -448,9 +457,13 @@
             Mock<IGameDetail> gameDetail = new(MockBehavior.Default);
             var dateTime = new DateTime(2000);
 
-            var outcome = new CentralTransaction(2, dateTime, currentTransactionGameId, 1, "standard", "standard", 1000, 4, Enumerable.Empty<IAdditionalGamePlayInfo>());
+            var mainGameInfo = new AdditionalGamePlayInfo(0, currentTransactionGameId, 1, 1000, 0);
+            var gamePlayInfo = new List<AdditionalGamePlayInfo> { mainGameInfo };
+
+            var outcome = new CentralTransaction(2, dateTime, currentTransactionGameId, "standard", 4, gamePlayInfo);
             _gamePlayState.Setup(x => x.SetGameEndHold(true)).Verifiable();
             _gameProvider.Setup(x => x.GetGame(currentTransactionGameId)).Returns(gameDetail.Object).Verifiable();
+
             _properties.Setup(x => x.GetProperty(ApplicationConstants.SerialNumber, string.Empty)).Returns(machineSerial).Verifiable();
             _properties.Setup(x => x.GetProperty(GamingConstants.SelectedBetDetails, It.IsAny<BetDetails>())).Returns(defaultBetDetails).Verifiable();
             _commandHandlerFactory.Setup(x => x.Execute(It.IsAny<object>(), It.IsAny<CancellationToken>())).Returns(Task.CompletedTask).Verifiable();
@@ -528,12 +541,15 @@
             IEnumerable<int> ballCall,
             CancellationToken token)
         {
+            var mainGameInfo = new AdditionalGamePlayInfo(0, 123, 1000, 100, 0);
+            var gamePlayInfo = new List<AdditionalGamePlayInfo> { mainGameInfo };
+
             _bingCardProvider.Setup(x => x.GetCardBySerial((int)CardSerial)).Returns(_bingoCard);
             _centralProvider.Setup(x => x.Transactions)
                 .Returns(
                     new List<CentralTransaction>
                     {
-                        new(0, DateTime.Now, 123, 1000, string.Empty, string.Empty, 100, 1, Enumerable.Empty<IAdditionalGamePlayInfo>())
+                        new(0, DateTime.Now, 123, string.Empty, 1, gamePlayInfo)
                         {
                             Descriptions = new List<IOutcomeDescription>
                             {
@@ -583,12 +599,15 @@
             IEnumerable<int> ballCall,
             CancellationToken token)
         {
+            var mainGameInfo = new AdditionalGamePlayInfo(0, 123, 1000, 100, 0);
+            var gamePlayInfo = new List<AdditionalGamePlayInfo> { mainGameInfo };
+
             _bingCardProvider.Setup(x => x.GetCardBySerial((int)CardSerial)).Returns(_bingoCard);
             _centralProvider.Setup(x => x.Transactions)
                 .Returns(
                     new List<CentralTransaction>
                     {
-                        new(0, DateTime.Now, 123, 1000, string.Empty, string.Empty, 100, 1, Enumerable.Empty<IAdditionalGamePlayInfo>())
+                        new(0, DateTime.Now, 123, string.Empty, 1, gamePlayInfo)
                         {
                             Descriptions = new List<IOutcomeDescription>
                             {
@@ -631,12 +650,15 @@
             var bitFlags = 0x80;
             var winIndex = 1;
 
+            var mainGameInfo = new AdditionalGamePlayInfo(0, 123, 1000, 100, 0);
+            var gamePlayInfo = new List<AdditionalGamePlayInfo> { mainGameInfo };
+
             _bingCardProvider.Setup(x => x.GetCardBySerial((int)CardSerial)).Returns(_bingoCard);
             _centralProvider.Setup(x => x.Transactions)
                 .Returns(
                     new List<CentralTransaction>
                     {
-                        new(0, DateTime.Now, 123, 1000, string.Empty, string.Empty, 100, 1, Enumerable.Empty<IAdditionalGamePlayInfo>())
+                        new(0, DateTime.Now, 123, string.Empty, 1, gamePlayInfo)
                         {
                             Descriptions = new List<IOutcomeDescription>
                             {
@@ -702,13 +724,16 @@
             var bitFlags2 = 0x80;
             var winIndex2 = 2;
 
+            var mainGameInfo = new AdditionalGamePlayInfo(0, 123, 1000, 100, 0);
+            var gamePlayInfo = new List<AdditionalGamePlayInfo> { mainGameInfo };
+
             _bingCardProvider.Setup(x => x.GetCardBySerial((int)CardSerial)).Returns(_bingoCard);
             _bingCardProvider.Setup(x => x.GetCardBySerial((int)SideBetCardSerial)).Returns(_sideBetBingoCard);
             _centralProvider.Setup(x => x.Transactions)
                 .Returns(
                     new List<CentralTransaction>
                     {
-                        new(0, DateTime.Now, 123, 1000, string.Empty, string.Empty, 100, 1, Enumerable.Empty<IAdditionalGamePlayInfo>())
+                        new(0, DateTime.Now, 123, string.Empty, 1, gamePlayInfo)
                         {
                             Descriptions = new List<IOutcomeDescription>
                             {

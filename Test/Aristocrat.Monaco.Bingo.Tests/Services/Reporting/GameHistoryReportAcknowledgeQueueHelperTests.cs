@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Tests.Services.Reporting
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using Application.Contracts;
     using Application.Contracts.Extensions;
@@ -95,10 +96,13 @@
                 ThemeId = 123
             };
 
-            var centralTransaction = new CentralTransaction(0, DateTime.UtcNow, 123, 1000, "Test Wager", string.Empty, wagerAmount, 1, Enumerable.Empty<IAdditionalGamePlayInfo>())
+            var mainGameInfo = new AdditionalGamePlayInfo(0, 123, 1000, wagerAmount, 0);
+            var gamePlayInfo = new List<AdditionalGamePlayInfo> { mainGameInfo };
+
+            var centralTransaction = new CentralTransaction(0, DateTime.UtcNow, 123, "Test Wager", 1, gamePlayInfo)
             {
                 Descriptions = new[] { description },
-                AssociatedTransactions = new []{ gameTransactionId }
+                AssociatedTransactions = new[] { gameTransactionId }
             };
 
             var transactions = new[] { centralTransaction };
