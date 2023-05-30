@@ -47,6 +47,7 @@
         }
 
         /// <inheritdoc />
+        //zhg**:StateDisplay
         public void DisplayMessage(DisplayableMessage displayableMessage)
         {
             lock (_lock)

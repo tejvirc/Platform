@@ -681,6 +681,7 @@
             }
         }
 
+        //zhg****:Persistence
         private object GetField(string blockFieldName, int arrayIndex = -1)
         {
             var fieldName = arrayIndex >= 1 ? blockFieldName + "@" + arrayIndex : blockFieldName;

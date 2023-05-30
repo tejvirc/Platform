@@ -55,6 +55,7 @@
             }
         }
 
+        //zhg**:StatusDisplay
         public void DisplayStatus(string message)
         {
             lock (_mutex)

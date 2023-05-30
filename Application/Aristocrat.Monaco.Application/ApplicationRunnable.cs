@@ -33,6 +33,7 @@ namespace Aristocrat.Monaco.Application
     /// <summary>
     ///     The BootExtender is responsible for loading components and extensions in the Application layer.
     /// </summary>
+    //zhg****
     public class ApplicationRunnable : BaseRunnable
     {
         private const string PropertyProvidersExtensionPath = "/Application/PropertyProviders";
@@ -278,7 +279,7 @@ namespace Aristocrat.Monaco.Application
                 }
             }
         }
-
+        //zhg**:StatusDisplay
         private static void WritePendingActionToMessageDisplay(string resourceStringName)
         {
             var display = ServiceManager.GetInstance().GetService<IMessageDisplay>();

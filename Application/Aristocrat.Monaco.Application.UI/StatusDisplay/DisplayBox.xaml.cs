@@ -29,6 +29,7 @@
         ///     Adds the supplied string to the display box and pushes older messages off the display.
         /// </summary>
         /// <param name="text">String to add to the display box.</param>
+        //zhg**:StatusDisplay
         public void AddToDisplay(string text)
         {
             ViewModel.AddMessage(text);
