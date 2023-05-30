@@ -360,8 +360,7 @@
 
                 if (serviceWaiter.WaitForServices())
                 {
-                    ServicesHelpers.InitializeContainer(_container, this);
-                    SetupControllerServices();
+                    SetupControllerServices(ServicesHelpers.InitializeContainer(this));
                 }
             });
         }
@@ -388,8 +387,9 @@
             _logger.Info($"InProgressRequests : {req}", GetType().Name);
         }
 
-        private void SetupControllerServices()
+        private void SetupControllerServices(Container container)
         {
+            _container = container;
             _configPath = Path.Combine(_container.GetInstance<IPathMapper>().GetDirectory(HardwareConstants.DataPath).FullName, Constants.ConfigurationFileName);
             _gameProvider = _container.GetInstance<IGameProvider>();
             _stateChecker = _container.GetInstance<StateChecker>();

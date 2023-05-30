@@ -10,8 +10,10 @@
 
     internal static class ServicesHelpers
     {
-        internal static void InitializeContainer(Container container, object context = null)
+        internal static Container InitializeContainer(object context = null)
         {
+            var container = new Container();
+
             if (container == null)
             {
                 throw new ArgumentException($"{nameof(container)} is null.");
@@ -48,6 +50,8 @@
             container.Register<BalanceOperations>(Lifestyle.Transient);
             container.Register<RebootRequestOperations>(Lifestyle.Transient);
             container.Register<AuditMenuOperations>(Lifestyle.Transient);
+
+            return container;
         }
     }
 }
