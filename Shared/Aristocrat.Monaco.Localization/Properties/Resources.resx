@@ -11712,6 +11712,10 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>Inspection Setup</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
+  <data name="NoSubUnitText" xml:space="preserve">
+    <value>(no sub-unit)</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
   <data name="GameStartMethodBetOrMaxBetButton" xml:space="preserve">
     <value>Bet/Max Bet Button</value>
   </data>

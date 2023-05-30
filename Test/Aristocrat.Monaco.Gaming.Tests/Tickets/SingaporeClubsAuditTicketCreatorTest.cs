@@ -8,7 +8,8 @@
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Tickets;
-    using Aristocrat.Monaco.Hardware.Contracts.Printer;
+    using Application.Contracts.Currency;
+    using Hardware.Contracts.Printer;
     using Contracts;
     using Contracts.Models;
     using Contracts.Progressives;
@@ -363,7 +364,13 @@
         [TestMethod]
         public void TicketCreationAndContentTest()
         {
-            CurrencyExtensions.SetCultureInfo(CultureInfo.CurrentCulture);
+            string minorUnitSymbol = "c";
+            string cultureName = "en-US";
+            CultureInfo culture = new CultureInfo(cultureName);
+
+            RegionInfo region = new RegionInfo(cultureName);
+            CurrencyExtensions.Currency = new Currency(region.ISOCurrencySymbol, region, culture, minorUnitSymbol);
+            CurrencyExtensions.SetCultureInfo(region.ISOCurrencySymbol, culture);
 
             // Mock properties
             var serialNumber = "123";
