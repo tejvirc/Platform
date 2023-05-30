@@ -79,6 +79,24 @@ namespace Aristocrat.Monaco.JurisdictionData.Quebec-VLT.resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Offline mode is not available during a game round.
+        /// </summary>
+        internal static string EndGameRoundBeforeOutOfServiceText {
+            get {
+                return ResourceManager.GetString("EndGameRoundBeforeOutOfServiceText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entering Offline mode requires Zero Credits.
+        /// </summary>
+        internal static string EnteringOutOfServiceModeRequiresZeroCreditsText {
+            get {
+                return ResourceManager.GetString("EnteringOutOfServiceModeRequiresZeroCreditsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Offline.
         /// </summary>
         internal static string OutOfService {

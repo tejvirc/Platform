@@ -118,27 +118,27 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DisableEGM" xml:space="preserve">
-    <value>Local Offline Mode</value>
+    <value>??Local Offline Mode??</value>
     <comment>Jurisdiction override for Out of Service Mode button</comment>
   </data>
   <data name="EnableEGM" xml:space="preserve">
-    <value>Exit Offline Mode</value>
+    <value>??Exit Offline Mode??</value>
     <comment>Jurisdiction override for Put EGM Into Service (Out of Service Mode button)</comment>
   </data>
   <data name="EndGameRoundBeforeOutOfServiceText" xml:space="preserve">
-    <value>Offline mode is not available during a game round</value>
+    <value>??Offline mode not available during game round??</value>
     <comment>Jurisdiction override for Out of Service game idle text</comment>
   </data>
   <data name="EnteringOutOfServiceModeRequiresZeroCreditsText" xml:space="preserve">
-    <value>Entering Offline mode requires Zero Credits</value>
-    <comment>Jurisdiction override for Out of Service Zero Credits text</comment>
+    <value>??Entering Offline mode requires Zero Credits??</value>
+    <comment>Jurisdiction override for Out of Service requires Zero Credits text</comment>
   </data>
   <data name="OutOfService" xml:space="preserve">
-    <value>Offline</value>
-    <comment>Jurisdiction override for Out of Service disable message</comment>
+    <value>Hors ligne</value>
+    <comment>Jurisdiction override for Out of Service</comment>
   </data>
   <data name="OutOfServiceAdditionalInfo" xml:space="preserve">
-    <value>Exit Offline Mode from operator menu</value>
+    <value>??Exit Offline Mode from operator menu??</value>
     <comment>Jurisdiction override for Out of Service additional info text</comment>
   </data>
 </root>

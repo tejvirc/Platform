@@ -274,7 +274,10 @@
         protected override void OnLoaded()
         {
             MessageDisplay.AddMessageDisplayHandler(this);
-            HandleSystemDisabledByOperatorEvent(!DisableByOperatorManager.DisabledByOperator);
+            if (DisableByOperatorManager.DisabledByOperator)
+            {
+                HandleSystemDisabledByOperatorEvent(false);
+            }
 
             IsExitReserveButtonVisible = (bool)PropertiesManager.GetProperty(
                 ApplicationConstants.ReserveServiceLockupPresent,

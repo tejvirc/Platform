@@ -8,6 +8,7 @@
     using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
     using Aristocrat.Monaco.Application.UI.Events;
     using Aristocrat.Monaco.Hardware.Contracts.Ticket;
+    using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Localization.Properties;
     using Aristocrat.MVVM;
     using MVVM.Command;
@@ -51,8 +52,19 @@
 
         public ICommand PrintVerificationButtonClickedCommand { get; }
 
+        private IDisableByOperatorManager DisableByOperatorManager
+            => ServiceManager.GetInstance().GetService<IDisableByOperatorManager>();
+
         protected override void OnLoaded()
         {
+            if (DisableByOperatorManager.DisabledByOperator)
+            {
+                HandleSystemDisabledByOperatorEvent(false);
+            }
+
+            EventBus?.Subscribe<SystemEnabledByOperatorEvent>(this, _ => HandleSystemDisabledByOperatorEvent(true));
+            EventBus?.Subscribe<SystemDisabledByOperatorEvent>(this, _ => HandleSystemDisabledByOperatorEvent(false));
+
             VolumeViewModel.OnLoaded();
             OutOfServiceViewModel.OnLoaded();
 
@@ -112,6 +124,11 @@
             }
 
             return tickets;
+        }
+
+        private void HandleSystemDisabledByOperatorEvent(bool enabled)
+        {
+            InputStatusText = enabled ? string.Empty : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OutOfService);
         }
     }
 }
