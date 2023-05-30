@@ -7,7 +7,7 @@
     using Accounting.Contracts.TransferOut;
     using Kernel;
 
-    public class VoucherValidator : IVoucherValidator, IService
+    public class VoucherValidator : IVoucherValidator
     {
         public string Name => GetType().ToString();
 

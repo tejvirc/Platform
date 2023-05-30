@@ -1,12 +1,13 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using ConfigWizard;
     using Contracts;
     using Contracts.Protocol;
+    using Kernel;
     using Monaco.Common;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Protocol = global::Protocol;
 
     [CLSCompliant(false)]
@@ -195,6 +196,13 @@
                     GetProtocols(protocolDetails, Functionality.CentralDeterminationSystem, s => s.IsCentralDeterminationSystemSupported) :
                     new List<CommsProtocol>();
 
+            if (PropertiesManager.GetValue(ApplicationConstants.ShowMode, false))
+            {
+                ValidationProtocols = new CommsProtocol[] { CommsProtocol.DemonstrationMode };
+                ValidationProtocol = CommsProtocol.DemonstrationMode;
+                IsValidationComboBoxEnabled = true;
+            }
+
             SelectProtocol(
                 Functionality.Validation,
                 ValidationProtocols,
@@ -237,7 +245,7 @@
                         IsCentralDeterminationSystemComboBoxEnabled = isEnabled;
                     });
             }
-
+            
             RaisePropertyChanged(nameof(IsValidationProtocolsEmpty), nameof(IsFundTransferProtocolsEmpty), nameof(IsProgressiveProtocolsEmpty), nameof(IsCentralDeterminationSystemsEmpty));
         }
 

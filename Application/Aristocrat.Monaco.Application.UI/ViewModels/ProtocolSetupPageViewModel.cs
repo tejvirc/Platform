@@ -45,6 +45,27 @@
                     }
                 });
 
+            ProtocolSelections = new List<ProtocolSelection>();
+
+            if (PropertiesManager.GetValue(ApplicationConstants.ShowMode, false))
+            {
+                protocolsConfiguration.ProtocolConfiguration.ProtocolsAllowed =
+                    new GlobalProtocol[]
+                    {
+                        new GlobalProtocol { Name = CommsProtocol.DemonstrationMode, IsMandatory = true }
+                    };
+
+                var demo = new ProtocolSelection()
+                {
+                    Enabled = true,
+                    ProtocolName = CommsProtocol.DemonstrationMode.ToString(),
+                    Selected = true
+                };
+
+                demo.PropertyChanged += ProtocolSelection_PropertyChanged;
+                ProtocolSelections.Add(demo);
+            }
+
             _requiredFunctionality = protocolsConfiguration.ProtocolConfiguration.RequiredFunctionality?.ToList() ?? new List<FunctionalityType>();
 
             var protocolsAllowed = protocolsConfiguration.ProtocolConfiguration.ProtocolsAllowed ?? Array.Empty<GlobalProtocol>();
@@ -53,8 +74,6 @@
                 .Select(s => s.Name)
                 .Distinct()
                 .ToList();
-
-            ProtocolSelections = new List<ProtocolSelection>();
 
             var savedProtocols = _protocolConfigurationProvider.MultiProtocolConfiguration.ToList();
 
