@@ -89,6 +89,7 @@
             container.Register<IGameHelpTextProvider, GameHelpTextProvider>(Lifestyle.Singleton);
             container.Register<ICabinetState, CabinetState>(Lifestyle.Singleton);
             container.Register<ICabinetService, CabinetService>(Lifestyle.Singleton);
+            //zhg**: add IGamePlayState to DI container
             container.Register<IGamePlayState, GamePlayState>(Lifestyle.Singleton);
             container.Register<IGameRecovery, GameRecovery>(Lifestyle.Singleton);
             container.Register<IGameDiagnostics, GameDiagnostics>(Lifestyle.Singleton);
@@ -189,6 +190,7 @@
             rngFactory.Register<MSCryptoRNG>(RandomType.NonGaming, Lifestyle.Singleton);
             container.Register<IRandomFactory>(() => rngFactory, Lifestyle.Singleton);
 
+            //zhg**: Runtime Event Handlers
             var runtimeEventHandlerFactory = new RuntimeEventHandlerFactory(container);
             runtimeEventHandlerFactory.Register<PrimaryEventHandler>(GameRoundEventState.Primary);
             runtimeEventHandlerFactory.Register<PresentEventHandler>(GameRoundEventState.Present);
@@ -207,6 +209,7 @@
 
             container.RegisterInstance<IBonusStrategyFactory>(bonusStrategyFactory);
 
+            //zhg****, register ICommandHandler
             container.Register(typeof(ICommandHandler<>), typeof(ICommandHandler<>).Assembly);
             container.Register<ICommandHandlerFactory>(() => new CommandHandlerFactory(container), Lifestyle.Singleton);
             container.Register<ExcessiveMeterIncrementMonitor>(Lifestyle.Singleton);

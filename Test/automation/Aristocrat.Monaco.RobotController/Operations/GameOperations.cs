@@ -56,6 +56,7 @@
         public void Execute()
         {
             _logger.Info("GameOperations Has Been Initiated!", GetType().Name);
+
             SubscribeToEvents();
 
             if (IsRegularRobots())
@@ -343,6 +344,7 @@
                     _logger.Info($"SystemEnabledEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                     LoadGameWithDelay(Constants.loadGameDelayDuration);
                 });
+
             InitGameProcessHungEvent();
         }
 

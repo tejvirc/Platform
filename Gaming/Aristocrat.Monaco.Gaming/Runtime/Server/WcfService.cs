@@ -181,6 +181,7 @@
         }
 
         /// <inheritdoc />
+        //zhg: WCF Runtime GameRoundEvent
         public void GameRoundEvent(
             GameRoundEventType eventType,
             GameRoundEventStage stage,

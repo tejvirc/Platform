@@ -166,6 +166,7 @@
             RegisterLogAdapters();
 
             // This will forcibly resolve all instances, which will create the Consumers
+            //zhg****: Create all Consumers Instances
             _container.Verify();
 
             // NOTE: This is just to ensure we don't have an orphan process running
@@ -230,9 +231,8 @@
 
             var serviceManager = ServiceManager.GetInstance();
 
-            _containerService = new ContainerService(_container);
-
-            serviceManager.AddService(_containerService);
+            //zhg ContainerService
+            serviceManager.AddService(new ContainerService(_container));
 
             //zhg*
             serviceManager.AddService(_sharedConsumerContext);
@@ -240,6 +240,7 @@
             serviceManager.AddService(_container.GetInstance<IGameDiagnostics>() as IService);
             serviceManager.AddService(_container.GetInstance<IGameMeterManager>());
             serviceManager.AddService(_container.GetInstance<IProgressiveMeterManager>());
+            //zhg**: add IGamePlayState to ServiceManager
             serviceManager.AddService(_container.GetInstance<IGamePlayState>());
             serviceManager.AddServiceAndInitialize(_container.GetInstance<ICentralProvider>() as IService);
             serviceManager.AddService(_container.GetInstance<ICabinetService>());

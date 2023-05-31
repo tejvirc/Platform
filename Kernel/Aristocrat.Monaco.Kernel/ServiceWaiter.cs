@@ -35,6 +35,7 @@
         {
             _eventBus = eventBus;
 
+            //zhg**: ServiceManagerCore sends ServiceAddedEvent once its AddService is called
             _eventBus.Subscribe<ServiceAddedEvent>(this, HandleServiceAdded);
         }
 

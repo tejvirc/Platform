@@ -25,7 +25,7 @@
         private StateChecker _stateChecker;
         private RobotLogger _logger;
         private Dictionary<string, HashSet<IRobotOperations>> _modeOperations;
-        private Dictionary<string, IList<Action>> _executionActions;
+        private Dictionary<string, IList<Action>> _ignitingActions;
         private Dictionary<string, IList<Action>> _warmUpActions;
         private Automation _automator;
         private IEventBus _eventBus;
@@ -120,9 +120,9 @@
                     }
                     _modeOperations.Clear();
                 }
-                if (_executionActions is not null)
+                if (_ignitingActions is not null)
                 {
-                    _executionActions.Clear();
+                    _ignitingActions.Clear();
                 }
                 if (_warmUpActions is not null)
                 {
@@ -160,9 +160,13 @@
         private void EnablingRobot()
         {
             _logger.Info($"RobotController Is Enabling", GetType().Name);
+
             RefreshRobotConfiguration();
+
             WarmUpRobot();
+
             ActivateRobotOperations();
+
             StartRobot();
         }
 
@@ -182,6 +186,7 @@
             _sanityChecker.Start();
             _automator.SetOverlayText(Config.ActiveType.ToString(), false, _overlayTextGuid, InfoLocation.TopLeft);
             _automator.SetTimeLimitButtons(Config.GetTimeLimitButtons());
+
             foreach (var action in _warmUpActions[Config.ActiveType.ToString()])
             {
                 action();
@@ -228,7 +233,7 @@
                 }
             };
 
-            _executionActions = new Dictionary<string, IList<Action>>()
+            _ignitingActions = new Dictionary<string, IList<Action>>()
             {
                 { nameof(ModeType.Regular) ,
                     new List<Action>()
@@ -269,7 +274,7 @@
 
         private void StartRobot()
         {
-            foreach (var action in _executionActions[Config.ActiveType.ToString()])
+            foreach (var action in _ignitingActions[Config.ActiveType.ToString()])
             {
                 action();
             }
@@ -319,7 +324,7 @@
 
             InProgressRequests.Clear();
             _modeOperations.Clear();
-            _executionActions.Clear();
+            _ignitingActions.Clear();
             _warmUpActions.Clear();
         }
 

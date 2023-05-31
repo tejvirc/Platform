@@ -509,6 +509,7 @@
             }
         }
 
+        //zhg**: GamePlayState configure
         private void CreateStateMachine(PlayState initialState)
         {
             _stateLock.EnterWriteLock();

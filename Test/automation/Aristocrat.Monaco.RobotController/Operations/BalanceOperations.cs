@@ -54,7 +54,7 @@
             _balanceCheckTimer = new Timer(
                                 (sender) =>
                                 {
-                                    CheckBalance();
+                                    EnsureEnoughCreditToPlay();
                                 },
                                 null,
                                 _robotController.Config.Active.IntervalBalanceCheck,
@@ -79,7 +79,8 @@
             _disposed = true;
         }
 
-        private void CheckBalance()
+        //zhg: changed name
+        private void EnsureEnoughCreditToPlay()
         {
             if (!IsValid())
             {
@@ -121,13 +122,13 @@
             _eventBus.Subscribe<TransferOutCompletedEvent>(this, evt =>
             {
                 _logger.Info("TransferOutCompletedEvent Got Triggered!", GetType().Name);
-                CheckBalance();
+                EnsureEnoughCreditToPlay();
             });
         }
 
         private void HandleEvent(BalanceCheckEvent obj)
         {
-            CheckBalance();
+            EnsureEnoughCreditToPlay();
         }
 
         private bool IsValid()
