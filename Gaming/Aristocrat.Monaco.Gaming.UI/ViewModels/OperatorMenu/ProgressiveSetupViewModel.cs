@@ -36,12 +36,12 @@
         private readonly IReadOnlyCollection<IViewableSharedSapLevel> _configSharedSapLevels;
         private readonly IReadOnlyCollection<string> _configLinkedProgressiveNames;
         private readonly bool _isAssociatedSap;
+        private readonly int[] _originalLevelIds;
 
         private string _progressiveId;
         private string[] _levelNames;
         private string _selectedLevelName;
         private string _selectedLevelId;
-        private int[] _originalLevelIds;
 
         private string _selectedGameInfo;
         private ObservableCollection<LevelModel> _levelModels;
@@ -107,7 +107,7 @@
             _isAssociatedSap = _validProgressiveLevels.Any(
                 p => p.AssignedProgressiveId.AssignedProgressiveType == AssignableProgressiveType.AssociativeSap);
 
-            IsConfigurableId = (bool)ServiceManager.GetInstance().GetService<IPropertiesManager>().GetProperty(GamingConstants.ProgressiveConfigurableId, false);
+            IsConfigurableId = ServiceManager.GetInstance().GetService<IPropertiesManager>().GetValue(GamingConstants.ProgressiveConfigurableId, false);
             if (IsConfigurableId)
             {
                 var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
@@ -123,8 +123,8 @@
                     _originalLevelIds[i] = _validProgressiveLevels.ElementAt(i).LevelId;
                     LevelNames[i] = _validProgressiveLevels.ElementAt(i).LevelName;
 
-                    var configuredLevelIds = (Dictionary<string, int>)propertiesManager.GetProperty(GamingConstants.ProgressiveConfiguredLevelIds, new Dictionary<string, int>());
-                    var configuredProgressiveIds = (List<int>)propertiesManager.GetProperty(GamingConstants.ProgressiveConfiguredIds, new List<int>());
+                    var configuredLevelIds = propertiesManager.GetValue(GamingConstants.ProgressiveConfiguredLevelIds, new Dictionary<string, int>());
+                    var configuredProgressiveIds = propertiesManager.GetValue(GamingConstants.ProgressiveConfiguredIds, new List<int>());
 
                     ProgressiveLevel level = _validProgressiveLevels.ElementAt(i) as ProgressiveLevel;
                     bool success = false;
@@ -380,9 +380,8 @@
             if (IsConfigurableId)
             {
                 var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
-                Dictionary<string, int> configuredLevelIds = (Dictionary<string, int>)propertiesManager.GetProperty(
-                    GamingConstants.ProgressiveConfiguredLevelIds, new Dictionary<string, int>());
-                List<int> configuredProgressiveIds = (List<int>)propertiesManager.GetProperty(GamingConstants.ProgressiveConfiguredIds, new List<int>());
+                Dictionary<string, int> configuredLevelIds = propertiesManager.GetValue(GamingConstants.ProgressiveConfiguredLevelIds, new Dictionary<string, int>());
+                List<int> configuredProgressiveIds = propertiesManager.GetValue(GamingConstants.ProgressiveConfiguredIds, new List<int>());
                 for (int i = 0; i < _validProgressiveLevels.Count; i++)
                 {
                     if (!configuredLevelIds.ContainsKey($"{_validProgressiveLevels.ElementAt(i).GameId}|{ProgressiveId}|{_originalLevelIds[i]}"))
@@ -403,8 +402,6 @@
 
                     ProgressiveLevel level = _validProgressiveLevels.ElementAt(i) as ProgressiveLevel;
                     level.LevelId = _originalLevelIds[i];
-                    _validProgressiveLevels.ToList().RemoveAt(i);
-                    _validProgressiveLevels.ToList().Insert(i, level);
                     RaisePropertyChanged(nameof(ProgressiveLevels));
                 }
 
@@ -424,8 +421,7 @@
                 if (IsConfigurableId)
                 {
                     var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
-                    Dictionary<string, int> configuredLevelIds = (Dictionary<string, int>)propertiesManager.GetProperty(
-                        GamingConstants.ProgressiveConfiguredLevelIds, new Dictionary<string, int>());
+                    Dictionary<string, int> configuredLevelIds = propertiesManager.GetValue(GamingConstants.ProgressiveConfiguredLevelIds, new Dictionary<string, int>());
 
                     var levelsLessThanSelected = _progressives.ViewProgressiveLevels().Where(l => l.GameId == level.GameId && l.LevelName == level.LevelName &&
                                                     l.ProgressiveId < level.ProgressiveId && l.LevelId == level.LevelId && l.ResetValue != level.ResetValue).ToList();
@@ -479,7 +475,7 @@
             }
 
             _progressives.AssignLevelsToGame(levelAssignmentList);
-            ClearUnusedConfiguredProgressiveIds();
+            ClearUnusedConfiguredProgressives();
         }
 
         private void UpdateLevelWithDuplicateProgressiveId(ProgressiveLevel level, List<ProgressiveLevel> newLevels)
@@ -495,20 +491,36 @@
             UpdateLevelWithDuplicateProgressiveId(duplicateIDs.Where(l => l.ResetValue != level.ResetValue).FirstOrDefault() as ProgressiveLevel, newLevels);
         }
 
-        private void ClearUnusedConfiguredProgressiveIds()
+        private void ClearUnusedConfiguredProgressives()
         {
             var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
-            List<int> configuredProgressiveIds = (List<int>)propertiesManager.GetProperty(GamingConstants.ProgressiveConfiguredIds, new List<int>());
+            var configuredProgressiveIds = propertiesManager.GetValue(GamingConstants.ProgressiveConfiguredIds, new List<int>());
 
             for (int i = configuredProgressiveIds.Count - 1; i >= 0; i--)
             {
-                if (_progressives.ViewProgressiveLevels().Where(l => l.ProgressiveId == configuredProgressiveIds.ElementAt(i) && l.DeviceId != 0).Count() == 0)
+                if (!_progressives.ViewProgressiveLevels().Any(l => l.ProgressiveId == configuredProgressiveIds.ElementAt(i) && l.DeviceId != 0))
                 {
                     configuredProgressiveIds.RemoveAt(i);
                 }
             }
 
             propertiesManager.SetProperty(GamingConstants.ProgressiveConfiguredIds, configuredProgressiveIds);
+
+            var configuredLevelIds = propertiesManager.GetValue(
+                GamingConstants.ProgressiveConfiguredLevelIds, new Dictionary<string, int>());
+
+            foreach (var key in configuredLevelIds.Keys.ToList())
+            {
+                var parts = key.Split('|').Select(int.Parse).ToList();
+                if (!_progressives.ViewProgressiveLevels().Any(l => l.GameId == parts[0] &&
+                                                                    l.ProgressiveId == parts[1] &&
+                                                                    l.LevelId == parts[2]))
+                {
+                    configuredLevelIds.Remove(key);
+                }
+            }
+
+            propertiesManager.SetProperty(GamingConstants.ProgressiveConfiguredLevelIds, configuredLevelIds);
         }
 
         public override void Cancel()

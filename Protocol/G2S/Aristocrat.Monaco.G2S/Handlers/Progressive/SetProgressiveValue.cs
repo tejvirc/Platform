@@ -52,19 +52,30 @@
                 List<ProgressiveLevel> levels = _progressiveProvider.GetProgressiveLevels().Where(l => l.ProgressiveId == device.ProgressiveId && (_progressiveService.VertexDeviceIds.TryGetValue(l.DeviceId, out int value) ? value : l.DeviceId) == device.Id).ToList();
                 var lvl = levels.FirstOrDefault();
 
-                foreach (var l in command.Command.setLevelValue)
+                if (lvl == null)
                 {
-                    var levelId = _progressiveService.LevelIds.GetMonacoProgressiveLevelId(lvl.GameId, l.progId, l.levelId);
-                    var progLevel = levels.Where(p => p.ProgressiveId == l.progId && p.LevelId == levelId).FirstOrDefault();
-                    if (progLevel == null)
+                    error = new Error(ErrorCode.G2S_PGX003);
+                }
+                else
+                {
+                    foreach (var l in command.Command.setLevelValue)
                     {
-                        error = new Error(ErrorCode.G2S_PGX003);
-                        break;
-                    }
-                    if (l.progValueAmt > progLevel.MaximumValue || l.progValueAmt < progLevel.ResetValue)
-                    {
-                        error = new Error(ErrorCode.G2S_PGX004);
-                        break;
+                        var levelId = _progressiveService.LevelIds.GetMonacoProgressiveLevelId(
+                            lvl.GameId,
+                            l.progId,
+                            l.levelId);
+                        var progLevel = levels.FirstOrDefault(p => p.ProgressiveId == l.progId && p.LevelId == levelId);
+                        if (progLevel == null)
+                        {
+                            error = new Error(ErrorCode.G2S_PGX003);
+                            break;
+                        }
+
+                        if (l.progValueAmt > progLevel.MaximumValue || l.progValueAmt < progLevel.ResetValue)
+                        {
+                            error = new Error(ErrorCode.G2S_PGX004);
+                            break;
+                        }
                     }
                 }
             }

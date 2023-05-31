@@ -53,12 +53,8 @@
                 VertexProgressiveIds = vertexProgressiveIds;
                 propertiesManager.SetProperty(G2S.Constants.VertexProgressiveIds, VertexProgressiveIds);
 
-                if (_progressiveHostOfflineTimer != null)
-                {
-                    _progressiveHostOfflineTimer.Stop();
-                    _progressiveHostOfflineTimer.Dispose();
-                }
-                _progressiveHostOfflineTimer = null;
+                _progressiveHostOfflineTimer.Stop();
+                _progressiveValueUpdateTimer.Stop();
 
                 ServiceManager.GetInstance().TryGetService<IEventBus>().Publish(new RestartProtocolEvent());
                 (engine as G2SEngine).AddProgressiveDevices(this);
