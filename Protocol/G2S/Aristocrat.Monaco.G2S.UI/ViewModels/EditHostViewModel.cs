@@ -121,6 +121,7 @@
             {
                 if (SetProperty(ref _offlineTimerInterval, TimeSpan.FromSeconds(value), nameof(OfflineTimerInterval)))
                 {
+                    ValidateOfflineTimerInterval(value);
                     RaisePropertyChanged(nameof(CanSave));
                 }
                 RaisePropertyChanged(nameof(IsOfflineTimerIntervalUnderRecommended));
@@ -306,6 +307,16 @@
             return !string.IsNullOrWhiteSpace(address)
                    && Uri.TryCreate(address, UriKind.Absolute, out var uri)
                    && EndpointUtilities.IsSchemeValid(uri);
+        }
+
+        private void ValidateOfflineTimerInterval(double seconds)
+        {
+            ClearErrors(nameof(OfflineTimerInterval));
+
+            if (seconds <= 0)
+            {
+                SetError(nameof(OfflineTimerInterval), string.Format(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GreaterThanErrorMessage), 0));
+            }
         }
     }
 }

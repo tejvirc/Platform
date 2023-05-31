@@ -119,6 +119,7 @@
                         controls:ControlsHelper.CornerRadius="3"
                         AutomationProperties.AutomationId="Button19_A332C969" />
             </Grid>
+            <views:OperatorMenuPopup />
         </Grid>
     </Grid>
 </operatorMenu:OperatorMenuPage>

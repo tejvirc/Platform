@@ -26,8 +26,6 @@
         private readonly IMultiProtocolConfigurationProvider _protocolConfigurationProvider;
 
         private bool _warningMessageVisible;
-        private string _popupProtocol;
-        private string _popupProtocolInfo;
 
         public ProtocolSetupPageViewModel(IMultiProtocolConfigurationProvider protocolConfigurationProvider, IConfigurationUtilitiesProvider configurationUtilitiesProvider) : base(true)
         {
@@ -104,70 +102,6 @@
         {
             DisableExclusiveProtocols();
             CheckRequiredFunctionalityProtocolSelected();
-            ServiceManager.GetInstance().GetService<IEventBus>().Subscribe<OperatorMenuPopupEvent>(this, OnShowPopup);
-        }
-
-        private void OnShowPopup(OperatorMenuPopupEvent evt)
-        {
-            PopupProtocol = evt.PopupText;
-        }
-
-        public string PopupProtocol
-        {
-            get => _popupProtocol;
-            set
-            {
-                if (value == _popupProtocol)
-                {
-                    return;
-                }
-
-                var protocolCapabilityAttribute = GetProtocolCapabilityAttribute(value);
-                var protocolCapabilityList = new List<string>();
-
-                if (protocolCapabilityAttribute != null)
-                {
-                    if (protocolCapabilityAttribute.IsValidationSupported)
-                    {
-                        protocolCapabilityList.Add(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Validation));
-                    }
-
-                    if (protocolCapabilityAttribute.IsFundTransferSupported)
-                    {
-                        protocolCapabilityList.Add(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.FundTransfer));
-                    }
-
-                    if (protocolCapabilityAttribute.IsProgressivesSupported)
-                    {
-                        protocolCapabilityList.Add(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Progressive));
-                    }
-
-                    if (protocolCapabilityAttribute.IsCentralDeterminationSystemSupported)
-                    {
-                        protocolCapabilityList.Add(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CentralDeterminationSystem));
-                    }
-                }
-
-                PopupProtocolInfo = protocolCapabilityList.Count == 0
-                    ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.None)
-                    : string.Join(", ", protocolCapabilityList);
-
-                SetProperty(ref _popupProtocol, value, nameof(PopupProtocol));
-            }
-        }
-
-        public string PopupProtocolInfo
-        {
-            get => _popupProtocolInfo;
-            set
-            {
-                if (value == _popupProtocolInfo)
-                {
-                    return;
-                }
-
-                SetProperty(ref _popupProtocolInfo, value, nameof(PopupProtocolInfo));
-            }
         }
 
         public bool IsDisplayRequiredFunctionalityProtocolSelectionMessage => CanDisplayMandatoryProtocolSelectionMessage();
@@ -310,10 +244,10 @@
             {
                 switch (functionality.Type)
                 {
-                    case Functionality.Validation when !ProtocolSelections.Any(p => p.Selected && (GetProtocolCapabilityAttribute(p.ProtocolName)?.IsValidationSupported ?? false)):
-                    case Functionality.FundsTransfer when !ProtocolSelections.Any(p => p.Selected && (GetProtocolCapabilityAttribute(p.ProtocolName)?.IsFundTransferSupported ?? false)):
-                    case Functionality.Progressive when !ProtocolSelections.Any(p => p.Selected && (GetProtocolCapabilityAttribute(p.ProtocolName)?.IsProgressivesSupported ?? false)):
-                    case Functionality.CentralDeterminationSystem when !ProtocolSelections.Any(p => p.Selected && (GetProtocolCapabilityAttribute(p.ProtocolName)?.IsCentralDeterminationSystemSupported ?? false)):
+                    case Functionality.Validation when !ProtocolSelections.Any(p => p.Selected && (p.ProtocolCapabilities?.IsValidationSupported ?? false)):
+                    case Functionality.FundsTransfer when !ProtocolSelections.Any(p => p.Selected && (p.ProtocolCapabilities?.IsFundTransferSupported ?? false)):
+                    case Functionality.Progressive when !ProtocolSelections.Any(p => p.Selected && (p.ProtocolCapabilities?.IsProgressivesSupported ?? false)):
+                    case Functionality.CentralDeterminationSystem when !ProtocolSelections.Any(p => p.Selected && (p.ProtocolCapabilities?.IsCentralDeterminationSystemSupported ?? false)):
                         return false;
                 }
             }
@@ -340,16 +274,16 @@
             {
                 switch (functionality.Type)
                 {
-                    case Functionality.Validation when !ProtocolSelections.Any(p => p.Selected && GetProtocolCapabilityAttribute(p.ProtocolName).IsValidationSupported):
+                    case Functionality.Validation when !ProtocolSelections.Any(p => p.Selected && p.ProtocolCapabilities.IsValidationSupported):
                         missingFunctionality.Add(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Validation));
                         break;
-                    case Functionality.FundsTransfer when !ProtocolSelections.Any(p => p.Selected && GetProtocolCapabilityAttribute(p.ProtocolName).IsFundTransferSupported):
+                    case Functionality.FundsTransfer when !ProtocolSelections.Any(p => p.Selected && p.ProtocolCapabilities.IsFundTransferSupported):
                         missingFunctionality.Add(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.FundTransfer));
                         break;
-                    case Functionality.Progressive when !ProtocolSelections.Any(p => p.Selected && GetProtocolCapabilityAttribute(p.ProtocolName).IsProgressivesSupported):
+                    case Functionality.Progressive when !ProtocolSelections.Any(p => p.Selected && p.ProtocolCapabilities.IsProgressivesSupported):
                         missingFunctionality.Add(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Progressive));
                         break;
-                    case Functionality.CentralDeterminationSystem when !ProtocolSelections.Any(p => p.Selected && GetProtocolCapabilityAttribute(p.ProtocolName).IsCentralDeterminationSystemSupported):
+                    case Functionality.CentralDeterminationSystem when !ProtocolSelections.Any(p => p.Selected && p.ProtocolCapabilities.IsCentralDeterminationSystemSupported):
                         missingFunctionality.Add(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CentralDeterminationSystem));
                         break;
                 }

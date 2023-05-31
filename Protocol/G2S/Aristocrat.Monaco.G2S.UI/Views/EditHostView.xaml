@@ -42,6 +42,7 @@
         </Grid.RowDefinitions>
         <Label Grid.Row="0"
                Content="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_HostId}}"
+               d:Content="Host Id"
                AutomationProperties.AutomationId="Label7_A7144911" />
         <TextBox Grid.Row="1"
                  IsReadOnly="False"
@@ -58,6 +59,7 @@
         <Label Grid.Row="2" 
                Margin="0 15 0 0" 
                Content="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_Address}}"
+               d:Content="Address"
                AutomationProperties.AutomationId="Label9_A7144911" />
 
         <Grid Grid.Row="3" AutomationProperties.AutomationId="Grid1_A7144911">
@@ -93,6 +95,7 @@
                   Margin="0 15 0 0"
                   IsChecked="{Binding Registered}"
                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationRegisteredHeader}}"
+                  d:Content="Registered"
                   AutomationProperties.AutomationId="CheckBox11_A7144911" />
         <CheckBox Grid.Row="5"
                   HorizontalAlignment="Left"
@@ -100,6 +103,7 @@
                   IsChecked="{Binding RequiredForPlay}"
                   Visibility="{Binding IsInWizard, Converter={StaticResource TrueCollapsedFalseVisible}}"
                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.RequiredForPlay}}"
+                  d:Content="Required for Play"
                   AutomationProperties.AutomationId="CheckBox12_A7144911" />
         <CheckBox Grid.Row="6"
                   HorizontalAlignment="Left"
@@ -107,12 +111,14 @@
                   IsChecked="{Binding IsProgressiveHost}" 
                   Visibility="{Binding SpecificProgressiveHostCheckboxVisibility}"
                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveHost}}"
+                  d:Content="Progressive Host"
                   AutomationProperties.AutomationId="CheckBox13_A7144911" />
 
         <Label Grid.Row="7"
                Margin="0 15 0 0"
                Visibility="{Binding IsProgressiveHost, Converter={StaticResource BooleanToVisibilityConverter}}"
                Content="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveHostOfflineIntervalLabel}}"
+               d:Content="Offline Timer Interval"
                AutomationProperties.AutomationId="Label14_A7144911" />
 
         <Grid Grid.Row="8"
@@ -125,7 +131,7 @@
             </Grid.ColumnDefinitions>
             <TextBox Grid.Column="0"
                      IsReadOnly="False"
-                     Text="{Binding OfflineTimerInterval, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding OfflineTimerInterval, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                      Visibility="{Binding IsProgressiveHost, Converter={StaticResource BooleanToVisibilityConverter}}"
                      Width="Auto"
                      InputScope="Number"
