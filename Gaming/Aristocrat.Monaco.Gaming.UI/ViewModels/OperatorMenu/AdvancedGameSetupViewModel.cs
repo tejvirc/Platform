@@ -186,9 +186,10 @@
 
         public bool InitialConfigComplete => PropertiesManager.GetValue(GamingConstants.OperatorMenuGameConfigurationInitialConfigComplete, false);
 
-        public override bool CanSave => !HasErrors && InputEnabled && !Committed &&
-                                        (HasChanges() || !InitialConfigComplete) && !IsEnabledGamesLimitExceeded &&
-                                        !_editableGames.Any(g => g.Value.HasErrors);
+        public override bool CanSave => HasNoErrors && InputEnabled && !Committed &&
+                                        (HasChanges() || !InitialConfigComplete) && !IsEnabledGamesLimitExceeded;
+
+        public bool HasNoErrors => !HasErrors && !_editableGames.Any(g => g.Value.HasErrors);
 
         public bool ShowSaveButtonOverride => ShowSaveButton && IsInEditMode;
 
@@ -434,17 +435,7 @@
                 dialogService.ShowDialog<AdvancedGameConfigurationSavingPopupView>(
                     this,
                     new AdvancedGameConfigurationSavingPopupViewModel(
-                        () =>
-                        {
-                            SaveChanges();
-                            CalculateTopAward();
-                            IsInEditMode = false;
-                            EventBus.Publish(new GameConfigurationSaveCompleteEvent());
-                            _pendingImportSettings.Clear();
-                            FieldAccessStatusText = string.Empty;
-                            SetEditMode();
-                            UpdateRestrictions();
-                        },
+                        () => ConfirmSaveChanges(),
                         dialogService),
                     string.Empty,
                     DialogButton.None);
@@ -453,6 +444,18 @@
             {
                 SetEditMode();
             }
+        }
+
+        private void ConfirmSaveChanges(bool forceSave = false)
+        {
+            SaveChanges(forceSave);
+            CalculateTopAward();
+            IsInEditMode = false;
+            EventBus.Publish(new GameConfigurationSaveCompleteEvent());
+            _pendingImportSettings.Clear();
+            FieldAccessStatusText = string.Empty;
+            SetEditMode();
+            UpdateRestrictions();
         }
 
         protected override void OnInputEnabledChanged()
@@ -1054,7 +1057,7 @@
             RaisePropertyChanged(nameof(editableConfig.DenomString));
         }
 
-        private void SaveChanges()
+        private void SaveChanges(bool forceSave)
         {
             var hasChanges = HasChanges();
             var progressiveLevels = _progressiveConfiguration.ViewProgressiveLevels()
@@ -1114,7 +1117,7 @@
             {
                 SaveImportSettings();
             }
-            else if (hasChanges)
+            else if (hasChanges || forceSave)
             {
                 var currentGame = _gameProvider.GetGame(PropertiesManager.GetValue(GamingConstants.SelectedGameId, 0));
 
@@ -1903,6 +1906,17 @@
                 foreach (var key in _gamesMapping.Keys.ToList())
                 {
                     _gamesMapping[key].ForEach(AutoEnableGame);
+                }
+
+                var configs = GameConfigurations.ToList();
+                if (HasNoErrors && _editableGameConfigByGameTypeMapping.Keys.Count == 1 && configs.Count == 1)
+                {
+                    var game = configs.Single();
+                    if (game.Enabled && game.AvailablePaytables?.Count == 1)
+                    {
+                        // If there is only one game auto-enabled by protocol with one variation, auto-save the configuration
+                        ConfirmSaveChanges(true);
+                    }
                 }
             }
         }
