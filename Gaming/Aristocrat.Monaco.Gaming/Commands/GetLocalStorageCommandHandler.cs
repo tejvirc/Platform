@@ -3,51 +3,27 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Contracts;
-    using Kernel;
     using Runtime.Client;
 
     public class GetLocalStorageCommandHandler : ICommandHandler<GetLocalStorage>
     {
-        private readonly IGameStorage _gameStorage;
-        private readonly IPropertiesManager _properties;
+        private readonly ILocalStorageProvider _localStorageProvider;
 
-        public GetLocalStorageCommandHandler(IPropertiesManager properties, IGameStorage gameStorage)
+        public GetLocalStorageCommandHandler(ILocalStorageProvider localStorageProvider)
         {
-            _gameStorage = gameStorage ?? throw new ArgumentNullException(nameof(gameStorage));
-            _properties = properties ?? throw new ArgumentNullException(nameof(properties));
+            _localStorageProvider = localStorageProvider ?? throw new ArgumentNullException(nameof(localStorageProvider));
         }
 
         public void Handle(GetLocalStorage command)
         {
             command.Values = new Dictionary<StorageType, IDictionary<string, string>>();
-
-            var gameId = _properties.GetValue(GamingConstants.SelectedGameId, 0);
-            var denomId = _properties.GetValue(GamingConstants.SelectedDenom, 0L);
-
-            command.Values.Add(
-                StorageType.GameLocalSession,
-                _gameStorage.GetValue<Dictionary<string, string>>(gameId, denomId, StorageType.GameLocalSession.ToString()) ??
-                new Dictionary<string, string>());
-
-            command.Values.Add(
-                StorageType.LocalSession,
-                _gameStorage.GetValue<Dictionary<string, string>>(StorageType.LocalSession.ToString()) ??
-                new Dictionary<string, string>());
-
-            command.Values.Add(
-                StorageType.PlayerSession,
-                _gameStorage.GetValue<Dictionary<string, string>>(StorageType.PlayerSession.ToString()) ??
-                new Dictionary<string, string>());
-
-            var value = _gameStorage.GetValue<Dictionary<string, string>>(
-                gameId,
-                denomId,
-                StorageType.GamePlayerSession.ToString());
-
-            if (value?.Any() ?? false)
+            foreach (var storageType in Enum.GetValues(typeof(StorageType)).Cast<StorageType>())
             {
-                command.Values.Add(StorageType.GamePlayerSession, value);
+                var storage = _localStorageProvider.GetStorage(storageType);
+                if (storageType != StorageType.GamePlayerSession || storage.Values.Any())
+                {
+                    command.Values.Add(storageType, storage);
+                }
             }
         }
     }

@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Commands
 {
     using System;
-    using System.Collections.Generic;
     using System.Reflection;
     using Contracts;
     using Hardware.Contracts.Persistence;
@@ -12,17 +11,15 @@
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private static readonly object Sync = new object();
-
-        private readonly IGameStorage _gameStorage;
         private readonly IPersistentStorageManager _storageManager;
+        private readonly ILocalStorageProvider _localStorageProvider;
 
         public ClearGameLocalSessionDataCommandHandler(
-            IGameStorage gameStorage,
-            IPersistentStorageManager storageManager)
+            IPersistentStorageManager storageManager,
+            ILocalStorageProvider localStorageProvider)
         {
-            _gameStorage = gameStorage ?? throw new ArgumentNullException(nameof(gameStorage));
             _storageManager = storageManager ?? throw new ArgumentNullException(nameof(storageManager));
+            _localStorageProvider = localStorageProvider;
         }
 
         public void Handle(ClearGameLocalSessionData command)
@@ -32,32 +29,28 @@
                 return;
             }
 
-            lock (Sync)
+            using var scope = _storageManager.ScopedTransaction();
+            if (command.Denom != null)
             {
-                using var scope = _storageManager.ScopedTransaction();
-
-                if (command.Denom != null)
-                {
-                    // If a denom is specified, clear only that denom
-                    ClearData(command.Details, command.Denom.Value);
-                }
-                else
-                {
-                    // If no denom is specified, clear all denoms for this game
-                    foreach (var denom in command.Details.Denominations)
-                    {
-                        ClearData(command.Details, denom.Value);
-                    }
-                }
-
-                scope.Complete();
+                // If a denom is specified, clear only that denom
+                ClearData(command.Details, command.Denom.Value);
             }
+            else
+            {
+                // If no denom is specified, clear all denoms for this game
+                foreach (var denom in command.Details.Denominations)
+                {
+                    ClearData(command.Details, denom.Value);
+                }
+            }
+
+            scope.Complete();
         }
 
         private void ClearData(IGameProfile game, long denom)
         {
             Logger.Debug($"Clearing local session data for {game.ThemeName} -- denom {denom} -- variation {game.VariationId}");
-            _gameStorage.SetValue(game.Id, denom, StorageType.GameLocalSession.ToString(), new Dictionary<string, string>());
+            _localStorageProvider.ClearLocalData(StorageType.GameLocalSession, game.Id, denom);
         }
     }
 }

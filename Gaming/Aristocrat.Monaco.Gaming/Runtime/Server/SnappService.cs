@@ -30,6 +30,7 @@
         private readonly IClientEndpointProvider<IRuntime> _serviceProvider;
         private readonly IClientEndpointProvider<IReelService> _reelServiceProvider;
         private readonly IClientEndpointProvider<IPresentationService> _presentationServiceProvider;
+        private readonly ILocalStorageProvider _localStorageProvider;
         private readonly IProcessManager _processManager;
         private readonly ICommandHandler<GetRandomNumber> _getRandomNumber;
         private readonly ICommandHandler<Shuffle> _shuffle;
@@ -42,6 +43,7 @@
             IClientEndpointProvider<IRuntime> serviceProvider,
             IClientEndpointProvider<IReelService> reelServiceProvider,
             IClientEndpointProvider<IPresentationService> presentationServiceProvider,
+            ILocalStorageProvider localStorageProvider,
             IProcessManager processManager)
         {
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
@@ -51,6 +53,7 @@
             _reelServiceProvider = reelServiceProvider ?? throw new ArgumentNullException(nameof(reelServiceProvider));
             _presentationServiceProvider = presentationServiceProvider ??
                                            throw new ArgumentNullException(nameof(presentationServiceProvider));
+            _localStorageProvider = localStorageProvider;
             _processManager = processManager ?? throw new ArgumentNullException(nameof(processManager));
             _buttonStateChangedProcessor =
                 new ActionBlock<ButtonStateChanged>(cmd => _handlerFactory.Create<ButtonStateChanged>().Handle(cmd));
@@ -62,6 +65,7 @@
         public override Empty Join(JoinRequest request)
         {
             Logger.Debug("Client joined the Runtime Service");
+            _localStorageProvider.ActivateGame();
 
             var snappClient = new SnappClient(_bus, _processManager);
             _serviceProvider.AddOrUpdate(snappClient);
@@ -77,6 +81,7 @@
         {
             Logger.Debug("Client left the Runtime Service");
 
+            _localStorageProvider.ClearActiveGame();
             _serviceProvider.Clear();
             _reelServiceProvider.Clear();
             _presentationServiceProvider.Clear();
@@ -636,6 +641,7 @@
             var selectDenom = new SelectDenomination((long)request.Denomination);
 
             _handlerFactory.Create<SelectDenomination>().Handle(selectDenom);
+            _localStorageProvider.ActivateGame();
 
             return EmptyResult;
         }

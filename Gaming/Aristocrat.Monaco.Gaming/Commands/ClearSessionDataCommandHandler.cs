@@ -11,50 +11,37 @@
 
     public class ClearSessionDataCommandHandler : ICommandHandler<ClearSessionData>
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
-        private static readonly object Sync = new object();
-
-        private readonly IGameStorage _gameStorage;
         private readonly IPropertiesManager _properties;
         private readonly IPersistentStorageManager _storageManager;
+        private readonly ILocalStorageProvider _localStorageProvider;
 
         public ClearSessionDataCommandHandler(
-            IGameStorage gameStorage,
             IPropertiesManager properties,
-            IPersistentStorageManager storageManager)
+            IPersistentStorageManager storageManager,
+            ILocalStorageProvider localStorageProvider)
         {
-            _gameStorage = gameStorage ?? throw new ArgumentNullException(nameof(gameStorage));
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _storageManager = storageManager ?? throw new ArgumentNullException(nameof(storageManager));
+            _localStorageProvider = localStorageProvider;
         }
 
         public void Handle(ClearSessionData command)
         {
             var games = _properties.GetValues<IGameDetail>(GamingConstants.Games);
+            using var scope = _storageManager.ScopedTransaction();
+            _localStorageProvider.ClearLocalData(StorageType.PlayerSession);
 
-            lock (Sync)
+            foreach (var game in games)
             {
-                using (var scope = _storageManager.ScopedTransaction())
+                foreach (var denom in game.ActiveDenominations)
                 {
-                    _gameStorage.SetValue(StorageType.PlayerSession.ToString(), new Dictionary<string, string>());
-
-                    foreach (var game in games)
-                    {
-                        foreach (var denom in game.ActiveDenominations)
-                        {
-                            _gameStorage.SetValue(
-                                game.Id,
-                                denom,
-                                StorageType.GamePlayerSession.ToString(),
-                                new Dictionary<string, string>());
-                        }
-                    }
-
-                    scope.Complete();
+                    _localStorageProvider.ClearLocalData(StorageType.GamePlayerSession, game.Id, denom);
                 }
             }
 
+            scope.Complete();
             Logger.Debug("Cleared game session data");
         }
     }
