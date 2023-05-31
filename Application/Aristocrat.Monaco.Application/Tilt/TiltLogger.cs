@@ -8,6 +8,8 @@
     using System.Linq;
     using System.Reflection;
     using System.Timers;
+    using Aristocrat.Monaco.Application.Localization;
+    using Aristocrat.Monaco.Kernel.Contracts.Events;
     using Common;
     using Contracts;
     using Contracts.Authentication;
@@ -41,11 +43,13 @@
         private readonly string _blockIndexName = $"{nameof(TiltLogger)}Current";
         private readonly string _blockName = $"{nameof(TiltLogger)}Format";
 
-        private readonly ConcurrentQueue<(IEvent Event, DateTime DateTime)> _queuedEvents = new ConcurrentQueue<(IEvent Event, DateTime DateTime)>();
+        private readonly ConcurrentQueue<(IEvent Event, DateTime DateTime, string Role)> _queuedEvents =
+            new ConcurrentQueue<(IEvent Event, DateTime DateTime, string Role)>();
 
         private readonly string _tiltLoggerConfigurationPath = "/TiltLogger/Configuration";
 
-        private readonly Dictionary<string, (int Max, string Combined)> _eventTypes = new Dictionary<string, (int Max, string Combined)>();
+        private readonly Dictionary<string, (int Max, string Combined, bool AppendSecurityLevel)> _eventTypes =
+            new Dictionary<string, (int Max, string Combined, bool AppendSecurityLevel)>();
 
         private readonly Dictionary<string, int> _eventTypeIndex = new Dictionary<string, int>();
 
@@ -70,6 +74,10 @@
         private IPersistentStorageManager _persistentStorage;
 
         private IIdProvider _idProvider;
+
+        private IPropertiesManager _properties;
+
+        private ILocalization _localization;
 
         private bool _disposed;
 
@@ -126,6 +134,8 @@
             _eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
             _timeService = ServiceManager.GetInstance().TryGetService<ITime>();
             _operatorMenuLauncher = ServiceManager.GetInstance().GetService<IOperatorMenuLauncher>();
+            _properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+            _localization = ServiceManager.GetInstance().GetService<ILocalization>();
 
             ConfigurationParse();
 
@@ -303,7 +313,7 @@
         {
             var list = new List<EventDescription>();
 
-            if (!_eventTypes.TryGetValue(type, out (int Max, string Combined) typeValue))
+            if (!_eventTypes.TryGetValue(type, out (int Max, string Combined, bool AppendSecurityLevel) typeValue))
             {
                 Logger.Error($"GetTypeEvents _eventTypes key {type} NOT FOUND");
                 return list;
@@ -519,7 +529,7 @@
             // Add all configured event types that do not contain a combined element first.
             foreach (var e in eventTypes.Where(e => string.IsNullOrEmpty(e.Combined)))
             {
-                _eventTypes.Add(e.Type, ValueTuple.Create(e.Max, string.Empty));
+                _eventTypes.Add(e.Type, ValueTuple.Create(e.Max, string.Empty, e.AppendSecurityLevel));
             }
 
             // Add all configured event types that contain a combined element. 
@@ -549,7 +559,7 @@
                     combined = c;
                 }
 
-                _eventTypes.Add(e.Type, ValueTuple.Create(max, combined));
+                _eventTypes.Add(e.Type, ValueTuple.Create(max, combined, e.AppendSecurityLevel));
             }
 
             _eventsToSubscribe.Clear();
@@ -648,22 +658,22 @@
             return additionalInfo?.ToArray();
         }
 
-        private (string, string)[] GetEventData((IEvent Event, DateTime DateTime) unformattedEvent)
+        private (string, string)[] GetEventData((IEvent Event, DateTime DateTime, string Role) unformattedEvent)
         {
             var @event = unformattedEvent.Event;
+            var additionalInfo = new List<(string, string)>();
+
             var componentHashCompleteEvent = @event as ComponentHashCompleteEvent;
-            if (componentHashCompleteEvent?.ComponentVerification == null)
+            if (componentHashCompleteEvent?.ComponentVerification != null)
             {
-                return Enumerable.Empty<(string, string)>().ToArray();
+                var formattedSeed = componentHashCompleteEvent.ComponentVerification.Seed.FormatBytes();
+                additionalInfo.Add(GetDateAndTimeHeader(ResourceKeys.DateAndTimeHeader, unformattedEvent.DateTime));
+                additionalInfo.Add((ResourceKeys.ComponentId, componentHashCompleteEvent.ComponentVerification.ComponentId));
+                additionalInfo.Add((ResourceKeys.SignatureType, componentHashCompleteEvent.ComponentVerification.AlgorithmType.ToString().ToUpper()));
+                additionalInfo.Add((ResourceKeys.Seed, string.IsNullOrEmpty(formattedSeed) ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable) : formattedSeed));
+                additionalInfo.Add((ResourceKeys.Result, componentHashCompleteEvent.ComponentVerification.Result.FormatBytes()));
             }
 
-            var formattedSeed = componentHashCompleteEvent.ComponentVerification.Seed.FormatBytes();
-            var additionalInfo = new List<(string, string)>();
-            additionalInfo.Add(GetDateAndTimeHeader(ResourceKeys.DateAndTimeHeader, unformattedEvent.DateTime));
-            additionalInfo.Add((ResourceKeys.ComponentId, componentHashCompleteEvent.ComponentVerification.ComponentId));
-            additionalInfo.Add((ResourceKeys.SignatureType, componentHashCompleteEvent.ComponentVerification.AlgorithmType.ToString().ToUpper()));
-            additionalInfo.Add((ResourceKeys.Seed, string.IsNullOrEmpty(formattedSeed) ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable) : formattedSeed));
-            additionalInfo.Add((ResourceKeys.Result, componentHashCompleteEvent.ComponentVerification.Result.FormatBytes()));
             return additionalInfo.ToArray();
         }
 
@@ -688,6 +698,11 @@
                         {
                             Logger.Error($"LogToPersistence _eventTypes key {key} NOT FOUND");
                             continue;
+                        }
+
+                        if (eventTypesValue.AppendSecurityLevel)
+                        {
+                            description.Name = $"{ description.Name } { localEvent.Role }";
                         }
 
                         if (!string.IsNullOrEmpty(eventTypesValue.Combined))
@@ -827,12 +842,12 @@
             // next transaction Id for these start-up events (for accurate sorting).
             if (!_startupEventsQueued)
             {
-                _queuedEvents.Enqueue(ValueTuple.Create((IEvent)null, DateTime.UtcNow)); // Software verified startup event
-                _queuedEvents.Enqueue(ValueTuple.Create((IEvent)null, DateTime.UtcNow)); // NVRAM integrity
+                _queuedEvents.Enqueue(ValueTuple.Create((IEvent)null, DateTime.UtcNow, string.Empty)); // Software verified startup event
+                _queuedEvents.Enqueue(ValueTuple.Create((IEvent)null, DateTime.UtcNow, string.Empty)); // NVRAM integrity
                 _startupEventsQueued = true;
             }
 
-            _queuedEvents.Enqueue(ValueTuple.Create(receivedEvent, DateTime.UtcNow));
+            _queuedEvents.Enqueue(ValueTuple.Create(receivedEvent, DateTime.UtcNow, GetCurrentOperatorMenuRole()));
         }
 
         private void ProcessEvents()
@@ -886,7 +901,7 @@
             };
         }
 
-        private EventDescription FormatEvent((IEvent Event, DateTime DateTime) unformattedEvent)
+        private EventDescription FormatEvent((IEvent Event, DateTime DateTime, string Role) unformattedEvent)
         {
             if (unformattedEvent.Event == null)
             {
@@ -942,6 +957,19 @@
             }
 
             QueueEvent(data);
+        }
+
+        private string GetCurrentOperatorMenuRole()
+        {
+            // Use default operator culture for this as the value will get persisted and we don't want
+            // to be able to affect what is persisted based on what the culture happens to be at the time.
+
+            var provider = Localizer.For(CultureFor.Operator) as OperatorCultureProvider;
+            var role = _properties.GetValue(ApplicationConstants.RolePropertyKey, string.Empty);
+
+            return role == ApplicationConstants.DefaultRole || string.IsNullOrEmpty(role)
+                ? provider?.GetString(provider.DefaultCulture, ResourceKeys.MenuTitleRoleAdmin) ?? string.Empty
+                : provider?.GetString(provider.DefaultCulture, ResourceKeys.MenuTitleRoleTechnician) ?? string.Empty;
         }
     }
 }

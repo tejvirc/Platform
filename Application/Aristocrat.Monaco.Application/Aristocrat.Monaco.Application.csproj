@@ -24,6 +24,16 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Aristocrat.Monaco.Application.InitialSetupPropertiesProvider.xml" />
+    <None Remove="TiltLoggerCurrent_BillIn.xml" />
+    <None Remove="TiltLoggerCurrent_Door.xml" />
+    <None Remove="TiltLoggerCurrent_Protocol.xml" />
+    <None Remove="TiltLoggerCurrent_VoucherIn.xml" />
+    <None Remove="TiltLoggerCurrent_VoucherOut.xml" />
+    <None Remove="TiltLoggerFormat_BillIn.xml" />
+    <None Remove="TiltLoggerFormat_Door.xml" />
+    <None Remove="TiltLoggerFormat_Protocol.xml" />
+    <None Remove="TiltLoggerFormat_VoucherIn.xml" />
+    <None Remove="TiltLoggerFormat_VoucherOut.xml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
@@ -111,6 +121,36 @@
     <Content Include="Aristocrat.Monaco.Application.InitialSetupPropertiesProvider.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
+    </Content>
+    <Content Include="TiltLoggerCurrent_VoucherOut.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TiltLoggerCurrent_VoucherIn.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TiltLoggerCurrent_BillIn.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TiltLoggerCurrent_Protocol.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TiltLoggerCurrent_Door.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TiltLoggerFormat_BillIn.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TiltLoggerFormat_VoucherOut.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TiltLoggerFormat_VoucherIn.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TiltLoggerFormat_Protocol.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TiltLoggerFormat_Door.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Aristocrat.Monaco.Application.Monitors.DoorMonitor.Index.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

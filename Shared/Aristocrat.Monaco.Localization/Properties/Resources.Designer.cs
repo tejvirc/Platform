@@ -8954,6 +8954,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Door.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Door {
+			get {
+				return ResourceManager.GetString("Door", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Door Events.
 		/// </summary>
         /// <remarks>
@@ -11837,6 +11849,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Filter By.
+		/// </summary>
+		public static string FilterBy {
+			get {
+				return ResourceManager.GetString("FilterBy", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Finish.
 		/// </summary>
         /// <remarks>
@@ -12364,6 +12385,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string G2SDiagnosticTabTitle {
 			get {
 				return ResourceManager.GetString("G2SDiagnosticTabTitle", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to G2S Event Code.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.Common
+        /// </remarks>
+		public static string G2SEventCode {
+			get {
+				return ResourceManager.GetString("G2SEventCode", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to G2S Event Code Description.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.Common
+        /// </remarks>
+		public static string G2SEventCodeDescription {
+			get {
+				return ResourceManager.GetString("G2SEventCodeDescription", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -25663,6 +25708,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string PropertyNameLabel {
 			get {
 				return ResourceManager.GetString("PropertyNameLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Protocol.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Protocol {
+			get {
+				return ResourceManager.GetString("Protocol", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -43972,6 +44029,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Door.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Door {
+			get {
+				return "Door";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Door Events.
 		/// </summary>
         /// <remarks>
@@ -46855,6 +46924,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Filter By.
+		/// </summary>
+		public static string FilterBy {
+			get {
+				return "FilterBy";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Finish.
 		/// </summary>
         /// <remarks>
@@ -47382,6 +47460,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string G2SDiagnosticTabTitle {
 			get {
 				return "G2SDiagnosticTabTitle";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to G2S Event Code.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.Common
+        /// </remarks>
+		public static string G2SEventCode {
+			get {
+				return "G2SEventCode";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to G2S Event Code Description.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.Common
+        /// </remarks>
+		public static string G2SEventCodeDescription {
+			get {
+				return "G2SEventCodeDescription";
 			}
 		}
 
@@ -60681,6 +60783,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string PropertyNameLabel {
 			get {
 				return "PropertyNameLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Protocol.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Protocol {
+			get {
+				return "Protocol";
 			}
 		}
 
@@ -75157,6 +75271,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		Done2,
 		/// <summary>
+		///   Looks up a localized string similar to Door.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		Door,
+		/// <summary>
 		///   Looks up a localized string similar to Door Events.
 		/// </summary>
         /// <remarks>
@@ -76780,6 +76901,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		FileSizeText,
 		/// <summary>
+		///   Looks up a localized string similar to Filter By.
+		/// </summary>
+		FilterBy,
+		/// <summary>
 		///   Looks up a localized string similar to Finish.
 		/// </summary>
         /// <remarks>
@@ -77085,6 +77210,20 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		G2SDiagnosticTabTitle,
+		/// <summary>
+		///   Looks up a localized string similar to G2S Event Code.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.Common
+        /// </remarks>
+		G2SEventCode,
+		/// <summary>
+		///   Looks up a localized string similar to G2S Event Code Description.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.Common
+        /// </remarks>
+		G2SEventCodeDescription,
 		/// <summary>
 		///   Looks up a localized string similar to Double Up.
 		/// </summary>
@@ -84674,6 +84813,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		PropertyNameLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Protocol.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		Protocol,
 		/// <summary>
 		///   Looks up a localized string similar to Protocol.
 		/// </summary>

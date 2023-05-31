@@ -92,7 +92,8 @@
             lift.Verify(
                 l => l.Report(
                     It.Is<IDevice>(d => device.Object == d),
-                    It.Is<string>(e => e == EventCode.G2S_CBE316)));
+                    It.Is<string>(e => e == EventCode.G2S_CBE316),
+                    It.IsAny<IEvent>()));
         }
     }
 }

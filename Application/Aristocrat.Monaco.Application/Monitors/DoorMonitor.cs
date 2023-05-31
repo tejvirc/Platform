@@ -9,6 +9,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using System.Timers;
+    using Aristocrat.Monaco.Application.Localization;
     using Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor;
     using Contracts;
     using Contracts.EdgeLight;
@@ -281,34 +282,36 @@
 
         public string GetLocalizedDoorName(int doorId)
         {
+            var provider = Localizer.For(CultureFor.Operator) as OperatorCultureProvider;
+
             switch (doorId)
             {
                 case (int)DoorLogicalId.Main:
-                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MainDoorName);
+                    return provider.GetString(provider.DefaultCulture, ResourceKeys.MainDoorName);
 
                 case (int)DoorLogicalId.MechanicalMeter:
-                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MechanicalMeterDoorName);
+                    return provider.GetString(provider.DefaultCulture, ResourceKeys.MechanicalMeterDoorName);
 
                 case (int)DoorLogicalId.Logic:
-                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LogicDoorName);
+                    return provider.GetString(provider.DefaultCulture, ResourceKeys.LogicDoorName);
 
                 case (int)DoorLogicalId.DropDoor:
-                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DropDoorName);
+                    return provider.GetString(provider.DefaultCulture, ResourceKeys.DropDoorName);
 
                 case (int)DoorLogicalId.TopBox:
-                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TopBoxDoorName);
+                    return provider.GetString(provider.DefaultCulture, ResourceKeys.TopBoxDoorName);
 
                 case (int)DoorLogicalId.CashBox:
-                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CashDoorName);
+                    return provider.GetString(provider.DefaultCulture, ResourceKeys.CashDoorName);
 
                 case (int)DoorLogicalId.Belly:
-                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BellyDoorName);
+                    return provider.GetString(provider.DefaultCulture, ResourceKeys.BellyDoorName);
 
                 case (int)DoorLogicalId.MainOptic:
-                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MainOpticDoorName);
+                    return provider.GetString(provider.DefaultCulture, ResourceKeys.MainOpticDoorName);
 
                 case (int)DoorLogicalId.TopBoxOptic:
-                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TopBoxOpticDoorName);
+                    return provider.GetString(provider.DefaultCulture, ResourceKeys.TopBoxOpticDoorName);
 
                 default:
                     return _doorService.GetDoorName(doorId);

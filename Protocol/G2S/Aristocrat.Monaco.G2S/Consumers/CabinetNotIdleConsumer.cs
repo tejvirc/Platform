@@ -45,7 +45,7 @@
 
             var status = new cabinetStatus();
             _commandBuilder.Build(device, status);
-            _eventLift.Report(device, EventCode.G2S_CBE329, device.DeviceList(status));
+            _eventLift.Report(device, EventCode.G2S_CBE329, device.DeviceList(status), theEvent);
         }
     }
 }

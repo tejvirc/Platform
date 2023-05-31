@@ -129,7 +129,7 @@
         </Grid>
 
         <Grid Grid.Column="1">
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.StackerRemoved}}" VerticalAlignment="Top"/>
+            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.FilterBy}}" VerticalAlignment="Top"/>
             <DataGrid Margin="0 20 0 0"
                       x:Name="FilterByDataGrid"
                       ItemsSource="{Binding EventFilterCollection}"

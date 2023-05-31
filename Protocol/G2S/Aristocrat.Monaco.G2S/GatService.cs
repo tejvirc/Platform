@@ -336,7 +336,8 @@
                     device,
                     EventCode.G2S_GAE104,
                     result.TransactionId,
-                    transactionList);
+                    transactionList,
+                    evt);
                 }
             }
         }

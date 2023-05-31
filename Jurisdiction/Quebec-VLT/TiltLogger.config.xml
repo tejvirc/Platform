@@ -11,18 +11,22 @@ as follows:
 -->
 <TiltLoggerConfiguration>
   <ArrayOfEventTypes>
-    <EventType Type="Gameplay" Max="500" />
-    <EventType Type="Comms" Max="100" />
-    <EventType Type="Error" Max="500" />
+    <EventType Type="Error" Max="100" />
     <EventType Type="General" Combined="Error" />
+    <EventType Type="Gameplay" Combined="Error" />
     <EventType Type="Power" Combined="Error" />
-    <EventType Type="GameConfigurationChange" Combined="Error" />
+    <EventType Type="GameConfigurationChange" Combined="Error" AppendSecurityLevel="true" />
+    <EventType Type="Comms" Combined="Error" />
     <EventType Type="GPU" Max="20" />
+    <EventType Type="BillIn" Max="100" />
+    <EventType Type="VoucherIn" Max="100" />
+    <EventType Type="VoucherOut" Max="100" />
+    <EventType Type="Door" Max="100" AppendSecurityLevel="true" />
+    <EventType Type="Protocol" Max="2500" />
   </ArrayOfEventTypes>
   <ArrayOfEventDescription>
     <EventDescription Name="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayStartedEvent, Monaco.Accounting.Contracts" Level="tilt" Type="General" />
     <EventDescription Name="Aristocrat.Monaco.Accounting.Contracts.TransferOutFailedEvent, Monaco.Accounting.Contracts" Level="tilt" Type="Error" />
-    <EventDescription Name="Aristocrat.Monaco.Accounting.Contracts.VoucherIssuedEvent, Monaco.Accounting.Contracts" Level="info" Type="General" />
     <EventDescription Name="Aristocrat.Monaco.Accounting.Contracts.VoucherRejectedEvent, Monaco.Accounting.Contracts" Level="error" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Application.Contracts.LegitimacyLockUpEvent, Monaco.Application.Contracts" Level="error" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Application.Contracts.OperatorMenu.OperatorMenuEnteredEvent, Monaco.Application.Contracts" Level="tilt" Type="General" />
@@ -36,7 +40,6 @@ as follows:
     <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Button.DisabledEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="General" />
     <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Door.DisabledEvent, Aristocrat.Monaco.Hardware.Contracts" Level="tilt" Type="General" />
     <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Door.EnabledEvent, Aristocrat.Monaco.Hardware.Contracts" Level="tilt" Type="General" />
-    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Door.OpenEvent, Aristocrat.Monaco.Hardware.Contracts" Level="tilt" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Door.ClosedEvent, Aristocrat.Monaco.Hardware.Contracts" Level="tilt" Type="General" />
     <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.HardMeter.StartedRespondingEvent, Aristocrat.Monaco.Hardware.Contracts" Level="info" Type="General" />
     <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.HardMeter.StoppedRespondingEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
@@ -100,7 +103,8 @@ as follows:
     <EventDescription Name="Aristocrat.Monaco.Application.Contracts.Drm.SoftwareProtectionModuleDisconnectedEvent, Monaco.Application.Contracts" Level="error" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Application.Contracts.Drm.SoftwareProtectionModuleErrorEvent, Monaco.Application.Contracts" Level="error" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Application.Contracts.Drm.LicenseErrorEvent, Monaco.Application.Contracts" Level="error" Type="Error" />
-	<EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.DocumentRejectedEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
-	<EventDescription Name="Aristocrat.Monaco.Accounting.Contracts.ExcessiveDocumentRejectedEvent, Monaco.Accounting.Contracts" Level="tilt" Type="General" />
+	  <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.DocumentRejectedEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
+	  <EventDescription Name="Aristocrat.Monaco.Accounting.Contracts.ExcessiveDocumentRejectedEvent, Monaco.Accounting.Contracts" Level="tilt" Type="General" />
+    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Door.OpenEvent, Aristocrat.Monaco.Hardware.Contracts" Level="tilt" Type="Door" />
   </ArrayOfEventDescription>
 </TiltLoggerConfiguration>

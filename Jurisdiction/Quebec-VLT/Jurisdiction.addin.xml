@@ -14,6 +14,7 @@
     <Import assembly="..\..\bin\Aristocrat.Monaco.Kernel.dll" />
     <Import assembly="..\..\bin\Aristocrat.Monaco.Gaming.VideoLottery.dll" />
     <Import assembly="..\..\bin\Aristocrat.Monaco.Application.dll" />
+    <Import assembly="..\..\bin\Aristocrat.Monaco.G2S.dll" />
   </Runtime>
   <Extension path="/Kernel/SelectableAddinConfiguration/Jurisdiction">
     <SelectableJurisdiction name="Quebec" description="Top level Quebec jurisdiction group" id="JUR000078,JUR000998,JUR000999,JUR000033">
@@ -193,5 +194,8 @@
   </Extension>
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.VLT.config.xml" filterid="QuebecHardMeterMappingConfig" />
+  </Extension>
+  <Extension path="/Application/Services">
+    <Service type="Aristocrat.Monaco.G2S.G2SEventLogger" />
   </Extension>
 </Addin>

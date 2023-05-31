@@ -29,6 +29,8 @@
     using Monaco.Common;
     using Services;
     using SimpleInjector;
+    using Aristocrat.Monaco.Application.Contracts.TiltLogger;
+    using Aristocrat.Monaco.G2S.Common.G2SEventLogger;
 
     /// <summary>
     ///     Handle the base level G2S communications including meter managements and system events.
@@ -71,6 +73,7 @@
 
             // The G2S Lib uses TraceSource...
             Logger.AddAsTraceSource();
+            RegisterLogAdapters();
 
             _serviceWaiter.AddServiceToWaitFor<ITransactionCoordinator>();
             _serviceWaiter.AddServiceToWaitFor<ICabinetService>();
@@ -361,6 +364,26 @@
             if (_sharedConsumerContext != null)
             {
                 ServiceManager.GetInstance().RemoveService(_sharedConsumerContext);
+            }
+
+            UnRegisterLogAdapters();
+        }
+
+        private void RegisterLogAdapters()
+        {
+            if (ServiceManager.GetInstance().IsServiceAvailable<IG2SEventLogger>())
+            {
+                var logAdapterService = ServiceManager.GetInstance().GetService<ILogAdaptersService>();
+                logAdapterService.RegisterLogAdapter(new G2SEventLogAdapter());
+            }
+        }
+
+        private void UnRegisterLogAdapters()
+        {
+            if (ServiceManager.GetInstance().IsServiceAvailable<IG2SEventLogger>())
+            {
+                var logAdapterService = ServiceManager.GetInstance().GetService<ILogAdaptersService>();
+                logAdapterService.UnRegisterLogAdapter(EventLogType.Protocol.GetDescription(typeof(EventLogType)));
             }
         }
     }

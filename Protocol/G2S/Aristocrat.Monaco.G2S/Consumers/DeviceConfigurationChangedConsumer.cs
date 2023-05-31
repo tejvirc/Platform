@@ -192,7 +192,7 @@
 
             var deviceList = status != null ? theEvent.Device.DeviceList(status) : null;
 
-            _eventLift.Report(theEvent.Device, configUpdatedEventCode, deviceList);
+            _eventLift.Report(theEvent.Device, configUpdatedEventCode, deviceList, theEvent);
         }
     }
 }

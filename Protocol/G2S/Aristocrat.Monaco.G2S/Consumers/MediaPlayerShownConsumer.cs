@@ -49,7 +49,7 @@
             // Override visible state because we are queuing states and want to return the correct expected state
             status.deviceVisibleState = t_deviceVisibleStates.IGT_shown;
 
-            _eventLift.Report(device, EventCode.IGT_MDE106, device.DeviceList(status));
+            _eventLift.Report(device, EventCode.IGT_MDE106, device.DeviceList(status), theEvent);
         }
     }
 }

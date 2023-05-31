@@ -66,7 +66,8 @@
                         It.IsAny<deviceList1>(),
                         It.IsAny<long>(),
                         It.IsAny<transactionList>(),
-                        It.IsAny<meterList>()));
+                        It.IsAny<meterList>(),
+                        It.IsAny<IEvent>()));
         }
     }
 }

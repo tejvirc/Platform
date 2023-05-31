@@ -19,7 +19,7 @@ namespace Aristocrat.Monaco.JurisdictionData.Quebec-VLT.resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -95,6 +95,17 @@ namespace Aristocrat.Monaco.JurisdictionData.Quebec-VLT.resources {
                 return ResourceManager.GetString("EnteringOutOfServiceModeRequiresZeroCreditsText", resourceCulture);
             }
         }
+
+        
+
+        /// <summary>
+        ///   Looks up a localized string similar to History.
+        /// </summary>
+        internal static string EventLogTitle {
+            get {
+                return ResourceManager.GetString("EventLogTitle", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Offline.
@@ -111,6 +122,15 @@ namespace Aristocrat.Monaco.JurisdictionData.Quebec-VLT.resources {
         internal static string OutOfServiceAdditionalInfo {
             get {
                 return ResourceManager.GetString("OutOfServiceAdditionalInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to G2S.
+        /// </summary>
+        internal static string Protocol {
+            get {
+                return ResourceManager.GetString("Protocol", resourceCulture);
             }
         }
     }

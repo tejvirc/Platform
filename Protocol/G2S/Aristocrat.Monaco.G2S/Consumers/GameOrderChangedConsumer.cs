@@ -41,7 +41,8 @@
             {
                 _eventLift.Report(
                     chooser,
-                    EventCode.G2S_CHE006);
+                    EventCode.G2S_CHE006,
+                    theEvent);
             }
         }
     }

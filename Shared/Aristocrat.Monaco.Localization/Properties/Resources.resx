@@ -11833,4 +11833,23 @@ Do you really want to do full reset?</value>
   <data name="TestModeDisabledStatusCredits" xml:space="preserve">
     <value>Zero credits are required to enter Test Mode</value>
   </data>
+  <data name="Door" xml:space="preserve">
+    <value>Door</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Protocol" xml:space="preserve">
+    <value>Protocol</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="FilterBy" xml:space="preserve">
+    <value>Filter By</value>
+  </data>
+  <data name="G2SEventCode" xml:space="preserve">
+    <value>G2S Event Code</value>
+    <comment>Aristocrat.Monaco.G2S.Common</comment>
+  </data>
+  <data name="G2SEventCodeDescription" xml:space="preserve">
+    <value>G2S Event Code Description</value>
+    <comment>Aristocrat.Monaco.G2S.Common</comment>
+  </data>
 </root>

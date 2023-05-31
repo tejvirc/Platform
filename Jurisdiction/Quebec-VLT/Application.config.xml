@@ -60,23 +60,19 @@ as follows:
   </SoundConfiguration>
   <ReadOnlyMedia Required="false" />
   <LogTypesAllowedForDisplay>
-    <string>BillIn</string>
-    <string>Handpay</string>
-    <string>VoucherIn</string>
-    <string>VoucherOut</string>
-    <string>BonusAward</string>
-    <string>TransferIn</string>
-    <string>TransferOut</string>
-    <string>Gameplay</string>
-    <string>Comms</string>
-    <string>Error</string>
     <string>General</string>
-    <string>Hash</string>
+    <string>Error</string>
+    <string>Gameplay</string>
     <string>Power</string>
     <string>GameConfigurationChange</string>
-    <string>GPU</string>
+    <string>Comms</string>
     <string>SoftwareChange</string>
     <string>Progressive</string>
+    <string>BillIn</string>
+    <string>VoucherIn</string>
+    <string>VoucherOut</string>
+    <string>Door</string>
+    <string>Protocol</string>
   </LogTypesAllowedForDisplay>
   <Cashout ClearWins="false" />
   <MultiGame RestoreRebootStateAfterSwitch="false" StateStorageLocation="game" />

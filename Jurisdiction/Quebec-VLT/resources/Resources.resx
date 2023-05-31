@@ -133,6 +133,9 @@
     <value>Entering Offline mode requires Zero Credits</value>
     <comment>Jurisdiction override for Out of Service Zero Credits text</comment>
   </data>
+ <data name="EventLogTitle" xml:space="preserve">
+    <value>History</value>
+  </data>
   <data name="OutOfService" xml:space="preserve">
     <value>Offline</value>
     <comment>Jurisdiction override for Out of Service disable message</comment>
@@ -140,5 +143,8 @@
   <data name="OutOfServiceAdditionalInfo" xml:space="preserve">
     <value>Exit Offline Mode from operator menu</value>
     <comment>Jurisdiction override for Out of Service additional info text</comment>
+  </data>
+  <data name="Protocol" xml:space="preserve">
+    <value>G2S</value>
   </data>
 </root>

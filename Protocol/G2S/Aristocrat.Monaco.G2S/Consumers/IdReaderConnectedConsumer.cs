@@ -36,7 +36,7 @@
             var status = new idReaderStatus();
             _command.Build(device, status);
 
-            _eventLift.Report(device, EventCode.G2S_IDE902, device.DeviceList(status));
+            _eventLift.Report(device, EventCode.G2S_IDE902, device.DeviceList(status), theEvent);
              
             _eventLift.Report(device, EventCode.G2S_IDE002, device.DeviceList(status));
         }
