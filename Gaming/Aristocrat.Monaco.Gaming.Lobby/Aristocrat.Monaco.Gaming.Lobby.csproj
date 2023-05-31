@@ -34,6 +34,7 @@
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
     <PackageReference Include="SimpleInjector.Packaging" Version="4.9.2" />
     <PackageReference Include="Stateless" Version="4.0.0" />
+    <PackageReference Include="System.Reactive" Version="5.0.0" />
     <PackageReference Include="WPFLocalizeExtension" Version="3.9.4" />
   </ItemGroup>
   <ItemGroup>
@@ -48,11 +49,15 @@
     <ProjectReference Include="..\Aristocrat.Monaco.Gaming.Contracts\Aristocrat.Monaco.Gaming.Contracts.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Behaviors\" />
-    <Folder Include="Controls\" />
     <Folder Include="Services\Game\" />
     <Folder Include="Services\EdgeLighting\" />
     <Folder Include="Store\Attract\" />
     <Folder Include="Store\ResponsibleGaming\" />
+    <Folder Include="Themes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Styles\Default.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
   </ItemGroup>
 </Project>

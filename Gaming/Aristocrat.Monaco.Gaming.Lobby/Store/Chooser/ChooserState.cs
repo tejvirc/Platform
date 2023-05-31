@@ -3,14 +3,11 @@
 using System.Collections.Immutable;
 using Fluxor;
 using Models;
-using Services.Chooser;
 
 [FeatureState]
 public record ChooserState
 {
-    public IImmutableList<GameInfo>? Games { get; init; }
-
-    public ChooserStyle Style { get; init; }
+    public IImmutableList<GameInfo> Games { get; set; } = ImmutableList<GameInfo>.Empty;
 
     public bool IsExtraLargeIcons { get; set; }
 

@@ -12,6 +12,8 @@ using Services.OperatorMenu;
 using Services.ResponsibleGaming;
 using SimpleInjector;
 using SimpleInjector.Packaging;
+using Store.Chooser;
+using Store.Lobby;
 using UI.Common;
 
 public class GamingLobbyPackage : IPackage
@@ -42,6 +44,12 @@ public class GamingLobbyPackage : IPackage
         regionAdapterMapper.Register<ContentControlRegionAdapter>(typeof(ContentControl));
 
         container.RegisterInstance<IRegionAdapterMapper>(regionAdapterMapper);
+
+        // container.Register(typeof(IStateSelectors<>), typeof(StateSelectors<>), Lifestyle.Singleton);
+
+        container.Register<ChooserSelectors>(Lifestyle.Singleton);
+
+        container.Register<LobbySelectors>(Lifestyle.Singleton);
 
         container.RegisterLobby();
 
