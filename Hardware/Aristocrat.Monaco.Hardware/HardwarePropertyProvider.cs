@@ -33,7 +33,7 @@
             {
                 {
                     HardwareConstants.HardMetersEnabledKey,
-                    Tuple.Create((object)InitFromStorage<bool>(HardwareConstants.HardMetersEnabledKey), true)
+                    Tuple.Create((object)InitFromStorage<bool>(HardwareConstants.HardMetersEnabledKey), false)
                 },
                 {
                     HardwareConstants.Display1, Tuple.Create(
@@ -117,7 +117,6 @@
             if (!_blockExists)
             {
                 // Set the defaults
-                SetProperty(HardwareConstants.HardMetersEnabledKey, true);
                 SetProperty(HardwareConstants.DoorAlarmEnabledKey, true);
             }
 

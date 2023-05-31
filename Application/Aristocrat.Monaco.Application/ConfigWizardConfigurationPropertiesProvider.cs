@@ -50,7 +50,7 @@ namespace Aristocrat.Monaco.Application
             var hardMeterTickValue = DefaultHardMeterTickValue;
             var enterOutOfServiceWithCreditsEnabled =
                 configWizardConfiguration.MachineSetupConfig?.EnterOutOfServiceWithCredits?.Enabled ?? true;
-            var hardMetersEnabled = configWizardConfiguration.HardMetersConfig?.Enable ?? true;
+            var hardMetersEnabled = configWizardConfiguration.HardMetersConfig?.Enable ?? false;
 
             var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
             var machineSettingsImported = propertiesManager.GetValue(ApplicationConstants.MachineSettingsImported, ImportMachineSettings.None);
