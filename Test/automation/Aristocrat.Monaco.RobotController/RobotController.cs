@@ -360,7 +360,8 @@
 
                 if (serviceWaiter.WaitForServices())
                 {
-                    SetupControllerServices(ServicesHelpers.InitializeContainer(this));
+                    ServicesHelpers.InitializeContainer(_container, this);
+                    SetupControllerServices(_container);
                 }
             });
         }

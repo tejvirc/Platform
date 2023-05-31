@@ -10,10 +10,8 @@
 
     internal static class ServicesHelpers
     {
-        internal static Container InitializeContainer(object context = null)
+        internal static Container InitializeContainer(Container container, object context = null)
         {
-            var container = new Container();
-
             if (container == null)
             {
                 throw new ArgumentException($"{nameof(container)} is null.");
@@ -28,12 +26,18 @@
 
             container.RegisterInstance(serviceManager.GetService<IEventBus>());
             container.RegisterInstance(serviceManager.GetService<IPropertiesManager>());
-            container.RegisterInstance(serviceManager.GetService<IContainerService>().Container.GetInstance<ILobbyStateManager>());
-            container.RegisterInstance(serviceManager.GetService<IContainerService>().Container.GetInstance<IGamePlayState>());
-            container.RegisterInstance(serviceManager.GetService<IContainerService>().Container.GetInstance<IGameProvider>());
-            container.RegisterInstance(serviceManager.GetService<IContainerService>().Container.GetInstance<IBank>());
-            container.RegisterInstance(serviceManager.GetService<IContainerService>().Container.GetInstance<IPathMapper>());
-            container.RegisterInstance(serviceManager.GetService<IContainerService>().Container.GetInstance<IGameService>());
+
+            var platformContainer = serviceManager.GetService<IContainerService>().Container;
+            if(platformContainer == null)
+            {
+                throw new NullReferenceException($"{nameof(IContainerService.Container)} not available.");
+            }
+
+            container.RegisterInstance(platformContainer.GetInstance<IGamePlayState>());
+            container.RegisterInstance(platformContainer.GetInstance<IGameProvider>());
+            container.RegisterInstance(platformContainer.GetInstance<IBank>());
+            container.RegisterInstance(platformContainer.GetInstance<IPathMapper>());
+            container.RegisterInstance(platformContainer.GetInstance<IGameService>());
 
             container.Register<RobotLogger>(Lifestyle.Singleton);
             container.Register<Automation>(Lifestyle.Singleton);
