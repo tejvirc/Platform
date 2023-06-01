@@ -33,6 +33,7 @@
                 throw new NullReferenceException($"{nameof(IContainerService.Container)} not available.");
             }
 
+            container.RegisterInstance(platformContainer.GetInstance<ILobbyStateManager>());
             container.RegisterInstance(platformContainer.GetInstance<IGamePlayState>());
             container.RegisterInstance(platformContainer.GetInstance<IGameProvider>());
             container.RegisterInstance(platformContainer.GetInstance<IBank>());
