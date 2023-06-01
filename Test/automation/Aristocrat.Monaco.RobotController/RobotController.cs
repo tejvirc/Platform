@@ -91,9 +91,12 @@
 
         protected override void OnInitialize()
         {
+            _eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
+
             AddWarmups();
             AddGameStarters();
             AddServices();
+
             SubscribeToRobotEnabler();
         }
 
@@ -282,6 +285,7 @@
                 _logger.Info("Exit requested. Disabling.", GetType().Name);
                 Enabled = false;
             });
+
         }
 
         private void AddServices()
@@ -336,7 +340,6 @@
             _propertiesManager = _container.GetInstance<IPropertiesManager>();
             _automator = _container.GetInstance<Automation>();
             _logger = _container.GetInstance<RobotLogger>();
-            _eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
         }
 
 
