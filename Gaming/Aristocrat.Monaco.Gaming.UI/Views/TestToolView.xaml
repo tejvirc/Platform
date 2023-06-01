@@ -562,7 +562,7 @@
                                     Text="{Binding ResponsibleGamingDialogTimeout, UpdateSourceTrigger=PropertyChanged}"
                                      Width="60"
                                      AutomationProperties.AutomationId="TextBox143_814CF979" />
-                            <Button Style="{StaticResource MahApps.Styles.Button.Square.Accen}"
+                            <Button Style="{StaticResource MahApps.Styles.Button.Square.Accent}"
                                     Margin="20,0,0,0"
                                     Width="150"
                                     Content="Set Dialog Timeout"
