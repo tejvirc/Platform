@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.G2S
 {
+    using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Client.Devices.v21;
     using Aristocrat.G2S.Protocol.v21;
@@ -58,7 +59,7 @@
                 transactionId: transactionId,
                 transactionList: transactionList);
 
-            DispatchG2SEventCodeSentEvent(eventCode, associatedEvent);
+            PublishG2SEvent(eventCode, associatedEvent);
         }
 
         /// <inheritdoc />
@@ -89,7 +90,7 @@
                 transactionId: transactionId,
                 transactionList: transactionList);
 
-            DispatchG2SEventCodeSentEvent(eventCode, associatedEvent);
+            PublishG2SEvent(eventCode, associatedEvent);
         }
 
         /// <inheritdoc />
@@ -108,7 +109,7 @@
                 deviceList,
                 meterList: metersList);
 
-            DispatchG2SEventCodeSentEvent(eventCode, associatedEvent);
+            PublishG2SEvent(eventCode, associatedEvent);
         }
 
         /// <inheritdoc />
@@ -141,9 +142,48 @@
                 meterList: metersList,
                 transactionId: transactionId,
                 transactionList: transactionList);
+
+            PublishG2SEvent(eventCode, associatedEvent);
         }
 
-        private void DispatchG2SEventCodeSentEvent(string eventCode, IEvent associatedEvent)
+        /// <inheritdoc />
+        public void Report(
+            IDevice device,
+            string eventCode,
+            deviceList1 deviceList,
+            string eventText,
+            long transactionId,
+            transactionList transactionList,
+            meterList metersList)
+        {
+            Report(device, eventCode, deviceList, eventText, transactionId, transactionList, metersList, null);
+        }
+
+        /// <inheritdoc />
+        public void Report(
+            IDevice device,
+            string eventCode,
+            deviceList1 deviceList,
+            string eventText,
+            long transactionId,
+            transactionList transactionList,
+            meterList metersList,
+            IEvent associatedEvent)
+        {
+            EventHandlerDevice.EventReport(
+                device.PrefixedDeviceClass(),
+                device.Id,
+                eventCode,
+                deviceList,
+                eventText,
+                meterList: metersList,
+                transactionId: transactionId,
+                transactionList: transactionList);
+
+            PublishG2SEvent(eventCode, associatedEvent);
+        }
+
+        private void PublishG2SEvent(string eventCode, IEvent associatedEvent)
         {
             if (string.IsNullOrEmpty(eventCode))
             {

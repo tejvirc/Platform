@@ -60,6 +60,7 @@
         private readonly ConcurrentQueue<Action> _offlineEvents = new ConcurrentQueue<Action>();
         private readonly List<string> _overflowEvents;
         private readonly ConcurrentQueue<eventReport> _queuedEvents = new ConcurrentQueue<eventReport>();
+        private readonly IEventLift _eventLift;
 
         private bool _disposed;
         private volatile bool _open;
@@ -73,14 +74,18 @@
         /// <param name="deviceId">The device identifier, which for this class should be the host identifier.</param>
         /// <param name="deviceStateObserver">An <see cref="IDeviceObserver" /> instance.</param>
         /// <param name="eventPersistenceManager">The event persistence manager.</param>
+        /// <param name="eventLift">The event lift.</param>
         public EventHandlerDevice(
             int deviceId,
             IDeviceObserver deviceStateObserver,
-            IEventPersistenceManager eventPersistenceManager)
+            IEventPersistenceManager eventPersistenceManager,
+            IEventLift eventLift)
             : base(deviceId, deviceStateObserver)
         {
             _eventPersistenceManager =
                 eventPersistenceManager ?? throw new ArgumentNullException(nameof(eventPersistenceManager));
+
+            _eventLift = eventLift ?? throw new ArgumentNullException(nameof(eventLift));
 
             lock (Lock)
             {
@@ -697,11 +702,14 @@
                     if (!Overflow)
                     {
                         Overflow = true;
-                        EventReport(
-                            deviceId: Id,
-                            eventCode: EventCode.G2S_EHE102,
-                            eventText: "Event Handler Queue Overflow",
-                            deviceList: this.DeviceList());
+                        _eventLift.Report(
+                            this,
+                            EventCode.G2S_EHE102,
+                            this.DeviceList(),
+                            "Event Handler Queue Overflow",
+                            0,
+                            null,
+                            null);
                     }
                 }
                 else
@@ -788,10 +796,7 @@
                     _overflowEvents.Clear();
                     foreach (var overflowEvent in postEvents)
                     {
-                        EventReport(
-                            deviceId: Id,
-                            eventCode: overflowEvent,
-                            deviceList: this.DeviceList());
+                        _eventLift.Report(this, overflowEvent, this.DeviceList());
                     }
                 }
             }

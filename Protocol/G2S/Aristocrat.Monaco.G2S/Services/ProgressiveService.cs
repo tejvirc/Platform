@@ -449,12 +449,11 @@
 
         private void EventReport(IProgressiveDevice device, JackpotTransaction log, string eventCode)
         {
-            EventHandlerDevice.EventReport(
-                device.PrefixedDeviceClass(),
-                device.Id,
+            _eventLift.Report(
+                device,
                 eventCode,
-                transactionId: log.TransactionId,
-                transactionList: new transactionList
+                log.TransactionId,
+                new transactionList
                 {
                     transactionInfo = new[]
                     {
@@ -464,6 +463,7 @@
                             deviceClass = device.PrefixedDeviceClass(),
                             Item = log.ToProgressiveLog(_gameProvider)
                         }
+
                     }
                 });
         }
