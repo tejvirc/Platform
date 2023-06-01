@@ -3906,7 +3906,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             ClockTimer.UpdateTime();
             SendLanguageChangedEvent();
 
-            var idleText = (string)LobbyView.TryFindResource(LobbyIdleTextDefaultResourceKey) ?? Localizer.For(CultureFor.Player).GetString(ResourceKeys.IdleTextDefault);
+            var idleText = (string)LobbyView?.TryFindResource(LobbyIdleTextDefaultResourceKey) ?? Localizer.For(CultureFor.Player).GetString(ResourceKeys.IdleTextDefault);
             IdleText = idleText;
 
             RaisePropertyChanged(nameof(NoGamesForThisLanguageErrorIsVisible));
