@@ -11,6 +11,8 @@
     using Hardware.Contracts.Persistence;
     using Kernel;
     using Kernel.Contracts;
+    using Kernel.MarketConfig;
+    using Kernel.MarketConfig.Accounting;
     using Localization.Properties;
     using log4net;
     using Newtonsoft.Json;
@@ -36,70 +38,89 @@
         /// </summary>
         public AccountingPropertyProvider()
         {
-            var storageManager = ServiceManager.GetInstance().GetService<IPersistentStorageManager>();
+            var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+
+#if USE_MARKET_CONFIG // Use a compile time flag to allow switching the configuration source from the Jurisdiction addins to the config tool
+            Logger.Debug("Prefer JSON config is enabled, using config export");
+
+            var marketConfigManager = ServiceManager.GetInstance().GetService<IMarketConfigManager>();
+
+            // Get the current jurisdiction installation id that was selected
+            var jurisdictionInstallationId = propertiesManager.GetValue(
+                ApplicationConstants.JurisdictionKey, string.Empty);
+
+            // Use the MarketConfigManager to get the accounting configuration
+            // TODO should this use the same defaultOnError behavior as ConfigManager?
+            var configuration = marketConfigManager.GetMarketConfiguration<AccountingConfigSegment>(
+                jurisdictionInstallationId);
+#else
+            Logger.Debug("Prefer JSON config is disabled, using Addins config");
 
             var configuration = ConfigurationUtilities.GetConfiguration(
-                ConfigurationExtensionPath,
-                () => new AccountingConfiguration
+            ConfigurationExtensionPath,
+            () => new AccountingConfiguration
+            {
+                MoneyLaunderingMonitor = new AccountingConfigurationMoneyLaunderingMonitor()
                 {
-                    MoneyLaunderingMonitor = new AccountingConfigurationMoneyLaunderingMonitor()
-                    {
-                        SoundFilePath = string.Empty,
-                        Enabled = false,
-                        Visible = false
-                    },
-                    TenderIn = new AccountingConfigurationTenderIn
-                    {
-                        CheckLaundryLimit = false,
-                        MaxTenderInLimit = 0,
-                        CheckCreditsIn = CheckCreditsStrategy.None,
-                        AllowCreditUnderLimit = false
-                    },
-                    CreditLimits = new AccountingConfigurationCreditLimits(),
-                    RebootWhilePrinting = new AccountingConfigurationRebootWhilePrinting
-                    {
-                        Behavior = "Prompt"
-                    },
-                    ReprintLoggedVoucher = new AccountingConfigurationReprintLoggedVoucher
-                    {
-                        Behavior = "None",
-                        TitleOverride = false,
-                        DoorOpenRequirement = "None"
-                    },
-                    NoteIn = new AccountingConfigurationNoteIn
-                    {
-                        State = "Disabled"
-                    },
-                    VoucherIn = new AccountingConfigurationVoucherIn
-                    {
-                        State = "Disabled"
-                    },
-                    VoucherOut = new AccountingConfigurationVoucherOut
-                    {
-                        State = "Enabled",
-                        LimitDefault = long.MaxValue,
-                        AllowCashWinTicket = false,
-                        SeparateMeteringCashableAndPromoAmounts = false
-                    },
-                    WinLimits = new AccountingConfigurationWinLimits(),
-                    Handpay = new AccountingConfigurationHandpay
-                    {
-                        LargeWinForcedKeyOff = false,
-                        LargeWinKeyOffStrategy = KeyOffType.LocalHandpay
-                    },
-                    MysteryProgressive = new AccountingConfigurationMysteryProgressive
-                    {
-                        WinAsExternalBonus = false
-                    },
-                    CashoutOnCarrierBoardRemoval = new AccountingConfigurationCashoutOnCarrierBoardRemoval
-                    {
-                        Enabled = false
-                    },
-                    BillClearance = new AccountingConfigurationBillClearance()
-                    {
-                        Enabled = false
-                    },
-                });
+                    SoundFilePath = string.Empty,
+                    Enabled = false,
+                    Visible = false
+                },
+                TenderIn = new AccountingConfigurationTenderIn
+                {
+                    CheckLaundryLimit = false,
+                    MaxTenderInLimit = 0,
+                    CheckCreditsIn = CheckCreditsStrategy.None,
+                    AllowCreditUnderLimit = false
+                },
+                CreditLimits = new AccountingConfigurationCreditLimits(),
+                RebootWhilePrinting = new AccountingConfigurationRebootWhilePrinting
+                {
+                    Behavior = "Prompt"
+                },
+                ReprintLoggedVoucher = new AccountingConfigurationReprintLoggedVoucher
+                {
+                    Behavior = "None",
+                    TitleOverride = false,
+                    DoorOpenRequirement = "None"
+                },
+                NoteIn = new AccountingConfigurationNoteIn
+                {
+                    State = "Disabled"
+                },
+                VoucherIn = new AccountingConfigurationVoucherIn
+                {
+                    State = "Disabled"
+                },
+                VoucherOut = new AccountingConfigurationVoucherOut
+                {
+                    State = "Enabled",
+                    LimitDefault = long.MaxValue,
+                    AllowCashWinTicket = false,
+                    SeparateMeteringCashableAndPromoAmounts = false
+                },
+                WinLimits = new AccountingConfigurationWinLimits(),
+                Handpay = new AccountingConfigurationHandpay
+                {
+                    LargeWinForcedKeyOff = false,
+                    LargeWinKeyOffStrategy = KeyOffType.LocalHandpay
+                },
+                MysteryProgressive = new AccountingConfigurationMysteryProgressive
+                {
+                    WinAsExternalBonus = false
+                },
+                CashoutOnCarrierBoardRemoval = new AccountingConfigurationCashoutOnCarrierBoardRemoval
+                {
+                    Enabled = false
+                },
+                BillClearance = new AccountingConfigurationBillClearance()
+                {
+                    Enabled = false
+                },
+            });
+#endif
+
+            var storageManager = ServiceManager.GetInstance().GetService<IPersistentStorageManager>();
 
             var storageName = GetType().ToString();
 
@@ -113,17 +134,25 @@
             var voucherOutLimit = (long)InitFromStorage(AccountingConstants.VoucherOutLimit);
             if (voucherOutLimit == 0)
             {
+#if USE_MARKET_CONFIG
+                voucherOutLimit = configuration.VoucherOut.LimitDefault;
+#else
                 voucherOutLimit = configuration.VoucherOut.LimitDefault > 0
                     ? configuration.VoucherOut.LimitDefault
                     : AccountingConstants.DefaultVoucherOutLimit;
+#endif
             }
 
             var voucherInLimit = (long)InitFromStorage(AccountingConstants.VoucherInLimit);
             if (voucherInLimit == 0)
             {
+#if USE_MARKET_CONFIG
+                voucherInLimit = configuration.VoucherIn.LimitDefault;
+#else
                 voucherInLimit = configuration.VoucherIn.LimitDefault > 0
                     ? configuration.VoucherIn.LimitDefault
                     : AccountingConstants.DefaultVoucherInLimit;
+#endif
             }
 
             _properties = new Dictionary<string, Tuple<object, bool>>
@@ -202,7 +231,11 @@
                 },
                 {
                     AccountingConstants.EditableExpiration,
+#if USE_MARKET_CONFIG
+                    Tuple.Create((object)configuration.VoucherOut?.ExpirationEditable ?? true, false)
+#else
                     Tuple.Create((object)configuration.VoucherOut?.Expiration?.Editable ?? true, false)
+#endif
                 },
                 {
                     AccountingConstants.AllowCashWinTicket,
@@ -258,7 +291,11 @@
                 },
                 {
                     AccountingConstants.LargeWinLimitMaxValue,
+#if USE_MARKET_CONFIG
+                    Tuple.Create((object)configuration.LargeWinLimit.MaxAllowed, false)
+#else
                     Tuple.Create((object)configuration.WinLimits?.LargeWinLimit?.MaxAllowed ?? AccountingConstants.DefaultHandpayLimit, false)
+#endif
                 },
                 {
                     AccountingConstants.LargeWinLimitEnabled,
@@ -266,7 +303,11 @@
                 },
                 {
                     AccountingConstants.OverwriteLargeWinLimit,
+#if USE_MARKET_CONFIG
+                    Tuple.Create((object)configuration.LargeWinLimit.Editable, false)
+#else
                     Tuple.Create((object)configuration.WinLimits?.LargeWinLimit?.Editable ?? true, false)
+#endif
                 },
                 {
                     AccountingConstants.LargeWinRatio,
@@ -278,11 +319,19 @@
                 },
                 {
                     AccountingConstants.OverwriteLargeWinRatio,
+#if USE_MARKET_CONFIG
+                    Tuple.Create((object)configuration.LargeWinRatio.Editable, false)
+#else
                     Tuple.Create((object)configuration.WinLimits?.LargeWinRatio?.Editable ?? true, false)
+#endif
                 },
                 {
                     AccountingConstants.DisplayLargeWinRatio,
+#if USE_MARKET_CONFIG
+                    Tuple.Create((object)configuration.LargeWinRatio.Visible, false)
+#else
                     Tuple.Create((object)configuration.WinLimits?.LargeWinRatio?.Visible ?? false, false)
+#endif
                 },
                 {
                     AccountingConstants.LargeWinRatioThreshold,
@@ -294,15 +343,27 @@
                 },
                 {
                     AccountingConstants.OverwriteLargeWinRatioThreshold,
+#if USE_MARKET_CONFIG
+                    Tuple.Create((object)configuration.LargeWinRatioThreshold.Editable, false)
+#else
                     Tuple.Create((object)configuration.WinLimits?.LargeWinRatioThreshold?.Editable ?? true, false)
+#endif
                 },
                 {
                     AccountingConstants.DisplayLargeWinRatioThreshold,
+#if USE_MARKET_CONFIG
+                    Tuple.Create((object)configuration.LargeWinRatioThreshold.Visible, false)
+#else
                     Tuple.Create((object)configuration.WinLimits?.LargeWinRatioThreshold?.Visible ?? false, false)
+#endif
                 },
                 {
                     AccountingConstants.DisplayHandpayResetOptions,
+#if USE_MARKET_CONFIG
+                    Tuple.Create((object)configuration.HandpayResetVisible, false)
+#else
                     Tuple.Create((object)configuration.WinLimits?.HandpayResetOptions?.Visible ?? true, false)
+#endif
                 },
                 {
                     AccountingConstants.CelebrationLockupLimit,
@@ -322,7 +383,11 @@
                 },
                 {
                     AccountingConstants.EditableMaxCreditsIn,
+#if USE_MARKET_CONFIG
+                    Tuple.Create((object)configuration.TenderIn.MaxCreditsInEditable, false)
+#else
                     Tuple.Create((object)configuration.TenderIn.MaxCreditsIn?.Editable ?? true, false)
+#endif
                 },
                 {
                     AccountingConstants.MaxCreditMeter,
@@ -338,11 +403,19 @@
                 },
                 {
                     AccountingConstants.ShowMessageWhenCreditLimitReached,
+#if USE_MARKET_CONFIG
+                    Tuple.Create((object)configuration.MaxCreditMeter.ShowMessageWhenCreditLimitReached, false)
+#else
                     Tuple.Create((object)configuration.CreditLimits?.MaxCreditMeter?.ShowMessageWhenCreditLimitReached ?? false, false)
+#endif
                 },
                 {
                     AccountingConstants.DisableBankNoteAcceptorWhenCreditLimitReached,
+#if USE_MARKET_CONFIG
+                    Tuple.Create( (object)configuration.MaxCreditMeter.DisableBankNoteAcceptorWhenCreditLimitReached, false)
+#else
                     Tuple.Create( (object)configuration.CreditLimits?.MaxCreditMeter?.DisableBankNoteAcceptorWhenCreditLimitReached ?? false, false)
+#endif
                 },
                 {
                     AccountingConstants.MaxBetLimit,
@@ -350,11 +423,19 @@
                 },
                 {
                     AccountingConstants.HighestMaxBetLimitAllowed,
+#if USE_MARKET_CONFIG
+                    Tuple.Create((object)configuration.MaxBetLimit.LimitMax, false)
+#else
                     Tuple.Create((object)configuration.CreditLimits?.MaxBetLimit?.LimitMax ?? long.MaxValue, false)
+#endif
                 },
                 {
                     AccountingConstants.OverwriteMaxBetLimit,
+#if USE_MARKET_CONFIG
+                    Tuple.Create((object)configuration.MaxBetLimit.Editable, false)
+#else
                     Tuple.Create((object)configuration.CreditLimits?.MaxBetLimit?.Editable ?? false, false)
+#endif
                 },
                 {
                     AccountingConstants.MaxBetLimitEnabled,
@@ -362,7 +443,11 @@
                 },
                 {
                     AccountingConstants.AllowCreditsInAboveMaxCredit,
+#if USE_MARKET_CONFIG
+                    Tuple.Create((object)configuration.AllowCreditsInAboveMaxCredit, false)
+#else
                     Tuple.Create((object)configuration.CreditLimits?.AllowCreditsInAboveMaxCredit, false)
+#endif
                 },
                 { PropertyKey.TicketTextLine1, Tuple.Create(InitFromStorage(PropertyKey.TicketTextLine1), true) },
                 { PropertyKey.TicketTextLine2, Tuple.Create(InitFromStorage(PropertyKey.TicketTextLine2), true) },
@@ -447,11 +532,19 @@
                 },
                 {
                     AccountingConstants.CashoutOnCarrierBoardRemovalEnabled,
+#if USE_MARKET_CONFIG
+                    Tuple.Create((object)configuration.CashoutOnCarrierBoardRemovalEnabled, false)
+#else
                     Tuple.Create((object)configuration.CashoutOnCarrierBoardRemoval?.Enabled ?? false, false)
+#endif
                 },
                 {
                     AccountingConstants.NoteAcceptorTimeLimitEnabled,
+#if USE_MARKET_CONFIG
+                    Tuple.Create((object)configuration.NoteAcceptorTimeLimit.Enabled, false)
+#else
                     Tuple.Create((object)configuration.NoteAcceptorTimeLimit?.Enable ?? false, false)
+#endif
                 },
                 {
                     AccountingConstants.NoteAcceptorTimeLimitValue,
@@ -467,18 +560,31 @@
                 },
                 {
                     AccountingConstants.BillClearanceEnabled,
+#if USE_MARKET_CONFIG
+                    Tuple.Create((object)configuration.BillClearanceEnabled, false)
+#else
                     Tuple.Create((object)configuration.BillClearance?.Enabled ?? false, false)
+#endif
                 },
                 {
                     AccountingConstants.TestTicketType,
+#if USE_MARKET_CONFIG
+                    Tuple.Create((object)configuration.TestTicketType, false)
+#else
                     Tuple.Create((object)configuration.TestTicket?.Type ?? string.Empty, false)
+#endif
                 }
             };
 
             if (!blockExists)
             {
+#if USE_MARKET_CONFIG
+                SetProperty(PropertyKey.NoteIn, configuration.NoteInEnabled);
+                SetProperty(AccountingConstants.AllowCreditsInAboveMaxCredit, configuration.AllowCreditsInAboveMaxCredit);
+#else
                 SetProperty(PropertyKey.NoteIn, configuration.NoteIn?.State.Equals("Enabled") ?? true);
                 SetProperty(AccountingConstants.AllowCreditsInAboveMaxCredit, configuration.CreditLimits?.AllowCreditsInAboveMaxCredit ?? false);
+#endif
                 SetProperty(AccountingConstants.VoucherOutLimitEnabled, configuration.VoucherOut?.EnableLimit ?? true);
                 SetProperty(AccountingConstants.VoucherInLimitEnabled, configuration.VoucherIn?.EnableLimit ?? true);
                 SetProperty(AccountingConstants.TicketTitleWatCash, string.Empty);
@@ -486,21 +592,47 @@
                 SetProperty(AccountingConstants.VoucherInLaundry, 0L);
                 SetProperty(AccountingConstants.ExcessiveDocumentRejectLockupEnabled, false);
 
-                var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
                 var machineSettingsImported = propertiesManager.GetValue(ApplicationConstants.MachineSettingsImported, ImportMachineSettings.None);
                 if (machineSettingsImported == ImportMachineSettings.None)
                 {
-                    // This is just weird, but because the storage block accessor is typed it will return the default value vs. a null
-                    // It renders the default passed in to GetProperty useless, since it returns the default type.
+                // This is just weird, but because the storage block accessor is typed it will return the default value vs. a null
+                // It renders the default passed in to GetProperty useless, since it returns the default type.
+#if USE_MARKET_CONFIG
+                    SetProperty(PropertyKey.VoucherIn, configuration.VoucherIn.Enabled);
+                    SetProperty(AccountingConstants.VoucherOut, configuration.VoucherOut.Enabled);
+                    SetProperty(AccountingConstants.VoucherOutLimit, Math.Min(configuration.MaxCreditMeter.Default, voucherOutLimit));
+                    SetProperty(AccountingConstants.VoucherOutExpirationDays, configuration.VoucherOut.ExpirationDays);
+                    SetProperty(AccountingConstants.VoucherOutNonCashExpirationDays, configuration.VoucherOut.ExpirationDays);
+                    SetProperty(PropertyKey.MaxCreditsIn, configuration.TenderIn.MaxCreditsInDefault);
+                    SetProperty(AccountingConstants.HandpayLimit, configuration.HandpayLimit);
+                    SetProperty(AccountingConstants.HandpayLimitEnabled, configuration.HandpayLimit < AccountingConstants.DefaultHandpayLimit);
+                    SetProperty(AccountingConstants.LargeWinLimit, configuration.LargeWinLimit.Default);
+                    SetProperty(AccountingConstants.LargeWinLimitEnabled, configuration.LargeWinLimit.Default < AccountingConstants.DefaultLargeWinLimit);
+                    SetProperty(AccountingConstants.OverwriteLargeWinLimit, configuration.LargeWinLimit.Editable);
+                    SetProperty(AccountingConstants.LargeWinRatio, configuration.LargeWinRatio.Default);
+                    SetProperty(AccountingConstants.LargeWinRatioEnabled, configuration.LargeWinRatio.Default == AccountingConstants.DefaultLargeWinRatio);
+                    SetProperty(AccountingConstants.OverwriteLargeWinRatio, configuration.LargeWinRatio.Editable);
+                    SetProperty(AccountingConstants.DisplayLargeWinRatio, configuration.LargeWinRatio.Visible);
+                    SetProperty(AccountingConstants.LargeWinRatioThreshold, configuration.LargeWinRatioThreshold.Default);
+                    SetProperty(AccountingConstants.LargeWinRatioThresholdEnabled, configuration.LargeWinRatioThreshold.Default == AccountingConstants.DefaultLargeWinRatioThreshold);
+                    SetProperty(AccountingConstants.OverwriteLargeWinRatioThreshold, configuration.LargeWinRatioThreshold.Editable);
+                    SetProperty(AccountingConstants.DisplayLargeWinRatioThreshold, configuration.LargeWinRatioThreshold.Visible);
+                    SetProperty(AccountingConstants.DisplayHandpayResetOptions, configuration.HandpayResetVisible);
+                    SetProperty(AccountingConstants.CelebrationLockupLimit, configuration.CelebrationLockupLimit);
+                    SetProperty(AccountingConstants.MaxCreditMeter, configuration.MaxCreditMeter.Default);
+                    SetProperty(AccountingConstants.MaxCreditMeterMaxAllowed, configuration.MaxCreditMeter.MaxAllowed);
+                    SetProperty(AccountingConstants.CreditLimitEnabled, configuration.MaxCreditMeter.Default != configuration.MaxCreditMeter.MaxAllowed);
+                    SetProperty(AccountingConstants.ShowMessageWhenCreditLimitReached, configuration.MaxCreditMeter.ShowMessageWhenCreditLimitReached);
+                    SetProperty(AccountingConstants.MaxBetLimit, configuration.MaxBetLimit.Default);
+                    SetProperty(AccountingConstants.OverwriteMaxBetLimit, configuration.MaxBetLimit.Editable);
+                    SetProperty(AccountingConstants.MaxBetLimitEnabled, configuration.MaxBetLimit.Default);
+#else
                     SetProperty(PropertyKey.VoucherIn, configuration.VoucherIn.State.Equals("Enabled"));
                     SetProperty(AccountingConstants.VoucherOut, configuration.VoucherOut?.State.Equals("Enabled"));
-                    SetProperty(AccountingConstants.VoucherOutNonCash, configuration.VoucherOut?.AllowNonCashableTicket.Equals("Enabled"));
                     SetProperty(AccountingConstants.VoucherOutLimit, Math.Min(configuration.CreditLimits?.MaxCreditMeter?.Default ?? long.MaxValue, voucherOutLimit));
                     SetProperty(AccountingConstants.VoucherOutExpirationDays, configuration.VoucherOut?.Expiration?.Days ?? AccountingConstants.DefaultVoucherExpirationDays);
                     SetProperty(AccountingConstants.VoucherOutNonCashExpirationDays, configuration.VoucherOut?.Expiration?.Days ?? AccountingConstants.DefaultVoucherExpirationDays);
-                    SetProperty(AccountingConstants.AllowCashWinTicket, configuration.VoucherOut?.AllowCashWinTicket ?? false);
                     SetProperty(PropertyKey.MaxCreditsIn, configuration.TenderIn.MaxCreditsIn?.Default ?? ApplicationConstants.DefaultMaxCreditsIn);
-                    SetProperty(AccountingConstants.LargeWinHandpayResetMethod, (int)LargeWinHandpayResetMethod.PayByHand);
                     SetProperty(AccountingConstants.HandpayLimit, configuration.WinLimits?.HandpayLimit ?? AccountingConstants.DefaultHandpayLimit);
                     SetProperty(AccountingConstants.HandpayLimitEnabled, configuration.WinLimits?.HandpayLimit < AccountingConstants.DefaultHandpayLimit);
                     SetProperty(AccountingConstants.LargeWinLimit, configuration.WinLimits?.LargeWinLimit?.Default ?? AccountingConstants.DefaultLargeWinLimit);
@@ -516,7 +648,6 @@
                     SetProperty(AccountingConstants.DisplayLargeWinRatioThreshold, configuration.WinLimits?.LargeWinRatioThreshold?.Visible ?? false);
                     SetProperty(AccountingConstants.DisplayHandpayResetOptions, configuration.WinLimits?.HandpayResetOptions?.Visible ?? true);
                     SetProperty(AccountingConstants.CelebrationLockupLimit, configuration.WinLimits?.CelebrationLockupLimit ?? 0L);
-                    SetProperty(AccountingConstants.MaxTenderInLimit, configuration.TenderIn.MaxTenderInLimit);
                     SetProperty(AccountingConstants.MaxCreditMeter, configuration.CreditLimits?.MaxCreditMeter?.Default ?? long.MaxValue);
                     SetProperty(AccountingConstants.MaxCreditMeterMaxAllowed, configuration.CreditLimits?.MaxCreditMeter?.MaxAllowed ?? long.MaxValue);
                     SetProperty(AccountingConstants.CreditLimitEnabled, configuration.CreditLimits?.MaxCreditMeter?.Default != configuration.CreditLimits?.MaxCreditMeter?.MaxAllowed);
@@ -524,6 +655,10 @@
                     SetProperty(AccountingConstants.MaxBetLimit, configuration.CreditLimits?.MaxBetLimit?.Default ?? AccountingConstants.DefaultMaxBetLimit);
                     SetProperty(AccountingConstants.OverwriteMaxBetLimit, configuration.CreditLimits?.MaxBetLimit?.Editable ?? false);
                     SetProperty(AccountingConstants.MaxBetLimitEnabled, configuration.CreditLimits?.MaxBetLimit?.Default != long.MaxValue);
+    #endif
+                    SetProperty(AccountingConstants.VoucherOutNonCash, configuration.VoucherOut?.AllowNonCashableTicket.Equals("Enabled"));
+                    SetProperty(AccountingConstants.LargeWinHandpayResetMethod, (int)LargeWinHandpayResetMethod.PayByHand);
+                    SetProperty(AccountingConstants.MaxTenderInLimit, configuration.TenderIn.MaxTenderInLimit);
                     SetProperty(PropertyKey.TicketTextLine1, string.Empty);
                     SetProperty(PropertyKey.TicketTextLine2, string.Empty);
                     SetProperty(PropertyKey.TicketTextLine3, string.Empty);

@@ -8,7 +8,7 @@
     <Platform>x64</Platform>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS;USE_MARKET_CONFIG</DefineConstants>
     <DebugType>full</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
