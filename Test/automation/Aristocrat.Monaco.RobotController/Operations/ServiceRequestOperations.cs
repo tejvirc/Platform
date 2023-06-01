@@ -66,9 +66,8 @@
         public void Halt()
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
-            _eventBus.UnsubscribeAll(this);
-            _serviceRequestTimer?.Dispose();
             _automator.ServiceButton(false);
+            Dispose();
         }
 
         public void Dispose()

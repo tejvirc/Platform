@@ -39,7 +39,7 @@
         public void Halt()
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
-            _eventBus.UnsubscribeAll(this);
+            Dispose();
         }
 
         private void SubscribeToEvents()
@@ -73,7 +73,6 @@
             _logger.Info("Help exited", GetType().Name);
             IsHelpDisplayed = false;
         }
-
 
         public void Dispose()
         {

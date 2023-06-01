@@ -45,7 +45,7 @@
     <ProjectReference Include="..\Aristocrat.Monaco.Test.Automation\Aristocrat.Monaco.Test.Automation.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Addins\Aristocrat.Monaco.RobotController.xml">
+    <Content Include="Configurations\Aristocrat.Monaco.RobotController.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>

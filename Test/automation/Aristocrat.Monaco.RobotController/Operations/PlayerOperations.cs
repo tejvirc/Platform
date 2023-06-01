@@ -59,8 +59,7 @@
         public void Halt()
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
-            _eventBus.UnsubscribeAll(this);
-            _actionPlayerTimer?.Dispose();
+            Dispose();
         }
 
         protected virtual void Dispose(bool disposing)
@@ -91,7 +90,6 @@
             _logger.Info("RequestPlay Received!", GetType().Name);
             var rng = new Random((int)DateTime.Now.Ticks);
 
-
             var action = _robotController.Config.GetRobotActions().GetRandomElement(rng);
             _actionPlayerFunctions[action](rng);
         }
@@ -105,35 +103,35 @@
         private void InitializeActionPlayer()
         {
             _actionPlayerFunctions.Add(Actions.SpinRequest,
-            (Rng) =>
+            (randomNumberGen) =>
             {
                 _logger.Info("Spin Request", GetType().Name);
                 _automator.SpinRequest();
             });
 
             _actionPlayerFunctions.Add(Actions.BetLevel,
-            (Rng) =>
+            (randomNumberGen) =>
             {
                 _logger.Info("Changing bet level", GetType().Name);
                 var betIndices = _robotController.Config.GetBetIndices();
-                var index = Math.Min(betIndices[Rng.Next(betIndices.Count)], 5);
+                var index = Math.Min(betIndices[randomNumberGen.Next(betIndices.Count)], 5);
                 if (index == 1) return; // Input Key 23 is mapped to GameMenu which triggers BeginLobby request
                 _automator.SetBetLevel(index);
             });
 
             _actionPlayerFunctions.Add(Actions.BetMax,
-            (Rng) =>
+            (randomNumberGen) =>
             {
                 _logger.Info("Bet Max", GetType().Name);
                 _automator.SetBetMax();
             });
 
             _actionPlayerFunctions.Add(Actions.LineLevel,
-            (Rng) =>
+            (randomNumberGen) =>
             {
                 _logger.Info("Change Line Level", GetType().Name);
                 var lineIndices = _robotController.Config.GetLineIndices();
-                _automator.SetLineLevel(lineIndices[Rng.Next(lineIndices.Count)]);
+                _automator.SetLineLevel(lineIndices[randomNumberGen.Next(lineIndices.Count)]);
             });
         }
     }

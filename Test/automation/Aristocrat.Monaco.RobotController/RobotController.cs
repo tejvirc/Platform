@@ -26,7 +26,7 @@
         private StateChecker _stateChecker;
         private RobotLogger _logger;
         private Dictionary<string, HashSet<IRobotOperations>> _modeOperations;
-        private Dictionary<string, IList<Action>> _executionActions;
+        private Dictionary<string, IList<Action>> _gameStarterActions;
         private Dictionary<string, IList<Action>> _warmUpActions;
         private Automation _automator;
         private IEventBus _eventBus;
@@ -34,6 +34,20 @@
         private long _idleDuration;
         private string _configPath;
         private bool _enabled;
+
+        public RobotController()
+        {
+            _inProgressRequests = new ThreadSafeHashSet<RobotStateAndOperations>();
+            _sanityChecker = new System.Timers.Timer()
+            {
+                Interval = 1000,
+            };
+            _sanityChecker.Elapsed += CheckSanity;
+
+            _container = new Container();
+            _warmUpActions = new();
+            _gameStarterActions = new();
+        }
 
         public ThreadSafeHashSet<RobotStateAndOperations> InProgressRequests
         {
@@ -71,24 +85,14 @@
             }
         }
 
-        public RobotController()
-        {
-            _inProgressRequests = new ThreadSafeHashSet<RobotStateAndOperations>();
-            _sanityChecker = new System.Timers.Timer()
-            {
-                Interval = 1000,
-            };
-            _sanityChecker.Elapsed += CheckSanity;
-
-            _container = new Container();
-        }
-
         ~RobotController() => Dispose(false);
 
         public Configuration Config { get; private set; }
 
         protected override void OnInitialize()
         {
+            AddWarmups();
+            AddGameStarters();
             AddServices();
             SubscribeToRobotEnabler();
         }
@@ -122,9 +126,9 @@
                     }
                     _modeOperations.Clear();
                 }
-                if (_executionActions is not null)
+                if (_gameStarterActions is not null)
                 {
-                    _executionActions.Clear();
+                    _gameStarterActions.Clear();
                 }
                 if (_warmUpActions is not null)
                 {
@@ -164,13 +168,16 @@
         private void EnablingRobot()
         {
             _logger.Info($"RobotController Is Enabling", GetType().Name);
+
             RefreshRobotConfiguration();
+            ReInitializeRobot();
             WarmUpRobot();
-            ActivateRobotOperations();
-            StartRobot();
+
+            RunOperations();
+            ActivateGamePlay();
         }
 
-        private void ActivateRobotOperations()
+        private void RunOperations()
         {
             foreach (var op in _modeOperations[Config.ActiveType.ToString()])
             {
@@ -196,84 +203,16 @@
         {
             _logger.Info($"RefreshRobotConfiguration Is Initiated", GetType().Name);
             Config = RobotControllerHelper.LoadConfiguration(_configPath);
-            _modeOperations = RobotControllerHelper.InitializeModeDictionary(_container);
-
-            _warmUpActions = new Dictionary<string, IList<Action>>()
-            {
-                { nameof(ModeType.Regular) ,
-                    new List<Action>()
-                    {
-                        () =>
-                        {
-                            InProgressRequests.TryAdd(RobotStateAndOperations.RegularMode);
-                            SetCurrentlyActiveGameIfAny();
-                        }
-                    }
-                },
-                { nameof(ModeType.Super) ,
-                    new List<Action>()
-                    {
-                        () =>
-                        {
-                            InProgressRequests.TryAdd(RobotStateAndOperations.SuperMode);
-                            SetCurrentlyActiveGameIfAny();
-                        }
-                    }
-                },
-                { nameof(ModeType.Uber) ,
-                    new List<Action>()
-                    {
-                        () =>
-                        {
-                            InProgressRequests.TryAdd(RobotStateAndOperations.UberMode);
-                            SetCurrentlyActiveGameIfAny();
-                        }
-                    }
-                }
-            };
-
-            _executionActions = new Dictionary<string, IList<Action>>()
-            {
-                { nameof(ModeType.Regular) ,
-                    new List<Action>()
-                    {
-                        () =>
-                        {
-                            if(!_stateChecker.IsGame)
-                            {
-                                Enabled = false;
-                                return;
-                            }
-                            _eventBus.Publish(new BalanceCheckEvent());
-                        }
-                    }
-                },
-                { nameof(ModeType.Super) ,
-                    new List<Action>()
-                    {
-                        () =>
-                        {
-                            _automator.ExitLockup();
-                            _eventBus.Publish(new GameLoadRequestEvent());
-                        }
-                    }
-                },
-                { nameof(ModeType.Uber) ,
-                    new List<Action>()
-                    {
-                        () =>
-                        {
-                            _automator.ExitLockup();
-                            _eventBus.Publish(new GameLoadRequestEvent());
-                        }
-                    }
-                }
-            };
         }
 
-        private void StartRobot()
+        private void ReInitializeRobot()
         {
-            foreach (var action in _executionActions[Config.ActiveType.ToString()])
+            _modeOperations = RobotControllerHelper.InitializeModeDictionary(_container);
+        }
+
+        private void ActivateGamePlay()
+        {
+            foreach (var action in _gameStarterActions[Config.ActiveType.ToString()])
             {
                 action();
             }
@@ -313,7 +252,7 @@
 
             InProgressRequests.Clear();
             _modeOperations.Clear();
-            _executionActions.Clear();
+            _gameStarterActions.Clear();
             _warmUpActions.Clear();
         }
 
@@ -398,6 +337,77 @@
             _automator = _container.GetInstance<Automation>();
             _logger = _container.GetInstance<RobotLogger>();
             _eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
+        }
+
+
+        private void AddWarmups()
+        {
+            _warmUpActions.Add(nameof(ModeType.Regular),
+            new List<Action>()
+            {
+                () =>
+                {
+                    InProgressRequests.TryAdd(RobotStateAndOperations.RegularMode);
+                    SetCurrentlyActiveGameIfAny();
+                }
+            });
+
+            _warmUpActions.Add(nameof(ModeType.Super),
+            new List<Action>()
+            {
+                () =>
+                {
+                    InProgressRequests.TryAdd(RobotStateAndOperations.SuperMode);
+                    SetCurrentlyActiveGameIfAny();
+                }
+            });
+
+            _warmUpActions.Add(nameof(ModeType.Uber),
+            new List<Action>()
+            {
+                () =>
+                {
+                    InProgressRequests.TryAdd(RobotStateAndOperations.UberMode);
+                    SetCurrentlyActiveGameIfAny();
+                }
+            });
+        }
+
+        private void AddGameStarters()
+        {
+            _gameStarterActions.Add(nameof(ModeType.Regular),
+            new List<Action>()
+            {
+                () =>
+                {
+                    if(!_stateChecker.IsGame)
+                    {
+                        Enabled = false;
+                        return;
+                    }
+                    _eventBus.Publish(new BalanceCheckEvent());
+                }
+            });
+
+            _gameStarterActions.Add(nameof(ModeType.Super),
+            new List<Action>()
+            {
+                () =>
+                {
+                    _automator.ExitLockup();
+                    _eventBus.Publish(new GameLoadRequestEvent());
+                }
+            });
+
+            _gameStarterActions.Add(nameof(ModeType.Uber),
+            new List<Action>()
+            {
+                () =>
+                {
+                    _automator.ExitLockup();
+                    _eventBus.Publish(new GameLoadRequestEvent());
+                }
+            });
         }
     }
 }
