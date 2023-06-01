@@ -183,6 +183,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.Protocol.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.JurisdictionData", "Jurisdiction\Aristocrat.Monaco.JurisdictionData.csproj", "{9639B220-D2D0-4925-A459-1632E6AD0028}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Aristocrat.Monaco.MarketConfig", "MarketConfig\Aristocrat.Monaco.MarketConfig.csproj", "{8B446573-807D-4ED9-BEF8-AFA04A3BD228}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Automation", "Automation", "{ADB20021-B352-4404-AB81-E955809FF7E3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HHR", "HHR", "{6FA100EE-C1DA-4DAF-9EAF-FB4B21992C66}"

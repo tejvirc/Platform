@@ -247,6 +247,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.Hardware.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.WebApiServer", "Test\automation\Aristocrat.Monaco.WebApiServer\Aristocrat.Monaco.WebApiServer.csproj", "{C825C004-8710-47F2-80B6-B4408D531931}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aristocrat.Monaco.MarketConfig", "MarketConfig\Aristocrat.Monaco.MarketConfig.csproj", "{2501A55A-9613-46D4-8E17-8220EC7EBE4B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
