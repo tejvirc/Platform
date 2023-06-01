@@ -33,7 +33,9 @@
             builder.Property(x => x.BallCallService).IsRequired(false);
             builder.Property(x => x.WaitingForPlayersMs).IsRequired(false);
             builder.Property(x => x.ServerGameConfiguration).IsRequired(false);
-            builder.Property(x => x.GamesConfigurationText).IsRequired(false); ;
+            builder.Property(x => x.GamesConfigurationText)
+                .UsePropertyAccessMode(PropertyAccessMode.PreferProperty)
+                .IsRequired(false);
         }
     }
 }
