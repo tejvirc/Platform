@@ -74,4 +74,8 @@
     <AssemblyResolver type="Aristocrat.Monaco.Kernel.AssemblyResolver" />
   </Extension>
 
+  <Extension path="/Kernel/MarketConfigManager">
+    <MarketConfigManager type="Aristocrat.Monaco.Kernel.MarketConfigManager" />
+  </Extension>
+
 </Addin>

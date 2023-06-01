@@ -104,4 +104,10 @@
       <ArgumentValue ValidValue="disabled" Description="The crash handler should not be used. Default is enabled." />
     </CommandLineArgument>
   </Extension>
+
+  <!--Must implement IMarketConfigManager -->
+  <ExtensionPoint path = "/Kernel/MarketConfigManager">
+    <ExtensionNode name="MarketConfigManager"/>
+  </ExtensionPoint>
+
 </Addin>
