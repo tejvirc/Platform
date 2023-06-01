@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Windows;
     using Accounting.Contracts;
     using Accounting.Contracts.Handpay;
     using Application.Contracts;
@@ -9,6 +10,7 @@
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
     using Application.UI.ConfigWizard;
+    using Aristocrat.Monaco.Application.UI.Events;
     using Aristocrat.Monaco.Kernel.Contracts;
     using Contracts;
     using Kernel;
@@ -77,6 +79,10 @@
         private bool _incrementThresholdIsChecked;
         private bool _creditLimitEditable;
 
+        private string _limitsPopUpInfoText;
+        private bool _popupOpen;
+        private UIElement _placementTarget;
+
         public LimitsPageViewModel(bool isWizardPage = false) : base(isWizardPage)
         {
             if (isWizardPage)
@@ -132,6 +138,45 @@
                 GambleAllowed = (bool)PropertiesManager.GetProperty(GamingConstants.GambleAllowed, true);
                 GambleWagerLimitVisible = GetConfigSetting(OperatorMenuSetting.GambleWagerLimitVisible, true);
                 GambleWinLimitVisible = GetConfigSetting(OperatorMenuSetting.GambleWinLimitVisible, false);
+            }
+        }
+
+        private void OnShowPopup(OperatorMenuPopupEvent evt)
+        {
+            ConfigPopupOpen = evt.PopupOpen;
+            LimitsPopUpInfoText = evt.PopupText;
+            PlacementTarget = evt.TargetElement;
+        }
+
+        public UIElement PlacementTarget
+        {
+            get => _placementTarget;
+            set
+            {
+                _placementTarget = value;
+                RaisePropertyChanged(nameof(PlacementTarget));
+            }
+        }
+
+        public bool ConfigPopupOpen
+        {
+            get => _popupOpen;
+            set
+            {
+                _popupOpen = value;
+
+                RaisePropertyChanged(nameof(PlacementTarget));
+                RaisePropertyChanged(nameof(ConfigPopupOpen));
+            }
+        }
+
+        public string LimitsPopUpInfoText
+        {
+            get => _limitsPopUpInfoText;
+            set
+            {
+                _limitsPopUpInfoText = value;
+                RaisePropertyChanged(nameof(LimitsPopUpInfoText));
             }
         }
 
@@ -682,6 +727,10 @@
             MaxBetLimitIsChecked = MaxBetLimit < long.MaxValue.MillicentsToDollars();
 
             EventBus?.Subscribe<PropertyChangedEvent>(this, HandleEvent);
+            if (IsWizardPage)
+            {
+                EventBus?.Subscribe<OperatorMenuPopupEvent>(this, OnShowPopup);
+            }
 
             CheckNavigation();
         }
@@ -760,6 +809,11 @@
 
         protected override void OnUnloaded()
         {
+            if (IsWizardPage)
+            {
+                EventBus?.Unsubscribe<OperatorMenuPopupEvent>(this);
+            }
+
             SaveChanges();
         }
 
