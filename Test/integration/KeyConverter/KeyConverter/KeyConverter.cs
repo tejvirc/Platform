@@ -106,7 +106,7 @@
             Logger.Info("Initialized");
         }
 
-        /// <inheritdoc />>
+        /// <inheritdoc />
         protected override void OnRun()
         {
             Logger.Info("Run Started");
