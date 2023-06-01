@@ -2134,6 +2134,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Note: After first COAM game is played, Bill Accept....
+		/// </summary>
+		public static string BillAcceptanceInHelpText {
+			get {
+				return ResourceManager.GetString("BillAcceptanceInHelpText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Bill Acceptance Limit.
 		/// </summary>
         /// <remarks>
@@ -6601,15 +6610,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string CreditInCmdFailedMsg {
 			get {
 				return ResourceManager.GetString("CreditInCmdFailedMsg", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Note: After first COAM game is played, Credit In c....
-		/// </summary>
-		public static string CreditInHelpText {
-			get {
-				return ResourceManager.GetString("CreditInHelpText", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -36946,6 +36946,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Note: After first COAM game is played, Bill Accept....
+		/// </summary>
+		public static string BillAcceptanceInHelpText {
+			get {
+				return "BillAcceptanceInHelpText";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Bill Acceptance Limit.
 		/// </summary>
         /// <remarks>
@@ -41412,15 +41421,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string CreditInCmdFailedMsg {
 			get {
 				return "CreditInCmdFailedMsg";
-			}
-		}
-
-		/// <summary>
-		///		Looks up a localized string similar to Note: After first COAM game is played, Credit In c....
-		/// </summary>
-		public static string CreditInHelpText {
-			get {
-				return "CreditInHelpText";
 			}
 		}
 
@@ -70863,6 +70863,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		BigWinBeagleBoneLightShowText,
 		/// <summary>
+		///   Looks up a localized string similar to Note: After first COAM game is played, Bill Accept....
+		/// </summary>
+		BillAcceptanceInHelpText,
+		/// <summary>
 		///   Looks up a localized string similar to Bill Acceptance Limit.
 		/// </summary>
         /// <remarks>
@@ -73413,10 +73417,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Hhr
         /// </remarks>
 		CreditInCmdFailedMsg,
-		/// <summary>
-		///   Looks up a localized string similar to Note: After first COAM game is played, Credit In c....
-		/// </summary>
-		CreditInHelpText,
 		/// <summary>
 		///   Looks up a localized string similar to Credit In Limit Exceeded.
 		/// </summary>

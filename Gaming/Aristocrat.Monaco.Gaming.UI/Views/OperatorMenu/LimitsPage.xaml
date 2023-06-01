@@ -348,8 +348,8 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <!-- The Label Width is 400, we want the label and button close together-->
-                        <ColumnDefinition Width="160" />
-                        <ColumnDefinition Width="240" />
+                        <ColumnDefinition Width="220" />
+                        <ColumnDefinition Width="180" />
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.BillAcceptanceLimit}}"
                        AutomationProperties.AutomationId="Label57_EF05BF33"/>
@@ -368,7 +368,7 @@
                     </Button>
                 </Grid>
                 <lex:LocProxy x:Name="CreditInHelpText"
-                              Source="{x:Static loc:ResourceKeys.CreditInHelpText}" />
+                              Source="{x:Static loc:ResourceKeys.BillAcceptanceInHelpText}" />
                 <CheckBox IsChecked="{Binding BillAcceptanceLimitIsChecked, Mode=TwoWay}"
                           IsEnabled="{Binding BillAcceptanceLimitCheckboxEnabled, Mode=OneWay}"
                           AutomationProperties.AutomationId="CheckBox58_EF05BF33"/>
