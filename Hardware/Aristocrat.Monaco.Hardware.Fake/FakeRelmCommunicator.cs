@@ -3,6 +3,7 @@
     using Aristocrat.Monaco.Hardware.Contracts.Reel;
     using Contracts.Communicator;
     using Contracts.Reel.ControlData;
+    using Contracts.Reel.Events;
     using Contracts.SharedDevice;
     using GopherReels.Controls;
     using Kernel;
@@ -16,7 +17,6 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
-    using Contracts.Reel.Events;
 
     public class FakeRelmCommunicator : IRelmCommunicator
     {
@@ -126,6 +126,9 @@
         
         /// <inheritdoc/>
         public bool IsDownloadInProgress { get; } = false;
+        
+        /// <inheritdoc/>
+        public IReadOnlyCollection<AnimationFile> AnimationFiles => new List<AnimationFile>();
 
         private string GamesPath => _pathMapper.GetDirectory(GamesDirectory).FullName;
 
@@ -158,6 +161,11 @@
 
             StatusesReceived?.Invoke(this, new ReelStatusReceivedEventArgs(statuses));
             return Task.CompletedTask;
+        }
+
+        public Task<bool> RemoveAllControllerAnimations(CancellationToken token = default)
+        {
+            throw new NotImplementedException();
         }
 
         /// <inheritdoc/>
@@ -268,25 +276,25 @@
         }
 
         /// <inheritdoc/>
-        public Task<bool> LoadControllerAnimationFile(AnimationFile file, CancellationToken token)
+        public Task<bool> LoadAnimationFile(AnimationFile file, CancellationToken token)
         {
             throw new NotImplementedException();
         }
         
         /// <inheritdoc/>
-        public Task<bool> LoadControllerAnimationFiles(IEnumerable<AnimationFile> files, CancellationToken token)
+        public Task<bool> LoadAnimationFiles(IEnumerable<AnimationFile> files, CancellationToken token)
         {
             throw new NotImplementedException();
         }
 
         /// <inheritdoc/>
-        public Task<bool> PrepareControllerAnimation(LightShowFile file, CancellationToken token)
+        public Task<bool> PrepareAnimation(LightShowData file, CancellationToken token)
         {
             throw new NotImplementedException();
         }
 
         /// <inheritdoc/>
-        public Task<bool> PrepareControllerAnimations(IEnumerable<LightShowFile> files, CancellationToken token)
+        public Task<bool> PrepareAnimations(IEnumerable<LightShowData> files, CancellationToken token)
         {
             throw new NotImplementedException();
         }
@@ -304,7 +312,7 @@
         }
 
         /// <inheritdoc/>
-        public Task<bool> PlayControllerAnimations(CancellationToken token)
+        public Task<bool> PlayAnimations(CancellationToken token)
         {
             if (ReelSimWindow == null)
             {
@@ -318,13 +326,13 @@
         }
 
         /// <inheritdoc/>
-        public Task<bool> StopControllerLightShowAnimations(IEnumerable<LightShowFile> files, CancellationToken token)
+        public Task<bool> StopControllerLightShowAnimations(IEnumerable<LightShowData> data, CancellationToken token)
         {
             throw new NotImplementedException();
         }
 
         /// <inheritdoc/>
-        public Task<bool> StopAllControllerLightShows(CancellationToken token)
+        public Task<bool> StopAllLightShows(CancellationToken token)
         {
             throw new NotImplementedException();
         }

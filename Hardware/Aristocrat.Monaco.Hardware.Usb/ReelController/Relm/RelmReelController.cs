@@ -9,13 +9,21 @@
     using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.IO;
+    using System.Reflection;
     using System.Threading.Tasks;
+    using Contracts.Reel.ControlData;
+    using log4net;
 
     /// <summary>
     ///     The Relm Reel Controller control class
     /// </summary>
     public class RelmReelController : IReelControllerImplementation
     {
+        private const string SampleLightShowPath = @"ReelController\Relm\SampleShows\AllWhite5Reels.lightshow";
+        private const string SampleLightShowName = "SampleLightShow";
+
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+
         private readonly Dictionary<Type, IReelImplementationCapability> _supportedCapabilities = new();
         private readonly ConcurrentDictionary<int, ReelStatus> _reelStatuses = new();
 
@@ -162,6 +170,7 @@
                     _supportedCapabilities.Add(typeof(IAnimationImplementation), new RelmAnimation(_communicator));
                     _supportedCapabilities.Add(typeof(IReelBrightnessImplementation), new RelmBrightness(_communicator));
                     _supportedCapabilities.Add(typeof(ISynchronizationImplementation), new RelmSynchronization(_communicator));
+                    await LoadPlatformSampleShows();
 
                     IsInitialized = true;
                 }
@@ -369,6 +378,21 @@
             }
 
             _communicator.StatusesReceived -= OnReelStatusesReceived;
+        }
+
+        private async Task LoadPlatformSampleShows()
+        {
+            if (_communicator is null || !File.Exists(SampleLightShowPath))
+            {
+                return;
+            }
+
+            Logger.Debug("Loading platform sample shows");
+            await _communicator.RemoveAllControllerAnimations();
+
+            var animationFile = new AnimationFile(SampleLightShowPath, AnimationType.PlatformLightShow, SampleLightShowName);
+
+            await _communicator.LoadAnimationFile(animationFile);
         }
     }
 }
