@@ -9,6 +9,11 @@
     public class LightShowData
     {
         /// <summary>
+        /// The friendly name of the animation
+        /// </summary>
+        public string AnimationName { get; set; }
+
+        /// <summary>
         /// The Animation Id
         /// </summary>
         public int Id { get; set; }

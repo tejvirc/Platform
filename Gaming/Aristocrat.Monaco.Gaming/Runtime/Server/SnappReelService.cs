@@ -1,13 +1,15 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Runtime.Server
 {
-    using System;
-    using System.Reflection;
-    using GdkRuntime.V1;
+    using Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData;
     using Commands;
+    using GdkRuntime.V1;
     using log4net;
+    using System;
+    using System.Collections.Generic;
+    using System.Reflection;
     using NudgeReelData = Hardware.Contracts.Reel.ControlData.NudgeReelData;
-    using ReelSpinData = Hardware.Contracts.Reel.ControlData.ReelSpinData;
     using ReelSpeedData = Hardware.Contracts.Reel.ControlData.ReelSpeedData;
+    using ReelSpinData = Hardware.Contracts.Reel.ControlData.ReelSpinData;
     using SpinDirection = Hardware.Contracts.Reel.SpinDirection;
 
     public class SnappReelService : IReelServiceCallback
@@ -117,6 +119,95 @@
             Logger.Debug($"UpdateReelsSpeed with request: {request} Result: {command.Success}");
 
             return new UpdateReelsSpeedResponse { Result = command.Success };
+        }
+
+        public override MessageResponse PrepareLightShowAnimations(PrepareLightShowAnimationsRequest request)
+        {
+            Logger.Debug($"PrepareLightShowAnimations");
+
+            var lightShowData = new List<LightShowData>();
+
+            foreach (var showData in request.LightShowData)
+            {
+                lightShowData.Add(new LightShowData
+                {
+                    AnimationName = showData.LightShowIdentifier.AnimationName,
+                    ReelIndex = (sbyte) showData.ReelIndex,
+                    LoopCount = EvaluateLoopBehavior(showData.LoopBehavior, showData.RepeatCount),
+                    Step = (short) showData.Step,
+                    Tag = showData.LightShowIdentifier.Tag
+                });
+            }
+
+            var command = new PrepareLightShowAnimations(lightShowData);
+            _handlerFactory.Create<PrepareLightShowAnimations>()
+                .Handle(command);
+
+            return new MessageResponse { Result = command.Success };
+
+            sbyte EvaluateLoopBehavior(LoopBehavior loopBehavior, uint count)
+            {
+                return loopBehavior switch
+                {
+                    LoopBehavior.Forever => -1,
+                    LoopBehavior.Once => 0,
+                    LoopBehavior.RepeatFor => (sbyte) count,
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+            }
+        }
+
+        public override MessageResponse PrepareStepperCurves(PrepareStepperCurvesRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MessageResponse StartAnimations(Empty request)
+        {
+            Logger.Debug($"StartAnimations");
+            var command = new StartAnimations();
+            _handlerFactory.Create<StartAnimations>()
+                .Handle(command);
+            return new MessageResponse { Result = command.Success };
+        }
+
+        public override MessageResponse StopLightshowAnimation(StopLightshowAnimationRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MessageResponse StopAllLightshowAnimations(Empty request)
+        {
+            Logger.Debug($"StopAllLightshowAnimations");
+            var command = new StopAllLightShowAnimations();
+            _handlerFactory.Create<StopAllLightShowAnimations>()
+                .Handle(command);
+            return new MessageResponse { Result = command.Success };
+        }
+
+        public override MessageResponse StopAllAnimationTags(StopAllAnimationTagsRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MessageResponse PrepareStopReel(PrepareStopReelRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MessageResponse PrepareStepperRule(PrepareStepperRuleRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MessageResponse SynchronizeReels(SynchronizeReelsRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MessageResponse SetBrightness(SetBrightnessRequest request)
+        {
+            throw new NotImplementedException();
         }
     }
 }
