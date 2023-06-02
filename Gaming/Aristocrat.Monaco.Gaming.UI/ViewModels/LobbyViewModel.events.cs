@@ -497,7 +497,7 @@
                         _lobbyStateManager.RemoveFlagState(LobbyState.CashOutFailure);
                     }
 
-                    if (_bank.QueryBalance() == 0 && _gameState.Idle)
+                    if (_bank.QueryBalance() == 0 && _gameState.Idle && !_gameState.InGameRound)
                     {
                         IsPrimaryLanguageSelected = true;
                     }
