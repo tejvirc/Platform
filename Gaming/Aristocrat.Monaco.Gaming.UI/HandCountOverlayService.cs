@@ -166,9 +166,10 @@
             var minimumRequiredCredits = (long)_properties.GetProperty(AccountingConstants.HandCountMinimumRequiredCredits,
                 AccountingConstants.HandCountDefaultRequiredCredits);
 
-            _gameState ??= ServiceManager.GetInstance().GetService<IGamePlayState>();
+            _gameState ??= ServiceManager.GetInstance().TryGetService<IGamePlayState>();
 
-            if ((_gameState.Idle || _gameState.InPresentationIdle)
+            if (_gameState != default
+                && (_gameState.Idle || _gameState.InPresentationIdle)
                 && balance < minimumRequiredCredits
                 && (balance > 0 || _handCountService.HandCount > 0))
             {
