@@ -35,7 +35,7 @@
 
         public void Reset()
         {
-            _disposed = true;
+            _disposed = false;
         }
 
         public void Execute()
@@ -68,6 +68,7 @@
             {
                 if (_actionTouchTimer is not null)
                 {
+                    _logger.Info("_actionTouchTimer is disposing ***", GetType().Name);
                     _actionTouchTimer.Dispose();
                 }
                 _actionTouchTimer = null;

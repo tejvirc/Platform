@@ -32,7 +32,7 @@
 
         public void Reset()
         {
-            _disposed = true;
+            _disposed = false;
         }
 
         public void Execute()

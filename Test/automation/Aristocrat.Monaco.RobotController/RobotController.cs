@@ -179,6 +179,20 @@
             ActivateGamePlay();
         }
 
+        private void DisablingRobot(string reason = "")
+        {
+            _automator.SetOverlayText(reason, false, _overlayTextGuid, InfoLocation.TopLeft);
+            _sanityChecker.Stop();
+
+            foreach (var op in _modeOperations[Config.ActiveType.ToString()])
+            {
+                op.Halt();
+            }
+
+            InProgressRequests.Clear();
+            _modeOperations.Clear();
+        }
+
         private void RunOperations()
         {
             foreach (var op in _modeOperations[Config.ActiveType.ToString()])
@@ -240,22 +254,6 @@
             var currentGame = _gameProvider.GetGame(_propertiesManager.GetValue(GamingConstants.SelectedGameId, 0));
             Config.SetCurrentActiveGame(currentGame.ThemeName);
             return true;
-        }
-
-        private void DisablingRobot(string reason = "")
-        {
-            _automator.SetOverlayText(reason, false, _overlayTextGuid, InfoLocation.TopLeft);
-            _sanityChecker.Stop();
-
-            foreach (var op in _modeOperations[Config.ActiveType.ToString()])
-            {
-                op.Halt();
-            }
-
-            InProgressRequests.Clear();
-            _modeOperations.Clear();
-            _gameStarterActions.Clear();
-            _warmUpActions.Clear();
         }
 
         private void CheckSanity(Object source, System.Timers.ElapsedEventArgs e)
