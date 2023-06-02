@@ -85,8 +85,10 @@
             }
             _logger.Info("TouchRequest Is Received!", GetType().Name);
             var Rng = new Random((int)DateTime.Now.Ticks);
+
             TouchGameScreen(Rng);
             TouchVbd(Rng);
+
             if (_robotController.Config.CurrentGameProfile != null)
             {
                 // touch any auxiliary main screen areas configured

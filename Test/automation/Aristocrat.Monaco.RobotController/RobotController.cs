@@ -106,7 +106,9 @@
             {
                 return;
             }
+
             base.Dispose(disposing);
+
             if (disposing)
             {
                 Config = null;
@@ -145,6 +147,9 @@
                 }
 
                 _container = null;
+
+                _warmUpActions.Clear();
+                _gameStarterActions.Clear();
             }
 
             Disposed = true;
