@@ -29,7 +29,7 @@
         private Dictionary<string, IList<Action>> _gameStarterActions;
         private Dictionary<string, IList<Action>> _warmUpActions;
         private Automation _automator;
-        private IEventBus _eventBus;
+        private Lazy<IEventBus> _eventBusLazy = new (() => ServiceManager.GetInstance().GetService<IEventBus>());
         private Container _container;
         private long _idleDuration;
         private string _configPath;
@@ -48,6 +48,8 @@
             _warmUpActions = new();
             _gameStarterActions = new();
         }
+
+        public IEventBus EventBus => _eventBusLazy.Value;
 
         public ThreadSafeHashSet<RobotStateAndOperations> InProgressRequests
         {
@@ -91,8 +93,6 @@
 
         protected override void OnInitialize()
         {
-            _eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-
             AddWarmups();
             AddGameStarters();
             AddServices();
@@ -138,7 +138,6 @@
                     _warmUpActions.Clear();
                 }
                 _automator = null;
-                _eventBus = null;
 
                 if (_container is not null)
                 {
@@ -164,7 +163,7 @@
         {
             _logger.Info($"RobotController Is Cooling Down", GetType().Name);
             DisablingRobot($"Cooling Down for {milliseconds}");
-            Task.Delay(Constants.CashOutDelayDuration).ContinueWith(_ => _eventBus.Publish(new CashOutButtonPressedEvent()));
+            Task.Delay(Constants.CashOutDelayDuration).ContinueWith(_ => EventBus.Publish(new CashOutButtonPressedEvent()));
             Task.Delay(milliseconds).ContinueWith(_ => EnablingRobot());
         }
 
@@ -274,13 +273,13 @@
 
         private void SubscribeToRobotEnabler()
         {
-            _eventBus.Subscribe<RobotControllerEnableEvent>(this, _ =>
+            EventBus.Subscribe<RobotControllerEnableEvent>(this, _ =>
             {
                 _logger.Info("Exit requested Manually. Disabling.", GetType().Name);
                 Enabled = !Enabled;
             });
 
-            _eventBus.Subscribe<ExitRequestedEvent>(this, _ =>
+            EventBus.Subscribe<ExitRequestedEvent>(this, _ =>
             {
                 _logger.Info("Exit requested. Disabling.", GetType().Name);
                 Enabled = false;
@@ -292,7 +291,7 @@
         {
             Task.Run(() =>
             {
-                using var serviceWaiter = new ServiceWaiter(_eventBus);
+                using var serviceWaiter = new ServiceWaiter(EventBus);
 
                 serviceWaiter.AddServiceToWaitFor<IGamePlayState>();
                 serviceWaiter.AddServiceToWaitFor<IGameProvider>();
@@ -388,7 +387,7 @@
                         Enabled = false;
                         return;
                     }
-                    _eventBus.Publish(new BalanceCheckEvent());
+                    EventBus.Publish(new BalanceCheckEvent());
                 }
             });
 
@@ -398,7 +397,7 @@
                 () =>
                 {
                     _automator.ExitLockup();
-                    _eventBus.Publish(new GameLoadRequestEvent());
+                    EventBus.Publish(new GameLoadRequestEvent());
                 }
             });
 
@@ -408,7 +407,7 @@
                 () =>
                 {
                     _automator.ExitLockup();
-                    _eventBus.Publish(new GameLoadRequestEvent());
+                    EventBus.Publish(new GameLoadRequestEvent());
                 }
             });
         }
