@@ -32,10 +32,13 @@ public class ChooserViewModel : ObservableObject
 
     public ChooserViewModel(IStore store, ChooserSelectors selectors)
     {
-        store.Select(selectors.ChangeGameIconLayoutSelector).Subscribe(
+        GameSelectCommand = new RelayCommand<DenomInfo>(OnDenomSelected);
+        DenomSelectedCommand = new RelayCommand<DenomInfo>(OnDenomSelected);
+
+        store.Select(selectors.GamesSelector).Subscribe(
             games =>
             {
-                Games = games;
+                games.UpdateObservable(Games);
             });
     }
 
