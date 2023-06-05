@@ -964,6 +964,11 @@
             // Use default operator culture for this as the value will get persisted and we don't want
             // to be able to affect what is persisted based on what the culture happens to be at the time.
 
+            if (!_operatorMenuLauncher.IsShowing)
+            {
+                return string.Empty;
+            }
+
             var provider = Localizer.For(CultureFor.Operator) as OperatorCultureProvider;
             var role = _properties.GetValue(ApplicationConstants.RolePropertyKey, string.Empty);
 
