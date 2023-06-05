@@ -86,6 +86,7 @@
             container.Register<IGameHelpTextProvider, GameHelpTextProvider>(Lifestyle.Singleton);
             container.Register<ICabinetState, CabinetState>(Lifestyle.Singleton);
             container.Register<ICabinetService, CabinetService>(Lifestyle.Singleton);
+            container.Register<IHandCountResetService, HandCountResetService>(Lifestyle.Singleton);
             container.Register<IGamePlayState, GamePlayState>(Lifestyle.Singleton);
             container.Register<IGameRecovery, GameRecovery>(Lifestyle.Singleton);
             container.Register<IGameDiagnostics, GameDiagnostics>(Lifestyle.Singleton);

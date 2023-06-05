@@ -272,6 +272,10 @@
                     AccountingConstants.HandCountMinimumRequiredCredits,
                     Tuple.Create((object)configuration.HandCount?.HandCountResetCreditLimit ?? AccountingConstants.HandCountDefaultRequiredCredits, false)
 				},
+                {
+                    AccountingConstants.HandCountResetIdleTimePeriod,
+                    Tuple.Create((object)configuration.HandCount?.HandCountResetIdleTimePeriod ?? AccountingConstants.DefaultHandCountResetIdleTimeoutPeriod, false)
+                },
 				{
                     AccountingConstants.CashoutAmountPerHandCount,
                     Tuple.Create((object)configuration.HandCount?.CashoutAmountPerHandCount??0L,false)

@@ -795,10 +795,20 @@
         public const string HandCountMinimumRequiredCredits = "HandCountResetCreditLimit";
 
         /// <summary>
+        ///     Hand count reset idle time period
+        /// </summary>
+        public const string HandCountResetIdleTimePeriod = "HandCountResetIdleTimePeriod";
+
+        /// <summary>
         ///     Hand count default minimum credits before automatic hand count and credit reset
         /// </summary>
         public const long HandCountDefaultRequiredCredits = 25_000L;
 
+        /// <summary>
+        ///     Default hand count reset idle time period
+        /// </summary>
+        public const long DefaultHandCountResetIdleTimeoutPeriod = 90_000L;
+        
         /// <summary>
         ///     The amount that can be cashed out per hand count
         /// </summary>

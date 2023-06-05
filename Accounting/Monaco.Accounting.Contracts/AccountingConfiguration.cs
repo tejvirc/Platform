@@ -1625,10 +1625,13 @@ namespace Aristocrat.Monaco.Accounting.Contracts {
         
         private long handCountResetCreditLimitField;
         
+        private long handCountResetIdleTimePeriodField;
+        
         public AccountingConfigurationHandCount() {
             this.handCountServiceEnabledField = false;
             this.cashoutAmountPerHandCountField = ((long)(500000));
             this.handCountResetCreditLimitField = ((long)(25000));
+            this.handCountResetIdleTimePeriodField = ((long)(90000));
         }
         
         /// <remarks/>
@@ -1684,6 +1687,18 @@ namespace Aristocrat.Monaco.Accounting.Contracts {
             }
             set {
                 this.handCountResetCreditLimitField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(typeof(long), "90000")]
+        public long HandCountResetIdleTimePeriod {
+            get {
+                return this.handCountResetIdleTimePeriodField;
+            }
+            set {
+                this.handCountResetIdleTimePeriodField = value;
             }
         }
     }
