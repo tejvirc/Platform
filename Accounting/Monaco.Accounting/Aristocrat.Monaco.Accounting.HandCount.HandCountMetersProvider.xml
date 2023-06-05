@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<BlockFormat version="1" name="Vgt.Client12.Accounting.HandCount.HandCountMetersProvider.xml" ElementSize="16">
+  <Fields>
+    <Field DataType="Int64" Size="8" Count="0" Offset="0" FieldName="HandCountLifetime" />
+    <Field DataType="Int64" Size="8" Count="0" Offset="8" FieldName="HandCountPeriod" />
+  </Fields>
+</BlockFormat>

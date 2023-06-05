@@ -25,6 +25,7 @@
   <ItemGroup>
     <None Remove="Aristocrat.Monaco.Accounting.Contracts.KeyedOffCreditsTransaction.xml" />
     <None Remove="Aristocrat.Monaco.Accounting.Contracts.KeyedOnCreditsTransaction.xml" />
+    <None Remove="Aristocrat.Monaco.Accounting.HandCount.HandCountMetersProvider.xml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.configuration" />
@@ -37,6 +38,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Aristocrat.Monaco.Accounting.Contracts.KeyedOnCreditsTransaction.xml">
+    <Content Include="Aristocrat.Monaco.Accounting.HandCount.HandCountMetersProvider.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Aristocrat.Monaco.Accounting.CurrencyInProvider.xml">

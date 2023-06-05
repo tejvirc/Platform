@@ -4,6 +4,8 @@
     using System.Collections.Generic;
     using Application.Contracts;
     using Application.Contracts.OperatorMenu;
+    using Aristocrat.Monaco.Accounting.Contracts.HandCount;
+    using Aristocrat.Monaco.Accounting.HandCount;
     using Barkeeper;
     using BeagleBone;
     using Bonus;
@@ -62,6 +64,7 @@
             container.Register<SnappReelService>(Lifestyle.Singleton);
             container.Register<SnappPresentationService>(Lifestyle.Singleton);
             container.Register<IRuntime, RuntimeProxy>(Lifestyle.Singleton);
+            container.Register<IHandCount, HandCount>(Lifestyle.Singleton);
             container.Register<IReelService, ReelServiceProxy>(Lifestyle.Singleton);
             container.Register<IPresentationService, PresentationServiceProxy>(Lifestyle.Singleton);
             container.Register<IClientEndpointProvider<IRuntime>, RuntimeEndpointProvider>(Lifestyle.Singleton);
