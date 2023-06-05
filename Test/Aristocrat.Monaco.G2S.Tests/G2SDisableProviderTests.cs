@@ -42,7 +42,7 @@
                 SystemDisablePriority.Normal,
                 new List<(Guid, G2SDisableStates)>
                 {
-                    (G2S.Constants.VertexStateDisabledKey, G2SDisableStates.ProgressiveState)
+                    (G2S.Constants.VertexStateDisabledKey, G2SDisableStates.ProgressiveStateDisabledByHost)
                 }
             },
             new object[]
@@ -68,7 +68,7 @@
                 {
                     (G2S.Constants.VertexOfflineKey, G2SDisableStates.CommsOffline),
                     (G2S.Constants.VertexLevelMismatchKey, G2SDisableStates.LevelMismatch),
-                    (G2S.Constants.VertexStateDisabledKey, G2SDisableStates.ProgressiveState),
+                    (G2S.Constants.VertexStateDisabledKey, G2SDisableStates.ProgressiveStateDisabledByHost),
                     (G2S.Constants.VertexUpdateNotReceivedKey, G2SDisableStates.ProgressiveValueNotReceived),
                     (G2S.Constants.VertexMeterRollbackKey, G2SDisableStates.ProgressiveMeterRollback)
                 }
@@ -89,7 +89,7 @@
             },
             new object[]
             {
-                new[] { G2SDisableStates.ProgressiveState },
+                new[] { G2SDisableStates.ProgressiveStateDisabledByHost },
                 new List<Guid> { G2S.Constants.VertexStateDisabledKey }
             },
             new object[]

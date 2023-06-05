@@ -27,16 +27,16 @@
                     device.HostEnabled = true;
                     device.Enabled = true;
 
-                    if (_egm.GetDevices<IProgressiveDevice>().All(d => d.HostEnabled))
-                    {
-                        Task.Run(OnTransportUp);
-                        _disableProvider.Enable(G2SDisableStates.ProgressiveState);
-                    }
-
                     var status = new progressiveStatus();
                     _commandBuilder.Build(device, status).Wait();
 
                     _eventLift.Report(device, EventCode.G2S_PGE002, device.DeviceList(status));
+                }
+
+                if (_egm.GetDevices<IProgressiveDevice>().All(d => d.HostEnabled))
+                {
+                    Task.Run(OnTransportUp);
+                    _disableProvider.Enable(G2SDisableStates.ProgressiveStateDisabledByHost);
                 }
             }
             else
@@ -59,7 +59,7 @@
                 }
                 else
                 {
-                    reason = G2SDisableStates.ProgressiveState;
+                    reason = G2SDisableStates.ProgressiveStateDisabledByHost;
                 }
                 _disableProvider.Disable(SystemDisablePriority.Immediate, reason);
             }

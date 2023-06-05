@@ -1,7 +1,10 @@
 ﻿namespace Aristocrat.Monaco.G2S.DisableProvider
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Reflection;
+    using System.Threading.Tasks;
     using Application.Contracts.Localization;
     using Kernel;
     using Localization.Properties;
@@ -25,9 +28,9 @@
                         () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveLevelMismatchText))
                 },
                 {
-                    G2SDisableStates.ProgressiveState, new DisableData(
+                    G2SDisableStates.ProgressiveStateDisabledByHost, new DisableData(
                         G2S.Constants.VertexStateDisabledKey,
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveFaultTypes_StateDisabled))
+                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveFaultTypes_StateDisabledByHost))
                 },
                 {
                     G2SDisableStates.ProgressiveValueNotReceived, new DisableData(
@@ -53,5 +56,17 @@
             ISystemDisableManager systemDisableManager,
             IMessageDisplay messageDisplay)
             : base(systemDisableManager, messageDisplay) { }
+
+        /// <inheritdoc />
+        public async Task OnG2SReconfigured()
+        {
+            var states = (G2SDisableStates[])Enum.GetValues(typeof(G2SDisableStates));
+            var enablingStates = states.Where(
+                state =>
+                    state != G2SDisableStates.None &&
+                    (IsDisableStateActive(state) || IsSoftErrorStateActive(state))).ToArray();
+            Logger.Debug($"Clearing disabled states {string.Join(", ", enablingStates)} due to G2S being reconfigured");
+            await Enable(enablingStates);
+        }
     }
 }

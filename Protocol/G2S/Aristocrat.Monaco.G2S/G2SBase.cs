@@ -32,6 +32,7 @@
     using Aristocrat.Monaco.Application.Contracts.Protocol;
     using System.Collections.Generic;
     using Aristocrat.Monaco.G2S.Services.Progressive;
+    using DisableProvider;
 
     /// <summary>
     ///     Handle the base level G2S communications including meter managements and system events.
@@ -250,6 +251,7 @@
         protected override void OnStop()
         {
             LogToMessageDisplay(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ClosingProtocol));
+            _container?.GetInstance<IG2SDisableProvider>().OnG2SReconfigured().Wait();
 
             // Allow OnRun to exit
             _shutdownEvent?.Set();

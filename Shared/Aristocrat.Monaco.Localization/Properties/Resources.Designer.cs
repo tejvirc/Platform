@@ -24992,14 +24992,14 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Progressive State Disabled.
+		///   Looks up a localized string similar to Progressive State Disabled by Host.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.G2S
         /// </remarks>
-		public static string ProgressiveFaultTypes_StateDisabled {
+		public static string ProgressiveFaultTypes_StateDisabledByHost {
 			get {
-				return ResourceManager.GetString("ProgressiveFaultTypes_StateDisabled", resourceCulture) ?? string.Empty;
+				return ResourceManager.GetString("ProgressiveFaultTypes_StateDisabledByHost", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -59752,14 +59752,14 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Progressive State Disabled.
+		///		Looks up a localized string similar to Progressive State Disabled by Host.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.G2S
         /// </remarks>
-		public static string ProgressiveFaultTypes_StateDisabled {
+		public static string ProgressiveFaultTypes_StateDisabledByHost {
 			get {
-				return "ProgressiveFaultTypes_StateDisabled";
+				return "ProgressiveFaultTypes_StateDisabledByHost";
 			}
 		}
 
@@ -83804,12 +83804,12 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ProgressiveFaultTypes_ProgUpdateTimeout,
 		/// <summary>
-		///   Looks up a localized string similar to Progressive State Disabled.
+		///   Looks up a localized string similar to Progressive State Disabled by Host.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.G2S
         /// </remarks>
-		ProgressiveFaultTypes_StateDisabled,
+		ProgressiveFaultTypes_StateDisabledByHost,
 		/// <summary>
 		///   Looks up a localized string similar to Progressives.
 		/// </summary>

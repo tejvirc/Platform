@@ -11730,8 +11730,8 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>Progressive meter rollback</value>
     <comment>Aristocrat.Monaco.G2S</comment>
   </data>
-  <data name="ProgressiveFaultTypes_StateDisabled" xml:space="preserve">
-    <value>Progressive State Disabled</value>
+  <data name="ProgressiveFaultTypes_StateDisabledByHost" xml:space="preserve">
+    <value>Progressive State Disabled by Host</value>
     <comment>Aristocrat.Monaco.G2S</comment>
   </data>
   <data name="ProgressiveHost" xml:space="preserve">

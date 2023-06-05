@@ -15,13 +15,13 @@
         /// <summary>EGM and G2S Host mismatch on available progressive levels</summary>
         LevelMismatch = 1 << 1,
 
-        /// <summary>There is no communication with Sas host 0.</summary>
-        ProgressiveState = 1 << 2,
+        /// <summary>G2S Host has disabled a progressive device</summary>
+        ProgressiveStateDisabledByHost = 1 << 2,
 
-        /// <summary>There is no communication with Sas host 0.</summary>
+        /// <summary>Haven't received a valid progressive value update beyond the timer threshold</summary>
         ProgressiveValueNotReceived = 1 << 3,
 
-        /// <summary>There is no communication with Sas host 0.</summary>
+        /// <summary>G2S Host has indicated EGM meters have rolled back. Non-recoverable</summary>
         ProgressiveMeterRollback = 1 << 4,
     }
 }
