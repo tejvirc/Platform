@@ -336,6 +336,7 @@
 
             button.Action = theEvent.Action ? ButtonAction.Down : ButtonAction.Up;
 
+            //zhg: InputEvent-22
             if (theEvent.Action)
             {
                 _bus.Publish(new SystemDownEvent(buttonId, button.State == ButtonState.Enabled || IsTestModeActive));
