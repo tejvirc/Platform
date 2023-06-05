@@ -59,19 +59,18 @@
         }
 
         [DataTestMethod]
-        [DataRow(true, false, false, false, false, false, false, false, false, false, false, false, false, DisplayName = "Null Bank Test")]
-        [DataRow(false, true, false, false, false, false, false, false, false, false, false, false, false, DisplayName = "Nul Persistence Storage Test")]
-        [DataRow(false, false, true, false, false, false, false, false, false, false, false, false, false, DisplayName = "Null Game History Test")]
-        [DataRow(false, false, false, true, false, false, false, false, false, false, false, false, false, DisplayName = "Null Runtime Services Test")]
-        [DataRow(false, false, false, false, true, false, false, false, false, false, false, false, false, DisplayName = "Null Game Provider Test")]
-        [DataRow(false, false, false, false, false, true, false, false, false, false, false, false, false, DisplayName = "Null Properties Manager Test")]
-        [DataRow(false, false, false, false, false, false, true, false, false, false, false, false, false, DisplayName = "Null Game Meters Test")]
-        [DataRow(false, false, false, false, false, false, false, true, false, false, false, false, false, DisplayName = "Null Player Service Test")]
-        [DataRow(false, false, false, false, false, false, false, false, true, false, false, false, false, DisplayName = "Null Game Recovery Test")]
-        [DataRow(false, false, false, false, false, false, false, false, false, true, false, false, false, DisplayName = "Null Transaction History Test")]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, true, false, false, DisplayName = "Null Barkeeper Handler Test")]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, false, true, false, DisplayName = "Null Progressive Game Test")]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, true, DisplayName = "Null Progressive Level Test")]
+        [DataRow(true, false, false, false, false, false, false, false, false, false, false, false, DisplayName = "Null Bank Test")]
+        [DataRow(false, true, false, false, false, false, false, false, false, false, false, false, DisplayName = "Nul Persistence Storage Test")]
+        [DataRow(false, false, true, false, false, false, false, false, false, false, false, false, DisplayName = "Null Game History Test")]
+        [DataRow(false, false, false, true, false, false, false, false, false, false, false, false, DisplayName = "Null Runtime Services Test")]
+        [DataRow(false, false, false, false, true, false, false, false, false, false, false, false, DisplayName = "Null Game Provider Test")]
+        [DataRow(false, false, false, false, false, true, false, false, false, false, false, false, DisplayName = "Null Properties Manager Test")]
+        [DataRow(false, false, false, false, false, false, true, false, false, false, false, false, DisplayName = "Null Game Meters Test")]
+        [DataRow(false, false, false, false, false, false, false, true, false, false, false, false, DisplayName = "Null Player Service Test")]
+        [DataRow(false, false, false, false, false, false, false, false, true, false, false, false, DisplayName = "Null Transaction History Test")]
+        [DataRow(false, false, false, false, false, false, false, false, false, true, false, false, DisplayName = "Null Barkeeper Handler Test")]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, true, false, DisplayName = "Null Progressive Game Test")]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, true, DisplayName = "Null Progressive Level Test")]
         [ExpectedException(typeof(ArgumentNullException))]
         public void NullConstructorTest(
             bool nullBank,
@@ -82,7 +81,6 @@
             bool nullProperties,
             bool nullMeters,
             bool nullPlayers,
-            bool nullRecovery,
             bool nullTransactionHistory,
             bool nullBarkeeperHandler,
             bool nullProgressiveGame,
@@ -97,7 +95,6 @@
                 nullProperties,
                 nullMeters,
                 nullPlayers,
-                nullRecovery,
                 nullTransactionHistory,
                 nullBarkeeperHandler,
                 nullProgressiveGame,
@@ -243,7 +240,6 @@
             bool nullProperties = false,
             bool nullMeters = false,
             bool nullPlayers = false,
-            bool nullRecovery = false,
             bool nullTransactionHistory = false,
             bool nullBarkeeperHandler = false,
             bool nullProgressiveGame = false,
@@ -258,12 +254,10 @@
                 nullProperties ? null : _properties.Object,
                 nullMeters ? null : _gameMeters.Object,
                 nullPlayers ? null : _players.Object,
-                nullRecovery ? null : _recovery.Object,
                 nullTransactionHistory ? null : _transactionHistory.Object,
                 nullBarkeeperHandler ? null : _barkeeperHandler.Object,
                 nullProgressiveGame ? null : _progressiveGame.Object,
-                nullProgressiveLevel ? null : _progressiveLevel.Object
-                );
+                nullProgressiveLevel ? null : _progressiveLevel.Object);
         }
     }
 }

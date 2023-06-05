@@ -369,12 +369,20 @@
             }
         }
 
-        public void SetGameEndHold(bool preventGameIdle)
+        public void SetGameEndHold(bool preventIdle)
         {
-            _platformHeldGameEnd = preventGameIdle;
-            if (!preventGameIdle)
+            _stateLock.EnterWriteLock();
+            try
             {
-                Fire(Trigger.GameIdle, true);
+                _platformHeldGameEnd = preventIdle;
+                if (!preventIdle)
+                {
+                    Fire(Trigger.GameEnded, true);
+                }
+            }
+            finally
+            {
+                _stateLock.ExitWriteLock();
             }
         }
 
@@ -560,30 +568,26 @@
                 .Permit(Trigger.ProgressiveHit, PlayState.ProgressivePending)
                 .Permit(Trigger.SecondaryGameChoice, PlayState.SecondaryGameChoice)
                 .Permit(Trigger.GameEnded, PlayState.GameEnded)
-                .PermitDynamic(
-                    _payResultTrigger,
-                    win => win == 0 ? PlayState.GameEnded : PlayState.PayGameResults);
+                .PermitDynamic(_payResultTrigger, GetGameEndState);
 
             _state.Configure(PlayState.ProgressivePending)
                 .Permit(Trigger.PrimaryGameStarted, PlayState.PrimaryGameStarted)
                 .Permit(Trigger.SecondaryGameChoice, PlayState.SecondaryGameChoice)
-                .PermitDynamic(
-                    _payResultTrigger,
-                    win => win == 0 ? PlayState.GameEnded : PlayState.PayGameResults);
+                .PermitDynamic(_payResultTrigger, GetGameEndState);
 
             _state.Configure(PlayState.PrimaryGameEnded)
                 .OnEntry(() => { })
                 .Permit(Trigger.SecondaryGameChoice, PlayState.SecondaryGameChoice)
                 .Permit(Trigger.GameResult, PlayState.PayGameResults)
-                .Permit(Trigger.GameEnded, PlayState.GameEnded);
+                .PermitDynamic(
+                    Trigger.GameEnded,
+                    () => _platformHeldGameEnd ? PlayState.PresentationIdle : PlayState.GameEnded);
 
             _state.Configure(PlayState.SecondaryGameChoice)
                 .OnEntry(OnSecondaryGameChoice)
                 .Permit(Trigger.SecondaryGameRequested, PlayState.SecondaryGameEscrow)
                 .Permit(Trigger.SecondaryGameStarted, PlayState.SecondaryGameStarted)
-                .PermitDynamic(
-                    _payResultTrigger,
-                    win => win == 0 ? PlayState.GameEnded : PlayState.PayGameResults);
+                .PermitDynamic(_payResultTrigger, GetGameEndState);
 
             _state.Configure(PlayState.SecondaryGameEscrow)
                 .OnEntry(() => { })
@@ -594,38 +598,40 @@
                 .OnEntryFrom(_secondaryGameStartTrigger, OnSecondaryGameStart)
                 .OnExit(StartGameDelayTimer)
                 .Permit(Trigger.SecondaryGameChoice, PlayState.SecondaryGameChoice)
-                .PermitDynamic(
-                    _payResultTrigger,
-                    win => win == 0 ? PlayState.GameEnded : PlayState.PayGameResults);
+                .PermitDynamic(_payResultTrigger, GetGameEndState);
 
             _state.Configure(PlayState.SecondaryGameEnded)
                 .OnEntry(() => { })
                 .Permit(Trigger.SecondaryGameChoice, PlayState.SecondaryGameChoice)
                 .Permit(Trigger.GameResult, PlayState.PayGameResults)
-                .Permit(Trigger.GameEnded, PlayState.GameEnded);
+                .PermitDynamic(
+                    Trigger.GameEnded,
+                    () => _platformHeldGameEnd ? PlayState.PresentationIdle : PlayState.GameEnded);
 
             _state.Configure(PlayState.PayGameResults)
                 .OnEntryFrom(_payResultTrigger, OnPayGameResult)
                 .OnEntry(() => { })
-                .OnExit(() => _eventBus.Publish(new GameResultEvent(_gameId, _denom, _wagerCategory.Id, _gameHistory.CurrentLog)))
-                .PermitIf(Trigger.GameEnded, PlayState.GameEnded, () => !_faulted && !_transferHandler.InProgress);
-
-            _state.Configure(PlayState.GameEnded)
-                .OnEntry(OnGameEnded)
-                .OnExit(OnGameEndedExit)
+                .OnExit(
+                    () => _eventBus.Publish(
+                        new GameResultEvent(_gameId, _denom, _wagerCategory.Id, _gameHistory.CurrentLog)))
                 .PermitDynamicIf(
-                    Trigger.GameIdle,
-                    () => _platformHeldGameEnd ? PlayState.PresentationIdle : PlayState.Idle,
-                    () => GameDelayExpired && !_faulted);
+                    Trigger.GameEnded,
+                    () => _platformHeldGameEnd ? PlayState.PresentationIdle : PlayState.GameEnded,
+                    () => !_faulted && !_transferHandler.InProgress);
 
             _state.Configure(PlayState.PresentationIdle)
                 .OnEntry(OnGameIdleHeld)
                 .OnExit(OnGameIdleHeldExit)
                 .PermitIf(
                     Trigger.PlayInitiated,
-                    PlayState.Idle,
+                    PlayState.GameEnded,
                     () => (!_systemDisableManager.IsDisabled || AllowGamePlayOnNormalLockup) && Enabled && !_faulted)
-                .PermitIf(Trigger.GameIdle, PlayState.Idle, () => !_platformHeldGameEnd && !_faulted);
+                .PermitIf(Trigger.GameEnded, PlayState.GameEnded, () => !_platformHeldGameEnd && !_faulted);
+
+            _state.Configure(PlayState.GameEnded)
+                .OnEntry(OnGameEnded)
+                .OnExit(OnGameEndedExit)
+                .PermitIf(Trigger.GameIdle, PlayState.Idle, () => GameDelayExpired && !_faulted);
 
             _state.OnUnhandledTrigger(
                 (state, trigger) =>
@@ -644,12 +650,18 @@
                 });
         }
 
+        private PlayState GetGameEndState(long win)
+        {
+            if (win > 0)
+            {
+                return PlayState.PayGameResults;
+            }
+
+            return _platformHeldGameEnd ? PlayState.PresentationIdle : PlayState.GameEnded;
+        }
+
         private void OnGameIdleHeldExit(StateMachine<PlayState, Trigger>.Transition transition)
         {
-            _eventBus.Publish(
-                new GameEndedEvent(_gameId, _denom, _wagerCategory.Id, _gameHistory.CurrentLog));
-            _gameId = -1;
-            _denom = -1;
             if (transition.Trigger != Trigger.PlayInitiated)
             {
                 return;
@@ -670,11 +682,6 @@
 
         private void OnGameEndedExit(StateMachine<PlayState, Trigger>.Transition transition)
         {
-            if (transition.Destination == PlayState.PresentationIdle)
-            {
-                return;
-            }
-
             _eventBus.Publish(
                 new GameEndedEvent(_gameId, _denom, _wagerCategory.Id, _gameHistory.CurrentLog));
         }

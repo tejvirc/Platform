@@ -73,7 +73,7 @@
                             return GameResult.None;
                         }
 
-                        return FinalWin > 0 ? GameResult.Won : GameResult.Lost;
+                        return TotalWon > 0 ? GameResult.Won : GameResult.Lost;
                     }
                 }
             }

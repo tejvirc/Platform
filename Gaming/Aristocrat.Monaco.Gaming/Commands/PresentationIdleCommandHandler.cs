@@ -12,24 +12,24 @@
     {
         private readonly IEventBus _bus;
         private readonly IRuntime _runtime;
-        private readonly IGameHistory _history;
         private readonly ICommandHandlerFactory _commandFactory;
         private readonly IOperatorMenuLauncher _operatorMenu;
         private readonly ICashoutController _cashoutController;
+        private readonly IPlayerBank _playerBank;
 
         public PresentationIdleCommandHandler(
             IRuntime runtime,
-            IGameHistory history,
             ICommandHandlerFactory commandFactory,
             IOperatorMenuLauncher operatorMenu,
             ICashoutController cashoutController,
+            IPlayerBank playerBank,
             IEventBus bus)
         {
             _runtime = runtime ?? throw new ArgumentNullException(nameof(runtime));
-            _history = history ?? throw new ArgumentNullException(nameof(history));
             _commandFactory = commandFactory ?? throw new ArgumentNullException(nameof(commandFactory));
             _operatorMenu = operatorMenu ?? throw new ArgumentNullException(nameof(operatorMenu));
             _cashoutController = cashoutController ?? throw new ArgumentNullException(nameof(cashoutController));
+            _playerBank = playerBank ?? throw new ArgumentNullException(nameof(playerBank));
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
         }
 
@@ -39,6 +39,7 @@
 
             _commandFactory.Create<CheckBalance>().Handle(checkBalance);
             _operatorMenu.EnableKey(GamingConstants.OperatorMenuDisableKey);
+            _playerBank.Unlock();
 
             _bus.Publish(new DisableCountdownTimerEvent(false));
             _bus.Publish(new AllowMoneyInEvent());
