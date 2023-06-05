@@ -1296,7 +1296,7 @@ Do you really want to do partial reset????</value>
     <value>??Zéro crédits are required to enter Test Mode??</value>
   </data>
   <data name="IdleTextDefault" xml:space="preserve">
-    <value>INSÉRER L'ARGENT</value>
+    <value>INSÉRER DE L’ARGENT</value>
   </data>
   <data name="FilterBy" xml:space="preserve">
     <value>???Filter By???</value>
