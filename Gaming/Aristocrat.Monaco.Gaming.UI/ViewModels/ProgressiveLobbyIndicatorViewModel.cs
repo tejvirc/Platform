@@ -207,6 +207,9 @@
             }
         }
 
+        /// <summary>
+        /// Updates the multiple game associative SAP text (jackpot text) for games with associated SAP levels
+        /// </summary>
         public void UpdateMultipleGameAssociativeSapText()
         {
             MultipleGameAssociatedSapLevelOneEnabled = false;
@@ -223,16 +226,17 @@
                 return;
             }
 
+            var localizer = Localizer.For(CultureFor.Player);
             var progressiveErrorGame = games.FirstOrDefault(g => g.ProgressiveErrorVisible);
             var progressiveLabelGame = games.FirstOrDefault( g => g.ProgressiveIndicator == ProgressiveLobbyIndicator.ProgressiveLabel);
 
             if (progressiveErrorGame != null)
             {
-                grandJackpotText = majorJackpotText = Localizer.For(CultureFor.Player).GetString(ResourceKeys.ProgressiveLobbyError);
+                grandJackpotText = majorJackpotText = localizer.GetString(ResourceKeys.ProgressiveLobbyError);
             }
             else if (progressiveLabelGame != null)
             {
-                grandJackpotText = majorJackpotText = Localizer.For(CultureFor.Player).GetString(ResourceKeys.ProgressiveLobbyLabel);
+                grandJackpotText = majorJackpotText = localizer.GetString(ResourceKeys.ProgressiveLobbyLabel);
             }
             else
             {
@@ -244,13 +248,15 @@
                 var grandJackpotLevel = levels.FirstOrDefault(l => l.LevelName.Equals(GrandJackpotLevelName));
                 if (grandJackpotLevel != null)
                 {
-                    grandJackpotText = grandJackpotLevel.CurrentValue.MillicentsToDollarsNoFraction().FormattedCurrencyString();
+                    var (_, amount) = GetCurrentLevelAmounts(grandJackpotLevel);
+                    grandJackpotText = amount.FormattedCurrencyString().ToUpper(localizer.CurrentCulture);
                 }
 
                 var majorJackpotLevel = levels.FirstOrDefault(l => l.LevelName.Equals(MajorJackpotLevelName));
                 if (majorJackpotLevel != null)
                 {
-                    majorJackpotText = majorJackpotLevel.CurrentValue.MillicentsToDollarsNoFraction().FormattedCurrencyString();
+                    var (_, amount) = GetCurrentLevelAmounts(majorJackpotLevel);
+                    majorJackpotText = amount.FormattedCurrencyString().ToUpper(localizer.CurrentCulture);
                 }
             }
 
@@ -372,15 +378,10 @@
 
         private (int LevelId, decimal CurrentValue) GetCurrentLevelAmounts(IViewableProgressiveLevel level)
         {
-            if (level.LevelType != ProgressiveLevelType.LP && level.LevelType != ProgressiveLevelType.Selectable)
-            {
-                return (level.LevelId, level.CurrentValue.MillicentsToDollarsNoFraction());
-            }
-
             switch (level.AssignedProgressiveId.AssignedProgressiveType)
             {
                 case AssignableProgressiveType.None:
-                    return (level.LevelId, -1);
+                    return (level.LevelId, level.CurrentValue.MillicentsToDollarsNoFraction());
                 case AssignableProgressiveType.AssociativeSap:
                 case AssignableProgressiveType.CustomSap:
                     return (level.LevelId,
@@ -397,7 +398,6 @@
                             ? linked.Amount.CentsToDollars()
                             : -1);
             }
-
             return (level.LevelId, level.CurrentValue.MillicentsToDollarsNoFraction());
         }
     }
