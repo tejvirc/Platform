@@ -5,7 +5,6 @@
     using System.Globalization;
     using Application.Contracts.Extensions;
     using Aristocrat.Monaco.Accounting.Contracts.HandCount;
-    using Aristocrat.Monaco.Gaming.Contracts.Configuration;
     using Application.Contracts.Currency;
     using Contracts.Configuration;
     using Contracts;
