@@ -90,9 +90,12 @@
                 .Verifiable();
 
             _progressiveLevelInfoProvider.Setup(x => x.ClearProgressiveLevelInfo());
-            _progressiveLevelInfoProvider.Setup(x => x.AddProgressiveLevelInfo(It.IsAny<long>(), It.IsAny<int>()));
+            _progressiveLevelInfoProvider.Setup(x => x.AddProgressiveLevelInfo(It.IsAny<long>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<long>()));
 
-            var message = new ProgressiveRegistrationMessage(machineSerial, gameTitleId);
+            var progressiveGames = new List<ProgressiveGameRegistrationData>();
+            progressiveGames.Add(new ProgressiveGameRegistrationData(gameTitleId, 1, 1));
+            var message = new ProgressiveRegistrationMessage(machineSerial, gameTitleId, progressiveGames);
+
             var result = await _target.RegisterClient(message, CancellationToken.None);
 
             _clientEnpointProvider.Verify();

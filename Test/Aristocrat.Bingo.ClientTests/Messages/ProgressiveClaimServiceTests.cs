@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Bingo.Client.Messages.Tests
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Grpc.Core;
@@ -37,7 +38,7 @@
         [TestMethod]
         public async Task ProgressiveClaimTest()
         {
-            int gameTitleId = 5;
+            var gameTitleId = 5;
             var machineSerial = "123";
             var progressiveLevelId = 1L;
             var winAmount = 101L;
@@ -74,7 +75,12 @@
 
             var handledResponse = new ProgressiveInformationResponse(ResponseCode.Ok);
 
-            var message = new ProgressiveRegistrationMessage(machineSerial, gameTitleId);
+            var progressiveGames = new List<ProgressiveGameRegistrationData>();
+            progressiveGames.Add(new ProgressiveGameRegistrationData(101, 1, 1));
+            progressiveGames.Add(new ProgressiveGameRegistrationData(101, 2, 2));
+            progressiveGames.Add(new ProgressiveGameRegistrationData(101, 3, 3));
+
+            var message = new ProgressiveRegistrationMessage(machineSerial, gameTitleId, progressiveGames);
             var result = await _target.ClaimProgressive(new ProgressiveClaimRequestMessage(machineSerial, progressiveLevelId, winAmount), CancellationToken.None);
 
             _clientEnpointProvider.Verify();
@@ -89,14 +95,19 @@
         [TestMethod]
         public async Task ProgressiveClaimInvalidLevelIdTest()
         {
-            int gameTitleId = 5;
+            var gameTitleId = 5;
             var machineSerial = "123";
             var progressiveLevelId = 1L;
             var winAmount = 101L;
 
             _progressiveLevelInfoProvider.Setup(x => x.GetServerProgressiveLevelId(It.IsAny<int>())).Returns(-1L);
 
-            var message = new ProgressiveRegistrationMessage(machineSerial, gameTitleId);
+            var progressiveGames = new List<ProgressiveGameRegistrationData>();
+            progressiveGames.Add(new ProgressiveGameRegistrationData(101, 1, 1));
+            progressiveGames.Add(new ProgressiveGameRegistrationData(101, 2, 2));
+            progressiveGames.Add(new ProgressiveGameRegistrationData(101, 3, 3));
+            var message = new ProgressiveRegistrationMessage(machineSerial, gameTitleId, progressiveGames);
+
             var result = await _target.ClaimProgressive(new ProgressiveClaimRequestMessage(machineSerial, progressiveLevelId, winAmount), CancellationToken.None);
         }
 

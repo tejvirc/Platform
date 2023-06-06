@@ -35,10 +35,11 @@
         public async Task HandleTest(bool accepted, ResponseCode expectedCode)
         {
             var gameTitleId = 101;
+            var denomination = 25L;
             var authToken = "ABC123";
             var progressiveLevels = new List<ProgressiveLevelInfo>();
-            progressiveLevels.Add(new ProgressiveLevelInfo(101L, 1));
-            progressiveLevels.Add(new ProgressiveLevelInfo(102L, 2));
+            progressiveLevels.Add(new ProgressiveLevelInfo(101L, 1, gameTitleId, denomination));
+            progressiveLevels.Add(new ProgressiveLevelInfo(102L, 2, gameTitleId, denomination));
             var metersToReport = new List<int>();
             metersToReport.Add(200);
             metersToReport.Add(201);

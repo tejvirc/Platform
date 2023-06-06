@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Bingo.Client.Messages
 {
     using System;
+    using System.IdentityModel;
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
@@ -32,7 +33,7 @@
             if (serverProgressiveLevelIdId < 0)
             {
                 Logger.Debug($"Invalid progressive level id {message.LevelId} in ProgressiveAwardRequestMessage");
-                throw new ArgumentOutOfRangeException("Invalid progressive level id in ProgressiveAwardRequestMessage");
+                throw new ArgumentOutOfRangeException($"Invalid progressive level id {message.LevelId} in ProgressiveAwardRequestMessage");
             }
 
             var request = new ProgressiveAwardPaid

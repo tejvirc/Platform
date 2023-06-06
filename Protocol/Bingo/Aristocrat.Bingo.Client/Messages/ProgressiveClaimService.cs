@@ -31,7 +31,7 @@
             var serverProgressiveLevelIdId = _progressiveLevelInfoProvider.GetServerProgressiveLevelId(Convert.ToInt32(message.ProgressiveLevelId));
             if (serverProgressiveLevelIdId < 0)
             {
-                throw new ArgumentException("Invalid progressive level id in ProgressiveClaimRequestMessage");
+                throw new ArgumentException($"Invalid progressive level id {message.ProgressiveLevelId} in ProgressiveClaimRequestMessage");
             }
 
             var request = new ClaimProgressiveWinRequest

@@ -5,6 +5,7 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
+    using GamePlay;
     using Grpc.Core;
     using log4net;
     using Progressives;
@@ -47,21 +48,33 @@
 
         public async Task<RegistrationResults> RegisterClient(ProgressiveRegistrationMessage message, CancellationToken token)
         {
-            Logger.Debug($"Progressive RegisterClient called, MachineSerial={message.MachineSerial}, GameTitleId={message.GameTitleId}");
+            Logger.Debug($"Progressive RegisterClient called, MachineSerial={message.MachineSerial}");
 
-            // TODO must add a ProgressiveGame for every GameTitleId/Denomination pair
-
-            var game = new ProgressiveGame
+            Google.Protobuf.Collections.RepeatedField<ServerApiGateway.ProgressiveGame> games = new ();
+            foreach (var progressiveGame in message.Games)
             {
-                GameTitleId = message.GameTitleId,
-                Denomination = 1, // TODO set denom
-                MaxBet = 1 // TODO set max bet
-            };
+                // TODO right now the fake progressive service only supports a denom of $1 so don't register all the sub-games
+                if (progressiveGame.GameTitleId == 3002 && progressiveGame.Denomination == 100)
+                {
+                    var game = new ServerApiGateway.ProgressiveGame
+                    {
+                        GameTitleId = progressiveGame.GameTitleId,
+                        Denomination = progressiveGame.Denomination,
+                        MaxBet = progressiveGame.MaxBet
+                    };
+
+                    games.Add(game);
+
+                    Logger.Debug(
+                        $"Registering progressive game GameTitleId={game.GameTitleId}, Denomination={game.Denomination}, MaxBet={game.MaxBet}");
+                }
+            }
+
 
             var request = new ProgressiveInfoRequest
             {
                 MachineSerial = message.MachineSerial,
-                Games = { game }
+                Games = { games }
             };
 
             var result = await Invoke(
@@ -71,15 +84,24 @@
 
             _progressiveLevelInfoProvider.ClearProgressiveLevelInfo();
 
+            Logger.Debug("ProgressiveMapping returned from server:");
+            foreach (var pm in result.ProgressiveLevels)
+            {
+                Logger.Debug($"ProgressiveMapping: level={pm.ProgressiveLevelId}, sequence={pm.SequenceNumber}, GameTitleId={pm.GameTitleId}, Denomination={pm.Denomination}");
+            }
+
             var progressiveLevels = new List<ProgressiveLevelInfo>();
             foreach (var progressiveMapping in result.ProgressiveLevels)
             {
-                Logger.Debug($"ProgressiveLevelInfo added, level={progressiveMapping.ProgressiveLevelId}, sequence={progressiveMapping.SequenceNumber}");
-                progressiveLevels.Add(new ProgressiveLevelInfo(progressiveMapping.ProgressiveLevelId, progressiveMapping.SequenceNumber));
+                Logger.Debug($"ProgressiveLevelInfo added, level={progressiveMapping.ProgressiveLevelId}, sequence={progressiveMapping.SequenceNumber}, GameTitleId={progressiveMapping.GameTitleId}, Denomination={progressiveMapping.Denomination}");
+
+                progressiveLevels.Add(new ProgressiveLevelInfo(progressiveMapping.ProgressiveLevelId, progressiveMapping.SequenceNumber, progressiveMapping.GameTitleId, progressiveMapping.Denomination));
 
                 _progressiveLevelInfoProvider.AddProgressiveLevelInfo(
                         progressiveMapping.ProgressiveLevelId,
-                        progressiveMapping.SequenceNumber);
+                        progressiveMapping.SequenceNumber,
+                        progressiveMapping.GameTitleId,
+                        progressiveMapping.Denomination);
             }
 
             Logger.Debug("Meters To Report:");
@@ -100,7 +122,7 @@
             var handlerResult = await _messageHandlerFactory.Handle<ProgressiveInformationResponse, ProgressiveInfoMessage>(progressiveInfoMessage, token)
                 .ConfigureAwait(false);
 
-            return new RegistrationResults(handlerResult.ResponseCode);
+            return new RegistrationResults(handlerResult is null ? ResponseCode.Rejected : handlerResult.ResponseCode);
         }
 
         public void Dispose()

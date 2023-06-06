@@ -64,14 +64,15 @@
         public async Task ProcessProgressiveInfo()
         {
             const int gameTitle = 123;
+            const long denomination = 25L;
             const string authToken = "ABC123";
             var metersToReport = new List<int> { 10, 100, 200 };
             using var source = new CancellationTokenSource();
             var progressiveLevels = new List<ProgressiveLevelInfo>
             {
-                new ProgressiveLevelInfo(10001, 1),
-                new ProgressiveLevelInfo(10002, 2),
-                new ProgressiveLevelInfo(10003, 3),
+                new ProgressiveLevelInfo(10001, 1, gameTitle, denomination),
+                new ProgressiveLevelInfo(10002, 2, gameTitle, denomination),
+                new ProgressiveLevelInfo(10003, 3, gameTitle, denomination),
             };
 
             var progressiveInfoMessage = new ProgressiveInfoMessage(ResponseCode.Ok, true, gameTitle, authToken, progressiveLevels, metersToReport);
@@ -93,6 +94,8 @@
         [TestMethod]
         public async Task ProcessProgressiveUpdate()
         {
+            const int gameTitle = 123;
+            const long denomination = 25L;
             const long progressiveLevel = 10001;
             const long amount = 1000;
             using var source = new CancellationTokenSource();
@@ -116,9 +119,9 @@
             var metersToReport = new List<int> { 10, 100, 200 };
             var progressiveLevels = new List<ProgressiveLevelInfo>
             {
-                new ProgressiveLevelInfo(10001, 1),
-                new ProgressiveLevelInfo(10002, 2),
-                new ProgressiveLevelInfo(10003, 3),
+                new ProgressiveLevelInfo(10001, 1, gameTitle, denomination),
+                new ProgressiveLevelInfo(10002, 2, gameTitle, denomination),
+                new ProgressiveLevelInfo(10003, 3, gameTitle, denomination),
             };
 
             var progressiveInfoMessage = new ProgressiveInfoMessage(ResponseCode.Ok, true, 123, "ABC123", progressiveLevels, metersToReport);
@@ -134,6 +137,8 @@
         [TestMethod]
         public async Task ProcessProgressiveUpdateInvalidLevelIdTest()
         {
+            const int gameTitle = 123;
+            const long denomination = 25L;
             const long progressiveLevel = 10001;
             const long amount = 1000;
             using var source = new CancellationTokenSource();
@@ -154,9 +159,9 @@
             var metersToReport = new List<int> { 10, 100, 200 };
             var progressiveLevels = new List<ProgressiveLevelInfo>
             {
-                new ProgressiveLevelInfo(10001, 1),
-                new ProgressiveLevelInfo(10002, 2),
-                new ProgressiveLevelInfo(10003, 3),
+                new ProgressiveLevelInfo(10001, 1, gameTitle, denomination),
+                new ProgressiveLevelInfo(10002, 2, gameTitle, denomination),
+                new ProgressiveLevelInfo(10003, 3, gameTitle, denomination),
             };
 
             var progressiveInfoMessage = new ProgressiveInfoMessage(ResponseCode.Ok, true, 123, "ABC123", progressiveLevels, metersToReport);
@@ -171,6 +176,8 @@
         [TestMethod]
         public async Task ProcessProgressiveUpdateUnknownProgressive()
         {
+            const int gameTitle = 123;
+            const long denomination = 25L;
             const long progressiveLevel = 10005;
             const long amount = 1000;
             using var source = new CancellationTokenSource();
@@ -191,9 +198,9 @@
             var metersToReport = new List<int> { 10, 100, 200 };
             var progressiveLevels = new List<ProgressiveLevelInfo>
             {
-                new ProgressiveLevelInfo(10001, 1),
-                new ProgressiveLevelInfo(10002, 2),
-                new ProgressiveLevelInfo(10003, 3),
+                new ProgressiveLevelInfo(10001, 1, gameTitle, denomination),
+                new ProgressiveLevelInfo(10002, 2, gameTitle, denomination),
+                new ProgressiveLevelInfo(10003, 3, gameTitle, denomination),
             };
 
             var progressiveInfoMessage = new ProgressiveInfoMessage(ResponseCode.Ok, true, 123, "ABC123", progressiveLevels, metersToReport);

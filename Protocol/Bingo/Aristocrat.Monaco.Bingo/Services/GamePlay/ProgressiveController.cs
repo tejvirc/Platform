@@ -203,11 +203,15 @@
 
         private void Handle(PendingLinkedProgressivesHitEvent evt)
         {
-            Logger.Info("Received PendingLinkedProgressivesHitEvent");
-            Logger.Debug("PendingLinkedProgressivesHitEvent progressiveLevels:");
-            foreach (var level in evt.LinkedProgressiveLevels.ToList())
+            Logger.Info($"Received PendingLinkedProgressivesHitEvent with {evt.LinkedProgressiveLevels.ToList().Count} progressive levels");
+
+            if (evt.LinkedProgressiveLevels.ToList().Count > 0)
             {
-                Logger.Debug($"levelId = name={level.LevelName} levelId={level.LevelId} amount={level.Amount}");
+                Logger.Debug("Progressive levels hit:");
+                foreach (var level in evt.LinkedProgressiveLevels.ToList())
+                {
+                    Logger.Debug($"Progressive Level: name={level.LevelName} levelId={level.LevelId} amount={level.Amount}");
+                }
             }
 
             var machineSerial = _propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty);
