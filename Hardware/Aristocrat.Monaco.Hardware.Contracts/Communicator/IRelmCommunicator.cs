@@ -1,17 +1,26 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts.Communicator
 {
+    using System;
+    using System.Threading;
     using System.Threading.Tasks;
     using Reel.Capabilities;
+    using Reel.Events;
 
     /// <summary>
     ///     Interface that defines a Relm Communicator
     /// </summary>
+    [CLSCompliant(false)]
     public interface IRelmCommunicator : ICommunicator,
         IDfuDriver,
         IReelAnimationCapabilities,
         IReelSynchronizationCapabilities,
         IReelBrightnessCapabilities
     {
+        /// <summary>
+        ///     Event that occurs when component statuses are received.
+        /// </summary>
+        public event EventHandler<ReelStatusReceivedEventArgs> StatusesReceived;
+
         /// <summary>
         ///     Initializes the communicator.
         /// </summary>
@@ -44,5 +53,16 @@
         /// </summary>
         /// <returns>Whether or not the reels where tilted</returns>
         Task<bool> TiltReels();
+
+        /// <summary>
+        ///     Requests the statuses from the reel controller.
+        /// </summary>
+        Task RequestDeviceStatuses();
+
+        /// <summary>
+        ///     Instructs the controller to remove all animation files
+        /// </summary>
+        /// <param name="token">The cancellation token.</param>
+        Task<bool> RemoveAllControllerAnimations(CancellationToken token = default);
     }
 }

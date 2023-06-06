@@ -7,6 +7,9 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Aristocrat.RelmReels" Version="0.1.15" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\Hardware\Aristocrat.Monaco.Hardware.Contracts\Aristocrat.Monaco.Hardware.Contracts.csproj" />
     <ProjectReference Include="..\..\Hardware\Aristocrat.Monaco.Hardware.Usb\Aristocrat.Monaco.Hardware.Usb.csproj" />
   </ItemGroup>

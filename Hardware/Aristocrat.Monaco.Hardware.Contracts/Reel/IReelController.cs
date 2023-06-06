@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Capabilities;
-    using Gds.Reel;
     using SharedDevice;
 
     /// <summary>

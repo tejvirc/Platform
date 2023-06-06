@@ -1,22 +1,31 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Usb.ReelController.Relm
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Threading.Tasks;
     using Contracts.Communicator;
-    using Contracts.Gds.Reel;
     using Contracts.Reel;
     using Contracts.Reel.Events;
     using Contracts.Reel.ImplementationCapabilities;
     using Contracts.SharedDevice;
+    using System;
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Reflection;
+    using System.Threading.Tasks;
+    using Contracts.Reel.ControlData;
+    using log4net;
 
     /// <summary>
     ///     The Relm Reel Controller control class
     /// </summary>
     public class RelmReelController : IReelControllerImplementation
     {
+        private const string SampleLightShowPath = @"ReelController\Relm\SampleShows\AllWhite5Reels.lightshow";
+        private const string SampleLightShowName = "SampleLightShow";
+
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+
         private readonly Dictionary<Type, IReelImplementationCapability> _supportedCapabilities = new();
+        private readonly ConcurrentDictionary<int, ReelStatus> _reelStatuses = new();
 
         private bool _disposed;
         private IRelmCommunicator _communicator;
@@ -27,6 +36,9 @@
 
         /// <inheritdoc />
         public event EventHandler<EventArgs> InitializationFailed;
+
+        /// <inheritdoc />
+        public event EventHandler<ReelEventArgs> ReelConnected;
 
 #pragma warning disable 67
         /// <inheritdoc />
@@ -49,10 +61,10 @@
 
         /// <inheritdoc />
         public event EventHandler<EventArgs> ResetFailed;
-
+        
         /// <inheritdoc />
         public event EventHandler<ReelControllerFaultedEventArgs> ControllerFaultOccurred;
-
+        
         /// <inheritdoc />
         public event EventHandler<ReelControllerFaultedEventArgs> ControllerFaultCleared;
 
@@ -76,9 +88,6 @@
 
         /// <inheritdoc />
         public event EventHandler<ReelEventArgs> ReelDisconnected;
-
-        /// <inheritdoc />
-        public event EventHandler<ReelEventArgs> ReelConnected;
 
         /// <inheritdoc />
         public event EventHandler HardwareInitialized;
@@ -132,7 +141,7 @@
         public IReadOnlyDictionary<int, ReelFaults> Faults { get; }
 
         /// <inheritdoc />
-        public IReadOnlyDictionary<int, ReelStatus> ReelsStatus { get; }
+        public IReadOnlyDictionary<int, ReelStatus> ReelStatuses => _reelStatuses;
 
         /// <inheritdoc />
         public void Dispose()
@@ -153,12 +162,18 @@
                 }
 
                 _communicator = relmCommunicator;
+                RegisterEventListeners();
                 await _communicator.Initialize();
-                IsInitialized = _communicator.IsOpen;
-                
-                _supportedCapabilities.Add(typeof(IAnimationImplementation), new RelmAnimation(_communicator));
-                _supportedCapabilities.Add(typeof(IReelBrightnessImplementation), new RelmBrightness(_communicator));
-                _supportedCapabilities.Add(typeof(ISynchronizationImplementation), new RelmSynchronization(_communicator));
+
+                if (_communicator.IsOpen)
+                {
+                    _supportedCapabilities.Add(typeof(IAnimationImplementation), new RelmAnimation(_communicator));
+                    _supportedCapabilities.Add(typeof(IReelBrightnessImplementation), new RelmBrightness(_communicator));
+                    _supportedCapabilities.Add(typeof(ISynchronizationImplementation), new RelmSynchronization(_communicator));
+                    await LoadPlatformSampleShows();
+
+                    IsInitialized = true;
+                }
 
                 return IsInitialized;
             }
@@ -287,6 +302,30 @@
         public bool HasCapability<T>() where T : class, IReelImplementationCapability =>
             _supportedCapabilities.ContainsKey(typeof(T));
 
+        /// <summary>
+        ///     Called when a reel is connected
+        /// </summary>
+        /// <param name="e">The event arguments</param>
+        protected virtual void OnReelConnected(ReelEventArgs e)
+        {
+            // TODO: We need to keep track of the status and handle disconnects.
+            // Right now the reel controller firmware does not support reel disconnects
+            var reelsStatus = new ReelStatus { ReelId = e.ReelId, Connected = true };
+            _reelStatuses.AddOrUpdate(e.ReelId, reelsStatus, (_, _) => reelsStatus);
+            ReelConnected?.Invoke(this, e);
+        }
+
+        private void OnReelStatusesReceived(object sender, ReelStatusReceivedEventArgs args)
+        {
+            foreach (var status in args.Statuses)
+            {
+                if (status.Connected)
+                {
+                    OnReelConnected(new ReelEventArgs(status.ReelId));
+                }
+            }
+        }
+
         private void OnInitialized()
         {
             Initialized?.Invoke(this, EventArgs.Empty);
@@ -311,12 +350,49 @@
                 _supportedCapabilities[typeof(ISynchronizationImplementation)] = null;
                 _supportedCapabilities.Clear();
 
+                UnregisterEventListeners();
+
                 var usbCommunicator = _communicator;
                 _communicator = null;
                 usbCommunicator.Dispose();
             }
 
             _disposed = true;
+        }
+
+        private void RegisterEventListeners()
+        {
+            if (_communicator is null)
+            {
+                return;
+            }
+            
+            _communicator.StatusesReceived += OnReelStatusesReceived;
+        }
+
+        private void UnregisterEventListeners()
+        {
+            if (_communicator is null)
+            {
+                return;
+            }
+
+            _communicator.StatusesReceived -= OnReelStatusesReceived;
+        }
+
+        private async Task LoadPlatformSampleShows()
+        {
+            if (_communicator is null || !File.Exists(SampleLightShowPath))
+            {
+                return;
+            }
+
+            Logger.Debug("Loading platform sample shows");
+            await _communicator.RemoveAllControllerAnimations();
+
+            var animationFile = new AnimationFile(SampleLightShowPath, AnimationType.PlatformLightShow, SampleLightShowName);
+
+            await _communicator.LoadAnimationFile(animationFile);
         }
     }
 }
