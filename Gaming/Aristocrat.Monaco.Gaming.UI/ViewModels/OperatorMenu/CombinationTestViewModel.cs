@@ -13,24 +13,28 @@
     using Localization.Properties;
     using Models;
     using MVVM.Command;
+    using Newtonsoft.Json;
 
     public class CombinationTestViewModel : OperatorMenuDiagnosticPageViewModelBase
     {
         private readonly IGameDiagnostics _diagnostics;
         private readonly IGameProvider _gameProvider;
         private readonly IConfigurationProvider _configurationProvider;
-
+        private readonly IGamePackConfigurationProvider _gamePackConfigProvider;
         private ObservableCollection<GameComboInfo> _games;
         private GameComboInfo _selectedGame;
 
         public CombinationTestViewModel()
         {
-            var container = ServiceManager.GetInstance().GetService<IContainerService>();
+            var container = ServiceManager.GetInstance()
+                .GetService<IContainerService>()?.Container;
+
             if (container != null)
             {
-                _gameProvider = container.Container.GetInstance<IGameProvider>();
-                _diagnostics = container.Container.GetInstance<IGameDiagnostics>();
-                _configurationProvider = container.Container.GetInstance<IConfigurationProvider>();
+                _gameProvider = container.GetInstance<IGameProvider>();
+                _diagnostics = container.GetInstance<IGameDiagnostics>();
+                _configurationProvider = container.GetInstance<IConfigurationProvider>();
+                _gamePackConfigProvider = container.GetInstance<IGamePackConfigurationProvider>();
             }
 
             ComboTestCommand = new ActionCommand<object>(_ => LaunchCombinationTest(), _ => SelectedGame != null && InputEnabled);
@@ -85,18 +89,42 @@
 
         private void LaunchCombinationTest()
         {
-            if (SelectedGame == null)
+            if (SelectedGame is null)
             {
                 return;
             }
 
             PreventOperatorMenuExit();
 
+            CombinationTestContext context;
+
+            var configs = _configurationProvider
+                .GetByThemeId(SelectedGame.ThemeId);
+
+            if (configs is not null && configs.Any())
+            {
+                var gamePackRestrictions = _gamePackConfigProvider
+                    .GetDenomRestrictionsByGameId(SelectedGame.Id);
+
+                var json = JsonConvert.SerializeObject(gamePackRestrictions, Formatting.None);
+
+                context = new CombinationTestContext(
+                    new Dictionary<string, string>
+                    {
+                        { "/Runtime/Multigame&ActivePack", json }
+                    }
+                );
+            }
+            else
+            {
+                context = new CombinationTestContext();
+            }
+
             _diagnostics.Start(
                 SelectedGame.Id,
                 SelectedGame.Denomination.DollarsToMillicents(),
                 Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CombinationTestTitle),
-                new CombinationTestContext(),
+                context,
                 true);
         }
 
@@ -145,7 +173,7 @@
                         d => d.Value == map.Denomination
                     );
 
-                    if (game != null && denom != null)
+                    if (game is not null && denom is not null)
                     {
                         yield return MapGameCombo(game, denom, config.Name);
                     }

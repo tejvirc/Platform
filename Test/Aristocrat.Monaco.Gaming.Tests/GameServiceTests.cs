@@ -23,7 +23,7 @@
         [ExpectedException(typeof(ArgumentNullException))]
         public void WhenEventBusIsNullExpectException()
         {
-            var service = new GameService(null, null, null, null, null, null, null);
+            var service = new GameService(null, null, null, null, null, null, null, null);
 
             Assert.IsNull(service);
         }
@@ -33,7 +33,7 @@
         public void WhenGameProcessIsNullExpectException()
         {
             var eventbus = new Mock<IEventBus>();
-            var service = new GameService(eventbus.Object, null, null, null, null, null, null);
+            var service = new GameService(eventbus.Object, null, null, null, null, null, null, null);
 
             Assert.IsNull(service);
         }
@@ -44,7 +44,7 @@
         {
             var process = new Mock<IGameProcess>();
             var eventbus = new Mock<IEventBus>();
-            var service = new GameService(eventbus.Object, process.Object, null, null, null, null, null);
+            var service = new GameService(eventbus.Object, process.Object, null, null, null, null, null, null);
 
             Assert.IsNull(service);
         }
@@ -56,7 +56,7 @@
             var process = new Mock<IGameProcess>();
             var ipc = new Mock<IProcessCommunication>();
             var eventbus = new Mock<IEventBus>();
-            var service = new GameService(eventbus.Object, process.Object, ipc.Object, null, null, null, null);
+            var service = new GameService(eventbus.Object, process.Object, ipc.Object, null, null, null, null, null);
 
             Assert.IsNull(service);
         }
@@ -70,7 +70,7 @@
             var propertiesManager = new Mock<IPropertiesManager>();
             var eventbus = new Mock<IEventBus>();
             var audio = new Mock<IAudio>();
-            var service = new GameService(eventbus.Object, process.Object, ipc.Object, propertiesManager.Object, audio.Object, null, null);
+            var service = new GameService(eventbus.Object, process.Object, ipc.Object, propertiesManager.Object, audio.Object, null, null, null);
 
             Assert.IsNull(service);
         }
@@ -85,7 +85,7 @@
             var eventbus = new Mock<IEventBus>();
             var audio = new Mock<IAudio>();
             var gameConfiguration = new Mock<IGameConfigurationProvider>();
-            var service = new GameService(eventbus.Object, process.Object, ipc.Object, propertiesManager.Object, audio.Object, gameConfiguration.Object, null);
+            var service = new GameService(eventbus.Object, process.Object, ipc.Object, propertiesManager.Object, audio.Object, gameConfiguration.Object, null, null);
 
             Assert.IsNull(service);
         }
@@ -100,7 +100,8 @@
             var audio = new Mock<IAudio>();
             var gameConfiguration = new Mock<IGameConfigurationProvider>();
             var gameProvider = new Mock<IGameProvider>();
-            var service = new GameService(eventbus.Object, process.Object, ipc.Object, propertiesManager.Object, audio.Object, gameConfiguration.Object, gameProvider.Object);
+            var gamePackConfigs = new Mock<IGamePackConfigurationProvider>();
+            var service = new GameService(eventbus.Object, process.Object, ipc.Object, propertiesManager.Object, audio.Object, gameConfiguration.Object, gameProvider.Object, gamePackConfigs.Object);
 
             Assert.IsNotNull(service);
         }
@@ -119,7 +120,8 @@
             var audio = new Mock<IAudio>();
             var gameConfiguration = new Mock<IGameConfigurationProvider>();
             var gameProvider = new Mock<IGameProvider>();
-            var service = new GameService(eventbus.Object, process.Object, ipc.Object, propertiesManager.Object, audio.Object, gameConfiguration.Object, gameProvider.Object);
+            var gamePackConfigs = new Mock<IGamePackConfigurationProvider>();
+            var service = new GameService(eventbus.Object, process.Object, ipc.Object, propertiesManager.Object, audio.Object, gameConfiguration.Object, gameProvider.Object, gamePackConfigs.Object);
 
             var request = new GameInitRequest
             {
@@ -149,7 +151,8 @@
             var eventbus = new Mock<IEventBus>();
             var gameConfiguration = new Mock<IGameConfigurationProvider>();
             var gameProvider = new Mock<IGameProvider>();
-            var service = new GameService(eventbus.Object, process.Object, ipc.Object, propertiesManager.Object, audio.Object, gameConfiguration.Object, gameProvider.Object);
+            var gamePackConfigs = new Mock<IGamePackConfigurationProvider>();
+            var service = new GameService(eventbus.Object, process.Object, ipc.Object, propertiesManager.Object, audio.Object, gameConfiguration.Object, gameProvider.Object, gamePackConfigs.Object);
 
             var request = new GameInitRequest
             {
@@ -179,11 +182,12 @@
             var gameConfiguration = new Mock<IGameConfigurationProvider>();
             var gameProvider = new Mock<IGameProvider>();
             var game = new Mock<IGameDetail>();
+            var gamePackConfigs = new Mock<IGamePackConfigurationProvider>();
             game.SetupGet(g => g.ThemeId).Returns("Theme 1");
 
             gameProvider.Setup(g => g.GetGame(It.IsAny<int>())).Returns(game.Object);
             gameConfiguration.Setup(c => c.GetActive(It.IsAny<string>())).Returns(default(IConfigurationRestriction));
-            var service = new GameService(eventbus.Object, process.Object, ipc.Object, propertiesManager.Object, audio.Object, gameConfiguration.Object, gameProvider.Object);
+            var service = new GameService(eventbus.Object, process.Object, ipc.Object, propertiesManager.Object, audio.Object, gameConfiguration.Object, gameProvider.Object, gamePackConfigs.Object);
 
             var request = new GameInitRequest
             {
@@ -221,11 +225,11 @@
             var propertiesManager = new Mock<IPropertiesManager>();
             var eventbus = new Mock<IEventBus>();
             var audio = new Mock<IAudio>();
-
+            var gamePackConfigs = new Mock<IGamePackConfigurationProvider>();
             process.Setup(m => m.IsRunning(1)).Returns(true);
             var gameConfiguration = new Mock<IGameConfigurationProvider>();
             var gameProvider = new Mock<IGameProvider>();
-            var service = new GameService(eventbus.Object, process.Object, ipc.Object, propertiesManager.Object, audio.Object, gameConfiguration.Object, gameProvider.Object);
+            var service = new GameService(eventbus.Object, process.Object, ipc.Object, propertiesManager.Object, audio.Object, gameConfiguration.Object, gameProvider.Object, gamePackConfigs.Object);
             service.Terminate(1);
 
             process.Verify(p => p.EndGameProcess(1, true, true));
