@@ -163,7 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Aristocrat.Cabinet" Version="2.0.1-beta0046" />
-    <PackageReference Include="Aristocrat.CryptoRng" Version="1.1.0" />
+    <PackageReference Include="Aristocrat.CryptoRng" Version="1.0.1.1" />
     <PackageReference Include="Aristocrat.GdkRuntime.Snapp" Version="0.1.11" />
     <PackageReference Include="Aristocrat.Snapp" Version="0.1.11" />
     <PackageReference Include="Google.Protobuf" Version="3.19.4" />

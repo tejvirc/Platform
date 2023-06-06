@@ -22,7 +22,7 @@
     <ProjectReference Include="..\..\Gaming\Aristocrat.Monaco.Gaming\Aristocrat.Monaco.Gaming.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.CryptoRng" Version="1.1.0" />
+    <PackageReference Include="Aristocrat.CryptoRng" Version="1.0.1.1" />
     <PackageReference Include="SoapFormatter" Version="1.1.9" />
     <PackageReference Include="coverlet.msbuild" Version="3.1.0" PrivateAssets="All" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
