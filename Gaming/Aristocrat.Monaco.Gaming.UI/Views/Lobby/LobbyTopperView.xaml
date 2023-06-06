@@ -97,7 +97,7 @@
             </bink:BinkGpuControl>
             <!-- Some jurisdictions do not have a topper loading screen -->
             <Image Stretch="Uniform"
-                   Source="{DynamicResource TopperLoading}"
+                   Source="{DynamicResource GameLoadingScreenPath}"
                    Visibility="{Binding IsTopperLoadingScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                    AutomationProperties.AutomationId="Image7_F5C8B0EC" />
         </Grid>

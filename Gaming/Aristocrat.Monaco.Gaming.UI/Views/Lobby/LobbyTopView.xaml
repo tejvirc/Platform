@@ -124,7 +124,7 @@
             </bink:BinkGpuControl>
             <!-- Some jurisdictions do not have a top loading screen -->
             <Image Stretch="Uniform"
-                   Source="{DynamicResource TopLoading}"
+                   Source="{Binding GameLoadingScreenPath}" 
                    Visibility="{Binding IsTopLoadingScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                    AutomationProperties.AutomationId="Image9_173C8AA0" />
         </Grid>

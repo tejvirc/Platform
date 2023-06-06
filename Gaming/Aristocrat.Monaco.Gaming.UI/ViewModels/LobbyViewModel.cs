@@ -58,6 +58,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 #if !(RETAIL)
     using Vgt.Client12.Testing.Tools;
     using Events;
+    using System.Threading;
 #endif
 
     /// <summary>
@@ -2598,6 +2599,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private void OnGameLoaded()
         {
+            Thread.Sleep(30000);
+
             Logger.Debug("Game loaded");
             _recoveryOnStartup = false;
 
