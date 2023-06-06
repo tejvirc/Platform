@@ -286,7 +286,7 @@
                   string.Format(
                       CultureInfo.CurrentCulture,
                       "{0}",
-                      CurrencyExtensions.CurrencyName));
+                      CurrencyExtensions.Currency.CurrencyName));
             }
         }
 

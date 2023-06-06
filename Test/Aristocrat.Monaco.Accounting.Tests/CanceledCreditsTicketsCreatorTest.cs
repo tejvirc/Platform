@@ -4,6 +4,7 @@
     using System.Globalization;
     using Application.Contracts;
     using Application.Contracts.Extensions;
+    using Application.Contracts.Currency;
     using Contracts;
     using Contracts.Handpay;
     using Handpay;
@@ -46,21 +47,27 @@
             _propertiesManager = SetupMockPropertiesManager();
             SetupFakePrinter();
 
-            CurrencyExtensions.SetCultureInfo(CultureInfo.CurrentCulture, null, null, true, true, "c");
+            string minorUnitSymbol = "c";
+            string cultureName = "en-US";
+            CultureInfo culture = new CultureInfo(cultureName);
+
+            RegionInfo region = new RegionInfo(cultureName);
+            CurrencyExtensions.Currency = new Currency(region.ISOCurrencySymbol, region, culture, minorUnitSymbol);
+            CurrencyExtensions.SetCultureInfo(region.ISOCurrencySymbol, culture, null, null, true, true, minorUnitSymbol);
+
             _transaction = SetupDummyTransaction();
             _time.Setup(mock => mock.GetLocationTime(TransactionTimestamp)).Returns(TransactionTimestamp).Verifiable();
 
-            TicketCurrencyExtensions.PlayerTicketLocale = "en-US";
+            TicketCurrencyExtensions.PlayerTicketLocale = cultureName;
             TicketCurrencyExtensions.SetCultureInfo(
-                "en-US",
-                new CultureInfo("en-US"),
-                new CultureInfo("en-US"),
+                cultureName,
+                new CultureInfo(cultureName),
+                new CultureInfo(cultureName),
                 "Cent",
                 "Cents",
                 true,
                 true,
-                "c"                
-            );
+                minorUnitSymbol);
 
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.ConfigWizardIdentityPageZoneOverride, It.IsAny<IdentityFieldOverride>()))
                 .Returns((IdentityFieldOverride)null);

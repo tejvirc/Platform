@@ -1,11 +1,13 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Reel.Capabilities
 {
     using System.Collections.Generic;
+    using System.Reflection;
     using System.Threading.Tasks;
     using Contracts;
     using Contracts.Persistence;
     using Contracts.Reel.Capabilities;
     using Contracts.Reel.ImplementationCapabilities;
+    using log4net;
 
     internal class ReelBrightnessCapability : IReelBrightnessCapabilities,
         IStorageAccessor<ReelBrightnessCapabilityOptions>
@@ -14,6 +16,8 @@
         private const string ReelBrightnessOption = "ReelBrightness";
         private const int MinBrightness = 1;
         private const int MaxBrightness = 100;
+
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IReelBrightnessImplementation _implementation;
         private readonly ReelControllerStateManager _stateManager;
@@ -24,6 +28,8 @@
         {
             _implementation = implementation;
             _stateManager = stateManager;
+
+            ReadOrCreateOptions();
         }
 
         public int DefaultReelBrightness
@@ -83,6 +89,19 @@
             };
 
             return true;
+        }
+
+        private void ReadOrCreateOptions()
+        {
+            if (!this.GetOrAddBlock(OptionsBlock, out var options, _stateManager.ControllerId - 1))
+            {
+                Logger.Error($"Could not access block {OptionsBlock} {_stateManager.ControllerId - 1}");
+                return;
+            }
+
+            _reelBrightness = options.ReelBrightness;
+
+            Logger.Debug($"Block successfully read {OptionsBlock} {_stateManager.ControllerId - 1}");
         }
     }
 }
