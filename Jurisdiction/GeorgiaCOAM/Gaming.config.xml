@@ -21,6 +21,7 @@ as follows:
   <OperatorMenu DisableDuringGame="true" />
   <LockupBehavior CashableLockupStrategy="Allowed" />
   <GameCategory ApplyGameCategorySettings="true" />
+  <Gamble Allowed="false" />
 <!--
 	GameRestrictions Settings:
 		ReturnToPlayerLimits:
@@ -45,8 +46,17 @@ as follows:
     <ReturnToPlayerLimits>
       <ReturnToPlayer GameType="Any" Minimum="75000" />
     </ReturnToPlayerLimits>
+    <RestrictedGameTypes>
+      <Type GameType="Keno"/>
+      <Type GameType="Poker"/>
+      <Type GameType="Blackjack"/>
+      <Type GameType="Roulette"/>
+    </RestrictedGameTypes>
   </GameRestrictions>
   <PhysicalButtons>
+    <BetButtons BetDown="true" BetUp="true" MaxBet="true" />
+    <LeftPlayButton Required="true" />
     <GameStartButtons Method="None" />
   </PhysicalButtons>
+  <AutoCompleteGameRound Enabled="false" />
 </GamingConfiguration>

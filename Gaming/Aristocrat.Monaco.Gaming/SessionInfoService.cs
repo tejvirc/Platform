@@ -6,6 +6,7 @@ namespace Aristocrat.Monaco.Gaming
     using System.Reflection;
     using System.Threading.Tasks;
     using Accounting.Contracts;
+    using Accounting.Contracts.HandCount;
     using Accounting.Contracts.Handpay;
     using Accounting.Contracts.Wat;
     using Application.Contracts.Extensions;
@@ -116,6 +117,12 @@ namespace Aristocrat.Monaco.Gaming
                         SessionEventType.VoucherOut,
                         transaction.TransactionId,
                         voucher.TransactionAmount);
+                    break;
+                case HardMeterOutTransaction hardMeterOut:
+                    HandleCreditOutEvent(
+                        SessionEventType.HardMeterOut,
+                        transaction.TransactionId,
+                        hardMeterOut.TransactionAmount);
                     break;
             }
         }

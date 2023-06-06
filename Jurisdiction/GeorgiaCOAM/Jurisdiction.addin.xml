@@ -74,10 +74,14 @@
       <ExtensionPointConfiguration extensionPath="/Application/OperatorMenu/DisplayMeters">
         <NodeSpecification addinId="Client12Addins.GeorgiaCOAMJurisdiction" filterid="GeorgiaCOAMDisplayMetersConfig" />
       </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Gaming/OperatorMenu/GameHistoryMeters">
+        <NodeSpecification addinId="Client12Addins.GeorgiaCOAMJurisdiction" filterid="GeorgiaCOAMHistoryMetersConfig" />
+      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Accounting/TransferOutProviders">
         <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Wat.WatOffProvider" order="0" filterid="GeorgiaCOAMAccountingTransferProviders" />
         <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Vouchers.VoucherOutProvider" order="1" filterid="GeorgiaCOAMAccountingTransferProviders" />
-        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Handpay.HandpayProvider" order="2" filterid="GeorgiaCOAMAccountingTransferProviders" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider" order="2" filterid="GeorgiaCOAMAccountingTransferProviders" />
+        <!--<NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Handpay.HandpayProvider" order="3" filterid="GeorgiaCOAMAccountingTransferProviders" />-->
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Accounting/TransactionHistories">
         <NodeSpecification addinId="Client12Addins.GeorgiaCOAMJurisdiction" filterid="GeorgiaCOAMTransactionConfiguration" />
@@ -154,7 +158,7 @@
     <FilePath FilePath="..\jurisdiction\GeorgiaCOAM\TowerLight.config.xml" filterid="GeorgiaCOAMTowerLightConfig" />
   </Extension>
   <Extension path="/HardMeterMapping/Configuration">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.config.xml" filterid="GeorgiaCOAMHardMeterMappingConfig" />
+    <FilePath FilePath="..\jurisdiction\GeorgiaCOAM\HardMeterMapping.config.xml" filterid="GeorgiaCOAMHardMeterMappingConfig" />
   </Extension>
   <Extension path="/Hardware/PrintableRegions">
     <FilePath FilePath="..\jurisdiction\GeorgiaCOAM\printable_regions.xml" filterid="GeorgiaCOAMPrintableRegionsConfig" />
@@ -171,11 +175,16 @@
   <Extension path="/Application/OperatorMenu/DisplayMeters">
     <FilePath FilePath="..\jurisdiction\GeorgiaCOAM\DisplayMeters.config.xml" filterid="GeorgiaCOAMDisplayMetersConfig" />
   </Extension>
+  <Extension path="/Gaming/OperatorMenu/GameHistoryMeters">
+    <FilePath FilePath="..\jurisdiction\GeorgiaCOAM\GameHistoryMeters.config.xml" filterid="GeorgiaCOAMHistoryMetersConfig" />
+  </Extension>
   <Extension path="/Accounting/TransactionHistories" filterid="GeorgiaCOAMTransactionConfiguration">
     <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.BillTransaction" maxTransactions="50" persistenceLevel="Critical" />
     <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
     <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction" maxTransactions="50" persistenceLevel="Critical" />
     <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.VoucherOutTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.HandCount.HardMeterOutTransaction" maxTransactions="50" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.HandCount.ResidualCreditsTransaction" maxTransactions="50" persistenceLevel="Critical" />
     <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.Wat.WatTransaction" maxTransactions="100" persistenceLevel="Critical" />
     <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.WatOnTransaction" maxTransactions="100" persistenceLevel="Critical" />
     <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Progressives.JackpotTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
@@ -183,8 +192,5 @@
   </Extension>
   <Extension path="/Accounting/BootExtender" filterid="GeorgiaCOAMAccountingRunnable">
     <BootExtender type="Aristocrat.Monaco.Gaming.Class3.Class3Runnable" />
-  </Extension>
-  <Extension path="/Accounting/HandCountService" filterid="GeorgiaCOAMAAccountingHandCountService">
-    <Service type="Aristocrat.Monaco.Accounting.HandCount.HandCountService" />
   </Extension>
 </Addin>

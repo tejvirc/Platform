@@ -202,5 +202,10 @@
         ///     Gets or sets the total cashable promotional credits wagered.
         /// </summary>
         public long WageredPromoAmount { get; set; }
+
+        /// <summary>
+        /// Gets of sets the HardMeterOut Amount;
+        /// </summary>
+        public long HardMeterOutAmount { get; set; }
     }
 }

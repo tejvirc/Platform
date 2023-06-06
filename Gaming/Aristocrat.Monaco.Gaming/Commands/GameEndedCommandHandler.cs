@@ -42,9 +42,10 @@
         private readonly ITransactionHistory _transactionHistory;
         private readonly IBarkeeperHandler _barkeeperHandler;
         private readonly IProgressiveGameProvider _progressiveGameProvider;
+        private readonly IMaxWinOverlayService _maxWinOverlayService;
 
         private readonly bool _meterFreeGames;
-        private IProgressiveLevelProvider _progressiveLevelProvider;
+        private readonly IProgressiveLevelProvider _progressiveLevelProvider;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="GameEndedCommandHandler" /> class.
@@ -62,7 +63,8 @@
             ITransactionHistory transactionHistory,
             IBarkeeperHandler barkeeperHandler,
             IProgressiveGameProvider progressiveGameProvider,
-            IProgressiveLevelProvider progressiveLevelProvider)
+            IProgressiveLevelProvider progressiveLevelProvider,
+            IMaxWinOverlayService maxWinOverlayService)
         {
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
             _persistentStorage = persistentStorage ?? throw new ArgumentNullException(nameof(persistentStorage));
@@ -79,6 +81,7 @@
             _progressiveLevelProvider = progressiveLevelProvider ?? throw new ArgumentNullException(nameof(progressiveGameProvider));
 
             _meterFreeGames = _properties.GetValue(GamingConstants.MeterFreeGamesIndependently, false);
+            _maxWinOverlayService = maxWinOverlayService ?? throw new ArgumentNullException(nameof(maxWinOverlayService));
         }
 
         /// <inheritdoc />
@@ -102,7 +105,10 @@
             Logger.Debug("PendingHandpay set to false");
             _runtime.UpdateFlag(RuntimeCondition.PendingHandpay, false);
 
-            _runtime.UpdateBalance(_bank.Credits);
+            if(!_maxWinOverlayService.ShowingMaxWinWarning)
+            {
+                _runtime.UpdateBalance(_bank.Credits);
+            }
         }
 
         private void IncrementMeters()

@@ -39,6 +39,7 @@
         private readonly Mock<IBarkeeperHandler> _barkeeperHandler = new Mock<IBarkeeperHandler>();
         private readonly Mock<IProgressiveGameProvider> _progressiveGame = new Mock<IProgressiveGameProvider>();
         private readonly Mock<IProgressiveLevelProvider> _progressiveLevel = new Mock<IProgressiveLevelProvider>();
+        private readonly Mock<IMaxWinOverlayService> _maxWinOverlayService = new Mock<IMaxWinOverlayService>();
         private readonly Mock<IGameHistoryLog> _gameHistory = new Mock<IGameHistoryLog>();
         private Mock<IScopedTransaction> _transactionScope;
 
@@ -59,19 +60,20 @@
         }
 
         [DataTestMethod]
-        [DataRow(true, false, false, false, false, false, false, false, false, false, false, false, false, DisplayName = "Null Bank Test")]
-        [DataRow(false, true, false, false, false, false, false, false, false, false, false, false, false, DisplayName = "Nul Persistence Storage Test")]
-        [DataRow(false, false, true, false, false, false, false, false, false, false, false, false, false, DisplayName = "Null Game History Test")]
-        [DataRow(false, false, false, true, false, false, false, false, false, false, false, false, false, DisplayName = "Null Runtime Services Test")]
-        [DataRow(false, false, false, false, true, false, false, false, false, false, false, false, false, DisplayName = "Null Game Provider Test")]
-        [DataRow(false, false, false, false, false, true, false, false, false, false, false, false, false, DisplayName = "Null Properties Manager Test")]
-        [DataRow(false, false, false, false, false, false, true, false, false, false, false, false, false, DisplayName = "Null Game Meters Test")]
-        [DataRow(false, false, false, false, false, false, false, true, false, false, false, false, false, DisplayName = "Null Player Service Test")]
-        [DataRow(false, false, false, false, false, false, false, false, true, false, false, false, false, DisplayName = "Null Game Recovery Test")]
-        [DataRow(false, false, false, false, false, false, false, false, false, true, false, false, false, DisplayName = "Null Transaction History Test")]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, true, false, false, DisplayName = "Null Barkeeper Handler Test")]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, false, true, false, DisplayName = "Null Progressive Game Test")]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, true, DisplayName = "Null Progressive Level Test")]
+        [DataRow(true, false, false, false, false, false, false, false, false, false, false, false, false, false, DisplayName = "Null Bank Test")]
+        [DataRow(false, true, false, false, false, false, false, false, false, false, false, false, false, false, DisplayName = "Nul Persistence Storage Test")]
+        [DataRow(false, false, true, false, false, false, false, false, false, false, false, false, false, false, DisplayName = "Null Game History Test")]
+        [DataRow(false, false, false, true, false, false, false, false, false, false, false, false, false, false, DisplayName = "Null Runtime Services Test")]
+        [DataRow(false, false, false, false, true, false, false, false, false, false, false, false, false, false, DisplayName = "Null Game Provider Test")]
+        [DataRow(false, false, false, false, false, true, false, false, false, false, false, false, false, false, DisplayName = "Null Properties Manager Test")]
+        [DataRow(false, false, false, false, false, false, true, false, false, false, false, false, false, false, DisplayName = "Null Game Meters Test")]
+        [DataRow(false, false, false, false, false, false, false, true, false, false, false, false, false, false, DisplayName = "Null Player Service Test")]
+        [DataRow(false, false, false, false, false, false, false, false, true, false, false, false, false, false, DisplayName = "Null Game Recovery Test")]
+        [DataRow(false, false, false, false, false, false, false, false, false, true, false, false, false, false, DisplayName = "Null Transaction History Test")]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, true, false, false, false, DisplayName = "Null Barkeeper Handler Test")]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, true, false, false, DisplayName = "Null Progressive Game Test")]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, true, false, DisplayName = "Null Progressive Level Test")]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, true, DisplayName = "Null Hand count service provider Test")]
         [ExpectedException(typeof(ArgumentNullException))]
         public void NullConstructorTest(
             bool nullBank,
@@ -86,7 +88,8 @@
             bool nullTransactionHistory,
             bool nullBarkeeperHandler,
             bool nullProgressiveGame,
-            bool nullProgressiveLevel)
+            bool nullProgressiveLevel,
+            bool nullHandCountServiceProvider)
         {
             CreateCGameEndCommandHandler(
                 nullBank,
@@ -101,7 +104,8 @@
                 nullTransactionHistory,
                 nullBarkeeperHandler,
                 nullProgressiveGame,
-                nullProgressiveLevel);
+                nullProgressiveLevel,
+                nullHandCountServiceProvider);
         }
 
         [TestMethod]
@@ -247,7 +251,8 @@
             bool nullTransactionHistory = false,
             bool nullBarkeeperHandler = false,
             bool nullProgressiveGame = false,
-            bool nullProgressiveLevel = false)
+            bool nullProgressiveLevel = false,
+            bool nullMaxWinOverlayService = false)
         {
             return new GameEndedCommandHandler(
                 nullBank ? null : _bank.Object,
@@ -262,7 +267,8 @@
                 nullTransactionHistory ? null : _transactionHistory.Object,
                 nullBarkeeperHandler ? null : _barkeeperHandler.Object,
                 nullProgressiveGame ? null : _progressiveGame.Object,
-                nullProgressiveLevel ? null : _progressiveLevel.Object
+                nullProgressiveLevel ? null : _progressiveLevel.Object,
+                nullMaxWinOverlayService ? null: _maxWinOverlayService.Object
                 );
         }
     }

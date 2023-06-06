@@ -28,6 +28,8 @@ public partial class LobbyConfiguration {
     
     private bool largeGameIconsEnabledField;
     
+    private bool midKnightLobbyEnabledField;
+    
     private bool hasIdleAttractVideoField;
     
     private bool hasAttractIntroVideoField;
@@ -144,6 +146,7 @@ public partial class LobbyConfiguration {
         this.multiLanguageEnabledField = false;
         this.responsibleGamingTimeLimitEnabledField = false;
         this.largeGameIconsEnabledField = false;
+        this.midKnightLobbyEnabledField = false;
         this.hasIdleAttractVideoField = false;
         this.hasAttractIntroVideoField = false;
         this.bottomAttractVideoEnabledField = false;
@@ -203,6 +206,16 @@ public partial class LobbyConfiguration {
         }
         set {
             this.largeGameIconsEnabledField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public bool MidKnightLobbyEnabled {
+        get {
+            return this.midKnightLobbyEnabledField;
+        }
+        set {
+            this.midKnightLobbyEnabledField = value;
         }
     }
     

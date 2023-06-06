@@ -14,6 +14,7 @@
     using Application.Contracts;
     using Application.Contracts.Media;
     using Application.UI.Views;
+    using Aristocrat.Monaco.Gaming.UI.Events;
     using ButtonDeck;
     using Cabinet.Contracts;
     using Common;
@@ -900,7 +901,6 @@
                 Logger.Debug("Closing TopLayoutOverlayWindow");
                 CloseTopLayoutOverlayWindow();
             }
-
             /*
             if (_timeLimitDlg != null)
             {

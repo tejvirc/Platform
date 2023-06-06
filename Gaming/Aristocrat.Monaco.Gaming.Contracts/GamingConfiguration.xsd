@@ -306,6 +306,15 @@
               <xs:element minOccurs="0" maxOccurs="1" name="BetButtons">
                 <xs:complexType>
                   <xs:attribute name="DisplayOnBottom" type="xs:boolean" use="optional" default="false" />
+                  <xs:attribute name="BetDown" type="xs:string" use="optional" default="false" />
+                  <xs:attribute name="BetUp" type="xs:string" use="optional" default="false" />
+                  <xs:attribute name="MaxBet" type="xs:string" use="optional" default="false" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="LeftPlayButton">
+                <xs:complexType>
+                  <xs:attribute name="Required" type="xs:string" use="optional" default="false" />
+                  <xs:attribute name="Optional" type="xs:boolean" use="optional" default="false" />
                 </xs:complexType>
               </xs:element>
               <xs:element minOccurs="0" maxOccurs="1" name="CollectButton">
@@ -424,7 +433,12 @@
             <xs:attribute name="PlaySound" type="xs:boolean" use="optional" default="true" />
           </xs:complexType>
         </xs:element>
-      </xs:sequence>
+        <xs:element maxOccurs="1" name="AutoCompleteGameRound">
+          <xs:complexType>
+            <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>     
     </xs:complexType>
   </xs:element>
   <xs:simpleType name="ProgressivePoolCreation">

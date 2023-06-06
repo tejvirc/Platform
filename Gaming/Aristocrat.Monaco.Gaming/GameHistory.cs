@@ -6,6 +6,7 @@
     using System.Reflection;
     using System.Text;
     using Accounting.Contracts;
+    using Accounting.Contracts.HandCount;
     using Accounting.Contracts.TransferOut;
     using Application.Contracts;
     using Application.Contracts.Localization;
@@ -1079,6 +1080,14 @@
 
                 case VoucherOutTransaction voucherOutTransaction:
                     info.Amount = voucherOutTransaction.Amount;
+                    break;
+
+                case HardMeterOutTransaction hardMeterOutTransaction:
+                    info.Amount = hardMeterOutTransaction.Amount;
+                    break;
+
+                case ResidualCreditsTransaction residualCreditsTransaction:
+                    info.Amount = residualCreditsTransaction.Amount;
                     break;
 
                 case WatTransaction watTransaction:

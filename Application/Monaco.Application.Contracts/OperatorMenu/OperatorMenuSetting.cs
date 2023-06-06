@@ -80,6 +80,10 @@
         /// <summary/>
         public const string HandpayLimitVisible = "HandpayLimitVisible";
         /// <summary/>
+        public const string HandCountPayoutLimitVisible = "HandCountPayoutLimitVisible";
+        /// <summary/>
+        public const string BillAcceptanceLimitVisible = "BillAcceptanceLimitVisible";
+        /// <summary/>
         public const string LargeWinLimitVisible = "LargeWinLimitVisible";
         /// <summary/>
         public const string LargeWinRatioVisible = "LargeWinRatioVisible";

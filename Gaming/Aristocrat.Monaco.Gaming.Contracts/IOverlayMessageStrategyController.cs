@@ -56,5 +56,11 @@
         ///     Tells the game to remove any presentation
         /// </summary>
         void ClearGameDrivenPresentation();
+
+        /// <summary>
+        /// Sets the Current pay out amount
+        /// </summary>
+        /// <param name="cashOutAmount"></param>
+        void SetCashableAmount(long cashOutAmount);
     }
 }

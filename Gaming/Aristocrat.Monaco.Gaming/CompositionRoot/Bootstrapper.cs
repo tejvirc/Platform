@@ -89,6 +89,7 @@
             container.Register<IGameHelpTextProvider, GameHelpTextProvider>(Lifestyle.Singleton);
             container.Register<ICabinetState, CabinetState>(Lifestyle.Singleton);
             container.Register<ICabinetService, CabinetService>(Lifestyle.Singleton);
+            container.Register<IHandCountResetService, HandCountResetService>(Lifestyle.Singleton);
             container.Register<IGamePlayState, GamePlayState>(Lifestyle.Singleton);
             container.Register<IGameRecovery, GameRecovery>(Lifestyle.Singleton);
             container.Register<IGameDiagnostics, GameDiagnostics>(Lifestyle.Singleton);
@@ -99,6 +100,7 @@
             container.Register<IPlayerBank, PlayerBank>(Lifestyle.Singleton);
             container.Register<IGameStorage, GameStorageManager>(Lifestyle.Singleton);
             container.Register<IRuntimeFlagHandler, RuntimeFlagHandler>(Lifestyle.Singleton);
+            container.Register<HandCountChangedHandler>(Lifestyle.Singleton);
             container.Register<IButtonLamps, ButtonLamps>(Lifestyle.Singleton);
             container.Register<IGameOrderSettings, GameOrderSettings>(Lifestyle.Singleton);
             container.Register<IOperatorMenuGamePlayMonitor, OperatorMenuGamePlayMonitor>(Lifestyle.Singleton);

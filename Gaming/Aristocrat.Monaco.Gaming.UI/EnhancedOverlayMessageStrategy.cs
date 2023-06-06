@@ -23,6 +23,7 @@
 
         private const string HandPayDisplayKey = "HandPayImage";
         private const string HandPayOverrideDisplayKey = "HandPayOverrideImage";
+        private const string PayOutDisplayKey = "HandPayImage";
 
         private readonly IPropertiesManager _properties;
         private readonly IEventBus _eventBus;
@@ -50,6 +51,8 @@
         public bool CashOutButtonPressed { get; set; } = false;
 
         public bool IsBasic => false;
+
+        public long CashableAmount { get; set; }
 
         public IMessageOverlayData HandleMessageOverlayCashOut(
             IMessageOverlayData data,
@@ -260,6 +263,21 @@
         private void OnExitHandpayPendingPressed(object obj)
         {
             _eventBus.Publish(new HandpayPendingCanceledEvent());
+        }
+
+        public IMessageOverlayData HandleMessageOverlayPayOut(IMessageOverlayData data)
+        {
+            Logger.Debug("HandleMessageOverlayPayout  entered");
+
+            data.DisplayForEvents = true;
+
+            data.DisplayImageResourceKey = PayOutDisplayKey;
+
+            data.Text = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LargePayoutReached);
+
+            data.SubText = OverlayMessageUtils.ToCredits(CashableAmount).FormattedCurrencyString();
+
+            return data;
         }
     }
 }

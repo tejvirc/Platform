@@ -161,8 +161,13 @@
         BetUp = ButtonBase + 32,
 
         /// <summary>
+        ///     Defines the Dual Bash Left button
+        /// </summary>
+        DualPlay = ButtonBase + 33,
+
+        /// <summary>
         ///     Max Button Id
         /// </summary>
-        MaxButtonId = BetUp
+        MaxButtonId = DualPlay
     }
 }

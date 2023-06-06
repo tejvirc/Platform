@@ -5,6 +5,7 @@ using Aristocrat.Monaco.Gaming.Contracts.Meters;
 using Aristocrat.Monaco.Gaming.Contracts.Payment;
 using Aristocrat.Monaco.Gaming.Contracts.Session;
 using Aristocrat.Monaco.Gaming.Runtime;
+using Aristocrat.Monaco.Gaming.UI;
 using Aristocrat.Monaco.Hardware.Contracts.Door;
 using Aristocrat.Monaco.Hardware.Contracts.Persistence;
 using Aristocrat.Monaco.Kernel;
@@ -34,6 +35,7 @@ namespace Aristocrat.Monaco.Gaming.Tests.Bonus.Strategies
         private readonly Mock<IGameMeterManager> _meterManager = new Mock<IGameMeterManager>(MockBehavior.Default);
 
         private Mock<IScopedTransaction> _scopedTransaction;
+        private Mock<IMaxWinOverlayService> _maxWinOverlayService = new Mock<IMaxWinOverlayService>();
         private Gaming.Bonus.Strategies.Standard _standard;
 
         [TestInitialize]
@@ -73,7 +75,8 @@ namespace Aristocrat.Monaco.Gaming.Tests.Bonus.Strategies
                  _propertiesManager.Object, _bank.Object,
                  _transferOutHandler.Object,
                  _messageDisplay.Object, _players.Object, _systemDisableManager.Object,
-                 _largeWinDetermination.Object);
+                 _largeWinDetermination.Object,
+                 _maxWinOverlayService.Object);
 
         }
 

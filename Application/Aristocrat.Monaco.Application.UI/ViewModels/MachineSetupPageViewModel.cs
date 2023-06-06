@@ -11,14 +11,13 @@
     using Hardware.Contracts.NoteAcceptor;
     using Kernel;
     using Contracts.Currency;
-
     using CurrencyDefaultsCurrencyInfo = Localization.CurrencyDefaultsCurrencyInfo;
 
     [CLSCompliant(false)]
     public class MachineSetupPageViewModel : MachineSetupViewModelBase
     {
         private IDictionary<string, CurrencyDefaultsCurrencyInfo> _currencyDefaults = new ConcurrentDictionary<string, CurrencyDefaultsCurrencyInfo>();
-        
+
         private readonly IServiceManager _serviceManager;
         private readonly CurrencyCultureProvider _currencyCultureProvider;
 
@@ -128,6 +127,13 @@
         protected override void SaveChanges()
         {
             base.SaveChanges();
+
+            if (SelectedCurrency == null)
+            {
+                // A change made for inspection tool to Save on Next button click broke auto config on this page
+                // It doesn't get loaded before calling save, so none of the currency info is setup correctly
+                Loaded();
+            }
 
             PropertiesManager.SetProperty(ApplicationConstants.CurrencyDescription, SelectedCurrency.Description);
             PropertiesManager.SetProperty(ApplicationConstants.CurrencyId, SelectedCurrency.IsoCode);

@@ -393,7 +393,7 @@
 
                 IncrementHardMeter(pending);
 
-                pending = PendingIncrement();
+                pending = PendingIncrement(pending);
                 if (pending.Count > 0)
                 {
                     continue;
@@ -480,7 +480,7 @@
             }
         }
 
-        private IReadOnlyCollection<LogicalHardMeter> PendingIncrement()
+        private IReadOnlyCollection<LogicalHardMeter> PendingIncrement(IReadOnlyCollection<LogicalHardMeter> incrementedMeters=null)
         {
             var pending = new List<LogicalHardMeter>();
 
@@ -538,6 +538,17 @@
                     foreach (var meter in LogicalHardMeters)
                     {
                         AddPending(meter, (long)block[meter.Value.LogicalId, BlockDataMeterValue]);
+                    }
+                }
+
+                // Find the completed meters and publish the events
+                if (incrementedMeters != null)
+                {
+                    // find the meters not in the pending meters from last incremented meters, then those are completed
+                    var completedMeters = incrementedMeters.Except(pending);
+                    foreach (var meter in completedMeters)
+                    {
+                        _bus.Publish(new HardMeterTickStoppedEvent(meter.LogicalId));
                     }
                 }
 
@@ -754,7 +765,7 @@
                 case ErrorEventId.InvalidHandle:
                 case ErrorEventId.ReadBoardInfoFailure:
                 {
-                    // TODO: the level should be "WARN" before the error occurence threshold is hit.
+                    // TODO: the level should be "WARN" before the error occurrence threshold is hit.
                     // And log an error when the threshold is hit.
                     Logger.Error($"Handled error {id}");
 

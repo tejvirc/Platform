@@ -28,8 +28,8 @@ as follows:
     <MaxCreditsIn Default="119999000" />
   </TenderIn>
   <CreditLimits>
-    <MaxCreditMeter MaxAllowed="9999999000"/>
     <MaxBetLimit Default="500000" LimitMax="500000"/>
+    <MaxCreditMeter Default="9999999000" MaxAllowed="9999999000"/>
   </CreditLimits>
   <WinLimits>
     <LargeWinLimit Editable="false" />
@@ -78,4 +78,8 @@ as follows:
   <Handpay>
     <RemoteHandpayReset Allowed="false"/>
   </Handpay>
+  <HandCount HandCountServiceEnabled="true" HandCountResetCreditLimit="100000">
+    <HandCountPayoutLimit Visible="true" LimitDefault="119999000"/>
+    <BillAcceptanceLimit Visible="true"/>
+  </HandCount>
 </AccountingConfiguration>

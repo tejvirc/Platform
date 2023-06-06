@@ -2098,6 +2098,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Max Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string BetOptionMaxWin {
+			get {
+				return ResourceManager.GetString("BetOptionMaxWin", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Bet (Turnover).
 		/// </summary>
         /// <remarks>
@@ -2118,6 +2130,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string BigWinBeagleBoneLightShowText {
 			get {
 				return ResourceManager.GetString("BigWinBeagleBoneLightShowText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Note: After first COAM game is played, Bill Accept....
+		/// </summary>
+		public static string BillAcceptanceInHelpText {
+			get {
+				return ResourceManager.GetString("BillAcceptanceInHelpText", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -14102,6 +14123,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Payout.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		public static string HardMeterOut {
+			get {
+				return ResourceManager.GetString("HardMeterOut", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to HardMeterOutTransaction.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		public static string HardMeterOutTransactionName {
+			get {
+				return ResourceManager.GetString("HardMeterOutTransactionName", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Hard Meters Available Meter Mappings.
 		/// </summary>
         /// <remarks>
@@ -16124,6 +16169,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to INSERT CREDITS TO CONTINUE..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string InsertCredits {
+			get {
+				return ResourceManager.GetString("InsertCredits", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to INSERTED TIME.
 		/// </summary>
         /// <remarks>
@@ -17437,6 +17494,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string LAPSettingsLabel {
 			get {
 				return ResourceManager.GetString("LAPSettingsLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to COLLECT LIMIT REACHED. SEE ATTENDANT..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Account
+        /// </remarks>
+		public static string LargePayoutReached {
+			get {
+				return ResourceManager.GetString("LargePayoutReached", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Insert and turn Attendant Reset Key to clear the l....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Account
+        /// </remarks>
+		public static string LargePayoutReachedHelpMessage {
+			get {
+				return ResourceManager.GetString("LargePayoutReachedHelpMessage", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -23324,6 +23405,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Payout Limit.
+		/// </summary>
+		public static string PayoutLimit {
+			get {
+				return ResourceManager.GetString("PayoutLimit", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Note: After first COAM game is played, RAM clear i....
+		/// </summary>
+		public static string PayoutLimitHelpText {
+			get {
+				return ResourceManager.GetString("PayoutLimitHelpText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Paytable.
 		/// </summary>
         /// <remarks>
@@ -26795,6 +26894,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to ResidualCreditsTransaction.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		public static string ResidualCreditsTransactionName {
+			get {
+				return ResourceManager.GetString("ResidualCreditsTransactionName", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Resolver Error.
 		/// </summary>
         /// <remarks>
@@ -27655,6 +27766,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string Seconds {
 			get {
 				return ResourceManager.GetString("Seconds", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to secs.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Gaming.UI
+        /// </remarks>
+		public static string Secs {
+			get {
+				return ResourceManager.GetString("Secs", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -31021,6 +31144,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string TimeAndZoneConfiguration {
 			get {
 				return ResourceManager.GetString("TimeAndZoneConfiguration", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to TIME BEFORE CREDITS/HANDCOUNT IS RESET..
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Gaming.UI
+        /// </remarks>
+		public static string TimeBeforeHandCountReset {
+			get {
+				return ResourceManager.GetString("TimeBeforeHandCountReset", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -36787,6 +36922,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Max Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string BetOptionMaxWin {
+			get {
+				return "BetOptionMaxWin";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Bet (Turnover).
 		/// </summary>
         /// <remarks>
@@ -36807,6 +36954,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string BigWinBeagleBoneLightShowText {
 			get {
 				return "BigWinBeagleBoneLightShowText";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Note: After first COAM game is played, Bill Accept....
+		/// </summary>
+		public static string BillAcceptanceInHelpText {
+			get {
+				return "BillAcceptanceInHelpText";
 			}
 		}
 
@@ -48790,6 +48946,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Payout.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		public static string HardMeterOut {
+			get {
+				return "HardMeterOut";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to HardMeterOutTransaction.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		public static string HardMeterOutTransactionName {
+			get {
+				return "HardMeterOutTransactionName";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Hard Meters Available Meter Mappings.
 		/// </summary>
         /// <remarks>
@@ -50812,6 +50992,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to INSERT CREDITS TO CONTINUE..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string InsertCredits {
+			get {
+				return "InsertCredits";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to INSERTED TIME.
 		/// </summary>
         /// <remarks>
@@ -52125,6 +52317,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string LAPSettingsLabel {
 			get {
 				return "LAPSettingsLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to COLLECT LIMIT REACHED. SEE ATTENDANT..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Account
+        /// </remarks>
+		public static string LargePayoutReached {
+			get {
+				return "LargePayoutReached";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Insert and turn Attendant Reset Key to clear the l....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Account
+        /// </remarks>
+		public static string LargePayoutReachedHelpMessage {
+			get {
+				return "LargePayoutReachedHelpMessage";
 			}
 		}
 
@@ -58012,6 +58228,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Payout Limit.
+		/// </summary>
+		public static string PayoutLimit {
+			get {
+				return "PayoutLimit";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Note: After first COAM game is played, RAM clear i....
+		/// </summary>
+		public static string PayoutLimitHelpText {
+			get {
+				return "PayoutLimitHelpText";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Paytable.
 		/// </summary>
         /// <remarks>
@@ -61483,6 +61717,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to ResidualCreditsTransaction.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		public static string ResidualCreditsTransactionName {
+			get {
+				return "ResidualCreditsTransactionName";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Resolver Error.
 		/// </summary>
         /// <remarks>
@@ -62343,6 +62589,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string Seconds {
 			get {
 				return "Seconds";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to secs.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Gaming.UI
+        /// </remarks>
+		public static string Secs {
+			get {
+				return "Secs";
 			}
 		}
 
@@ -65709,6 +65967,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string TimeAndZoneConfiguration {
 			get {
 				return "TimeAndZoneConfiguration";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to TIME BEFORE CREDITS/HANDCOUNT IS RESET..
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Gaming.UI
+        /// </remarks>
+		public static string TimeBeforeHandCountReset {
+			get {
+				return "TimeBeforeHandCountReset";
 			}
 		}
 
@@ -70596,6 +70866,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		BetOption,
 		/// <summary>
+		///   Looks up a localized string similar to Max Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		BetOptionMaxWin,
+		/// <summary>
 		///   Looks up a localized string similar to Bet (Turnover).
 		/// </summary>
         /// <remarks>
@@ -70609,6 +70886,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		BigWinBeagleBoneLightShowText,
+		/// <summary>
+		///   Looks up a localized string similar to Note: After first COAM game is played, Bill Accept....
+		/// </summary>
+		BillAcceptanceInHelpText,
 		/// <summary>
 		///   Looks up a localized string similar to Bill Acceptance Limit.
 		/// </summary>
@@ -77430,6 +77711,20 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		HardMeterLabel,
 		/// <summary>
+		///   Looks up a localized string similar to Payout.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		HardMeterOut,
+		/// <summary>
+		///   Looks up a localized string similar to HardMeterOutTransaction.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		HardMeterOutTransactionName,
+		/// <summary>
 		///   Looks up a localized string similar to Hard Meters Available Meter Mappings.
 		/// </summary>
         /// <remarks>
@@ -78577,6 +78872,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		InputsLabel,
 		/// <summary>
+		///   Looks up a localized string similar to INSERT CREDITS TO CONTINUE..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		InsertCredits,
+		/// <summary>
 		///   Looks up a localized string similar to INSERTED TIME.
 		/// </summary>
         /// <remarks>
@@ -79338,6 +79640,20 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Bingo.UI
         /// </remarks>
 		LAPSettingsLabel,
+		/// <summary>
+		///   Looks up a localized string similar to COLLECT LIMIT REACHED. SEE ATTENDANT..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Account
+        /// </remarks>
+		LargePayoutReached,
+		/// <summary>
+		///   Looks up a localized string similar to Insert and turn Attendant Reset Key to clear the l....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Account
+        /// </remarks>
+		LargePayoutReachedHelpMessage,
 		/// <summary>
 		///   Looks up a localized string similar to Large Win Handpay Reset Method.
 		/// </summary>
@@ -82697,6 +83013,14 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		PayMethod,
 		/// <summary>
+		///   Looks up a localized string similar to Payout Limit.
+		/// </summary>
+		PayoutLimit,
+		/// <summary>
+		///   Looks up a localized string similar to Note: After first COAM game is played, RAM clear i....
+		/// </summary>
+		PayoutLimitHelpText,
+		/// <summary>
 		///   Looks up a localized string similar to Paytable.
 		/// </summary>
         /// <remarks>
@@ -84678,6 +85002,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ResetValue,
 		/// <summary>
+		///   Looks up a localized string similar to ResidualCreditsTransaction.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		ResidualCreditsTransactionName,
+		/// <summary>
 		///   Looks up a localized string similar to Resolver Error.
 		/// </summary>
         /// <remarks>
@@ -85166,6 +85497,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		Seconds,
+		/// <summary>
+		///   Looks up a localized string similar to secs.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Gaming.UI
+        /// </remarks>
+		Secs,
 		/// <summary>
 		///   Looks up a localized string similar to Secure Enhanced.
 		/// </summary>
@@ -87082,6 +87420,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		TimeAndZoneConfiguration,
+		/// <summary>
+		///   Looks up a localized string similar to TIME BEFORE CREDITS/HANDCOUNT IS RESET..
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Gaming.UI
+        /// </remarks>
+		TimeBeforeHandCountReset,
 		/// <summary>
 		///   Looks up a localized string similar to MM/dd/yyyy H:mm:ss.
 		/// </summary>

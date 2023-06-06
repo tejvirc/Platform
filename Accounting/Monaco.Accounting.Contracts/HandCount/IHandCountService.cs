@@ -1,17 +1,23 @@
 ﻿namespace Aristocrat.Monaco.Accounting.Contracts.HandCount
 {
     using Kernel;
+    using System;
 
 
     /// <summary>
-    ///     Contract for hand count service instance.
+    ///     Interface for a hand count service, which tracks the number of games a player has played.
     /// </summary>
-    public interface IHandCountService : IService
+    public interface IHandCountService : IService, IDisposable
     {
         /// <summary>
-        ///     Gets hand count
+        ///     Returns true if the HandCountService is required for this jurisdiction.
         /// </summary>
-        /// <returns>GameCategorySetting</returns>
+        bool HandCountServiceEnabled { get; }
+
+        /// <summary>
+        ///     Gets hand count, which is the number of games a player has played. When cashing out,
+        ///     the player must have enough hand count and it will be consumed by cashing out.
+        /// </summary>
         int HandCount { get; }
 
         /// <summary>
@@ -21,17 +27,13 @@
 
         /// <summary>
         ///     Decrease hand count
-        /// <param name="n">Decrease hand count by n.</param>
         /// </summary>
+        /// <param name="n">Amount to decrease hand count</param>
         void DecreaseHandCount(int n);
-        /// <summary>
-        ///     Reset hand count
-        /// </summary>
-        void ResetHandCount();
 
         /// <summary>
-        ///     Send HandCountChangedEvent
+        ///     Reset the hand count and credit to 0, add residual credits to the residual credit meter.
         /// </summary>
-        void SendHandCountChangedEvent();
+        void ResetHandCount(long amount);
     }
 }

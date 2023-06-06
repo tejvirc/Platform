@@ -14,7 +14,7 @@
 namespace Aristocrat.Monaco.Gaming.Contracts {
     using System.Xml.Serialization;
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-    
+
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -123,6 +123,8 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         private GamingConfigurationShowPlayerSpeedButton showPlayerSpeedButtonField;
         
         private GamingConfigurationBonusTransfer bonusTransferField;
+        
+        private GamingConfigurationAutoCompleteGameRound autoCompleteGameRoundField;
         
         /// <remarks/>
         public GamingConfigurationGameHistory GameHistory {
@@ -621,6 +623,16 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.bonusTransferField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public GamingConfigurationAutoCompleteGameRound AutoCompleteGameRound {
+            get {
+                return this.autoCompleteGameRoundField;
+            }
+            set {
+                this.autoCompleteGameRoundField = value;
             }
         }
     }
@@ -2651,6 +2663,8 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         
         private GamingConfigurationPhysicalButtonsBetButtons betButtonsField;
         
+        private GamingConfigurationPhysicalButtonsLeftPlayButton leftPlayButtonField;
+        
         private GamingConfigurationPhysicalButtonsCollectButton collectButtonField;
         
         private GamingConfigurationPhysicalButtonsGambleButton gambleButtonField;
@@ -2670,6 +2684,16 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.betButtonsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public GamingConfigurationPhysicalButtonsLeftPlayButton LeftPlayButton {
+            get {
+                return this.leftPlayButtonField;
+            }
+            set {
+                this.leftPlayButtonField = value;
             }
         }
         
@@ -2744,8 +2768,17 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         
         private bool displayOnBottomField;
         
+        private string betDownField;
+        
+        private string betUpField;
+        
+        private string maxBetField;
+        
         public GamingConfigurationPhysicalButtonsBetButtons() {
             this.displayOnBottomField = false;
+            this.betDownField = "false";
+            this.betUpField = "false";
+            this.maxBetField = "false";
         }
         
         /// <remarks/>
@@ -2757,6 +2790,84 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.displayOnBottomField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute("false")]
+        public string BetDown {
+            get {
+                return this.betDownField;
+            }
+            set {
+                this.betDownField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute("false")]
+        public string BetUp {
+            get {
+                return this.betUpField;
+            }
+            set {
+                this.betUpField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute("false")]
+        public string MaxBet {
+            get {
+                return this.maxBetField;
+            }
+            set {
+                this.maxBetField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class GamingConfigurationPhysicalButtonsLeftPlayButton {
+        
+        private string requiredField;
+        
+        private bool optionalField;
+        
+        public GamingConfigurationPhysicalButtonsLeftPlayButton() {
+            this.requiredField = "false";
+            this.optionalField = false;
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute("false")]
+        public string Required {
+            get {
+                return this.requiredField;
+            }
+            set {
+                this.requiredField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool Optional {
+            get {
+                return this.optionalField;
+            }
+            set {
+                this.optionalField = value;
             }
         }
     }
@@ -3538,6 +3649,33 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.playSoundField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class GamingConfigurationAutoCompleteGameRound {
+        
+        private bool enabledField;
+        
+        public GamingConfigurationAutoCompleteGameRound() {
+            this.enabledField = true;
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(true)]
+        public bool Enabled {
+            get {
+                return this.enabledField;
+            }
+            set {
+                this.enabledField = value;
             }
         }
     }

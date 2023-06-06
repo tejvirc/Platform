@@ -790,7 +790,7 @@
         ///     Determines whether EGM will send the cashout button press event to host in case credit is zero
         /// </summary>
         public const string ReportCashoutButtonPressWithZeroCredit = @"CashoutButton.ReportToHostWithZeroCredit";
-
+        
         /// <summary>
         ///     Determines whether or not the Voucher Issued message is displayed in game
         /// </summary>
@@ -887,6 +887,31 @@
         ///     Property Key for Button layout : Bet buttons on bottom
         /// </summary>
         public const string ButtonLayoutBetButtonsOnBottom = @"ButtonLayoutOptions.PhysicalButtons.BetButtonsOnBottom";
+
+        /// <summary>
+        ///     Property Key for Button layout : Bet Down button
+        /// </summary>
+        public const string ButtonLayoutBetButtonsBetDown = @"ButtonLayoutOptions.PhysicalButtons.BetButtonsBetDown";
+
+        /// <summary>
+        ///     Property Key for Button layout : Bet Up button
+        /// </summary>
+        public const string ButtonLayoutBetButtonsBetUp = @"ButtonLayoutOptions.PhysicalButtons.BetButtonsBetUp";
+
+        /// <summary>
+        ///     Property Key for Button layout : Max Bet button
+        /// </summary>
+        public const string ButtonLayoutBetButtonsMaxBet = @"ButtonLayoutOptions.PhysicalButtons.BetButtonsMaxBet";
+
+        /// <summary>
+        ///     Property Key for Physical button layout for Left Play button
+        /// </summary>
+        public const string ButtonLayoutPhysicalButtonLeftPlay = @"ButtonLayoutOptions.PhysicalButtons.LeftPlay";
+
+        /// <summary>
+        ///     Property Key for Physical button layout for Left Play button optional
+        /// </summary>
+        public const string ButtonLayoutPhysicalButtonLeftPlayOptional = @"ButtonLayoutOptions.PhysicalButtons.LeftPlayOptional";
 
         /// <summary>
         ///     Property Key for Physical button layout for Collect button
@@ -1192,6 +1217,11 @@
         ///     Command Line argument for enabling slow recovery
         /// </summary>
         public const string UseSlowRecovery = "UseSlowRecovery";
+
+        /// <summary>
+        ///     Whether Autocomplete game round is enabled
+        /// </summary>
+        public const string AutocompleteGameRoundEnabled = @"AutocompleteGameRoundEnabled";
 
         /// <summary>
         ///     encapsulate Player Information Display options

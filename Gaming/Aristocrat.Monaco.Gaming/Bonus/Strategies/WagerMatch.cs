@@ -39,8 +39,9 @@
             ITransferOutHandler transferHandler,
             IMessageDisplay messages,
             IPlayerService players,
-            IPaymentDeterminationProvider paymentDeterminationProvider)
-            : base(properties, bank, transferHandler, transactions, history, meters, runtime, bus, messages, players, storage, paymentDeterminationProvider)
+            IPaymentDeterminationProvider paymentDeterminationProvider,
+            IMaxWinOverlayService maxWinOverlayService)
+            : base(properties, bank, transferHandler, transactions, history, meters, runtime, bus, messages, players, storage, paymentDeterminationProvider, maxWinOverlayService)
 
         {
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));

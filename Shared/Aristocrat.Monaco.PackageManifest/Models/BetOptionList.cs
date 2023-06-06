@@ -16,7 +16,8 @@ namespace Aristocrat.Monaco.PackageManifest.Models
         /// <summary>
         ///     Creates a BetOptionList from a corresponding manifest object
         /// </summary>
-        public BetOptionList(IEnumerable<c_betOption> options)
+        public BetOptionList(IEnumerable<c_betOption> options,
+            c_betLinePreset[] betLinePresets)
         {
             if (options == null)
             {
@@ -26,19 +27,23 @@ namespace Aristocrat.Monaco.PackageManifest.Models
 
             _options =
                 from o in options
+                let preset = betLinePresets?
+                             .FirstOrDefault(b => b.betOption == o.name)
                 select new BetOption
                 {
                     Name = o.name,
                     Description = o.description,
                     MaxInitialBet = o.maxInitialBetSpecified ? new int?(o.maxInitialBet) : null,
                     MaxTotalBet = o.maxTotalBetSpecified ? new int?(o.maxTotalBet) : null,
+                    MaxWin = o.maxWinSpecified ? o.maxWin : null,
                     Bets =
                         from b in o.bet
                         select new Bet { Button = b.button, ButtonName = b.buttonName, Multiplier = b.multiplier },
                     BonusBets = new List<int>((o.bonusBets
                                                ?? o.bet.Select(x => x.multiplier)
                                                    .Where(x => x % BetOption.PokerBonusBetMultiple == 0))
-                                               ?? Array.Empty<int>())
+                                               ?? Array.Empty<int>()),
+                    BetLinePreset = preset?.id.ToString()
                 };
         }
 

@@ -227,6 +227,11 @@
                 { GamingConstants.AttendantServiceTimeoutInMilliseconds, (configuration.AttendantServiceTimeoutSupport?.TimeoutInMilliseconds ?? 180000, false) },
                 { GamingConstants.OperatorMenuGameConfigurationInitialConfigComplete, (InitFromStorage(GamingConstants.OperatorMenuGameConfigurationInitialConfigComplete), true) },
                 { GamingConstants.ButtonLayoutBetButtonsOnBottom, (configuration?.PhysicalButtons?.BetButtons?.DisplayOnBottom ?? true, false) },
+                { GamingConstants.ButtonLayoutBetButtonsBetDown, (configuration?.PhysicalButtons?.BetButtons?.BetDown ?? "false", false) },
+                { GamingConstants.ButtonLayoutBetButtonsBetUp, (configuration?.PhysicalButtons?.BetButtons?.BetUp ?? "false", false) },
+                { GamingConstants.ButtonLayoutBetButtonsMaxBet, (configuration?.PhysicalButtons?.BetButtons?.MaxBet ?? "false", false) },
+                { GamingConstants.ButtonLayoutPhysicalButtonLeftPlay, (configuration?.PhysicalButtons?.LeftPlayButton?.Required ?? "false", false) },
+                { GamingConstants.ButtonLayoutPhysicalButtonLeftPlayOptional, (configuration?.PhysicalButtons?.LeftPlayButton?.Optional ?? false, false) },
                 { GamingConstants.ButtonLayoutPhysicalButtonCollect, (configuration?.PhysicalButtons?.CollectButton?.Required ?? "true", false) },
                 { GamingConstants.ButtonLayoutPhysicalButtonCollectOptional, (configuration?.PhysicalButtons?.CollectButton?.Optional ?? false, false) },
                 { GamingConstants.ButtonLayoutPhysicalButtonGamble, (configuration?.PhysicalButtons?.GambleButton?.Required ?? "false", false) },
@@ -275,6 +280,7 @@
                 { GamingConstants.BonusTransferPlaySound, ((object)configuration.BonusTransfer?.PlaySound ?? true, false) },
                 { GamingConstants.LaunchGameAfterReboot, (InitFromStorage(GamingConstants.LaunchGameAfterReboot), true) },
                 { GamingConstants.DenomSelectionLobby, (configuration.DenomSelectionLobby?.Mode ?? DenomSelectionLobby.Allowed, false) },
+                { GamingConstants.AutocompleteGameRoundEnabled, (configuration.AutoCompleteGameRound?.Enabled ?? true, false) }
             };
 
             if (!blockExists)

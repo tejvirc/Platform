@@ -46,6 +46,11 @@
         public string BetOption { get; set; }
 
         /// <summary>
+        ///     Gets or sets the Bet Line Preset (if any) associated with this progressive level
+        /// </summary>
+        public string BetLinePreset { get; set; }
+
+        /// <summary>
         ///     Gets or sets the variation associated with this progressive level
         /// </summary>
         public string Variation { get; set; }

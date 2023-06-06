@@ -7068,6 +7068,10 @@ See manual for details</value>
     <value>TRANSFER TO GAME</value>
     <comment>Aristocrat.Monaco.Sas</comment>
   </data>
+  <data name="HardMeterOut" xml:space="preserve">
+    <value>Payout</value>
+    <comment>Monaco.Accounting.Contracts</comment>
+  </data>
   <data name="TriggerLabel" xml:space="preserve">
     <value>Progressive Trigger</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
@@ -11721,5 +11725,46 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
   </data>
   <data name="GameStartMethodLineReelorMaxBetButton" xml:space="preserve">
     <value>Line/Reel/Max Bet Button</value>
+  </data>
+  <data name="PayoutLimit" xml:space="preserve">
+    <value>Payout Limit</value>
+  </data>
+  <data name="LargePayoutReached" xml:space="preserve">
+    <value>COLLECT LIMIT REACHED. SEE ATTENDANT.</value>
+    <comment>Aristocrat.Account</comment>
+  </data>
+  <data name="HardMeterOutTransactionName" xml:space="preserve">
+    <value>HardMeterOutTransaction</value>
+    <comment>Monaco.Accounting.Contracts</comment>
+  </data>
+  <data name="LargePayoutReachedHelpMessage" xml:space="preserve">
+    <value>Insert and turn Attendant Reset Key to clear the lockup.</value>
+    <comment>Aristocrat.Account</comment>
+  </data>
+  <data name="BetOptionMaxWin" xml:space="preserve">
+    <value>Max Win</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="ResidualCreditsTransactionName" xml:space="preserve">
+    <value>ResidualCreditsTransaction</value>
+    <comment>Monaco.Accounting.Contracts</comment>
+  </data>
+  <data name="InsertCredits" xml:space="preserve">
+    <value>INSERT CREDITS TO CONTINUE.</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="TimeBeforeHandCountReset" xml:space="preserve">
+    <value>TIME BEFORE CREDITS/HANDCOUNT IS RESET.</value>
+    <comment>Monaco.Gaming.UI</comment>
+  </data>
+  <data name="Secs" xml:space="preserve">
+    <value>secs</value>
+    <comment>Monaco.Gaming.UI</comment>
+  </data>
+  <data name="BillAcceptanceInHelpText" xml:space="preserve">
+    <value>Note: After first COAM game is played, Bill Acceptance Limit can be edited on Hardware&gt;Note Acceptor page.</value>
+  </data>
+  <data name="PayoutLimitHelpText" xml:space="preserve">
+    <value>Note: After first COAM game is played, RAM clear is required to change payout limit.</value>
   </data>
 </root>

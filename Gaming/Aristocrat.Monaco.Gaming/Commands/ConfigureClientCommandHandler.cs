@@ -8,6 +8,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
     using Accounting.Contracts;
     using Application.Contracts;
     using Application.Contracts.Extensions;
+    using Aristocrat.Monaco.Accounting.Contracts.HandCount;
     using Cabinet.Contracts;
     using Common;
     using Consumers;
@@ -39,6 +40,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
         private readonly IPlayerBank _playerBank;
         private readonly IPropertiesManager _properties;
         private readonly IRuntime _runtime;
+        private readonly IHandCountService _handCountProvider;
         private readonly IGameCategoryService _gameCategoryService;
         private readonly IGameProvider _gameProvider;
         private readonly ICabinetDetectionService _cabinetDetectionService;
@@ -52,6 +54,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
         /// </summary>
         public ConfigureClientCommandHandler(
             IRuntime runtime,
+            IHandCountService handCountProvider,
             IGameHistory gameHistory,
             IGameRecovery gameRecovery,
             IGameDiagnostics gameDiagnostics,
@@ -68,6 +71,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
             IGameConfigurationProvider gameConfiguration)
         {
             _runtime = runtime ?? throw new ArgumentNullException(nameof(runtime));
+            _handCountProvider = handCountProvider ?? throw new ArgumentNullException(nameof(handCountProvider));
             _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
             _gameRecovery = gameRecovery ?? throw new ArgumentNullException(nameof(gameRecovery));
             _gameDiagnostics = gameDiagnostics ?? throw new ArgumentNullException(nameof(gameDiagnostics));
@@ -237,6 +241,17 @@ namespace Aristocrat.Monaco.Gaming.Commands
             if (denomination.BetOption != null) // check that the bet option has been set by the operator
             {
                 parameters.Add("/Runtime/BetOption", denomination.BetOption);
+                var selectedBetOption = currentGame.BetOptionList?.FirstOrDefault(x => x.Name == denomination.BetOption);
+                if (selectedBetOption?.MaxWin != null)
+                {
+                    parameters["/Runtime/MaximumGameRoundWin&use"] = "allowed";
+                    parameters["/Runtime/MaximumGameRoundWin&valueCents"] = (selectedBetOption.MaxWin.Value * denomination.Value).MillicentsToCents().ToString(CultureInfo.InvariantCulture);
+                    parameters["/Runtime/MaximumGameRoundWin&onMaxWinReach"] = "endgame";
+                }
+                else
+                {
+                    parameters["/Runtime/MaximumGameRoundWin&use"] = "disallowed";
+                }
             }
 
             if (denomination.LineOption != null)
@@ -307,6 +322,13 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 }
             }
 
+            if (_handCountProvider.HandCountServiceEnabled)
+            {
+                parameters.Add("/Runtime/DisplayHandCount", "true");
+                parameters.Add("/Runtime/HandCountValue",_handCountProvider.HandCount.ToString());
+                parameters.Add("/Runtime/MinResidualCreditInCents", _properties.GetValue(AccountingConstants.HandCountMinimumRequiredCredits, AccountingConstants.HandCountDefaultRequiredCredits).MillicentsToCents().ToString());
+            }
+
             HandleGameHistoryData(parameters);
             foreach (var displayDevice in _cabinetDetectionService.ExpectedDisplayDevices.Where(d => d.Role != DisplayRole.Unknown))
             {
@@ -323,7 +345,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
 
         private static string GetGameStartMethodString(GameStartMethodOption startMethod) =>
             startMethod switch
-            {
+                {
                 GameStartMethodOption.None => "",
                 GameStartMethodOption.LineOrReel => "Line",
                 GameStartMethodOption.LineReelOrMaxBet => "Line, MaxBet",
@@ -344,8 +366,8 @@ namespace Aristocrat.Monaco.Gaming.Commands
                     GameStartConfigurableMethod.LineOrReel => "Line",
                     _ => string.Empty
                 };
+                }
             }
-        }
 
         private static string GetContinuePlayModeString(PlayMode playMode) =>
             playMode switch
@@ -381,20 +403,20 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 return;
             }
 
-            foreach (var parameter in _gameDiagnostics.Context.GetParameters())
-            {
-                parameters[parameter.Key] = parameter.Value;
+                foreach (var parameter in _gameDiagnostics.Context.GetParameters())
+                {
+                    parameters[parameter.Key] = parameter.Value;
+                }
             }
-        }
 
         private void AddRecoveryData(IDictionary<string, string> parameters, byte[] data)
-        {
+            {
             _gameHistory.LogRecoveryData(data, "[RECOVERY POINT] <-");
             if (_properties.GetValue(GamingConstants.UseSlowRecovery, false))
-            {
+                {
                 parameters.Add("/Runtime/Recovery", "true");
                 parameters.Add("/Runtime/Recovery&realtime", "true");
-            }
+                }
 
             if (data is { Length: > 0 })
             {
@@ -407,7 +429,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
             if (!_properties.GetValue(GamingConstants.ApplyGameCategorySettings, false))
             {
                 return;
-            }
+        }
 
             var gameCategorySetting = _gameCategoryService.SelectedGameCategorySetting;
             parameters["/Runtime/Flags&AutoPlay"] = gameCategorySetting.AutoPlay.ToString();
@@ -423,13 +445,28 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 gameCategorySetting.DealSpeed.ToString(CultureInfo.InvariantCulture);
             parameters["/Runtime/GamePreferences/BackgroundColor"] =
                 gameCategorySetting.BackgroundColor ?? string.Empty;
-        }
+    }
 
         private void SetButtonLayout(IDictionary<string, string> parameters)
         {
             parameters["/Runtime/PhysicalButtons&betOnBottom"] = _properties.GetValue(
                 GamingConstants.ButtonLayoutBetButtonsOnBottom,
                 true).ToString();
+            parameters["/Runtime/PhysicalButtons/BetDown"] = _properties.GetValue(
+                GamingConstants.ButtonLayoutBetButtonsBetDown,
+                "false");
+            parameters["/Runtime/PhysicalButtons/BetUp"] = _properties.GetValue(
+                GamingConstants.ButtonLayoutBetButtonsBetUp,
+                "false");
+            parameters["/Runtime/PhysicalButtons/MaxBet"] = _properties.GetValue(
+                GamingConstants.ButtonLayoutBetButtonsMaxBet,
+                "false");
+            parameters["/Runtime/PhysicalButtons/LeftPlay"] = _properties.GetValue(
+                GamingConstants.ButtonLayoutPhysicalButtonLeftPlay,
+                "false");
+            parameters["/Runtime/PhysicalButtons/LeftPlay&optional"] = _properties.GetValue(
+                GamingConstants.ButtonLayoutPhysicalButtonLeftPlayOptional,
+                false).ToString();
             parameters["/Runtime/PhysicalButtons/Collect"] = _properties.GetValue(
                 GamingConstants.ButtonLayoutPhysicalButtonCollect,
                 "true");
@@ -454,7 +491,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
             parameters["/Runtime/PhysicalButtons/TakeWin&optional"] = _properties.GetValue(
                 GamingConstants.ButtonLayoutPhysicalButtonTakeWinOptional,
                 false).ToString();
-        }
+}
 
         private void SetButtonBehavior(IDictionary<string, string> parameters)
         {

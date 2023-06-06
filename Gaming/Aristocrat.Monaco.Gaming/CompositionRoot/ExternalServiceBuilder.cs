@@ -10,6 +10,8 @@
     using Application.Contracts.Protocol;
     using Application.Contracts.Settings;
     using Application.Contracts.TiltLogger;
+    using Aristocrat.Monaco.Accounting.Contracts.HandCount;
+    using Aristocrat.Monaco.Gaming.Contracts;
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.Bell;
     using Hardware.Contracts.Button;
@@ -88,6 +90,10 @@
             @this.RegisterInstance(serviceManager.GetService<IBeagleBoneController>());
             @this.RegisterInstance(serviceManager.GetService<ITime>());
             @this.RegisterInstance(serviceManager.GetService<IMoneyLaunderingMonitor>());
+            @this.RegisterInstance(serviceManager.GetService<IHandCountService>());
+            @this.RegisterInstance(serviceManager.GetService<ICashOutAmountCalculator>());
+            @this.RegisterInstance(serviceManager.GetService<IHandCountOverlayService>());
+            @this.RegisterInstance(serviceManager.GetService<IMaxWinOverlayService>());
         }
     }
 }

@@ -171,7 +171,18 @@
             long wagerCredits)
         {
             var denominationList = denominations.ToList();
-            var resetValueInMillicents = level.ResetValue(denominationList, betOption).CentsToMillicents();
+
+            var betLinePreset =
+                !string.IsNullOrEmpty(progressive.BetLinePreset) &&
+                !string.IsNullOrEmpty(betOption?.BetLinePreset) &&
+                progressive.BetLinePreset == betOption.BetLinePreset
+                    ? betOption?.Name
+                    : string.Empty;
+
+            var resetValueInMillicents =
+                level.ResetValue(denominationList, betLinePreset != string.Empty ? null : betOption)
+                    .CentsToMillicents();
+
             var levelType = (ProgressiveLevelType)level.ProgressiveType;
 
             return new ProgressiveLevel
@@ -182,6 +193,7 @@
                 GameId = gameId,
                 Denomination = denominationList,
                 BetOption = betOption?.Name,
+                BetLinePreset = betLinePreset,
                 AllowTruncation = level.AllowTruncation,
                 LevelId = level.LevelId,
                 IncrementRate = level.IncrementRate.ToPercentage(),
@@ -235,6 +247,7 @@
         private IEnumerable<ProgressiveLevel> GenerateProgressiveLevelsPerGame(
             int gameId,
             IReadOnlyCollection<long> denominations,
+            BetOptionList betOptions,
             ProgressiveDetail progressive,
             LevelDetail levelDetail,
             IReadOnlyCollection<ProgressiveLevel> persistedLevels)
@@ -242,7 +255,10 @@
             var currentLevel = persistedLevels.FirstOrDefault(
                 l => l.LevelId == levelDetail.LevelId);
 
-            yield return ToProgressiveLevel(gameId, denominations, null, progressive, levelDetail, currentLevel, 0);
+            var betOption = betOptions?.FirstOrDefault(
+                b => !string.IsNullOrEmpty(b.BetLinePreset) && b.BetLinePreset == progressive?.BetLinePreset);
+
+            yield return ToProgressiveLevel(gameId, denominations, betOption, progressive, levelDetail, currentLevel, 0);
         }
 
         private IEnumerable<ProgressiveLevel> GenerateProgressiveLevelsPerGamePerDenomPerBetOption(
@@ -390,6 +406,7 @@
                         GenerateProgressiveLevelsPerGame(
                             gameId,
                             denominations,
+                            betOptions,
                             progressive,
                             level,
                             currentValues));

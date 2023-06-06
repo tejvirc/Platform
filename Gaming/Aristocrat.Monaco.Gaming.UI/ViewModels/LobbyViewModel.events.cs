@@ -5,6 +5,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Accounting.Contracts;
+    using Accounting.Contracts.HandCount;
     using Accounting.Contracts.Handpay;
     using Accounting.Contracts.Wat;
     using Application.Contracts;
@@ -138,6 +139,7 @@
             _eventBus.Subscribe<PlayerInfoDisplayExitedEvent>(this, HandleEvent);
             _eventBus.Subscribe<PlayerInfoDisplayEnteredEvent>(this, HandleEvent);
             _eventBus.Subscribe<GambleFeatureActiveEvent>(this, HandleEvent);
+            _eventBus.Subscribe<HandCountChangedEvent>(this, HandCountChangedEvent);
         }
 
         public delegate void CustomViewChangedEventHandler(ViewInjectionEvent ev);
@@ -148,7 +150,7 @@
         {
             Logger.Debug($"ViewInjectionEvent: Role: {evt.DisplayRole}, Action: {evt.Action}, Element: {evt.Element?.GetType().FullName}/{evt.Element?.GetHashCode()}");
 
-            if (evt.DisplayRole == DisplayRole.Main && !MessageOverlayDisplay.CustomMainViewElementVisible)
+            if (evt.DisplayRole == DisplayRole.Main)
             {
                 MessageOverlayDisplay.CustomMainViewElementVisible = evt.Action == ViewInjectionEvent.ViewAction.Add;
             }
@@ -1504,6 +1506,11 @@
         private void HandleMessageOverlayVisibility()
         {
             MessageOverlayDisplay.HandleOverlayWindowDialogVisibility();
+        }
+
+        private void HandCountChangedEvent(HandCountChangedEvent evt)
+        {
+            HandCount = evt.HandCount;
         }
     }
 }

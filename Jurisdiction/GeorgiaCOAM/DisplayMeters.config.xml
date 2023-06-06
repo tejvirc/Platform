@@ -44,6 +44,9 @@
     <MeterNode Page="MainPage" Name="TotalIn" DisplayName="Total Credits In" Order="119" />
     <MeterNode Page="MainPage" Name="TotalOut" DisplayName="Total Credits Out" Order="120" />    
     <MeterNode Page="MainPage" Name="DropMeter" DisplayName="Drop Meter (Bill and Ticket)" Order="121" />
+    <MeterNode Page="MainPage" Name="HardMeterOutAmount" DisplayName="Payout (Money Out)" Order="122" />
+    <MeterNode Page="MainPage" Name="ResidualAmount" DisplayName="Residual Credits" Order="123" />
+
     <MeterNode Page="Hardware" Name="MainDoorOpenTotal" DisplayName="Main Door Access" Order="1" />
     <MeterNode Page="Hardware" Name="LogicDoorOpenTotal" DisplayName="Logic Door Access" Order="2" />
     <MeterNode Page="Hardware" Name="BellyDoorOpenTotal" DisplayName="Belly Door Access" Order="3" />
@@ -60,10 +63,9 @@
     <MeterNode Page="Hardware" Name="MainTouchScreenDisconnect" DisplayName="Main Touch Screen Disconnect" Order="13" />
     <MeterNode Page="Hardware" Name="VBDTouchScreenDisconnect" DisplayName="VBD Touch Screen Disconnect" Order="14" />
     <MeterNode Page="Hardware" Name="blank line" DisplayName="" Order="15" />
-    <MeterNode Page="Hardware" Name="TopperVideoDisplayDisconnect" DisplayName="Topper Video Display Disconnect" Order="16" />
-    <MeterNode Page="Hardware" Name="TopVideoDisplayDisconnect" DisplayName="Top Video Display Disconnect" Order="17" />
-    <MeterNode Page="Hardware" Name="MainVideoDisplayDisconnect" DisplayName="Main Video Display Disconnect" Order="18" />
-    <MeterNode Page="Hardware" Name="VBDVideoDisplayDisconnect" DisplayName="VBD Video Display Disconnect" Order="19" />
+    <MeterNode Page="Hardware" Name="TopVideoDisplayDisconnect" DisplayName="Top Video Display Disconnect" Order="16" />
+    <MeterNode Page="Hardware" Name="MainVideoDisplayDisconnect" DisplayName="Main Video Display Disconnect" Order="17" />
+    <MeterNode Page="Hardware" Name="VBDVideoDisplayDisconnect" DisplayName="VBD Video Display Disconnect" Order="18" />
 
     <MeterNode Page="Hardware" Name="ProgressiveDisconnect" DisplayName="Progressive Disconnect" Order="101" />
     <MeterNode Page="Hardware" Name="blank line" DisplayName="" Order="102" />
@@ -125,9 +127,8 @@
 
     <MeterNode Page="Progressives" Name="ProgressivePackName" DisplayName="Pack Name" Order="1" />
     <MeterNode Page="Progressives" Name="LevelName" DisplayName="Level" Order="2" />
-    <MeterNode Page="Progressives" Name="WagerBetLevels" DisplayName="Bet Level" Order="3" />
-    <MeterNode Page="Progressives" Name="ProgressiveLevel.WageredAmount" DisplayName="Wagered" Order="4" />
-    <MeterNode Page="Progressives" Name="ProgressiveLevel.WinOccurrence" DisplayName="Hit" Order="5" />
-    <MeterNode Page="Progressives" Name="ProgressiveLevel.WinAccumulation" DisplayName="Won" Order="6" />
+    <MeterNode Page="Progressives" Name="ProgressiveLevel.WageredAmount" DisplayName="Wagered" Order="3" />
+    <MeterNode Page="Progressives" Name="ProgressiveLevel.WinOccurrence" DisplayName="Hit" Order="4" />
+    <MeterNode Page="Progressives" Name="ProgressiveLevel.WinAccumulation" DisplayName="Won" Order="5" />
   </MeterNodes>
 </DisplayMetersConfiguration>

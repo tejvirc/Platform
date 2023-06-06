@@ -12,6 +12,7 @@
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
+    using Aristocrat.Monaco.Accounting.Contracts.HandCount;
     using Contracts;
     using Contracts.Events;
     using Contracts.Lobby;
@@ -95,6 +96,12 @@
             MessageOverlayData = containerService.Container.GetInstance<IMessageOverlayData>();
             _gameDiagnostics = containerService.Container.GetInstance<IGameDiagnostics>();
             _gameRecovery = containerService.Container.GetInstance<IGameRecovery>();
+            _eventBus.Subscribe<PayoutAmountUpdatedEvent>(this, Handle);
+        }
+       
+        private void Handle(PayoutAmountUpdatedEvent evt)
+        {
+            _overlayMessageStrategyController.SetCashableAmount(evt.CashableAmount);
         }
 
         public IMessageOverlayData MessageOverlayData { get; set; }
@@ -296,6 +303,10 @@
                         messageSent = true;
                     }
                     break;
+                case MessageOverlayState.PayOutLimitReached:
+                    MessageOverlayData = _overlayMessageStrategyController.OverlayStrategy.HandleMessageOverlayPayOut(MessageOverlayData);
+                    messageSent = true;
+                    break;
                 case MessageOverlayState.Disabled:
                     if (_lobbyStateManager.ContainsAnyState(LobbyState.CashIn))
                     {
@@ -411,7 +422,7 @@
                                      IsAgeWarningDlgVisible ||
                                      IsSelectPayModeVisible ||
                                      IsResponsibleGamingInfoOverlayDlgVisible ||
-                                     MessageOverlayData.IsDialogVisible ||
+                                     MessageOverlayData.IsDialogVisible||
                                      ReserveOverlayViewModel.IsDialogVisible ||
                                      _playerMenuPopup.IsMenuVisible ||
                                      _playerInfoDisplayManager.IsActive() ||
@@ -503,6 +514,11 @@
                           _lobbyStateManager.CashOutState == LobbyCashOutState.HandPay))
                 {
                     state = MessageOverlayState.CashOut;
+                }
+                else if (_systemDisableManager.CurrentDisableKeys.Contains(ApplicationConstants.LargePayoutDisableKey) &&
+                        HardErrorMessages.Count == 1 && !_overlayMessageStrategyController.OverlayStrategy.IsBasic)
+                {
+                    state = MessageOverlayState.PayOutLimitReached;
                 }
                 else if (ShowVoucherNotification)
                 {

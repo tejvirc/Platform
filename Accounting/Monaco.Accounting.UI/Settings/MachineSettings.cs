@@ -77,6 +77,7 @@
         private bool _validateHandpays;
         private long _voucherInLimit;
         private long _voucherInLimitMaxAllowed;
+        private long _handCountPayoutLimit;
         private bool _voucherOut;
         private bool _voucherOutCheckBoxChecked;
         private bool _voucherInCheckBoxChecked;
@@ -1045,6 +1046,24 @@
 
             set => SetProperty(ref _largeWinLimitIsChecked, value);
         }
+
+        /// <summary>
+        ///     Gets or Sets the HandCount payoutLimit
+        /// </summary>
+        public long HandCountPayoutLimit
+        {
+            get => _handCountPayoutLimit;
+            set => SetProperty(ref _handCountPayoutLimit, value);
+        }
+
+        /// <summary>
+        ///     Gets the handCountPayout limit to display.
+        /// </summary>
+        [JsonIgnore]
+        public string HandCountPayoutDisplay =>
+            _handCountPayoutLimit < long.MaxValue
+                ? _handCountPayoutLimit.MillicentsToDollars().FormattedCurrencyString()
+                : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoLimit);
 
         /// <summary>
         ///     Gets or sets the credit limit is checked value.
