@@ -18,6 +18,7 @@
         private readonly IGameProvider _gameProvider;
         private readonly IProgressiveConfigurationProvider _progressiveConfiguration;
         private ObservableCollection<ProgressiveSummaryModel> _progressiveSummary;
+        private readonly IProtocolProgressiveIdProvider _levelIdProvider;
 
         public ProgressiveSummaryViewModel()
         {
@@ -25,6 +26,7 @@
 
             _gameProvider = container.GetInstance<IGameProvider>();
             _progressiveConfiguration = container.GetInstance<IProgressiveConfigurationProvider>();
+            _levelIdProvider = ServiceManager.GetInstance().TryGetService<IProtocolProgressiveIdProvider>();
         }
 
         public ObservableCollection<ProgressiveSummaryModel> ProgressiveSummary
@@ -100,12 +102,12 @@
                             levelInfos.FirstOrDefault(
                                 x => x.AssignableKey == progressive.AssignedProgressiveId.AssignedProgressiveKey ||
                                      x.Levels.Contains(progressive)) ??
-                            GetProgressiveInformation(progressive, linkedLevels, sharedSapLevel);
+                            GetProgressiveInformation(progressive, linkedLevels, sharedSapLevel, game.Id);
                     }
                     else
                     {
                         levelInfo = levelInfos.FirstOrDefault(x => x.Levels.Contains(progressive)) ??
-                                    GetProgressiveInformation(progressive, linkedLevels, sharedSapLevel);
+                                    GetProgressiveInformation(progressive, linkedLevels, sharedSapLevel, game.Id);
                     }
 
                     if (progressive.AssignedProgressiveId.AssignedProgressiveType ==
@@ -132,10 +134,11 @@
             return levelInfos;
         }
 
-        private static ProgressiveLevelInfo GetProgressiveInformation(
+        private ProgressiveLevelInfo GetProgressiveInformation(
             IViewableProgressiveLevel progressiveLevel,
             IEnumerable<IViewableLinkedProgressiveLevel> linkedLevels,
-            IEnumerable<IViewableSharedSapLevel> sharedSapLevels)
+            IEnumerable<IViewableSharedSapLevel> sharedSapLevels,
+            int gameId)
         {
             var defaultCurrent = progressiveLevel.CurrentValue.MillicentsToDollars().FormattedCurrencyString(true);
             switch (progressiveLevel.AssignedProgressiveId.AssignedProgressiveType)
@@ -144,9 +147,12 @@
                     var linkedLevel = linkedLevels
                         .FirstOrDefault(
                             x => x.LevelName == progressiveLevel.AssignedProgressiveId.AssignedProgressiveKey);
+
+                    var levelName = BuildLevelName(gameId, linkedLevel);
+
                     return new ProgressiveLevelInfo
                     {
-                        LevelName = linkedLevel?.LevelName,
+                        LevelName = levelName,
                         AssignableKey = progressiveLevel.AssignedProgressiveId.AssignedProgressiveKey,
                         CurrentValue = linkedLevel?.Amount.CentsToDollars().FormattedCurrencyString(true) ?? defaultCurrent
                     };
@@ -169,6 +175,23 @@
                         CurrentValue = progressiveLevel.CurrentValue.MillicentsToDollars().FormattedCurrencyString(true)
                     };
             }
+        }
+
+        private string BuildLevelName(int gameId, IViewableLinkedProgressiveLevel linkedLevel)
+        {
+            var levelName = linkedLevel?.LevelName;
+
+            if (_levelIdProvider != null && linkedLevel != null)
+            {
+                var levelId = linkedLevel.LevelId;
+                _levelIdProvider.OverrideLevelId(gameId, linkedLevel.ProgressiveGroupId, ref levelId);
+
+                levelName = $"{linkedLevel.ProtocolName}, " +
+                            $"Level Id: {levelId}, " +
+                            $"Progressive Group Id: {linkedLevel.ProgressiveGroupId}";
+            }
+
+            return levelName;
         }
 
         private class ProgressiveLevelInfo
