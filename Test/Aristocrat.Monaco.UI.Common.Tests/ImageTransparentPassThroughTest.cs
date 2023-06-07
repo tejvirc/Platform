@@ -1,11 +1,12 @@
 ﻿namespace Aristocrat.Monaco.UI.Common.Tests
 {
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Controls;
     using System.Windows;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
-    using Aristocrat.Monaco.Test.Common;
-    using Controls;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Test.Common;
+    using Test.Common.UnitTesting;
 
     /// <summary>
     ///     Test for the ImageTransparentPassThrough class

@@ -25,7 +25,7 @@ using System.Windows.Markup;
 
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
 
-[assembly: CLSCompliant(true)]
+[assembly: CLSCompliant(false)]
 [assembly: SupportedOSPlatform("windows7.0")]
 
 [assembly: NeutralResourcesLanguage("en-US")]

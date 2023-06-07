@@ -247,6 +247,9 @@ namespace Aristocrat.G2S.Protocol.v21ext1b1 {
 
         private int idReaderIdField;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public c_cardStatus() {
             this.cardInField = false;
             this.idNumberField = "";
@@ -348,7 +351,9 @@ namespace Aristocrat.G2S.Protocol.v21ext1b1 {
     public partial class c_deviceVisibleStatus : c_baseCommand {
         
         private bool deviceVisibleStateField;
-        
+        /// <summary>
+        /// 
+        /// </summary>
         public c_deviceVisibleStatus() {
             this.deviceVisibleStateField = true;
         }
@@ -539,7 +544,9 @@ namespace Aristocrat.G2S.Protocol.v21ext1b1 {
     public partial class c_setDeviceVisibleState : c_baseCommand {
         
         private bool deviceVisibleStateField;
-        
+        /// <summary>
+        /// 
+        /// </summary>
         public c_setDeviceVisibleState() {
             this.deviceVisibleStateField = true;
         }
@@ -570,7 +577,9 @@ namespace Aristocrat.G2S.Protocol.v21ext1b1 {
         private long sessionIdField;
         
         private long errorCodeField;
-        
+        /// <summary>
+        /// 
+        /// </summary>
         public c_baseClass() {
             this.errorCodeField = ((long)(0));
         }
@@ -922,7 +931,9 @@ namespace Aristocrat.G2S.Protocol.v21ext1b1 {
     public partial class c_getFunctionalGroup : c_baseCommand {
         
         private bool includeCommandsField;
-        
+        /// <summary>
+        /// 
+        /// </summary>
         public c_getFunctionalGroup() {
             this.includeCommandsField = true;
         }
@@ -1265,7 +1276,9 @@ namespace Aristocrat.G2S.Protocol.v21ext1b1 {
         private string eventTextField;
         
         private System.Xml.XmlAttribute[] anyAttrField;
-        
+        /// <summary>
+        /// 
+        /// </summary>
         public c_eventReportEventItem() {
             this.eventTextField = "";
         }
@@ -1330,7 +1343,9 @@ namespace Aristocrat.G2S.Protocol.v21ext1b1 {
         private string localeIdField;
         
         private System.Xml.XmlAttribute[] anyAttrField;
-        
+        /// <summary>
+        /// 
+        /// </summary>
         public cabinetStatus() {
             this.localeIdField = "en_US";
         }
@@ -1370,7 +1385,9 @@ namespace Aristocrat.G2S.Protocol.v21ext1b1 {
         private t_egmStates egmStateField;
         
         private string deviceClassField;
-        
+        /// <summary>
+        /// 
+        /// </summary>
         public c_cabinetStatus() {
             this.deviceClassField = "";
         }
@@ -1584,7 +1601,9 @@ namespace Aristocrat.G2S.Protocol.v21ext1b1 {
         private string eventNameField;
         
         private string eventDescriptionField;
-        
+        /// <summary>
+        /// 
+        /// </summary>
         public c_logContentEvent() {
             this.eventDescriptionField = "";
         }
@@ -1779,7 +1798,9 @@ namespace Aristocrat.G2S.Protocol.v21ext1b1 {
         private string eventCodeField;
         
         private string eventTextField;
-        
+        /// <summary>
+        /// 
+        /// </summary>
         public c_supportedEvent() {
             this.eventTextField = "";
         }
@@ -2420,7 +2441,9 @@ namespace Aristocrat.G2S.Protocol.v21ext1b1 {
         private long secondaryWinField;
         
         private long finalWinField;
-        
+        /// <summary>
+        /// 
+        /// </summary>
         public c_recallLog() {
             this.secondaryPlayedField = ((long)(0));
             this.secondaryWagerField = ((long)(0));

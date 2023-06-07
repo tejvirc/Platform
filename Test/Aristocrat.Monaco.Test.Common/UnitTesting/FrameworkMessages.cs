@@ -1,4 +1,4 @@
-﻿namespace Microsoft.VisualStudio.TestTools.UnitTesting
+﻿namespace Aristocrat.Monaco.Test.Common.UnitTesting
 {
     internal class FrameworkMessages
     {

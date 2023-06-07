@@ -1,13 +1,14 @@
 ﻿namespace Aristocrat.Monaco.Kernel
 {
+    using Bootstrap;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Mono.Addins;
     using System;
     using System.Collections.Generic;
     using System.Globalization;
     using System.IO;
     using System.Reflection;
-    using Bootstrap;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Mono.Addins;
+    using Test.Common.UnitTesting;
 
     /// <summary>
     ///     This is a test class for CommandLineHelpTest and is intended

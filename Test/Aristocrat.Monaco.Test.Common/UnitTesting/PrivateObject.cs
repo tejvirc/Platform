@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-namespace Microsoft.VisualStudio.TestTools.UnitTesting
+namespace Aristocrat.Monaco.Test.Common.UnitTesting
 {
     using System;
     using System.Collections.Generic;
@@ -10,6 +10,7 @@ namespace Microsoft.VisualStudio.TestTools.UnitTesting
     using System.Globalization;
     using System.Reflection;
     using System.Runtime.Serialization;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
     /// This class represents the live NON public INTERNAL object in the system
@@ -148,7 +149,6 @@ namespace Microsoft.VisualStudio.TestTools.UnitTesting
         /// the given object.
         /// </summary>
         /// <param name="obj">object to wrap</param>
-        [SuppressMessage("Microsoft.Naming", "CA1720:IdentifiersShouldNotContainTypeNames", MessageId = "obj", Justification = "We don't know anything about the object other than that it's an object, so 'obj' seems reasonable")]
         public PrivateObject(object obj)
         {
             Helper.CheckParameterNotNull(obj, "obj", string.Empty);
@@ -161,7 +161,6 @@ namespace Microsoft.VisualStudio.TestTools.UnitTesting
         /// </summary>
         /// <param name="obj">object to wrap</param>
         /// <param name="type">PrivateType object</param>
-        [SuppressMessage("Microsoft.Naming", "CA1720:IdentifiersShouldNotContainTypeNames", MessageId = "obj", Justification = "We don't know anything about the object other than that it's an an object, so 'obj' seems reasonable")]
         public PrivateObject(object obj, PrivateType type)
         {
             Helper.CheckParameterNotNull(type, "type", string.Empty);

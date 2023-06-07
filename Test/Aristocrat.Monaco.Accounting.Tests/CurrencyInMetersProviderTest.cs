@@ -1,12 +1,12 @@
 ﻿namespace Aristocrat.Monaco.Accounting.Tests
 {
+    using Accounting.Contracts;
+    using Application.Contracts;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Globalization;
     using System.IO;
-    using Application.Contracts;
-    using Aristocrat.Monaco.Accounting.Contracts;
     using Hardware.Contracts.NoteAcceptor;
     using Hardware.Contracts.Persistence;
     using Kernel;
@@ -14,6 +14,7 @@
     using Mono.Addins;
     using Moq;
     using Test.Common;
+    using Test.Common.UnitTesting;
 
     /// <summary>
     ///     This is a test class for CurrencyInMetersProvider and is intended

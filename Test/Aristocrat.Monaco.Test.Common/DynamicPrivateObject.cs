@@ -14,7 +14,7 @@ namespace Aristocrat.Monaco.Test.Common
 
     using System.Dynamic;
     using System.Reflection;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Test.Common.UnitTesting;
 
     #endregion
 

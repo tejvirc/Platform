@@ -4,9 +4,7 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>Monaco.Gaming</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
-    <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
-    <Platform>x64</Platform>
-    <NoWarn>1701;1702;CA1416;SYSLIB0011</NoWarn>    
+    <Platform>x64</Platform>  
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>

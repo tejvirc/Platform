@@ -6,7 +6,6 @@
     <AssemblyTitle>Aristocrat.Monaco.Accounting.Contracts.Tests</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
     <Platform>x64</Platform>
-    <NoWarn>$(NoWarn);SYSLIB0011</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Application\Aristocrat.Monaco.Application\Aristocrat.Monaco.Application.csproj" />

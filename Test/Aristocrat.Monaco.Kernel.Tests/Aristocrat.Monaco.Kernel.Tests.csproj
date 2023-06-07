@@ -7,10 +7,8 @@
     <Configurations>Debug;Release;Retail</Configurations>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <Platform>x64</Platform>
-    <NoWarn>$(NoWarn);SYSLIB0011;CS3009</NoWarn>   
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Aristocrat.Monaco.Test.Common\Aristocrat.Monaco.Test.Common.csproj" />
     <ProjectReference Include="..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
     <ProjectReference Include="..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
   </ItemGroup>

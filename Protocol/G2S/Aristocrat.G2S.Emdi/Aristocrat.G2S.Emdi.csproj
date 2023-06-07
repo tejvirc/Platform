@@ -4,10 +4,7 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>Aristocrat.G2S.Emdi.Host</AssemblyTitle>
     <Product>Aristocrat.G2S.Emdi.Host</Product>
-    <NoWarn>CS1591;CA1416</NoWarn>
-    <OutputPath>..\..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
     <Configurations>Debug;Release;Retail</Configurations>
-    <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
     <Platform>x64</Platform>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

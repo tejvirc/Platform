@@ -7,7 +7,6 @@
     <Configurations>Debug;Release;Retail</Configurations>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <NoWarn>SYSLIB0003</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>

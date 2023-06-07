@@ -13,7 +13,6 @@ namespace Aristocrat.Monaco.UI.Common
     /// that loads it content only once. If a second instance with the same source
     /// is created, it only merges the resources from the cache.
     /// </summary>
-    [CLSCompliant(false)]
     public class SharedResourceDictionary : ResourceDictionary
     {
         /// <summary>

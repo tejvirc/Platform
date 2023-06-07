@@ -1,12 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Kernel.Tests.MonoAddinsHelpers
 {
     #region Using
-
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System.Collections.Generic;
     using System.Reflection;
     using System.Xml.Serialization;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+    using Test.Common.UnitTesting;
     #endregion
 
     /// <summary>

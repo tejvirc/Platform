@@ -1,18 +1,19 @@
 ﻿namespace Aristocrat.Monaco.Accounting.UI.Tests
 {
+    using Application.Contracts;
+    using Application.Contracts.Localization;
+    using Accounting.Contracts.Transactions;
+    using Contracts;
     using System;
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
-    using Application.Contracts;
-    using Application.Contracts.Localization;
-    using Aristocrat.Monaco.Accounting.Contracts.Transactions;
-    using Contracts;
     using Hardware.Contracts.Persistence;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using Test.Common;
+    using Test.Common.UnitTesting;
     using UI.ViewModels;
 
     /// <summary>

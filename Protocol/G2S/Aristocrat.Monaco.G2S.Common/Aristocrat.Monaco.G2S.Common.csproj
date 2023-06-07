@@ -6,7 +6,6 @@
     <AssemblyTitle>Aristocrat.Monaco.G2S.Common</AssemblyTitle>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Configurations>Debug;Release;Retail</Configurations>
-    <NoWarn>1701;1702;CA1416</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DefineConstants>CODE_ANALYSIS;DEBUG;TRACE</DefineConstants>

@@ -7,7 +7,6 @@
     <Configurations>Debug;Release;Retail</Configurations>
     <UseWPF>true</UseWPF>
     <Platform>x64</Platform>
-    <NoWarn>$(NoWarn);SYSLIB0011</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />

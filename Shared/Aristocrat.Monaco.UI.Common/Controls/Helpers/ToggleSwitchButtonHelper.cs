@@ -6,7 +6,8 @@
     using MahApps.Metro.Controls;
 
     /// <summary>
-    ///     Control helper class for <see cref="ToggleSwitchButton" />
+    ///     Control helper class for <see cref="ToggleSwitchButtonHelper" />
+    ///     Please refer to ToggleSwitchButton (no longer exists in new version
     /// </summary>
     public static class ToggleSwitchButtonHelper
     {
@@ -39,7 +40,7 @@
                     OnOnContentChanged));
 
         /// <summary>
-        ///     Dependency property for setting the Off foreground color of the <see cref="ToggleSwitchButton" />
+        ///     Dependency property for setting the Off foreground color of the <see cref="ToggleSwitchButtonHelper" />
         /// </summary>
         public static readonly DependencyProperty OffBrushProperty =
             DependencyProperty.RegisterAttached(
@@ -52,7 +53,7 @@
                     OnOffBrushChanged));
 
         /// <summary>
-        ///     Dependency property for setting the On foreground color of the <see cref="ToggleSwitchButton" />
+        ///     Dependency property for setting the On foreground color of the <see cref="ToggleSwitchButtonHelper" />
         /// </summary>
         public static readonly DependencyProperty OnBrushProperty =
             DependencyProperty.RegisterAttached(
@@ -65,7 +66,7 @@
                     OnOnBrushChanged));
 
         /// <summary>
-        ///     Gets the Off content for the <see cref="ToggleSwitchButton" />
+        ///     Gets the Off content for the <see cref="ToggleSwitchButtonHelper" />
         /// </summary>
         /// <param name="element"></param>
         /// <returns>The content</returns>
@@ -76,7 +77,7 @@
         }
 
         /// <summary>
-        ///     Sets the Off content for the <see cref="ToggleSwitchButton" />
+        ///     Sets the Off content for the <see cref="ToggleSwitchButtonHelper" />
         /// </summary>
         /// <param name="element"></param>
         /// <param name="content">The content</param>
@@ -86,7 +87,7 @@
         }
 
         /// <summary>
-        ///     Gets the On content for the <see cref="ToggleSwitchButton" />
+        ///     Gets the On content for the <see cref="ToggleSwitchButtonHelper" />
         /// </summary>
         /// <param name="element"></param>
         /// <returns>The content</returns>
@@ -96,7 +97,7 @@
         }
 
         /// <summary>
-        ///     Sets the On content for the <see cref="ToggleSwitchButton" />
+        ///     Sets the On content for the <see cref="ToggleSwitchButtonHelper" />
         /// </summary>
         /// <param name="element"></param>
         /// <param name="content">The content</param>
@@ -106,7 +107,7 @@
         }
 
         /// <summary>
-        ///     Gets the Off brush foreground color for the <see cref="ToggleSwitchButton" />
+        ///     Gets the Off brush foreground color for the <see cref="ToggleSwitchButtonHelper" />
         /// </summary>
         /// <param name="element"></param>
         /// <returns>The color brush</returns>
@@ -116,7 +117,7 @@
         }
 
         /// <summary>
-        ///     Sets the Off brush foreground color for the <see cref="ToggleSwitchButton" />
+        ///     Sets the Off brush foreground color for the <see cref="ToggleSwitchButtonHelper" />
         /// </summary>
         /// <param name="element"></param>
         /// <param name="brush">The color brush</param>
@@ -126,7 +127,7 @@
         }
 
         /// <summary>
-        ///     Gets the On brush foreground color for the <see cref="ToggleSwitchButton" />
+        ///     Gets the On brush foreground color for the <see cref="ToggleSwitchButtonHelper" />
         /// </summary>
         /// <param name="element"></param>
         /// <returns>The color brush</returns>
@@ -136,7 +137,7 @@
         }
 
         /// <summary>
-        ///     Sets the On brush foreground color for the <see cref="ToggleSwitchButton" />
+        ///     Sets the On brush foreground color for the <see cref="ToggleSwitchButtonHelper" />
         /// </summary>
         /// <param name="element"></param>
         /// <param name="brush">The color brush</param>

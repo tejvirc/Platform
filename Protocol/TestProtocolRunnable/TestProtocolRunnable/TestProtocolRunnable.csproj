@@ -8,7 +8,6 @@
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <UseWPF>true</UseWPF>
     <Platform>x64</Platform>
-    <NoWarn>1701;1702;CA1416</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>

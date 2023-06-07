@@ -9,7 +9,6 @@
              lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
              lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
              xmlns:core="clr-namespace:System;assembly=mscorlib"
-             xmlns:loc="http://monaco.aristocrat.com/localization"
              xmlns:local="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
              xmlns:barkeeper="clr-namespace:Aristocrat.Monaco.Gaming.Contracts.Barkeeper;assembly=Aristocrat.Monaco.Gaming.Contracts"
              xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"

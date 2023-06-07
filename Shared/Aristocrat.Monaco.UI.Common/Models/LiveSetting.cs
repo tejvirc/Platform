@@ -9,7 +9,6 @@
     using Quartz.Util;
 
     /// <see cref="LiveSetting{TValue}"/>
-    [CLSCompliant(false)]
     public abstract class LiveSetting : BaseNotify
     {
         /// <summary>
@@ -56,7 +55,6 @@
     ///                         - Call <see cref="IsDirty"/> to determine whether the value has been edited.
     /// </remarks>
     /// <typeparam name="TValue">The live and edited values' type, typically the same type as the underlying source.</typeparam>
-    [CLSCompliant(false)]
     public class LiveSetting<TValue> : LiveSetting, IDataErrorInfo
     {
         private TValue _editedValue;

@@ -10,6 +10,7 @@
     using Mono.Addins;
     using Moq;
     using Test.Common;
+    using Test.Common.UnitTesting;
     using PathMapper = Kernel.PathMapper;
 
     [TestClass]

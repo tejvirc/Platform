@@ -6,7 +6,6 @@
     using CefSharp.Enums;
 
     /// <inheritdoc />
-    [CLSCompliant(false)]
     public class DragHandler : IDragHandler
     {
         /// <inheritdoc />

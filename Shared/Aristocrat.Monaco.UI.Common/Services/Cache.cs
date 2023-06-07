@@ -36,7 +36,6 @@ namespace Aristocrat.Monaco.UI.Common.Services
         /// Constructor
         /// </summary>
         /// <param name="eventBus"></param>
-        [CLSCompliant(false)]
         public Cache(IEventBus eventBus)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));

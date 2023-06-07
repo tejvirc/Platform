@@ -25,12 +25,7 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Management" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Discovery\ConfiguredDevicesConfiguration.cs">
@@ -111,8 +106,6 @@
     <PackageReference Include="Mono.Addins" Version="1.4.1" />
     <PackageReference Include="Mono.Addins.CecilReflector" Version="1.4.1" />
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
-    <PackageReference Include="System.IO.Ports" Version="6.0.0">
-      <PrivateAssets>runtimes</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="System.IO.Ports" Version="6.0.0" />
   </ItemGroup>
 </Project>

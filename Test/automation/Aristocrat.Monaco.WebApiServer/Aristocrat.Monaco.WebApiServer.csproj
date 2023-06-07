@@ -4,7 +4,6 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Platform>x64</Platform>
     <Configurations>Debug;Release;Retail</Configurations>
-    <NoWarn>$(NoWarn);CS3001</NoWarn>
     <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

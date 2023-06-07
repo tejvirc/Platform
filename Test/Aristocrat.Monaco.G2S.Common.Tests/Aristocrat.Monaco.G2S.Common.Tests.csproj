@@ -6,7 +6,6 @@
     <AssemblyTitle>Aristocrat.Monaco.G2S.Common.Tests</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
     <Platform>x64</Platform>
-    <NoWarn>$(NoWarn);SYSLIB0021</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Application\Monaco.Application.Contracts\Aristocrat.Monaco.Application.Contracts.csproj" />

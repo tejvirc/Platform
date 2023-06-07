@@ -10,7 +10,6 @@ namespace Aristocrat.Monaco.Kernel.Tests.MonoAddinsHelpers
     /// <summary>
     ///     Definition of the CustomExtensionNode class.
     /// </summary>
-    [CLSCompliant(false)]
     [ExtensionNode("CustomExtension")]
     public class CustomExtensionNode : ExtensionNode
     {

@@ -2,17 +2,18 @@
 namespace Aristocrat.Monaco.Application.Tests.Monitors
 {
     using Application.Monitors;
-    using Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor;
     using Contracts;
     using Contracts.OperatorMenu;
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.Persistence;
+    using Hardware.Contracts.NoteAcceptor;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using System;
     using System.Collections.Generic;
     using Test.Common;
+    using Test.Common.UnitTesting;
 
     /// <summary>
     ///     This contains the unit tests for the NoteAcceptorMonitor class

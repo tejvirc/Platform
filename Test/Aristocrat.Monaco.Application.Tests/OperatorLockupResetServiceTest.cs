@@ -8,6 +8,7 @@
     using System;
     using System.Collections.Generic;
     using Test.Common;
+    using Test.Common.UnitTesting;
 
     [TestClass]
     public class OperatorLockupResetServiceTest

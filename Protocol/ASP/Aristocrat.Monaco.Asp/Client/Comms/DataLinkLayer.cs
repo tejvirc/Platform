@@ -94,9 +94,6 @@
                     if (IsRunning)
                     {
                         Logger.Error("Asp could not stop the AspDataLinkTask aborting.");
-#pragma warning disable SYSLIB0006 // Type or member is obsolete
-                        _thread.Abort();
-#pragma warning restore SYSLIB0006 // Type or member is obsolete
                         while (IsRunning)
                         {
                             Thread.Sleep(0);

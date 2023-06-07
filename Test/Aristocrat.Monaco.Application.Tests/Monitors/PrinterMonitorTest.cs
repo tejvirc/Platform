@@ -2,11 +2,11 @@
 namespace Aristocrat.Monaco.Application.Tests.Monitors
 {
     using Application.Monitors;
-    using Aristocrat.Monaco.Hardware.Contracts.Printer;
     using Contracts;
     using Contracts.OperatorMenu;
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.Persistence;
+    using Hardware.Contracts.Printer;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
@@ -14,7 +14,7 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
     using System.Collections.Generic;
     using System.Reflection;
     using Test.Common;
-
+    using Test.Common.UnitTesting;
 
     /// <summary>
     ///     This contains the unit tests for the PrinterMonitor class

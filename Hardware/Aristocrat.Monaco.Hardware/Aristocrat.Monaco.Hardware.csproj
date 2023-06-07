@@ -4,12 +4,10 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Platform>x64</Platform>
     <AssemblyTitle>Aristocrat.Monaco.Hardware</AssemblyTitle>
-    <Configurations>Debug;Release;Retail</Configurations>
-    <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>    
+    <Configurations>Debug;Release;Retail</Configurations>  
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <NoWarn>$(NoWarn);SYSLIB0003</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
@@ -144,8 +142,6 @@
     <PackageReference Include="Mono.Addins" Version="1.4.1" />
     <PackageReference Include="Mono.Addins.CecilReflector" Version="1.4.1" />
     <PackageReference Include="Aristocrat.NativeInterop" Version="2.0.0-beta0001" />
-    <PackageReference Include="System.IO.Ports" Version="6.0.0">
-      <PrivateAssets>runtimes</PrivateAssets>
-    </PackageReference>    
+    <PackageReference Include="System.IO.Ports" Version="6.0.0" />
   </ItemGroup>
 </Project>

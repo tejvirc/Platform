@@ -6,7 +6,6 @@
     <AssemblyTitle>Aristocrat.Monaco.Hardware.Tests</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-    <NoWarn>$(NoWarn);SYSLIB0011</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />

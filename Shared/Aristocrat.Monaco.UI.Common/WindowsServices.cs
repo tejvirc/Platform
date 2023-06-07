@@ -11,7 +11,6 @@ namespace Aristocrat.Monaco.UI.Common
     /// <summary>
     /// 
     /// </summary>
-    [CLSCompliant(false)]
     public static class WindowsServices
     {
         private const int WsExTransparent = 0x00000020;
@@ -57,7 +56,6 @@ namespace Aristocrat.Monaco.UI.Common
         /// <summary>
         /// TOUCHINPUT
         /// </summary>
-        [CLSCompliant(false)]
         [StructLayout(LayoutKind.Sequential)]
         public struct TOUCHINPUT
         {

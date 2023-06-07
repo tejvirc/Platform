@@ -278,7 +278,6 @@
             Crash(args.ExceptionObject);
         }
 
-        [SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.ControlAppDomain)]
         private static void Crash(object exception)
         {
             Logger.Fatal("UNHANDLED EXCEPTION CAUGHT");
@@ -319,7 +318,6 @@
             Logger.Info("Done.");
         }
 
-        [SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.ControlAppDomain)]
         private void SetUnhandledExceptionHandler()
         {
             Logger.Info("Setting Unhandled Exception Handler...");

@@ -5,7 +5,6 @@
     using CefSharp;
 
     /// <inheritdoc />
-    [CLSCompliant(false)]
     public class DialogHandler : IDialogHandler
     {
         /// <inheritdoc />

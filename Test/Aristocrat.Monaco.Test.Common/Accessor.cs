@@ -10,9 +10,9 @@
 
 namespace Aristocrat.Monaco.Test.Common
 {
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System;
     using System.Reflection;
+    using Test.Common.UnitTesting;
 
     /// <summary>
     ///     This class contains methods to access private variables and methods of a class

@@ -128,7 +128,7 @@
         {
             var certificate = CertificateHelper.GenerateCertificate("aaa-bbb-ccc");
 
-            var sha1CryptoServiceProvider = new SHA1CryptoServiceProvider();
+            var sha1CryptoServiceProvider = SHA1.Create();
             var hash = sha1CryptoServiceProvider.ComputeHash(certificate.GetRawCertData());
 
             var hashHexadecimalViewBuilder = new StringBuilder();

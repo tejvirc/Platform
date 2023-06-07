@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Kernel.Tests.RunnablesManagers
 {
     using System.Collections.Generic;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Test.Common.UnitTesting;
 
     /// <summary>
     ///     Private object implementation for <c>RunnablesManager</c>.

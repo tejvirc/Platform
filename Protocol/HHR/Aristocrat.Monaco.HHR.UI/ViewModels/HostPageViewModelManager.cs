@@ -1,8 +1,5 @@
 ﻿namespace Aristocrat.Monaco.Hhr.UI.ViewModels
 {
-    using System;
-    using System.Collections.Concurrent;
-    using System.Threading.Tasks;
     using Accounting.Contracts;
     using Application.Contracts;
     using Cabinet.Contracts;
@@ -10,11 +7,14 @@
     using Kernel;
     using log4net;
     using Menu;
-    using MVVM.ViewModel;
-    using Services;
-    using Views;
     using MVVM;
+    using MVVM.ViewModel;
+    using Views;
+    using Services;
     using System.Windows;
+    using System;
+    using System.Collections.Concurrent;
+    using System.Threading.Tasks;
 
     public class HostPageViewModelManager : BaseEntityViewModel, IMenuAccessService, IDisposable
     {
@@ -32,8 +32,7 @@
         private readonly CurrentProgressivePageViewModel _currentProgressivePageViewModel;
         private readonly HelpPageViewModel _helpPageViewModel;
         private readonly BetHelpPageViewModel _betHelpPageViewModel;
-        private readonly ConcurrentDictionary<Command, IHhrMenuPageViewModel> _commandsToViewModelMap =
-            new ConcurrentDictionary<Command, IHhrMenuPageViewModel>();
+        private readonly ConcurrentDictionary<Command, IHhrMenuPageViewModel> _commandsToViewModelMap = new();
 
         private readonly HHRTimer _placardTimer;
         private readonly HHRTimer _overlayExpiryTimer;
@@ -52,7 +51,7 @@
         private readonly IPlayerBank _bank;
         private readonly ITransactionCoordinator _transactionCoordinator;
         private Guid _raceInfoTransactionId;
-        protected new readonly ILog Logger;
+        protected readonly ILog Logger;
 
         public IHhrMenuPageViewModel SelectedViewModel
         {
