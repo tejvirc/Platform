@@ -33,6 +33,11 @@
         private bool _disposed;
 
         /// <summary>
+        /// The cashout is issued because locked up
+        /// </summary>
+        private bool _lockupCashout = false;
+
+        /// <summary>
         ///     Constructs the calculator by retrieving all necessary services from the service manager. This
         ///     constructor is necessary because this is a service in the accounting layer where DI is not used.
         /// </summary>
@@ -80,6 +85,12 @@
         /// <inheritdoc />
         public long GetCashableAmount(long amount)
         {
+            if (_disableManager.IsDisabled)
+            {
+                _lockupCashout = true;
+                return ((long)amount.MillicentsToDollars()).DollarsToMillicents();
+            }
+
             var amountCashable = Math.Min(amount, _handCountService.HandCount * _cashOutAmountPerHand);
 
             amountCashable = ((long)amountCashable.MillicentsToDollars()).DollarsToMillicents();
@@ -91,7 +102,17 @@
         /// <inheritdoc />
         public void PostProcessTransaction(long amount)
         {
-            var handCountUsed = (int)Math.Ceiling(amount / (decimal)_cashOutAmountPerHand);
+            var handCountUsed = 0;
+            if (_lockupCashout)
+            {
+                _lockupCashout = false;
+                handCountUsed = _handCountService.HandCount;
+            }
+            else
+            {
+                handCountUsed = (int)Math.Ceiling(amount / (decimal)_cashOutAmountPerHand);
+            }
+
             _handCountService.DecreaseHandCount(handCountUsed);
         }
 
