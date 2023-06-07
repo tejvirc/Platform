@@ -4706,7 +4706,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             return true;
         }
 
-        private bool ResidualCreditsAboveMinimumBet()
+        private bool ResidualCreditsInMachine()
         {
 
             if (!_handCountServiceEnabled || (BaseState != LobbyState.Game))
@@ -4714,11 +4714,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 return false;
             }
 
-            var (_, denom) = _properties.GetActiveGame();
-            var minimumWagerInMillicents = denom.MinimumWagerCredits * denom.Value;
             var redeemableCreditsInMillicents = _bank.QueryBalance();
 
-            return redeemableCreditsInMillicents >= minimumWagerInMillicents;
+            return redeemableCreditsInMillicents > 0;
         }
 
         private void UpdatePaidMeterValue(double paidCashAmount)
@@ -4829,10 +4827,16 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
             // After cashout if there are still residual credit in the machine, do not turn off all buttons.
             // Only turn off the cashout button
-            if (ResidualCreditsAboveMinimumBet())
+            if (ResidualCreditsInMachine())
             {
+                if (IsCreditAboveAcceptableResidual())
+                {
+                    return;
+                }
+
                 DetermineCollectLampState(ref buttonsLampState);
                 _buttonLamps?.SetLampState(buttonsLampState);
+
                 return;
             }
 
