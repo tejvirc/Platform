@@ -37,6 +37,7 @@
         {
             var checkBalance = new CheckBalance();
 
+            _runtime.UpdateBalance(_playerBank.Credits);
             _commandFactory.Create<CheckBalance>().Handle(checkBalance);
             _operatorMenu.EnableKey(GamingConstants.OperatorMenuDisableKey);
             _playerBank.Unlock();
