@@ -1224,6 +1224,11 @@
         public const string AutocompleteGameRoundEnabled = @"AutocompleteGameRoundEnabled";
 
         /// <summary>
+        ///     Determines if progressive settings is editable during setup
+        /// </summary>
+        public const string ProgressiveSetupReadonly = @"ProgressiveSetupReadonly";
+
+        /// <summary>
         ///     encapsulate Player Information Display options
         /// </summary>
         public static class PlayerInformationDisplay

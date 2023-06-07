@@ -705,9 +705,10 @@
                 return;
             }
 
+            var isProgressiveSetupReadonly = _properties.GetValue(GamingConstants.ProgressiveSetupReadonly, false);
             ProgressiveSetupConfigured = ViewProgressiveLevels
-                .Any(p => p.CurrentState != ProgressiveLevelState.Init);
-            ProgressivesEditable = ViewProgressiveLevels.Any(p => p.CanEdit) && (!_assignedLevels?.Any() ?? false);
+                .Any(p => p.CurrentState != ProgressiveLevelState.Init) || isProgressiveSetupReadonly;
+            ProgressivesEditable = ViewProgressiveLevels.Any(p => p.CanEdit) && (!_assignedLevels?.Any() ?? false) && !isProgressiveSetupReadonly;
             RaisePropertyChanged(nameof(UseImportedLevels));
         }
 

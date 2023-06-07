@@ -438,6 +438,17 @@
             <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
           </xs:complexType>
         </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="ProgressiveView">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="1" name="InitialSetupView">
+                <xs:complexType>
+                  <xs:attribute name="Readonly" type="xs:boolean" use="optional" default="false" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:sequence>     
     </xs:complexType>
   </xs:element>

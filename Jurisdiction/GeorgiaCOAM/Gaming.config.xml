@@ -59,4 +59,7 @@ as follows:
     <GameStartButtons Method="None" />
   </PhysicalButtons>
   <AutoCompleteGameRound Enabled="false" />
+  <ProgressiveView>
+    <InitialSetupView Readonly="true" />
+  </ProgressiveView>
 </GamingConfiguration>

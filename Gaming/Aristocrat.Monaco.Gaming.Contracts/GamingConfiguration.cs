@@ -14,7 +14,7 @@
 namespace Aristocrat.Monaco.Gaming.Contracts {
     using System.Xml.Serialization;
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -125,6 +125,8 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         private GamingConfigurationBonusTransfer bonusTransferField;
         
         private GamingConfigurationAutoCompleteGameRound autoCompleteGameRoundField;
+        
+        private GamingConfigurationProgressiveView progressiveViewField;
         
         /// <remarks/>
         public GamingConfigurationGameHistory GameHistory {
@@ -633,6 +635,16 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.autoCompleteGameRoundField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public GamingConfigurationProgressiveView ProgressiveView {
+            get {
+                return this.progressiveViewField;
+            }
+            set {
+                this.progressiveViewField = value;
             }
         }
     }
@@ -3676,6 +3688,54 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.enabledField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class GamingConfigurationProgressiveView {
+        
+        private GamingConfigurationProgressiveViewInitialSetupView initialSetupViewField;
+        
+        /// <remarks/>
+        public GamingConfigurationProgressiveViewInitialSetupView InitialSetupView {
+            get {
+                return this.initialSetupViewField;
+            }
+            set {
+                this.initialSetupViewField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class GamingConfigurationProgressiveViewInitialSetupView {
+        
+        private bool readonlyField;
+        
+        public GamingConfigurationProgressiveViewInitialSetupView() {
+            this.readonlyField = false;
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool Readonly {
+            get {
+                return this.readonlyField;
+            }
+            set {
+                this.readonlyField = value;
             }
         }
     }
