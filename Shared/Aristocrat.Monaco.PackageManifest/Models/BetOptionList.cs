@@ -43,6 +43,14 @@ namespace Aristocrat.Monaco.PackageManifest.Models
         }
 
         /// <summary>
+        ///     Creates a BetOptionsList from an IEnumerable BetOptions
+        /// </summary>
+        /// <param name="options"></param>
+        public BetOptionList(IEnumerable<BetOption> options)
+        {
+            _options = options.Select(i => i);
+        }
+        /// <summary>
         ///     Returns an enumerator that iterates through the collection.
         /// </summary>
         public IEnumerator<BetOption> GetEnumerator()

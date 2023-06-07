@@ -9,6 +9,7 @@
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
+    using Common;
     using Contracts;
     using Contracts.Configuration;
     using Contracts.Models;
@@ -118,8 +119,7 @@
                 }
 
                 RaisePropertyChanged(nameof(Game));
-                LoadBetOptions();
-                LoadLineOptions();
+                LoadBetOptions(); //will also call LoadLineOptions()
                 LoadBonusBets(SelectedBetOption);
                 SetProgressivesConfigured();
                 TopAwardValue = RecalculateTopAward();
@@ -174,6 +174,7 @@
                 }
 
                 _selectedBetOption = value;
+                LoadLineOptions();
                 RaisePropertyChanged(nameof(SelectedBetOption));
                 LoadBonusBets(SelectedBetOption);
                 ConfigurationMinBet();
@@ -785,12 +786,26 @@
             }
 
             BetOptions = new ObservableCollection<BetOption>(Game?.BetOptionList);
+            var foundBetOptions = Game?.BetLinePresetList.DistinctBy(i => i.BetOption.Name);
+            var betList = new List<BetOption>();
+            foreach (var presets in foundBetOptions)
+            {
+                foreach (var bet in BetOptions)
+                {
+                    if (bet.Name == presets.BetOption.Name)
+                    {
+                        betList.Add(bet);
+                    }
+                }
+            }
+            BetOptions = new ObservableCollection<BetOption>(betList);
+            // BetOptions = BetOptions.Where(i => i.Description == BetLinePresets.)
 
             SelectedBetOption = (string.IsNullOrEmpty(denomination.BetOption)
                                     ? null
                                     : BetOptions.FirstOrDefault(o => o.Name == denomination.BetOption))
-                                ?? Game?.ActiveBetOption
-                                ?? BetOptions?.FirstOrDefault();
+                                ?? BetOptions?.FirstOrDefault()
+                                ?? Game?.ActiveBetOption;
 
             BetOptionAvailable = BetOptions.Any();
         }
@@ -813,11 +828,25 @@
 
             LineOptions = new ObservableCollection<LineOption>(Game?.LineOptionList);
 
+            var gameBetLinePresetList = Game?.BetLinePresetList;
+            var optionsList = new List<LineOption>();
+            foreach (var presets in gameBetLinePresetList)
+            {
+                foreach (var line in LineOptions)
+                {
+                    if (SelectedBetOption.Name == presets.BetOption.Name && line.Name == presets.LineOption.Name)
+                    {
+                        optionsList.Add(line);
+                    }
+                }
+            }
+            LineOptions = new ObservableCollection<LineOption>(optionsList);
+
             SelectedLineOption = (string.IsNullOrEmpty(denomination.LineOption)
                                      ? null
                                      : LineOptions?.FirstOrDefault(o => o.Name == denomination.LineOption))
-                                 ?? Game?.ActiveLineOption
-                                 ?? LineOptions?.FirstOrDefault();
+                                 ?? LineOptions?.FirstOrDefault()
+                                 ?? Game?.ActiveLineOption;
 
             LineOptionAvailable = LineOptions.Any();
         }

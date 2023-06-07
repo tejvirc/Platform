@@ -19,5 +19,10 @@
         ///     The game attributes if the product type is a game.
         /// </value>
         public IEnumerable<GameAttributes> GameAttributes { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the custom game math restrictions per jurisdictions for game content.
+        /// </summary>
+        public IEnumerable<JurisdictionRestriction> JurisdictionRestrictions { get; set; }
     }
 }

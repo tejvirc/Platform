@@ -132,6 +132,7 @@
             container.Register<IProtocolLinkedProgressiveAdapter, ProtocolLinkedProgressiveAdapter>(Lifestyle.Singleton);
             container.Register<IHandpayRuntimeFlagsHelper, HandpayRuntimeFlagsHelper>(Lifestyle.Singleton);
             container.Register<IReplayRuntimeEventHandler, ReplayRuntimeEventHandler>(Lifestyle.Singleton);
+            container.Register<ICustomGameMathFilterService, CustomGameMathFilterService>(Lifestyle.Singleton);
             container.Register<ReelControllerMonitor>(Lifestyle.Singleton);
 
             var progressiveCalculatorFactory = new ProgressiveCalculatorFactory(container);

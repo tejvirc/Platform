@@ -40,6 +40,14 @@ namespace Aristocrat.Monaco.PackageManifest.Models
         }
 
         /// <summary>
+        ///     Creates a BetLinePresetList from an IEnumerable BetLinePreset
+        /// </summary>
+        public BetLinePresetList(IEnumerable<BetLinePreset> presets)
+        {
+            _betLinePresets = presets.Select(i => i);
+        }
+
+        /// <summary>
         ///     Returns an enumerator that iterates through the collection.
         /// </summary>
         public IEnumerator<BetLinePreset> GetEnumerator() => _betLinePresets.GetEnumerator();

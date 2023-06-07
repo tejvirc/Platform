@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Tests
+namespace Aristocrat.Monaco.Gaming.Tests
 {
     using System;
     using System.Collections.Generic;
@@ -46,6 +46,7 @@
         private Mock<IConfigurationProvider> _configurationProvider;
         private Mock<ICabinetDetectionService> _cabinetDetectionService;
         private Mock<IServiceManager> _serviceManager;
+        private Mock<ICustomGameMathFilterService> _filterService;
 
         [TestInitialize]
         public void Initialize()
@@ -68,21 +69,22 @@
 
         [DataTestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        [DataRow(true, false, false, false, false, false, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, true, false, false, false, false, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, true, false, false, false, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, true, false, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, true, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, true, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, true, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, true, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, true, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, true, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, false, true, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, true, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, true, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, false, true)]
+        [DataRow(true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false)]
+        [DataRow(false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false)]
+        [DataRow(false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false)]
+        [DataRow(false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false)]
+        [DataRow(false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)]
+        [DataRow(false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false)]
+        [DataRow(false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false)]
+        [DataRow(false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false)]
+        [DataRow(false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false)]
+        [DataRow(false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false)]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false)]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false)]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false)]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false)]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false)]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true)]
         public void WhenArgumentIsNullExpectException(
             bool nullPath,
             bool nullStorage,
@@ -98,7 +100,8 @@
             bool nullId,
             bool nullDigitalRights,
             bool nullConfiguration,
-            bool nullCabinet)
+            bool nullCabinet,
+            bool nullFilter)
         {
             CreateTarget(
                 nullPath,
@@ -115,7 +118,8 @@
                 nullId,
                 nullDigitalRights,
                 nullConfiguration,
-                nullCabinet);
+                nullCabinet,
+                nullFilter);
         }
 
         private void CreateTarget(
@@ -133,7 +137,8 @@
             bool nullId = false,
             bool nullDigitalRights = false,
             bool nullConfiguration = false,
-            bool nullCabinet = false)
+            bool nullCabinet = false,
+            bool nullFilter = false)
         {
             _target = new GameProvider(
                 nullPath ? null : _pathMapper.Object,
@@ -150,7 +155,8 @@
                 nullId ? null : _idProvider.Object,
                 nullDigitalRights ? null : _digitalRights.Object,
                 nullConfiguration ? null : _configurationProvider.Object,
-                nullCabinet ? null : _cabinetDetectionService.Object);
+                nullCabinet ? null : _cabinetDetectionService.Object,
+                nullFilter ? null : _filterService.Object);
 
             _target.Initialize();
         }
@@ -172,6 +178,7 @@
             _digitalRights = new Mock<IDigitalRights>(MockBehavior.Default);
             _configurationProvider = new Mock<IConfigurationProvider>(MockBehavior.Default);
             _cabinetDetectionService = new Mock<ICabinetDetectionService>(MockBehavior.Default);
+            _filterService = new Mock<ICustomGameMathFilterService>(MockBehavior.Default);
         }
 
         private void SetupProperties()
@@ -245,6 +252,8 @@
             _gameContent.GameAttributes = new List<GameAttributes> { attributes };
             _gameContent.ReleaseNumber = "1";
             _manifest.Setup(m => m.Read(It.IsAny<string>())).Returns(_gameContent);
+            var gameContent = It.IsAny<GameContent>();
+            _filterService.Setup(i => i.Filter(ref gameContent));
 
             if (!File.Exists(gsaManifestFile))
             {

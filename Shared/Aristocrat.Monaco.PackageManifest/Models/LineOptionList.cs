@@ -36,6 +36,14 @@ namespace Aristocrat.Monaco.PackageManifest.Models
         }
 
         /// <summary>
+        ///     Creates a LineOptionList from an IEnumerable LineOptions.
+        /// </summary>
+        /// <param name="options"></param>
+        public LineOptionList(IEnumerable<LineOption> options)
+        {
+            _lineOptions = options.Select(i => i);
+        }
+        /// <summary>
         ///     Returns an enumerator that iterates through the collection.
         /// </summary>
         public IEnumerator<LineOption> GetEnumerator() => _lineOptions.GetEnumerator();

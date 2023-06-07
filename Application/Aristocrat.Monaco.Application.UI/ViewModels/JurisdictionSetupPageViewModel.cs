@@ -30,6 +30,7 @@
         private const string GameRules = "GameRules";
 
         private string _selectedJurisdiction;
+        private string _selectedJurisdictionId;
         private bool _isShowModeChecked;
         private bool _isGameRulesChecked;
         private bool _gameRulesEditable;
@@ -45,41 +46,47 @@
         private readonly IDialogService _dialogService;
         private CancellationTokenSource _cancellation;
         private bool _gameRulesVisible;
+        private readonly ICollection<AddinConfigurationGroupNode> _jurisdictions;
+        private string _licensedJurisdictionId;
 
         public JurisdictionSetupPageViewModel() : base(true)
         {
-            var jurisdictions = MonoAddinsHelper.GetSelectableConfigurationAddinNodes(ApplicationConstants.Jurisdiction);
+            _jurisdictions = MonoAddinsHelper.GetSelectableConfigurationAddinNodes(ApplicationConstants.Jurisdiction);
 
             // If a jurisdiction ID was specified in license info, curtail the jurisdiction
             // selections to those that match the license data.
-            var licensedJurisdictionId = string.Empty;
+            _licensedJurisdictionId = string.Empty;
             var serviceManager = ServiceManager.GetInstance();
             var digitalRights = serviceManager.GetService<IDigitalRights>();
-            licensedJurisdictionId = digitalRights.JurisdictionId;
-            Logger.Debug($"JurisdictionId from DRM: '{licensedJurisdictionId}'");
+            _licensedJurisdictionId = digitalRights.JurisdictionId;
+            Logger.Debug($"JurisdictionId from DRM: '{_licensedJurisdictionId}'");
 
-            if (!string.IsNullOrEmpty(licensedJurisdictionId))
+            if (!string.IsNullOrEmpty(_licensedJurisdictionId))
             {
-                jurisdictions = jurisdictions.Where(j => j.Id.Contains(licensedJurisdictionId)).ToList();
+                _jurisdictions = _jurisdictions.Where(j => j.Id.Contains(_licensedJurisdictionId)).ToList();
             }
 
-            Jurisdictions = new List<string>(jurisdictions.Select(j => j.Name).OrderBy(o => o));
+            Jurisdictions = new List<string>(_jurisdictions.Select(j => j.Name).OrderBy(o => o));
 
             var jurisdiction = PropertiesManager.GetValue(ApplicationConstants.JurisdictionKey, string.Empty);
 
             if (!string.IsNullOrWhiteSpace(jurisdiction))
             {
                 _selectedJurisdiction = Jurisdictions.FirstOrDefault(x => x == jurisdiction);
+                
             }
 
             _selectedJurisdiction = _selectedJurisdiction ?? Jurisdictions.FirstOrDefault();
-
+            _selectedJurisdictionId = string.IsNullOrWhiteSpace(_licensedJurisdictionId)?
+                _jurisdictions.Where(x => x.Name == _selectedJurisdiction)
+                .Select(x => x.Id).FirstOrDefault()
+                : _licensedJurisdictionId;
 #if !(RETAIL)
             ShowModeVisible = true;
 #else
             ShowModeVisible = licensedJurisdictionId == ShowModeJurisdictionId;
 #endif
-            _isShowModeChecked = licensedJurisdictionId == ShowModeJurisdictionId;
+            _isShowModeChecked = _licensedJurisdictionId == ShowModeJurisdictionId;
             _gameRulesVisible = ShowModeVisible;
             _isGameRulesChecked = !_isShowModeChecked;
             _isJurisdictionSelectionEnabled = true;
@@ -156,6 +163,10 @@
             set
             {
                 _selectedJurisdiction = value;
+                _selectedJurisdictionId = string.IsNullOrWhiteSpace(_licensedJurisdictionId) ?
+                    _jurisdictions.Where(x => x.Name == _selectedJurisdiction)
+                        .Select(x => x.Id).FirstOrDefault()
+                    : _licensedJurisdictionId;
                 RaisePropertyChanged(nameof(SelectedJurisdiction));
             }
         }
@@ -243,6 +254,7 @@
 
             Logger.InfoFormat($"Jurisdiction={SelectedJurisdiction}");
 
+            PropertiesManager.SetProperty(ApplicationConstants.JurisdictionId, _selectedJurisdictionId);
             PropertiesManager.SetProperty(ApplicationConstants.JurisdictionKey, SelectedJurisdiction);
             PropertiesManager.SetProperty(ApplicationConstants.ShowMode, IsShowModeChecked);
             PropertiesManager.SetProperty(ApplicationConstants.GameRules, IsGameRulesChecked);

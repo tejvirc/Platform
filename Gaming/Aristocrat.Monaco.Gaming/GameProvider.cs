@@ -81,6 +81,7 @@
         private readonly IDigitalRights _digitalRights;
         private readonly IConfigurationProvider _configurationProvider;
         private readonly ICabinetDetectionService _cabinetDetectionService;
+        private readonly ICustomGameMathFilterService _filterService;
 
         private readonly double _multiplier;
         private readonly object _sync = new();
@@ -102,7 +103,8 @@
             IIdProvider idProvider,
             IDigitalRights digitalRights,
             IConfigurationProvider configurationProvider,
-            ICabinetDetectionService cabinetDetectionService)
+            ICabinetDetectionService cabinetDetectionService,
+            ICustomGameMathFilterService filterService)
         {
             _pathMapper = pathMapper ?? throw new ArgumentNullException(nameof(pathMapper));
             _storageManager = storageManager ?? throw new ArgumentNullException(nameof(storageManager));
@@ -119,6 +121,7 @@
             _digitalRights = digitalRights ?? throw new ArgumentNullException(nameof(digitalRights));
             _configurationProvider = configurationProvider ?? throw new ArgumentNullException(nameof(configurationProvider));
             _cabinetDetectionService = cabinetDetectionService ?? throw new ArgumentNullException(nameof(cabinetDetectionService));
+            _filterService = filterService ?? throw new ArgumentNullException(nameof(filterService));
 
             _multiplier = properties.GetValue(ApplicationConstants.CurrencyMultiplierKey, 1d);
 
@@ -446,7 +449,7 @@
 
             try
             {
-                var gameContent = _manifest.Read(manifest);
+                var gameContent = ReadAndFilterFromManifest(manifest);
 
                 return FindGame(gameContent);
             }
@@ -505,7 +508,7 @@
                             continue;
                         }
 
-                        var gameContent = _manifest.Read(manifest);
+                        var gameContent = ReadAndFilterFromManifest(manifest);
 
                         gameDetail.TargetRuntime = GetTargetRuntime(gameContent);
                     }
@@ -848,7 +851,7 @@
                     if (files.Length == 1)
                     {
                         // Attempt to parse the manifest file.
-                        var gameContent = _manifest.Read(files[0]);
+                        var gameContent = ReadAndFilterFromManifest(files[0]);
 
                         // Add any discovered files that haven't already been processed
                         var current = gameContent.GameAttributes.Select(
@@ -1155,7 +1158,7 @@
 
             try
             {
-                var gameContent = _manifest.Read(file);
+                var gameContent = ReadAndFilterFromManifest(file);
                 var gameFolder = Path.GetDirectoryName(file);
                 if (gameFolder == null)
                 {
@@ -1237,7 +1240,7 @@
 
         private void RemoveFromManifest(string file)
         {
-            var gameContent = _manifest.Read(file);
+            var gameContent = ReadAndFilterFromManifest(file);
 
             foreach (var game in gameContent.GameAttributes)
             {
@@ -1773,6 +1776,13 @@
         private bool IsValidMaximumRtp(string key, decimal rtp)
         {
             return rtp <= ConvertToRtp(_properties.GetValue(key, int.MaxValue));
+        }
+
+        private GameContent ReadAndFilterFromManifest(string pathOfManifest)
+        {
+            var manifestContent = _manifest.Read(pathOfManifest);
+            _filterService.Filter(ref manifestContent);
+            return manifestContent;
         }
     }
 }

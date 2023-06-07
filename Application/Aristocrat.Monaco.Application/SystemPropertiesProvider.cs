@@ -115,6 +115,10 @@ namespace Aristocrat.Monaco.Application
                     Tuple.Create((object)InitFromStorage<string>(ApplicationConstants.JurisdictionKey), ApplicationConstants.JurisdictionKey)
                 },
                 {
+                    ApplicationConstants.JurisdictionId,
+                    Tuple.Create((object)InitFromStorage<string>(ApplicationConstants.JurisdictionId), ApplicationConstants.JurisdictionId)
+                },
+                {
                     ApplicationConstants.ShowMode,
                     Tuple.Create((object)InitFromStorage<bool>(ApplicationConstants.ShowMode), ApplicationConstants.ShowMode)
                 },
