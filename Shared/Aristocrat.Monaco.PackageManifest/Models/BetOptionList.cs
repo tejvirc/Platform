@@ -50,6 +50,7 @@ namespace Aristocrat.Monaco.PackageManifest.Models
         {
             _options = options.Select(i => i);
         }
+
         /// <summary>
         ///     Returns an enumerator that iterates through the collection.
         /// </summary>
