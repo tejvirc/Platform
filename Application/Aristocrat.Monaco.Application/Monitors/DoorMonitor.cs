@@ -280,38 +280,39 @@
             return result;
         }
 
-        public string GetLocalizedDoorName(int doorId)
+        public string GetLocalizedDoorName(int doorId, bool useDefaultCulture = false)
         {
             var provider = Localizer.For(CultureFor.Operator) as OperatorCultureProvider;
+            var culture = useDefaultCulture ? provider.DefaultCulture : provider.CurrentCulture;
 
             switch (doorId)
             {
                 case (int)DoorLogicalId.Main:
-                    return provider.GetString(provider.DefaultCulture, ResourceKeys.MainDoorName);
+                    return provider.GetString(culture, ResourceKeys.MainDoorName);
 
                 case (int)DoorLogicalId.MechanicalMeter:
-                    return provider.GetString(provider.DefaultCulture, ResourceKeys.MechanicalMeterDoorName);
+                    return provider.GetString(culture, ResourceKeys.MechanicalMeterDoorName);
 
                 case (int)DoorLogicalId.Logic:
-                    return provider.GetString(provider.DefaultCulture, ResourceKeys.LogicDoorName);
+                    return provider.GetString(culture, ResourceKeys.LogicDoorName);
 
                 case (int)DoorLogicalId.DropDoor:
-                    return provider.GetString(provider.DefaultCulture, ResourceKeys.DropDoorName);
+                    return provider.GetString(culture, ResourceKeys.DropDoorName);
 
                 case (int)DoorLogicalId.TopBox:
-                    return provider.GetString(provider.DefaultCulture, ResourceKeys.TopBoxDoorName);
+                    return provider.GetString(culture, ResourceKeys.TopBoxDoorName);
 
                 case (int)DoorLogicalId.CashBox:
-                    return provider.GetString(provider.DefaultCulture, ResourceKeys.CashDoorName);
+                    return provider.GetString(culture, ResourceKeys.CashDoorName);
 
                 case (int)DoorLogicalId.Belly:
-                    return provider.GetString(provider.DefaultCulture, ResourceKeys.BellyDoorName);
+                    return provider.GetString(culture, ResourceKeys.BellyDoorName);
 
                 case (int)DoorLogicalId.MainOptic:
-                    return provider.GetString(provider.DefaultCulture, ResourceKeys.MainOpticDoorName);
+                    return provider.GetString(culture, ResourceKeys.MainOpticDoorName);
 
                 case (int)DoorLogicalId.TopBoxOptic:
-                    return provider.GetString(provider.DefaultCulture, ResourceKeys.TopBoxOpticDoorName);
+                    return provider.GetString(culture, ResourceKeys.TopBoxOpticDoorName);
 
                 default:
                     return _doorService.GetDoorName(doorId);
