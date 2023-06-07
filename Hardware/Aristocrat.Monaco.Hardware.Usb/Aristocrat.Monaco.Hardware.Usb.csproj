@@ -41,8 +41,16 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.RelmReels" Version="0.1.11" />
+    <PackageReference Include="Aristocrat.RelmReels" Version="0.1.15" />
     <PackageReference Include="HidSharp" Version="2.0.2" />
     <PackageReference Include="log4net" Version="2.0.8" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ReelController\Relm\SampleShows\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="ReelController\Relm\SampleShows\AllWhite5Reels.lightshow">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

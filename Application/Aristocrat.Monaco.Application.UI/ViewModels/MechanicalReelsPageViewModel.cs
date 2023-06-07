@@ -11,6 +11,7 @@
     using Hardware.Contracts.EdgeLighting;
     using Hardware.Contracts.Reel;
     using Hardware.Contracts.Reel.Capabilities;
+    using Hardware.Contracts.Reel.ControlData;
     using Hardware.Contracts.Reel.Events;
     using Hardware.Contracts.SharedDevice;
     using Kernel;
@@ -22,15 +23,19 @@
     using Color = System.Drawing.Color;
 
     /// <summary>
-    ///     View model for mechanical reels
+    ///     The MechanicalReelsPageViewModel class
     /// </summary>
     [CLSCompliant(false)]
     public class MechanicalReelsPageViewModel : DeviceViewModel
     {
         private const int MaxSupportedReels = ReelConstants.MaxSupportedReels;
         private const int LightsOffTime = 250;
+        private const int LightTestOnTime = 500;
+        private const string SampleLightShowName = "SampleLightShow";
+        private const string AllTag = "ALL";
         
         private readonly IReelBrightnessCapabilities _brightnessCapabilities;
+        private readonly IReelAnimationCapabilities _animationCapabilities;
         private readonly IEdgeLightingController _edgeLightController;
         private readonly PatternParameters _solidBlackPattern = new SolidColorPatternParameters
         {
@@ -48,7 +53,9 @@
 
         private string _reelCount;
         private bool _reelsEnabled;
+        private bool _lightAnimationTestScreenHidden = true;
         private bool _lightTestScreenHidden = true;
+        private bool _reelAnimationTestScreenHidden = true;
         private bool _reelTestScreenHidden = true;
         private bool _settingsScreenHidden;
         private bool _selfTestEnabled = true;
@@ -57,31 +64,19 @@
         private bool _brightnessChanging;
         private IEdgeLightToken _offToken;
 
+        /// <summary>
+        ///     Instantiates a new instance of the MechanicalReelsPageViewModel class
+        /// </summary>
+        /// <param name="isWizard">Is this instance being used for the configuration wizard</param>
         public MechanicalReelsPageViewModel(bool isWizard) : base(DeviceType.ReelController, isWizard)
         {
-            ShowLightTestCommand = new ActionCommand<object>(_ =>
-            {
-                LightTestScreenHidden = false;
-                ReelTestScreenHidden = true;
-                SettingsScreenHidden = true;
-            });
-            ShowReelTestCommand = new ActionCommand<object>(_ =>
-            {
-                LightTestScreenHidden = true;
-                ReelTestScreenHidden = false;
-                SettingsScreenHidden = true;
-                LightTestViewModel?.CancelTest();
-            });
-            ShowSettingsCommand = new ActionCommand<object>(_ =>
-            {
-                LightTestScreenHidden = true;
-                ReelTestScreenHidden = true;
-                SettingsScreenHidden = false;
-                LightTestViewModel?.CancelTest();
-            });
+            ShowLightTestCommand = new ActionCommand<object>(_ => ShowLightTest());
+            ShowReelTestCommand = new ActionCommand<object>(_ => ShowReelTest());
+            ShowSettingsCommand = new ActionCommand<object>(_ => ShowSettings());
 
             _edgeLightController = ServiceManager.GetInstance().GetService<IEdgeLightingController>();
             LightTestViewModel = new(ReelController, _edgeLightController, Inspection);
+            LightAnimationTestViewModel = new(ReelController);
             ReelTestViewModel = new(ReelController, EventBus, MaxSupportedReels, ReelInfo, UpdateScreen, Inspection);
 
             SelfTestCommand = new ActionCommand<object>(_ => SelfTest(false));
@@ -93,14 +88,86 @@
                 _brightnessCapabilities = ReelController.GetCapability<IReelBrightnessCapabilities>();
             }
 
+            if (ReelController.HasCapability<IReelAnimationCapabilities>())
+            {
+                _animationCapabilities = ReelController.GetCapability<IReelAnimationCapabilities>();
+            }
+
             MinimumBrightness = 1;
             MaximumBrightness = 100;
         }
+        
+        /// <summary>
+        ///     Gets the light animation test view model
+        /// </summary>
+        public MechanicalReelsLightAnimationTestViewModel LightAnimationTestViewModel { get; }
 
+        /// <summary>
+        ///     Gets the light test view model
+        /// </summary>
         public MechanicalReelsLightTestViewModel LightTestViewModel { get; }
 
+        /// <summary>
+        ///     Gets or sets a value indicating if the light animation test screen is hidden
+        /// </summary>
+        public bool LightAnimationTestScreenHidden
+        {
+            get => _lightAnimationTestScreenHidden;
+
+            set
+            {
+                _lightAnimationTestScreenHidden = value;
+                RaisePropertyChanged(nameof(LightAnimationTestScreenHidden));
+                RaisePropertyChanged(nameof(LightTestButtonHidden));
+                CancelLightTests();
+            }
+        }
+        
+        /// <summary>
+        ///     Gets or sets a value indicating if the light test screen is hidden
+        /// </summary>
+        public bool LightTestScreenHidden
+        {
+            get => _lightTestScreenHidden;
+
+            set
+            {
+                _lightTestScreenHidden = value;
+                RaisePropertyChanged(nameof(LightTestScreenHidden));
+                RaisePropertyChanged(nameof(LightTestButtonHidden));
+                CancelLightTests();
+            }
+        }
+
+        /// <summary>
+        ///     Gets a value indicating if the light test button is hidden
+        /// </summary>
+        public bool LightTestButtonHidden => !LightTestScreenHidden || !LightAnimationTestScreenHidden;
+
+        /// <summary>
+        ///     Gets or sets the reel test view model
+        /// </summary>
         public MechanicalReelsTestViewModel ReelTestViewModel { get; }
 
+        /// <summary>
+        ///     Gets or sets a value indicating if the reel animation test screen is hidden
+        /// </summary>
+        public bool ReelAnimationTestScreenHidden
+        {
+            get => _reelAnimationTestScreenHidden;
+
+            set
+            {
+                _reelAnimationTestScreenHidden = value;
+                RaisePropertyChanged(nameof(ReelAnimationTestScreenHidden));
+                RaisePropertyChanged(nameof(ReelTestButtonHidden));
+                CancelLightTests();
+            }
+        }
+        
+        /// <summary>
+        ///     Gets or sets a value indicating if the reel test screen is hidden
+        /// </summary>
         public bool ReelTestScreenHidden
         {
             get => _reelTestScreenHidden;
@@ -113,24 +180,14 @@
             }
         }
 
-        public bool ReelTestButtonHidden => !ReelTestScreenHidden;
+        /// <summary>
+        ///     Gets a value indicating if the reel test button is hidden
+        /// </summary>
+        public bool ReelTestButtonHidden => !ReelTestScreenHidden || !ReelAnimationTestScreenHidden;
 
-        public bool LightTestScreenHidden
-        {
-            get => _lightTestScreenHidden;
-
-            set
-            {
-                _lightTestScreenHidden = value;
-                RaisePropertyChanged(nameof(LightTestScreenHidden));
-                RaisePropertyChanged(nameof(LightTestButtonHidden));
-
-                LightTestViewModel.CancelTest();
-            }
-        }
-
-        public bool LightTestButtonHidden => !LightTestScreenHidden;
-
+        /// <summary>
+        ///     Gets or sets a value indicating if the settings screen is hidden
+        /// </summary>
         public bool SettingsScreenHidden
         {
             get => _settingsScreenHidden;
@@ -143,8 +200,14 @@
             }
         }
 
+        /// <summary>
+        ///     Gets a value indicating if the settings button is hidden
+        /// </summary>
         public bool SettingsButtonHidden => !SettingsScreenHidden;
 
+        /// <summary>
+        ///     Gets or sets the reel count
+        /// </summary>
         public string ReelCount
         {
             get => _reelCount;
@@ -157,6 +220,9 @@
             }
         }
 
+        /// <summary>
+        ///     Gets or sets a value indicating if the reels are enabled
+        /// </summary>
         public bool ReelsEnabled
         {
             get => _reelsEnabled;
@@ -170,22 +236,49 @@
             }
         }
 
+        /// <summary>
+        ///     Gets the reel count foreground color
+        /// </summary>
         public SolidColorBrush ReelCountForeground => Brushes.White;
 
+        /// <summary>
+        ///     Gets the show light test command
+        /// </summary>
         public ICommand ShowLightTestCommand { get; }
-
+        
+        /// <summary>
+        ///     Gets the show reel test command
+        /// </summary>
         public ICommand ShowReelTestCommand { get; }
-
+        
+        /// <summary>
+        ///     Gets the show settings command
+        /// </summary>
         public ICommand ShowSettingsCommand { get; }
-
+        
+        /// <summary>
+        ///     Gets the self test command
+        /// </summary>
         public ICommand SelfTestCommand { get; }
-
+        
+        /// <summary>
+        ///     Gets the self test with RAM clear command
+        /// </summary>
         public ICommand SelfTestClearCommand { get; }
 
+        /// <summary>
+        ///     Gets the apply brightness command
+        /// </summary>
         public ICommand ApplyBrightnessCommand { get; }
 
+        /// <summary>
+        ///     Gets a value indicating if a brightness change is pending
+        /// </summary>
         public bool BrightnessChangePending => InitialBrightness != Brightness;
 
+        /// <summary>
+        ///     Gets or sets a value indicating if the brightness is changing
+        /// </summary>
         public bool BrightnessChanging
         {
             get => _brightnessChanging;
@@ -200,16 +293,37 @@
             }
         }
 
+        /// <summary>
+        ///     Gets the minimum brightness
+        /// </summary>
         public int MinimumBrightness { get; }
 
+        /// <summary>
+        ///     Gets the maximum brightness
+        /// </summary>
         public int MaximumBrightness { get; }
 
+        /// <inheritdoc />
         public override bool TestModeEnabledSupplementary => ReelController?.Connected ?? false;
 
+        /// <summary>
+        ///     Gets a value indicating if the test mode tooltip is disabled 
+        /// </summary>
         public bool TestModeToolTipDisabled => TestModeEnabled;
 
+        /// <summary>
+        ///     Gets or sets the reel info collection
+        /// </summary>
         public ObservableCollection<ReelInfoItem> ReelInfo { get; set; } = new();
 
+        /// <summary>
+        ///     Gets a value indicating if the reel controller has animation capabilities
+        /// </summary>
+        public bool IsAnimationController => _animationCapabilities != null;
+
+        /// <summary>
+        ///     Gets or sets the brightness
+        /// </summary>
         public int Brightness
         {
             get => _brightness;
@@ -225,6 +339,9 @@
             }
         }
 
+        /// <summary>
+        ///     Gets or sets a value indicating if self test is enabled
+        /// </summary>
         public bool SelfTestEnabled
         {
             get => _selfTestEnabled;
@@ -241,6 +358,9 @@
             }
         }
 
+        /// <summary>
+        ///     Gets or sets the initial brightness
+        /// </summary>
         public int InitialBrightness
         {
             get => _initialBrightness;
@@ -269,6 +389,52 @@
             }
         }
 
+        private void ShowLightTest()
+        {
+            if (ReelController is null)
+            {
+                return;
+            }
+
+            LightAnimationTestScreenHidden = !IsAnimationController;
+            LightTestScreenHidden = IsAnimationController;
+
+            ReelAnimationTestScreenHidden = true;
+            ReelTestScreenHidden = true;
+            SettingsScreenHidden = true;
+            RaisePropertyChanged(nameof(IsAnimationController));
+        }
+
+        private void ShowReelTest()
+        {
+            if (ReelController is null)
+            {
+                return;
+            }
+
+            CancelLightTests();
+
+            ReelAnimationTestScreenHidden = !IsAnimationController;
+            ReelTestScreenHidden = IsAnimationController;
+            
+            LightAnimationTestScreenHidden = true;
+            LightTestScreenHidden = true;
+            SettingsScreenHidden = true;
+            RaisePropertyChanged(nameof(IsAnimationController));
+        }
+
+        private void ShowSettings()
+        {
+            CancelLightTests();
+
+            SettingsScreenHidden = false;
+            
+            LightAnimationTestScreenHidden = true;
+            LightTestScreenHidden = true;
+            ReelAnimationTestScreenHidden = true;
+            ReelTestScreenHidden = true;
+        }
+
         private void ClearPattern(ref IEdgeLightToken token)
         {
             if (token == null)
@@ -280,6 +446,7 @@
             token = null;
         }
 
+        /// <inheritdoc />
         protected override void OnLoaded()
         {
             base.OnLoaded();
@@ -291,15 +458,17 @@
             Brightness = ReelControllerDefaultBrightness;
             InitialBrightness = Brightness;
         }
-
+        
+        /// <inheritdoc />
         protected override void OnUnloaded()
         {
             ClearPattern(ref _offToken);
-            LightTestViewModel.CancelTest();
+            CancelLightTests();
             EventBus.UnsubscribeAll(this);
             base.OnUnloaded();
         }
-
+        
+        /// <inheritdoc />
         protected override void OnTestModeEnabledChanged()
         {
             RaisePropertyChanged(nameof(TestModeToolTipDisabled));
@@ -308,7 +477,10 @@
             ReelTestScreenHidden = true;
             SettingsScreenHidden = false;
         }
-
+        
+        /// <summary>
+        ///     Sets the device information
+        /// </summary>
         protected void SetDeviceInformation()
         {
             if (ReelController == null)
@@ -353,12 +525,14 @@
 
             ReelTestViewModel.ReelInfo = ReelInfo;
         }
-
+        
+        /// <inheritdoc />
         protected override void StartEventHandler()
         {
             StartEventHandler(ReelController);
         }
-
+        
+        /// <inheritdoc />
         protected override void SubscribeToEvents()
         {
             EventBus.Subscribe<DisconnectedEvent>(this, HandleEvent);
@@ -370,7 +544,8 @@
             EventBus.Subscribe<HardwareDiagnosticTestStartedEvent>(this, HandleEvent);
             EventBus.Subscribe<HardwareDiagnosticTestFinishedEvent>(this, HandleEvent);
         }
-
+        
+        /// <inheritdoc />
         protected override void UpdateScreen()
         {
             MvvmHelper.ExecuteOnUI(
@@ -382,7 +557,8 @@
                     ReelTestViewModel.UpdateScreen();
                 });
         }
-
+        
+        /// <inheritdoc />
         protected override void UpdateWarningMessage()
         {
             if (!(ReelController?.Connected ?? false) || (ReelController?.DisabledByError ?? false))
@@ -395,16 +571,6 @@
             }
 
             RaisePropertyChanged(nameof(TestModeToolTipDisabled));
-        }
-
-        private void OnSelfTestCmd(object obj)
-        {
-            SelfTest(false);
-        }
-
-        private void OnSelfTestClearCmd(object obj)
-        {
-            SelfTest(true);
         }
 
         private async void SelfTest(bool clearNvm)
@@ -555,11 +721,7 @@
                 if (_brightnessCapabilities is not null)
                 {
                     await _brightnessCapabilities.SetBrightness(Brightness);
-                
-                    ClearPattern(ref _offToken);
-                    _offToken = _edgeLightController.AddEdgeLightRenderer(_solidBlackPattern);
-                    await Task.Delay(LightsOffTime);
-                    ClearPattern(ref _offToken);
+                    await FlashLights();
                 }
             }
             else
@@ -722,6 +884,40 @@
             }
 
             ReelController.ReelOffsets = offsets;
+        }
+
+        private void CancelLightTests()
+        {
+            LightTestViewModel?.CancelTest();
+            LightAnimationTestViewModel?.CancelTest();
+        }
+
+        private async Task FlashLights()
+        {
+            if (_animationCapabilities is null)
+            {
+                ClearPattern(ref _offToken);
+                _offToken = _edgeLightController.AddEdgeLightRenderer(_solidBlackPattern);
+                await Task.Delay(LightsOffTime);
+                ClearPattern(ref _offToken);
+            }
+            else
+            {
+                var lightShow = new LightShowData
+                {
+                    Tag = AllTag,
+                    Step = -1,
+                    LoopCount = -1,
+                    ReelIndex = -1,
+                    Id = _animationCapabilities.AnimationFiles.FirstOrDefault(x => x.FriendlyName == SampleLightShowName)?.AnimationId ?? 0
+                };
+
+                await _animationCapabilities.StopAllLightShows();
+                await _animationCapabilities.PrepareAnimation(lightShow);
+                await _animationCapabilities.PlayAnimations();
+                await Task.Delay(LightTestOnTime);
+                await _animationCapabilities.StopAllLightShows();
+            }
         }
     }
 }

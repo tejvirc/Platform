@@ -7,6 +7,7 @@
     using Accounting.Tickets;
     using Application.Contracts;
     using Application.Contracts.Extensions;
+    using Application.Contracts.Currency;
     using Contracts.Tickets;
     using Hardware.Contracts.IO;
     using Hardware.Contracts.Printer;
@@ -66,6 +67,14 @@
                 .Verifiable();
 
             _target = new CashSlipEventLogTicketCreator();
+
+            // set up currency
+            string minorUnitSymbol = "c";
+            string cultureName = "en-US";
+            CultureInfo culture = new CultureInfo(cultureName);
+
+            RegionInfo region = new RegionInfo(cultureName);
+            CurrencyExtensions.Currency = new Currency(region.ISOCurrencySymbol, region, culture, minorUnitSymbol);
         }
 
         /// <summary>

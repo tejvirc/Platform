@@ -209,7 +209,7 @@
                                Text="{lex:Loc {x:Static loc:ResourceKeys.Currency}}"
                                AutomationProperties.AutomationId="TextBlock61_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding CurrencyDescription}"
+                               Text="{Binding CurrencyDisplayText}"
                                AutomationProperties.AutomationId="TextBlock62_92C8EE06" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"

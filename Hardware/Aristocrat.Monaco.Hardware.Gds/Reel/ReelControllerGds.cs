@@ -41,8 +41,7 @@
         };
 
         private readonly ConcurrentDictionary<int, ReelFaults> _faults = new();
-
-        private readonly ConcurrentDictionary<int, ReelStatus> _reelsStatus = new();
+        private readonly ConcurrentDictionary<int, GdsReelStatus> _reelStatuses = new();
 
         /// <summary>
         /// </summary>
@@ -51,7 +50,7 @@
             DeviceType = DeviceType.ReelController;
             RegisterCallback<FailureStatus>(FailureReported);
             RegisterCallback<FailureStatusClear>(FailureClear);
-            RegisterCallback<ReelStatus>(ReelStatusReceived);
+            RegisterCallback<GdsReelStatus>(ReelStatusReceived);
             RegisterCallback<ReelSpinningStatus>(ReelSpinningStatusReceived);
             RegisterCallback<ReelLightIdentifiersResponse>(ReelLightsIdentifiersReceived);
             RegisterCallback<ReelLightResponse>(ReelLightsResponseReceived);
@@ -105,7 +104,8 @@
         public IReadOnlyDictionary<int, ReelFaults> Faults => _faults;
 
         /// <inheritdoc />
-        public IReadOnlyDictionary<int, ReelStatus> ReelsStatus => _reelsStatus;
+        public IReadOnlyDictionary<int, ReelStatus> ReelStatuses =>
+            _reelStatuses.ToDictionary(x => x.Key, x => x.Value.ToReelStatus());
 
         /// <inheritdoc />
         public bool HasCapability<T>() where T : class, IReelImplementationCapability =>
@@ -289,8 +289,8 @@
         /// <param name="e">The event arguments</param>
         protected virtual void OnReelConnected(ReelEventArgs e)
         {
-            var reelsStatus = new ReelStatus { ReelId = e.ReelId, Connected = true };
-            _reelsStatus.AddOrUpdate(e.ReelId, reelsStatus, (_, _) => reelsStatus);
+            var reelsStatus = new GdsReelStatus { ReelId = e.ReelId, Connected = true };
+            _reelStatuses.AddOrUpdate(e.ReelId, reelsStatus, (_, _) => reelsStatus);
             ReelConnected?.Invoke(this, e);
         }
 
@@ -300,8 +300,8 @@
         /// <param name="e">The event arguments</param>
         protected virtual void OnReelDisconnected(ReelEventArgs e)
         {
-            var reelsStatus = new ReelStatus { ReelId = e.ReelId, Connected = false };
-            _reelsStatus.AddOrUpdate(e.ReelId, reelsStatus, (_, _) => reelsStatus);
+            var reelsStatus = new GdsReelStatus { ReelId = e.ReelId, Connected = false };
+            _reelStatuses.AddOrUpdate(e.ReelId, reelsStatus, (_, _) => reelsStatus);
             ReelDisconnected?.Invoke(this, e);
         }
 
@@ -339,7 +339,7 @@
         /// <param name="e">The event arguments</param>
         protected virtual void OnReelStopped(ReelEventArgs e)
         {
-            var reelsStatus = new ReelStatus
+            var reelsStatus = new GdsReelStatus
             {
                 ReelId = e.ReelId,
                 ReelStall = false,
@@ -348,7 +348,7 @@
                 LowVoltage = false,
                 FailedHome = false
             };
-            _reelsStatus.AddOrUpdate(e.ReelId, reelsStatus, (_, _) => reelsStatus);
+            _reelStatuses.AddOrUpdate(e.ReelId, reelsStatus, (_, _) => reelsStatus);
             ReelStopped?.Invoke(this, e);
         }
 
@@ -479,32 +479,32 @@
         {
             if (status.MechanicalError)
             {
-                var reelsStatus = new ReelStatus { ReelId = status.ReelId, ReelStall = false };
-                _reelsStatus.AddOrUpdate(status.ReelId, reelsStatus, (_, _) => reelsStatus);
+                var reelsStatus = new GdsReelStatus { ReelId = status.ReelId, ReelStall = false };
+                _reelStatuses.AddOrUpdate(status.ReelId, reelsStatus, (_, _) => reelsStatus);
                 OnFaultCleared(new ReelFaultedEventArgs(ReelFaults.ReelStall, status.ReelId));
                 Logger.Debug($"FailureCleared - Mechanical Error, reel={status.ReelId}");
             }
 
             if (status.TamperDetected)
             {
-                var reelsStatus = new ReelStatus { ReelId = status.ReelId, ReelTampered = false };
-                _reelsStatus.AddOrUpdate(status.ReelId, reelsStatus, (_, _) => reelsStatus);
+                var reelsStatus = new GdsReelStatus { ReelId = status.ReelId, ReelTampered = false };
+                _reelStatuses.AddOrUpdate(status.ReelId, reelsStatus, (_, _) => reelsStatus);
                 OnFaultCleared(new ReelFaultedEventArgs(ReelFaults.ReelTamper, status.ReelId));
                 Logger.Debug($"FailureCleared - Tamper Detected, reel={status.ReelId}");
             }
 
             if (status.StallDetected)
             {
-                var reelsStatus = new ReelStatus { ReelId = status.ReelId, ReelStall = false };
-                _reelsStatus.AddOrUpdate(status.ReelId, reelsStatus, (_, _) => reelsStatus);
+                var reelsStatus = new GdsReelStatus { ReelId = status.ReelId, ReelStall = false };
+                _reelStatuses.AddOrUpdate(status.ReelId, reelsStatus, (_, _) => reelsStatus);
                 OnFaultCleared(new ReelFaultedEventArgs(ReelFaults.ReelStall, status.ReelId));
                 Logger.Debug($"FailureCleared - Stall Detected, reel={status.ReelId}");
             }
 
             if (status.LowVoltageDetected)
             {
-                var reelsStatus = new ReelStatus { ReelId = status.ReelId, LowVoltage = false };
-                _reelsStatus.AddOrUpdate(status.ReelId, reelsStatus, (_, _) => reelsStatus);
+                var reelsStatus = new GdsReelStatus { ReelId = status.ReelId, LowVoltage = false };
+                _reelStatuses.AddOrUpdate(status.ReelId, reelsStatus, (_, _) => reelsStatus);
                 OnFaultCleared(new ReelFaultedEventArgs(ReelFaults.LowVoltage, status.ReelId));
                 Logger.Debug($"FailureCleared - Low Voltage Detected, reel={status.ReelId}");
             }
@@ -540,32 +540,32 @@
             {
                 if (status.MechanicalError)
                 {
-                    var reelsStatus = new ReelStatus { ReelId = status.ReelId, ReelStall = true };
-                    _reelsStatus.AddOrUpdate(status.ReelId, reelsStatus, (_, _) => reelsStatus);
+                    var reelsStatus = new GdsReelStatus { ReelId = status.ReelId, ReelStall = true };
+                    _reelStatuses.AddOrUpdate(status.ReelId, reelsStatus, (_, _) => reelsStatus);
                     OnFaultOccurred(new ReelFaultedEventArgs(ReelFaults.ReelStall, status.ReelId));
                     Logger.Debug($"FailureReported - Mechanical Error, reel={status.ReelId}, errorCode=0x{status.ErrorCode:X}");
                 }
 
                 if (status.TamperDetected)
                 {
-                    var reelsStatus = new ReelStatus { ReelId = status.ReelId, ReelTampered = true };
-                    _reelsStatus.AddOrUpdate(status.ReelId, reelsStatus, (_, _) => reelsStatus);
+                    var reelsStatus = new GdsReelStatus { ReelId = status.ReelId, ReelTampered = true };
+                    _reelStatuses.AddOrUpdate(status.ReelId, reelsStatus, (_, _) => reelsStatus);
                     OnFaultOccurred(new ReelFaultedEventArgs(ReelFaults.ReelTamper, status.ReelId));
                     Logger.Debug($"FailureReported - Tamper Detected, reel={status.ReelId}, errorCode=0x{status.ErrorCode:X}");
                 }
 
                 if (status.StallDetected)
                 {
-                    var reelsStatus = new ReelStatus { ReelId = status.ReelId, ReelStall = true };
-                    _reelsStatus.AddOrUpdate(status.ReelId, reelsStatus, (_, _) => reelsStatus);
+                    var reelsStatus = new GdsReelStatus { ReelId = status.ReelId, ReelStall = true };
+                    _reelStatuses.AddOrUpdate(status.ReelId, reelsStatus, (_, _) => reelsStatus);
                     OnFaultOccurred(new ReelFaultedEventArgs(ReelFaults.ReelStall, status.ReelId));
                     Logger.Debug($"FailureReported - Stall Detected, reel={status.ReelId}, errorCode=0x{status.ErrorCode:X}");
                 }
 
                 if (status.LowVoltageDetected)
                 {
-                    var reelsStatus = new ReelStatus { ReelId = status.ReelId, LowVoltage = true };
-                    _reelsStatus.AddOrUpdate(status.ReelId, reelsStatus, (_, _) => reelsStatus);
+                    var reelsStatus = new GdsReelStatus { ReelId = status.ReelId, LowVoltage = true };
+                    _reelStatuses.AddOrUpdate(status.ReelId, reelsStatus, (_, _) => reelsStatus);
                     OnFaultOccurred(new ReelFaultedEventArgs(ReelFaults.LowVoltage, status.ReelId));
                     Logger.Debug($"FailureReported - Low Voltage Detected, reel={status.ReelId}, errorCode=0x{status.ErrorCode:X}");
                 }
@@ -600,8 +600,8 @@
 
                 if (status.FailedHome)
                 {
-                    var reelsStatus = new ReelStatus { ReelId = status.ReelId, FailedHome = true };
-                    _reelsStatus.AddOrUpdate(status.ReelId, reelsStatus, (_, _) => reelsStatus);
+                    var reelsStatus = new GdsReelStatus { ReelId = status.ReelId, FailedHome = true };
+                    _reelStatuses.AddOrUpdate(status.ReelId, reelsStatus, (_, _) => reelsStatus);
                     OnFaultOccurred(new ReelFaultedEventArgs(ReelFaults.ReelStall, status.ReelId));
                     Logger.Debug($"FailureReported - Failed Homing, reel={status.ReelId}");
                 }
@@ -673,7 +673,7 @@
             }
         }
 
-        private void ReelStatusReceived(ReelStatus status)
+        private void ReelStatusReceived(GdsReelStatus status)
         {
             var firstFault = !Faults.TryGetValue(status.ReelId, out var faults);
             switch (status.Connected)
@@ -713,21 +713,21 @@
 
         private void ResetConnectedReelStatus(int reelId)
         {
-            if (_reelsStatus.ContainsKey(reelId))
+            if (_reelStatuses.ContainsKey(reelId))
             {
-                _reelsStatus.TryGetValue(reelId, out var reelStatus);
+                _reelStatuses.TryGetValue(reelId, out var reelStatus);
                 if (reelStatus?.Connected == true)
                 {
                     reelStatus.ReelStall = false;
                     reelStatus.ReelTampered = false;
                     reelStatus.LowVoltage = false;
                     reelStatus.FailedHome = false;
-                    _reelsStatus.AddOrUpdate(reelId, reelStatus, (_, _) => reelStatus);
+                    _reelStatuses.AddOrUpdate(reelId, reelStatus, (_, _) => reelStatus);
                 }
             }
             else
             {
-                var reelsStatus = new ReelStatus
+                var reelsStatus = new GdsReelStatus
                 {
                     ReelId = reelId,
                     ReelStall = false,
@@ -736,7 +736,7 @@
                     LowVoltage = false,
                     FailedHome = false
                 };
-                _reelsStatus.AddOrUpdate(reelId, reelsStatus, (_, _) => reelsStatus);
+                _reelStatuses.AddOrUpdate(reelId, reelsStatus, (_, _) => reelsStatus);
             }
         }
     }

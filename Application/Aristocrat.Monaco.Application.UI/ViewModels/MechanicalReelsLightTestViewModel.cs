@@ -58,7 +58,7 @@
                 edgeLightingController ?? throw new ArgumentNullException(nameof(edgeLightingController));
             _reporter = reporter;
 
-            if (_reelController.HasCapability<IReelBrightnessCapabilities>())
+            if (_reelController.HasCapability<IReelLightingCapabilities>())
             {
                 _lightingCapabilities = _reelController.GetCapability<IReelLightingCapabilities>();
             }
@@ -141,19 +141,14 @@
 
         private async void InitializeLightIdList()
         {
-            if (!_reelController.Connected || Initialized)
+            if (!_reelController.Connected || _lightingCapabilities is null || Initialized)
             {
                 return;
             }
 
             var lightText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MechanicalReels_Light);
             var allLightsText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MechanicalReels_AllLights);
-
-            IList<int> ids = new List<int>();
-            if (_lightingCapabilities is not null)
-            {
-                ids = await _lightingCapabilities.GetReelLightIdentifiers();
-            }
+            var ids = await _lightingCapabilities.GetReelLightIdentifiers();
 
             ReelLightIdNames = new List<string> { allLightsText };
             _reelLightIdentifiers = new List<int>(ids);
@@ -244,11 +239,6 @@
             }
 
             return colors.ToArray();
-        }
-
-        private bool HasLightId(int id)
-        {
-            return ReelLightIdNames.Any(i => i.Contains($" {id}"));
         }
     }
 }

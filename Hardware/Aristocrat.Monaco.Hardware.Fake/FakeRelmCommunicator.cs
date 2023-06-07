@@ -3,6 +3,7 @@
     using Aristocrat.Monaco.Hardware.Contracts.Reel;
     using Contracts.Communicator;
     using Contracts.Reel.ControlData;
+    using Contracts.Reel.Events;
     using Contracts.SharedDevice;
     using GopherReels.Controls;
     using Kernel;
@@ -28,57 +29,8 @@
         private const string PackagesDirectory = "/Packages";
         private readonly string _baseName = "FakeRelm";
 
-        private string GamesPath => _pathMapper.GetDirectory(GamesDirectory).FullName;
-        private string PackagesPath => _pathMapper.GetDirectory(PackagesDirectory).FullName;
-        private string KnownReels
-        {
-            get
-            {
-                var reelController = ServiceManager.GetInstance().TryGetService<IReelController>();
-                if (reelController == null)
-                {
-                    return string.Empty;
-                }
-
-                var knownReels = reelController.ConnectedReels.Count;
-                return $"{knownReels}";
-            }
-        }
-
         private int _id;
         private bool _disposed;
-
-        public ReelSetWindowGS ReelSimWindow { get; private set; }
-        public int ReelCount => ReelSimWindow?.ReelCount ?? 0;
-        public int DefaultReelBrightness { get; set; }
-        public string Manufacturer => _baseName + DeviceType;
-        public string Model => _baseName + DeviceType;
-        public string Firmware => _baseName;
-        public string SerialNumber => _baseName;
-        public bool IsOpen { get; set; }
-        public int VendorId { get; set; }
-        public int ProductId { get; set; }
-        public int ProductIdDfu { get; set; }
-        public string Protocol => "FakeRelm";
-        public DeviceType DeviceType { get; set; }
-        public IDevice Device { get; set; }
-        public string FirmwareVersion => $"{_baseName}1.0";
-        public string FirmwareRevision => $"{_baseName}001";
-        public int FirmwareCrc => -1;
-        public string BootVersion => string.Empty;
-        public string VariantName => string.Empty;
-        public string VariantVersion => string.Empty;
-        public bool IsDfuCapable => true;
-
-        public bool InDfuMode { get; private set; }
-
-        public bool CanDownload { get; }
-
-        public bool IsDownloadInProgress { get; }
-
-        public event EventHandler<EventArgs> DeviceAttached;
-        public event EventHandler<EventArgs> DeviceDetached;
-        public event EventHandler<ProgressEventArgs> DownloadProgressed;
 
         /// <summary>
         ///     Construct a <see cref="FakeCommunicator"/>
@@ -98,27 +50,129 @@
 
             Logger.Debug("Constructed");
         }
+        
+        /// <inheritdoc/>
+        public event EventHandler<EventArgs> DeviceAttached;
+        
+        /// <inheritdoc/>
+        public event EventHandler<EventArgs> DeviceDetached;
+        
+        /// <inheritdoc/>
+        public event EventHandler<ProgressEventArgs> DownloadProgressed;
+
+        /// <inheritdoc/>
+        public event EventHandler<ReelStatusReceivedEventArgs> StatusesReceived;
+
+        /// <summary>
+        ///     Gets or sets the reel sim window
+        /// </summary>
+        public ReelSetWindowGS ReelSimWindow { get; private set; }
+
+        /// <summary>
+        ///     Get the reel count for the connected device
+        /// </summary>
+        public int ReelCount => ReelSimWindow?.ReelCount ?? 0;
+        
+        /// <inheritdoc/>
+        public int DefaultReelBrightness { get; set; }
+        
+        /// <inheritdoc/>
+        public string Manufacturer => _baseName + DeviceType;
+        
+        /// <inheritdoc/>
+        public string Model => _baseName + DeviceType;
+        
+        /// <inheritdoc/>
+        public string Firmware => _baseName;
+        
+        /// <inheritdoc/>
+        public string SerialNumber => _baseName;
+        
+        /// <inheritdoc/>
+        public bool IsOpen { get; set; }
+        
+        /// <inheritdoc/>
+        public int VendorId { get; set; }
+        
+        /// <inheritdoc/>
+        public int ProductId { get; set; }
+        
+        /// <inheritdoc/>
+        public int ProductIdDfu { get; set; }
+        
+        /// <inheritdoc/>
+        public string Protocol => "FakeRelm";
+        
+        /// <inheritdoc/>
+        public DeviceType DeviceType { get; set; }
+        
+        /// <inheritdoc/>
+        public IDevice Device { get; set; }
+        
+        /// <inheritdoc/>
+        public string FirmwareVersion => $"{_baseName}1.0";
+        
+        /// <inheritdoc/>
+        public int FirmwareCrc => -1;
+
+        /// <inheritdoc/>
+        public bool IsDfuCapable => true;
+        
+        /// <inheritdoc/>
+        public bool InDfuMode { get; private set; }
+
+        /// <inheritdoc/>
+        public bool CanDownload { get; } = false;
+        
+        /// <inheritdoc/>
+        public bool IsDownloadInProgress { get; } = false;
+        
+        /// <inheritdoc/>
+        public IReadOnlyCollection<AnimationFile> AnimationFiles => new List<AnimationFile>();
+
+        private string GamesPath => _pathMapper.GetDirectory(GamesDirectory).FullName;
+
+        private string PackagesPath => _pathMapper.GetDirectory(PackagesDirectory).FullName;
+
+        private string KnownReels
+        {
+            get
+            {
+                var reelController = ServiceManager.GetInstance().TryGetService<IReelController>();
+                if (reelController == null)
+                {
+                    return string.Empty;
+                }
+
+                var knownReels = reelController.ConnectedReels.Count;
+                return $"{knownReels}";
+            }
+        }
+
+        /// <inheritdoc/>
+        public Task RequestDeviceStatuses()
+        {
+            var statuses = new List<ReelStatus>();
+
+            for (var i = 1; i <= ReelCount; i++)
+            {
+                statuses.Add(new ReelStatus{ ReelId = i, Connected = true });
+            }
+
+            StatusesReceived?.Invoke(this, new ReelStatusReceivedEventArgs(statuses));
+            return Task.CompletedTask;
+        }
+
+        public Task<bool> RemoveAllControllerAnimations(CancellationToken token = default)
+        {
+            throw new NotImplementedException();
+        }
 
         /// <inheritdoc/>
         public void Dispose()
         {
             Dispose(true);
             _eventBus?.UnsubscribeAll(this);
-        }
-
-        private void Dispose(bool disposing)
-        {
-            if (_disposed)
-            {
-                return;
-            }
-
-            if (disposing)
-            {
-                Close();
-            }
-
-            _disposed = true;
         }
 
         /// <inheritdoc/>
@@ -180,27 +234,6 @@
             return true;
         }
 
-        /// <summary>Raises the <see cref="DeviceAttached"/> event.</summary>
-        private void OnDeviceAttached()
-        {
-            var invoker = DeviceAttached;
-            invoker?.Invoke(this, EventArgs.Empty);
-        }
-
-        /// <summary>Raises the <see cref="DeviceDetached"/> event.</summary>
-        private void OnDeviceDetached()
-        {
-            var invoker = DeviceDetached;
-            invoker?.Invoke(this, EventArgs.Empty);
-        }
-
-        /// <summary>Raises the <see cref="DownloadProgressed"/> event.</summary>
-        private void OnDownloadProgressed()
-        {
-            var invoker = DownloadProgressed;
-            invoker?.Invoke(this, new ProgressEventArgs(0));
-        }
-
         /// <inheritdoc/>
         public void ResetConnection()
         {
@@ -243,26 +276,25 @@
         }
 
         /// <inheritdoc/>
-        public Task<bool> LoadControllerAnimationFile(AnimationFile file, CancellationToken token)
+        public Task<bool> LoadAnimationFile(AnimationFile file, CancellationToken token)
         {
             throw new NotImplementedException();
         }
-
-
+        
         /// <inheritdoc/>
-        public Task<bool> LoadControllerAnimationFiles(IEnumerable<AnimationFile> files, CancellationToken token)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <inheritdoc/>
-        public Task<bool> PrepareControllerAnimation(LightShowFile file, CancellationToken token)
+        public Task<bool> LoadAnimationFiles(IEnumerable<AnimationFile> files, CancellationToken token)
         {
             throw new NotImplementedException();
         }
 
         /// <inheritdoc/>
-        public Task<bool> PrepareControllerAnimations(IEnumerable<LightShowFile> files, CancellationToken token)
+        public Task<bool> PrepareAnimation(LightShowData file, CancellationToken token)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc/>
+        public Task<bool> PrepareAnimations(IEnumerable<LightShowData> files, CancellationToken token)
         {
             throw new NotImplementedException();
         }
@@ -280,7 +312,7 @@
         }
 
         /// <inheritdoc/>
-        public Task<bool> PlayControllerAnimations(CancellationToken token)
+        public Task<bool> PlayAnimations(CancellationToken token)
         {
             if (ReelSimWindow == null)
             {
@@ -294,13 +326,13 @@
         }
 
         /// <inheritdoc/>
-        public Task<bool> StopControllerLightShowAnimations(IEnumerable<LightShowFile> files, CancellationToken token)
+        public Task<bool> StopControllerLightShowAnimations(IEnumerable<LightShowData> data, CancellationToken token)
         {
             throw new NotImplementedException();
         }
 
         /// <inheritdoc/>
-        public Task<bool> StopAllControllerLightShows(CancellationToken token)
+        public Task<bool> StopAllLightShows(CancellationToken token)
         {
             throw new NotImplementedException();
         }
@@ -381,6 +413,7 @@
             Logger.Debug($"There are {ReelCount} reels");
 
             _reelOffsets = new int[ReelCount];
+            RequestDeviceStatuses();
 
             return Task.CompletedTask;
         }
@@ -441,6 +474,39 @@
         public void AbortDownload()
         {
             Logger.Debug("Aborting Download");
+        }
+
+        private void OnDeviceAttached()
+        {
+            var invoker = DeviceAttached;
+            invoker?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnDeviceDetached()
+        {
+            var invoker = DeviceDetached;
+            invoker?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnDownloadProgressed()
+        {
+            var invoker = DownloadProgressed;
+            invoker?.Invoke(this, new ProgressEventArgs(0));
+        }
+
+        private void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                Close();
+            }
+
+            _disposed = true;
         }
     }
 }

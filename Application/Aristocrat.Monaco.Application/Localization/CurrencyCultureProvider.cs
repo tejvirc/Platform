@@ -17,6 +17,7 @@
     using Kernel.Contracts;
     using log4net;
     using Monaco.Localization.Properties;
+    using Contracts.Currency;
 
     /// <summary>
     ///     Implements localization logic for currency culture provider.
@@ -33,7 +34,6 @@
         private readonly ISystemDisableManager _disableManager;
         private readonly ILocalization _localization;
 
-        //private readonly Dictionary<string, CurrenciesCurrencyFormatOverride[]> _currencyCodeToFormatOverride = new();
         private IDictionary<string, CurrencyDefaultsCurrencyInfo> _currencyDefaults = new Dictionary<string, CurrencyDefaultsCurrencyInfo>();
         private Collection<NoteDefinitions> _noteDefinitions = new();
         private readonly object _setCurrencyLock = new object();
@@ -67,6 +67,10 @@
         private static Guid CurrencyIsoInvalidDisableKey => ApplicationConstants.CurrencyIsoInvalidDisableKey;
 
         public override string ProviderName => CultureFor.Currency;
+
+        public Currency ConfiguredCurrency { get; private set; }
+
+        public IDictionary<string, CurrencyDefaultsCurrencyInfo> CurrencyDefaultFormat => _currencyDefaults;
 
         protected override void OnInitialize()
         {
@@ -136,7 +140,6 @@
             {
                 lock (_setCurrencyLock)
                 {
-                    //var currencies = CurrencyCultureHelper.GetCurrencyOverrides(_currencyCodeToFormatOverride);
                     // get the currencies from configurations
                     _currencies = ConfigurationUtilities.GetConfiguration(
                         ConfigurationExtensionPath,
@@ -188,7 +191,7 @@
             _noteAcceptor?.SetNoteDefinitions(_noteDefinitions);
         }
 
-        private string SetUpCurrency()
+        private string GetConfiguredCurrencyCode()
         {
             lock (_setCurrencyLock)
             {
@@ -207,11 +210,13 @@
                     }
                 }
 
-                if (_noteAcceptor?.GetSupportedNotes(currencyCode).Count == 0)
+                // Don't need to check currency mismatch if it is No Currency
+                if (!CurrencyCultureHelper.IsNoCurrency(currencyCode) &&
+                   _noteAcceptor?.GetSupportedNotes(currencyCode).Count == 0)
                 {
                     var foundCurrencySymbol = GetNonNeutralCultureInfos()
                         .Select(culture => new RegionInfo(culture.Name))
-                        .FirstOrDefault(region => (bool)_noteAcceptor?.GetSupportedNotes(region.ISOCurrencySymbol).Any())
+                        .FirstOrDefault(region => _noteAcceptor?.GetSupportedNotes(region.ISOCurrencySymbol)?.Any() == true)
                         ?.ISOCurrencySymbol;
                     if (foundCurrencySymbol != null)
                     {
@@ -234,88 +239,112 @@
         {
             lock (_setCurrencyLock)
             {
-                var currencyCode = SetUpCurrency();
+                var currencyCode = GetConfiguredCurrencyCode();
 
                 if (string.IsNullOrEmpty(currencyCode))
                 {
                     return;
                 }
 
-                var cultureInfo = _localization.CurrentCulture;
+                CultureInfo cultureInfo = null;
+                double currencyMultiplier = Currency.DefaultCurrencyMultiplier;
 
-                var cultureName = cultureInfo.Name;
-                if (!string.IsNullOrEmpty(cultureName))
+                if (CurrencyCultureHelper.IsNoCurrency(currencyCode))
                 {
-                    var currencySymbol = new RegionInfo(cultureName).ISOCurrencySymbol;
-                    if (currencySymbol.Equals(currencyCode))
+                    cultureInfo = SetNoCurrencyFormat(currencyCode);
+                }
+
+                if (cultureInfo == null)
+                {
+                    cultureInfo = _localization.CurrentCulture;
+
+                    RegionInfo region;
+
+                    var cultureName = cultureInfo.Name;
+                    if (!string.IsNullOrEmpty(cultureName))
                     {
-                        cultureInfo = new CultureInfo(cultureName);
+                        region = new RegionInfo(cultureName);
+                        if (currencyCode.Equals(region.ISOCurrencySymbol, StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            cultureInfo = new CultureInfo(cultureName);
+                        }
+                        else
+                        {
+                            FindCultureInfo(currencyCode, ref cultureInfo);
+                        }
                     }
                     else
                     {
-                        SetCultureInfo(currencyCode, ref cultureInfo);
+                        FindCultureInfo(currencyCode, ref cultureInfo);
+                        region = new RegionInfo(cultureInfo.Name);
                     }
-                }
-                else
-                {
-                    SetCultureInfo(currencyCode, ref cultureInfo);
-                }
 
-                _noteAcceptor?.SetIsoCode(currencyCode);
+                    UpdateNoteAcceptor(currencyCode);
 
-                if (!_properties.GetValue(PropertyKey.NoteIn, true))
-                {
-                    if (_noteAcceptor?.Denominations.Count > 0)
-                    {
-                        foreach (var denom in _noteAcceptor.Denominations.ToArray())
-                        {
-                            _noteAcceptor.UpdateDenom(denom, false);
-                        }
-                    }
-                }
-
-                var minorUnitSymbol =
+                    var minorUnitSymbol =
                     _noteDefinitions != null && _noteDefinitions.Any(
                         a => a.Code == currencyCode && !string.IsNullOrEmpty(a.MinorUnitSymbol))
                         ? _noteDefinitions.First(a => a.Code == currencyCode).MinorUnitSymbol
                         : GetDefaultMinorUnitSymbol(currencyCode);
 
-                var (minorUnits, minorUnitsPlural, pluralizeMajorUnits, pluralizeMinorUnits) =
-                    GetOverrideInformation(cultureInfo, currencyCode, ref minorUnitSymbol);
+                    var (minorUnits, minorUnitsPlural, pluralizeMajorUnits, pluralizeMinorUnits) =
+                        GetOverrideInformation(cultureInfo, currencyCode, ref minorUnitSymbol);
 
-                var defaultMultiplier = CurrencyExtensions.SetCultureInfo(
-                    cultureInfo,
+                    ConfiguredCurrency = new Currency(currencyCode, region, cultureInfo, minorUnitSymbol);
+                    CurrencyExtensions.Currency = ConfiguredCurrency;
+
+                    var defaultMultiplier = CurrencyExtensions.SetCultureInfo(
+                        currencyCode,
+                        cultureInfo,
                     minorUnits,
                     minorUnitsPlural,
                     pluralizeMajorUnits,
                     pluralizeMinorUnits,
                     minorUnitSymbol);
 
-                var currencyMultiplier =
-                    _noteDefinitions != null && _noteDefinitions.Any(a => a.Code == currencyCode && a.Multiplier > 0)
-                        ? _noteDefinitions.First(a => a.Code == currencyCode).Multiplier
-                        : defaultMultiplier;
+                    currencyMultiplier =
+                            _noteDefinitions != null &&
+                            _noteDefinitions.Any(a => a.Code == currencyCode && a.Multiplier > 0)
+                                ? _noteDefinitions.First(a => a.Code == currencyCode).Multiplier
+                                : defaultMultiplier;
+                }
                 _properties.SetProperty(ApplicationConstants.CurrencyMultiplierKey, currencyMultiplier);
             }
         }
 
-        private CultureInfo LoadCultureInfo(string locale, string defaultLocale)
+        private CultureInfo LoadCultureInfo(string locale, string currencyCode)
         {
             CultureInfo cultureInfo = null;
 
-            if (string.IsNullOrEmpty(locale))
+            try
             {
-                SetCultureInfo(defaultLocale, ref cultureInfo);
+                if (CurrencyCultureHelper.IsNoCurrency(currencyCode))
+                {
+                    // If selected currency is No Currency, use the invariant culture
+                    return (CultureInfo)CultureInfo.InvariantCulture.Clone();
+                }
+
+                if (string.IsNullOrEmpty(locale))
+                {
+                    FindCultureInfo(currencyCode, ref cultureInfo);
+                }
+                else
+                {
+                    // Use the locale language and the BNA currency code to find the correct culture for this player ticket locale
+                    cultureInfo = locale.Length == 2
+                        ? GetNonNeutralCultureInfos()
+                            .FirstOrDefault(
+                                c => c.TwoLetterISOLanguageName == locale &&
+                                     new RegionInfo(c.Name).ISOCurrencySymbol == currencyCode)
+                        : new CultureInfo(locale);
+
+                }
             }
-            else
+            catch (Exception e)
             {
-                // Use the locale language and the BNA currency code to find the correct culture for this player ticket locale
-                cultureInfo = locale.Length == 2
-                    ? GetNonNeutralCultureInfos()
-                        .FirstOrDefault(
-                            c => c.TwoLetterISOLanguageName == locale &&
-                                 new RegionInfo(c.Name).ISOCurrencySymbol == defaultLocale)
-                    : new CultureInfo(locale);
+                cultureInfo = _localization.CurrentCulture;
+
+                Logger.Error($"Failed to find the culture for ticket, configured locale: {locale}, currency: {currencyCode}", e);
             }
 
             return cultureInfo;
@@ -323,40 +352,51 @@
 
         private void SetTicketCultureInfo(PlayerTicketSelectionArrayEntry entry)
         {
+            var currencyCode = _properties.GetValue(ApplicationConstants.CurrencyId, string.Empty);
+
             var valueCultureInfo = LoadCultureInfo(
                 entry.CurrencyValueLocale,
-                _properties.GetValue(ApplicationConstants.CurrencyId, string.Empty));
+                currencyCode);
             var wordsCultureInfo = LoadCultureInfo(
                 entry.CurrencyWordsLocale,
-                _properties.GetValue(ApplicationConstants.LocalizationPlayerTicketLocale, string.Empty));
+                currencyCode);
 
             if (valueCultureInfo == null || wordsCultureInfo == null)
             {
                 return;
             }
 
-            var currencyCode = _properties.GetValue(ApplicationConstants.CurrencyId, string.Empty);
+            if (!CurrencyCultureHelper.IsNoCurrency(currencyCode))
+            {
+                var minorUnitSymbol =
+                    _noteDefinitions != null && _noteDefinitions.Any(
+                        a => a.Code == currencyCode && !string.IsNullOrEmpty(a.MinorUnitSymbol))
+                        ? _noteDefinitions.First(a => a.Code == currencyCode).MinorUnitSymbol
+                        : GetDefaultMinorUnitSymbol(currencyCode);
 
-            var minorUnitSymbol =
-                _noteDefinitions != null && _noteDefinitions.Any(
-                    a => a.Code == currencyCode && !string.IsNullOrEmpty(a.MinorUnitSymbol))
-                    ? _noteDefinitions.First(a => a.Code == currencyCode).MinorUnitSymbol
-                    : GetDefaultMinorUnitSymbol(currencyCode);
+                var selectedOverride = GetOverrideSelectionFromCurrencyDefault(valueCultureInfo, currencyCode, ref minorUnitSymbol);
 
-            var selectedOverride = GetOverrideSelectionFromCurrencyDefault(valueCultureInfo, currencyCode, ref minorUnitSymbol);
+                var (minorUnits, minorUnitsPlural, pluralizeMajorUnits, pluralizeMinorUnits) =
+                    GetOverrideInformation(wordsCultureInfo, currencyCode, ref minorUnitSymbol, selectedOverride);
 
-            var (minorUnits, minorUnitsPlural, pluralizeMajorUnits, pluralizeMinorUnits) =
-                GetOverrideInformation(wordsCultureInfo, currencyCode, ref minorUnitSymbol, selectedOverride);
-
-            TicketCurrencyExtensions.SetCultureInfo(
-                entry.Locale,
-                valueCultureInfo,
-                wordsCultureInfo,
-                minorUnits,
-                minorUnitsPlural,
-                pluralizeMajorUnits,
-                pluralizeMinorUnits,
-                minorUnitSymbol);
+                TicketCurrencyExtensions.SetCultureInfo(
+                    entry.Locale,
+                    valueCultureInfo,
+                    wordsCultureInfo,
+                    minorUnits,
+                    minorUnitsPlural,
+                    pluralizeMajorUnits,
+                    pluralizeMinorUnits,
+                    minorUnitSymbol);
+            }
+            else
+            {
+                // No currency is configured
+                TicketCurrencyExtensions.SetCultureInfo(
+                    entry.Locale,
+                    valueCultureInfo,
+                    NoCurrency.NoCurrencyName);
+            }
         }
 
         private void SetTicketCurrency()
@@ -387,6 +427,60 @@
             }
         }
 
+        private CultureInfo SetNoCurrencyFormat(string currencyCode)
+        {
+            var noCurrencyCulture = (CultureInfo)CultureInfo.InvariantCulture.Clone();
+
+            var currencyDesc = _properties.GetValue(ApplicationConstants.CurrencyDescription, string.Empty);
+
+            int id = CurrencyCultureHelper.GetNoCurrencyFormatId(currencyDesc);
+
+            if (id >= 0)
+            {
+                CurrencyCultureHelper.ConfigureNoCurrencyCultureFormat(id, noCurrencyCulture);
+
+                CurrencyExtensions.SetCultureInfo(
+                    currencyCode,
+                    noCurrencyCulture,
+                    null,
+                    null,
+                    false,
+                    false,
+                    null);
+            }
+
+            // No Currency is not a valid ISO currency code, so we can't set it in the BNA
+            var supportedCurrencies = _noteAcceptor?.GetSupportedCurrencies();
+            if (supportedCurrencies?.Count > 0)
+            {
+                Logger.Debug($"No currency '{currencyDesc}' is configured. Use currency '{supportedCurrencies[0].ToString()}' to set BNA.");
+                // Use the first supported currency to set the BNA
+                UpdateNoteAcceptor(supportedCurrencies[0].ToString());
+            }
+
+
+            ConfiguredCurrency = new NoCurrency(id, noCurrencyCulture);
+            CurrencyExtensions.Currency = ConfiguredCurrency;
+
+            return noCurrencyCulture;
+        }
+
+        private void UpdateNoteAcceptor(string currencyCode)
+        {
+            _noteAcceptor?.SetIsoCode(currencyCode);
+
+            if (!_properties.GetValue(PropertyKey.NoteIn, true))
+            {
+                if (_noteAcceptor?.Denominations.Count > 0)
+                {
+                    foreach (var denom in _noteAcceptor.Denominations.ToArray())
+                    {
+                        _noteAcceptor.UpdateDenom(denom, false);
+                    }
+                }
+            }
+        }
+
         private (string minorUnits, string minorUnitsPlural, bool pluralizeMajorUnits, bool pluralizeMinorUnits)
             GetOverrideInformation(CultureInfo cultureInfo, string currencyCode, ref string minorUnitSymbol, CurrencyDefaultsCurrencyInfoFormat selectedOverride = null)
         {
@@ -412,7 +506,7 @@
                     overrideFormat.ExcludePluralizeMajorUnits = configuredCurrency?.Format?.ExcludePluralizeMajorUnits;
                     overrideFormat.ExcludePluralizeMinorUnits = configuredCurrency?.Format?.ExcludePluralizeMinorUnits;
                     unitResults = SetFormatOverrides(overrideFormat, cultureInfo, ref minorUnitSymbol);
-                    if (currencyDescription.Equals(cultureInfo.GetFormattedDescription()))
+                    if (currencyDescription.Equals(cultureInfo.GetFormattedDescription(currencyCode), StringComparison.InvariantCultureIgnoreCase))
                     {
                         return unitResults;
                     }
@@ -444,7 +538,6 @@
                 return (minorUnits, minorUnitsPlural);
             }
 
-            //var defaults = _currencyDefaults[currencyCode];
             var format = GetCurrencyOverrideFormat(currencyCode);
 
             minorUnits = format?.MinorUnits;
@@ -495,7 +588,7 @@
                 foreach (var culture in excludedCulture)
                 {
                     var excluded = new CultureInfo(culture);
-                    if (cultureInfo.Name.Equals(excluded.Name))
+                    if (cultureInfo.Name.Equals(excluded.Name, StringComparison.InvariantCultureIgnoreCase))
                     {
                         pluralizeUnits = false;
                         break;
@@ -520,7 +613,8 @@
 
                     SetFormatOverrides(overrides, cultureInfo, ref minorUnitSymbol);
 
-                    if (MatchCulture(currencyDescription, cultureInfo))
+                    if (configuredCurrency?.Format?.id == overrides.id ||
+                        configuredCurrency?.Format == null && MatchCulture(currencyDescription, cultureInfo))
                     {
                         return overrides;
                     }
@@ -530,15 +624,15 @@
             return null;
         }
 
-        private void SetCultureInfo(string currencyCode, ref CultureInfo cultureInfo)
+        private void FindCultureInfo(string currencyCode, ref CultureInfo cultureInfo)
         {
             var currencyDescription = _properties.GetValue(ApplicationConstants.CurrencyDescription, string.Empty);
 
             var cultures = GetNonNeutralCultureInfos().ToList();
-            var foundInfo = cultures.FirstOrDefault(culture => culture.Name.Equals(_localization.CurrentCulture.Name) &&
+            var foundInfo = cultures.FirstOrDefault(culture => culture.Name.Equals(_localization.CurrentCulture.Name, StringComparison.InvariantCultureIgnoreCase) &&
                                                                MatchCulture(currencyDescription, culture, currencyCode)) ??
                             cultures.FirstOrDefault(culture => MatchCulture(currencyDescription, culture, currencyCode)) ??
-                            cultures.FirstOrDefault(culture => culture.Name.Equals(_localization.CurrentCulture.Name));
+                            cultures.FirstOrDefault(culture => culture.Name.Equals(_localization.CurrentCulture.Name, StringComparison.InvariantCultureIgnoreCase));
 
             if (foundInfo != null)
             {
@@ -552,7 +646,7 @@
             {
                 var region = new RegionInfo(culture.Name);
 
-                if (!currencyCode.Equals(region.ISOCurrencySymbol))
+                if (!currencyCode.Equals(region.ISOCurrencySymbol, StringComparison.InvariantCultureIgnoreCase))
                 {
                     return false;
                 }
@@ -567,7 +661,7 @@
 
             _ = GetOverrideInformation(culture, currencyCode, ref minorSymbol);
 
-            return description.Equals(culture.GetFormattedDescription());
+            return description.Equals(culture.GetFormattedDescription(currencyCode), StringComparison.InvariantCultureIgnoreCase);
         }
 
         private string GetDefaultMinorUnitSymbol(string currencyCode)
@@ -581,7 +675,7 @@
         {
             var currency = _currencies?.CurrencyDefinitions.Currency;
             if (currency != null &&
-                !currencyCode.Equals(currency.CurrencyCode, StringComparison.OrdinalIgnoreCase))
+                !currencyCode.Equals(currency.CurrencyCode, StringComparison.InvariantCultureIgnoreCase))
             {
                 // the currency code doesn't match to the configured currency
                 return null;
@@ -616,12 +710,12 @@
 
             if (!currencyCode.Equals(
                     currencies.CurrencyDefinitions?.Currency?.CurrencyCode,
-                    StringComparison.OrdinalIgnoreCase))
+                    StringComparison.InvariantCultureIgnoreCase))
             {
                 return null;
             }
 
-            return currencies.CurrencyDefinitions.Currency;
+            return currencies.CurrencyDefinitions?.Currency;
         }
     }
 }

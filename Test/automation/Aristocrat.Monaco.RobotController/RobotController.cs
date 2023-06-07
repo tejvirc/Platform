@@ -346,7 +346,7 @@
 
             _eventBus.Subscribe<ExitRequestedEvent>(this, _ =>
             {
-                _logger.Info("Exit requested. Disabling.", GetType().Name);
+                _logger?.Info("Exit requested. Disabling.", GetType().Name);
                 Enabled = false;
             });
         }
