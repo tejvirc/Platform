@@ -29,6 +29,8 @@
         private readonly IEventBus _eventBus;
         private readonly long _cashOutAmountPerHand;
         private readonly IPropertiesManager _properties;
+        private bool isCashOut { get; set; }
+        private AutoResetEvent autoResetEvent = new AutoResetEvent(false);
 
         private bool _disposed;
 
@@ -68,6 +70,13 @@
             _cashOutAmountPerHand = properties.GetValue(AccountingConstants.CashoutAmountPerHandCount, 0L);
             _properties = properties
                  ?? throw new ArgumentNullException(nameof(properties));
+            _eventBus.Subscribe<CashoutAmountPlayerConfirmationReceivedEvent>(this, Handle);
+        }
+
+        private void Handle(CashoutAmountPlayerConfirmationReceivedEvent evt)
+        {
+            isCashOut = evt.IsCashout;
+            autoResetEvent.Set();
         }
 
         /// <inheritdoc />
@@ -91,10 +100,22 @@
                 return ((long)amount.MillicentsToDollars()).DollarsToMillicents();
             }
 
-            var amountCashable = Math.Min(amount, _handCountService.HandCount * _cashOutAmountPerHand);
-
+            var handCountAmount = _handCountService.HandCount * _cashOutAmountPerHand;
+            var amountCashable = Math.Min(amount, handCountAmount);
             amountCashable = ((long)amountCashable.MillicentsToDollars()).DollarsToMillicents();
 
+            if (handCountAmount < ((long)amount.MillicentsToDollars()).DollarsToMillicents())
+            {
+                _eventBus.Publish(new CashoutAmountPlayerConfirmationRequestedEvent());
+                autoResetEvent.WaitOne();
+                if (isCashOut)
+                {
+                    handCountAmount = ((long)handCountAmount.MillicentsToDollars()).DollarsToMillicents();
+                    CheckLargePayoutAsync(handCountAmount).Wait();
+                    return handCountAmount;
+                }
+                return 0;
+            }
             CheckLargePayoutAsync(amountCashable).Wait();
             return amountCashable;
         }
@@ -169,6 +190,7 @@
             {
                 if (disposing)
                 {
+                    autoResetEvent.Close();
                     _eventBus.UnsubscribeAll(this);
                 }
 
