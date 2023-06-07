@@ -642,14 +642,6 @@
                      orderby pool.Key.GameId, pool.Key.PackName, pool.Key.ProgId, pool.Key.LevelId
                      select pool).ToArray();
 
-                var games = new List<string>();
-                var enabledList = new List<bool>();
-                foreach (var p in pools)
-                {
-                    games.Add(p.Key.GameId.ToString());
-                    enabledList.Add(_gameProvider.GetGame(p.Key.GameId).EgmEnabled);
-                }
-
                 foreach (var pool in pools)
                 {
                     var game = _gameProvider.GetGame(pool.Key.GameId);
