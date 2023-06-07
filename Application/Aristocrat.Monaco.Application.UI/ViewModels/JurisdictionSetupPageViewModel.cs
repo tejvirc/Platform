@@ -84,7 +84,7 @@
 #if !(RETAIL)
             ShowModeVisible = true;
 #else
-            ShowModeVisible = licensedJurisdictionId == ShowModeJurisdictionId;
+            ShowModeVisible = _licensedJurisdictionId == ShowModeJurisdictionId;
 #endif
             _isShowModeChecked = _licensedJurisdictionId == ShowModeJurisdictionId;
             _gameRulesVisible = ShowModeVisible;
