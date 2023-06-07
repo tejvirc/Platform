@@ -26,6 +26,7 @@
     <BitmapImage x:Key="PlatinumIcon" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/12Button_PlatinumSeries_0000.png"/>
     <BitmapImage x:Key="StaticStarIcon" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/StaticNewStar.png"/>
     <BitmapImage x:Key="JackpotText" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Text_Jackpot_EN.png"/>
+    <BitmapImage x:Key="GameSelectedOverlay" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/GeorgiaCOAM/ui/Images/Game_Selected.png"/>
 
     <!-- **RESPONSIBLE GAMING INFO -->
     <BitmapImage x:Key="RGInfoBackground" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/RG_InfoBackGround.png"/>

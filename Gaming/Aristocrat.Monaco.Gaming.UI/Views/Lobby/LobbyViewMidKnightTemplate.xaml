@@ -26,7 +26,6 @@
     <converters:DecoratorIconVisibilityConverter x:Key="AnimatedIconVisibilityConv"/>
     <converters:DecoratorIconVisibilityConverter x:Key="StaticIconVisibilityConv" InvertEnabledValue="True"/>
     <converters:MarginConverter x:Key="MarginConverter"/>
-    <converters:GameIconImageHeightConverter x:Key="GameIconImageHeightConv"/>
     <converters:CharacterToResourceImageConverter x:Key="CharacterToResourceImageConv"/>
 
     <Storyboard x:Key="AttractHaloFadeInStoryboard">
@@ -135,41 +134,24 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type models:GameInfo}">
                             <Viewbox x:Name="GameTile" Stretch="Uniform">
-                                <Grid HorizontalAlignment="Left"
-                                      VerticalAlignment="Top"
-                                      Height="412">
+                                <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
                                     <!-- Use DataContext of ItemsControl instead of current GameInfo for SelectCommand -->
                                     <Button x:Name="GameIconButton"
                                             Style="{StaticResource stlFlatButton}"
                                             HorizontalAlignment="Center"
-                                            VerticalAlignment="Top"
+                                            VerticalAlignment="Center"
+                                            Height="412"
+                                            Margin="4"
                                             Tag="{Binding Name}"
                                             Command="{Binding Path=DataContext.GameSelectCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                             CommandParameter="{Binding}">
-                                        <Grid VerticalAlignment="Top" HorizontalAlignment="Center">
+                                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
                                             <Image x:Name="ButtonImage"
                                                    HorizontalAlignment="Center"
-                                                   VerticalAlignment="Top"
+                                                   VerticalAlignment="Center"
                                                    Margin="0"
                                                    Stretch="None"
                                                    Source="{Binding ImagePath}"/>
-
-                                            <Image x:Name="SelectedImage"
-                                                   Source="{DynamicResource GameSelectedOverlay}"
-                                                   RenderOptions.BitmapScalingMode="HighQuality"
-                                                   Margin="0"
-                                                   Height="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageHeightConv}}"
-                                                   HorizontalAlignment="Center"
-                                                   VerticalAlignment="Top">
-                                                <Image.Visibility>
-                                                    <MultiBinding Converter="{StaticResource LogicalAndTrueVisibleFalseCollapsed}">
-                                                        <Binding Path="IsSelected"/>
-                                                        <Binding Path="DataContext.IsExtraLargeGameIconTabActive"
-                                                                 RelativeSource="{RelativeSource AncestorType=ItemsControl}"
-                                                                 Converter="{StaticResource InverseBoolConverter}"/>
-                                                    </MultiBinding>
-                                                </Image.Visibility>
-                                            </Image>
 
                                             <Image Source="{DynamicResource PlatinumIcon}">
                                                 <Image.Visibility>
@@ -266,6 +248,22 @@
                                             </Grid>
                                         </Grid>
                                     </Button>
+
+                                    <Image x:Name="SelectedImage"
+                                           Source="{DynamicResource GameSelectedOverlay}"
+                                           Stretch="None"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Top"
+                                           Margin="-22">
+                                        <Image.Visibility>
+                                            <MultiBinding Converter="{StaticResource LogicalAndTrueVisibleFalseCollapsed}">
+                                                <Binding Path="IsSelected"/>
+                                                <Binding Path="DataContext.IsExtraLargeGameIconTabActive"
+                                                         RelativeSource="{RelativeSource AncestorType=ItemsControl}"
+                                                         Converter="{StaticResource InverseBoolConverter}"/>
+                                            </MultiBinding>
+                                        </Image.Visibility>
+                                    </Image>
                                 </Grid>
                             </Viewbox>
                         </DataTemplate>
