@@ -228,7 +228,7 @@
 
         private void ReInitializeRobot()
         {
-            _modeOperations = RobotControllerHelper.InitializeModeDictionary(_container);
+            _modeOperations = RobotControllerHelper.AddOperations(_container);
         }
 
         private void ActivateGamePlay()
