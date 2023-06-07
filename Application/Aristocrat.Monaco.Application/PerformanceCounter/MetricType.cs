@@ -76,7 +76,7 @@
         [Counter("Private Bytes")]
         [Label("Platform Memory")]
         [Unit("MB")]
-        [MaxRange(1000)]
+        [MaxRange(3072)]
         MonacoPrivateBytes,
 
         /// <summary>
@@ -160,7 +160,7 @@
         [Counter("Game Update Time(ms)")]
         [Label("Update Time")]
         [Unit("ms")]
-        [MaxRange(1000)]
+        [MaxRange(10)]
         GamesUpdateTime,
 
         /// <summary>
@@ -172,7 +172,7 @@
         [Counter("IPC Blocking Time Acc(ms)")]
         [Label("IPC Blocking Time Acc")]
         [Unit("ms")]
-        [MaxRange(1000)]
+        [MaxRange(100)]
         IPCBlockingTimeAcc,
 
         /// <summary>
@@ -184,7 +184,7 @@
         [Counter("Render Time(ms)")]
         [Label("Render Time")]
         [Unit("ms")]
-        [MaxRange(1000)]
+        [MaxRange(100)]
         RenderTime,
 
         /// <summary>
@@ -196,7 +196,7 @@
         [Counter("Runtime Update Time(ms)")]
         [Label("Runtime Update Time")]
         [Unit("ms")]
-        [MaxRange(1000)]
+        [MaxRange(100)]
         RuntimeUpdateTime,
 
         /// <summary>
@@ -208,7 +208,7 @@
         [Counter("Swapbuffer Time(ms)")]
         [Label("Swapbuffer Time")]
         [Unit("ms")]
-        [MaxRange(1000)]
+        [MaxRange(100)]
         SwapbufferTime
     }
 }
