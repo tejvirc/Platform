@@ -111,6 +111,8 @@
                 _progressiveService.UpdateLinkedProgressiveLevels(progLevel.ProgressiveId, progLevel.LevelId, progLevel.CurrentValue.MillicentsToCents());
             }
 
+            device.ResetProgInfoTimer();
+
             var response = command.GenerateResponse<progressiveValueAck>();
             await _progressiveValueAckCommandBuilder.Build(device, response.Command);
         }

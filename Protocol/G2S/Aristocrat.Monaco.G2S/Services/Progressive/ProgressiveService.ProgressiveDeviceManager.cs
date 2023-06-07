@@ -13,7 +13,7 @@
     public partial class ProgressiveService : IProgressiveDeviceManager
     {
         /// <inheritdoc />
-        public IEngine engine { private get; set; }
+        public IEngine Engine { private get; set; }
 
         /// <inheritdoc />
         public Dictionary<int, int> VertexDeviceIds { get; set; } = new Dictionary<int, int>();
@@ -34,12 +34,8 @@
 
             if (fromBase)
             {
-                (engine as G2SEngine).AddProgressiveDevices(this);
+                Engine.AddProgressiveDevices(this);
             }
-
-            _progressiveHost = _egm.Hosts.FirstOrDefault(h => h.IsProgressiveHost);
-            var interval = _progressiveHost?.OfflineTimerInterval.TotalMilliseconds > 0 ? _progressiveHost.OfflineTimerInterval.TotalMilliseconds : 100;
-            _progressiveHostOfflineTimer.Interval = interval;
 
             var propertiesManager = ServiceManager.GetInstance().TryGetService<IPropertiesManager>();
             if (fromConfig)
@@ -53,11 +49,8 @@
                 VertexProgressiveIds = vertexProgressiveIds;
                 propertiesManager.SetProperty(G2S.Constants.VertexProgressiveIds, VertexProgressiveIds);
 
-                _progressiveHostOfflineTimer.Stop();
-                _progressiveValueUpdateTimer.Stop();
-
                 ServiceManager.GetInstance().TryGetService<IEventBus>().Publish(new RestartProtocolEvent());
-                (engine as G2SEngine).AddProgressiveDevices(this);
+                Engine.AddProgressiveDevices(this);
             }
 
             var levelProvider = ServiceManager.GetInstance().GetService<IProgressiveLevelProvider>();

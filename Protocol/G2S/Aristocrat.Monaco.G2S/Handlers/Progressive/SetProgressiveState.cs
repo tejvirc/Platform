@@ -41,13 +41,7 @@
             {
                 return;
             }
-
-            var progressiveState = command.Command;
-
-            var progressiveService = ServiceManager.GetInstance().TryGetService<IProgressiveService>();
-            if (progressiveService == null) return;
-
-            progressiveService.SetProgressiveDeviceState(progressiveState.enable, progressiveDevice, progressiveState.disableText);
+            progressiveDevice.SetProgressiveState(command.Command);
 
             var response = command.GenerateResponse<progressiveStatus>();
             var status = response.Command;

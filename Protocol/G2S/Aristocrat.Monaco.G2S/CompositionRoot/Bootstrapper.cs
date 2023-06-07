@@ -186,6 +186,7 @@
             @this.Register<ITransportStateObserver, TransportStateObserver>(Lifestyle.Singleton);
             @this.Register<ICommunicationsStateObserver, CommunicationsStateObserver>(Lifestyle.Singleton);
             @this.Register<IDeviceObserver, DeviceObserver>(Lifestyle.Singleton);
+            @this.Register<IProgressiveDeviceObserver, ProgressiveDeviceObserver>(Lifestyle.Singleton);
             @this.Register<IEgmStateObserver, EgmStateObserver>(Lifestyle.Singleton);
             @this.Register<IEgmStateManager, EgmStateManager>(Lifestyle.Singleton);
             @this.Register<IProfileService, ProfileService>(Lifestyle.Singleton);

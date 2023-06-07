@@ -35,6 +35,7 @@
         private readonly IDeviceFactory _deviceFactory;
         private readonly IDeviceRegistryService _deviceRegistryService;
         private readonly IDeviceObserver _deviceStateObserver;
+        private readonly IProgressiveDeviceObserver _progressiveDeviceStateObserver;
         private readonly IG2SEgm _egm;
         private readonly IEgmStateObserver _egmStateObserver;
         private readonly IEmdi _emdi;
@@ -60,6 +61,7 @@
             IScriptManager scriptManager,
             IPackageDownloadManager packageDownloadManager,
             IDeviceObserver deviceStateObserver,
+            IProgressiveDeviceObserver progressiveDeviceStateObserver,
             IEgmStateObserver egmStateObserver,
             IDeviceRegistryService deviceRegistryService,
             IGatComponentFactory gatComponentFactory,
@@ -81,6 +83,7 @@
             _packageDownloadManager = packageDownloadManager ??
                                       throw new ArgumentNullException(nameof(packageDownloadManager));
             _deviceStateObserver = deviceStateObserver ?? throw new ArgumentNullException(nameof(deviceStateObserver));
+            _progressiveDeviceStateObserver = progressiveDeviceStateObserver ?? throw new ArgumentNullException(nameof(progressiveDeviceStateObserver));
             _egmStateObserver = egmStateObserver ?? throw new ArgumentNullException(nameof(egmStateObserver));
             _deviceRegistryService =
                 deviceRegistryService ?? throw new ArgumentNullException(nameof(deviceRegistryService));
@@ -166,14 +169,17 @@
         {
             var hosts = _properties.GetValues<IHost>(Constants.RegisteredHosts).ToList();
             var defaultHost = hosts.OrderBy(h => h.Index).FirstOrDefault(h => !h.IsEgm() && h.Registered);
+            var progressiveHost = hosts.FirstOrDefault(h => h.IsProgressiveHost);
+            var defaultNoProgInfo = (int)(progressiveHost?.OfflineTimerInterval.TotalMilliseconds ??
+                                          Constants.DefaultNoProgInfo);
 
             foreach (var id in progressiveDeviceManager.VertexProgressiveIds)
             {
                 if (_egm.GetDevice<IProgressiveDevice>(id) != null) continue;
                 var device = (IProgressiveDevice)_deviceFactory.Create(
-                             hosts.Where(h => h.IsProgressiveHost).FirstOrDefault() ?? defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
+                             progressiveHost ?? defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
                              hosts.Where(h => !h.IsEgm() && h.Registered),
-                             () => new ProgressiveDevice(id, _deviceStateObserver));
+                             () => new ProgressiveDevice(id, _progressiveDeviceStateObserver, defaultNoProgInfo));
 
                 progressiveDeviceManager.DeviceProgIdMap.Add(device.Id, id);
             }
@@ -334,25 +340,30 @@
             {
                 var progressiveService = ServiceManager.GetInstance().GetService<IProgressiveService>();
                 List<int> configuredIds = (List<int>)propertiesManager.GetProperty(Constants.VertexProgressiveIds, new List<int>());
-                if(configuredIds != null && configuredIds.Count() > 0)
+                var progressiveHost = hosts.FirstOrDefault(h => h.IsProgressiveHost);
+                var defaultNoProgInfo = (int)(progressiveHost?.OfflineTimerInterval.TotalMilliseconds ??
+                                              Constants.DefaultNoProgInfo);
+
+                if (configuredIds != null && configuredIds.Any())
                 {
                     foreach (var id in configuredIds)
                     {
-                        _deviceFactory.Create(
-                        hosts.Where(h => h.IsProgressiveHost).FirstOrDefault() ?? defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
-                        hosts.Where(h => !h.IsEgm() && h.Registered),
-                        () => new ProgressiveDevice(id, _deviceStateObserver));
+                        var device = _deviceFactory.Create(
+                            progressiveHost ??
+                            defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
+                            hosts.Where(h => !h.IsEgm() && h.Registered),
+                            () => new ProgressiveDevice(id, _progressiveDeviceStateObserver, defaultNoProgInfo));
 
-                        progressiveService?.DeviceProgIdMap.Add(id, id);
+                        progressiveService?.DeviceProgIdMap.Add(device.Id, id);
                     }
                 }
 
-                if(_egm.GetDevices<IProgressiveDevice>().Count() <= 0)
+                if(!_egm.GetDevices<IProgressiveDevice>().Any())
                 {
                     _deviceFactory.Create(
-                        hosts.Where(h => h.IsProgressiveHost).FirstOrDefault() ?? defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
+                        progressiveHost ?? defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
                         hosts.Where(h => !h.IsEgm() && h.Registered),
-                        () => new ProgressiveDevice(1, _deviceStateObserver));
+                        () => new ProgressiveDevice(1, _progressiveDeviceStateObserver, defaultNoProgInfo));
                 }
             }
         }

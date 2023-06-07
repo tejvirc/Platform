@@ -35,6 +35,7 @@
             var scriptManager = new Mock<IScriptManager>();
             var packageDownloadManager = new Mock<IPackageDownloadManager>();
             var deviceObserver = new Mock<IDeviceObserver>();
+            var progressiveDeviceObserver = new Mock<IProgressiveDeviceObserver>();
             var egmStateObserver = new Mock<IEgmStateObserver>();
             var deviceRegistryService = new Mock<IDeviceRegistryService>();
             var gatComponentFactory = new Mock<IGatComponentFactory>();
@@ -56,6 +57,7 @@
                 scriptManager.Object,
                 packageDownloadManager.Object,
                 deviceObserver.Object,
+                progressiveDeviceObserver.Object,
                 egmStateObserver.Object,
                 deviceRegistryService.Object,
                 gatComponentFactory.Object,

@@ -2,14 +2,18 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Data.Common;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using Aristocrat.Monaco.Accounting.Contracts;
+    using Aristocrat.Monaco.Application.Contracts.Localization;
     using Aristocrat.Monaco.Gaming.Contracts.Progressives;
     using Aristocrat.Monaco.Kernel;
     using Diagnostics;
+    using Monaco.Localization.Properties;
     using Protocol.v21;
+    using Timers = System.Timers;
 
     /// <summary>
     ///     create class ProgressiveDevice
@@ -19,8 +23,12 @@
         private const int EgmTimeoutException = 1;
         private const int HostRejectedException = 2;
 
+        private readonly int _defaultNoProgInfo;
+
         private bool _deviceCommunicationClosed;
         private bool _disposed;
+        private int _noProgInfo;
+        private Timers.Timer _noProgInfoTimer = new Timers.Timer();
 
         private CancellationTokenSource _getProgressiveHostInfoCancellationToken;
         private CancellationTokenSource _progressiveCommitCancellationToken;
@@ -29,11 +37,14 @@
         /// <summary>
         ///     ProgressiveDevice constructor
         /// </summary>
-        /// <param name="deviceId">that is device id of progressive</param>
+        /// <param name="deviceId">the device id of this progressive instance</param>
         /// <param name="deviceStateObserver">deviceStateObserver instance</param>
-        public ProgressiveDevice(int deviceId, IDeviceObserver deviceStateObserver)
+        /// <param name="defaultNoProgInfo">default value for the progressive updates timer length in milliseconds. This can be modified by a configuration server</param>
+        public ProgressiveDevice(int deviceId, IProgressiveDeviceObserver deviceStateObserver, int defaultNoProgInfo)
             : base(deviceId, deviceStateObserver, false)
         {
+            _noProgInfoTimer.Elapsed += NoProgInfoTimerElapsed;
+            _defaultNoProgInfo = defaultNoProgInfo;
             SetDefaults();
         }
 
@@ -43,9 +54,23 @@
         public int ProgressiveId { get; set; }
 
         /// <summary>
-        ///     NoProgressiveInfo
+        ///     NoProgInfo
         /// </summary>
-        public int NoProgressiveInfo { get; set; }
+        public int NoProgInfo
+        {
+            get => _noProgInfo;
+            set
+            {
+                if (value == 0) value = _defaultNoProgInfo;
+                _noProgInfo = value;
+                _noProgInfoTimer.Interval = value;
+            }
+        }
+
+        /// <summary>
+        ///     Whether progressive values are valid and updated
+        /// </summary>
+        public bool ProgInfoValid { get; private set; }
 
         /// <summary>
         ///     TimeToLive
@@ -101,7 +126,7 @@
             SetDeviceValue(
                 G2SParametersNames.ProgressiveDevice.NoProgInfoParameterName,
                 optionConfigValues,
-                parameterId => { NoProgressiveInfo = optionConfigValues.Int32Value(parameterId); });
+                parameterId => { NoProgInfo = optionConfigValues.Int32Value(parameterId); });
 
             SetDeviceValue(
                 G2SParametersNames.ProgressiveDevice.ProgIdParameterName,
@@ -220,7 +245,6 @@
             if (!HostEnabled
                 || (!Queue.CanSend && !_deviceCommunicationClosed)
                 || progressiveStates != t_progStates.G2S_progCommit
-                || progressiveStates == t_progStates.G2S_progFailed
                 || _progressiveCommitCancellationToken?.IsCancellationRequested == true)
             {
                 _progressiveCommitCancellationToken?.Cancel(false);
@@ -370,6 +394,29 @@
             return result;
         }
 
+        /// <summary>
+        /// Restarts the timer monitoring for frequent progressive value updates.
+        /// </summary>
+        public void ResetProgInfoTimer()
+        {
+            _noProgInfoTimer.Stop();
+            _noProgInfoTimer.Start();
+            ProgInfoValid = true;
+            Enabled = true;
+        }
+
+        /// <summary>
+        /// Processes an update to this device's state from the owner host
+        /// </summary>
+        /// <param name="progressiveState">the received message from the host</param>
+        public void SetProgressiveState(setProgressiveState progressiveState)
+        {
+            DisableText = progressiveState.enable
+                ? string.Empty
+                : progressiveState.disableText;
+            HostEnabled = progressiveState.enable;
+        }
+
         /// <inheritdoc />
         /// <summary>
         ///     Dispose to free resources
@@ -403,6 +450,13 @@
                 _progressiveHitCancellationToken.Cancel(false);
                 _progressiveHitCancellationToken.Dispose();
                 _progressiveHitCancellationToken = null;
+            }
+
+            if (_noProgInfoTimer != null)
+            {
+                _noProgInfoTimer.Stop();
+                _noProgInfoTimer.Dispose();
+                _noProgInfoTimer = null;
             }
 
             _disposed = true;
@@ -474,8 +528,17 @@
         {
             RequiredForPlay = true;
             RestartStatus = true;
+            Enabled = false;
+            NoProgInfo = _defaultNoProgInfo;
             TimeToLive = (int)Constants.DefaultTimeout.TotalMilliseconds;
             NoResponseTimer = Constants.NoResponseTimer;
+        }
+
+        private void NoProgInfoTimerElapsed(object sender, Timers.ElapsedEventArgs e)
+        {
+            _noProgInfoTimer.Stop();
+            ProgInfoValid = false;
+            Enabled = false;
         }
     }
 }

@@ -13,6 +13,12 @@ namespace Aristocrat.Monaco.G2S
         public const int DefaultPort = 53302;
 
         /// <summary>
+        ///     Default value for NoProgInfo value for progressive devices.
+        ///     This is the time in milliseconds between required progressive value updates. 
+        /// </summary>
+        public const int DefaultNoProgInfo = 30_000;
+
+        /// <summary>
         ///     Property to get the configured port
         /// </summary>
         public const string Port = @"G2SClient.Port";

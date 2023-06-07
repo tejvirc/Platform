@@ -9,11 +9,11 @@
         /// <summary>Not disabled.</summary>
         None = 0,
 
-        /// <summary>Comms are offline with a G2S host</summary>
-        CommsOffline = 1 << 0,
+        /// <summary>Comms are offline with a G2S progressive host</summary>
+        ProgressiveHostCommsOffline = 1 << 0,
 
         /// <summary>EGM and G2S Host mismatch on available progressive levels</summary>
-        LevelMismatch = 1 << 1,
+        ProgressiveLevelsMismatch = 1 << 1,
 
         /// <summary>G2S Host has disabled a progressive device</summary>
         ProgressiveStateDisabledByHost = 1 << 2,

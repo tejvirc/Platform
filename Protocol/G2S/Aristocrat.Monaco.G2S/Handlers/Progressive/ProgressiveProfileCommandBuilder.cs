@@ -50,7 +50,7 @@
 
             command.configurationId = device.ConfigurationId;
             command.minLogEntries = _transactions.GetMaxTransactions<JackpotTransaction>();
-            command.noProgInfo = device.NoProgressiveInfo;
+            command.noProgInfo = device.NoProgInfo;
             command.noResponseTimer = (int)device.NoResponseTimer.TotalMilliseconds;
             command.progId = levels.First().ProgressiveId;
             command.requiredForPlay = device.RequiredForPlay;

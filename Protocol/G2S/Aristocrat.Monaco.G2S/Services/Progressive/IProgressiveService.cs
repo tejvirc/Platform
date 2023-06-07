@@ -1,4 +1,6 @@
 ﻿namespace Aristocrat.Monaco.G2S.Services.Progressive
-{
-    public interface IProgressiveService : IProgressiveState, IProgressiveDeviceManager, IProgressiveLevelManager { }
+{ using Aristocrat.G2S.Client.Devices;
+    using Kernel;
+
+    public interface IProgressiveService : IService, IProgressiveDeviceManager, IProgressiveLevelManager { }
 }

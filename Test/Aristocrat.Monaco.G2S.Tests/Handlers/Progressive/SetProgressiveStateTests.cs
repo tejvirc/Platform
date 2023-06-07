@@ -89,21 +89,15 @@
 
             var command = CreateCommand();
             command.Command.enable = false;
-
             command.Command.disableText = "disable_text";
 
-
-            Mock<IProgressiveService> progressiveService = new Mock<IProgressiveService>();
-            progressiveService.Setup(s => s.SetProgressiveDeviceState(
-                command.Command.enable,
-                deviceMock.Object,
-                command.Command.disableText
+            deviceMock.Setup(s => s.SetProgressiveState(
+                command.Command
                 )).Verifiable();
-            MoqServiceManager.AddService(progressiveService);
 
             await handler.Handle(command);
 
-            progressiveService.Verify();
+            deviceMock.Verify();
         }
 
         [TestMethod]

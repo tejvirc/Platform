@@ -38,6 +38,7 @@
                 null,
                 null,
                 null,
+                null,
                 null);
 
             Assert.IsNull(service);
@@ -51,6 +52,7 @@
 
             var service = new G2SEngine(
                 egm.Object,
+                null,
                 null,
                 null,
                 null,
@@ -99,6 +101,7 @@
                 null,
                 null,
                 null,
+                null,
                 null);
 
             Assert.IsNull(service);
@@ -117,6 +120,7 @@
                 properties.Object,
                 hostFactory.Object,
                 deviceFactory.Object,
+                null,
                 null,
                 null,
                 null,
@@ -151,6 +155,7 @@
                 hostFactory.Object,
                 deviceFactory.Object,
                 scriptManager.Object,
+                null,
                 null,
                 null,
                 null,
@@ -199,6 +204,44 @@
                 null,
                 null,
                 null,
+                null,
+                null);
+
+            Assert.IsNull(service);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void WhenConstructWithNullProgressiveStateObserverExpectException()
+        {
+            var egm = new Mock<IG2SEgm>();
+            var properties = new Mock<IPropertiesManager>();
+            var hostFactory = new Mock<IHostFactory>();
+            var deviceFactory = new Mock<IDeviceFactory>();
+            var scriptManager = new Mock<IScriptManager>();
+            var packageDownloadManager = new Mock<IPackageDownloadManager>();
+            var deviceObserver = new Mock<IDeviceObserver>();
+            var progressiveDeviceObserver = new Mock<IProgressiveDeviceObserver>();
+            var service = new G2SEngine(
+                egm.Object,
+                properties.Object,
+                hostFactory.Object,
+                deviceFactory.Object,
+                scriptManager.Object,
+                packageDownloadManager.Object,
+                deviceObserver.Object,
+                progressiveDeviceObserver.Object,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
                 null);
 
             Assert.IsNull(service);
@@ -215,6 +258,7 @@
             var scriptManager = new Mock<IScriptManager>();
             var packageDownloadManager = new Mock<IPackageDownloadManager>();
             var deviceObserver = new Mock<IDeviceObserver>();
+            var progressiveDeviceObserver = new Mock<IProgressiveDeviceObserver>();
             var egmStateObserver = new Mock<IEgmStateObserver>();
             var service = new G2SEngine(
                 egm.Object,
@@ -224,6 +268,7 @@
                 scriptManager.Object,
                 packageDownloadManager.Object,
                 deviceObserver.Object,
+                progressiveDeviceObserver.Object,
                 egmStateObserver.Object,
                 null,
                 null,
@@ -251,6 +296,7 @@
             var scriptManager = new Mock<IScriptManager>();
             var packageDownloadManager = new Mock<IPackageDownloadManager>();
             var deviceObserver = new Mock<IDeviceObserver>();
+            var progressiveDeviceObserver = new Mock<IProgressiveDeviceObserver>();
             var egmStateObserver = new Mock<IEgmStateObserver>();
             var deviceRegistryService = new Mock<IDeviceRegistryService>();
             var service = new G2SEngine(
@@ -261,6 +307,7 @@
                 scriptManager.Object,
                 packageDownloadManager.Object,
                 deviceObserver.Object,
+                progressiveDeviceObserver.Object,
                 egmStateObserver.Object,
                 deviceRegistryService.Object,
                 null,
@@ -288,6 +335,7 @@
             var scriptManager = new Mock<IScriptManager>();
             var packageDownloadManager = new Mock<IPackageDownloadManager>();
             var deviceObserver = new Mock<IDeviceObserver>();
+            var progressiveDeviceObserver = new Mock<IProgressiveDeviceObserver>();
             var egmStateObserver = new Mock<IEgmStateObserver>();
             var deviceRegistryService = new Mock<IDeviceRegistryService>();
             var gatComponentFactory = new Mock<IGatComponentFactory>();
@@ -299,6 +347,7 @@
                 scriptManager.Object,
                 packageDownloadManager.Object,
                 deviceObserver.Object,
+                progressiveDeviceObserver.Object,
                 egmStateObserver.Object,
                 deviceRegistryService.Object,
                 gatComponentFactory.Object,
@@ -326,6 +375,7 @@
             var scriptManager = new Mock<IScriptManager>();
             var packageDownloadManager = new Mock<IPackageDownloadManager>();
             var deviceObserver = new Mock<IDeviceObserver>();
+            var progressiveDeviceObserver = new Mock<IProgressiveDeviceObserver>();
             var egmStateObserver = new Mock<IEgmStateObserver>();
             var deviceRegistryService = new Mock<IDeviceRegistryService>();
             var gatComponentFactory = new Mock<IGatComponentFactory>();
@@ -338,6 +388,7 @@
                 scriptManager.Object,
                 packageDownloadManager.Object,
                 deviceObserver.Object,
+                progressiveDeviceObserver.Object,
                 egmStateObserver.Object,
                 deviceRegistryService.Object,
                 gatComponentFactory.Object,
@@ -365,6 +416,7 @@
             var scriptManager = new Mock<IScriptManager>();
             var packageDownloadManager = new Mock<IPackageDownloadManager>();
             var deviceObserver = new Mock<IDeviceObserver>();
+            var progressiveDeviceObserver = new Mock<IProgressiveDeviceObserver>();
             var egmStateObserver = new Mock<IEgmStateObserver>();
             var deviceRegistryService = new Mock<IDeviceRegistryService>();
             var gatComponentFactory = new Mock<IGatComponentFactory>();
@@ -378,6 +430,7 @@
                 scriptManager.Object,
                 packageDownloadManager.Object,
                 deviceObserver.Object,
+                progressiveDeviceObserver.Object,
                 egmStateObserver.Object,
                 deviceRegistryService.Object,
                 gatComponentFactory.Object,
@@ -396,7 +449,7 @@
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void WhenConstructWithNullPathMapperExpectException()
+        public void WhenConstructWithNullMasterResetExpectException()
         {
             var egm = new Mock<IG2SEgm>();
             var properties = new Mock<IPropertiesManager>();
@@ -405,6 +458,7 @@
             var scriptManager = new Mock<IScriptManager>();
             var packageDownloadManager = new Mock<IPackageDownloadManager>();
             var deviceObserver = new Mock<IDeviceObserver>();
+            var progressiveDeviceObserver = new Mock<IProgressiveDeviceObserver>();
             var egmStateObserver = new Mock<IEgmStateObserver>();
             var deviceRegistryService = new Mock<IDeviceRegistryService>();
             var gatComponentFactory = new Mock<IGatComponentFactory>();
@@ -419,6 +473,7 @@
                 scriptManager.Object,
                 packageDownloadManager.Object,
                 deviceObserver.Object,
+                progressiveDeviceObserver.Object,
                 egmStateObserver.Object,
                 deviceRegistryService.Object,
                 gatComponentFactory.Object,
@@ -436,6 +491,241 @@
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void WhenConstructWithNullSelfTestExpectException()
+        {
+            var egm = new Mock<IG2SEgm>();
+            var properties = new Mock<IPropertiesManager>();
+            var hostFactory = new Mock<IHostFactory>();
+            var deviceFactory = new Mock<IDeviceFactory>();
+            var scriptManager = new Mock<IScriptManager>();
+            var packageDownloadManager = new Mock<IPackageDownloadManager>();
+            var deviceObserver = new Mock<IDeviceObserver>();
+            var progressiveDeviceObserver = new Mock<IProgressiveDeviceObserver>();
+            var egmStateObserver = new Mock<IEgmStateObserver>();
+            var deviceRegistryService = new Mock<IDeviceRegistryService>();
+            var gatComponentFactory = new Mock<IGatComponentFactory>();
+            var meterSubManager = new Mock<IMetersSubscriptionManager>();
+            var g2sMeterProvider = new Mock<IG2SMeterProvider>();
+            var voucherDataService = new Mock<IVoucherDataService>();
+            var masterResetService = new Mock<IMasterResetService>();
+
+            var service = new G2SEngine(
+                egm.Object,
+                properties.Object,
+                hostFactory.Object,
+                deviceFactory.Object,
+                scriptManager.Object,
+                packageDownloadManager.Object,
+                deviceObserver.Object,
+                progressiveDeviceObserver.Object,
+                egmStateObserver.Object,
+                deviceRegistryService.Object,
+                gatComponentFactory.Object,
+                meterSubManager.Object,
+                g2sMeterProvider.Object,
+                voucherDataService.Object,
+                masterResetService.Object,
+                null,
+                null,
+                null,
+                null,
+                null);
+
+            Assert.IsNull(service);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void WhenConstructWithNullICertificateServiceExpectException()
+        {
+            var egm = new Mock<IG2SEgm>();
+            var properties = new Mock<IPropertiesManager>();
+            var hostFactory = new Mock<IHostFactory>();
+            var deviceFactory = new Mock<IDeviceFactory>();
+            var scriptManager = new Mock<IScriptManager>();
+            var packageDownloadManager = new Mock<IPackageDownloadManager>();
+            var deviceObserver = new Mock<IDeviceObserver>();
+            var progressiveDeviceObserver = new Mock<IProgressiveDeviceObserver>();
+            var egmStateObserver = new Mock<IEgmStateObserver>();
+            var deviceRegistryService = new Mock<IDeviceRegistryService>();
+            var gatComponentFactory = new Mock<IGatComponentFactory>();
+            var meterSubManager = new Mock<IMetersSubscriptionManager>();
+            var g2sMeterProvider = new Mock<IG2SMeterProvider>();
+            var voucherDataService = new Mock<IVoucherDataService>();
+            var masterResetService = new Mock<IMasterResetService>();
+            var clientStatus = new Mock<ISelfTest>();
+
+            var service = new G2SEngine(
+                egm.Object,
+                properties.Object,
+                hostFactory.Object,
+                deviceFactory.Object,
+                scriptManager.Object,
+                packageDownloadManager.Object,
+                deviceObserver.Object,
+                progressiveDeviceObserver.Object,
+                egmStateObserver.Object,
+                deviceRegistryService.Object,
+                gatComponentFactory.Object,
+                meterSubManager.Object,
+                g2sMeterProvider.Object,
+                voucherDataService.Object,
+                masterResetService.Object,
+                clientStatus.Object,
+                null,
+                null,
+                null,
+                null);
+
+            Assert.IsNull(service);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void WhenConstructWithNullCertificateMonitorExpectException()
+        {
+            var egm = new Mock<IG2SEgm>();
+            var properties = new Mock<IPropertiesManager>();
+            var hostFactory = new Mock<IHostFactory>();
+            var deviceFactory = new Mock<IDeviceFactory>();
+            var scriptManager = new Mock<IScriptManager>();
+            var packageDownloadManager = new Mock<IPackageDownloadManager>();
+            var deviceObserver = new Mock<IDeviceObserver>();
+            var progressiveDeviceObserver = new Mock<IProgressiveDeviceObserver>();
+            var egmStateObserver = new Mock<IEgmStateObserver>();
+            var deviceRegistryService = new Mock<IDeviceRegistryService>();
+            var gatComponentFactory = new Mock<IGatComponentFactory>();
+            var meterSubManager = new Mock<IMetersSubscriptionManager>();
+            var g2sMeterProvider = new Mock<IG2SMeterProvider>();
+            var voucherDataService = new Mock<IVoucherDataService>();
+            var masterResetService = new Mock<IMasterResetService>();
+            var clientStatus = new Mock<ISelfTest>();
+            var certificates = new Mock<ICertificateService>();
+
+            var service = new G2SEngine(
+                egm.Object,
+                properties.Object,
+                hostFactory.Object,
+                deviceFactory.Object,
+                scriptManager.Object,
+                packageDownloadManager.Object,
+                deviceObserver.Object,
+                progressiveDeviceObserver.Object,
+                egmStateObserver.Object,
+                deviceRegistryService.Object,
+                gatComponentFactory.Object,
+                meterSubManager.Object,
+                g2sMeterProvider.Object,
+                voucherDataService.Object,
+                masterResetService.Object,
+                clientStatus.Object,
+                certificates.Object,
+                null,
+                null,
+                null);
+
+            Assert.IsNull(service);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void WhenConstructWithNullEmdiExpectException()
+        {
+            var egm = new Mock<IG2SEgm>();
+            var properties = new Mock<IPropertiesManager>();
+            var hostFactory = new Mock<IHostFactory>();
+            var deviceFactory = new Mock<IDeviceFactory>();
+            var scriptManager = new Mock<IScriptManager>();
+            var packageDownloadManager = new Mock<IPackageDownloadManager>();
+            var deviceObserver = new Mock<IDeviceObserver>();
+            var progressiveDeviceObserver = new Mock<IProgressiveDeviceObserver>();
+            var egmStateObserver = new Mock<IEgmStateObserver>();
+            var deviceRegistryService = new Mock<IDeviceRegistryService>();
+            var gatComponentFactory = new Mock<IGatComponentFactory>();
+            var meterSubManager = new Mock<IMetersSubscriptionManager>();
+            var g2sMeterProvider = new Mock<IG2SMeterProvider>();
+            var voucherDataService = new Mock<IVoucherDataService>();
+            var masterResetService = new Mock<IMasterResetService>();
+            var clientStatus = new Mock<ISelfTest>();
+            var certificates = new Mock<ICertificateService>();
+            var certificateMonitor = new Mock<ICertificateMonitor>();
+
+            var service = new G2SEngine(
+                egm.Object,
+                properties.Object,
+                hostFactory.Object,
+                deviceFactory.Object,
+                scriptManager.Object,
+                packageDownloadManager.Object,
+                deviceObserver.Object,
+                progressiveDeviceObserver.Object,
+                egmStateObserver.Object,
+                deviceRegistryService.Object,
+                gatComponentFactory.Object,
+                meterSubManager.Object,
+                g2sMeterProvider.Object,
+                voucherDataService.Object,
+                masterResetService.Object,
+                clientStatus.Object,
+                certificates.Object,
+                certificateMonitor.Object,
+                null,
+                null);
+
+            Assert.IsNull(service);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void WhenConstructWithNullCentralServiceExpectException()
+        {
+            var egm = new Mock<IG2SEgm>();
+            var properties = new Mock<IPropertiesManager>();
+            var hostFactory = new Mock<IHostFactory>();
+            var deviceFactory = new Mock<IDeviceFactory>();
+            var scriptManager = new Mock<IScriptManager>();
+            var packageDownloadManager = new Mock<IPackageDownloadManager>();
+            var deviceObserver = new Mock<IDeviceObserver>();
+            var progressiveDeviceObserver = new Mock<IProgressiveDeviceObserver>();
+            var egmStateObserver = new Mock<IEgmStateObserver>();
+            var deviceRegistryService = new Mock<IDeviceRegistryService>();
+            var gatComponentFactory = new Mock<IGatComponentFactory>();
+            var meterSubManager = new Mock<IMetersSubscriptionManager>();
+            var g2sMeterProvider = new Mock<IG2SMeterProvider>();
+            var voucherDataService = new Mock<IVoucherDataService>();
+            var masterResetService = new Mock<IMasterResetService>();
+            var clientStatus = new Mock<ISelfTest>();
+            var certificates = new Mock<ICertificateService>();
+            var certificateMonitor = new Mock<ICertificateMonitor>();
+            var emdi = new Mock<IEmdi>();
+
+            var service = new G2SEngine(
+                egm.Object,
+                properties.Object,
+                hostFactory.Object,
+                deviceFactory.Object,
+                scriptManager.Object,
+                packageDownloadManager.Object,
+                deviceObserver.Object,
+                progressiveDeviceObserver.Object,
+                egmStateObserver.Object,
+                deviceRegistryService.Object,
+                gatComponentFactory.Object,
+                meterSubManager.Object,
+                g2sMeterProvider.Object,
+                voucherDataService.Object,
+                masterResetService.Object,
+                clientStatus.Object,
+                certificates.Object,
+                certificateMonitor.Object,
+                emdi.Object,
+                null);
+
+            Assert.IsNull(service);
+        }
+
+        [TestMethod]
         public void WhenStopExpectEgmStopped()
         {
             var egm = new Mock<IG2SEgm>();
@@ -445,6 +735,7 @@
             var scriptManager = new Mock<IScriptManager>();
             var packageDownloadManager = new Mock<IPackageDownloadManager>();
             var deviceObserver = new Mock<IDeviceObserver>();
+            var progressiveDeviceObserver = new Mock<IProgressiveDeviceObserver>();
             var egmStateObserver = new Mock<IEgmStateObserver>();
             var deviceRegistryService = new Mock<IDeviceRegistryService>();
             var gatComponentFactory = new Mock<IGatComponentFactory>();
@@ -466,6 +757,7 @@
                 scriptManager.Object,
                 packageDownloadManager.Object,
                 deviceObserver.Object,
+                progressiveDeviceObserver.Object,
                 egmStateObserver.Object,
                 deviceRegistryService.Object,
                 gatComponentFactory.Object,

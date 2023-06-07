@@ -18,12 +18,12 @@
             new Dictionary<G2SDisableStates, DisableData>
             {
                 {
-                    G2SDisableStates.CommsOffline, new DisableData(
+                    G2SDisableStates.ProgressiveHostCommsOffline, new DisableData(
                         G2S.Constants.VertexOfflineKey,
                         () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveDisconnectText))
                 },
                 {
-                    G2SDisableStates.LevelMismatch, new DisableData(
+                    G2SDisableStates.ProgressiveLevelsMismatch, new DisableData(
                         G2S.Constants.VertexLevelMismatchKey,
                         () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveLevelMismatchText))
                 },

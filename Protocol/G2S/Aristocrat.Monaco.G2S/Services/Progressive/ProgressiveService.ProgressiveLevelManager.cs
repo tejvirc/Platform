@@ -51,50 +51,20 @@
                     ProtocolNames.G2S);
             }
 
-            OnReceiveProgressiveValueUpdate();
-
             return linkedLevel;
-        }
-
-        private DateTime _lastProgressiveUpdateTime;
-
-        private void ProgressiveHostOfflineTimerElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
-        {
-            _progressiveHostOfflineTimer.Stop();
-            _disableProvider.Disable(SystemDisablePriority.Immediate, G2SDisableStates.CommsOffline);
-        }
-
-        private void ProgressiveValueUpdateTimerElapsed(object sender, ElapsedEventArgs elapsedEventArgs)
-        {
-            _progressiveValueUpdateTimer.Stop();
-            _disableProvider.Disable(SystemDisablePriority.Immediate, G2SDisableStates.ProgressiveValueNotReceived);
-        }
-
-        private void OnReceiveProgressiveValueUpdate()
-        {
-            _progressiveHostOfflineTimer.Stop();
-            _progressiveHostOfflineTimer.Start();
-            _progressiveValueUpdateTimer.Stop();
-            _progressiveValueUpdateTimer.Start();
-
-            _disableProvider.Enable(G2SDisableStates.CommsOffline);
-            _disableProvider.Enable(G2SDisableStates.ProgressiveValueNotReceived);
-            _lastProgressiveUpdateTime = DateTime.UtcNow;
         }
 
         private static LinkedProgressiveLevel LinkedProgressiveLevel(int progId, int levelId, long valueInCents)
         {
-            var linkedLevel = new LinkedProgressiveLevel
+            return new LinkedProgressiveLevel
             {
                 ProtocolName = ProtocolNames.G2S,
                 ProgressiveGroupId = progId,
                 LevelId = levelId,
                 Amount = valueInCents,
-                Expiration = DateTime.UtcNow + TimeSpan.FromDays(365),
+                Expiration = DateTime.UtcNow.AddDays(365),
                 CurrentErrorStatus = ProgressiveErrors.None
             };
-
-            return linkedLevel;
         }
 
         /// <inheritdoc />

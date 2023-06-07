@@ -7,7 +7,7 @@
         /// <summary>
         ///     A reference to the G2S engine
         /// </summary>
-        IEngine engine { set; }
+        IEngine Engine { set; }
 
         /// <summary>
         ///     This dictionary stores the Vertex device Ids that are configured on the Vertex and Monaco UIs

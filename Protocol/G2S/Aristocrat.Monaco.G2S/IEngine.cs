@@ -2,6 +2,7 @@
 {
     using System;
     using Aristocrat.G2S.Client;
+    using Aristocrat.Monaco.G2S.Services.Progressive;
 
     /// <summary>
     ///     Initializes and starts a service.
@@ -25,5 +26,11 @@
         /// </summary>
         /// <param name="context">The startup context.</param>
         void Restart(IStartupContext context);
+
+        /// <summary>
+        /// Create any needed IProgressiveDevices
+        /// </summary>
+        /// <param name="progressiveDeviceManager"></param>
+        void AddProgressiveDevices(IProgressiveDeviceManager progressiveDeviceManager);
     }
 }

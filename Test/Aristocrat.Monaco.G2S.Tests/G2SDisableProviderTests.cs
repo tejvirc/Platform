@@ -26,7 +26,7 @@
                 SystemDisablePriority.Normal,
                 new List<(Guid, G2SDisableStates)>
                 {
-                    (G2S.Constants.VertexOfflineKey, G2SDisableStates.CommsOffline)
+                    (G2S.Constants.VertexOfflineKey, G2SDisableStates.ProgressiveHostCommsOffline)
                 }
             },
             new object[]
@@ -34,7 +34,7 @@
                 SystemDisablePriority.Normal,
                 new List<(Guid, G2SDisableStates)>
                 {
-                    (G2S.Constants.VertexLevelMismatchKey, G2SDisableStates.LevelMismatch)
+                    (G2S.Constants.VertexLevelMismatchKey, G2SDisableStates.ProgressiveLevelsMismatch)
                 }
             },
             new object[]
@@ -66,8 +66,8 @@
                 SystemDisablePriority.Normal,
                 new List<(Guid, G2SDisableStates)>
                 {
-                    (G2S.Constants.VertexOfflineKey, G2SDisableStates.CommsOffline),
-                    (G2S.Constants.VertexLevelMismatchKey, G2SDisableStates.LevelMismatch),
+                    (G2S.Constants.VertexOfflineKey, G2SDisableStates.ProgressiveHostCommsOffline),
+                    (G2S.Constants.VertexLevelMismatchKey, G2SDisableStates.ProgressiveLevelsMismatch),
                     (G2S.Constants.VertexStateDisabledKey, G2SDisableStates.ProgressiveStateDisabledByHost),
                     (G2S.Constants.VertexUpdateNotReceivedKey, G2SDisableStates.ProgressiveValueNotReceived),
                     (G2S.Constants.VertexMeterRollbackKey, G2SDisableStates.ProgressiveMeterRollback)
@@ -79,12 +79,12 @@
         {
             new object[]
             {
-                new[] { G2SDisableStates.CommsOffline },
+                new[] { G2SDisableStates.ProgressiveHostCommsOffline },
                 new List<Guid> { G2S.Constants.VertexOfflineKey }
             },
             new object[]
             {
-                new[] { G2SDisableStates.LevelMismatch },
+                new[] { G2SDisableStates.ProgressiveLevelsMismatch },
                 new List<Guid> { G2S.Constants.VertexLevelMismatchKey }
             },
             new object[]
@@ -104,7 +104,7 @@
             },
             new object[]
             {
-                new[] { G2SDisableStates.CommsOffline, G2SDisableStates.LevelMismatch },
+                new[] { G2SDisableStates.ProgressiveHostCommsOffline, G2SDisableStates.ProgressiveLevelsMismatch },
                 new List<Guid>
                 {
                     G2S.Constants.VertexOfflineKey,
@@ -139,10 +139,10 @@
         public void IsDisableStateActiveTest()
         {
             Assert.IsTrue(
-                _target.Disable(SystemDisablePriority.Immediate, G2SDisableStates.CommsOffline).Wait(WaitTime));
+                _target.Disable(SystemDisablePriority.Immediate, G2SDisableStates.ProgressiveHostCommsOffline).Wait(WaitTime));
 
-            Assert.IsTrue(_target.IsDisableStateActive(G2SDisableStates.CommsOffline));
-            Assert.IsFalse(_target.IsDisableStateActive(G2SDisableStates.LevelMismatch));
+            Assert.IsTrue(_target.IsDisableStateActive(G2SDisableStates.ProgressiveHostCommsOffline));
+            Assert.IsFalse(_target.IsDisableStateActive(G2SDisableStates.ProgressiveLevelsMismatch));
         }
 
         [DynamicData(nameof(DisableTestData))]
@@ -183,7 +183,7 @@
         public void ClearSoftDisableOnLockupDisableTest1()
         {
             _target = CreateG2SDisableProvider();
-            var state = G2SDisableStates.CommsOffline;
+            var state = G2SDisableStates.ProgressiveHostCommsOffline;
             var guid = G2S.Constants.VertexOfflineKey;
             var priority = SystemDisablePriority.Immediate;
 
@@ -213,7 +213,7 @@
         public void ClearSoftDisableOnLockupDisableTest2()
         {
             _target = CreateG2SDisableProvider();
-            var state = G2SDisableStates.CommsOffline;
+            var state = G2SDisableStates.ProgressiveHostCommsOffline;
             var guid = G2S.Constants.VertexOfflineKey;
             var priority = SystemDisablePriority.Immediate;
 

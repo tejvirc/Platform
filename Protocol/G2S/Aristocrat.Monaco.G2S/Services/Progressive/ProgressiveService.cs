@@ -16,6 +16,7 @@
     using Aristocrat.Monaco.Accounting.Contracts;
     using Aristocrat.Monaco.Accounting.Contracts.Transactions;
     using Aristocrat.Monaco.Application.Contracts.Extensions;
+    using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
     using Aristocrat.Monaco.G2S;
     using Aristocrat.Monaco.G2S.Data.Model;
     using Aristocrat.Monaco.Gaming.Contracts.Events.OperatorMenu;
@@ -33,7 +34,7 @@
     using log4net;
     using Newtonsoft.Json;
 
-    public partial class ProgressiveService : IProgressiveService, IService, IDisposable, IProtocolProgressiveEventHandler
+    public partial class ProgressiveService : IProgressiveService, IDisposable, IProtocolProgressiveEventHandler
     {
         private const int DefaultNoProgInfoTimeout = 30000;
 
@@ -60,12 +61,9 @@
         private readonly bool _g2sProgressivesEnabled;
 
         private bool _disposed;
-        private Timer _progressiveValueUpdateTimer;
-        private Timer _progressiveHostOfflineTimer;
         private IList<(string poolName, long amountInPennies)> _pendingAwards;
         private bool _progressiveRecovery;
         private IEnumerable<IViewableLinkedProgressiveLevel> _currentLinkedProgressiveLevelsHit;
-        private IHostControl _progressiveHost = null;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ProgressiveService" /> class.
@@ -115,16 +113,10 @@
             if (_g2sProgressivesEnabled)
             {
                 SubscribeEvents();
-
-                //Setup the progressive host monitoring timers. They will be started once we actually connect. 
-                _progressiveValueUpdateTimer = new Timer(DefaultNoProgInfoTimeout);
-                _progressiveValueUpdateTimer.Elapsed += ProgressiveValueUpdateTimerElapsed;
-                _lastProgressiveUpdateTime = DateTime.UtcNow;
-                _progressiveHostOfflineTimer = new Timer();
-                _progressiveHostOfflineTimer.Elapsed += ProgressiveHostOfflineTimerElapsed;
-                _disableProvider.Disable(SystemDisablePriority.Immediate, G2SDisableStates.CommsOffline);
-
                 Configure();
+
+                //start in a disabled state until communications are established with the progressive host
+                _disableProvider.Disable(SystemDisablePriority.Immediate, G2SDisableStates.ProgressiveHostCommsOffline);
             }
         }
 
@@ -144,7 +136,7 @@
         /// <inheritdoc />
         public void Initialize()
         {
-            Logger.Info("Initializing the G2S VoucherDataService.");
+            Logger.Info("Initializing the G2S ProgressiveService.");
         }
 
         /// <summary>
@@ -175,16 +167,8 @@
                         ProtocolNames.G2S, this);
                     _protocolProgressiveEventsRegistry.UnSubscribeProgressiveEvent<LinkedProgressiveHitEvent>(
                         ProtocolNames.G2S, this);
-
-                    _progressiveHostOfflineTimer?.Stop();
-                    _progressiveHostOfflineTimer?.Dispose();
-                    _progressiveValueUpdateTimer?.Stop();
-                    _progressiveValueUpdateTimer?.Dispose();
                 }
             }
-
-            _progressiveHostOfflineTimer = null;
-            _progressiveValueUpdateTimer = null;
 
             _disposed = true;
         }
@@ -195,7 +179,7 @@
             _eventBus.Subscribe<TransportDownEvent>(this, CommunicationsStateChanged);
             _eventBus.Subscribe<TransportUpEvent>(this, CommunicationsStateChanged);
             _eventBus.Subscribe<ProgressiveWagerCommittedEvent>(this, OnProgressiveWagerCommitted);
-            _eventBus.Subscribe<GameConfigurationSaveCompleteEvent>(this, _ => Configure());
+            _eventBus.Subscribe<GameConfigurationSaveCompleteEvent>(this, Configure);
             _protocolProgressiveEventsRegistry.SubscribeProgressiveEvent<ProgressiveCommitEvent>(
                 ProtocolNames.G2S, this);
             _protocolProgressiveEventsRegistry.SubscribeProgressiveEvent<ProgressiveCommitAckEvent>(
@@ -220,7 +204,7 @@
             var devices = _egm.GetDevices<IProgressiveDevice>().ToList();
             foreach (var progressiveHostInfo in progressiveHostInfos)
             {
-                var progressiveDevice = devices.Where(d => d.ProgressiveId == progressiveHostInfo.progressiveLevel.FirstOrDefault().progId).FirstOrDefault();
+                var progressiveDevice = devices.FirstOrDefault(d => d.ProgressiveId == progressiveHostInfo.progressiveLevel.FirstOrDefault().progId);
                 if (progressiveDevice == null)
                 {
                     continue;
@@ -252,23 +236,12 @@
 
                 if (!levelsMatched)
                 {
-                    _disableProvider.Disable(SystemDisablePriority.Immediate, G2SDisableStates.LevelMismatch);
+                    _disableProvider.Disable(SystemDisablePriority.Immediate, G2SDisableStates.ProgressiveLevelsMismatch);
                     return;
                 }
 
-                _disableProvider.Enable(G2SDisableStates.LevelMismatch);
+                _disableProvider.Enable(G2SDisableStates.ProgressiveLevelsMismatch);
             }
-
-
-            //ensure the progressive value update timer is set to correct monitor timeout
-            var updateTimeout = devices.Select(device => device.NoProgressiveInfo).Prepend(int.MaxValue).Min();
-
-            if (updateTimeout is <= 0 or int.MaxValue)
-            {
-                updateTimeout = DefaultNoProgInfoTimeout;
-            }
-
-            _progressiveValueUpdateTimer.Interval = updateTimeout;
         }
 
         private List<progressiveHostInfo> GetProgressiveHostInfo()
@@ -309,7 +282,7 @@
         {
             var timeout = TimeSpan.MaxValue;
             var currentUtcNow = DateTime.UtcNow;
-            var progressiveDevice = _egm.GetDevice<IProgressiveDevice>(VertexDeviceIds[deviceId]);
+            var progressiveDevice = _egm.GetDevice<IProgressiveDevice>(deviceId);
             var command = new progressiveHit();
             var progressiveLog = new progressiveLog();
             command.transactionId = transactionId;
@@ -344,9 +317,7 @@
 
         private progressiveCommitAck ProgressiveCommit(int deviceId, long transactionId)
         {
-            var timeout = TimeSpan.MaxValue;
-            var currentUtcNow = DateTime.UtcNow;
-            var progressiveDevice = _egm.GetDevice<IProgressiveDevice>(VertexDeviceIds[deviceId]);
+            var progressiveDevice = _egm.GetDevice<IProgressiveDevice>(deviceId);
             var command = new progressiveCommit();
             var progressiveLog = new progressiveLog();
             command.transactionId = transactionId;
@@ -369,24 +340,6 @@
             }
 
             return progCommitAck;
-        }
-
-        private void SetGamePlayDeviceState(bool state, IProgressiveDevice device)
-        {
-            var gamePlayDevices = _egm.GetDevices<IGamePlayDevice>();
-            var levelProvider = ServiceManager.GetInstance().GetService<IProgressiveLevelProvider>();
-            var gamePlayDeviceIds = levelProvider.GetProgressiveLevels()
-                                            .Where(l => l.ProgressiveId == device.ProgressiveId && l.DeviceId == device.Id)
-                                            .Select(l => l.GameId);
-
-            foreach (var gamePlayDeviceId in gamePlayDeviceIds)
-            {
-                var gamePlayDevice = _egm.GetDevice<IGamePlayDevice>(gamePlayDeviceId);
-                if (gamePlayDevice != null)
-                {
-                    gamePlayDevice.Enabled = state;
-                }
-            }
         }
 
         private void OnProgressiveWagerCommitted(ProgressiveWagerCommittedEvent theEvent)
@@ -426,20 +379,22 @@
             _eventLift.Report(device, EventCode.G2S_PGE101, device.DeviceList(status), new meterList { meterInfo = meters.ToArray() });
         }
 
-        private void CommunicationsStateChanged(IEvent theEvent)
+        private void CommunicationsStateChanged(TransportEventBase evt)
         {
-            if (theEvent.GetType() == typeof(TransportUpEvent))
+            var host = _egm.GetHostById(evt.HostId);
+            if(!host.IsProgressiveHost) return;
+
+            if (evt.GetType() == typeof(TransportUpEvent))
             {
-                _disableProvider.Enable(G2SDisableStates.CommsOffline);
+                _disableProvider.Enable(G2SDisableStates.ProgressiveHostCommsOffline);
                 _disableProvider.Disable(SystemDisablePriority.Immediate, G2SDisableStates.ProgressiveValueNotReceived);
-                _progressiveHostOfflineTimer.Start();
                 Task.Run(OnTransportUp);
             }
             else
             {
-                _disableProvider.Disable(SystemDisablePriority.Immediate, G2SDisableStates.CommsOffline);
-                _progressiveHostOfflineTimer.Stop();
+                _disableProvider.Disable(SystemDisablePriority.Immediate, G2SDisableStates.ProgressiveHostCommsOffline);
             }
+            
         }
 
         private void HandleEvent(ProgressiveCommitEvent evt)
@@ -603,7 +558,7 @@
         /// <summary>
         /// Configures the LinkedProgressive list that is stored through the ProtocolLinkedProgressiveAdapter.
         /// </summary>
-        public void Configure(bool clearLinkedLevels = false)
+        public void Configure(GameConfigurationSaveCompleteEvent _ = null)
         {
             _progressives.Clear();
             if (_pendingAwards == null)
@@ -817,17 +772,13 @@
 
         private void UpdatePendingAwards()
         {
-            using (var unitOfWork = _unitOfWorkFactory.Create())
-            {
-                var pendingJackpots = unitOfWork.Repository<PendingJackpotAwards>().Queryable().SingleOrDefault() ??
-                                      new PendingJackpotAwards();
-
-                pendingJackpots.Awards = JsonConvert.SerializeObject(_pendingAwards);
-
-                unitOfWork.Repository<PendingJackpotAwards>().AddOrUpdate(pendingJackpots);
-
-                unitOfWork.SaveChanges();
-            }
+            using var unitOfWork = _unitOfWorkFactory.Create();
+            
+            var pendingJackpots = unitOfWork.Repository<PendingJackpotAwards>().Queryable().SingleOrDefault() ??
+                                  new PendingJackpotAwards();
+            pendingJackpots.Awards = JsonConvert.SerializeObject(_pendingAwards);
+            unitOfWork.Repository<PendingJackpotAwards>().AddOrUpdate(pendingJackpots);
+            unitOfWork.SaveChanges();
         }
 
         private void CheckProgressiveRecovery()

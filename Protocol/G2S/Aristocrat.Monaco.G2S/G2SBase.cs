@@ -209,7 +209,7 @@
                         progService.VertexProgressiveIds = vertexProgIds;
                         propertiesManager.SetProperty(GamingConstants.ProgressiveConfiguredLevelIds, vertexLevelIds);
                         propertiesManager.SetProperty(GamingConstants.ProgressiveConfiguredIds, vertexProgIds);
-                        progService.engine = engine;
+                        progService.Engine = engine;
                         if (vertexProgIds != null && vertexProgIds.Count > 0)
                         {
                             progService?.OnConfiguredProgressives(false, true);
