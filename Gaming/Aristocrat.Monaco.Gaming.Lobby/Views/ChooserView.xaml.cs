@@ -4,7 +4,7 @@
     using ViewModels;
 
     /// <summary>
-    /// Interaction logic for ChooserView.xaml
+    /// Interaction logic for ChooserView.xaml♥
     /// </summary>
     public partial class ChooserView
     {

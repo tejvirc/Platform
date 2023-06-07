@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using Consumers;
 using Contracts.Lobby;
 using Kernel;
+using Redux;
 using Regions;
 using Services;
 using Services.Layout;
@@ -45,11 +46,7 @@ public class GamingLobbyPackage : IPackage
 
         container.RegisterInstance<IRegionAdapterMapper>(regionAdapterMapper);
 
-        // container.Register(typeof(IStateSelectors<>), typeof(StateSelectors<>), Lifestyle.Singleton);
-
-        container.Register<ChooserSelectors>(Lifestyle.Singleton);
-
-        container.Register<LobbySelectors>(Lifestyle.Singleton);
+        container.Register(typeof(IStateLens<>), typeof(StateLens<>), Lifestyle.Singleton);
 
         container.RegisterLobby();
 

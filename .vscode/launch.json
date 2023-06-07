@@ -1,0 +1,24 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Bootstrap",
+      "type": "clr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/bin/Debug/Platform/bin/Bootstrap.exe",
+      "args": ["display=windowed", "ignoreTouchCalibration"],
+      "cwd": "${workspaceFolder}/bin/Debug/Platform/bin",
+      "console": "externalTerminal",
+      "stopAtEntry": false
+    },
+    {
+      "name": ".NET Framework Attach",
+      "type": "clr",
+      "request": "attach"
+    }
+  ]
+}

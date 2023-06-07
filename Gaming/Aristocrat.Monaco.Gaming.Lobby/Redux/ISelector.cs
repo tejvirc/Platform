@@ -2,6 +2,9 @@
 
 using System;
 
-public interface ISelector<TState, out TResult> : IObservable<TResult> where TState : class
+public interface ISelector<TState, TResult>
 {
+    TResult Apply(TState stateObserver);
+
+    IObservable<TResult> Apply(IObservable<TState> stateObserver);
 }

@@ -49,7 +49,6 @@ public class LayoutManager : ILayoutManager
                 _regionManager.RegisterView<LobbyMainView>(RegionNames.Main, ViewNames.Lobby);
                 _regionManager.RegisterView<AttractMainView>(RegionNames.Main, ViewNames.Attract);
                 _regionManager.RegisterView<LoadingMainView>(RegionNames.Main, ViewNames.Loading);
-                _regionManager.RegisterView<OperatorMenuView>(RegionNames.Main, ViewNames.OperatorMenu);
 
                 _regionManager.RegisterView<ChooserView>(RegionNames.Chooser, ViewNames.Chooser);
                 _regionManager.RegisterView<StandardUpiView>(RegionNames.Upi, ViewNames.StandardUpi);
@@ -58,13 +57,6 @@ public class LayoutManager : ILayoutManager
                 _regionManager.RegisterView<PaidMeterView>(RegionNames.PaidMeter, ViewNames.PaidMeter);
                 _regionManager.RegisterView<BannerView>(RegionNames.Banner, ViewNames.Banner);
                 _regionManager.RegisterView<NotificationView>(RegionNames.Notification, ViewNames.Notification);
-
-                _regionManager.RegisterView<ReserveView>(RegionNames.OverlayMain, ViewNames.Reserve);
-                _regionManager.RegisterView<PlayerMenuView>(RegionNames.OverlayMain, ViewNames.PlayerMenu);
-
-                _regionManager.RegisterView<MenuItemView>(RegionNames.OperatorMenuMenu, ViewNames.GameConfigMenuItem);
-
-                _regionManager.NavigateToView(RegionNames.Main, ViewNames.Attract, new NavigationContext());
 
                 _windowLauncher.Hide(StatusWindowName);
 
@@ -76,7 +68,6 @@ public class LayoutManager : ILayoutManager
                 //var mainGameWindow = new GameMain { Owner = shellWindow }
                 //    .ShowWithTouch();
 
-                _windows.Add(shellWindow);
                 //_windows.Add(mainGameWindow);
 
                 //if (_cabinetDetection.Family == HardwareFamily.Unknown ||
@@ -114,6 +105,8 @@ public class LayoutManager : ILayoutManager
 
                 //_windows.Add(buttonDeckWindow);
                 //_windows.Add(buttonDeckGameWindow);
+
+                _regionManager.NavigateToView(RegionNames.Main, ViewNames.Lobby);
             });
     }
 

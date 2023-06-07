@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
 using System.Windows;
+using Common;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Controls;
@@ -15,13 +16,13 @@ using Fluxor.Selectors;
 using Models;
 using Redux;
 using Store.Chooser;
+using static Store.Chooser.ChooserSelectors;
 
 public class ChooserViewModel : ObservableObject
 {
-    //private readonly IState<ChooserState> _state;
-    //private readonly IStateSelectors<ChooserSelectors> _selectors;
+    private readonly IStateLens<ChooserState> _state;
 
-    private readonly List<IDisposable> _disposables = new();
+    private SubscriptionList _subscriptions = new();
 
     private int _gameCount;
     private int _denomFilter;
@@ -30,40 +31,21 @@ public class ChooserViewModel : ObservableObject
     private bool _isLobbyVisible = true;
     private bool _isIsMultipleGameAssociatedSapLevelTwoEnabled;
 
-    public ChooserViewModel(IStore store, ChooserSelectors selectors)
+    public ChooserViewModel(IStateLens<ChooserState> state)
     {
-        GameSelectCommand = new RelayCommand<DenomInfo>(OnDenomSelected);
+        _state = state;
+
+        LoadedCommand = new RelayCommand(OnLoaded);
+        UnloadedCommand = new RelayCommand(OnUnloaded);
+        GameSelectCommand = new RelayCommand<GameInfo>(OnGameSelected);
         DenomSelectedCommand = new RelayCommand<DenomInfo>(OnDenomSelected);
-
-        store.Select(selectors.GamesSelector).Subscribe(
-            games =>
-            {
-                games.UpdateObservable(Games);
-            });
     }
 
-    //public ChooserViewModel(IStore store, IState<ChooserState> state, IStateSelectors<ChooserSelectors> selectors)
-    //{
-    //    _state = state;
-    //    _selectors = selectors;
+    public RelayCommand LoadedCommand { get; }
 
-    //    _state.StateChanged += OnStateChanged;
-    //    var selector = SelectorFactory.CreateFeatureSelector<ChooserState>();
-    //    var gameSelector = SelectorFactory.CreateSelector(selector, s => s.Games);
-    //    _disposables.Add(store.SubscribeSelector(gameSelector, OnChanged));
+    public RelayCommand UnloadedCommand { get; }
 
-    //    _disposables.Add(selectors.Selectors.GamesSelector.Subscribe(Observer.Create<IImmutableList<GameInfo>>(OnGamesChanged)));
-
-    //    GameSelectCommand = new RelayCommand<DenomInfo>(OnDenomSelected);
-    //    DenomSelectedCommand = new RelayCommand<DenomInfo>(OnDenomSelected);
-    //}
-
-    public void OnGamesChanged(IImmutableList<GameInfo> games)
-    {
-
-    }
-
-    public RelayCommand<DenomInfo> GameSelectCommand { get; }
+    public RelayCommand<GameInfo> GameSelectCommand { get; }
 
     public RelayCommand<DenomInfo> DenomSelectedCommand { get; }
 
@@ -132,24 +114,29 @@ public class ChooserViewModel : ObservableObject
         }
     }
 
-    private void OnChanged(IImmutableList<GameInfo>? games)
-    {
-        if (games == null)
-        {
-            return;
-        }
-
-        OrderedGames = new ObservableCollection<GameInfo>(games);
-    }
-
     public ObservableCollection<GameInfo> OrderedGames { get; set; } = new();
 
-    private void OnStateChanged(object? sender, EventArgs e)
+    private void OnLoaded()
     {
-        // OrderedGames = new ObservableCollection<GameInfo>(_state.Value.Games);
+        _subscriptions += _state.Select(GamesSelector).Subscribe(
+            games =>
+            {
+                games.UpdateObservable(Games, g => g.GameId, (g1, g2) => g1.GameId == g2.GameId);
+            });
     }
 
-    private void OnDenomSelected(DenomInfo? obj)
+    private void OnUnloaded()
     {
+        _subscriptions.UnsubscribeAll();
+    }
+
+    private void OnGameSelected(GameInfo? game)
+    {
+
+    }
+
+    private void OnDenomSelected(DenomInfo? denom)
+    {
+
     }
 }

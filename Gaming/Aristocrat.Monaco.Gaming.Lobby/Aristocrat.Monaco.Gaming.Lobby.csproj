@@ -21,6 +21,16 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Services\Game\**" />
+    <Compile Remove="Themes\**" />
+    <EmbeddedResource Remove="Services\Game\**" />
+    <EmbeddedResource Remove="Themes\**" />
+    <None Remove="Services\Game\**" />
+    <None Remove="Themes\**" />
+    <Page Remove="Services\Game\**" />
+    <Page Remove="Themes\**" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Aristocrat.BinkWpf" Version="2.0.0-beta0019" />
     <PackageReference Include="Aristocrat.Toolkit.Mvvm.Extensions" Version="0.1.6" />
     <PackageReference Include="CefSharp.Common.NETCore" Version="110.0.250" />
@@ -49,11 +59,7 @@
     <ProjectReference Include="..\Aristocrat.Monaco.Gaming.Contracts\Aristocrat.Monaco.Gaming.Contracts.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Services\Game\" />
-    <Folder Include="Services\EdgeLighting\" />
-    <Folder Include="Store\Attract\" />
-    <Folder Include="Store\ResponsibleGaming\" />
-    <Folder Include="Themes\" />
+    <Folder Include="Commands\" />
   </ItemGroup>
   <ItemGroup>
     <Page Update="Styles\Default.xaml">

@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:behaviors="clr-namespace:Aristocrat.Monaco.Gaming.Lobby.Behaviors"
              xmlns:views="clr-namespace:Aristocrat.Monaco.Gaming.Lobby.Views"
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.Lobby.ViewModels"
              xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.Lobby.Models"
@@ -24,7 +23,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Styles.xaml"/>
-                <ResourceDictionary Source="/Styles/Default.xaml"/>
+                <ResourceDictionary Source="../Styles/Default.xaml"/>
                 <ResourceDictionary Source="DataTemplates/Chooser/ChooserTemplates.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
@@ -140,9 +139,6 @@
                       ItemsSource="{Binding Path=Games}"
                       HorizontalAlignment="Left"
                       VerticalAlignment="Top">
-            <i:Interaction.Behaviors>
-                <behaviors:GameGridMarginBehavior GameCount="{Binding GameCount}" />
-            </i:Interaction.Behaviors>
             <ItemsControl.ItemsPanel>
                 <!-- Swap out the panel that arranges the items -->
                 <ItemsPanelTemplate>

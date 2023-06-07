@@ -1,8 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Store.Lobby;
 
-using Redux;
+using static Redux.Selectors;
 
-[Selectors(typeof(LobbyState))]
 public class LobbySelectors
 {
     

@@ -1,0 +1,49 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "restore",
+      "command": "${env:ProgramFiles(x86)}/Microsoft Visual Studio/2019/Professional/MSBuild/Current/Bin/msbuild.EXE",
+      "type": "process",
+      "args": ["${workspaceFolder}/Monaco.sln", "/target:Restore"],
+      "problemMatcher": "$msCompile",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "build",
+      "command": "${env:ProgramFiles(x86)}/Microsoft Visual Studio/2019/Professional/MSBuild/Current/Bin/msbuild.EXE",
+      "type": "process",
+      "args": [
+        "${workspaceFolder}/Monaco.sln",
+        "/property:GenerateFullPaths=true",
+        "/property:Configuration=Debug",
+        "/restore",
+        "/target:Rebuild"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "test",
+      "command": "${env:ProgramFiles(x86)}/Microsoft Visual Studio/2019/Professional/Common7/IDE/CommonExtensions/Microsoft/TestWindow/vstest.console.exe",
+      "type": "process",
+      "args": [
+        "**\\bin\\Debug\\*.Tests.dll",
+        "/Platform:x64",
+        "/Logger:trx",
+        "/ResultsDirectory:TestResults"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      }
+    }
+  ]
+}
