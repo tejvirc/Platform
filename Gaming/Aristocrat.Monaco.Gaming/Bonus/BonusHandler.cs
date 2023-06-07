@@ -22,8 +22,8 @@
     {
         private const int DeviceId = 1;
 
-        private static readonly Guid RequestorId = new Guid("{0E764637-41DE-4DF1-A0A7-3E018CDE0FBC}");
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly Guid RequestorId = new("{0E764637-41DE-4DF1-A0A7-3E018CDE0FBC}");
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(5);
 
@@ -66,6 +66,7 @@
             _bus.Subscribe<SetValidationEvent>(this, _ => CancelAll(CancellationReason.IdInvalidated), e => e.Identity == null);
             _bus.Subscribe<DisabledEvent>(this, _ => CancelAll(CancellationReason.IdInvalidated));
             _bus.Subscribe<OperatorMenuEnteredEvent>(this, _ => InAuditMode = true);
+            _bus.Subscribe<TransactionCompletedEvent>(this, Handle);
             _bus.Subscribe<OperatorMenuExitedEvent>(this, _ =>
             {
                 InAuditMode = false;
@@ -100,7 +101,7 @@
 
         private BonusTransactionRequest CurrentTransaction
         {
-            get { return _current = _current ?? _storage.GetEntity<BonusTransactionRequest>(); }
+            get { return _current ??= _storage.GetEntity<BonusTransactionRequest>(); }
             set
             {
                 if (value != null)
@@ -374,6 +375,11 @@
         }
 
         private void Handle(TransferOutCompletedEvent evt)
+        {
+            Commit();
+        }
+
+        private void Handle(TransactionCompletedEvent evt)
         {
             Commit();
         }
