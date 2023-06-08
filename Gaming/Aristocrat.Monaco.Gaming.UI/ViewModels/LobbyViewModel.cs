@@ -4972,7 +4972,6 @@
             _lobbyStateManager.RemoveFlagState(LobbyState.CashOut, success);
             CashOutDialogState = LobbyCashOutDialogState.Hidden;
             MessageOverlayDisplay.UpdateCashoutButtonState(false);
-            MessageOverlayDisplay.LastCashOutForcedByMaxBank = false;
         }
 
         private void UpdateLcdButtonDeckVideo()

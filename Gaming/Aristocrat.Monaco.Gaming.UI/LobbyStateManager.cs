@@ -103,6 +103,9 @@
 
         public CashInType LastCashInType { get; set; }
 
+        /// <inheritdoc />
+        public bool IsCashoutForcedByMaxBank { get; private set; }
+
         public bool UnexpectedGameExitWhileDisabled { get; set; }
 
         public bool IsLoadingGameForRecovery { get; set; }
@@ -263,7 +266,14 @@
                     }
                     break;
                 case LobbyState.CashOut:
-                    CashOutStarted();
+                    if (param is bool forcedCashout)
+                    {
+                        CashOutStarted(forcedCashout);
+                    }
+                    else
+                    {
+                        CashOutStarted(false);
+                    }
                     break;
             }
 
@@ -660,15 +670,17 @@
             UpdateLobbyUI();
         }
 
-        private void CashOutStarted()
+        private void CashOutStarted(bool forcedByMaxBank)
         {
             Logger.Debug("CashOut Started.");
+            IsCashoutForcedByMaxBank = forcedByMaxBank;
             CallStateEntry(LobbyState.CashOut);
         }
 
         private void CashOutFinished(bool success)
         {
             Logger.Debug($"CashOut Finished. Success: {success}");
+            IsCashoutForcedByMaxBank = false;
             CallStateExit(LobbyState.CashOut);
             UpdateLamps();
         }

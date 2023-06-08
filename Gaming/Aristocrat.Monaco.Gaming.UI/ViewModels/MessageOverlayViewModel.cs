@@ -184,8 +184,6 @@
         /// </summary>
         public bool IsCashingInDlgVisible { get; set; }
 
-        public bool LastCashOutForcedByMaxBank;
-
         public bool ForceBuildLockupText { get; set; }
 
         public CashInType CashInType { get; set; }
@@ -258,12 +256,12 @@
                     MessageOverlayData.Text = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VoucherNotification).Replace("\\r\\n", Environment.NewLine);
                     break;
                 case MessageOverlayState.CashOut:
-                    if (LastCashOutForcedByMaxBank && _lobbyStateManager.CashOutState == LobbyCashOutState.Voucher)
+                    if (_lobbyStateManager.IsCashoutForcedByMaxBank && _lobbyStateManager.CashOutState == LobbyCashOutState.Voucher)
                     {
                         ShowPaidMeterForAutoCashout = true;
                     }
 
-                    MessageOverlayData = _overlayMessageStrategyController.OverlayStrategy.HandleMessageOverlayCashOut(MessageOverlayData, LastCashOutForcedByMaxBank, _lobbyStateManager.CashOutState);
+                    MessageOverlayData = _overlayMessageStrategyController.OverlayStrategy.HandleMessageOverlayCashOut(MessageOverlayData, _lobbyStateManager.IsCashoutForcedByMaxBank, _lobbyStateManager.CashOutState);
                     messageSent = true;
                     break;
                 case MessageOverlayState.PrintHelpline:
@@ -319,7 +317,7 @@
                         // Include the Printing text as well if we are disabled but still printing,
                         // otherwise the printing message may be delayed until after printing is finished
                         var cashOutData = new MessageOverlayData();
-                        _overlayMessageStrategyController.OverlayStrategy.HandleMessageOverlayCashOut(MessageOverlayData, LastCashOutForcedByMaxBank, _lobbyStateManager.CashOutState);
+                        _overlayMessageStrategyController.OverlayStrategy.HandleMessageOverlayCashOut(MessageOverlayData, _lobbyStateManager.IsCashoutForcedByMaxBank, _lobbyStateManager.CashOutState);
                         messageSent = true;
 
                         if (!MessageOverlayData.Text.Contains(cashOutData.Text))
@@ -516,12 +514,12 @@
             var isCashoutOverridden = _overlayMessageStrategyController.RegisteredPresentations.Contains(
                                           PresentationOverrideTypes.PrintingCashoutTicket) &&
                                       IsCashingOutDlgVisible && _messageOverlayState == MessageOverlayState.CashOut &&
-                                      _lobbyStateManager.CashOutState == LobbyCashOutState.Voucher && !LastCashOutForcedByMaxBank;
+                                      _lobbyStateManager.CashOutState == LobbyCashOutState.Voucher && !_lobbyStateManager.IsCashoutForcedByMaxBank;
 
             var isCashWinOverridden = _overlayMessageStrategyController.RegisteredPresentations.Contains(
                                           PresentationOverrideTypes.PrintingCashwinTicket) &&
                                       IsCashingOutDlgVisible &&
-                                      _messageOverlayState == MessageOverlayState.CashOut && LastCashOutForcedByMaxBank;
+                                      _messageOverlayState == MessageOverlayState.CashOut && _lobbyStateManager.IsCashoutForcedByMaxBank;
 
             var isTransferOutOverridden = _overlayMessageStrategyController.RegisteredPresentations.Contains(
                                               PresentationOverrideTypes.TransferingOutCredits) &&

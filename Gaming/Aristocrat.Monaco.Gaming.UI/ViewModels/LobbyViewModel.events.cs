@@ -637,8 +637,6 @@
                     {
                         _lobbyStateManager.AddFlagState(LobbyState.CashOutFailure);
                     }
-
-                    MessageOverlayDisplay.LastCashOutForcedByMaxBank = false;
                 });
         }
 
@@ -657,13 +655,14 @@
 
             _lobbyStateManager.CashOutState = LobbyCashOutState.Undefined;
 
-            if (_forcedCashOutData.TryDequeue(out var forcedByMaxBank))
+            var cashoutStateForced = false;
+            if (_forcedCashOutData.TryDequeue(out var forcedByMaxBankValue))
             {
                 if (_bank.QueryBalance().MillicentsToCents() + platformEvent.Total.MillicentsToCents() >
                     ((long)_properties.GetProperty(AccountingConstants.MaxCreditMeter, long.MaxValue))
                     .MillicentsToCents())
                 {
-                    MessageOverlayDisplay.LastCashOutForcedByMaxBank = forcedByMaxBank;
+                    cashoutStateForced = forcedByMaxBankValue;
                 }
             }
 
@@ -673,7 +672,7 @@
                     CashOutDialogState = LobbyCashOutDialogState.Visible;
                     _cashOutTimer?.Stop();
                     _cashOutTimer?.Start();
-                    _lobbyStateManager.AddFlagState(LobbyState.CashOut);
+                    _lobbyStateManager.AddFlagState(LobbyState.CashOut, cashoutStateForced);
                 });
         }
 
@@ -799,8 +798,7 @@
             {
                 _printingReprintTicket = true;
 
-                MvvmHelper.ExecuteOnUI(
-                    () => _lobbyStateManager.AddFlagState(LobbyState.CashOut, platformEvent.Amount, false));
+                MvvmHelper.ExecuteOnUI(() => _lobbyStateManager.AddFlagState(LobbyState.CashOut));
             }
         }
 

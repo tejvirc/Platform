@@ -35,6 +35,11 @@
         bool ContainsAnyState(params LobbyState[] states);
 
         /// <summary>
+        ///     Gets a value indicating if a cashout was forced by reaching the max credit meter value.
+        /// </summary>
+        bool IsCashoutForcedByMaxBank { get; }
+
+        /// <summary>
         ///     Property indicating if the game runtime exited while we were disabled
         /// </summary>
         bool UnexpectedGameExitWhileDisabled { get; set; }
