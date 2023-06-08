@@ -13217,11 +13217,29 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Bet/Max Bet Button.
+		/// </summary>
+		public static string GameStartMethodBetOrMaxBetButton {
+			get {
+				return ResourceManager.GetString("GameStartMethodBetOrMaxBetButton", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Line/Reel Button.
 		/// </summary>
 		public static string GameStartMethodLineOrReelButton {
 			get {
 				return ResourceManager.GetString("GameStartMethodLineOrReelButton", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Line/Reel/Max Bet Button.
+		/// </summary>
+		public static string GameStartMethodLineReelorMaxBetButton {
+			get {
+				return ResourceManager.GetString("GameStartMethodLineReelorMaxBetButton", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -21334,6 +21352,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string NoSlotGames {
 			get {
 				return ResourceManager.GetString("NoSlotGames", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to (no sub-unit).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string NoSubUnitText {
+			get {
+				return ResourceManager.GetString("NoSubUnitText", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -47875,11 +47905,29 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Bet/Max Bet Button.
+		/// </summary>
+		public static string GameStartMethodBetOrMaxBetButton {
+			get {
+				return "GameStartMethodBetOrMaxBetButton";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Line/Reel Button.
 		/// </summary>
 		public static string GameStartMethodLineOrReelButton {
 			get {
 				return "GameStartMethodLineOrReelButton";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Line/Reel/Max Bet Button.
+		/// </summary>
+		public static string GameStartMethodLineReelorMaxBetButton {
+			get {
+				return "GameStartMethodLineReelorMaxBetButton";
 			}
 		}
 
@@ -55992,6 +56040,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string NoSlotGames {
 			get {
 				return "NoSlotGames";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to (no sub-unit).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string NoSubUnitText {
+			get {
+				return "NoSubUnitText";
 			}
 		}
 
@@ -76865,9 +76925,17 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// </summary>
 		GameStartMethodBetButton,
 		/// <summary>
+		///   Looks up a localized string similar to Bet/Max Bet Button.
+		/// </summary>
+		GameStartMethodBetOrMaxBetButton,
+		/// <summary>
 		///   Looks up a localized string similar to Line/Reel Button.
 		/// </summary>
 		GameStartMethodLineOrReelButton,
+		/// <summary>
+		///   Looks up a localized string similar to Line/Reel/Max Bet Button.
+		/// </summary>
+		GameStartMethodLineReelorMaxBetButton,
 		/// <summary>
 		///   Looks up a localized string similar to Feature Statistics.
 		/// </summary>
@@ -81490,6 +81558,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		NoSlotGames,
+		/// <summary>
+		///   Looks up a localized string similar to (no sub-unit).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		NoSubUnitText,
 		/// <summary>
 		///   Looks up a localized string similar to No such host is known.
 		/// </summary>

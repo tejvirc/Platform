@@ -28,6 +28,7 @@
                         Value="16" />
             </Style>
             <converters:NullToVisibilityConverter x:Key="NullToVisConverter" />
+            <converters:PercentageTextValueConvert x:Key="PercentageTextValueConvert"/>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid AutomationProperties.AutomationId="Grid0_6FC827A3">
@@ -204,7 +205,7 @@
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.IncrementRate}}"
                                     HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeaderSmall}"
-                                    Binding="{Binding IncrementRate, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:#0.00'%'}}"
+                                    Binding="{Binding IncrementRate, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource PercentageTextValueConvert}}"
                                     Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSap), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
                                     AutomationProperties.AutomationId="DataGridTextColumn0_727D75F6" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.MaxValue}}"

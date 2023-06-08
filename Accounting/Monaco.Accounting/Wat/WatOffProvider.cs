@@ -11,6 +11,7 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using Contracts.Transactions;
     using Localization.Properties;
 
     /// <summary>
@@ -118,7 +119,7 @@
             return false;
         }
 
-        public Task<bool> Recover(Guid transactionId, CancellationToken cancellationToken)
+        public Task<bool> Recover(IRecoveryTransaction transaction, CancellationToken cancellationToken)
         {
             return Task.FromResult(false);
         }

@@ -138,17 +138,16 @@
                           t.State == HandpayState.Committed && t.PrintTicket && !t.Printed));
         }
 
-        public async Task<bool> Recover(Guid transactionId, CancellationToken cancellationToken)
+        public async Task<bool> Recover(IRecoveryTransaction recoveryTransaction, CancellationToken cancellationToken)
         {
             if (Active)
             {
                 return false;
             }
 
-            var transaction = _transactions.RecallTransactions<HandpayTransaction>()
-                .FirstOrDefault(t => t.BankTransactionId == transactionId);
+            var transaction = RecallHandpayTransaction(recoveryTransaction);
 
-            Logger.Debug($"Checking handpay recovery - {transactionId}");
+            Logger.Debug($"Checking handpay recovery - {recoveryTransaction.TransactionId}.{recoveryTransaction.TraceId}");
 
             if (transaction != null)
             {
@@ -184,7 +183,7 @@
                     validator = _validationProvider.GetHandPayValidator(true);
                     if (validator == null)
                     {
-                        Logger.Info($"No validator or validation is currently not allowed - {transactionId}");
+                        Logger.Info($"No validator or validation is currently not allowed - {recoveryTransaction.TransactionId}.{recoveryTransaction.TraceId}");
                         return false;
                     }
 
@@ -221,9 +220,15 @@
                 }
             }
 
-            Logger.Debug($"No handpay recovery needed - {transactionId}");
+            Logger.Debug($"No handpay recovery needed - {recoveryTransaction.TransactionId}.{recoveryTransaction.TraceId}");
 
             return false;
+        }
+
+        private HandpayTransaction RecallHandpayTransaction(IRecoveryTransaction transaction)
+        {
+            return _transactions.RecallTransactions<HandpayTransaction>()
+                .FirstOrDefault(t => t.BankTransactionId == transaction.TransactionId && t.TraceId == transaction.TraceId);
         }
 
         private async Task<bool> FinishPrintingHandpay(IHandpayValidator validator, HandpayTransaction transaction, CancellationToken cancellationToken)

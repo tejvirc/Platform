@@ -790,7 +790,7 @@
         ///     Determines whether EGM will send the cashout button press event to host in case credit is zero
         /// </summary>
         public const string ReportCashoutButtonPressWithZeroCredit = @"CashoutButton.ReportToHostWithZeroCredit";
-        
+
         /// <summary>
         ///     Determines whether or not the Voucher Issued message is displayed in game
         /// </summary>
@@ -810,6 +810,11 @@
         ///     Determines "Way to Start game"  (say bet or line etc)
         /// </summary>
         public const string GameStartMethod = @"GameStartMethod";
+
+        /// <summary>
+        ///     Determines "Way to Start game" that can be changed by the game (say bet or line etc)
+        /// </summary>
+        public const string GameConfigurableStartMethods = @"GameConfigurableStartMethod";
 
         /// <summary>
         ///     Determines whether "Way to Start game" option is configurable or not
@@ -1182,6 +1187,11 @@
         ///     Whether denomination selection lobby is required/allowed
         /// </summary>
         public const string DenomSelectionLobby = "GamingConfiguration.DenomSelectionLobby.Mode";
+
+        /// <summary>
+        ///     Command Line argument for enabling slow recovery
+        /// </summary>
+        public const string UseSlowRecovery = "UseSlowRecovery";
 
         /// <summary>
         ///     encapsulate Player Information Display options

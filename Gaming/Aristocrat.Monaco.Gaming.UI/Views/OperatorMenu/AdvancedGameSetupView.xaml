@@ -208,11 +208,11 @@
                           ScrollViewer.VerticalScrollBarVisibility="Auto"
                           ScrollViewer.HorizontalScrollBarVisibility="Auto"
                           ScrollViewer.CanContentScroll="True"
-                          VirtualizingPanel.IsContainerVirtualizable="True"
+                          VirtualizingPanel.IsContainerVirtualizable="False"
                           VirtualizingPanel.VirtualizationMode="Recycling"
-                          VirtualizingPanel.IsVirtualizingWhenGrouping="True"
+                          VirtualizingPanel.IsVirtualizingWhenGrouping="False"
                           VirtualizingPanel.CacheLengthUnit="Item"
-                          VirtualizingPanel.IsVirtualizing="True"
+                          VirtualizingPanel.IsVirtualizing="False"
                           VirtualizingPanel.ScrollUnit="Item"
                           EnableRowVirtualization="True"
                           EnableColumnVirtualization="True"
@@ -347,10 +347,11 @@
                                                   Visibility="{Binding BonusBetAvailable, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                                   SelectedValue="{Binding SelectedBonusBet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                   IsEnabled="{Binding BonusBetEnabled}"
-                                                  AutomationProperties.AutomationId="ComboBox45_FA38938A">
+                                                  AutomationProperties.AutomationId="ComboBox45_FA38938A"
+                                                  Validation.ErrorTemplate="{x:Null}">
                                             <ComboBox.ItemsPanel>
                                                 <ItemsPanelTemplate>
-                                                    <VirtualizingStackPanel IsVirtualizing="True"
+                                                    <VirtualizingStackPanel IsVirtualizing="False"
                                                                             AutomationProperties.AutomationId="VirtualizingStackPanel46_FA38938A" />
                                                 </ItemsPanelTemplate>
                                             </ComboBox.ItemsPanel>
@@ -373,7 +374,7 @@
                         </DataGridTemplateColumn>
                         <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.MaxBet}}"
                                             HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmall}"
-                                            Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.GlobalOptionsVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                            Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.MaxBetIsVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                             MaxWidth="120"
                                             Binding="{Binding MaxBet, Mode=OneWay}"
                                             AutomationProperties.AutomationId="DataGridTextColumn49_FA38938A">

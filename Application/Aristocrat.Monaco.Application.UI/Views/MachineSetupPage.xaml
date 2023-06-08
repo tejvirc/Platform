@@ -54,7 +54,7 @@
                   Width="Auto"
                   HorizontalAlignment="Left"
                   ItemsSource="{Binding Currencies}"
-                  DisplayMemberPath="DescriptionWithMinorSymbol"
+                  DisplayMemberPath="DisplayName"
                   SelectedItem="{Binding SelectedCurrency}"
                   IsEnabled="{Binding CurrencyChangeAllowed}"
                   AutomationProperties.AutomationId="ComboBox12_A1126224" />

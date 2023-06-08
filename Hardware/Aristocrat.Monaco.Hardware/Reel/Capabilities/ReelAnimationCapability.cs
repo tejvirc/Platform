@@ -12,63 +12,81 @@
         private readonly IAnimationImplementation _implementation;
         private readonly ReelControllerStateManager _stateManager;
 
+        /// <summary>
+        ///     Instantiates a new instance of the ReelAnimationCapability class
+        /// </summary>
+        /// <param name="implementation"></param>
+        /// <param name="stateManager"></param>
         public ReelAnimationCapability(IAnimationImplementation implementation, ReelControllerStateManager stateManager)
         {
             _implementation = implementation;
             _stateManager = stateManager;
         }
 
-        public Task<bool> LoadControllerAnimationFile(AnimationFile file, CancellationToken token)
+        public IReadOnlyCollection<AnimationFile> AnimationFiles => _implementation.AnimationFiles;
+
+        /// <inheritdoc />
+        public Task<bool> LoadAnimationFile(AnimationFile file, CancellationToken token = default)
         {
             return _implementation.LoadAnimationFile(file, token);
         }
 
-        public Task<bool> LoadControllerAnimationFiles(IEnumerable<AnimationFile> files, CancellationToken token)
+        /// <inheritdoc />
+        public Task<bool> LoadAnimationFiles(IEnumerable<AnimationFile> files, CancellationToken token = default)
         {
             return _implementation.LoadAnimationFiles(files, token);
         }
 
-        public Task<bool> PrepareControllerAnimation(LightShowFile file, CancellationToken token)
+        /// <inheritdoc />
+        public Task<bool> PrepareAnimation(LightShowData showData, CancellationToken token = default)
         {
-            return _implementation.PrepareAnimation(file, token);
+            return _implementation.PrepareAnimation(showData, token);
         }
 
-        public Task<bool> PrepareControllerAnimations(IEnumerable<LightShowFile> files, CancellationToken token)
+        /// <inheritdoc />
+        public Task<bool> PrepareAnimations(IEnumerable<LightShowData> showData, CancellationToken token = default)
         {
-            return _implementation.PrepareAnimations(files, token);
+            return _implementation.PrepareAnimations(showData, token);
         }
 
-        public Task<bool> PrepareControllerAnimation(ReelCurveData curveData, CancellationToken token)
+        /// <inheritdoc />
+        public Task<bool> PrepareControllerAnimation(ReelCurveData curveData, CancellationToken token = default)
         {
             return _implementation.PrepareAnimation(curveData, token);
         }
 
-        public Task<bool> PrepareControllerAnimations(IEnumerable<ReelCurveData> curveData, CancellationToken token)
+        /// <inheritdoc />
+        public Task<bool> PrepareControllerAnimations(IEnumerable<ReelCurveData> curveData, CancellationToken token = default)
         {
             return _implementation.PrepareAnimations(curveData, token);
         }
 
-        public Task<bool> PlayControllerAnimations(CancellationToken token)
+        /// <inheritdoc />
+        public Task<bool> PlayAnimations(CancellationToken token = default)
         {
             return _implementation.PlayAnimations(token);
         }
 
-        public Task<bool> StopControllerLightShowAnimations(IEnumerable<LightShowFile> files, CancellationToken token)
+        /// <inheritdoc />
+        public Task<bool> StopControllerLightShowAnimations(IEnumerable<LightShowData> showData, CancellationToken token = default)
         {
-            return _implementation.StopLightShowAnimations(files, token);
+            return _implementation.StopLightShowAnimations(showData, token);
         }
 
-        public Task<bool> StopAllControllerLightShows(CancellationToken token)
+        /// <inheritdoc />
+        public Task<bool> StopAllLightShows(CancellationToken token = default)
         {
             return _implementation.StopAllLightShows(token);
         }
 
-        public Task<bool> PrepareControllerStopReels(IEnumerable<ReelStopData> stopData, CancellationToken token)
+        /// <inheritdoc />
+        public Task<bool> PrepareControllerStopReels(IEnumerable<ReelStopData> stopData, CancellationToken token = default)
         {
             return _implementation.PrepareStopReels(stopData, token);
         }
 
-        public Task<bool> PrepareControllerNudgeReels(IEnumerable<NudgeReelData> nudgeData, CancellationToken token)
+        /// <inheritdoc />
+        public Task<bool> PrepareControllerNudgeReels(IEnumerable<NudgeReelData> nudgeData, CancellationToken token = default)
         {
             return _implementation.PrepareNudgeReels(nudgeData, token);
         }

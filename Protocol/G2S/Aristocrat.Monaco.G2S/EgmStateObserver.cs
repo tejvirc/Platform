@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.G2S
 {
     using System;
+    using System.Collections.Generic;
     using System.Reflection;
     using Accounting.Contracts;
     using Aristocrat.G2S;
@@ -112,27 +113,28 @@
         {
             Logger.Info($"G2S Egm State changed: {device?.DeviceClass} - {state}");
 
-            string eventCode;
+            List<string> eventCodes = new();
 
             switch (state)
             {
                 case EgmState.Enabled:
-                    eventCode = EventCode.G2S_CBE205;
+                    eventCodes.Add(EventCode.G2S_CBE205);
                     break;
                 case EgmState.OperatorMode:
-                    eventCode = EventCode.G2S_CBE206;
+                    eventCodes.Add(EventCode.G2S_CBE206);
                     break;
                 case EgmState.AuditMode:
-                    eventCode = EventCode.G2S_CBE208;
+                    eventCodes.Add(EventCode.G2S_CBE208);
                     break;
                 case EgmState.OperatorDisabled:
-                    eventCode = EventCode.G2S_CBE202;
+                    eventCodes.Add(EventCode.G2S_CBE202);
                     break;
                 case EgmState.OperatorLocked:
-                    eventCode = EventCode.G2S_CBE209;
+                    eventCodes.Add(EventCode.G2S_CBE209);
+                    eventCodes.Add(EventCode.G2S_CBE202);
                     break;
                 case EgmState.TransportDisabled:
-                    eventCode = EventCode.G2S_CBE201;
+                    eventCodes.Add(EventCode.G2S_CBE201);
                     break;
                 case EgmState.HostDisabled:
                     // We may want to do this for all devices (with their applicable event code).  Just need to make it generic
@@ -141,25 +143,28 @@
                         GenerateEvent(EventCode.G2S_CBE003);
                     }
 
-                    eventCode = EventCode.G2S_CBE204;
+                    eventCodes.Add(EventCode.G2S_CBE204);
                     break;
                 case EgmState.EgmDisabled:
-                    eventCode = EventCode.G2S_CBE203;
+                    eventCodes.Add(EventCode.G2S_CBE203);
                     break;
                 case EgmState.EgmLocked:
-                    eventCode = EventCode.G2S_CBE210;
+                    eventCodes.Add(EventCode.G2S_CBE210);
                     break;
                 case EgmState.HostLocked:
-                    eventCode = EventCode.G2S_CBE211;
+                    eventCodes.Add(EventCode.G2S_CBE211);
                     break;
                 case EgmState.DemoMode:
-                    eventCode = EventCode.G2S_CBE207;
+                    eventCodes.Add(EventCode.G2S_CBE207);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(state), state, null);
             }
 
-            GenerateEvent(eventCode);
+            foreach (string eventCode in eventCodes)
+            {
+                GenerateEvent(eventCode);
+            }
 
             _bus.Publish(new EgmStateChangedEvent(state));
 

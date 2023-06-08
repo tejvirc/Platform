@@ -28,7 +28,9 @@ as follows:
 		and hide the UI settings by setting "SettingsVisible" to "false"
 	-->
 	<PhysicalButtons>
-		<GameStartButtons SettingsVisible="false" Method="None" />
+		<GameStartButtons SettingsVisible="false" Method="None">
+			<GameConfigurableButtons />
+		</GameStartButtons>
 	</PhysicalButtons>
 	<AttractModeOptions KenoAttractSelected="true" PokerAttractSelected="true" BlackjackAttractSelected="true" />
 	<ProgressiveLobbyIndicator Indicator="Disabled" />

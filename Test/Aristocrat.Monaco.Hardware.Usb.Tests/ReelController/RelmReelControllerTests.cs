@@ -1,8 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Usb.Tests.ReelController
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using Contracts.Communicator;
+    using Contracts.Reel;
+    using Contracts.Reel.Events;
     using Contracts.Reel.ImplementationCapabilities;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
@@ -78,6 +81,32 @@
             Assert.AreEqual(string.Empty, controller.Protocol);
             Assert.AreEqual(0, controller.ProductId);
             Assert.AreEqual(0, controller.VendorId);
+        }
+
+        [DataTestMethod]
+        [DataRow(3)]
+        [DataRow(5)]
+        public async Task RequestStatusShouldProvideConnectedReels(int connectedReelCount)
+        {
+            var controller = new RelmReelController();
+            var communicator = new Mock<IRelmCommunicator>();
+            var connectedEventCount = 0;
+
+            var reelStatuses = new List<ReelStatus>();
+            for (var i = 1; i <= connectedReelCount; i++)
+            {
+                reelStatuses.Add(new ReelStatus { ReelId = i, Connected = true });
+            }
+
+            communicator.Setup(x => x.Initialize())
+                .Returns(Task.FromResult(default(object)))
+                .Raises(x => x.StatusesReceived += null, new ReelStatusReceivedEventArgs(reelStatuses));
+            communicator.Setup(x => x.IsOpen).Returns(true);
+            
+            controller.ReelConnected += delegate { connectedEventCount++; };
+            await controller.Initialize(communicator.Object);
+
+            Assert.AreEqual(connectedReelCount, connectedEventCount);
         }
     }
 }
