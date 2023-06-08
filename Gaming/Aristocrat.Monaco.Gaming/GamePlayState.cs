@@ -375,7 +375,7 @@
             try
             {
                 _platformHeldGameEnd = preventIdle;
-                if (!preventIdle)
+                if (!preventIdle && _state.IsInState(PlayState.PresentationIdle))
                 {
                     Fire(Trigger.GameEnded, true);
                 }
