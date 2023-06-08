@@ -38,13 +38,13 @@
             HomeTest = new ActionCommand<object>(_ => ReelHomeTest().FireAndForget());
             NudgeTest = new ActionCommand<object>(_ => ReelNudgeTest().FireAndForget());
             StepperTest = new ActionCommand<object>(_ => StepperCurveTest().FireAndForget());
-            StopAllAnimationTagsTest = new ActionCommand<object>(_ => StopAllAnimationTags().FireAndForget());
+            StopReelsTest = new ActionCommand<object>(_ => PrepareStopReels().FireAndForget());
         }
 
         public ICommand NudgeTest { get; }
         public ICommand HomeTest { get; }
         public ICommand StepperTest { get; }
-        public ICommand StopAllAnimationTagsTest { get; }
+        public ICommand StopReelsTest { get; }
 #pragma warning disable 67
         /// <summary>
         ///     Occurs when a property is changed
@@ -83,7 +83,7 @@
             await _animationCapabilities.PlayAnimations();
         }
 
-        private async Task StopAllAnimationTags()
+        private async Task PrepareStopReels()
         {
             await _animationCapabilities.PrepareStopReels(
                 new[]
@@ -96,9 +96,6 @@
                 }, default);
 
             await _animationCapabilities.PlayAnimations();
-
-            //await _animationCapabilities.StopAllAnimationTags(
-            //    _animationCapabilities.AnimationFiles.First(x => x.FriendlyName == stepperCurveName).AnimationId, default);
         }
     }
 }

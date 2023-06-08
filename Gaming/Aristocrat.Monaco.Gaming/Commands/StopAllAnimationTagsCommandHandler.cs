@@ -32,7 +32,7 @@
             }
 
             var success = _animationCapabilities.StopAllAnimationTags(
-                (int)_animationCapabilities.AnimationFiles
+                _animationCapabilities.AnimationFiles
                     .First( x => x .FriendlyName == command.AnimationName )
                     .AnimationId
                 ).Result;

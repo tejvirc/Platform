@@ -9,6 +9,8 @@
     using System.ComponentModel;
     using System.Linq;
     using System.Threading.Tasks;
+    using System.Windows.Input;
+    using MVVM.Command;
 
     /// <summary>
     ///     The MechanicalReelsLightAnimationTestViewModel class
@@ -36,12 +38,16 @@
             {
                 _animationCapabilities = _reelController.GetCapability<IReelAnimationCapabilities>();
             }
+
+            StopAllAnimationTagsTest = new ActionCommand<object>(_ => StopAllAnimationTags(SampleLightShowName).FireAndForget());
         }
 
         /// <summary>
         ///     Occurs when a property is changed
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public ICommand StopAllAnimationTagsTest { get; }
 
         /// <summary>
         ///     Gets or sets a value indicating of the test is active
@@ -118,6 +124,12 @@
 
             await _animationCapabilities.PrepareAnimation(lightShow);
             await _animationCapabilities.PlayAnimations();
+        }
+
+        private async Task StopAllAnimationTags(string lightShowName)
+        {
+            await _animationCapabilities.StopAllAnimationTags(
+                _animationCapabilities.AnimationFiles.First(x => x.FriendlyName == lightShowName).AnimationId, default);
         }
     }
 }
