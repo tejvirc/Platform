@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:overlay="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Overlay"
         mc:Ignorable="d"
-        Width="auto" Height="auto">
-
+        Width="auto" Height="auto"
+        AutomationProperties.AutomationId="UserControl0_EB0DD700">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -16,20 +16,17 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <!-- Accent and AppTheme setting -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary
+                        Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
                 <ResourceDictionary Source="../../Skins/Styles.xaml" />
                 <ResourceDictionary Source="TimeLimitDialogTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <overlay:TimeLimitDialogTemplateSelector x:Key="TimeLimitDialogSelector" />
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
-        <ContentControl 
-            Content="{Binding}"
-            ContentTemplateSelector="{StaticResource TimeLimitDialogSelector}"  />
+    <Grid AutomationProperties.AutomationId="Grid1_EB0DD700">
+        <ContentControl Content="{Binding}"
+                        ContentTemplateSelector="{StaticResource TimeLimitDialogSelector}"
+                        AutomationProperties.AutomationId="ContentControl2_EB0DD700" />
     </Grid>
-
 </UserControl>
-
-
-

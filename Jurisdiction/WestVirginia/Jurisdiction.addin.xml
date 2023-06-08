@@ -44,14 +44,8 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.WestVirginiaJurisdiction" filterid="WestVirginiaLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.WestVirginiaJurisdiction" filterid="WestVirginiaLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.WestVirginiaJurisdiction" filterid="WestVirginiaLobbyConfig" />
-      </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.WestVirginiaJurisdiction" filterid="WestVirginiaLocaleOverrides" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Accounting/Configuration">
         <NodeSpecification addinId="Client12Addins.WestVirginiaJurisdiction" filterid="WestVirginiaAccountingConfig" />
@@ -136,13 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="WestVirginiaLocaleConfig">
     <FilePath FilePath="..\jurisdiction\WestVirginia\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="WestVirginiaLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="WestVirginiaLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
-    <FilePath FilePath="..\jurisdiction\WestVirginia\resources\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\WestVirginia\Lobby.config.xml" filterid="WestVirginiaLobbyConfig" />

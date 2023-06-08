@@ -255,7 +255,6 @@
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<DisconnectedEvent>>()));
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<InspectionFailedEvent>>()));
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<ResolverErrorEvent>>()));
-            _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<TransferStatusEvent>>()));
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<LoadingRegionsAndTemplatesEvent>>()));
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<PageTitleEvent>>()));
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<EnabledEvent>>()));

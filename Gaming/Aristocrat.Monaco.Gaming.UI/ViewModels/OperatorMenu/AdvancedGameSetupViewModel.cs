@@ -75,6 +75,7 @@
         private EditableGameConfiguration _selectedConfig;
         private EditableGameProfile _selectedGame;
         private ProgressiveSettings _progressiveSettings;
+        private List<GameType> _gameTypes;
         private GameType _selectedGameType;
         private long _topAwardValue;
         private bool _gameOptionsGridEnabled;
@@ -133,7 +134,7 @@
 
             GameTypes = new List<GameType>(
                 games.Select(g => g.GameType).OrderBy(g => g.GetDescription(typeof(GameType))).Distinct());
-            SelectedGameType = GameTypes.FirstOrDefault();
+            _selectedGameType = GameTypes.FirstOrDefault();
             _settingsManager = ServiceManager.GetInstance().GetService<IConfigurationSettingsManager>();
 
             CancelButtonText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExitConfigurationText);
@@ -229,7 +230,16 @@
 
         public bool ShowGameRtpAsRange { get; }
 
-        public IEnumerable<GameType> GameTypes { get; }
+        public List<GameType> GameTypes
+        {
+            get => _gameTypes;
+
+            set => SetProperty(
+                ref _gameTypes,
+                value,
+                nameof(GameTypes),
+                nameof(HasMultipleGames));
+        }
 
         public GameType SelectedGameType
         {
@@ -624,7 +634,16 @@
                 CheckForMaximumDenominations(entry.Value, _subGameTypeToActiveDenomMapping[key]);
             }
 
+            GameTypes = _editableGames.Values
+                .Where(g => g.GameConfigurations.Any())
+                .SelectMany(g => g.GameConfigurations.SelectMany(c => c.AvailableGames))
+                .Select(g => g.GameType)
+                .Distinct()
+                .OrderBy(g => g.GetDescription(typeof(GameType)))
+                .ToList();
+
             SelectedGameType = GameTypes.FirstOrDefault();
+
             CalculateTopAward();
             ScaleEnabledRtpValues();
 

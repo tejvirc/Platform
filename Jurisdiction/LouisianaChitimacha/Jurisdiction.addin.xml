@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.LouisianaChitimachaJurisdiction" filterid="LouisianaChitimachaLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.LouisianaChitimachaJurisdiction" filterid="LouisianaChitimachaLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.LouisianaChitimachaJurisdiction" filterid="LouisianaChitimachaLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -133,9 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="LouisianaChitimachaLocaleConfig">
     <FilePath FilePath="..\jurisdiction\LouisianaChitimacha\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="LouisianaChitimachaLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\LouisianaChitimacha\Lobby.config.xml" filterid="LouisianaChitimachaLobbyConfig" />

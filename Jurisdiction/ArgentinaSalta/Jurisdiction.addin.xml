@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.ArgentinaSaltaJurisdiction" filterid="ArgentinaSaltaLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.ArgentinaSaltaJurisdiction" filterid="ArgentinaSaltaLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.ArgentinaSaltaJurisdiction" filterid="ArgentinaSaltaLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -139,9 +136,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="ArgentinaSaltaLocaleConfig">
     <FilePath FilePath="..\jurisdiction\ArgentinaSalta\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="ArgentinaSaltaLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\ArgentinaSalta\Lobby.config.xml" filterid="ArgentinaSaltaLobbyConfig" />

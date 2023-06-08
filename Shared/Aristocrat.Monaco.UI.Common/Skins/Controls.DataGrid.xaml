@@ -2,39 +2,49 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                     xmlns:converters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters">
-
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Controls.CheckBox.xaml" />
         <ResourceDictionary Source="Reskin.xaml" />
     </ResourceDictionary.MergedDictionaries>
-
-    <converters:WrappedTextConverter x:Key="WrappedTextConverter"/>
-    <converters:DataGridHeadersVisibilityConverter x:Key="HeadersVisConverter"/>
-
+    <converters:WrappedTextConverter x:Key="WrappedTextConverter" />
+    <converters:DataGridHeadersVisibilityConverter x:Key="HeadersVisConverter" />
     <Style x:Key="MonacoDataGridCheckBox"
            BasedOn="{StaticResource MonacoCheckBox}"
            TargetType="CheckBox">
-        <Setter Property="HorizontalAlignment" Value="Center" />
-        <Setter Property="Margin" Value="0" />
-        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment"
+                Value="Center" />
+        <Setter Property="Margin"
+                Value="0" />
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
         <Style.Triggers>
-            <DataTrigger Binding="{Binding Path=IsReadOnly, RelativeSource={RelativeSource AncestorType=DataGridCell}}" Value="True">
-                <Setter Property="Focusable" Value="False" />
-                <Setter Property="IsHitTestVisible" Value="False" />
+            <DataTrigger Binding="{Binding Path=IsReadOnly, RelativeSource={RelativeSource AncestorType=DataGridCell}}"
+                         Value="True"
+                         AutomationProperties.AutomationId="DataTrigger0_56E249DF">
+                <Setter Property="Focusable"
+                        Value="False" />
+                <Setter Property="IsHitTestVisible"
+                        Value="False" />
             </DataTrigger>
-            <DataTrigger Binding="{Binding Path=IsEditing, RelativeSource={RelativeSource AncestorType=DataGridCell}}" Value="False">
-                <Setter Property="Focusable" Value="False" />
-                <Setter Property="IsHitTestVisible" Value="False" />
+            <DataTrigger Binding="{Binding Path=IsEditing, RelativeSource={RelativeSource AncestorType=DataGridCell}}"
+                         Value="False"
+                         AutomationProperties.AutomationId="DataTrigger1_56E249DF">
+                <Setter Property="Focusable"
+                        Value="False" />
+                <Setter Property="IsHitTestVisible"
+                        Value="False" />
             </DataTrigger>
         </Style.Triggers>
     </Style>
-
-    <Style x:Key="MonacoDataGridSelectAllButton" TargetType="{x:Type Button}">
+    <Style x:Key="MonacoDataGridSelectAllButton"
+           TargetType="{x:Type Button}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Grid>
-                        <Rectangle x:Name="Border" Fill="{DynamicResource GrayBrush7}" />
+                    <Grid AutomationProperties.AutomationId="Grid2_56E249DF">
+                        <Rectangle x:Name="Border"
+                                   Fill="{DynamicResource GrayBrush7}"
+                                   AutomationProperties.AutomationId="Rectangle3_56E249DF" />
                         <Polygon x:Name="Arrow"
                                  Margin="8 8 3 3"
                                  HorizontalAlignment="Right"
@@ -42,29 +52,45 @@
                                  Fill="{DynamicResource GrayBrush1}"
                                  Opacity="0.15"
                                  Points="0,10 10,10 10,0"
-                                 Stretch="Uniform" />
+                                 Stretch="Uniform"
+                                 AutomationProperties.AutomationId="Polygon4_56E249DF" />
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="Border" Property="Fill" Value="{DynamicResource LightBrush1}" />
+                        <Trigger Property="IsPressed"
+                                 Value="True"
+                                 AutomationProperties.AutomationId="Trigger5_56E249DF">
+                            <Setter TargetName="Border"
+                                    Property="Fill"
+                                    Value="{DynamicResource LightBrush1}" />
                         </Trigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="Arrow" Property="Visibility" Value="Collapsed" />
+                        <Trigger Property="IsEnabled"
+                                 Value="False"
+                                 AutomationProperties.AutomationId="Trigger6_56E249DF">
+                            <Setter TargetName="Arrow"
+                                    Property="Visibility"
+                                    Value="Collapsed" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
-    <Style x:Key="MonacoColumnHeaderGripperStyle" TargetType="{x:Type Thumb}">
-        <Setter Property="Background" Value="{DynamicResource Brush3}" />
-        <Setter Property="Cursor" Value="SizeWE" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="MinWidth" Value="200" />
-        <Setter Property="MinHeight" Value="40" />
-        <Setter Property="FontSize" Value="18"></Setter>
-        <Setter Property="FontWeight" Value="Bold"></Setter>
+    <Style x:Key="MonacoColumnHeaderGripperStyle"
+           TargetType="{x:Type Thumb}">
+        <Setter Property="Background"
+                Value="{DynamicResource Brush3}" />
+        <Setter Property="Cursor"
+                Value="SizeWE" />
+        <Setter Property="SnapsToDevicePixels"
+                Value="True" />
+        <Setter Property="MinWidth"
+                Value="200" />
+        <Setter Property="MinHeight"
+                Value="40" />
+        <Setter Property="FontSize"
+                Value="18"></Setter>
+        <Setter Property="FontWeight"
+                Value="Bold"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Thumb}">
@@ -72,19 +98,26 @@
                             Background="Transparent"
                             BorderBrush="{TemplateBinding Background}"
                             BorderThickness="0 0 0 0"
-                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                            AutomationProperties.AutomationId="Border7_56E249DF" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
-    <Style x:Key="MonacoRowHeaderGripperStyle" TargetType="{x:Type Thumb}">
-        <Setter Property="Background" Value="{DynamicResource GrayBrush5}" />
-        <Setter Property="Cursor" Value="SizeNS" />
-        <Setter Property="Height" Value="40" />
-        <Setter Property="FontSize" Value="18"></Setter>
-        <Setter Property="FontWeight" Value="Bold"></Setter>
-        <Setter Property="SnapsToDevicePixels" Value="True" />
+    <Style x:Key="MonacoRowHeaderGripperStyle"
+           TargetType="{x:Type Thumb}">
+        <Setter Property="Background"
+                Value="{DynamicResource GrayBrush5}" />
+        <Setter Property="Cursor"
+                Value="SizeNS" />
+        <Setter Property="Height"
+                Value="40" />
+        <Setter Property="FontSize"
+                Value="18"></Setter>
+        <Setter Property="FontWeight"
+                Value="Bold"></Setter>
+        <Setter Property="SnapsToDevicePixels"
+                Value="True" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Thumb}">
@@ -92,20 +125,26 @@
                             Background="Transparent"
                             BorderBrush="{TemplateBinding Background}"
                             BorderThickness="0"
-                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                            AutomationProperties.AutomationId="Border8_56E249DF" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
-    <Style x:Key="MonacoDataGridColumnHeader" TargetType="{x:Type DataGridColumnHeader}">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="BorderThickness" Value="0 0 0 3" />
+    <Style x:Key="MonacoDataGridColumnHeader"
+           TargetType="{x:Type DataGridColumnHeader}">
+        <Setter Property="Background"
+                Value="Transparent" />
+        <Setter Property="BorderBrush"
+                Value="Transparent" />
+        <Setter Property="BorderThickness"
+                Value="0 0 0 3" />
         <Setter Property="ContentTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <TextBlock TextWrapping="Wrap" Text="{Binding}" />
+                    <TextBlock TextWrapping="Wrap"
+                               Text="{Binding}"
+                               AutomationProperties.AutomationId="TextBlock9_56E249DF" />
                 </DataTemplate>
             </Setter.Value>
         </Setter>
@@ -121,17 +160,19 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
-                    <Grid>
+                    <Grid AutomationProperties.AutomationId="Grid10_56E249DF">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*"
+                                              AutomationProperties.AutomationId="ColumnDefinition11_56E249DF" />
+                            <ColumnDefinition Width="Auto"
+                                              AutomationProperties.AutomationId="ColumnDefinition12_56E249DF" />
                         </Grid.ColumnDefinitions>
                         <Border x:Name="BackgroundBorder"
                                 Grid.ColumnSpan="2"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}" />
-
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                AutomationProperties.AutomationId="Border13_56E249DF" />
                         <controls:ContentControlEx x:Name="HeaderContent"
                                                    Padding="{TemplateBinding Padding}"
                                                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -143,7 +184,6 @@
                                                    ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
                                                    RecognizesAccessKey="True"
                                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-
                         <Path x:Name="SortArrow"
                               Grid.Column="1"
                               Width="8"
@@ -153,36 +193,56 @@
                               Fill="{DynamicResource Brush3}"
                               RenderTransformOrigin="0.5,0.5"
                               Stretch="Fill"
-                              Visibility="Collapsed" />
-
+                              Visibility="Collapsed"
+                              AutomationProperties.AutomationId="Path14_56E249DF" />
                         <Thumb x:Name="PART_LeftHeaderGripper"
                                HorizontalAlignment="Left"
                                Background="Transparent"
-                               Style="{StaticResource MonacoColumnHeaderGripperStyle}" />
-
+                               Style="{StaticResource MonacoColumnHeaderGripperStyle}"
+                               AutomationProperties.AutomationId="Thumb15_56E249DF" />
                         <Thumb x:Name="PART_RightHeaderGripper"
                                Grid.Column="1"
                                HorizontalAlignment="Right"
-                               Style="{StaticResource MonacoColumnHeaderGripperStyle}" />
+                               Style="{StaticResource MonacoColumnHeaderGripperStyle}"
+                               AutomationProperties.AutomationId="Thumb16_56E249DF" />
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="SortDirection" Value="Ascending">
-                            <Setter TargetName="SortArrow" Property="Data" Value="F1 M 34,57L 42,57L 42,32.25L 52,42.25L 52,31.75L 38,17.75L 24,31.75L 24,42.25L 34,32.25L 34,57 Z " />
-                            <Setter TargetName="SortArrow" Property="Visibility" Value="Visible" />
+                        <Trigger Property="SortDirection"
+                                 Value="Ascending"
+                                 AutomationProperties.AutomationId="Trigger17_56E249DF">
+                            <Setter TargetName="SortArrow"
+                                    Property="Data"
+                                    Value="F1 M 34,57L 42,57L 42,32.25L 52,42.25L 52,31.75L 38,17.75L 24,31.75L 24,42.25L 34,32.25L 34,57 Z " />
+                            <Setter TargetName="SortArrow"
+                                    Property="Visibility"
+                                    Value="Visible" />
                         </Trigger>
-                        <Trigger Property="SortDirection" Value="Descending">
-                            <Setter TargetName="SortArrow" Property="Data" Value="F1 M 42,19.0002L 34,19.0002L 34,43.7502L 24,33.7502L 24,44.2502L 38,58.2502L 52,44.2502L 52,33.7502L 42,43.7502L 42,19.0002 Z " />
-                            <Setter TargetName="SortArrow" Property="Margin" Value="0 0 8 0" />
-                            <Setter TargetName="SortArrow" Property="Visibility" Value="Visible" />
+                        <Trigger Property="SortDirection"
+                                 Value="Descending"
+                                 AutomationProperties.AutomationId="Trigger18_56E249DF">
+                            <Setter TargetName="SortArrow"
+                                    Property="Data"
+                                    Value="F1 M 42,19.0002L 34,19.0002L 34,43.7502L 24,33.7502L 24,44.2502L 38,58.2502L 52,44.2502L 52,33.7502L 42,43.7502L 42,19.0002 Z " />
+                            <Setter TargetName="SortArrow"
+                                    Property="Margin"
+                                    Value="0 0 8 0" />
+                            <Setter TargetName="SortArrow"
+                                    Property="Visibility"
+                                    Value="Visible" />
                         </Trigger>
-                        <Trigger Property="DisplayIndex" Value="0">
-                            <Setter TargetName="PART_LeftHeaderGripper" Property="Visibility" Value="Collapsed" />
+                        <Trigger Property="DisplayIndex"
+                                 Value="0"
+                                 AutomationProperties.AutomationId="Trigger19_56E249DF">
+                            <Setter TargetName="PART_LeftHeaderGripper"
+                                    Property="Visibility"
+                                    Value="Collapsed" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="VerticalContentAlignment" Value="Bottom" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Bottom" />
         <!--<Style.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -197,119 +257,157 @@
             </Trigger>
         </Style.Triggers>-->
     </Style>
-
-    <Style x:Key="MonacoDataGridWrappedColumnHeader" TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MonacoDataGridColumnHeader}">
+    <Style x:Key="MonacoDataGridWrappedColumnHeader"
+           TargetType="{x:Type DataGridColumnHeader}"
+           BasedOn="{StaticResource MonacoDataGridColumnHeader}">
         <Setter Property="ContentTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Converter={StaticResource WrappedTextConverter}}" />
+                    <TextBlock Text="{Binding Converter={StaticResource WrappedTextConverter}}"
+                               AutomationProperties.AutomationId="TextBlock20_56E249DF" />
                 </DataTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
-    <Style x:Key="MonacoDataGridColumnHeaderSmall" TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MonacoDataGridColumnHeader}">
-        <Setter Property="FontSize" Value="12" />
+    <Style x:Key="MonacoDataGridColumnHeaderSmall"
+           TargetType="{x:Type DataGridColumnHeader}"
+           BasedOn="{StaticResource MonacoDataGridColumnHeader}">
+        <Setter Property="FontSize"
+                Value="12" />
     </Style>
-
-    <Style x:Key="MonacoDataGridColumnHeaderSmallCentered" TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MonacoDataGridColumnHeaderSmall}">
-        <Setter Property="HorizontalAlignment" Value="Center" />
+    <Style x:Key="MonacoDataGridColumnHeaderSmallCentered"
+           TargetType="{x:Type DataGridColumnHeader}"
+           BasedOn="{StaticResource MonacoDataGridColumnHeaderSmall}">
+        <Setter Property="HorizontalAlignment"
+                Value="Center" />
     </Style>
-
-    <Style x:Key="MonacoDataGridWrappedColumnHeaderSmall" TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MonacoDataGridColumnHeaderSmall}">
+    <Style x:Key="MonacoDataGridWrappedColumnHeaderSmall"
+           TargetType="{x:Type DataGridColumnHeader}"
+           BasedOn="{StaticResource MonacoDataGridColumnHeaderSmall}">
         <Setter Property="ContentTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Converter={StaticResource WrappedTextConverter}}" HorizontalAlignment="Center" />
+                    <TextBlock Text="{Binding Converter={StaticResource WrappedTextConverter}}"
+                               HorizontalAlignment="Center"
+                               AutomationProperties.AutomationId="TextBlock21_56E249DF" />
                 </DataTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
-    <Style x:Key="MonacoDataGridRowHeader" TargetType="{x:Type DataGridRowHeader}">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="{DynamicResource GrayBrush5}" />
-        <Setter Property="BorderThickness" Value="0 0 1 0" />
-        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-        <Setter Property="Margin" Value="0" />
+    <Style x:Key="MonacoDataGridRowHeader"
+           TargetType="{x:Type DataGridRowHeader}">
+        <Setter Property="Background"
+                Value="Transparent" />
+        <Setter Property="BorderBrush"
+                Value="{DynamicResource GrayBrush5}" />
+        <Setter Property="BorderThickness"
+                Value="0 0 1 0" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Stretch" />
+        <Setter Property="Margin"
+                Value="0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type DataGridRowHeader}">
-                    <Grid>
+                    <Grid AutomationProperties.AutomationId="Grid22_56E249DF">
                         <Border Margin="{TemplateBinding Margin}"
                                 Padding="{TemplateBinding Padding}"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                SnapsToDevicePixels="True">
-                            <Grid>
+                                SnapsToDevicePixels="True"
+                                AutomationProperties.AutomationId="Border23_56E249DF">
+                            <Grid AutomationProperties.AutomationId="Grid24_56E249DF">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition AutomationProperties.AutomationId="ColumnDefinition25_56E249DF" />
+                                    <ColumnDefinition Width="Auto"
+                                                      AutomationProperties.AutomationId="ColumnDefinition26_56E249DF" />
                                 </Grid.ColumnDefinitions>
                                 <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                                   RecognizesAccessKey="True"
-                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                  AutomationProperties.AutomationId="ContentPresenter27_56E249DF" />
                                 <Control Grid.Column="1"
                                          Focusable="False"
                                          SnapsToDevicePixels="False"
                                          Template="{Binding ValidationErrorTemplate, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}"
-                                         Visibility="{Binding (Validation.HasError), Converter={StaticResource TrueVisibleFalseCollapsed}, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}" />
+                                         Visibility="{Binding (Validation.HasError), Converter={StaticResource TrueVisibleFalseCollapsed}, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}"
+                                         AutomationProperties.AutomationId="Control28_56E249DF" />
                             </Grid>
                         </Border>
                         <Thumb x:Name="PART_TopHeaderGripper"
                                VerticalAlignment="Top"
                                Background="Transparent"
-                               Style="{StaticResource MonacoRowHeaderGripperStyle}" />
+                               Style="{StaticResource MonacoRowHeaderGripperStyle}"
+                               AutomationProperties.AutomationId="Thumb29_56E249DF" />
                         <Thumb x:Name="PART_BottomHeaderGripper"
                                VerticalAlignment="Bottom"
-                               Style="{StaticResource MonacoRowHeaderGripperStyle}" />
+                               Style="{StaticResource MonacoRowHeaderGripperStyle}"
+                               AutomationProperties.AutomationId="Thumb30_56E249DF" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
         <!--<Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{DynamicResource Brush2}" />
             </Trigger>
         </Style.Triggers>-->
     </Style>
-
-    <Style x:Key="MonacoDataGridRow" TargetType="{x:Type DataGridRow}">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="controls:DataGridRowHelper.SelectionUnit" Value="{Binding Path=SelectionUnit, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
-        <Setter Property="Margin" Value="0 0 0 0" />
-        <Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
-        <Setter Property="ValidationErrorTemplate" Value="{DynamicResource DefaultRowValidationErrorTemplate}" />
-        <Setter Property="FontSize" Value="18"></Setter>
-        <Setter Property="FontWeight" Value="Regular" />
-        <Setter Property="MinHeight" Value="40"></Setter>
+    <Style x:Key="MonacoDataGridRow"
+           TargetType="{x:Type DataGridRow}">
+        <Setter Property="Background"
+                Value="Transparent" />
+        <Setter Property="controls:DataGridRowHelper.SelectionUnit"
+                Value="{Binding Path=SelectionUnit, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+        <Setter Property="Margin"
+                Value="0 0 0 0" />
+        <Setter Property="Validation.ErrorTemplate"
+                Value="{x:Null}" />
+        <Setter Property="ValidationErrorTemplate"
+                Value="{DynamicResource DefaultRowValidationErrorTemplate}" />
+        <Setter Property="FontSize"
+                Value="18"></Setter>
+        <Setter Property="FontWeight"
+                Value="Regular" />
+        <Setter Property="MinHeight"
+                Value="40"></Setter>
         <Style.Triggers>
             <!--  IsSelected  -->
-            <MultiTrigger>
+            <MultiTrigger AutomationProperties.AutomationId="MultiTrigger31_56E249DF">
                 <MultiTrigger.Conditions>
-                    <Condition Property="controls:DataGridRowHelper.SelectionUnit" Value="FullRow" />
-                    <Condition Property="IsSelected" Value="True" />
+                    <Condition Property="controls:DataGridRowHelper.SelectionUnit"
+                               Value="FullRow" />
+                    <Condition Property="IsSelected"
+                               Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Background" Value="{DynamicResource MonacoDataGrid.HighlightBrush}" />
-                <Setter Property="BorderBrush" Value="{DynamicResource MonacoDataGrid.HighlightBrush}" />
-                <Setter Property="Foreground" Value="{DynamicResource MonacoDataGrid.HighlightTextBrush}" />
+                <Setter Property="Background"
+                        Value="{DynamicResource MonacoDataGrid.HighlightBrush}" />
+                <Setter Property="BorderBrush"
+                        Value="{DynamicResource MonacoDataGrid.HighlightBrush}" />
+                <Setter Property="Foreground"
+                        Value="{DynamicResource MonacoDataGrid.HighlightTextBrush}" />
             </MultiTrigger>
-
             <!--  IsSelected and Selector.IsSelectionActive  -->
-            <MultiTrigger>
+            <MultiTrigger AutomationProperties.AutomationId="MultiTrigger32_56E249DF">
                 <MultiTrigger.Conditions>
-                    <Condition Property="controls:DataGridRowHelper.SelectionUnit" Value="FullRow" />
-                    <Condition Property="IsSelected" Value="True" />
-                    <Condition Property="Selector.IsSelectionActive" Value="False" />
+                    <Condition Property="controls:DataGridRowHelper.SelectionUnit"
+                               Value="FullRow" />
+                    <Condition Property="IsSelected"
+                               Value="True" />
+                    <Condition Property="Selector.IsSelectionActive"
+                               Value="False" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Background" Value="{DynamicResource MonacoDataGrid.InactiveSelectionHighlightBrush}" />
-                <Setter Property="BorderBrush" Value="{DynamicResource MonacoDataGrid.InactiveSelectionHighlightBrush}" />
-                <Setter Property="Foreground" Value="{DynamicResource MonacoDataGrid.InactiveSelectionHighlightTextBrush}" />
+                <Setter Property="Background"
+                        Value="{DynamicResource MonacoDataGrid.InactiveSelectionHighlightBrush}" />
+                <Setter Property="BorderBrush"
+                        Value="{DynamicResource MonacoDataGrid.InactiveSelectionHighlightBrush}" />
+                <Setter Property="Foreground"
+                        Value="{DynamicResource MonacoDataGrid.InactiveSelectionHighlightTextBrush}" />
             </MultiTrigger>
-
             <!--  IsMouseOver  -->
             <!--<MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -319,112 +417,154 @@
                 <Setter Property="Background" Value="{DynamicResource MonacoDataGrid.MouseOverHighlightBrush}" />
                 <Setter Property="BorderBrush" Value="{DynamicResource MonacoDataGrid.MouseOverHighlightBrush}" />
             </MultiTrigger>-->
-
             <!--  IsEnabled  -->
-            <MultiTrigger>
+            <MultiTrigger AutomationProperties.AutomationId="MultiTrigger33_56E249DF">
                 <MultiTrigger.Conditions>
-                    <Condition Property="controls:DataGridRowHelper.SelectionUnit" Value="FullRow" />
-                    <Condition Property="IsEnabled" Value="False" />
+                    <Condition Property="controls:DataGridRowHelper.SelectionUnit"
+                               Value="FullRow" />
+                    <Condition Property="IsEnabled"
+                               Value="False" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+                <Setter Property="Foreground"
+                        Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
             </MultiTrigger>
-
             <!--  IsEnabled and IsSelected  -->
-            <MultiTrigger>
+            <MultiTrigger AutomationProperties.AutomationId="MultiTrigger34_56E249DF">
                 <MultiTrigger.Conditions>
-                    <Condition Property="controls:DataGridRowHelper.SelectionUnit" Value="FullRow" />
-                    <Condition Property="IsEnabled" Value="False" />
-                    <Condition Property="IsSelected" Value="True" />
+                    <Condition Property="controls:DataGridRowHelper.SelectionUnit"
+                               Value="FullRow" />
+                    <Condition Property="IsEnabled"
+                               Value="False" />
+                    <Condition Property="IsSelected"
+                               Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Background" Value="{DynamicResource MonacoDataGrid.DisabledHighlightBrush}" />
-                <Setter Property="BorderBrush" Value="{DynamicResource MonacoDataGrid.DisabledHighlightBrush}" />
-                <Setter Property="Foreground" Value="{DynamicResource MonacoDataGrid.HighlightTextBrush}" />
+                <Setter Property="Background"
+                        Value="{DynamicResource MonacoDataGrid.DisabledHighlightBrush}" />
+                <Setter Property="BorderBrush"
+                        Value="{DynamicResource MonacoDataGrid.DisabledHighlightBrush}" />
+                <Setter Property="Foreground"
+                        Value="{DynamicResource MonacoDataGrid.HighlightTextBrush}" />
             </MultiTrigger>
         </Style.Triggers>
     </Style>
-
-    <Style x:Key="MonacoUnselectableDataGridRow" TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource MonacoDataGridRow}">
-        <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="Foreground" Value="{DynamicResource LightBrush4}" />
+    <Style x:Key="MonacoUnselectableDataGridRow"
+           TargetType="{x:Type DataGridRow}"
+           BasedOn="{StaticResource MonacoDataGridRow}">
+        <Setter Property="BorderBrush"
+                Value="Transparent" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource LightBrush4}" />
         <Style.Triggers>
-            <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="Transparent" />
-                <Setter Property="BorderBrush" Value="Transparent" />
-                <Setter Property="Foreground" Value="{DynamicResource LightBrush4}" />
+            <Trigger Property="IsSelected"
+                     Value="True"
+                     AutomationProperties.AutomationId="Trigger35_56E249DF">
+                <Setter Property="Background"
+                        Value="Transparent" />
+                <Setter Property="BorderBrush"
+                        Value="Transparent" />
+                <Setter Property="Foreground"
+                        Value="{DynamicResource LightBrush4}" />
             </Trigger>
         </Style.Triggers>
     </Style>
-
-    <Style x:Key="MonacoDataGridCell" TargetType="{x:Type DataGridCell}">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="Foreground" Value="{DynamicResource LightBrush4}" />
-        <Setter Property="controls:DataGridCellHelper.SelectionUnit" Value="{Binding Path=(controls:DataGridRowHelper.SelectionUnit), Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}" />
-        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-        <Setter Property="Padding" Value="0 0 15 0" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="FontSize" Value="18"></Setter>
-        <Setter Property="FontWeight" Value="Regular" />
+    <Style x:Key="MonacoDataGridCell"
+           TargetType="{x:Type DataGridCell}">
+        <Setter Property="Background"
+                Value="Transparent" />
+        <Setter Property="BorderBrush"
+                Value="Transparent" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource LightBrush4}" />
+        <Setter Property="controls:DataGridCellHelper.SelectionUnit"
+                Value="{Binding Path=(controls:DataGridRowHelper.SelectionUnit), Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Stretch" />
+        <Setter Property="Padding"
+                Value="0 0 15 0" />
+        <Setter Property="SnapsToDevicePixels"
+                Value="True" />
+        <Setter Property="FontSize"
+                Value="18"></Setter>
+        <Setter Property="FontWeight"
+                Value="Regular" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type DataGridCell}">
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                            AutomationProperties.AutomationId="Border36_56E249DF">
                         <ContentPresenter Margin="{TemplateBinding Padding}"
                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                           Content="{TemplateBinding Content}"
                                           ContentStringFormat="{TemplateBinding ContentStringFormat}"
                                           ContentTemplate="{TemplateBinding ContentTemplate}"
-                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                          AutomationProperties.AutomationId="ContentPresenter37_56E249DF" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
         <Style.Triggers>
             <!--  IsSelected  -->
-            <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Foreground" Value="{DynamicResource MonacoDataGrid.HighlightTextBrush}" />
+            <Trigger Property="IsSelected"
+                     Value="True"
+                     AutomationProperties.AutomationId="Trigger38_56E249DF">
+                <Setter Property="Foreground"
+                        Value="{DynamicResource MonacoDataGrid.HighlightTextBrush}" />
             </Trigger>
-            <MultiTrigger>
+            <MultiTrigger AutomationProperties.AutomationId="MultiTrigger39_56E249DF">
                 <MultiTrigger.Conditions>
-                    <Condition Property="controls:DataGridCellHelper.IsCellOrRowHeader" Value="True" />
-                    <Condition Property="IsSelected" Value="True" />
+                    <Condition Property="controls:DataGridCellHelper.IsCellOrRowHeader"
+                               Value="True" />
+                    <Condition Property="IsSelected"
+                               Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Background" Value="{DynamicResource MonacoDataGrid.HighlightBrush}" />
-                <Setter Property="BorderBrush" Value="{DynamicResource MonacoDataGrid.HighlightBrush}" />
+                <Setter Property="Background"
+                        Value="{DynamicResource MonacoDataGrid.HighlightBrush}" />
+                <Setter Property="BorderBrush"
+                        Value="{DynamicResource MonacoDataGrid.HighlightBrush}" />
             </MultiTrigger>
-
             <!--  IsKeyboardFocusWithin  -->
-            <MultiTrigger>
+            <MultiTrigger AutomationProperties.AutomationId="MultiTrigger40_56E249DF">
                 <MultiTrigger.Conditions>
-                    <Condition Property="controls:DataGridCellHelper.IsCellOrRowHeader" Value="True" />
-                    <Condition Property="IsKeyboardFocusWithin" Value="True" />
+                    <Condition Property="controls:DataGridCellHelper.IsCellOrRowHeader"
+                               Value="True" />
+                    <Condition Property="IsKeyboardFocusWithin"
+                               Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter Property="BorderBrush" Value="{DynamicResource MonacoDataGrid.FocusBorderBrush}" />
+                <Setter Property="BorderBrush"
+                        Value="{DynamicResource MonacoDataGrid.FocusBorderBrush}" />
             </MultiTrigger>
-
             <!--  IsSelected and Selector.IsSelectionActive  -->
-            <MultiTrigger>
+            <MultiTrigger AutomationProperties.AutomationId="MultiTrigger41_56E249DF">
                 <MultiTrigger.Conditions>
-                    <Condition Property="IsSelected" Value="True" />
-                    <Condition Property="Selector.IsSelectionActive" Value="False" />
+                    <Condition Property="IsSelected"
+                               Value="True" />
+                    <Condition Property="Selector.IsSelectionActive"
+                               Value="False" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Foreground" Value="{DynamicResource MonacoDataGrid.InactiveSelectionHighlightTextBrush}" />
+                <Setter Property="Foreground"
+                        Value="{DynamicResource MonacoDataGrid.InactiveSelectionHighlightTextBrush}" />
             </MultiTrigger>
-            <MultiTrigger>
+            <MultiTrigger AutomationProperties.AutomationId="MultiTrigger42_56E249DF">
                 <MultiTrigger.Conditions>
-                    <Condition Property="controls:DataGridCellHelper.IsCellOrRowHeader" Value="True" />
-                    <Condition Property="IsSelected" Value="True" />
-                    <Condition Property="Selector.IsSelectionActive" Value="False" />
+                    <Condition Property="controls:DataGridCellHelper.IsCellOrRowHeader"
+                               Value="True" />
+                    <Condition Property="IsSelected"
+                               Value="True" />
+                    <Condition Property="Selector.IsSelectionActive"
+                               Value="False" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Background" Value="{DynamicResource MonacoDataGrid.InactiveSelectionHighlightBrush}" />
-                <Setter Property="BorderBrush" Value="{DynamicResource MonacoDataGrid.InactiveSelectionHighlightBrush}" />
+                <Setter Property="Background"
+                        Value="{DynamicResource MonacoDataGrid.InactiveSelectionHighlightBrush}" />
+                <Setter Property="BorderBrush"
+                        Value="{DynamicResource MonacoDataGrid.InactiveSelectionHighlightBrush}" />
             </MultiTrigger>
-
             <!--  IsMouseOver  -->
             <!--<MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -434,83 +574,118 @@
                 <Setter Property="Background" Value="{DynamicResource MonacoDataGrid.MouseOverHighlightBrush}" />
                 <Setter Property="BorderBrush" Value="{DynamicResource MonacoDataGrid.MouseOverHighlightBrush}" />
             </MultiTrigger>-->
-
             <!--  IsEnabled  -->
-            <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+            <Trigger Property="IsEnabled"
+                     Value="False"
+                     AutomationProperties.AutomationId="Trigger43_56E249DF">
+                <Setter Property="Foreground"
+                        Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
             </Trigger>
-
             <!--  IsEnabled and IsSelected  -->
-            <MultiTrigger>
+            <MultiTrigger AutomationProperties.AutomationId="MultiTrigger44_56E249DF">
                 <MultiTrigger.Conditions>
-                    <Condition Property="IsEnabled" Value="False" />
-                    <Condition Property="IsSelected" Value="True" />
+                    <Condition Property="IsEnabled"
+                               Value="False" />
+                    <Condition Property="IsSelected"
+                               Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Foreground" Value="{DynamicResource MonacoDataGrid.HighlightTextBrush}" />
+                <Setter Property="Foreground"
+                        Value="{DynamicResource MonacoDataGrid.HighlightTextBrush}" />
             </MultiTrigger>
-            <MultiTrigger>
+            <MultiTrigger AutomationProperties.AutomationId="MultiTrigger45_56E249DF">
                 <MultiTrigger.Conditions>
-                    <Condition Property="controls:DataGridCellHelper.IsCellOrRowHeader" Value="True" />
-                    <Condition Property="IsEnabled" Value="False" />
-                    <Condition Property="IsSelected" Value="True" />
+                    <Condition Property="controls:DataGridCellHelper.IsCellOrRowHeader"
+                               Value="True" />
+                    <Condition Property="IsEnabled"
+                               Value="False" />
+                    <Condition Property="IsSelected"
+                               Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Background" Value="{DynamicResource MonacoDataGrid.DisabledHighlightBrush}" />
-                <Setter Property="BorderBrush" Value="{DynamicResource MonacoDataGrid.DisabledHighlightBrush}" />
+                <Setter Property="Background"
+                        Value="{DynamicResource MonacoDataGrid.DisabledHighlightBrush}" />
+                <Setter Property="BorderBrush"
+                        Value="{DynamicResource MonacoDataGrid.DisabledHighlightBrush}" />
             </MultiTrigger>
-
         </Style.Triggers>
     </Style>
-
-    <Style x:Key="MonacoUnselectableDataGridCell" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MonacoDataGridCell}">
+    <Style x:Key="MonacoUnselectableDataGridCell"
+           TargetType="{x:Type DataGridCell}"
+           BasedOn="{StaticResource MonacoDataGridCell}">
         <Style.Triggers>
-            <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="Transparent" />
-                <Setter Property="BorderBrush" Value="Transparent" />
-                <Setter Property="Foreground" Value="{DynamicResource LightBrush4}" />
+            <Trigger Property="IsSelected"
+                     Value="True"
+                     AutomationProperties.AutomationId="Trigger46_56E249DF">
+                <Setter Property="Background"
+                        Value="Transparent" />
+                <Setter Property="BorderBrush"
+                        Value="Transparent" />
+                <Setter Property="Foreground"
+                        Value="{DynamicResource LightBrush4}" />
             </Trigger>
         </Style.Triggers>
     </Style>
-
-    <Style x:Key="MonacoCompactDataGridCell" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MonacoUnselectableDataGridCell}">
-        <Setter Property="Padding" Value="0 0 12 0" />
-        <Setter Property="FontSize" Value="14"></Setter>
+    <Style x:Key="MonacoCompactDataGridCell"
+           TargetType="{x:Type DataGridCell}"
+           BasedOn="{StaticResource MonacoUnselectableDataGridCell}">
+        <Setter Property="Padding"
+                Value="0 0 12 0" />
+        <Setter Property="FontSize"
+                Value="14"></Setter>
     </Style>
-
-    <Style x:Key="MonacoExtraCompactDataGridCell" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MonacoUnselectableDataGridCell}">
-        <Setter Property="Padding" Value="0 0 5 0" />
-        <Setter Property="FontSize" Value="14"></Setter>
+    <Style x:Key="MonacoExtraCompactDataGridCell"
+           TargetType="{x:Type DataGridCell}"
+           BasedOn="{StaticResource MonacoUnselectableDataGridCell}">
+        <Setter Property="Padding"
+                Value="0 0 5 0" />
+        <Setter Property="FontSize"
+                Value="14"></Setter>
     </Style>
-
-    <Style x:Key="MonacoDataGrid" TargetType="{x:Type DataGrid}">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="BorderThickness" Value="2" />
-        <Setter Property="CellStyle" Value="{StaticResource MonacoDataGridCell}" />
-        <Setter Property="ColumnHeaderStyle" Value="{StaticResource MonacoDataGridColumnHeader}" />
+    <Style x:Key="MonacoDataGrid"
+           TargetType="{x:Type DataGrid}">
+        <Setter Property="Background"
+                Value="Transparent" />
+        <Setter Property="BorderBrush"
+                Value="Transparent" />
+        <Setter Property="BorderThickness"
+                Value="2" />
+        <Setter Property="CellStyle"
+                Value="{StaticResource MonacoDataGridCell}" />
+        <Setter Property="ColumnHeaderStyle"
+                Value="{StaticResource MonacoDataGridColumnHeader}" />
         <Setter Property="DropLocationIndicatorStyle">
             <Setter.Value>
                 <Style TargetType="Separator">
-                    <Setter Property="Background" Value="{DynamicResource GrayBrush7}" />
+                    <Setter Property="Background"
+                            Value="{DynamicResource GrayBrush7}" />
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="Separator">
                                 <Rectangle Width="{TemplateBinding Width}"
                                            Height="{TemplateBinding Height}"
-                                           Fill="{TemplateBinding Background}" />
+                                           Fill="{TemplateBinding Background}"
+                                           AutomationProperties.AutomationId="Rectangle47_56E249DF" />
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
-                    <Setter Property="Width" Value="2" />
+                    <Setter Property="Width"
+                            Value="2" />
                 </Style>
             </Setter.Value>
         </Setter>
-        <Setter Property="GridLinesVisibility" Value="None" />
-        <Setter Property="HeadersVisibility" Value="Column" />
-        <Setter Property="Height" Value="Auto"/>
-        <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource GrayBrush7}" />
-        <Setter Property="MinRowHeight" Value="25" />
-        <Setter Property="RowHeaderStyle" Value="{StaticResource MonacoDataGridRowHeader}" />
-        <Setter Property="RowStyle" Value="{StaticResource MonacoDataGridRow}" />
+        <Setter Property="GridLinesVisibility"
+                Value="None" />
+        <Setter Property="HeadersVisibility"
+                Value="Column" />
+        <Setter Property="Height"
+                Value="Auto" />
+        <Setter Property="HorizontalGridLinesBrush"
+                Value="{DynamicResource GrayBrush7}" />
+        <Setter Property="MinRowHeight"
+                Value="25" />
+        <Setter Property="RowHeaderStyle"
+                Value="{StaticResource MonacoDataGridRowHeader}" />
+        <Setter Property="RowStyle"
+                Value="{StaticResource MonacoDataGridRow}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type DataGrid}">
@@ -518,33 +693,48 @@
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            SnapsToDevicePixels="True">
-                        <ScrollViewer x:Name="DG_ScrollViewer" Focusable="False">
+                            SnapsToDevicePixels="True"
+                            AutomationProperties.AutomationId="Border48_56E249DF">
+                        <ScrollViewer x:Name="DG_ScrollViewer"
+                                      Focusable="False"
+                                      AutomationProperties.AutomationId="ScrollViewer49_56E249DF">
                             <ScrollViewer.Template>
                                 <ControlTemplate TargetType="{x:Type ScrollViewer}">
-                                    <Grid>
+                                    <Grid AutomationProperties.AutomationId="Grid50_56E249DF">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto"
+                                                              AutomationProperties.AutomationId="ColumnDefinition51_56E249DF" />
+                                            <ColumnDefinition Width="*"
+                                                              AutomationProperties.AutomationId="ColumnDefinition52_56E249DF" />
+                                            <ColumnDefinition Width="Auto"
+                                                              AutomationProperties.AutomationId="ColumnDefinition53_56E249DF" />
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="*" />
-                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto"
+                                                           AutomationProperties.AutomationId="RowDefinition54_56E249DF" />
+                                            <RowDefinition Height="*"
+                                                           AutomationProperties.AutomationId="RowDefinition55_56E249DF" />
+                                            <RowDefinition Height="Auto"
+                                                           AutomationProperties.AutomationId="RowDefinition56_56E249DF" />
                                         </Grid.RowDefinitions>
-                                        <Button Width="{Binding CellsPanelHorizontalOffset, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                        <Button
+                                                Width="{Binding CellsPanelHorizontalOffset, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
                                                 Command="{x:Static DataGrid.SelectAllCommand}"
                                                 Focusable="False"
                                                 Style="{StaticResource MonacoDataGridSelectAllButton}"
-                                                Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.All}, Converter={StaticResource HeadersVisConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+                                                Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.All}, Converter={StaticResource HeadersVisConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                                AutomationProperties.AutomationId="Button57_56E249DF" />
                                         <DataGridColumnHeadersPresenter x:Name="PART_ColumnHeadersPresenter"
                                                                         Grid.Column="1"
-                                                                        Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Column}, Converter={StaticResource HeadersVisConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
-                                        <Grid Grid.Row="1" Grid.ColumnSpan="2">
+                                                                        Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Column}, Converter={StaticResource HeadersVisConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                                                        AutomationProperties.AutomationId="DataGridColumnHeadersPresenter58_56E249DF" />
+                                        <Grid Grid.Row="1"
+                                              Grid.ColumnSpan="2"
+                                              AutomationProperties.AutomationId="Grid59_56E249DF">
                                             <ScrollContentPresenter x:Name="PART_ScrollContentPresenter"
                                                                     Grid.ColumnSpan="2"
-                                                                    CanContentScroll="{TemplateBinding CanContentScroll}" />
+                                                                    CanContentScroll="{TemplateBinding CanContentScroll}"
+                                                                    AutomationProperties.AutomationId="ScrollContentPresenter60_56E249DF" />
                                         </Grid>
                                         <ScrollBar x:Name="PART_VerticalScrollBar"
                                                    Grid.Row="1"
@@ -553,11 +743,17 @@
                                                    Orientation="Vertical"
                                                    ViewportSize="{TemplateBinding ViewportHeight}"
                                                    Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
-                                                   Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
-                                        <Grid Grid.Row="2" Grid.Column="1">
+                                                   Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                                   AutomationProperties.AutomationId="ScrollBar61_56E249DF" />
+                                        <Grid Grid.Row="2"
+                                              Grid.Column="1"
+                                              AutomationProperties.AutomationId="Grid62_56E249DF">
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="{Binding NonFrozenColumnsViewportHorizontalOffset, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
-                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition
+                                                        Width="{Binding NonFrozenColumnsViewportHorizontalOffset, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                                                  AutomationProperties.AutomationId="ColumnDefinition63_56E249DF" />
+                                                <ColumnDefinition Width="*"
+                                                                  AutomationProperties.AutomationId="ColumnDefinition64_56E249DF" />
                                             </Grid.ColumnDefinitions>
                                             <ScrollBar x:Name="PART_HorizontalScrollBar"
                                                        Grid.Column="1"
@@ -565,45 +761,62 @@
                                                        Orientation="Horizontal"
                                                        ViewportSize="{TemplateBinding ViewportWidth}"
                                                        Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
-                                                       Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
+                                                       Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                                       AutomationProperties.AutomationId="ScrollBar65_56E249DF" />
                                         </Grid>
                                     </Grid>
                                 </ControlTemplate>
                             </ScrollViewer.Template>
-                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                            AutomationProperties.AutomationId="ItemsPresenter66_56E249DF" />
                         </ScrollViewer>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="VerticalGridLinesBrush" Value="{DynamicResource GrayBrush7}" />
+        <Setter Property="VerticalGridLinesBrush"
+                Value="{DynamicResource GrayBrush7}" />
         <Style.Triggers>
-            <Trigger Property="IsGrouping" Value="True">
-                <Setter Property="ScrollViewer.CanContentScroll" Value="False" />
+            <Trigger Property="IsGrouping"
+                     Value="True"
+                     AutomationProperties.AutomationId="Trigger67_56E249DF">
+                <Setter Property="ScrollViewer.CanContentScroll"
+                        Value="False" />
             </Trigger>
         </Style.Triggers>
     </Style>
-
-    <Style x:Key="DataGridColumnHeaderCenter" TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MonacoDataGridColumnHeader}">
-        <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Style x:Key="DataGridColumnHeaderCenter"
+           TargetType="{x:Type DataGridColumnHeader}"
+           BasedOn="{StaticResource MonacoDataGridColumnHeader}">
+        <Setter Property="HorizontalContentAlignment"
+                Value="Center" />
     </Style>
-
-    <Style x:Key="DataGridCellCenter" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MonacoDataGridCell}">
-        <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Style x:Key="DataGridCellCenter"
+           TargetType="{x:Type DataGridCell}"
+           BasedOn="{StaticResource MonacoDataGridCell}">
+        <Setter Property="HorizontalContentAlignment"
+                Value="Center" />
     </Style>
-
-    <Style x:Key="DataGridColumnHeaderRight" TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MonacoDataGridColumnHeader}">
-        <Setter Property="HorizontalContentAlignment" Value="Right" />
+    <Style x:Key="DataGridColumnHeaderRight"
+           TargetType="{x:Type DataGridColumnHeader}"
+           BasedOn="{StaticResource MonacoDataGridColumnHeader}">
+        <Setter Property="HorizontalContentAlignment"
+                Value="Right" />
     </Style>
-
-    <Style x:Key="DataGridCellRight" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MonacoDataGridCell}">
-        <Setter Property="HorizontalContentAlignment" Value="Right" />
-        <Setter Property="Padding" Value="0 0 4 0" />
+    <Style x:Key="DataGridCellRight"
+           TargetType="{x:Type DataGridCell}"
+           BasedOn="{StaticResource MonacoDataGridCell}">
+        <Setter Property="HorizontalContentAlignment"
+                Value="Right" />
+        <Setter Property="Padding"
+                Value="0 0 4 0" />
     </Style>
-
-    <Style x:Key="DataGridCellUnselectableCenter" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MonacoUnselectableDataGridCell}">
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="FontSize" Value="14" />
+    <Style x:Key="DataGridCellUnselectableCenter"
+           TargetType="{x:Type DataGridCell}"
+           BasedOn="{StaticResource MonacoUnselectableDataGridCell}">
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+        <Setter Property="FontSize"
+                Value="14" />
     </Style>
-
 </ResourceDictionary>

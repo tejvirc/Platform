@@ -10,6 +10,7 @@
     using Contracts.Localization;
     using Contracts.Tickets;
     using Hardware.Contracts.NoteAcceptor;
+    using Kernel;
     using Monaco.Localization.Properties;
 
     public class MeterTextTicket : TextTicket
@@ -55,9 +56,12 @@
                 var properties = Kernel.ServiceManager.GetInstance().TryGetService<Kernel.IPropertiesManager>();
 
                 // Can't use TicketLocalizer here due to static property
-                var localizer = (bool)properties?.GetProperty(ApplicationConstants.LocalizationOperatorTicketLanguageSettingOperatorOverride, false) ?
-                    Localizer.For(CultureFor.Operator) :
-                    Localizer.For(CultureFor.OperatorTicket) ?? Localizer.For(CultureFor.OperatorTicket);
+                var localizer =
+                    properties?.GetValue(
+                        ApplicationConstants.LocalizationOperatorTicketLanguageSettingOperatorOverride,
+                        false) ?? false
+                        ? Localizer.For(CultureFor.Operator)
+                        : Localizer.For(CultureFor.OperatorTicket) ?? Localizer.For(CultureFor.OperatorTicket);
 
                 if (noteAcceptor != null)
                 {

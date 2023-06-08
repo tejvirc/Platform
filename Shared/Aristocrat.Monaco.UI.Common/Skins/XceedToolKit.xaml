@@ -3,21 +3,27 @@
                     xmlns:local="http://schemas.xceed.com/wpf/xaml/toolkit"
                     xmlns:themes="clr-namespace:Xceed.Wpf.Toolkit.Themes;assembly=Xceed.Wpf.Toolkit"
                     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks">
-
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="MetroSkin.xaml" />
         <ResourceDictionary Source="Monaco.xaml" />
     </ResourceDictionary.MergedDictionaries>
-
     <Style TargetType="{x:Type local:ButtonSpinner}">
-        <Setter Property="Background" Value="{StaticResource Brush1}" />
-        <Setter Property="BorderBrush" Value="{StaticResource Brush1}" />
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="Focusable" Value="False" />
-        <Setter Property="HorizontalContentAlignment" Value="Center" />
-        <Setter Property="IsTabStop" Value="True" />
-        <Setter Property="Padding" Value="1" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Background"
+                Value="{StaticResource Brush1}" />
+        <Setter Property="BorderBrush"
+                Value="{StaticResource Brush1}" />
+        <Setter Property="BorderThickness"
+                Value="1" />
+        <Setter Property="Focusable"
+                Value="False" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Center" />
+        <Setter Property="IsTabStop"
+                Value="True" />
+        <Setter Property="Padding"
+                Value="1" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ButtonSpinner}">
@@ -25,238 +31,322 @@
                             SnapsToDevicePixels="True"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
-                        <Grid>
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            AutomationProperties.AutomationId="Border0_3269474E">
+                        <Grid AutomationProperties.AutomationId="Grid1_3269474E">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition x:Name="firstContentColumn" Width="Auto" />
-                                <ColumnDefinition x:Name="secondContentColumn" Width="*"/>
-                                <ColumnDefinition x:Name="thirdContentColumn" Width="Auto" />
+                                <ColumnDefinition x:Name="firstContentColumn"
+                                                  Width="Auto"
+                                                  AutomationProperties.AutomationId="ColumnDefinition2_3269474E" />
+                                <ColumnDefinition x:Name="secondContentColumn"
+                                                  Width="*"
+                                                  AutomationProperties.AutomationId="ColumnDefinition3_3269474E" />
+                                <ColumnDefinition x:Name="thirdContentColumn"
+                                                  Width="Auto"
+                                                  AutomationProperties.AutomationId="ColumnDefinition4_3269474E" />
                             </Grid.ColumnDefinitions>
                             <ContentPresenter x:Name="contentPresenter"
                                               Focusable="False"
                                               Margin="{TemplateBinding Padding}"
                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                               SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-                           
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              AutomationProperties.AutomationId="ContentPresenter5_3269474E" />
                             <Grid x:Name="gridDecreaseButton"
                                   Grid.Column="0"
-                                  Visibility="{TemplateBinding ShowButtonSpinner, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                  Visibility="{TemplateBinding ShowButtonSpinner, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                  AutomationProperties.AutomationId="Grid6_3269474E">
                                 <RepeatButton x:Name="PART_DecreaseButton"
                                               Style="{StaticResource MonacoUpDownRepeatButton}"
                                               IsTabStop="{TemplateBinding IsTabStop}"
                                               VerticalContentAlignment="Center"
                                               HorizontalContentAlignment="Center"
-                                              HorizontalAlignment="Left">
+                                              HorizontalAlignment="Left"
+                                              AutomationProperties.AutomationId="RepeatButton7_3269474E">
                                     <iconPacks:PackIconMaterial Kind="Minus" />
                                 </RepeatButton>
                             </Grid>
                             <Grid x:Name="gridIncreaseButton"
                                   Grid.Column="2"
-                                  Visibility="{TemplateBinding ShowButtonSpinner, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                  Visibility="{TemplateBinding ShowButtonSpinner, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                  AutomationProperties.AutomationId="Grid8_3269474E">
                                 <RepeatButton x:Name="PART_IncreaseButton"
                                               Style="{StaticResource MonacoUpDownRepeatButton}"
                                               IsTabStop="{TemplateBinding IsTabStop}"
                                               VerticalContentAlignment="Center"
                                               HorizontalContentAlignment="Center"
                                               HorizontalAlignment="Right"
-                                              Margin="-40 0 0 0">
+                                              Margin="-40 0 0 0"
+                                              AutomationProperties.AutomationId="RepeatButton9_3269474E">
                                     <iconPacks:PackIconMaterial Kind="Plus" />
                                 </RepeatButton>
                             </Grid>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Background" 
+                        <Trigger Property="IsEnabled"
+                                 Value="False"
+                                 AutomationProperties.AutomationId="Trigger10_3269474E">
+                            <Setter Property="Background"
                                     Value="{DynamicResource {x:Static themes:ResourceKeys.ControlDisabledBackgroundKey}}" />
                         </Trigger>
-                        <Trigger Property="ButtonSpinnerLocation" Value="Left">
-                            <Setter TargetName="firstContentColumn" Property="Width" Value="Auto" />
-                            <Setter TargetName="secondContentColumn" Property="Width" Value="*" />
-                            <Setter TargetName="thirdContentColumn" Property="Width" Value="Auto" />
-                            <Setter TargetName="gridDecreaseButton" Property="Grid.Column" Value="0" />
-                            <Setter TargetName="contentPresenter" Property="Grid.Column" Value="1" />
-                            <Setter TargetName="gridIncreaseButton" Property="Grid.Column" Value="2" />
+                        <Trigger Property="ButtonSpinnerLocation"
+                                 Value="Left"
+                                 AutomationProperties.AutomationId="Trigger11_3269474E">
+                            <Setter TargetName="firstContentColumn"
+                                    Property="Width"
+                                    Value="Auto" />
+                            <Setter TargetName="secondContentColumn"
+                                    Property="Width"
+                                    Value="*" />
+                            <Setter TargetName="thirdContentColumn"
+                                    Property="Width"
+                                    Value="Auto" />
+                            <Setter TargetName="gridDecreaseButton"
+                                    Property="Grid.Column"
+                                    Value="0" />
+                            <Setter TargetName="contentPresenter"
+                                    Property="Grid.Column"
+                                    Value="1" />
+                            <Setter TargetName="gridIncreaseButton"
+                                    Property="Grid.Column"
+                                    Value="2" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
-    <Style x:Key="MonacoDecimalUpDown" TargetType="{x:Type local:DecimalUpDown}">
-        <Setter Property="Background" Value="{StaticResource DarkBrush1}" />
-        <Setter Property="BorderBrush" Value="{StaticResource Brush3}" />
-        <Setter Property="BorderThickness" Value="2" />
-        <Setter Property="FontFamily" Value="{StaticResource MonacoFontFamily}" />
-        <Setter Property="FontSize" Value="{StaticResource ContentFontSize}" />
-        <Setter Property="Foreground" Value="{StaticResource Brush3}" />
-        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-        <Setter Property="IsTabStop" Value="False" />
-        <Setter Property="MinHeight" Value="26" />
-        <Setter Property="Padding" Value="5 10" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="TextAlignment" Value="Center" />
+    <Style x:Key="MonacoDecimalUpDown"
+           TargetType="{x:Type local:DecimalUpDown}">
+        <Setter Property="Background"
+                Value="{StaticResource DarkBrush1}" />
+        <Setter Property="BorderBrush"
+                Value="{StaticResource Brush3}" />
+        <Setter Property="BorderThickness"
+                Value="2" />
+        <Setter Property="FontFamily"
+                Value="{StaticResource MonacoFontFamily}" />
+        <Setter Property="FontSize"
+                Value="{StaticResource ContentFontSize}" />
+        <Setter Property="Foreground"
+                Value="{StaticResource Brush3}" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Stretch" />
+        <Setter Property="IsTabStop"
+                Value="False" />
+        <Setter Property="MinHeight"
+                Value="26" />
+        <Setter Property="Padding"
+                Value="5 10" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+        <Setter Property="TextAlignment"
+                Value="Center" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:DecimalUpDown}">
-                    <Grid>
+                    <Grid AutomationProperties.AutomationId="Grid12_3269474E">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"
+                                              AutomationProperties.AutomationId="ColumnDefinition13_3269474E" />
+                            <ColumnDefinition Width="*"
+                                              AutomationProperties.AutomationId="ColumnDefinition14_3269474E" />
+                            <ColumnDefinition Width="Auto"
+                                              AutomationProperties.AutomationId="ColumnDefinition15_3269474E" />
                         </Grid.ColumnDefinitions>
                         <local:ButtonSpinner x:Name="PART_Spinner"
-                            Grid.Column="0"
-                            Grid.ColumnSpan="3"
-                            IsTabStop="False"
-                            Background="{TemplateBinding Background}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            AllowSpin="{Binding AllowSpin, RelativeSource={RelativeSource TemplatedParent}}"
-                            ShowButtonSpinner="{Binding ShowButtonSpinner, RelativeSource={RelativeSource TemplatedParent}}"
-                            ButtonSpinnerLocation="{Binding ButtonSpinnerLocation, RelativeSource={RelativeSource TemplatedParent}}">
+                                             Grid.Column="0"
+                                             Grid.ColumnSpan="3"
+                                             IsTabStop="False"
+                                             Background="{TemplateBinding Background}"
+                                             BorderThickness="{TemplateBinding BorderThickness}"
+                                             BorderBrush="{TemplateBinding BorderBrush}"
+                                             AllowSpin="{Binding AllowSpin, RelativeSource={RelativeSource TemplatedParent}}"
+                                             ShowButtonSpinner="{Binding ShowButtonSpinner, RelativeSource={RelativeSource TemplatedParent}}"
+                                             ButtonSpinnerLocation="{Binding ButtonSpinnerLocation, RelativeSource={RelativeSource TemplatedParent}}">
                             <local:WatermarkTextBox x:Name="PART_TextBox"
-                                Grid.Column="1"
-                                BorderThickness="0"
-                                Background="Transparent"
-                                ContextMenu="{TemplateBinding ContextMenu}"
-                                FontFamily="{TemplateBinding FontFamily}"
-                                FontSize="{TemplateBinding FontSize}"
-                                FontStretch="{TemplateBinding FontStretch}"
-                                FontStyle="{TemplateBinding FontStyle}"
-                                FontWeight="{TemplateBinding FontWeight}"
-                                Foreground="{TemplateBinding Foreground}"
-                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                IsUndoEnabled="{Binding IsUndoEnabled, RelativeSource={RelativeSource TemplatedParent}}"
-                                IsTabStop="True"
-                                MinWidth="20"
-                                Width="100"
-                                Margin="40 0 0 0"
-                                AcceptsReturn="False"
-                                Padding="{TemplateBinding Padding}"
-                                AutoSelectBehavior="{Binding AutoSelectBehavior, RelativeSource={RelativeSource TemplatedParent}}"
-                                AutoMoveFocus="{Binding AutoMoveFocus, RelativeSource={RelativeSource TemplatedParent}}"
-                                TextAlignment="{Binding TextAlignment, RelativeSource={RelativeSource TemplatedParent}}"
-                                TextWrapping="NoWrap"
-                                TabIndex="{TemplateBinding TabIndex}"
-                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                Watermark="{Binding Watermark, RelativeSource={RelativeSource TemplatedParent}}"
-                                WatermarkTemplate="{Binding WatermarkTemplate, RelativeSource={RelativeSource TemplatedParent}}"
-                                MaxLength="{Binding MaxLength, RelativeSource={RelativeSource TemplatedParent}}"> 
-                            </local:WatermarkTextBox>
+                                                    Grid.Column="1"
+                                                    BorderThickness="0"
+                                                    Background="Transparent"
+                                                    ContextMenu="{TemplateBinding ContextMenu}"
+                                                    FontFamily="{TemplateBinding FontFamily}"
+                                                    FontSize="{TemplateBinding FontSize}"
+                                                    FontStretch="{TemplateBinding FontStretch}"
+                                                    FontStyle="{TemplateBinding FontStyle}"
+                                                    FontWeight="{TemplateBinding FontWeight}"
+                                                    Foreground="{TemplateBinding Foreground}"
+                                                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                    IsUndoEnabled="{Binding IsUndoEnabled, RelativeSource={RelativeSource TemplatedParent}}"
+                                                    IsTabStop="True"
+                                                    MinWidth="20"
+                                                    Width="100"
+                                                    Margin="40 0 0 0"
+                                                    AcceptsReturn="False"
+                                                    Padding="{TemplateBinding Padding}"
+                                                    AutoSelectBehavior="{Binding AutoSelectBehavior, RelativeSource={RelativeSource TemplatedParent}}"
+                                                    AutoMoveFocus="{Binding AutoMoveFocus, RelativeSource={RelativeSource TemplatedParent}}"
+                                                    TextAlignment="{Binding TextAlignment, RelativeSource={RelativeSource TemplatedParent}}"
+                                                    TextWrapping="NoWrap"
+                                                    TabIndex="{TemplateBinding TabIndex}"
+                                                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                    Watermark="{Binding Watermark, RelativeSource={RelativeSource TemplatedParent}}"
+                                                    WatermarkTemplate="{Binding WatermarkTemplate, RelativeSource={RelativeSource TemplatedParent}}"
+                                                    MaxLength="{Binding MaxLength, RelativeSource={RelativeSource TemplatedParent}}"></local:WatermarkTextBox>
                         </local:ButtonSpinner>
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <MultiDataTrigger>
+                        <MultiDataTrigger AutomationProperties.AutomationId="MultiDataTrigger16_3269474E">
                             <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="False" />
-                                <Condition Binding="{Binding AllowTextInput, RelativeSource={RelativeSource Self}}" Value="False" />
+                                <Condition Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}"
+                                           Value="False" />
+                                <Condition Binding="{Binding AllowTextInput, RelativeSource={RelativeSource Self}}"
+                                           Value="False" />
                             </MultiDataTrigger.Conditions>
-                            <Setter Property="IsReadOnly" Value="True" TargetName="PART_TextBox" />
+                            <Setter Property="IsReadOnly"
+                                    Value="True"
+                                    TargetName="PART_TextBox" />
                         </MultiDataTrigger>
-                        <DataTrigger Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="True">
-                            <Setter Property="IsReadOnly" Value="True" TargetName="PART_TextBox" />
+                        <DataTrigger Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}"
+                                     Value="True"
+                                     AutomationProperties.AutomationId="DataTrigger17_3269474E">
+                            <Setter Property="IsReadOnly"
+                                    Value="True"
+                                    TargetName="PART_TextBox" />
                         </DataTrigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+                        <Trigger Property="IsEnabled"
+                                 Value="False"
+                                 AutomationProperties.AutomationId="Trigger18_3269474E">
+                            <Setter Property="Foreground"
+                                    Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
                         </Trigger>
-                        <Trigger Property="IsFocused" Value="True">
-                            <Setter TargetName="PART_TextBox" Property="FocusManager.FocusedElement" Value="{Binding ElementName=PART_TextBox}" />
+                        <Trigger Property="IsFocused"
+                                 Value="True"
+                                 AutomationProperties.AutomationId="Trigger19_3269474E">
+                            <Setter TargetName="PART_TextBox"
+                                    Property="FocusManager.FocusedElement"
+                                    Value="{Binding ElementName=PART_TextBox}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
-    <Style x:Key="MonacoIntegerUpDown" TargetType="{x:Type local:IntegerUpDown}">
-        <Setter Property="Background" Value="{StaticResource DarkBrush1}" />
-        <Setter Property="BorderBrush" Value="{StaticResource Brush3}" />
-        <Setter Property="BorderThickness" Value="2" />
-        <Setter Property="FontFamily" Value="{StaticResource MonacoFontFamily}" />
-        <Setter Property="FontSize" Value="{StaticResource ContentFontSize}" />
-        <Setter Property="Foreground" Value="{StaticResource Brush3}" />
-        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-        <Setter Property="IsTabStop" Value="False" />
-        <Setter Property="MinHeight" Value="26" />
-        <Setter Property="Padding" Value="5 10" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="TextAlignment" Value="Center" />
+    <Style x:Key="MonacoIntegerUpDown"
+           TargetType="{x:Type local:IntegerUpDown}">
+        <Setter Property="Background"
+                Value="{StaticResource DarkBrush1}" />
+        <Setter Property="BorderBrush"
+                Value="{StaticResource Brush3}" />
+        <Setter Property="BorderThickness"
+                Value="2" />
+        <Setter Property="FontFamily"
+                Value="{StaticResource MonacoFontFamily}" />
+        <Setter Property="FontSize"
+                Value="{StaticResource ContentFontSize}" />
+        <Setter Property="Foreground"
+                Value="{StaticResource Brush3}" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Stretch" />
+        <Setter Property="IsTabStop"
+                Value="False" />
+        <Setter Property="MinHeight"
+                Value="26" />
+        <Setter Property="Padding"
+                Value="5 10" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+        <Setter Property="TextAlignment"
+                Value="Center" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:IntegerUpDown}">
-                    <Grid>
+                    <Grid AutomationProperties.AutomationId="Grid20_3269474E">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"
+                                              AutomationProperties.AutomationId="ColumnDefinition21_3269474E" />
+                            <ColumnDefinition Width="*"
+                                              AutomationProperties.AutomationId="ColumnDefinition22_3269474E" />
+                            <ColumnDefinition Width="Auto"
+                                              AutomationProperties.AutomationId="ColumnDefinition23_3269474E" />
                         </Grid.ColumnDefinitions>
                         <local:ButtonSpinner x:Name="PART_Spinner"
-                            Grid.Column="0"
-                            Grid.ColumnSpan="3"
-                            IsTabStop="False"
-                            Background="{TemplateBinding Background}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            HorizontalContentAlignment="Stretch"
-                            VerticalContentAlignment="Stretch"
-                            AllowSpin="{Binding AllowSpin, RelativeSource={RelativeSource TemplatedParent}}"
-                            ShowButtonSpinner="{Binding ShowButtonSpinner, RelativeSource={RelativeSource TemplatedParent}}"
-                            ButtonSpinnerLocation="{Binding ButtonSpinnerLocation, RelativeSource={RelativeSource TemplatedParent}}">
+                                             Grid.Column="0"
+                                             Grid.ColumnSpan="3"
+                                             IsTabStop="False"
+                                             Background="{TemplateBinding Background}"
+                                             BorderThickness="{TemplateBinding BorderThickness}"
+                                             BorderBrush="{TemplateBinding BorderBrush}"
+                                             HorizontalContentAlignment="Stretch"
+                                             VerticalContentAlignment="Stretch"
+                                             AllowSpin="{Binding AllowSpin, RelativeSource={RelativeSource TemplatedParent}}"
+                                             ShowButtonSpinner="{Binding ShowButtonSpinner, RelativeSource={RelativeSource TemplatedParent}}"
+                                             ButtonSpinnerLocation="{Binding ButtonSpinnerLocation, RelativeSource={RelativeSource TemplatedParent}}">
                             <local:WatermarkTextBox x:Name="PART_TextBox"
-                                Grid.Column="1"
-                                BorderThickness="0"
-                                Background="Transparent"
-                                ContextMenu="{TemplateBinding ContextMenu}"
-                                FontFamily="{TemplateBinding FontFamily}"
-                                FontSize="{TemplateBinding FontSize}"
-                                FontStretch="{TemplateBinding FontStretch}"
-                                FontStyle="{TemplateBinding FontStyle}"
-                                FontWeight="{TemplateBinding FontWeight}"
-                                Foreground="{TemplateBinding Foreground}"
-                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                IsUndoEnabled="{Binding IsUndoEnabled, RelativeSource={RelativeSource TemplatedParent}}"
-                                IsTabStop="True"
-                                MinWidth="20"
-                                Width="110"
-                                Margin="8 0 0 0"
-                                AcceptsReturn="False"
-                                Padding="{TemplateBinding Padding}"
-                                AutoSelectBehavior="{Binding AutoSelectBehavior, RelativeSource={RelativeSource TemplatedParent}}"
-                                AutoMoveFocus="{Binding AutoMoveFocus, RelativeSource={RelativeSource TemplatedParent}}"
-                                TextAlignment="{Binding TextAlignment, RelativeSource={RelativeSource TemplatedParent}}"
-                                TextWrapping="NoWrap"
-                                TabIndex="{TemplateBinding TabIndex}"
-                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                Watermark="{Binding Watermark, RelativeSource={RelativeSource TemplatedParent}}"
-                                WatermarkTemplate="{Binding WatermarkTemplate, RelativeSource={RelativeSource TemplatedParent}}"
-                                MaxLength="{Binding MaxLength, RelativeSource={RelativeSource TemplatedParent}}">
-                            </local:WatermarkTextBox>
+                                                    Grid.Column="1"
+                                                    BorderThickness="0"
+                                                    Background="Transparent"
+                                                    ContextMenu="{TemplateBinding ContextMenu}"
+                                                    FontFamily="{TemplateBinding FontFamily}"
+                                                    FontSize="{TemplateBinding FontSize}"
+                                                    FontStretch="{TemplateBinding FontStretch}"
+                                                    FontStyle="{TemplateBinding FontStyle}"
+                                                    FontWeight="{TemplateBinding FontWeight}"
+                                                    Foreground="{TemplateBinding Foreground}"
+                                                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                    IsUndoEnabled="{Binding IsUndoEnabled, RelativeSource={RelativeSource TemplatedParent}}"
+                                                    IsTabStop="True"
+                                                    MinWidth="20"
+                                                    Width="110"
+                                                    Margin="8 0 0 0"
+                                                    AcceptsReturn="False"
+                                                    Padding="{TemplateBinding Padding}"
+                                                    AutoSelectBehavior="{Binding AutoSelectBehavior, RelativeSource={RelativeSource TemplatedParent}}"
+                                                    AutoMoveFocus="{Binding AutoMoveFocus, RelativeSource={RelativeSource TemplatedParent}}"
+                                                    TextAlignment="{Binding TextAlignment, RelativeSource={RelativeSource TemplatedParent}}"
+                                                    TextWrapping="NoWrap"
+                                                    TabIndex="{TemplateBinding TabIndex}"
+                                                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                    Watermark="{Binding Watermark, RelativeSource={RelativeSource TemplatedParent}}"
+                                                    WatermarkTemplate="{Binding WatermarkTemplate, RelativeSource={RelativeSource TemplatedParent}}"
+                                                    MaxLength="{Binding MaxLength, RelativeSource={RelativeSource TemplatedParent}}"></local:WatermarkTextBox>
                         </local:ButtonSpinner>
-                    </Grid>    
+                    </Grid>
                     <ControlTemplate.Triggers>
-                        <MultiDataTrigger>
+                        <MultiDataTrigger AutomationProperties.AutomationId="MultiDataTrigger24_3269474E">
                             <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="False" />
-                                <Condition Binding="{Binding AllowTextInput, RelativeSource={RelativeSource Self}}" Value="False" />
+                                <Condition Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}"
+                                           Value="False" />
+                                <Condition Binding="{Binding AllowTextInput, RelativeSource={RelativeSource Self}}"
+                                           Value="False" />
                             </MultiDataTrigger.Conditions>
-                            <Setter Property="IsReadOnly" Value="True" TargetName="PART_TextBox" />
+                            <Setter Property="IsReadOnly"
+                                    Value="True"
+                                    TargetName="PART_TextBox" />
                         </MultiDataTrigger>
-                        <DataTrigger Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}" Value="True">
-                            <Setter Property="IsReadOnly" Value="True" TargetName="PART_TextBox" />
+                        <DataTrigger Binding="{Binding IsReadOnly, RelativeSource={RelativeSource Self}}"
+                                     Value="True"
+                                     AutomationProperties.AutomationId="DataTrigger25_3269474E">
+                            <Setter Property="IsReadOnly"
+                                    Value="True"
+                                    TargetName="PART_TextBox" />
                         </DataTrigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+                        <Trigger Property="IsEnabled"
+                                 Value="False"
+                                 AutomationProperties.AutomationId="Trigger26_3269474E">
+                            <Setter Property="Foreground"
+                                    Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
                         </Trigger>
-                        <Trigger Property="IsFocused" Value="True">
-                            <Setter TargetName="PART_TextBox" Property="FocusManager.FocusedElement" Value="{Binding ElementName=PART_TextBox}" />
+                        <Trigger Property="IsFocused"
+                                 Value="True"
+                                 AutomationProperties.AutomationId="Trigger27_3269474E">
+                            <Setter TargetName="PART_TextBox"
+                                    Property="FocusManager.FocusedElement"
+                                    Value="{Binding ElementName=PART_TextBox}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
 </ResourceDictionary>

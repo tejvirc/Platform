@@ -13,6 +13,7 @@
     using Application.Contracts.OperatorMenu;
     using Application.Contracts.TiltLogger;
     using Application.UI.Models;
+    using Application.Contracts.Currency;
     using Aristocrat.Monaco.Hardware.Contracts.Ticket;
     using Castle.Core.Internal;
     using Common;
@@ -90,7 +91,9 @@
             _levelProvider.Setup(p => p.GetProgressiveLevels())
                 .Returns(_levels);
 
-            CurrencyExtensions.SetCultureInfo(CultureInfo.CurrentCulture);
+            RegionInfo region = new RegionInfo(CultureInfo.CurrentCulture.Name);
+            CurrencyExtensions.Currency = new Currency(region.ISOCurrencySymbol, region, CultureInfo.CurrentCulture, "c");
+            CurrencyExtensions.SetCultureInfo(region.ISOCurrencySymbol, CultureInfo.CurrentCulture);
         }
 
         [TestCleanup]
@@ -509,20 +512,38 @@
                 additionalInfo));
 
 
-            // Sample keyed credits Event
+            // Sample keyed On credits Event
             additionalInfo = new (string, string)[] {
                 ("amount",amountString.ToString()),
                 ("AccountType","AccountTypeString"),
                 ("KeyedType","KeyedTypeString") };
             name = string.Join(
                 EventLogUtilities.EventDescriptionNameDelimiter,
-                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.KeyedCredit),
+                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.KeyedOnCredits),
                 "NameString",
                 amountString.ToString());
             events.Add(new EventDescription(
                 name,
                 "info",
-                EventLogType.KeyedCredit.GetDescription(typeof(EventLogType)),
+                EventLogType.KeyedOnCredits.GetDescription(typeof(EventLogType)),
+                ++transactionId,
+                transactionDateTime.AddHours(transactionId),
+                additionalInfo));
+
+            // Sample keyed Off credits Event
+            additionalInfo = new (string, string)[] {
+                ("amount",amountString.ToString()),
+                ("AccountType","AccountTypeString"),
+                ("KeyedType","KeyedTypeString") };
+            name = string.Join(
+                EventLogUtilities.EventDescriptionNameDelimiter,
+                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.KeyedOffCredits),
+                "NameString",
+                amountString.ToString());
+            events.Add(new EventDescription(
+                name,
+                "info",
+                EventLogType.KeyedOffCredits.GetDescription(typeof(EventLogType)),
                 ++transactionId,
                 transactionDateTime.AddHours(transactionId),
                 additionalInfo));

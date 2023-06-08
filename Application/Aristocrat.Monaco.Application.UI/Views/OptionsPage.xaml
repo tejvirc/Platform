@@ -13,16 +13,18 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
 
     <StackPanel x:Name="OptionsPanel" Orientation="Vertical">
-        <ItemsControl ItemsSource="{Binding Pages}">
+        <ItemsControl ItemsSource="{Binding Pages}"
+                      AutomationProperties.AutomationId="ItemsControl0_181C33F1">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel Orientation="Vertical"/>
+                    <StackPanel Orientation="Vertical"
+                                AutomationProperties.AutomationId="StackPanel1_181C33F1" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
@@ -34,7 +36,8 @@
                 <DataTemplate>
                     <ContentControl Content="{Binding Page}"
                                     IsEnabled="{Binding Page}"
-                                    Margin="0 0 0 40"/>
+                                    Margin="0 0 0 40"
+                                    AutomationProperties.AutomationId="ContentControl2_181C33F1" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

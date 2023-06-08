@@ -42,9 +42,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.ManitobaJurisdiction" filterid="ManitobaLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.ManitobaJurisdiction" filterid="ManitobaLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.ManitobaJurisdiction" filterid="ManitobaLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -132,9 +129,6 @@
   </Extension>
   <Extension path="/Locale/Configuration">
     <FilePath FilePath="..\jurisdiction\Manitoba-VLT\Locale.config.xml" filterid="ManitobaLocaleConfig" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="ManitobaLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\VLT\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\Manitoba-VLT\Lobby.config.xml" filterid="ManitobaLobbyConfig" />

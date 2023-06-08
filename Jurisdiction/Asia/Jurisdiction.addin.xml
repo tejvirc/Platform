@@ -1,5 +1,4 @@
 <Addin id="AsiaJurisdiction" namespace="Client12Addins" version="1.0">
-
   <Dependencies>
     <Addin id="Monaco.Kernel" version="1.0" />
     <Addin id="Monaco.Hardware" version="1.0" />
@@ -13,12 +12,10 @@
     <Addin id="SasConfiguration" version="1.0" />
     <Addin id="Sas.Client" version="1.0" />
   </Dependencies>
-
   <Runtime>
     <Import assembly="..\..\bin\Aristocrat.Monaco.Kernel.dll" />
     <Import assembly="..\..\bin\Aristocrat.Monaco.Gaming.Class3.dll" />
   </Runtime>
-
   <Extension path="/Kernel/SelectableAddinConfiguration/Jurisdiction">
     <SelectableJurisdiction name="Asia" description="Top level Asia jurisdiction group" id="JUR000138,JUR000139,JUR000140,JUR000141,JUR000142,JUR000143,JUR000144,JUR000145,JUR000146,JUR000147,JUR000148,JUR000149,JUR000164,JUR000998,JUR000999,JUR000033">
       <AddinConfigurationGroupReference name="BaseOperatorMenus" />
@@ -46,9 +43,6 @@
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.AsiaJurisdiction" filterid="AsiaLocaleConfig" />
-      </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.AsiaJurisdiction" filterid="AsiaLocaleOverrides" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.AsiaJurisdiction" filterid="AsiaLobbyConfig" />
@@ -78,9 +72,9 @@
         <NodeSpecification addinId="Client12Addins.AsiaJurisdiction" filterid="AsiaDisplayMetersConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Accounting/TransferOutProviders">
-        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Wat.WatOffProvider" order="0" filterid="AsiaAccountingTransferProviders"/>
-        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Vouchers.VoucherOutProvider" order="1" filterid="AsiaAccountingTransferProviders"/>
-        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Handpay.HandpayProvider" order="2" filterid="AsiaAccountingTransferProviders"/>
+        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Wat.WatOffProvider" order="0" filterid="AsiaAccountingTransferProviders" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Vouchers.VoucherOutProvider" order="1" filterid="AsiaAccountingTransferProviders" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Handpay.HandpayProvider" order="2" filterid="AsiaAccountingTransferProviders" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Accounting/TransactionHistories">
         <NodeSpecification addinId="Client12Addins.AsiaJurisdiction" filterid="AsiaTransactionConfiguration" />
@@ -94,7 +88,7 @@
       <ExtensionPointConfiguration extensionPath="/SAS/DefaultConfiguration">
         <NodeSpecification addinId="Client12Addins.AsiaJurisdiction" filterid="AsiaSASDefaultConfig" />
       </ExtensionPointConfiguration>
-	  <ExtensionPointConfiguration extensionPath="/HardMeterMapping/Configuration">
+      <ExtensionPointConfiguration extensionPath="/HardMeterMapping/Configuration">
         <NodeSpecification addinId="Client12Addins.AsiaJurisdiction" filterid="AsiaHardMeterMappingConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Currency/Configuration">
@@ -102,23 +96,18 @@
       </ExtensionPointConfiguration>
     </SelectableJurisdiction>
   </Extension>
-
   <Extension path="/Currency/Configuration">
     <FilePath FilePath="..\jurisdiction\Asia\Currencies.config.xml" filterid="AsiaCurrencyConfig" />
   </Extension>
-
   <Extension path="/SAS/DefaultConfiguration">
     <FilePath FilePath="..\jurisdiction\Asia\SASDefault.config.xml" filterid="AsiaSASDefaultConfig" />
   </Extension>
-
   <Extension path="/Platform/Discovery/Configuration">
     <FilePath FilePath="..\jurisdiction\Asia\ConfiguredDevices.config.xml" filterid="AsiaHardwareConfig" />
   </Extension>
-
   <Extension path="/TiltLogger/Configuration">
     <FilePath FilePath="..\jurisdiction\Asia\TiltLogger.config.xml" filterid="AsiaTiltLoggerConfig" />
   </Extension>
-
   <Extension path="/DoorMonitor/Configuration">
     <DoorMonitorConfiguration>
       <DoorOpenAlarm RepeatSeconds="0" LoopCount="7" OperatorCanCancel="true">
@@ -126,11 +115,9 @@
       </DoorOpenAlarm>
     </DoorMonitorConfiguration>
   </Extension>
-
   <Extension path="/ConfigWizard/Configuration">
     <FilePath FilePath="..\jurisdiction\Asia\ConfigWizard.config.xml" filterid="AsiaConfigWizardConfig" />
   </Extension>
-
   <Extension path="/OperatorMenu/Sound/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" Name="Ding" filterid="AsiaOperatorMenuSoundConfig" />
     <FilePath FilePath="..\jurisdiction\DefaultAssets\feature_bell.ogg" Name="Feature Bell" filterid="AsiaOperatorMenuSoundConfig" />
@@ -138,105 +125,62 @@
     <FilePath FilePath="..\jurisdiction\DefaultAssets\collect.ogg" Name="Collect" filterid="AsiaOperatorMenuSoundConfig" />
     <FilePath FilePath="..\jurisdiction\DefaultAssets\snd_print_ticket.ogg" Name="Send Print Ticket" filterid="AsiaOperatorMenuSoundConfig" />
   </Extension>
-
   <Extension path="/OperatorMenu/GamePreferences/Sounds">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" Name="Ding" filterid="AsiaGamePreferencesSounds" />
     <FilePath FilePath="..\jurisdiction\DefaultAssets\ReelClick.ogg" Name="ReelClick" filterid="AsiaGamePreferencesSounds" />
     <FilePath FilePath="..\jurisdiction\DefaultAssets\CardFlip.ogg" Name="CardFlip" filterid="AsiaGamePreferencesSounds" />
     <FilePath FilePath="..\jurisdiction\DefaultAssets\BallDrop.ogg" Name="BallDrop" filterid="AsiaGamePreferencesSounds" />
   </Extension>
-
   <Extension path="/OperatorMenu/Configuration">
     <FilePath FilePath="..\jurisdiction\Asia\OperatorMenu.config.xml" filterid="AsiaOperatorMenuConfig" />
   </Extension>
-
   <Extension path="/Locale/Configuration" filterid="AsiaLocaleConfig">
     <FilePath FilePath="..\jurisdiction\Asia\Locale.config.xml" />
   </Extension>
-  
-  <Extension path="/Locale/Overrides" filterid="AsiaLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
-    <FilePath FilePath="..\jurisdiction\Asia\resources\" />
-  </Extension>
-
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\Asia\Lobby.config.xml" filterid="AsiaLobbyConfig" />
   </Extension>
-
   <Extension path="/Accounting/Configuration">
     <FilePath FilePath="..\jurisdiction\Asia\Accounting.config.xml" filterid="AsiaAccountingConfig" />
   </Extension>
-
   <Extension path="/Application/JurisdictionConfiguration">
     <FilePath FilePath="..\jurisdiction\Asia\Application.config.xml" filterid="AsiaApplicationConfig" />
   </Extension>
-
   <Extension path="/Gaming/Configuration">
     <FilePath FilePath="..\jurisdiction\Asia\Gaming.config.xml" filterid="AsiaGamingConfig" />
   </Extension>
-
   <Extension path="/TowerLight/Configuration">
     <FilePath FilePath="..\jurisdiction\Asia\TowerLight.config.xml" filterid="AsiaTowerLightConfig" />
   </Extension>
-  
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.Eurasia.config.xml" filterid="AsiaHardMeterMappingConfig" />
   </Extension>
-  
   <Extension path="/Hardware/PrintableRegions">
     <FilePath FilePath="..\jurisdiction\Asia\printable_regions.xml" filterid="AsiaPrintableRegionsConfig" />
   </Extension>
-
   <Extension path="/Hardware/PrintableTemplates">
-    <FilePath FilePath="..\jurisdiction\Asia\printable_templates.xml"
-              filterid="AsiaPrintableTemplatesConfig" />
+    <FilePath FilePath="..\jurisdiction\Asia\printable_templates.xml" filterid="AsiaPrintableTemplatesConfig" />
   </Extension>
-
   <Extension path="/Hardware/PrinterOverrides">
     <FilePath FilePath="..\jurisdiction\Asia\PrinterOverrides.xml" filterid="AsiaPrinterOverridesConfig" />
   </Extension>
-
   <Extension path="/ErrorMessage/Configuration">
     <FilePath FilePath="..\jurisdiction\Asia\ErrorMessage.config.xml" filterid="AsiaErrorMessageConfig" />
   </Extension>
-
   <Extension path="/Application/OperatorMenu/DisplayMeters">
     <FilePath FilePath="..\jurisdiction\Asia\DisplayMeters.config.xml" filterid="AsiaDisplayMetersConfig" />
   </Extension>
-
   <Extension path="/Accounting/TransactionHistories" filterid="AsiaTransactionConfiguration">
-    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.BillTransaction" 
-	                            maxTransactions="50"
-                                persistenceLevel="Critical" />
-    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayTransaction" 
-	                            maxTransactions="50"
-                                persistenceLevel="Critical" 
-								isPrintable="true" />
-    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction"
-                                maxTransactions="50"
-                                persistenceLevel="Critical" />
-    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.VoucherOutTransaction"
-                                maxTransactions="50"
-                                persistenceLevel="Critical"
-                                isPrintable="true" />
-    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.Wat.WatTransaction"
-                                maxTransactions="100"
-                                persistenceLevel="Critical" />
-    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.WatOnTransaction"
-                                maxTransactions="100"
-                                persistenceLevel="Critical" />
-    <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Progressives.JackpotTransaction" 
-	                            maxTransactions="50" 
-								persistenceLevel="Critical" 
-								isPrintable="true" />
-    <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Bonus.BonusTransaction" 
-	                            maxTransactions="100" 
-								persistenceLevel="Critical" 
-								isPrintable="true" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.BillTransaction" maxTransactions="50" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.VoucherInTransaction" maxTransactions="50" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.VoucherOutTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.Wat.WatTransaction" maxTransactions="100" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.WatOnTransaction" maxTransactions="100" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Progressives.JackpotTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Bonus.BonusTransaction" maxTransactions="100" persistenceLevel="Critical" isPrintable="true" />
   </Extension>
-
   <Extension path="/Accounting/BootExtender" filterid="AsiaAccountingRunnable">
     <BootExtender type="Aristocrat.Monaco.Gaming.Class3.Class3Runnable" />
   </Extension>
-
 </Addin>

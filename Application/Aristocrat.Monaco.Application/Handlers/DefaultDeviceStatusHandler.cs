@@ -6,7 +6,7 @@
 
     public class DefaultDeviceStatusHandler : IDeviceStatusHandler
     {
-        private DeviceStatus _status = DeviceStatus.Connected;
+        private DeviceStatus _status = DeviceStatus.Unknown;
 
         public DeviceStatus Status
         {

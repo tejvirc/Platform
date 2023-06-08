@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.ArkansasJurisdiction" filterid="ArkansasLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.ArkansasJurisdiction" filterid="ArkansasLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.ArkansasJurisdiction" filterid="ArkansasLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -133,9 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="ArkansasLocaleConfig">
     <FilePath FilePath="..\jurisdiction\Arkansas\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="ArkansasLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\Arkansas\Lobby.config.xml" filterid="ArkansasLobbyConfig" />

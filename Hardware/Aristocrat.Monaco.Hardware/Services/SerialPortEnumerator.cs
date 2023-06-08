@@ -57,52 +57,54 @@
         private void PopulateSerialPortsOnEgm(ICollection<SerialPortInfo> serialPorts)
         {
             // Fetch all Serial ports from Wmi
-            var searcher = new ManagementObjectSearcher(
+            using (var searcher = new ManagementObjectSearcher(
                 WmiQueryScope,
-                _wmiQueryString);
-
-            foreach (var o in searcher.Get())
+                _wmiQueryString))
             {
-                var queryObj = (ManagementObject)o;
-                string pnpDeviceId = (string)queryObj[PnpDeviceIdString],
-                    deviceId = (string)queryObj[DeviceIdString],
-                    providerType = (string)queryObj[ProviderTypeString];
 
-                if (providerType == null)
+                foreach (var o in searcher.Get())
                 {
-                    continue;
-                }
+                    var queryObj = (ManagementObject)o;
+                    string pnpDeviceId = (string)queryObj[PnpDeviceIdString],
+                        deviceId = (string)queryObj[DeviceIdString],
+                        providerType = (string)queryObj[ProviderTypeString];
 
-                // Fetch serial port address from registry.
-                using (var reg = Registry.LocalMachine.OpenSubKey(RegistryQuery + pnpDeviceId))
-                {
-                    // address from registry
-                    var value = reg?.GetValue(RegistryAddressKey);
-
-                    if (value == null)
+                    if (providerType == null)
                     {
                         continue;
                     }
 
-                    var id = (int)value;
-                    var type = SerialPortType.Unknown;
-
-                    if (providerType.Equals(ModemDevice))
+                    // Fetch serial port address from registry.
+                    using (var reg = Registry.LocalMachine.OpenSubKey(RegistryQuery + pnpDeviceId))
                     {
-                        type = SerialPortType.Usb;
-                    }
-                    else if (providerType.Equals(Rs232SerialPort))
-                    {
-                        type = SerialPortType.Rs232;
-                    }
+                        // address from registry
+                        var value = reg?.GetValue(RegistryAddressKey);
 
-                    serialPorts.Add(
-                        new SerialPortInfo
+                        if (value == null)
                         {
-                            Address = id,
-                            SerialPortType = type,
-                            PhysicalPortName = deviceId
-                        });
+                            continue;
+                        }
+
+                        var id = (int)value;
+                        var type = SerialPortType.Unknown;
+
+                        if (providerType.Equals(ModemDevice))
+                        {
+                            type = SerialPortType.Usb;
+                        }
+                        else if (providerType.Equals(Rs232SerialPort))
+                        {
+                            type = SerialPortType.Rs232;
+                        }
+
+                        serialPorts.Add(
+                            new SerialPortInfo
+                            {
+                                Address = id,
+                                SerialPortType = type,
+                                PhysicalPortName = deviceId
+                            });
+                    }
                 }
             }
         }

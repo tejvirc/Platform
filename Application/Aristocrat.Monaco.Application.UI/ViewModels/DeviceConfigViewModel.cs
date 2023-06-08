@@ -25,6 +25,7 @@
         private readonly List<string> _allPorts;
         private readonly DeviceConfiguration _config; // model
         private readonly List<SupportedDevicesDevice> _platformConfigs;
+        private readonly HashSet<SupportedDevicesDevice> _fakeConfigs;
         private readonly bool _readOnly;
 
         private readonly Dictionary<DeviceType, string> _deviceAddInPaths = new Dictionary<DeviceType, string>
@@ -37,12 +38,15 @@
 
         private string _port;
         private string _status;
+        private bool _isDetectionComplete;
+        private bool _isDetectionFailure;
 
         public DeviceConfigViewModel(DeviceType type, bool readOnly = false)
         {
             _config = new DeviceConfiguration(false, string.Empty, string.Empty, 0);
             _port = string.Empty;
             _platformConfigs = new List<SupportedDevicesDevice>();
+            _fakeConfigs = new HashSet<SupportedDevicesDevice>();
             _status = string.Empty;
 
             // This will only be true when saving originally persisted devices in Hardware Manager audit menu page
@@ -94,6 +98,8 @@
                 _config.Enabled = value;
                 RaisePropertyChanged(nameof(Enabled));
                 Status = string.Empty;
+                IsDetectionComplete = false;
+                IsDetectionFailure = false;
 
                 var message = DeviceType + (value ? " enabled" : " disabled");
                 Logger.DebugFormat(message);
@@ -127,6 +133,7 @@
                 Logger.DebugFormat($"{DeviceType} Manufacturer {value} selected");
                 RaisePropertyChanged(nameof(PortEnabled));
                 RaisePropertyChanged(nameof(ProtocolEnabled));
+                IsDetectionFailure = false;
 
                 ResetProtocols();
                 ResetPortSelections();
@@ -165,11 +172,6 @@
             get => _port;
             set
             {
-                if (_port == value)
-                {
-                    return;
-                }
-
                 if (Protocol == ApplicationConstants.GDS && value != ApplicationConstants.USB)
                 {
                     _config.Port = 0;
@@ -179,9 +181,8 @@
                     _config.Port = value.ToPortNumber();
                 }
 
-                _port = value;
                 Status = string.Empty;
-                RaisePropertyChanged(nameof(Port));
+                SetProperty(ref _port, value, nameof(Port));
                 Logger.DebugFormat($"{DeviceType} Port {Port} selected");
             }
         }
@@ -193,16 +194,7 @@
         public string Status
         {
             get => _status;
-            set
-            {
-                if (_status == value)
-                {
-                    return;
-                }
-
-                _status = value;
-                RaisePropertyChanged(nameof(Status));
-            }
+            set => SetProperty(ref _status, value, nameof(Status));
         }
 
         public void AddPlatformConfiguration(SupportedDevicesDevice config, bool defaultConfig, bool enabled = true, bool isRequired = false, bool canChange = true)
@@ -227,6 +219,41 @@
             }
 
             RaisePropertyChanged(nameof(IsVisible));
+        }
+
+        public void AddFakeConfiguration(SupportedDevicesDevice config)
+        {
+            _fakeConfigs.Add(config);
+        }
+
+        public void StartDetection()
+        {
+            IsDetectionComplete = false;
+            Status = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Searching);
+        }
+
+        public bool IsDetectionComplete
+        {
+            get => _isDetectionComplete;
+            set => SetProperty(ref _isDetectionComplete, value, nameof(IsDetectionComplete));
+        }
+
+        public bool IsDetectionFailure
+        {
+            get => _isDetectionFailure;
+            set => SetProperty(ref _isDetectionFailure, value, nameof(IsDetectionFailure));
+        }
+
+        public bool ContainsPlatformConfiguration(SupportedDevicesDevice config) => _platformConfigs.Contains(config);
+
+        public void SetDetectedPlatformConfiguration(SupportedDevicesDevice config)
+        {
+            IsDetectionComplete = true;
+            IsDetectionFailure = false;
+            Manufacturer = config.Name;
+            Protocol = config.Protocol;
+            Port = config.Port;
+            Status = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DeviceDetected);
         }
 
         private void AddManufacturer(string manufacturer)
@@ -265,20 +292,35 @@
         {
             if (Manufacturer.Contains(ApplicationConstants.Fake))
             {
-                Protocol = ApplicationConstants.Fake;
+                var config = _fakeConfigs.FirstOrDefault(c => c.Name == Manufacturer);
+                if (config != null)
+                {
+                    var protocolExists = CheckIfProtocolExists(config.Protocol);
+
+                    Protocol = protocolExists ? config.Protocol : ApplicationConstants.Fake;
+                }
+                else
+                {
+                    Protocol = ApplicationConstants.Fake;
+                }
             }
             else
             {
                 var config = _platformConfigs.FirstOrDefault(c => c.Name == Manufacturer);
                 if (config != null)
                 {
-                    var protocolExists = _deviceAddInPaths.ContainsKey(DeviceType) &&
-                                         _addinHelper.DoesDeviceImplementationExist(
-                                             _deviceAddInPaths[DeviceType],
-                                             config.Protocol);
+                    var protocolExists = CheckIfProtocolExists(config.Protocol);
 
                     Protocol = protocolExists ? config.Protocol : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailableText);
                 }
+            }
+
+            bool CheckIfProtocolExists(string protocol)
+            {
+                return _deviceAddInPaths.ContainsKey(DeviceType) &&
+                       _addinHelper.DoesDeviceImplementationExist(
+                           _deviceAddInPaths[DeviceType],
+                           protocol);
             }
         }
 
@@ -295,9 +337,10 @@
 // In Retail mode only allow port specified in platform configs as a port choice for this make
                 SetPortToConfigOption(true);
 #else
-                if (Protocol.Equals(ApplicationConstants.GDS))
+                var selectedDevice = _platformConfigs.FirstOrDefault(x => x.Name == Manufacturer);
+                if (selectedDevice?.Port == ApplicationConstants.USB)
                 {
-                    // Only USB should be available for GDS protocol
+                    // Only USB should be available for USB devices
                     if (_allPorts.Contains(ApplicationConstants.USB))
                     {
                         Ports.Add(ApplicationConstants.USB);

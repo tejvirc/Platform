@@ -46,5 +46,9 @@
             [Description("Protocol")] Protocol = 18,
             /// <summary>KeyedCredit</summary>
             [Description("Door")] Door = 19,
+            /// <summary>KeyedOnCredits</summary>
+            [Description("KeyedOnCredits")] KeyedOnCredits = 20,
+            /// <summary>KeyedOffCredits</summary>
+            [Description("KeyedOffCredits")] KeyedOffCredits = 21,
     }
 }

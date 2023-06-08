@@ -1,46 +1,68 @@
 ﻿<UserControl x:Class="Aristocrat.Monaco.Sas.UI.ConfigurationScreen.SasPollData"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Sas.UI.ViewModels"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
-             d:DataContext="{d:DesignInstance viewModels:DiagnosticSasPageViewModel}">
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance viewModels:DiagnosticSasPageViewModel}"
+             AutomationProperties.AutomationId="UserControl0_8A35A80B">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Hidden" PanningMode="Both">
-            <ItemsControl Name="ItemsControl" ItemsSource="{Binding Path=SasPollDatas, Mode=OneWay}" 
-                                          Height="{Binding ElementName=MainGrid, Path=ActualHeight}" ScrollViewer.CanContentScroll="True">
+    <Grid AutomationProperties.AutomationId="Grid1_8A35A80B">
+        <ScrollViewer VerticalScrollBarVisibility="Hidden"
+                      PanningMode="Both"
+                      AutomationProperties.AutomationId="ScrollViewer2_8A35A80B">
+            <ItemsControl Name="ItemsControl"
+                          ItemsSource="{Binding Path=SasPollDatas, Mode=OneWay}"
+                          Height="{Binding ElementName=MainGrid, Path=ActualHeight}"
+                          ScrollViewer.CanContentScroll="True"
+                          AutomationProperties.AutomationId="ItemsControl3_8A35A80B">
                 <ItemsControl.Template>
                     <ControlTemplate TargetType="ItemsControl">
-                        <ItemsPresenter />
+                        <ItemsPresenter AutomationProperties.AutomationId="ItemsPresenter4_8A35A80B" />
                     </ControlTemplate>
                 </ItemsControl.Template>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <DataTemplate.Resources>
                             <Style TargetType="TextBlock">
-                                <Setter Property="FontSize" Value="18"/>
+                                <Setter Property="FontSize"
+                                        Value="18" />
                             </Style>
                         </DataTemplate.Resources>
-                        <Grid>
-                            <Expander HorizontalAlignment="Left" IsExpanded="
-                                                          False" ExpandDirection="Down" Background="Transparent" BorderThickness="0" >
+                        <Grid AutomationProperties.AutomationId="Grid5_8A35A80B">
+                            <Expander HorizontalAlignment="Left"
+                                      IsExpanded="                                                           False"
+                                      ExpandDirection="Down"
+                                      Background="Transparent"
+                                      BorderThickness="0"
+                                      AutomationProperties.AutomationId="Expander6_8A35A80B">
                                 <Expander.Header>
-                                    <TextBlock TextWrapping="WrapWithOverflow" Style="{StaticResource MonacoTextBlock}">
-                                        <Run Text="{Binding TypeDescription, Mode=OneWay}" FontWeight="Bold" FontSize="20"/>
-                                        <Run Text="{Binding PollDataString, Mode=OneWay}" FontSize="18"/>
+                                    <TextBlock TextWrapping="WrapWithOverflow"
+                                               Style="{StaticResource MonacoTextBlock}"
+                                               AutomationProperties.AutomationId="TextBlock7_8A35A80B">
+                                        <Run Text="{Binding TypeDescription, Mode=OneWay}"
+                                             FontWeight="Bold"
+                                             FontSize="20"
+                                             AutomationProperties.AutomationId="Run8_8A35A80B" />
+                                        <Run Text="{Binding PollDataString, Mode=OneWay}"
+                                             FontSize="18"
+                                             AutomationProperties.AutomationId="Run9_8A35A80B" />
                                     </TextBlock>
                                 </Expander.Header>
-                                <TextBlock Margin="5 0 0 5" Style="{StaticResource MonacoWarningTextBlock}">
-                                    <Run Text="{Binding Path=Description, Mode=OneWay}"/>
+                                <TextBlock Margin="5 0 0 5"
+                                           Style="{StaticResource MonacoWarningTextBlock}"
+                                           AutomationProperties.AutomationId="TextBlock10_8A35A80B">
+                                    <Run Text="{Binding Path=Description, Mode=OneWay}"
+                                         AutomationProperties.AutomationId="Run11_8A35A80B" />
                                 </TextBlock>
                             </Expander>
                         </Grid>

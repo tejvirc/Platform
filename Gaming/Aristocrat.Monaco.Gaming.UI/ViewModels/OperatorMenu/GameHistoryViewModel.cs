@@ -439,6 +439,7 @@
             RaisePropertyChanged(nameof(PrintSelectedButtonVisible));
             RaisePropertyChanged(nameof(PrintLast15ButtonVisible));
             RaisePropertyChanged(nameof(ReplayButtonEnabled));
+            RaisePropertyChanged(nameof(PendingCurrencyIn));
             RefreshGameHistory();
         }
 
@@ -944,7 +945,8 @@
             {
                 if (transaction.TransactionType == typeof(BillTransaction) ||
                     transaction.TransactionType == typeof(VoucherInTransaction) ||
-                    transaction.TransactionType == typeof(WatOnTransaction))
+                    transaction.TransactionType == typeof(WatOnTransaction) ||
+                    transaction.TransactionType == typeof(KeyedOnCreditsTransaction))
                 {
                     if (round.AmountIn == null)
                     {
@@ -954,7 +956,8 @@
                     round.AmountIn += transaction.Amount.MillicentsToDollars();
                 }
                 else if (transaction.TransactionType == typeof(VoucherOutTransaction) ||
-                         transaction.TransactionType == typeof(WatTransaction))
+                         transaction.TransactionType == typeof(WatTransaction) ||
+                         transaction.TransactionType == typeof(KeyedOffCreditsTransaction))
                 {
                     if (round.AmountOut == null)
                     {

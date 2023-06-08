@@ -7,111 +7,158 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance viewModels:VenueRaceCollectionViewModel, IsDesignTimeCreatable=False}">
-
+             d:DataContext="{d:DesignInstance viewModels:VenueRaceCollectionViewModel, IsDesignTimeCreatable=False}"
+             AutomationProperties.AutomationId="UserControl0_7B1C1C9">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style x:Key="RaceSetTextBlockStyle" TargetType="TextBlock">
+            <Style x:Key="RaceSetTextBlockStyle"
+                   TargetType="TextBlock">
                 <Style.Setters>
-                    <Setter Property="Foreground" Value="Green" />
-                    <Setter Property="FontWeight" Value="UltraBold" />
-                    <Setter Property="FontFamily" Value="Arial Black" />
-                    <Setter Property="FontSize" Value="24" />
-                    <Setter Property="LineHeight" Value="20" />
-                    <Setter Property="LineStackingStrategy" Value="BlockLineHeight" />
-                    <Setter Property="HorizontalAlignment" Value="Right" />
-                    <Setter Property="VerticalAlignment" Value="Center" />
+                    <Setter Property="Foreground"
+                            Value="Green" />
+                    <Setter Property="FontWeight"
+                            Value="UltraBold" />
+                    <Setter Property="FontFamily"
+                            Value="Arial Black" />
+                    <Setter Property="FontSize"
+                            Value="24" />
+                    <Setter Property="LineHeight"
+                            Value="20" />
+                    <Setter Property="LineStackingStrategy"
+                            Value="BlockLineHeight" />
+                    <Setter Property="HorizontalAlignment"
+                            Value="Right" />
+                    <Setter Property="VerticalAlignment"
+                            Value="Center" />
                 </Style.Setters>
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-
     <Viewbox x:Name="Root"
-             VerticalAlignment="Top" Margin="0 30 30 0"
+             VerticalAlignment="Top"
+             Margin="0 30 30 0"
              IsVisibleChanged="Root_OnIsVisibleChanged"
-             Visibility="{Binding IsAnimationVisible, Converter={StaticResource TrueVisibleFalseHidden}}">
-
-        <Grid>
-
+             Visibility="{Binding IsAnimationVisible, Converter={StaticResource TrueVisibleFalseHidden}}"
+             AutomationProperties.AutomationId="Viewbox1_7B1C1C9">
+        <Grid AutomationProperties.AutomationId="Grid2_7B1C1C9">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition3_7B1C1C9" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition4_7B1C1C9" />
             </Grid.RowDefinitions>
-
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="30"
+                                  AutomationProperties.AutomationId="ColumnDefinition5_7B1C1C9" />
+                <ColumnDefinition Width="*"
+                                  AutomationProperties.AutomationId="ColumnDefinition6_7B1C1C9" />
             </Grid.ColumnDefinitions>
-
-            <Border Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <ItemsControl ItemsSource="{Binding RaceSet1Title}">
+            <Border Grid.Row="0"
+                    Grid.Column="0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    AutomationProperties.AutomationId="Border7_7B1C1C9">
+                <ItemsControl ItemsSource="{Binding RaceSet1Title}"
+                              AutomationProperties.AutomationId="ItemsControl8_7B1C1C9">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Style="{StaticResource RaceSetTextBlockStyle}" Text="{Binding}">
+                            <TextBlock Style="{StaticResource RaceSetTextBlockStyle}"
+                                       Text="{Binding}"
+                                       AutomationProperties.AutomationId="TextBlock9_7B1C1C9">
                                 <TextBlock.RenderTransform>
-                                    <ScaleTransform ScaleX="1.0" ScaleY="0.8" />
+                                    <ScaleTransform ScaleX="1.0"
+                                                    ScaleY="0.8"
+                                                    AutomationProperties.AutomationId="ScaleTransform10_7B1C1C9" />
                                 </TextBlock.RenderTransform>
                             </TextBlock>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </Border>
-
-            <Border Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <ItemsControl ItemsSource="{Binding RaceSet1Models, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
+            <Border Grid.Row="0"
+                    Grid.Column="1"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    AutomationProperties.AutomationId="Border11_7B1C1C9">
+                <ItemsControl
+                        ItemsSource="{Binding RaceSet1Models, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                              AutomationProperties.AutomationId="ItemsControl12_7B1C1C9">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <UniformGrid Rows="1" Columns="{Binding VenuesPerRow}" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                            <UniformGrid Rows="1"
+                                         Columns="{Binding VenuesPerRow}"
+                                         VerticalAlignment="Top"
+                                         HorizontalAlignment="Left"
+                                         AutomationProperties.AutomationId="UniformGrid13_7B1C1C9" />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type models:VenueRaceTracksModel}">
-                            <local:VenueRaceTracks IsPaused="{Binding DataContext.IsPaused, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, UpdateSourceTrigger=PropertyChanged}" 
-                                                   VenueName="{Binding VenueName}" 
-                                                   RacingLanes="{Binding RaceTrackModels}" 
-                                                   RaceStarted="{Binding RaceStarted}"
-                                                   RaceFinished="{Binding RaceFinished, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </Border>
-
-            <Border Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <ItemsControl ItemsSource="{Binding RaceSet2Title}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Style="{StaticResource RaceSetTextBlockStyle}" Text="{Binding}">
-                                <TextBlock.RenderTransform>
-                                    <ScaleTransform ScaleX="1.0" ScaleY="0.8" />
-                                </TextBlock.RenderTransform>
-                            </TextBlock>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </Border>
-
-            <Border Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <ItemsControl ItemsSource="{Binding RaceSet2Models, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <UniformGrid  Rows="1" Columns="{Binding VenuesPerRow}" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate DataType="{x:Type models:VenueRaceTracksModel}">
-                            <local:VenueRaceTracks IsPaused="{Binding DataContext.IsPaused, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, UpdateSourceTrigger=PropertyChanged}"
-                                                   VenueName="{Binding VenueName}" 
+                            <local:VenueRaceTracks
+                                    IsPaused="{Binding DataContext.IsPaused, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, UpdateSourceTrigger=PropertyChanged}"
+                                                   VenueName="{Binding VenueName}"
                                                    RacingLanes="{Binding RaceTrackModels}"
                                                    RaceStarted="{Binding RaceStarted}"
-                                                   RaceFinished="{Binding RaceFinished, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"/>
+                                                   RaceFinished="{Binding RaceFinished, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Border>
+            <Border Grid.Row="1"
+                    Grid.Column="0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    AutomationProperties.AutomationId="Border14_7B1C1C9">
+                <ItemsControl ItemsSource="{Binding RaceSet2Title}"
+                              AutomationProperties.AutomationId="ItemsControl15_7B1C1C9">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel AutomationProperties.AutomationId="StackPanel16_7B1C1C9" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Style="{StaticResource RaceSetTextBlockStyle}"
+                                       Text="{Binding}"
+                                       AutomationProperties.AutomationId="TextBlock17_7B1C1C9">
+                                <TextBlock.RenderTransform>
+                                    <ScaleTransform ScaleX="1.0"
+                                                    ScaleY="0.8"
+                                                    AutomationProperties.AutomationId="ScaleTransform18_7B1C1C9" />
+                                </TextBlock.RenderTransform>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Border>
+            <Border Grid.Row="1"
+                    Grid.Column="1"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    AutomationProperties.AutomationId="Border19_7B1C1C9">
+                <ItemsControl
+                        ItemsSource="{Binding RaceSet2Models, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
+                              AutomationProperties.AutomationId="ItemsControl20_7B1C1C9">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Rows="1"
+                                         Columns="{Binding VenuesPerRow}"
+                                         VerticalAlignment="Top"
+                                         HorizontalAlignment="Left"
+                                         AutomationProperties.AutomationId="UniformGrid21_7B1C1C9" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type models:VenueRaceTracksModel}">
+                            <local:VenueRaceTracks
+                                    IsPaused="{Binding DataContext.IsPaused, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, UpdateSourceTrigger=PropertyChanged}"
+                                                   VenueName="{Binding VenueName}"
+                                                   RacingLanes="{Binding RaceTrackModels}"
+                                                   RaceStarted="{Binding RaceStarted}"
+                                                   RaceFinished="{Binding RaceFinished, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

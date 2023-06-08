@@ -42,9 +42,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.AlbertaJurisdiction" filterid="AlbertaLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.AlbertaJurisdiction" filterid="AlbertaLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.AlbertaJurisdiction" filterid="AlbertaLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -134,10 +131,6 @@
   </Extension>
   <Extension path="/Locale/Configuration">
     <FilePath FilePath="..\jurisdiction\Alberta-VLT\Locale.config.xml" filterid="AlbertaLocaleConfig" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="AlbertaLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\VLT\" />
-    <FilePath FilePath="..\jurisdiction\Alberta-VLT\resources\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\Alberta-VLT\Lobby.config.xml" filterid="AlbertaLobbyConfig" />

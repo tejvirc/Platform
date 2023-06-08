@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <!-- 
 *NOTE* When adding or removing elements to this file, you will need to 
 change the corresponding xsd schema file and generate a new class definition
@@ -8,8 +7,8 @@ as follows:
     Application\Monaco.Application.Contracts
 2.  Enter "xsd LocaleConfiguration.xsd /c".  This will generate
     the corresponding class definition in csharp (LocaleConfiguration.cs).
--->
-<LocaleConfiguration>
+--> 
+<LocaleConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <PlayerTicket Locale="fr-CA">
     <Selectable>
       <Entry Locale="fr-CA" CurrencyValueLocale="fr-CA" CurrencyWordsLocale="fr-CA" />
@@ -31,4 +30,7 @@ as follows:
           <string>fr-CA</string>
       </Available>
   </Player>
-</LocaleConfiguration>  
+  <Overrides>
+    <string>VLT</string>
+  </Overrides>
+</LocaleConfiguration>

@@ -13,9 +13,12 @@
     using Application.Helpers;
     using ConfigWizard;
     using Contracts;
+    using Contracts.Detection;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
+    using Contracts.TowerLight;
     using Hardware.Contracts;
+    using Hardware.Contracts.Door;
     using Hardware.Contracts.HardMeter;
     using Hardware.Contracts.IdReader;
     using Hardware.Contracts.NoteAcceptor;
@@ -26,6 +29,7 @@
     using Helpers;
     using Kernel;
     using Kernel.Contracts;
+    using Monaco.Common;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common.Extensions;
     using MVVM;
@@ -40,9 +44,6 @@
     using PrinterInspectionSucceededEvent = Hardware.Contracts.Printer.InspectedEvent;
     using ReelInspectedEvent = Hardware.Contracts.Reel.Events.InspectedEvent;
     using ReelInspectionFailedEvent = Hardware.Contracts.Reel.Events.InspectionFailedEvent;
-    using Aristocrat.Monaco.Hardware.Contracts.Door;
-    using Contracts.TowerLight;
-    using Monaco.Common;
 
     [CLSCompliant(false)]
     public abstract class HardwareConfigBaseViewModel : ConfigWizardViewModelBase
@@ -58,6 +59,7 @@
         private readonly IServiceManager _serviceManager;
         private readonly IPropertiesManager _propertiesManager;
         private readonly IHardMeter _hardMeter;
+        private readonly IDeviceDetection _deviceDetection;
 
         // This contains all potential devices, even those disabled and not visible on the page
         private readonly Dictionary<DeviceType, DeviceConfigViewModel> _deviceConfigurationDictionary =
@@ -87,6 +89,7 @@
         private Timer _discoveryTimer;
         private bool _isValidating;
         private string _validationStatus;
+        private bool _isDetecting;
         private bool _hardMetersEnabled;
         private bool _configurableHardMeters;
         private bool _configurableDoorOpticSensor;
@@ -120,6 +123,7 @@
             _hardwareConfiguration = _serviceManager.GetService<IHardwareConfiguration>();
             _configWizardConfiguration = _serviceManager.GetService<IConfigurationUtilitiesProvider>()
                 .GetConfigWizardConfiguration(() => new ConfigWizardConfiguration());
+            _deviceDetection = _serviceManager.GetService<IDeviceDetection>();
 
             ValidateCommand = new ActionCommand<object>(
                 _ => ValidateConfig(),
@@ -213,6 +217,29 @@
         public bool ShowApplyButton => this is HardwareManagerPageViewModel && InputEnabled;
 
         public bool ShowValidateButton => !(this is HardwareManagerPageViewModel);
+
+        public bool IsDetecting
+        {
+            get => _isDetecting;
+            set
+            {
+                if (!SetProperty(ref _isDetecting, value, nameof(IsDetecting)))
+                {
+                    return;
+                }
+
+                if (value)
+                {
+                    EventBus.Subscribe<DeviceDetectedEvent>(this, e => Handle(e));
+                    EventBus.Subscribe<DeviceNotDetectedEvent>(this, e => Handle(e));
+                }
+                else
+                {
+                    EventBus.Unsubscribe<DeviceDetectedEvent>(this);
+                    EventBus.Unsubscribe<DeviceNotDetectedEvent>(this);
+                }
+            }
+        }
 
         public bool ShowHardMeters { get; private set; }
 
@@ -340,11 +367,17 @@
 
         protected virtual void Device_OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            if (e.PropertyName.Equals("Enabled") &&
+                sender is DeviceConfigViewModel device && device.Enabled)
+            {
+                StartDetection();
+            }
+
             if (EnabledDevices.Any(
                 d =>
                 {
                     IDevice device = null;
-                    return CheckHardware(d, ref device) != true;
+                    return !CheckHardware(d, ref device);
                 }))
             {
                 ValidationStatus = string.Empty;
@@ -378,6 +411,11 @@
             IsValidating = false;
 
             SubscribeToEvents();
+
+            if (IsWizardPage)
+            {
+                StartDetection();
+            }
         }
 
         protected override void OnUnloaded()
@@ -534,6 +572,7 @@
                 div => div.Status.Contains(
                     Localizer.For(CultureFor.Operator)
                         .GetString(ResourceKeys.ConnectedText))) &&
+            !EnabledDevices.Any(dev => dev.IsDetectionFailure) &&
             EnabledDevices.Any(
                 d =>
                 {
@@ -729,66 +768,66 @@
                         StopTimer();
                         break;
                     case NoteAcceptorInspectionSucceededEvent _:
-                    {
-                        if (_serviceManager.IsServiceAvailable<INoteAcceptor>())
                         {
-                            var device = GetDevice<INoteAcceptor>();
-                            SetDeviceStatusAndValidate(DeviceType.NoteAcceptor, GetUpdateStatus(device), true);
-                        }
+                            if (_serviceManager.IsServiceAvailable<INoteAcceptor>())
+                            {
+                                var device = GetDevice<INoteAcceptor>();
+                                SetDeviceStatusAndValidate(DeviceType.NoteAcceptor, GetUpdateStatus(device), true);
+                            }
 
-                        break;
-                    }
+                            break;
+                        }
 
                     case PrinterInspectionSucceededEvent _:
-                    {
-                        if (_serviceManager.IsServiceAvailable<IPrinter>())
                         {
-                            var device = GetDevice<IPrinter>();
-                            SetDeviceStatusAndValidate(DeviceType.Printer, GetUpdateStatus(device), true);
-                        }
+                            if (_serviceManager.IsServiceAvailable<IPrinter>())
+                            {
+                                var device = GetDevice<IPrinter>();
+                                SetDeviceStatusAndValidate(DeviceType.Printer, GetUpdateStatus(device), true);
+                            }
 
-                        break;
-                    }
+                            break;
+                        }
 
                     case ReelInspectionFailedEvent _:
-                    {
-                        _deviceDiscoveryStatus[DeviceType.ReelController] = false;
-                        SetDeviceStatusAndValidate(DeviceType.ReelController, errorText, false);
-                        break;
-                    }
+                        {
+                            _deviceDiscoveryStatus[DeviceType.ReelController] = false;
+                            SetDeviceStatusAndValidate(DeviceType.ReelController, errorText, false);
+                            break;
+                        }
 
                     case ReelInspectedEvent _:
-                    {
-                        if (_serviceManager.IsServiceAvailable<IReelController>())
                         {
-                            var device = GetDevice<IReelController>();
-                            SetDeviceStatusAndValidate(DeviceType.ReelController, GetUpdateStatus(device), true);
-                        }
+                            if (_serviceManager.IsServiceAvailable<IReelController>())
+                            {
+                                var device = GetDevice<IReelController>();
+                                SetDeviceStatusAndValidate(DeviceType.ReelController, GetUpdateStatus(device), true);
+                            }
 
-                        break;
-                    }
+                            break;
+                        }
 
                     case IdReaderInspectionSucceededEvent ev:
-                    {
-                        if (_serviceManager.IsServiceAvailable<IIdReaderProvider>())
                         {
-                            var provider = _serviceManager.GetService<IIdReaderProvider>();
-                            var device = provider.DeviceConfiguration(ev.IdReaderId);
-                            if (device == null || device.Manufacturer == null)
+                            if (_serviceManager.IsServiceAvailable<IIdReaderProvider>())
                             {
-                                break;
+                                var provider = _serviceManager.GetService<IIdReaderProvider>();
+                                var device = provider.DeviceConfiguration(ev.IdReaderId);
+                                if (device == null || device.Manufacturer == null)
+                                {
+                                    break;
+                                }
+
+                                if (!device.Manufacturer.Contains(ApplicationConstants.Fake))
+                                {
+                                    _deviceDiscoveryStatus[DeviceType.IdReader] = true;
+                                }
+
+                                SetDeviceStatusAndValidate(DeviceType.IdReader, GetUpdateStatus(device), true);
                             }
 
-                            if (!device.Manufacturer.Contains(ApplicationConstants.Fake))
-                            {
-                                _deviceDiscoveryStatus[DeviceType.IdReader] = true;
-                            }
-
-                            SetDeviceStatusAndValidate(DeviceType.IdReader, GetUpdateStatus(device), true);
+                            break;
                         }
-
-                        break;
-                    }
 
                     case IdReaderInspectionFailedEvent _:
                         _deviceDiscoveryStatus[DeviceType.IdReader] = false;
@@ -950,7 +989,12 @@
                     iDevice != null &&
                     iDevice.Manufacturer.Contains(ApplicationConstants.Fake))
                 {
-                    return;
+                    if (config.Manufacturer.Equals(iDevice.Manufacturer))
+                    {
+                        return;
+                    }
+
+                    _deviceDiscoveryStatus[config.DeviceType] = false;
                 }
 
                 if (config.Manufacturer.Contains(ApplicationConstants.Fake) ||
@@ -981,6 +1025,7 @@
                     device = GetDevice<IPrinter>();
                     ValidateDevice(device);
                     break;
+
                 case DeviceType.ReelController:
                     device = GetDevice<IReelController>();
                     ValidateDevice(device);
@@ -1197,13 +1242,13 @@
             _bellEnabled = _propertiesManager.GetValue(HardwareConstants.BellEnabledKey, false);
             ConfigurableBell = _propertiesManager.GetValue(ApplicationConstants.ConfigWizardBellConfigurable, false);
             VisibleBell = _propertiesManager.GetValue(ApplicationConstants.ConfigWizardBellVisible, false);
+
             DoorOpticSensorEnabled = _propertiesManager.GetValue(
                 ApplicationConstants.ConfigWizardDoorOpticsEnabled,
                 false);
             VisibleDoorOpticSensor = _propertiesManager.GetValue(
                 ApplicationConstants.ConfigWizardDoorOpticsVisible,
                 false);
-
             var configurableDoorOpticSensor = _propertiesManager.GetValue(
                 ApplicationConstants.ConfigWizardDoorOpticsConfigurable,
                 false);
@@ -1239,7 +1284,23 @@
                 if (!device.Manufacturers.Contains(ApplicationConstants.Fake))
                 {
                     Logger.Debug($"adding fake manufacturer for device {device.DeviceType} {device.DeviceName} with protocol {device.Protocol}");
-                    device.Manufacturers.Add(ApplicationConstants.Fake);
+
+                    var availableFakeDevices = available.Devices.Where(
+                        d => d.Type == device.DeviceType.ToString() &&
+                             d.Name.Contains(ApplicationConstants.Fake));
+
+                    if (availableFakeDevices.Any())
+                    {
+                        foreach (var availableDevice in availableFakeDevices)
+                        {
+                            device.Manufacturers.Add(availableDevice.Name);
+                            device.AddFakeConfiguration(availableDevice);
+                        }
+                    }
+                    else
+                    {
+                        device.Manufacturers.Add(ApplicationConstants.Fake);
+                    }
                 }
 
                 if (string.IsNullOrEmpty(device.Protocol))
@@ -1430,6 +1491,106 @@
             }
 
             StartTimer(DiscoveryTimeoutSeconds * MilliSecondsPerSecond);
+        }
+
+        private void StartDetection()
+        {
+            var discoverableDevices = new List<DeviceConfigViewModel>();
+            foreach (var device in Devices)
+            {
+                if (device.IsDetectionComplete || !device.Enabled)
+                {
+                    continue;
+                }
+
+                discoverableDevices.Add(device);
+                device.StartDetection();
+                _deviceDiscoveryStatus[device.DeviceType] = false;
+            }
+
+            if (discoverableDevices.Any())
+            {
+                IsDetecting = true;
+                _deviceDetection.BeginDetection(discoverableDevices.Select(d => d.DeviceType));
+                return;
+            }
+
+            TryValidationAfterDetection();
+        }
+
+        private void StopDetection()
+        {
+            _deviceDetection.CancelDetection();
+        }
+
+        private void Handle(DeviceDetectedEvent evt)
+        {
+            var deviceType = (DeviceType)Enum.Parse(typeof(DeviceType), evt.Device.Type);
+
+            MvvmHelper.ExecuteOnUI(
+                () =>
+                {
+                    // Some devices aren't supported at all in Monaco.
+                    // Some devices are supported in general, but not in the present jurisdiction.
+                    var deviceConfig = _deviceConfigurationDictionary[deviceType];
+                    if (!deviceConfig.ContainsPlatformConfiguration(evt.Device))
+                    {
+                        Logger.Debug($"Detected invalid device for {deviceType}: {evt.Device.Name}");
+                        deviceConfig.IsDetectionComplete = true;
+                        deviceConfig.IsDetectionFailure = true;
+                        deviceConfig.Status = $"{evt.Device.Name} {Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InvalidDeviceDetectedTemplate)}";
+                    }
+                    else
+                    {
+                        Logger.Debug($"Detected valid device for {deviceType}: {evt.Device.Name}");
+                        _deviceDiscoveryStatus[deviceType] = true;
+                        deviceConfig.SetDetectedPlatformConfiguration(evt.Device);
+                    }
+
+                    TryValidationAfterDetection();
+                });
+        }
+
+        private void Handle(DeviceNotDetectedEvent evt)
+        {
+            MvvmHelper.ExecuteOnUI(
+                () =>
+                {
+                    var device = EnabledDevices.FirstOrDefault(d => d.DeviceType == evt.DeviceType);
+                    if (device is null || device.IsDetectionComplete)
+                    {
+                        return;
+                    }
+
+                    Logger.Debug($"Undetected for {device.DeviceType}");
+                    device.IsDetectionComplete = true;
+                    device.Status = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoDeviceDetected);
+#if RETAIL
+                    device.IsDetectionFailure = true;
+#else
+                    // Nothing was found, so use the Fake
+                    Logger.Debug($"Select Fake device for {evt.DeviceType}");
+                    _deviceDiscoveryStatus[evt.DeviceType] = true;
+                    _deviceConfigurationDictionary[evt.DeviceType].SetDetectedPlatformConfiguration(
+                        new SupportedDevicesDevice
+                        {
+                            Name = ApplicationConstants.Fake,
+                            Protocol = ApplicationConstants.Fake,
+                            Port = ApplicationConstants.Fake
+                        });
+#endif
+                    TryValidationAfterDetection();
+                });
+        }
+
+        private void TryValidationAfterDetection()
+        {
+            IsDetecting = EnabledDevices.Any(d => !d.IsDetectionComplete);
+            if (!IsDetecting && IsWizardPage)
+            {
+                Logger.Debug("Automatically try validation after detection cycle completes.");
+                ValidateCommand.Execute(new object());
+            }
         }
 
         private void UpdateScreen(bool clearValidation = false)

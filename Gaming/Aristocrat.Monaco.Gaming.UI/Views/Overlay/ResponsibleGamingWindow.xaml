@@ -1,62 +1,70 @@
 ﻿<converters:BaseWindow x:Class="Aristocrat.Monaco.Gaming.UI.Views.Overlay.ResponsibleGamingWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:converters="http://monaco.aristocrat.com/common"
-        xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
-        xmlns:overlay="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Overlay"
-        xmlns:mediaDisplay="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay"
-        mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}"
-        WindowStartupLocation="Manual"
-        ResizeMode="NoResize"
-        WindowStyle="None"
-        Title="Responsible Gaming"
-        ShowInTaskbar="False"
-        Width="1920" Height="1080"
-        Left="0" Top="0"
-        Name="Root">
-
+                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                       xmlns:converters="http://monaco.aristocrat.com/common"
+                       xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
+                       xmlns:overlay="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Overlay"
+                       xmlns:mediaDisplay="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay"
+                       mc:Ignorable="d"
+                       d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}"
+                       WindowStartupLocation="Manual"
+                       ResizeMode="NoResize"
+                       WindowStyle="None"
+                       Title="Responsible Gaming"
+                       ShowInTaskbar="False"
+                       Width="1920"
+                       Height="1080"
+                       Left="0"
+                       Top="0"
+                       Name="Root">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-
                 <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <!-- Accent and AppTheme setting -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-
+                <ResourceDictionary
+                        Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
                 <ResourceDictionary Source="../../Skins/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <Storyboard x:Key="FadeInStoryboard" x:Shared="false">
-                <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" 
-                                 Duration="0:0:0.1" BeginTime="0:0:0" AutoReverse="False">
-                </DoubleAnimation>
+            <Storyboard x:Key="FadeInStoryboard"
+                        x:Shared="false"
+                        AutomationProperties.AutomationId="Storyboard0_899639EE">
+                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                 From="0.0"
+                                 To="1.0"
+                                 Duration="0:0:0.1"
+                                 BeginTime="0:0:0"
+                                 AutoReverse="False"
+                                 AutomationProperties.AutomationId="DoubleAnimation1_899639EE"></DoubleAnimation>
             </Storyboard>
-
-            <Storyboard x:Key="FadeOutStoryboard" x:Shared="false">
-                <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1.0" To="0.0" 
-                                 Duration="0:0:0.75" BeginTime="0:0:0" AutoReverse="False">
-                </DoubleAnimation>
+            <Storyboard x:Key="FadeOutStoryboard"
+                        x:Shared="false"
+                        AutomationProperties.AutomationId="Storyboard2_899639EE">
+                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                 From="1.0"
+                                 To="0.0"
+                                 Duration="0:0:0.75"
+                                 BeginTime="0:0:0"
+                                 AutoReverse="False"
+                                 AutomationProperties.AutomationId="DoubleAnimation3_899639EE"></DoubleAnimation>
             </Storyboard>
-
         </ResourceDictionary>
     </Window.Resources>
-
     <Window.Background>
-        <SolidColorBrush Color="Transparent"/>
+        <SolidColorBrush Color="Transparent"
+                         AutomationProperties.AutomationId="SolidColorBrush4_899639EE" />
     </Window.Background>
-
     <mediaDisplay:LayoutTemplatePlaceholderDockPanel x:Name="LayoutTemplate"
-                                                        ScreenType="Primary">
-
+                                                     ScreenType="Primary">
         <Grid x:Name="LayoutRoot"
-              ClipToBounds="True">
+              ClipToBounds="True"
+              AutomationProperties.AutomationId="Grid5_899639EE">
             <!-- Notes on why we fade views in/out:
             Reference Link: https://social.msdn.microsoft.com/Forums/en-US/e974c849-90ea-4741-9a27-0ae4857bc3c2/wpf-update-ui-in-while-window-is-hidden?forum=wpf
             
@@ -64,25 +72,32 @@
             show the window the next time, it flickers the old contents befoe updating to the new state.  To workaround
             this we are doing a brief fade in/out of the window so that we can clear the old contents before hiding it.
             -->
-
             <!-- Since we are using opacity to hide, we have to use IsHitTestVisible to
                  let input pass through transparent controls. -->
-
-            <Viewbox x:Name="ResponsibleGamingViewbox" Stretch="Uniform">
+            <Viewbox x:Name="ResponsibleGamingViewbox"
+                     Stretch="Uniform"
+                     AutomationProperties.AutomationId="Viewbox6_899639EE">
                 <Grid x:Name="ViewboxRoot"
                       Height="{Binding ElementName=LayoutTemplate, Path=ActualHeight}"
-                      Width="{Binding ElementName=LayoutTemplate, Path=ActualWidth}">
-                    <overlay:TimeLimitDialog x:Name="TimeLimitView" IsHitTestVisible="{Binding IsTimeLimitDlgVisible}">
+                      Width="{Binding ElementName=LayoutTemplate, Path=ActualWidth}"
+                      AutomationProperties.AutomationId="Grid7_899639EE">
+                    <overlay:TimeLimitDialog x:Name="TimeLimitView"
+                                             IsHitTestVisible="{Binding IsTimeLimitDlgVisible}">
                         <overlay:TimeLimitDialog.Style>
                             <Style TargetType="UserControl">
-                                <Setter Property="Opacity" Value="0" />
+                                <Setter Property="Opacity"
+                                        Value="0" />
                                 <Style.Triggers>
-                                    <DataTrigger Value="True" Binding="{Binding IsTimeLimitDlgVisible}">
+                                    <DataTrigger Value="True"
+                                                 Binding="{Binding IsTimeLimitDlgVisible}"
+                                                 AutomationProperties.AutomationId="DataTrigger8_899639EE">
                                         <DataTrigger.EnterActions>
-                                            <BeginStoryboard Storyboard="{StaticResource FadeInStoryboard}"/>
+                                            <BeginStoryboard Storyboard="{StaticResource FadeInStoryboard}"
+                                                             AutomationProperties.AutomationId="BeginStoryboard9_899639EE" />
                                         </DataTrigger.EnterActions>
                                         <DataTrigger.ExitActions>
-                                            <BeginStoryboard Storyboard="{StaticResource FadeOutStoryboard}"/>
+                                            <BeginStoryboard Storyboard="{StaticResource FadeOutStoryboard}"
+                                                             AutomationProperties.AutomationId="BeginStoryboard10_899639EE" />
                                         </DataTrigger.ExitActions>
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -94,4 +109,3 @@
         </Grid>
     </mediaDisplay:LayoutTemplatePlaceholderDockPanel>
 </converters:BaseWindow>
-

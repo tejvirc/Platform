@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.MississippiRiverboatJurisdiction" filterid="MississippiRiverboatLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.MississippiRiverboatJurisdiction" filterid="MississippiRiverboatLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.MississippiRiverboatJurisdiction" filterid="MississippiRiverboatLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -70,7 +67,7 @@
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Hardware/PrinterOverrides">
         <NodeSpecification addinId="Client12Addins.MississippiTribalJurisdiction" filterid="MississippiTribalPrinterOverridesConfig" />
-       </ExtensionPointConfiguration>
+      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Application/OperatorMenu/DisplayMeters">
         <NodeSpecification addinId="Client12Addins.MississippiRiverboatJurisdiction" filterid="MississippiRiverboatDisplayMetersConfig" />
       </ExtensionPointConfiguration>
@@ -133,9 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="MississippiRiverboatLocaleConfig">
     <FilePath FilePath="..\jurisdiction\MississippiRiverboat\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="MississippiRiverboatLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\MississippiRiverboat\Lobby.config.xml" filterid="MississippiRiverboatLobbyConfig" />

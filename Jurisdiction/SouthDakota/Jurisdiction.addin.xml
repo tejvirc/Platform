@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.SouthDakotaJurisdiction" filterid="SouthDakotaLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.SouthDakotaJurisdiction" filterid="SouthDakotaLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.SouthDakotaJurisdiction" filterid="SouthDakotaLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -133,9 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="SouthDakotaLocaleConfig">
     <FilePath FilePath="..\jurisdiction\SouthDakota\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="SouthDakotaLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\SouthDakota\Lobby.config.xml" filterid="SouthDakotaLobbyConfig" />

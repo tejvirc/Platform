@@ -6,20 +6,17 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
-                               Background="Transparent" 
+                               Background="Transparent"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:NetworkConfigPageViewModel}}">
-
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
-                <ResourceDictionary Source="../Resources/Templates.NetworkEditor.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="../Resources/Templates.NetworkEditor.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <ContentControl Content="{Binding}" 
-                    ContentTemplate="{StaticResource NetworkEditorTemplate}" />
+    <ContentControl Content="{Binding}"
+                    ContentTemplate="{StaticResource NetworkEditorTemplate}"
+                    AutomationProperties.AutomationId="ContentControl0_1A261B94" />
 </operatorMenu:OperatorMenuPage>
-

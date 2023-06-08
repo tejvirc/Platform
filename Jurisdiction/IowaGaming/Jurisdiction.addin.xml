@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.IowaGamingJurisdiction" filterid="IowaGamingLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.IowaGamingJurisdiction" filterid="IowaGamingLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.IowaGamingJurisdiction" filterid="IowaGamingLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -133,9 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="IowaGamingLocaleConfig">
     <FilePath FilePath="..\jurisdiction\IowaGaming\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="IowaGamingLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\IowaGaming\Lobby.config.xml" filterid="IowaGamingLobbyConfig" />

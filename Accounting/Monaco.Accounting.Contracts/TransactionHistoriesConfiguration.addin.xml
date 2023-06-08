@@ -27,7 +27,8 @@
 				<!-- <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Vgt.Client12.Gaming.BonusTransaction" order="3"/> does not exist in Monaco -->
 				<NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Contracts.VoucherOutTransaction" order="4"/>
 				<NodeSpecification addinId="Client12Addins.Aristocrat.Monaco.Gaming" typeName="Aristocrat.Monaco.Gaming.Contracts.Progressives.JackpotTransaction" order="5"/>
-				<NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Contracts.KeyedCreditsTransaction" order="6"/>
+				<NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Contracts.KeyedOnCreditsTransaction" order="7"/>
+				<NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Contracts.KeyedOffCreditsTransaction" order="8"/>
 			</ExtensionPointConfiguration>			
 		
 		</AddinConfigurationGroup>

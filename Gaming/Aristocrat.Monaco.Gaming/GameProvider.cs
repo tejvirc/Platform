@@ -1069,6 +1069,11 @@
                 ? (GameSubCategory)game.SubCategory
                 : GameSubCategory.Undefined;
             gameDetail.Features = features;
+
+            gameDetail.MaximumWagerInsideCredits = game.MaxWagerInsideCredits;
+            gameDetail.MaximumWagerOutsideCredits = game.MaxWagerOutsideCredits;
+            gameDetail.NextToMaxBetTopAwardMultiplier = game.NextToMaxBetTopAwardMultiplier;
+
             return (gameDetail, progressiveDetails);
         }
 
@@ -1467,7 +1472,7 @@
 
             if (!(game.UpgradeActions?.Any() ?? false))
             {
-                _gameOrder.UpdatePositionPriority(game.ThemeId, 1);
+                _gameOrder.UpdateIconPositionPriority(game.ThemeId, 1);
 
                 Logger.Info($"No Upgrade Actions: Game Id {game.Id} moved to position 1");
             }
@@ -1493,7 +1498,7 @@
 
                     if (!action.MaintainPosition)
                     {
-                        _gameOrder.UpdatePositionPriority(game.ThemeId, 1);
+                        _gameOrder.UpdateIconPositionPriority(game.ThemeId, 1);
 
                         Logger.Info($"Upgrade: Game Id {game.Id} moved to position 1");
                     }
@@ -1528,6 +1533,21 @@
                 ? game.WagerCategories.Max(wc => wc.MinWagerCredits)
                 : activeBetOption.Bets.Max(b => b.Multiplier) * activeLineOption.Lines.Max(l => l.Cost);
 
+            var maxWagerOutsideCredits = maxWagerCredits;
+
+            if (game.GameType == t_gameType.Roulette)
+            {
+                if (game.MaxWagerInsideCredits > 0)
+                {
+                    maxWagerCredits = game.MaxWagerInsideCredits;
+                }
+
+                if (game.MaxWagerOutsideCredits > 0)
+                {
+                    maxWagerOutsideCredits = game.MaxWagerOutsideCredits;
+                }
+            }
+
             var denoms = supportedDenoms.Select(
                 denomination => new Denomination
                 {
@@ -1536,7 +1556,7 @@
                     LineOption = activeLineOption?.Name,
                     MinimumWagerCredits = minWagerCredits,
                     MaximumWagerCredits = maxWagerCredits,
-                    MaximumWagerOutsideCredits = maxWagerCredits,
+                    MaximumWagerOutsideCredits = maxWagerOutsideCredits,
                     SecondaryAllowed = game.SecondaryAllowed || game.SecondaryEnabled,
                     SecondaryEnabled = game.SecondaryEnabled, // default value
                     LetItRideAllowed = game.LetItRideAllowed || game.LetItRideEnabled,

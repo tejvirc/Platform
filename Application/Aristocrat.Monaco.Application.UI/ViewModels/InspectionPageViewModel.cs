@@ -253,13 +253,17 @@
                 switch (evt.InspectionResult.Status)
                 {
                     case InspectionPageStatus.Untested:
-                        ReportText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Untested);
+                        ReportText =
+                            (evt.InspectionResult.Category == HardwareDiagnosticDeviceCategory.Machine
+                             || evt.InspectionResult.Category == HardwareDiagnosticDeviceCategory.Unknown)
+                            ? string.Empty
+                            : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Untested);
                         break;
                     case InspectionPageStatus.Good:
                         ReportText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OKText);
                         break;
                     case InspectionPageStatus.Bad:
-                        ReportText = evt.InspectionResult.CombinedTestFailures;
+                        ReportText = evt.InspectionResult.CombinedTestFailures("; ");
                         break;
                 }
 

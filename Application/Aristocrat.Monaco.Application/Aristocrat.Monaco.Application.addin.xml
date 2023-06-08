@@ -15,7 +15,7 @@
     <Addin id="ApplicationRunnable" version="1.0" />
   </Dependencies>
 
-  <ExtensionPoint path = "/Application/JurisdictionConfiguration">
+  <ExtensionPoint path="/Application/JurisdictionConfiguration">
     <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
   </ExtensionPoint>
 
@@ -72,6 +72,7 @@
     <Service type="Aristocrat.Monaco.Application.Monitors.SecondaryStorageMonitor" />
     <Service type="Aristocrat.Monaco.Application.PerformanceCounter.PerformanceCounterManager" />
     <Service type="Aristocrat.Monaco.Application.Monitors.FirmwareCrcMonitor" />
+    <Service type="Aristocrat.Monaco.Application.Detection.DeviceDetection" />
   </Extension>
 
   <Extension path="/Kernel/CommandLineArguments">
@@ -94,7 +95,7 @@
     <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
   </ExtensionPoint>
 
-   <Extension path = "/Kernel/Localizer">
+   <Extension path="/Kernel/Localizer">
     <Localizer type="Aristocrat.Monaco.Application.Localization.LocalizationService" />
   </Extension> 
 
@@ -188,33 +189,33 @@
     <ExtensionNode name="IOperatorMenu" />
   </ExtensionPoint>
 
-  <ExtensionPoint path = "/DoorMonitor/Configuration">
+  <ExtensionPoint path="/DoorMonitor/Configuration">
     <ExtensionNode name="DoorMonitorConfiguration" type="Aristocrat.Monaco.Application.Contracts.DoorMonitorConfigurationExtensionNode" />
   </ExtensionPoint>
 
-  <ExtensionPoint path = "/TiltLogger/Configuration">
+  <ExtensionPoint path="/TiltLogger/Configuration">
     <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
   </ExtensionPoint>
 
-  <ExtensionPoint path = "/ErrorMessage/Configuration">
+  <ExtensionPoint path="/ErrorMessage/Configuration">
     <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
   </ExtensionPoint>
 
-  <ExtensionPoint path = "/AuditTicketMonitor/Configuration">
+  <ExtensionPoint path="/AuditTicketMonitor/Configuration">
     <ExtensionNode name="Triggers" type="Aristocrat.Monaco.Application.Contracts.AuditTicketMonitor.TriggersNode" />
   </ExtensionPoint>
 
-  <ExtensionPoint path = "/HardMeterMapping/Configuration">
-    <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
-  </ExtensionPoint>
-
-  <ExtensionPoint path = "/Locale/Overrides">
+  <ExtensionPoint path="/HardMeterMapping/Configuration">
     <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
   </ExtensionPoint>
 
   <!--Must implement Vgt.Client12.Application.Settings.IConfigurationSettings-->
-  <ExtensionPoint path = "/Application/Configuration/Settings">
+  <ExtensionPoint path="/Application/Configuration/Settings">
     <ExtensionNode name="Settings" type="Aristocrat.Monaco.Application.Settings.ConfigurationSettingsNode" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Market/Configuration">
+    <ExtensionNode name="MarketConfiguration" type="Aristocrat.Monaco.Application.Contracts.MarketConfigurationNode" />
   </ExtensionPoint>
 
 </Addin>

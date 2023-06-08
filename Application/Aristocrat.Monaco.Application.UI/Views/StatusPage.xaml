@@ -1,4 +1,4 @@
-<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.StatusPage"
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.StatusPage"
                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -18,54 +18,74 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            
-            <converters:NullToVisibilityConverter x:Key="NullToVisConverter"/>
+            <converters:NullToVisibilityConverter x:Key="NullToVisConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
-    
-    <Grid>
+    <Grid AutomationProperties.AutomationId="Grid0_189ED632">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition1_189ED632" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_189ED632" />
         </Grid.RowDefinitions>
-
-        <ScrollViewer Grid.Row="0" Margin="6 10 0 0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" >
+        <ScrollViewer Grid.Row="0"
+                      Margin="6 10 0 0"
+                      HorizontalScrollBarVisibility="Hidden"
+                      VerticalScrollBarVisibility="Auto"
+                      AutomationProperties.AutomationId="ScrollViewer3_189ED632">
             <ScrollViewer.Resources>
                 <Style TargetType="ScrollBar">
                     <Style.Triggers>
-                        <Trigger Property="Orientation" Value="Vertical">
-                            <Setter Property="Width" Value="40"/>
+                        <Trigger Property="Orientation"
+                                 Value="Vertical"
+                                 AutomationProperties.AutomationId="Trigger4_189ED632">
+                            <Setter Property="Width"
+                                    Value="40" />
                         </Trigger>
                     </Style.Triggers>
                 </Style>
             </ScrollViewer.Resources>
-
-            <ItemsControl Name="DisableReasonsList" ItemsSource="{Binding DisableReasons}">
+            <ItemsControl Name="DisableReasonsList"
+                          ItemsSource="{Binding DisableReasons}"
+                          AutomationProperties.AutomationId="ItemsControl5_189ED632">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <StackPanel Orientation="Vertical" />
+                        <StackPanel Orientation="Vertical"
+                                    AutomationProperties.AutomationId="StackPanel6_189ED632" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Grid Margin="0 0 0 10" HorizontalAlignment="Left" >
+                        <Grid Margin="0 0 0 10"
+                              HorizontalAlignment="Left"
+                              AutomationProperties.AutomationId="Grid7_189ED632">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"
+                                                  AutomationProperties.AutomationId="ColumnDefinition8_189ED632" />
+                                <ColumnDefinition Width="*"
+                                                  AutomationProperties.AutomationId="ColumnDefinition9_189ED632" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Text="{Binding Message}" Style="{StaticResource MonacoTextBlock}"
-                                       VerticalAlignment="Center" TextWrapping="Wrap" MaxWidth="1200"
-                                       loc:Localizer.LocalizationAware="True" />
-                            <Button Name="InfoButton" Grid.Column="1" Margin="10 0 0 0"
+                            <TextBlock Text="{Binding Message}"
+                                       Style="{StaticResource MonacoTextBlock}"
+                                       VerticalAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       MaxWidth="1200"
+                                       loc:Localizer.LocalizationAware="True"
+                                       AutomationProperties.AutomationId="TextBlock10_189ED632" />
+                            <Button Name="InfoButton"
+                                    Grid.Column="1"
+                                    Margin="10 0 0 0"
                                     Style="{StaticResource MonacoInfoButton}"
                                     Visibility="{Binding DataContext.AdditionalInfo, Converter={StaticResource NullToVisConverter}, RelativeSource={RelativeSource Self}}"
-                                    Command="{Binding DataContext.ShowInfoPopupCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}">
+                                    Command="{Binding DataContext.ShowInfoPopupCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                    AutomationProperties.AutomationId="Button11_189ED632">
                                 <Button.CommandParameter>
                                     <MultiBinding Converter="{StaticResource MultiValueConverter}">
-                                        <Binding ElementName="InfoButton"/>
-                                        <Binding Path="DataContext.AdditionalInfo" RelativeSource="{RelativeSource Self}"/>
+                                        <Binding ElementName="InfoButton" />
+                                        <Binding Path="DataContext.AdditionalInfo"
+                                                 RelativeSource="{RelativeSource Self}" />
                                     </MultiBinding>
                                 </Button.CommandParameter>
                             </Button>
@@ -75,14 +95,16 @@
             </ItemsControl>
         </ScrollViewer>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal">
+        <StackPanel Grid.Row="1" Orientation="Horizontal"
+                    AutomationProperties.AutomationId="StackPanel12_189ED632">
             <views:OutOfServiceButton DataContext="{Binding OutOfServiceViewModel}"
                                       Margin="10 0 0 0"/>
             <Button Width="250"
                     HorizontalAlignment="Left" Margin="10 0 0 0"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExitReserve}}"
                     Command="{Binding ExitReserveCommand}"
-                    Visibility="{Binding IsExitReserveButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}"/>
+                    Visibility="{Binding IsExitReserveButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}"
+                    AutomationProperties.AutomationId="Button16_189ED632" />
         </StackPanel>
     </Grid>
 </operatorMenu:OperatorMenuPage>

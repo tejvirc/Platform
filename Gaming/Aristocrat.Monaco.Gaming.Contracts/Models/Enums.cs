@@ -62,10 +62,10 @@
         [StackableLobbyState] ResponsibleGamingInfoLayeredGame,
 
         /// <summary> Cashing Out Message Displayed </summary>
-        [StackableLobbyState] [FlagLobbyState] CashOut,
+        [StackableLobbyState][FlagLobbyState] CashOut,
 
         /// <summary> Cashing Out Failure Message </summary>
-        [StackableLobbyState] [FlagLobbyState] CashOutFailure,
+        [StackableLobbyState][FlagLobbyState] CashOutFailure,
 
         /// <summary> Disabled (Lockup) State </summary>
         [StackableLobbyState] Disabled,
@@ -86,13 +86,13 @@
         [StackableLobbyState] PrintHelpline,
 
         /// <summary> Cash In Message </summary>
-        [StackableLobbyState] [FlagLobbyState] CashIn,
+        [StackableLobbyState][FlagLobbyState] CashIn,
 
         /// <summary> Cash In Message </summary>
-        [StackableLobbyState] [FlagLobbyState] MediaPlayerOverlay,
+        [StackableLobbyState][FlagLobbyState] MediaPlayerOverlay,
 
         /// <summary> Media Viewer Animation </summary>
-        [StackableLobbyState] [FlagLobbyState] MediaPlayerResizing
+        [StackableLobbyState][FlagLobbyState] MediaPlayerResizing
     }
 
     /// <summary> Enum for the various Triggers that can drive action in the Lobby </summary>
@@ -220,7 +220,11 @@
 
         /// <summary> game type is a roulette game </summary>
         [Description("Roulette")]
-        Roulette
+        Roulette,
+
+        /// <summary> game type is a Lightning Link game </summary>
+        [Description("LightningLink")]
+        LightningLink
     }
 
     /// <summary> Defines the game icon type enum </summary>

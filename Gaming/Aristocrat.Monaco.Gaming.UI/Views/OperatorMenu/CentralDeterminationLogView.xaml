@@ -1,8 +1,8 @@
 ﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.CentralDeterminationLogView"
                                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
@@ -11,27 +11,31 @@
                                xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                                xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:common="http://monaco.aristocrat.com/common"
-                               mc:Ignorable="d" 
+                               mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance viewModels:CentralDeterminationLogViewModel, IsDesignTimeCreatable=False}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <Style x:Key="Centered" TargetType="TextBlock">
-                <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Style x:Key="Centered"
+                   TargetType="TextBlock">
+                <Setter Property="HorizontalAlignment"
+                        Value="Center" />
             </Style>
-
-            <Style x:Key="OutcomeCellStyle" TargetType="DataGridCell" BasedOn="{StaticResource MonacoDataGridCell}">
-                <Setter Property="Margin" Value="5 2"/>
+            <Style x:Key="OutcomeCellStyle"
+                   TargetType="DataGridCell"
+                   BasedOn="{StaticResource MonacoDataGridCell}">
+                <Setter Property="Margin"
+                        Value="5 2" />
             </Style>
-
-            <converters:DateTimeFormatConverter x:Key="DateTimeConverter"/>
-
+            <converters:DateTimeFormatConverter x:Key="DateTimeConverter" />
             <!-- Based on MonacoScrollButtonDataGrid, has custom margins and uses DataGridUpDownScrollButtons for vertical scroll -->
-            <Style x:Key="OutcomeViewDataGrid" TargetType="{x:Type DataGrid}" BasedOn="{StaticResource MonacoScrollButtonDataGrid}">
-                <Setter Property="Margin" Value="0"/>
+            <Style x:Key="OutcomeViewDataGrid"
+                   TargetType="{x:Type DataGrid}"
+                   BasedOn="{StaticResource MonacoScrollButtonDataGrid}">
+                <Setter Property="Margin"
+                        Value="0" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type DataGrid}">
@@ -39,54 +43,73 @@
                                     Background="{TemplateBinding Background}"
                                     BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="{TemplateBinding BorderThickness}"
-                                    SnapsToDevicePixels="True">
-                                <Grid>
+                                    SnapsToDevicePixels="True"
+                                    AutomationProperties.AutomationId="Border0_2B312E18">
+                                <Grid AutomationProperties.AutomationId="Grid1_2B312E18">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"
+                                                          AutomationProperties.AutomationId="ColumnDefinition2_2B312E18" />
+                                        <ColumnDefinition Width="Auto"
+                                                          AutomationProperties.AutomationId="ColumnDefinition3_2B312E18" />
                                     </Grid.ColumnDefinitions>
-                                    <ScrollViewer x:Name="DG_ScrollViewer" 
-                                                  Margin="0 -30 0 0" 
-                                                  Focusable="False" 
-                                                  Tag="{Binding ElementName=GridScrollButtons}">
+                                    <ScrollViewer x:Name="DG_ScrollViewer"
+                                                  Margin="0 -30 0 0"
+                                                  Focusable="False"
+                                                  Tag="{Binding ElementName=GridScrollButtons}"
+                                                  AutomationProperties.AutomationId="ScrollViewer4_2B312E18">
                                         <ScrollViewer.Template>
                                             <ControlTemplate TargetType="{x:Type ScrollViewer}">
-                                                <Grid>
+                                                <Grid AutomationProperties.AutomationId="Grid5_2B312E18">
                                                     <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="Auto" />
-                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="Auto"
+                                                                          AutomationProperties.AutomationId="ColumnDefinition6_2B312E18" />
+                                                        <ColumnDefinition Width="*"
+                                                                          AutomationProperties.AutomationId="ColumnDefinition7_2B312E18" />
                                                     </Grid.ColumnDefinitions>
                                                     <Grid.RowDefinitions>
-                                                        <RowDefinition Height="Auto" />
-                                                        <RowDefinition Height="*" />
+                                                        <RowDefinition Height="Auto"
+                                                                       AutomationProperties.AutomationId="RowDefinition8_2B312E18" />
+                                                        <RowDefinition Height="*"
+                                                                       AutomationProperties.AutomationId="RowDefinition9_2B312E18" />
                                                     </Grid.RowDefinitions>
-                                                    <Button Width="{Binding CellsPanelHorizontalOffset, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
-                                                                      Command="{x:Static DataGrid.SelectAllCommand}"
-                                                                      Focusable="False"
-                                                                      Style="{StaticResource MonacoDataGridSelectAllButton}"
-                                                                      Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.All}, Converter={StaticResource HeadersVisConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+                                                    <Button
+                                                            Width="{Binding CellsPanelHorizontalOffset, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                                            Command="{x:Static DataGrid.SelectAllCommand}"
+                                                            Focusable="False"
+                                                            Style="{StaticResource MonacoDataGridSelectAllButton}"
+                                                            Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.All}, Converter={StaticResource HeadersVisConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                                            AutomationProperties.AutomationId="Button10_2B312E18" />
                                                     <DataGridColumnHeadersPresenter x:Name="PART_ColumnHeadersPresenter"
-                                                                                    Grid.Row="0" Grid.Column="1"
-                                                                                    VerticalContentAlignment="Bottom" VerticalAlignment="Bottom"
-                                                                                    Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Column}, Converter={StaticResource HeadersVisConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
-
-                                                    <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" Margin="0 0 0 30"
-                                                                            Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                                                                            CanContentScroll="{TemplateBinding CanContentScroll}" />
-
+                                                                                    Grid.Row="0"
+                                                                                    Grid.Column="1"
+                                                                                    VerticalContentAlignment="Bottom"
+                                                                                    VerticalAlignment="Bottom"
+                                                                                    Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Column}, Converter={StaticResource HeadersVisConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                                                                    AutomationProperties.AutomationId="DataGridColumnHeadersPresenter11_2B312E18" />
+                                                    <ScrollContentPresenter x:Name="PART_ScrollContentPresenter"
+                                                                            Margin="0 0 0 30"
+                                                                            Grid.Row="1"
+                                                                            Grid.Column="0"
+                                                                            Grid.ColumnSpan="2"
+                                                                            CanContentScroll="{TemplateBinding CanContentScroll}"
+                                                                            AutomationProperties.AutomationId="ScrollContentPresenter12_2B312E18" />
                                                 </Grid>
                                             </ControlTemplate>
                                         </ScrollViewer.Template>
-                                        <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                        <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                        AutomationProperties.AutomationId="ItemsPresenter13_2B312E18" />
                                     </ScrollViewer>
-                                    <DockPanel Grid.Column="1" Grid.Row="0" LastChildFill="False">
+                                    <DockPanel Grid.Column="1"
+                                               Grid.Row="0"
+                                               LastChildFill="False"
+                                               AutomationProperties.AutomationId="DockPanel14_2B312E18">
                                         <common:DataGridUpDownScrollButtons DockPanel.Dock="Right"
                                                                             x:Name="GridScrollButtons"
                                                                             HorizontalAlignment="Right"
                                                                             VerticalAlignment="Top"
                                                                             ScrollGrid="{Binding ElementName=DG_ScrollViewer}"
                                                                             Visibility="{Binding ElementName=DG_ScrollViewer, Path=ScrollableHeight, Converter={StaticResource NumToVisConverter}}"
-                                                                            Margin="5 0 0 0"/>
+                                                                            Margin="5 0 0 0" />
                                     </DockPanel>
                                 </Grid>
                             </Border>
@@ -96,82 +119,115 @@
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid x:Name="MainGrid">
+    <Grid x:Name="MainGrid"
+          AutomationProperties.AutomationId="Grid15_2B312E18">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition16_2B312E18" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition17_2B312E18" />
         </Grid.RowDefinitions>
         <DataGrid Name="CentralLogViewer"
-                            ItemsSource="{Binding Path=TransactionData, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                            SelectedItem="{Binding SelectedRow}"
-                            ScrollViewer.CanContentScroll="True" SelectionMode="Single" IsReadOnly="True">
+                  ItemsSource="{Binding Path=TransactionData, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding SelectedRow}"
+                  ScrollViewer.CanContentScroll="True"
+                  SelectionMode="Single"
+                  IsReadOnly="True"
+                  AutomationProperties.AutomationId="DataGrid18_2B312E18">
             <i:Interaction.Triggers>
                 <events:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
-                    <events:EventToCommandAction Command="{Binding EventViewerScrolledCommand}"/>
+                    <events:EventToCommandAction Command="{Binding EventViewerScrolledCommand}" />
                 </events:RoutedEventTrigger>
             </i:Interaction.Triggers>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DateAndTimeHeader}}"
                                     Binding="{Binding TransactionDateTime, Converter={StaticResource DateTimeConverter}, ConverterParameter=MinDateBlank}"
-                                    MinWidth="150"/>
+                                    MinWidth="150"
+                                    AutomationProperties.AutomationId="DataGridTextColumn19_2B312E18" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameIdHeader}}"
-                                    Binding="{Binding GameId}" ElementStyle="{StaticResource Centered}"/>
+                                    Binding="{Binding GameId}"
+                                    ElementStyle="{StaticResource Centered}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn20_2B312E18" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DenominationShortHeader}}"
-                                    Binding="{Binding Denomination}" ElementStyle="{StaticResource Centered}"/>
+                                    Binding="{Binding Denomination}"
+                                    ElementStyle="{StaticResource Centered}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn21_2B312E18" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.WagerCategoryHeader}}"
-                                    Binding="{Binding WagerCategory}" ElementStyle="{StaticResource Centered}"/>
+                                    Binding="{Binding WagerCategory}"
+                                    ElementStyle="{StaticResource Centered}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn22_2B312E18" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Wager}}"
-                                    Binding="{Binding WagerAmount}" ElementStyle="{StaticResource Centered}"/>
+                                    Binding="{Binding WagerAmount}"
+                                    ElementStyle="{StaticResource Centered}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn23_2B312E18" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.OutcomesRequestedHeader}}"
-                                    Binding="{Binding OutcomesRequested}" ElementStyle="{StaticResource Centered}"/>
+                                    Binding="{Binding OutcomesRequested}"
+                                    ElementStyle="{StaticResource Centered}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn24_2B312E18" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.OutcomeStateHeader}}"
-                                    Binding="{Binding OutcomeState}" />
+                                    Binding="{Binding OutcomeState}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn25_2B312E18" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.OutcomeExceptionHeader}}"
-                                    Binding="{Binding OutcomeException}" />
+                                    Binding="{Binding OutcomeException}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn26_2B312E18" />
             </DataGrid.Columns>
         </DataGrid>
-
-        <StackPanel Grid.Row="1" Orientation ="Vertical" >
-            <TextBlock x:Name="TextBlockGameRoundInfo" 
+        <StackPanel Grid.Row="1"
+                    Orientation="Vertical"
+                    AutomationProperties.AutomationId="StackPanel27_2B312E18">
+            <TextBlock x:Name="TextBlockGameRoundInfo"
                        Margin="0,0,0,5"
-                       Text="{lex:Loc Key={x:Static loc:ResourceKeys.OutcomesHeader}}" 
-                       FontSize="{StaticResource NormalFontSize}" 
-                       FontWeight="Bold"/>
-            <Border BorderBrush="{DynamicResource Brush3}" 
-                    BorderThickness="2" 
-                    Padding="5" 
-                    Height="140">
+                       Text="{lex:Loc Key={x:Static loc:ResourceKeys.OutcomesHeader}}"
+                       FontSize="{StaticResource NormalFontSize}"
+                       FontWeight="Bold"
+                       AutomationProperties.AutomationId="TextBlock28_2B312E18" />
+            <Border BorderBrush="{DynamicResource Brush3}"
+                    BorderThickness="2"
+                    Padding="5"
+                    Height="140"
+                    AutomationProperties.AutomationId="Border29_2B312E18">
                 <DataGrid Name="OutcomesViewer"
                           ItemsSource="{Binding Path=SelectedRow.Outcomes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                           Style="{StaticResource OutcomeViewDataGrid}"
                           ScrollViewer.CanContentScroll="True"
                           ScrollViewer.VerticalScrollBarVisibility="Auto"
-                          ScrollViewer.HorizontalScrollBarVisibility="Disabled" CellStyle="{StaticResource OutcomeCellStyle}">
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          CellStyle="{StaticResource OutcomeCellStyle}"
+                          AutomationProperties.AutomationId="DataGrid30_2B312E18">
                     <i:Interaction.Triggers>
                         <events:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
-                            <events:EventToCommandAction Command="{Binding EventViewerScrolledCommand}"/>
+                            <events:EventToCommandAction Command="{Binding EventViewerScrolledCommand}" />
                         </events:RoutedEventTrigger>
                     </i:Interaction.Triggers>
                     <DataGrid.RowStyle>
                         <Style TargetType="DataGridRow">
-                            <Setter Property="Foreground" Value="{StaticResource Brush3}"/>
-                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="Foreground"
+                                    Value="{StaticResource Brush3}" />
+                            <Setter Property="Background"
+                                    Value="Transparent" />
                         </Style>
                     </DataGrid.RowStyle>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameSetIdHeader}}"
-                                            Binding="{Binding GameSetId}"/>
+                                            Binding="{Binding GameSetId}"
+                                            AutomationProperties.AutomationId="DataGridTextColumn31_2B312E18" />
                         <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ReferenceHeader}}"
-                                            Binding="{Binding Reference}"/>
+                                            Binding="{Binding Reference}"
+                                            AutomationProperties.AutomationId="DataGridTextColumn32_2B312E18" />
                         <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TypeHeader}}"
-                                            Binding="{Binding Type}" MinWidth="150"/>
+                                            Binding="{Binding Type}"
+                                            MinWidth="150"
+                                            AutomationProperties.AutomationId="DataGridTextColumn33_2B312E18" />
                         <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ValueHeader}}"
-                                            Binding="{Binding Value}" MinWidth="100"/>
+                                            Binding="{Binding Value}"
+                                            MinWidth="100"
+                                            AutomationProperties.AutomationId="DataGridTextColumn34_2B312E18" />
                         <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.WinLevelHeader}}"
-                                            Binding="{Binding WinLevelIndex}"/>
+                                            Binding="{Binding WinLevelIndex}"
+                                            AutomationProperties.AutomationId="DataGridTextColumn35_2B312E18" />
                         <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.LookupDataHeader}}"
-                                            Binding="{Binding LookupData}"/>
+                                            Binding="{Binding LookupData}"
+                                            AutomationProperties.AutomationId="DataGridTextColumn36_2B312E18" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>

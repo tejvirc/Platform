@@ -4543,7 +4543,7 @@ Max: Should be less than the Large Win Limit</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="InvalidBetRangeForDenom" xml:space="preserve">
-    <value>Invalid min/max bet range, min bet must be smaller than inside max, and inside max must be smaller than or equal to outside max.</value>
+    <value>Invalid min/max bet range, min bet must be smaller than or equal to the sum of the inside max and outside max, and the inside max must be smaller than or equal to the outside max.</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="NoKenoGames" xml:space="preserve">
@@ -11851,5 +11851,43 @@ Do you really want to do full reset?</value>
   <data name="G2SEventCodeDescription" xml:space="preserve">
     <value>G2S Event Code Description</value>
     <comment>Aristocrat.Monaco.G2S.Common</comment>
+  </data>
+  <data name="Searching" xml:space="preserve">
+    <value>Searching ...</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="DeviceDetected" xml:space="preserve">
+    <value>Device detected!</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="InvalidDeviceDetectedTemplate" xml:space="preserve">
+    <value>detected but is invalid</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="NoDeviceDetected" xml:space="preserve">
+    <value>No device detected</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="InspectorLabel" xml:space="preserve">
+    <value>Inspector</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="OrderNumberLabel" xml:space="preserve">
+    <value>Order #</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="InspectionSetup" xml:space="preserve">
+    <value>Inspection Setup</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="NoSubUnitText" xml:space="preserve">
+    <value>(no sub-unit)</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="GameStartMethodBetOrMaxBetButton" xml:space="preserve">
+    <value>Bet/Max Bet Button</value>
+  </data>
+  <data name="GameStartMethodLineReelorMaxBetButton" xml:space="preserve">
+    <value>Line/Reel/Max Bet Button</value>
   </data>
 </root>

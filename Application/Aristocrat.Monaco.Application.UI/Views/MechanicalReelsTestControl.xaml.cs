@@ -3,6 +3,7 @@
     using System.Reflection;
     using System.Windows;
     using Hardware.Contracts.Reel;
+    using Hardware.Contracts.Reel.Capabilities;
     using Kernel;
     using log4net;
     using Simulation.HarkeyReels;
@@ -18,26 +19,18 @@
         private const string PackagesPath = "/Packages";
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
-        private readonly IReelDisplayControl _reelDisplayControl;
+        private readonly IReelController _reelController;
+        private readonly string _gamePath;
+        private readonly string _packagesPath;
 
         public MechanicalReelsTestControl()
         {
             InitializeComponent();
 
-            // Populate the external reels simulation control.
             var pathMapper = ServiceManager.GetInstance().GetService<IPathMapper>();
-            var reelCount = ServiceManager.GetInstance().GetService<IReelController>()
-                .ConnectedReels.Count;
-
-            var gamePath = pathMapper.GetDirectory(GamesPath).FullName;
-            var packagesPath = pathMapper.GetDirectory(PackagesPath).FullName;
-
-            Simulation.HarkeyReels.Logger.Log += SimulatorLog;
-            var reelsControl = new ReelSetControl(gamePath, reelCount, packagesPath);
-
-            ReelsWrapper.Child = reelsControl;
-
-            _reelDisplayControl = reelsControl.ReelDisplayControl;
+            _reelController = ServiceManager.GetInstance().GetService<IReelController>();
+            _gamePath = pathMapper.GetDirectory(GamesPath).FullName;
+            _packagesPath = pathMapper.GetDirectory(PackagesPath).FullName;
         }
 
         public void ControlLoaded(object sender, RoutedEventArgs e)
@@ -48,13 +41,32 @@
             {
                 parent = ((FrameworkElement)parent).Parent;
             }
-            if (((MechanicalReelsPage)parent).DataContext is MechanicalReelsPageViewModel parentVm)
-            {
-                DataContext = parentVm.ReelTestViewModel;
 
-                // Hook up the VM to the reel display control.
-                parentVm.ReelTestViewModel.ReelsSimulation = _reelDisplayControl;
+            if (((MechanicalReelsPage)parent).DataContext is not MechanicalReelsPageViewModel parentViewModel)
+            {
+                return;
             }
+
+            if (_reelController?.HasCapability<IReelSpinCapabilities>() ?? false)
+            {
+                // Harkey Simulator
+                DataContext = parentViewModel.ReelTestViewModel;
+                parentViewModel.ReelTestViewModel.ReelsSimulation = GetHarkeySimulator();
+                Simulation.HarkeyReels.Logger.Log += SimulatorLog;
+            }
+            else
+            {
+                // RELM Simulator
+            }
+        }
+
+        private IReelDisplayControl GetHarkeySimulator()
+        {
+            var reelCount = _reelController?.ConnectedReels.Count ?? 0;
+            var reelsControl = new ReelSetControl(_gamePath, reelCount, _packagesPath);
+
+            ReelsWrapper.Child = reelsControl;
+            return reelsControl.ReelDisplayControl;
         }
 
         private void SimulatorLog(object sender, LoggingEventArgs e)

@@ -10,7 +10,6 @@
     using Common;
     using Contracts;
     using Contracts.Communicator;
-    using Contracts.Gds.Reel;
     using Contracts.Persistence;
     using Contracts.Reel;
     using Contracts.Reel.Capabilities;
@@ -19,7 +18,8 @@
     using Kernel;
     using log4net;
 
-    public class ReelControllerAdapter : DeviceAdapter<IReelControllerImplementation>, IReelController,
+    public class ReelControllerAdapter : DeviceAdapter<IReelControllerImplementation>,
+        IReelController,
         IStorageAccessor<ReelControllerOptions>
     {
         private const string DeviceImplementationsExtensionPath = "/Hardware/ReelController/ReelControllerImplementations";
@@ -30,12 +30,12 @@
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
-        private readonly ReelControllerStateManager _stateManager;
         private readonly SemaphoreSlim _reelSpinningLock = new(1, 1);
         private readonly ConcurrentDictionary<int, int> _steps = new();
 
         private IReelControllerImplementation _reelControllerImplementation;
         private Dictionary<Type, IReelControllerCapability> _supportedCapabilities = new();
+        private ReelControllerStateManager _stateManager;
         private int[] _reelOffsets = new int[ReelConstants.MaxSupportedReels];
         private int _controllerId = 1;
 
@@ -75,15 +75,15 @@
         public IReadOnlyDictionary<int, ReelFaults> Faults =>
             Implementation?.Faults ?? new Dictionary<int, ReelFaults>();
 
-        public IReadOnlyDictionary<int, ReelLogicalState> ReelStates => _stateManager.ReelStates;
+        public IReadOnlyDictionary<int, ReelLogicalState> ReelStates => _stateManager?.ReelStates;
 
-        public IReadOnlyDictionary<int, ReelStatus> ReelsStatus => Implementation?.ReelsStatus;
+        public IReadOnlyDictionary<int, ReelStatus> ReelsStatus => Implementation?.ReelStatuses;
 
         public IReadOnlyDictionary<int, int> Steps => _steps;
 
-        public ReelControllerState LogicalState => _stateManager.LogicalState;
+        public ReelControllerState LogicalState => _stateManager?.LogicalState ?? ReelControllerState.Disconnected;
 
-        public IReadOnlyCollection<int> ConnectedReels => _stateManager.ConnectedReels;
+        public IReadOnlyCollection<int> ConnectedReels => _stateManager?.ConnectedReels;
 
         public IEnumerable<int> ReelOffsets
         {
@@ -187,7 +187,9 @@
                 return;
             }
 
-            if (!_stateManager.Fire(ReelControllerTrigger.Disable, new DisabledEvent(ReelControllerId, ReasonDisabled)))
+            if (!(_stateManager?.Fire(
+                    ReelControllerTrigger.Disable,
+                    new DisabledEvent(ReelControllerId, ReasonDisabled)) ?? false))
             {
                 return;
             }
@@ -198,6 +200,11 @@
 
         protected override void Enabling(EnabledReasons reason, DisabledReasons remedied)
         {
+            if (_stateManager == null)
+            {
+                return;
+            }
+
             if (Enabled)
             {
                 if (_stateManager.Fire(ReelControllerTrigger.Enable, new EnabledEvent(ReelControllerId, reason)))
@@ -252,7 +259,9 @@
                     _reelControllerImplementation = null;
                 }
 
-                _stateManager.Dispose();
+                var stateManager = _stateManager;
+                _stateManager = null;
+                stateManager?.Dispose();
                 _reelSpinningLock.Dispose();
             }
 
@@ -264,15 +273,13 @@
             _reelControllerImplementation = AddinFactory.CreateAddin<IReelControllerImplementation>(
                 DeviceImplementationsExtensionPath,
                 ServiceProtocol);
+
             if (_reelControllerImplementation == null)
             {
                 throw new InvalidOperationException("reel controller addin not available");
             }
 
             ReadOrCreateOptions();
-
-            _supportedCapabilities = ReelCapabilitiesFactory.CreateAll(_reelControllerImplementation, _stateManager)
-                .ToDictionary(x => x.Key, x => x.Value);
 
             Implementation.FaultCleared += ReelControllerFaultCleared;
             Implementation.FaultOccurred += ReelControllerFaultOccurred;
@@ -294,7 +301,7 @@
 
         protected override void Inspecting(IComConfiguration comConfiguration, int timeout)
         {
-            _stateManager.Fire(ReelControllerTrigger.Inspecting);
+            _stateManager?.Fire(ReelControllerTrigger.Inspecting);
         }
 
         protected override void SubscribeToEvents(IEventBus eventBus)
@@ -305,7 +312,7 @@
         {
             Logger.Debug("HomeReels with stops called");
 
-            if (!_stateManager.Fire(ReelControllerTrigger.HomeReels))
+            if (!(_stateManager?.Fire(ReelControllerTrigger.HomeReels) ?? false))
             {
                 Logger.Debug("HomeReels - Fire FAILED - CAN NOT HOME");
                 return false;
@@ -321,7 +328,7 @@
                                 return Task.FromResult(true);
                             }
 
-                            if (!_stateManager.Fire(ReelControllerTrigger.HomeReels, x.Key))
+                            if (!(_stateManager?.Fire(ReelControllerTrigger.HomeReels, x.Key) ?? false))
                             {
                                 Logger.Debug($"HomeReels - Fire FAILED for reel {x.Key} - CAN NOT HOME");
                                 return Task.FromResult(false);
@@ -341,14 +348,14 @@
 
         private async Task<bool> TiltReelsInternal()
         {
-            _stateManager.FireAll(ReelControllerTrigger.TiltReels);
+            _stateManager?.FireAll(ReelControllerTrigger.TiltReels);
             var result = await (Implementation?.TiltReels() ?? Task.FromResult(false));
             return result;
         }
 
         private void ReelControllerOnReelConnected(object sender, ReelEventArgs e)
         {
-            _stateManager.HandleReelConnected(e);
+            _stateManager?.HandleReelConnected(e);
         }
 
         private void ReelControllerOnReelDisconnected(object sender, ReelEventArgs e)
@@ -358,19 +365,19 @@
                 return;
             }
 
-            _stateManager.HandleReelDisconnected(e);
+            _stateManager?.HandleReelDisconnected(e);
         }
 
         private void ReelControllerSpinning(object sender, ReelEventArgs e)
         {
             Logger.Debug($"ReelControllerSpinning reel {e.ReelId}");
-            _stateManager.Fire(ReelControllerTrigger.SpinReel, e.ReelId);
+            _stateManager?.Fire(ReelControllerTrigger.SpinReel, e.ReelId);
         }
 
         private void ReelControllerReelStopped(object sender, ReelEventArgs e)
         {
             _steps[e.ReelId] = e.Step;
-            if (!_stateManager.FireReelStopped(ReelControllerTrigger.ReelStopped, e.ReelId, e))
+            if (!(_stateManager?.FireReelStopped(ReelControllerTrigger.ReelStopped, e.ReelId, e) ?? false))
             {
                 Logger.Debug($"ReelControllerReelStopped - FAILED FireReelStopped for reel {e.ReelId}");
             }
@@ -378,7 +385,7 @@
 
         private void ReelControllerInitialized(object sender, EventArgs e)
         {
-            if (!_stateManager.CanFire(ReelControllerTrigger.Initialized))
+            if (!(_stateManager?.CanFire(ReelControllerTrigger.Initialized) ?? false))
             {
                 return;
             }
@@ -398,6 +405,9 @@
             Implementation?.UpdateConfiguration(InternalConfiguration);
             RegisterComponent();
             Initialized = true;
+
+            _supportedCapabilities = ReelCapabilitiesFactory.CreateAll(_reelControllerImplementation, _stateManager)
+                .ToDictionary(x => x.Key, x => x.Value);
 
             InitializeReels().WaitForCompletion();
             SetReelOffsets(_reelOffsets.ToArray());
@@ -449,35 +459,35 @@
             Logger.Warn("ReelControllerInitializationFailed - Inspection Failed");
             Disable(DisabledReasons.Device);
 
-            _stateManager.Fire(ReelControllerTrigger.InspectionFailed, new InspectionFailedEvent(ReelControllerId));
+            _stateManager?.Fire(ReelControllerTrigger.InspectionFailed, new InspectionFailedEvent(ReelControllerId));
             PostEvent(new DisabledEvent(DisabledReasons.Error));
         }
 
         private void ReelControllerEnabled(object sender, EventArgs e)
         {
-            _stateManager.Fire(ReelControllerTrigger.Enable);
+            _stateManager?.Fire(ReelControllerTrigger.Enable);
         }
 
         private void ReelControllerDisabled(object sender, EventArgs e)
         {
             Logger.Debug("ReelControllerDisabled called");
-            _stateManager.Fire(ReelControllerTrigger.Disable);
+            _stateManager?.Fire(ReelControllerTrigger.Disable);
         }
 
         private void ReelControllerDisconnected(object sender, EventArgs e)
         {
-            _stateManager.HandleReelControllerDisconnected(Disable);
+            _stateManager?.HandleReelControllerDisconnected(Disable);
         }
 
         private void ReelControllerConnected(object sender, EventArgs e)
         {
-            _stateManager.Fire(ReelControllerTrigger.Connected, new ConnectedEvent(ReelControllerId));
+            _stateManager?.Fire(ReelControllerTrigger.Connected, new ConnectedEvent(ReelControllerId));
         }
 
         private void ReelControllerSlowSpinning(object sender, ReelEventArgs e)
         {
             Logger.Debug($"ReelControllerSlowSpinning {e.ReelId}");
-            _stateManager.HandleReelControllerSlowSpinning(e);
+            _stateManager?.HandleReelControllerSlowSpinning(e);
         }
 
         private void ReelControllerFaultOccurred(object sender, ReelControllerFaultedEventArgs e)

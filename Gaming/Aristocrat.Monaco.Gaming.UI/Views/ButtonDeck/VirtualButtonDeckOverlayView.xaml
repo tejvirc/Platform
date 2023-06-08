@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
         xmlns:buttonDeck1="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.ButtonDeck"
-        mc:Ignorable="d" 
+        mc:Ignorable="d"
         d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}"
         Closed="OnClosed"
         IsVisibleChanged="OnIsVisibleChanged"
@@ -14,37 +14,36 @@
         WindowStyle="None"
         Title="VbdOverlayWindow"
         ShowInTaskbar="False"
-        Topmost="True">
-
+        Topmost="True"
+        AutomationProperties.AutomationId="Window0_EDFDF01F">
     <Window.Resources>
         <ResourceDictionary>
-        <!-- Apply MahApps.Metro styles to all controls -->
-        <ResourceDictionary.MergedDictionaries>
-            <ResourceDictionary Source="../../Skins/Styles.xaml" />
-            <ResourceDictionary Source="VbdMarsXTemplate.xaml" />
-            <ResourceDictionary Source="VbdHelixTemplate.xaml" />
-        </ResourceDictionary.MergedDictionaries>
-
-        <buttonDeck1:VbdViewOverlaySelector x:Key="VbdViewOverlaySelector" />
-
-      </ResourceDictionary>
+            <!-- Apply MahApps.Metro styles to all controls -->
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../Skins/Styles.xaml" />
+                <ResourceDictionary Source="VbdMarsXTemplate.xaml" />
+                <ResourceDictionary Source="VbdHelixTemplate.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <buttonDeck1:VbdViewOverlaySelector x:Key="VbdViewOverlaySelector" />
+        </ResourceDictionary>
     </Window.Resources>
-
     <Window.Background>
-        <SolidColorBrush Color="Transparent"/>
+        <SolidColorBrush Color="Transparent"
+                         AutomationProperties.AutomationId="SolidColorBrush1_EDFDF01F" />
     </Window.Background>
-
-    <Grid x:Name="VbdOverlayRoot">
+    <Grid x:Name="VbdOverlayRoot"
+          AutomationProperties.AutomationId="Grid2_EDFDF01F">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="auto" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition3_EDFDF01F" />
+            <RowDefinition Height="auto"
+                           AutomationProperties.AutomationId="RowDefinition4_EDFDF01F" />
         </Grid.RowDefinitions>
-
         <ContentControl Grid.Row="0"
                         Grid.RowSpan="2"
                         x:Name="VbdOverlayControl"
                         Content="{Binding}"
-                        ContentTemplateSelector="{StaticResource VbdViewOverlaySelector}">
-        </ContentControl>
+                        ContentTemplateSelector="{StaticResource VbdViewOverlaySelector}"
+                        AutomationProperties.AutomationId="ContentControl5_EDFDF01F"></ContentControl>
     </Grid>
 </Window>

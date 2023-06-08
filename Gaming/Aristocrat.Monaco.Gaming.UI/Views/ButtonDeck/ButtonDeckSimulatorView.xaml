@@ -15,11 +15,10 @@
                    ShowCloseButton="False"
                    ShowMaxRestoreButton="True"
                    ShowMinButton="True"
-                   Background="Black" 
+                   Background="Black"
                    d:DataContext="{d:DesignInstance {x:Type buttonDeck:ButtonDeckSimulatorViewModel}, IsDesignTimeCreatable=True}">
     <metro:MetroWindow.Resources>
         <ResourceDictionary>
-
             <!-- Apply MahApps.Metro styles to all controls -->
             <ResourceDictionary.MergedDictionaries>
                 <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
@@ -28,62 +27,123 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <!-- Accent and AppTheme setting -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-
+                <ResourceDictionary
+                        Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <Style TargetType="{x:Type Button}" x:Key="ButtonStyle">
-                <Setter Property="Background" Value="Yellow" />
-                <Setter Property="Opacity" Value="0.1" />
-                <Setter Property="HorizontalAlignment" Value ="Stretch"/>
-                <Setter Property="VerticalAlignment" Value ="Stretch"/>
-                <EventSetter Event="PreviewMouseDown" Handler="OnMouseDown"/>
-                <EventSetter Event="PreviewMouseUp" Handler="OnMouseUp"/>
+            <Style TargetType="{x:Type Button}"
+                   x:Key="ButtonStyle">
+                <Setter Property="Background"
+                        Value="Yellow" />
+                <Setter Property="Opacity"
+                        Value="0.1" />
+                <Setter Property="HorizontalAlignment"
+                        Value="Stretch" />
+                <Setter Property="VerticalAlignment"
+                        Value="Stretch" />
+                <EventSetter Event="PreviewMouseDown"
+                             Handler="OnMouseDown" />
+                <EventSetter Event="PreviewMouseUp"
+                             Handler="OnMouseUp" />
             </Style>
-
-            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonStyle}" x:Key="TopRowButtonStyle">
-                <Setter Property="HorizontalAlignment" Value ="Right"/>
-                <Setter Property="VerticalAlignment" Value ="Top"/>
-                <Setter Property="Width" Value ="96"/>
-                <Setter Property="Height" Value ="96"/>
-                <Setter Property="Margin" Value ="0 0 44 0"/>
+            <Style TargetType="{x:Type Button}"
+                   BasedOn="{StaticResource ButtonStyle}"
+                   x:Key="TopRowButtonStyle">
+                <Setter Property="HorizontalAlignment"
+                        Value="Right" />
+                <Setter Property="VerticalAlignment"
+                        Value="Top" />
+                <Setter Property="Width"
+                        Value="96" />
+                <Setter Property="Height"
+                        Value="96" />
+                <Setter Property="Margin"
+                        Value="0 0 44 0" />
             </Style>
-
-            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource TopRowButtonStyle}" x:Key="BottomRowButtonStyle">
-                <Setter Property="VerticalAlignment" Value ="Bottom"/>
+            <Style TargetType="{x:Type Button}"
+                   BasedOn="{StaticResource TopRowButtonStyle}"
+                   x:Key="BottomRowButtonStyle">
+                <Setter Property="VerticalAlignment"
+                        Value="Bottom" />
             </Style>
-
         </ResourceDictionary>
     </metro:MetroWindow.Resources>
-
-    <Viewbox Stretch="Uniform">
-        <Grid x:Name="LayoutRoot" Width="1040" Height="320">
-            <Grid x:Name="BetButtonGrid" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="800" Height="256">
-                <Image Stretch="None" Source="{Binding BetButtonBitmap}"/>
-                <Grid >
-                    <StackPanel Orientation="Horizontal" Margin="4 6 0 0">
-                        <Button x:Name="CashOut" Style="{StaticResource TopRowButtonStyle}"/>
-                        <Button x:Name="Line1" Style="{StaticResource TopRowButtonStyle}"/>
-                        <Button x:Name="Line2" Style="{StaticResource TopRowButtonStyle}"/>
-                        <Button x:Name="Line3" Style="{StaticResource TopRowButtonStyle}"/>
-                        <Button x:Name="Line4" Style="{StaticResource TopRowButtonStyle}"/>
-                        <Button x:Name="Line5" Margin="0" Style="{StaticResource TopRowButtonStyle}"/>
+    <Viewbox Stretch="Uniform"
+             AutomationProperties.AutomationId="Viewbox0_7264F5AD">
+        <Grid x:Name="LayoutRoot"
+              Width="1040"
+              Height="320"
+              AutomationProperties.AutomationId="Grid1_7264F5AD">
+            <Grid x:Name="BetButtonGrid"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Bottom"
+                  Width="800"
+                  Height="256"
+                  AutomationProperties.AutomationId="Grid2_7264F5AD">
+                <Image Stretch="None"
+                       Source="{Binding BetButtonBitmap}"
+                       AutomationProperties.AutomationId="Image3_7264F5AD" />
+                <Grid AutomationProperties.AutomationId="Grid4_7264F5AD">
+                    <StackPanel Orientation="Horizontal"
+                                Margin="4 6 0 0"
+                                AutomationProperties.AutomationId="StackPanel5_7264F5AD">
+                        <Button x:Name="CashOut"
+                                Style="{StaticResource TopRowButtonStyle}"
+                                AutomationProperties.AutomationId="Button6_7264F5AD" />
+                        <Button x:Name="Line1"
+                                Style="{StaticResource TopRowButtonStyle}"
+                                AutomationProperties.AutomationId="Button7_7264F5AD" />
+                        <Button x:Name="Line2"
+                                Style="{StaticResource TopRowButtonStyle}"
+                                AutomationProperties.AutomationId="Button8_7264F5AD" />
+                        <Button x:Name="Line3"
+                                Style="{StaticResource TopRowButtonStyle}"
+                                AutomationProperties.AutomationId="Button9_7264F5AD" />
+                        <Button x:Name="Line4"
+                                Style="{StaticResource TopRowButtonStyle}"
+                                AutomationProperties.AutomationId="Button10_7264F5AD" />
+                        <Button x:Name="Line5"
+                                Margin="0"
+                                Style="{StaticResource TopRowButtonStyle}"
+                                AutomationProperties.AutomationId="Button11_7264F5AD" />
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="4 0 0 2">
-                        <Button x:Name="Service" Style="{StaticResource BottomRowButtonStyle}"/>
-                        <Button x:Name="Bet1" Style="{StaticResource BottomRowButtonStyle}"/>
-                        <Button x:Name="Bet2" Style="{StaticResource BottomRowButtonStyle}"/>
-                        <Button x:Name="Bet3" Style="{StaticResource BottomRowButtonStyle}"/>
-                        <Button x:Name="Bet4" Style="{StaticResource BottomRowButtonStyle}"/>
-                        <Button x:Name="Bet5" Margin="0" Style="{StaticResource BottomRowButtonStyle}"/>
+                    <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Bottom"
+                                Margin="4 0 0 2"
+                                AutomationProperties.AutomationId="StackPanel12_7264F5AD">
+                        <Button x:Name="Service"
+                                Style="{StaticResource BottomRowButtonStyle}"
+                                AutomationProperties.AutomationId="Button13_7264F5AD" />
+                        <Button x:Name="Bet1"
+                                Style="{StaticResource BottomRowButtonStyle}"
+                                AutomationProperties.AutomationId="Button14_7264F5AD" />
+                        <Button x:Name="Bet2"
+                                Style="{StaticResource BottomRowButtonStyle}"
+                                AutomationProperties.AutomationId="Button15_7264F5AD" />
+                        <Button x:Name="Bet3"
+                                Style="{StaticResource BottomRowButtonStyle}"
+                                AutomationProperties.AutomationId="Button16_7264F5AD" />
+                        <Button x:Name="Bet4"
+                                Style="{StaticResource BottomRowButtonStyle}"
+                                AutomationProperties.AutomationId="Button17_7264F5AD" />
+                        <Button x:Name="Bet5"
+                                Margin="0"
+                                Style="{StaticResource BottomRowButtonStyle}"
+                                AutomationProperties.AutomationId="Button18_7264F5AD" />
                     </StackPanel>
                 </Grid>
             </Grid>
-            <Grid x:Name="BashButtonGrid" HorizontalAlignment="Right" Width="240" Height="320">
-                <Image Stretch="None" Source="{Binding BashButtonBitmap}"/>
-                <Button x:Name="Spin" Style="{StaticResource ButtonStyle}"/>
+            <Grid x:Name="BashButtonGrid"
+                  HorizontalAlignment="Right"
+                  Width="240"
+                  Height="320"
+                  AutomationProperties.AutomationId="Grid19_7264F5AD">
+                <Image Stretch="None"
+                       Source="{Binding BashButtonBitmap}"
+                       AutomationProperties.AutomationId="Image20_7264F5AD" />
+                <Button x:Name="Spin"
+                        Style="{StaticResource ButtonStyle}"
+                        AutomationProperties.AutomationId="Button21_7264F5AD" />
             </Grid>
         </Grid>
     </Viewbox>
 </metro:MetroWindow>
-

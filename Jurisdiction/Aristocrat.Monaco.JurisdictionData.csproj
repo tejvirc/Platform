@@ -11,15 +11,13 @@
   </PropertyGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <ItemGroup>
-      <JurisdictionFiles Include="**/*" Exclude="**/*.resx;*.*;obj/**"></JurisdictionFiles>
+      <JurisdictionFiles Include="**/*" Exclude="*.*;obj/**;bin/**"></JurisdictionFiles>
     </ItemGroup>
     <RemoveDir Directories="$(OutputPath)" />
     <Copy SourceFiles="@(JurisdictionFiles)" DestinationFiles="@(JurisdictionFiles->'$(OutputPath)%(RecursiveDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" />
-    <Exec Command="&quot;$(MSBuildBinPath)\MSBuild.exe&quot; &quot;$(MSBuildThisFileDirectory)..\Tasks\Resources.msbuild&quot; /v:d /p:Configuration=$(Configuration) /p:OutputPath=$(OutputPath)" />
   </Target>
-  <Target Name="Cleanup" AfterTargets="Clean" Condition="'$(Force)' != ''">
+  <Target Name="Cleanup" AfterTargets="Clean">
     <RemoveDir Directories="$(OutputPath)" />
-    <RemoveDir Directories="$(MSBuildThisFileDirectory)obj\$(Configuration)\resources" />
   </Target>
   <Target Name="Rebuild" DependsOnTargets="Clean;Build" />
   <ItemGroup>
