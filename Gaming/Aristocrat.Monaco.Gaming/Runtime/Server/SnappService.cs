@@ -456,7 +456,7 @@
 
         public override GetRandomNumber32Response GetRandomNumber32(GetRandomNumber32Request request)
         {
-            Logger.Debug($"GetRandomNumberU64({request.Range})");
+            Logger.Debug($"GetRandomNumber32({request.Range})");
 
             var command = new GetRandomNumber(request.Range);
             _getRandomNumber.Handle(command);
@@ -466,7 +466,7 @@
 
         public override GetRandomNumber64Response GetRandomNumber64(GetRandomNumber64Request request)
         {
-            Logger.Debug($"GetRandomNumberU64({request.Range})");
+            Logger.Debug($"GetRandomNumber64({request.Range})");
 
             var command = new GetRandomNumber(request.Range);
             _getRandomNumber.Handle(command);
