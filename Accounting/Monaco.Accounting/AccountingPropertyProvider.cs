@@ -626,6 +626,12 @@
                     SetProperty(AccountingConstants.MaxBetLimit, configuration.MaxBetLimit.Default);
                     SetProperty(AccountingConstants.OverwriteMaxBetLimit, configuration.MaxBetLimit.Editable);
                     SetProperty(AccountingConstants.MaxBetLimitEnabled, configuration.MaxBetLimit.Default != long.MaxValue);
+                    // TODO This is a workaround to get the value for the check credits in strategy until the config manager supports enums
+                    if (!Enum.TryParse(configuration.TenderIn.CheckCreditsIn, out CheckCreditsStrategy checkCreditsIn))
+                    {
+                        checkCreditsIn = CheckCreditsStrategy.None;
+                    }
+                    SetProperty(AccountingConstants.CheckCreditsIn, checkCreditsIn);
 #else
                     SetProperty(PropertyKey.VoucherIn, configuration.VoucherIn.State.Equals("Enabled"));
                     SetProperty(AccountingConstants.VoucherOut, configuration.VoucherOut?.State.Equals("Enabled"));
@@ -656,7 +662,8 @@
                     SetProperty(AccountingConstants.MaxBetLimit, configuration.CreditLimits?.MaxBetLimit?.Default ?? AccountingConstants.DefaultMaxBetLimit);
                     SetProperty(AccountingConstants.OverwriteMaxBetLimit, configuration.CreditLimits?.MaxBetLimit?.Editable ?? false);
                     SetProperty(AccountingConstants.MaxBetLimitEnabled, configuration.CreditLimits?.MaxBetLimit?.Default != long.MaxValue);
-    #endif
+                    SetProperty(AccountingConstants.CheckCreditsIn, configuration.TenderIn.CheckCreditsIn);
+#endif
                     SetProperty(AccountingConstants.VoucherOutNonCash, configuration.VoucherOut?.AllowNonCashableTicket.Equals("Enabled"));
                     SetProperty(AccountingConstants.LargeWinHandpayResetMethod, (int)LargeWinHandpayResetMethod.PayByHand);
                     SetProperty(AccountingConstants.MaxTenderInLimit, configuration.TenderIn.MaxTenderInLimit);
@@ -675,12 +682,6 @@
                     SetProperty(AccountingConstants.RedeemText, string.Empty);
                     SetProperty(AccountingConstants.MoneyInEnabled, true);
                     SetProperty(AccountingConstants.IgnoreVoucherStackedDuringReboot, false);
-                    // TODO This is a workaround to get the value for the check credits in strategy until the config manager supports enums
-                    if (!Enum.TryParse(configuration.TenderIn.CheckCreditsIn, out CheckCreditsStrategy checkCreditsIn))
-                    {
-                        checkCreditsIn = CheckCreditsStrategy.None;
-                    }
-                    SetProperty(AccountingConstants.CheckCreditsIn, checkCreditsIn);
                     SetProperty(AccountingConstants.AllowCreditUnderLimit, configuration.TenderIn.AllowCreditUnderLimit);
                     SetProperty(AccountingConstants.ReprintLoggedVoucherBehavior, configuration.ReprintLoggedVoucher.Behavior);
                     SetProperty(AccountingConstants.ReprintLoggedVoucherTitleOverride, configuration.ReprintLoggedVoucher.TitleOverride);
