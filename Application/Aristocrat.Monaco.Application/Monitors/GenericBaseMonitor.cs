@@ -1,6 +1,7 @@
 namespace Aristocrat.Monaco.Application.Monitors
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
@@ -29,7 +30,7 @@ namespace Aristocrat.Monaco.Application.Monitors
         private readonly Dictionary<string, ErrorInfo> _faults = new();
 
         // Map of any error names whose Disable functionality needs to wait for an external impetus.
-        private readonly List<ErrorInfo> _pendingFaults = new();
+        private readonly ConcurrentStack<ErrorInfo> _pendingFaults = new();
 
         private readonly Dictionary<string, object> _properties = new();
 
@@ -307,13 +308,11 @@ namespace Aristocrat.Monaco.Application.Monitors
         /// <param name="delayedDisableKey">Delayed-disable key that identifies which ones to release</param>
         protected void PerformDelayedDisables(string delayedDisableKey)
         {
-            _pendingFaults.ForEach(
-                e =>
-                {
-                    e.DelayedDisableKey = null;
-                    StartCondition(e, null);
-                });
-            _pendingFaults.Clear();
+            while (_pendingFaults.TryPop(out var fault))
+            {
+                fault.DelayedDisableKey = null;
+                StartCondition(fault, null);
+            }
         }
 
         /// <summary>
@@ -400,11 +399,31 @@ namespace Aristocrat.Monaco.Application.Monitors
             }
             else
             {
-                _pendingFaults.RemoveAll(e => e.Guid == error.Guid);
+                RemoveAllPending(error);
 
                 error.DelayedDisableKey = delayedDisableKey;
-                _pendingFaults.Add(error);
+                _pendingFaults.Push(error);
             }
+        }
+
+        private int RemoveAllPending(ErrorInfo error)
+        {
+            var result = 0;
+            var faults = _pendingFaults.ToList();
+            _pendingFaults.Clear();
+            foreach (var fault in faults)
+            {
+                if (error.Guid != fault.Guid)
+                {
+                    _pendingFaults.Push(fault);
+                }
+                else
+                {
+                    ++result;
+                }
+            }
+
+            return result;
         }
 
         private void StopCondition(ErrorInfo error)
@@ -416,7 +435,7 @@ namespace Aristocrat.Monaco.Application.Monitors
 
             error.IsActive = false;
 
-            var numPending = _pendingFaults.RemoveAll(e => e == error);
+            var numPending = RemoveAllPending(error);
             if (numPending == 0 && error.IsLockup)
             {
                 // I don't think this is right
