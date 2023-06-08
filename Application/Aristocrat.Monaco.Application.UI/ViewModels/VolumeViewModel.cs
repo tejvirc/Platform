@@ -1,10 +1,16 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
+    using System.Xml.Linq;
+    using Aristocrat.Monaco.Application.Contracts.Localization;
     using Aristocrat.Monaco.Hardware.Contracts;
     using Aristocrat.Monaco.Hardware.Contracts.Audio;
+    using Aristocrat.Monaco.Hardware.Contracts.EdgeLighting;
     using Aristocrat.Monaco.Kernel.Contracts;
+    using Aristocrat.Monaco.Localization.Properties;
     using Contracts;
     using Kernel;
     using log4net;
@@ -21,6 +27,22 @@
         private readonly IAudio _audioService;
         private bool _inputEnabled;
         private VolumeLevel _selectedVolumeLevel;
+
+        private ObservableCollection<string> volumeOptions = new ObservableCollection<string>() {
+                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExtraLow),
+                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Low),
+                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MediumLow),
+                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Medium),
+                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MediumHigh),
+                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.High),
+                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExtraHigh),
+        };
+
+        public ObservableCollection<string> VolumeOptions   // property
+        {
+            get { return volumeOptions; }   // get method
+            set { volumeOptions = value; }  // set method
+        }
 
         public VolumeViewModel()
         {

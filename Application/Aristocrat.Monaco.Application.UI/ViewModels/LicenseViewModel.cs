@@ -29,6 +29,9 @@
 
             _digitalRights = ServiceManager.GetInstance().GetService<IDigitalRights>();
             _pathMapper = ServiceManager.GetInstance().GetService<IPathMapper>();
+            LicenseConfiguration = _digitalRights.License.Configuration == Contracts.Drm.Configuration.Standard
+                ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Standard)
+                : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Vip);
             TimeRemaining = _digitalRights.TimeRemaining == Timeout.InfiniteTimeSpan
                 ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Unlimited)
                 : _digitalRights.TimeRemaining.ToString();
@@ -44,7 +47,7 @@
 
         public string Id => _digitalRights.License.Id;
 
-        public Configuration LicenseConfiguration => _digitalRights.License.Configuration;
+        public string LicenseConfiguration { get; }
 
         public string TimeRemaining { get; }
 

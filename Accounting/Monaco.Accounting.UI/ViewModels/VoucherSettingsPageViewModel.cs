@@ -48,16 +48,16 @@
         {
             new BarcodeTypeData(
                 BarcodeTypeOptions.Interleave2of5,
-                "Interleave 2 of 5"),
+                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BarcodeInterleave2Of5)),
         };
 
         public VoucherSettingsPageViewModel()
         {
             _selectedBarcodeType = PropertiesManager.GetValue(ApplicationConstants.BarCodeType, BarcodeTypeOptions.Interleave2of5);
-            ValidationLengths = new List<string> { "System" };
+            ValidationLengths = new List<string> { Localizer.For(CultureFor.Operator).GetString(ResourceKeys.System) };
             _selectedValidationLength = ValidationLengths.FirstOrDefault();
 
-            LayoutTypes = new List<string> { "Extended Layout" };
+            LayoutTypes = new List<string> { Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExtendedLayout) };
             _selectedLayoutType = LayoutTypes.FirstOrDefault();
 
             _printerDisabledWarningText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Printer_Disabled);

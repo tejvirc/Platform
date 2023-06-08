@@ -46,7 +46,11 @@
 
             MechanicalMeterVisibility = PropertiesManager.GetValue(ApplicationConstants.ConfigWizardHardMetersConfigVisible, true);
 
-            DoorOpticSensor = (bool)PropertiesManager.GetProperty(ApplicationConstants.ConfigWizardDoorOpticsEnabled, false) ? "Enabled" : "Disabled";
+            DoorOpticSensor = (bool)PropertiesManager.GetProperty(
+                ApplicationConstants.ConfigWizardDoorOpticsEnabled,
+                false)
+                ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EnabledLabel)
+                : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Disabled);
 
             ZeroCreditOnOos = !PropertiesManager.GetValue(
                 ApplicationConstants.MachineSetupConfigEnterOutOfServiceWithCreditsEnabled,

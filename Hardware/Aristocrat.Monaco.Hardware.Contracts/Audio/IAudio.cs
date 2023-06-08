@@ -7,7 +7,7 @@
     public enum VolumeLevel : byte
     {
         /// <summary>Extra Low</summary>
-        [Description("Extra Low")] ExtraLow = 1,
+        [Description("Extra-Low")] ExtraLow = 1,
         /// <summary>Low</summary>
         [Description("Low")] Low = 2,
         /// <summary>Medium-Low</summary>
@@ -19,7 +19,7 @@
         /// <summary>High</summary>
         [Description("High")] High = 6,
         /// <summary>Extra High</summary>
-        [Description("Extra High")] ExtraHigh = 7
+        [Description("Extra-High")] ExtraHigh = 7
     }
 
     /// <summary>Volume Scalars</summary>

@@ -128,9 +128,10 @@
 
                 SetStateInformation(false);
 
-                LastDocumentResultText = noteAcceptor.LastDocumentResult.ToString();
+                SetLastDocumentResultText(noteAcceptor.LastDocumentResult);
 
-                StackerStateText = noteAcceptor.StackerState.ToString();
+                SetStackerStateText(noteAcceptor.StackerState);
+                //StackerStateText = noteAcceptor.StackerState.ToString();
             }
         }
 
@@ -150,6 +151,60 @@
             else
             {
                 ActivationVisible = false;
+            }
+        }
+
+        private void SetStackerStateText(NoteAcceptorStackerState state)
+        {
+            switch(state)
+            {
+                case NoteAcceptorStackerState.Inserted:
+                    StackerStateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Inserted);
+                    break;
+                case NoteAcceptorStackerState.Removed:
+                    StackerStateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Removed);
+                    break;
+                case NoteAcceptorStackerState.Full:
+                    StackerStateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Full);
+                    break;
+                case NoteAcceptorStackerState.Jammed:
+                    StackerStateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Jammed);
+                    break;
+                case NoteAcceptorStackerState.Fault:
+                    StackerStateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Fault);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void SetLastDocumentResultText(DocumentResult result)
+        {
+            switch(result)
+            {
+                case DocumentResult.None:
+                    LastDocumentResultText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.None);
+                    break;
+                case DocumentResult.Escrowed:
+                    LastDocumentResultText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Escrowed);
+                    break;
+                case DocumentResult.Stacking:
+                    LastDocumentResultText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Stacking);
+                    break;
+                case DocumentResult.Returned:
+                    LastDocumentResultText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReturnedText);
+                    break;
+                case DocumentResult.Stacked:
+                    LastDocumentResultText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.StackedText);
+                    break;
+                case DocumentResult.Error:
+                    LastDocumentResultText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Error);
+                    break;
+                case DocumentResult.Rejected:
+                    LastDocumentResultText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.RejectedText);
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -469,20 +524,31 @@
             {
                 case NoteAcceptorLogicalState.Disabled:
                     StateCurrentMode = StateMode.Error;
+                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Disabled);
                     break;
                 case NoteAcceptorLogicalState.Disconnected:
                     StateCurrentMode = StateMode.Error;
+                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Disconnected);
                     break;
                 case NoteAcceptorLogicalState.Uninitialized:
                     StateCurrentMode = StateMode.Uninitialized;
+                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Uninitialized);
                     break;
                 case NoteAcceptorLogicalState.InEscrow:
                     StateCurrentMode = StateMode.Warning;
+                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InEscrow);
                     break;
                 case NoteAcceptorLogicalState.Inspecting:
+                    StateCurrentMode = StateMode.Processing;
+                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Inspecting);
+                    break;
                 case NoteAcceptorLogicalState.Returning:
+                    StateCurrentMode = StateMode.Processing;
+                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Returning);
+                    break;
                 case NoteAcceptorLogicalState.Stacking:
                     StateCurrentMode = StateMode.Processing;
+                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Stacking);
                     break;
                 default:
                     if (!HasDocumentCheckFault &&
@@ -491,6 +557,8 @@
                         StateCurrentMode = StateMode.Normal;
                         updateStatus = true;
                     }
+                    if (logicalState == NoteAcceptorLogicalState.Idle)
+                        StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Idle);
                     break;
             }
 
