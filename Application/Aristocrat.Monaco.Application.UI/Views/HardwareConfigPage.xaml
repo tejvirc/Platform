@@ -1,21 +1,20 @@
 ﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.HardwareConfigPage"
-                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-                              xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
-                              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
-                              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-                              xmlns:converters="clr-namespace:Aristocrat.Monaco.Application.UI.Converters"
-                              xmlns:common="http://monaco.aristocrat.com/common"
-                              xmlns:lex="http://wpflocalizeextension.codeplex.com"
-                              xmlns:loc="http://monaco.aristocrat.com/localization"
-                              lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
-                              lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
-                              mc:Ignorable="d"
-                              d:DesignHeight="400" d:DesignWidth="1420"
-                              Background="Transparent" 
-                              d:DataContext="{d:DesignInstance {x:Type viewModels:HardwareManagerPageViewModel}, IsDesignTimeCreatable=True}">
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                               xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                               xmlns:converters="clr-namespace:Aristocrat.Monaco.Application.UI.Converters"
+                               xmlns:common="http://monaco.aristocrat.com/common"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources"
+                               mc:Ignorable="d"
+                               d:DesignHeight="400" d:DesignWidth="1420"
+                               Background="Transparent"
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:HardwareManagerPageViewModel}, IsDesignTimeCreatable=True}">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -30,6 +29,8 @@
                     <Trigger Property="IsSelected"
                              Value="True"
                              AutomationProperties.AutomationId="Trigger0_3A60546D">
+                        <Setter Property="Background" Value="{x:Null}" />
+                        <Setter Property="BorderBrush" Value="{x:Null}" />
                         <Setter Property="Foreground"
                                 Value="{StaticResource LightBrush4}" />
                     </Trigger>
@@ -144,10 +145,11 @@
         <DataGrid Grid.Row="0"
                   ItemsSource="{Binding Devices}"
                   RowStyle="{StaticResource RowStyle}"
+                  CellStyle="{StaticResource MonacoCompactDataGridCell}"
                   IsEnabled="{Binding InputEnabled}"
                   AutomationProperties.AutomationId="DataGrid13_3A60546D">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{lex:Loc DeviceLabel}" 
+                <DataGridTextColumn Header="{lex:Loc DeviceLabel}"
                                     MinWidth="200" FontSize="{StaticResource LabelFontSize}"
                                     Binding="{Binding DeviceName}"
                                     CellStyle="{StaticResource CellStyle}"
@@ -189,10 +191,10 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type viewModels:DeviceConfigViewModel}">
                             <ComboBox
-                                    ItemsSource="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.Manufacturers), RelativeSource={RelativeSource AncestorType=DataGridCell}}"
-                                      SelectedItem="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.Manufacturer), RelativeSource={RelativeSource AncestorType=DataGridCell}, Mode=TwoWay}"
-                                      IsSynchronizedWithCurrentItem="True"
-                                      AutomationProperties.AutomationId="ComboBox18_3A60546D">
+                                ItemsSource="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.Manufacturers), RelativeSource={RelativeSource AncestorType=DataGridCell}}"
+                                SelectedItem="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.Manufacturer), RelativeSource={RelativeSource AncestorType=DataGridCell}, Mode=TwoWay}"
+                                IsSynchronizedWithCurrentItem="True"
+                                AutomationProperties.AutomationId="ComboBox18_3A60546D">
                                 <ComboBox.IsEnabled>
                                     <MultiBinding Converter="{StaticResource BoolAndConverter}">
                                         <Binding Path="DataContext.IsValidating"
@@ -212,7 +214,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="{lex:Loc ProtocolLabel}" 
+                <DataGridTextColumn Header="{lex:Loc ProtocolLabel}"
                                     MinWidth="110"
                                     CellStyle="{StaticResource ProtocolCellStyle}"
                                     Binding="{Binding Protocol}"
@@ -225,8 +227,8 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type viewModels:DeviceConfigViewModel}">
                             <common:VariableItemsControl
-                                    Items="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.Ports), RelativeSource={RelativeSource AncestorType=DataGridCell}, UpdateSourceTrigger=PropertyChanged}"
-                                                         SelectedItem="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.Port), RelativeSource={RelativeSource AncestorType=DataGridCell}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                Items="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.Ports), RelativeSource={RelativeSource AncestorType=DataGridCell}, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedItem="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.Port), RelativeSource={RelativeSource AncestorType=DataGridCell}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                                 <common:VariableItemsControl.IsEnabled>
                                     <MultiBinding Converter="{StaticResource BoolAndConverter}">
                                         <Binding Path="DataContext.IsValidating"
@@ -243,7 +245,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="{lex:Loc StatusLabel}" 
+                <DataGridTextColumn Header="{lex:Loc StatusLabel}"
                                     FontSize="{StaticResource SmallLabelFontSize}"
                                     Binding="{Binding Status}"
                                     CellStyle="{StaticResource StatusCellStyle}"
@@ -275,7 +277,7 @@
                                   AutomationProperties.AutomationId="ColumnDefinition30_3A60546D" />
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0" 
+            <Label Grid.Row="0" Grid.Column="0"
                    Content="{lex:Loc HardMetersLabel}"
                    AutomationProperties.AutomationId="Label31_3A60546D" />
             <CheckBox Grid.Row="0" Grid.Column="1" Name="HardMeterEnabled"
