@@ -297,8 +297,10 @@
                 };
 
                 Logger.Debug($"Preparing animation with id: {animationData.AnimationId}");
-                await _relmCommunicator.SendCommandAsync(prepareCommand, token);
+                prepareCommand.Animations.Add(animationData);
             }
+
+            await _relmCommunicator.SendCommandAsync(prepareCommand, token);
 
             return true;
         }
@@ -333,7 +335,7 @@
         }
 
         /// <inheritdoc />
-        public async Task<bool> StopAllAnimationTags(int animationIdentifier, CancellationToken token = default)
+        public async Task<bool> StopAllAnimationTags(uint animationIdentifier, CancellationToken token = default)
         {
             if (_relmCommunicator is null)
             {
@@ -365,10 +367,26 @@
         }
 
         /// <inheritdoc />
-        public Task<bool> PrepareControllerStopReels(IEnumerable<ReelStopData> stopData, CancellationToken token = default)
+        public Task<bool> PrepareStopReels(IEnumerable<ReelStopData> stopData, CancellationToken token = default)
         {
-            // TODO: Implement prepare stop reels in driver and wire up here
-            throw new NotImplementedException();
+            foreach (var data in stopData)
+            {
+                if (token.IsCancellationRequested)
+                {
+                    break;
+                }
+
+                var cmd = new PrepareStopReel()
+                {
+                    ReelIndex = data.ReelIndex,
+                    Duration = data.Duration,
+                    Step = data.Step
+                };
+
+                _relmCommunicator.SendCommandAsync(cmd, token);
+            }
+
+            return Task.FromResult(true);
         }
 
         /// <inheritdoc />

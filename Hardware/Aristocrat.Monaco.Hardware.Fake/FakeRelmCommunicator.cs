@@ -338,13 +338,13 @@
         }
 
         /// <inheritdoc/>
-        public Task<bool> StopAllAnimationTags(int animationId, CancellationToken token)
+        public Task<bool> StopAllAnimationTags(uint animationId, CancellationToken token)
         {
             throw new NotImplementedException();
         }
 
         /// <inheritdoc/>
-        public Task<bool> PrepareControllerStopReels(IEnumerable<ReelStopData> stopData, CancellationToken token)
+        public Task<bool> PrepareStopReels(IEnumerable<ReelStopData> stopData, CancellationToken token)
         {
             throw new NotImplementedException();
         }

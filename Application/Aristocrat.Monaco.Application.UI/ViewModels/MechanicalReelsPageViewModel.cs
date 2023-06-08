@@ -78,6 +78,7 @@
             LightTestViewModel = new(ReelController, _edgeLightController, Inspection);
             LightAnimationTestViewModel = new(ReelController);
             ReelTestViewModel = new(ReelController, EventBus, MaxSupportedReels, ReelInfo, UpdateScreen, Inspection);
+            ReelAnimationTestViewModel = new(ReelController);
 
             SelfTestCommand = new ActionCommand<object>(_ => SelfTest(false));
             SelfTestClearCommand = new ActionCommand<object>(_ => SelfTest(true));
@@ -101,6 +102,11 @@
         ///     Gets the light animation test view model
         /// </summary>
         public MechanicalReelsLightAnimationTestViewModel LightAnimationTestViewModel { get; }
+
+        /// <summary>
+        ///     Gets the light animation test view model
+        /// </summary>
+        public MechanicalReelsAnimationTestViewModel ReelAnimationTestViewModel { get; }
 
         /// <summary>
         ///     Gets the light test view model
