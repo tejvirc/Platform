@@ -16,35 +16,47 @@
     /// <summary>
     /// Event log adapter for G2SEvents
     /// </summary>
-    public class G2SEventLogAdapter : BaseEventLogAdapter, IEventLogAdapter
+    public class G2SEventLogAdapter : BaseEventLogAdapter, ISubscribableEventLogAdapter
     {
+        private readonly IEventBus _eventBus;
+
+        private event EventHandler<TiltLogAppendedEventArgs> _appended;
+
         public string LogType => EventLogType.Protocol.GetDescription(typeof(EventLogType));
 
-        public G2SEventLogAdapter() { }
+        public G2SEventLogAdapter() : this(ServiceManager.GetInstance().GetService<IEventBus>()) { }
+
+        public G2SEventLogAdapter(IEventBus eventBus)
+        {
+            _eventBus = eventBus;
+        }
+
+        /// <inheritdoc />
+        public event EventHandler<TiltLogAppendedEventArgs> Appended
+        {
+            add
+            {
+                _appended += value;
+                _eventBus.Subscribe<G2SEventLogMessagePersistedEvent>(this, HandleG2SEventLogMessagePersistedEvent);
+            }
+            remove
+            {
+                _appended -= value;
+                _eventBus.Unsubscribe<G2SEventLogMessagePersistedEvent>(this);
+            }
+        }
 
         public IEnumerable<EventDescription> GetEventLogs()
         {
             var g2sEventLogger = ServiceManager.GetInstance().GetService<IG2SEventLogger>();
-            var g2sEventLogs = g2sEventLogger.Logs.OrderByDescending(l => l.TimeStamp).ToList();
-            var events = from g2sEventLog in g2sEventLogs
-                         let additionalInfo = new[]
-                         {
-                             GetDateAndTimeHeader(g2sEventLog.TimeStamp),
-                             (ResourceKeys.G2SEventCode, g2sEventLog.EventCode),
-                             (ResourceKeys.G2SEventCodeDescription, GetEventCodeDescription(g2sEventLog.EventCode))
-                         }
-                         let name = GetEventLogName(g2sEventLog)
-                         select new EventDescription(
-                             name,
-                             "info",
-                             LogType,
-                             g2sEventLog.TransactionId,
-                             g2sEventLog.TimeStamp,
-                             additionalInfo);
 
-            return events;
+            foreach (var @event in g2sEventLogger.Logs.OrderByDescending(l => l.TimeStamp).ToList())
+            {
+                yield return G2SEventLogMessageToEventDescription(@event);
+            }
         }
 
+        /// <inheritdoc />
         public long GetMaxLogSequence() => -1;
 
         private string GetEventCodeDescription(string eventCode)
@@ -79,6 +91,35 @@
             }
 
             return result;
+        }
+
+        private EventDescription G2SEventLogMessageToEventDescription(G2SEventLogMessage g2sEventLog)
+        {
+            var additionalInfo = new (string, string)[]
+            {
+                GetDateAndTimeHeader(g2sEventLog.TimeStamp),
+                (ResourceKeys.G2SEventCode, g2sEventLog.EventCode),
+                (ResourceKeys.G2SEventCodeDescription, GetEventCodeDescription(g2sEventLog.EventCode))
+            };
+
+            var name = GetEventLogName(g2sEventLog);
+
+            return new EventDescription(
+                name,
+                "info",
+                LogType,
+                g2sEventLog.TransactionId,
+                g2sEventLog.TimeStamp,
+                additionalInfo);
+        }
+
+        private void HandleG2SEventLogMessagePersistedEvent(G2SEventLogMessagePersistedEvent @event)
+        {
+            _appended?.Invoke(
+                this,
+                new TiltLogAppendedEventArgs(
+                    G2SEventLogMessageToEventDescription(@event.EventLog),
+                    null));
         }
     }
 }

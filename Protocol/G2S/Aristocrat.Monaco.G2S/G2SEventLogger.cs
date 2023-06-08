@@ -207,6 +207,8 @@
 
         private void ReceiveEvent(G2SEvent g2sEvent)
         {
+            G2SEventLogMessage g2sEventLogMessage = null;
+
             using (var scopedTransaction = _persistentStorage.ScopedTransaction())
             {
                 var transactionId = long.MinValue;
@@ -215,18 +217,20 @@
                     transactionId = _idProvider.GetNextTransactionId();
                 }
 
-                LogToPersistence(
-                    new G2SEventLogMessage
-                    {
-                        TimeStamp = g2sEvent.Timestamp,
-                        EventCode = g2sEvent.EventCode,
-                        InternalEventType = GetEventTypeString(g2sEvent),
-                        TransactionId = transactionId
-                    }
-                );
+                g2sEventLogMessage = new G2SEventLogMessage
+                {
+                    TimeStamp = g2sEvent.Timestamp,
+                    EventCode = g2sEvent.EventCode,
+                    InternalEventType = GetEventTypeString(g2sEvent),
+                    TransactionId = transactionId
+                };
+
+                LogToPersistence(g2sEventLogMessage);
 
                 scopedTransaction.Complete();
             }
+
+            _eventBus?.Publish<G2SEventLogMessagePersistedEvent>(new G2SEventLogMessagePersistedEvent(g2sEventLogMessage));
         }
 
         private void CreatePersistence()

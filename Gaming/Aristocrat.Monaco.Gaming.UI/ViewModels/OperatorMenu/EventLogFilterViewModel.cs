@@ -432,10 +432,20 @@
                 if (add)
                 {
                     _tiltLogger.TiltLogAppendedTilt += EventLogAppended;
+
+                    foreach (var logAdapter in _eventLogAdapters.Where(e => e is ISubscribableEventLogAdapter))
+                    {
+                        ((ISubscribableEventLogAdapter)logAdapter).Appended += EventLogAppended;
+                    }
                 }
                 else
                 {
                     _tiltLogger.TiltLogAppendedTilt -= EventLogAppended;
+
+                    foreach (var logAdapter in _eventLogAdapters.Where(e => e is ISubscribableEventLogAdapter))
+                    {
+                        ((ISubscribableEventLogAdapter)logAdapter).Appended -= EventLogAppended;
+                    }
                 }
             }
         }

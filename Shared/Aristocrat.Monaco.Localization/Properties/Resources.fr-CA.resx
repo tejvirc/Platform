@@ -989,7 +989,8 @@
     <value>??Base Game RTP??</value>
   </data>
   <data name="BellyDoorName" xml:space="preserve">
-    <value>??Belly Door??</value>
+    <value>???Belly Door???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="BiosVersion" xml:space="preserve">
     <value>??BIOS Version??</value>
@@ -1010,7 +1011,8 @@
     <value>??Cashable Promotional??</value>
   </data>
   <data name="CashDoorName" xml:space="preserve">
-    <value>??Stacker Door??</value>
+    <value>???Stacker Door???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="ClosedText" xml:space="preserve">
     <value>??Closed??</value>
@@ -1054,7 +1056,8 @@
     <value>??Door Optic Sensor??</value>
   </data>
   <data name="DropDoorName" xml:space="preserve">
-    <value>??Drop Door??</value>
+    <value>???Drop Door???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="EdgeLighting" xml:space="preserve">
     <value>??Edge Lighting??</value>
@@ -1100,7 +1103,7 @@
     <value>??Identification??</value>
   </data>
   <data name="IdleTextDefault" xml:space="preserve">
-    <value>??INSERT MONEY TO PLAY??</value>
+    <value>INSÉRER DE L’ARGENT</value>
   </data>
   <data name="IPAddressesLabel" xml:space="preserve">
     <value>?????IP Address?????</value>
@@ -1132,7 +1135,8 @@
     <value>??Location??</value>
   </data>
   <data name="LogicDoorName" xml:space="preserve">
-    <value>??Logic Door??</value>
+    <value>???Logic Door???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="MacAddressLabel" xml:space="preserve">
     <value>?????MAC Address?????</value>
@@ -1145,10 +1149,12 @@
     <value>??Machine Theoretical RTP Range??</value>
   </data>
   <data name="MainDoorName" xml:space="preserve">
-    <value>??Main Door??</value>
+    <value>???Main Door???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="MainOpticDoorName" xml:space="preserve">
-    <value>??Main Optic Door??</value>
+    <value>???Main Optic Door???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="MaxBet" xml:space="preserve">
     <value>??Max Bet??</value>
@@ -1157,7 +1163,8 @@
     <value>??Mechanical Meter??</value>
   </data>
   <data name="MechanicalMeterDoorName" xml:space="preserve">
-    <value>??Mechanical Meter Door??</value>
+    <value>???Mechanical Meter Door???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="MenuTitleRoleAdmin" xml:space="preserve">
     <value>??Retailer??</value>
@@ -1275,10 +1282,12 @@
     <value>??Top Award??</value>
   </data>
   <data name="TopBoxDoorName" xml:space="preserve">
-    <value>??Top Box Door??</value>
+    <value>???Top Box Door???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="TopBoxOpticDoorName" xml:space="preserve">
-    <value>??Top Box Optic Door??</value>
+    <value>???Top Box Optic Door???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="TotalCredits" xml:space="preserve">
     <value>??Total Current Credits??</value>
@@ -1295,7 +1304,8 @@ See manual for details??</value>
     <value>??Touch Screen??</value>
   </data>
   <data name="UniversalInterfaceBoxDoorName" xml:space="preserve">
-    <value>??Universal Interface Box Door??</value>
+    <value>???Universal Interface Box Door???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="Unlimited" xml:space="preserve">
     <value>??Unlimited??</value>
@@ -1586,28 +1596,28 @@ See manual for details??</value>
     <value>??Battery??</value>
   </data>
   <data name="BellyDoorDiscrepancy" xml:space="preserve">
-    <value>??Belly Door Discrepancy??</value>
+    <value>???Belly Door Discrepancy???</value>
   </data>
   <data name="ClearLockupAudioDisconnectedKeyMessage" xml:space="preserve">
     <value>??Reconnect Audio USB cable to clear this lockup.??</value>
   </data>
   <data name="ClearLockupBellyDoor" xml:space="preserve">
-    <value>??Close the Belly Door to Clear the Lockup??</value>
+    <value>???Close the Belly Door to Clear the Lockup???</value>
   </data>
   <data name="ClearLockupCashDoor" xml:space="preserve">
-    <value>??Close the Stacker Door to Clear the Lockup??</value>
+    <value>???Close the Stacker Door to Clear the Lockup???</value>
   </data>
   <data name="ClearLockupDisabledDueToCarrierBoardRemovalKeyMessage" xml:space="preserve">
     <value>??Carrier board or storage media was removed with credits on the machine. To clear this lockup, perform handpay of the remaining credits and turn the jackpot reset key.??</value>
   </data>
   <data name="ClearLockupDropDoor" xml:space="preserve">
-    <value>??Close the Drop Door to Clear the Lockup??</value>
+    <value>???Close the Drop Door to Clear the Lockup???</value>
   </data>
   <data name="ClearLockupExcessiveDocumentReject" xml:space="preserve">
     <value>??Check if the Note or Voucher being inserted by the player is valid. Open and close Main Door to re-enable Note Acceptor device and clear the lockup.??</value>
   </data>
   <data name="ClearLockupExcessiveMeterIncrement" xml:space="preserve">
-    <value>??Excessive meter increment, turn on Jackpot Key to clear this lockup??</value>
+    <value>???Excessive meter increment, turn on Jackpot Key to clear this lockup???</value>
   </data>
   <data name="ClearLockupFatalGameErrorGuidMessage" xml:space="preserve">
     <value>??Please contact Aristocrat field service technician.??</value>
@@ -1616,19 +1626,19 @@ See manual for details??</value>
     <value>??Ensure mechanical meter device is connected and functioning properly.??</value>
   </data>
   <data name="ClearLockupLogicDoor" xml:space="preserve">
-    <value>??Close the Logic Door to Clear the Lockup??</value>
+    <value>???Close the Logic Door to Clear the Lockup???</value>
   </data>
   <data name="ClearLockupLogicSealBroken" xml:space="preserve">
     <value>??Reset from the Site Controller to clear this lockup.??</value>
   </data>
   <data name="ClearLockupMainDoor" xml:space="preserve">
-    <value>??Close the Main Door to Clear the Lockup??</value>
+    <value>???Close the Main Door to Clear the Lockup???</value>
   </data>
   <data name="ClearLockupMainOpticDoor" xml:space="preserve">
-    <value>??Close the Main Door to clear this lockup. If lockup persists, check if the optic door sensor is faulty or poorly aligned.??</value>
+    <value>???Close the Main Door to clear this lockup. If lockup persists, check if the optic door sensor is faulty or poorly aligned.???</value>
   </data>
   <data name="ClearLockupMechanicalMeterDoor" xml:space="preserve">
-    <value>??Close the Mechanical Meter Door to Clear the Lockup??</value>
+    <value>???Close the Mechanical Meter Door to Clear the Lockup???</value>
   </data>
   <data name="ClearLockupNoteAcceptorFirmwareFaultMessage" xml:space="preserve">
     <value>??To clear this lockup, remove any bill or voucher jam in Note Acceptor. If problem persists, replace Note Acceptor device with correct firmware.??</value>
@@ -1670,13 +1680,13 @@ See manual for details??</value>
     <value>??Reboot the machine to clear this lockup.??</value>
   </data>
   <data name="ClearLockupSecondaryCashDoor" xml:space="preserve">
-    <value>??Close the Secondary Stacker Door to Clear the Lockup??</value>
+    <value>???Close the Secondary Stacker Door to Clear the Lockup???</value>
   </data>
   <data name="ClearLockupTopBoxDoor" xml:space="preserve">
-    <value>??Close the Top Box Door to Clear the Lockup??</value>
+    <value>???Close the Top Box Door to Clear the Lockup???</value>
   </data>
   <data name="ClearLockupTopBoxOpticDoor" xml:space="preserve">
-    <value>??Close the Top Box Door to clear this lockup. If lockup persists, check if the optic door sensor is faulty or poorly aligned.??</value>
+    <value>???Close the Top Box Door to clear this lockup. If lockup persists, check if the optic door sensor is faulty or poorly aligned.???</value>
   </data>
   <data name="ClearLockupUniversalInterfaceBoxDoor" xml:space="preserve">
     <value>??Close the Universal Interface Box Door to Clear the Lockup??</value>
@@ -1985,10 +1995,12 @@ See manual for details??</value>
     <value>??Interleave 2 of 5??</value>
   </data>
   <data name="BellyDoorClosed" xml:space="preserve">
-    <value>??Belly Door Closed??</value>
+    <value>???Belly Door Closed???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="BellyDoorIsOpen" xml:space="preserve">
-    <value>??Belly Door is Open??</value>
+    <value>???Belly Door is Open???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="BillAccepted" xml:space="preserve">
     <value>??Bill Accepted -??</value>
@@ -2003,10 +2015,12 @@ See manual for details??</value>
     <value>??CASHABLE??</value>
   </data>
   <data name="CashDoorClosed" xml:space="preserve">
-    <value>??Stacker Door Closed??</value>
+    <value>???Stacker Door Closed???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="CashDoorIsOpen" xml:space="preserve">
-    <value>??Stacker Door is Open??</value>
+    <value>???Stacker Door is Open???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="CashOutHandpayKeyedOff" xml:space="preserve">
     <value>??Cashout Handpay Paid {0}??</value>
@@ -2080,10 +2094,12 @@ See manual for details??</value>
     <value>??Bill or Voucher Rejected??</value>
   </data>
   <data name="DropDoorClosed" xml:space="preserve">
-    <value>??Drop Door Closed??</value>
+    <value>???Drop Door Closed???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="DropDoorIsOpen" xml:space="preserve">
-    <value>??Drop Door is Open??</value>
+    <value>???Drop Door is Open???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="EgmPaidGameWonAmtLabel" xml:space="preserve">
     <value>??Cash Won??</value>
@@ -2173,10 +2189,12 @@ See manual for details??</value>
     <value>??Level Name??</value>
   </data>
   <data name="LogicDoorClosed" xml:space="preserve">
-    <value>??Logic Door Closed??</value>
+    <value>???Logic Door Closed???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="LogicDoorIsOpen" xml:space="preserve">
-    <value>??Logic Door is Open??</value>
+    <value>???Logic Door is Open???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="MachineActualPayback" xml:space="preserve">
     <value>??Machine Actual Operating Payback??</value>
@@ -2188,22 +2206,26 @@ See manual for details??</value>
     <value>??Machine Weighted Theoretical Payback??</value>
   </data>
   <data name="MainDoorClosed" xml:space="preserve">
-    <value>??Main Door Closed??</value>
+    <value>???Main Door Closed???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="MainDoorIsOpen" xml:space="preserve">
-    <value>??Main Door is Open??</value>
+    <value>???Main Door is Open???</value>
   </data>
   <data name="MainOpticDoorClosed" xml:space="preserve">
-    <value>??Main Optic Door Closed??</value>
+    <value>???Main Optic Door Closed???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="MaxValue" xml:space="preserve">
     <value>??Max Value??</value>
   </data>
   <data name="MechanicalMeterDoorClosed" xml:space="preserve">
-    <value>??Mechanical Meter Door Closed??</value>
+    <value>???Mechanical Meter Door Closed???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="MechanicalMeterDoorIsOpen" xml:space="preserve">
-    <value>??Mechanical Meter Door is Open??</value>
+    <value>???Mechanical Meter Door is Open???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="MetersVouchers" xml:space="preserve">
     <value>???Vouchers???</value>
@@ -2307,10 +2329,12 @@ See manual for details??</value>
     <value>??RTP??</value>
   </data>
   <data name="SecondaryCashDoorClosed" xml:space="preserve">
-    <value>??Secondary Stacker Door Closed??</value>
+    <value>???Secondary Stacker Door Closed???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="SecondaryCashDoorIsOpen" xml:space="preserve">
-    <value>??Secondary Stacker Door is Open??</value>
+    <value>???Secondary Stacker Door is Open???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="SessionLimitReached" xml:space="preserve">
     <value>??Session Limit Reached??</value>
@@ -2334,13 +2358,16 @@ See manual for details??</value>
     <value>??Timed Out??</value>
   </data>
   <data name="TopBoxDoorClosed" xml:space="preserve">
-    <value>??Top Box Door Closed??</value>
+    <value>???Top Box Door Closed???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="TopBoxDoorIsOpen" xml:space="preserve">
-    <value>??Top Box Door is Open??</value>
+    <value>???Top Box Door is Open???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="TopBoxOpticDoorClosed" xml:space="preserve">
-    <value>??Top Box Optic Door Closed??</value>
+    <value>???Top Box Optic Door Closed???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="TransferedInComplete" xml:space="preserve">
     <value>??Transferred In -??</value>
@@ -2349,10 +2376,12 @@ See manual for details??</value>
     <value>??Transferred Out -??</value>
   </data>
   <data name="UniversalInterfaceBoxDoorClosed" xml:space="preserve">
-    <value>??Universal Interface Box Door Closed??</value>
+    <value>???Universal Interface Box Door Closed???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="UniversalInterfaceBoxDoorIsOpen" xml:space="preserve">
-    <value>??Universal Interface Box Door is Open??</value>
+    <value>???Universal Interface Box Door is Open???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="ValidationFailed" xml:space="preserve">
     <value>??Voucher Failed??</value>
@@ -3239,12 +3268,8 @@ Do you really want to do partial reset????</value>
     <value>???Validate Handpays???</value>
     <comment>Monaco.Accounting.UI</comment>
   </data>
-	<data name="ExportSettingsText" xml:space="preserve">
+  <data name="ExportSettingsText" xml:space="preserve">
     <value>???Current Machine Settings Summary???</value>
-	  </data>
-  <data name="PowerResetText" xml:space="preserve">
-    <value>???Power Reset???</value>
-    <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="ExportMachineSettings" xml:space="preserve">
     <value>???Export Machine Settings???</value>
@@ -3368,7 +3393,6 @@ Do you really want to do partial reset????</value>
   </data>
   <data name="FilterBy" xml:space="preserve">
     <value>???Filter By???</value>
-    <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="DiagnosticResourcesPageTitle" xml:space="preserve">
     <value>???Resources???</value>
@@ -3383,7 +3407,7 @@ Do you really want to do partial reset????</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="VerifiedEKeyRequired" xml:space="preserve">
-    <value>???EKey device is required to perform game re-configuration???</value>
+    <value>???EKey device is required to perform configuration.???</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="ActiveConnections" xml:space="preserve">
@@ -3665,10 +3689,6 @@ Do you really want to do partial reset????</value>
   <data name="VerificationTicketTitle" xml:space="preserve">
     <value>???VERIFICATION COUPON???</value>
   </data>
-  <data name="VerifiedEKeyRequired" xml:space="preserve">
-    <value>???EKey device is required to perform configuration.???</value>
-    <comment>Aristocrat.Monaco.Application.UI</comment>
-  </data>
   <data name="VerifiedEKeyRequiredGameConfiguration" xml:space="preserve">
     <value>???EKey device is required to perform game re-configuration???</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
@@ -3676,121 +3696,12 @@ Do you really want to do partial reset????</value>
   <data name="TestModeDisabledStatusCredits" xml:space="preserve">
     <value>??Zéro crédits are required to enter Test Mode??</value>
   </data>
-  <data name="IdleTextDefault" xml:space="preserve">
-    <value>INSÉRER DE L’ARGENT</value>
-  </data>
-  <data name="FilterBy" xml:space="preserve">
-    <value>???Filter By???</value>
-  </data>
-  <data name="BellyDoorClosed" xml:space="preserve">
-    <value>???Belly Door Closed???</value>
-    <comment>Aristocrat.Monaco.Application</comment>
-  </data>
-  <data name="BellyDoorDiscrepancy" xml:space="preserve">
-    <value>???Belly Door Discrepancy???</value>
-  </data>
-  <data name="BellyDoorIsOpen" xml:space="preserve">
-    <value>???Belly Door is Open???</value>
-    <comment>Aristocrat.Monaco.Application</comment>
-  </data>
-  <data name="BellyDoorName" xml:space="preserve">
-    <value>???Belly Door???</value>
-    <comment>Aristocrat.Monaco.Application</comment>
-  </data>
-  <data name="CashDoorClosed" xml:space="preserve">
-    <value>???Stacker Door Closed???</value>
-    <comment>Aristocrat.Monaco.Application</comment>
-  </data>
-  <data name="CashDoorIsOpen" xml:space="preserve">
-    <value>???Stacker Door is Open???</value>
-    <comment>Aristocrat.Monaco.Application</comment>
-  </data>
-  <data name="CashDoorName" xml:space="preserve">
-    <value>???Stacker Door???</value>
-    <comment>Aristocrat.Monaco.Application</comment>
-  </data>
-  <data name="ClearLockupBellyDoor" xml:space="preserve">
-    <value>???Close the Belly Door to Clear the Lockup???</value>
-  </data>
-  <data name="ClearLockupCashDoor" xml:space="preserve">
-    <value>???Close the Stacker Door to Clear the Lockup???</value>
-  </data>
-  <data name="ClearLockupDropDoor" xml:space="preserve">
-    <value>???Close the Drop Door to Clear the Lockup???</value>
-  </data>
-  <data name="ClearLockupExcessiveMeterIncrement" xml:space="preserve">
-    <value>???Excessive meter increment, turn on Jackpot Key to clear this lockup???</value>
-  </data>
-  <data name="ClearLockupLogicDoor" xml:space="preserve">
-    <value>???Close the Logic Door to Clear the Lockup???</value>
-  </data>
-  <data name="ClearLockupMainDoor" xml:space="preserve">
-    <value>???Close the Main Door to Clear the Lockup???</value>
-  </data>
-  <data name="ClearLockupMainOpticDoor" xml:space="preserve">
-    <value>???Close the Main Door to clear this lockup. If lockup persists, check if the optic door sensor is faulty or poorly aligned.???</value>
-  </data>
-  <data name="ClearLockupMechanicalMeterDoor" xml:space="preserve">
-    <value>???Close the Mechanical Meter Door to Clear the Lockup???</value>
-  </data>
-  <data name="ClearLockupSecondaryCashDoor" xml:space="preserve">
-    <value>???Close the Secondary Stacker Door to Clear the Lockup???</value>
-  </data>
-  <data name="ClearLockupTopBoxDoor" xml:space="preserve">
-    <value>???Close the Top Box Door to Clear the Lockup???</value>
-  </data>
-  <data name="ClearLockupTopBoxOpticDoor" xml:space="preserve">
-    <value>???Close the Top Box Door to clear this lockup. If lockup persists, check if the optic door sensor is faulty or poorly aligned.???</value>
-  </data>
-  <data name="DropDoorClosed" xml:space="preserve">
-    <value>???Drop Door Closed???</value>
-    <comment>Aristocrat.Monaco.Application</comment>
-  </data>
-  <data name="DropDoorIsOpen" xml:space="preserve">
-    <value>???Drop Door is Open???</value>
-    <comment>Aristocrat.Monaco.Application</comment>
-  </data>
-  <data name="DropDoorName" xml:space="preserve">
-    <value>???Drop Door???</value>
-    <comment>Aristocrat.Monaco.Application</comment>
-  </data>
-  <data name="LogicDoorClosed" xml:space="preserve">
-    <value>???Logic Door Closed???</value>
-    <comment>Aristocrat.Monaco.Application</comment>
-  </data>
-  <data name="LogicDoorIsOpen" xml:space="preserve">
-    <value>???Logic Door is Open???</value>
-    <comment>Aristocrat.Monaco.Application</comment>
-  </data>
-  <data name="LogicDoorName" xml:space="preserve">
-    <value>???Logic Door???</value>
-    <comment>Aristocrat.Monaco.Application</comment>
-  </data>
-  <data name="MainDoorClosed" xml:space="preserve">
-    <value>???Main Door Closed???</value>
-    <comment>Aristocrat.Monaco.Application</comment>
-  </data>
-  <data name="MainDoorIsOpen" xml:space="preserve">
-    <value>???Main Door is Open???</value>
-  </data>
   <data name="MainDoorMismatch" xml:space="preserve">
     <value>???Main Door Mismatch???</value>
     <comment>Aristocrat.Monaco.Application</comment>
   </data>
-  <data name="MainDoorName" xml:space="preserve">
-    <value>???Main Door???</value>
-    <comment>Aristocrat.Monaco.Application</comment>
-  </data>
-  <data name="MainOpticDoorClosed" xml:space="preserve">
-    <value>???Main Optic Door Closed???</value>
-    <comment>Aristocrat.Monaco.Application</comment>
-  </data>
   <data name="MainOpticDoorIsOpen" xml:space="preserve">
     <value>???Main Optic Door is Open???</value>
-    <comment>Aristocrat.Monaco.Application</comment>
-  </data>
-  <data name="MainOpticDoorName" xml:space="preserve">
-    <value>???Main Optic Door???</value>
     <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="MainOpticDoorOpenCount" xml:space="preserve">
@@ -3802,56 +3713,16 @@ Do you really want to do partial reset????</value>
   <data name="MainOpticDoorOpenPowerOffShort" xml:space="preserve">
     <value>???Main Optic Open Power Off???</value>
   </data>
-  <data name="MechanicalMeterDoorClosed" xml:space="preserve">
-    <value>???Mechanical Meter Door Closed???</value>
-    <comment>Aristocrat.Monaco.Application</comment>
-  </data>
-  <data name="MechanicalMeterDoorIsOpen" xml:space="preserve">
-    <value>???Mechanical Meter Door is Open???</value>
-    <comment>Aristocrat.Monaco.Application</comment>
-  </data>
-  <data name="MechanicalMeterDoorName" xml:space="preserve">
-    <value>???Mechanical Meter Door???</value>
-    <comment>Aristocrat.Monaco.Application</comment>
-  </data>
-  <data name="SecondaryCashDoorClosed" xml:space="preserve">
-    <value>???Secondary Stacker Door Closed???</value>
-    <comment>Aristocrat.Monaco.Application</comment>
-  </data>
-  <data name="SecondaryCashDoorIsOpen" xml:space="preserve">
-    <value>???Secondary Stacker Door is Open???</value>
-    <comment>Aristocrat.Monaco.Application</comment>
-  </data>
   <data name="SecondaryCashDoorName" xml:space="preserve">
     <value>???Secondary Stacker Door???</value>
-    <comment>Aristocrat.Monaco.Application</comment>
-  </data>
-  <data name="TopBoxDoorClosed" xml:space="preserve">
-    <value>???Top Box Door Closed???</value>
-    <comment>Aristocrat.Monaco.Application</comment>
-  </data>
-  <data name="TopBoxDoorIsOpen" xml:space="preserve">
-    <value>???Top Box Door is Open???</value>
     <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="TopBoxDoorMismatch" xml:space="preserve">
     <value>???Top Box Door Mismatch???</value>
     <comment>Aristocrat.Monaco.Application</comment>
   </data>
-  <data name="TopBoxDoorName" xml:space="preserve">
-    <value>???Top Box Door???</value>
-    <comment>Aristocrat.Monaco.Application</comment>
-  </data>
-  <data name="TopBoxOpticDoorClosed" xml:space="preserve">
-    <value>???Top Box Optic Door Closed???</value>
-    <comment>Aristocrat.Monaco.Application</comment>
-  </data>
   <data name="TopBoxOpticDoorIsOpen" xml:space="preserve">
     <value>???Top Box Optic Door is Open???</value>
-    <comment>Aristocrat.Monaco.Application</comment>
-  </data>
-  <data name="TopBoxOpticDoorName" xml:space="preserve">
-    <value>???Top Box Optic Door???</value>
     <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="TopBoxOpticDoorOpenCount" xml:space="preserve">
@@ -3863,20 +3734,8 @@ Do you really want to do partial reset????</value>
   <data name="TopBoxOpticDoorOpenPowerOffShort" xml:space="preserve">
     <value>???Top Box Optic Open Power Off???</value>
   </data>
-  <data name="UniversalInterfaceBoxDoorClosed" xml:space="preserve">
-    <value>???Universal Interface Box Door Closed???</value>
-    <comment>Aristocrat.Monaco.Application</comment>
-  </data>
-  <data name="UniversalInterfaceBoxDoorIsOpen" xml:space="preserve">
-    <value>???Universal Interface Box Door is Open???</value>
-    <comment>Aristocrat.Monaco.Application</comment>
-  </data>
   <data name="UniversalInterfaceBoxDoorMismatch" xml:space="preserve">
     <value>???Universal Interface Box Door Mismatch???</value>
-    <comment>Aristocrat.Monaco.Application</comment>
-  </data>
-  <data name="UniversalInterfaceBoxDoorName" xml:space="preserve">
-    <value>???Universal Interface Box Door???</value>
     <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="UniversalInterfaceBoxDoorOpenCount" xml:space="preserve">
@@ -3886,5 +3745,11 @@ Do you really want to do partial reset????</value>
   <data name="UniversalInterfaceBoxDoorOpenPowerOffCount" xml:space="preserve">
     <value>???Universal Interface Box Door Open Power Off Count???</value>
     <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="Door" xml:space="preserve">
+    <value>???Door???</value>
+  </data>
+  <data name="Protocol" xml:space="preserve">
+    <value>???Protocol???</value>
   </data>
 </root>

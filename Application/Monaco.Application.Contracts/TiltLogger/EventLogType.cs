@@ -42,9 +42,9 @@
             [Description("Progressive")] Progressive = 16,
             /// <summary>KeyedCredit</summary>
             [Description("KeyedCredit")] KeyedCredit = 17,
-            /// <summary>KeyedCredit</summary>
+            /// <summary>Protocol</summary>
             [Description("Protocol")] Protocol = 18,
-            /// <summary>KeyedCredit</summary>
+            /// <summary>Door</summary>
             [Description("Door")] Door = 19,
             /// <summary>KeyedOnCredits</summary>
             [Description("KeyedOnCredits")] KeyedOnCredits = 20,

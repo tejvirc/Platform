@@ -11,7 +11,7 @@ as follows:
 -->
 <TiltLoggerConfiguration>
   <ArrayOfEventTypes>
-    <EventType Type="Error" Max="100" />
+    <EventType Type="Error" Max="500" />
     <EventType Type="General" Combined="Error" />
     <EventType Type="Gameplay" Combined="Error" />
     <EventType Type="Power" Combined="Error" />

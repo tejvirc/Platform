@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Aristocrat.Monaco.JurisdictionData.Quebec-VLT.resources {
+namespace Aristocrat.Monaco.Localization.Overrides {
     using System;
     
     
@@ -19,17 +19,17 @@ namespace Aristocrat.Monaco.JurisdictionData.Quebec-VLT.resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    internal class Resources_QuebecVLT {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal Resources_QuebecVLT() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Aristocrat.Monaco.JurisdictionData.Quebec-VLT.resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Aristocrat.Monaco.JurisdictionData.Quebec_VLT.resources.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Aristocrat.Monaco.Localization.Overrides.Resources_QuebecVLT", typeof(Resources_QuebecVLT).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -95,9 +95,7 @@ namespace Aristocrat.Monaco.JurisdictionData.Quebec-VLT.resources {
                 return ResourceManager.GetString("EnteringOutOfServiceModeRequiresZeroCreditsText", resourceCulture);
             }
         }
-
         
-
         /// <summary>
         ///   Looks up a localized string similar to History.
         /// </summary>

@@ -32,5 +32,6 @@ as follows:
   </Player>
   <Overrides>
     <string>VLT</string>
+    <string>QuebecVLT</string>
   </Overrides>
 </LocaleConfiguration>
