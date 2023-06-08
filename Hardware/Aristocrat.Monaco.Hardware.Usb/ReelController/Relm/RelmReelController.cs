@@ -21,6 +21,8 @@
     {
         private const string SampleLightShowPath = @"ReelController\Relm\SampleShows\AllWhite5Reels.lightshow";
         private const string SampleLightShowName = "SampleLightShow";
+        private const string SampleStepperCurvePath = @"ReelController\Relm\SampleCurves\ForwardSpinningShake.stepper";
+        private const string SampleStepperCurveName = "SampleStepperCurve";
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
@@ -170,7 +172,7 @@
                     _supportedCapabilities.Add(typeof(IAnimationImplementation), new RelmAnimation(_communicator));
                     _supportedCapabilities.Add(typeof(IReelBrightnessImplementation), new RelmBrightness(_communicator));
                     _supportedCapabilities.Add(typeof(ISynchronizationImplementation), new RelmSynchronization(_communicator));
-                    await LoadPlatformSampleShows();
+                    await LoadPlatformSampleShowsAndCurves();
 
                     IsInitialized = true;
                 }
@@ -380,9 +382,9 @@
             _communicator.StatusesReceived -= OnReelStatusesReceived;
         }
 
-        private async Task LoadPlatformSampleShows()
+        private async Task LoadPlatformSampleShowsAndCurves()
         {
-            if (_communicator is null || !File.Exists(SampleLightShowPath))
+            if (_communicator is null || !File.Exists(SampleLightShowPath) || !File.Exists(SampleStepperCurvePath))
             {
                 return;
             }
@@ -391,6 +393,12 @@
             await _communicator.RemoveAllControllerAnimations();
 
             var animationFile = new AnimationFile(SampleLightShowPath, AnimationType.PlatformLightShow, SampleLightShowName);
+
+            await _communicator.LoadAnimationFile(animationFile);
+
+            Logger.Debug("Loading platform sample curves");
+
+            animationFile = new AnimationFile(SampleStepperCurvePath, AnimationType.PlatformStepperCurve, SampleStepperCurveName);
 
             await _communicator.LoadAnimationFile(animationFile);
         }

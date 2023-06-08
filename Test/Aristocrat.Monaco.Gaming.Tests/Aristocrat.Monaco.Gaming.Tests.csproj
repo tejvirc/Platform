@@ -31,6 +31,6 @@
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.7.1" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="Aristocrat.GdkRuntime.Snapp" Version="0.1.13" />
+    <PackageReference Include="Aristocrat.GdkRuntime.Snapp" Version="0.1.19" />
   </ItemGroup>
 </Project>

@@ -13,6 +13,7 @@
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IReelSpinCapabilities _spinCapabilities;
+        private readonly IReelAnimationCapabilities _animationCapabilities;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="NudgeReelsCommandHandler" /> class.
@@ -25,6 +26,11 @@
             {
                 _spinCapabilities = reelController.GetCapability<IReelSpinCapabilities>();
             }
+
+            if (reelController?.HasCapability<IReelAnimationCapabilities>() ?? false)
+            {
+                _animationCapabilities = reelController.GetCapability<IReelAnimationCapabilities>();
+            }
         }
 
         /// <inheritdoc />
@@ -35,6 +41,13 @@
             if (_spinCapabilities is not null)
             {
                 var result = _spinCapabilities.NudgeReels(command.NudgeSpinData);
+                command.Success = result.Result;
+                return;
+            }
+
+            if (_animationCapabilities is not null)
+            {
+                var result = _animationCapabilities.PrepareControllerNudgeReels(command.NudgeSpinData, default);
                 command.Success = result.Result;
                 return;
             }

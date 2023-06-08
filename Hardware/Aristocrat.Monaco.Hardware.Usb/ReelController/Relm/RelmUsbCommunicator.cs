@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Usb.ReelController.Relm
 {
+    using Aristocrat.Monaco.Hardware.Contracts.Reel;
     using Common;
     using Contracts.Communicator;
     using Contracts.Reel.ControlData;
@@ -22,7 +23,6 @@
     using DeviceConfiguration = RelmReels.Messages.Queries.DeviceConfiguration;
     using IRelmCommunicator = Contracts.Communicator.IRelmCommunicator;
     using ReelStatus = Contracts.Reel.ReelStatus;
-    using RelmAnimationData = RelmReels.Messages.Commands.AnimationData;
     using RelmReelStatus = RelmReels.Messages.ReelStatus;
 
     internal class RelmUsbCommunicator : IRelmCommunicator
@@ -253,7 +253,7 @@
 
             foreach (var data in showData)
             {
-                var animationData = new RelmAnimationData
+                var animationData = new PrepareLightShowAnimationData
                 {
                     AnimationId = data.Id,
                     LoopCount = data.LoopCount,
@@ -273,17 +273,34 @@
         }
 
         /// <inheritdoc />
-        public Task<bool> PrepareControllerAnimation(ReelCurveData curveData, CancellationToken token = default)
+        public async Task<bool> PrepareControllerAnimation(ReelCurveData curveData, CancellationToken token = default)
         {
-            // TODO: Implement prepare reel curve animation in driver and wire up here
-            throw new NotImplementedException();
+            return await PrepareControllerAnimations(new[] { curveData }, token);
         }
 
         /// <inheritdoc />
-        public Task<bool> PrepareControllerAnimations(IEnumerable<ReelCurveData> curveData, CancellationToken token = default)
+        public async Task<bool> PrepareControllerAnimations(IEnumerable<ReelCurveData> curveData, CancellationToken token = default)
         {
-            // TODO: Implement prepare reel curve animations in driver and wire up here
-            throw new NotImplementedException();
+            if (_relmCommunicator is null)
+            {
+                return false;
+            }
+
+            var prepareCommand = new PrepareStepperCurves();
+
+            foreach (var data in curveData)
+            {
+                var animationData = new PrepareStepperCurveData
+                {
+                    AnimationId = AnimationFiles.First(x => x.FriendlyName == data.AnimationName).AnimationId,
+                    ReelIndex = data.ReelIndex
+                };
+
+                Logger.Debug($"Preparing animation with id: {animationData.AnimationId}");
+                await _relmCommunicator.SendCommandAsync(prepareCommand, token);
+            }
+
+            return true;
         }
 
         /// <inheritdoc />
@@ -316,6 +333,24 @@
         }
 
         /// <inheritdoc />
+        public async Task<bool> StopAllAnimationTags(int animationIdentifier, CancellationToken token = default)
+        {
+            if (_relmCommunicator is null)
+            {
+                return false;
+            }
+
+            Logger.Debug($"Stopping all animations with identifier: {animationIdentifier}");
+
+            await _relmCommunicator.SendCommandAsync(new StopAllAnimationTags
+            {
+                AnimationId = animationIdentifier,
+            }, token);
+
+            return true;
+        }
+
+        /// <inheritdoc />
         public Task<bool> StopControllerLightShowAnimations(IEnumerable<LightShowData> showData, CancellationToken token = default)
         {
             // TODO: Implement stop light show animations in driver and wire up here
@@ -337,10 +372,25 @@
         }
 
         /// <inheritdoc />
-        public Task<bool> PrepareControllerNudgeReels(IEnumerable<NudgeReelData> nudgeData, CancellationToken token = default)
+        public async Task<bool> PrepareControllerNudgeReels(IEnumerable<NudgeReelData> nudgeData, CancellationToken token = default)
         {
-            // TODO: Implement prepare nudge reels in driver and wire up here
-            throw new NotImplementedException();
+            if (_relmCommunicator is null)
+            {
+                return false;
+            }
+
+            Logger.Debug("Nudging reels");
+            foreach (var nudge in nudgeData)
+            {
+                await _relmCommunicator.SendCommandAsync(new PrepareNudgeReel
+                {
+                    ReelIndex = (byte)nudge.ReelId,
+                    Speed = (short)(nudge.Rpm * (nudge.Direction == SpinDirection.Forward ? 1 : -1)),
+                    StepCount = (short)nudge.Step
+                }, token);
+            }
+
+            return true;
         }
 
         /// <inheritdoc />
@@ -425,7 +475,7 @@
                 return Task.FromResult(false);
             }
 
-            _relmCommunicator?.SendCommandAsync(new HomeReels(new List<ReelStepInfo> { new ((byte)reelId, (short)stop) }));
+            _relmCommunicator?.SendCommandAsync(new HomeReels(new List<ReelStepInfo> { new ((byte)(reelId - 1), (short)stop) }));
             return Task.FromResult(true);
         }
 

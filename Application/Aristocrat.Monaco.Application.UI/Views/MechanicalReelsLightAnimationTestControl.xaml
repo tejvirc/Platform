@@ -32,6 +32,10 @@
                 <RowDefinition
                     Height="Auto"
                     AutomationProperties.AutomationId="RowDefinition4_792A35EA" />
+                <RowDefinition
+                    Height="Auto"/>
+                <RowDefinition
+                    Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition

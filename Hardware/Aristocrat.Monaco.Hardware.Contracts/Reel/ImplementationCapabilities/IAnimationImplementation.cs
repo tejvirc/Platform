@@ -99,7 +99,14 @@
         /// </summary>
         /// <param name="token">The cancellation token.</param>
         Task<bool> StopAllLightShows(CancellationToken token = default);
-        
+
+        /// <summary>
+        ///     Instructs the controller to stop playing all light show animations with a given tag.
+        /// </summary>
+        /// <param name="animationId">The animation Identifier token.</param>
+        /// <param name="token">The cancellation token.</param>
+        Task<bool> StopAllAnimationTags(int animationId, CancellationToken token = default);
+
         /// <summary>
         ///     Instructs the controller to stop the reels.
         /// </summary>

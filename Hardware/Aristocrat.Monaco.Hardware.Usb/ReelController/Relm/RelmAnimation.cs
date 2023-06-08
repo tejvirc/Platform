@@ -94,6 +94,12 @@
         }
 
         /// <inheritdoc />
+        public Task<bool> StopAllAnimationTags(int animationId, CancellationToken token = default)
+        {
+            return _communicator.StopAllAnimationTags(animationId, token);
+        }
+
+        /// <inheritdoc />
         public Task<bool> PrepareStopReels(IEnumerable<ReelStopData> stopData, CancellationToken token = default)
         {
             return _communicator.PrepareControllerStopReels(stopData, token);

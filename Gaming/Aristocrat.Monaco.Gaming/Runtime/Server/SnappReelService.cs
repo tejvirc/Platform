@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Runtime.Server
 {
     using System;
+    using System.Collections.Generic;
     using System.Reflection;
     using GdkRuntime.V1;
     using Commands;
@@ -9,6 +10,7 @@
     using ReelSpinData = Hardware.Contracts.Reel.ControlData.ReelSpinData;
     using ReelSpeedData = Hardware.Contracts.Reel.ControlData.ReelSpeedData;
     using SpinDirection = Hardware.Contracts.Reel.SpinDirection;
+    using Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData;
 
     public class SnappReelService : IReelServiceCallback
     {
@@ -117,6 +119,78 @@
             Logger.Debug($"UpdateReelsSpeed with request: {request} Result: {command.Success}");
 
             return new UpdateReelsSpeedResponse { Result = command.Success };
+        }
+
+        public override MessageResponse PrepareLightShowAnimations(PrepareLightShowAnimationsRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MessageResponse PrepareStepperCurves(PrepareStepperCurvesRequest request)
+        {
+            Logger.Debug($"PrepareStepperCurves");
+
+            var curveData = new List<ReelCurveData>();
+
+            foreach (var data in request.StepperData)
+            {
+                curveData.Add(new ReelCurveData
+                {
+                    AnimationName = data.AnimationName,
+                    ReelIndex = (byte)data.ReelIndex
+                });
+            }
+            var command = new PrepareStepperCurves { StepperCurvesData = curveData};
+
+            _handlerFactory.Create<PrepareStepperCurves>().Handle(command);
+
+            return new MessageResponse { Result = command.Success };
+        }
+
+        public override MessageResponse StartAnimations(Empty request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MessageResponse StopLightshowAnimation(StopLightshowAnimationRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MessageResponse StopAllLightshowAnimations(Empty request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MessageResponse StopAllAnimationTags(StopAllAnimationTagsRequest request)
+        {
+            Logger.Debug($"StopAllAnimationTags");
+
+            var command = new StopAllAnimationTags { AnimationName = request.AnimationName };
+
+            _handlerFactory.Create<StopAllAnimationTags>().Handle(command);
+
+            return new MessageResponse { Result = command.Success };
+        }
+
+        public override MessageResponse PrepareStopReel(PrepareStopReelRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MessageResponse PrepareStepperRule(PrepareStepperRuleRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MessageResponse SynchronizeReels(SynchronizeReelsRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MessageResponse SetBrightness(SetBrightnessRequest request)
+        {
+            throw new NotImplementedException();
         }
     }
 }

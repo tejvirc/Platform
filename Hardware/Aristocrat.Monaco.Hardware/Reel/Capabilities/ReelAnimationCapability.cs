@@ -80,6 +80,12 @@
         }
 
         /// <inheritdoc />
+        public Task<bool> StopAllAnimationTags(int animationId, CancellationToken token = default)
+        {
+            return _implementation.StopAllAnimationTags(animationId, token);
+        }
+
+        /// <inheritdoc />
         public Task<bool> PrepareControllerStopReels(IEnumerable<ReelStopData> stopData, CancellationToken token = default)
         {
             return _implementation.PrepareStopReels(stopData, token);

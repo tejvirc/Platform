@@ -9,6 +9,7 @@
     using System.Runtime.CompilerServices;
     using System.Threading.Tasks;
     using System.Windows.Input;
+    using Aristocrat.Monaco.Common;
     using Contracts.ConfigWizard;
     using Contracts.HardwareDiagnostics;
     using Contracts.Localization;
@@ -29,12 +30,14 @@
 
         private const int DefaultNudgeDelay = 0;
 
+        private readonly string stepperCurveName = "SampleStepperCurve";
         private readonly IReelController _reelController;
         private readonly int _maxSupportedReels;
         private readonly IEventBus _eventBus;
         private readonly Action _updateScreenCallback;
         private readonly IInspectionService _reporter;
         private readonly IReelSpinCapabilities _spinCapabilities;
+        private readonly IReelAnimationCapabilities _animationCapabilities;
         private readonly int _spinSpeed;
 
         private bool _homeEnabled = true;
@@ -67,10 +70,23 @@
                 _spinSpeed = _spinCapabilities.DefaultSpinSpeed;
             }
 
+            if (_reelController.HasCapability<IReelAnimationCapabilities>())
+            {
+                _animationCapabilities = _reelController.GetCapability<IReelAnimationCapabilities>();
+            }
+
             HomeCommand = new ActionCommand<object>(_ => HomeReels());
             SpinCommand = new ActionCommand<object>(_ => SpinReels());
             NudgeCommand = new ActionCommand<object>(_ => NudgeReels());
+
+            HomeTest = new ActionCommand<object>(_ => ReelHomeTest().FireAndForget());
+            NudgeTest = new ActionCommand<object>(_ => ReelNudgeTest().FireAndForget());
+            StepperTest = new ActionCommand<object>(_ => StepperCurveTest().FireAndForget());
         }
+
+        public ICommand NudgeTest { get; }
+        public ICommand HomeTest { get; }
+        public ICommand StepperTest { get; }
 
         public IReelDisplayControl ReelsSimulation { get; set; }
 
@@ -422,6 +438,37 @@
             }
 
             RaisePropertyChanged(nameof(ReelInfo));
+        }
+
+        private async Task ReelHomeTest()
+        {
+            await _reelController.HomeReels();
+        }
+
+        private async Task ReelNudgeTest()
+        {
+            await _animationCapabilities.PrepareControllerNudgeReels(new NudgeReelData[]
+            {
+                new ( 0, SpinDirection.Forward, 4, 20),
+                new ( 1, SpinDirection.Forward, 4, 20),
+                new ( 2, SpinDirection.Forward, 4, 20),
+                new ( 3, SpinDirection.Forward, 4, 20),
+                new ( 4, SpinDirection.Forward, 4, 20)
+            });
+            await _animationCapabilities.PlayAnimations();
+        }
+
+        private async Task StepperCurveTest()
+        {
+            var stepperCurveData = new ReelCurveData()
+            {
+                AnimationName = stepperCurveName,
+                ReelIndex = 0
+            };
+
+            await _animationCapabilities.PrepareControllerAnimation(stepperCurveData, default);
+
+            await _animationCapabilities.PlayAnimations();
         }
     }
 }
