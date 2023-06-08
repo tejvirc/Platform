@@ -1296,9 +1296,214 @@ Do you really want to do partial reset????</value>
     <value>??Zéro crédits are required to enter Test Mode??</value>
   </data>
   <data name="IdleTextDefault" xml:space="preserve">
-    <value>INSÉRER L'ARGENT</value>
+    <value>INSÉRER DE L’ARGENT</value>
   </data>
   <data name="FilterBy" xml:space="preserve">
     <value>???Filter By???</value>
+  </data>
+  <data name="BellyDoorClosed" xml:space="preserve">
+    <value>???Belly Door Closed???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="BellyDoorDiscrepancy" xml:space="preserve">
+    <value>???Belly Door Discrepancy???</value>
+  </data>
+  <data name="BellyDoorIsOpen" xml:space="preserve">
+    <value>???Belly Door is Open???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="BellyDoorName" xml:space="preserve">
+    <value>???Belly Door???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="CashDoorClosed" xml:space="preserve">
+    <value>???Stacker Door Closed???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="CashDoorIsOpen" xml:space="preserve">
+    <value>???Stacker Door is Open???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="CashDoorName" xml:space="preserve">
+    <value>???Stacker Door???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="ClearLockupBellyDoor" xml:space="preserve">
+    <value>???Close the Belly Door to Clear the Lockup???</value>
+  </data>
+  <data name="ClearLockupCashDoor" xml:space="preserve">
+    <value>???Close the Stacker Door to Clear the Lockup???</value>
+  </data>
+  <data name="ClearLockupDropDoor" xml:space="preserve">
+    <value>???Close the Drop Door to Clear the Lockup???</value>
+  </data>
+  <data name="ClearLockupExcessiveMeterIncrement" xml:space="preserve">
+    <value>???Excessive meter increment, turn on Jackpot Key to clear this lockup???</value>
+  </data>
+  <data name="ClearLockupLogicDoor" xml:space="preserve">
+    <value>???Close the Logic Door to Clear the Lockup???</value>
+  </data>
+  <data name="ClearLockupMainDoor" xml:space="preserve">
+    <value>???Close the Main Door to Clear the Lockup???</value>
+  </data>
+  <data name="ClearLockupMainOpticDoor" xml:space="preserve">
+    <value>???Close the Main Door to clear this lockup. If lockup persists, check if the optic door sensor is faulty or poorly aligned.???</value>
+  </data>
+  <data name="ClearLockupMechanicalMeterDoor" xml:space="preserve">
+    <value>???Close the Mechanical Meter Door to Clear the Lockup???</value>
+  </data>
+  <data name="ClearLockupSecondaryCashDoor" xml:space="preserve">
+    <value>???Close the Secondary Stacker Door to Clear the Lockup???</value>
+  </data>
+  <data name="ClearLockupTopBoxDoor" xml:space="preserve">
+    <value>???Close the Top Box Door to Clear the Lockup???</value>
+  </data>
+  <data name="ClearLockupTopBoxOpticDoor" xml:space="preserve">
+    <value>???Close the Top Box Door to clear this lockup. If lockup persists, check if the optic door sensor is faulty or poorly aligned.???</value>
+  </data>
+  <data name="DropDoorClosed" xml:space="preserve">
+    <value>???Drop Door Closed???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="DropDoorIsOpen" xml:space="preserve">
+    <value>???Drop Door is Open???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="DropDoorName" xml:space="preserve">
+    <value>???Drop Door???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="LogicDoorClosed" xml:space="preserve">
+    <value>???Logic Door Closed???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="LogicDoorIsOpen" xml:space="preserve">
+    <value>???Logic Door is Open???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="LogicDoorName" xml:space="preserve">
+    <value>???Logic Door???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MainDoorClosed" xml:space="preserve">
+    <value>???Main Door Closed???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MainDoorIsOpen" xml:space="preserve">
+    <value>???Main Door is Open???</value>
+  </data>
+  <data name="MainDoorMismatch" xml:space="preserve">
+    <value>???Main Door Mismatch???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MainDoorName" xml:space="preserve">
+    <value>???Main Door???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MainOpticDoorClosed" xml:space="preserve">
+    <value>???Main Optic Door Closed???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MainOpticDoorIsOpen" xml:space="preserve">
+    <value>???Main Optic Door is Open???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MainOpticDoorName" xml:space="preserve">
+    <value>???Main Optic Door???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MainOpticDoorOpenCount" xml:space="preserve">
+    <value>???Main Optic Door Open Count???</value>
+  </data>
+  <data name="MainOpticDoorOpenPowerOffCount" xml:space="preserve">
+    <value>???Main Optic Door Open Power Off Count???</value>
+  </data>
+  <data name="MainOpticDoorOpenPowerOffShort" xml:space="preserve">
+    <value>???Main Optic Open Power Off???</value>
+  </data>
+  <data name="MechanicalMeterDoorClosed" xml:space="preserve">
+    <value>???Mechanical Meter Door Closed???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MechanicalMeterDoorIsOpen" xml:space="preserve">
+    <value>???Mechanical Meter Door is Open???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MechanicalMeterDoorName" xml:space="preserve">
+    <value>???Mechanical Meter Door???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="SecondaryCashDoorClosed" xml:space="preserve">
+    <value>???Secondary Stacker Door Closed???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="SecondaryCashDoorIsOpen" xml:space="preserve">
+    <value>???Secondary Stacker Door is Open???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="SecondaryCashDoorName" xml:space="preserve">
+    <value>???Secondary Stacker Door???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="TopBoxDoorClosed" xml:space="preserve">
+    <value>???Top Box Door Closed???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="TopBoxDoorIsOpen" xml:space="preserve">
+    <value>???Top Box Door is Open???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="TopBoxDoorMismatch" xml:space="preserve">
+    <value>???Top Box Door Mismatch???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="TopBoxDoorName" xml:space="preserve">
+    <value>???Top Box Door???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="TopBoxOpticDoorClosed" xml:space="preserve">
+    <value>???Top Box Optic Door Closed???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="TopBoxOpticDoorIsOpen" xml:space="preserve">
+    <value>???Top Box Optic Door is Open???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="TopBoxOpticDoorName" xml:space="preserve">
+    <value>???Top Box Optic Door???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="TopBoxOpticDoorOpenCount" xml:space="preserve">
+    <value>???Top Box Optic Door Open Count???</value>
+  </data>
+  <data name="TopBoxOpticDoorOpenPowerOffCount" xml:space="preserve">
+    <value>???Top Box Optic Door Open Power Off Count???</value>
+  </data>
+  <data name="TopBoxOpticDoorOpenPowerOffShort" xml:space="preserve">
+    <value>???Top Box Optic Open Power Off???</value>
+  </data>
+  <data name="UniversalInterfaceBoxDoorClosed" xml:space="preserve">
+    <value>???Universal Interface Box Door Closed???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="UniversalInterfaceBoxDoorIsOpen" xml:space="preserve">
+    <value>???Universal Interface Box Door is Open???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="UniversalInterfaceBoxDoorMismatch" xml:space="preserve">
+    <value>???Universal Interface Box Door Mismatch???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="UniversalInterfaceBoxDoorName" xml:space="preserve">
+    <value>???Universal Interface Box Door???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="UniversalInterfaceBoxDoorOpenCount" xml:space="preserve">
+    <value>???Universal Interface Box Door Open Count???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="UniversalInterfaceBoxDoorOpenPowerOffCount" xml:space="preserve">
+    <value>???Universal Interface Box Door Open Power Off Count???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
   </data>
 </root>

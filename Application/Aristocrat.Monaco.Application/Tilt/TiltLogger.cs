@@ -913,7 +913,7 @@
             if (unformattedEvent.Event is DoorBaseEvent doorEvent)
             {
                 var doorMonitor = ServiceManager.GetInstance().TryGetService<IDoorMonitor>();
-                var localizedName = doorMonitor.GetLocalizedDoorName(doorEvent.LogicalId);
+                var localizedName = doorMonitor.GetLocalizedDoorName(doorEvent.LogicalId, true);
                 targetName = doorEvent.ToLocalizedString(localizedName);
             }
             else
