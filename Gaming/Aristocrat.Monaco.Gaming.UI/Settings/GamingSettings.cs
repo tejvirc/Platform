@@ -19,6 +19,7 @@
         private bool _showServiceButton;
         private VolumeScalar _relativeVolume;
         private bool _reelStopEnabled;
+        private double _reelSpeed;
         private GameStartMethodOption _gameStartMethod;
 
         private CensorshipSettings _censorship;
@@ -117,6 +118,13 @@
             get => _reelStopEnabled;
 
             set => SetProperty(ref _reelStopEnabled, value);
+        }
+
+        public double ReelSpeed
+        {
+            get => _reelSpeed;
+
+            set => SetProperty(ref _reelSpeed, value);
         }
 
         /// <summary>

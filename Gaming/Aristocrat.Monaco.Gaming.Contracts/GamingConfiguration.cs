@@ -44,6 +44,8 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         
         private GamingConfigurationReelStop reelStopField;
         
+        private GamingConfigurationReelSpeed reelSpeedField;
+        
         private GamingConfigurationReelStopInBaseGame reelStopInBaseGameField;
         
         private GamingConfigurationRetainLastRoundResult retainLastRoundResultField;
@@ -225,6 +227,16 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.reelStopField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public GamingConfigurationReelSpeed ReelSpeed {
+            get {
+                return this.reelSpeedField;
+            }
+            set {
+                this.reelSpeedField = value;
             }
         }
         
@@ -1252,6 +1264,28 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.configurableField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class GamingConfigurationReelSpeed {
+        
+        private string valueField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Value {
+            get {
+                return this.valueField;
+            }
+            set {
+                this.valueField = value;
             }
         }
     }

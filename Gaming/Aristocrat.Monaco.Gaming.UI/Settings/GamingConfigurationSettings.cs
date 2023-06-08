@@ -164,6 +164,7 @@
                         ApplicationConstants.LobbyVolumeScalar),
                 ReelStopEnabled =
                     _properties.GetValue(GamingConstants.ReelStopEnabled, false),
+                ReelSpeed = _properties.GetValue(GamingConstants.ReelSpeedKey, GamingConstants.ReelSpeed),
                 GameStartMethod =
                     _properties.GetValue(GamingConstants.GameStartMethod, GameStartMethodOption.Bet),
                 Games = new ObservableCollection<GameSettings>(GetGameSettings()),
@@ -273,6 +274,7 @@
             _properties.SetProperty(GamingConstants.ShowServiceButton, settings.ShowServiceButton);
             _properties.SetProperty(ApplicationConstants.LobbyVolumeScalarKey, settings.RelativeVolume);
             _properties.SetProperty(GamingConstants.ReelStopEnabled, settings.ReelStopEnabled);
+            _properties.SetProperty(GamingConstants.ReelSpeedKey, settings.ReelSpeed);
 
             if (_properties.GetValue(GamingConstants.GameStartMethodConfigurable, false))
             {

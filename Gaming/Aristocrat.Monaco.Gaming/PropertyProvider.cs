@@ -51,6 +51,7 @@
                     OperatorMenu = new GamingConfigurationOperatorMenu(),
                     LockupBehavior = new GamingConfigurationLockupBehavior(),
                     ReelStop = new GamingConfigurationReelStop(),
+                    ReelSpeed = new GamingConfigurationReelSpeed(),
                     ReelStopInBaseGame = new GamingConfigurationReelStopInBaseGame(),
                     GameCategory = new GamingConfigurationGameCategory(),
                     DefaultCreditDisplay = new GamingConfigurationDefaultCreditDisplay(),
@@ -125,6 +126,7 @@
                 { GamingConstants.AutocompleteExpired, (InitFromStorage(GamingConstants.AutocompleteExpired), true) },
                 { GamingConstants.GameRoundDurationMs, (InitFromStorage(GamingConstants.GameRoundDurationMs), true) },
                 { GamingConstants.ReelStopEnabled, (InitFromStorage(GamingConstants.ReelStopEnabled), true) },
+                { GamingConstants.ReelSpeedKey, (InitFromStorage(GamingConstants.ReelSpeedKey), true) },
                 { GamingConstants.ReelStopInBaseGameEnabled, ((object)configuration.ReelStopInBaseGame?.Enabled ?? true, false) },
                 { GamingConstants.ApplyGameCategorySettings, ((object)configuration.GameCategory?.ApplyGameCategorySettings ?? false, false) },
                 { GamingConstants.DisplayProgressiveCeilingMessage, ((object)configuration.DynamicHelpMenuText?.DisplayProgressiveCeilingMessage ?? false, false) },
@@ -290,6 +292,7 @@
                 SetProperty(GamingConstants.ShowServiceButton, true);
                 SetProperty(GamingConstants.ProgressiveCommitTimeoutMs, GamingConstants.DefaultProgressiveCommitTimeoutMs);
                 SetProperty(GamingConstants.ReelStopEnabled, configuration.ReelStop?.Enabled ?? true);
+                SetProperty(GamingConstants.ReelSpeedKey, Convert.ToDouble(configuration.ReelSpeed?.Value ?? Convert.ToString(GamingConstants.ReelSpeed)));
                 SetProperty(GamingConstants.AutoHoldEnable, configuration.AutoHold?.Enable ?? false);
                 SetProperty(GamingConstants.ReplayPauseActive, configuration.ReplayPause?.Active ?? true);
                 SetProperty(GamingConstants.GambleWagerLimit, configuration.Gamble?.WagerLimit ?? GamingConstants.DefaultGambleWagerLimit);

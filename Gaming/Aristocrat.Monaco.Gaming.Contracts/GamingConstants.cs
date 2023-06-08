@@ -417,6 +417,11 @@
         public const string ReelStopEnabled = @"Cabinet.ReelStop";
 
         /// <summary>
+        ///     Determines reel speed
+        /// </summary>
+        public const string ReelSpeedKey = @"Cabinet.ReelSpeed";
+
+        /// <summary>
         ///     Determines if reel stop in base game is enabled
         /// </summary>
         public const string ReelStopInBaseGameEnabled = @"Cabinet.ReelStopInBaseGame";

@@ -18,6 +18,7 @@ as follows:
 		<MinBetMessage MustDisplay="false" Format="Currency" />
 	</Messages>
 	<ReelStop Enabled="false" />
+  <ReelSpeed Value="5" />
 	<LockupBehavior CashableLockupStrategy="NotAllowed" />
 	<DefaultCreditDisplay Format="Currency" />
 	<AutoHold Enable="true" Configurable="false" />

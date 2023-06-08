@@ -93,6 +93,7 @@
 			<Field FieldName="Cabinet.IdleText" DataType="String" Size="256"/>
 			<Field FieldName="Cabinet.GameRoundDurationMs" DataType="Int32" />
 			<Field FieldName="Cabinet.ReelStop" DataType="Bool"/>
+      <Field FieldName="Cabinet.ReelSpeed" DataType="Double"/>
 			<Field FieldName="GamePlay.ShowServiceButton" DataType="Bool"/>
 			<Field FieldName="AutoHold.Enable" DataType="Bool"/>
 			<Field FieldName="CashableLockupStrategy" DataType="Int32"/>

@@ -84,6 +84,11 @@
             <xs:attribute name="Configurable" type="xs:boolean" use="optional" default="true" />
           </xs:complexType>
         </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="ReelSpeed">
+          <xs:complexType>
+            <xs:attribute name="Value" type="xs:string" use="optional" />
+          </xs:complexType>
+        </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="ReelStopInBaseGame">
           <xs:complexType>
             <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
