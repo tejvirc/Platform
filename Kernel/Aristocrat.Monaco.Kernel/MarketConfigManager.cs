@@ -51,7 +51,10 @@ public sealed class MarketConfigManager: IMarketConfigManager
 
         // Parse the manifest.json file
         var manifestJson = File.ReadAllText(Path.Combine(configurationLinkPath, "manifest.json"));
-        _marketConfigManifest = JsonSerializer.Deserialize<MarketConfigManifest>(manifestJson);
+        _marketConfigManifest = JsonSerializer.Deserialize<MarketConfigManifest>(manifestJson, new JsonSerializerOptions()
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        });
 
         _serviceInitialized = true;
 
@@ -114,7 +117,10 @@ public sealed class MarketConfigManager: IMarketConfigManager
 
         // Parse the json file and create the configuration model object
         var json = File.ReadAllText(Path.Combine(_configurationLinkPath, filename));
-        var config = JsonSerializer.Deserialize<T>(json);
+        var config = JsonSerializer.Deserialize<T>(json, new JsonSerializerOptions()
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        });
 
         return config;
     }

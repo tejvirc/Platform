@@ -232,7 +232,7 @@
                 {
                     AccountingConstants.EditableExpiration,
 #if USE_MARKET_CONFIG
-                    Tuple.Create((object)configuration.VoucherOut?.ExpirationEditable ?? true, false)
+                    Tuple.Create((object)configuration.VoucherOut.ExpirationEditable, false)
 #else
                     Tuple.Create((object)configuration.VoucherOut?.Expiration?.Editable ?? true, false)
 #endif
@@ -625,7 +625,7 @@
                     SetProperty(AccountingConstants.ShowMessageWhenCreditLimitReached, configuration.MaxCreditMeter.ShowMessageWhenCreditLimitReached);
                     SetProperty(AccountingConstants.MaxBetLimit, configuration.MaxBetLimit.Default);
                     SetProperty(AccountingConstants.OverwriteMaxBetLimit, configuration.MaxBetLimit.Editable);
-                    SetProperty(AccountingConstants.MaxBetLimitEnabled, configuration.MaxBetLimit.Default);
+                    SetProperty(AccountingConstants.MaxBetLimitEnabled, configuration.MaxBetLimit.Default != long.MaxValue);
 #else
                     SetProperty(PropertyKey.VoucherIn, configuration.VoucherIn.State.Equals("Enabled"));
                     SetProperty(AccountingConstants.VoucherOut, configuration.VoucherOut?.State.Equals("Enabled"));
@@ -636,6 +636,7 @@
                     SetProperty(AccountingConstants.HandpayLimit, configuration.WinLimits?.HandpayLimit ?? AccountingConstants.DefaultHandpayLimit);
                     SetProperty(AccountingConstants.HandpayLimitEnabled, configuration.WinLimits?.HandpayLimit < AccountingConstants.DefaultHandpayLimit);
                     SetProperty(AccountingConstants.LargeWinLimit, configuration.WinLimits?.LargeWinLimit?.Default ?? AccountingConstants.DefaultLargeWinLimit);
+                    // TODO This has a weird side effect of comparing null to a long when the value isn't set in the object
                     SetProperty(AccountingConstants.LargeWinLimitEnabled, configuration.WinLimits?.LargeWinLimit?.Default < AccountingConstants.DefaultLargeWinLimit);
                     SetProperty(AccountingConstants.OverwriteLargeWinLimit, configuration.WinLimits?.LargeWinLimit?.Editable ?? true);
                     SetProperty(AccountingConstants.LargeWinRatio, configuration.WinLimits?.LargeWinRatio?.Default ?? AccountingConstants.DefaultLargeWinRatio);
@@ -674,7 +675,12 @@
                     SetProperty(AccountingConstants.RedeemText, string.Empty);
                     SetProperty(AccountingConstants.MoneyInEnabled, true);
                     SetProperty(AccountingConstants.IgnoreVoucherStackedDuringReboot, false);
-                    SetProperty(AccountingConstants.CheckCreditsIn, configuration.TenderIn.CheckCreditsIn);
+                    // TODO This is a workaround to get the value for the check credits in strategy until the config manager supports enums
+                    if (!Enum.TryParse(configuration.TenderIn.CheckCreditsIn, out CheckCreditsStrategy checkCreditsIn))
+                    {
+                        checkCreditsIn = CheckCreditsStrategy.None;
+                    }
+                    SetProperty(AccountingConstants.CheckCreditsIn, checkCreditsIn);
                     SetProperty(AccountingConstants.AllowCreditUnderLimit, configuration.TenderIn.AllowCreditUnderLimit);
                     SetProperty(AccountingConstants.ReprintLoggedVoucherBehavior, configuration.ReprintLoggedVoucher.Behavior);
                     SetProperty(AccountingConstants.ReprintLoggedVoucherTitleOverride, configuration.ReprintLoggedVoucher.TitleOverride);

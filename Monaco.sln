@@ -247,7 +247,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.Hardware.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.WebApiServer", "Test\automation\Aristocrat.Monaco.WebApiServer\Aristocrat.Monaco.WebApiServer.csproj", "{C825C004-8710-47F2-80B6-B4408D531931}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aristocrat.Monaco.MarketConfig", "MarketConfig\Aristocrat.Monaco.MarketConfig.csproj", "{2501A55A-9613-46D4-8E17-8220EC7EBE4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.MarketConfig", "MarketConfig\Aristocrat.Monaco.MarketConfig.csproj", "{2501A55A-9613-46D4-8E17-8220EC7EBE4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1807,6 +1807,24 @@ Global
 		{C825C004-8710-47F2-80B6-B4408D531931}.Retail|x64.Build.0 = Retail|Any CPU
 		{C825C004-8710-47F2-80B6-B4408D531931}.Retail|x86.ActiveCfg = Retail|Any CPU
 		{C825C004-8710-47F2-80B6-B4408D531931}.Retail|x86.Build.0 = Retail|Any CPU
+        {2501A55A-9613-46D4-8E17-8220EC7EBE4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {2501A55A-9613-46D4-8E17-8220EC7EBE4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {2501A55A-9613-46D4-8E17-8220EC7EBE4B}.Debug|x64.ActiveCfg = Debug|Any CPU
+        {2501A55A-9613-46D4-8E17-8220EC7EBE4B}.Debug|x64.Build.0 = Debug|Any CPU
+        {2501A55A-9613-46D4-8E17-8220EC7EBE4B}.Debug|x86.ActiveCfg = Debug|Any CPU
+        {2501A55A-9613-46D4-8E17-8220EC7EBE4B}.Debug|x86.Build.0 = Debug|Any CPU
+        {2501A55A-9613-46D4-8E17-8220EC7EBE4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {2501A55A-9613-46D4-8E17-8220EC7EBE4B}.Release|Any CPU.Build.0 = Release|Any CPU
+        {2501A55A-9613-46D4-8E17-8220EC7EBE4B}.Release|x64.ActiveCfg = Release|Any CPU
+        {2501A55A-9613-46D4-8E17-8220EC7EBE4B}.Release|x64.Build.0 = Release|Any CPU
+        {2501A55A-9613-46D4-8E17-8220EC7EBE4B}.Release|x86.ActiveCfg = Release|Any CPU
+        {2501A55A-9613-46D4-8E17-8220EC7EBE4B}.Release|x86.Build.0 = Release|Any CPU
+        {2501A55A-9613-46D4-8E17-8220EC7EBE4B}.Retail|Any CPU.ActiveCfg = Retail|Any CPU
+        {2501A55A-9613-46D4-8E17-8220EC7EBE4B}.Retail|Any CPU.Build.0 = Retail|Any CPU
+        {2501A55A-9613-46D4-8E17-8220EC7EBE4B}.Retail|x64.ActiveCfg = Retail|Any CPU
+        {2501A55A-9613-46D4-8E17-8220EC7EBE4B}.Retail|x64.Build.0 = Retail|Any CPU
+        {2501A55A-9613-46D4-8E17-8220EC7EBE4B}.Retail|x86.ActiveCfg = Retail|Any CPU
+        {2501A55A-9613-46D4-8E17-8220EC7EBE4B}.Retail|x86.Build.0 = Retail|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
