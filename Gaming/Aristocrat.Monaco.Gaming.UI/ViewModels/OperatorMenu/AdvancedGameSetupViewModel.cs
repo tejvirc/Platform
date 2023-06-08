@@ -1082,7 +1082,11 @@
                     .GroupBy(x => x.gameId, (id, group) => (id, group.Select(x => x.config)));
                 foreach (var (gameId, configurations) in updates)
                 {
-                    updatedLevels.AddRange(SaveGameConfiguration(gameId, configurations, progressiveLevels));
+                    var levels = SaveGameConfiguration(gameId, configurations, progressiveLevels);
+                    if (!game.Value.HasRestrictionChanges())
+                    {
+                        updatedLevels.AddRange(levels);
+                    }
                 }
 
                 if (game.Value.SelectedRestriction != null)
