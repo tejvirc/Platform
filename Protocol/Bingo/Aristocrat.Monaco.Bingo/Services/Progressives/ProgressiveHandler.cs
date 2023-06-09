@@ -74,11 +74,7 @@
 
             lock (_lock)
             {
-
-                if (_progressiveUpdateLastTime.ContainsKey(update.ProgressiveLevel))
-                {
-                    _progressiveUpdateLastTime[update.ProgressiveLevel] = DateTime.Now;
-                }
+                _progressiveUpdateLastTime[update.ProgressiveLevel] = DateTime.Now;
             }
 
             var progressiveLevels = _protocolLinkedProgressiveAdapter.ViewConfiguredProgressiveLevels();
@@ -96,7 +92,8 @@
                             ProtocolName = ProtocolNames.Bingo,
                             ProgressiveGroupId = progressiveLevel.ProgressivePackId,
                             LevelId = progressiveLevel.LevelId,
-                            Amount = update.Amount
+                            Amount = update.Amount,
+                            Expiration = DateTime.Now + TimeSpan.FromSeconds(MaximumProgressiveUpdateSeconds)
                         };
 
                         Logger.Debug($"UpdateLinkedProgressiveLevels ProgressiveGroupId={linkedLevel.ProgressiveGroupId}, LevelId={linkedLevel.LevelId}, Amount={linkedLevel.Amount}");
