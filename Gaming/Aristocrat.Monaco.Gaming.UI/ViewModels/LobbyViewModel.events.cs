@@ -140,6 +140,9 @@
             _eventBus.Subscribe<PlayerInfoDisplayEnteredEvent>(this, HandleEvent);
             _eventBus.Subscribe<GambleFeatureActiveEvent>(this, HandleEvent);
             _eventBus.Subscribe<HandCountChangedEvent>(this, HandCountChangedEvent);
+            _eventBus.Subscribe<HandCountResetTimerStartedEvent>(this, HandCountResetStartedEvent);
+            _eventBus.Subscribe<HandCountResetTimerElapsedEvent>(this, HandCountDialogElapsed);
+            _eventBus.Subscribe<HandCountResetTimerCancelledEvent>(this, HandCountDialogCancelled);
         }
 
         public delegate void CustomViewChangedEventHandler(ViewInjectionEvent ev);
@@ -1511,6 +1514,22 @@
         private void HandCountChangedEvent(HandCountChangedEvent evt)
         {
             HandCount = evt.HandCount;
+        }
+
+        private void HandCountResetStartedEvent(HandCountResetTimerStartedEvent evt)
+        {
+            _isHandCountResetDialogOpen = true;
+            ExitAndResetAttractMode();
+        }
+
+        private void HandCountDialogElapsed(HandCountResetTimerElapsedEvent evt)
+        {
+            _isHandCountResetDialogOpen = false;
+        }
+
+        private void HandCountDialogCancelled(HandCountResetTimerCancelledEvent evt)
+        {
+            _isHandCountResetDialogOpen = false;
         }
     }
 }

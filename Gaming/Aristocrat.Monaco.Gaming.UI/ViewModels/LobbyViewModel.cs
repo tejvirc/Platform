@@ -210,6 +210,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private bool _cashoutDialogHidden;
         private GameInfo _selectedGame;
         private bool _isInitialStartup = true;
+        private bool _isHandCountResetDialogOpen = false;
 
         private double _credits;
         private int _currentAttractIndex;
@@ -3058,15 +3059,16 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             }
 
             var disableButtons = !IsInState(LobbyState.GameDiagnostics) &&
-                                (IsInState(LobbyState.Disabled) ||
-                                 MessageOverlayDisplay.ShowProgressiveGameDisabledNotification ||
-                                 MessageOverlayDisplay.ShowVoucherNotification ||
-                                 ContainsAnyState(
-                                     LobbyState.CashOut,
-                                     LobbyState.CashIn,
-                                     LobbyState.CashOutFailure,
-                                     LobbyState.PrintHelpline,
-                                     LobbyState.MediaPlayerOverlay));
+                                 (IsInState(LobbyState.Disabled) ||
+                                  MessageOverlayDisplay.ShowProgressiveGameDisabledNotification ||
+                                  MessageOverlayDisplay.ShowVoucherNotification ||
+                                  _isHandCountResetDialogOpen ||
+                                  ContainsAnyState(
+                                      LobbyState.CashOut,
+                                      LobbyState.CashIn,
+                                      LobbyState.CashOutFailure,
+                                      LobbyState.PrintHelpline,
+                                      LobbyState.MediaPlayerOverlay));
 
             EnableButtons(!disableButtons);
 
@@ -3320,6 +3322,14 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 _idleTimer.Start();
             }
 
+            ExitAndResetAttractMode();
+
+            _lobbyStateManager.OnUserInteraction();
+            SetEdgeLighting();
+        }
+
+        private void ExitAndResetAttractMode()
+        {
             _attractMode = false;
             if (_attractTimer != null && _attractTimer.IsEnabled)
             {
@@ -3327,12 +3337,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             }
 
             // Don't display Age Warning while the inserting cash dialog is up.
-            if (_ageWarningTimer.CheckForAgeWarning() == AgeWarningCheckResult.False)
+            if (_ageWarningTimer.CheckForAgeWarning() == AgeWarningCheckResult.False && CurrentState == LobbyState.Attract)
             {
-                if (CurrentState == LobbyState.Attract)
-                {
-                    SendTrigger(LobbyTrigger.AttractModeExit);
-                }
+                SendTrigger(LobbyTrigger.AttractModeExit);
             }
 
             if (_lobbyStateManager.ResetAttractOnInterruption && CurrentAttractIndex != 0)
@@ -3340,9 +3347,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 ResetAttractIndex();
                 SetAttractVideos();
             }
-
-            _lobbyStateManager.OnUserInteraction();
-            SetEdgeLighting();
         }
 
         /// <summary>
