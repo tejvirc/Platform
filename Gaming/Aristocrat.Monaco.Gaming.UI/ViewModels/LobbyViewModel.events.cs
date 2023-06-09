@@ -253,6 +253,7 @@
                 {
                     CurrentAttractIndex = 0;
                     SetAttractVideos();
+                    LoadGameInfo();
                 });
         }
 
@@ -1512,17 +1513,12 @@
 
         private void HandleEvent(GameInstalledEvent evt)
         {
-            if (evt.GameDetail == null)
-            {
-                return;
-            }
-            var games = _properties.GetValues<IGameDetail>(GamingConstants.Games).ToList();
-            var orderedGames = GetOrderedGames(games);
-            var game = orderedGames.FirstOrDefault(g => g.GameId == evt.GameDetail.Id && g.ThemeId == evt.GameDetail.ThemeId);
-            if (game != null)
-            {
-                SetGameAsNew(game, evt.GameDetail.GameTags);
-            }
+            MvvmHelper.ExecuteOnUI(
+                () =>
+                {
+                    OnUserInteraction();
+                    LoadGameInfo();
+                });
         }
 
         private void HandleMessageOverlayVisibility()
