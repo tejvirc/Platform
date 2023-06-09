@@ -30,7 +30,7 @@
         /// <summary>
         ///     The number of lines in the ticket casino info header
         /// </summary>
-        public virtual int TicketCasinoInfoLineCount => 3;
+        public virtual int TicketCasinoInfoLineCount => 4;
 
         /// <summary>
         ///     The number of lines in the ticket header
@@ -188,10 +188,10 @@
                 if (ConfigWizardUtil.VisibleByConfig(PropertiesManager, ApplicationConstants.ConfigWizardIdentityPageZoneOverride))
                 {
                     AddLine(
-                        $"{(!RetailerOverride ? scope.GetString(ResourceKeys.LicenseText) : scope.GetString(ResourceKeys.RetailerText))}",
+                        $"{(!RetailerOverride ? scope.GetString(ResourceKeys.LicenseText) : scope.GetString(ResourceKeys.RetailerText))}:",
                         null,
                         string.Format(
-                            CultureInfo.CurrentCulture,
+                            TicketLocalizer.CurrentCulture,
                             "{0}",
                             PropertiesManager.GetProperty(ApplicationConstants.Zone, scope.GetString(ResourceKeys.DataUnavailable))));
                 }
@@ -325,6 +325,7 @@
         public virtual void AddCasinoInfo()
         {
             // NOTE: If additional lines are added here, update the TicketCasinoInfoLineCount
+            AddEmptyLines();
             AddLine(
                 null,
                 (string)PropertiesManager.GetProperty(PropertyKey.TicketTextLine1, string.Empty),

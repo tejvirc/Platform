@@ -490,7 +490,7 @@
                 tickets = new List<Ticket>();
                 for (var i = 0; i < 3; i++)
                 {
-                    tickets.Add(ticketCreator.Create(i, null));
+                    tickets.Add(ticketCreator.Create(i));
                 }
             }
 

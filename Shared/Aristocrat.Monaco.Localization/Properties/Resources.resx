@@ -7912,7 +7912,7 @@ See manual for details</value>
     <value>Version</value>
   </data>
   <data name="LicenseText" xml:space="preserve">
-    <value>Licence</value>
+    <value>License</value>
   </data>
   <data name="AllowedBlackjackRtp" xml:space="preserve">
     <value>Allowed Blackjack RTP</value>

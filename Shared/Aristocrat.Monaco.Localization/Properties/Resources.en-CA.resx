@@ -195,4 +195,7 @@
   <data name="EnabledDenominationsLabel" xml:space="preserve">
     <value>Enabled Denominations:</value>
   </data>
+  <data name="LicenseText" xml:space="preserve">
+    <value>Licence</value>
+  </data>
 </root>

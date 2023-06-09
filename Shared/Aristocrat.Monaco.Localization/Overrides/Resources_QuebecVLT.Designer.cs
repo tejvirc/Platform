@@ -124,6 +124,15 @@ namespace Aristocrat.Monaco.Localization.Overrides {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PERIODIC RESET COUPON.
+        /// </summary>
+        internal static string PeriodicResetTicketTitle {
+            get {
+                return ResourceManager.GetString("PeriodicResetTicketTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to G2S.
         /// </summary>
         internal static string Protocol {

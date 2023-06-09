@@ -3752,4 +3752,7 @@ Do you really want to do partial reset????</value>
   <data name="Protocol" xml:space="preserve">
     <value>???Protocol???</value>
   </data>
+  <data name="MasterText" xml:space="preserve">
+    <value>??Master??</value>
+  </data>
 </root>

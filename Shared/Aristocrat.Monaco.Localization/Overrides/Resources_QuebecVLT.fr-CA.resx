@@ -144,6 +144,10 @@
     <value>??Exit Offline Mode from operator menu??</value>
     <comment>Jurisdiction override for Out of Service additional info text</comment>
   </data>
+  <data name="PeriodicResetTicketTitle" xml:space="preserve">
+    <value>??PERIODIC RESET COUPON??</value>
+    <comment>Jurisdiction override for Periodic Reset</comment>
+  </data>
   <data name="Protocol" xml:space="preserve">
     <value>???G2S???</value>
   </data>

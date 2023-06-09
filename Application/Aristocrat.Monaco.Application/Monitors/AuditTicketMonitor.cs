@@ -317,15 +317,9 @@
             }
             else
             {
-                _pendingTickets[TicketField] = _verificationTicketCreator.Create(
-                    0,
-                    Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.VerificationTicketTitle));
-                _pendingTickets[Ticket1Field] = _verificationTicketCreator.Create(
-                    1,
-                    Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.VerificationTicketTitle));
-                _pendingTickets[Ticket2Field] = _verificationTicketCreator.Create(
-                    2,
-                    Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.VerificationTicketTitle));
+                _pendingTickets[TicketField] = _verificationTicketCreator.Create(0);
+                _pendingTickets[Ticket1Field] = _verificationTicketCreator.Create(1);
+                _pendingTickets[Ticket2Field] = _verificationTicketCreator.Create(2);
             }
 
             _block[TicketField] = Serialize(_pendingTickets[TicketField]);
