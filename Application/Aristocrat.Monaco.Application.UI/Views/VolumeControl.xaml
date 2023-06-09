@@ -5,8 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:lex="http://wpflocalizeextension.codeplex.com"
              xmlns:loc="http://monaco.aristocrat.com/localization"
-             xmlns:common="http://monaco.aristocrat.com/common"
-             xmlns:audio="clr-namespace:Aristocrat.Monaco.Hardware.Contracts.Audio;assembly=Aristocrat.Monaco.Hardware.Contracts"
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance viewModels:VolumeViewModel}">
@@ -20,9 +18,9 @@
     <StackPanel>
         <Label VerticalAlignment="Center" Content="{lex:Loc Key={x:Static loc:ResourceKeys.MasterSoundVolumeLabel}}"/>
         <ComboBox MinWidth="250"
-                  ItemsSource="{Binding Path=VolumeOptions}"
-                  SelectedValuePath="Value"
+                  ItemsSource="{Binding VolumeOptions}"
                   SelectedValue="{Binding SelectedVolumeLevel}"
-                  IsEnabled="{Binding Path=CanEditVolume}"/>
+                  IsEnabled="{Binding Path=CanEditVolume}"
+                  DisplayMemberPath="VolumeString"/>
     </StackPanel>
 </UserControl>

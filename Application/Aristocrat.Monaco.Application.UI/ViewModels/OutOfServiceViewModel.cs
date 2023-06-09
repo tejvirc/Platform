@@ -12,11 +12,13 @@
     [CLSCompliant(false)]
     public class OutOfServiceViewModel : BaseViewModel
     {
+        private readonly IEventBus _eventBus;
         private readonly IDisableByOperatorManager _disableByOperatorManager;
         private bool _outOfServiceModeButtonIsEnabled;
 
         public OutOfServiceViewModel()
         {
+            _eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
             _disableByOperatorManager = ServiceManager.GetInstance().GetService<IDisableByOperatorManager>();
 
             // Initially it should always be enabled until it's set by the rule access service.
@@ -44,6 +46,12 @@
         }
 
         public void OnLoaded()
+        {
+            _eventBus.Subscribe<OperatorCultureChangedEvent>(this, OnOperatorCultureChanged);
+            RaisePropertyChanged(nameof(OutOfServiceButtonText));
+        }
+
+        private void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             RaisePropertyChanged(nameof(OutOfServiceButtonText));
         }

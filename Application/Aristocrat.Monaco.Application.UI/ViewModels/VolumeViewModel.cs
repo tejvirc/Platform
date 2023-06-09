@@ -1,19 +1,16 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
-    using System.Xml.Linq;
     using Aristocrat.Monaco.Application.Contracts.Localization;
     using Aristocrat.Monaco.Hardware.Contracts;
     using Aristocrat.Monaco.Hardware.Contracts.Audio;
-    using Aristocrat.Monaco.Hardware.Contracts.EdgeLighting;
     using Aristocrat.Monaco.Kernel.Contracts;
-    using Aristocrat.Monaco.Localization.Properties;
     using Contracts;
     using Kernel;
     using log4net;
+    using Models;
     using MVVM;
     using MVVM.ViewModel;
 
@@ -26,23 +23,9 @@
         private readonly IEventBus _eventBus;
         private readonly IAudio _audioService;
         private bool _inputEnabled;
-        private VolumeLevel _selectedVolumeLevel;
+        private VolumeOption _selectedVolumeLevel;
 
-        private ObservableCollection<string> volumeOptions = new ObservableCollection<string>() {
-                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExtraLow),
-                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Low),
-                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MediumLow),
-                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Medium),
-                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MediumHigh),
-                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.High),
-                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExtraHigh),
-        };
-
-        public ObservableCollection<string> VolumeOptions   // property
-        {
-            get { return volumeOptions; }   // get method
-            set { volumeOptions = value; }  // set method
-        }
+        public ObservableCollection<VolumeOption> VolumeOptions { get; } = new();
 
         public VolumeViewModel()
         {
@@ -52,8 +35,14 @@
             _eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
             _audioService = ServiceManager.GetInstance().GetService<IAudio>();
 
+            foreach (VolumeLevel volumeLevel in Enum.GetValues(typeof(VolumeLevel)))
+            {
+                VolumeOptions.Add(new VolumeOption(volumeLevel));
+            }
+
             // Load default volume level
-            SelectedVolumeLevel = (VolumeLevel)_propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
+            var selectedVolumeLevel = (VolumeLevel)_propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
+            _selectedVolumeLevel = VolumeOptions.FirstOrDefault(v => v.Level == selectedVolumeLevel);
             Logger.DebugFormat("Initializing default volume setting with value: {0}", _selectedVolumeLevel);
         }
 
@@ -71,21 +60,22 @@
 
         public bool CanEditVolume => !IsAudioDisabled && !IsSystemDisabled && InputEnabled;
 
-        public VolumeLevel SelectedVolumeLevel
+        public VolumeOption SelectedVolumeLevel
         {
             get => _selectedVolumeLevel;
-
             set
             {
                 if (SetProperty(ref _selectedVolumeLevel, value))
                 {
-                    _propertiesManager.SetProperty(PropertyKey.DefaultVolumeLevel, (byte)value);
+                    _propertiesManager.SetProperty(PropertyKey.DefaultVolumeLevel, (byte)value.Level);
                 }
             }
         }
 
         public void OnLoaded()
         {
+            UpdateVolumeOptions();
+
             if (IsSystemDisabled)
             {
                 RaisePropertyChanged(nameof(CanEditVolume));
@@ -95,14 +85,15 @@
 
             _eventBus.Subscribe<EnabledEvent>(this, OnEnabledEvent);
             _eventBus.Subscribe<DisabledEvent>(this, OnDisabledEvent);
+            _eventBus.Subscribe<OperatorCultureChangedEvent>(this, OnOperatorCultureChanged);
             LoadVolumeSettings();
         }
 
         private void LoadVolumeSettings()
         {
             // Load volume level
-            SelectedVolumeLevel = (VolumeLevel)_propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
-            RaisePropertyChanged(nameof(SelectedVolumeLevel));
+            var selectedVolumeLevel = (VolumeLevel)_propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
+            SelectedVolumeLevel = VolumeOptions.FirstOrDefault(v => v.Level == selectedVolumeLevel);
         }
 
         public void OnUnloaded()
@@ -124,6 +115,19 @@
             {
                 RaisePropertyChanged(nameof(CanEditVolume));
             });
+        }
+
+        private void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            UpdateVolumeOptions();
+        }
+
+        private void UpdateVolumeOptions()
+        {
+            foreach (var volumeOption in VolumeOptions)
+            {
+                volumeOption.UpdateDisplay();
+            }
         }
     }
 }
