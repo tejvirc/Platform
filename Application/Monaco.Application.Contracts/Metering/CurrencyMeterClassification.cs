@@ -2,6 +2,7 @@
 {
     using Extensions;
     using Kernel;
+    using System.Globalization;
 
     /// <summary>
     ///     A classification of meters that represent an amount of money,
@@ -21,13 +22,14 @@
         ///     Creates and returns a string representation of the value
         /// </summary>
         /// <param name="meterValue">The value in to convert to a string</param>
+        /// <param name="culture">The optional CultureInfo to use for string formatting</param>
         /// <returns>A string representation of the value</returns>
-        public override string CreateValueString(long meterValue)
+        public override string CreateValueString(long meterValue, CultureInfo culture = null)
         {
             var currencyMultiplier = ServiceManager.GetInstance().GetService<IPropertiesManager>().GetValue(ApplicationConstants.CurrencyMultiplierKey, 0.0);
             var inCents = meterValue / currencyMultiplier;
 
-            return inCents.FormattedCurrencyString();
+            return inCents.FormattedCurrencyString(culture: culture);
         }
     }
 }

@@ -168,11 +168,11 @@
                             var meter = meterManager.GetMeter(dict.Value);
 
                             AddLine(
-                                meter.Classification.CreateValueString(meter.Lifetime),
+                                meter.Classification.CreateValueString(meter.Lifetime, TicketLocalizer.CurrentCulture),
                                 dict.Key.Replace(
                                     "Count",
                                     string.Empty), // VLT-11715 : dropped "Count" to give more space
-                                meter.Classification.CreateValueString(meter.Period));
+                                meter.Classification.CreateValueString(meter.Period, TicketLocalizer.CurrentCulture));
                         }
                     }
 
@@ -191,7 +191,7 @@
                         meter = meterManager.GetMeter(ApplicationMeters.TotalOut);
                         meterMasterNet -= meter.Lifetime;
 
-                        var valueString = meter.Classification.CreateValueString(meterMasterNet);
+                        var valueString = meter.Classification.CreateValueString(meterMasterNet, TicketLocalizer.CurrentCulture);
                         valueString = Regex.Replace(valueString, @"[^\u0000-\u007F]+", " ");
 
                         AddLine(
@@ -208,7 +208,7 @@
                     AddLine(
                         scope.GetString(ResourceKeys.CreditBalanceText),
                         null,
-                        creditBalance.FormattedCurrencyString());
+                        creditBalance.FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture));
 
                     AddLine(
                         scope.GetString(ResourceKeys.LastCashoutTicketSequenceText),

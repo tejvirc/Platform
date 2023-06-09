@@ -128,7 +128,7 @@
             AddLine(
                 TicketLocalizer.GetString(ResourceKeys.CreditBalanceText),
                 null,
-                FromMillicents(balance).FormattedCurrencyString());
+                FromMillicents(balance).FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture));
         }
 
         private void AddMeterLine(string labelText, long[] meterPair, string meterFormatString = "")
@@ -154,9 +154,9 @@
             if (string.IsNullOrEmpty(meterFormatString))
             {
                 AddLine(
-                    meterPair[Master].FormattedCurrencyString(),
+                    meterPair[Master].FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture),
                     labelText,
-                    meterPair[Period].FormattedCurrencyString());
+                    meterPair[Period].FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture));
             }
             else
             {

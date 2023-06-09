@@ -232,13 +232,13 @@
                 if (countLine)
                 {
                     AddLine(
-                        string.Format(NumberFormatInfo.CurrentInfo, "{0}", masterCount),
+                        string.Format(TicketLocalizer.CurrentCulture.NumberFormat, "{0}", masterCount),
                         dict.Key,
-                        string.Format(NumberFormatInfo.CurrentInfo, "{0}", periodCount));
+                        string.Format(TicketLocalizer.CurrentCulture.NumberFormat, "{0}", periodCount));
                 }
                 else
                 {
-                    AddLine(masterV.FormattedCurrencyString(), dict.Key, periodV.FormattedCurrencyString());
+                    AddLine(masterV.FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture), dict.Key, periodV.FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture));
                 }
             }
         }
@@ -289,9 +289,9 @@
                 showCountLines);
 
             AddLine(
-                totalBillInMaster.FormattedCurrencyString(),
+                totalBillInMaster.FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture),
                 TicketLocalizer.GetString(ResourceKeys.TotalDashBillIn),
-                totalBillInPeriod.FormattedCurrencyString());
+                totalBillInPeriod.FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture));
 
             AddDashesLine();
 

@@ -288,16 +288,18 @@
         /// </summary>
         /// <param name="amount">Amount.</param>
         /// <param name="withMillicents">Whether to add extra digits for fractional currency (default false)</param>
+        /// <param name="culture">The optional CultureInfo to use for string formatting</param>
         /// <returns>Formatted currency string.</returns>
-        public static string FormattedCurrencyString(this double amount, bool withMillicents = false)
+        public static string FormattedCurrencyString(this double amount, bool withMillicents = false, CultureInfo culture = null)
         {
-            var subUnitDigits = CurrencyCultureInfo.NumberFormat.CurrencyDecimalDigits;
+            culture ??= CurrencyCultureInfo;
+            var subUnitDigits = culture.NumberFormat.CurrencyDecimalDigits;
             if (withMillicents)
             {
                 subUnitDigits += MillicentPerCentsDigits;
             }
 
-            return amount.ToString($"C{subUnitDigits}", CurrencyCultureInfo);
+            return amount.ToString($"C{subUnitDigits}", culture);
         }
 
         /// <summary>
@@ -305,16 +307,19 @@
         /// </summary>
         /// <param name="amount">Amount.</param>
         /// <param name="withMillicents">Whether to add extra digits for fractional currency (default false)</param>
+        /// <param name="culture">The optional culture used for formatting.  If none is provided, defaults to the current Currency culture.</param>
         /// <returns>Formatted currency string.</returns>
-        public static string FormattedCurrencyString(this long amount, bool withMillicents = false)
+        public static string FormattedCurrencyString(this long amount, bool withMillicents = false, CultureInfo culture = null)
         {
-            var subUnitDigits = CurrencyCultureInfo.NumberFormat.CurrencyDecimalDigits;
+            culture ??= CurrencyCultureInfo;
+
+            var subUnitDigits = culture.NumberFormat.CurrencyDecimalDigits;
             if (withMillicents)
             {
                 subUnitDigits += MillicentPerCentsDigits;
             }
 
-            return amount.ToString($"C{subUnitDigits}", CurrencyCultureInfo);
+            return amount.ToString($"C{subUnitDigits}", culture);
         }
 
         /// <summary>
