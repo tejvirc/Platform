@@ -286,7 +286,7 @@
     <value>??{0}. Parameter name: {1}.??</value>
   </data>
   <data name="PrintHandPayText" xml:space="preserve">
-    <value>Printing Receipt...</value>
+    <value>???Printing Receipt...???</value>
   </data>
   <data name="RecoveringText" xml:space="preserve">
     <value>Récupération</value>
@@ -3754,5 +3754,9 @@ Do you really want to do partial reset????</value>
   </data>
   <data name="MasterText" xml:space="preserve">
     <value>??Master??</value>
+  </data>
+  <data name="PrintingTicket" xml:space="preserve">
+    <value>???Printing Ticket...???</value>
+    <comment>Aristocrat.Monaco.Gaming</comment>
   </data>
 </root>
