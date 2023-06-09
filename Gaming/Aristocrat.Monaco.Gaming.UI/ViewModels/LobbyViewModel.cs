@@ -195,8 +195,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private bool _gameLaunchOnStartup;
         private bool _isDebugCurrencyButtonVisible;
         private bool _disableDebugCurrency;
-        private bool _nextAttractModeLanguageIsPrimary = true;
-        private bool _lastInitialAttractModeLanguageIsPrimary = true;
+        private bool _nextAttractModeLanguageIsPrimary = true; // Whether the next played attract video is in the primary language
+        private bool _lastInitialAttractModeLanguageIsPrimary = true; // This keeps track of alternating the starting language for the attract video list
         private bool _initialLanguageEventSent;
         private bool _vbdServiceButtonDisabled;
         private bool _isDemonstrationMode;
@@ -550,7 +550,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
             IsDemonstrationMode = _properties.GetValue(ApplicationConstants.DemonstrationMode, false);
 
-            if(_bank.QueryBalance() == 0 && _gameState.Idle && !_gameHistory.IsRecoveryNeeded)
+            if (_bank.QueryBalance() == 0 && _gameState.Idle && !_gameHistory.IsRecoveryNeeded)
             {
                 IsPrimaryLanguageSelected = true;
             }
@@ -2119,7 +2119,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                                          : Config.DefaultGameOrderLightningLinkDisabled;
 
             var defaultList = lightningLinkOrder ?? Config.DefaultGameDisplayOrderByThemeId;
-            
+
 
             _gameOrderSettings.SetAttractOrderFromConfig(distinctThemeGames.Select(g => new GameInfo { InstallDateTime = g.InstallDate, ThemeId = g.ThemeId } as IGameInfo).ToList(),
                                                       defaultList);
@@ -2514,21 +2514,21 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             StopAndUnloadAttractVideo();
 
             // Increment to next attract mode video.
-            bool wrap = AdvanceAttractIndex();
+            var wrap = AdvanceAttractIndex();
             if (Config.AlternateAttractModeLanguage)
             {
-                _nextAttractModeLanguageIsPrimary = !_nextAttractModeLanguageIsPrimary;
+                if (wrap)
+                {
+                    _nextAttractModeLanguageIsPrimary = !_lastInitialAttractModeLanguageIsPrimary;
+                    _lastInitialAttractModeLanguageIsPrimary = _nextAttractModeLanguageIsPrimary;
+                }
+                else
+                {
+                    _nextAttractModeLanguageIsPrimary = !_nextAttractModeLanguageIsPrimary;
+                }
             }
 
             SetEdgeLighting();
-
-            if (wrap && Config.AlternateAttractModeLanguage)
-            {
-                _nextAttractModeLanguageIsPrimary = !_lastInitialAttractModeLanguageIsPrimary;
-                _lastInitialAttractModeLanguageIsPrimary = _nextAttractModeLanguageIsPrimary;
-            }
-
-            SetAttractVideos();
 
             _consecutiveAttractCount = 0;
 
@@ -4200,6 +4200,10 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             if (AttractList.Count > 0)
             {
                 attract = AttractList[CurrentAttractIndex];
+                if (attract is IGameInfo game)
+                {
+                    Logger.Debug($"CurrentAttractIndex = {CurrentAttractIndex}, AttractDetails = {game.ThemeId}");
+                }
             }
 
             if (Config.AlternateAttractModeLanguage)
@@ -4236,6 +4240,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                         attract?.BottomAttractVideoPath.NullIfEmpty() ?? Config.DefaultTopAttractVideoFilename;
                 }
             }
+
+            Logger.Debug($"BottomAttractVideoPath = {BottomAttractVideoPath}");
         }
 
         private bool ResetResponsibleGamingDialog(bool resetDueToOperatorMenu = false)
@@ -5031,7 +5037,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 }
             }
         }
-        // returns true if we wrap around to index 0
+
+        // Returns true if we wrap around to index 0
         private bool AdvanceAttractIndex()
         {
             lock (_attractLock)
