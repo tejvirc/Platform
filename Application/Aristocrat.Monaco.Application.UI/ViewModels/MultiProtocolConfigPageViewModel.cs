@@ -196,10 +196,20 @@
                     GetProtocols(protocolDetails, Functionality.CentralDeterminationSystem, s => s.IsCentralDeterminationSystemSupported) :
                     new List<CommsProtocol>();
 
-            if (PropertiesManager.GetValue(ApplicationConstants.ShowMode, false))
+            if (PropertiesManager.GetValue(ApplicationConstants.ShowMode, false) &&
+                _multiProtocolConfiguration.Count == 1 && _multiProtocolConfiguration.First().Protocol
+                    .Equals(CommsProtocol.DemonstrationMode))
             {
-                ValidationProtocols = new CommsProtocol[] { CommsProtocol.DemonstrationMode };
-                ValidationProtocol = CommsProtocol.DemonstrationMode;
+                _protocolConfiguration.ExclusiveProtocols = new[]
+                {
+                    new ExclusiveProtocol
+                    {
+                        Function = Functionality.Validation, Name = CommsProtocol.DemonstrationMode
+                    }
+                };
+
+                ValidationProtocols = new[] { CommsProtocol.DemonstrationMode };
+
                 IsValidationComboBoxEnabled = true;
             }
 

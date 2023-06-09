@@ -1976,7 +1976,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
             _operatorMenu.EnableKey(ApplicationConstants.OperatorMenuInitializationKey);
 
-            if ((bool)_properties.GetProperty(ApplicationConstants.ShowMode, false))
+            var showMode = (bool)_properties.GetProperty(ApplicationConstants.ShowMode, false);
+
+            if (showMode)
             {
                 SetShowModeLobbyLabel();
 #if !(RETAIL)
@@ -1985,7 +1987,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             }
 
             var drm = ServiceManager.GetInstance().TryGetService<IDigitalRights>();
-            if (drm?.IsDeveloper ?? false)
+            if (!showMode && (drm?.IsDeveloper ?? false))
             {
                 SetShowDeveloperLabel();
             }

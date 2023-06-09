@@ -49,11 +49,12 @@
 
             if (PropertiesManager.GetValue(ApplicationConstants.ShowMode, false))
             {
+                var protocolsToMerge = protocolsConfiguration.ProtocolConfiguration.ProtocolsAllowed;
                 protocolsConfiguration.ProtocolConfiguration.ProtocolsAllowed =
-                    new GlobalProtocol[]
-                    {
-                        new GlobalProtocol { Name = CommsProtocol.DemonstrationMode, IsMandatory = true }
-                    };
+                    new GlobalProtocol[protocolsToMerge.Length + 1];
+                protocolsConfiguration.ProtocolConfiguration.ProtocolsAllowed[0] =
+                    new GlobalProtocol { Name = CommsProtocol.DemonstrationMode, IsMandatory = true };
+                Array.Copy(protocolsToMerge, 0, protocolsConfiguration.ProtocolConfiguration.ProtocolsAllowed, 1, protocolsToMerge.Length);
 
                 var demo = new ProtocolSelection()
                 {

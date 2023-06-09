@@ -460,6 +460,7 @@
                 eventBus.Subscribe<GameIdleEvent>(this, _ => UpdateShowModeAccountBalance());
                 eventBus.Subscribe<HandpayKeyOffPendingEvent>(this, ShowModeHandleEvent);
                 eventBus.Subscribe<OperatorMenuExitedEvent>(this, _ => UpdateShowModeAccountBalance());
+                eventBus.Subscribe<TransferOutCompletedEvent>(this, _ => UpdateShowModeAccountBalance());
             }
         }
 
