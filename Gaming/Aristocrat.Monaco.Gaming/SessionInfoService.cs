@@ -166,6 +166,14 @@ namespace Aristocrat.Monaco.Gaming
                                 amount = lastVoucherOut?.TransactionAmount ?? 0;
                                 lastTransactionId = lastVoucherOut?.TransactionId ?? 0;
                                 break;
+                            case SessionEventType.HardMeterOut:
+                                var hardMeterOutTransactions =
+                                    _transactionHistory?.RecallTransactions<HardMeterOutTransaction>();
+                                var lastHardmeterOut = hardMeterOutTransactions?.OrderByDescending(x => x.LogSequence)
+                                    .FirstOrDefault();
+                                amount = lastHardmeterOut?.TransactionAmount ?? 0;
+                                lastTransactionId = lastHardmeterOut?.TransactionId ?? 0;
+                                break;
                         }
                     }
 
