@@ -254,7 +254,8 @@
                                            Stretch="None"
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Top"
-                                           Margin="-22">
+                                           Margin="-22"
+                                           IsHitTestVisible="False">
                                         <Image.Visibility>
                                             <MultiBinding Converter="{StaticResource LogicalAndTrueVisibleFalseCollapsed}">
                                                 <Binding Path="IsSelected"/>
