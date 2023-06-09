@@ -33,8 +33,7 @@
         {
             if (WizardNavigator != null)
             {
-                WizardNavigator.CanNavigateForward = EnabledDevices.All(d => d.Status.Contains(Localizer.For(CultureFor.Operator)
-                    .GetString(ResourceKeys.ConnectedText))) && !IsValidating;
+                WizardNavigator.CanNavigateForward = Validated;
 
                 if (WizardNavigator.CanNavigateForward && !_autoNavigated && AutoConfigurator != null &&
                     AutoConfigurator.AutoConfigurationExists)

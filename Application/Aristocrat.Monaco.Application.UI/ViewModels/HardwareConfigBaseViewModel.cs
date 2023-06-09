@@ -524,6 +524,13 @@
             CheckBellyPanelDoor();
         }
 
+        protected bool Validated => !IsValidating && EnabledDevices.All(
+            d =>
+            {
+                IDevice device = null;
+                return CheckHardware(d, ref device);
+            });
+
         private void CheckBellyPanelDoor()
         {
             var disableManager = ServiceManager.GetInstance().GetService<ISystemDisableManager>();
@@ -579,13 +586,6 @@
                     IDevice device = null;
                     return CheckHardware(d, ref device) != true;
                 });
-
-        private bool Validated => !IsValidating && EnabledDevices.All(
-            d =>
-            {
-                IDevice device = null;
-                return CheckHardware(d, ref device);
-            });
 
         private static ConfiguredDevices GetConfiguredDevices()
         {
