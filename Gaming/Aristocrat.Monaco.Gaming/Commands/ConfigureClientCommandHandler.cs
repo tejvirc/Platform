@@ -165,7 +165,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 { "/Runtime/Gamble&maxRounds", GamingConstants.MaxRounds.ToString() },
                 { "/Runtime/Gamble&skipByJackpotHit", _properties.GetValue(GamingConstants.GambleSkipByJackpotHit, false).ToString() },
                 { "/Runtime/GameDuration&kenoSpeed", _gameCategoryService.SelectedGameCategorySetting.PlayerSpeed.ToString() },
-                { "/Runtime/GameDuration&reelSpeed", _properties.GetValue(GamingConstants.ReelSpeedKey, GamingConstants.ReelSpeed.ToString(CultureInfo.InvariantCulture)).ToString() },
+                { "/Runtime/GameDuration&reelSpeed", _properties.GetValue(GamingConstants.ReelSpeedKey, GamingConstants.ReelSpeed).ToString() },
                 { "/Runtime/GameRules&gameDisabled", ApplicationConstants.DefaultGameDisabledUse },
                 { "/Runtime/Meters&defaultDisplay", _properties.GetValue(GamingConstants.DefaultCreditDisplayFormat, DisplayFormat.Credit).ToString().ToLower() },
                 { "/Runtime/Meters&idleDisplay", GamingConstants.IdleCreditDisplayFormat },
