@@ -138,6 +138,7 @@
             _eventBus.Subscribe<PlayerInfoDisplayExitedEvent>(this, HandleEvent);
             _eventBus.Subscribe<PlayerInfoDisplayEnteredEvent>(this, HandleEvent);
             _eventBus.Subscribe<GambleFeatureActiveEvent>(this, HandleEvent);
+            _eventBus.Subscribe<GameInstalledEvent>(this, HandleEvent);
         }
 
         public delegate void CustomViewChangedEventHandler(ViewInjectionEvent ev);
@@ -1507,6 +1508,21 @@
             _isGambleFeatureActive = evt.Active;
             RaisePropertyChanged(nameof(ReturnToLobbyAllowed));
             RaisePropertyChanged(nameof(CashOutEnabledInPlayerMenu));
+        }
+
+        private void HandleEvent(GameInstalledEvent evt)
+        {
+            if (evt.GameDetail == null)
+            {
+                return;
+            }
+            var games = _properties.GetValues<IGameDetail>(GamingConstants.Games).ToList();
+            var orderedGames = GetOrderedGames(games);
+            var game = orderedGames.FirstOrDefault(g => g.GameId == evt.GameDetail.Id && g.ThemeId == evt.GameDetail.ThemeId);
+            if (game != null)
+            {
+                SetGameAsNew(game, evt.GameDetail.GameTags);
+            }
         }
 
         private void HandleMessageOverlayVisibility()
