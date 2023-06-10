@@ -162,6 +162,7 @@
 
         protected override void Loaded()
         {
+			_validationProtocol = default(CommsProtocol);
             _multiProtocolConfiguration = _multiProtocolConfigurationProvider.MultiProtocolConfiguration.ToList();
 
             var protocolsConfiguration = _configurationUtilitiesProvider
