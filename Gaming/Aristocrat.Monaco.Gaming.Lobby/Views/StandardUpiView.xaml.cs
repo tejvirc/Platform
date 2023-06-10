@@ -12,7 +12,7 @@
         {
             InitializeComponent();
 
-            DataContext = Application.Current.GetService<StandardUpiViewModel>();
+            DataContext = Application.Current.GetObject<StandardUpiViewModel>();
         }
     }
 }

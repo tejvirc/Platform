@@ -8,6 +8,8 @@ using Models;
 [FeatureState]
 public record LobbyState
 {
+    public IImmutableList<GameInfo> Games { get; set; } = ImmutableList<GameInfo>.Empty;
+
     public bool IsMultiLanguage { get; set; }
 
     public bool IsGamesLoaded { get; set; }

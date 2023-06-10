@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Windows;
 using Aristocrat.Monaco.UI.Common;
 using Microsoft.Extensions.DependencyInjection;
+using Services;
 
 public static class ApplicationExtensions
 {
@@ -30,5 +31,20 @@ public static class ApplicationExtensions
                        throw new InvalidOperationException("Services were not set on Application");
 
         return services.GetRequiredService<IEnumerable<TService>>();
+    }
+
+    public static T GetObject<T>(this Application application) where T : class
+    {
+        var services = ((MonacoApplication)application).Services ??
+                       throw new InvalidOperationException("Services were not set on Application");
+
+        if (typeof(T).IsAbstract || typeof(T).IsInterface)
+        {
+            throw new InvalidOperationException($"{typeof(T)} is not a concrete type");
+        }
+
+        var factory = services.GetRequiredService<IObjectFactory>();
+
+        return factory.GetObject<T>();
     }
 }

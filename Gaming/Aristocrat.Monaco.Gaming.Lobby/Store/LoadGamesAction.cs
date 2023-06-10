@@ -4,10 +4,7 @@ using Models;
 
 public class LoadGamesAction
 {
-    public LoadGamesAction(LoadGameTrigger trigger = LoadGameTrigger.OnDemand)
+    public LoadGamesAction()
     {
-        Trigger = trigger;
     }
-
-    public LoadGameTrigger Trigger { get; }
 }

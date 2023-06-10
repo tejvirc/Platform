@@ -2,6 +2,7 @@
 
 using System.Windows;
 using System.Windows.Controls;
+using Commands;
 using Consumers;
 using Contracts.Lobby;
 using Kernel;
@@ -16,6 +17,7 @@ using SimpleInjector.Packaging;
 using Store.Chooser;
 using Store.Lobby;
 using UI.Common;
+using ViewModels;
 
 public class GamingLobbyPackage : IPackage
 {
@@ -35,9 +37,9 @@ public class GamingLobbyPackage : IPackage
 
         container.Register<IRegionViewRegistry, RegionViewRegistry>(Lifestyle.Singleton);
 
-        container.Register<IRegionNavigator, RegionNavigator>();
+        container.Register<IRegionNavigator, RegionNavigator>(Lifestyle.Transient);
 
-        container.Register<DelayedRegionCreationStrategy>();
+        container.Register<DelayedRegionCreationStrategy>(Lifestyle.Transient);
 
         container.Register(typeof(IRegionCreator<>), typeof(RegionCreator<>), Lifestyle.Transient);
 
@@ -46,7 +48,13 @@ public class GamingLobbyPackage : IPackage
 
         container.RegisterInstance<IRegionAdapterMapper>(regionAdapterMapper);
 
-        container.Register(typeof(IStateLens<>), typeof(StateLens<>), Lifestyle.Singleton);
+        container.Register<ISelector, StoreSelector>(Lifestyle.Singleton);
+
+        container.Register(typeof(IStateSelectors<>), typeof(StateSelectors<>), Lifestyle.Singleton);
+
+        container.Register<IApplicationCommands, ApplicationCommands>(Lifestyle.Singleton);
+
+        container.Register<IObjectFactory, ObjectFactory>(Lifestyle.Singleton);
 
         container.RegisterLobby();
 

@@ -12,7 +12,7 @@
         {
             InitializeComponent();
 
-            DataContext = Application.Current.GetService<ChooserViewModel>();
+            DataContext = Application.Current.GetObject<ChooserViewModel>();
         }
     }
 }

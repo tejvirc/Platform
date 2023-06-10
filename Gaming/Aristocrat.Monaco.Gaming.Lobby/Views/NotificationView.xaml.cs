@@ -12,7 +12,7 @@
         {
             InitializeComponent();
 
-            DataContext = Application.Current.GetService<NotificationViewModel>();
+            DataContext = Application.Current.GetObject<NotificationViewModel>();
         }
     }
 }

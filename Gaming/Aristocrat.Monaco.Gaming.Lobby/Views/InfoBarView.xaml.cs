@@ -12,7 +12,7 @@
         {
             InitializeComponent();
 
-            DataContext = Application.Current.GetService<InfoBarViewModel>();
+            DataContext = Application.Current.GetObject<InfoBarViewModel>();
         }
     }
 }

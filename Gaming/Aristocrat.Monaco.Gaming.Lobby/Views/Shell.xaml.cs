@@ -12,7 +12,7 @@
         {
             InitializeComponent();
 
-            DataContext = Application.Current.GetService<ShellViewModel>();
+            DataContext = Application.Current.GetObject<ShellViewModel>();
         }
     }
 }

@@ -14,7 +14,7 @@
         {
             InitializeComponent();
 
-            DataContext = Application.Current.GetService<PlatformTopViewModel>();
+            DataContext = Application.Current.GetObject<PlatformTopViewModel>();
         }
     }
 }

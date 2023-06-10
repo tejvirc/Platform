@@ -64,7 +64,7 @@ public class GameLoader : IGameLoader
                               InstallDateTime = game.InstallDate,
                               DllPath = game.GameDll,
                               ImagePath = games.Count > 8 ? game.LocaleGraphics.Values.First().SmallIcon : game.LocaleGraphics.Values.First().LargeIcon,
-                              // ImagePath = UseSmallIcons ? game.LocaleGraphics.First()[ActiveLocaleCode].SmallIcon : game.LocaleGraphics[ActiveLocaleCode].LargeIcon,
+                              // ImagePath = UseSmallIcons ? game.LocaleGraphics[ActiveLocaleCode].SmallIcon : game.LocaleGraphics[ActiveLocaleCode].LargeIcon,
                               // TopPickImagePath = UseSmallIcons ? game.LocaleGraphics[ActiveLocaleCode].SmallTopPickIcon : game.LocaleGraphics[ActiveLocaleCode].LargeTopPickIcon,
                               // TopAttractVideoPath = game.LocaleGraphics[ActiveLocaleCode].TopAttractVideo,
                               // TopperAttractVideoPath = game.LocaleGraphics[ActiveLocaleCode].TopperAttractVideo,

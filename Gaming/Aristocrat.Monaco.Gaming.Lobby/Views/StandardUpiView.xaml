@@ -9,8 +9,9 @@
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance Type=viewModels:StandardUpiViewModel, IsDesignTimeCreatable=False}"
              d:DesignHeight="450" d:DesignWidth="800">
+
     <Grid>
-            
+        <TextBlock Text="{Binding}" Foreground="White" TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
     </Grid>
 
 </UserControl>

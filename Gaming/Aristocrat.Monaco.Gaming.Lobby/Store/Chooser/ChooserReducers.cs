@@ -6,12 +6,6 @@ using Fluxor;
 public class ChooserReducers
 {
     [ReducerMethod]
-    public static ChooserState Reduce(ChooserState state, GamesLoadedAction payload) =>
-        state with
-        {
-            Games = ImmutableList.CreateRange(payload.Games)
-        };
-
     public static ChooserState Reduce(ChooserState state, StartupAction payload)
     {
         return state with

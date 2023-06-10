@@ -14,7 +14,7 @@
         {
             InitializeComponent();
 
-            DataContext = Application.Current.GetService<PlatformButtonDeckViewModel>();
+            DataContext = Application.Current.GetObject<PlatformButtonDeckViewModel>();
         }
     }
 }

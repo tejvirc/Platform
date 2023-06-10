@@ -7,9 +7,6 @@ using static Redux.Selectors;
 
 public static class ChooserSelectors
 {
-    public static readonly ISelector<ChooserState, IImmutableList<GameInfo>> GamesSelector = CreateSelector(
-        (ChooserState s) => s.Games);
-
     public static readonly ISelector<ChooserState, bool> IsExtraLargeIconsSelector =
         CreateSelector((ChooserState s) => s.IsExtraLargeIcons);
 

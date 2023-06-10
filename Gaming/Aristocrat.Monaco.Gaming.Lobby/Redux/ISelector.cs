@@ -2,7 +2,12 @@
 
 using System;
 
-public interface ISelector<TState, TResult>
+public interface ISelector
+{
+    IObservable<TResult> Select<TState, TResult>(ISelector<TState, TResult> selector);
+}
+
+public interface ISelector<in TState, out TResult>
 {
     TResult Apply(TState stateObserver);
 

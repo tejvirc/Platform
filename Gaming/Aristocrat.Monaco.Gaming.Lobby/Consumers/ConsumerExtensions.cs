@@ -17,7 +17,7 @@ public static class ConsumerExtensions
         // TODO Refactor to use DI container
         ServiceManager.GetInstance().AddService(new SharedConsumerContext());
 
-        container.RegisterManyForOpenGeneric(typeof(IConsumes<>), typeof(Consumers.Consumes<>).Assembly);
+        container.RegisterManyForOpenGeneric(typeof(IConsumes<>), typeof(Consumes<>).Assembly);
 
         return container;
     }

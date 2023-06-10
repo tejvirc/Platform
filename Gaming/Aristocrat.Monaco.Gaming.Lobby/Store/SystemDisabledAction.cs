@@ -1,6 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Store;
 
-using Aristocrat.Monaco.Kernel;
+using Kernel;
 
 public class SystemDisabledAction
 {

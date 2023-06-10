@@ -1,9 +1,18 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Store.Lobby;
 
+using System.Collections.Immutable;
 using Fluxor;
 
 public static class LobbyReducers
 {
+    [ReducerMethod]
+    public static LobbyState Reduce(LobbyState state, GamesLoadedAction payload) =>
+        state with
+        {
+            IsGamesLoaded = true,
+            Games = ImmutableList.CreateRange(payload.Games)
+        };
+
     [ReducerMethod]
     public static LobbyState Reduce(LobbyState state, StartupAction payload) =>
         state with { IsMultiLanguage = payload.Configuration.MultiLanguageEnabled };
@@ -27,8 +36,4 @@ public static class LobbyReducers
     [ReducerMethod]
     public static LobbyState Reduce(LobbyState state, LoadGamesAction _) =>
         state with { IsGamesLoaded = false };
-
-    [ReducerMethod]
-    public static LobbyState Reduce(LobbyState state, GamesLoadedAction _) =>
-        state with { IsGamesLoaded = true };
 }

@@ -5,25 +5,21 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using Fluxor;
 
-public sealed class StateLens<TState> : IStateLens<TState>, IDisposable
+public sealed class StateSelectors<TState> : IStateSelectors<TState>, IDisposable
 {
-    private readonly IStore _store;
     private readonly IState<TState> _state;
     private readonly BehaviorSubject<TState> _subject;
 
     private bool _disposed;
 
-    public StateLens(IStore store, IState<TState> state)
+    public StateSelectors(IState<TState> state)
     {
-        _store = store;
         _state = state;
 
-        _subject = new(_state.Value);
+        _subject = new BehaviorSubject<TState>(_state.Value);
 
         _state.StateChanged += OnStateChanged;
     }
-
-    public IStore Store => _store;
 
     public TState State => _state.Value;
 

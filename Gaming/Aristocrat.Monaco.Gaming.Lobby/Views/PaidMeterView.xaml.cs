@@ -12,7 +12,7 @@
         {
             InitializeComponent();
 
-            DataContext = Application.Current.GetService<PaidMeterViewModel>();
+            DataContext = Application.Current.GetObject<PaidMeterViewModel>();
         }
     }
 }

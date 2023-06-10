@@ -2,34 +2,36 @@
 
 using System.Linq;
 using System.Threading.Tasks;
-using Aristocrat.Monaco.Application.Contracts;
-using Aristocrat.Monaco.Gaming.Lobby.Services.OperatorMenu;
+using Commands;
 using Fluxor;
 using Services;
 using Services.Layout;
-using Vgt.Client12.Application.OperatorMenu;
+using Services.OperatorMenu;
 
 public class LobbyEffects
 {
     private readonly ILayoutManager _layoutManager;
     private readonly IOperatorMenuController _operatorMenu;
     private readonly IGameLoader _gameLoader;
+    private readonly IApplicationCommands _commands;
 
     public LobbyEffects(
         ILayoutManager layoutManager,
         IOperatorMenuController operatorMenu,
-        IGameLoader gameLoader)
+        IGameLoader gameLoader,
+        IApplicationCommands commands)
     {
         _layoutManager = layoutManager;
         _operatorMenu = operatorMenu;
         _gameLoader = gameLoader;
+        _commands = commands;
     }
 
     [EffectMethod]
-    public async Task Effect(LoadGamesAction action, IDispatcher dispatcher)
+    public async Task Effect(LoadGamesAction _, IDispatcher dispatcher)
     {
         var games = (await _gameLoader.LoadGames()).ToList();
-        dispatcher.Dispatch(new GamesLoadedAction(action.Trigger, games));
+        dispatcher.Dispatch(new GamesLoadedAction(games));
     }
 
     [EffectMethod]
@@ -45,6 +47,8 @@ public class LobbyEffects
     {
         _operatorMenu.Enable();
 
+        dispatcher.Dispatch(new LoadGamesAction());
+
         return Task.CompletedTask;
     }
 
@@ -52,6 +56,8 @@ public class LobbyEffects
     public Task Effect(ShutdownAction _, IDispatcher dispatcher)
     {
         _layoutManager.DestroyWindows();
+
+        _commands.ShutdownCommand.Execute(null);
 
         return Task.CompletedTask;
     }

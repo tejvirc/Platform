@@ -1,28 +1,22 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.ViewModels;
 
 using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reactive;
 using System.Windows;
+using Commands;
 using Common;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Controls;
-using Fluxor;
-using Fluxor.Selectors;
 using Models;
 using Redux;
-using Store.Chooser;
+using static Store.Lobby.LobbySelectors;
 using static Store.Chooser.ChooserSelectors;
 
 public class ChooserViewModel : ObservableObject
 {
-    private readonly IStateLens<ChooserState> _state;
-
-    private SubscriptionList _subscriptions = new();
+    private readonly SubscriptionList _subscriptions = new();
 
     private int _gameCount;
     private int _denomFilter;
@@ -31,19 +25,28 @@ public class ChooserViewModel : ObservableObject
     private bool _isLobbyVisible = true;
     private bool _isIsMultipleGameAssociatedSapLevelTwoEnabled;
 
-    public ChooserViewModel(IStateLens<ChooserState> state)
+    public ChooserViewModel(ISelector selector, IApplicationCommands commands)
     {
-        _state = state;
-
         LoadedCommand = new RelayCommand(OnLoaded);
         UnloadedCommand = new RelayCommand(OnUnloaded);
+        ShutdownCommand = new RelayCommand(OnShutdown);
         GameSelectCommand = new RelayCommand<GameInfo>(OnGameSelected);
         DenomSelectedCommand = new RelayCommand<DenomInfo>(OnDenomSelected);
+
+        commands.ShutdownCommand.RegisterCommand(ShutdownCommand);
+
+        _subscriptions += selector.Select(GamesSelector).Subscribe(
+            games =>
+            {
+                games.UpdateObservable(Games, g => g.GameId, (g1, g2) => g1.GameId == g2.GameId);
+            });
     }
 
     public RelayCommand LoadedCommand { get; }
 
     public RelayCommand UnloadedCommand { get; }
+
+    public RelayCommand ShutdownCommand { get; }
 
     public RelayCommand<GameInfo> GameSelectCommand { get; }
 
@@ -118,14 +121,13 @@ public class ChooserViewModel : ObservableObject
 
     private void OnLoaded()
     {
-        _subscriptions += _state.Select(GamesSelector).Subscribe(
-            games =>
-            {
-                games.UpdateObservable(Games, g => g.GameId, (g1, g2) => g1.GameId == g2.GameId);
-            });
     }
 
     private void OnUnloaded()
+    {
+    }
+
+    private void OnShutdown()
     {
         _subscriptions.UnsubscribeAll();
     }

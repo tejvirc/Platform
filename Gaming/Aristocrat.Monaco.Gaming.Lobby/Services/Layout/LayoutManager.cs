@@ -51,11 +51,18 @@ public class LayoutManager : ILayoutManager
                 _regionManager.RegisterView<LoadingMainView>(RegionNames.Main, ViewNames.Loading);
 
                 _regionManager.RegisterView<ChooserView>(RegionNames.Chooser, ViewNames.Chooser);
+
                 _regionManager.RegisterView<StandardUpiView>(RegionNames.Upi, ViewNames.StandardUpi);
+                _regionManager.RegisterView<StandardUpiView>(RegionNames.Upi, ViewNames.MultiLingualUpi);
+
                 _regionManager.RegisterView<ReplayNavView>(RegionNames.ReplayNav, ViewNames.ReplayNav);
+
                 _regionManager.RegisterView<InfoBarView>(RegionNames.InfoBar, ViewNames.InfoBar);
+
                 _regionManager.RegisterView<PaidMeterView>(RegionNames.PaidMeter, ViewNames.PaidMeter);
+
                 _regionManager.RegisterView<BannerView>(RegionNames.Banner, ViewNames.Banner);
+
                 _regionManager.RegisterView<NotificationView>(RegionNames.Notification, ViewNames.Notification);
 
                 _windowLauncher.Hide(StatusWindowName);
@@ -107,6 +114,13 @@ public class LayoutManager : ILayoutManager
                 //_windows.Add(buttonDeckGameWindow);
 
                 _regionManager.NavigateToView(RegionNames.Main, ViewNames.Lobby);
+                _regionManager.NavigateToView(RegionNames.Chooser, ViewNames.Chooser);
+                _regionManager.NavigateToView(RegionNames.PaidMeter, ViewNames.PaidMeter);
+                _regionManager.NavigateToView(RegionNames.Banner, ViewNames.Banner);
+                _regionManager.NavigateToView(RegionNames.Notification, ViewNames.Notification);
+                _regionManager.NavigateToView(RegionNames.InfoBar, ViewNames.InfoBar);
+                _regionManager.NavigateToView(RegionNames.Upi, ViewNames.StandardUpi);
+                _regionManager.NavigateToView(RegionNames.ReplayNav, ViewNames.ReplayNav);
             });
     }
 

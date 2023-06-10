@@ -12,7 +12,7 @@
         {
             InitializeComponent();
 
-            DataContext = Application.Current.GetService<GameMainViewModel>();
+            DataContext = Application.Current.GetObject<GameMainViewModel>();
         }
     }
 }

@@ -59,9 +59,6 @@
     <ProjectReference Include="..\Aristocrat.Monaco.Gaming.Contracts\Aristocrat.Monaco.Gaming.Contracts.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Commands\" />
-  </ItemGroup>
-  <ItemGroup>
     <Page Update="Styles\Default.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>

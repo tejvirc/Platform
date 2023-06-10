@@ -1,12 +1,9 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Redux;
 
-using Fluxor;
 using System;
 
-public interface IStateLens<TState>
+public interface IStateSelectors<TState>
 {
-    IStore Store { get; }
-
     TState State { get; }
 
     IObservable<TResult> Select<TResult>(ISelector<TState, TResult> selector);

@@ -13,7 +13,7 @@
         {
             InitializeComponent();
 
-            DataContext = Application.Current.GetService<GameTopperViewModel>();
+            DataContext = Application.Current.GetObject<GameTopperViewModel>();
         }
     }
 }
