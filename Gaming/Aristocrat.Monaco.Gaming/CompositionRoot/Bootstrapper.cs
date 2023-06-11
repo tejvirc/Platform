@@ -53,16 +53,21 @@
         ///     Initialize the container
         /// </summary>
         /// <returns>A container</returns>
-        public static Container InitializeContainer()
+        public static Container InitializeContainer(Action<Container> configureHost)
         {
-            return ConfigureContainer();
+            return ConfigureContainer(configureHost);
         }
 
-        private static Container ConfigureContainer()
+        private static Container ConfigureContainer(Action<Container> configureHost)
         {
             var container = new Container();
+
+            // container.Options.DefaultScopedLifestyle = ScopedLifestyle.Flowing;
+
             container.AddResolveUnregisteredType(typeof(Bootstrapper).FullName, Logger);
 
+            configureHost?.Invoke(container);
+            
             container.Register<SnappService>(Lifestyle.Singleton);
             container.Register<SnappReelService>(Lifestyle.Singleton);
             container.Register<SnappPresentationService>(Lifestyle.Singleton);

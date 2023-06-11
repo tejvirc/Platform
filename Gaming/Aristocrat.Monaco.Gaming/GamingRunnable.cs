@@ -1,10 +1,13 @@
 ﻿namespace Aristocrat.Monaco.Gaming
 {
     using System;
+    using System.Diagnostics;
     using System.Globalization;
+    using System.IO;
+    using System.Linq;
     using System.Reflection;
+    using System.Runtime.Loader;
     using System.Threading;
-    using Accounting.Contracts.HandCount;
     using Application.Contracts;
     using Application.Contracts.Localization;
     using Application.Contracts.Media;
@@ -52,7 +55,13 @@
         /// <inheritdoc />
         protected override void OnInitialize()
         {
-            _container = Bootstrapper.InitializeContainer();
+            var dispatcher = Application.Current.Dispatcher;
+
+            dispatcher.BeginInvoke(
+                new Action(
+                    () =>
+                    {
+                        _container = Bootstrapper.InitializeContainer(ConfigureHost);
 
             _container.Options.AllowOverridingRegistrations = true;
 
@@ -60,7 +69,28 @@
 
             _container.Options.AllowOverridingRegistrations = false;
 
+                        // This will forcibly resolve all instances, which will create the Consumers
+                        _container.Verify();
+                    })).Wait();
+
             Logger.Info("Initialized");
+        }
+
+        private static void ConfigureHost(Container container)
+        {
+            var assembly = Assembly.GetEntryAssembly();
+            Debug.Assert(assembly != null);
+
+            var binPath = Path.GetDirectoryName(assembly.Location);
+            Debug.Assert(binPath != null);
+
+            var assemblies = Directory.GetFiles(binPath, "Aristocrat.Monaco.Gaming.*.dll")
+                .Select(
+                    file => AssemblyLoadContext.Default
+                        .LoadFromAssemblyPath(file))
+                .ToList();
+
+            container.RegisterPackages(assemblies);
         }
 
         /// <inheritdoc />
@@ -163,9 +193,6 @@
             AddServices();
 
             RegisterLogAdapters();
-
-            // This will forcibly resolve all instances, which will create the Consumers
-            _container.Verify();
 
             // NOTE: This is just to ensure we don't have an orphan process running
             _container.GetInstance<IGameService>().TerminateAny(false, true);

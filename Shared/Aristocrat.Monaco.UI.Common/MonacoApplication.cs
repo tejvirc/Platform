@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.UI.Common
 {
+    using System;
     using System.Reflection;
     using System.Runtime.InteropServices;
     using System.Windows;
@@ -25,6 +26,11 @@
                 NativeMethods.ErrorModes.SemFailCriticalErrors | NativeMethods.ErrorModes.SemNoGpFaultErrorBox);
             Startup += MonacoApplication_Startup;
         }
+
+        /// <summary>
+        ///     Gets or sets the dependency injection service provider.
+        /// </summary>
+        public IServiceProvider Services { get; set; }
 
         private static void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {

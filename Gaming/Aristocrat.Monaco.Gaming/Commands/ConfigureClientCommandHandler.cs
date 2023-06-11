@@ -36,7 +36,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
         private readonly IGameHistory _gameHistory;
         private readonly IGameRecovery _gameRecovery;
         private readonly IGameDiagnostics _gameDiagnostics;
-        private readonly ILobbyStateManager _lobbyStateManager;
+        // private readonly ILobbyStateManager _lobbyStateManager;
         private readonly IPlayerBank _playerBank;
         private readonly IPropertiesManager _properties;
         private readonly IRuntime _runtime;
