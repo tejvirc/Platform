@@ -21,6 +21,6 @@
                   ItemsSource="{Binding VolumeOptions}"
                   SelectedValue="{Binding SelectedVolumeLevel}"
                   IsEnabled="{Binding Path=CanEditVolume}"
-                  DisplayMemberPath="VolumeString"/>
+                  DisplayMemberPath="DisplayString"/>
     </StackPanel>
 </UserControl>
