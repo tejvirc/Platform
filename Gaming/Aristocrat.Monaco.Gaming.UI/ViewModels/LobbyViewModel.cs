@@ -44,6 +44,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Application.Contracts.Drm;
     using Cabinet.Contracts;
     using Common;
+    using Contracts.Configuration;
     using Contracts.Events;
     using Contracts.InfoBar;
     using Contracts.PlayerInfoDisplay;
@@ -261,6 +262,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private bool _isSelectPayModeVisible;
         private bool _vbdInfoBarOpenRequested;
         private bool _isGambleFeatureActive;
+        private readonly CategorySortedGameCollection _categorizedGameCollection;
 
         /****** UPI ******/
         /* TODO: Make UpiViewModel to break up this class */
@@ -351,6 +353,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             _gameService = containerService.Container.GetInstance<IGameService>();
             _cashableLockupProvider = containerService.Container.GetInstance<ICashableLockupProvider>();
             _reserveService = containerService.Container.GetInstance<IReserveService>();
+
+            _categorizedGameCollection = new CategorySortedGameCollection(
+                containerService.Container.GetInstance<IGameProvider>(),
+                containerService.Container.GetInstance<IGameConfigurationProvider>()
+            );
 
             PlayerInfoDisplayMenuViewModel = new PlayerInfoDisplayMenuViewModel(containerService.Container.GetInstance<IPlayerInfoDisplayFeatureProvider>());
             var factory = containerService.Container.GetInstance<IPlayerInfoDisplayManagerFactory>();
@@ -1971,7 +1978,10 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 return;
             }
 
-            var games = _properties.GetValues<IGameDetail>(GamingConstants.Games).ToList();
+            var games = _categorizedGameCollection
+                .GetEnabledGamesSortedByCategory()
+                .ToArray();
+
             // Do not crash if game manifest does not provide the metadata for the expected locales.
             // This will just render bad data.
             foreach (var game in games)
@@ -2029,7 +2039,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 });
         }
 
-        private ObservableCollection<GameInfo> GetOrderedGames(IReadOnlyCollection<IGameDetail> games)
+        private ObservableCollection<GameInfo> GetOrderedGames(ICollection<IGameDetail> games)
         {
             ChooseGameOffsetY = UseSmallIcons ? 25.0 : 50.0;
 
