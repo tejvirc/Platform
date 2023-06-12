@@ -244,7 +244,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
             {
                 parameters.Add("/Runtime/MaximumGameRoundWin&use", "allowed");
                 parameters.Add("/Runtime/MaximumGameRoundWin&valueCents", maxGameRoundWin.MillicentsToCents().ToString(CultureInfo.InvariantCulture));
-                parameters.Add("/Runtime/MaximumGameRoundWin&onMaxWinReach", "endGame");
+                parameters.Add("/Runtime/MaximumGameRoundWin&onMaxWinReach", "endGameAfterPresentation");
             }
 
             if (denomination.LineOption != null)
