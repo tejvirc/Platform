@@ -38,7 +38,7 @@
                 throw new ArgumentNullException(nameof(pathMapper));
             }
 
-            _connectionString = ConnectionString(pathMapper);
+            _connectionString = ConnectionString(pathMapper, Constants.DatabasePassword);
         }
 
         /// <inheritdoc />
@@ -101,14 +101,15 @@
             _disposed = true;
         }
 
-        private static string ConnectionString(IPathMapper pathMapper)
+        private static string ConnectionString(IPathMapper pathMapper, string password)
         {
             var dir = pathMapper.GetDirectory(Constants.DataPath);
             var path = Path.GetFullPath(dir.FullName);
 
             var sqlBuilder = new SqlConnectionStringBuilder
             {
-                DataSource = Path.Combine(path, Constants.DatabaseFileName)
+                DataSource = Path.Combine(path, Constants.DatabaseFileName),
+                Password = password
             };
 
             return sqlBuilder.ConnectionString;

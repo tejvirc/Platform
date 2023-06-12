@@ -176,19 +176,22 @@
 
                 File.WriteAllText(tempFile, string.Empty);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 // failed to write to secondary media.
+                Logger.Error("Failed to write to secondary drive", e);
                 return null;
             }
+
             finally
             {
                 try
                 {
                     File.Delete(tempFile);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    Logger.Error("Failed to write to secondary drive", e);
                     //ignore
                 }
             }
@@ -202,11 +205,8 @@
             {
                 DataSource = filePath,
                 Pooling = true,
-                Password = password
-                //MaxPoolSize = int.MaxValue,
-                //ConnectRetryCount = 10,
-                //ConnectRetryInterval = 1,
-                //ConnectTimeout = 15
+                Password = password,
+                DefaultTimeout = 15
             };
 
             return $"{sqlBuilder.ConnectionString};";
@@ -221,16 +221,14 @@
 
             try
             {
-                using (var connection = CreateConnection(filePath, password))
-                {
-                    connection.Open();
+                using var connection = CreateConnection(filePath, password);
+                connection.Open();
 
-                    // This command is used to verify that the SQL lite file is valid and does not have errors
-                    const string verifySqlFileIsValidCommand = "PRAGMA integrity_check(1)";
-                    const string successfulCommandResponse = "ok";
-                    using var command = new SqliteCommand(verifySqlFileIsValidCommand, connection);
-                    return command.ExecuteScalar().ToString() == successfulCommandResponse;
-                }
+                // This command is used to verify that the SQL lite file is valid and does not have errors
+                const string verifySqlFileIsValidCommand = "PRAGMA integrity_check(1)";
+                const string successfulCommandResponse = "ok";
+                using var command = new SqliteCommand(verifySqlFileIsValidCommand, connection);
+                return command.ExecuteScalar().ToString() == successfulCommandResponse;
             }
             catch (Exception e)
             {
@@ -242,11 +240,7 @@
 
         private static SqliteConnection CreateConnection(string filePath, string password)
         {
-            var connection = new SqliteConnection(ConnectionString(filePath,password));
-
-            //connection.SetPassword(password);
-
-            return connection;
+            return new SqliteConnection(ConnectionString(filePath, password));
         }
 
         private bool VerifySqlFiles(string sqlFile)
@@ -279,6 +273,8 @@
 
                 Logger.Debug($"Restoring to primary {primary.FullName} => {secondary.FullName}.");
 
+                SqliteConnection.ClearAllPools();
+
                 File.Copy(primary.FullName, secondary.FullName, true);
 
                 var sqliteTempFileExtensions = new[] { "-wal", "-shm", "-journal" };
@@ -286,13 +282,7 @@
                 return sqliteTempFileExtensions.All(
                     x =>
                     {
-                        var primaryTempFile = primary.FullName + x;
                         var secondaryTempFile = secondary.FullName + x;
-                        Debug.Assert(!File.Exists(primaryTempFile));
-                        if (File.Exists(primaryTempFile)) // This should never be true.
-                        {
-                            return false;
-                        }
 
                         if (File.Exists(secondaryTempFile))
                         {

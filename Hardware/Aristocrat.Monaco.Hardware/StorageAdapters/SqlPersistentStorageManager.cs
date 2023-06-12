@@ -13,6 +13,7 @@
     using Kernel;
     using log4net;
     using Microsoft.Data.Sqlite;
+    using SQLitePCL;
     using StorageSystem;
 
     /// <summary>
@@ -37,19 +38,18 @@
         private const string UpdatePersistenceLevelStatement =
             "UPDATE StorageBlock SET Level = '{1}' WHERE Name = '{0}'";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static bool _initializedSqlMirror;
 
-        private readonly Dictionary<string, SqlPersistentStorageAccessor> _accessors =
-            new Dictionary<string, SqlPersistentStorageAccessor>();
+        private readonly Dictionary<string, SqlPersistentStorageAccessor> _accessors = new();
 
         private readonly IPathMapper _pathMapper;
         private readonly IEventBus _bus;
         private readonly string _databaseFilename;
         private readonly string _databasePassword;
 
-        private readonly object _sync = new object();
+        private readonly object _sync = new();
 
         private string _dataRoot;
 
@@ -60,7 +60,9 @@
         ///     Initializes a new instance of the <see cref="SqlPersistentStorageManager" /> class.
         /// </summary>
         public SqlPersistentStorageManager()
-            : this(ServiceManager.GetInstance().GetService<IPathMapper>(), ServiceManager.GetInstance().GetService<IEventBus>())
+            : this(
+                ServiceManager.GetInstance().GetService<IPathMapper>(),
+                ServiceManager.GetInstance().GetService<IEventBus>())
         {
         }
 
@@ -124,7 +126,7 @@
 
             if (!verified)
             {
-                Logger.Error($"Persistent Storage failure: {MethodBase.GetCurrentMethod().Name}");
+                Logger.Error($"Persistent Storage failure: {MethodBase.GetCurrentMethod()!.Name}");
 
                 _bus.Publish(new PersistentStorageIntegrityCheckFailedEvent());
             }
@@ -162,22 +164,14 @@
 
                 try
                 {
-                    using (var connection = CreateConnection())
-                    {
-                        connection.Open();
-
-                        using (var transaction = connection.BeginTransaction(IsolationLevel.Serializable))
-                        {
-                            CreateStorageBlockEntities(transaction, level, name, 0, arraySize);
-
-                            var accessor = _accessors[name] =
-                                new SqlPersistentStorageAccessor(transaction, name, arraySize, format);
-
-                            transaction.Commit();
-
-                            return accessor;
-                        }
-                    }
+                    using var connection = CreateConnection();
+                    connection.Open();
+                    using var transaction = connection.BeginTransaction(IsolationLevel.Serializable);
+                    CreateStorageBlockEntities(transaction, level, name, 0, arraySize);
+                    var accessor = _accessors[name] =
+                        new SqlPersistentStorageAccessor(transaction, name, arraySize, format);
+                    transaction.Commit();
+                    return accessor;
                 }
                 catch (Exception e)
                 {
@@ -288,35 +282,23 @@
 
         private string ConnectionString()
         {
-            //const int retries = 10;
-            //const int timeout = 15000;
+            const int timeout = 15000;
             var fileName = GetFileName();
 
             var sqlBuilder = new SqliteConnectionStringBuilder
             {
                 DataSource = fileName,
                 Pooling = true,
-
-                //Password = _databasePassword
-                //PrepareRetries = retries,
-                //Missing = true,
-                //JournalMode = SQLiteJournalModeEnum.Wal,
-                //SyncMode = SynchronizationModes.Full,TargetInvocationException: Exception has been thrown by the target of an invocation.
-                //DefaultIsolationLevel = IsolationLevel.Serializable,
-                //BusyTimeout = timeout,
-                //["Max Pool Size"] = int.MaxValue
+                Password = _databasePassword,
+                DefaultTimeout = timeout
             };
 
-            return $"{sqlBuilder.ConnectionString};";
+            return sqlBuilder.ConnectionString;
         }
 
         private SqliteConnection CreateConnection()
         {
-            var connection = new SqliteConnection(ConnectionString());
-
-            //connection.SetPassword(_databasePassword);
-
-            return connection;
+            return new SqliteConnection(ConnectionString());
         }
 
         private string GetFileName()
@@ -332,29 +314,19 @@
         [SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities", Justification = "Safe to suppress. No user input.")]
         private void SqlExecuteNonQuery(string commandText)
         {
-            using (var connection = CreateConnection())
-            {
-                connection.Open();
-
-                using (var command = new SqliteCommand(commandText, connection))
-                {
-                    command.ExecuteNonQuery();
-                }
-            }
+            using var connection = CreateConnection();
+            connection.Open();
+            using var command = new SqliteCommand(commandText, connection);
+            command.ExecuteNonQuery();
         }
 
         [SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities", Justification = "Safe to suppress. No user input")]
         private object SqlExecuteScalar(string commandText)
         {
-            using (var connection = CreateConnection())
-            {
-                connection.Open();
-
-                using (var command = new SqliteCommand(commandText, connection))
-                {
-                    return command.ExecuteScalar();
-                }
-            }
+            using var connection = CreateConnection();
+            connection.Open();
+            using var command = new SqliteCommand(commandText, connection);
+            return command.ExecuteScalar();
         }
 
         private SqlPersistentStorageAccessor GetPersistentStorageAccessorByName(string name)
@@ -371,32 +343,31 @@
         {
             const string sql =
                 @"insert into StorageBlock (Name, Level, Version, Count) values (@StorageBlockName, @StorageBlockLevel, @StorageBlockVersion, @StorageBlockCount)";
-            using (var command = new SqliteCommand(sql, transaction.Connection, transaction))
+            using var command = new SqliteCommand(sql, transaction.Connection, transaction);
+            command.Parameters.Add("@StorageBlockName", SqliteType.Text).Value = name;
+            command.Parameters.Add("@StorageBlockLevel", SqliteType.Text).Value = level;
+            command.Parameters.Add("@StorageBlockVersion", SqliteType.Integer).Value = version;
+            command.Parameters.Add("@StorageBlockCount", SqliteType.Integer).Value = arraySize;
+            try
             {
-                command.Parameters.Add("@StorageBlockName", SqliteType.Text).Value = name;
-                command.Parameters.Add("@StorageBlockLevel", SqliteType.Text).Value = level;
-                command.Parameters.Add("@StorageBlockVersion", SqliteType.Integer).Value = version;
-                command.Parameters.Add("@StorageBlockCount", SqliteType.Integer).Value = arraySize;
-                try
-                {
-                    command.ExecuteNonQuery();
-                }
-                catch (SqliteException e)
-                {
-                    Logger.Error(
-                        $"Persistent Storage failure: {MethodBase.GetCurrentMethod().Name} {e} {e.InnerException} {e.StackTrace}");
+                command.ExecuteNonQuery();
+            }
+            catch (SqliteException e)
+            {
+                Logger.Error(
+                    $"Persistent Storage failure: {MethodBase.GetCurrentMethod()!.Name} {e} {e.InnerException} {e.StackTrace}");
 
-                    SqlPersistentStorageExceptionHandler.Handle(e, StorageError.WriteFailure);
-                }
-                catch (Exception e)
-                {
-                    SqlPersistentStorageExceptionHandler.Handle(e, StorageError.WriteFailure);
-                }
+                SqlPersistentStorageExceptionHandler.Handle(e, StorageError.WriteFailure);
+            }
+            catch (Exception e)
+            {
+                SqlPersistentStorageExceptionHandler.Handle(e, StorageError.WriteFailure);
             }
         }
 
         private void InternalInitialize()
         {
+            raw.SetProvider(new SQLite3Provider_e_sqlcipher());
             _bus.Subscribe<PersistentStorageClearReadyEvent>(this, HandleEvent);
 
             _dataRoot = _pathMapper.GetDirectory(HardwareConstants.DataPath).FullName;
@@ -467,7 +438,7 @@
 
             Logger.Debug($"Data mirror is enabled on {_mirrorRoot}.");
 
-            NativeMethods.set_mirror_dir(_mirrorRoot);           
+            SqliteMirror.SetMirrorDirectory(_mirrorRoot);
         }
 
         private void InitializeDatabaseFile()
@@ -482,31 +453,25 @@
                     return;
                 }
 
-                using (var connection = CreateConnection())
+                using var connection = CreateConnection();
+                connection.Open();
+                using var command = new SqliteCommand(StorageBlockTableCreate, connection);
+                try
                 {
-                    connection.Open();
+                    command.ExecuteNonQuery();
+                    command.CommandText = StorageBlockFieldTableCreate;
+                    command.ExecuteNonQuery();
+                }
+                catch (SqliteException e)
+                {
+                    Logger.Error(
+                        $"Persistent Storage failure: {MethodBase.GetCurrentMethod()!.Name} {e} {e.InnerException} {e.StackTrace}");
 
-                    using (var command = new SqliteCommand(StorageBlockTableCreate, connection))
-                    {
-                        try
-                        {
-                            command.ExecuteNonQuery();
-
-                            command.CommandText = StorageBlockFieldTableCreate;
-                            command.ExecuteNonQuery();
-                        }
-                        catch (SqliteException e)
-                        {
-                            Logger.Error(
-                                $"Persistent Storage failure: {MethodBase.GetCurrentMethod().Name} {e} {e.InnerException} {e.StackTrace}");
-
-                            SqlPersistentStorageExceptionHandler.Handle(e, StorageError.WriteFailure);
-                        }
-                        catch (Exception e)
-                        {
-                            SqlPersistentStorageExceptionHandler.Handle(e, StorageError.WriteFailure);
-                        }
-                    }
+                    SqlPersistentStorageExceptionHandler.Handle(e, StorageError.WriteFailure);
+                }
+                catch (Exception e)
+                {
+                    SqlPersistentStorageExceptionHandler.Handle(e, StorageError.WriteFailure);
                 }
             }
         }
@@ -525,30 +490,25 @@
                 using (var connection = CreateConnection())
                 {
                     connection.Open();
-
-                    using (var command = new SqliteCommand(StorageBlockNamesSelect, connection))
+                    using var command = new SqliteCommand(StorageBlockNamesSelect, connection);
+                    try
                     {
-                        try
+                        using var reader = command.ExecuteReader();
+                        while (reader.Read())
                         {
-                            using (var reader = command.ExecuteReader())
-                            {
-                                while (reader.Read())
-                                {
-                                    blockNames.Add(reader.GetString(0));                                    
-                                }
-                            }
+                            blockNames.Add(reader.GetString(0));
                         }
-                        catch (SqliteException e)
-                        {
-                            Logger.Error(
-                                $"Persistent Storage failure: {MethodBase.GetCurrentMethod().Name} {e} {e.InnerException} {e.StackTrace}");
+                    }
+                    catch (SqliteException e)
+                    {
+                        Logger.Error(
+                            $"Persistent Storage failure: {MethodBase.GetCurrentMethod()!.Name} {e} {e.InnerException} {e.StackTrace}");
 
-                            SqlPersistentStorageExceptionHandler.Handle(e, StorageError.ReadFailure);
-                        }
-                        catch (Exception e)
-                        {
-                            SqlPersistentStorageExceptionHandler.Handle(e, StorageError.ReadFailure);
-                        }
+                        SqlPersistentStorageExceptionHandler.Handle(e, StorageError.ReadFailure);
+                    }
+                    catch (Exception e)
+                    {
+                        SqlPersistentStorageExceptionHandler.Handle(e, StorageError.ReadFailure);
                     }
                 }
 
@@ -615,7 +575,7 @@
                 catch (SqliteException e)
                 {
                     Logger.Error(
-                        $"Persistent Storage failure: {MethodBase.GetCurrentMethod().Name} {e} {e.InnerException} {e.StackTrace}");
+                        $"Persistent Storage failure: {MethodBase.GetCurrentMethod()!.Name} {e} {e.InnerException} {e.StackTrace}");
 
                     // Remove all handles on the file
                     new SqliteConnection(ConnectionString()).Close();
@@ -647,7 +607,7 @@
                     if (!worked)
                     {
                         Logger.Error(
-                            $"Persistent Storage failure: {MethodBase.GetCurrentMethod().Name} Unable to clear nor delete NVRam database.");
+                            $"Persistent Storage failure: {MethodBase.GetCurrentMethod()!.Name} Unable to clear nor delete NVRam database.");
 
                         SqlPersistentStorageExceptionHandler.Handle(e, StorageError.ClearFailure);
                     }

@@ -4,7 +4,7 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Platform>x64</Platform>
     <AssemblyTitle>Aristocrat.Monaco.Hardware</AssemblyTitle>
-    <Configurations>Debug;Release;Retail</Configurations>  
+    <Configurations>Debug;Release;Retail</Configurations>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -129,8 +129,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="6.0.8" />
-    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.116" />
+    <PackageReference Include="Aristocrat.SQLitePCLRaw.bundle_e_sqlcipher" Version="2.1.4" />
+    <PackageReference Include="Aristocrat.Microsoft.Data.Sqlite.Core" Version="6.0.18" />
     <PackageReference Include="Aristocrat.Cabinet" Version="2.0.1-beta0046" />
     <PackageReference Include="Aristocrat.Fmod" Version="2.0.0-beta0004" />
     <PackageReference Include="log4net" Version="2.0.13" />

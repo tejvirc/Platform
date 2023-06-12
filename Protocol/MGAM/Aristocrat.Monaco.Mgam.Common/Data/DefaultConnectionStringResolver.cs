@@ -6,14 +6,14 @@
     using Protocol.Common.Storage;
 
     /// <summary>
-    ///     
+    ///
     /// </summary>
     public class DefaultConnectionStringResolver : IConnectionStringResolver
     {
         private readonly string _connectionString;
 
         /// <summary>
-        ///     
+        ///
         /// </summary>
         /// <param name="pathMapper"></param>
         public DefaultConnectionStringResolver(IPathMapper pathMapper)
@@ -24,7 +24,8 @@
 
             var sqlBuilder = new SqlConnectionStringBuilder
             {
-                DataSource = Path.Combine(path, MgamConstants.DatabaseFileName)
+                DataSource = Path.Combine(path, MgamConstants.DatabaseFileName),
+                Password = MgamConstants.DatabasePassword
             };
 
             _connectionString = sqlBuilder.ConnectionString;

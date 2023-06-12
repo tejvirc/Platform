@@ -7,6 +7,7 @@
     using System.IO;
     using System.Linq;
     using Contracts.Persistence;
+    using Monaco.Hardware.Persistence;
     using Hardware.Serial;
     using Hardware.StorageAdapters;
     using Kernel;
@@ -401,22 +402,14 @@
 
         private SqliteConnection CreateConnection(string filePath)
         {
-            var connection = new SqliteConnection(ConnectionString(filePath));
-
-            //connection.SetPassword(DbFilePassword);
-
-            return connection;
-        }
-
-        private string ConnectionString(string filePath)
-        {
             var sqlBuilder = new SqliteConnectionStringBuilder
             {
                 DataSource = filePath,
-                Pooling = true
+                Pooling = true,
+                Password = SqliteStoreConstants.DatabasePassword
             };
 
-            return $"{sqlBuilder.ConnectionString};";
+            return new SqliteConnection($"{sqlBuilder.ConnectionString};");
         }
 
         private void CreatePrimaryDirectory()

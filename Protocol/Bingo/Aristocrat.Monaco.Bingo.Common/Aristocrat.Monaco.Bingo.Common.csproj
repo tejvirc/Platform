@@ -51,10 +51,9 @@
     <ProjectReference Include="..\..\Aristocrat.Monaco.Protocol.Common\Aristocrat.Monaco.Protocol.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.SQLite.Core" Version="1.0.110-beta0001" />
+    <PackageReference Include="Aristocrat.SQLitePCLRaw.bundle_e_sqlcipher" Version="2.1.4" />
     <PackageReference Include="SimpleInjector" Version="5.4.0" />
     <PackageReference Include="SQLite.CodeFirst" Version="1.6.0.30" />
     <PackageReference Include="System.Threading.Tasks.Dataflow" Version="4.11.0" />
-    <PackageReference Include="System.Data.SQLite" Version="1.0.116" />
   </ItemGroup>
 </Project>

@@ -6,7 +6,7 @@
     using Protocol.Common.Storage;
 
     /// <summary>
-    ///     
+    ///
     /// </summary>
     public class DefaultConnectionStringResolver : IConnectionStringResolver
     {
@@ -27,7 +27,7 @@
         private const string DatabasePassword = @"tk7tjBLQ8GpySFNZTHYD";
 
         /// <summary>
-        ///     
+        ///
         /// </summary>
         /// <param name="pathMapper"></param>
         public DefaultConnectionStringResolver(IPathMapper pathMapper)
@@ -38,7 +38,8 @@
 
             var sqlBuilder = new SqlConnectionStringBuilder
             {
-                DataSource = Path.Combine(path, DatabaseFileName)
+                DataSource = Path.Combine(path, DatabaseFileName),
+                Password = DatabasePassword
             };
 
             _connectionString = sqlBuilder.ConnectionString;
