@@ -37,6 +37,7 @@
         private readonly Dictionary<int, bool> _doors = new Dictionary<int, bool>();
         private readonly IEventBus _eventBus;
         private readonly IDoorMonitor _doorMonitor;
+        private readonly IDoorService _doorService;
         private readonly IPropertiesManager _propertiesManager;
         private readonly IAuditTicketCreator _auditTicketCreator;
         private readonly IVerificationTicketCreator _verificationTicketCreator;
@@ -56,6 +57,7 @@
         public AuditTicketMonitor()
             : this(
                 ServiceManager.GetInstance().GetService<IDoorMonitor>(),
+                ServiceManager.GetInstance().GetService<IDoorService>(),
                 ServiceManager.GetInstance().GetService<IPropertiesManager>(),
                 ServiceManager.GetInstance().GetService<IEventBus>(),
                 ServiceManager.GetInstance().GetService<IAuditTicketCreator>(),
@@ -65,12 +67,14 @@
 
         public AuditTicketMonitor(
             IDoorMonitor doorMonitor,
+            IDoorService doorService,
             IPropertiesManager propertiesManager,
             IEventBus eventBus,
             IAuditTicketCreator auditTicketCreator,
             IVerificationTicketCreator verificationTicketCreator)
         {
             _doorMonitor = doorMonitor ?? throw new ArgumentNullException(nameof(doorMonitor));
+            _doorService = doorService ?? throw new ArgumentNullException(nameof(doorService));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _auditTicketCreator = auditTicketCreator ?? throw new ArgumentNullException(nameof(auditTicketCreator));
@@ -235,14 +239,14 @@
 
             foreach (var trigger in MonoAddinsHelper.GetChildNodes<DoorTriggerNode>(triggers))
             {
-                if (_doorMonitor.Doors.All(x => x.Value != trigger.Name))
+                if (_doorService.LogicalDoors.All(doorIdLogicalDoorPairs => doorIdLogicalDoorPairs.Value.Name != trigger.Name))
                 {
                     continue;
                 }
 
-                var logicalId = _doorMonitor.Doors
-                    .Where(x => x.Value == trigger.Name)
-                    .Select(x => x.Key)
+                var logicalId = _doorService.LogicalDoors
+                    .Where(doorIdLogicalDoorPairs => doorIdLogicalDoorPairs.Value.Name == trigger.Name)
+                    .Select(doorIdLogicalDoorPairs => doorIdLogicalDoorPairs.Key)
                     .First();
 
                 if (logicDoors.TryGetValue(logicalId, out var status))
