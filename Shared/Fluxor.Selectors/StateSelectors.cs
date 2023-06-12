@@ -1,18 +1,17 @@
-﻿namespace Aristocrat.Monaco.Gaming.Lobby.Redux;
+﻿namespace Aristocrat.Fluxor.Extensions;
 
 using System;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using Fluxor;
 
 public sealed class StateSelectors<TState> : IStateSelectors<TState>, IDisposable
 {
-    private readonly IState<TState> _state;
+    private readonly global::Fluxor.IState<TState> _state;
     private readonly BehaviorSubject<TState> _subject;
 
     private bool _disposed;
 
-    public StateSelectors(IState<TState> state)
+    public StateSelectors(global::Fluxor.IState<TState> state)
     {
         _state = state;
 

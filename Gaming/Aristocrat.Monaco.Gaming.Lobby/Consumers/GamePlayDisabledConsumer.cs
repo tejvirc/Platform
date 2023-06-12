@@ -3,7 +3,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Contracts;
-using Fluxor;
+using global::Fluxor;
 using Store;
 
 public class GamePlayDisabledConsumer : Consumes<GamePlayDisabledEvent>

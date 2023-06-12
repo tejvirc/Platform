@@ -3,7 +3,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Commands;
-using Fluxor;
+using global::Fluxor;
 using Services;
 
 public class LobbyEffects

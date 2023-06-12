@@ -1,11 +1,11 @@
-﻿namespace Aristocrat.Monaco.Gaming.Lobby.Store.Application;
+﻿namespace Aristocrat.Monaco.Gaming.Lobby.Store.Kernel;
 
 using global::Fluxor;
 
-public static class Reducers
+public static class KernelReducer
 {
     [ReducerMethod]
-    public static ApplicationState Reduce(ApplicationState state, SystemEnabledAction payload) =>
+    public static KernelState Reduce(KernelState state, SystemEnabledAction payload) =>
         state with
         {
             IsSystemDisabled = payload.IsDisabled,
@@ -13,7 +13,7 @@ public static class Reducers
         };
 
     [ReducerMethod]
-    public static ApplicationState Reduce(ApplicationState state, SystemDisabledAction payload) =>
+    public static KernelState Reduce(KernelState state, SystemDisabledAction payload) =>
         state with
         {
             IsSystemDisabled = payload.IsDisabled,

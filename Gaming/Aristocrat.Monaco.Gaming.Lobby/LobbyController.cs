@@ -3,7 +3,7 @@
 using System;
 using Contracts;
 using Contracts.Lobby;
-using Fluxor;
+using global::Fluxor;
 using Kernel;
 using Store;
 

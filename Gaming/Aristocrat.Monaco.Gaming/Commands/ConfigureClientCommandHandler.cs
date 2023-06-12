@@ -36,7 +36,6 @@ namespace Aristocrat.Monaco.Gaming.Commands
         private readonly IGameHistory _gameHistory;
         private readonly IGameRecovery _gameRecovery;
         private readonly IGameDiagnostics _gameDiagnostics;
-        // private readonly ILobbyStateManager _lobbyStateManager;
         private readonly IPlayerBank _playerBank;
         private readonly IPropertiesManager _properties;
         private readonly IRuntime _runtime;
@@ -56,7 +55,6 @@ namespace Aristocrat.Monaco.Gaming.Commands
             IGameHistory gameHistory,
             IGameRecovery gameRecovery,
             IGameDiagnostics gameDiagnostics,
-            ILobbyStateManager lobbyStateManager,
             IPropertiesManager properties,
             IPlayerBank bank,
             IAudio audio,
@@ -72,7 +70,6 @@ namespace Aristocrat.Monaco.Gaming.Commands
             _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
             _gameRecovery = gameRecovery ?? throw new ArgumentNullException(nameof(gameRecovery));
             _gameDiagnostics = gameDiagnostics ?? throw new ArgumentNullException(nameof(gameDiagnostics));
-            _lobbyStateManager = lobbyStateManager ?? throw new ArgumentNullException(nameof(lobbyStateManager));
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _playerBank = bank ?? throw new ArgumentNullException(nameof(bank));
             _audio = audio ?? throw new ArgumentNullException(nameof(audio));
@@ -105,7 +102,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
             var maxVolumeLevel = _audio.GetMaxVolume(_properties, _gameCategoryService, showVolumeControlInLobbyOnly);
 
             var useWinLimit = _properties.GetValue(GamingConstants.UseGambleWinLimit, false);
-            var singleGameAutoLaunch = _lobbyStateManager.AllowSingleGameAutoLaunch;
+            // var singleGameAutoLaunch = _properties.GetValue(GamingConstants.Multi, false);
 
             var parameters = new Dictionary<string, string>
             {
@@ -212,7 +209,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 { "/Runtime/CDS/AlwaysCombineOutcomesByType", _properties.GetValue(GamingConstants.AlwaysCombineOutcomesByType , true).ToString().ToLower() },
                 { "/Runtime/Bell&InitialWinAmount", _properties.GetValue(ApplicationConstants.InitialBellRing, 0L).MillicentsToCents().ToString() },
                 { "/Runtime/Bell&IntervalWinAmount", _properties.GetValue(ApplicationConstants.IntervalBellRing, 0L).MillicentsToCents().ToString()},
-                { "/Runtime/Multigame", (!singleGameAutoLaunch).ToString() },
+                { "/Runtime/Multigame", (singleGameAutoLaunch).ToString() },
                 { "/Runtime/Multigame&gameMenuButton", singleGameAutoLaunch ? GamingConstants.SetSubGame : GamingConstants.RequestExitGame },
                 { "/Runtime/IKey", _properties.GetValue(GamingConstants.PlayerInformationDisplay.Enabled, false) ? "true" : "false" },
                 { "/Runtime/IKey&restrictedModeUse", _properties.GetValue(GamingConstants.PlayerInformationDisplay.RestrictedModeUse, false) ? "allowed" : "disallowed" },

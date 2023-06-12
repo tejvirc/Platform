@@ -1,8 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby;
 
 using System;
-using Fluxor;
-using Fluxor.Selectors;
+using global::Fluxor;
+using global::Fluxor.Selectors;
 using Microsoft.Extensions.DependencyInjection;
 using Services;
 using SimpleInjector;

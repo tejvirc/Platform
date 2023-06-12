@@ -2,8 +2,8 @@
 
 using System.Collections.Immutable;
 using Models;
-using Redux;
-using static Redux.Selectors;
+using Aristocrat.Fluxor.Extensions;
+using static Aristocrat.Fluxor.Extensions.Selectors;
 
 public class LobbySelectors
 {

@@ -2,7 +2,7 @@
 
 using System;
 using System.Collections.Immutable;
-using Fluxor;
+using global::Fluxor;
 using Models;
 
 [FeatureState]
@@ -10,13 +10,15 @@ public record LobbyState
 {
     public IImmutableList<GameInfo> Games { get; set; } = ImmutableList<GameInfo>.Empty;
 
-    public bool AllowGameInCharge { get; set; }
+    public int UniqueThemesCount { get; set; }
 
-    public bool AllowGameAutoLaunch { get; set; } = true;
+    public bool IsSingleGame { get; set; }
 
     public bool IsMultiLanguage { get; set; }
 
     public bool IsGamesLoaded { get; set; }
+
+    public bool IsAgeWarningNeeded { get; set; }
 
     public string? BackgroundImagePath { get; set; }
 

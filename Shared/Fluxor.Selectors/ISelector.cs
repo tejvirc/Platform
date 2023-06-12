@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Lobby.Redux;
+﻿namespace Aristocrat.Fluxor.Extensions;
 
 using System;
 
@@ -9,7 +9,7 @@ public interface ISelector
 
 public interface ISelector<in TState, out TResult>
 {
-    TResult Apply(TState stateObserver);
+    TResult Apply(TState state);
 
     IObservable<TResult> Apply(IObservable<TState> stateObserver);
 }

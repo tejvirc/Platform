@@ -48,6 +48,10 @@
 
         protected override void LoadUi(Container container)
         {
+            var properties = container.GetInstance<IPropertiesManager>();
+
+            properties.SetProperty(GamingConstants.MarketType, MarketType.VideoLottery);
+
             // This info needs to be available before the lobby is loaded
             LoadLobbyConfig(container);
 

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Lobby.Redux;
+﻿namespace Aristocrat.Fluxor.Extensions;
 
 using System;
 using SimpleInjector;

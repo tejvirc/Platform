@@ -3,7 +3,7 @@
 using System.Collections.Immutable;
 using System.Threading;
 using System.Threading.Tasks;
-using Fluxor;
+using global::Fluxor;
 using Kernel;
 using Store;
 

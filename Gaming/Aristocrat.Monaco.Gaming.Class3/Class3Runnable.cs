@@ -40,13 +40,14 @@
                 typeof(Consumers.Consumes<>).Assembly);
         }
 
-
         protected override void LoadUi(Container container)
         {
-            var lobbyStateManager = container.GetInstance<ILobbyStateManager>();
-            lobbyStateManager.IsTabView = true;
-            lobbyStateManager.ResetAttractOnInterruption = true;
-            lobbyStateManager.AllowGameInCharge = true;
+            var properties = container.GetInstance<IPropertiesManager>();
+
+            // var lobbyStateManager = container.GetInstance<ILobbyStateManager>();
+            // lobbyStateManager.IsTabView = true;
+            // lobbyStateManager.ResetAttractOnInterruption = true;
+            // lobbyStateManager.AllowGameInCharge = true;
 
             // This info needs to be available before the lobby is loaded
             LoadLobbyConfig(container);

@@ -44,8 +44,12 @@
         {
             var properties = container.GetInstance<IPropertiesManager>();
 
-            var lobbyStateManager = container.GetInstance<ILobbyStateManager>();
-            lobbyStateManager.AllowGameInCharge = (bool)properties.GetProperty(GamingConstants.AllowGameInCharge, true);
+            properties.SetProperty(GamingConstants.MarketType, MarketType.Class3);
+
+            //var lobbyStateManager = container.GetInstance<ILobbyStateManager>();
+            //lobbyStateManager.AllowGameInCharge = (bool)properties.GetProperty(GamingConstants.AllowGameInCharge, true);
+            var allowGameInCharge = (bool)properties.GetProperty(GamingConstants.AllowGameInCharge, true);
+            properties.SetProperty(GamingConstants.AllowGameInCharge, allowGameInCharge);
 
             // This info needs to be available before the lobby is loaded
             LoadLobbyConfig(container);
