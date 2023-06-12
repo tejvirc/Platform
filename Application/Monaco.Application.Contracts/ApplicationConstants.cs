@@ -1177,6 +1177,11 @@
         public static readonly Guid PrinterDisconnectedGuid = new Guid("{91B975FC-1EC9-4C24-9700-B3749FEF73C3}");
 
         /// <summary>
+        ///     PrinterDisconnectedGuid GUID
+        /// </summary>
+        public static readonly Guid IdReaderDisconnectedGuid = new Guid("{3E94D25D-5146-45A9-BD95-25215153CD97}");
+
+        /// <summary>
         ///     Battery 1 GUID
         /// </summary>
         public static readonly Guid Battery1Guid = new Guid("{22AFC79B-46CC-2AFC-E220-32F26FC87BAB}");

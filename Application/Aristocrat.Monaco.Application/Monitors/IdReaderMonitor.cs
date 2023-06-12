@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Reflection;
+    using Contracts;
     using Contracts.Localization;
     using Hardware.Contracts.IdReader;
     using Kernel;
@@ -33,17 +34,21 @@
             _systemDisableManager = systemDisableManager ?? throw new ArgumentNullException(nameof(systemDisableManager));
             _messageDisplay = messageDisplay ?? throw new ArgumentNullException(nameof(messageDisplay));
 
-            _disconnectedMessage = new DisplayableMessage(DisconnectedMessageCallback, DisplayableMessageClassification.SoftError, DisplayableMessagePriority.Immediate);
+            _disconnectedMessage = new DisplayableMessage(
+                DisconnectedMessageCallback,
+                DisplayableMessageClassification.SoftError,
+                DisplayableMessagePriority.Immediate,
+                ApplicationConstants.IdReaderDisconnectedGuid);
         }
 
         public IdReaderMonitor()
+            : this(
+                ServiceManager.GetInstance().GetService<IEventBus>(),
+                ServiceManager.GetInstance().GetService<IIdReaderProvider>(),
+                ServiceManager.GetInstance().GetService<ISystemDisableManager>(),
+                ServiceManager.GetInstance().GetService<IMessageDisplay>()
+            )
         {
-            _systemDisableManager = ServiceManager.GetInstance().GetService<ISystemDisableManager>();
-            _idReaderProvider = ServiceManager.GetInstance().TryGetService<IIdReaderProvider>();
-            _eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-            _messageDisplay = ServiceManager.GetInstance().GetService<IMessageDisplay>();
-
-            _disconnectedMessage = new DisplayableMessage(DisconnectedMessageCallback, DisplayableMessageClassification.SoftError, DisplayableMessagePriority.Immediate);
         }
 
         /// <inheritdoc />
