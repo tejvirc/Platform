@@ -306,6 +306,8 @@
             Logger.Debug($"TouchCalibration Key Down({args.Key}) for monitor {_activeWindow?.Monitor.DeviceName}");
 
             // prevents KeyDown event from propagating to underlying windows
+            args.Handled = true;
+
             MvvmHelper.ExecuteOnUI(CalibrateNextDevice);
         }
 
