@@ -19,6 +19,7 @@ as follows:
 	<GameCategory ApplyGameCategorySettings="true" />
 	<Gamble Allowed="false" SkipByJackpotHit="true" />
 	<LetItRide Allowed="false" />
+	<DynamicHelpScreen JackpotCeiling="true" />
 <!--
 	GameRestrictions Settings:
 		ReturnToPlayerLimits:

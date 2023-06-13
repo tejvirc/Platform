@@ -42,11 +42,9 @@ namespace Aristocrat.Monaco.Gaming.Commands
         private readonly IGameCategoryService _gameCategoryService;
         private readonly IGameProvider _gameProvider;
         private readonly ICabinetDetectionService _cabinetDetectionService;
-        private readonly IGameHelpTextProvider _gameHelpTextProvider;
         private readonly IHardwareHelper _hardwareHelper;
         private readonly IAttendantService _attendantService;
         private readonly IGameConfigurationProvider _gameConfiguration;
-
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigureClientCommandHandler" /> class.
         /// </summary>
@@ -62,7 +60,6 @@ namespace Aristocrat.Monaco.Gaming.Commands
             IGameProvider gameProvider,
             IGameCategoryService gameCategoryService,
             ICabinetDetectionService cabinetDetectionService,
-            IGameHelpTextProvider gameHelpTextProvider,
             IHardwareHelper hardwareHelper,
             IAttendantService attendantService,
             IGameConfigurationProvider gameConfiguration)
@@ -78,7 +75,6 @@ namespace Aristocrat.Monaco.Gaming.Commands
             _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _gameCategoryService = gameCategoryService ?? throw new ArgumentNullException(nameof(gameCategoryService));
             _cabinetDetectionService = cabinetDetectionService ?? throw new ArgumentNullException(nameof(cabinetDetectionService));
-            _gameHelpTextProvider = gameHelpTextProvider ?? throw new ArgumentNullException(nameof(gameHelpTextProvider));
             _hardwareHelper = hardwareHelper ?? throw new ArgumentNullException(nameof(hardwareHelper));
             _attendantService = attendantService ?? throw new ArgumentNullException(nameof(attendantService));
             _gameConfiguration = gameConfiguration ?? throw new ArgumentNullException(nameof(gameConfiguration));
@@ -133,6 +129,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 { "/Runtime/Flags&InServiceRequest", _attendantService.IsServiceRequested.ToString() },
                 { "/Runtime/ReelStop", _properties.GetValue(GamingConstants.ReelStopEnabled, true).ToString() },
                 { "/Runtime/ReelStopInBaseGame", _properties.GetValue(GamingConstants.ReelStopInBaseGameEnabled, true).ToString() },
+                { "/Runtime/JackpotCeiling", _properties.GetValue(GamingConstants.JackpotCeilingHelpScreen, false).ToString() },
                 { "/Runtime/Flags&NewReelSetSelectedNotification", _properties.GetValue(GamingConstants.PlayerNotificationNewReelSetSelected, false).ToString() },
                 { "/Runtime/NewReelSetSelectedNotification", _properties.GetValue(GamingConstants.PlayerNotificationNewReelSetSelected, false).ToString() },
                 { "/Runtime/Flags&GameContentCensorship", (bool)_properties.GetProperty(GamingConstants.CensorshipEnforced, false) ? "censored" : "uncensored" },
@@ -247,11 +244,6 @@ namespace Aristocrat.Monaco.Gaming.Commands
             if (denomination.BonusBet != 0)
             {
                 parameters.Add("/Runtime/BonusAwardMultiplier", denomination.BonusBet.ToString());
-            }
-
-            foreach (var helpText in _gameHelpTextProvider.AllHelpTexts)
-            {
-                parameters[helpText.Key] = helpText.Value();
             }
 
             if (showVolumeControlInLobbyOnly)
