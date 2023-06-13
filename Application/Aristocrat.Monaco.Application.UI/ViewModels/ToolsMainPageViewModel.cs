@@ -2,6 +2,7 @@
 namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
+    using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
     using OperatorMenu;
 
     /// <summary>
@@ -12,8 +13,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     {
         private const string MenuExtensionPointPath = "/Application/OperatorMenu/ToolsMenu";
 
-        public ToolsMainPageViewModel(string displayPageTitle)
-            : base(displayPageTitle, MenuExtensionPointPath)
+        public ToolsMainPageViewModel(IOperatorMenuPageLoader mainPage)
+            : base(mainPage, MenuExtensionPointPath)
         {
         }
     }

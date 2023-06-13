@@ -23,12 +23,15 @@
             {
                 DataGridTextColumn textColumn = new DataGridTextColumn
                 {
-                    Header = meterNode.DisplayName, Binding = new Binding($"[{meterNode.DisplayName}].Value"),
+                    Binding = new Binding($"[{meterNode.DisplayName}].Value"),
                     Width = DataGridLength.Auto
                 };
+
+                var locBinding = new WPFLocalizeExtension.Extensions.LocTextExtension(meterNode.DisplayNameKey);
+                locBinding.SetBinding(textColumn, textColumn.GetType().GetProperty("Header"));
+
                 ProgressiveDataGrid?.Columns.Add(textColumn);
             }
         }
-
     }
 }

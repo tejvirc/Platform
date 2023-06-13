@@ -133,5 +133,7 @@
         public const string OutOfServiceVisible = "OutOfServiceVisible";
         /// <summary/>
         public const string VolumeControlVisible = "VolumeControlVisible";
+        /// <summary/>
+        public const string UseOperatorCultureForCurrencyFormatting = "UseOperatorCultureForCurrencyFormatting";
     }
 }

@@ -95,10 +95,12 @@
                 </DataGrid.RowStyle>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
+                                        loc:Localizer.For="Operator"
                                         Width="360"
                                         Binding="{Binding Name}"
                                         AutomationProperties.AutomationId="DataGridTextColumn11_79024055" />
                     <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
+                                        loc:Localizer.For="Operator"
                                         Width="200"
                                         Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"

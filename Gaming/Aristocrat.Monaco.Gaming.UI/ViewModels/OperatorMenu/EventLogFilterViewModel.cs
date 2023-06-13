@@ -412,6 +412,19 @@
             RaisePropertyChanged(nameof(PrintLast15ButtonVisible));
             EventBus.Subscribe<OperatorMenuPrintJobStartedEvent>(this, o => FilterMenuEnabled = false);
             EventBus.Subscribe<OperatorMenuPrintJobCompletedEvent>(this, o => FilterMenuEnabled = true);
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleOperatorCultureChangedEvent);
+        }
+
+        protected void HandleOperatorCultureChangedEvent(OperatorCultureChangedEvent @event)
+        {
+            foreach (var eventFilter in EventFilterCollection)
+            {
+                string newDisplayText = Localizer.For(CultureFor.Operator).GetString(eventFilter.EventType);
+                if (!string.IsNullOrEmpty(newDisplayText))
+                {
+                    eventFilter.DisplayText = newDisplayText;
+                }
+            }
         }
 
         protected override void OnUnloaded()

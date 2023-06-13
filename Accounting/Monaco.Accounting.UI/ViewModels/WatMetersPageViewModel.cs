@@ -18,20 +18,6 @@
     [CLSCompliant(false)]
     public class WatMetersPageViewModel : MetersPageViewModelBase
     {
-        private readonly Tuple<string, string>[] _metersOn =
-        {
-            Tuple.Create( Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.CashableWatOnLabelContent), "WatOnCashable"),
-            Tuple.Create( Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.CashablePromoWatOnLabelContent), "WatOnCashablePromotional"),
-            Tuple.Create( Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.NonCashablePromoWatOnLabelContent), "WatOnNonCashablePromotional")
-        };
-
-        private readonly Tuple<string, string>[] _metersOff =
-        {
-            Tuple.Create( Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.CashableWatOffLabelContent), "WatOffCashable"),
-            Tuple.Create( Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.CashablePromoWatOffLabelContent), "WatOffCashablePromotional"),
-            Tuple.Create( Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.NonCashablePromoWatOffLabelContent), "WatOffNonCashablePromotional")
-        };
-
         private long _watOnTotalCount;
         private string _watOnTotalValue;
         private string _watOffTotalValue;
@@ -135,7 +121,7 @@
             WatOffTotalValue = WatOffMeters.Sum(m => m.MeterValue).FormattedCurrencyString();
         }
 
-        private void RefreshMeters()
+        protected override void RefreshMeters()
         {
             MvvmHelper.ExecuteOnUI(
                 () =>
@@ -152,7 +138,7 @@
         {
             var meterManager = ServiceManager.GetInstance().GetService<IMeterManager>();
 
-            foreach (var meterOn in _metersOn)
+            foreach (var meterOn in GetMetersOnNames())
             {
                 var count = meterManager.GetMeter(meterOn.Item2 + "Count");
                 var value = meterManager.GetMeter(meterOn.Item2 + "Value");
@@ -162,7 +148,7 @@
                 WatOnMeters.Add(meter);
             }
 
-            foreach (var meterOff in _metersOff)
+            foreach (var meterOff in GetMetersOffNames())
             {
                 var count = meterManager.GetMeter(meterOff.Item2 + "Count");
                 var value = meterManager.GetMeter(meterOff.Item2 + "Value");
@@ -188,6 +174,26 @@
             }
 
             WatOffMeters.Clear();
+        }
+
+        private Tuple<string, string>[] GetMetersOnNames()
+        {
+            return new Tuple<string, string>[]
+            {
+                Tuple.Create(Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.CashableWatOnLabelContent), "WatOnCashable"),
+                Tuple.Create(Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.CashablePromoWatOnLabelContent), "WatOnCashablePromotional"),
+                Tuple.Create(Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.NonCashablePromoWatOnLabelContent), "WatOnNonCashablePromotional")
+            };
+        }
+
+        private Tuple<string, string>[] GetMetersOffNames()
+        {
+            return new Tuple<string, string>[]
+            {
+                Tuple.Create( Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.CashableWatOffLabelContent), "WatOffCashable"),
+                Tuple.Create( Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.CashablePromoWatOffLabelContent), "WatOffCashablePromotional"),
+                Tuple.Create( Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.NonCashablePromoWatOffLabelContent), "WatOffNonCashablePromotional")
+            };
         }
     }
 }

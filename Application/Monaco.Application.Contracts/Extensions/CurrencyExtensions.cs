@@ -266,10 +266,12 @@
         /// </summary>
         /// <param name="amount">Amount.</param>
         /// <param name="format">Format override.</param>
+        /// <param name="culture">The optional CultureInfo to use for string formatting</param>
         /// <returns>Formatted currency string.</returns>
-        public static string FormattedCurrencyString(this int amount, string format = null)
+        public static string FormattedCurrencyString(this int amount, string format = null, CultureInfo culture = null)
         {
-            return amount.ToString(format ?? "C", CurrencyCultureInfo);
+            culture ??= CurrencyCultureInfo;
+            return amount.ToString(format ?? "C", culture);
         }
 
         /// <summary>

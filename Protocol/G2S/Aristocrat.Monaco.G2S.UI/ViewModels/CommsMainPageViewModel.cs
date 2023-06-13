@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.G2S.UI.ViewModels
 {
     using Application.UI.OperatorMenu;
+    using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
 
     /// <summary>
     ///     ViewModel for CommsMainPageViewModel.
@@ -9,7 +10,7 @@
     {
         private const string MenuExtensionPointPath = "/Application/OperatorMenu/CommsMenu";
 
-        public CommsMainPageViewModel(string displayPageTitle) : base(displayPageTitle, MenuExtensionPointPath)
+        public CommsMainPageViewModel(IOperatorMenuPageLoader mainPage) : base(mainPage, MenuExtensionPointPath)
         {
         }
     }

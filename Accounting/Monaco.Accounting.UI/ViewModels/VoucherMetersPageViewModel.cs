@@ -22,38 +22,6 @@
     [CLSCompliant(false)]
     public class VoucherMetersPageViewModel : MetersPageViewModelBase
     {
-        private readonly (string Label, string MeterName, string VisibleSetting)[] _metersIn =
-        {
-            (Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CashableVoucherInLabelContent),
-                "VoucherInCashable",
-                null),
-            (Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CashablePromoVoucherInLabelContent),
-                "VoucherInCashablePromotional",
-                OperatorMenuSetting.ShowCashablePromo),
-            (Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NonCashablePromoVoucherInLabelContent),
-                "VoucherInNonCashablePromotional",
-                null)
-        };
-
-        private readonly (string Label, string MeterName, string VisibleSetting)[] _metersOut =
-        {
-            (Localizer.For(CultureFor.Operator).
-                GetString(ResourceKeys.CashableVoucherOutLabelContent), "VoucherOutCashable",
-                null),
-            (Localizer.For(CultureFor.Operator).
-                GetString(ResourceKeys.CashablePromoVoucherOutLabelContent), "VoucherOutCashablePromotional",
-                OperatorMenuSetting.ShowCashablePromo),
-            (Localizer.For(CultureFor.Operator).
-                GetString(ResourceKeys.NonCashablePromoVoucherOutLabelContent), "VoucherOutNonCashablePromotional",
-                null)
-        };
-
-        private readonly (string Label, string MeterName)[] _rejectedMeters =
-        {
-            (Localizer.For(CultureFor.Operator)
-                .GetString(ResourceKeys.VouchersRejectedLabel), AccountingMeters.VouchersRejectedCount)
-        };
-
         private long _voucherInTotalCount;
         private string _voucherInTotalValue;
         private string _voucherOutTotalValue;
@@ -208,7 +176,7 @@
             ClearMeters();
             lock (_voucherLock)
             {
-                foreach (var meterIn in _metersIn)
+                foreach (var meterIn in GetMetersInNames())
                 {
                     var visible = string.IsNullOrEmpty(meterIn.VisibleSetting) || GetConfigSetting(meterIn.VisibleSetting, true);
                     if (!visible)
@@ -221,13 +189,13 @@
 
                     var displayNode = MeterNodes?.FirstOrDefault(a => a.Name.Equals(meterIn.MeterName));
 
-                    var meter = new CountDisplayMeter(displayNode?.DisplayName ?? meterIn.Label, count, value, ShowLifetime);
+                    var meter = new CountDisplayMeter(displayNode?.DisplayName ?? meterIn.Label, count, value, ShowLifetime, 0, UseOperatorCultureForCurrencyFormatting);
                     meter.PropertyChanged += OnMeterChangedEvent;
 
                     VoucherInMeters.Add(meter);
                 }
 
-                foreach (var meterOut in _metersOut)
+                foreach (var meterOut in GetMetersOutNames())
                 {
                     var visible = string.IsNullOrEmpty(meterOut.VisibleSetting) || GetConfigSetting(meterOut.VisibleSetting, true);
                     if (!visible)
@@ -240,7 +208,7 @@
 
                     var displayNode = MeterNodes?.FirstOrDefault(a => a.Name.Equals(meterOut.MeterName));
 
-                    var meter = new CountDisplayMeter(displayNode?.DisplayName ?? meterOut.Label, count, value, ShowLifetime);
+                    var meter = new CountDisplayMeter(displayNode?.DisplayName ?? meterOut.Label, count, value, ShowLifetime, 0, UseOperatorCultureForCurrencyFormatting);
                     meter.PropertyChanged += OnMeterChangedEvent;
 
                     VoucherOutMeters.Add(meter);
@@ -253,11 +221,11 @@
 
                 RejectionMeters.Clear();
 
-                foreach (var rejectMeter in _rejectedMeters)
+                foreach (var rejectMeter in GetRejectionMetersNames())
                 {
                     var count = meterManager.GetMeter(rejectMeter.MeterName);
 
-                    var meter = new DisplayMeter(rejectMeter.Label, count, ShowLifetime);
+                    var meter = new DisplayMeter(rejectMeter.Label, count, ShowLifetime, 0, true, false, UseOperatorCultureForCurrencyFormatting);
 
                     RejectionMeters.Add(meter);
                 }
@@ -304,10 +272,19 @@
         {
             lock (_voucherLock)
             {
+                var culture = UseOperatorCultureForCurrencyFormatting ?
+                    Localizer.For(CultureFor.Operator).CurrentCulture :
+                    CurrencyExtensions.CurrencyCultureInfo;
+
                 VoucherInTotalCount = ShowLifetime ? _voucherInCountMeter.Lifetime : _voucherInCountMeter.Period;
-                VoucherInTotalValue = (ShowLifetime ? _voucherInValueMeter.Lifetime : _voucherInValueMeter.Period).MillicentsToDollars().FormattedCurrencyString();
+                VoucherInTotalValue = (ShowLifetime ?
+                    _voucherInValueMeter.Lifetime :
+                    _voucherInValueMeter.Period).MillicentsToDollars().FormattedCurrencyString(false, culture);
+
                 VoucherOutTotalCount = ShowLifetime ? _voucherOutCountMeter.Lifetime : _voucherOutCountMeter.Period;
-                VoucherOutTotalValue = (ShowLifetime ? _voucherOutValueMeter.Lifetime : _voucherOutValueMeter.Period).MillicentsToDollars().FormattedCurrencyString();
+                VoucherOutTotalValue = (ShowLifetime ?
+                    _voucherOutValueMeter.Lifetime :
+                    _voucherOutValueMeter.Period).MillicentsToDollars().FormattedCurrencyString(false, culture);
             }
         }
 
@@ -336,6 +313,47 @@
                 }
                 VoucherOutMeters.Clear();
             }
+        }
+
+        private (string Label, string MeterName, string VisibleSetting)[] GetMetersInNames()
+        {
+            return new (string Label, string MeterName, string VisibleSetting)[]
+            {
+                (Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CashableVoucherInLabelContent),
+                    AccountingMeters.VoucherInCashable,
+                    null),
+                (Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CashablePromoVoucherInLabelContent),
+                    AccountingMeters.VoucherInCashablePromo,
+                    OperatorMenuSetting.ShowCashablePromo),
+                (Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NonCashablePromoVoucherInLabelContent),
+                    AccountingMeters.VoucherInNonCashablePromo,
+                    null)
+            };
+        }
+
+        private (string Label, string MeterName, string VisibleSetting)[] GetMetersOutNames()
+        {
+            return new (string Label, string MeterName, string VisibleSetting)[]
+            {
+                (Localizer.For(CultureFor.Operator).
+                    GetString(ResourceKeys.CashableVoucherOutLabelContent), "VoucherOutCashable",
+                    null),
+                (Localizer.For(CultureFor.Operator).
+                    GetString(ResourceKeys.CashablePromoVoucherOutLabelContent), "VoucherOutCashablePromotional",
+                    OperatorMenuSetting.ShowCashablePromo),
+                (Localizer.For(CultureFor.Operator).
+                    GetString(ResourceKeys.NonCashablePromoVoucherOutLabelContent), "VoucherOutNonCashablePromotional",
+                    null)
+            };
+        }
+
+        private (string Label, string MeterName)[] GetRejectionMetersNames()
+        {
+            return new (string Label, string MeterName)[]
+            {
+                (Localizer.For(CultureFor.Operator)
+                    .GetString(ResourceKeys.VouchersRejectedLabel), AccountingMeters.VouchersRejectedCount)
+            };
         }
     }
 }

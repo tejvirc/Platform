@@ -9,6 +9,7 @@
     using System.Windows.Input;
     using System.Windows.Threading;
     using Accounting.Contracts;
+    using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
     using Contracts;
     using Contracts.Localization;
     using Contracts.MeterPage;
@@ -36,8 +37,8 @@
         private readonly ConcurrentDictionary<string, DateTime> _pageNameToPersonalizedPeriodClearDateTimeMap =
             new ConcurrentDictionary<string, DateTime>();
 
-        public MetersMainPageViewModel(string displayPageTitle)
-            : base(displayPageTitle, PagesExtensionPath)
+        public MetersMainPageViewModel(IOperatorMenuPageLoader mainPage)
+            : base(mainPage, PagesExtensionPath)
         {
             IsVisibleChangedCommand = new ActionCommand<Page>(OnIsVisibleChanged);
             PeriodMasterButtonClickedCommand = new ActionCommand<object>(PeriodOrMasterButtonClicked);
@@ -231,6 +232,7 @@
             EventBus.Subscribe<PeriodMetersDateTimeChangeRequestEvent>(
                 this,
                 HandlePeriodMetersDateTimeChangeRequestEvent);
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleOperatorCultureChanged);
         }
 
         private void HandlePeriodMetersClearedEvent(PeriodMetersClearedEvent evt)
@@ -244,6 +246,12 @@
                 evt.PageName,
                 evt.PeriodicClearDateTime,
                 (_, _) => evt.PeriodicClearDateTime);
+            RefreshPage();
+        }
+
+        private void HandleOperatorCultureChanged(OperatorCultureChangedEvent @event)
+        {
+            SetPageTitle();
             RefreshPage();
         }
 

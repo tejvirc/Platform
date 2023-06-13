@@ -17,6 +17,10 @@
     using Org.BouncyCastle.Utilities;
 
     using localizer = Aristocrat.Monaco.Application.Contracts.Localization.Localizer;
+    using Aristocrat.Monaco.Application.Meters;
+    using Aristocrat.MVVM;
+    using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
+
     /// <summary>
     ///     A MetersPageViewModelBase contains the base logic for meters page view models
     /// </summary>
@@ -28,6 +32,8 @@
 
         // DisplayMeter.Order values over 100 will display in the 2nd column of the view
         protected const int LeftColumnMaximumMeterOrder = 100;
+
+        protected readonly bool UseOperatorCultureForCurrencyFormatting;
 
         private const string MetersExtensionPath = "/Application/OperatorMenu/DisplayMeters";
         private readonly MeterNodePage? _meterNodePage;
@@ -43,6 +49,7 @@
             : base(!disablePrintButton)
         {
             _meterNodePage = meterNodePage;
+            UseOperatorCultureForCurrencyFormatting = Configuration.GetSetting(OperatorMenuSetting.UseOperatorCultureForCurrencyFormatting, false);
             LoadMetersToDisplay();
         }
 
@@ -102,11 +109,17 @@
         protected override void OnLoaded()
         {
             EventBus.Subscribe<PeriodOrMasterButtonClickedEvent>(this, evt => PeriodOrMasterButtonClicked(evt.MasterClicked));
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleOperatorCultureChanged);
             // VLT-12225
             // Fires an event fired when a specific meter page is loaded (switching tabs) so we can
             // synchronize the ShowLifetime and Master/period button status
             EventBus.Publish(new MeterPageLoadedEvent());
-            UpdateMeters();
+            RefreshMeters();
+        }
+
+        private void HandleOperatorCultureChanged(OperatorCultureChangedEvent @event)
+        {
+            RefreshMeters();
         }
 
         protected virtual void InitializeMeters()
@@ -121,13 +134,30 @@
                     string meterDisplayName = localizer.For(CultureFor.Operator).GetString(
                             meterNode.DisplayNameKey,
                             _ => meterDisplayName = meterNode.DisplayName);
-                    Meters.Add(new DisplayMeter(meterDisplayName, meter, ShowLifetime, meterNode.Order, meterNode.Period));
+
+                    Meters.Add(
+                        new DisplayMeter(
+                            meterDisplayName,
+                            meter,
+                            ShowLifetime,
+                            meterNode.Order,
+                            meterNode.Period,
+                            false,
+                            UseOperatorCultureForCurrencyFormatting));
                 }
                 else
                 {
                     if (meterNode.ShowNotApplicable)
                     {
-                        Meters.Add(new DisplayMeter(meterNode.DisplayName, null, ShowLifetime, meterNode.Order, meterNode.Period, meterNode.ShowNotApplicable));
+                        Meters.Add(
+                            new DisplayMeter(
+                                meterNode.DisplayName,
+                                null,
+                                ShowLifetime,
+                                meterNode.Order,
+                                meterNode.Period,
+                                meterNode.ShowNotApplicable,
+                                UseOperatorCultureForCurrencyFormatting));
                     }
 
                     if (meterNode.DisplayName.IsEmpty() && meterNode.Name == "blank line")
@@ -194,6 +224,26 @@
             }
 
             RaisePropertyChanged(nameof(ShowRightColumn));
+        }
+
+        protected virtual void RefreshMeters()
+        {
+            MvvmHelper.ExecuteOnUI(() =>
+            {
+                foreach (var meter in Meters)
+                {
+                    meter.Dispose();
+                }
+
+                Meters.Clear();
+                MetersLeftColumn.Clear();
+                MetersRightColumn.Clear();
+                InitializeMeters();
+                SplitMeters();
+                RaisePropertyChanged(nameof(Meters));
+                RaisePropertyChanged(nameof(MetersLeftColumn));
+                RaisePropertyChanged(nameof(MetersRightColumn));
+            });
         }
     }
 }

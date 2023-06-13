@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
+    using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
     using OperatorMenu;
     using System;
 
@@ -11,7 +12,7 @@
         /// <summary>
         ///     Initializes a new instance of the <see cref="OptionsMainPageViewModel" /> class.
         /// </summary>
-        public OptionsMainPageViewModel(string displayPageTitle) : base(displayPageTitle, MenuExtensionPointPath)
+        public OptionsMainPageViewModel(IOperatorMenuPageLoader mainPage) : base(mainPage, MenuExtensionPointPath)
         {
         }
     }

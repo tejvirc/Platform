@@ -27,18 +27,6 @@
         private const string BillCountMeterNamePrefix = "BillCount";
         private static readonly string CurrencyInMeterProviderTypename = typeof(CurrencyInMetersProvider).ToString();
 
-        private readonly Tuple<string, string>[] _rejectedMeters =
-        {
-            Tuple.Create(
-                Localizer.For(CultureFor.Operator)
-                    .GetString(ResourceKeys.BillsRejectedLabel),
-                AccountingMeters.BillsRejectedCount),
-            Tuple.Create(
-                Localizer.For(CultureFor.Operator)
-                    .GetString(ResourceKeys.DocumentsRejectedLabel),
-                AccountingMeters.DocumentsRejectedCount)
-        };
-
         private long _totalCount;
         private string _totalValue;
         private bool _billClearanceButtonEnabled;
@@ -137,16 +125,16 @@
 
                 meter.MeterChangedEvent += OnMeterChangedEvent;
 
-                Meters.Add(new DenominationDisplayMeter(denomination, meter, ShowLifetime));
+                Meters.Add(new DenominationDisplayMeter(denomination, meter, ShowLifetime, UseOperatorCultureForCurrencyFormatting));
             }
 
             RejectionMeters.Clear();
 
-            foreach (var rejectMeter in _rejectedMeters)
+            foreach (var rejectMeter in GetRejectionMetersNames())
             {
                 var count = meterManager.GetMeter(rejectMeter.Item2);
 
-                var meter = new DisplayMeter(rejectMeter.Item1, count, ShowLifetime);
+                var meter = new DisplayMeter(rejectMeter.Item1, count, ShowLifetime, 0, true, false, UseOperatorCultureForCurrencyFormatting);
                 RejectionMeters.Add(meter);
             }
 
@@ -219,8 +207,12 @@
 
         private void UpdateMeterTotals()
         {
+            var culture = UseOperatorCultureForCurrencyFormatting ?
+                Localizer.For(CultureFor.Operator).CurrentCulture :
+                CurrencyExtensions.CurrencyCultureInfo;
+
             TotalCount = Meters.ToList().Sum(m => ((DenominationDisplayMeter)m).Count);
-            TotalValue = Meters.ToList().Sum(m => ((DenominationDisplayMeter)m).Total).FormattedCurrencyString();
+            TotalValue = Meters.ToList().Sum(m => ((DenominationDisplayMeter)m).Total).FormattedCurrencyString(false, culture);
         }
 
         private void ClearMeters()
@@ -238,6 +230,21 @@
             }
 
             RejectionMeters.Clear();
+        }
+
+        private Tuple<string, string>[] GetRejectionMetersNames()
+        {
+            return new Tuple<string, string>[]
+                {
+                    Tuple.Create(
+                        Localizer.For(CultureFor.Operator)
+                            .GetString(ResourceKeys.BillsRejectedLabel),
+                        AccountingMeters.BillsRejectedCount),
+                    Tuple.Create(
+                        Localizer.For(CultureFor.Operator)
+                            .GetString(ResourceKeys.DocumentsRejectedLabel),
+                        AccountingMeters.DocumentsRejectedCount)
+                };
         }
     }
 }

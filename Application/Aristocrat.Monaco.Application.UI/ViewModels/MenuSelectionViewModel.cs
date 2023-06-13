@@ -97,6 +97,7 @@
         private bool _exitRequested;
         private string _lastEnteredEventRole;
         private readonly object _lock = new object();
+        private readonly object _languageSwitchLock = new object();
         private bool _keySwitchExitOverridesButton;
         private string _warningMessageText;
         private bool _calibrationAccess;
@@ -104,6 +105,7 @@
         private string _toggleLanguageButtonText;
         private CultureInfo _primaryCulture;
         private CultureInfo _secondaryCulture;
+        private bool _useOperatorCultureForCurrencyFormatting;
 
         public MenuSelectionViewModel()
             : this(
@@ -156,6 +158,7 @@
             ShowToggleLanguageButton = _configuration.GetSetting(OperatorMenuSetting.ShowToggleLanguageButton, false);
             
             _keySwitchExitOverridesButton = _configuration.GetSetting(OperatorMenuSetting.KeySwitchExitOverridesButton, false);
+            _useOperatorCultureForCurrencyFormatting = _configuration.GetSetting(OperatorMenuSetting.UseOperatorCultureForCurrencyFormatting, false);
 
             MenuItems = new ObservableCollection<IOperatorMenuPageLoader>();
 
@@ -1090,14 +1093,22 @@
 
         private void HandleLanguageChangedCommand(object obj)
         {
-            var otherCulture = GetTogglableCulture();
-
-            if (otherCulture != null)
+            lock (_languageSwitchLock)
             {
-                _propertiesManager.SetProperty("Localization.Operator.CurrentCulture", otherCulture.Name);
+                var otherCulture = GetTogglableCulture();
 
-                UpdateToggleLanguageButton();
-                UpdateCreditBalance();
+                if (otherCulture != null)
+                {
+                    _propertiesManager.SetProperty(ApplicationConstants.LocalizationOperatorCurrentCulture, otherCulture.Name);
+
+                    UpdateToggleLanguageButton();
+                    UpdateCreditBalance();
+
+                    if (_selectedItem != null && !_selectedItem.IsMultiPage)
+                    {
+                        PageTitleContent = _selectedItem.PageName;
+                    }
+                }
             }
         }
 
@@ -1448,9 +1459,11 @@
         {
             var balance = (long)_propertiesManager.GetProperty(PropertyKey.CurrentBalance, 0L);
             var dollarAmount = GetDollarAmount(balance);
+            var culture = _useOperatorCultureForCurrencyFormatting ?
+                Localizer.For(CultureFor.Operator).CurrentCulture : CurrencyExtensions.CurrencyCultureInfo;
 
             CreditBalanceContent = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CreditBalance) + ": " +
-                                   dollarAmount.FormattedCurrencyString(false, Localizer.For(CultureFor.Operator).CurrentCulture);
+                                   dollarAmount.FormattedCurrencyString(false, culture);
         }
 
         private void HandleOperatorMenuPrintJob(OperatorMenuPrintJobEvent printJob)

@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.MeterPage
 {
     using System;
+    using Aristocrat.Monaco.Application.Contracts.Extensions;
     using Contracts;
     using Contracts.Localization;
     using Monaco.Localization.Properties;
@@ -14,6 +15,7 @@
     public class DisplayMeter : BaseViewModel, IDisposable
     {
         private bool _showLifetime;
+        private bool _useOperatorCultureForCurrency;
         private bool _disposed;
 
         /// <summary>
@@ -25,7 +27,15 @@
         /// <param name="order">The placement of the meter on the screen relative to other meters</param>
         /// <param name="displayPeriod">Show the meter on the screen in Period mode</param>
         /// <param name="showNotApplicable">if meter not found, show N/A in the audit menu</param>
-        public DisplayMeter(string meterName, IMeter meter, bool showLifetime, int order = 0, bool displayPeriod = true, bool showNotApplicable = false)
+        /// <param name="showNotApplicable">Use the current operator culture rather than the currency culture</param>
+        public DisplayMeter(
+            string meterName,
+            IMeter meter,
+            bool showLifetime,
+            int order = 0,
+            bool displayPeriod = true,
+            bool showNotApplicable = false,
+            bool useOperatorCultureForCurrency = false)
         {
             Name = meterName;
             Meter = meter;
@@ -33,6 +43,7 @@
             DisplayPeriod = displayPeriod;
             ShowNotApplicable = showNotApplicable;
             _showLifetime = showLifetime;
+            _useOperatorCultureForCurrency = useOperatorCultureForCurrency;
 
             if (Meter != null)
             {
@@ -86,12 +97,18 @@
             {
                 if (Meter == null)
                 {
-                    return ShowNotApplicable ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MeterNotApplicable) : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MeterNotFound);
+                    return ShowNotApplicable ?
+                        Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MeterNotApplicable) :
+                        Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MeterNotFound);
                 }
                 
                 var meterValue = ShowLifetime ? Meter.Lifetime : Meter.Period;
                 RaisePropertyChanged(nameof(HideRowForPeriod));
-                return Meter.Classification.CreateValueString(meterValue);
+
+                var culture = _useOperatorCultureForCurrency ?
+                    Localizer.For(CultureFor.Operator).CurrentCulture : CurrencyExtensions.CurrencyCultureInfo;
+
+                return Meter.Classification.CreateValueString(meterValue, culture);
             }
         }
 

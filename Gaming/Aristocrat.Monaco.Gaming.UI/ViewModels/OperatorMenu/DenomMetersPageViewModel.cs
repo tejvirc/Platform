@@ -111,11 +111,27 @@
                             try
                             {
                                 var meter = _meters.GetMeter(SelectedDenom.Millicents, meterNode.Name);
-                                Meters.Add(new DisplayMeter(meterNode.DisplayName, meter, ShowLifetime, meterNode.Order));
+                                Meters.Add(
+                                    new DisplayMeter(
+                                        meterNode.DisplayName,
+                                        meter,
+                                        ShowLifetime,
+                                        meterNode.Order,
+                                        true,
+                                        false,
+                                        UseOperatorCultureForCurrencyFormatting));
                             }
                             catch (MeterNotFoundException)
                             {
-                                Meters.Add(new DisplayMeter(meterNode.DisplayName, null, ShowLifetime, meterNode.Order));
+                                Meters.Add(
+                                    new DisplayMeter(
+                                        meterNode.DisplayName,
+                                        null,
+                                        ShowLifetime,
+                                        meterNode.Order,
+                                        true,
+                                        false,
+                                        UseOperatorCultureForCurrencyFormatting));
                                 Logger.ErrorFormat("Meter not found: {0}", meterNode.Name);
                             }
                         }

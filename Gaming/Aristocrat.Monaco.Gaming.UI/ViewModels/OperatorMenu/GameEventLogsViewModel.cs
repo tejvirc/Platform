@@ -1,10 +1,12 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
     using Application.Contracts;
     using Application.UI.OperatorMenu;
+    using Aristocrat.Monaco.Application.Contracts.Localization;
     using Contracts;
     using Contracts.Models;
     using Kernel;
@@ -76,6 +78,23 @@
             LogEvents = new ObservableCollection<GameEventLogEntry>(
                 logs.OrderByDescending(entry => entry.TransactionId).ThenByDescending(entry => entry.EntryDate));
             base.InitializeData();
+        }
+
+        protected override void OnLoaded()
+        {
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleOperatorCultureChanged);
+            base.OnLoaded();
+        }
+
+        protected override void OnUnloaded()
+        {
+            EventBus.Unsubscribe<OperatorCultureChangedEvent>(this);
+            base.OnUnloaded();
+        }
+
+        protected void HandleOperatorCultureChanged(OperatorCultureChangedEvent @event)
+        {
+            InitializeDataAsync();
         }
     }
 }

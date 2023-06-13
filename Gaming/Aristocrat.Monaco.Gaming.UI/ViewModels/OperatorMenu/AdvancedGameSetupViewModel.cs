@@ -1933,8 +1933,8 @@
                     _gamesMapping[key].ForEach(AutoEnableGame);
                 }
 
-                var configs = GameConfigurations.ToList();
-                if (HasNoErrors && _editableGameConfigByGameTypeMapping.Keys.Count == 1 && configs.Count == 1)
+                var configs = GameConfigurations?.ToList();
+                if (HasNoErrors && _editableGameConfigByGameTypeMapping.Keys.Count == 1 && configs != null && configs.Count == 1)
                 {
                     var game = configs.Single();
                     if (game.Enabled && game.AvailablePaytables?.Count == 1)

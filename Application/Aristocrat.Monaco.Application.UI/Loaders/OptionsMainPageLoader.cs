@@ -17,7 +17,7 @@
 
         protected override IOperatorMenuPageViewModel CreateViewModel()
         {
-            return new OptionsMainPageViewModel(PageName);
+            return new OptionsMainPageViewModel(this);
         }
 
         public override bool GetVisible()

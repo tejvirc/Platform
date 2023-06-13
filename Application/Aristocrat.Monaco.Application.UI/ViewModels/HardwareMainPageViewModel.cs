@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
+    using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
     using OperatorMenu;
     using System;
     using System.Diagnostics;
@@ -15,8 +16,8 @@
         /// <summary>
         ///     Initializes a new instance of the <see cref="HardwareMainPageViewModel" /> class.
         /// </summary>
-        public HardwareMainPageViewModel(string displayPageTitle)
-            : base(displayPageTitle, MenuExtensionPointPath)
+        public HardwareMainPageViewModel(IOperatorMenuPageLoader mainPage)
+            : base(mainPage, MenuExtensionPointPath)
         {
         }
 
