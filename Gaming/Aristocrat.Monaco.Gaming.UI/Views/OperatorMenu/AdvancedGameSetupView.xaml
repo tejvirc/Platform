@@ -374,7 +374,7 @@
                         </DataGridTemplateColumn>
                         <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.MaxBet}}"
                                             HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmall}"
-                                            Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.GlobalOptionsVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                            Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.MaxBetIsVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                             MaxWidth="120"
                                             Binding="{Binding MaxBet, Mode=OneWay}"
                                             AutomationProperties.AutomationId="DataGridTextColumn49_FA38938A">
