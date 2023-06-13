@@ -3779,7 +3779,7 @@ Do you really want to do partial reset????</value>
     <comment>Aristocrat.Monaco.Gaming</comment>
   </data>
   <data name="ApplyingScripts" xml:space="preserve">
-    <value>Applying changes</value>
+    <value>???Applying changes???</value>
     <comment>Aristocrat.Monaco.G2S</comment>
   </data>
   <data name="DisabledByDevice" xml:space="preserve">
