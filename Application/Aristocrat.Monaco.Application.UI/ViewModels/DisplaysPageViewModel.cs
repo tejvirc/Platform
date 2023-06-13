@@ -9,6 +9,7 @@
     using System.Windows;
     using System.Windows.Input;
     using Application.Settings;
+    using Aristocrat.Monaco.Hardware.Contracts.Button;
     using Aristocrat.MVVM;
     using Cabinet.Contracts;
     using ConfigWizard;
@@ -191,6 +192,11 @@
                 {
                     var touchDevicesAvailable = DisplaysDetected.Where(d => d.TouchDevice != null).ToList();
                     TestTouchScreenVisible = touchDevicesAvailable.Any();
+                }
+
+                if (_isInspection)
+                {
+                    EventBus.Subscribe<SystemDownEvent>(this, HandleSystemDownEvent);
                 }
 
                 RefreshDisplays();
@@ -582,6 +588,21 @@
             }
 
             TestsEnabled = true;
+        }
+
+        /// <summary>
+        /// Handles System Down Events in the Inspection Tool mode context to capture
+        /// button input to move to the next display during touch calibration. Normally
+        /// ConfigSelectionPageViewModel handles this outside of inspection tool mode,
+        /// but that ViewModel isn't loaded in this context.
+        /// </summary>
+        /// <param name="obj"></param>
+        private void HandleSystemDownEvent(SystemDownEvent obj)
+        {
+            if (TouchCalibrationService.IsCalibrating)
+            {
+                TouchCalibrationService.CalibrateNextDevice();
+            }
         }
     }
 }
