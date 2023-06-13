@@ -109,21 +109,21 @@
                                      Value="{x:Static progressive:RtpVerifiedState.NotVerified}"
                                      AutomationProperties.AutomationId="DataTrigger17_6205C64E">
                             <Setter Property="Text"
-                                    Value="{lex:Loc Key={x:Static loc:ResourceKeys.NotVerified}}" />
+                                    Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotVerified}}" />
                         </DataTrigger>
                         <DataTrigger
                                 Binding="{Binding (models:ReadOnlyGameConfiguration.ProgressiveResetRTPState), Mode=OneWay}"
                                      Value="{x:Static progressive:RtpVerifiedState.NotAvailable}"
                                      AutomationProperties.AutomationId="DataTrigger18_6205C64E">
                             <Setter Property="Text"
-                                    Value="{lex:Loc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
+                                    Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
                         </DataTrigger>
                         <DataTrigger
                                 Binding="{Binding (models:ReadOnlyGameConfiguration.ProgressiveResetRTPState), Mode=OneWay}"
                                      Value="{x:Static progressive:RtpVerifiedState.NotUsed}"
                                      AutomationProperties.AutomationId="DataTrigger19_6205C64E">
                             <Setter Property="Text"
-                                    Value="{lex:Loc Key={x:Static loc:ResourceKeys.NotUsed}}" />
+                                    Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotUsed}}" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
@@ -136,21 +136,21 @@
                                      Value="{x:Static progressive:RtpVerifiedState.NotVerified}"
                                      AutomationProperties.AutomationId="DataTrigger20_6205C64E">
                             <Setter Property="Text"
-                                    Value="{lex:Loc Key={x:Static loc:ResourceKeys.NotVerified}}" />
+                                    Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotVerified}}" />
                         </DataTrigger>
                         <DataTrigger
                                 Binding="{Binding (models:ReadOnlyGameConfiguration.ProgressiveIncrementRTPState), Mode=OneWay}"
                                      Value="{x:Static progressive:RtpVerifiedState.NotAvailable}"
                                      AutomationProperties.AutomationId="DataTrigger21_6205C64E">
                             <Setter Property="Text"
-                                    Value="{lex:Loc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
+                                    Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
                         </DataTrigger>
                         <DataTrigger
                                 Binding="{Binding (models:ReadOnlyGameConfiguration.ProgressiveIncrementRTPState), Mode=OneWay}"
                                      Value="{x:Static progressive:RtpVerifiedState.NotUsed}"
                                      AutomationProperties.AutomationId="DataTrigger22_6205C64E">
                             <Setter Property="Text"
-                                    Value="{lex:Loc Key={x:Static loc:ResourceKeys.NotUsed}}" />
+                                    Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotUsed}}" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
