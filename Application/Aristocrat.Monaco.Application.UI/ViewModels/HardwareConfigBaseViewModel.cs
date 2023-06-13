@@ -1220,7 +1220,7 @@
             ShowHardMeters = configuredDevices.Excluded.All(d => d.Type != HardMetersDeviceType);
             if (ShowHardMeters)
             {
-                _hardMetersEnabled = _propertiesManager.GetValue(HardwareConstants.HardMetersEnabledKey, false);
+                _hardMetersEnabled = _propertiesManager.GetValue(HardwareConstants.HardMetersEnabledKey, true);
             }
 
             var configurableHardMeters = _propertiesManager.GetValue(
