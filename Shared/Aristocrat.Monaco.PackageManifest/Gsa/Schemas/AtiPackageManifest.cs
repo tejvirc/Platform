@@ -344,6 +344,10 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         
         private bool maxInitialBetFieldSpecified;
         
+        private long maxWinField;
+        
+        private bool maxWinFieldSpecified;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("bet")]
         public c_bet[] bet {
@@ -429,6 +433,28 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
             }
             set {
                 this.maxInitialBetFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public long maxWin {
+            get {
+                return this.maxWinField;
+            }
+            set {
+                this.maxWinField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool maxWinSpecified {
+            get {
+                return this.maxWinFieldSpecified;
+            }
+            set {
+                this.maxWinFieldSpecified = value;
             }
         }
     }
@@ -2122,6 +2148,14 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         
         private t_platformTarget platformTargetField;
         
+        private int maximumWinCreditsField;
+        
+        private bool maximumWinCreditsFieldSpecified;
+        
+        private int basicMaximumWinCreditsField;
+        
+        private bool basicMaximumWinCreditsFieldSpecified;
+        
         public c_gameAttributes() {
             this.maxPaybackPctField = ((long)(0));
             this.minPaybackPctField = ((long)(0));
@@ -2609,6 +2643,50 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
                 this.platformTargetField = value;
             }
         }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified, Namespace="http://www.aristocrat.com/pkg/schemas/v1.0")]
+        public int maximumWinCredits {
+            get {
+                return this.maximumWinCreditsField;
+            }
+            set {
+                this.maximumWinCreditsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool maximumWinCreditsSpecified {
+            get {
+                return this.maximumWinCreditsFieldSpecified;
+            }
+            set {
+                this.maximumWinCreditsFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified, Namespace="http://www.aristocrat.com/pkg/schemas/v1.0")]
+        public int basicMaximumWinCredits {
+            get {
+                return this.basicMaximumWinCreditsField;
+            }
+            set {
+                this.basicMaximumWinCreditsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool basicMaximumWinCreditsSpecified {
+            get {
+                return this.basicMaximumWinCreditsFieldSpecified;
+            }
+            set {
+                this.basicMaximumWinCreditsFieldSpecified = value;
+            }
+        }
     }
     
     /// <remarks/>
@@ -2704,6 +2782,8 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         
         private string denominationsField;
         
+        private c_cdsInfoList cdsInfoListField;
+        
         private string uniqueGameIdField;
         
         private string titleIdField;
@@ -2715,6 +2795,16 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
             }
             set {
                 this.denominationsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public c_cdsInfoList CdsInfoList {
+            get {
+                return this.cdsInfoListField;
+            }
+            set {
+                this.cdsInfoListField = value;
             }
         }
         

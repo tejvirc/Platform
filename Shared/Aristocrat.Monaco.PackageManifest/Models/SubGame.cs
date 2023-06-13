@@ -21,5 +21,10 @@
         ///     Gets or sets the denominations.
         /// </summary>
         public IEnumerable<long> Denominations { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the central information
+        /// </summary>
+        public IEnumerable<CentralInfo> CentralInfo { get; set; }
     }
 }

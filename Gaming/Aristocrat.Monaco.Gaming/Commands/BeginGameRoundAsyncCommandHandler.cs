@@ -31,6 +31,7 @@
         private readonly IGameHistory _gameHistory;
         private readonly IRuntime _runtime;
         private readonly IGameRecovery _recovery;
+        private readonly IGameProvider _gameProvider;
         private readonly IProgressiveGameProvider _progressiveGameProvider;
         private readonly IGameStartConditionProvider _gameStartConditions;
 
@@ -45,6 +46,7 @@
             IGameDiagnostics diagnostics,
             IGameHistory gameHistory,
             IEventBus eventBus,
+            IGameProvider gameProvider,
             IProgressiveGameProvider progressiveGameProvider,
             IGameStartConditionProvider gameStartConditions)
         {
@@ -55,6 +57,7 @@
             _gameDiagnostics = diagnostics ?? throw new ArgumentNullException(nameof(diagnostics));
             _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _progressiveGameProvider = progressiveGameProvider ?? throw new ArgumentNullException(nameof(progressiveGameProvider));
             _gameStartConditions = gameStartConditions ?? throw new ArgumentNullException(nameof(gameStartConditions));
         }
@@ -89,10 +92,7 @@
                         continue;
                     }
 
-                    var cdsInfo = game?.CdsGameInfos?.SingleOrDefault(w =>
-                        w.Id.Equals(request.TemplateId.ToString()));
-
-                    if (cdsInfo is not null)
+                    if (ValidateGameInfo(gameInfo, game, request))
                     {
                         continue;
                     }
@@ -101,7 +101,6 @@
                     Failed($"wager category is null: {request.TemplateId}");
                     return;
                 }
-
 
                 // Special case for recovery and replay
                 if (_gameDiagnostics.IsActive && _gameDiagnostics.Context is IDiagnosticContext<IGameHistoryLog> context)
@@ -158,6 +157,30 @@
             {
                 category ??= game?.WagerCategories?.FirstOrDefault();
                 _properties.SetProperty(GamingConstants.SelectedWagerCategory, category);
+            }
+        }
+
+        private bool ValidateGameInfo(
+            IAdditionalGamePlayInfo gameInfo,
+            IGameDetail game,
+            ITemplateRequest request)
+        {
+            if (gameInfo.GameIndex == 0)
+            {
+                var cdsInfo = game?.CdsGameInfos?.SingleOrDefault(
+                    w =>
+                        w.Id.Equals(request.TemplateId.ToString(), StringComparison.Ordinal));
+
+                return cdsInfo is not null;
+            }
+            else
+            {
+                var currentSubGame = _gameProvider.GetEnabledSubGames(game).First(x => x.Id == gameInfo.GameId);
+                var cdsInfo = currentSubGame.CdsGameInfos?.SingleOrDefault(
+                    w =>
+                        w.Id.Equals(request.TemplateId.ToString(), StringComparison.Ordinal));
+
+                return cdsInfo is not null;
             }
         }
     }

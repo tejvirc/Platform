@@ -365,7 +365,8 @@
                     {
                         TitleId = long.Parse(subGame.TitleId),
                         UniqueGameId = long.Parse(subGame.UniqueGameId),
-                        Denominations = denominations
+                        Denominations = denominations,
+                        CentralInfo = subGame.CdsInfoList?.cdsInfo.Select(Map).ToList() ?? Enumerable.Empty<CentralInfo>()
                     }).ToList();
             }
 

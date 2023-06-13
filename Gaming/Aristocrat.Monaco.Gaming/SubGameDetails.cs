@@ -6,11 +6,12 @@
 
     public class SubGameDetails : ISubGameDetails
     {
-        public SubGameDetails(int uniqueId, string titleId, IList<Denomination> denominations)
+        public SubGameDetails(int uniqueId, string titleId, IEnumerable<Denomination> denominations, IEnumerable<CdsGameInfo> cdsGameInfos)
         {
             Id = uniqueId;
             CdsTitleId = titleId;
             Denominations = denominations;
+            CdsGameInfos = cdsGameInfos;
         }
 
         /// <inheritdoc />
@@ -69,5 +70,8 @@
 
         /// <inheritdoc />
         public IEnumerable<long> SupportedDenoms { get; set; }
+
+        /// <inheritdoc />
+        public IEnumerable<ICdsGameInfo> CdsGameInfos { get; set; }
     }
 }

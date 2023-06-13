@@ -65,5 +65,10 @@
         /// Gets a list of the supported denominations
         /// </summary>
         IEnumerable<long> SupportedDenoms { get; }
+
+        /// <summary>
+        /// Gets a list of the Cds Game Information
+        /// </summary>
+        IEnumerable<ICdsGameInfo> CdsGameInfos { get; }
     }
 }

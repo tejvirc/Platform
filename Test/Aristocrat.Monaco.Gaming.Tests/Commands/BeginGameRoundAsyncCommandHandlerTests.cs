@@ -22,6 +22,7 @@
         private Mock<IRuntime> _runtime;
         private Mock<IGameDiagnostics> _gameDiagnostics;
         private Mock<IGameHistory> _gameHistory;
+        private Mock<IGameProvider> _gameProvider;
         private Mock<IProgressiveGameProvider> _progressiveGameProvider;
         private Mock<IGameStartConditionProvider> _gameStartConditionProvider;
         private BeginGameRoundAsyncCommandHandler _underTest;
@@ -36,6 +37,7 @@
             _runtime = new Mock<IRuntime>();
             _gameDiagnostics = new Mock<IGameDiagnostics>();
             _gameHistory = new Mock<IGameHistory>();
+            _gameProvider = new Mock<IGameProvider>();
             _progressiveGameProvider = new Mock<IProgressiveGameProvider>();
             _gameStartConditionProvider = new Mock<IGameStartConditionProvider>();
             _underTest = new BeginGameRoundAsyncCommandHandler(
@@ -46,6 +48,7 @@
                 _gameDiagnostics.Object,
                 _gameHistory.Object,
                 _bus.Object,
+                _gameProvider.Object,
                 _progressiveGameProvider.Object,
                 _gameStartConditionProvider.Object);
         }

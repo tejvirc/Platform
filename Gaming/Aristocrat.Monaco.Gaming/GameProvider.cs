@@ -1815,7 +1815,23 @@
                     }
                 }
 
-                var newSubGame = new SubGameDetails((int)subGame.UniqueGameId, subGame.TitleId.ToString(), denomList);
+                var cdsGameInfos = subGame.CentralInfo?.GroupBy(
+                    c => c.Id,
+                    c => c.Bet,
+                    (id, bet) =>
+                    {
+                        var betList = bet.ToList();
+                        return new CdsGameInfo(
+                            id.ToString(),
+                            betList.Min(),
+                            betList.Max());
+                    }).ToList() ?? new List<CdsGameInfo>();
+
+                var newSubGame = new SubGameDetails(
+                    (int)subGame.UniqueGameId,
+                    subGame.TitleId.ToString(),
+                    denomList,
+                    cdsGameInfos);
 
                 subGameList.Add(newSubGame);
             }
