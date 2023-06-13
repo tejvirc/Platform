@@ -6862,9 +6862,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///   Looks up a localized string similar to Currency.
 		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
 		public static string Currency {
 			get {
 				return ResourceManager.GetString("Currency", resourceCulture) ?? string.Empty;
@@ -10267,9 +10264,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///   Looks up a localized string similar to End Performance Details.
 		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
 		public static string EndPerformanceDetails {
 			get {
 				return ResourceManager.GetString("EndPerformanceDetails", resourceCulture) ?? string.Empty;
@@ -12016,6 +12010,9 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///   Looks up a localized string similar to Filter By.
 		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
 		public static string FilterBy {
 			get {
 				return ResourceManager.GetString("FilterBy", resourceCulture) ?? string.Empty;
@@ -17149,9 +17146,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///   Looks up a localized string similar to IP Address.
 		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
 		public static string IPAddressesLabel {
 			get {
 				return ResourceManager.GetString("IPAddressesLabel", resourceCulture) ?? string.Empty;
@@ -18440,7 +18434,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Licence.
+		///   Looks up a localized string similar to License.
 		/// </summary>
 		public static string LicenseText {
 			get {
@@ -19321,9 +19315,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///   Looks up a localized string similar to MAC Address.
 		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
 		public static string MacAddressLabel {
 			get {
 				return ResourceManager.GetString("MacAddressLabel", resourceCulture) ?? string.Empty;
@@ -19903,9 +19894,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///   Looks up a localized string similar to Manufacturer.
 		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
 		public static string ManufacturerLabel {
 			get {
 				return ResourceManager.GetString("ManufacturerLabel", resourceCulture) ?? string.Empty;
@@ -21010,9 +20998,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///   Looks up a localized string similar to Model.
 		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
 		public static string ModelLabel {
 			get {
 				return ResourceManager.GetString("ModelLabel", resourceCulture) ?? string.Empty;
@@ -24586,9 +24571,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///   Looks up a localized string similar to Power Resets.
 		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
 		public static string PowerResets {
 			get {
 				return ResourceManager.GetString("PowerResets", resourceCulture) ?? string.Empty;
@@ -34426,9 +34408,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///   Looks up a localized string similar to View Memory.
 		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
 		public static string ViewMemory {
 			get {
 				return ResourceManager.GetString("ViewMemory", resourceCulture) ?? string.Empty;
@@ -34438,9 +34417,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///   Looks up a localized string similar to View Performance Details.
 		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
 		public static string ViewPerformanceDetails {
 			get {
 				return ResourceManager.GetString("ViewPerformanceDetails", resourceCulture) ?? string.Empty;
@@ -42444,9 +42420,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///		Looks up a localized string similar to Currency.
 		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
 		public static string Currency {
 			get {
 				return "Currency";
@@ -45849,9 +45822,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///		Looks up a localized string similar to End Performance Details.
 		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
 		public static string EndPerformanceDetails {
 			get {
 				return "EndPerformanceDetails";
@@ -47598,6 +47568,9 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///		Looks up a localized string similar to Filter By.
 		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
 		public static string FilterBy {
 			get {
 				return "FilterBy";
@@ -52731,9 +52704,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///		Looks up a localized string similar to IP Address.
 		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
 		public static string IPAddressesLabel {
 			get {
 				return "IPAddressesLabel";
@@ -54022,7 +53992,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Licence.
+		///		Looks up a localized string similar to License.
 		/// </summary>
 		public static string LicenseText {
 			get {
@@ -54903,9 +54873,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///		Looks up a localized string similar to MAC Address.
 		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
 		public static string MacAddressLabel {
 			get {
 				return "MacAddressLabel";
@@ -55485,9 +55452,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///		Looks up a localized string similar to Manufacturer.
 		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
 		public static string ManufacturerLabel {
 			get {
 				return "ManufacturerLabel";
@@ -56592,9 +56556,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///		Looks up a localized string similar to Model.
 		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
 		public static string ModelLabel {
 			get {
 				return "ModelLabel";
@@ -60168,9 +60129,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///		Looks up a localized string similar to Power Resets.
 		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
 		public static string PowerResets {
 			get {
 				return "PowerResets";
@@ -70008,9 +69966,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///		Looks up a localized string similar to View Memory.
 		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
 		public static string ViewMemory {
 			get {
 				return "ViewMemory";
@@ -70020,9 +69975,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///		Looks up a localized string similar to View Performance Details.
 		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
 		public static string ViewPerformanceDetails {
 			get {
 				return "ViewPerformanceDetails";
@@ -75103,9 +75055,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///   Looks up a localized string similar to Currency.
 		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
 		Currency,
 		/// <summary>
 		///   Looks up a localized string similar to Currency ID.
@@ -77053,9 +77002,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///   Looks up a localized string similar to End Performance Details.
 		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
 		EndPerformanceDetails,
 		/// <summary>
 		///   Looks up a localized string similar to End.
@@ -78047,6 +77993,9 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///   Looks up a localized string similar to Filter By.
 		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
 		FilterBy,
 		/// <summary>
 		///   Looks up a localized string similar to Finish.
@@ -80985,9 +80934,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///   Looks up a localized string similar to IP Address.
 		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
 		IPAddressesLabel,
 		/// <summary>
 		///   Looks up a localized string similar to ISO.
@@ -81721,7 +81667,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		LicenseLabel,
 		/// <summary>
-		///   Looks up a localized string similar to Licence.
+		///   Looks up a localized string similar to License.
 		/// </summary>
 		LicenseText,
 		/// <summary>
@@ -82227,9 +82173,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///   Looks up a localized string similar to MAC Address.
 		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
 		MacAddressLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Machine.
@@ -82559,9 +82502,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///   Looks up a localized string similar to Manufacturer.
 		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
 		ManufacturerLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Master.
@@ -83191,9 +83131,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///   Looks up a localized string similar to Model.
 		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
 		ModelLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Monday.
@@ -85247,9 +85184,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///   Looks up a localized string similar to Power Resets.
 		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
 		PowerResets,
 		/// <summary>
 		///   Looks up a localized string similar to Power Reset.
@@ -90877,16 +90811,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///   Looks up a localized string similar to View Memory.
 		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
 		ViewMemory,
 		/// <summary>
 		///   Looks up a localized string similar to View Performance Details.
 		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI
-        /// </remarks>
 		ViewPerformanceDetails,
 		/// <summary>
 		///   Looks up a localized string similar to View Progressive Summary.
