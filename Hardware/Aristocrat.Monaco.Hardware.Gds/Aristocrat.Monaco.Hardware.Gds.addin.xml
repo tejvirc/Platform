@@ -14,7 +14,15 @@
   </Extension>
 
   <Extension path="/Hardware/NoteAcceptor/NoteAcceptorImplementations">
-    <DeviceImplementation ProtocolName="Any" type="Aristocrat.Monaco.Hardware.Gds.NoteAcceptor.NoteAcceptorGds" />
+    <DeviceImplementation ProtocolName="GDS" type="Aristocrat.Monaco.Hardware.Gds.NoteAcceptor.NoteAcceptorGds" />
+  </Extension>
+
+  <Extension path="/Hardware/NoteAcceptor/NoteAcceptorImplementations">
+    <DeviceImplementation ProtocolName="ID003" type="Aristocrat.Monaco.Hardware.Gds.NoteAcceptor.NoteAcceptorGds" />
+  </Extension>
+
+  <Extension path="/Hardware/NoteAcceptor/NoteAcceptorImplementations">
+    <DeviceImplementation ProtocolName="EBDS" type="Aristocrat.Monaco.Hardware.Gds.NoteAcceptor.NoteAcceptorGds" />
   </Extension>
 
   <Extension path="/Hardware/Printer/PrinterImplementations">

@@ -7,16 +7,13 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
-    using Common.Currency;
     using Contracts.Communicator;
     using Contracts.Gds;
     using Contracts.Gds.CardReader;
-    using Contracts.Gds.NoteAcceptor;
     using Contracts.Gds.Printer;
     using Contracts.Gds.Reel;
     using Contracts.IdReader;
     using Contracts.IO;
-    using Contracts.NoteAcceptor;
     using Contracts.Reel;
     using Contracts.SharedDevice;
     using Kernel;
@@ -25,35 +22,21 @@
     using Simulation.HarkeyReels;
     using Simulation.HarkeyReels.Controls;
     using Virtual;
-    using NoteAcceptorMetrics = Contracts.Gds.NoteAcceptor.Metrics;
     using PrinterMetrics = Contracts.Gds.Printer.Metrics;
 
     /// <summary>A fake communicator.</summary>
     public class FakeCommunicator : VirtualCommunicator
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
-        private static readonly Dictionary<string, List<int>> SupportedCurrencies = new();
-
         private const string DefaultBaseName = "Fake";
         private const string SimWindowNamePartial = "ReelLayout_";
         private const string GamesPath = "/Games";
         private const string PackagesPath = "/Packages";
         private const int LightsPerReel = 3;
         private const int StepsPerReel = 200;
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
-        private readonly Dictionary<int, Note> _noteTable = new();
         private readonly IEventBus _eventBus;
         private readonly IPathMapper _pathMapper;
-        private readonly List<int> _standardDenominations = new()
-        {
-            1,
-            2,
-            5,
-            10,
-            20,
-            50,
-            100
-        };
         private readonly Queue<GdsSerializableMessage> _simQueue = new();
 
         private string _fakeCardData;
@@ -66,16 +49,13 @@
         private int[] _homePositions;
         private int _homeCommandCounter;
 
-        /// <summary>Base name is used to fake out various identification strings (overrideable).</summary>
-        protected override string BaseName => _baseName;
-
         /// <summary>
-        ///     Construct a <see cref="FakeCommunicator"/>
+        ///     Construct a <see cref="FakeCommunicator" />
         /// </summary>
         public FakeCommunicator()
             : this(
-                  ServiceManager.GetInstance().GetService<IPathMapper>(),
-                  ServiceManager.GetInstance().GetService<IEventBus>())
+                ServiceManager.GetInstance().GetService<IPathMapper>(),
+                ServiceManager.GetInstance().GetService<IEventBus>())
         {
         }
 
@@ -87,7 +67,10 @@
             Logger.Debug("Constructed");
         }
 
-        /// <inheritdoc/>
+        /// <summary>Base name is used to fake out various identification strings (overrideable).</summary>
+        protected override string BaseName => _baseName;
+
+        /// <inheritdoc />
         public override bool Open()
         {
             //prevent a double subscription for the FakeDeviceConnectedEvent in the case of Open->Close->Open
@@ -95,33 +78,6 @@
 
             switch (DeviceType)
             {
-                case DeviceType.NoteAcceptor:
-
-                    GetSupportedCurrencies();
-
-                    _noteTable.Clear();
-                    var noteId = 1;
-
-                    foreach (var currency in SupportedCurrencies)
-                    {
-                        foreach (var value in currency.Value)
-                        {
-                            var note = new Note
-                            {
-                                NoteId = noteId++,
-                                Value = value,
-                                ISOCurrencySymbol = currency.Key,
-                                Version = VersionOne
-                            };
-
-                            _noteTable[note.NoteId] = note;
-                        }
-                    }
-
-                    _eventBus?.Subscribe<FakeNoteAcceptorEvent>(this, HandleEvent);
-                    _eventBus?.Subscribe<FakeStackerEvent>(this, HandleEvent);
-                    break;
-
                 case DeviceType.IdReader:
                     _eventBus?.Subscribe<FakeCardReaderEvent>(this, HandleEvent);
                     break;
@@ -150,7 +106,7 @@
             return base.Open();
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         public override bool Close()
         {
             _eventBus?.UnsubscribeAll(this);
@@ -158,17 +114,15 @@
 
             if (DeviceType == DeviceType.ReelController)
             {
-                MvvmHelper.ExecuteOnUI(() =>
-                    {
-                        _simWindow?.Close();
-                    }
+                MvvmHelper.ExecuteOnUI(
+                    () => { _simWindow?.Close(); }
                 );
             }
 
             return base.Close();
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         public override void SendMessage(GdsSerializableMessage message, CancellationToken token)
         {
             Logger.Debug($"{DeviceType}/{BaseName} Got message {message}");
@@ -185,93 +139,44 @@
 
                 // For GDS card readers, mostly defer to base class
                 case GdsConstants.ReportId.CardReaderGetBehavior:
-                    OnMessageReceived(new CardReaderBehavior
-                    {
-                        SupportedTypes = IdReaderTypes.MagneticCard,
-                        VirtualReportedType = IdReaderTypes.MagneticCard,
-                        IsPhysical = false,
-                        IsEgmControlled = true,
-                        ValidationMethod = IdValidationMethods.Host
-                    });
+                    OnMessageReceived(
+                        new CardReaderBehavior
+                        {
+                            SupportedTypes = IdReaderTypes.MagneticCard,
+                            VirtualReportedType = IdReaderTypes.MagneticCard,
+                            IsPhysical = false,
+                            IsEgmControlled = true,
+                            ValidationMethod = IdValidationMethods.Host
+                        });
                     break;
                 case GdsConstants.ReportId.CardReaderReadCardData:
-                    OnMessageReceived(new CardData
-                    {
-                        Data = _fakeCardData,
-                        Length = _fakeCardData.Length,
-                        Type = (byte)IdReaderTracks.Track1
-                    });
-                    break;
-
-                // For GDS note acceptors
-                case GdsConstants.ReportId.NoteAcceptorNumberOfNoteDataEntries:
-                    OnMessageReceived(new NumberOfNoteDataEntries { Number = (byte)_noteTable.Count });
-                    break;
-                case GdsConstants.ReportId.NoteAcceptorReadNoteTable:
-                    foreach (var note in _noteTable.Values)
-                    {
-                        OnMessageReceived(new ReadNoteTable
+                    OnMessageReceived(
+                        new CardData
                         {
-                            NoteId = note.NoteId,
-                            Currency = note.CurrencyCode.ToString(),
-                            Value = (ushort)note.Value,
-                            Sign = true,
-                            Scalar = 0,
-                            Version = (byte)note.Version
+                            Data = _fakeCardData, Length = _fakeCardData.Length, Type = (byte)IdReaderTracks.Track1
                         });
-                    }
-                    break;
-                case GdsConstants.ReportId.NoteAcceptorAcceptNoteOrTicket:
-                    Thread.Sleep(OneSecond);
-                    OnMessageReceived(new NoteOrTicketStatus
-                    {
-                        TransactionId = GetNextTransactionId(),
-                        Accepted = true,
-                        PathClear = true
-                    });
-                    break;
-                case GdsConstants.ReportId.NoteAcceptorReturnNoteOrTicket:
-                    Thread.Sleep(OneSecond);
-                    OnMessageReceived(new NoteOrTicketStatus
-                    {
-                        TransactionId = GetNextTransactionId(),
-                        Returned = true,
-                        PathClear = true
-                    });
-                    break;
-                case GdsConstants.ReportId.NoteAcceptorReadMetrics:
-                    Thread.Sleep(TenthSecond);
-                    OnMessageReceived(new NoteAcceptorMetrics { Data = string.Empty });
                     break;
 
                 // For GDS printers
                 case GdsConstants.ReportId.PrinterDefineRegion:
-                    OnMessageReceived(new TransferStatus
-                    {
-                        StatusCode = GdsConstants.Success,
-                        RegionCode = true
-                    });
+                    OnMessageReceived(new TransferStatus { StatusCode = GdsConstants.Success, RegionCode = true });
                     break;
                 case GdsConstants.ReportId.PrinterDefineTemplate:
-                    OnMessageReceived(new TransferStatus
-                    {
-                        StatusCode = GdsConstants.Success,
-                        TemplateCode = true
-                    });
+                    OnMessageReceived(new TransferStatus { StatusCode = GdsConstants.Success, TemplateCode = true });
                     break;
                 case GdsConstants.ReportId.PrinterPrintTicket:
                 case GdsConstants.ReportId.PrinterFormFeed:
                     Thread.Sleep(OneSecond);
-                    OnMessageReceived(new TicketPrintStatus
-                    {
-                        TransactionId = GetNextTransactionId(),
-                        FieldOfInterest1 = true,
-                        PrintComplete = true
-                    });
+                    OnMessageReceived(
+                        new TicketPrintStatus
+                        {
+                            TransactionId = GetNextTransactionId(), FieldOfInterest1 = true, PrintComplete = true
+                        });
                     if (message is PrintTicket printTicket)
                     {
                         _eventBus.Publish(new PrintFakeTicketEvent(printTicket.Data));
                     }
+
                     break;
                 case GdsConstants.ReportId.PrinterRequestMetrics:
                     Thread.Sleep(TenthSecond);
@@ -280,18 +185,10 @@
                 case GdsConstants.ReportId.PrinterGraphicTransferSetup:
                 case GdsConstants.ReportId.PrinterFileTransfer:
                     Thread.Sleep(TenthSecond);
-                    OnMessageReceived(new TransferStatus
-                    {
-                        StatusCode = GdsConstants.Success,
-                        GraphicCode = true
-                    });
+                    OnMessageReceived(new TransferStatus { StatusCode = GdsConstants.Success, GraphicCode = true });
                     break;
                 case GdsConstants.ReportId.PrinterTicketRetract:
-                    OnMessageReceived(new PrinterStatus
-                    {
-                        TransactionId = GetNextTransactionId(),
-                        TopOfForm = true
-                    });
+                    OnMessageReceived(new PrinterStatus { TransactionId = GetNextTransactionId(), TopOfForm = true });
                     break;
 
                 // For ReelControllers
@@ -314,8 +211,10 @@
                             var msg = _simQueue.Dequeue();
                             ProcessReelsDeviceMessage(msg);
                         }
+
                         ProcessReelsDeviceMessage(message);
                     }
+
                     break;
                 case GdsConstants.ReportId.ReelControllerGetLightIds:
                     Logger.Debug($"{DeviceType}/{BaseName} Get light IDs");
@@ -337,11 +236,31 @@
 
                         OnMessageReceived(new ControllerInitializedStatus());
                     }
+
                     break;
                 default:
                     base.SendMessage(message, token);
                     break;
             }
+        }
+
+        /// <inheritdoc />
+        public override bool Configure(IComConfiguration comConfiguration)
+        {
+            if (comConfiguration.Name == "Fake 5 Reel")
+            {
+                _baseName = "Fake5";
+                _reelCount = 5;
+            }
+
+            if (comConfiguration.Name == "Fake 3 Reel")
+            {
+                _baseName = "Fake3";
+                _reelCount = 3;
+            }
+
+            comConfiguration.PortName = DefaultBaseName;
+            return true;
         }
 
         public void ProcessReelsDeviceMessage(GdsSerializableMessage message)
@@ -354,7 +273,8 @@
                         if (message is HomeReel homeReel)
                         {
                             homeReel.Stop = Math.Max(homeReel.Stop, 0);
-                            Logger.Debug($"{DeviceType}/{BaseName} Homing reel {homeReel.ReelId} to step {homeReel.Stop}");
+                            Logger.Debug(
+                                $"{DeviceType}/{BaseName} Homing reel {homeReel.ReelId} to step {homeReel.Stop}");
                             _homePositions[homeReel.ReelId - 1] = Math.Max(0, homeReel.Stop);
                             _homeCommandCounter++;
 
@@ -363,29 +283,42 @@
                                 _homeCommandCounter = 0;
                             }
 
-                            var offsetStep = (ushort)((_homePositions[homeReel.ReelId - 1] + _reelOffsets[homeReel.ReelId - 1] + StepsPerReel) % StepsPerReel);
+                            var offsetStep =
+                                (ushort)((_homePositions[homeReel.ReelId - 1] + _reelOffsets[homeReel.ReelId - 1] +
+                                          StepsPerReel) % StepsPerReel);
                             _simWindow.HomeReel(homeReel.ReelId, offsetStep);
                         }
+
                         break;
                     case GdsConstants.ReportId.ReelControllerNudge:
                         if (message is Nudge nudgeReels)
                         {
                             foreach (var nudge in nudgeReels.NudgeReelData)
                             {
-                                Logger.Debug($"{DeviceType}/{BaseName} Nudging reel {nudge.ReelId} to step {nudge.Step}");
-                                _simWindow.NudgeReel(nudge.ReelId, nudge.Direction == SpinDirection.Backwards, nudge.Step);
+                                Logger.Debug(
+                                    $"{DeviceType}/{BaseName} Nudging reel {nudge.ReelId} to step {nudge.Step}");
+                                _simWindow.NudgeReel(
+                                    nudge.ReelId,
+                                    nudge.Direction == SpinDirection.Backwards,
+                                    nudge.Step);
                             }
                         }
+
                         break;
                     case GdsConstants.ReportId.ReelControllerSpinReels:
                         if (message is SpinReels spinReels)
                         {
                             foreach (var spin in spinReels.ReelSpinData)
                             {
-                                Logger.Debug($"{DeviceType}/{BaseName} Spinning reel {spin.ReelId} to step {spin.Step}");
-                                _simWindow.SpinReelToStep(spin.ReelId, spin.Direction == SpinDirection.Backwards, spin.Step);
+                                Logger.Debug(
+                                    $"{DeviceType}/{BaseName} Spinning reel {spin.ReelId} to step {spin.Step}");
+                                _simWindow.SpinReelToStep(
+                                    spin.ReelId,
+                                    spin.Direction == SpinDirection.Backwards,
+                                    spin.Step);
                             }
                         }
+
                         break;
                     case GdsConstants.ReportId.ReelControllerTiltReels:
                         Logger.Debug($"{DeviceType}/{BaseName} Tilt reels");
@@ -399,7 +332,8 @@
                     case GdsConstants.ReportId.ReelControllerSetReelBrightness:
                         if (message is SetBrightness brightness)
                         {
-                            Logger.Debug($"{DeviceType}/{BaseName} Set reel brightness {brightness.ReelId}/{brightness.Brightness}");
+                            Logger.Debug(
+                                $"{DeviceType}/{BaseName} Set reel brightness {brightness.ReelId}/{brightness.Brightness}");
                             if (brightness.ReelId == 0) // 0 applies to all reels
                             {
                                 for (var reel = 1; reel <= _reelCount; reel++)
@@ -421,6 +355,7 @@
                             Logger.Debug($"{DeviceType}/{BaseName} Set reel offsets");
                             _reelOffsets = offsets.ReelOffsets.Take(_reelCount).ToArray();
                         }
+
                         break;
                     case GdsConstants.ReportId.ReelControllerSetReelSpeed:
                         if (message is SetSpeed speeds)
@@ -432,6 +367,7 @@
                                 _simWindow.SetReelSpeed(reelData.ReelId, reelData.Speed);
                             }
                         }
+
                         break;
                     case GdsConstants.ReportId.ReelControllerSetLights:
                         if (message is SetLamps setLamps)
@@ -457,108 +393,41 @@
             }
         }
 
-        /// <inheritdoc/>
-        public override bool Configure(IComConfiguration comConfiguration)
-        {
-            if (comConfiguration.Name == "Fake 5 Reel")
-            {
-                _baseName = "Fake5";
-                _reelCount = 5;
-            }
-            if (comConfiguration.Name == "Fake 3 Reel")
-            {
-                _baseName = "Fake3";
-                _reelCount = 3;
-            }
-
-            comConfiguration.PortName = DefaultBaseName;
-            return true;
-        }
-
-        /// <summary>
-        /// Releases the unmanaged resources used by the Aristocrat.Monaco.Hardware.Fake.FakeCommunicator and optionally
-        /// releases the managed resources.
-        /// </summary>
-        /// <param name="disposing">True to release both managed and unmanaged resources; false to release only unmanaged
-        /// resources.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (_disposed)
-            {
-                return;
-            }
-
-            if (disposing)
-            {
-                _eventBus?.UnsubscribeAll(this);
-            }
-
-            _disposed = true;
-        }
-
-        /// <summary>Handle a <see cref="FakeCardReaderEvent"/>.</summary>
-        /// <param name="fakeCardReaderEvent">The <see cref="FakeCardReaderEvent"/> to handle.</param>
+        /// <summary>Handle a <see cref="FakeCardReaderEvent" />.</summary>
+        /// <param name="fakeCardReaderEvent">The <see cref="FakeCardReaderEvent" /> to handle.</param>
         protected virtual void HandleEvent(FakeCardReaderEvent fakeCardReaderEvent)
         {
             _fakeCardData = fakeCardReaderEvent.CardValue;
-            OnMessageReceived(new CardStatus
-            {
-                CardPresent = fakeCardReaderEvent.Action,
-                Inserted = fakeCardReaderEvent.Action,
-                Track1 = fakeCardReaderEvent.Action,
-                Removed = !fakeCardReaderEvent.Action
-            });
+            OnMessageReceived(
+                new CardStatus
+                {
+                    CardPresent = fakeCardReaderEvent.Action,
+                    Inserted = fakeCardReaderEvent.Action,
+                    Track1 = fakeCardReaderEvent.Action,
+                    Removed = !fakeCardReaderEvent.Action
+                });
         }
 
-        /// <summary>Handle a <see cref="FakeNoteAcceptorEvent"/>.</summary>
-        /// <param name="fakeNoteAcceptorEvent">The <see cref="FakeNoteAcceptorEvent"/> to handle.</param>
-        protected virtual void HandleEvent(FakeNoteAcceptorEvent fakeNoteAcceptorEvent)
-        {
-            OnMessageReceived(new NoteOrTicketStatus
-            {
-                Jam = fakeNoteAcceptorEvent.Jam,
-                Cheat = fakeNoteAcceptorEvent.Cheat,
-                PathClear = fakeNoteAcceptorEvent.PathClear,
-                Removed = fakeNoteAcceptorEvent.Removed,
-                Rejected = fakeNoteAcceptorEvent.Rejected,
-                Returned = fakeNoteAcceptorEvent.Returned,
-                Accepted = fakeNoteAcceptorEvent.Accepted,
-                TransactionId = GetNextTransactionId()
-            });
-        }
-
-        /// <summary>Handle a <see cref="FakeStackerEvent"/>.</summary>
-        /// <param name="fakeStackerEvent">The <see cref="FakeStackerEvent"/> to handle.</param>
-        protected virtual void HandleEvent(FakeStackerEvent fakeStackerEvent)
-        {
-            OnMessageReceived(new StackerStatus
-            {
-                Fault = fakeStackerEvent.Fault,
-                Jam = fakeStackerEvent.Jam,
-                Full = fakeStackerEvent.Full,
-                Disconnect = fakeStackerEvent.Disconnect
-            });
-        }
-
-        /// <summary>Handle a <see cref="FakePrinterEvent"/>.</summary>
-        /// <param name="fakePrinterEvent">The <see cref="FakePrinterEvent"/> to handle.</param>
+        /// <summary>Handle a <see cref="FakePrinterEvent" />.</summary>
+        /// <param name="fakePrinterEvent">The <see cref="FakePrinterEvent" /> to handle.</param>
         protected virtual void HandleEvent(FakePrinterEvent fakePrinterEvent)
         {
-            OnMessageReceived(new PrinterStatus
-            {
-                PaperInChute = fakePrinterEvent.PaperInChute,
-                PaperEmpty = fakePrinterEvent.PaperEmpty,
-                PaperLow = fakePrinterEvent.PaperLow,
-                PaperJam = fakePrinterEvent.PaperJam,
-                TopOfForm = fakePrinterEvent.TopOfForm,
-                PrintHeadOpen = fakePrinterEvent.PrintHeadOpen,
-                ChassisOpen = fakePrinterEvent.ChassisOpen,
-                TransactionId = GetNextTransactionId()
-            });
+            OnMessageReceived(
+                new PrinterStatus
+                {
+                    PaperInChute = fakePrinterEvent.PaperInChute,
+                    PaperEmpty = fakePrinterEvent.PaperEmpty,
+                    PaperLow = fakePrinterEvent.PaperLow,
+                    PaperJam = fakePrinterEvent.PaperJam,
+                    TopOfForm = fakePrinterEvent.TopOfForm,
+                    PrintHeadOpen = fakePrinterEvent.PrintHeadOpen,
+                    ChassisOpen = fakePrinterEvent.ChassisOpen,
+                    TransactionId = GetNextTransactionId()
+                });
         }
 
-        /// <summary>Handle a <see cref="FakeDeviceConnectedEvent"/>.</summary>
-        /// <param name="fakeDeviceConnectedEvent">The <see cref="FakeDeviceConnectedEvent"/> to handle.</param>
+        /// <summary>Handle a <see cref="FakeDeviceConnectedEvent" />.</summary>
+        /// <param name="fakeDeviceConnectedEvent">The <see cref="FakeDeviceConnectedEvent" /> to handle.</param>
         protected virtual void HandleEvent(FakeDeviceConnectedEvent fakeDeviceConnectedEvent)
         {
             if (fakeDeviceConnectedEvent.Type != DeviceType)
@@ -578,25 +447,34 @@
             //The relevant events should be published by anyone using this event.
         }
 
-        /// <summary>Handle a <see cref="FakeDeviceMessageEvent"/>.</summary>
-        /// <param name="fakeMessageEvent">The <see cref="FakeDeviceMessageEvent"/> to handle.</param>
+        /// <summary>Handle a <see cref="FakeDeviceMessageEvent" />.</summary>
+        /// <param name="fakeMessageEvent">The <see cref="FakeDeviceMessageEvent" /> to handle.</param>
         protected virtual void HandleEvent(FakeDeviceMessageEvent fakeMessageEvent)
         {
             OnMessageReceived(fakeMessageEvent.Message);
         }
 
-        private void GetSupportedCurrencies()
+        /// <summary>
+        ///     Releases the unmanaged resources used by the Aristocrat.Monaco.Hardware.Fake.FakeCommunicator and optionally
+        ///     releases the managed resources.
+        /// </summary>
+        /// <param name="disposing">
+        ///     True to release both managed and unmanaged resources; false to release only unmanaged
+        ///     resources.
+        /// </param>
+        protected override void Dispose(bool disposing)
         {
-            var currencies = CurrencyLoader.GetCurrenciesFromWindows(Logger);
-
-            foreach (var currency in currencies.Keys)
+            if (_disposed)
             {
-                if (Enum.IsDefined(typeof(ISOCurrencyCode), currency.ToUpper()) &&
-                    !SupportedCurrencies.ContainsKey(currency))
-                {
-                    SupportedCurrencies[currency] = _standardDenominations;
-                }
+                return;
             }
+
+            if (disposing)
+            {
+                _eventBus?.UnsubscribeAll(this);
+            }
+
+            _disposed = true;
         }
 
         private void OpenReelSimulatorWindow()
