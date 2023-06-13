@@ -26,9 +26,10 @@
         private readonly int _defaultNoProgInfo;
 
         private bool _deviceCommunicationClosed;
+        private bool _hasEverBeenEnabledByHost;
         private bool _disposed;
         private int _noProgInfo;
-        private Timers.Timer _noProgInfoTimer = new Timers.Timer();
+        private Timers.Timer _noProgInfoTimer = new();
 
         private CancellationTokenSource _getProgressiveHostInfoCancellationToken;
         private CancellationTokenSource _progressiveCommitCancellationToken;
@@ -61,6 +62,7 @@
             get => _noProgInfo;
             set
             {
+                if (_disposed) return;
                 if (value == 0) value = _defaultNoProgInfo;
                 _noProgInfo = value;
                 _noProgInfoTimer.Interval = value;
@@ -411,10 +413,28 @@
         /// <param name="progressiveState">the received message from the host</param>
         public void SetProgressiveState(setProgressiveState progressiveState)
         {
-            DisableText = progressiveState.enable
-                ? string.Empty
-                : progressiveState.disableText;
-            HostEnabled = progressiveState.enable;
+            if (progressiveState.enable)
+            {
+                _noProgInfoTimer.Start();
+                DisableText = string.Empty;
+                HostEnabled = progressiveState.enable;
+                
+                _hasEverBeenEnabledByHost = true;
+            }
+            else
+            {
+                _noProgInfoTimer.Stop();
+                DisableText = progressiveState.disableText;
+                HostEnabled = progressiveState.enable;
+
+                //devices start in a disabled state, and wont notify observer unless the value is actually changed
+                //however, upon startup, we can received detailed information why the device isn't being enabled
+                //This extra notify gets those messages on screen as a tilt
+                if (!_hasEverBeenEnabledByHost)
+                {
+                    NotifyStateChanged(nameof(HostEnabled));
+                }
+            }
         }
 
         /// <inheritdoc />
@@ -532,6 +552,7 @@
             NoProgInfo = _defaultNoProgInfo;
             TimeToLive = (int)Constants.DefaultTimeout.TotalMilliseconds;
             NoResponseTimer = Constants.NoResponseTimer;
+            _hasEverBeenEnabledByHost = false;
         }
 
         private void NoProgInfoTimerElapsed(object sender, Timers.ElapsedEventArgs e)

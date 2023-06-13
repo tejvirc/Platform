@@ -7,6 +7,7 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
+    using Aristocrat.Monaco.Common;
     using log4net;
     using Monaco.Protocol.Common;
 
@@ -122,7 +123,7 @@
                 // Trigger reconnection in case of an error
                 if (!_disposed)
                 {
-                    AttemptReconnection(CancellationToken.None);
+                    AttemptReconnection(CancellationToken.None).FireAndForget();
                 }
             }
         }
@@ -163,7 +164,7 @@
                 token);
         }
 
-        private async void AttemptReconnection(CancellationToken token)
+        private async Task AttemptReconnection(CancellationToken token)
         {
             Logger.Info("Attempting to reconnect...");
             int retryDelayMilliseconds = 5000;

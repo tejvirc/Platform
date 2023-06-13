@@ -556,24 +556,27 @@
                 report.deviceList = deviceList;
             }
 
-            // TODO: Need to handle sendUpdatableMeters, sendClassMeters, and sendDeviceMeters properly.  This is not currently doing that...
             if ((config.SendClassMeters || config.SendDeviceMeters) && meterList != null)
             {
-                report.meterList = meterList;
-            }
-            else if(config.SendUpdatableMeters && meterList != null)
-            {
-                var list = new List<meterInfo>();
-                foreach (var info in meterList.meterInfo)
+                // TODO: Need to handle sendUpdatableMeters, sendClassMeters, and sendDeviceMeters properly.  This is not currently doing that...
+                if (config.SendClassMeters && config.SendDeviceMeters && !config.SendUpdatableMeters)
                 {
-                    if (info.deviceMeters != null && info.deviceMeters.Length > 0 && config.SendDeviceMeters ||
-                        (info.deviceMeters == null || info.deviceMeters.Length == 0) && config.SendClassMeters)
-                    {
-                        list.Add(info);
-                    }
+                    report.meterList = meterList;
                 }
+                else
+                {
+                    var list = new List<meterInfo>();
+                    foreach (var info in meterList.meterInfo)
+                    {
+                        if (info.deviceMeters != null && info.deviceMeters.Length > 0 && config.SendDeviceMeters ||
+                            (info.deviceMeters == null || info.deviceMeters.Length == 0) && config.SendClassMeters)
+                        {
+                            list.Add(info);
+                        }
+                    }
 
-                report.meterList = new meterList { meterInfo = list.ToArray() };
+                    report.meterList = new meterList { meterInfo = list.ToArray() };
+                }
             }
 
             QueueForSend(report);

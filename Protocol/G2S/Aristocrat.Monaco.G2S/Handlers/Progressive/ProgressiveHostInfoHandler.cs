@@ -91,7 +91,7 @@
                 type = ProgressiveLevelType.Selectable;
             }
 
-                return type;
+            return type;
         }
     }
 }

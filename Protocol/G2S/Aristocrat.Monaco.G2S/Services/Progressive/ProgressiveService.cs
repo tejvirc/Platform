@@ -175,9 +175,7 @@
 
         private void SubscribeEvents()
         {
-            _eventBus.Subscribe<HostUnreachableEvent>(this, CommunicationsStateChanged);
-            _eventBus.Subscribe<TransportDownEvent>(this, CommunicationsStateChanged);
-            _eventBus.Subscribe<TransportUpEvent>(this, CommunicationsStateChanged);
+            _eventBus.Subscribe<CommunicationsStateChangedEvent>(this, OnCommunicationsStateChanged);
             _eventBus.Subscribe<ProgressiveWagerCommittedEvent>(this, OnProgressiveWagerCommitted);
             _eventBus.Subscribe<GameConfigurationSaveCompleteEvent>(this, Configure);
             _protocolProgressiveEventsRegistry.SubscribeProgressiveEvent<ProgressiveCommitEvent>(
@@ -191,7 +189,7 @@
                 this);
         }
 
-        private void OnTransportUp()
+        private void OnCommsOnline()
         {
             var progressiveHostInfos = GetProgressiveHostInfo();
 
@@ -202,6 +200,13 @@
             }
 
             var devices = _egm.GetDevices<IProgressiveDevice>().ToList();
+
+            if (devices.Count != progressiveHostInfos.Count)
+            {
+                _disableProvider.Disable(SystemDisablePriority.Immediate, G2SDisableStates.ProgressiveLevelsMismatch);
+                return;
+            }
+
             foreach (var progressiveHostInfo in progressiveHostInfos)
             {
                 var progressiveDevice = devices.FirstOrDefault(d => d.ProgressiveId == progressiveHostInfo.progressiveLevel.FirstOrDefault().progId);
@@ -379,16 +384,15 @@
             _eventLift.Report(device, EventCode.G2S_PGE101, device.DeviceList(status), new meterList { meterInfo = meters.ToArray() });
         }
 
-        private void CommunicationsStateChanged(TransportEventBase evt)
+        private void OnCommunicationsStateChanged(CommunicationsStateChangedEvent evt)
         {
             var host = _egm.GetHostById(evt.HostId);
             if(!host.IsProgressiveHost) return;
 
-            if (evt.GetType() == typeof(TransportUpEvent))
+            if (evt.Online)
             {
                 _disableProvider.Enable(G2SDisableStates.ProgressiveHostCommsOffline);
-                _disableProvider.Disable(SystemDisablePriority.Immediate, G2SDisableStates.ProgressiveValueNotReceived);
-                Task.Run(OnTransportUp);
+                Task.Run(OnCommsOnline);
             }
             else
             {

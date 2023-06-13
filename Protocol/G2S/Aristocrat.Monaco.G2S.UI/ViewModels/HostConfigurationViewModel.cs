@@ -211,7 +211,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                     bool success = device.HasOwner(progHost.Id, device.Active);
                     if (success)
                     {
-                        profileService.Save(device);
+                        profileService?.Save(device);
                     }
                 }
 

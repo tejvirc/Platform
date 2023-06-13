@@ -12,7 +12,7 @@
     /// <summary>
     ///     Methods to control an MTP client <see cref="UdpConnection"/>
     /// </summary>
-    public interface IMtpClient
+    public interface IMtpClient : IDisposable
     {
         /// <summary>
         ///     Joins all registered multicast groups.
@@ -35,10 +35,5 @@
         /// </summary>
         /// <param name="multicastId">Multicast identifier.</param>
         void CloseMtpConnection(string multicastId);
-
-        /// <summary>
-        ///     Releases allocated resources.
-        /// </summary>
-        public void Dispose();
     }
 }
