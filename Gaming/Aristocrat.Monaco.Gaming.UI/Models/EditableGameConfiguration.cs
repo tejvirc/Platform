@@ -785,21 +785,8 @@
                 return;
             }
 
-            BetOptions = new ObservableCollection<BetOption>(Game?.BetOptionList);
-            var foundBetOptions = Game?.BetLinePresetList.DistinctBy(i => i.BetOption.Name);
-            var betList = new List<BetOption>();
-            foreach (var presets in foundBetOptions)
-            {
-                foreach (var bet in BetOptions)
-                {
-                    if (bet.Name == presets.BetOption.Name)
-                    {
-                        betList.Add(bet);
-                    }
-                }
-            }
+            var betList = FilterBetOptions();
             BetOptions = new ObservableCollection<BetOption>(betList);
-            // BetOptions = BetOptions.Where(i => i.Description == BetLinePresets.)
 
             SelectedBetOption = (string.IsNullOrEmpty(denomination.BetOption)
                                     ? null
@@ -807,7 +794,30 @@
                                 ?? BetOptions?.FirstOrDefault()
                                 ?? Game?.ActiveBetOption;
 
-            BetOptionAvailable = BetOptions.Any();
+            BetOptionAvailable = BetOptions!.Any();
+
+            List<BetOption> FilterBetOptions()
+            {
+                var gameBetOptions = new ObservableCollection<BetOption>(Game?.BetOptionList!);
+                var foundBetOptions = Game?.BetLinePresetList.DistinctBy(i => i.BetOption.Name);
+                if (foundBetOptions == null)
+                {
+                    return gameBetOptions.ToList();
+                }
+                var betOptions = new List<BetOption>();
+                foreach (var presets in foundBetOptions)
+                {
+                    foreach (var bet in gameBetOptions)
+                    {
+                        if (bet.Name == presets.BetOption.Name)
+                        {
+                            betOptions.Add(bet);
+                        }
+                    }
+                }
+
+                return betOptions;
+            }
         }
 
         private void LoadLineOptions()
@@ -826,20 +836,7 @@
                 return;
             }
 
-            LineOptions = new ObservableCollection<LineOption>(Game?.LineOptionList);
-
-            var gameBetLinePresetList = Game?.BetLinePresetList;
-            var optionsList = new List<LineOption>();
-            foreach (var presets in gameBetLinePresetList)
-            {
-                foreach (var line in LineOptions)
-                {
-                    if (SelectedBetOption.Name == presets.BetOption.Name && line.Name == presets.LineOption.Name)
-                    {
-                        optionsList.Add(line);
-                    }
-                }
-            }
+            var optionsList = FilterOptionsList();
             LineOptions = new ObservableCollection<LineOption>(optionsList);
 
             SelectedLineOption = (string.IsNullOrEmpty(denomination.LineOption)
@@ -849,6 +846,29 @@
                                  ?? Game?.ActiveLineOption;
 
             LineOptionAvailable = LineOptions.Any();
+
+            List<LineOption> FilterOptionsList()
+            {
+                LineOptions = new ObservableCollection<LineOption>(Game?.LineOptionList!);
+                if (Game?.BetLinePresetList == null)
+                {
+                    return LineOptions.ToList();
+                }
+                var gameBetLinePresetList = Game?.BetLinePresetList;
+                var options = new List<LineOption>();
+                foreach (var presets in gameBetLinePresetList)
+                {
+                    foreach (var line in LineOptions)
+                    {
+                        if (SelectedBetOption.Name == presets.BetOption.Name && line.Name == presets.LineOption.Name)
+                        {
+                            options.Add(line);
+                        }
+                    }
+                }
+
+                return options;
+            }
         }
 
         private void LoadBonusBets(BetOption betOption)

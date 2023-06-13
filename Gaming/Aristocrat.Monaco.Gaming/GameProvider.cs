@@ -12,6 +12,7 @@
     using Application.Contracts;
     using Application.Contracts.Drm;
     using Application.Contracts.Localization;
+
     using Aristocrat.PackageManifest.Extension.v100;
     using Cabinet.Contracts;
     using Common;
@@ -106,28 +107,30 @@
             ICabinetDetectionService cabinetDetectionService,
             ICustomGameMathFilterService filterService)
         {
-            _pathMapper = pathMapper ?? throw new ArgumentNullException(nameof(pathMapper));
-            _storageManager = storageManager ?? throw new ArgumentNullException(nameof(storageManager));
-            _manifest = manifest ?? throw new ArgumentNullException(nameof(manifest));
-            _meters = meters ?? throw new ArgumentNullException(nameof(meters));
-            _disableManager = disableManager ?? throw new ArgumentNullException(nameof(disableManager));
-            _gameOrder = gameOrder ?? throw new ArgumentNullException(nameof(gameOrder));
-            _bus = bus ?? throw new ArgumentNullException(nameof(bus));
-            _properties = properties ?? throw new ArgumentNullException(nameof(properties));
-            _runtimeProvider = runtimeProvider ?? throw new ArgumentNullException(nameof(runtimeProvider));
-            _progressiveManifest = progressiveManifest ?? throw new ArgumentNullException(nameof(progressiveManifest));
-            _progressiveProvider = progressiveProvider ?? throw new ArgumentNullException(nameof(progressiveProvider));
-            _idProvider = idProvider ?? throw new ArgumentNullException(nameof(idProvider));
-            _digitalRights = digitalRights ?? throw new ArgumentNullException(nameof(digitalRights));
-            _configurationProvider = configurationProvider ?? throw new ArgumentNullException(nameof(configurationProvider));
-            _cabinetDetectionService = cabinetDetectionService ?? throw new ArgumentNullException(nameof(cabinetDetectionService));
-            _filterService = filterService ?? throw new ArgumentNullException(nameof(filterService));
+            _pathMapper = (IPathMapper)AssignOrThrow(pathMapper);
+            _storageManager = (IPersistentStorageManager)AssignOrThrow(storageManager);
+            _manifest = (IManifest<GameContent>)AssignOrThrow(manifest);
+            _meters = (IGameMeterManager)AssignOrThrow(meters);
+            _disableManager = (ISystemDisableManager)AssignOrThrow(disableManager);
+            _gameOrder = (IGameOrderSettings)AssignOrThrow(gameOrder);
+            _bus = (IEventBus)AssignOrThrow(bus);
+            _properties = (IPropertiesManager)AssignOrThrow(properties);
+            _runtimeProvider = (IRuntimeProvider)AssignOrThrow(runtimeProvider);
+            _progressiveManifest = (IManifest<IEnumerable<ProgressiveDetail>>)AssignOrThrow(progressiveManifest);
+            _progressiveProvider = (IProgressiveLevelProvider)AssignOrThrow(progressiveProvider);
+            _idProvider = (IIdProvider)AssignOrThrow(idProvider);
+            _digitalRights = (IDigitalRights)AssignOrThrow(digitalRights);
+            _configurationProvider = (IConfigurationProvider)AssignOrThrow(configurationProvider);
+            _cabinetDetectionService = (ICabinetDetectionService)AssignOrThrow(cabinetDetectionService);
+            _filterService = (ICustomGameMathFilterService)AssignOrThrow(filterService);
 
             _multiplier = properties.GetValue(ApplicationConstants.CurrencyMultiplierKey, 1d);
 
             _initialized = HasGame();
 
             BuildCache();
+
+            static object AssignOrThrow(object passedObject) => passedObject ?? throw new ArgumentNullException(nameof(passedObject));
         }
 
         private PersistenceLevel PersistenceLevel => _properties.GetValue(ApplicationConstants.DemonstrationMode, false)

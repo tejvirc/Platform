@@ -47,7 +47,7 @@
         private CancellationTokenSource _cancellation;
         private bool _gameRulesVisible;
         private readonly ICollection<AddinConfigurationGroupNode> _jurisdictions;
-        private string _licensedJurisdictionId;
+        private readonly string _licensedJurisdictionId;
 
         public JurisdictionSetupPageViewModel() : base(true)
         {
