@@ -15,7 +15,7 @@
     <DPR name="TextTicketTitle" id="103" x="28" px="00000" y="20" py="00000" dx="476" pdx="00504" dy="2000" pdy="01000" rot="1" jst="2" type="F=008" m1="1" m2="1" attr="001" property="title">
      <D></D>                                                                                                    
     </DPR>                                                                                                      
-    <DPR name="CashSlipTitle" id="106" x="216" px="00105" y="1051" py="00020" dx="89" pdx="00100" dy="1020" pdy="01020" rot="4" jst="2" type="F=004" m1="1" m2="1" attr="001" property="title localized">
+    <DPR name="CashSlipTitle" id="106" x="216" px="00105" y="1051" py="00020" dx="89" pdx="00100" dy="1020" pdy="01020" rot="4" jst="2" type="F=003" m1="1" m2="1" attr="001" property="title localized">
       <D></D>                                                                            
     </DPR>                                                                                                      
     <DPR name="ValidationNo" id="107" x="28" px="00028" y="15" py="00015" dx="476" pdx="00476" dy="31" pdy="00031" rot="1" jst="2" type="F=008" m1="1" m2="1" attr="001" property="validation number">
@@ -48,7 +48,7 @@
     <DPR name="CreditsText" id="116" x="508" px="00444" y="1051" py="00020" dx="24" pdx="00064" dy="1020" pdy="01020" rot="4" jst="2" type="F=007" m1="1" m2="1" attr="001" property="vlt credits">
       <D></D>                                                                                                   
     </DPR>                                                                                                     
-    <DPR name="CashSlipBarcode" id="117" x="210" px="00180" y="175" py="00225" dx="108" pdx="00108" dy="724" pdy="00624" rot="2" jst="2" type="B=001" m1="4" m2="8" attr="128" property="barcode">
+    <DPR name="CashSlipBarcode" id="117" x="210" px="00180" y="175" py="00225" dx="108" pdx="00128" dy="724" pdy="00624" rot="4" jst="2" type="B=001" m1="4" m2="8" attr="128" property="barcode">
       <D></D>                                                                                                   
     </DPR>                                                                                                      
     <DPR name="EstablishmentName" id="121" x="108" px="00005" y="1051" py="00020" dx="65" pdx="00065" dy="1020" pdy="01020" rot="4" jst="2" type="F=003" m1="1" m2="1" attr="001" property="establishment name">
