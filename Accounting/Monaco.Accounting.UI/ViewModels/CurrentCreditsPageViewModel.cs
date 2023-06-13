@@ -5,6 +5,7 @@
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Application.UI.OperatorMenu;
+    using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
     using Contracts;
     using Kernel;
     using Localization.Properties;
@@ -49,6 +50,20 @@
 
         protected override void OnLoaded()
         {
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleOperatorCultureChangedEvent);
+            UpdateCredits();
+        }
+
+        protected override void OnUnloaded()
+        {
+            EventBus.UnsubscribeAll(this);
+        }
+
+        protected void UpdateCredits()
+        {
+            var shouldUseOperatorCulture = GetGlobalConfigSetting(OperatorMenuSetting.UseOperatorCultureForCurrencyFormatting, false);
+            var culture = shouldUseOperatorCulture ? Localizer.For(CultureFor.Operator).CurrentCulture : CurrencyExtensions.CurrencyCultureInfo;
+
             var credits = new List<Credit>();
             using (var scope = new CultureScope(CultureFor.Operator))
             {
@@ -60,13 +75,18 @@
                     if (name != string.Empty)
                     {
                         credits.Add(new Credit(name,
-                            _bank.QueryBalance(credit.Key).MillicentsToDollars().FormattedCurrencyString()));
+                            _bank.QueryBalance(credit.Key).MillicentsToDollars().FormattedCurrencyString(false, culture)));
                     }
                 }
 
                 Credits = credits;
-                TotalCredits = _bank.QueryBalance().MillicentsToDollars().FormattedCurrencyString();
+                TotalCredits = _bank.QueryBalance().MillicentsToDollars().FormattedCurrencyString(false, culture);
             }
+        }
+
+        private void HandleOperatorCultureChangedEvent(OperatorCultureChangedEvent @event)
+        {
+            UpdateCredits();
         }
 
         public class Credit

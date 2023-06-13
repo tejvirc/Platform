@@ -50,7 +50,7 @@
                                 <Style TargetType="TextBlock"
                                        BasedOn="{StaticResource MonacoTextBlock}">
                                     <Setter Property="Text"
-                                            Value="{lex:Loc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
+                                            Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding Ignored}"
                                                      Value="False"

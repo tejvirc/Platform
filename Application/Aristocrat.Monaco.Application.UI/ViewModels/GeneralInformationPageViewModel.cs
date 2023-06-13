@@ -2,6 +2,8 @@
 {
     using Aristocrat.G2S.Client;
     using Aristocrat.Monaco.Application.Contracts.Extensions;
+    using Aristocrat.Monaco.Application.Contracts.Localization;
+    using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
     using Aristocrat.Monaco.Application.PerformanceCounter;
     using Aristocrat.Monaco.Application.UI.OperatorMenu;
     using Aristocrat.Monaco.Common;
@@ -20,6 +22,8 @@
     [CLSCompliant(false)]
     public class GeneralInformationPageViewModel : OperatorMenuPageViewModelBase
     {
+        private readonly bool _useOperatorCultureForCurrencyFormatting;
+
         private IPerformanceCounterManager _performanceCounterManager => ServiceManager.GetInstance().GetService<IPerformanceCounterManager>();
         private INoteAcceptor NoteAcceptor => ServiceManager.GetInstance().TryGetService<INoteAcceptor>();
 
@@ -27,6 +31,8 @@
         {
             var hosts = PropertiesManager.GetValues<IHost>(Aristocrat.G2S.Client.Constants.RegisteredHosts);
             G2SHosts = hosts.Select(x=>x.Address).ToList();
+
+            _useOperatorCultureForCurrencyFormatting = GetGlobalConfigSetting(OperatorMenuSetting.UseOperatorCultureForCurrencyFormatting, false);
 
             LoadAvailableMetrics();
             RaisePropertyChanged(nameof(G2SHosts));
@@ -64,6 +70,25 @@
         {
             base.InitializeData();
             GetAllMetricsSnapShot();
+        }
+
+        protected override void OnLoaded()
+        {
+            base.OnLoaded();
+
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleOperatorCultureChangedEvent);
+        }
+
+        protected override void OnUnloaded()
+        {
+            base.OnUnloaded();
+
+            EventBus.UnsubscribeAll(this);
+        }
+
+        private void HandleOperatorCultureChangedEvent(OperatorCultureChangedEvent @event)
+        {
+            RaisePropertyChanged(nameof(AcceptedDenominations));
         }
 
         private void LoadAvailableMetrics()
@@ -113,10 +138,13 @@
 
         private string GetFormattedSupportedNotes()
         {
+            var culture = _useOperatorCultureForCurrencyFormatting ?
+                Localizer.For(CultureFor.Operator).CurrentCulture :
+                CurrencyExtensions.CurrencyCultureInfo;
             var supportedNotes = NoteAcceptor.GetSupportedNotes();
-            var formattedList = supportedNotes.Select(x => x.FormattedCurrencyString());
+            var formattedList = supportedNotes.Select(x => x.FormattedCurrencyString(null, culture));
 
-            return string.Join(", ", formattedList);
+            return string.Join($"{ culture.TextInfo.ListSeparator } ", formattedList);
         }
     }
 }

@@ -72,7 +72,7 @@
                                                Value="false" />
                                 </MultiDataTrigger.Conditions>
                                 <Setter Property="Content"
-                                        Value="{lex:Loc Key={x:Static loc:ResourceKeys.NoProgressiveGamesEnabled}}" />
+                                        Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NoProgressiveGamesEnabled}}" />
                                 <Setter Property="Visibility"
                                         Value="Visible" />
                             </MultiDataTrigger>
@@ -80,7 +80,7 @@
                                          Value="false"
                                          AutomationProperties.AutomationId="DataTrigger11_F589A27">
                                 <Setter Property="Content"
-                                        Value="{lex:Loc Key={x:Static loc:ResourceKeys.NoProgressiveMeters}}" />
+                                        Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NoProgressiveMeters}}" />
                                 <Setter Property="Visibility"
                                         Value="Visible" />
                             </DataTrigger>
