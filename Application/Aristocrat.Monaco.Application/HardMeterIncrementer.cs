@@ -61,7 +61,7 @@
             _propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
 
             _hardMeterEnabled = _propertiesManager
-                .GetValue(HardwareConstants.HardMetersEnabledKey, false);
+                .GetValue(HardwareConstants.HardMetersEnabledKey, true);
 
             if (!_hardMeterEnabled)
             {

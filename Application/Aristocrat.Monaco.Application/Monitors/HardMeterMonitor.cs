@@ -71,7 +71,7 @@
                 });
 
             if (!(configuration?.HardMeterMonitor?.DisableOnError ?? false) ||
-                !_properties.GetValue(HardwareConstants.HardMetersEnabledKey, false))
+                !_properties.GetValue(HardwareConstants.HardMetersEnabledKey, true))
             {
                 return;
             }

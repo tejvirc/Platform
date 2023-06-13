@@ -60,7 +60,7 @@ namespace Aristocrat.Monaco.Application
                 configWizardBellEnabled = propertiesManager.GetValue(HardwareConstants.BellEnabledKey, false);
                 hardMeterTickValue = propertiesManager.GetValue(ApplicationConstants.HardMeterTickValue, DefaultHardMeterTickValue);
                 enterOutOfServiceWithCreditsEnabled = propertiesManager.GetValue(ApplicationConstants.MachineSetupConfigEnterOutOfServiceWithCreditsEnabled, true);
-                hardMetersEnabled = propertiesManager.GetValue(HardwareConstants.HardMetersEnabledKey, false);
+                hardMetersEnabled = propertiesManager.GetValue(HardwareConstants.HardMetersEnabledKey, true);
             }
 
             // The Tuple is structured as value (Item1) and Key (Item2)

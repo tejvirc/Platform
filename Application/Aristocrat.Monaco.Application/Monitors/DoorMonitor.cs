@@ -500,7 +500,7 @@
                 _handlers.Add((int)DoorLogicalId.TopBoxOptic, topOpticDoorHandler);
             }
 
-            var hardMetersEnabled = _propertiesManager.GetValue(HardwareConstants.HardMetersEnabledKey, false);
+            var hardMetersEnabled = _propertiesManager.GetValue(HardwareConstants.HardMetersEnabledKey, true);
             if (!hardMetersEnabled)
             {
                 _doorService.IgnoredDoors.Add((int)DoorLogicalId.MechanicalMeter);
