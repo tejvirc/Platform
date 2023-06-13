@@ -269,17 +269,19 @@ namespace Aristocrat.Monaco.Accounting
 
         private void AddLockup()
         {
-            var divisor = _properties.GetProperty("CurrencyMultiplier", 0d);
-
-            var disableReason = string.Format(
-                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BoardRemovalCashoutMessage)
-                    .Replace("\\r\\n", Environment.NewLine),
-                _bank.QueryBalance() / (double)divisor);
-
             _systemDisableManager.Disable(
                 DisabledDueToCarrierBoardRemoval,
                 SystemDisablePriority.Immediate,
-                () => disableReason);
+                DisableMessageCallback);
+        }
+
+        private string DisableMessageCallback()
+        {
+            var divisor = (double)_properties.GetProperty("CurrencyMultiplier", 0d);
+            return string.Format(
+                Localizer.DynamicCulture().GetString(ResourceKeys.BoardRemovalCashoutMessage)
+                    .Replace("\\r\\n", Environment.NewLine),
+                _bank.QueryBalance() / divisor);
         }
 
         private void RemoveLockup()

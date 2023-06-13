@@ -22,8 +22,8 @@
     using Kernel;
     using Kernel.Contracts;
     using Kernel.Contracts.Components;
-    using log4net;
     using Localization.Properties;
+    using log4net;
     using Monaco.Common.Exceptions;
     using Services;
 
@@ -249,7 +249,7 @@
                         waiting = _pendingAuthorizationScripts.Contains(scriptId);
                     }
 
-                    if(waiting)
+                    if (waiting)
                     {
                         var script = _packageManager.GetScript(scriptId);
 
@@ -259,7 +259,7 @@
                         }
 
                         TimeSpan wait = script.AuthorizeItems?.FirstOrDefault()?.TimeoutDate - DateTime.UtcNow ?? TimeSpan.Zero;
-                        if(wait < TimeSpan.Zero)
+                        if (wait < TimeSpan.Zero)
                         {
                             wait = TimeSpan.Zero;
                         }
@@ -363,7 +363,7 @@
                 }
             }
 
-            if(!timeout.HasValue)
+            if (!timeout.HasValue)
             {
                 timeout = DateTime.UtcNow.AddSeconds(30);
             }
@@ -975,7 +975,7 @@
                             _downloadDevice,
                             EgmState.EgmLocked,
                             false,
-                            () => "Applying scripts");
+                            () => Localizer.DynamicCulture().GetString(ResourceKeys.ApplyingScripts));
 
                         PostEvent(EventCode.G2S_DLE206, scriptEntity.ScriptId);
                         break;

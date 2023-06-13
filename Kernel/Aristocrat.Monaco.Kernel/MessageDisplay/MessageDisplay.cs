@@ -84,7 +84,7 @@
                 bool found = false;
                 foreach (var item in items)
                 {
-                    if(!item.Equals(handler))
+                    if (!item.Equals(handler))
                     {
                         _handlers.Push(item);
                     }
@@ -94,7 +94,7 @@
                     }
                 }
 
-                if(!found)
+                if (!found)
                 {
                     Logger.WarnFormat(
                         "MessageDisplay has no handlers to remove\nMessage display handler: {0}",
@@ -156,7 +156,12 @@
 
                     foreach (var handler in _handlers)
                     {
-                        Logger.Debug($"Sending message to display handler: {mappedMessage}");
+                        if (handler == null)
+                        {
+                            continue;
+                        }
+
+                        Logger.Debug($"Sending message to display handler: {handler.GetType().Name}");
                         handler?.DisplayMessage(mappedMessage);
                     }
 
@@ -208,7 +213,7 @@
                 var messagesToRemove = explicitRemove
                     ? new List<DisplayableMessage> { displayableMessage }
                     : _messages.Where(o => mappedMessage.IsMessageEquivalent(o)).ToList();
-                    
+
                 foreach (var message in messagesToRemove)
                 {
                     if (_messages.Remove(message))
@@ -391,7 +396,7 @@
 
                     _configuredDisplayNodes.Clear();
                     _configuredDisplayNodes = null;
-             
+
                     _observedMessages.Clear();
                     _observedMessages = null;
                 }

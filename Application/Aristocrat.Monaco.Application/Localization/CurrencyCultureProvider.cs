@@ -8,6 +8,7 @@
     using System.Linq;
     using System.Reflection;
     using Contracts;
+    using Contracts.Currency;
     using Contracts.Extensions;
     using Contracts.Localization;
     using Hardware.Contracts;
@@ -17,7 +18,6 @@
     using Kernel.Contracts;
     using log4net;
     using Monaco.Localization.Properties;
-    using Contracts.Currency;
 
     /// <summary>
     ///     Implements localization logic for currency culture provider.
@@ -168,7 +168,7 @@
 
                             // get the currency override format 
                             var format = GetCurrencyOverrideFormat(currency.CurrencyCode);
-                            
+
                             _noteDefinitions.Add(
                                 new NoteDefinitions(
                                         currency.CurrencyCode,
@@ -223,7 +223,7 @@
                         _disableManager.Disable(
                             CurrencyIsoInvalidDisableKey,
                             SystemDisablePriority.Immediate,
-                            () => Localizer.For(CultureFor.Operator).FormatString(
+                            () => Localizer.DynamicCulture().FormatString(
                                 ResourceKeys.InvalidNoteAcceptorFirmware,
                                 foundCurrencySymbol));
                         return currencyCode;
@@ -490,7 +490,7 @@
             var unitResults = (defaultMinorUnits, defaultMinorUnitsPlural, true, true);
             if (string.IsNullOrEmpty(currencyCode) ||
                 !_currencyDefaults.ContainsKey(currencyCode) ||
-                _currencyDefaults[currencyCode] == null) 
+                _currencyDefaults[currencyCode] == null)
             {
                 return unitResults;
             }
@@ -542,7 +542,7 @@
 
             minorUnits = format?.MinorUnits;
             minorUnitsPlural = format?.MinorUnitsPlural;
-            
+
 
             if (format?.MinorUnitSymbol != null)
             {
@@ -667,8 +667,8 @@
         private string GetDefaultMinorUnitSymbol(string currencyCode)
         {
             var currencyFormat = GetCurrencyOverrideFormat(currencyCode);
-      
-           return currencyFormat?.MinorUnitSymbol;
+
+            return currencyFormat?.MinorUnitSymbol;
         }
 
         private CurrencyDefaultsCurrencyInfoFormat GetCurrencyOverrideFormat(string currencyCode)

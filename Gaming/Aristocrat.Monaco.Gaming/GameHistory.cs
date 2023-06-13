@@ -107,8 +107,8 @@
 
             systemDisable.Disable(GamingConstants.FatalGameErrorGuid, SystemDisablePriority.Immediate,
                 () => GameErrorCode.LiabilityLimit == log?.ErrorCode
-                    ? Localizer.For(CultureFor.Player).GetString(ResourceKeys.LiabilityCheckFailed)
-                    : Localizer.For(CultureFor.Player).GetString(ResourceKeys.LegitimacyCheckFailed));
+                    ? Localizer.DynamicCulture().GetString(ResourceKeys.LiabilityCheckFailed)
+                    : Localizer.DynamicCulture().GetString(ResourceKeys.LegitimacyCheckFailed));
         }
 
         private int CurrentLogIndex { get; set; }

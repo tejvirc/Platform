@@ -146,7 +146,7 @@
                     _ => _disableManager.Disable(
                         ApplicationConstants.DisplayDisconnectedLockupKey,
                         SystemDisablePriority.Immediate,
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisplayDisconnected))
+                        () => Localizer.DynamicCulture().GetString(ResourceKeys.DisplayDisconnected))
                 );
 
                 CheckDevicesCount();
@@ -342,7 +342,7 @@
                     _disableManager.Disable(
                         ApplicationConstants.TouchDisplayReconnectedLockupKey,
                         SystemDisablePriority.Immediate,
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TouchDisplayReconnected));
+                        () => Localizer.DynamicCulture().GetString(ResourceKeys.TouchDisplayReconnected));
                 }
                 // TouchDisplayDisconnected lockup is enabled when any touch displays are disconnected.
                 else if (_disableManager.CurrentDisableKeys.Contains(ApplicationConstants.TouchDisplayReconnectedLockupKey) && !allConnected)
@@ -443,7 +443,7 @@
                 _disableManager.Disable(
                     disableKey,
                     SystemDisablePriority.Immediate,
-                    () => Localizer.For(CultureFor.Operator).GetString(resource));
+                    () => Localizer.DynamicCulture().GetString(resource));
             }
         }
 

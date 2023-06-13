@@ -5,15 +5,15 @@
     using System.Reflection;
     using System.Runtime.InteropServices;
     using System.Threading;
+    using Aristocrat.Monaco.Localization.Properties;
     using Contracts;
     using Contracts.Localization;
     using Kernel;
     using log4net;
-    using Aristocrat.Monaco.Localization.Properties;
     public class MemoryMonitor : IService, IDisposable
     {
         private bool _disposed;
-        private ulong _memoryLeftThreshold; 
+        private ulong _memoryLeftThreshold;
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -95,13 +95,13 @@
             //Values are in Bytes, MemoryLoad is a percentage
             NativeMethods.GlobalMemoryStatusEx(msex);
 
-            if(msex.ullAvailPhys <= _memoryLeftThreshold && !_disabled)
+            if (msex.ullAvailPhys <= _memoryLeftThreshold && !_disabled)
             { //If we have exceeded the threshhold, start the lockup process if we haven't already.
                 Logger.Error($"Computer Memory is full. Locking up system for reboot. Available Memory: {msex.ullAvailPhys}. Total Memory: {msex.ullTotalPhys}. Threshold: {_memoryLeftThreshold}.");
                 _disabled = true;
 
                 _disableManager.Disable(LockupId, SystemDisablePriority.Immediate,
-                    () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OutOfMemoryMessage));
+                    () => Localizer.DynamicCulture().GetString(ResourceKeys.OutOfMemoryMessage));
             }
         }
     }

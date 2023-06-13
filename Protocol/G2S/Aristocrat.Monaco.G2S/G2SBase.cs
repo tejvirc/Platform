@@ -7,9 +7,11 @@
     using Accounting.Contracts.Handpay;
     using Application.Contracts;
     using Application.Contracts.Localization;
+    using Application.Contracts.TiltLogger;
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Emdi;
+    using Aristocrat.Monaco.G2S.Common.G2SEventLogger;
     using Common.Events;
     using Common.PackageManager;
     using CompositionRoot;
@@ -22,25 +24,23 @@
     using Hardware.Contracts.IdReader;
     using Hardware.Contracts.SharedDevice;
     using Kernel;
-    using log4net;
     using Localization.Properties;
+    using log4net;
     using Logging;
     using Meters;
     using Monaco.Common;
     using Services;
     using SimpleInjector;
-    using Aristocrat.Monaco.Application.Contracts.TiltLogger;
-    using Aristocrat.Monaco.G2S.Common.G2SEventLogger;
 
     /// <summary>
     ///     Handle the base level G2S communications including meter managements and system events.
     /// </summary>
     [ProtocolCapability(
-        protocol:CommsProtocol.G2S,
-        isValidationSupported:true,
-        isFundTransferSupported:false,
-        isProgressivesSupported:false,
-        isCentralDeterminationSystemSupported:true)]
+        protocol: CommsProtocol.G2S,
+        isValidationSupported: true,
+        isFundTransferSupported: false,
+        isProgressivesSupported: false,
+        isCentralDeterminationSystemSupported: true)]
     public class G2SBase : BaseRunnable
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
@@ -65,7 +65,7 @@
                     .Disable(
                         Constants.ProtocolDisabledKey,
                         SystemDisablePriority.Immediate,
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisabledDuringInitialization),
+                        () => Localizer.DynamicCulture().GetString(ResourceKeys.DisabledDuringInitialization),
                         false);
 
                 CreateVirtualIdReaders();

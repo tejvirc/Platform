@@ -224,10 +224,10 @@ namespace Aristocrat.Monaco.Application.Authentication
             if (files.Count > 0)
             {
                 using (var stream = new DirectoryStream(files))
-                    using (var sha = new SHA1CryptoServiceProvider())
-                    {
-                        result = Convert.ToBase64String(sha.ComputeHash(stream));
-                    }
+                using (var sha = new SHA1CryptoServiceProvider())
+                {
+                    result = Convert.ToBase64String(sha.ComputeHash(stream));
+                }
             }
 
             return result;
@@ -286,7 +286,7 @@ namespace Aristocrat.Monaco.Application.Authentication
             _disableManager.Disable(
                 DisableGuid,
                 SystemDisablePriority.Immediate,
-                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VerifyingSignaturesText));
+                () => Localizer.DynamicCulture().GetString(ResourceKeys.VerifyingSignaturesText));
 
             VerifySignatures();
 
@@ -323,7 +323,7 @@ namespace Aristocrat.Monaco.Application.Authentication
             if (disableManagerKeys.Count == 1 && disableManagerKeys.Contains(DisableGuid))
             {
                 _disableManager.Disable(DisableGuid, SystemDisablePriority.Immediate,
-                    () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VerifyingSignaturesText));
+                    () => Localizer.DynamicCulture().GetString(ResourceKeys.VerifyingSignaturesText));
 
                 VerifySignatures();
             }
@@ -351,7 +351,7 @@ namespace Aristocrat.Monaco.Application.Authentication
             // Cancel the current verification task
             CancelTask();
 
-            var displayMessage = Localizer.For(CultureFor.Operator)
+            var displayMessage = Localizer.DynamicCulture()
                 .FormatString(ResourceKeys.VerificationFailedText, message);
 
             // Update the disable text with the error message
@@ -389,7 +389,7 @@ namespace Aristocrat.Monaco.Application.Authentication
 #else
                 _cache.AddOrUpdate(physicalPath, (string)null, (key, value) => null);
 
-                HandleLiveAuthenticationFailedEvent(this, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ManifestMissing));
+                HandleLiveAuthenticationFailedEvent(this, Localizer.ForOperatorInAudit().GetString(ResourceKeys.ManifestMissing));
 #endif
                 return;
             }
@@ -409,7 +409,7 @@ namespace Aristocrat.Monaco.Application.Authentication
 #else
                 if (image == null || string.IsNullOrEmpty(image.AssemblyHash))
                 {
-                    HandleLiveAuthenticationFailedEvent(this, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ManifestVerificationFailed));
+                    HandleLiveAuthenticationFailedEvent(this, Localizer.ForOperatorInAudit().GetString(ResourceKeys.ManifestVerificationFailed));
 
                     Logger.Error($"Assembly hash is not present: {manifest}");
                 }
@@ -422,7 +422,7 @@ namespace Aristocrat.Monaco.Application.Authentication
             catch (Exception e)
             {
                 HandleLiveAuthenticationFailedEvent(this,
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ManifestVerificationFailed));
+                    Localizer.DynamicCulture().GetString(ResourceKeys.ManifestVerificationFailed));
 
                 Logger.Error("Failed to read manifest", e);
             }

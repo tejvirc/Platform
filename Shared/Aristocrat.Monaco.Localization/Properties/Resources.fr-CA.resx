@@ -3769,9 +3769,161 @@ Do you really want to do partial reset????</value>
   </data>
   <data name="PaperOutText" xml:space="preserve">
     <value>??PaperOut??</value>
-</data>
+  </data>
   <data name="PrintingTicket" xml:space="preserve">
     <value>???Printing Ticket...???</value>
     <comment>Aristocrat.Monaco.Gaming</comment>
+  </data>
+  <data name="AllGamesDisabled" xml:space="preserve">
+    <value>???No Games Enabled???</value>
+    <comment>Aristocrat.Monaco.Gaming</comment>
+  </data>
+  <data name="ApplyingScripts" xml:space="preserve">
+    <value>Applying changes</value>
+    <comment>Aristocrat.Monaco.G2S</comment>
+  </data>
+  <data name="DisabledByDevice" xml:space="preserve">
+    <value>???Disabled by the {0}[{1}] device???</value>
+    <comment>Aristocrat.Monaco.G2S</comment>
+  </data>
+  <data name="MasterResetNotification" xml:space="preserve">
+    <value>???Master Reset???</value>
+    <comment>Aristocrat.Monaco.G2S</comment>
+  </data>
+  <data name="NoteAcceptorFaultTypes_CheatDetected" xml:space="preserve">
+    <value>???Note Acceptor Cheat Detected???</value>
+    <comment>Aristocrat.Monaco.Hardware.Contracts</comment>
+  </data>
+  <data name="NoteAcceptorFaultTypes_ComponentFault" xml:space="preserve">
+    <value>???Note Acceptor Component Fault???</value>
+    <comment>Aristocrat.Monaco.Hardware.Contracts</comment>
+  </data>
+  <data name="NoteAcceptorFaultTypes_DocumentCheck" xml:space="preserve">
+    <value>???Note Acceptor Document Check???</value>
+    <comment>Aristocrat.Monaco.Hardware.Contracts</comment>
+  </data>
+  <data name="NoteAcceptorFaultTypes_FirmwareFault" xml:space="preserve">
+    <value>???Note Acceptor Firmware Fault???</value>
+    <comment>Aristocrat.Monaco.Hardware.Contracts</comment>
+  </data>
+  <data name="NoteAcceptorFaultTypes_MechanicalFault" xml:space="preserve">
+    <value>???Note Acceptor Mechanical Fault???</value>
+    <comment>Aristocrat.Monaco.Hardware.Contracts</comment>
+  </data>
+  <data name="NoteAcceptorFaultTypes_NoteJammed" xml:space="preserve">
+    <value>???Note Acceptor Note Jammed???</value>
+    <comment>Aristocrat.Monaco.Hardware.Contracts</comment>
+  </data>
+  <data name="NoteAcceptorFaultTypes_NvmFault" xml:space="preserve">
+    <value>???Note Acceptor Non-Volatile Memory Fault???</value>
+    <comment>Aristocrat.Monaco.Hardware.Contracts</comment>
+  </data>
+  <data name="NoteAcceptorFaultTypes_OpticalFault" xml:space="preserve">
+    <value>???Note Acceptor Optical Fault???</value>
+    <comment>Aristocrat.Monaco.Hardware.Contracts</comment>
+  </data>
+  <data name="NoteAcceptorFaultTypes_OtherFault" xml:space="preserve">
+    <value>???Note Acceptor Unspecified Fault???</value>
+    <comment>Aristocrat.Monaco.Hardware.Contracts</comment>
+  </data>
+  <data name="NoteAcceptorFaultTypes_StackerDisconnected" xml:space="preserve">
+    <value>???Note Acceptor Stacker Disconnected???</value>
+    <comment>Aristocrat.Monaco.Hardware.Contracts</comment>
+  </data>
+  <data name="NoteAcceptorFaultTypes_StackerError" xml:space="preserve">
+    <value>???Note Acceptor Stacker Error???</value>
+    <comment>Aristocrat.Monaco.Hardware.Contracts</comment>
+  </data>
+  <data name="NoteAcceptorFaultTypes_StackerFault" xml:space="preserve">
+    <value>???Note Acceptor Stacker Fault???</value>
+    <comment>Aristocrat.Monaco.Hardware.Contracts</comment>
+  </data>
+  <data name="NoteAcceptorFaultTypes_StackerFull" xml:space="preserve">
+    <value>???Note Acceptor Error???</value>
+    <comment>Aristocrat.Monaco.Hardware.Contracts</comment>
+  </data>
+  <data name="NoteAcceptorFaultTypes_StackerJammed" xml:space="preserve">
+    <value>???Note Acceptor Stacker Jammed???</value>
+    <comment>Aristocrat.Monaco.Hardware.Contracts</comment>
+  </data>
+  <data name="OutsideOperatingHours" xml:space="preserve">
+    <value>???Outside Hours of Operation???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="PrinterFaultTypes_ChassisOpen" xml:space="preserve">
+    <value>???Printer Chassis Open???</value>
+    <comment>Aristocrat.Monaco.Hardware.Contracts</comment>
+  </data>
+  <data name="PrinterFaultTypes_FirmwareFault" xml:space="preserve">
+    <value>???Printer Firmware Fault???</value>
+    <comment>Aristocrat.Monaco.Hardware.Contracts</comment>
+  </data>
+  <data name="PrinterFaultTypes_NvmFault" xml:space="preserve">
+    <value>???Printer NVM Fault???</value>
+    <comment>Aristocrat.Monaco.Hardware.Contracts</comment>
+  </data>
+  <data name="PrinterFaultTypes_OtherFault" xml:space="preserve">
+    <value>???Printer Miscellaneous Fault???</value>
+    <comment>Aristocrat.Monaco.Hardware.Contracts</comment>
+  </data>
+  <data name="PrinterFaultTypes_PaperEmpty" xml:space="preserve">
+    <value>???Printer Paper Empty???</value>
+    <comment>Aristocrat.Monaco.Hardware.Contracts</comment>
+  </data>
+  <data name="PrinterFaultTypes_PaperJam" xml:space="preserve">
+    <value>???Printer Paper Jam???</value>
+    <comment>Aristocrat.Monaco.Hardware.Contracts</comment>
+  </data>
+  <data name="PrinterFaultTypes_PaperNotTopOfForm" xml:space="preserve">
+    <value>???Printer Paper not at Top of Form???</value>
+    <comment>Aristocrat.Monaco.Hardware.Contracts</comment>
+  </data>
+  <data name="PrinterFaultTypes_PrintHeadDamaged" xml:space="preserve">
+    <value>???Printer Head Damaged???</value>
+    <comment>Aristocrat.Monaco.Hardware.Contracts</comment>
+  </data>
+  <data name="PrinterFaultTypes_PrintHeadOpen" xml:space="preserve">
+    <value>???Printer Head Open???</value>
+    <comment>Aristocrat.Monaco.Hardware.Contracts</comment>
+  </data>
+  <data name="PrinterFaultTypes_TemperatureFault" xml:space="preserve">
+    <value>???Printer Temperature Fault???</value>
+    <comment>Aristocrat.Monaco.Hardware.Contracts</comment>
+  </data>
+  <data name="DisabledDuringInitialization" xml:space="preserve">
+    <value>???Initializing???</value>
+    <comment>Aristocrat.Monaco.G2S</comment>
+  </data>
+  <data name="NoteAcceptor_CurrencyReturned" xml:space="preserve">
+    <value>???Currency Returned???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="NoteAcceptor_CurrencyStacked" xml:space="preserve">
+    <value>???Currency Stacked???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="NoteAcceptor_DfuInprogress" xml:space="preserve">
+    <value>???Note Acceptor DFU Download In Progress: Please Do Not Power Off The Gaming Machine???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="NoteAcceptor_Disabled" xml:space="preserve">
+    <value>???Note Acceptor Disabled???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="NoteAcceptor_DocumentRejected" xml:space="preserve">
+    <value>???Currency/Ticket Rejected???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="NoteAcceptor_SelfTestFailed" xml:space="preserve">
+    <value>???Note Acceptor Self Test Failed???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="NoteAcceptor_TicketReturned" xml:space="preserve">
+    <value>???Ticket Returned???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="NoteAcceptor_TicketStacked" xml:space="preserve">
+    <value>???Ticket Stacked???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
   </data>
 </root>

@@ -457,11 +457,11 @@ namespace Aristocrat.Monaco.Application.Monitors
                 bool isLockup)
             {
 
-                DisplayableMessage = new DisplayableMessage(() =>
-                {
-                    var message = Localizer.For(CultureFor.Operator).GetString(key, _ => { });
-                    return message;
-                }, classification, priority, id);
+                DisplayableMessage = new DisplayableMessage(
+                    () => Localizer.DynamicCulture().GetString(key, _ => { }),
+                    classification,
+                    priority,
+                    id);
 
                 IsActive = false;
                 IsLockup = isLockup;

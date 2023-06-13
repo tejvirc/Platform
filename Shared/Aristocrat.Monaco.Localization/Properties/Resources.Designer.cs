@@ -22181,18 +22181,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Note Acceptor Cheat Detected.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application - Changed from "NoteAcceptorFaultTypes_CheatDetected"
-        /// </remarks>
-		public static string NoteAcceptorFaultTypes_CheatDetected2 {
-			get {
-				return ResourceManager.GetString("NoteAcceptorFaultTypes_CheatDetected2", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
 		///   Looks up a localized string similar to Note Acceptor Component Fault.
 		/// </summary>
         /// <remarks>
@@ -57763,18 +57751,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Note Acceptor Cheat Detected.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application - Changed from "NoteAcceptorFaultTypes_CheatDetected"
-        /// </remarks>
-		public static string NoteAcceptorFaultTypes_CheatDetected2 {
-			get {
-				return "NoteAcceptorFaultTypes_CheatDetected2";
-			}
-		}
-
-		/// <summary>
 		///		Looks up a localized string similar to Note Acceptor Component Fault.
 		/// </summary>
         /// <remarks>
@@ -83856,13 +83832,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Hardware.Contracts
         /// </remarks>
 		NoteAcceptorFaultTypes_CheatDetected,
-		/// <summary>
-		///   Looks up a localized string similar to Note Acceptor Cheat Detected.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application - Changed from "NoteAcceptorFaultTypes_CheatDetected"
-        /// </remarks>
-		NoteAcceptorFaultTypes_CheatDetected2,
 		/// <summary>
 		///   Looks up a localized string similar to Note Acceptor Component Fault.
 		/// </summary>

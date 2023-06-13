@@ -588,7 +588,7 @@ namespace Aristocrat.Monaco.Application
         {
             var machineSettingsImported = propertiesManager.GetValue(ApplicationConstants.MachineSettingsImported, ImportMachineSettings.None);
 
-            var importIncomplete =  machineSettingsImported != ImportMachineSettings.None &&
+            var importIncomplete = machineSettingsImported != ImportMachineSettings.None &&
                    (!machineSettingsImported.HasFlag(ImportMachineSettings.Imported) ||
                     !machineSettingsImported.HasFlag(ImportMachineSettings.ConfigWizardConfigurationPropertiesLoaded) ||
                     !machineSettingsImported.HasFlag(ImportMachineSettings.AccountingPropertiesLoaded) ||
@@ -645,7 +645,7 @@ namespace Aristocrat.Monaco.Application
             // Create a soft error message for Power Reset
             var display = ServiceManager.GetInstance().GetService<IMessageDisplay>();
             var powerResetMessage = new DisplayableMessage(
-                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PowerResetText),
+                () => Localizer.DynamicCulture().GetString(ResourceKeys.PowerResetText),
                 DisplayableMessageClassification.Informative,
                 DisplayableMessagePriority.Immediate,
                 typeof(PlatformBootedEvent),
@@ -754,7 +754,7 @@ namespace Aristocrat.Monaco.Application
                 _digitalRights = null;
             }
 
-            if(_ekeyService != null)
+            if (_ekeyService != null)
             {
                 serviceManager.RemoveService(_ekeyService);
                 _ekeyService = null;
@@ -792,7 +792,7 @@ namespace Aristocrat.Monaco.Application
                 _multiProtocolConfigurationProvider = null;
             }
 
-            if(_keyboardService != null)
+            if (_keyboardService != null)
             {
                 serviceManager.RemoveService(_keyboardService);
                 _keyboardService = null;
