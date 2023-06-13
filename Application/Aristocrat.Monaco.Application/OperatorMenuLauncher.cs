@@ -59,7 +59,7 @@
             _systemDisableManager = disableManager ?? throw new ArgumentNullException(nameof(disableManager));
         }
 
-        private string DisableMessage => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OperatorMenuActive);
+        private string DisableMessage => Localizer.DynamicCulture().GetString(ResourceKeys.OperatorMenuActive);
 
         /// <inheritdoc />
         public void Dispose()
@@ -196,7 +196,10 @@
                     meterManager.GetMeter(meterName).Increment(1);
                 }
 
-                _systemDisableManager.Disable(ApplicationConstants.OperatorMenuLauncherDisableGuid, SystemDisablePriority.Immediate, () => DisableMessage);
+                _systemDisableManager.Disable(
+                    ApplicationConstants.OperatorMenuLauncherDisableGuid,
+                    SystemDisablePriority.Immediate,
+                    () => DisableMessage);
 
                 _operatorMenu.Show();
             }

@@ -147,7 +147,7 @@
 
         private static string DisconnectedMessageCallback()
         {
-            return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.IdReaderDisconnected);
+            return Localizer.DynamicCulture().GetString(ResourceKeys.IdReaderDisconnected);
         }
 
         private void RemoveDisableMessage()

@@ -86,24 +86,24 @@
         {
             if (_gatApplication == null)
             {
-                return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GatDisconnected);
+                return Localizer.DynamicCulture().GetString(ResourceKeys.GatDisconnected);
             }
 
             var statusMessage = _gatApplication.Connected ?
-                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GatConnected) :
-                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GatDisconnected);
+                Localizer.DynamicCulture().GetString(ResourceKeys.GatConnected) :
+                Localizer.DynamicCulture().GetString(ResourceKeys.GatDisconnected);
 
             switch (_gatApplication.CalculationStatus)
             {
                 case SerialGatCalculationStatus.Idle:
-                    statusMessage += Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GatIdle);
+                    statusMessage += Localizer.DynamicCulture().GetString(ResourceKeys.GatIdle);
                     break;
                 case SerialGatCalculationStatus.AuthenticatingAll:
-                    statusMessage += Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GatVerifyingAll);
+                    statusMessage += Localizer.DynamicCulture().GetString(ResourceKeys.GatVerifyingAll);
                     break;
                 case SerialGatCalculationStatus.AuthenticatingComponent:
                     statusMessage += string.Format(
-                        Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GatVerifyingSingleTemplate),
+                        Localizer.DynamicCulture().GetString(ResourceKeys.GatVerifyingSingleTemplate),
                         _gatApplication.AuthenticatingComponentName);
                     break;
             }
@@ -182,8 +182,7 @@
         {
             if (_gatApplication.Connected)
             {
-                var status = GetStatus();
-                _systemDisableManager.Disable(_disableGuid, SystemDisablePriority.Immediate, () => status);
+                _systemDisableManager.Disable(_disableGuid, SystemDisablePriority.Immediate, GetStatus);
             }
             else
             {

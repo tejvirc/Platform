@@ -28,13 +28,13 @@
                 if (doorGuid == BellyDoorGuid)
                 {
                     DoorOpenMessage = new DisplayableMessage(
-                            () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BellyDoorIsOpen),
+                            () => Localizer.DynamicCulture().GetString(ResourceKeys.BellyDoorIsOpen),
                             DisplayableMessageClassification.HardError,
                             DisplayableMessagePriority.Immediate,
                             typeof(OpenEvent));
 
                     DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BellyDoorClosed),
+                        () => Localizer.DynamicCulture().GetString(ResourceKeys.BellyDoorClosed),
                         DisplayableMessageClassification.Informative,
                         DisplayableMessagePriority.Immediate,
                         typeof(ClosedEvent));
@@ -42,13 +42,13 @@
                 else if (doorGuid == CashDoorGuid)
                 {
                     DoorOpenMessage = new DisplayableMessage(
-                           () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CashDoorIsOpen),
+                           () => Localizer.DynamicCulture().GetString(ResourceKeys.CashDoorIsOpen),
                            DisplayableMessageClassification.HardError,
                            DisplayableMessagePriority.Immediate,
                            typeof(OpenEvent));
 
                     DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CashDoorClosed),
+                        () => Localizer.DynamicCulture().GetString(ResourceKeys.CashDoorClosed),
                         DisplayableMessageClassification.Informative,
                         DisplayableMessagePriority.Immediate,
                         typeof(ClosedEvent));
@@ -56,13 +56,13 @@
                 else if (doorGuid == LogicDoorGuid)
                 {
                     DoorOpenMessage = new DisplayableMessage(
-                            () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LogicDoorIsOpen),
+                            () => Localizer.DynamicCulture().GetString(ResourceKeys.LogicDoorIsOpen),
                             DisplayableMessageClassification.HardError,
                             DisplayableMessagePriority.Immediate,
                             typeof(OpenEvent));
 
                     DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LogicDoorClosed),
+                        () => Localizer.DynamicCulture().GetString(ResourceKeys.LogicDoorClosed),
                         DisplayableMessageClassification.Informative,
                         DisplayableMessagePriority.Immediate,
                         typeof(ClosedEvent));
@@ -70,13 +70,13 @@
                 else if (doorGuid == MainDoorGuid)
                 {
                     DoorOpenMessage = new DisplayableMessage(
-                            () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MainDoorIsOpen),
+                            () => Localizer.DynamicCulture().GetString(ResourceKeys.MainDoorIsOpen),
                             DisplayableMessageClassification.HardError,
                             DisplayableMessagePriority.Immediate,
                             typeof(OpenEvent));
 
                     DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MainDoorClosed),
+                        () => Localizer.DynamicCulture().GetString(ResourceKeys.MainDoorClosed),
                         DisplayableMessageClassification.Informative,
                         DisplayableMessagePriority.Immediate,
                         typeof(ClosedEvent));
@@ -84,13 +84,13 @@
                 else if (doorGuid == SecondaryCashDoorGuid)
                 {
                     DoorOpenMessage = new DisplayableMessage(
-                            () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SecondaryCashDoorIsOpen),
+                            () => Localizer.DynamicCulture().GetString(ResourceKeys.SecondaryCashDoorIsOpen),
                             DisplayableMessageClassification.HardError,
                             DisplayableMessagePriority.Immediate,
                             typeof(OpenEvent));
 
                     DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SecondaryCashDoorClosed),
+                        () => Localizer.DynamicCulture().GetString(ResourceKeys.SecondaryCashDoorClosed),
                         DisplayableMessageClassification.Informative,
                         DisplayableMessagePriority.Immediate,
                         typeof(ClosedEvent));
@@ -104,7 +104,7 @@
                             typeof(OpenEvent));
 
                     DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TopBoxDoorClosed),
+                        () => Localizer.DynamicCulture().GetString(ResourceKeys.TopBoxDoorClosed),
                         DisplayableMessageClassification.Informative,
                         DisplayableMessagePriority.Immediate,
                         typeof(ClosedEvent));
@@ -112,13 +112,13 @@
                 else if (doorGuid == DropDoorGuid)
                 {
                     DoorOpenMessage = new DisplayableMessage(
-                            () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DropDoorIsOpen),
+                            () => Localizer.DynamicCulture().GetString(ResourceKeys.DropDoorIsOpen),
                             DisplayableMessageClassification.HardError,
                             DisplayableMessagePriority.Immediate,
                             typeof(OpenEvent));
 
                     DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DropDoorClosed),
+                        () => Localizer.DynamicCulture().GetString(ResourceKeys.DropDoorClosed),
                         DisplayableMessageClassification.Informative,
                         DisplayableMessagePriority.Immediate,
                         typeof(ClosedEvent));
@@ -126,13 +126,13 @@
                 else if (doorGuid == MechanicalMeterDoorGuid)
                 {
                     DoorOpenMessage = new DisplayableMessage(
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MechanicalMeterDoorIsOpen),
+                        () => Localizer.DynamicCulture().GetString(ResourceKeys.MechanicalMeterDoorIsOpen),
                         DisplayableMessageClassification.HardError,
                         DisplayableMessagePriority.Immediate,
                         typeof(OpenEvent));
 
                     DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MechanicalMeterDoorClosed),
+                        () => Localizer.DynamicCulture().GetString(ResourceKeys.MechanicalMeterDoorClosed),
                         DisplayableMessageClassification.Informative,
                         DisplayableMessagePriority.Immediate,
                         typeof(ClosedEvent));
@@ -140,13 +140,13 @@
                 else if (doorGuid == MainOpticDoorGuid)
                 {
                     DoorOpenMessage = new DisplayableMessage(
-                            () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MainDoorIsOpen),
+                            () => Localizer.DynamicCulture().GetString(ResourceKeys.MainDoorIsOpen),
                             DisplayableMessageClassification.HardError,
                             DisplayableMessagePriority.Immediate,
                             typeof(OpenEvent));
 
                     DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MainOpticDoorClosed),
+                        () => Localizer.DynamicCulture().GetString(ResourceKeys.MainOpticDoorClosed),
                         DisplayableMessageClassification.Informative,
                         DisplayableMessagePriority.Immediate,
                         typeof(ClosedEvent));
@@ -160,7 +160,7 @@
                             typeof(OpenEvent));
 
                     DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TopBoxOpticDoorClosed),
+                        () => Localizer.DynamicCulture().GetString(ResourceKeys.TopBoxOpticDoorClosed),
                         DisplayableMessageClassification.Informative,
                         DisplayableMessagePriority.Immediate,
                         typeof(ClosedEvent));
@@ -168,13 +168,13 @@
                 else if (doorGuid == UniversalInterfaceBoxDoorGuid)
                 {
                     DoorOpenMessage = new DisplayableMessage(
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.UniversalInterfaceBoxDoorIsOpen),
+                        () => Localizer.DynamicCulture().GetString(ResourceKeys.UniversalInterfaceBoxDoorIsOpen),
                         DisplayableMessageClassification.HardError,
                         DisplayableMessagePriority.Immediate,
                         typeof(OpenEvent));
 
                     DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.UniversalInterfaceBoxDoorClosed),
+                        () => Localizer.DynamicCulture().GetString(ResourceKeys.UniversalInterfaceBoxDoorClosed),
                         DisplayableMessageClassification.Informative,
                         DisplayableMessagePriority.Immediate,
                         typeof(ClosedEvent));
@@ -183,7 +183,7 @@
                 {
                     DoorOpenMessage = null;
                     DoorClosedMessage = null;
-                }               
+                }
             }
 
             /// <summary>

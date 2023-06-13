@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Concurrent;
-    using System.Collections.Generic;
     using System.ComponentModel;
     using System.Linq;
     using Application.Contracts.Localization;
@@ -121,8 +120,8 @@
 
             if (string.IsNullOrEmpty(message?.Invoke()))
             {
-                message = () => 
-                    Localizer.For(CultureFor.Operator).FormatString(ResourceKeys.DisabledByDevice,
+                message = () =>
+                    Localizer.DynamicCulture().FormatString(ResourceKeys.DisabledByDevice,
                     device.DeviceClass,
                     device.Id);
             }

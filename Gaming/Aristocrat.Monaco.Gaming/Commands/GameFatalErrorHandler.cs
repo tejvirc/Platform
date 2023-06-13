@@ -39,10 +39,10 @@
             switch (command.ErrorCode)
             {
                 case GameErrorCode.LiabilityLimit:
-                    messageCallback = () => Localizer.For(CultureFor.Player).GetString(ResourceKeys.LiabilityCheckFailed);
+                    messageCallback = () => Localizer.DynamicCulture().GetString(ResourceKeys.LiabilityCheckFailed);
                     break;
                 case GameErrorCode.LegitimacyLimit:
-                    messageCallback = () => Localizer.For(CultureFor.Player).GetString(ResourceKeys.LegitimacyCheckFailed);
+                    messageCallback = () => Localizer.DynamicCulture().GetString(ResourceKeys.LegitimacyCheckFailed);
                     break;
                 default:
                     // This should never happen, but we're just going to bail if it does
