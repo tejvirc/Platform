@@ -246,7 +246,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 {
                     parameters["/Runtime/MaximumGameRoundWin&use"] = "allowed";
                     parameters["/Runtime/MaximumGameRoundWin&valueCents"] = (selectedBetOption.MaxWin.Value * denomination.Value).MillicentsToCents().ToString(CultureInfo.InvariantCulture);
-                    parameters["/Runtime/MaximumGameRoundWin&onMaxWinReach"] = "endgame";
+                    parameters["/Runtime/MaximumGameRoundWin&onMaxWinReach"] = _properties.GetValue(GamingConstants.ActionOnMaxWinReached, "endgame");
                 }
                 else
                 {

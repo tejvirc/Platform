@@ -128,6 +128,8 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         
         private GamingConfigurationProgressiveView progressiveViewField;
         
+        private GamingConfigurationMaxWin maxWinField;
+        
         /// <remarks/>
         public GamingConfigurationGameHistory GameHistory {
             get {
@@ -645,6 +647,16 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.progressiveViewField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public GamingConfigurationMaxWin MaxWin {
+            get {
+                return this.maxWinField;
+            }
+            set {
+                this.maxWinField = value;
             }
         }
     }
@@ -3736,6 +3748,33 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.readonlyField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class GamingConfigurationMaxWin {
+        
+        private string onMaxWinReachedField;
+        
+        public GamingConfigurationMaxWin() {
+            this.onMaxWinReachedField = "endgame";
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute("endgame")]
+        public string OnMaxWinReached {
+            get {
+                return this.onMaxWinReachedField;
+            }
+            set {
+                this.onMaxWinReachedField = value;
             }
         }
     }

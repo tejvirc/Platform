@@ -1229,6 +1229,11 @@
         public const string ProgressiveSetupReadonly = @"ProgressiveSetupReadonly";
 
         /// <summary>
+        ///     Determines action on MaxWin reached
+        /// </summary>
+        public const string ActionOnMaxWinReached = @"ActionOnMaxWinReached";
+
+        /// <summary>
         ///     encapsulate Player Information Display options
         /// </summary>
         public static class PlayerInformationDisplay

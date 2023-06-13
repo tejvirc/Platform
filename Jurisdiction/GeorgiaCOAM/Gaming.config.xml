@@ -62,4 +62,5 @@ as follows:
   <ProgressiveView>
     <InitialSetupView Readonly="true" />
   </ProgressiveView>
+  <MaxWin OnMaxWinReached="endGameAfterPresentation" />
 </GamingConfiguration>
