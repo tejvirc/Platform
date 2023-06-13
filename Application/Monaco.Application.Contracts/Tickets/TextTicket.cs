@@ -171,7 +171,7 @@
         public virtual Ticket CreateSecondPageTextTicket()
         {
             AddTicketContent();
-
+            
             var ticket = CreateTicket(Title);
             return ticket;
         }

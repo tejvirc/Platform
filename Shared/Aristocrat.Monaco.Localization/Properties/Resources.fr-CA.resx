@@ -2032,7 +2032,7 @@ See manual for details??</value>
     <value>??Close??</value>
   </data>
   <data name="CoinInText" xml:space="preserve">
-    <value>??Coin In??</value>
+    <value>Pièces de</value>
   </data>
   <data name="CoinOutText" xml:space="preserve">
     <value>??Coin Out??</value>
@@ -3340,7 +3340,7 @@ Do you really want to do partial reset????</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="BillIn" xml:space="preserve">
-    <value>???Bill In???</value>
+    <value>Billets de</value>
     <comment>Monaco.Accounting.UI</comment>
   </data>
   <data name="VoucherOut" xml:space="preserve">
@@ -3755,6 +3755,21 @@ Do you really want to do partial reset????</value>
   <data name="MasterText" xml:space="preserve">
     <value>??Master??</value>
   </data>
+  <data name="TotalCoinInText" xml:space="preserve">
+    <value>Total des pièces en</value>
+  </data>
+  <data name="PaperFullText" xml:space="preserve">
+    <value>??Paper Full??</value>
+  </data>
+  <data name="PaperJamText" xml:space="preserve">
+    <value>??PaperJam??</value>
+  </data>
+  <data name="PaperLowText" xml:space="preserve">
+    <value>??Paper Low??</value>
+  </data>
+  <data name="PaperOutText" xml:space="preserve">
+    <value>??PaperOut??</value>
+</data>
   <data name="PrintingTicket" xml:space="preserve">
     <value>???Printing Ticket...???</value>
     <comment>Aristocrat.Monaco.Gaming</comment>
