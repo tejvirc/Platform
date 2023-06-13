@@ -4159,7 +4159,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 if (match != null)
                 {
                     Logger.Debug($"Found {levels.Count} levels, returning first JackpotValue={match.CurrentValue}");
-                    return match.CurrentValue.MillicentsToDollars().FormattedCurrencyString();
+                    return match.CurrentValue.MillicentsToDollarsNoFraction().FormattedCurrencyString();
                 }
             }
 
