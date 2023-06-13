@@ -67,8 +67,5 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Constraints\" />
-    <Folder Include="CommandHandlers\" />
-    <Folder Include="Store\Kernel\" />
-    <Folder Include="Store\Gaming\" />
   </ItemGroup>
 </Project>

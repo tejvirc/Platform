@@ -3,6 +3,7 @@
 using System.Collections.Immutable;
 using System.Linq;
 using System.Reactive;
+using Aristocrat.Monaco.Gaming.Lobby.Store.Application;
 using global::Fluxor;
 
 public static class LobbyReducers
@@ -52,4 +53,20 @@ public static class LobbyReducers
     [ReducerMethod]
     public static LobbyState Reduce(LobbyState state, GamePlayEnabledAction payload) =>
         state with { AllowGameAutoLaunch = true };
+
+    [ReducerMethod]
+    public static LobbyState Reduce(LobbyState state, SystemEnabledAction payload) =>
+        state with
+        {
+            IsSystemDisabled = payload.IsDisabled,
+            IsSystemDisableImmediately = payload.IsDisableImmediately
+        };
+
+    [ReducerMethod]
+    public static LobbyState Reduce(LobbyState state, SystemDisabledAction payload) =>
+        state with
+        {
+            IsSystemDisabled = payload.IsDisabled,
+            IsSystemDisableImmediately = payload.IsDisableImmediately
+        };
 }

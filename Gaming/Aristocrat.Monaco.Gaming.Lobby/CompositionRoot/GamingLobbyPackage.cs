@@ -1,13 +1,18 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.CompositionRoot;
 
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using CommandHandlers;
 using Commands;
+using Common.Container;
 using Consumers;
 using Contracts.Lobby;
 using Fluxor.Extensions;
 using Kernel;
 using Regions;
+using Runtime;
+using Runtime.Server;
 using Services;
 using SimpleInjector;
 using SimpleInjector.Packaging;
@@ -18,6 +23,8 @@ public class GamingLobbyPackage : IPackage
     public void RegisterServices(Container container)
     {
         container.Register<ILobby, LobbyController>(Lifestyle.Singleton);
+
+        container.Register<ILobbyService, LobbyService>(Lifestyle.Singleton);
 
         container.Register<IGameLoader, GameLoader>(Lifestyle.Singleton);
 
@@ -49,6 +56,9 @@ public class GamingLobbyPackage : IPackage
         container.Register<IApplicationCommands, ApplicationCommands>(Lifestyle.Singleton);
 
         container.Register<IObjectFactory, ObjectFactory>(Lifestyle.Singleton);
+
+        container.Register<ICommandHandlerFactory, CommandHandlerFactory>(Lifestyle.Singleton);
+        container.RegisterManyForOpenGeneric(typeof(ICommandHandler<>), Assembly.GetExecutingAssembly());
 
         container.RegisterConsumers();
 

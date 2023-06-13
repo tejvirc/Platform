@@ -31,4 +31,10 @@ public record LobbyState
     public IntPtr GameTopperHandle { get; set; }
 
     public IntPtr GameButtonDeckHandle { get; set; }
+
+    public bool IsSystemDisabled { get; set; }
+
+    public bool IsSystemDisableImmediately { get; set; }
+
+    public bool AllowGameInCharge { get; set; }
 }

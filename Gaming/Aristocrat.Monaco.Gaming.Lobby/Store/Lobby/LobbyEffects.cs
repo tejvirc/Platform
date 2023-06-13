@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Commands;
 using global::Fluxor;
+using Runtime;
 using Services;
 
 public class LobbyEffects
@@ -14,6 +15,7 @@ public class LobbyEffects
     private readonly IApplicationCommands _commands;
 
     public LobbyEffects(
+        ILobbyService lobbyService,
         ILayoutManager layoutManager,
         IOperatorMenuController operatorMenu,
         IGameLoader gameLoader,
