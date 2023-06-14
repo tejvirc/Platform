@@ -76,9 +76,7 @@
 
         private void UpdateMeterTotals()
         {
-            var culture = UseOperatorCultureForCurrencyFormatting ?
-                Localizer.For(CultureFor.Operator).CurrentCulture :
-                CurrencyExtensions.CurrencyCultureInfo;
+            var culture = GetCurrencyDisplayCulture();
 
             EgmPaidBonusAwardsTotalAmountFormatted =
                 EgmPaidBonusAwardsMeters.Sum(m => m.MeterValue).FormattedCurrencyString(false, culture);

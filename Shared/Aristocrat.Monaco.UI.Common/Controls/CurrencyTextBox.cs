@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.UI.Common.Controls
 {
+    using System.Globalization;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
@@ -28,6 +29,15 @@
             typeof(decimal),
             typeof(CurrencyTextBox),
             new FrameworkPropertyMetadata(0M, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnNumberChanged));
+
+        /// <summary>
+        ///     Dependency Property for the Culture for the Currency Text Box.
+        /// </summary>
+        public static readonly DependencyProperty CultureProperty = DependencyProperty.Register(
+            nameof(Culture),
+            typeof(CultureInfo),
+            typeof(CurrencyTextBox),
+            new FrameworkPropertyMetadata(CurrencyExtensions.CurrencyCultureInfo, OnCultureChanged));
 
         /// <summary>
         ///     Dependency Property for the Formatted Number value of the Currency Text Box
@@ -91,6 +101,15 @@
         {
             get => (bool)GetValue(WholeCurrencyProperty);
             set => SetValue(WholeCurrencyProperty, value);
+        }
+
+        /// <summary>
+        ///    Culture to use for currency display formatting
+        /// </summary>
+        public CultureInfo Culture
+        {
+            get => (CultureInfo)GetValue(CultureProperty);
+            set => SetValue(CultureProperty, value);
         }
 
         /// <summary>
@@ -159,7 +178,7 @@
         /// </summary>
         public void UpdateFormattedNumber()
         {
-            FormattedNumber = Number.FormattedCurrencyString();
+            FormattedNumber = Number.FormattedCurrencyString(culture: Culture);
         }
 
         private static bool IsIgnoredKey(Key key)
@@ -190,6 +209,11 @@
         {
             var ctb = (CurrencyTextBox)element;
             ctb.UpdateFormattedNumber();
+        }
+
+        private static void OnCultureChanged(DependencyObject element, DependencyPropertyChangedEventArgs args)
+        {
+            OnNumberChanged(element, args);
         }
 
         private static void StringFormatPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)

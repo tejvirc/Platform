@@ -22,7 +22,6 @@
     [CLSCompliant(false)]
     public class GeneralInformationPageViewModel : OperatorMenuPageViewModelBase
     {
-        private readonly bool _useOperatorCultureForCurrencyFormatting;
 
         private IPerformanceCounterManager _performanceCounterManager => ServiceManager.GetInstance().GetService<IPerformanceCounterManager>();
         private INoteAcceptor NoteAcceptor => ServiceManager.GetInstance().TryGetService<INoteAcceptor>();
@@ -31,8 +30,6 @@
         {
             var hosts = PropertiesManager.GetValues<IHost>(Aristocrat.G2S.Client.Constants.RegisteredHosts);
             G2SHosts = hosts.Select(x=>x.Address).ToList();
-
-            _useOperatorCultureForCurrencyFormatting = GetGlobalConfigSetting(OperatorMenuSetting.UseOperatorCultureForCurrencyFormatting, false);
 
             LoadAvailableMetrics();
             RaisePropertyChanged(nameof(G2SHosts));
@@ -138,9 +135,7 @@
 
         private string GetFormattedSupportedNotes()
         {
-            var culture = _useOperatorCultureForCurrencyFormatting ?
-                Localizer.For(CultureFor.Operator).CurrentCulture :
-                CurrencyExtensions.CurrencyCultureInfo;
+            var culture = GetCurrencyDisplayCulture();
             var supportedNotes = NoteAcceptor.GetSupportedNotes();
             var formattedList = supportedNotes.Select(x => x.FormattedCurrencyString(null, culture));
 

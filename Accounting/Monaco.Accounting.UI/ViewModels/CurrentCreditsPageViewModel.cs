@@ -61,8 +61,7 @@
 
         protected void UpdateCredits()
         {
-            var shouldUseOperatorCulture = GetGlobalConfigSetting(OperatorMenuSetting.UseOperatorCultureForCurrencyFormatting, false);
-            var culture = shouldUseOperatorCulture ? Localizer.For(CultureFor.Operator).CurrentCulture : CurrencyExtensions.CurrencyCultureInfo;
+            var culture = GetCurrencyDisplayCulture();
 
             var credits = new List<Credit>();
             using (var scope = new CultureScope(CultureFor.Operator))
