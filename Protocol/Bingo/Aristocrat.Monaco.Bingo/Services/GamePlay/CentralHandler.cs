@@ -20,7 +20,6 @@
     using Common.GameOverlay;
     using Common.Storage;
     using Common.Storage.Model;
-    using Extensions;
     using Gaming.Contracts;
     using Gaming.Contracts.Central;
     using Humanizer;
@@ -536,12 +535,12 @@
                     DefaultBetDetails);
 
                 WaitingForPlayers(transaction, source.Token).FireAndForget();
-                var subGameId = currentGame?.SupportedSubGames?.FirstOrDefault()?.CdsTitleId ?? string.Empty;
+                var subGameTitleId = currentGame.GetSubGameTitleId(transaction);
                 var requests = transaction.GenerateMultiPlayRequest(
                     machineSerial,
                     details,
                     currentGame.GetBingoTitleIdInt(),
-                    int.TryParse(subGameId, out _) ? int.Parse(subGameId) : null); // TODO this needs to use ActiveSubGames once it is available
+                    subGameTitleId < 0 ? null : subGameTitleId);
                 await _commandFactory.Execute(
                     requests,
                     source.Token).ConfigureAwait(false);
