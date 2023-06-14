@@ -12,7 +12,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -20,8 +20,8 @@
     <StackPanel Orientation="Vertical">
         <ToggleButton x:Name="FilterDateToggleButton" Style="{StaticResource FilterToggleButton}">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
-                <mah:ContentControlEx Style="{StaticResource FilterContent}" Content="{Binding HeaderText}"/>
-                <iconPacks:PackIconMaterial Style="{StaticResource FilterIcon}"/>
+                <mah:ContentControlEx Style="{StaticResource FilterContent}" Content="{Binding HeaderText}" />
+                <iconPacks:PackIconMaterial Style="{StaticResource FilterIcon}" />
             </StackPanel>
         </ToggleButton>
         <Popup Style="{StaticResource FilterPopup}"
@@ -32,11 +32,11 @@
                     <DatePicker IsTodayHighlighted="False"
                                 DisplayDateStart="{Binding StartDate}"
                                 DisplayDateEnd="{Binding EndDate}"
-                                SelectedDate="{Binding SelectedDate, Mode=TwoWay}"/>
+                                SelectedDate="{Binding SelectedDate, Mode=TwoWay}" />
                     <Button Click="ClearSelectionButton_OnClick"
                             HorizontalAlignment="Stretch"
                             Margin="5"
-                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.ClearSelection}}"/>
+                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.ClearSelection}}" />
                 </StackPanel>
             </Border>
         </Popup>

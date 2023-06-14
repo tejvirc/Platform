@@ -15,7 +15,8 @@
                                dialog:DialogParticipation.Register="{Binding}"
                                mc:Ignorable="d"
                                Background="Transparent"
-                               d:DataContext="{d:DesignInstance {x:Type viewModels:CustomSAPViewModel}, IsDesignTimeCreatable=True}">
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:CustomSAPViewModel}, IsDesignTimeCreatable=True}"
+                               loc:Localizer.For="Operator">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -72,10 +73,12 @@
             </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.LevelId}}"
+                                    loc:Localizer.For="Operator"
                                     MaxWidth="60"
                                     Binding="{Binding LevelId , UpdateSourceTrigger=PropertyChanged}"
                                     AutomationProperties.AutomationId="DataGridTextColumn7_EF8014A4" />
                 <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.LevelNameLabel}}"
+                                        loc:Localizer.For="Operator"
                                         AutomationProperties.AutomationId="DataGridTemplateColumn8_EF8014A4">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type viewModels:CustomSAPViewModel+SharedLevelDisplay}">
@@ -85,26 +88,32 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CurrentValue}}"
+                                    loc:Localizer.For="Operator"
                                     MaxWidth="200"
                                     Binding="{Binding CurrentValue, UpdateSourceTrigger=PropertyChanged}"
                                     AutomationProperties.AutomationId="DataGridTextColumn9_EF8014A4" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.InitialValue}}"
+                                    loc:Localizer.For="Operator"
                                     MaxWidth="200"
                                     Binding="{Binding InitialValue, UpdateSourceTrigger=PropertyChanged}"
                                     AutomationProperties.AutomationId="DataGridTextColumn10_EF8014A4" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.BonusInfoOverflowColumn}}"
+                                    loc:Localizer.For="Operator"
                                     MaxWidth="200"
                                     Binding="{Binding OverflowValue , UpdateSourceTrigger=PropertyChanged}"
                                     AutomationProperties.AutomationId="DataGridTextColumn11_EF8014A4" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ResetValue}}"
+                                    loc:Localizer.For="Operator"
                                     MaxWidth="200"
                                     Binding="{Binding ResetValue, UpdateSourceTrigger=PropertyChanged}"
                                     AutomationProperties.AutomationId="DataGridTextColumn12_EF8014A4" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.IncrementRate}}"
+                                    loc:Localizer.For="Operator"
                                     MaxWidth="120"
                                     Binding="{Binding IncrementRate, Converter={StaticResource PercentageTextValueConvert}, UpdateSourceTrigger=PropertyChanged}"
                                     AutomationProperties.AutomationId="DataGridTextColumn13_EF8014A4" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.MaxValue}}"
+                                    loc:Localizer.For="Operator"
                                     MaxWidth="200"
                                     Binding="{Binding MaximumValue, UpdateSourceTrigger=PropertyChanged}"
                                     AutomationProperties.AutomationId="DataGridTextColumn14_EF8014A4" />

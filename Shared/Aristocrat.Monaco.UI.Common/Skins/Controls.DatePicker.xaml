@@ -2,7 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                    xmlns:behaviours="http://metro.mahapps.com/winfx/xaml/shared">
+                    xmlns:behaviours="http://metro.mahapps.com/winfx/xaml/shared"
+                    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                    xmlns:loc="http://monaco.aristocrat.com/localization">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Shared.xaml" />
     </ResourceDictionary.MergedDictionaries>
@@ -23,43 +25,26 @@
                       Offset=".95"
                       AutomationProperties.AutomationId="GradientStop4_DA77BB9A" />
     </LinearGradientBrush>
-    <Style x:Key="MonacoDatePicker"
-           TargetType="{x:Type DatePicker}">
-        <Setter Property="Background"
-                Value="{DynamicResource DarkBrush1}" />
-        <Setter Property="BorderBrush"
-                Value="{DynamicResource Brush3}" />
-        <Setter Property="BorderThickness"
-                Value="2" />
-        <Setter Property="CalendarStyle"
-                Value="{DynamicResource MonacoCalendar}" />
-        <Setter Property="controls:ControlsHelper.FocusBorderBrush"
-                Value="{DynamicResource FocusBorderBrush}" />
-        <Setter Property="controls:TextBoxHelper.ButtonWidth"
-                Value="32" />
-        <Setter Property="controls:TextBoxHelper.IsMonitoring"
-                Value="True" />
-        <Setter Property="FontFamily"
-                Value="{DynamicResource ContentFontFamily}" />
-        <Setter Property="VerticalContentAlignment"
-                Value="Center" />
-        <Setter Property="FontSize"
-                Value="28" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource LightBrush4}" />
-        <Setter Property="IsTodayHighlighted"
-                Value="True" />
-        <Setter Property="Padding"
-                Value="5 10" />
-        <Setter Property="SelectedDateFormat"
-                Value="Short" />
-        <Setter Property="SnapsToDevicePixels"
-                Value="True" />
+    <Style x:Key="MonacoDatePicker" TargetType="{x:Type DatePicker}">
+        <Setter Property="Background" Value="{DynamicResource DarkBrush1}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Brush3}" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="CalendarStyle" Value="{DynamicResource MonacoCalendar}" />
+        <Setter Property="controls:ControlsHelper.FocusBorderBrush" Value="{DynamicResource FocusBorderBrush}" />
+        <Setter Property="controls:TextBoxHelper.ButtonWidth" Value="32" />
+        <Setter Property="controls:TextBoxHelper.IsMonitoring" Value="True" />
+        <Setter Property="FontFamily" Value="{DynamicResource ContentFontFamily}" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="28" />
+        <Setter Property="Foreground" Value="{DynamicResource LightBrush4}" />
+        <Setter Property="IsTodayHighlighted" Value="True" />
+        <Setter Property="Padding" Value="5 10" />
+        <Setter Property="SelectedDateFormat" Value="Short" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type DatePicker}">
-                    <Grid x:Name="PART_Root"
-                          AutomationProperties.AutomationId="Grid5_DA77BB9A">
+                    <Grid x:Name="PART_Root" AutomationProperties.AutomationId="Grid5_DA77BB9A">
                         <Border x:Name="Base"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
@@ -70,15 +55,13 @@
                               Margin="{TemplateBinding Padding}"
                               AutomationProperties.AutomationId="Grid7_DA77BB9A">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"
-                                                  AutomationProperties.AutomationId="ColumnDefinition8_DA77BB9A" />
+                                <ColumnDefinition Width="*" AutomationProperties.AutomationId="ColumnDefinition8_DA77BB9A" />
                                 <ColumnDefinition x:Name="ButtonColumn"
                                                   Width="Auto"
                                                   AutomationProperties.AutomationId="ColumnDefinition9_DA77BB9A" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"
-                                               AutomationProperties.AutomationId="RowDefinition10_DA77BB9A" />
+                                <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition10_DA77BB9A" />
                                 <RowDefinition x:Name="ButtonRow"
                                                Height="*"
                                                AutomationProperties.AutomationId="RowDefinition11_DA77BB9A" />
@@ -91,9 +74,8 @@
                                     IsTabStop="False"
                                     Style="{DynamicResource ChromelessButtonStyle}"
                                     AutomationProperties.AutomationId="Button12_DA77BB9A">
-                                <!--  PackIconModern - Calendar14  -->
-                                <ContentControl
-                                        Width="{Binding Path=(controls:TextBoxHelper.ButtonWidth), RelativeSource={RelativeSource TemplatedParent}}"
+                                <!-- PackIconModern - Calendar14 -->
+                                <ContentControl Width="{Binding Path=(controls:TextBoxHelper.ButtonWidth), RelativeSource={RelativeSource TemplatedParent}}"
                                                 Height="{Binding Path=(controls:TextBoxHelper.ButtonWidth), RelativeSource={RelativeSource TemplatedParent}}"
                                                 Foreground="{DynamicResource LightBrush1}"
                                                 Content="M34,52H31V38.5C29.66,39.9 28.16,40.78 26.34,41.45V37.76C27.3,37.45 28.34,36.86 29.46,36C30.59,35.15 31.36,34.15 31.78,33H34V52M45,52V48H37V45L45,33H48V45H50V48H48V52H45M45,45V38.26L40.26,45H45M18,57V23H23V20A2,2 0 0,1 25,18H29C30.11,18 31,18.9 31,20V23H45V20A2,2 0 0,1 47,18H51C52.11,18 53,18.9 53,20V23H58V57H18M21,54H55V31H21V54M48.5,20A1.5,1.5 0 0,0 47,21.5V24.5A1.5,1.5 0 0,0 48.5,26H49.5C50.34,26 51,25.33 51,24.5V21.5A1.5,1.5 0 0,0 49.5,20H48.5M26.5,20A1.5,1.5 0 0,0 25,21.5V24.5A1.5,1.5 0 0,0 26.5,26H27.5A1.5,1.5 0 0,0 29,24.5V21.5A1.5,1.5 0 0,0 27.5,20H26.5Z"
@@ -189,57 +171,38 @@
                         </Trigger>
                         <MultiDataTrigger AutomationProperties.AutomationId="MultiDataTrigger23_DA77BB9A">
                             <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding Path=IsVisible, RelativeSource={RelativeSource Self}}"
-                                           Value="True" />
-                                <Condition
-                                        Binding="{Binding Path=(controls:TextBoxHelper.UseFloatingWatermark), RelativeSource={RelativeSource Self}}"
-                                           Value="True" />
-                                <Condition
-                                        Binding="{Binding Path=(controls:TextBoxHelper.HasText), RelativeSource={RelativeSource Self}}"
-                                           Value="True" />
+                                <Condition Binding="{Binding Path=IsVisible, RelativeSource={RelativeSource Self}}" Value="True" />
+                                <Condition Binding="{Binding Path=(controls:TextBoxHelper.UseFloatingWatermark), RelativeSource={RelativeSource Self}}" Value="True" />
+                                <Condition Binding="{Binding Path=(controls:TextBoxHelper.HasText), RelativeSource={RelativeSource Self}}" Value="True" />
                             </MultiDataTrigger.Conditions>
                             <MultiDataTrigger.EnterActions>
-                                <BeginStoryboard Storyboard="{StaticResource ShowFloatingMessageStoryboard}"
-                                                 AutomationProperties.AutomationId="BeginStoryboard24_DA77BB9A" />
+                                <BeginStoryboard Storyboard="{StaticResource ShowFloatingMessageStoryboard}" AutomationProperties.AutomationId="BeginStoryboard24_DA77BB9A" />
                             </MultiDataTrigger.EnterActions>
                             <MultiDataTrigger.ExitActions>
-                                <BeginStoryboard Storyboard="{StaticResource HideFloatingMessageStoryboard}"
-                                                 AutomationProperties.AutomationId="BeginStoryboard25_DA77BB9A" />
+                                <BeginStoryboard Storyboard="{StaticResource HideFloatingMessageStoryboard}" AutomationProperties.AutomationId="BeginStoryboard25_DA77BB9A" />
                             </MultiDataTrigger.ExitActions>
                         </MultiDataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="Validation.ErrorTemplate"
-                Value="{DynamicResource ValidationErrorTemplate}" />
+        <Setter Property="Validation.ErrorTemplate" Value="{DynamicResource ValidationErrorTemplate}" />
     </Style>
-    <Style x:Key="MonacoDatePickerTextBox"
-           TargetType="{x:Type DatePickerTextBox}">
-        <Setter Property="Background"
-                Value="{DynamicResource ControlBackgroundBrush}" />
-        <Setter Property="ContextMenu"
-                Value="{DynamicResource MonacoTextBoxContextMenu}" />
-        <Setter Property="controls:TextBoxHelper.IsMonitoring"
-                Value="True" />
-        <Setter Property="FocusVisualStyle"
-                Value="{x:Null}" />
-        <Setter Property="FontFamily"
-                Value="{DynamicResource ContentFontFamily}" />
-        <Setter Property="FontSize"
-                Value="{DynamicResource ContentFontSize}" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource AccentColorBrush}" />
-        <Setter Property="ScrollViewer.PanningMode"
-                Value="VerticalFirst" />
-        <Setter Property="Stylus.IsFlicksEnabled"
-                Value="False" />
+    <Style x:Key="MonacoDatePickerTextBox" TargetType="{x:Type DatePickerTextBox}">
+        <Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}" />
+        <Setter Property="ContextMenu" Value="{DynamicResource MonacoTextBoxContextMenu}" />
+        <Setter Property="controls:TextBoxHelper.IsMonitoring" Value="True" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="FontFamily" Value="{DynamicResource ContentFontFamily}" />
+        <Setter Property="FontSize" Value="{DynamicResource ContentFontSize}" />
+        <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
+        <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst" />
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type DatePickerTextBox}">
                     <ControlTemplate.Resources>
-                        <Storyboard x:Key="EnterGotFocus"
-                                    AutomationProperties.AutomationId="Storyboard26_DA77BB9A">
+                        <Storyboard x:Key="EnterGotFocus" AutomationProperties.AutomationId="Storyboard26_DA77BB9A">
                             <DoubleAnimation Storyboard.TargetName="PART_Watermark"
                                              Storyboard.TargetProperty="Opacity"
                                              To=".2"
@@ -251,8 +214,7 @@
                                              Duration="0:0:0.2"
                                              AutomationProperties.AutomationId="DoubleAnimation28_DA77BB9A" />
                         </Storyboard>
-                        <Storyboard x:Key="ExitGotFocus"
-                                    AutomationProperties.AutomationId="Storyboard29_DA77BB9A">
+                        <Storyboard x:Key="ExitGotFocus" AutomationProperties.AutomationId="Storyboard29_DA77BB9A">
                             <DoubleAnimation Storyboard.TargetName="PART_Watermark"
                                              Storyboard.TargetProperty="Opacity"
                                              Duration="0:0:0.2"
@@ -262,8 +224,7 @@
                                              Duration="0:0:0.2"
                                              AutomationProperties.AutomationId="DoubleAnimation31_DA77BB9A" />
                         </Storyboard>
-                        <Storyboard x:Key="EnterHasText"
-                                    AutomationProperties.AutomationId="Storyboard32_DA77BB9A">
+                        <Storyboard x:Key="EnterHasText" AutomationProperties.AutomationId="Storyboard32_DA77BB9A">
                             <DoubleAnimation Storyboard.TargetName="PART_Watermark"
                                              Storyboard.TargetProperty="Opacity"
                                              From=".2"
@@ -277,8 +238,7 @@
                                              Duration="0:0:0.2"
                                              AutomationProperties.AutomationId="DoubleAnimation34_DA77BB9A" />
                         </Storyboard>
-                        <Storyboard x:Key="ExitHasText"
-                                    AutomationProperties.AutomationId="Storyboard35_DA77BB9A">
+                        <Storyboard x:Key="ExitHasText" AutomationProperties.AutomationId="Storyboard35_DA77BB9A">
                             <DoubleAnimation Storyboard.TargetName="PART_Watermark"
                                              Storyboard.TargetProperty="Opacity"
                                              Duration="0:0:0.2"
@@ -314,7 +274,7 @@
                                 <ControlTemplate TargetType="{x:Type ContentControl}">
                                     <TextBlock HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                               Text="{TemplateBinding Content}"
+                                               Text="{lex:Loc Key={x:Static loc:ResourceKeys.SelectDate}}"
                                                TextAlignment="{TemplateBinding controls:TextBoxHelper.WatermarkAlignment}"
                                                TextTrimming="None"
                                                AutomationProperties.AutomationId="TextBlock41_DA77BB9A" />
@@ -335,22 +295,17 @@
                     <ControlTemplate.Triggers>
                         <MultiTrigger AutomationProperties.AutomationId="MultiTrigger43_DA77BB9A">
                             <MultiTrigger.Conditions>
-                                <Condition Property="controls:TextBoxHelper.HasText"
-                                           Value="False" />
-                                <Condition Property="IsFocused"
-                                           Value="True" />
+                                <Condition Property="controls:TextBoxHelper.HasText" Value="False" />
+                                <Condition Property="IsFocused" Value="True" />
                             </MultiTrigger.Conditions>
                             <MultiTrigger.EnterActions>
-                                <BeginStoryboard Storyboard="{StaticResource EnterGotFocus}"
-                                                 AutomationProperties.AutomationId="BeginStoryboard44_DA77BB9A" />
+                                <BeginStoryboard Storyboard="{StaticResource EnterGotFocus}" AutomationProperties.AutomationId="BeginStoryboard44_DA77BB9A" />
                             </MultiTrigger.EnterActions>
                             <MultiTrigger.ExitActions>
-                                <BeginStoryboard Storyboard="{StaticResource ExitGotFocus}"
-                                                 AutomationProperties.AutomationId="BeginStoryboard45_DA77BB9A" />
+                                <BeginStoryboard Storyboard="{StaticResource ExitGotFocus}" AutomationProperties.AutomationId="BeginStoryboard45_DA77BB9A" />
                             </MultiTrigger.ExitActions>
                         </MultiTrigger>
-                        <DataTrigger
-                                Binding="{Binding RelativeSource={RelativeSource Self}, Path=(controls:TextBoxHelper.Watermark)}"
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=(controls:TextBoxHelper.Watermark)}"
                                      Value=""
                                      AutomationProperties.AutomationId="DataTrigger46_DA77BB9A">
                             <Setter TargetName="PART_Watermark"
@@ -361,12 +316,10 @@
                                  Value="True"
                                  AutomationProperties.AutomationId="Trigger47_DA77BB9A">
                             <Trigger.EnterActions>
-                                <BeginStoryboard Storyboard="{StaticResource EnterHasText}"
-                                                 AutomationProperties.AutomationId="BeginStoryboard48_DA77BB9A" />
+                                <BeginStoryboard Storyboard="{StaticResource EnterHasText}" AutomationProperties.AutomationId="BeginStoryboard48_DA77BB9A" />
                             </Trigger.EnterActions>
                             <Trigger.ExitActions>
-                                <BeginStoryboard Storyboard="{StaticResource ExitHasText}"
-                                                 AutomationProperties.AutomationId="BeginStoryboard49_DA77BB9A" />
+                                <BeginStoryboard Storyboard="{StaticResource ExitHasText}" AutomationProperties.AutomationId="BeginStoryboard49_DA77BB9A" />
                             </Trigger.ExitActions>
                         </Trigger>
                     </ControlTemplate.Triggers>

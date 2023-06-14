@@ -219,9 +219,6 @@
   <data name="GameNameText2" xml:space="preserve">
     <value>JEU/ÉVÉNEMENT</value>
   </data>
-  <data name="GameOrderMessage" xml:space="preserve">
-    <value>Choisissez un jeu et utilisez les flèches vers le haut/vers le bas pour modifier l’ordre</value>
-  </data>
   <data name="GameRoundInfoText" xml:space="preserve">
     <value>INFO ÉVÉNEMENT RONDE DE JEU</value>
   </data>
@@ -306,7 +303,7 @@
   <data name="ReplayText" xml:space="preserve">
     <value>Reprise</value>
   </data>
-  <data name="SaveText2" xml:space="preserve">
+  <data name="SaveText" xml:space="preserve">
     <value>Enregistrer</value>
   </data>
   <data name="SequenceNumberText" xml:space="preserve">
@@ -930,7 +927,7 @@
     <value>BON</value>
   </data>
   <data name="Version" xml:space="preserve">
-    <value>Version</value>
+      <value>??Version??</value>
   </data>
   <data name="GameStatisicsTitle" xml:space="preserve">
     <value>??Game Statisics??</value>
@@ -1263,8 +1260,8 @@
     <value>??Standard??</value>
   </data>
   <data name="StatusLabel" xml:space="preserve">
-    <value>???Status???</value>
-    <comment>Aristocrat.Monaco.Application.UI</comment>
+      <value>???Status???</value>
+      <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="System" xml:space="preserve">
     <value>??System??</value>
@@ -1309,9 +1306,6 @@ See manual for details??</value>
   </data>
   <data name="Unlimited" xml:space="preserve">
     <value>??Unlimited??</value>
-  </data>
-  <data name="VersionText" xml:space="preserve">
-    <value>??Version??</value>
   </data>
   <data name="ViewProgressiveSummary" xml:space="preserve">
     <value>??View Progressive Summary??</value>
@@ -3962,7 +3956,67 @@ Do you really want to do partial reset????</value>
   <data name="State" xml:space="preserve">
     <value>???State???</value>
     <comment>Monaco.Accounting.UI</comment>
+  </data>
   <data name="TimeZoneOffsetLabel" xml:space="preserve">
     <value>??Time Zone Offset??</value>
+  </data>
+  <data name="GameText" xml:space="preserve">
+    <value>??Game??</value>
+    <comment>Aristocrat.Monaco.Gaming</comment>
+  </data>
+  <data name="GameType" xml:space="preserve">
+    <value>??Game Type??</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="EndJackpot" xml:space="preserve">
+      <value>??End Jackpot??</value>
+  </data>
+  <data name="StatusHeader" xml:space="preserve">
+      <value>??Status??</value>
+  </data>
+  <data name="ProgressiveDetails" xml:space="preserve">
+      <value>???Progressive Details???</value>
+  </data>
+  <data name="GameSummaryTitle" xml:space="preserve">
+      <value>??Game Type and Denomination Summary??</value>
+  </data>
+  <data name="GameTypeSummary" xml:space="preserve">
+      <value>??Game Type Summary??</value>
+  </data>
+  <data name="BlendedHold" xml:space="preserve">
+      <value>??Blended Hold??</value>
+  </data>
+  <data name="BlendedRTP" xml:space="preserve">
+      <value>??Blended RTP??</value>
+  </data>
+  <data name="DenomSummary" xml:space="preserve">
+      <value>??Denom Summary??</value>
+  </data>
+  <data name="ClearSelection" xml:space="preserve">
+      <value>??Clear Selection??</value>
+  </data>
+  <data name="SelectDate" xml:space="preserve">
+      <value>??Select Date??</value>
+  </data>
+  <data name="ProgressiveSummaryTitle" xml:space="preserve">
+      <value>??Progressive Summary??</value>
+  </data>
+  <data name="ExitConfigurationText" xml:space="preserve">
+      <value>??Exit Configuration??</value>
+  </data>
+  <data name="GameOrderTestMessage" xml:space="preserve">
+      <value>Choisissez un jeu et utilisez les flèches vers le haut/vers le bas pour modifier l’ordre</value>
+  </data>
+  <data name="GameOrderMessage" xml:space="preserve">
+      <value>??Game Order List??</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+      <value>??Cancel??</value>
+  </data>
+  <data name="SelectDate" xml:space="preserve">
+      <value>??Select Date??</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+	  <value>??Select All??</value>
   </data>
 </root>

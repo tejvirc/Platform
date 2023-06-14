@@ -495,6 +495,7 @@
 
             _canEdit = GetConfigSetting(OperatorMenuSetting.EnableAdvancedConfig, false);
             IsInEditMode = _canEdit && !InitialConfigComplete;
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, OperatorCultureChanged);
 
             SetEditMode();
             lock (_gamesMapping)
@@ -589,6 +590,21 @@
                            .Replace("\\r\\n", Environment.NewLine);
 
             return text;
+        }
+
+        private void OperatorCultureChanged(OperatorCultureChangedEvent obj)
+        {
+            SaveButtonText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SaveText);
+            CancelButtonText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExitConfigurationText);
+
+            ReadOnlyStatus = IsInEditMode
+                ? string.Empty
+                : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReadOnlyModeText);
+
+            RaisePropertyChanged(nameof(ThemePlusOptions));
+            RaisePropertyChanged(nameof(SelectedDenoms));
+
+            UpdateInputStatusText();
         }
 
         private void LoadGames()
@@ -877,7 +893,7 @@
 
         private void CheckForRestrictionMismatch(EditableGameProfile profile, IConfigurationRestriction restriction)
         {
-            if (!profile.ValidRestrictions.Any())
+            if (!profile?.ValidRestrictions?.Any() ?? false)
             {
                 return;
             }
