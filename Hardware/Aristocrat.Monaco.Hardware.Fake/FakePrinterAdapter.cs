@@ -184,7 +184,7 @@
         public Task<bool> Detach()
         {
             IsConnected = false;
-            Logger.Info("Connected fake printer adapter");
+            Logger.Info("Disconnected fake printer adapter");
             OnEnabled(EventArgs.Empty);
             return Task.FromResult(true);
         }

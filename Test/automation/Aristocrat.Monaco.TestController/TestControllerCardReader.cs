@@ -1,13 +1,12 @@
 ﻿namespace Aristocrat.Monaco.TestController
 {
-    using Aristocrat.Monaco.Hardware.Contracts;
+    using System.Collections.Generic;
+    using System.Linq;
     using Aristocrat.Monaco.Hardware.Contracts.IdReader;
     using Aristocrat.Monaco.Kernel;
     using DataModel;
     using Hardware.Contracts.CardReader;
     using Hardware.Contracts.IO;
-    using System.Collections.Generic;
-    using System.Linq;
 
     public partial class TestControllerEngine : ITestController
     {
@@ -130,12 +129,15 @@
             _eventBus.Publish(new FakeCardReaderEvent(0, string.Empty, false));
             CardStatusText = "Card Removed";
 
-            return new CommandResult {
+            return new CommandResult
+            {
                 data = new Dictionary<string, object>
                 {
                     ["response-to"] = $"/CardReaders/0/RemoveCard"
                 },
-                Command = $"{Track1Data} Removed",  Result = true };
+                Command = $"{Track1Data} Removed",
+                Result = true
+            };
 
 
         }
@@ -143,7 +145,7 @@
         public CommandResult CardReaderDisconnect()
         {
             var idReader = ServiceManager.GetInstance().TryGetService<IIdReaderProvider>().Adapters.FirstOrDefault();
-            
+
             var response = new CommandResult()
             {
                 data = new Dictionary<string, object> { ["response-to"] = $"/CardReaders/0/Disconnect" },

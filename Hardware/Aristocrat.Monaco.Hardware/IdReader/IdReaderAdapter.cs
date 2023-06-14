@@ -49,7 +49,6 @@
         private readonly StateMachine<IdReaderLogicalState, IdReaderLogicalStateTrigger> _state;
         private readonly ReaderWriterLockSlim _stateLock = new(LockRecursionPolicy.SupportsRecursion);
         private readonly IEventBus _eventBus;
-        private readonly IUserActivityService _userActivityService;
         private readonly IPersistentStorageManager _storageManager;
 
         private List<OfflineValidationPattern> _patterns = new();
@@ -71,7 +70,6 @@
                 ServiceManager.GetInstance().GetService<IEventBus>(),
                 ServiceManager.GetInstance().GetService<IComponentRegistry>(),
                 ServiceManager.GetInstance().GetService<IDfuProvider>(),
-                ServiceManager.GetInstance().GetService<IUserActivityService>(),
                 ServiceManager.GetInstance().GetService<IPersistentStorageManager>(),
                 ServiceManager.GetInstance().GetService<ISerialPortsService>())
         {
@@ -84,13 +82,11 @@
             IEventBus eventBus,
             IComponentRegistry componentRegistry,
             IDfuProvider dfuProvider,
-            IUserActivityService userActivityService,
             IPersistentStorageManager storageManager,
             ISerialPortsService serialPortsService)
             : base(eventBus, componentRegistry, dfuProvider, serialPortsService)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
-            _userActivityService = userActivityService ?? throw new ArgumentNullException(nameof(userActivityService));
             _storageManager = storageManager ?? throw new ArgumentNullException(nameof(storageManager));
             _state = ConfigureStateMachine();
             _timer = new Timer(IdleTimerInterval);
@@ -401,7 +397,7 @@
         {
             Implementation.ValidationComplete();
 
-            if(_state.CanFire(IdReaderLogicalStateTrigger.Validated))
+            if (_state.CanFire(IdReaderLogicalStateTrigger.Validated))
             {
                 Fire(IdReaderLogicalStateTrigger.Validated);
             }
@@ -554,7 +550,7 @@
                 return;
             }
 
-            var lastAction = _userActivityService.GetLastAction();
+            var lastAction = ServiceManager.GetInstance().GetService<IUserActivityService>().GetLastAction();
 
             if (lastAction != null && IsExpired(lastAction.GetValueOrDefault()))
             {

@@ -10,7 +10,7 @@
   </Dependencies>
 
   <Extension path="/Hardware/IdReader/IdReaderImplementations">
-    <DeviceImplementation ProtocolName="Any" type="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds" />
+    <DeviceImplementation ProtocolName="GDS" type="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds" />
   </Extension>
 
   <Extension path="/Hardware/NoteAcceptor/NoteAcceptorImplementations">

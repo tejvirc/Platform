@@ -17,6 +17,11 @@
   <Extension path="/Hardware/Printer/PrinterImplementations">
     <DeviceImplementation ProtocolName="Fake" type="Aristocrat.Monaco.Hardware.Fake.FakePrinterAdapter" />
   </Extension>
+
+  <Extension path="/Hardware/IdReader/IdReaderImplementations">
+    <DeviceImplementation ProtocolName="Fake" type="Aristocrat.Monaco.Hardware.Fake.FakeIdReaderAdapter" />
+  </Extension>
+   
   <Extension path="/Hardware/NoteAcceptor/NoteAcceptorImplementations">
     <DeviceImplementation ProtocolName="Fake" type="Aristocrat.Monaco.Hardware.Fake.FakeNoteAcceptorAdapter" />
   </Extension>
