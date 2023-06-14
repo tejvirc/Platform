@@ -59,6 +59,7 @@
                 </i:Interaction.Triggers>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DateAndTime}}"
+                                        loc:Localizer.For="Operator"
                                         MinWidth="200"
                                         Width="Auto"
                                         FontSize="18"
@@ -66,6 +67,7 @@
                                         AutomationProperties.AutomationId="DataGridTextColumn7_26AF2323" />
                     <DataGridTextColumn x:Name="LogType"
                                         Header="{lex:Loc Key={x:Static loc:ResourceKeys.LogType}}"
+                                        loc:Localizer.For="Operator"
                                         FontSize="18"
                                         MinWidth="200"
                                         Width="Auto"
@@ -74,6 +76,7 @@
                                         AutomationProperties.AutomationId="DataGridTextColumn8_26AF2323" />
                     <DataGridTemplateColumn x:Name="EventLog"
                                             Header="{lex:Loc Key={x:Static loc:ResourceKeys.EventLog}}"
+                                            loc:Localizer.For="Operator"
                                             MinWidth="350"
                                             Width="Auto"
                                             x:FieldModifier="public"

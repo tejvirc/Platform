@@ -3926,4 +3926,13 @@ Do you really want to do partial reset????</value>
     <value>???Ticket Stacked???</value>
     <comment>Aristocrat.Monaco.Application</comment>
   </data>
+  <data name="G2SEventCode" xml:space="preserve">
+    <value>??G2S Event Code??</value>
+  </data>
+  <data name="G2SEventCodeDescription" xml:space="preserve">
+    <value>??G2S Event Code Description??</value>
+  </data>
+  <data name="DateAndTimeHeader" xml:space="preserve">
+    <value>??Date and Time??</value>
+  </data>
 </root>
