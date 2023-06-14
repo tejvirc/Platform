@@ -3935,4 +3935,7 @@ Do you really want to do partial reset????</value>
   <data name="DateAndTimeHeader" xml:space="preserve">
     <value>??Date and Time??</value>
   </data>
+  <data name="TimeZoneOffsetLabel" xml:space="preserve">
+    <value>??Time Zone Offset??</value>
+  </data>
 </root>
