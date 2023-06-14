@@ -139,6 +139,7 @@
             _eventBus.Subscribe<PlayerInfoDisplayEnteredEvent>(this, HandleEvent);
             _eventBus.Subscribe<GambleFeatureActiveEvent>(this, HandleEvent);
             _eventBus.Subscribe<GameInstalledEvent>(this, HandleEvent);
+            _eventBus.Subscribe<MessageOverlayDataEvent>(this, HandleEvent);
         }
 
         public delegate void CustomViewChangedEventHandler(ViewInjectionEvent ev);
@@ -498,10 +499,10 @@
                     {
                         _lobbyStateManager.RemoveFlagState(LobbyState.CashOutFailure);
                     }
-
+                    
                     if (_bank.QueryBalance() == 0 && _gameState.Idle && !_gameState.InGameRound)
                     {
-                        IsPrimaryLanguageSelected = true;
+                        _overlimitCashoutProcessed = true;
                     }
                     HandleMessageOverlayText();
                 });
@@ -1519,6 +1520,18 @@
                     OnUserInteraction();
                     LoadGameInfo();
                 });
+        }
+
+        private void HandleEvent(MessageOverlayDataEvent evt)
+        {
+            if(_overlimitCashoutProcessed && !evt.Message.IsDialogVisible)
+            {
+                MvvmHelper.ExecuteOnUI(() =>
+                {
+                    IsPrimaryLanguageSelected = true;
+                });
+                _overlimitCashoutProcessed = false;
+            }
         }
 
         private void HandleMessageOverlayVisibility()
