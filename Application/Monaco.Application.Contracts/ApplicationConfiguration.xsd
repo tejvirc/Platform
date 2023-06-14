@@ -12,9 +12,9 @@
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="EdgeLightConfiguration">
           <xs:complexType>
-	          <xs:attribute default="Blue" name="LobbyModeColor" type="xs:string" />
-	          <xs:attribute default="Transparent" name="AttractModeColor" type="xs:string" />
-	          <xs:attribute default="Blue" name="DefaultColor" type="xs:string" />
+            <xs:attribute default="Blue" name="LobbyModeColor" type="xs:string" />
+            <xs:attribute default="Transparent" name="AttractModeColor" type="xs:string" />
+            <xs:attribute default="Blue" name="DefaultColor" type="xs:string" />
           </xs:complexType>
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="GatSerial">
@@ -75,6 +75,11 @@
               <xs:element minOccurs="0" maxOccurs="1" name="DisabledByOperator">
                 <xs:complexType>
                   <xs:attribute name="Message" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="Lockup">
+                <xs:complexType>
+                  <xs:attribute name="Culture" type="xs:string" />
                 </xs:complexType>
               </xs:element>
             </xs:sequence>
@@ -383,9 +388,9 @@
           </xs:complexType>
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="HostOfflineSound">
-	        <xs:complexType>
-		        <xs:attribute default="" name="FilePath" type="xs:string" />
-	        </xs:complexType>
+          <xs:complexType>
+            <xs:attribute default="" name="FilePath" type="xs:string" />
+          </xs:complexType>
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="DingSound">
           <xs:complexType>

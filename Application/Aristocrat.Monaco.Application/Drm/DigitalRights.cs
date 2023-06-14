@@ -140,7 +140,7 @@
                 {
                     Logger.Error($"Mismatch between the license file and the available tokens: {License.Id}");
 
-                    var message = Localizer.DynamicCulture().GetString(ResourceKeys.LicenseFileValidationError);
+                    var message = Localizer.ForLockup().GetString(ResourceKeys.LicenseFileValidationError);
 
                     HandleDigitalRightsError(new LicenseErrorEvent(message), () => message, ApplicationConstants.LicenseErrorDisableKey);
 
@@ -153,10 +153,10 @@
             }
             catch (Exception e)
             {
-                var message = Localizer.DynamicCulture().GetString(ResourceKeys.SmartCardMissing);
+                var message = Localizer.ForLockup().GetString(ResourceKeys.SmartCardMissing);
                 HandleDigitalRightsError(
                     new SoftwareProtectionModuleErrorEvent(message),
-                    () => Localizer.DynamicCulture().GetString(ResourceKeys.SmartCardMissing),
+                    () => Localizer.ForLockup().GetString(ResourceKeys.SmartCardMissing),
                     ApplicationConstants.SmartCardNotPresentDisableKey);
 
                 Logger.Error("Failed to initialize the module", e);
@@ -271,10 +271,10 @@
             {
                 Logger.Error("Failed to authenticate license file", ex);
 
-                var message = Localizer.DynamicCulture().GetString(ResourceKeys.LicenseFileValidationError);
+                var message = Localizer.ForLockup().GetString(ResourceKeys.LicenseFileValidationError);
                 HandleDigitalRightsError(
                     new LicenseErrorEvent(message),
-                    () => Localizer.DynamicCulture().GetString(ResourceKeys.LicenseFileValidationError),
+                    () => Localizer.ForLockup().GetString(ResourceKeys.LicenseFileValidationError),
                     ApplicationConstants.LicenseErrorDisableKey);
 
                 return LicenseInfo.Invalid;
@@ -290,10 +290,10 @@
             }
             catch (Exception ex)
             {
-                var message = Localizer.DynamicCulture().GetString(ResourceKeys.LicenseFileParsingError);
+                var message = Localizer.ForLockup().GetString(ResourceKeys.LicenseFileParsingError);
                 HandleDigitalRightsError(
                     new LicenseErrorEvent(message),
-                    () => Localizer.DynamicCulture().GetString(ResourceKeys.LicenseFileParsingError),
+                    () => Localizer.ForLockup().GetString(ResourceKeys.LicenseFileParsingError),
                     ApplicationConstants.LicenseErrorDisableKey);
 
                 Logger.Error("Failed to read the license file", ex);
@@ -315,10 +315,10 @@
                     {
                         Logger.Error("Failed to decrement the license counter");
 
-                        var message = Localizer.DynamicCulture().GetString(ResourceKeys.SmartCardExpired);
+                        var message = Localizer.ForLockup().GetString(ResourceKeys.SmartCardExpired);
                         HandleDigitalRightsError(
                             new SoftwareProtectionModuleErrorEvent(message),
-                            () => Localizer.DynamicCulture().GetString(ResourceKeys.SmartCardExpired),
+                            () => Localizer.ForLockup().GetString(ResourceKeys.SmartCardExpired),
                             ApplicationConstants.SmartCardExpiredDisableKey);
                     }
                 }
@@ -328,10 +328,10 @@
                     {
                         Logger.Error("Failed to get the module state");
 
-                        var message = Localizer.DynamicCulture().GetString(ResourceKeys.SmartCardRemoved);
+                        var message = Localizer.ForLockup().GetString(ResourceKeys.SmartCardRemoved);
                         HandleDigitalRightsError(
                             new SoftwareProtectionModuleDisconnectedEvent(message),
-                            () => Localizer.DynamicCulture().GetString(ResourceKeys.SmartCardRemoved),
+                            () => Localizer.ForLockup().GetString(ResourceKeys.SmartCardRemoved),
                             ApplicationConstants.SmartCardRemovedDisableKey);
                     }
                 }
@@ -348,10 +348,10 @@
             catch (Exception e)
             {
                 Logger.Error("Failed to get the module state", e);
-                var message = Localizer.DynamicCulture().GetString(ResourceKeys.SmartCardRemoved);
+                var message = Localizer.ForLockup().GetString(ResourceKeys.SmartCardRemoved);
                 HandleDigitalRightsError(
                     new SoftwareProtectionModuleErrorEvent(message),
-                    () => Localizer.DynamicCulture().GetString(ResourceKeys.SmartCardRemoved),
+                    () => Localizer.ForLockup().GetString(ResourceKeys.SmartCardRemoved),
                     ApplicationConstants.SmartCardRemovedDisableKey);
             }
 

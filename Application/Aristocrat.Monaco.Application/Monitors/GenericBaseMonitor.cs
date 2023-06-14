@@ -458,7 +458,7 @@ namespace Aristocrat.Monaco.Application.Monitors
             {
 
                 DisplayableMessage = new DisplayableMessage(
-                    () => Localizer.DynamicCulture().GetString(key, _ => { }),
+                    () => Localizer.ForLockup().GetString(key, _ => { }),
                     classification,
                     priority,
                     id);

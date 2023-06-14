@@ -588,6 +588,11 @@
         public const string DisabledByOperatorText = "Application.GeneralMessages.DisabledByOperatorText";
 
         /// <summary>
+        ///     Property manager key for DisabledByOperatorText.
+        /// </summary>
+        public const string LockupCulture = "Application.GeneralMessages.LockupCulture";
+
+        /// <summary>
         ///     Property manager key for NoteAcceptorErrorBillJam.
         /// </summary>
         public const string NoteAcceptorErrorBillJamText = "Application.NoteAcceptorErrorMessages.BillJamText";

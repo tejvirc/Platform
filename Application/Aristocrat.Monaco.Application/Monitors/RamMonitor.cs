@@ -135,7 +135,7 @@
             _disableManager.Disable(
                 StorageFaultGuid,
                 SystemDisablePriority.Immediate,
-                () => Localizer.DynamicCulture().GetString(ResourceKeys.IntegrityCheckFailed));
+                () => Localizer.ForLockup().GetString(ResourceKeys.IntegrityCheckFailed));
 
             PlayErrorSound();
         }
@@ -157,7 +157,7 @@
             _disableManager.Disable(
                 StorageFaultGuid,
                 SystemDisablePriority.Immediate,
-                () => Localizer.DynamicCulture().GetString(ResourceKeys.StorageFault));
+                () => Localizer.ForLockup().GetString(ResourceKeys.StorageFault));
 
             PlayErrorSound();
 
@@ -176,7 +176,7 @@
                     _disableManager.Disable(
                         ApplicationConstants.SecondaryStorageMediaNotConnectedKey,
                         SystemDisablePriority.Immediate,
-                        () => Localizer.DynamicCulture()
+                        () => Localizer.ForLockup()
                             .GetString(ResourceKeys.ErrorInfoSecondaryStorageMediaNotConnected));
                     PlayErrorSound();
 
@@ -189,7 +189,7 @@
                         _disableManager.Disable(
                             ApplicationConstants.SecondaryStorageMediaConnectedKey,
                             SystemDisablePriority.Immediate,
-                            () => Localizer.DynamicCulture()
+                            () => Localizer.ForLockup()
                                 .GetString(ResourceKeys.ErrorInfoSecondaryStorageMediaConnected));
                         PlayErrorSound();
                     }

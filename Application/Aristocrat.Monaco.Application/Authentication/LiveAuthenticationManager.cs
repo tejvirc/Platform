@@ -286,7 +286,7 @@ namespace Aristocrat.Monaco.Application.Authentication
             _disableManager.Disable(
                 DisableGuid,
                 SystemDisablePriority.Immediate,
-                () => Localizer.DynamicCulture().GetString(ResourceKeys.VerifyingSignaturesText));
+                () => Localizer.ForLockup().GetString(ResourceKeys.VerifyingSignaturesText));
 
             VerifySignatures();
 
@@ -323,7 +323,7 @@ namespace Aristocrat.Monaco.Application.Authentication
             if (disableManagerKeys.Count == 1 && disableManagerKeys.Contains(DisableGuid))
             {
                 _disableManager.Disable(DisableGuid, SystemDisablePriority.Immediate,
-                    () => Localizer.DynamicCulture().GetString(ResourceKeys.VerifyingSignaturesText));
+                    () => Localizer.ForLockup().GetString(ResourceKeys.VerifyingSignaturesText));
 
                 VerifySignatures();
             }
@@ -351,7 +351,7 @@ namespace Aristocrat.Monaco.Application.Authentication
             // Cancel the current verification task
             CancelTask();
 
-            var displayMessage = Localizer.DynamicCulture()
+            var displayMessage = Localizer.ForLockup()
                 .FormatString(ResourceKeys.VerificationFailedText, message);
 
             // Update the disable text with the error message
@@ -422,7 +422,7 @@ namespace Aristocrat.Monaco.Application.Authentication
             catch (Exception e)
             {
                 HandleLiveAuthenticationFailedEvent(this,
-                    Localizer.DynamicCulture().GetString(ResourceKeys.ManifestVerificationFailed));
+                    Localizer.ForLockup().GetString(ResourceKeys.ManifestVerificationFailed));
 
                 Logger.Error("Failed to read manifest", e);
             }

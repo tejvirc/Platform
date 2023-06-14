@@ -59,7 +59,7 @@
             _systemDisableManager = disableManager ?? throw new ArgumentNullException(nameof(disableManager));
         }
 
-        private string DisableMessage => Localizer.DynamicCulture().GetString(ResourceKeys.OperatorMenuActive);
+        private string DisableMessage => Localizer.ForLockup().GetString(ResourceKeys.OperatorMenuActive);
 
         /// <inheritdoc />
         public void Dispose()

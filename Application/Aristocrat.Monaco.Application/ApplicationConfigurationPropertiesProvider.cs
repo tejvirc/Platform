@@ -152,6 +152,13 @@
                         false)
                 },
                 {
+                    ApplicationConstants.LockupCulture,
+                    Tuple.Create(
+                        (object)configuration.GeneralMessages?.Lockup?.Culture ?? CultureFor.Operator,
+                        ApplicationConstants.LockupCulture,
+                        false)
+                },
+                {
                     ApplicationConstants.NoteAcceptorErrorBillJamText,
                     Tuple.Create(
                         (object)configuration.NoteAcceptorErrorMessages?.BillJam.Message,
