@@ -835,7 +835,7 @@
                             _disableManager.Disable(
                                 ApplicationConstants.BellyDoorDiscrepencyGuid,
                                 SystemDisablePriority.Immediate,
-                                () => Localizer.DynamicCulture().GetString(ResourceKeys.BellyDoorDiscrepancy));
+                                () => Localizer.ForLockup().GetString(ResourceKeys.BellyDoorDiscrepancy));
 
                             _eventBus.Publish(new BellyDoorDiscrepancyEvent());
                         }

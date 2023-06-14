@@ -186,7 +186,7 @@
                 _systemDisableManager.Disable(
                     ApplicationConstants.OperatorResetRequiredDisableKey,
                     priority,
-                    () => Localizer.DynamicCulture().GetString(ResourceKeys.OperatorResetRequiredMessage));
+                    () => Localizer.ForLockup().GetString(ResourceKeys.OperatorResetRequiredMessage));
                 _operatorResetLockupActive = true;
             }
         }

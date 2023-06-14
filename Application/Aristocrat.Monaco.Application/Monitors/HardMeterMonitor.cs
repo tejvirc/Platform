@@ -115,7 +115,7 @@
             _disableManager.Disable(
                 HardMeterDisabled,
                 SystemDisablePriority.Immediate,
-                () => Localizer.DynamicCulture().GetString(ResourceKeys.HardMeterDisabled));
+                () => Localizer.ForLockup().GetString(ResourceKeys.HardMeterDisabled));
         }
 
         private void EnableSystem()

@@ -1632,7 +1632,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             set => SetProperty(ref _disableCountdownTimeRemaining, value);
         }
 
-        public string DisableCountdownMessage => Localizer.DynamicCulture().GetString(ResourceKeys.DisableCountdownMessage);
+        public string DisableCountdownMessage => Localizer.ForLockup().GetString(ResourceKeys.DisableCountdownMessage);
 
         public bool IsPaidMeterVisible => PaidMeterValue != string.Empty;
 

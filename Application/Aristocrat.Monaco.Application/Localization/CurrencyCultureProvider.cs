@@ -223,7 +223,7 @@
                         _disableManager.Disable(
                             CurrencyIsoInvalidDisableKey,
                             SystemDisablePriority.Immediate,
-                            () => Localizer.DynamicCulture().FormatString(
+                            () => Localizer.ForLockup().FormatString(
                                 ResourceKeys.InvalidNoteAcceptorFirmware,
                                 foundCurrencySymbol));
                         return currencyCode;

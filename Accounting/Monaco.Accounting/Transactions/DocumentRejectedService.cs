@@ -229,7 +229,7 @@
             _systemDisableManager.Disable(
                 ApplicationConstants.ExcessiveDocumentRejectGuid,
                     SystemDisablePriority.Immediate,
-                    () => Localizer.DynamicCulture().GetString(ResourceKeys.ExcessiveDocumentRejectMessage));
+                    () => Localizer.ForLockup().GetString(ResourceKeys.ExcessiveDocumentRejectMessage));
             _properties.SetProperty(AccountingConstants.ExcessiveDocumentRejectLockupEnabled, true);
         }
 

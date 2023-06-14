@@ -975,7 +975,7 @@
                             _downloadDevice,
                             EgmState.EgmLocked,
                             false,
-                            () => Localizer.DynamicCulture().GetString(ResourceKeys.ApplyingScripts));
+                            () => Localizer.ForLockup().GetString(ResourceKeys.ApplyingScripts));
 
                         PostEvent(EventCode.G2S_DLE206, scriptEntity.ScriptId);
                         break;

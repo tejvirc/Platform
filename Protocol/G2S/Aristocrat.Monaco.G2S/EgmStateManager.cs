@@ -121,7 +121,7 @@
             if (string.IsNullOrEmpty(message?.Invoke()))
             {
                 message = () =>
-                    Localizer.DynamicCulture().FormatString(ResourceKeys.DisabledByDevice,
+                    Localizer.ForLockup().FormatString(ResourceKeys.DisabledByDevice,
                     device.DeviceClass,
                     device.Id);
             }

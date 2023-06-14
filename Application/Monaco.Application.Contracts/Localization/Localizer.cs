@@ -10,6 +10,8 @@
     {
         private static ILocalizerFactory _factory;
         private static IOperatorMenuLauncher _operatorMenu;
+        private static IPropertiesManager _properties;
+        private static string _lockupCulture;
 
         /// <summary>
         ///     Gets the provider.
@@ -38,6 +40,18 @@
                 _operatorMenu?.IsShowing ?? false
                     ? CultureFor.Operator
                     : CultureFor.Player);
+        }
+
+        /// <summary>
+        ///     Gets the localizer provider specified in the configuration for lockups
+        /// </summary>
+        /// <returns>The provider specified for lockups</returns>
+        public static ILocalizer ForLockup()
+        {
+            _properties ??= ServiceManager.GetInstance().GetService<IPropertiesManager>();
+            _lockupCulture ??= (string)_properties.GetProperty(ApplicationConstants.LockupCulture, CultureFor.Operator);
+
+            return For(_lockupCulture);
         }
     }
 }

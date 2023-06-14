@@ -86,24 +86,24 @@
         {
             if (_gatApplication == null)
             {
-                return Localizer.DynamicCulture().GetString(ResourceKeys.GatDisconnected);
+                return Localizer.ForLockup().GetString(ResourceKeys.GatDisconnected);
             }
 
             var statusMessage = _gatApplication.Connected ?
-                Localizer.DynamicCulture().GetString(ResourceKeys.GatConnected) :
-                Localizer.DynamicCulture().GetString(ResourceKeys.GatDisconnected);
+                Localizer.ForLockup().GetString(ResourceKeys.GatConnected) :
+                Localizer.ForLockup().GetString(ResourceKeys.GatDisconnected);
 
             switch (_gatApplication.CalculationStatus)
             {
                 case SerialGatCalculationStatus.Idle:
-                    statusMessage += Localizer.DynamicCulture().GetString(ResourceKeys.GatIdle);
+                    statusMessage += Localizer.ForLockup().GetString(ResourceKeys.GatIdle);
                     break;
                 case SerialGatCalculationStatus.AuthenticatingAll:
-                    statusMessage += Localizer.DynamicCulture().GetString(ResourceKeys.GatVerifyingAll);
+                    statusMessage += Localizer.ForLockup().GetString(ResourceKeys.GatVerifyingAll);
                     break;
                 case SerialGatCalculationStatus.AuthenticatingComponent:
                     statusMessage += string.Format(
-                        Localizer.DynamicCulture().GetString(ResourceKeys.GatVerifyingSingleTemplate),
+                        Localizer.ForLockup().GetString(ResourceKeys.GatVerifyingSingleTemplate),
                         _gatApplication.AuthenticatingComponentName);
                     break;
             }

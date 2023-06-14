@@ -283,7 +283,7 @@
 
         private string DisconnectedMessageCallback()
         {
-            return Localizer.DynamicCulture().GetString(ResourceKeys.NoteAcceptor_Disconnected);
+            return Localizer.ForLockup().GetString(ResourceKeys.NoteAcceptor_Disconnected);
         }
 
         private void CheckDeviceStatus()
@@ -464,7 +464,7 @@
             _disableManager.Disable(
                 NoteAcceptorDocumentCheckDisableKey,
                 SystemDisablePriority.Immediate,
-                () => Localizer.DynamicCulture().GetString(ResourceKeys.NoteAcceptorFaultTypes_DocumentCheck));
+                () => Localizer.ForLockup().GetString(ResourceKeys.NoteAcceptorFaultTypes_DocumentCheck));
         }
 
         private void ClearStackerDisconnected()

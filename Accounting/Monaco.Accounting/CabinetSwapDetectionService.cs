@@ -279,7 +279,7 @@ namespace Aristocrat.Monaco.Accounting
         {
             var divisor = (double)_properties.GetProperty("CurrencyMultiplier", 0d);
             return string.Format(
-                Localizer.DynamicCulture().GetString(ResourceKeys.BoardRemovalCashoutMessage)
+                Localizer.ForLockup().GetString(ResourceKeys.BoardRemovalCashoutMessage)
                     .Replace("\\r\\n", Environment.NewLine),
                 _bank.QueryBalance() / divisor);
         }
