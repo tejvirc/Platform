@@ -5972,10 +5972,6 @@ Do you really want to do partial reset?</value>
     <value>Save</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
-  <data name="SaveText2" xml:space="preserve">
-    <value>Save</value>
-    <comment>Aristocrat.Monaco.Gaming.UI - Changed from "SaveText"</comment>
-  </data>
   <data name="ScepManualPollingInterval_GreaterThanZero" xml:space="preserve">
     <value>The manual polling interval must be  a positive number less than 32,767.</value>
     <comment>Aristocrat.Monaco.G2S.UI</comment>
@@ -6564,7 +6560,7 @@ Do you really want to do partial reset?</value>
     <comment>Monaco.Accounting.Contracts</comment>
   </data>
   <data name="StatusHeader" xml:space="preserve">
-    <value>STATUS</value>
+    <value>Status</value>
     <comment>Monaco.Accounting.UI</comment>
   </data>
   <data name="StatusLabel" xml:space="preserve">
@@ -7347,14 +7343,6 @@ See manual for details</value>
   <data name="Version" xml:space="preserve">
     <value>Version</value>
     <comment>Monaco.Accounting.Contracts</comment>
-  </data>
-  <data name="Version2" xml:space="preserve">
-    <value>Version</value>
-    <comment>Aristocrat.Monaco.Application.UI - Changed from "Version"</comment>
-  </data>
-  <data name="Version3" xml:space="preserve">
-    <value>Version</value>
-    <comment>Aristocrat.Monaco.Gaming.UI - Changed from "Version"</comment>
   </data>
   <data name="VideoLotteryText" xml:space="preserve">
     <value>VIDEO LOTTERY</value>
@@ -12024,5 +12012,9 @@ Do you really want to do full reset?</value>
   <data name="PlatformMemoryLabel" xml:space="preserve">
     <value>Platform Memory</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="SelectDate" xml:space="preserve">
+    <value>Select Date</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
 </root>

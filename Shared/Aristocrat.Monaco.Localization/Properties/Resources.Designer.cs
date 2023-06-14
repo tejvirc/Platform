@@ -28157,18 +28157,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Save.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming.UI - Changed from "SaveText"
-        /// </remarks>
-		public static string SaveText2 {
-			get {
-				return ResourceManager.GetString("SaveText2", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
 		///   Looks up a localized string similar to Saving Changes, Please Wait..
 		/// </summary>
 		public static string SavingChanges {
@@ -28927,6 +28915,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string SelectAll {
 			get {
 				return ResourceManager.GetString("SelectAll", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Select Date.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string SelectDate {
+			get {
+				return ResourceManager.GetString("SelectDate", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -30503,7 +30503,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to STATUS.
+		///   Looks up a localized string similar to Status.
 		/// </summary>
         /// <remarks>
         /// Monaco.Accounting.UI
@@ -34357,30 +34357,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string Version {
 			get {
 				return ResourceManager.GetString("Version", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Version.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI - Changed from "Version"
-        /// </remarks>
-		public static string Version2 {
-			get {
-				return ResourceManager.GetString("Version2", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Version.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming.UI - Changed from "Version"
-        /// </remarks>
-		public static string Version3 {
-			get {
-				return ResourceManager.GetString("Version3", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -63751,18 +63727,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Save.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming.UI - Changed from "SaveText"
-        /// </remarks>
-		public static string SaveText2 {
-			get {
-				return "SaveText2";
-			}
-		}
-
-		/// <summary>
 		///		Looks up a localized string similar to Saving Changes, Please Wait..
 		/// </summary>
 		public static string SavingChanges {
@@ -64521,6 +64485,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string SelectAll {
 			get {
 				return "SelectAll";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Select Date.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string SelectDate {
+			get {
+				return "SelectDate";
 			}
 		}
 
@@ -66097,7 +66073,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to STATUS.
+		///		Looks up a localized string similar to Status.
 		/// </summary>
         /// <remarks>
         /// Monaco.Accounting.UI
@@ -69951,30 +69927,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string Version {
 			get {
 				return "Version";
-			}
-		}
-
-		/// <summary>
-		///		Looks up a localized string similar to Version.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI - Changed from "Version"
-        /// </remarks>
-		public static string Version2 {
-			get {
-				return "Version2";
-			}
-		}
-
-		/// <summary>
-		///		Looks up a localized string similar to Version.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming.UI - Changed from "Version"
-        /// </remarks>
-		public static string Version3 {
-			get {
-				return "Version3";
 			}
 		}
 
@@ -87302,13 +87254,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		SaveText,
 		/// <summary>
-		///   Looks up a localized string similar to Save.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming.UI - Changed from "SaveText"
-        /// </remarks>
-		SaveText2,
-		/// <summary>
 		///   Looks up a localized string similar to Saving Changes, Please Wait..
 		/// </summary>
 		SavingChanges,
@@ -87750,6 +87695,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		SelectAll,
+		/// <summary>
+		///   Looks up a localized string similar to Select Date.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		SelectDate,
 		/// <summary>
 		///   Looks up a localized string similar to Select the end date..
 		/// </summary>
@@ -88643,7 +88595,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		StatusGood,
 		/// <summary>
-		///   Looks up a localized string similar to STATUS.
+		///   Looks up a localized string similar to Status.
 		/// </summary>
         /// <remarks>
         /// Monaco.Accounting.UI
@@ -90855,20 +90807,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Monaco.Accounting.Contracts
         /// </remarks>
 		Version,
-		/// <summary>
-		///   Looks up a localized string similar to Version.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Application.UI - Changed from "Version"
-        /// </remarks>
-		Version2,
-		/// <summary>
-		///   Looks up a localized string similar to Version.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming.UI - Changed from "Version"
-        /// </remarks>
-		Version3,
 		/// <summary>
 		///   Looks up a localized string similar to Version.
 		/// </summary>

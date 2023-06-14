@@ -17,7 +17,8 @@
                                dialog:DialogParticipation.Register="{Binding}"
                                mc:Ignorable="d"
                                Background="Transparent"
-                               d:DataContext="{d:DesignInstance {x:Type viewModels:GamePerformanceViewModel}, IsDesignTimeCreatable=True}">
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:GamePerformanceViewModel}, IsDesignTimeCreatable=True}"
+                               loc:Localizer.For="Operator">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -268,6 +269,7 @@
             </i:Interaction.Triggers>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameNameText}}"
+                                    loc:Localizer.For="Operator"
                                     Width="160"
                                     Binding="{Binding ThemeId}"
                                     SortMemberPath="SortableGameName"
@@ -281,60 +283,72 @@
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.PaytableId}}"
+                                    loc:Localizer.For="Operator"
                                     MinWidth="80"
                                     Binding="{Binding PaytableId}"
                                     HeaderStyle="{StaticResource WrappedHeaderStyle}"
                                     AutomationProperties.AutomationId="DataGridTextColumn38_361E7832" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Denom}}"
+                                    loc:Localizer.For="Operator"
                                     Binding="{Binding Denomination, Converter={StaticResource CurrencyConverter}}"
                                     HeaderStyle="{StaticResource HeaderStyle}"
                                     AutomationProperties.AutomationId="DataGridTextColumn39_361E7832" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.AverageBet}}"
+                                    loc:Localizer.For="Operator"
                                     Binding="{Binding AverageBet, Converter={StaticResource CurrencyConverter}}"
                                     HeaderStyle="{StaticResource WrappedHeaderStyle}"
                                     AutomationProperties.AutomationId="DataGridTextColumn40_361E7832" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TheoreticalHold}}"
+                                    loc:Localizer.For="Operator"
                                     Binding="{Binding TheoreticalRtp, Converter={StaticResource RtpToHoldConverter}}"
                                     SortMemberPath="TheoreticalRtp.Item1"
                                     HeaderStyle="{StaticResource WrappedHeaderStyle}"
                                     Visibility="{Binding Path=Data.(viewModels:GamePerformanceViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}, Mode=OneWay}"
                                     AutomationProperties.AutomationId="DataGridTextColumn41_361E7832" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TheoreticalHoldMin}}"
+                                    loc:Localizer.For="Operator"
                                     Binding="{Binding TheoreticalRtp.Item2, Converter={StaticResource RtpToHoldConverter}}"
                                     SortMemberPath="TheoreticalRtp.Item2"
                                     HeaderStyle="{StaticResource WrappedHeaderStyle}"
                                     Visibility="{Binding Path=Data.(viewModels:GamePerformanceViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}, Mode=OneWay}"
                                     AutomationProperties.AutomationId="DataGridTextColumn42_361E7832" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TheoreticalHoldMax}}"
+                                    loc:Localizer.For="Operator"
                                     Binding="{Binding TheoreticalRtp.Item1, Converter={StaticResource RtpToHoldConverter}}"
                                     SortMemberPath="TheoreticalRtp.Item1"
                                     HeaderStyle="{StaticResource WrappedHeaderStyle}"
                                     Visibility="{Binding Path=Data.(viewModels:GamePerformanceViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}, Mode=OneWay}"
                                     AutomationProperties.AutomationId="DataGridTextColumn43_361E7832" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ActualHold}}"
+                                    loc:Localizer.For="Operator"
                                     Binding="{Binding ActualRtp, Converter={StaticResource RtpToHoldConverter}}"
                                     SortMemberPath="ActualHold"
                                     HeaderStyle="{StaticResource WrappedHeaderStyle}"
                                     AutomationProperties.AutomationId="DataGridTextColumn44_361E7832" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CoinInText}}"
+                                    loc:Localizer.For="Operator"
                                     MinWidth="80"
                                     Binding="{Binding AmountIn, Converter={StaticResource CurrencyConverter}}"
                                     HeaderStyle="{StaticResource WrappedHeaderStyle}"
                                     AutomationProperties.AutomationId="DataGridTextColumn45_361E7832" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CoinOutText}}"
+                                    loc:Localizer.For="Operator"
                                     MinWidth="80"
                                     Binding="{Binding AmountOut, Converter={StaticResource CurrencyConverter}}"
                                     HeaderStyle="{StaticResource WrappedHeaderStyle}"
                                     AutomationProperties.AutomationId="DataGridTextColumn46_361E7832" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.GamesPlayed}}"
+                                    loc:Localizer.For="Operator"
                                     Binding="{Binding GamesPlayed}"
                                     HeaderStyle="{StaticResource WrappedHeaderStyle}"
                                     AutomationProperties.AutomationId="DataGridTextColumn47_361E7832" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DaysActive}}"
+                                    loc:Localizer.For="Operator"
                                     Binding="{Binding DaysActive}"
                                     HeaderStyle="{StaticResource WrappedHeaderStyle}"
                                     AutomationProperties.AutomationId="DataGridTextColumn48_361E7832" />
                 <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.MoreMeters}}"
+                                        loc:Localizer.For="Operator"
                                         HeaderStyle="{StaticResource WrappedHeaderStyle}"
                                         CanUserSort="False"
                                         AutomationProperties.AutomationId="DataGridTemplateColumn49_361E7832">

@@ -1309,9 +1309,6 @@ La reproducción de {0} operaciones no es compatible</value>
   <data name="ReturnedText" xml:space="preserve">
     <value>Devuelto</value>
   </data>
-  <data name="SaveText" xml:space="preserve">
-    <value>???Save???</value>
-  </data>
   <data name="ScrollLabel" xml:space="preserve">
     <value>???Scroll :???</value>
   </data>
@@ -1432,10 +1429,7 @@ La reproducción de {0} operaciones no es compatible</value>
   <data name="StateLabel" xml:space="preserve">
     <value>Estado:</value>
   </data>
-  <data name="StatusHeader" xml:space="preserve">
-    <value>???STATUS???</value>
-  </data>
-  <data name="StatusLabel" xml:space="preserve">
+  <data name="Status" xml:space="preserve">
     <value>Estatus:</value>
   </data>
   <data name="StoppedRespondingText" xml:space="preserve">
@@ -1577,7 +1571,7 @@ La reproducción de {0} operaciones no es compatible</value>
   <data name="VariantVersionLabel" xml:space="preserve">
     <value>Variante Versión:</value>
   </data>
-  <data name="Version2" xml:space="preserve">
+  <data name="Version" xml:space="preserve">
     <value>Versión</value>
   </data>
   <data name="VideoLotteryText" xml:space="preserve">
