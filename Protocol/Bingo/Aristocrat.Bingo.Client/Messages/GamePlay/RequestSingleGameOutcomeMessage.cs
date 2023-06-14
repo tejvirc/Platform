@@ -16,6 +16,7 @@
         /// <param name="lines">The number of lines</param>
         /// <param name="ante">The ante bet</param>
         /// <param name="activeGameTitle">The active game title</param>
+        /// <param name="uniqueGameId">The unique game id/param>
         public RequestSingleGameOutcomeMessage(
             int gameIndex,
             long betAmount,
@@ -24,7 +25,8 @@
             int lineBet,
             int lines,
             long ante,
-            int activeGameTitle)
+            int activeGameTitle,
+            int uniqueGameId)
         {
             GameIndex = gameIndex;
             BetAmount = betAmount;
@@ -34,6 +36,7 @@
             Lines = lines;
             Ante = ante;
             ActiveGameTitle = activeGameTitle;
+            UniqueGameId = uniqueGameId;
         }
 
         /// <summary>
@@ -75,5 +78,10 @@
         ///     Gets the active game title
         /// </summary>
         public int ActiveGameTitle { get; }
+
+        /// <summary>
+        ///     Gets the unique game id
+        /// </summary>
+        public int UniqueGameId { get; }
     }
 }

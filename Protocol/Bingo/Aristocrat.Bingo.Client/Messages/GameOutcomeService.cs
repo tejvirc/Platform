@@ -21,6 +21,7 @@
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private const char BallCallDelimiter = ',';
+        private const uint ThemeId = 1U;
         private readonly IMessageHandlerFactory _messageHandlerFactory;
 
         public GameOutcomeService(
@@ -63,7 +64,7 @@
             return Task.FromResult(new ReportMultiGameOutcomeResponse(ResponseCode.Rejected));
         }
 
-        private static GameOutcomes ProcessAcceptedResponse(MultiGamePlayResponse gamePlayOutcome, MultiGamePlayRequest request)
+        private static GameOutcomes ProcessAcceptedResponse(MultiGamePlayResponse gamePlayOutcome, RequestMultipleGameOutcomeMessage request)
         {
             Logger.Debug("ProcessAcceptedResponses");
 
@@ -78,15 +79,16 @@
             var response = new List<GameOutcome>();
             foreach (var game in gamePlayOutcome.GamePlayResponses)
             {
-                AddResponseToOutcomes(game, ballCall, joinBallNumber, gameEndWinEligibility, response);
+                var uniqueGameId = request.GameRequests.First(x => x.GameIndex == game.GameNumber).UniqueGameId;
+                AddResponseToOutcomes(game, ballCall, joinBallNumber, gameEndWinEligibility, response, uniqueGameId);
             }
 
             return new GameOutcomes(ResponseCode.Ok, response);
         }
 
-        private static void AddResponseToOutcomes(SingleGamePlayResponse game, IReadOnlyCollection<int> ballCall, int joinBallNumber, int gameEndWinEligibility, ICollection<GameOutcome> outcomes)
+        private static void AddResponseToOutcomes(SingleGamePlayResponse game, IReadOnlyCollection<int> ballCall, int joinBallNumber, int gameEndWinEligibility, ICollection<GameOutcome> outcomes, int uniqueGameId)
         {
-            Logger.Debug($"Processing game play outcome for game: gameNumber={game.GameNumber} gameSerial={game.GameSerial} titleId={game.GameTitleId} totalWin={game.TotalWinAmount} denom={game.Denomination}");
+            Logger.Debug($"Processing game play outcome for game: gameNumber={game.GameNumber} gameSerial={game.GameSerial} titleId={game.GameTitleId} totalWin={game.TotalWinAmount} denom={game.Denomination} uniqueGameId={uniqueGameId}");
 
             var meta = game.GamePlayResponseMeta.Unpack<BingoSingleGamePlayResponseMeta>();
 
@@ -117,9 +119,6 @@
             Logger.Debug($"Outcome response GameNumber {game.GameNumber}: {cards.Count} cards, {ballCall} balls," +
                          $" {wins.Count} wins, Status={game.Status} StatusMessage={game.StatusMessage} ReportType={game.ReportType}");
 
-            // TODO there is no theme id available now
-            var themeId = 1U;
-
             var bingoDetails = new GameOutcomeBingoDetails(
                 gameEndWinEligibility,
                 cards,
@@ -129,7 +128,7 @@
             var gameDetails = new GameOutcomeGameDetails(
                 game.FacadeKey,
                 game.GameTitleId,
-                themeId,
+                ThemeId,
                 game.Denomination,
                 meta.Paytable,
                 game.GameSerial);
@@ -146,33 +145,32 @@
                 bingoDetails,
                 game.Status,
                 game.ReportType == SingleGamePlayResponse.Types.ReportType.End,
-                game.GameNumber, // TODO no access to GameId so using game number
+                uniqueGameId,
                 game.GameNumber));
         }
 
-        private static GameOutcomes ProcessRejectedResponse(MultiGamePlayResponse gamePlayOutcome, MultiGamePlayRequest request)
+        private static GameOutcomes ProcessRejectedResponse(MultiGamePlayResponse gamePlayOutcome, RequestMultipleGameOutcomeMessage request)
         {
             Logger.Debug("ProcessRejectedResponse");
 
             var response = new List<GameOutcome>();
             foreach (var game in gamePlayOutcome.GamePlayResponses)
             {
-                // TODO there is no theme id available now
-                var themeId = 1U;
-
                 var bingoDetails = new GameOutcomeBingoDetails(0, Array.Empty<CardPlayed>(), Array.Empty<int>(), 0);
 
                 var gameDetails = new GameOutcomeGameDetails(
                     game.FacadeKey,
                     game.GameTitleId,
-                    themeId,
+                    ThemeId,
                     game.Denomination,
                     string.Empty,
                     game.GameSerial);
 
                 var winDetails = new GameOutcomeWinDetails(0, string.Empty, Array.Empty<WinResult>());
+                var uniqueGameId = request.GameRequests.First(x => x.GameIndex == game.GameNumber).UniqueGameId;
                 Logger.Debug($"Outcome response GameNumber {game.GameNumber}: {bingoDetails.CardsPlayed.Count} cards, {bingoDetails.BallCall.Count} balls," +
-                             $" {winDetails.WinResults.Count} wins, Status={game.Status} StatusMessage={game.StatusMessage} ReportType={game.ReportType}");
+                             $" {winDetails.WinResults.Count} wins, Status={game.Status} StatusMessage={game.StatusMessage} ReportType={game.ReportType}" +
+                             $" UniqueGameId {uniqueGameId}");
 
                 response.Add(new GameOutcome(
                     ResponseCode.Rejected,
@@ -181,7 +179,7 @@
                     bingoDetails,
                     game.Status,
                     game.ReportType == SingleGamePlayResponse.Types.ReportType.End,
-                    0));  // TODO no access to GameId
+                    uniqueGameId));
 
                 Logger.Warn($"Outcome response GameNumber {game.GameNumber} rejected");
             }
@@ -218,7 +216,7 @@
             using var caller = Invoke((x, c) => x.RequestMultiGamePlay(requests, null, null, c), token);
             var responseStream = caller.ResponseStream;
             while (await responseStream.MoveNext(token).ConfigureAwait(false) &&
-                   await ReadMultiGameOutcome(responseStream.Current, requests, token).ConfigureAwait(false))
+                   await ReadMultiGameOutcome(responseStream.Current, message, token).ConfigureAwait(false))
             {
             }
 
@@ -249,9 +247,9 @@
             return result;
         }
 
-        private async Task<bool> ReadMultiGameOutcome(MultiGamePlayResponse gamePlayOutcome, MultiGamePlayRequest multiRequest, CancellationToken token)
+        private async Task<bool> ReadMultiGameOutcome(MultiGamePlayResponse gamePlayOutcome, RequestMultipleGameOutcomeMessage request, CancellationToken token)
         {
-            if (gamePlayOutcome.GamePlayResponses.Count != multiRequest.GamePlayRequests.Count)
+            if (gamePlayOutcome.GamePlayResponses.Count != request.GameRequests.Count())
             {
                 throw new ArgumentException("Game play responses do not match the number of game play requests");
             }
@@ -263,8 +261,8 @@
             // the same outcome.
             var responseStatus = gamePlayOutcome.GamePlayResponses.First().Status;
             var outcome = responseStatus
-                ? ProcessAcceptedResponse(gamePlayOutcome, multiRequest)
-                : ProcessRejectedResponse(gamePlayOutcome, multiRequest);
+                ? ProcessAcceptedResponse(gamePlayOutcome, request)
+                : ProcessRejectedResponse(gamePlayOutcome, request);
 
             var handlerResult = await _messageHandlerFactory
                 .Handle<GameOutcomeResponse, GameOutcomes>(outcome, token)

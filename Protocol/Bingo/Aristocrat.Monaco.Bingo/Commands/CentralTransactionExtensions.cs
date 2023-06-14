@@ -93,16 +93,17 @@
                 details.BetPerLine,
                 details.NumberLines,
                 details.Ante,
-                titleId);
+                titleId,
+                mainGameInfo.GameId);
 
             requests.Add(message);
 
             // create play requests for any additional games
             if (transaction.AdditionalInfo.Count() > 1 && subGameTitleId.HasValue)
             {
-                //Remove main game. TODO Remove this once we have real bet data for sub games
-                var subGames = transaction.AdditionalInfo.Where((x, i) => i > 0);
-                // create multi-game request
+                var subGames = transaction.AdditionalInfo.Where(x => x.GameIndex > 0);
+
+                // create multi-game requests
                 requests.AddRange(
                     subGames.Select(
                         game => new RequestSingleGameOutcomeMessage(
@@ -113,7 +114,8 @@
                             0,
                             1,
                             0,
-                            subGameTitleId.Value)));
+                            subGameTitleId.Value,
+                            game.GameId)));
             }
 
             return new RequestMultiPlayCommand(machineSerial, requests);
