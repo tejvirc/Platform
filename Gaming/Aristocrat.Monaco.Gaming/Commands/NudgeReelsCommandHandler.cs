@@ -47,7 +47,7 @@
 
             if (_animationCapabilities is not null)
             {
-                var result = _animationCapabilities.PrepareControllerNudgeReels(command.NudgeSpinData, default);
+                var result = _animationCapabilities.PrepareNudgeReels(command.NudgeSpinData);
                 command.Success = result.Result;
                 return;
             }

@@ -66,13 +66,13 @@
         /// <inheritdoc />
         public Task<bool> PrepareAnimation(ReelCurveData curveData, CancellationToken token = default)
         {
-            return _communicator.PrepareControllerAnimation(curveData, token);
+            return _communicator.PrepareAnimation(curveData, token);
         }
 
         /// <inheritdoc />
         public Task<bool> PrepareAnimations(IEnumerable<ReelCurveData> curveData, CancellationToken token = default)
         {
-            return _communicator.PrepareControllerAnimations(curveData, token);
+            return _communicator.PrepareAnimations(curveData, token);
         }
 
         /// <inheritdoc />
@@ -84,7 +84,7 @@
         /// <inheritdoc />
         public Task<bool> StopLightShowAnimations(IEnumerable<LightShowData> showData, CancellationToken token = default)
         {
-            return _communicator.StopControllerLightShowAnimations(showData, token);
+            return _communicator.StopLightShowAnimations(showData, token);
         }
 
         /// <inheritdoc />
@@ -94,9 +94,9 @@
         }
 
         /// <inheritdoc />
-        public Task<bool> StopAllAnimationTags(uint animationId, CancellationToken token = default)
+        public Task<bool> StopAllAnimationTags(string animationName, CancellationToken token = default)
         {
-            return _communicator.StopAllAnimationTags(animationId, token);
+            return _communicator.StopAllAnimationTags(animationName, token);
         }
 
         /// <inheritdoc />
@@ -108,7 +108,7 @@
         /// <inheritdoc />
         public Task<bool> PrepareNudgeReels(IEnumerable<NudgeReelData> nudgeData, CancellationToken token = default)
         {
-            return _communicator.PrepareControllerNudgeReels(nudgeData, token);
+            return _communicator.PrepareNudgeReels(nudgeData, token);
         }
     }
 }

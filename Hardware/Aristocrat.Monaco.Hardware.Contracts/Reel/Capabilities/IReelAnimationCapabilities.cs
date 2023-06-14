@@ -12,11 +12,6 @@
     [CLSCompliant(false)]
     public interface IReelAnimationCapabilities : IReelControllerCapability
     {
-        // TODO: Remove "Controller" from all the method names.T
-        // This was added to lower the % of duplicated lines SonarQube was seeing.T
-        //  This interface should match IAnimationImplementation
-        //  Once more code is added the % will be much lower.
-
         /// <summary>
         ///     Contains all the loaded animation files
         /// </summary>
@@ -56,14 +51,14 @@
         /// </summary>
         /// <param name="curveData">The reel curve data.</param>
         /// <param name="token">The cancellation token.</param>
-        Task<bool> PrepareControllerAnimation(ReelCurveData curveData, CancellationToken token = default);
+        Task<bool> PrepareAnimation(ReelCurveData curveData, CancellationToken token = default);
         
         /// <summary>
         ///     Instructs the controller to prepare curve animations.
         /// </summary>
         /// <param name="curveData">The reel curve data.</param>
         /// <param name="token">The cancellation token.</param>
-        Task<bool> PrepareControllerAnimations(IEnumerable<ReelCurveData> curveData, CancellationToken token = default);
+        Task<bool> PrepareAnimations(IEnumerable<ReelCurveData> curveData, CancellationToken token = default);
         
         /// <summary>
         ///     Instructs the controller to play all animations.
@@ -76,7 +71,7 @@
         /// </summary>
         /// <param name="showData">The light show data.</param>
         /// <param name="token">The cancellation token.</param>
-        Task<bool> StopControllerLightShowAnimations(IEnumerable<LightShowData> showData, CancellationToken token = default);
+        Task<bool> StopLightShowAnimations(IEnumerable<LightShowData> showData, CancellationToken token = default);
         
         /// <summary>
         ///     Instructs the controller to stop playing all light show animations.
@@ -87,9 +82,9 @@
         /// <summary>
         ///     Instructs the controller to stop playing all light show animations with a given tag.
         /// </summary>
-        /// <param name="animationId">The animation Identifier token.</param>
+        /// <param name="animationName">The animation name.</param>
         /// <param name="token">The cancellation token.</param>
-        Task<bool> StopAllAnimationTags(uint animationId, CancellationToken token = default);
+        Task<bool> StopAllAnimationTags(string animationName, CancellationToken token = default);
         
         /// <summary>
         ///     Instructs the controller to stop the reels.
@@ -103,6 +98,6 @@
         /// </summary>
         /// <param name="nudgeData">The reel nudge data.</param>
         /// <param name="token">The cancellation token.</param>
-        Task<bool> PrepareControllerNudgeReels(IEnumerable<NudgeReelData> nudgeData, CancellationToken token = default);
+        Task<bool> PrepareNudgeReels(IEnumerable<NudgeReelData> nudgeData, CancellationToken token = default);
     }
 }

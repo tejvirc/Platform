@@ -8,7 +8,9 @@
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.IO;
+    using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
     using Contracts.Reel.ControlData;
@@ -19,10 +21,9 @@
     /// </summary>
     public class RelmReelController : IReelControllerImplementation
     {
-        private const string SampleLightShowPath = @"ReelController\Relm\SampleShows\AllWhite5Reels.lightshow";
-        private const string SampleLightShowName = "SampleLightShow";
-        private const string SampleStepperCurvePath = @"ReelController\Relm\SampleCurves\ForwardSpinningShake.stepper";
-        private const string SampleStepperCurveName = "SampleStepperCurve";
+        private const string SampleAnimationsPath = @"ReelController\Relm\SampleAnimations";
+        private const string LightShowExtenstion = ".lightshow";
+        private const string StepperCurveExtenstion = ".stepper";
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
@@ -384,23 +385,33 @@
 
         private async Task LoadPlatformSampleShowsAndCurves()
         {
-            if (_communicator is null || !File.Exists(SampleLightShowPath) || !File.Exists(SampleStepperCurvePath))
+            if (_communicator is null || !Directory.Exists(SampleAnimationsPath))
             {
                 return;
             }
 
-            Logger.Debug("Loading platform sample shows");
+            var animationFiles = (from file in GetSampleAnimationFilePaths()
+                let extension = Path.GetExtension(file)
+                let type = extension == LightShowExtenstion
+                    ? AnimationType.PlatformLightShow
+                    : AnimationType.PlatformStepperCurve
+                select new AnimationFile(file, type)).ToList();
+
             await _communicator.RemoveAllControllerAnimations();
+            
+            Logger.Debug($"Loading {animationFiles.Count} platform sample animations");
+            if (animationFiles.Count > 0)
+            {
+                Logger.Debug($"Loading {animationFiles.Select(x => x.FriendlyName)} platform sample animations");
+                await _communicator.LoadAnimationFiles(animationFiles);
+            }
+        }
 
-            var animationFile = new AnimationFile(SampleLightShowPath, AnimationType.PlatformLightShow, SampleLightShowName);
-
-            await _communicator.LoadAnimationFile(animationFile);
-
-            Logger.Debug("Loading platform sample curves");
-
-            animationFile = new AnimationFile(SampleStepperCurvePath, AnimationType.PlatformStepperCurve, SampleStepperCurveName);
-
-            await _communicator.LoadAnimationFile(animationFile);
+        private IEnumerable<string> GetSampleAnimationFilePaths()
+        {
+            return Directory.EnumerateFiles(SampleAnimationsPath).Where(x =>
+                x.EndsWith(LightShowExtenstion, true, CultureInfo.InvariantCulture) ||
+                x.EndsWith(StepperCurveExtenstion, true, CultureInfo.InvariantCulture));
         }
     }
 }

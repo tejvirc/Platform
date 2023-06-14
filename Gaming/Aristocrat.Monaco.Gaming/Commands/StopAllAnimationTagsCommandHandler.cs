@@ -1,15 +1,17 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Commands
 {
-    using Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities;
     using Aristocrat.Monaco.Hardware.Contracts.Reel;
-    using Aristocrat.Monaco.Kernel;
-    using System.Linq;
+    using Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities;
+    using Kernel;
+    using System.Reflection;
+    using log4net;
 
     /// <summary>
     ///     Command handler for the <see cref="StopAllAnimationTags" /> command.
     /// </summary>
     public class StopAllAnimationTagsCommandHandler : ICommandHandler<StopAllAnimationTags>
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IReelAnimationCapabilities _animationCapabilities;
 
         public StopAllAnimationTagsCommandHandler()
@@ -25,19 +27,16 @@
         /// <inheritdoc />
         public void Handle(StopAllAnimationTags command)
         {
-            if (_animationCapabilities is null)
+            Logger.Debug("Handle StopAllAnimationTags command");
+
+            if (_animationCapabilities is not null)
             {
-                command.Success = false;
+                var result = _animationCapabilities.StopAllAnimationTags(command.AnimationName);
+                command.Success = result.Result;
                 return;
             }
 
-            var success = _animationCapabilities.StopAllAnimationTags(
-                _animationCapabilities.AnimationFiles
-                    .First( x => x .FriendlyName == command.AnimationName )
-                    .AnimationId
-                ).Result;
-
-            command.Success = success;
+            command.Success = false;
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Usb.ReelController.Relm
 {
-    using Aristocrat.Monaco.Hardware.Contracts.Reel;
     using Common;
     using Contracts.Communicator;
+    using Contracts.Reel;
     using Contracts.Reel.ControlData;
     using Contracts.Reel.Events;
     using Contracts.SharedDevice;
@@ -216,6 +216,7 @@
             var animationFiles = files as AnimationFile[] ?? files.ToArray();
             Logger.Debug($"Downloading {animationFiles.Length} Animation files");
 
+            var success = true;
             foreach (var file in animationFiles)
             {
                 if (_animationFiles.Contains(file))
@@ -224,17 +225,24 @@
                     continue;
                 }
 
-                Logger.Debug($"Downloading Animation file: {file.Path}");
+                try
+                {
+                    Logger.Debug($"Downloading Animation file: {file.Path}");
+                    var storedFile = await _relmCommunicator.Download(file.Path, BitmapVerification.CRC32, token);
 
-                var storedFile = await _relmCommunicator.Download(file.Path, BitmapVerification.CRC32, token);
-
-                file.AnimationId = storedFile.FileId;
-                _animationFiles.Add(file);
+                    file.AnimationId = storedFile.FileId;
+                    _animationFiles.Add(file);
+                }
+                catch (Exception e)
+                {
+                    success = false;
+                    Logger.Debug($"Error downloading {file}: {e}");
+                }
 
                 Logger.Debug($"Finished downloading animation file: [{file.Path}], Name: {file.FriendlyName}, AnimationId: {file.AnimationId}");
             }
 
-            return true;
+            return success;
         }
 
         /// <inheritdoc />
@@ -251,58 +259,81 @@
                 return false;
             }
 
-            foreach (var data in showData)
+            var success = true;
+            var command = new PrepareLightShowAnimations();
+
+            foreach (var show in showData)
             {
-                var animationData = new PrepareLightShowAnimationData
+                var animationId = GetAnimationId(show.AnimationName);
+                if (animationId == 0)
                 {
-                    AnimationId = data.Id,
-                    LoopCount = data.LoopCount,
-                    ReelIndex = data.ReelIndex,
-                    Tag = data.Tag.HashDjb2(),
-                    Step = data.Step
-                };
+                    Logger.Debug($"Can not find animation file with name {show.AnimationName}");
+                    success = false;
+                    continue;
+                }
 
-                var prepareCommand = new PrepareLightShowAnimations();
-                prepareCommand.Animations.Add(animationData);
-
-                Logger.Debug($"Preparing animation with id: {animationData.AnimationId}");
-                await _relmCommunicator.SendCommandAsync(prepareCommand, token);
+                command.Animations.Add(new PrepareLightShowAnimationData
+                {
+                    AnimationId = animationId,
+                    LoopCount = show.LoopCount,
+                    ReelIndex = show.ReelIndex,
+                    Tag = show.Tag.HashDjb2(),
+                    Step = show.Step
+                });
             }
 
-            return true;
+            if (command.Animations.Count == 0)
+            {
+                return success;
+            }
+            
+            Logger.Debug($"Preparing {command.Animations.Count} light shows");
+            var result = await _relmCommunicator.SendCommandAsync(command, token);
+            return result && success;
         }
 
         /// <inheritdoc />
-        public async Task<bool> PrepareControllerAnimation(ReelCurveData curveData, CancellationToken token = default)
+        public async Task<bool> PrepareAnimation(ReelCurveData curveData, CancellationToken token = default)
         {
-            return await PrepareControllerAnimations(new[] { curveData }, token);
+            return await PrepareAnimations(new[] { curveData }, token);
         }
 
         /// <inheritdoc />
-        public async Task<bool> PrepareControllerAnimations(IEnumerable<ReelCurveData> curveData, CancellationToken token = default)
+        public async Task<bool> PrepareAnimations(IEnumerable<ReelCurveData> curveData, CancellationToken token = default)
         {
             if (_relmCommunicator is null)
             {
                 return false;
             }
+            
+            var success = true;
+            var command = new PrepareStepperCurves();
 
-            var prepareCommand = new PrepareStepperCurves();
-
-            foreach (var data in curveData)
+            foreach (var curve in curveData)
             {
-                var animationData = new PrepareStepperCurveData
+                var animationId = GetAnimationId(curve.AnimationName);
+                if (animationId == 0)
                 {
-                    AnimationId = AnimationFiles.First(x => x.FriendlyName == data.AnimationName).AnimationId,
-                    ReelIndex = data.ReelIndex
-                };
+                    Logger.Debug($"Can not find animation file with name {curve.AnimationName}");
+                    success = false;
+                    continue;
+                }
 
-                Logger.Debug($"Preparing animation with id: {animationData.AnimationId}");
-                prepareCommand.Animations.Add(animationData);
+                command.Animations.Add(new PrepareStepperCurveData
+                {
+                    AnimationId = animationId,
+                    ReelIndex = curve.ReelIndex
+                });
             }
 
-            await _relmCommunicator.SendCommandAsync(prepareCommand, token);
+            if (command.Animations.Count == 0)
+            {
+                return success;
+            }
 
-            return true;
+            Logger.Debug($"Preparing {command.Animations.Count} curves");
+            var result = await _relmCommunicator.SendCommandAsync(command, token);
+            return success && result;
         }
 
         /// <inheritdoc />
@@ -313,12 +344,8 @@
                 return false;
             }
 
-            StartAnimations startCommand = new StartAnimations();
-
-            Logger.Debug($"Playing prepared animations");
-            await _relmCommunicator.SendCommandAsync(startCommand, token);
-
-            return true;
+            Logger.Debug("Playing prepared animations");
+            return await _relmCommunicator.SendCommandAsync(new StartAnimations(), token);
         }
 
         /// <inheritdoc />
@@ -335,25 +362,29 @@
         }
 
         /// <inheritdoc />
-        public async Task<bool> StopAllAnimationTags(uint animationIdentifier, CancellationToken token = default)
+        public async Task<bool> StopAllAnimationTags(string animationName, CancellationToken token = default)
         {
             if (_relmCommunicator is null)
             {
                 return false;
             }
 
-            Logger.Debug($"Stopping all animations with identifier: {animationIdentifier}");
-
-            await _relmCommunicator.SendCommandAsync(new StopAllAnimationTags
+            var animationId = GetAnimationId(animationName);
+            if (animationId == 0)
             {
-                AnimationId = animationIdentifier,
-            }, token);
+                Logger.Debug($"Can not find animation file with name {animationName}");
+                return false;
+            }
 
-            return true;
+            Logger.Debug($"Stopping all animations for {animationName} ({animationId})");
+            return await _relmCommunicator.SendCommandAsync(new StopAllAnimationTags
+            {
+                AnimationId = animationId,
+            }, token);
         }
 
         /// <inheritdoc />
-        public Task<bool> StopControllerLightShowAnimations(IEnumerable<LightShowData> showData, CancellationToken token = default)
+        public Task<bool> StopLightShowAnimations(IEnumerable<LightShowData> showData, CancellationToken token = default)
         {
             // TODO: Implement stop light show animations in driver and wire up here
             throw new NotImplementedException();
@@ -376,21 +407,21 @@
                     break;
                 }
 
-                var cmd = new PrepareStopReel()
+                var command = new PrepareStopReel
                 {
                     ReelIndex = data.ReelIndex,
                     Duration = data.Duration,
                     Step = data.Step
                 };
 
-                _relmCommunicator.SendCommandAsync(cmd, token);
+                _relmCommunicator.SendCommandAsync(command, token);
             }
 
             return Task.FromResult(true);
         }
 
         /// <inheritdoc />
-        public async Task<bool> PrepareControllerNudgeReels(IEnumerable<NudgeReelData> nudgeData, CancellationToken token = default)
+        public async Task<bool> PrepareNudgeReels(IEnumerable<NudgeReelData> nudgeData, CancellationToken token = default)
         {
             if (_relmCommunicator is null)
             {
@@ -556,6 +587,11 @@
                 ReelId = deviceReelStatus.Id + 1,
                 Connected = deviceReelStatus.Status != RelmReelStatus.Disconnected
             };
+        }
+
+        private uint GetAnimationId(string animationName)
+        {
+            return AnimationFiles.FirstOrDefault(x => x.FriendlyName == animationName)?.AnimationId ?? 0;
         }
     }
 }

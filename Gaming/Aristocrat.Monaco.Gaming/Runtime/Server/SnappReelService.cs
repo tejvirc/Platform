@@ -1,16 +1,15 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Runtime.Server
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Reflection;
-    using GdkRuntime.V1;
-    using Commands;
-    using log4net;
-    using NudgeReelData = Hardware.Contracts.Reel.ControlData.NudgeReelData;
-    using ReelSpinData = Hardware.Contracts.Reel.ControlData.ReelSpinData;
-    using ReelSpeedData = Hardware.Contracts.Reel.ControlData.ReelSpeedData;
-    using SpinDirection = Hardware.Contracts.Reel.SpinDirection;
     using Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData;
+    using Commands;
+    using GdkRuntime.V1;
+    using log4net;
+    using System;
+    using System.Reflection;
+    using NudgeReelData = Hardware.Contracts.Reel.ControlData.NudgeReelData;
+    using ReelSpeedData = Hardware.Contracts.Reel.ControlData.ReelSpeedData;
+    using ReelSpinData = Hardware.Contracts.Reel.ControlData.ReelSpinData;
+    using SpinDirection = Hardware.Contracts.Reel.SpinDirection;
 
     public class SnappReelService : IReelServiceCallback
     {
@@ -24,7 +23,7 @@
 
         public override ConnectedReelsResponse GetConnectedReels(ConnectedReelsRequest request)
         {
-            Logger.Debug($"GetConnectedReels");
+            Logger.Debug("GetConnectedReels");
 
             var command = new ConnectedReels();
             _handlerFactory.Create<ConnectedReels>()
@@ -37,7 +36,7 @@
 
         public override GetReelsStateResponse GetReelsState(GetReelsStateRequest request)
         {
-            Logger.Debug($"GetReelsState");
+            Logger.Debug("GetReelsState");
 
             var command = new GetReelState();
             _handlerFactory.Create<GetReelState>()
@@ -54,7 +53,7 @@
 
         public override NudgeReelsResponse NudgeReels(NudgeReelsRequest request)
         {
-            Logger.Debug($"NudgeReels");
+            Logger.Debug("NudgeReels");
 
             var nudgeSpinData = new NudgeReelData[request.NudgeData.Count];
             for (var i = 0; i < request.NudgeData.Count; ++i)
@@ -78,7 +77,7 @@
 
         public override SpinReelsResponse SpinReels(SpinReelsRequest request)
         {
-            Logger.Debug($"SpinReels");
+            Logger.Debug("SpinReels");
 
             var spinData = new ReelSpinData[request.SpinData.Count];
             for (var i = 0; i < request.SpinData.Count; ++i)
@@ -92,8 +91,8 @@
             }
 
             var command = new SpinReels(spinData);
-                _handlerFactory.Create<SpinReels>()
-                    .Handle(command);
+            _handlerFactory.Create<SpinReels>()
+                .Handle(command);
 
             Logger.Debug($"SpinReels with request: {request} Result: {command.Success}");
 
@@ -102,7 +101,7 @@
 
         public override UpdateReelsSpeedResponse UpdateReelsSpeed(UpdateReelsSpeedRequest request)
         {
-            Logger.Debug($"UpdateReelsSpeed");
+            Logger.Debug("UpdateReelsSpeed");
 
             var speedData = new ReelSpeedData[request.SpeedData.Count];
             for (var i = 0; i < request.SpeedData.Count; ++i)
@@ -128,21 +127,20 @@
 
         public override MessageResponse PrepareStepperCurves(PrepareStepperCurvesRequest request)
         {
-            Logger.Debug($"PrepareStepperCurves");
+            Logger.Debug("PrepareStepperCurves");
 
-            var curveData = new List<ReelCurveData>();
+            var curveData = new ReelCurveData[request.StepperData.Count];
 
-            foreach (var data in request.StepperData)
+            for (var i = 0; i < request.StepperData.Count; ++i)
             {
-                curveData.Add(new ReelCurveData
-                {
-                    AnimationName = data.AnimationName,
-                    ReelIndex = (byte)data.ReelIndex
-                });
+                curveData[i] = new ReelCurveData(
+                    (byte)request.StepperData[i].ReelIndex,
+                    request.StepperData[i].AnimationName);
             }
-            var command = new PrepareStepperCurves { StepperCurvesData = curveData};
 
-            _handlerFactory.Create<PrepareStepperCurves>().Handle(command);
+            var command = new PrepareStepperCurves(curveData);
+            _handlerFactory.Create<PrepareStepperCurves>()
+                .Handle(command);
 
             return new MessageResponse { Result = command.Success };
         }
@@ -164,11 +162,11 @@
 
         public override MessageResponse StopAllAnimationTags(StopAllAnimationTagsRequest request)
         {
-            Logger.Debug($"StopAllAnimationTags");
+            Logger.Debug("StopAllAnimationTags");
 
-            var command = new StopAllAnimationTags { AnimationName = request.AnimationName };
-
-            _handlerFactory.Create<StopAllAnimationTags>().Handle(command);
+            var command = new StopAllAnimationTags(request.AnimationName);
+            _handlerFactory.Create<StopAllAnimationTags>()
+                .Handle(command);
 
             return new MessageResponse { Result = command.Success };
         }

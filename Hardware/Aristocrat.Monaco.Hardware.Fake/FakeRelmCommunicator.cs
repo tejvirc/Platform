@@ -300,13 +300,13 @@
         }
 
         /// <inheritdoc/>
-        public Task<bool> PrepareControllerAnimation(ReelCurveData file, CancellationToken token)
+        public Task<bool> PrepareAnimation(ReelCurveData file, CancellationToken token)
         {
             throw new NotImplementedException();
         }
 
         /// <inheritdoc/>
-        public Task<bool> PrepareControllerAnimations(IEnumerable<ReelCurveData> files, CancellationToken token)
+        public Task<bool> PrepareAnimations(IEnumerable<ReelCurveData> files, CancellationToken token)
         {
             throw new NotImplementedException();
         }
@@ -326,7 +326,7 @@
         }
 
         /// <inheritdoc/>
-        public Task<bool> StopControllerLightShowAnimations(IEnumerable<LightShowData> data, CancellationToken token)
+        public Task<bool> StopLightShowAnimations(IEnumerable<LightShowData> data, CancellationToken token)
         {
             throw new NotImplementedException();
         }
@@ -338,7 +338,7 @@
         }
 
         /// <inheritdoc/>
-        public Task<bool> StopAllAnimationTags(uint animationId, CancellationToken token)
+        public Task<bool> StopAllAnimationTags(string animationName, CancellationToken token)
         {
             throw new NotImplementedException();
         }
@@ -350,7 +350,7 @@
         }
 
         /// <inheritdoc/>
-        public Task<bool> PrepareControllerNudgeReels(IEnumerable<NudgeReelData> nudgeData, CancellationToken token)
+        public Task<bool> PrepareNudgeReels(IEnumerable<NudgeReelData> nudgeData, CancellationToken token)
         {
             if (ReelSimWindow == null)
             {

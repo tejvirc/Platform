@@ -915,7 +915,7 @@
                     Step = -1,
                     LoopCount = -1,
                     ReelIndex = -1,
-                    Id = _animationCapabilities.AnimationFiles.FirstOrDefault(x => x.FriendlyName == SampleLightShowName)?.AnimationId ?? 0
+                    AnimationName = SampleLightShowName
                 };
 
                 await _animationCapabilities.StopAllLightShows();

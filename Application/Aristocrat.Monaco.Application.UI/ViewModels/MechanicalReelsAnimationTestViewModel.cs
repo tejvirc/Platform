@@ -59,7 +59,7 @@
 
         private async Task ReelNudgeTest()
         {
-            await _animationCapabilities.PrepareControllerNudgeReels(new NudgeReelData[]
+            await _animationCapabilities.PrepareNudgeReels(new NudgeReelData[]
             {
                 new ( 0, SpinDirection.Forward, 4, 20),
                 new ( 1, SpinDirection.Forward, 4, 20),
@@ -72,13 +72,9 @@
 
         private async Task StepperCurveTest()
         {
-            var stepperCurveData = new ReelCurveData()
-            {
-                AnimationName = stepperCurveName,
-                ReelIndex = 0
-            };
+            var stepperCurveData = new ReelCurveData(0, stepperCurveName);
 
-            await _animationCapabilities.PrepareControllerAnimation(stepperCurveData, default);
+            await _animationCapabilities.PrepareAnimation(stepperCurveData, default);
 
             await _animationCapabilities.PlayAnimations();
         }
