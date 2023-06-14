@@ -3935,6 +3935,33 @@ Do you really want to do partial reset????</value>
   <data name="DateAndTimeHeader" xml:space="preserve">
     <value>??Date and Time??</value>
   </data>
+  <data name="ClrMemoryLabel" xml:space="preserve">
+    <value>???CLR Memory???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="FreeMemoryLabel" xml:space="preserve">
+    <value>???Free Memory???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="GeneralInformationPageTitle" xml:space="preserve">
+    <value>???General Information???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="HostConfigurationPageTitle" xml:space="preserve">
+    <value>???G2S Hosts???</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="MegabytesAbbr" xml:space="preserve">
+    <value>??MB??</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="PlatformMemoryLabel" xml:space="preserve">
+    <value>???Platform Memory???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>???State???</value>
+    <comment>Monaco.Accounting.UI</comment>
   <data name="TimeZoneOffsetLabel" xml:space="preserve">
     <value>??Time Zone Offset??</value>
   </data>
