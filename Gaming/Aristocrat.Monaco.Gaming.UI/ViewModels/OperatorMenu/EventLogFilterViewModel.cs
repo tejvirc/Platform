@@ -425,6 +425,10 @@
                     eventFilter.DisplayText = newDisplayText;
                 }
             }
+
+            SetupTiltLogAppendedTilt(false);
+            ReloadEventHistory();
+            SetupTiltLogAppendedTilt(true);
         }
 
         protected override void OnUnloaded()
