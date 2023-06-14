@@ -222,6 +222,7 @@
             _eventBus.Subscribe<SystemDisableAddedEvent>(this, HandleDisable);
             _eventBus.Subscribe<SystemDisableRemovedEvent>(this, HandleEnable);
             _eventBus.Subscribe<SystemEnabledEvent>(this, _ => HandleEnabled());
+            _eventBus.Subscribe<GamePlayStateInitializedEvent>(this, HandleInitialized);
 
             Enabled = !_systemDisableManager.DisableImmediately;
 
@@ -512,6 +513,14 @@
             if (_systemDisableManager.DisableImmediately && !_gameHistory.IsDiagnosticsActive)
             {
                 HandleDisabled();
+            }
+        }
+
+        private void HandleInitialized(GamePlayStateInitializedEvent @event)
+        {
+            if (!_gameHistory.IsRecoveryNeeded && CurrentState == PlayState.Idle)
+            {
+                _handlerFactory.Create<CheckBalance>().Handle(new CheckBalance());
             }
         }
 
