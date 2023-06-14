@@ -272,9 +272,7 @@
         {
             lock (_voucherLock)
             {
-                var culture = UseOperatorCultureForCurrencyFormatting ?
-                    Localizer.For(CultureFor.Operator).CurrentCulture :
-                    CurrencyExtensions.CurrencyCultureInfo;
+                var culture = GetCurrencyDisplayCulture();
 
                 VoucherInTotalCount = ShowLifetime ? _voucherInCountMeter.Lifetime : _voucherInCountMeter.Period;
                 VoucherInTotalValue = (ShowLifetime ?

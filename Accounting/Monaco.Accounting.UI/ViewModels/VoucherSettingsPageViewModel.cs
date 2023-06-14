@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using Application.Contracts;
     using Application.Contracts.Extensions;
@@ -103,6 +104,8 @@
                 RaisePropertyChanged(nameof(VoucherInLimitCheckboxEnabled));
             }
         }
+
+        public CultureInfo CurrencyDisplayCulture => GetCurrencyDisplayCulture();
 
         public bool VoucherInLimitEnabledChecked
         {
@@ -473,6 +476,18 @@
             PrinterEnabled = PropertiesManager.GetValue(ApplicationConstants.PrinterEnabled, false);
 
             EventBus?.Subscribe<PropertyChangedEvent>(this, HandleEvent);
+            EventBus?.Subscribe<OperatorCultureChangedEvent>(this, OnOperatorCultureChangedEvent);
+        }
+
+        private void OnOperatorCultureChangedEvent(OperatorCultureChangedEvent obj)
+        {
+            if (UseOperatorCultureForCurrencyFormatting)
+            {
+                RaisePropertyChanged(nameof(CurrencyDisplayCulture));
+            }
+
+            RaisePropertyChanged(nameof(VoucherInLimit));
+            RaisePropertyChanged(nameof(VoucherOutLimit));
         }
 
         protected override void OnUnloaded()

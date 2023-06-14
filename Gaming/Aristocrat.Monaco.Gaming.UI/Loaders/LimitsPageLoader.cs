@@ -9,7 +9,7 @@
 
     public class LimitsPageLoader : OperatorMenuPageLoader
     {
-        public override string PageName => Localizer.For(CultureFor.Player).GetString(ResourceKeys.LimitPageTitleText);
+        public override string PageName => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LimitPageTitleText);
 
         // ReSharper disable once UnusedMember.Global - used by addins
         public LimitsPageLoader() : this(false) { }

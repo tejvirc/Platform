@@ -11,6 +11,7 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
+    using Aristocrat.Monaco.Application.Contracts.Extensions;
     using Aristocrat.Monaco.Application.Contracts.Tickets;
     using ConfigWizard;
     using Contracts;
@@ -67,6 +68,7 @@
         private IPropertiesManager _properties;
         private IOperatorMenuConfiguration _configuration;
         protected IOperatorMenuAccess Access;
+        protected bool UseOperatorCultureForCurrencyFormatting;
 
         private int _firstVisibleElement = -1;
         private bool _initialized;
@@ -107,6 +109,7 @@
             EventViewerScrolledCommand = new ActionCommand<ScrollChangedEventArgs>(OnEventViewerScrolledCommand);
             ShowInfoPopupCommand = new ActionCommand<object>(ShowInfoPopup);
             DefaultPrintButtonEnabled = defaultPrintButtonEnabled;
+            UseOperatorCultureForCurrencyFormatting = Configuration?.GetSetting(OperatorMenuSetting.UseOperatorCultureForCurrencyFormatting, false) ?? false;
             SetIgnoreProperties();
         }
 
@@ -480,6 +483,8 @@
             // no implementation for base class; this will print nothing
             return new List<Ticket>();
         }
+
+        protected virtual CultureInfo GetCurrencyDisplayCulture() => UseOperatorCultureForCurrencyFormatting ? Localizer.For(CultureFor.Operator).CurrentCulture : CurrencyExtensions.CurrencyCultureInfo;
 
         protected static IEnumerable<Ticket> GeneratePrintVerificationTickets()
         {

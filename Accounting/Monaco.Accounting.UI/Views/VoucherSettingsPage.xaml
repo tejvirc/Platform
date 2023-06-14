@@ -153,6 +153,7 @@
                                              IsReadOnly="False"
                                              PreventNegatives="True"
                                              InputScope="Number"
+                                             Culture="{Binding CurrencyDisplayCulture, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                              Number="{Binding VoucherInLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                                              Visibility="{Binding VoucherInLimitEnabledChecked, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}">
                         <helpers:CurrencyTextBox.IsEnabled>
@@ -251,6 +252,7 @@
                                              PreventNegatives="True"
                                              InputScope="Number"
                                              Number="{Binding VoucherOutLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                             Culture="{Binding CurrencyDisplayCulture, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                              Visibility="{Binding VoucherOutLimitEnabledChecked, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}">
                         <helpers:CurrencyTextBox.IsEnabled>
                             <MultiBinding Converter="{StaticResource BoolAndConverter}">

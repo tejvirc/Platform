@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using Accounting.Contracts;
     using Accounting.Contracts.Handpay;
     using Application.Contracts;
@@ -135,6 +136,9 @@
                 RaisePropertyChanged(nameof(PageEnabled));
             }
         }
+
+        public CultureInfo CurrencyDisplayCulture => GetCurrencyDisplayCulture();
+
 
         public decimal CreditLimit
         {
@@ -584,8 +588,19 @@
             MaxBetLimitIsChecked = MaxBetLimit < long.MaxValue.MillicentsToDollars();
 
             EventBus?.Subscribe<PropertyChangedEvent>(this, HandleEvent);
+            EventBus?.Subscribe<OperatorCultureChangedEvent>(this, HandleEvent);
 
             CheckNavigation();
+        }
+
+        private void HandleEvent(OperatorCultureChangedEvent evt)
+        {
+            if (UseOperatorCultureForCurrencyFormatting)
+            {
+                RaisePropertyChanged(nameof(CurrencyDisplayCulture));
+            }
+            
+            UpdateLimits();
         }
 
         protected override void LoadAutoConfiguration()

@@ -33,8 +33,6 @@
         // DisplayMeter.Order values over 100 will display in the 2nd column of the view
         protected const int LeftColumnMaximumMeterOrder = 100;
 
-        protected readonly bool UseOperatorCultureForCurrencyFormatting;
-
         private const string MetersExtensionPath = "/Application/OperatorMenu/DisplayMeters";
         private readonly MeterNodePage? _meterNodePage;
         private bool _showLifetime = true;
@@ -49,7 +47,6 @@
             : base(!disablePrintButton)
         {
             _meterNodePage = meterNodePage;
-            UseOperatorCultureForCurrencyFormatting = Configuration.GetSetting(OperatorMenuSetting.UseOperatorCultureForCurrencyFormatting, false);
             LoadMetersToDisplay();
         }
 
