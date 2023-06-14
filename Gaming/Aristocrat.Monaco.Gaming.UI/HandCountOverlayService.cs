@@ -76,6 +76,12 @@
             _eventBus.Subscribe<HandCountResetTimerCancelledEvent>(this, HandleEvent);
             _eventBus.Subscribe<CashoutAmountPlayerConfirmationRequestedEvent>(this, Handle);
             _eventBus.Subscribe<CashoutAmountPlayerConfirmationReceivedEvent>(this, Handle);
+            _eventBus.Subscribe<CashoutCancelledEvent>(this, Handle);
+        }
+
+        private void Handle(CashoutCancelledEvent evt)
+        {
+            _eventBus.Publish(new ViewInjectionEvent(_cashoutDialog, DisplayRole.Main, ViewInjectionEvent.ViewAction.Remove));
         }
 
         private void Handle(CashoutAmountPlayerConfirmationReceivedEvent evt)

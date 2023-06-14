@@ -30,7 +30,7 @@
         private readonly long _cashOutAmountPerHand;
         private readonly IPropertiesManager _properties;
         private bool isCashOut { get; set; }
-        private AutoResetEvent autoResetEvent = new AutoResetEvent(false);
+        private AutoResetEvent cashoutConfirmationEvent = new AutoResetEvent(false);
 
         private bool _disposed;
 
@@ -71,12 +71,23 @@
             _properties = properties
                  ?? throw new ArgumentNullException(nameof(properties));
             _eventBus.Subscribe<CashoutAmountPlayerConfirmationReceivedEvent>(this, Handle);
+            _eventBus.Subscribe<SystemDisableAddedEvent>(this, Handle);
+        }
+
+        private void Handle(SystemDisableAddedEvent evt)
+        {
+            if ((evt.DisableId != ApplicationConstants.PrintingTicketDisableKey) &&
+                (evt.DisableId != ApplicationConstants.LiveAuthenticationDisableKey))
+            {
+                cashoutConfirmationEvent.Set();
+                _eventBus.Publish(new CashoutCancelledEvent());
+            }
         }
 
         private void Handle(CashoutAmountPlayerConfirmationReceivedEvent evt)
         {
             isCashOut = evt.IsCashout;
-            autoResetEvent.Set();
+            cashoutConfirmationEvent.Set();
         }
 
         /// <inheritdoc />
@@ -107,16 +118,18 @@
             if (handCountAmount < ((long)amount.MillicentsToDollars()).DollarsToMillicents())
             {
                 _eventBus.Publish(new CashoutAmountPlayerConfirmationRequestedEvent());
-                autoResetEvent.WaitOne();
+                cashoutConfirmationEvent.WaitOne();
                 if (isCashOut)
                 {
                     handCountAmount = ((long)handCountAmount.MillicentsToDollars()).DollarsToMillicents();
                     CheckLargePayoutAsync(handCountAmount).Wait();
+                    isCashOut = false;
                     return handCountAmount;
                 }
                 return 0;
             }
             CheckLargePayoutAsync(amountCashable).Wait();
+            isCashOut = false;
             return amountCashable;
         }
 
@@ -190,7 +203,7 @@
             {
                 if (disposing)
                 {
-                    autoResetEvent.Close();
+                    cashoutConfirmationEvent.Close();
                     _eventBus.UnsubscribeAll(this);
                 }
 
