@@ -5594,6 +5594,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to CLR Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string ClrMemoryLabel {
+			get {
+				return ResourceManager.GetString("ClrMemoryLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Coin Drop (Cash Box).
 		/// </summary>
         /// <remarks>
@@ -12361,6 +12373,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string FpgaVersion {
 			get {
 				return ResourceManager.GetString("FpgaVersion", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Free Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FreeMemoryLabel {
+			get {
+				return ResourceManager.GetString("FreeMemoryLabel", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -20621,6 +20645,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to MB.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MegabytesAbbr {
+			get {
+				return ResourceManager.GetString("MegabytesAbbr", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to PAY BY HAND.
 		/// </summary>
         /// <remarks>
@@ -24205,6 +24241,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string PlatformIdText {
 			get {
 				return ResourceManager.GetString("PlatformIdText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Platform Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string PlatformMemoryLabel {
+			get {
+				return ResourceManager.GetString("PlatformMemoryLabel", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -41164,6 +41212,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to CLR Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string ClrMemoryLabel {
+			get {
+				return "ClrMemoryLabel";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Coin Drop (Cash Box).
 		/// </summary>
         /// <remarks>
@@ -47931,6 +47991,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string FpgaVersion {
 			get {
 				return "FpgaVersion";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Free Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FreeMemoryLabel {
+			get {
+				return "FreeMemoryLabel";
 			}
 		}
 
@@ -56191,6 +56263,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to MB.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MegabytesAbbr {
+			get {
+				return "MegabytesAbbr";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to PAY BY HAND.
 		/// </summary>
         /// <remarks>
@@ -59775,6 +59859,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string PlatformIdText {
 			get {
 				return "PlatformIdText";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Platform Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string PlatformMemoryLabel {
+			get {
+				return "PlatformMemoryLabel";
 			}
 		}
 
@@ -74356,6 +74452,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ClosingProtocol,
 		/// <summary>
+		///   Looks up a localized string similar to CLR Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		ClrMemoryLabel,
+		/// <summary>
 		///   Looks up a localized string similar to Coin Drop (Cash Box).
 		/// </summary>
         /// <remarks>
@@ -78221,6 +78324,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application
         /// </remarks>
 		FpgaVersion,
+		/// <summary>
+		///   Looks up a localized string similar to Free Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		FreeMemoryLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Friday.
 		/// </summary>
@@ -82948,6 +83058,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		MediumLow,
 		/// <summary>
+		///   Looks up a localized string similar to MB.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		MegabytesAbbr,
+		/// <summary>
 		///   Looks up a localized string similar to PAY BY HAND.
 		/// </summary>
         /// <remarks>
@@ -85005,6 +85122,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application
         /// </remarks>
 		PlatformIdText,
+		/// <summary>
+		///   Looks up a localized string similar to Platform Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		PlatformMemoryLabel,
 		/// <summary>
 		///   Looks up a localized string similar to VLT Platform Package.
 		/// </summary>

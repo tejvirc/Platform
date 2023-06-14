@@ -12009,4 +12009,20 @@ Do you really want to do full reset?</value>
     <value>Extra-High</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
+  <data name="ClrMemoryLabel" xml:space="preserve">
+    <value>CLR Memory</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="FreeMemoryLabel" xml:space="preserve">
+    <value>Free Memory</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MegabytesAbbr" xml:space="preserve">
+    <value>MB</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="PlatformMemoryLabel" xml:space="preserve">
+    <value>Platform Memory</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
 </root>

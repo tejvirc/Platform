@@ -10,6 +10,7 @@
     using Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor;
     using Aristocrat.Monaco.Hardware.Contracts.Printer;
     using Aristocrat.Monaco.Kernel;
+    using Aristocrat.Monaco.Localization.Properties;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -39,11 +40,12 @@
 
         public string AcceptedDenominations => GetFormattedSupportedNotes();
 
-        public string FreeMemoryLabel => Metrics.Where(x => x.MetricType == MetricType.FreeMemory).FirstOrDefault().Label;
+        public string MegabytesLabel => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MegabytesAbbr);
+        public string FreeMemoryLabel => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.FreeMemoryLabel) + MegabytesLabel;
         public string FreeMemory => Metrics.Where(x => x.MetricType == MetricType.FreeMemory).FirstOrDefault().CurrentValue.ToString("F");
-        public string MonacoPrivateBytesLabel => Metrics.Where(x => x.MetricType == MetricType.MonacoPrivateBytes).FirstOrDefault().Label;
+        public string MonacoPrivateBytesLabel => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PlatformMemoryLabel) + MegabytesLabel;
         public string MonacoPrivateBytes => Metrics.Where(x => x.MetricType == MetricType.MonacoPrivateBytes).FirstOrDefault().CurrentValue.ToString("F");
-        public string ClrBytesLabel => Metrics.Where(x => x.MetricType == MetricType.ClrBytes).FirstOrDefault().Label;
+        public string ClrBytesLabel => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ClrMemoryLabel) + MegabytesLabel;
         public string ClrBytes => Metrics.Where(x => x.MetricType == MetricType.ClrBytes).FirstOrDefault().CurrentValue.ToString("F");
 
         public IEnumerable<Uri> G2SHosts { get; }
