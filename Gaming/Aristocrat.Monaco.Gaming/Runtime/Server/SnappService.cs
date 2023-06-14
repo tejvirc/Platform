@@ -657,5 +657,15 @@
 
             return EmptyResult;
         }
+
+        public override CheckMysteryJackpotResponse CheckMysteryJackpot(CheckMysteryJackpotRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Empty UpdateLanguage(LanguageRequest request)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
