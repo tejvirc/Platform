@@ -34,7 +34,7 @@
             "MK7 Smart Card"
         };
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IPropertiesManager _properties;
         private readonly IEventBus _eventBus;
@@ -95,18 +95,28 @@
         /// <inheritdoc />
         protected override void OnRun()
         {
-            Monitor(_shutdown.Token).Wait();
+            try
+            {
+                while (RunState == RunnableState.Running && !_shutdown.IsCancellationRequested)
+                {
+                    Monitor(_shutdown.Token).GetAwaiter().GetResult();
+                }
+            }
+            catch (ThreadInterruptedException)
+            {
+                // Do nothing we are shutting down
+            }
 
             if (!_shutdown.IsCancellationRequested)
             {
-                _shutdown.Cancel();
+                _shutdown.Cancel(true);
             }
         }
 
         /// <inheritdoc />
         protected override void OnStop()
         {
-            _shutdown.Cancel();
+            _shutdown.Cancel(true);
         }
 
         /// <inheritdoc />
@@ -120,22 +130,15 @@
             if (disposing)
             {
                 _eventBus.UnsubscribeAll(this);
-
-                if (_readersConnected != null)
-                {
-                    _readersConnected.Dispose();
-                }
-
-                if (_shutdown != null)
-                {
-                    _shutdown.Dispose();
-                }
+                _readersConnected?.Dispose();
+                _shutdown?.Cancel(true);
+                _shutdown?.Dispose();
             }
 
             _readersConnected = null;
             _shutdown = null;
-
             _disposed = true;
+            base.Dispose(disposing);
         }
 
         private async Task Monitor(CancellationToken token)
@@ -144,8 +147,9 @@
 
             try
             {
-                while (!token.WaitHandle.WaitOne(MonitorIntervalMs))
+                while (!token.IsCancellationRequested)
                 {
+                    await Task.Delay(MonitorIntervalMs, token);
                     await UpdateReaders(readers);
                     await Unverify(readers);
                     await Verify(readers);
@@ -161,6 +165,10 @@
                 }
             }
             catch (AggregateException ex) when (TaskCancelled(ex))
+            {
+                // Do nothing
+            }
+            catch (ThreadInterruptedException)
             {
                 // Do nothing
             }
@@ -193,7 +201,7 @@
             if (string.Compare(
                 evt.Description,
                 SmartCardReaderDescription,
-                StringComparison.InvariantCultureIgnoreCase) != 0)
+                StringComparison.OrdinalIgnoreCase) != 0)
             {
                 return;
             }
@@ -305,7 +313,7 @@
         private async Task<bool> Verify(string name)
         {
             using var reader = await SmartCardReader.FromName(name);
-            using var connection = reader.Connect(ShareMode.Exclusive, Protocol.T0).Result;
+            using var connection = await reader.Connect(ShareMode.Exclusive, Protocol.T0);
             return _verificationPrograms.Any(program => program.Run(connection, _shutdown.Token));
         }
 
@@ -329,7 +337,7 @@
 
         private static bool TaskCancelled(AggregateException ex)
         {
-            return ex?.InnerExceptions.Any(e => e is TaskCanceledException || e is OperationCanceledException) ?? false;
+            return ex?.InnerExceptions.Any(e => e is TaskCanceledException or OperationCanceledException) ?? false;
         }
 
         private static bool SmartCardError(AggregateException ex)
