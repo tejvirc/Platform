@@ -4094,4 +4094,144 @@ Do you really want to do partial reset????</value>
     <value>???Total Game RTP Min???</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
+  <data name="CommsInfoViewTitle" xml:space="preserve">
+    <value>???Communications???</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="CommsInfo_Address" xml:space="preserve">
+    <value>???Address???</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="CommsInfo_Connected" xml:space="preserve">
+    <value>???Connected???</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="CommsInfo_ConnectionStatus" xml:space="preserve">
+    <value>???Connection Status???</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="CommsInfo_Disconnected" xml:space="preserve">
+    <value>???Disconnected???</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="CommsInfo_EgmId" xml:space="preserve">
+    <value>???EgmId???</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="CommsInfo_HostId" xml:space="preserve">
+    <value>???Host Id???</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="CommsInfo_InboundOverflow" xml:space="preserve">
+    <value>???Inbound Overflow???</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="CommsInfo_OutboundOverflow" xml:space="preserve">
+    <value>???Outbound Overflow???</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="CommsInfo_State" xml:space="preserve">
+    <value>???State???</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="CommsInfo_TransportState" xml:space="preserve">
+    <value>???Transport State???</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="G2SDiagnosticTabTitle" xml:space="preserve">
+    <value>???G2S???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="HostTransactionId" xml:space="preserve">
+    <value>Host Transaction ID???</value>
+    <comment>Monaco.Accounting.UI</comment>
+  </data>
+  <data name="HostTranscriptsCommandId" xml:space="preserve">
+    <value>Command Id???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="HostTranscriptsDateReceived" xml:space="preserve">
+    <value>???Date Time???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="HostTranscriptsDetailTitle" xml:space="preserve">
+    <value>???Host Transcripts Detail???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="HostTranscriptsDevice" xml:space="preserve">
+    <value>???Device???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="HostTranscriptsErrorCode" xml:space="preserve">
+    <value>???Error Code???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="HostTranscriptsSessionId" xml:space="preserve">
+    <value>???Session Id???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="HostTranscriptsSessionType" xml:space="preserve">
+    <value>???Session Type???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="HostTranscriptsSummary" xml:space="preserve">
+    <value>???Summary???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="HostTranscriptsToLocation" xml:space="preserve">
+    <value>???To Location???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="HostTranscriptsViewDetail" xml:space="preserve">
+    <value>???View Detail???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="HostTranscriptsViewTitle" xml:space="preserve">
+    <value>???Transcripts???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MetricClrBytes" xml:space="preserve">
+    <value>???CLR Memory???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricCpuTemperature" xml:space="preserve">
+    <value>???CPU Temperature???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricCpuTime" xml:space="preserve">
+    <value>???Platform CPU???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricFreeMemory" xml:space="preserve">
+    <value>???Free Memory???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricGdkPrivateBytes" xml:space="preserve">
+    <value>???Game Memory???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricGdkProcessorTime" xml:space="preserve">
+    <value>???Game CPU???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricGdkThreadCount" xml:space="preserve">
+    <value>???Game Threads???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricGpuUsage" xml:space="preserve">
+    <value>???GPU Usage???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricMonacoPrivateBytes" xml:space="preserve">
+    <value>???Platform Memory???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricThreadCount" xml:space="preserve">
+    <value>???Platform Threads???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricTotalCpu" xml:space="preserve">
+    <value>???Total CPU???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
 </root>

@@ -12057,4 +12057,48 @@ Do you really want to do full reset?</value>
     <value>Total Jackpot (Attendant Paid)</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
+  <data name="MetricClrBytes" xml:space="preserve">
+    <value>CLR Memory</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricCpuTemperature" xml:space="preserve">
+    <value>CPU Temperature</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricCpuTime" xml:space="preserve">
+    <value>Platform CPU</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricFreeMemory" xml:space="preserve">
+    <value>Free Memory</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricGdkPrivateBytes" xml:space="preserve">
+    <value>Game Memory</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricGdkProcessorTime" xml:space="preserve">
+    <value>Game CPU</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricGdkThreadCount" xml:space="preserve">
+    <value>Game Threads</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricGpuUsage" xml:space="preserve">
+    <value>GPU Usage</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricMonacoPrivateBytes" xml:space="preserve">
+    <value>Platform Memory</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricThreadCount" xml:space="preserve">
+    <value>Platform Threads</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricTotalCpu" xml:space="preserve">
+    <value>Total CPU</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
 </root>

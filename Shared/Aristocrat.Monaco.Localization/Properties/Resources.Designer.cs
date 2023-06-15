@@ -20987,6 +20987,138 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to CLR Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricClrBytes {
+			get {
+				return ResourceManager.GetString("MetricClrBytes", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to CPU Temperature.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricCpuTemperature {
+			get {
+				return ResourceManager.GetString("MetricCpuTemperature", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Platform CPU.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricCpuTime {
+			get {
+				return ResourceManager.GetString("MetricCpuTime", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Free Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricFreeMemory {
+			get {
+				return ResourceManager.GetString("MetricFreeMemory", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Game Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricGdkPrivateBytes {
+			get {
+				return ResourceManager.GetString("MetricGdkPrivateBytes", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Game CPU.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricGdkProcessorTime {
+			get {
+				return ResourceManager.GetString("MetricGdkProcessorTime", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Game Threads.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricGdkThreadCount {
+			get {
+				return ResourceManager.GetString("MetricGdkThreadCount", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to GPU Usage.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricGpuUsage {
+			get {
+				return ResourceManager.GetString("MetricGpuUsage", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Platform Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricMonacoPrivateBytes {
+			get {
+				return ResourceManager.GetString("MetricMonacoPrivateBytes", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Platform Threads.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricThreadCount {
+			get {
+				return ResourceManager.GetString("MetricThreadCount", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Total CPU.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricTotalCpu {
+			get {
+				return ResourceManager.GetString("MetricTotalCpu", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to NYL Host.
 		/// </summary>
 		public static string Mgam {
@@ -56677,6 +56809,138 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to CLR Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricClrBytes {
+			get {
+				return "MetricClrBytes";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to CPU Temperature.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricCpuTemperature {
+			get {
+				return "MetricCpuTemperature";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Platform CPU.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricCpuTime {
+			get {
+				return "MetricCpuTime";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Free Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricFreeMemory {
+			get {
+				return "MetricFreeMemory";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Game Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricGdkPrivateBytes {
+			get {
+				return "MetricGdkPrivateBytes";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Game CPU.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricGdkProcessorTime {
+			get {
+				return "MetricGdkProcessorTime";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Game Threads.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricGdkThreadCount {
+			get {
+				return "MetricGdkThreadCount";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to GPU Usage.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricGpuUsage {
+			get {
+				return "MetricGpuUsage";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Platform Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricMonacoPrivateBytes {
+			get {
+				return "MetricMonacoPrivateBytes";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Platform Threads.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricThreadCount {
+			get {
+				return "MetricThreadCount";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Total CPU.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricTotalCpu {
+			get {
+				return "MetricTotalCpu";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to NYL Host.
 		/// </summary>
 		public static string Mgam {
@@ -83388,6 +83652,83 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Monaco.Accounting.UI
         /// </remarks>
 		MetersWat,
+		/// <summary>
+		///   Looks up a localized string similar to CLR Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		MetricClrBytes,
+		/// <summary>
+		///   Looks up a localized string similar to CPU Temperature.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		MetricCpuTemperature,
+		/// <summary>
+		///   Looks up a localized string similar to Platform CPU.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		MetricCpuTime,
+		/// <summary>
+		///   Looks up a localized string similar to Free Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		MetricFreeMemory,
+		/// <summary>
+		///   Looks up a localized string similar to Game Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		MetricGdkPrivateBytes,
+		/// <summary>
+		///   Looks up a localized string similar to Game CPU.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		MetricGdkProcessorTime,
+		/// <summary>
+		///   Looks up a localized string similar to Game Threads.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		MetricGdkThreadCount,
+		/// <summary>
+		///   Looks up a localized string similar to GPU Usage.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		MetricGpuUsage,
+		/// <summary>
+		///   Looks up a localized string similar to Platform Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		MetricMonacoPrivateBytes,
+		/// <summary>
+		///   Looks up a localized string similar to Platform Threads.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		MetricThreadCount,
+		/// <summary>
+		///   Looks up a localized string similar to Total CPU.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		MetricTotalCpu,
 		/// <summary>
 		///   Looks up a localized string similar to NYL Host.
 		/// </summary>

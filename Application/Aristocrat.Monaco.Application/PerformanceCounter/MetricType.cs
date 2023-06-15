@@ -17,6 +17,7 @@
         [Label("Total CPU")]
         [Unit("%")]
         [MaxRange(100)]
+        [LabelResourceKey("MetricTotalCpu")]
         TotalProcessorTime,
 
         /// <summary>
@@ -29,6 +30,7 @@
         [Label("Free Memory")]
         [Unit("MB")]
         [MaxRange(4096)]
+        [LabelResourceKey("MetricFreeMemory")]
         FreeMemory,
 
         /// <summary>
@@ -41,6 +43,7 @@
         [Label("GPU Usage")]
         [Unit("%")]
         [MaxRange(100)]
+        [LabelResourceKey("MetricGpuUsage")]
         TotalGpuTime,
 
         /// <summary>
@@ -53,6 +56,7 @@
         [Label("Platform CPU")]
         [Unit("%")]
         [MaxRange(100)]
+        [LabelResourceKey("MetricCpuTime")]
         MonacoProcessorTime,
 
         /// <summary>
@@ -65,6 +69,7 @@
         [Label("Platform Threads")]
         [Unit("#")]
         [MaxRange(200)]
+        [LabelResourceKey("MetricThreadCount")]
         MonacoThreadCount,
 
         /// <summary>
@@ -77,6 +82,7 @@
         [Label("Platform Memory")]
         [Unit("MB")]
         [MaxRange(1000)]
+        [LabelResourceKey("MetricMonacoPrivateBytes")]
         MonacoPrivateBytes,
 
         /// <summary>
@@ -89,6 +95,7 @@
         [Label("CLR Memory")]
         [Unit("MB")]
         [MaxRange(1000)]
+        [LabelResourceKey("MetricClrBytes")]
         ClrBytes,
 
         /// <summary>
@@ -101,6 +108,7 @@
         [Label("Game CPU")]
         [Unit("%")]
         [MaxRange(100)]
+        [LabelResourceKey("MetricGdkProcessorTime")]
         GdkProcessorTime,
 
         /// <summary>
@@ -113,6 +121,7 @@
         [Label("Game Threads")]
         [Unit("#")]
         [MaxRange(200)]
+        [LabelResourceKey("MetricGdkThreadCount")]
         GdkThreadCount,
 
         /// <summary>
@@ -125,6 +134,7 @@
         [Label("Game Memory")]
         [Unit("MB")]
         [MaxRange(1000)]
+        [LabelResourceKey("MetricGdkPrivateBytes")]
         GdkPrivateBytes,
 
         /// <summary>
@@ -137,6 +147,7 @@
         [Label("CPU Temperature")]
         [Unit("*")]
         [MaxRange(100)]
+        [LabelResourceKey("MetricCpuTemperature")]
         CpuTemperature
     }
 }

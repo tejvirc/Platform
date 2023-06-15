@@ -7,6 +7,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows.Input;
+    using CefSharp.DevTools.Performance;
     using Contracts.Localization;
     using Kernel;
     using Monaco.Common;
@@ -64,6 +65,8 @@
             _endDateForChart = DateTime.Today;
 
             PopulateAvailableMetrics();
+
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleEvent);
 
             ResetZoomOrPanCommand = new ActionCommand<object>(
                 _ =>
@@ -438,6 +441,7 @@
 
             foreach (var metric in metrics)
             {
+                var metricLabel = Localizer.For(CultureFor.Operator).GetString(metric.GetAttribute<LabelResourceKeyAttribute>().LabelResourceKey);
                 var m = new ViewChartMetric
                 {
                     InstanceName = metric.GetAttribute<InstanceAttribute>().Instance,
@@ -447,12 +451,49 @@
                     Unit = metric.GetAttribute<UnitAttribute>().Unit,
                     CounterType = metric.GetAttribute<CounterTypeAttribute>().CounterType,
                     MaxRange = metric.GetAttribute<MaxRangeAttribute>().MaxRange,
-                    Label = metric.GetAttribute<LabelAttribute>().Label + " " + metric.GetAttribute<UnitAttribute>().Unit
+                    Label = metricLabel + " " + metric.GetAttribute<UnitAttribute>().Unit
                 };
 
                 m.PropertyChanged += ViewMetric_PropertyChanged;
                 AllMetrics.Add(m);
             }
+        }
+
+        private void UpdateMetricLabels()
+        {
+            if (AllMetrics == null)
+            {
+                return;
+            }
+            foreach (var metric in AllMetrics)
+            {
+                var metricLabel = Localizer.For(CultureFor.Operator).GetString(metric.MetricType.GetAttribute<LabelResourceKeyAttribute>().LabelResourceKey);
+                var metricUnit = metric.MetricType.GetAttribute<UnitAttribute>().Unit;
+                metric.Label = metricLabel + " " + metricUnit;
+            }
+            foreach (var series in MonacoPlotModel.Series)
+            {
+                var metric = (MetricType)series.Tag;
+                var metricLabel = Localizer.For(CultureFor.Operator).GetString(metric.GetAttribute<LabelResourceKeyAttribute>().LabelResourceKey);
+                var metricUnit = metric.GetAttribute<UnitAttribute>().Unit;
+                series.Title = metricLabel + " " + metricUnit;
+            }
+            MonacoPlotModel.Title = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PerformanceCountersPlotting);
+            RaisePropertyChanged(nameof(AllMetrics));
+            RaisePropertyChanged(nameof(MonacoPlotModel));
+            MonacoPlotModel.InvalidatePlot(true);
+        }
+
+        private void HandleEvent(OperatorCultureChangedEvent obj)
+        {
+            MvvmHelper.ExecuteOnUI(() =>
+            {
+                if(MonacoPlotModel == null)
+                {
+                    return;
+                }
+                UpdateMetricLabels();
+            });
         }
 
         private void ViewMetric_PropertyChanged(object sender, PropertyChangedEventArgs args)
@@ -670,7 +711,8 @@
                         Color = metric.MetricColor.ToOxyColor(),
                         MarkerStroke = metric.MetricColor.ToOxyColor(),
                         StrokeThickness = 1,
-                        IsVisible = true
+                        IsVisible = true,
+                        Tag = metric.MetricType
                     };
 
                 metric.MetricEnabled = true;
