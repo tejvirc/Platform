@@ -2,12 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.IO.Ports;
     using System.Linq;
     using Asp.Client.Comms;
-    using NativeSerial;
 
-    public class CommPortMock : INativeComPort
+    public class CommPortMock : ICommPort
     {
         public CommPortMock()
         {
@@ -16,7 +14,7 @@
             GetAppDataFunc = () => new List<byte>();
         }
 
-        private List<byte> DataBytesToSend { get; set; } = new();
+        private List<byte> DataBytesToSend { get; set; } = new List<byte>();
 
         public byte Sequence { get; set; }
         public bool UpdateSequence { get; set; } = true;
@@ -30,55 +28,23 @@
         {
         }
 
-        public bool FlushTx()
-        {
-            return true;
-        }
-
         public bool IsOpen { get; private set; }
+        public string PortName { get; set; }
 
-        public bool Open(string port, SerialConfiguration configuration)
+        public void Open()
         {
             IsOpen = true;
-            return true;
+        }
+
+        public void Purge()
+        {
         }
 
         public void Close()
         {
-            IsOpen = false;
         }
 
-        public int Write(byte[] data)
-        {
-            return DataReceivedAction?.Invoke(new ArraySegment<byte>(data, 0, data.Length).ToList()) ?? data.Length;
-        }
-
-        public int Write(byte[] data, int offset, int count)
-        {
-            return DataReceivedAction?.Invoke(new ArraySegment<byte>(data, offset, count).ToList()) ?? count;
-        }
-
-        public int Write(byte data)
-        {
-            return DataReceivedAction?.Invoke(new ArraySegment<byte>(new[] { data }, 0, 1).ToList()) ?? 1;
-        }
-
-        public int WriteWithModifyParity(byte[] data, Parity parity)
-        {
-            return DataReceivedAction?.Invoke(new ArraySegment<byte>(data, 0, data.Length).ToList()) ?? data.Length;
-        }
-
-        public int WriteWithModifyParity(byte[] data, int offset, int count, Parity parity)
-        {
-            return DataReceivedAction?.Invoke(new ArraySegment<byte>(data, offset, count).ToList()) ?? count;
-        }
-
-        public int WriteWithModifyParity(byte data, Parity parity)
-        {
-            return DataReceivedAction?.Invoke(new ArraySegment<byte>(new[] { data }, 0, 1).ToList()) ?? 1;
-        }
-
-        public ComPortByte Read()
+        public int Read(byte[] buffer, int offset, uint numberOfBytesToRead)
         {
             if (DataBytesToSend.Count == 0)
             {
@@ -89,85 +55,25 @@
 
                 if (DataBytesToSend.Count == 0)
                 {
-                    return ComPortByte.NoData;
+                    return 0;
                 }
             }
 
-            var read = DataBytesToSend[0];
-            DataBytesToSend.RemoveAt(0);
-            return new ComPortByte(read, ComPortErrors.None, (uint)DataBytesToSend.Count);
+            var bytesCanRead = (int)Math.Min(DataBytesToSend.Count, numberOfBytesToRead);
+            Array.Copy(DataBytesToSend.ToArray(), 0, buffer, offset, bytesCanRead);
+            DataBytesToSend.RemoveRange(0, bytesCanRead);
+            return bytesCanRead;
         }
 
-        public ComPortByte Read(TimeSpan readTimeout)
+        public int Write(byte[] bytesToWrite, int offset, uint numberOfBytesToWrite)
         {
-            if (DataBytesToSend.Count == 0)
+            if (DataReceivedAction != null)
             {
-                if (GetDataLinkDataFunc != null)
-                {
-                    DataBytesToSend = GetDataLinkDataFunc();
-                }
-
-                if (DataBytesToSend.Count == 0)
-                {
-                    return ComPortByte.NoData;
-                }
+                return DataReceivedAction(
+                    new ArraySegment<byte>(bytesToWrite, offset, (int)numberOfBytesToWrite).ToList());
             }
 
-            var read = DataBytesToSend[0];
-            DataBytesToSend.RemoveAt(0);
-            return new ComPortByte(read, ComPortErrors.None, (uint)DataBytesToSend.Count);
-        }
-
-        public IReadOnlyCollection<ComPortByte> Read(int length)
-        {
-            if (DataBytesToSend.Count == 0)
-            {
-                if (GetDataLinkDataFunc != null)
-                {
-                    DataBytesToSend = GetDataLinkDataFunc();
-                }
-
-                if (DataBytesToSend.Count == 0)
-                {
-                    return Array.Empty<ComPortByte>();
-                }
-            }
-
-            var comPortBytes = DataBytesToSend.Take(length).Select(x => new ComPortByte(x, ComPortErrors.None, 1))
-                .ToArray();
-            DataBytesToSend.RemoveRange(0, length);
-            return comPortBytes;
-        }
-
-        public IReadOnlyCollection<ComPortByte> Read(int length, TimeSpan readTimeout)
-        {
-            if (DataBytesToSend.Count == 0)
-            {
-                if (GetDataLinkDataFunc != null)
-                {
-                    DataBytesToSend = GetDataLinkDataFunc();
-                }
-
-                if (DataBytesToSend.Count == 0)
-                {
-                    return Array.Empty<ComPortByte>();
-                }
-            }
-
-            var comPortBytes = DataBytesToSend.Take(length).Select(x => new ComPortByte(x, ComPortErrors.None, 1))
-                .ToArray();
-            DataBytesToSend.RemoveRange(0, length);
-            return comPortBytes;
-        }
-
-        public bool FlushAll()
-        {
-            return true;
-        }
-
-        public bool FlushRx()
-        {
-            return true;
+            return (int)numberOfBytesToWrite;
         }
 
         public List<byte> TransportGetDataFunction()

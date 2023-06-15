@@ -3,7 +3,7 @@
     using System;
     using System.Linq;
     using Cabinet.Contracts;
-    using NativeUsb.Hid;
+    using Vgt.Client12.Hardware.HidLibrary;
 
     public static class TouchDeviceVersionReader
     {
@@ -30,11 +30,11 @@
 
         private static string ReadKortekVersion(ITouchDevice touchDevice)
         {
-            return HidDeviceFactory.Enumerate(touchDevice.VendorId, touchDevice.ProductId)
+            return HidDevices.Enumerate(touchDevice.VendorId, touchDevice.ProductId)
                 .Where(x => x.DevicePath.ToLower().Contains(VendorInterfaceName)).Select(GetVersion)
                 .FirstOrDefault(x => x != null);
 
-            string GetVersion(IHidDevice device)
+            string GetVersion(HidDevice device)
             {
                 const byte reportVendor = 0x76;
                 const byte vendorMagic = 0x77;

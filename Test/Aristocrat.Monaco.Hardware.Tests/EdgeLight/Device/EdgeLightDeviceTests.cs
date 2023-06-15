@@ -10,7 +10,7 @@
     using Hardware.EdgeLight.Device.Packets;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
-    using NativeUsb.Hid;
+    using Vgt.Client12.Hardware.HidLibrary;
 
     [TestClass]
     public class EdgeLightDeviceTests
@@ -283,7 +283,7 @@
                     DeviceMode.Overlapped,
                     ShareMode.ShareRead | ShareMode.ShareWrite));
             _hidDeviceMoc.SetupGet(x => x.Capabilities).Returns(
-                new HidDeviceCapabilities { OutputReportByteLength = 64 });
+                new HidDeviceCapabilities(new NativeMethods.HIDP_CAPS { OutputReportByteLength = 64 }));
             _hidDeviceMoc.SetupGet(x => x.IsConnected).Returns(isConnected);
             var isOpenFirstCall = true;
             _hidDeviceMoc.SetupGet(x => x.IsOpen).Returns(
@@ -309,7 +309,7 @@
         {
             private int _countOfSetBrightness;
             private bool _setBrightness;
-            public List<int> Strips { get; set; } = new();
+            public List<int> Strips { get; set; } = new List<int>();
 
             private void Reset()
             {

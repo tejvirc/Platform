@@ -4,12 +4,12 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Runtime.InteropServices;
     using System.Threading.Tasks;
     using Aristocrat.G2S;
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Protocol.v21;
-    using NativeOS.Services.OS;
 
     public class GetStorageInfo : ICommandHandler<storage, getStorageInfo>
     {
@@ -17,7 +17,7 @@
 
         private readonly IG2SEgm _egm;
 
-        private readonly Dictionary<string, storagePurpose[]> _purposes = new()
+        private readonly Dictionary<string, storagePurpose[]> _purposes = new Dictionary<string, storagePurpose[]>
         {
             { RamDescription, new[] { new storagePurpose { application = t_storageApplication.G2S_os } } },
             {
@@ -69,21 +69,24 @@
 
             var storageId = 1;
 
-            var info = SystemPerformanceProvider.GetSystemPerformance();
-            storageInfo.Add(
-                new storageItem
-                {
-                    deviceClass = cabinet.PrefixedDeviceClass(),
-                    deviceId = cabinet.Id,
-                    storageId = storageId,
-                    persistence = false,
-                    description = RamDescription,
-                    maxFileSize = 0,
-                    used = info.PhysicalTotal - info.PhysicalAvailable,
-                    free = info.PhysicalAvailable,
-                    storageType = "GTK_ram",
-                    storagePurpose = _purposes[RamDescription]
-                });
+            var info = new NativeMethods.PerformanceInformation();
+            if (NativeMethods.GetPerformanceInfo(out info, Marshal.SizeOf(info)))
+            {
+                storageInfo.Add(
+                    new storageItem
+                    {
+                        deviceClass = cabinet.PrefixedDeviceClass(),
+                        deviceId = cabinet.Id,
+                        storageId = storageId,
+                        persistence = false,
+                        description = RamDescription,
+                        maxFileSize = 0,
+                        used = info.PhysicalTotal.ToInt64() - info.PhysicalAvailable.ToInt64(),
+                        free = info.PhysicalAvailable.ToInt64(),
+                        storageType = "GTK_ram",
+                        storagePurpose = _purposes[RamDescription]
+                    });
+            }
 
             foreach (var drive in DriveInfo.GetDrives())
             {

@@ -1,13 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Asp.Client.Comms
 {
     using System;
-    using System.Collections.Generic;
     using System.Diagnostics;
     using System.Reflection;
     using System.Threading;
     using Contracts;
     using log4net;
-    using NativeSerial;
 
     /// <summary>
     ///     Asp protocol data link layer. Responsible for ensuring the connection and data integrity.
@@ -17,7 +15,7 @@
         // Time taken to receive a complete packet. Must be 350 ms (Worst Case Transmit Time)
         private const int WcttThreshold = 350;
 
-        // Response Timeout
+        // Response Timeout 
         private const int ResponseTimeout = 200;
 
         // Time spend during poll-wait before going to link down
@@ -26,23 +24,23 @@
         // Time spend during link-down before going to poll wait
         private const int LinkDownTimeoutThreshold = 4 * ResponseTimeout + WcttThreshold;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private readonly DataLinkPacket _ackResp = new();
-        private readonly Stopwatch _linkTimeout = new();
-        private readonly object _syncObject = new();
+        private readonly DataLinkPacket _ackResp = new DataLinkPacket();
+        private readonly Stopwatch _linkTimeout = new Stopwatch();
+        private readonly object _syncObject = new object();
         private int _currentSequence = -1;
         private bool _disposed;
         private bool _isLinkUp;
         private volatile bool _stop;
         private Thread _thread;
 
-        public DataLinkLayer(INativeComPort port)
+        public DataLinkLayer(ICommPort port)
         {
             Port = port;
         }
 
-        private INativeComPort Port { get; set; }
+        private ICommPort Port { get; set; }
         public bool IsRunning => _thread?.IsAlive ?? false;
 
         public bool IsLinkUp
@@ -61,14 +59,14 @@
             }
         }
 
-        public bool Start(string commPort)
+        public bool Start(string portName)
         {
             lock (_syncObject)
             {
                 Stop();
                 _thread = new Thread(CommsTask) { Name = "AspDataLinkTask" };
                 _stop = false;
-                if (!OpenPort(commPort))
+                if (!OpenPort(portName))
                 {
                     return false;
                 }
@@ -111,7 +109,6 @@
         public void Dispose()
         {
             Dispose(true);
-            GC.SuppressFinalize(this);
         }
 
         protected virtual void Dispose(bool disposing)
@@ -141,20 +138,18 @@
             Port?.Close();
         }
 
-        private bool OpenPort(string portName, SerialConfiguration configuration = null)
+        private bool OpenPort(string portName)
         {
-            if (Port is { IsOpen: true })
+            ClosePort();
+            if (Port == null)
             {
-                return true;
+                Logger.Error("Asp port should not be null.");
+                return false;
             }
 
-            if (Port is not null)
-            {
-                return Port.Open(portName, configuration ?? Constants.DefaultConfiguration);
-            }
-
-            Logger.Error("Asp port should not be null.");
-            return false;
+            Port.PortName = portName;
+            Port.Open();
+            return Port.IsOpen;
         }
 
         private void CommsTask()
@@ -166,8 +161,7 @@
                 CheckForLinkTimeout();
                 try
                 {
-                    var data = Port.Read(packet.NumberOfBytesToRead);
-                    var readSize = FillBuffer(data, packet.Buffer.Data, packet.Position);
+                    var readSize = Port.Read(packet.Buffer.Data, packet.Position, (uint)packet.NumberOfBytesToRead);
                     if (packet.CheckIfComplete(readSize, _currentSequence))
                     {
                         Log(packet.Bytes, 0, packet.Length, "RX");
@@ -186,22 +180,6 @@
             }
         }
 
-        private static int FillBuffer(IEnumerable<ComPortByte> data, IList<byte> buffer, int startPosition)
-        {
-            var i = 0;
-            foreach (var value in data)
-            {
-                if (!value.Status)
-                {
-                    return i;
-                }
-
-                buffer[startPosition + i++] = value.Data;
-            }
-
-            return i;
-        }
-
         private void CheckForLinkTimeout()
         {
             if (_linkTimeout.ElapsedMilliseconds > PollWaitTimeoutThreshold)
@@ -210,7 +188,7 @@
                 IsLinkUp = false;
                 // Wait for LinkDownTimeoutThreshold before restarting communication.
                 Thread.Sleep(LinkDownTimeoutThreshold);
-                Port.FlushAll();
+                Port.Purge();
                 _linkTimeout.Restart();
             }
             else if (!IsLinkUp) // If already link down then reset the timer.
@@ -241,7 +219,7 @@
         private void SendData(DataLinkPacket response)
         {
             response.UpdateCrc(_currentSequence);
-            Port.Write(response.Bytes, 0, response.Length);
+            Port.Write(response.Bytes, 0, (uint)response.Length);
             Log(response.Bytes, 0, response.Length, "TX");
         }
     }

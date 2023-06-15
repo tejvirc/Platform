@@ -67,7 +67,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Monaco.NativeSerial" Version="1.0.6" />
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="Mono.Addins" Version="1.0.0" />
     <PackageReference Include="SimpleInjector" Version="4.9.2" />

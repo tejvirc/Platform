@@ -195,7 +195,7 @@
                         {
                             case ComponentType.OS:
                                 var osService = ServiceManager.GetInstance().GetService<IOSService>();
-                                stream = new MemoryStream(osService.GetOperatingSystemHash().ToArray());
+                                stream = new MemoryStream(osService.VirtualPartitions.GetOperatingSystemHash());
                                 break;
                             case ComponentType.Hardware:
                                 switch (component.Path)
@@ -401,7 +401,7 @@
         public string CalculateRomHash(AlgorithmType algorithmType)
         {
             var osService = ServiceManager.GetInstance().GetService<IOSService>();
-            var toHash = osService.GetOperatingSystemHash().ToList();
+            var toHash = osService.VirtualPartitions.GetOperatingSystemHash().ToList();
             foreach (var component in _componentRegistry.Components
                 .Where(x => ManifestComponents.Contains(x.Type) && !string.IsNullOrEmpty(x.Path)).OrderBy(x => x.ComponentId))
             {

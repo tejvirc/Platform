@@ -3,10 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Runtime.InteropServices;
     using Contracts;
     using Hardware.Contracts.EdgeLighting;
     using Kernel;
-    using NativeUsb.Hid;
+    using Vgt.Client12.Hardware.HidLibrary;
 
     public class EdgeLightDeviceFactory : IEdgeLightDeviceFactory
     {
@@ -22,11 +23,12 @@
         public EdgeLightDeviceFactory(params IEdgeLightDevice[] existingDevices)
         {
             _existingDevices = existingDevices ?? throw new ArgumentNullException(nameof(existingDevices));
+            NativeMethods.HidD_GetHidGuid(out _); // This is needed to initialize hid library.
         }
 
         public IEnumerable<IEdgeLightDevice> GetDevices()
         {
-            return HidDeviceFactory.Enumerate(EdgeLightConstants.VendorId, EdgeLightConstants.ProductId)
+            return HidDevices.Enumerate(EdgeLightConstants.VendorId, EdgeLightConstants.ProductId)
                 .Select(x => new EdgeLightDevice(x) as IEdgeLightDevice).Union(_existingDevices);
         }
 
@@ -36,6 +38,12 @@
 
         public void Initialize()
         {
+        }
+
+        private static class NativeMethods
+        {
+            [DllImport("hid.dll", SetLastError = true)]
+            public static extern void HidD_GetHidGuid(out Guid hidGuid);
         }
     }
 }

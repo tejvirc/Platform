@@ -684,16 +684,19 @@
             _eventBus.Setup(x => x.Subscribe(displayMonitor, It.IsAny<Action<SetDisplayDisconnectedLockupEvent>>()));
             _eventBus.Setup(x => x.UnsubscribeAll(displayMonitor));
 
-            void ValidateFilter<T>(Predicate<T> filter, Func<IReadOnlyDictionary<string, object>, T> factory)
+            void ValidateFilter<T>(Predicate<T> filter, Func<IDictionary<string, object>, T> factory)
                 where T : BaseDeviceEvent
             {
                 var descriptions = new List<Dictionary<string, object>>
                 {
-                    new() { { "DeviceCategory", "DISPLAY" } },
-                    new() { { "DeviceCategory", "HID" } },
-                    new() { { "DeviceCategory", "USB" }, { "DeviceDesc", LcdButtonDeckDescription } },
-                    new() { { "DeviceCategory", "USB" }, { "DeviceDesc", "Invalid" } },
-                    new() { { "DeviceCategory", "USB3" }, { "DeviceDesc", "Invalid" } }
+                    new Dictionary<string, object> { { "DeviceCategory", "DISPLAY" } },
+                    new Dictionary<string, object> { { "DeviceCategory", "HID" } },
+                    new Dictionary<string, object>
+                    {
+                        { "DeviceCategory", "USB" }, { "DeviceDesc", LcdButtonDeckDescription }
+                    },
+                    new Dictionary<string, object> { { "DeviceCategory", "USB" }, { "DeviceDesc", "Invalid" } },
+                    new Dictionary<string, object> { { "DeviceCategory", "USB3" }, { "DeviceDesc", "Invalid" } }
                 };
                 descriptions.ForEach(
                     x =>

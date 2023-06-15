@@ -15,7 +15,7 @@
         ///     Constructor.
         /// </summary>
         /// <param name="deviceProperties">Device Properties.</param>
-        public BaseDeviceEvent(IReadOnlyDictionary<string, object> deviceProperties)
+        public BaseDeviceEvent(IDictionary<string, object> deviceProperties)
         {
             Description = GetValue(deviceProperties, "DeviceDesc", "");
             DeviceId = GetValue(deviceProperties, nameof(DeviceId), "");
@@ -52,7 +52,7 @@
                         RegexOptions.IgnoreCase);
         }
 
-        private static T GetValue<T>(IReadOnlyDictionary<string, object> properties, string property, T defaultValue)
+        private static T GetValue<T>(IDictionary<string, object> properties, string property, T defaultValue)
         {
             object value = defaultValue;
             return properties?.TryGetValue(property, out value) ?? false ? (T)value : defaultValue;

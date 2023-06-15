@@ -6,7 +6,6 @@
     using System.IO;
     using System.Linq;
     using System.Reflection;
-    using System.Runtime.InteropServices;
     using System.Runtime.Serialization.Formatters.Binary;
     using System.Threading;
     using Application.Contracts;
@@ -39,7 +38,8 @@
         private readonly IGameProvider _games;
         private readonly IPropertiesManager _properties;
 
-        private readonly ConcurrentDictionary<string, SafeHandle> _mounts = new();
+        private readonly ConcurrentDictionary<string, VirtualDiskHandle> _mounts =
+            new ConcurrentDictionary<string, VirtualDiskHandle>();
 
         private readonly IPathMapper _pathMapper;
         private readonly IVirtualDisk _virtualDisk;
@@ -389,7 +389,7 @@
             return true;
         }
 
-        private SafeHandle AttachImage(string mountPath, string gamePackage)
+        private VirtualDiskHandle AttachImage(string mountPath, string gamePackage)
         {
             Logger.Debug($"Preparing to mount game package {gamePackage} at {mountPath}");
 

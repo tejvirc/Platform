@@ -3,10 +3,9 @@
     using System;
     using System.Collections.Generic;
     using Kernel;
-    using NativeOS.Services.OS;
 
     /// <summary>
-    ///     States of the Virtual Partition
+    ///     States of the VPart 
     /// </summary>
     public enum PartitionState
     {
@@ -27,9 +26,64 @@
     }
 
     /// <summary>
+    ///     A structure describing the virtual partition block in a secured partition
+    /// </summary>
+    public struct VirtualPartition
+    {
+        /// <summary>
+        ///     Block contains the full bytes of the virtual partition block(all fields combined)
+        /// </summary>
+        public byte[] Block;
+
+        /// <summary>
+        ///     Name of the partition
+        /// </summary>
+        public string Name;
+
+        /// <summary>
+        ///     Hash of the partition
+        /// </summary>
+        public byte[] Hash;
+
+        /// <summary>
+        ///     Signature of the partition
+        /// </summary>
+        public byte[] Sig;
+
+        /// <summary>
+        ///     Source Partition (where the partition was initially extracted from)
+        /// </summary>
+        public int SourcePartition;
+
+        /// <summary>
+        ///     Source Offset (offset from where the partition was initially extracted from)
+        /// </summary>
+        public long SourceOffset;
+
+        /// <summary>
+        ///     Target Partition (where the partition is being written to)
+        /// </summary>
+        public int TargetPartition;
+
+        /// <summary>
+        ///     Size of partition
+        /// </summary>
+        public long Size;
+
+        /// <summary>
+        ///     Name of the file which held the partition data where the v-part was written
+        /// </summary>
+        public string SourceFile;
+
+        /// <summary>
+        ///     Current state
+        /// </summary>
+        public PartitionState State;
+    }
+
+    /// <summary>
     ///     Provides a mechanism to query the for configured hardware devices.
     /// </summary>
-    [CLSCompliant(false)]
     public interface IOSService : IService
     {
         /// <summary>
@@ -40,11 +94,6 @@
         /// <summary>
         ///     Read the Virtual Partitions
         /// </summary>
-        IReadOnlyCollection<VirtualPartition> VirtualPartitions { get; }
-
-        /// <summary>
-        ///     Gets the operating system hash
-        /// </summary>
-        IEnumerable<byte> GetOperatingSystemHash();
+        IList<VirtualPartition> VirtualPartitions { get; }
     }
 }

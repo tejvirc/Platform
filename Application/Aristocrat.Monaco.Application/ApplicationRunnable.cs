@@ -7,7 +7,6 @@ namespace Aristocrat.Monaco.Application
     using System.IO;
     using System.Linq;
     using System.Reflection;
-    using System.Runtime.InteropServices;
     using System.Threading;
     using Authentication;
     using Common;
@@ -68,7 +67,7 @@ namespace Aristocrat.Monaco.Application
 
         private IPathMapper _pathMapper;
         private IVirtualDisk _virtualDisk;
-        private SafeHandle _jurisdictionMountHandle;
+        private VirtualDiskHandle _jurisdictionMountHandle;
         private string _jurisdictionLinkPath;
 
         private readonly RunnablesManager _runnablesManager = new RunnablesManager();

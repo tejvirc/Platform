@@ -11,21 +11,22 @@
     using Kernel;
     using log4net;
     using Manager;
-    using NativeUsb.Hid;
     using SequenceLib;
+    using Vgt.Client12.Hardware.HidLibrary;
 
     internal class EdgeLightingControllerService : BaseRunnable, IEdgeLightingController, IService
     {
         private const int TickInterval = 33;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private static readonly ILog Logger =
+            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly Func<IEnumerable<IHidDevice>> _deviceEnumerator;
         private readonly IEventBus _eventBus;
         private readonly Func<PatternParameters, IEdgeLightRenderer> _rendererFactory;
 
-        private readonly List<IEdgeLightRenderer> _rendererList = new();
-        private readonly object _rendererListLock = new();
+        private readonly List<IEdgeLightRenderer> _rendererList = new List<IEdgeLightRenderer>();
+        private readonly object _rendererListLock = new object();
         private readonly IEdgeLightManager _edgeLightManager;
 
         private readonly bool _isSimulated;
@@ -36,7 +37,7 @@
                 ServiceManager.GetInstance().GetService<IPropertiesManager>(),
                 new EdgeLightManager(),
                 RendererFactory.CreateRenderer,
-                () => HidDeviceFactory.Enumerate(EdgeLightConstants.VendorId, EdgeLightConstants.ProductId),
+                () => HidDevices.Enumerate(EdgeLightConstants.VendorId, EdgeLightConstants.ProductId),
                 new List<IEdgeLightRenderer> { new EdgeLightDataRenderer() })
         {
         }

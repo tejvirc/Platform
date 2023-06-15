@@ -8,7 +8,7 @@
     using System.Linq;
     using log4net;
     using LPParsers;
-
+    
     /// <summary>
     ///     This class is responsible for communicating between the comm ports and the SAS LongPoll parsers and
     ///     real time event consumers.
@@ -241,7 +241,7 @@
             PerformanceAuditor.TicksToPeekAtTopException = _stopWatch.ElapsedTicks - elapsed;
             var handlers = NullHandlers;
 
-            // Before checking the exception queue, see if there are any responses for long running commands. These should
+            // Before checking the exception queue, see if there are any responses for long running commands. These should 
             // be handled first
             if (!_messageQueue.IsEmpty)
             {
@@ -306,7 +306,7 @@
                 {
                     Logger.Info("[SAS] reporting the critical memory error; SAS address is set to 0 and the communication with the backend is stopped.");
 
-                    // no need to re-assign it but the spec says it defaults to zero when it happens.
+                    // no need to re-assign it but the spec says it defaults to zero when it happens.                
                     _port.SasAddress = 0;
                     _callbacks.LinkUp(false, ClientNumber);
 
@@ -334,7 +334,7 @@
             {
                 var ticksAlreadySpent = _stopWatch.ElapsedTicks;
                 var millisecondsPerTick = 1_000M / Stopwatch.Frequency;
-
+                
                 SasPollDataBlockingCollection.Add(
                     new SasPollData(pollData) { Type = type, SasPollType = pollType, ElapsedTime = elapsedTicks });
                 Diagnostics.TotalTimeTakenToPopulateDiagnostics = (_stopWatch.ElapsedTicks - ticksAlreadySpent) * millisecondsPerTick;
@@ -452,7 +452,7 @@
                     Diagnostics.UnknownCommand++;
                     Logger.Debug("Ignoring long poll by not responding");
                 }
-
+                
                 return;
             }
 
@@ -523,7 +523,7 @@
                     _hostAcknowlegementProvider.LinkDown();
                     LinkUp = false;
                     Diagnostics.LastLinkDown = DateTime.Now.ToString(CultureInfo.CurrentCulture);
-                    Diagnostics.CommsStatus = CommsStatus.Offline;
+                    Diagnostics.CommsStatus = CommsStatus.Offline;  
                 }
             }
         }
@@ -605,7 +605,7 @@
                 }
 
                 Diagnostics.LongPoll++;
-
+                
 
                 (@byte, wakeupBitSet, validData) = _port.ReadOneByte(true);
                 if (PerformanceAuditor.IgnorePackageDueToInterBytesDelay(Logger, firstByte, @byte, true))

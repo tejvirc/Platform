@@ -7,6 +7,7 @@
     using System.IO.Ports;
     using System.Linq;
     using System.Reflection;
+    using System.Runtime.InteropServices;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
@@ -23,11 +24,11 @@
     using Kernel.Contracts;
     using Localization.Properties;
     using log4net;
-    using NativeTouch;
     using Stateless;
+    using static NativeMethods;
     using static SerialTouchHelper;
     using Timer = System.Timers.Timer;
-    using TouchAction = NativeTouch.TouchAction;
+    using TouchAction = SerialTouchHelper.TouchAction;
 
     /// <summary>
     ///     SerialTouchService provides interaction with the serial touch device.
@@ -55,7 +56,6 @@
         private readonly ISerialPortsService _serialPortsService;
         private readonly IPropertiesManager _propertiesManager;
         private readonly ISerialPortController _serialPortController;
-        private readonly INativeTouch _nativeTouch;
         private readonly StateMachine<SerialTouchState, SerialTouchTrigger> _state;
         private readonly ReaderWriterLockSlim _stateLock = new(LockRecursionPolicy.SupportsRecursion);
         private readonly object _lastUpdateLock = new();
@@ -78,8 +78,7 @@
                    ServiceManager.GetInstance().TryGetService<ICabinetDetectionService>(),
                    ServiceManager.GetInstance().TryGetService<IPropertiesManager>(),
                    ServiceManager.GetInstance().TryGetService<ISerialPortsService>(),
-                   new SerialPortController(ServiceManager.GetInstance().TryGetService<ISerialPortsService>()),
-                   NativeTouchFactory.CreateNativeTouch())
+                   new SerialPortController(ServiceManager.GetInstance().TryGetService<ISerialPortsService>()))
         {
         }
 
@@ -88,15 +87,13 @@
             ICabinetDetectionService cabinetDetectionService,
             IPropertiesManager propertiesManager,
             ISerialPortsService serialPortsService,
-            ISerialPortController serialPortController,
-            INativeTouch nativeTouch)
+            ISerialPortController serialPortController)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _cabinetDetectionService = cabinetDetectionService ?? throw new ArgumentNullException(nameof(cabinetDetectionService));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _serialPortsService = serialPortsService ?? throw new ArgumentNullException(nameof(serialPortsService));
             _serialPortController = serialPortController ?? throw new ArgumentNullException(nameof(serialPortController));
-            _nativeTouch = nativeTouch ?? throw new ArgumentNullException(nameof(nativeTouch));
             _state = CreateStateMachine();
         }
 
@@ -186,7 +183,7 @@
 
         public bool InitializeTouchInjection()
         {
-            return _nativeTouch.InitializeTouchInjection(MaxTouchInfo);
+            return NativeMethods.InitializeTouchInjection(MaxTouchInfo, TouchFeedback.NONE);
         }
 
         public void StartCalibration()
@@ -426,7 +423,7 @@
             }
         }
 
-        private static IReadOnlyDictionary<string, object> GetDeviceDetails(string deviceName)
+        private static IDictionary<string, object> GetDeviceDetails(string deviceName)
         {
             var deviceDetails = new Dictionary<string, object>
             {
@@ -727,27 +724,34 @@
         private void HandleTouch(byte[] touchPacket)
         {
             var touchState = IsUpTouchDataPacket(touchPacket) ? TouchAction.Up : TouchAction.Down;
-            var action = TouchAction.Update;
+
+            TouchAction action = TouchAction.Update;
             if (touchState != _previousTouchState)
             {
                 action = touchState;
             }
 
             _previousTouchState = touchState;
+
             _requeueTimer.Stop();
-            var errors = _nativeTouch.InjectTouchInputs(new[] { GetPointerTouchInfo(touchPacket, action, PointerId) });
-            if (errors != InjectionErrors.None)
+            bool injected = InjectTouchInput(MaxTouchInfo, new [] { GetPointerTouchInfo(touchPacket, action, PointerId) });
+
+            if (!injected)
             {
-                if (errors == InjectionErrors.InvalidParameters)
+                var errorCode = Marshal.GetLastWin32Error();
+                string errorText = ((SystemErrors)errorCode).ToString();
+
+                if ((SystemErrors)errorCode == SystemErrors.ERROR_INVALID_PARAMETER)
                 {
                     _previousTouchState = TouchAction.Up;
+
                     lock (_lastUpdateLock)
                     {
                         Array.Clear(_lastUpdatePacket, 0, M3SerialTouchConstants.TouchDataLength);
                     }
                 }
 
-                Logger.Debug($"InjectTouchCoordinate - Last injection failed: {errors}, Packet: [{touchPacket.ToHexString()}]");
+                Logger.Debug($"InjectTouchCoordinate - Last injection failed: {errorText}, Packet: [{touchPacket.ToHexString()}]");
             }
 
             _requeueTimer.Start();

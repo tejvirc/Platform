@@ -6,7 +6,6 @@
     using System.IO;
     using System.Linq;
     using System.Reflection;
-    using System.Runtime.InteropServices;
     using System.Text.RegularExpressions;
     using Contracts;
     using Hardware.Contracts.VHD;
@@ -25,7 +24,8 @@
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private readonly Dictionary<string, (SafeHandle mount, string version)> _mounts = new();
+        private readonly Dictionary<string, (VirtualDiskHandle mount, string version)> _mounts =
+            new Dictionary<string, (VirtualDiskHandle mount, string version)>();
 
         private readonly IPathMapper _pathMapper;
         private readonly IVirtualDisk _virtualDisk;
@@ -72,7 +72,7 @@
 
         public void Unload()
         {
-            var mounts = new Dictionary<string, (SafeHandle mount, string version)>(_mounts);
+            var mounts = new Dictionary<string, (VirtualDiskHandle mount, string version)>(_mounts);
 
             foreach (var instance in mounts)
             {
@@ -151,7 +151,7 @@
             Logger.Debug($"Mounted runtime {runtime.FullName} at {runtimePath} with version {version}");
         }
 
-        private void UnMount(string path, SafeHandle handle)
+        private void UnMount(string path, VirtualDiskHandle handle)
         {
             _virtualDisk.DetachImage(handle, path);
             handle.Dispose();
