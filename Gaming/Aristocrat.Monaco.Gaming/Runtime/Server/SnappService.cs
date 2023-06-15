@@ -12,6 +12,7 @@
     using Commands;
     using Contracts;
     using Contracts.Central;
+    using Contracts.Events;
     using Contracts.Process;
     using Kernel;
     using log4net;
@@ -187,6 +188,9 @@
                     {
                         _bus.Publish(new MaxWinReachedEvent());
                     }
+                    break;
+                case EventTypes.GameIdleActivity:
+                    _bus.Publish(new UserInteractionEvent());
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

@@ -12,6 +12,7 @@
     using Hardware.Contracts.Touch;
     using Aristocrat.Monaco.Accounting.Contracts.HandCount;
     using Aristocrat.Monaco.Kernel.Contracts;
+    using Aristocrat.Monaco.Gaming.Contracts.Events;
 
     /// <summary>
     ///     An implementation of <see cref="IHandCountResetService" />
@@ -238,8 +239,9 @@
             _eventBus.Subscribe<BankBalanceChangedEvent>(this, _ => HandleActivity());
             _eventBus.Subscribe<GameIdleEvent>(this, _ => HandleActivity());
             _eventBus.Subscribe<GameSelectedEvent>(this, _ => HandleActivity());
-
-            _eventBus.Subscribe<TouchEvent>(this, _ => _lastAction = DateTime.UtcNow);
+            _eventBus.Subscribe<GameProcessExitedEvent>(this, _ => HandleActivity());
+            
+            _eventBus.Subscribe<UserInteractionEvent>(this, _ => _lastAction = DateTime.UtcNow);
             _eventBus.Subscribe<DownEvent>(this, _ => _lastAction = DateTime.UtcNow);
 
             _eventBus.Subscribe<HandCountResetTimerElapsedEvent>(this, _ => TimerDialogVisible = false);

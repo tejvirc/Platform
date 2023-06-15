@@ -3315,6 +3315,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         {
             Logger.Debug($"OnUserInteraction, state: {CurrentState}");
 
+            _eventBus.Publish(new UserInteractionEvent());
+
             // Reset idle timer when user interacted with lobby.
             if (_idleTimer != null && _idleTimer.IsEnabled)
             {
