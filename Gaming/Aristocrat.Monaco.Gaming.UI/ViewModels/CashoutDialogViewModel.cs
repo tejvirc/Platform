@@ -3,6 +3,9 @@
     using Aristocrat.Monaco.Accounting.Contracts;
     using Aristocrat.Monaco.Accounting.Contracts.HandCount;
     using Aristocrat.Monaco.Application.Contracts.Extensions;
+    using Aristocrat.Monaco.Gaming.Contracts;
+    using Aristocrat.Monaco.Gaming.Runtime;
+    using Aristocrat.Monaco.Gaming.Runtime.Client;
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.MVVM.Command;
     using Aristocrat.MVVM.ViewModel;
@@ -45,6 +48,7 @@
 
         private void CashoutDialogYesNoPressed(object obj)
         {
+            var runtime = ServiceManager.GetInstance().GetService<IContainerService>().Container.GetInstance<IRuntime>();
             if (obj.ToString().Equals("YES", StringComparison.InvariantCultureIgnoreCase))
             {
                 _eventBus.Publish(new CashoutAmountPlayerConfirmationReceivedEvent(true));
@@ -53,6 +57,7 @@
             else
             {
                 _eventBus.Publish(new CashoutAmountPlayerConfirmationReceivedEvent(false));
+                runtime.UpdateFlag(RuntimeCondition.CashingOut, false);
             }
         }
     }
