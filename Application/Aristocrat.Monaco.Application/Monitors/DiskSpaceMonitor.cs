@@ -2,8 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
     using System.Reflection;
-    using System.Runtime.InteropServices;
     using System.Threading;
     using Contracts;
     using Contracts.Localization;
@@ -23,7 +24,7 @@
         private const long AvailableDiskSpaceThreshold = 104857600; // 100MB
         private const string DataPath = @"/Data";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly Guid LockupId = ApplicationConstants.DiskSpaceBelowThresholdDisableKey;
         private static readonly TimeSpan LogIntervalHours = TimeSpan.FromHours(1);
@@ -36,6 +37,7 @@
         private readonly IAudio _audioService;
 
         private Timer _checkDiskSpaceTimer;
+        private DirectoryInfo _rootDirectory;
         private bool _disabled;
         private DateTime _lastLogTime = DateTime.MinValue;
 
@@ -94,56 +96,49 @@
                 return;
             }
 
-            var dirInfoRoot = _pathMapper.GetDirectory(DataPath);
-
-            if (dirInfoRoot == null)
+            _rootDirectory = _pathMapper.GetDirectory(DataPath)?.Root;
+            if (_rootDirectory == null)
             {
                 Logger.Info("Path not found");
                 return;
             }
 
-            _checkDiskSpaceTimer = new Timer(CheckDiskSpace, dirInfoRoot.Root.Name, TimeSpan.Zero, Interval);
-
+            _checkDiskSpaceTimer = new Timer(CheckDiskSpace, null, TimeSpan.Zero, Interval);
             LoadSounds();
-
             Logger.Info("Initialized");
         }
 
-        private void CheckDiskSpace(object state)
+        private void CheckDiskSpace(object _)
         {
-            var drive = (string)state;
-
-            if (!NativeMethods.GetDiskFreeSpaceEx(drive, out var free, out _, out _))
+            var drive = _rootDirectory.Name;
+            var driveInfo = DriveInfo.GetDrives().FirstOrDefault(x => x.RootDirectory.Name == drive);
+            if (driveInfo is null)
             {
                 Logger.Info($"Failed to get drive info: {drive}");
                 return;
             }
 
+            var availableFreeSpace = driveInfo.AvailableFreeSpace;
             if (DateTime.UtcNow - _lastLogTime >= LogIntervalHours)
             {
                 _lastLogTime = DateTime.UtcNow;
-                Logger.Info($"Drive {drive} Available Free Space {free}");
+                Logger.Info($"Drive {drive} Available Free Space {availableFreeSpace}");
             }
 
-            var belowThreshold = free < AvailableDiskSpaceThreshold;
-
+            var belowThreshold = availableFreeSpace < AvailableDiskSpaceThreshold;
             if (belowThreshold && !_disabled)
             {
                 _disabled = true;
-
                 _disableManager.Disable(LockupId, SystemDisablePriority.Normal,
                     () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DiskSpaceBelowThresholdMessage));
 
                 PlayErrorSound();
-
                 _bus.Publish(new DiskSpaceEvent());
             }
             else if (!belowThreshold && _disabled)
             {
                 _disabled = false;
-
                 _disableManager.Enable(LockupId);
-
                 _bus.Publish(new DiskSpaceClearEvent());
             }
         }
@@ -165,13 +160,6 @@
         private void PlayErrorSound()
         {
             _audioService.PlaySound(_properties, _diskSpaceMonitorCheckFailedErrorSoundFilePath);
-        }
-
-        private static class NativeMethods
-        {
-            [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-            [return: MarshalAs(UnmanagedType.Bool)]
-            public static extern bool GetDiskFreeSpaceEx(string lpDirectoryName, out ulong lpFreeBytesAvailable, out ulong lpTotalNumberOfBytes, out ulong lpTotalNumberOfFreeBytes);
         }
     }
 }

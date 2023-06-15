@@ -36,7 +36,7 @@
                 .Returns<string, object>((s, o) => o);
 
             _eventBus = MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Strict);
-            
+
             _secondaryStorageManager =
                 MoqServiceManager.CreateAndAddService<ISecondaryStorageManager>(MockBehavior.Strict);
             _secondaryStorageManager.Setup(s => s.VerifyConfiguration()).Verifiable();
@@ -147,14 +147,15 @@
                 .Throws(new Exception("Shouldn't subscribe to events"));
         }
 
-        private static void ValidateFilter<T>(Predicate<T> filter, Func<IDictionary<string, object>, T> factory)
+        private static void ValidateFilter<T>(Predicate<T> filter, Func<IReadOnlyDictionary<string, object>, T> factory)
             where T : BaseDeviceEvent
         {
             var descriptions = new List<Dictionary<string, object>>
             {
-                new Dictionary<string, object> { { "DeviceCategory", "STORAGE" } },
-                new Dictionary<string, object> { { "DeviceCategory", "USB" } }
+                new() { { "DeviceCategory", "STORAGE" } },
+                new() { { "DeviceCategory", "USB" } }
             };
+
             descriptions.ForEach(
                 x =>
                 {

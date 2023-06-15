@@ -9,6 +9,7 @@
     using Hardware.Contracts.Persistence;
     using Kernel;
     using log4net;
+    using NativeOS.Services.Time;
 
     /// <summary>
     ///     Time service implements the ITime interface and provides the ability to convert a
@@ -29,13 +30,13 @@
         // The constant is used to determine whether to update the time. Two seconds are used, based on SAS protocol.
         private const double ThresholdForUpdate = 2.0;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IPersistentStorageManager _storage;
         private readonly IPropertiesManager _properties;
         private readonly IEventBus _bus;
 
-        private readonly DateTime _minDateTime = new DateTime(2010, 01, 01);
+        private readonly DateTime _minDateTime = new(2010, 01, 01);
 
         private TimeZoneInfo _timeZone;
         private TimeSpan _timeZoneOffset;
@@ -45,7 +46,7 @@
                 ServiceManager.GetInstance().GetService<IPropertiesManager>(),
                 ServiceManager.GetInstance().GetService<IEventBus>())
         {
-            
+
         }
 
         public Time(IPersistentStorageManager storage, IPropertiesManager properties, IEventBus bus)
@@ -126,7 +127,7 @@
 
                     block["TimeZone"] = _timeZone.Id;
 
-                    TimeZoneInteropWrapper.SetDynamicTimeZone(_timeZone);
+                    NativeTime.SetDynamicTimeZone(_timeZone);
                     updateTime = true;
                     Logger.Debug($"Time service Set Time Zone:\n Block:{_timeZone.Id}\n Local:{TimeZoneInfo.Local.Id}");
                     break;
@@ -260,25 +261,12 @@
 
         private static void SetTime(DateTime time)
         {
-            var sysTime = default(NativeMethods.SystemTime);
-            sysTime.wYear = (short)time.Year;
-            sysTime.wMonth = (short)time.Month;
-            sysTime.wDayOfWeek = (short)time.DayOfWeek;
-            sysTime.wDay = (short)time.Day;
-            sysTime.wHour = (short)time.Hour;
-            sysTime.wMinute = (short)time.Minute;
-            sysTime.wSecond = (short)time.Second;
-            sysTime.wMilliseconds = (short)time.Millisecond;
-
-            uint error;
-
-            var result = NativeMethods.SetSystemTime(ref sysTime);
-            if (result != 0 || (error = NativeMethods.GetLastError()) == 0)
+            if (NativeTime.SetTime(time))
             {
                 return;
             }
 
-            var errorMessage = $"Failed to set system time with a result of {error}";
+            var errorMessage = $"Failed to set system time";
             Logger.Error(errorMessage);
             throw new InvalidOperationException(errorMessage);
         }

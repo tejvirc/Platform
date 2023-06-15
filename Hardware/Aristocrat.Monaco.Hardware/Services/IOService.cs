@@ -4,19 +4,24 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Diagnostics;
+    using System.Linq;
     using System.Reflection;
     using System.Text;
     using System.Threading;
     using System.Timers;
     using Cabinet.Contracts;
+    using Common;
+    using Contracts.Cabinet;
     using Contracts.HardMeter;
     using Contracts.IO;
+    using Contracts.SerialPorts;
     using Contracts.SharedDevice;
-    using JetBrains.Annotations;
     using Kernel;
     using Kernel.Contracts.Components;
     using log4net;
+    using NativeOS.Services.IO;
     using Properties;
+    using Constants = Kernel.Contracts.Components.Constants;
     using DisabledEvent = Contracts.IO.DisabledEvent;
     using EnabledEvent = Contracts.IO.EnabledEvent;
     using Timer = System.Timers.Timer;
@@ -32,9 +37,13 @@
     /// </summary>
     public class IOService : BaseRunnable, IDeviceService, IIO
     {
+        private const int IOPollTimeMs = 100;
+
         private readonly IEventBus _eventBus;
         private readonly IComponentRegistry _componentRegistry;
-        private const string DeviceImplementationsExtensionPath = "/Hardware/IO/IOImplementations";
+        private readonly IIOProvider _inputOutput;
+        private readonly ICabinetDetectionService _cabinetService;
+        private readonly ISerialPortsService _serialPortsService;
         private const ulong IntrusionMasks = 0X3F;
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
@@ -43,25 +52,40 @@
         private static readonly AutoResetEvent Poll = new(true);
 
         private static readonly object QueuedEventsLock = new();
-
-        private readonly DeviceAddinHelper _addinHelper = new();
         private readonly Collection<IEvent> _queuedEvents = new();
 
         private bool _hardMeterStoppedResponding;
-        private IIOImplementation _inputOutput;
 
         private bool _pendingInspectedEvent;
         private bool _pendingInspectionFailedEvent;
         private bool _platformBooted;
         private bool _postedInspectionFailedEvent;
+        private readonly IReadOnlyDictionary<int, Doors> _doorsMap;
 
-        public IOService(IEventBus eventBus, IComponentRegistry componentRegistry)
+        public IOService(
+            IEventBus eventBus,
+            IComponentRegistry componentRegistry,
+            ICabinetDetectionService cabinetService,
+            ISerialPortsService serialPortsService,
+            IIOProvider ioProvider)
         {
+            _inputOutput = ioProvider ?? throw new ArgumentNullException(nameof(ioProvider));
+            _cabinetService = cabinetService ?? throw new ArgumentNullException(nameof(cabinetService));
+            _serialPortsService = serialPortsService ?? throw new ArgumentNullException(nameof(serialPortsService));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _componentRegistry = componentRegistry ?? throw new ArgumentNullException(nameof(componentRegistry));
+            _inputOutput.ErrorOccurred += InputOutputOnErrorOccurred;
 
             Enabled = false;
             Initialized = false;
+            _doorsMap = new Dictionary<int, Doors>
+            {
+                { 45, Doors.LogicDoor },
+                { 48, Doors.DropDoor },
+                { 50, Doors.CashDoor },
+                { 49, Doors.MainDoor },
+                { 51, Doors.BellyBoor }
+            };
         }
 
         /// <summary>
@@ -70,7 +94,10 @@
         public IOService()
             : this(
                 ServiceManager.GetInstance().GetService<IEventBus>(),
-                ServiceManager.GetInstance().GetService<IComponentRegistry>())
+                ServiceManager.GetInstance().GetService<IComponentRegistry>(),
+                ServiceManager.GetInstance().GetService<ICabinetDetectionService>(),
+                ServiceManager.GetInstance().GetService<ISerialPortsService>(),
+                IOFactory.CreateIOProvider())
         {
         }
 
@@ -165,21 +192,28 @@
 
         /// <inheritdoc />
         [CLSCompliant(false)]
-        public Device DeviceConfiguration => _inputOutput.DeviceConfiguration;
+        public Device DeviceConfiguration => new(_serialPortsService)
+        {
+            Manufacturer = "Aristocrat",
+            Model = "MK7+",
+            VariantName = _cabinetService.Type.ToString(),
+            Protocol = HardwareFamilyIdentifier.Identify().ToString(),
+            FirmwareId = _inputOutput.FirmwareId
+        };
 
         /// <inheritdoc />
-        public int GetMaxInputs => _inputOutput.GetMaxInputs;
+        public int GetMaxInputs => _inputOutput.AvailableInputs;
 
         /// <inheritdoc />
-        public int GetMaxOutputs => _inputOutput.GetMaxOutputs;
+        public int GetMaxOutputs => _inputOutput.AvailableOutputs;
 
         /// <inheritdoc />
         [CLSCompliant(false)]
-        public ulong GetInputs => _inputOutput.GetInputs;
+        public ulong GetInputs => _inputOutput.Inputs;
 
         /// <inheritdoc />
         [CLSCompliant(false)]
-        public ulong GetOutputs => _inputOutput.GetOutputs;
+        public ulong GetOutputs => _inputOutput.Outputs;
 
         /// <inheritdoc />
         public ICollection<IEvent> GetQueuedEvents
@@ -195,29 +229,14 @@
 
         /// <inheritdoc />
         [CLSCompliant(false)]
-        public int GetWatchdogEnabled => _inputOutput.GetWatchdogEnabled;
-
-        /// <inheritdoc />
-        [CLSCompliant(false)]
         public ulong LastChangedInputs { get; set; }
 
         /// <inheritdoc />
         public IOLogicalState LogicalState { get; private set; }
 
-        /// <inheritdoc />
-        public int EnableWatchdog(int seconds)
-        {
-            return _inputOutput.EnableWatchdog(seconds);
-        }
-
-        public int ResetWatchdog()
-        {
-            return _inputOutput.ResetWatchdog();
-        }
-
         public void SetOutput(int physicalId, bool action, bool postActionEvent)
         {
-            if (physicalId < 0 || physicalId >= _inputOutput.GetMaxOutputs)
+            if (physicalId < 0 || physicalId >= _inputOutput.AvailableOutputs)
             {
                 Logger.Error($"Invalid physical ID {physicalId}");
                 return;
@@ -255,7 +274,7 @@
             {
                 _inputOutput.TurnOutputsOn((ulong)physicalId);
 
-                for (var i = 0; i < _inputOutput.GetMaxInputs; i++)
+                for (var i = 0; i < _inputOutput.AvailableInputs; i++)
                 {
                     if (((ulong)physicalId & testBit) != 0)
                     {
@@ -275,7 +294,7 @@
             {
                 _inputOutput.TurnOutputsOff((ulong)physicalId);
 
-                for (var i = 0; i < _inputOutput.GetMaxInputs; i++)
+                for (var i = 0; i < _inputOutput.AvailableInputs; i++)
                 {
                     if (((ulong)physicalId & testBit) != 0)
                     {
@@ -347,12 +366,17 @@
 
         public void ResetPhysicalDoorWasOpened(int physicalId)
         {
-            _inputOutput.ResetPhysicalDoorWasOpened(physicalId);
+            if (!_doorsMap.TryGetValue(physicalId, out var door))
+            {
+                return;
+            }
+
+            _inputOutput.ResetPhysicalDoorWasOpened(door);
         }
 
         public bool GetPhysicalDoorWasOpened(int physicalId)
         {
-            return _inputOutput.GetPhysicalDoorWasOpened(physicalId);
+            return _doorsMap.TryGetValue(physicalId, out var door) && _inputOutput.GetPhysicalDoorWasOpened(door);
         }
 
         public void SetKeyIndicator(int keyMask, bool lightEnabled)
@@ -367,22 +391,22 @@
 
         public byte[] GetFirmwareData(FirmwareData location)
         {
-            return _inputOutput.GetFirmwareData(location);
+            return _inputOutput.GetFirmwareData((FirmwareType)location).ToArray();
         }
 
         public long GetFirmwareSize(FirmwareData location)
         {
-            return (long)_inputOutput.GetFirmwareSize(location);
+            return (long)_inputOutput.GetFirmwareSize((FirmwareType)location);
         }
 
         public string GetFirmwareVersion(FirmwareData location)
         {
-            return _inputOutput.GetFirmwareVersion(location);
+            return _inputOutput.GetFirmwareVersion((FirmwareType)location);
         }
 
         public bool TestBattery(int batteryIndex)
         {
-            return _inputOutput.TestBattery(batteryIndex);
+            return _inputOutput.TestBatteryAsync((Battery)batteryIndex, CancellationToken.None).WaitForCompletion();
         }
 
         public bool SetBellState(bool ringBell)
@@ -397,7 +421,7 @@
 
         public bool SetRedScreenFreeSpinBankShow(bool bankOn)
         {
-            return _inputOutput.SetRedScreenFreeSpinBankShow(bankOn);
+            return _inputOutput.SetMultipurposeInputOutput(bankOn);
         }
 
         public string Name => nameof(IOService);
@@ -431,9 +455,6 @@
             ServiceProtocol = HardwareFamilyIdentifier.Identify().ToString();
 
             // Load an instance of the given protocol implementation.
-            _inputOutput = (IIOImplementation)_addinHelper.GetDeviceImplementationObject(
-                DeviceImplementationsExtensionPath,
-                ServiceProtocol);
             if (_inputOutput is null)
             {
                 var errorMessage = "Cannot load" + Name;
@@ -444,7 +465,8 @@
             Logger.Debug($"Created IOImplementation: {ServiceProtocol}");
 
             // Initialize the device implementation.
-            _inputOutput.Initialize();
+            _inputOutput.InitializeAsync(CancellationToken.None).WaitForCompletion();
+            _pendingInspectedEvent = true;
 
             // Initialize last changed inputs (all off).
             LastChangedInputs = IntrusionMasks << 32;
@@ -457,18 +479,19 @@
             // Iterate through events, add to queue, and set/clear bits in _lastChangedInputs
             // Note: Bits for doors are in the upper 32 bits of _lastChangedInputs. Physical ID in the event corresponds
             // to bit number when counting from right to left starting with 0.
-            var intrusionEvents = _inputOutput.GetIntrusionEvents;
+            var intrusionEvents = _inputOutput.IntrusionEvents;
             foreach (var intrusion in intrusionEvents)
             {
+                var doorId = _doorsMap.FirstOrDefault(d => d.Value == intrusion.Id).Key;
                 lock (QueuedEventsLock)
                 {
                     Logger.Debug(
                         $"Adding intrusion event for door {intrusion.Id} {intrusion.Action} to event queue. size is {_queuedEvents.Count}");
-                    _queuedEvents.Add(intrusion);
+                    _queuedEvents.Add(new InputEvent(doorId, intrusion.Action));
                 }
 
                 ulong setOrClearBit = 1;
-                setOrClearBit <<= intrusion.Id;
+                setOrClearBit <<= doorId;
 
                 // Action is true for door closed; false for door open
                 if (intrusion.Action)
@@ -490,8 +513,7 @@
             PollTimer.Elapsed += OnPollTimeout;
 
             // Set poll timer interval to implementation polling frequency and start.
-            var device = _inputOutput.DeviceConfiguration;
-            PollTimer.Interval = device.PollingFrequency;
+            PollTimer.Interval = IOPollTimeMs;
             PollTimer.Start();
 
             // Set service initialized.
@@ -550,17 +572,17 @@
                     continue;
                 }
 
-                var inputs = _inputOutput.GetInputs;
+                var inputs = _inputOutput.Inputs;
                 if (inputs == LastChangedInputs)
                 {
                     continue;
                 }
 
-                Logger.DebugFormat("Inputs {0}", FormatBits(_inputOutput.GetMaxInputs, 4, inputs));
+                Logger.DebugFormat("Inputs {0}", FormatBits(_inputOutput.AvailableInputs, 4, inputs));
 
                 // Post an event for each changed input.
                 ulong testBit = 1;
-                for (var i = 0; i < _inputOutput.GetMaxInputs; i++)
+                for (var i = 0; i < _inputOutput.AvailableInputs; i++)
                 {
                     int physicalId;
                     if ((inputs & testBit) != 0 && (LastChangedInputs & testBit) == 0)
@@ -605,8 +627,7 @@
             UnsubscribeFromEvents();
 
             // Clean up the device implementation.
-            _inputOutput.Cleanup();
-
+            _inputOutput.Dispose();
             Logger.Debug($"{Name} stopped");
         }
 
@@ -710,8 +731,6 @@
         private void SubscribeToEvents()
         {
             // Subscribe to initialization events.
-            _eventBus.Subscribe<InitCompleteEvent>(this, ReceiveEvent);
-            _eventBus.Subscribe<ErrorEvent>(this, ReceiveEvent);
             _eventBus.Subscribe<PlatformBootedEvent>(this, ReceiveEvent);
             _eventBus.Subscribe<StoppedRespondingEvent>(
                 this,
@@ -735,68 +754,43 @@
             _eventBus.UnsubscribeAll(this);
         }
 
-        private void ReceiveEvent(IEvent data)
+        private void InputOutputOnErrorOccurred(object sender, HardwareErrorEventArgs e)
         {
-            if (typeof(ErrorEvent) == data.GetType())
+            switch (e.Error)
             {
-                var errorEvent = (ErrorEvent)data;
-                var id = errorEvent.Id;
+                case NativeOS.Services.IO.ErrorEventId.None:
+                case NativeOS.Services.IO.ErrorEventId.Read:
+                case NativeOS.Services.IO.ErrorEventId.Write:
+                case NativeOS.Services.IO.ErrorEventId.WatchdogDisableFailure:
+                case NativeOS.Services.IO.ErrorEventId.WatchdogResetFailure:
+                    Logger.Info($"Handled ErrorEventId {e.Error}");
+                    break;
+                case NativeOS.Services.IO.ErrorEventId.InputFailure:
+                case NativeOS.Services.IO.ErrorEventId.OutputFailure:
+                case NativeOS.Services.IO.ErrorEventId.InvalidHandle:
+                case NativeOS.Services.IO.ErrorEventId.ReadBoardInfoFailure:
+                    Logger.Info($"Handled ErrorEventId {e.Error}");
 
-                LastError = id.ToString();
-
-                switch (id)
-                {
-                    case ErrorEventId.InputFailure:
-                    case ErrorEventId.OutputFailure:
-                    case ErrorEventId.InvalidHandle:
-                    case ErrorEventId.ReadBoardInfoFailure:
+                    if (LogicalState == IOLogicalState.Uninitialized && !_postedInspectionFailedEvent)
                     {
-                        Logger.ErrorFormat("Handled ErrorEventId {0}", id);
-
-                        // Are we uninitialized?
-                        if (LogicalState == IOLogicalState.Uninitialized && _postedInspectionFailedEvent == false)
-                        {
-                            // Yes, set pending inspection failed event.
-                            _pendingInspectionFailedEvent = true;
-                        }
-                        else
-                        {
-                            _hardMeterStoppedResponding = false;
-                            // Disable service for error.
-                            Disable(DisabledReasons.Error);
-                        }
-
-                        break;
+                        _pendingInspectionFailedEvent = true;
+                    }
+                    else
+                    {
+                        _hardMeterStoppedResponding = false;
+                        Disable(DisabledReasons.Error);
                     }
 
-                    case ErrorEventId.Read:
-                    case ErrorEventId.Write:
-                    case ErrorEventId.WatchdogEnableFailure:
-                    case ErrorEventId.WatchdogDisableFailure:
-                    case ErrorEventId.WatchdogResetFailure:
-                    {
-                        Logger.InfoFormat("Handled ErrorEventId {0}", id);
-                        break;
-                    }
+                    break;
+                default:
+                    Logger.Info($"Unhandled ErrorEventId {e.Error}");
+                    break;
+            }
+        }
 
-                    default:
-                        Logger.InfoFormat("Unhandled ErrorEventId {0}", id);
-                        break;
-                }
-            }
-            else if (typeof(InitCompleteEvent) == data.GetType())
-            {
-                // Set pending inspected event.
-                _pendingInspectedEvent = true;
-            }
-            else if (typeof(PlatformBootedEvent) == data.GetType())
-            {
-                _platformBooted = true;
-            }
-            else
-            {
-                Logger.InfoFormat("Received unexpected event of type {0}", data.GetType());
-            }
+        private void ReceiveEvent(PlatformBootedEvent data)
+        {
+            _platformBooted = true;
         }
 
         private void RegisterHardwareDevice(

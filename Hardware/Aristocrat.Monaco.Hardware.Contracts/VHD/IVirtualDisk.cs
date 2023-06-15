@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts.VHD
 {
+    using System.Runtime.InteropServices;
     using Kernel;
 
     /// <summary>
@@ -13,7 +14,7 @@
         /// <param name="file">The VHD file to attach</param>
         /// <param name="path">The mount path for the image</param>
         /// <returns>the virtual disk file handle if successful</returns>
-        VirtualDiskHandle AttachImage(string file, string path);
+        SafeHandle AttachImage(string file, string path);
 
         /// <summary>
         ///     Unmounts an image
@@ -21,7 +22,7 @@
         /// <param name="handle">The VHD handle to detach</param>
         /// <param name="path">The mount path for the image</param>
         /// <returns>true upon success, otherwise false</returns>
-        bool DetachImage(VirtualDiskHandle handle, string path);
+        bool DetachImage(SafeHandle handle, string path);
 
         /// <summary>
         ///     Unmounts an image from the specified path
@@ -35,6 +36,6 @@
         ///     Closes the VHD handle
         /// </summary>
         /// <param name="handle">The VHD handle to close</param>
-        void Close(VirtualDiskHandle handle);
+        void Close(SafeHandle handle);
     }
 }

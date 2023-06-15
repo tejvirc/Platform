@@ -11,7 +11,7 @@
         ///     Constructor.
         /// </summary>
         /// <param name="deviceProperties">Device Properties.</param>
-        public DeviceDisconnectedEvent(IDictionary<string, object> deviceProperties)
+        public DeviceDisconnectedEvent(IReadOnlyDictionary<string, object> deviceProperties)
             : base(deviceProperties)
         {
         }

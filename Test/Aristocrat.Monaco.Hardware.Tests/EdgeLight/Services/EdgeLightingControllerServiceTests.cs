@@ -12,13 +12,13 @@
     using Manager;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
+    using NativeUsb.Hid;
     using Test.Common;
-    using Vgt.Client12.Hardware.HidLibrary;
 
     [TestClass]
     public class EdgeLightingControllerServiceTests
     {
-        private readonly List<Mock<IEdgeLightRenderer>> _rendererList = new List<Mock<IEdgeLightRenderer>>();
+        private readonly List<Mock<IEdgeLightRenderer>> _rendererList = new();
         private EdgeLightingControllerService _controllerService;
         private Mock<IEdgeLightManager> _edgeLightManagerMock;
         private Mock<IEventBus> _eventBus;

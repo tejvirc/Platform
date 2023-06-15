@@ -63,10 +63,6 @@
         /// <returns>The queued events.</returns>
         ICollection<IEvent> GetQueuedEvents { get; }
 
-        /// <summary>Gets a value indicating whether the watchdog is enabled or not.</summary>
-        /// <returns>Number of seconds remaining before watchdog triggers a reboot.</returns>
-        int GetWatchdogEnabled { get; }
-
         /// <summary>Get whether the carrier board was removed during power-down or changed.</summary>
         /// <returns>true if board was removed, else false</returns>
         bool WasCarrierBoardRemoved { get; }
@@ -78,18 +74,6 @@
         /// <summary>Gets the logical IO service state.</summary>
         /// <returns>The logical IO service state.</returns>
         IOLogicalState LogicalState { get; }
-
-        /// <summary>Enables/disables the watchdog for the given seconds.</summary>
-        /// <param name="seconds">
-        ///     Number of seconds the watchdog should wait for a reset command before rebooting the system. Valid
-        ///     range is 1 to 255, 0 will disable the watchdog.
-        /// </param>
-        /// <returns>0 if watchdog enabled, -1 if could not be enabled.</returns>
-        int EnableWatchdog(int seconds);
-
-        /// <summary>Resets the watchdog to the second interval set when enabled.</summary>
-        /// <returns>0 if watchdog reset, -1 if watchdog could not be reset.</returns>
-        int ResetWatchdog();
 
         /// <summary>Sets the action for the given output physical ID.</summary>
         /// <param name="physicalId">The physical ID.</param>

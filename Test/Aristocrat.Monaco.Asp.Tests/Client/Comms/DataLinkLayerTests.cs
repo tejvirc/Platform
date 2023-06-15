@@ -5,6 +5,7 @@
     using Asp.Client.Comms;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
+    using NativeSerial;
 
     [TestClass]
     [Ignore("Ignored, needs to be reviewed. Test are failing intermittently.")]
@@ -13,7 +14,7 @@
         [TestMethod]
         public void DataLinkLayerTest()
         {
-            var commPortMock = MockRepository.Create<ICommPort>();
+            var commPortMock = MockRepository.Create<INativeComPort>();
             Assert.IsNotNull(new DataLinkLayer(commPortMock.Object));
         }
 
@@ -47,60 +48,52 @@
         [TestMethod]
         public void StartTest()
         {
-            using (var dataLinkLayer = CreateDataLinkLayer(CreateCommPortMock()))
-            {
-                var localDataLinkLayer = dataLinkLayer;
-                Assert.IsFalse(dataLinkLayer.IsLinkUp);
-                Assert.IsFalse(dataLinkLayer.IsRunning);
-                Assert.IsTrue(dataLinkLayer.Start("Test"));
-                Assert.IsTrue(dataLinkLayer.IsRunning);
-                Assert.IsFalse(WaitFor(200, () => localDataLinkLayer.IsLinkUp));
-                dataLinkLayer.Stop();
-                Assert.IsFalse(dataLinkLayer.IsLinkUp);
-                Assert.IsFalse(dataLinkLayer.IsRunning);
-            }
+            using var dataLinkLayer = CreateDataLinkLayer(CreateCommPortMock());
+            var localDataLinkLayer = dataLinkLayer;
+            Assert.IsFalse(dataLinkLayer.IsLinkUp);
+            Assert.IsFalse(dataLinkLayer.IsRunning);
+            Assert.IsTrue(dataLinkLayer.Start("Test"));
+            Assert.IsTrue(dataLinkLayer.IsRunning);
+            Assert.IsFalse(WaitFor(200, () => localDataLinkLayer.IsLinkUp));
+            dataLinkLayer.Stop();
+            Assert.IsFalse(dataLinkLayer.IsLinkUp);
+            Assert.IsFalse(dataLinkLayer.IsRunning);
         }
 
         [TestMethod]
         public void StopBlockedTest()
         {
             var commPortMock = CreateCommPortMock();
-            using (var dataLinkLayer = CreateDataLinkLayer(commPortMock))
-            {
-                var readCalled = false;
-                commPortMock.Setup(x => x.Read(It.IsAny<byte[]>(), It.IsAny<int>(), It.IsAny<uint>())).Callback(
-                    () =>
-                    {
-                        readCalled = true;
-                        using (var resetEvent = new AutoResetEvent(false))
-                        {
-                            resetEvent.WaitOne();
-                        }
-                    });
-                Assert.IsTrue(dataLinkLayer.Start("Test"));
-                Assert.IsTrue(dataLinkLayer.IsRunning);
-                Assert.IsTrue(WaitFor(500, () => readCalled));
-                dataLinkLayer.Stop();
-                Assert.IsFalse(dataLinkLayer.IsRunning);
-            }
+            using var dataLinkLayer = CreateDataLinkLayer(commPortMock);
+            var readCalled = false;
+            commPortMock.Setup(x => x.Read(It.IsAny<int>())).Returns(Array.Empty<ComPortByte>()).Callback(
+                () =>
+                {
+                    readCalled = true;
+                    using var resetEvent = new AutoResetEvent(false);
+                    resetEvent.WaitOne();
+                });
+            Assert.IsTrue(dataLinkLayer.Start("Test"));
+            Assert.IsTrue(dataLinkLayer.IsRunning);
+            Assert.IsTrue(WaitFor(500, () => readCalled));
+            dataLinkLayer.Stop();
+            Assert.IsFalse(dataLinkLayer.IsRunning);
         }
 
         [TestMethod]
         public void StopSameThreadTest()
         {
             var commPortMock = CreateCommPortMock();
-            using (var dataLinkLayer = CreateDataLinkLayer(commPortMock))
-            {
-                var dl = dataLinkLayer;
-                commPortMock.Setup(x => x.Read(It.IsAny<byte[]>(), It.IsAny<int>(), It.IsAny<uint>())).Returns(
-                    () =>
-                    {
-                        dl?.Stop();
-                        return 0;
-                    });
-                Assert.IsTrue(dataLinkLayer.Start("Test"));
-                Assert.IsTrue(WaitFor(200, () => !dl.IsRunning));
-            }
+            using var dataLinkLayer = CreateDataLinkLayer(commPortMock);
+            var dl = dataLinkLayer;
+            commPortMock.Setup(x => x.Read(It.IsAny<int>())).Returns(
+                () =>
+                {
+                    dl?.Stop();
+                    return Array.Empty<ComPortByte>();
+                });
+            Assert.IsTrue(dataLinkLayer.Start("Test"));
+            Assert.IsTrue(WaitFor(200, () => !dl.IsRunning));
         }
 
         [TestMethod]
@@ -108,39 +101,32 @@
         {
             var mock = new CommPortMock();
 
-            using (var dataLinkLayer = new DataLinkLayer(mock))
-            {
-                var localDataLinkLayer = dataLinkLayer;
-                Assert.IsTrue(dataLinkLayer.Start("Test"));
-                Assert.IsTrue(WaitFor(100, () => localDataLinkLayer.IsLinkUp));
-
-                mock.GetDataLinkDataFunc = null;
-                Assert.IsTrue(WaitFor(100, () => localDataLinkLayer.IsLinkUp));
-            }
+            using var dataLinkLayer = new DataLinkLayer(mock);
+            var localDataLinkLayer = dataLinkLayer;
+            Assert.IsTrue(dataLinkLayer.Start("Test"));
+            Assert.IsTrue(WaitFor(100, () => localDataLinkLayer.IsLinkUp));
+            mock.GetDataLinkDataFunc = null;
+            Assert.IsTrue(WaitFor(100, () => localDataLinkLayer.IsLinkUp));
         }
 
         [TestMethod]
         public void LinkUpInvalidMacTest()
         {
             var mock = new CommPortMock { Mac = 0x50 };
-            using (var dataLinkLayer = new DataLinkLayer(mock))
-            {
-                var localDataLinkLayer = dataLinkLayer;
-                Assert.IsTrue(dataLinkLayer.Start("Test"));
-                Assert.IsTrue(WaitFor(500, () => !localDataLinkLayer.IsLinkUp));
-            }
+            using var dataLinkLayer = new DataLinkLayer(mock);
+            var localDataLinkLayer = dataLinkLayer;
+            Assert.IsTrue(dataLinkLayer.Start("Test"));
+            Assert.IsTrue(WaitFor(500, () => !localDataLinkLayer.IsLinkUp));
         }
 
         [TestMethod]
         public void LinkUpInvalidSeqTest()
         {
             var mock = new CommPortMock { Sequence = 0x1, UpdateSequence = false };
-            using (var dataLinkLayer = new DataLinkLayer(mock))
-            {
-                var localDataLinkLayer = dataLinkLayer;
-                Assert.IsTrue(dataLinkLayer.Start("Test"));
-                Assert.IsFalse(WaitFor(500, () => localDataLinkLayer.IsLinkUp));
-            }
+            using var dataLinkLayer = new DataLinkLayer(mock);
+            var localDataLinkLayer = dataLinkLayer;
+            Assert.IsTrue(dataLinkLayer.Start("Test"));
+            Assert.IsFalse(WaitFor(500, () => localDataLinkLayer.IsLinkUp));
         }
 
         [TestMethod]
@@ -148,16 +134,13 @@
         {
             var mock = new CommPortMock();
 
-            using (var dataLinkLayer = new DataLinkLayer(mock))
-            {
-                var localDataLinkLayer = dataLinkLayer;
-                Assert.IsTrue(dataLinkLayer.Start("Test"));
-                Assert.IsTrue(WaitFor(100, () => localDataLinkLayer.IsLinkUp));
-
-                mock.Mac = 0x30;
-                var timeoutPeriod = GetWaitTimeFor(1200, () => !localDataLinkLayer.IsLinkUp);
-                Assert.IsTrue(timeoutPeriod > 0 && timeoutPeriod < 1100 && timeoutPeriod > 800);
-            }
+            using var dataLinkLayer = new DataLinkLayer(mock);
+            var localDataLinkLayer = dataLinkLayer;
+            Assert.IsTrue(dataLinkLayer.Start("Test"));
+            Assert.IsTrue(WaitFor(100, () => localDataLinkLayer.IsLinkUp));
+            mock.Mac = 0x30;
+            var timeoutPeriod = GetWaitTimeFor(1200, () => !localDataLinkLayer.IsLinkUp);
+            Assert.IsTrue(timeoutPeriod is > 0 and < 1100 and > 800);
         }
 
         [TestMethod]
@@ -172,13 +155,12 @@
                     throw new TimeoutException();
                 }
             };
-            using (var dataLinkLayer = new DataLinkLayer(mock))
-            {
-                Assert.IsTrue(dataLinkLayer.Start("Test"));
-                Thread.Sleep(300);
-                Assert.IsTrue(callCount > 0);
-                Assert.IsFalse(dataLinkLayer.IsLinkUp);
-            }
+
+            using var dataLinkLayer = new DataLinkLayer(mock);
+            Assert.IsTrue(dataLinkLayer.Start("Test"));
+            Thread.Sleep(300);
+            Assert.IsTrue(callCount > 0);
+            Assert.IsFalse(dataLinkLayer.IsLinkUp);
         }
 
         [TestMethod]
@@ -199,7 +181,7 @@
         [TestMethod]
         public void DisposeTwiceTest()
         {
-            var commPortMock = new Mock<ICommPort>();
+            var commPortMock = new Mock<INativeComPort>();
             commPortMock.Setup(x => x.Dispose());
 
             var dataLinkLayer = CreateDataLinkLayer(commPortMock);
@@ -210,19 +192,19 @@
             commPortMock.Verify(m => m.Dispose(), Times.Once);
         }
 
-        private static DataLinkLayer CreateDataLinkLayer(IMock<ICommPort> comMock)
+        private static DataLinkLayer CreateDataLinkLayer(IMock<INativeComPort> comMock)
         {
             return new DataLinkLayer(comMock.Object);
         }
 
-        private Mock<ICommPort> CreateCommPortMock()
+        private Mock<INativeComPort> CreateCommPortMock()
         {
-            var commPortMock = MockRepository.Create<ICommPort>();
+            var commPortMock = MockRepository.Create<INativeComPort>();
             commPortMock.Setup(x => x.Close());
-            commPortMock.SetupSet<string>(x => x.PortName = "Test").Verifiable();
             commPortMock.SetupGet(x => x.IsOpen).Returns(true);
-            commPortMock.Setup(x => x.Open());
-            commPortMock.Setup(x => x.Read(It.IsAny<byte[]>(), It.IsAny<int>(), It.IsAny<uint>())).Returns(0);
+            commPortMock.Setup(x => x.Open(It.Is<string>(p => p == "Test"), It.IsAny<SerialConfiguration>()))
+                .Verifiable();
+            commPortMock.Setup(x => x.Read(It.IsAny<int>())).Returns(Array.Empty<ComPortByte>());
             commPortMock.Setup(x => x.Dispose());
             return commPortMock;
         }
