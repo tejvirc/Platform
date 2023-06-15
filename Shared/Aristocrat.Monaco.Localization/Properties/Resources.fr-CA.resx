@@ -906,7 +906,7 @@
     <comment>Monaco.Accounting.UI</comment>
   </data>
   <data name="AssetNumber" xml:space="preserve">
-    <value>Vignette</value>
+    <value>??Asset Number??</value>
   </data>
   <data name="CashoutTicket" xml:space="preserve">
     <value>COUPON DE REMBOURSEMENT</value>
@@ -4018,5 +4018,8 @@ Do you really want to do partial reset????</value>
   </data>
   <data name="SelectAll" xml:space="preserve">
 	  <value>??Select All??</value>
+  </data>
+  <data name="IdentityScreen" xml:space="preserve">
+    <value>??Identity??</value>
   </data>
 </root>
