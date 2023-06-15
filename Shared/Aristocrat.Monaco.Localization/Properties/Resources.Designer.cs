@@ -1270,6 +1270,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to   Attendant Paid External Bonus Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string AttendantPaidExternalBonusWinLabel {
+			get {
+				return ResourceManager.GetString("AttendantPaidExternalBonusWinLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Attendant Paid (Jackpot).
 		/// </summary>
         /// <remarks>
@@ -1278,6 +1290,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string AttendantPaidJackpot {
 			get {
 				return ResourceManager.GetString("AttendantPaidJackpot", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to   Attendant Paid Paytable Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string AttendantPaidPaytableWinLabel {
+			get {
+				return ResourceManager.GetString("AttendantPaidPaytableWinLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to   Attendant Paid Progressive Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string AttendantPaidProgressiveWinLabel {
+			get {
+				return ResourceManager.GetString("AttendantPaidProgressiveWinLabel", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -13565,6 +13601,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Games Lost.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string GamesLost {
+			get {
+				return ResourceManager.GetString("GamesLost", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Games.
 		/// </summary>
         /// <remarks>
@@ -19471,6 +19519,42 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string MachinePaidBonusTotalLabel {
 			get {
 				return ResourceManager.GetString("MachinePaidBonusTotalLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to   Machine Paid External Bonus Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MachinePaidExternalBonusWinLabel {
+			get {
+				return ResourceManager.GetString("MachinePaidExternalBonusWinLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to   Machine Paid Paytable Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MachinePaidPaytableWinLabel {
+			get {
+				return ResourceManager.GetString("MachinePaidPaytableWinLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to   Machine Paid Progressive Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MachinePaidProgressiveWinLabel {
+			get {
+				return ResourceManager.GetString("MachinePaidProgressiveWinLabel", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -32168,6 +32252,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Total Coin In (Turnover).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TotalCoinInTurnoverLabel {
+			get {
+				return ResourceManager.GetString("TotalCoinInTurnoverLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Total Coin Out (Machine Paid).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TotalCoinOutMachinePaidLabel {
+			get {
+				return ResourceManager.GetString("TotalCoinOutMachinePaidLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Total Coin Out.
 		/// </summary>
         /// <remarks>
@@ -32317,6 +32425,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string TotalInLabel {
 			get {
 				return ResourceManager.GetString("TotalInLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Total Jackpot (Attendant Paid).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TotalJackpotAttendantPaidLabel {
+			get {
+				return ResourceManager.GetString("TotalJackpotAttendantPaidLabel", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -36841,6 +36961,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to   Attendant Paid External Bonus Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string AttendantPaidExternalBonusWinLabel {
+			get {
+				return "AttendantPaidExternalBonusWinLabel";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Attendant Paid (Jackpot).
 		/// </summary>
         /// <remarks>
@@ -36849,6 +36981,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string AttendantPaidJackpot {
 			get {
 				return "AttendantPaidJackpot";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to   Attendant Paid Paytable Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string AttendantPaidPaytableWinLabel {
+			get {
+				return "AttendantPaidPaytableWinLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to   Attendant Paid Progressive Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string AttendantPaidProgressiveWinLabel {
+			get {
+				return "AttendantPaidProgressiveWinLabel";
 			}
 		}
 
@@ -49135,6 +49291,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Games Lost.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string GamesLost {
+			get {
+				return "GamesLost";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Games.
 		/// </summary>
         /// <remarks>
@@ -55041,6 +55209,42 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string MachinePaidBonusTotalLabel {
 			get {
 				return "MachinePaidBonusTotalLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to   Machine Paid External Bonus Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MachinePaidExternalBonusWinLabel {
+			get {
+				return "MachinePaidExternalBonusWinLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to   Machine Paid Paytable Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MachinePaidPaytableWinLabel {
+			get {
+				return "MachinePaidPaytableWinLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to   Machine Paid Progressive Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MachinePaidProgressiveWinLabel {
+			get {
+				return "MachinePaidProgressiveWinLabel";
 			}
 		}
 
@@ -67738,6 +67942,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Total Coin In (Turnover).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TotalCoinInTurnoverLabel {
+			get {
+				return "TotalCoinInTurnoverLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Total Coin Out (Machine Paid).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TotalCoinOutMachinePaidLabel {
+			get {
+				return "TotalCoinOutMachinePaidLabel";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Total Coin Out.
 		/// </summary>
         /// <remarks>
@@ -67887,6 +68115,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string TotalInLabel {
 			get {
 				return "TotalInLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Total Jackpot (Attendant Paid).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TotalJackpotAttendantPaidLabel {
+			get {
+				return "TotalJackpotAttendantPaidLabel";
 			}
 		}
 
@@ -71887,12 +72127,33 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		AttendantPaidCancelledCredit,
 		/// <summary>
+		///   Looks up a localized string similar to   Attendant Paid External Bonus Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		AttendantPaidExternalBonusWinLabel,
+		/// <summary>
 		///   Looks up a localized string similar to Attendant Paid (Jackpot).
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		AttendantPaidJackpot,
+		/// <summary>
+		///   Looks up a localized string similar to   Attendant Paid Paytable Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		AttendantPaidPaytableWinLabel,
+		/// <summary>
+		///   Looks up a localized string similar to   Attendant Paid Progressive Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		AttendantPaidProgressiveWinLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Attendant Paid Progressive.
 		/// </summary>
@@ -78912,6 +79173,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		GameSetupMessage,
 		/// <summary>
+		///   Looks up a localized string similar to Games Lost.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		GamesLost,
+		/// <summary>
 		///   Looks up a localized string similar to Games.
 		/// </summary>
         /// <remarks>
@@ -82286,6 +82554,27 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		MachinePaidBonusTotalLabel,
+		/// <summary>
+		///   Looks up a localized string similar to   Machine Paid External Bonus Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		MachinePaidExternalBonusWinLabel,
+		/// <summary>
+		///   Looks up a localized string similar to   Machine Paid Paytable Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		MachinePaidPaytableWinLabel,
+		/// <summary>
+		///   Looks up a localized string similar to   Machine Paid Progressive Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		MachinePaidProgressiveWinLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Machine Paid Progressive.
 		/// </summary>
@@ -89550,6 +89839,20 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		TotalCoinInText,
 		/// <summary>
+		///   Looks up a localized string similar to Total Coin In (Turnover).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		TotalCoinInTurnoverLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Total Coin Out (Machine Paid).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		TotalCoinOutMachinePaidLabel,
+		/// <summary>
 		///   Looks up a localized string similar to Total Coin Out.
 		/// </summary>
         /// <remarks>
@@ -89637,6 +89940,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		TotalInLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Total Jackpot (Attendant Paid).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		TotalJackpotAttendantPaidLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Jurisdictional Total RTP.
 		/// </summary>

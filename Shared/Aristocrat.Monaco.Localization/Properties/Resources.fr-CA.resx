@@ -4034,4 +4034,48 @@ Do you really want to do partial reset????</value>
   <data name="IdentityScreen" xml:space="preserve">
     <value>??Identity??</value>
   </data>
+  <data name="AttendantPaidExternalBonusWinLabel" xml:space="preserve">
+    <value>  ??Attendant Paid External Bonus Win??</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="AttendantPaidPaytableWinLabel" xml:space="preserve">
+    <value>  ??Attendant Paid Paytable Win??</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="AttendantPaidProgressiveWinLabel" xml:space="preserve">
+    <value>  ??Attendant Paid Progressive Win??</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="GamesLost" xml:space="preserve">
+    <value>??Games Lost??</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MachinePaidExternalBonusWinLabel" xml:space="preserve">
+    <value>  ??Machine Paid External Bonus Win??</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MachinePaidPaytableWinLabel" xml:space="preserve">
+    <value>  ??Machine Paid Paytable Win??</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MachinePaidProgressiveWinLabel" xml:space="preserve">
+    <value>  ??Machine Paid Progressive Win??</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="TotalCoinInTurnoverLabel" xml:space="preserve">
+    <value>??Total Coin In (Turnover)??</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="TotalCoinOutMachinePaidLabel" xml:space="preserve">
+    <value>??Total Coin Out (Machine Paid)??</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="TotalJackpotAttendantPaidLabel" xml:space="preserve">
+    <value>??Total Jackpot (Attendant Paid)??</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="TotalWins" xml:space="preserve">
+    <value>??Total Wins??</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
 </root>
