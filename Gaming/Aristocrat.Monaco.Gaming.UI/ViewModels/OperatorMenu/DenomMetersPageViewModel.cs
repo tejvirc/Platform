@@ -9,6 +9,7 @@
     using Application.Contracts.MeterPage;
     using Application.UI.MeterPage;
     using Application.UI.OperatorMenu;
+    using Aristocrat.Monaco.Application.Contracts.Localization;
     using Contracts;
     using Contracts.Meters;
     using Contracts.Tickets;
@@ -113,7 +114,7 @@
                                 var meter = _meters.GetMeter(SelectedDenom.Millicents, meterNode.Name);
                                 Meters.Add(
                                     new DisplayMeter(
-                                        meterNode.DisplayName,
+                                        Localizer.For(CultureFor.Operator).GetString(meterNode.DisplayNameKey),
                                         meter,
                                         ShowLifetime,
                                         meterNode.Order,
@@ -125,7 +126,7 @@
                             {
                                 Meters.Add(
                                     new DisplayMeter(
-                                        meterNode.DisplayName,
+                                        Localizer.For(CultureFor.Operator).GetString(meterNode.DisplayNameKey),
                                         null,
                                         ShowLifetime,
                                         meterNode.Order,
