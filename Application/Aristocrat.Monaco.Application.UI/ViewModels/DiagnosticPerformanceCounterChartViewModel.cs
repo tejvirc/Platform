@@ -7,7 +7,6 @@
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows.Input;
-    using CefSharp.DevTools.Performance;
     using Contracts.Localization;
     using Kernel;
     using Monaco.Common;
@@ -461,10 +460,6 @@
 
         private void UpdateMetricLabels()
         {
-            if (AllMetrics == null)
-            {
-                return;
-            }
             foreach (var metric in AllMetrics)
             {
                 var metricLabel = Localizer.For(CultureFor.Operator).GetString(metric.MetricType.GetAttribute<LabelResourceKeyAttribute>().LabelResourceKey);
@@ -488,7 +483,7 @@
         {
             MvvmHelper.ExecuteOnUI(() =>
             {
-                if(MonacoPlotModel == null)
+                if(MonacoPlotModel == null || AllMetrics == null)
                 {
                     return;
                 }
