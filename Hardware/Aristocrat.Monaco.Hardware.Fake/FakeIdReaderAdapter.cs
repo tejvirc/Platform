@@ -218,7 +218,10 @@
 
             ////We assume the device will be opened by default
             _eventBus?.Subscribe<FakeDeviceConnectedEvent>(this, HandleEvent);
+            IsOpen = true;
+            IsConnected = true;
 
+            OnConnected();
             return true;
         }
 
@@ -227,6 +230,9 @@
         {
             _eventBus?.UnsubscribeAll(this);
             _eventBus?.Subscribe<FakeDeviceConnectedEvent>(this, HandleEvent);
+            IsOpen = false;
+            IsConnected = false;
+            OnDisconnected();
 
             return true;
         }
@@ -350,10 +356,23 @@
         }
 
         /// <summary>Handle a <see cref="FakeCardReaderEvent" />.</summary>
-        /// <param name="FakeCardReaderEvent">The <see cref="FakeCardReaderEvent" /> to handle.</param>
+        /// <param name="fakeCardReaderEvent">The <see cref="FakeCardReaderEvent" /> to handle.</param>
         protected void HandleEvent(FakeCardReaderEvent fakeCardReaderEvent)
         {
             var fakeCardData = fakeCardReaderEvent.CardValue;
+            if (fakeCardReaderEvent.Action)
+            {
+                IdReaderTrack = IdReaderTracks.Track1;
+                OnIdPresented();
+                OnIdValidationRequested(
+                    new ValidationEventArgs { TrackData = new TrackData { Track1 = fakeCardReaderEvent.CardValue } });
+            }
+            else
+            {
+                IdReaderTrack = IdReaderTracks.None;
+                OnIdCleared();
+            }
+
             Logger.Debug($"Fake Card Reader: {fakeCardData};");
         }
 
@@ -369,11 +388,15 @@
             if (!fakeDeviceConnectedEvent.Connected)
             {
                 IsOpen = false;
+                IsConnected = false;
+                OnDisconnected();
                 Logger.Debug("Closed fake Id Reader adapter port");
             }
             else
             {
                 IsOpen = true;
+                IsConnected = true;
+                OnConnected();
                 Logger.Debug("Opened fake Id Reader adapter port");
             }
         }
