@@ -32480,7 +32480,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Total - Bills and Vouchers.
+		///   Looks up a localized string similar to Total - Bills, Vouchers.
 		/// </summary>
 		public static string TotalDashBillsAndVouchers {
 			get {
@@ -32513,7 +32513,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Total - Coins, Bills, and Vouchers.
+		///   Looks up a localized string similar to Total - Coins, Bills, Vouchers.
 		/// </summary>
 		public static string TotalDashCoinsBillsAndVouchers {
 			get {
@@ -32989,6 +32989,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string TouchScreenCalibrationDisabledLabel {
 			get {
 				return ResourceManager.GetString("TouchScreenCalibrationDisabledLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to 1. With a single finger, touch the monitor that di....
+		/// </summary>
+		public static string TouchScreenCalibrationInstructions {
+			get {
+				return ResourceManager.GetString("TouchScreenCalibrationInstructions", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Touch Screen Calibration Process.
+		/// </summary>
+		public static string TouchScreenCalibrationProcess {
+			get {
+				return ResourceManager.GetString("TouchScreenCalibrationProcess", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -68335,7 +68353,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Total - Bills and Vouchers.
+		///		Looks up a localized string similar to Total - Bills, Vouchers.
 		/// </summary>
 		public static string TotalDashBillsAndVouchers {
 			get {
@@ -68368,7 +68386,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Total - Coins, Bills, and Vouchers.
+		///		Looks up a localized string similar to Total - Coins, Bills, Vouchers.
 		/// </summary>
 		public static string TotalDashCoinsBillsAndVouchers {
 			get {
@@ -68844,6 +68862,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string TouchScreenCalibrationDisabledLabel {
 			get {
 				return "TouchScreenCalibrationDisabledLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to 1. With a single finger, touch the monitor that di....
+		/// </summary>
+		public static string TouchScreenCalibrationInstructions {
+			get {
+				return "TouchScreenCalibrationInstructions";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Touch Screen Calibration Process.
+		/// </summary>
+		public static string TouchScreenCalibrationProcess {
+			get {
+				return "TouchScreenCalibrationProcess";
 			}
 		}
 
@@ -90297,7 +90333,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		TotalDashBillIn,
 		/// <summary>
-		///   Looks up a localized string similar to Total - Bills and Vouchers.
+		///   Looks up a localized string similar to Total - Bills, Vouchers.
 		/// </summary>
 		TotalDashBillsAndVouchers,
 		/// <summary>
@@ -90315,7 +90351,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		TotalDashCoinsAndBills,
 		/// <summary>
-		///   Looks up a localized string similar to Total - Coins, Bills, and Vouchers.
+		///   Looks up a localized string similar to Total - Coins, Bills, Vouchers.
 		/// </summary>
 		TotalDashCoinsBillsAndVouchers,
 		/// <summary>
@@ -90589,6 +90625,14 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		TouchScreenCalibrationDisabledLabel,
+		/// <summary>
+		///   Looks up a localized string similar to 1. With a single finger, touch the monitor that di....
+		/// </summary>
+		TouchScreenCalibrationInstructions,
+		/// <summary>
+		///   Looks up a localized string similar to Touch Screen Calibration Process.
+		/// </summary>
+		TouchScreenCalibrationProcess,
 		/// <summary>
 		///   Looks up a localized string similar to Touch Screen {0}.
 		/// </summary>

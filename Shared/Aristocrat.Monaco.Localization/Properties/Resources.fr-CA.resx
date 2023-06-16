@@ -1287,7 +1287,7 @@
     <value>??Total Current Credits??</value>
   </data>
   <data name="TotalGameRTP" xml:space="preserve">
-	  <value>??TOTAL GAME RTP??</value>
+    <value>??TOTAL GAME RTP??</value>
   </data>
   <data name="TotalJurisdictionalRtpInfoButtonText" xml:space="preserve">
     <value>??Total game RTP that may include verified progressive RTPs based on game and jurisdiction
@@ -3993,7 +3993,7 @@ Do you really want to do partial reset????</value>
     <value>??Clear Selection??</value>
   </data>
   <data name="SelectDate" xml:space="preserve">
-	  <value>??Select a Date??</value>
+    <value>??Select a Date??</value>
   </data>
   <data name="ProgressiveSummaryTitle" xml:space="preserve">
     <value>??Progressive Summary??</value>
@@ -4077,6 +4077,9 @@ Do you really want to do partial reset????</value>
   </data>
   <data name="NetworkConfigurationScreenTitle" xml:space="preserve">
     <value>???Network Configuration???</value>
+  </data>
+  <data name="GameName" xml:space="preserve">
+    <value>??Game Name??</value>
   </data>
   <data name="CertificateNotAfter" xml:space="preserve">
     <value>???Not After???</value>
@@ -4497,14 +4500,35 @@ Do you really want to do partial reset????</value>
   <data name="BulkEditDevices" xml:space="preserve">
     <value>??Bulk Edit Devices??</value>
   </data>
-  <data name="GameName" xml:space="preserve">
-	  <value>??Game Name??</value>
-  </data>
   <data name="TotalDashBillsAndVouchers" xml:space="preserve">
     <value>??Total - Bills, Vouchers??</value>
   </data>
   <data name="TotalDashCoinsBillsAndVouchers" xml:space="preserve">
     <value>??Total - Coins, Bills, Vouchers??</value>
+  </data>
+  <data name="TouchCalibrationDialogText" xml:space="preserve">
+    <value>??Press the PLAY button to enter Touch Calibration or click Cancel to exit??</value>
+  </data>
+  <data name="TouchCalibrationDialogTitle" xml:space="preserve">
+    <value>??Touch Calibration Confirmation??</value>
+  </data>
+  <data name="TouchCalibrationErrorText" xml:space="preserve">
+    <value>??You have {0} touch devices.  Each touch device must be mapped to one, and only one display.??</value>
+  </data>
+  <data name="TouchCalibrationErrorText2" xml:space="preserve">
+    <value>??Press the PLAY button to return to Touch Screen Calibration??</value>
+  </data>
+  <data name="TouchCalibrationErrorTitle" xml:space="preserve">
+    <value>??Touch Calibration Error??</value>
+  </data>
+  <data name="TouchscreenCalibrationInstructions" xml:space="preserve">
+    <value>??1. With a single finger, touch the monitor that displays this text
+2. If the touch does not switch to the next monitor, then
+    use the large play button to switch to the next monitor
+3. Repeat for each monitor??</value>
+  </data>
+  <data name="TouchScreenCalibrationProcess" xml:space="preserve">
+    <value>??Touch Screen Calibration Process??</value>
   </data>
   <data name="PackName" xml:space="preserve">
     <value>??Pack Name??</value>

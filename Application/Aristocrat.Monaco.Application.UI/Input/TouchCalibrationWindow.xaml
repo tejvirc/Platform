@@ -5,6 +5,8 @@
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                    xmlns:common="http://monaco.aristocrat.com/common"
                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                   xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                   xmlns:loc="http://monaco.aristocrat.com/localization"
                    xmlns:behaviors="clr-namespace:Aristocrat.Monaco.UI.Common.Behaviors;assembly=Aristocrat.Monaco.UI.Common"
                    mc:Ignorable="d"
                    BorderThickness="0"
@@ -27,14 +29,16 @@
                                    AutomationProperties.AutomationId="RowDefinition4_CCCCAC70" />
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0"
-                       Content="Touch Screen Calibration Process"
+                       Content="{lex:Loc {x:Static loc:ResourceKeys.TouchScreenCalibrationProcess}}"
                        FontSize="120"
+                       HorizontalAlignment="Center"
                        AutomationProperties.AutomationId="Label5_CCCCAC70" />
                 <Label Grid.Row="1"
                        HorizontalAlignment="Center"
                        FontSize="40"
                        Margin="0,10,0,0"
-                       Content="1. With a single finger, touch the monitor that displays this text&#xA;2. If the touch does not switch to the next monitor, then &#xA;    use the large play button to switch to the next monitor&#xA;3. Repeat for each monitor"
+                       Content="{lex:Loc {x:Static loc:ResourceKeys.TouchScreenCalibrationInstructions}}"
+                       ContentStringFormat="{}{0}"
                        AutomationProperties.AutomationId="Label6_CCCCAC70" />
             </Grid>
         </Viewbox>
