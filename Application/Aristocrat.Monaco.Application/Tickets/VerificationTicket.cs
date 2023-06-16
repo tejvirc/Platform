@@ -5,6 +5,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Text.RegularExpressions;
+    using Aristocrat.Monaco.Hardware.Contracts.Ticket;
     using Contracts;
     using Contracts.Extensions;
     using Contracts.MeterPage;
@@ -97,6 +98,21 @@
                 VTicketPage2MeterNames.Add(TicketLocalizer.GetString(ResourceKeys.AmountWon), EgmPaidGameWonAmt);
                 VTicketPage2MeterNames.Add(TicketLocalizer.GetString(ResourceKeys.PowerResets), ApplicationMeters.PowerResetCount);
             }
+        }
+
+        public override Ticket CreateSecondPageTextTicket()
+        {
+            Title = $"{Title} (2)";
+            AddCasinoInfo();
+            AddTicketHeader();
+            AddLine(TicketLocalizer.GetString(ResourceKeys.MasterText), " ", TicketLocalizer.GetString(ResourceKeys.PeriodText));
+            AddDashesLine();
+            AddLine(
+                Time.GetLocationTime(MeterManager.LastMasterClear).ToString(DateTimeFormat),
+                null,
+                Time.GetLocationTime(MeterManager.LastPeriodClear).ToString(DateTimeFormat));
+
+            return CreateTicket(Title);
         }
 
         public override void AddTicketContent()

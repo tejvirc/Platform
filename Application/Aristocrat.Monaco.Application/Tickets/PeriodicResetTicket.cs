@@ -36,8 +36,6 @@
 
             TicketPageContent(showBillDataInCount, false, showCoinData);
 
-            AddDashesLine();
-
             SetAmounts();
 
             AddDashesLine();

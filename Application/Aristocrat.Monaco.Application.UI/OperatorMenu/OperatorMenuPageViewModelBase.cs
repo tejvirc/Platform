@@ -488,7 +488,7 @@
 
         protected virtual CultureInfo GetCurrencyDisplayCulture() => UseOperatorCultureForCurrencyFormatting ? Localizer.For(CultureFor.Operator).CurrentCulture : CurrencyExtensions.CurrencyCultureInfo;
 
-        protected static IEnumerable<Ticket> GeneratePrintVerificationTickets()
+        protected IEnumerable<Ticket> GeneratePrintVerificationTickets()
         {
             List<Ticket> tickets = null;
             var ticketCreator = ServiceManager.GetInstance().TryGetService<IVerificationTicketCreator>();
@@ -497,7 +497,18 @@
                 tickets = new List<Ticket>();
                 for (var i = 0; i < 3; i++)
                 {
-                    tickets.Add(ticketCreator.Create(i));
+                    var baseTickets = SplitTicket(ticketCreator.Create(i));
+
+                    if (baseTickets.Count > 1)
+                    {
+                        var secondTicket = baseTickets[1];
+                        var ticket = ticketCreator.CreateOverflowPage(i);
+                        secondTicket[TicketConstants.Left] = $"{ticket[TicketConstants.Left]}{secondTicket[TicketConstants.Left]}";
+                        secondTicket[TicketConstants.Center] = $"{ticket[TicketConstants.Center]}{secondTicket[TicketConstants.Center]}";
+                        secondTicket[TicketConstants.Right] = $"{ticket[TicketConstants.Right]}{secondTicket[TicketConstants.Right]}";
+
+                    }
+                    tickets.AddRange(baseTickets);
                 }
             }
 

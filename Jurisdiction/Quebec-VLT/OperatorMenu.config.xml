@@ -50,7 +50,9 @@ as follows:
     <Page TabType="KeyedCreditsHistoryLogLoader" Visible="false"/>
   </Menu>
   <Menu Type="MetersMainPageLoader">
-    <Page Type="MainMetersPageViewModel" PrintButtonEnabled="true" />
+    <Page Type="MainMetersPageViewModel" PrintButtonEnabled="true" >
+      <Setting Name="BillDataInCountState" Value="false" />
+    </Page>
     <Page Type="VoucherMetersPageViewModel" PrintButtonEnabled="true"/>
     <Page Type="GameMetersViewModel" PrintButtonEnabled="true"/>
     <Page Type="DenomMetersPageViewModel" PrintButtonEnabled="true"/>

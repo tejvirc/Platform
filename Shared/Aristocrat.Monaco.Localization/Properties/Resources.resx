@@ -12062,4 +12062,10 @@ Do you really want to do full reset?</value>
     <value>Total Jackpot (Attendant Paid)</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
+  <data name="TotalDashBillsAndVouchers" xml:space="preserve">
+    <value>Total - Bills, Vouchers</value>
+  </data>
+  <data name="TotalDashCoinsBillsAndVouchers" xml:space="preserve">
+    <value>Total - Coins, Bills, Vouchers</value>
+  </data>
 </root>
