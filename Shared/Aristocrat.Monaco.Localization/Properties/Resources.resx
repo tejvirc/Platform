@@ -12105,6 +12105,7 @@ Do you really want to do full reset?</value>
   <data name="MetricTotalCpu" xml:space="preserve">
     <value>Total CPU</value>
     <comment>Aristocrat.Monaco.Application</comment>
+  </data>
   <data name="TotalDashBillsAndVouchers" xml:space="preserve">
     <value>Total - Bills, Vouchers</value>
   </data>
