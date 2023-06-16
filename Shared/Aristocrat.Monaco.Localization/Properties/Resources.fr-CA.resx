@@ -4506,4 +4506,13 @@ Do you really want to do partial reset????</value>
   <data name="TotalDashCoinsBillsAndVouchers" xml:space="preserve">
     <value>??Total - Coins, Bills, Vouchers??</value>
   </data>
+  <data name="PackName" xml:space="preserve">
+    <value>??Pack Name??</value>
+  </data>
+  <data name="ProgressiveMeters" xml:space="preserve">
+    <value>??Progressive??</value>
+  </data>
+  <data name="WagerCategoryWageredCaption" xml:space="preserve">
+    <value>??Wagered??</value>
+  </data>
 </root>

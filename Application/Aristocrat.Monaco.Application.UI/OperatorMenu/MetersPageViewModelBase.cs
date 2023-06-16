@@ -114,7 +114,7 @@
             RefreshMeters();
         }
 
-        private void HandleOperatorCultureChanged(OperatorCultureChangedEvent @event)
+        protected virtual void HandleOperatorCultureChanged(OperatorCultureChangedEvent @event)
         {
             RefreshMeters();
         }

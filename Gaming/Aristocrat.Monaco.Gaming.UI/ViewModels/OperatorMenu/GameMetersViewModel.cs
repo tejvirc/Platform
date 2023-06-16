@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using Application.Contracts;
+    using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Application.Contracts.MeterPage;
     using Application.Contracts.OperatorMenu;
@@ -370,7 +371,7 @@
             Denoms.Clear();
             foreach (var d in _selectedGame.Denominations)
             {
-                Denoms.Add(new Denomination(d.Value));
+                Denoms.Add(new Denomination(d.Value, d.Value.MillicentsToDollars().FormattedCurrencyString(false, GetCurrencyDisplayCulture())));
             }
 
             SelectedDenomIndex = 0;

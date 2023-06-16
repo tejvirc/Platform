@@ -31,11 +31,6 @@
         {
             _meters = ServiceManager.GetInstance().TryGetService<IGameMeterManager>();
 
-            var games = PropertiesManager.GetValues<IGameDetail>(GamingConstants.Games);
-            Denoms = new List<Denomination>(
-                games.SelectMany(g => g.SupportedDenominations).Distinct().OrderBy(d => d).Select(d => new Denomination(d)));
-            SelectedDenom = Denoms.FirstOrDefault();
-
             PreviousDenomCommand = new ActionCommand<object>(PreviousDenom);
             NextDenomCommand = new ActionCommand<object>(NextDenom);
         }
@@ -48,7 +43,7 @@
 
         public bool NextDenomIsEnabled => SelectedDenomIndex < Denoms.Count - 1 && !DataEmpty;
 
-        public List<Denomination> Denoms { get; }
+        public List<Denomination> Denoms { get; private set; }
 
         public Denomination SelectedDenom
         {
@@ -126,7 +121,7 @@
                             {
                                 Meters.Add(
                                     new DisplayMeter(
-                                        Localizer.For(CultureFor.Operator).GetString(meterNode.DisplayNameKey),
+                                        Localizer.For(CultureFor.Operator).GetString(meterNode.DisplayName),
                                         null,
                                         ShowLifetime,
                                         meterNode.Order,
@@ -176,8 +171,19 @@
 
         protected override void OnLoaded()
         {
+            LoadDenoms();
             SelectedDenomIndex = 0;
             base.OnLoaded();
+        }
+
+        protected override void HandleOperatorCultureChanged(OperatorCultureChangedEvent @event)
+        {
+            MvvmHelper.ExecuteOnUI(() =>
+            {
+                LoadDenoms();
+            });
+
+            base.HandleOperatorCultureChanged(@event);
         }
 
         private void NextDenom(object sender)
@@ -196,12 +202,23 @@
                 : SelectedDenomIndex - 1;
         }
 
+        private void LoadDenoms()
+        {
+            Denoms?.Clear();
+
+            var games = PropertiesManager.GetValues<IGameDetail>(GamingConstants.Games);
+            Denoms = new List<Denomination>(
+                games.SelectMany(g => g.SupportedDenominations).Distinct().OrderBy(d => d).Select(d => new Denomination(d, d.MillicentsToDollars().FormattedCurrencyString(false, GetCurrencyDisplayCulture()))));
+            RaisePropertyChanged(nameof(Denoms));
+            SelectedDenom = Denoms.FirstOrDefault();
+        }
+
         public struct Denomination
         {
-            public Denomination(long millicents)
+            public Denomination(long millicents, string displayValue)
             {
                 Millicents = millicents;
-                DisplayValue = millicents.MillicentsToDollars().FormattedCurrencyString();
+                DisplayValue = displayValue;
             }
 
             public long Millicents { get; }
