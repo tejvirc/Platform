@@ -117,7 +117,6 @@
                                AutomationProperties.AutomationId="Label25_BE4D994" />
                         <TextBlock Grid.Row="0"
                                    Grid.Column="1"
-                                   Foreground="{Binding ManufacturerForeground}"
                                    AutomationProperties.AutomationId="TextBlock26_BE4D994">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock"
@@ -142,7 +141,6 @@
                                AutomationProperties.AutomationId="Label28_BE4D994" />
                         <TextBlock Grid.Row="1"
                                    Grid.Column="1"
-                                   Foreground="{Binding ModelForeground}"
                                    AutomationProperties.AutomationId="TextBlock29_BE4D994">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock"
@@ -166,7 +164,6 @@
                                AutomationProperties.AutomationId="Label31_BE4D994" />
                         <TextBlock Grid.Row="2"
                                    Grid.Column="1"
-                                   Foreground="{Binding ProtocolForeground}"
                                    AutomationProperties.AutomationId="TextBlock32_BE4D994">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock"
@@ -190,7 +187,6 @@
                                AutomationProperties.AutomationId="Label34_BE4D994" />
                         <TextBlock Grid.Row="3"
                                    Grid.Column="1"
-                                   Foreground="{Binding PortForeground}"
                                    AutomationProperties.AutomationId="TextBlock35_BE4D994">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock"
@@ -214,7 +210,6 @@
                                AutomationProperties.AutomationId="Label37_BE4D994" />
                         <TextBlock Grid.Row="4"
                                    Grid.Column="1"
-                                   Foreground="{Binding SerialNumberForeground}"
                                    AutomationProperties.AutomationId="TextBlock38_BE4D994">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock"
@@ -239,7 +234,6 @@
                                AutomationProperties.AutomationId="Label40_BE4D994" />
                         <TextBlock Grid.Row="5"
                                    Grid.Column="1"
-                                   Foreground="{Binding FirmwareVersionForeground}"
                                    AutomationProperties.AutomationId="TextBlock41_BE4D994">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock"
@@ -264,7 +258,6 @@
                                AutomationProperties.AutomationId="Label43_BE4D994" />
                         <TextBlock Grid.Row="6"
                                    Grid.Column="1"
-                                   Foreground="{Binding FirmwareRevisionForeground}"
                                    AutomationProperties.AutomationId="TextBlock44_BE4D994">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock"
@@ -289,7 +282,6 @@
                                AutomationProperties.AutomationId="Label46_BE4D994" />
                         <TextBlock Grid.Row="7"
                                    Grid.Column="1"
-                                   Foreground="{Binding FirmwareCrcForeground}"
                                    AutomationProperties.AutomationId="TextBlock47_BE4D994">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock"
@@ -314,7 +306,6 @@
                                AutomationProperties.AutomationId="Label49_BE4D994" />
                         <TextBlock Grid.Row="8"
                                    Grid.Column="1"
-                                   Foreground="{Binding VariantNameForeground}"
                                    AutomationProperties.AutomationId="TextBlock50_BE4D994">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock"
@@ -339,7 +330,6 @@
                                AutomationProperties.AutomationId="Label52_BE4D994" />
                         <TextBlock Grid.Row="9"
                                    Grid.Column="1"
-                                   Foreground="{Binding VariantVersionForeground}"
                                    AutomationProperties.AutomationId="TextBlock53_BE4D994">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock"
