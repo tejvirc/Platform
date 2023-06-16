@@ -9,6 +9,9 @@
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Aristocrat.Monaco.Gaming.Contracts;
+    using Aristocrat.Monaco.Common;
+    using Aristocrat.Monaco.Hardware.Contracts;
+    using Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor;
     using Contracts;
     using Contracts.HandCount;
     using Hardware.Contracts.Button;
@@ -76,12 +79,34 @@
 
         private void Handle(SystemDisableAddedEvent evt)
         {
-            if ((evt.DisableId != ApplicationConstants.PrintingTicketDisableKey) &&
-                (evt.DisableId != ApplicationConstants.LiveAuthenticationDisableKey))
-            {
+            if (IsLockup(evt))
+            { 
                 cashoutConfirmationEvent.Set();
                 _eventBus.Publish(new CashoutCancelledEvent());
             }
+        }
+
+        private bool IsLockup(SystemDisableAddedEvent evt)
+        {
+            return evt.DisableId == ApplicationConstants.OperatorMenuLauncherDisableGuid
+                    || evt.DisableId == ApplicationConstants.NoteAcceptorDisconnectedGuid
+                    || evt.DisableId == ApplicationConstants.NoteAcceptorSelfTestFailedGuid
+                    || evt.DisableId == ApplicationConstants.NoteAcceptorDocumentCheckDisableKey
+                    || evt.DisableId == ApplicationConstants.PrinterDisconnectedGuid
+                    || evt.DisableId == ApplicationConstants.BellyDoorGuid
+                    || evt.DisableId == ApplicationConstants.CashDoorGuid
+                    || evt.DisableId == ApplicationConstants.LogicDoorGuid
+                    || evt.DisableId == ApplicationConstants.MainDoorGuid
+                    || evt.DisableId == ApplicationConstants.SecondaryCashDoorGuid
+                    || evt.DisableId == ApplicationConstants.TopBoxDoorGuid
+                    || evt.DisableId == ApplicationConstants.DropDoorGuid
+                    || evt.DisableId == ApplicationConstants.MechanicalMeterDoorGuid
+                    || evt.DisableId == ApplicationConstants.MainOpticDoorGuid
+                    || evt.DisableId == ApplicationConstants.TopBoxOpticDoorGuid
+                    || evt.DisableId == ApplicationConstants.UniversalInterfaceBoxDoorGuid
+                    || evt.DisableId == ApplicationConstants.BellyDoorDiscrepencyGuid
+                    || evt.DisableId == ApplicationConstants.LogicSealBrokenKey
+                    || evt.DisableId == NoteAcceptorFaultTypes.StackerDisconnected.GetAttribute<ErrorGuidAttribute>().Id;
         }
 
         private void Handle(CashoutAmountPlayerConfirmationReceivedEvent evt)
@@ -117,6 +142,7 @@
 
             if (handCountAmount < ((long)amount.MillicentsToDollars()).DollarsToMillicents())
             {
+                cashoutConfirmationEvent.Reset();
                 _eventBus.Publish(new CashoutAmountPlayerConfirmationRequestedEvent());
                 cashoutConfirmationEvent.WaitOne();
                 if (isCashOut)
