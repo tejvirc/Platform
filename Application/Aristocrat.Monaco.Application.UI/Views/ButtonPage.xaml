@@ -155,7 +155,7 @@
                                                          Value=""
                                                          AutomationProperties.AutomationId="DataTrigger23_706ACDBF">
                                                 <Setter Property="Text"
-                                                        Value="{                                                             Binding Item2,                                                              StringFormat={lex:Loc Key={x:Static loc:ResourceKeys.ButtonText}}}" />
+                                                        Value="{Binding Item2, StringFormat={lex:Loc Key={x:Static loc:ResourceKeys.ButtonText}}}" />
                                             </DataTrigger>
                                         </Style.Triggers>
                                         <Setter Property="Text"

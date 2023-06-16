@@ -49,7 +49,9 @@
                                 <Border Grid.Column="0"
                                         AutomationProperties.AutomationId="Border3_CE65367A">
                                     <controls:ToggleSwitchButton Style="{StaticResource ToggleSwitchButtonStyle}"
-                                                                 IsChecked="{Binding IsSelected, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
+                                                                 IsChecked="{Binding IsSelected, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                                                 common:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.Off}}"
+                                                                 common:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.On}}" />
                                 </Border>
                                 <Border Grid.Column="1"
                                         Margin="10 0 0 0"
@@ -112,7 +114,9 @@
                                 <Border Grid.Column="0"
                                         AutomationProperties.AutomationId="Border10_CE65367A">
                                     <controls:ToggleSwitchButton Style="{StaticResource ToggleSwitchButtonStyle}"
-                                                                 IsChecked="{Binding IsSelected, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
+                                                                 IsChecked="{Binding IsSelected, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                                                 common:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.Off}}"
+                                                                 common:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.On}}"/>
                                 </Border>
                                 <Border Grid.Column="1"
                                         Margin="10 0 0 0"

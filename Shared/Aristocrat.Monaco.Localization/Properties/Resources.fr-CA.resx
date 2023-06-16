@@ -4031,6 +4031,36 @@ Do you really want to do partial reset????</value>
   <data name="IdentityScreen" xml:space="preserve">
     <value>??Identity??</value>
   </data>
+  <data name="AcceptanceRate" xml:space="preserve">
+    <value>??Acceptance Rate??</value>
+  </data>
+  <data name="TestTouchScreen" xml:space="preserve">
+    <value>??Test Touch Screen??</value>
+  </data>
+  <data name="PlaySpinDraw" xml:space="preserve">
+    <value>??Play/Spin/Draw??</value>
+  </data>
+  <data name="OperatorRoleName" xml:space="preserve">
+    <value>??Operator??</value>
+  </data>
+  <data name="TechnicianRoleName" xml:space="preserve">
+    <value>??Technician??</value>
+  </data>
+  <data name="FastFlash" xml:space="preserve">
+    <value>??Fast Flash??</value>
+  </data>
+  <data name="MediumFlash" xml:space="preserve">
+    <value>??Medium Flash??</value>
+  </data>
+  <data name="MediumFlashReversed" xml:space="preserve">
+    <value>??Medium Flash Reversed??</value>
+  </data>
+  <data name="SlowFlash" xml:space="preserve">
+    <value>??Slow Flash??</value>
+  </data>
+  <data name="SlowFlashReversed" xml:space="preserve">
+    <value>??Slow Flash Reversed??</value>
+  </data>
   <data name="AttendantPaidExternalBonusWinLabel" xml:space="preserve">
     <value>  ??Attendant Paid External Bonus Win??</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>

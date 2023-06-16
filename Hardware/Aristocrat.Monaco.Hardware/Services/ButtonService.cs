@@ -5,6 +5,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using Aristocrat.Monaco.Application.Contracts.Localization;
     using Contracts.Button;
     using Contracts.IO;
     using Contracts.SharedDevice;
@@ -126,7 +127,14 @@
         /// <inheritdoc />
         public string GetLocalizedButtonName(int buttonId)
         {
-            return _logicalButtons.TryGetValue(buttonId, out var button) ? button.LocalizedName : string.Empty;
+            string localizedName = string.Empty;
+            if (_logicalButtons.TryGetValue(buttonId, out var button))
+            {
+                var parsedButtonKeyName = button.Name.Replace("/", "").Replace(" ", "");
+                localizedName = Localizer.For(CultureFor.Operator).GetString(parsedButtonKeyName, _ => { }) ?? button.Name;
+            }
+            
+            return localizedName;
         }
 
         /// <inheritdoc />

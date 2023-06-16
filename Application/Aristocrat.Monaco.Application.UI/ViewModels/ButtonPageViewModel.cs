@@ -208,7 +208,7 @@
             var pressedData = new Tuple<string, int, string>(
                 _buttonDeck?.ResourceKey(evt.LogicalId),
                 _buttonService.GetButtonPhysicalId(evt.LogicalId),
-                _buttonService.GetButtonName(evt.LogicalId));
+                _buttonService.GetLocalizedButtonName(evt.LogicalId));
 
             MvvmHelper.ExecuteOnUI(() => PressedButtonsData.Insert(0, pressedData));
 
