@@ -14,7 +14,7 @@ as follows:
 	<GameEnd CashOutStrategy="Full" />
     <MaximumGameRoundWin Amount="100000000" />
 	<FreeGames MeterIndependently="true" />
-	<Messages>
+	<Messages ShowMessages="true">
 		<MinBetMessage MustDisplay="false" Format="Currency" />
 	</Messages>
 	<ReelStop Enabled="false" />
