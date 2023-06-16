@@ -26,8 +26,8 @@
 
 #if !RETAIL
         private readonly Timer _checkMemoryStatusTimer;
-#endif
         private bool _disabled;
+#endif
 
         public MemoryMonitor()
             : this(
