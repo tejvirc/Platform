@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "DVewkoFGyPQTU8akYGJq2F6FoH2qIdauDRb2lKh31jg="
+          "hash": "7sCaY9DVS6NX2fvEPx8ZQI6zlUBnVd9T2uCksNOuAuw="
         }
       },
       "is_incremental": false,
@@ -3528,7 +3528,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.ApplicationRunnable.html",
-          "hash": "8Et1/dtLVa5cZZ3W//42t5vUQJKRQh42UyqJ/itBInc="
+          "hash": "c0GqTl2EVxxbEPduGJN2cYtg0xpVESzA+D/mD/RECu4="
         }
       },
       "is_incremental": false,
@@ -15055,6 +15055,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -41386,9 +41389,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -70194,7 +70194,7 @@
       "output": {
         ".html": {
           "relative_path": "api/kernel/Aristocrat.Monaco.Bootstrap.Bootstrap.html",
-          "hash": "FZeKlajl9BB014iuA+NKq27gvvUd+f0RMKw5HK2kn4A="
+          "hash": "JJ/aPgcK4sUJglY3qCYRPEvPdCcRlaj66VmX6+QULjs="
         }
       },
       "is_incremental": false,
@@ -70718,6 +70718,54 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/kernel/Aristocrat.Monaco.Kernel.Debugging.DebuggerAttachPoint.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/kernel/Aristocrat.Monaco.Kernel.Debugging.DebuggerAttachPoint.html",
+          "hash": "ytjXgM+5x5pVTuIIVW8P9ymodY/XhhI/Lq6C19QfFTI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/kernel/Aristocrat.Monaco.Kernel.Debugging.DebuggerService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/kernel/Aristocrat.Monaco.Kernel.Debugging.DebuggerService.html",
+          "hash": "1HWCyC8ESism7RGK8PmJD+3l8pDnrYEMiJCR4qlKCqA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/kernel/Aristocrat.Monaco.Kernel.Debugging.IDebuggerService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/kernel/Aristocrat.Monaco.Kernel.Debugging.IDebuggerService.html",
+          "hash": "/hJHWXREv1NWuEGDVw7m8nRl5wBtOHgeH3C8/gV/Lxs="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/kernel/Aristocrat.Monaco.Kernel.Debugging.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/kernel/Aristocrat.Monaco.Kernel.Debugging.html",
+          "hash": "mIcmszhHubLupfKskg3ML6hZforGvxPrvb92+j8GM+E="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/kernel/Aristocrat.Monaco.Kernel.DefaultOrderedAddinBehavior.yml",
       "output": {
         ".html": {
@@ -71022,7 +71070,7 @@
       "output": {
         ".html": {
           "relative_path": "api/kernel/Aristocrat.Monaco.Kernel.InitializationProvider.html",
-          "hash": "l9ZP4BFFCxTDcPYUtokdOXmtCcW4deP9fW6uREr8TU4="
+          "hash": "nj6M/Az9cHizIN3g+tNuhdweN2xXONSIRg0XIk9qEW8="
         }
       },
       "is_incremental": false,
@@ -82617,7 +82665,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 6851,
+          "total_file_count": 6855,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
