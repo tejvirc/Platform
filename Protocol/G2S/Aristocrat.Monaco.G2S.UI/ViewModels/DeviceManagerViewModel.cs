@@ -177,7 +177,7 @@
             ReloadEditableView();
 
             IsDirty = false;
-            InputStatusText = (GameIdle ? string.Empty : _operatorLocalizer.GetString(ResourceKeys.EndGameRoundBeforeChange));
+            InputStatusText = GameIdle ? string.Empty : _operatorLocalizer.GetString(ResourceKeys.EndGameRoundBeforeChange);
         }
 
         private void LoadDevices()

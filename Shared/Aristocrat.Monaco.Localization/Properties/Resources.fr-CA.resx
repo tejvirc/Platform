@@ -4075,21 +4075,427 @@ Do you really want to do partial reset????</value>
     <value>??Total Wins??</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
-  <data name="Displays" xml:space="preserve">
-    <value>???Displays???</value>
-    <comment>Aristocrat.Monaco.Application.UI</comment>
+  <data name="NetworkConfigurationScreenTitle" xml:space="preserve">
+    <value>???Network Configuration???</value>
   </data>
-  <data name="GameName" xml:space="preserve">
-    <value>???Game Name???</value>
-    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  <data name="CertificateNotAfter" xml:space="preserve">
+    <value>???Not After???</value>
   </data>
-  <data name="TotalGameRTPMax" xml:space="preserve">
-    <value>???Total Game RTP Max???</value>
-    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  <data name="CertificateNotBefore" xml:space="preserve">
+    <value>???Not Before???</value>
   </data>
-  <data name="TotalGameRTPMin" xml:space="preserve">
-    <value>???Total Game RTP Min???</value>
-    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  <data name="CertificateOcspOfflineDate" xml:space="preserve">
+    <value>???OCSP Offline Date???</value>
+  </data>
+  <data name="CertificateRemoveButtonTitle" xml:space="preserve">
+    <value>???Remove Certificate???</value>
+  </data>
+  <data name="CertificateRemoveConfirmMessage" xml:space="preserve">
+    <value>???Do you want to remove the expired certificate???</value>
+  </data>
+  <data name="CertificateRenewButtonTitle" xml:space="preserve">
+    <value>???Renew Certificate???</value>
+  </data>
+  <data name="CertificateThumbprint" xml:space="preserve">
+    <value>???Thumbprint???</value>
+  </data>
+  <data name="CertificateVerifyDate" xml:space="preserve">
+    <value>???Verification Date???</value>
+  </data>
+  <data name="StatusText" xml:space="preserve">
+    <value>???Status???</value>
+  </data>
+  <data name="CertificateEnrollButtonTitle" xml:space="preserve">
+    <value>???Enroll???</value>
+  </data>
+  <data name="CertificatePreSharedSecretNotValid" xml:space="preserve">
+    <value>???The certificate pre-Shared Secret is not valid.???</value>
+  </data>
+  <data name="CertificatePreSharedSecretTitle" xml:space="preserve">
+    <value>???Pre-Shared Secret???</value>
+  </data>
+  <data name="EgmId" xml:space="preserve">
+    <value>???G2S EGM Id???</value>
+  </data>
+  <data name="AlternateDnsServer" xml:space="preserve">
+    <value>???Alternate DNS Server????</value>
+  </data>
+  <data name="CertificatesLogicDoorStatus" xml:space="preserve">
+    <value>???Logic Door must be open before renew, remove or enroll certificate.???</value>
+  </data>
+  <data name="CertificatesViewTitle" xml:space="preserve">
+    <value>??Certificates??</value>
+  </data>
+  <data name="CommsInfo_Address" xml:space="preserve">
+    <value>???Address???</value>
+  </data>
+  <data name="CommsInfo_HostId" xml:space="preserve">
+    <value>???ID???</value>
+  </data>
+  <data name="ConfigNetworkInfoScreen" xml:space="preserve">
+    <value>??Network Configuration??</value>
+  </data>
+  <data name="ConfiguringNetwork" xml:space="preserve">
+    <value>???Configuring Network???</value>
+  </data>
+  <data name="ConfirmDeleteHost" xml:space="preserve">
+    <value>???Confirm Delete Host???</value>
+  </data>
+  <data name="DefaultGateway" xml:space="preserve">
+    <value>???Default Gateway???</value>
+  </data>
+  <data name="DeviceManagerTitle" xml:space="preserve">
+    <value>??Device Manager??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="EditHost" xml:space="preserve">
+    <value>???Edit Host???</value>
+  </data>
+  <data name="G2SDiagnosticTabTitle" xml:space="preserve">
+    <value>??G2S??</value>
+  </data>
+  <data name="HostAddressNotValid" xml:space="preserve">
+    <value>???Host Address is not valid???</value>
+  </data>
+  <data name="HostConfigurationRegisteredHeader" xml:space="preserve">
+    <value>???Registered???</value>
+  </data>
+  <data name="HostConfigurationRegisteringHost" xml:space="preserve">
+    <value>???Registering Host...???</value>
+  </data>
+  <data name="HostConfigurationRemovingHost" xml:space="preserve">
+    <value>???Removing Host...???</value>
+  </data>
+  <data name="HostConfigurationUpdatingHosts" xml:space="preserve">
+    <value>???Updating Hosts...???</value>
+  </data>
+  <data name="HostConfigurationUrlHeader" xml:space="preserve">
+    <value>???URL???</value>
+  </data>
+  <data name="HostExists" xml:space="preserve">
+    <value>???A host with this ID already exists.???</value>
+  </data>
+  <data name="HostId" xml:space="preserve">
+    <value>???Host Id???</value>
+  </data>
+  <data name="HostIdGreaterThanZero" xml:space="preserve">
+    <value>???The host Id must be a number greater than zero.???</value>
+  </data>
+  <data name="IpAddress" xml:space="preserve">
+    <value>???IP Address???</value>
+  </data>
+  <data name="NewHost" xml:space="preserve">
+    <value>???New Host???</value>
+  </data>
+  <data name="ObtainIpAddressAutomatically" xml:space="preserve">
+    <value>???Obtain an IP address automatically???</value>
+  </data>
+  <data name="Port_MustBeInRange" xml:space="preserve">
+    <value>???The port must be a number between 0 and 65535.???</value>
+  </data>
+  <data name="PreferredDnsServer" xml:space="preserve">
+    <value>???Preferred DNS Server???</value>
+  </data>
+  <data name="RequiredForPlay" xml:space="preserve">
+    <value>???Required For Play???</value>
+  </data>
+  <data name="SecurityConfigurationScreenTitle" xml:space="preserve">
+    <value>??Security??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SubnetMask" xml:space="preserve">
+    <value>???Subnet Mask???</value>
+  </data>
+  <data name="UseFollowingIpAddress" xml:space="preserve">
+    <value>???Use the following IP address???</value>
+  </data>
+  <data name="SecurityConfiguration_AcceptPreviousCertPeriod" xml:space="preserve">
+    <value>??Accept Previous Period (OA)??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_AuthorityLocation" xml:space="preserve">
+    <value>??Certificate Authority Locations??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_CertificateData" xml:space="preserve">
+    <value>??Certificate Data??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_CertificateData_CommonName" xml:space="preserve">
+    <value>??Common Name??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_CertificateData_Country" xml:space="preserve">
+    <value>??Country Name??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_CertificateData_DistinguishedName" xml:space="preserve">
+    <value>??Distinguished Name??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_CertificateData_LocalityName" xml:space="preserve">
+    <value>??Locality Name??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_CertificateData_OrganizationName" xml:space="preserve">
+    <value>??Organization Name??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_CertificateData_OrganizationUnit" xml:space="preserve">
+    <value>??Organization Unit??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_CertificateData_State" xml:space="preserve">
+    <value>??State??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_CertificateEnrollInstructions" xml:space="preserve">
+    <value>??To proceed, please Enroll certificate or disable Certificate configuration on previous step.??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_CertificateRequestStatus_Denied" xml:space="preserve">
+    <value>??Certificate Enrollment Denied??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_CertificateRequestStatus_Enrolled" xml:space="preserve">
+    <value>??Successfully Enrolled Certificate??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_CertificateRequestStatus_Error" xml:space="preserve">
+    <value>??Failed to Enroll Certificate??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_CertificateRequestStatus_Pending" xml:space="preserve">
+    <value>??Certificate Enrollment Pending??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_CertificateRequestStatus_Requesting" xml:space="preserve">
+    <value>??Attempting Certificate Enrollment??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_InvalidServerResponse" xml:space="preserve">
+    <value>??Could not process the server response??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_IssueLocation" xml:space="preserve">
+    <value>??Certificate Issue??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_KeySize" xml:space="preserve">
+    <value>??Key Size??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_ManagerLocation" xml:space="preserve">
+    <value>??Certificate Manager??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_MaxPeriodOffline" xml:space="preserve">
+    <value>??Minimum Offline Period (OO)??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_NoncesEnabled" xml:space="preserve">
+    <value>??Supports nonces??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_NotStartedEnrollStatus" xml:space="preserve">
+    <value>??Not Started??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_OcspEnabled" xml:space="preserve">
+    <value>??OCSP Enabled??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_OcspResponderAddress" xml:space="preserve">
+    <value>??Responder??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_OcspResponderTest" xml:space="preserve">
+    <value>??Test OCSP??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_OcspResponderTest_Contacting" xml:space="preserve">
+    <value>??Contacting the OCSP responder.??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_OcspResponderTest_Failure" xml:space="preserve">
+    <value>??OCSP test failed.??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_OcspResponderTest_Success" xml:space="preserve">
+    <value>??OCSP test successful.??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_PendingCountdown" xml:space="preserve">
+    <value>??Checking for Approval in {0}??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_ReAuthenticatePeriod" xml:space="preserve">
+    <value>??Re-Authenticate Period (OR)??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_RenewLocation" xml:space="preserve">
+    <value>??Certificate Renew:??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_RevokeLocation" xml:space="preserve">
+    <value>??Certificate Revoke??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_ScepEnabled" xml:space="preserve">
+    <value>??SCEP Enabled??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_ScepReapply" xml:space="preserve">
+    <value>??SCEP Reapply??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_Scep_CaIdent" xml:space="preserve">
+    <value>??CA-IDENT??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_Scep_ManualPollingInterval" xml:space="preserve">
+    <value>??Polling Interval??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_Scep_PreSharedSecret" xml:space="preserve">
+    <value>??Pre-Shared Secret??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_Scep_UsernameField" xml:space="preserve">
+    <value>??User Name??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_StatusLocation" xml:space="preserve">
+    <value>??Status??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_Thumbprint" xml:space="preserve">
+    <value>??CA Thumbprint??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_Title" xml:space="preserve">
+    <value>??Security Configuration??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="SecurityConfiguration_ValidateDomain" xml:space="preserve">
+    <value>??Validate Domain??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="DeviceId" xml:space="preserve">
+    <value>??Device ID??</value>
+  </data>
+  <data name="EditSelected" xml:space="preserve">
+    <value>??Edit Selected??</value>
+  </data>
+  <data name="EndGameRoundBeforeChange" xml:space="preserve">
+    <value>??Editing these settings is not available during a game round.??</value>
+  </data>
+  <data name="DeviceManagerActive" xml:space="preserve">
+    <value>??Active??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="DeviceManagerCancelButton" xml:space="preserve">
+    <value>??Cancel Changes??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="DeviceManagerCancelToolTip" xml:space="preserve">
+    <value>??Click to cancel changes??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="DeviceManagerDeviceName" xml:space="preserve">
+    <value>??Device Name??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="DeviceManagerDisableText" xml:space="preserve">
+    <value>??Disable Text??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="DeviceManagerEditBulkDeviceViewActiveCaption" xml:space="preserve">
+    <value>??Device Active??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="DeviceManagerEditBulkDeviceViewFieldCaption" xml:space="preserve">
+    <value>??Choose Field to Edit??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="DeviceManagerEditBulkDeviceViewHostCaption" xml:space="preserve">
+    <value>??Available Hosts??</value>
+    <comment>??Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="DeviceManagerEditButton" xml:space="preserve">
+    <value>??Edit??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="DeviceManagerEditDeviceViewActiveCaption" xml:space="preserve">
+    <value>??Device Active??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="DeviceManagerEditDeviceViewDeviceCaption" xml:space="preserve">
+    <value>??Device:??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="DeviceManagerEditDeviceViewDeviceIdCaption" xml:space="preserve">
+    <value>??Device Id??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="DeviceManagerEditDeviceViewEnabledCaption" xml:space="preserve">
+    <value>??Device Enabled??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="DeviceManagerEditDeviceViewOwnerIdCaption" xml:space="preserve">
+    <value>??Owner Id??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="DeviceManagerEnabled" xml:space="preserve">
+    <value>??Enabled??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="DeviceManagerId" xml:space="preserve">
+    <value>??Device Id??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="DeviceManagerMassChangeButton" xml:space="preserve">
+    <value>??Bulk Change??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="DeviceManagerMassChangeToolTip" xml:space="preserve">
+    <value>??Click to make group changes??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="DeviceManagerOwner" xml:space="preserve">
+    <value>??Owner ID??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="DeviceManagerPopupBulkChanges" xml:space="preserve">
+    <value>??Making bulk device changes...??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="DeviceManagerPopupCancelChanges" xml:space="preserve">
+    <value>??Canceling device changes...??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="DeviceManagerPopupIsHostOriented" xml:space="preserve">
+    <value>??This device is host-oriented and cannot be edited.??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="DeviceManagerPopupProfileServiceUnavailable" xml:space="preserve">
+    <value>??Profile Service is unavailable, changes not saved...??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="DeviceManagerPopupSaveChanges" xml:space="preserve">
+    <value>??Saving device changes...??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="DeviceManagerSaveButton" xml:space="preserve">
+    <value>??Save Changes??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="DeviceManagerSaveToolTip" xml:space="preserve">
+    <value>??Click to save changes??</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="BulkEditDevices" xml:space="preserve">
+    <value>??Bulk Edit Devices??</value>
   </data>
   <data name="GameName" xml:space="preserve">
 	  <value>??Game Name??</value>
