@@ -13,6 +13,7 @@
     using Contracts.Persistence;
     using Kernel;
     using log4net;
+    using NativeDisk;
     using StorageSystem;
 
     /// <summary>
@@ -451,8 +452,7 @@
 
             Logger.Debug($"Data mirror is enabled on {_mirrorRoot}.");
 
-            NativeMethods.set_mirror_dir(_mirrorRoot);
-
+            NativeStorage.SetMirrorDirectory(_mirrorRoot);
             var mirrorFileName = GetFileName(_mirrorRoot);
 
             if (File.Exists(mirrorFileName))

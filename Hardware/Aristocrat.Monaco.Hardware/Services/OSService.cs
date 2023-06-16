@@ -6,13 +6,13 @@
     using System.IO;
     using System.Linq;
     using System.Reflection;
-    using System.Text;
     using System.Threading;
+    using Common;
     using Contracts;
-    using DiskTool;
     using Kernel;
     using Kernel.Contracts.Components;
     using log4net;
+    using NativeOS.Services.OS;
     using Properties;
 
     /// <summary>
@@ -24,6 +24,7 @@
     {
         private readonly IComponentRegistry _componentRegistry;
         private readonly IPathMapper _pathMapper;
+        private readonly IVirtualPartition _virtualPartition;
         private const int DiskDriveId = 0; /* Change this if you wish to test Virtual Partitions on a different drive than first drive */
 
         private const string VersionInfoPath = @"/Tools";
@@ -35,17 +36,19 @@
 
         private Timer _stats;
 
-        public OSService(IComponentRegistry componentRegistry, IPathMapper pathMapper)
+        public OSService(IComponentRegistry componentRegistry, IPathMapper pathMapper, IVirtualPartition virtualPartition)
         {
             _componentRegistry = componentRegistry ?? throw new ArgumentNullException(nameof(componentRegistry));
             _pathMapper = pathMapper ?? throw new ArgumentNullException(nameof(pathMapper));
+            _virtualPartition = virtualPartition ?? throw new ArgumentNullException(nameof(virtualPartition));
             _stats = new Timer(OnCollectStats, null, TimeSpan.Zero, TimeSpan.FromHours(1));
         }
 
         public OSService()
             : this(
                 ServiceManager.GetInstance().GetService<IComponentRegistry>(),
-                ServiceManager.GetInstance().GetService<IPathMapper>())
+                ServiceManager.GetInstance().GetService<IPathMapper>(),
+                VirtualPartitionProviderFactory.CreateVirtualPartitionProvider())
         {
         }
 
@@ -61,16 +64,16 @@
 
         public void Initialize()
         {
-            UpdateDiskInfo();
-
+            _virtualPartition.InitializeAsync(CancellationToken.None).WaitForCompletion();
             OsImageVersion = GetOsImageVersion();
-
             RegisterComponents();
         }
 
         public Version OsImageVersion { get; private set; }
 
-        public IList<VirtualPartition> VirtualPartitions { get; private set; } = new List<VirtualPartition>();
+        public IReadOnlyCollection<VirtualPartition> VirtualPartitions => _virtualPartition.VirtualPartitions;
+
+        public IEnumerable<byte> GetOperatingSystemHash() => _virtualPartition.GetOperatingSystemHash();
 
         private Version GetOsImageVersion()
         {
@@ -115,18 +118,6 @@
     GC total: {GC.GetTotalMemory(false)}");
         }
 
-        private void UpdateDiskInfo()
-        {
-            try
-            {
-                Update(DiskDriveId); // Always use Disk 0 (Developer disk will always return 0 virtual partitions)
-            }
-            catch (FileNotFoundException e)
-            {
-                Logger.Error($"Failed Reading Virtual Partitions: {e.Message}");
-            }
-        }
-
         private void Dispose(bool disposing)
         {
             if (_disposed)
@@ -145,71 +136,9 @@
             _disposed = true;
         }
 
-        private void Update(int diskId)
-        {
-            using var disk = DriveIO.OpenDisk(diskId);
-            if (disk == null)
-            {
-                throw new FileNotFoundException($"Could not Open Disk {diskId}");
-            }
-
-            try
-            {
-                var mbrData = new byte[512];
-
-                disk.Read(mbrData, 512);
-
-                var partitionTable = PartitionTable.FromMBR(mbrData);
-
-                var endOfvPart = (partitionTable[3].LBAStart + partitionTable[3].NumSectors) * 0x200L;
-                disk.Seek(endOfvPart, SeekOrigin.Begin);
-
-                // clear
-                VirtualPartitions = new List<VirtualPartition>();
-                while (true)
-                {
-                    var vPart = new byte[512];
-                    if (disk.Read(vPart, 512) != 512)
-                    {
-                        continue;
-                    }
-
-                    if (vPart[0] == 'V' && vPart[1] == 'P' && vPart[2] == 'R' && vPart[3] == 'T')
-                    {
-                        var vp = new VirtualPartition
-                        {
-                            Block = vPart,
-                            Name = Encoding.Default.GetString(vPart, 4, 64),
-                            Hash = vPart.Skip(68).Take(20).ToArray(),
-                            Sig = vPart.Skip(88).Take(40).ToArray(),
-                            SourcePartition = (int)BitConverter.ToUInt32(vPart, 128),
-                            SourceOffset = BitConverter.ToInt64(vPart, 132),
-                            TargetPartition = (int)BitConverter.ToUInt32(vPart, 140),
-                            Size = BitConverter.ToInt64(vPart, 144),
-                            SourceFile = Encoding.Default.GetString(vPart, 152, 64),
-                            State = (PartitionState)BitConverter.ToUInt32(vPart, 216)
-                        };
-
-                        if (vp.State == PartitionState.Active)
-                        {
-                            VirtualPartitions.Add(vp);
-                        }
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                throw new FileNotFoundException(e.Message);
-            }
-        }
-
         private void RegisterComponents()
         {
-            var osHash = VirtualPartitions.GetOperatingSystemHash();
+            var osHash = GetOperatingSystemHash().ToArray();
             if (osHash.Length <= 0)
             {
                 return;

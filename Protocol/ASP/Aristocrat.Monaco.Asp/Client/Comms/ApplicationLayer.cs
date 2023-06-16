@@ -8,6 +8,7 @@
     using Events;
     using Kernel;
     using Localization.Properties;
+    using NativeSerial;
     using Utilities;
 
     /// <summary>
@@ -25,7 +26,7 @@
         private readonly IReportableEventsManager _reportableEventsManager;
 
         public ApplicationLayer(
-            ICommPort port,
+            INativeComPort port,
             IParameterProcessor processor,
             IParameterFactory factory,
             ISystemDisableManager systemDisableManager,

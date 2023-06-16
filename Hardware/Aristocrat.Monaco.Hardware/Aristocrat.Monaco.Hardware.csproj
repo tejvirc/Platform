@@ -119,7 +119,6 @@
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Localization\Aristocrat.Monaco.Localization.csproj" />
     <ProjectReference Include="..\Aristocrat.Monaco.Hardware.Contracts\Aristocrat.Monaco.Hardware.Contracts.csproj" />
     <ProjectReference Include="..\Aristocrat.Monaco.Hardware.Serial\Aristocrat.Monaco.Hardware.Serial.csproj" />
-    <ProjectReference Include="..\HidLibrary\HidLibrary.csproj" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
@@ -131,6 +130,9 @@
   <ItemGroup>
     <PackageReference Include="Aristocrat.Cabinet" Version="1.0.21" />
     <PackageReference Include="Aristocrat.Fmod" Version="1.1.3" />
+    <PackageReference Include="Aristocrat.Monaco.NativeOS.Services" Version="1.0.6" />
+    <PackageReference Include="Aristocrat.Monaco.NativeTouch" Version="1.0.6" />
+    <PackageReference Include="Aristocrat.Monaco.NativeUsb" Version="1.0.6" />
     <PackageReference Include="Aristocrat.SmartCard" Version="1.1.2" />
     <PackageReference Include="Aristocrat.System.Data.SQLite.Core" Version="1.0.110" />
     <PackageReference Include="BouncyCastle" Version="1.8.4" />

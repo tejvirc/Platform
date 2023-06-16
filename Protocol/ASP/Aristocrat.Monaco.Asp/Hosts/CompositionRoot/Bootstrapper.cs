@@ -11,6 +11,7 @@
     using Common.Container;
     using Gaming.Contracts.Progressives;
     using Kernel;
+    using NativeSerial;
     using Progressive;
     using SimpleInjector;
 
@@ -42,7 +43,7 @@
 
         private static void RegisterClasses(this Container @this, ProtocolSettings protocolSettings)
         {
-            @this.Register<ICommPort, CommPort>(Lifestyle.Singleton);
+            @this.RegisterSingleton(() => NativeSerialPortFactory.CreateSerialPort());
             @this.RegisterInstance(protocolSettings);
 
             var dataSourceTypes = @this.GetTypesToRegister<IDataSource>(typeof(IDataSource).Assembly).Select(

@@ -8,9 +8,9 @@
     using Contracts;
     using Hardware.Contracts.EdgeLighting;
     using log4net;
+    using NativeUsb.Hid;
     using Packets;
     using Strips;
-    using Vgt.Client12.Hardware.HidLibrary;
 
     internal sealed class EdgeLightDevice : IEdgeLightDevice
     {

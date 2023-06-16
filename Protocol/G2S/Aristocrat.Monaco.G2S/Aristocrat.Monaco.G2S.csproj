@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Aristocrat.G2S" Version="4.1.35" />
+    <PackageReference Include="Aristocrat.Monaco.NativeOS.Services" Version="1.0.6" />
     <PackageReference Include="Aristocrat.System.Data.SQLite.Core" Version="1.0.110" />
     <PackageReference Include="Expressmapper" Version="1.9.1" />
     <PackageReference Include="FluentValidation" Version="7.4.0" />

@@ -115,7 +115,6 @@
             info.Add("MaxOutputs", io.GetMaxOutputs.ToString());
             info.Add("Inputs", io.GetInputs.ToString());
             info.Add("Outputs", io.GetOutputs.ToString());
-            info.Add("WatchdogEnabled", io.GetWatchdogEnabled.ToString());
             info.Add("LastChangedInputs", io.LastChangedInputs.ToString());
             info.Add("LogicalState", io.LogicalState.ToString());
 

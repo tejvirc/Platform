@@ -6,11 +6,13 @@
     using System.IO;
     using System.Linq;
     using System.Reflection;
+    using System.Runtime.InteropServices;
     using Contracts;
-    using Contracts.VHD;
     using Kernel;
     using Kernel.Contracts;
     using log4net;
+    using NativeDisk;
+    using IVirtualDisk = Contracts.VHD.IVirtualDisk;
 
     public class OSInstaller : IOSInstaller
     {
@@ -21,7 +23,7 @@
         private const string WinUpdateExtension = @"winUpdate";
         private const string IsoExtension = @"iso";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IPathMapper _pathMapper;
         private readonly IVirtualDisk _virtualDisk;
@@ -47,7 +49,7 @@
 
         public bool Install(string packageId)
         {
-            VirtualDiskHandle handle = null;
+            SafeHandle handle = null;
             bool success;
 
             Logger.Debug("OS Install started");
@@ -65,7 +67,7 @@
             var tempPath = Path.Combine(root, TempPath);
 
             // The provided package is an iso with the winUpdate extension.
-            //  It needs to be renamed because the virtual disk APIs don't support files with 
+            //  It needs to be renamed because the virtual disk APIs don't support files with
             var link = Path.Combine(tempPath, Path.ChangeExtension(file.Name, IsoExtension));
             if (string.IsNullOrEmpty(link))
             {
@@ -82,7 +84,7 @@
 
                 Directory.CreateDirectory(tempPath);
 
-                if (!NativeMethods.CreateHardLink(link, file.FullName, IntPtr.Zero))
+                if (!NativeStorage.CreateHardLink(link, file.FullName))
                 {
                     Logger.Info($"Failed to create hard link: {link}");
                     return false;

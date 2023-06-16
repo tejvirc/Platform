@@ -2,31 +2,33 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
-    using System.Text;
+    using System.Runtime.InteropServices;
     using Contracts.VHD;
     using Kernel;
-    using log4net;
+    using NativeDisk;
+    using IVirtualDisk = Contracts.VHD.IVirtualDisk;
 
     /// <summary>
-    ///     An <see cref="IVirtualDisk" /> implementation
+    ///     An <see cref="Contracts.VHD.IVirtualDisk" /> implementation
     /// </summary>
-    public class VirtualDisk : IVirtualDisk
+    public sealed class VirtualDisk : IVirtualDisk, IDisposable
     {
-        private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
+        private readonly NativeDisk.IVirtualDisk _virtualDisk;
         private readonly IEventBus _bus;
+        private bool _disposed;
 
         public VirtualDisk()
-            : this(ServiceManager.GetInstance().GetService<IEventBus>())
+            : this(ServiceManager.GetInstance().GetService<IEventBus>(),
+                VirtualDiskFactory.CreateVirtualDisk())
         {
         }
 
-        public VirtualDisk(IEventBus bus)
+        public VirtualDisk(IEventBus bus, NativeDisk.IVirtualDisk virtualDisk)
         {
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
+            _virtualDisk = virtualDisk ?? throw new ArgumentNullException(nameof(virtualDisk));
+            _virtualDisk.DiskMounted += VirtualDiskOnDiskMounted;
+            _virtualDisk.DiskUnmounted += VirtualDiskOnDiskUnmounted;
         }
 
         /// <inheritdoc />
@@ -35,207 +37,55 @@
         /// <inheritdoc />
         public ICollection<Type> ServiceTypes => new[] { typeof(IVirtualDisk) };
 
+        public void Dispose()
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            _virtualDisk.DiskMounted -= VirtualDiskOnDiskMounted;
+            _virtualDisk.DiskUnmounted -= VirtualDiskOnDiskUnmounted;
+            _disposed = true;
+        }
+
         /// <inheritdoc />
         public void Initialize()
         {
         }
 
         /// <inheritdoc />
-        public VirtualDiskHandle AttachImage(string file, string path)
+        public SafeHandle AttachImage(string file, string path)
         {
-            Logger.Debug($"Preparing to attach image {file} at mount point {path}");
-
-            var attachParameters = new VirtualDiskNativeMethods.AttachVirtualDiskParameters
-            {
-                version = VirtualDiskNativeMethods.AttachVirtualDiskVersion.AttachVirtualDiskVersion1
-            };
-
-            var before = GetVolumes();
-
-            var handle = Open(
-                file,
-                VirtualDiskNativeMethods.VirtualDiskAccessMask.VirtualDiskAccessAttachRo |
-                VirtualDiskNativeMethods.VirtualDiskAccessMask.VirtualDiskAccessGetInfo);
-            if (handle.IsInvalid)
-            {
-                return handle;
-            }
-
-            const VirtualDiskNativeMethods.AttachVirtualDiskFlag flags =
-                VirtualDiskNativeMethods.AttachVirtualDiskFlag.AttachVirtualDiskFlagReadOnly |
-                VirtualDiskNativeMethods.AttachVirtualDiskFlag.AttachVirtualDiskFlagNoDriveLetter;
-
-            var result = VirtualDiskNativeMethods.AttachVirtualDisk(
-                handle,
-                IntPtr.Zero,
-                flags,
-                0,
-                ref attachParameters,
-                IntPtr.Zero);
-            if (result != VirtualDiskNativeMethods.Success)
-            {
-                Logger.Warn($"Failed to attach virtual disk {file}");
-
-                handle.Close();
-                handle.SetHandleAsInvalid();
-
-                return handle;
-            }
-
-            var after = GetVolumes();
-
-            // TODO: FindVolumePath only works for VHD files
-            var volumePath = after.FirstOrDefault(v => before.All(v2 => v != v2));
-
-            if (!MountToDriveLetter(volumePath, path))
-            {
-                Logger.Warn($"Failed to mount {path} to volume {volumePath}");
-
-                handle.Close();
-                handle.SetHandleAsInvalid();
-
-                return handle;
-            }
-
-            _bus.Publish(new DiskMountedEvent(volumePath, file, path));
-
-            return handle;
+            return _virtualDisk.AttachImage(file, path);
         }
 
         /// <inheritdoc />
-        public bool DetachImage(VirtualDiskHandle handle, string path)
+        public bool DetachImage(SafeHandle handle, string path)
         {
-            if (!handle.IsClosed)
-            {
-                if (VirtualDiskNativeMethods.DetachVirtualDisk(
-                        handle,
-                        VirtualDiskNativeMethods.DetachVirtualDiskFlag.DetachVirtualDiskFlagNone,
-                        0) != VirtualDiskNativeMethods.Success)
-                {
-                    Logger.Warn("Failed to detach virtual disk");
-                }
-            }
-
-            _bus.Publish(new DiskUnmountedEvent(path));
-
-            return VirtualDiskNativeMethods.DeleteVolumeMountPoint(path);
+            return _virtualDisk.DetachImage(handle, path);
         }
 
         /// <inheritdoc />
         public bool DetachImage(string file, string path)
         {
-            var handle = Open(file, VirtualDiskNativeMethods.VirtualDiskAccessMask.VirtualDiskAccessDetach);
-            if (handle == null)
-            {
-                return false;
-            }
-
-            try
-            {
-                return DetachImage(handle, path);
-            }
-            finally
-            {
-                handle.Close();
-            }
+            return _virtualDisk.DetachImage(file, path);
         }
 
         /// <inheritdoc />
-        public void Close(VirtualDiskHandle handle)
+        public void Close(SafeHandle handle)
         {
-            if (!handle.IsInvalid && !handle.IsClosed)
-            {
-                handle.Close();
-            }
+            _virtualDisk.Close(handle);
         }
 
-        private static VirtualDiskHandle Open(
-            string file,
-            VirtualDiskNativeMethods.VirtualDiskAccessMask accessMask)
+        private void VirtualDiskOnDiskUnmounted(object sender, DiskUnmountedEventArgs e)
         {
-            var openParameters = new VirtualDiskNativeMethods.OpenVirtualDiskParameters
-            {
-                version = VirtualDiskNativeMethods.OpenVirtualDiskVersion.OpenVirtualDiskVersion1,
-                version1 =
-                {
-                    rwDepth = VirtualDiskNativeMethods.OpenVirtualDiskRwDepthDefault
-                }
-            };
-
-            var openStorageType = new VirtualDiskNativeMethods.VirtualStorageType
-            {
-                deviceId = VirtualDiskNativeMethods.VirtualStorageTypeDeviceIso,
-                vendorId = VirtualDiskNativeMethods.VirtualStorageTypeVendorUnknown
-            };
-
-            var handle = new VirtualDiskHandle();
-
-            var result = VirtualDiskNativeMethods.OpenVirtualDisk(
-                ref openStorageType,
-                file,
-                accessMask,
-                VirtualDiskNativeMethods.OpenVirtualDiskFlag.OpenVirtualDiskFlagNone,
-                ref openParameters,
-                ref handle);
-            if (result != VirtualDiskNativeMethods.Success)
-            {
-                Logger.Warn($"Failed to open virtual disk {file}");
-            }
-
-            return handle;
+            _bus.Publish(new DiskUnmountedEvent(e.Path));
         }
 
-        private static bool MountToDriveLetter(string vhdVolumePath, string mountPoint)
+        private void VirtualDiskOnDiskMounted(object sender, DiskMountedEventArgs e)
         {
-            if (vhdVolumePath[vhdVolumePath.Length - 1] != '\\')
-            {
-                vhdVolumePath += '\\';
-            }
-
-            if (mountPoint[mountPoint.Length - 1] != '\\')
-            {
-                mountPoint += '\\';
-            }
-
-            return VirtualDiskNativeMethods.SetVolumeMountPoint(mountPoint, vhdVolumePath);
-        }
-
-        private static IEnumerable<string> GetVolumes()
-        {
-            var volumes = new List<string>();
-            var volumeName = new StringBuilder(260);
-
-            var findVolumeHandle = VirtualDiskNativeMethods.FindFirstVolume(volumeName, volumeName.Capacity);
-            do
-            {
-                var backslashPos = volumeName.Length - 1;
-                if (volumeName[backslashPos] == '\\')
-                {
-                    volumeName.Length--;
-                }
-
-                var volumeHandle = VirtualDiskNativeMethods.CreateFile(
-                    volumeName.ToString(),
-                    0,
-                    VirtualDiskNativeMethods.FileShareModeFlags.FileShareRead |
-                    VirtualDiskNativeMethods.FileShareModeFlags.FileShareWrite,
-                    IntPtr.Zero,
-                    VirtualDiskNativeMethods.CreationDispositionFlags.OpenExisting,
-                    0,
-                    IntPtr.Zero);
-                if (volumeHandle == VirtualDiskNativeMethods.InvalidHandleValue)
-                {
-                    continue;
-                }
-
-                volumes.Add(volumeName.ToString());
-
-                VirtualDiskNativeMethods.CloseHandle(volumeHandle);
-            } while (VirtualDiskNativeMethods.FindNextVolume(findVolumeHandle, volumeName, volumeName.Capacity));
-
-            VirtualDiskNativeMethods.FindVolumeClose(findVolumeHandle);
-
-            return volumes;
+            _bus.Publish(new DiskMountedEvent(e.VolumePath, e.FileName, e.Path));
         }
     }
 }

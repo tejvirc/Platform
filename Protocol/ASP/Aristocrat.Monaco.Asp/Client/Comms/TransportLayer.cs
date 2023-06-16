@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
+    using NativeSerial;
 
     /// <summary>
     ///     Asp protocol transport layer. Responsible for sending/receiving transport layer messages.
@@ -18,7 +19,7 @@
         private readonly TransportPacket _transportResponsePacket;
         private readonly Dictionary<TransportMessageType, Action> _typeHandler;
 
-        public TransportLayer(ICommPort port)
+        public TransportLayer(INativeComPort port)
             : base(port)
         {
             _typeHandler = new Dictionary<TransportMessageType, Action>
