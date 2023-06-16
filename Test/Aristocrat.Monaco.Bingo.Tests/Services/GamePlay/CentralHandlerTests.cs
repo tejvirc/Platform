@@ -158,7 +158,7 @@
         public async Task RequestOutcomesTest()
         {
             var currentTransactionGameId = 3;
-            var defaultBetDetails = new BetDetails(0, 0, 0, 0, 0);
+            var defaultBetDetails = new BetDetails(0, 0, 0, 0, 0, 0, 0, 0);
             var machineSerial = "123";
             Mock<IGameDetail> gameDetail = new(MockBehavior.Default);
             var dateTime = new DateTime(2000);
@@ -171,7 +171,7 @@
             _gameProvider.Setup(x => x.GetGame(currentTransactionGameId)).Returns(gameDetail.Object).Verifiable();
 
             _properties.Setup(x => x.GetProperty(ApplicationConstants.SerialNumber, string.Empty)).Returns(machineSerial).Verifiable();
-            _properties.Setup(x => x.GetProperty(GamingConstants.SelectedBetDetails, It.IsAny<BetDetails>())).Returns(defaultBetDetails).Verifiable();
+            _properties.Setup(x => x.GetProperty(GamingConstants.SelectedMultiGameBetDetails, It.IsAny<IEnumerable<BetDetails>>())).Returns(new[] { defaultBetDetails }).Verifiable();
             _commandHandlerFactory.Setup(x => x.Execute(It.IsAny<object>(), It.IsAny<CancellationToken>())).Returns(Task.CompletedTask).Verifiable();
             gameDetail.Setup(x => x.ThemeName).Returns("Theme1");
 
@@ -452,7 +452,7 @@
         private async void RequestOutcomes()
         {
             var currentTransactionGameId = 3;
-            var defaultBetDetails = new BetDetails(0, 0, 0, 0, 0);
+            var defaultBetDetails = new BetDetails(0, 0, 0, 0, 0, 0, 0, 0);
             var machineSerial = "123";
             Mock<IGameDetail> gameDetail = new(MockBehavior.Default);
             var dateTime = new DateTime(2000);

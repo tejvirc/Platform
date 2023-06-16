@@ -34,7 +34,10 @@
     public class CentralHandler : ICentralHandler, IBingoGameOutcomeHandler, IDisposable
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
-        private static readonly IBetDetails DefaultBetDetails = new BetDetails(0, 0, 0, 0, 0);
+        private static readonly IReadOnlyCollection<IBetDetails> DefaultBetDetails = new[]
+        {
+            new BetDetails(0,0,0,0,0,0,0,0)
+        };
         private static readonly IComparer<WinResult> DefaultWinResultComparer = new WinResultComparer();
 
         private static readonly IReadOnlyCollection<Guid> AllowedGameDisables = new[]
@@ -531,7 +534,7 @@
 
                 var machineSerial = _properties.GetValue(ApplicationConstants.SerialNumber, string.Empty);
                 var details = _properties.GetValue(
-                    GamingConstants.SelectedBetDetails,
+                    GamingConstants.SelectedMultiGameBetDetails,
                     DefaultBetDetails);
 
                 WaitingForPlayers(transaction, source.Token).FireAndForget();

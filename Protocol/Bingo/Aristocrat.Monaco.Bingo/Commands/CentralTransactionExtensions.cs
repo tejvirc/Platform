@@ -74,51 +74,43 @@
         public static RequestMultiPlayCommand GenerateMultiPlayRequest(
             this CentralTransaction transaction,
             string machineSerial,
-            IBetDetails details,
+            IEnumerable<IBetDetails> details,
             int titleId,
             int? subGameTitleId)
         {
-            //TODO: This needs to be reworked once we have the bet data for the sub game from the manifest.
             var requests = new List<RequestSingleGameOutcomeMessage>();
 
-            var mainGameInfo = transaction.AdditionalInfo.FirstOrDefault(x => x.GameIndex == 0)
-                               ?? throw new ArgumentNullException(nameof(transaction.AdditionalInfo));
-
-            // create play request for main game
-            var message = new RequestSingleGameOutcomeMessage(
-                0,
-                mainGameInfo.WagerAmount,
-                mainGameInfo.Denomination,
-                details.BetLinePresetId,
-                details.BetPerLine,
-                details.NumberLines,
-                details.Ante,
-                titleId,
-                mainGameInfo.GameId);
-
-            requests.Add(message);
-
-            // create play requests for any additional games
-            if (transaction.AdditionalInfo.Count() > 1 && subGameTitleId.HasValue)
+            if (!transaction.AdditionalInfo.Any(x => x.GameIndex == 0))
             {
-                var subGames = transaction.AdditionalInfo.Where(x => x.GameIndex > 0);
+                throw new ArgumentNullException(nameof(transaction.AdditionalInfo));
+            }
 
-                // create multi-game requests
-                requests.AddRange(
-                    subGames.Select(
-                        game => new RequestSingleGameOutcomeMessage(
-                            game.GameIndex,
-                            game.WagerAmount,
-                            game.Denomination,
-                            0,
-                            0,
-                            1,
-                            0,
-                            subGameTitleId.Value,
-                            game.GameId)));
+            var betDetails = details.ToList();
+            foreach (var gameInfo in transaction.AdditionalInfo)
+            {
+                var betDetail = betDetails.Single(x => x.GameId == gameInfo.GameId);
+                AddSingleGameOutcomeRequest(gameInfo, betDetail, titleId, subGameTitleId, requests);
             }
 
             return new RequestMultiPlayCommand(machineSerial, requests);
+        }
+
+        private static void AddSingleGameOutcomeRequest(IAdditionalGamePlayInfo gameInfo, IBetDetails betDetail, int mainTitleId, int? subGameTitleId, ICollection<RequestSingleGameOutcomeMessage> requests)
+        {
+            if (gameInfo.GameIndex != 0 && !subGameTitleId.HasValue)
+            {
+                return;
+            }
+            requests.Add(new RequestSingleGameOutcomeMessage(
+                gameInfo.GameIndex,
+                gameInfo.WagerAmount,
+                gameInfo.Denomination,
+                betDetail.BetLinePresetId,
+                betDetail.BetPerLine,
+                betDetail.NumberLines,
+                betDetail.Ante,
+                gameInfo.GameIndex == 0 ? mainTitleId : subGameTitleId.Value,
+                gameInfo.GameId));
         }
 
         private static CardPlayed ToCardPlayed(BingoCard card)

@@ -719,22 +719,24 @@
         public override Empty UpdateBetOptions(UpdateBetOptionsRequest request)
         {
             Logger.Debug($"Update Bet Line option with wager : {request.Wager}");
-
+            var betDetails = new List<IBetDetails>();
             // Store bet details for each game id
             foreach (var gameDetails in request.GamesDetails)
             {
                 var subGameBetOptions = gameDetails.Unpack<SubgameBetOptions>();
                 _subGameBetOptions.AddOrUpdate((int)subGameBetOptions.GameId, subGameBetOptions, (_,_) => subGameBetOptions);
+                betDetails.Add(new BetDetails(
+                    (int)subGameBetOptions.BetLinePresetId,
+                    (int)((long)subGameBetOptions.LineCost).MillicentsToCents(),
+                    (int)subGameBetOptions.NumberLines,
+                    (int)subGameBetOptions.Ante,
+                    (long)subGameBetOptions.StakeAmount,
+                    (long)request.Wager,
+                    (int)request.BetMultiplier,
+                    (int)subGameBetOptions.GameId));
             }
 
-            var betOptions = new UpdateBetOptions(
-                (long)request.Wager,
-                (long)request.StakeAmount,
-                (int)request.BetMultiplier,
-                (int)request.LineCost,
-                (int)request.NumberLines,
-                (int)request.Ante,
-                (int)request.BetLinePresetId);
+            var betOptions = new UpdateBetOptions(betDetails);
 
             _handlerFactory.Create<UpdateBetOptions>().Handle(betOptions);
 
