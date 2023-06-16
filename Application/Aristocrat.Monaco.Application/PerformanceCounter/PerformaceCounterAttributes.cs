@@ -124,4 +124,24 @@
             Unit = unit;
         }
     }
+
+    /// <summary>
+    ///     An attribute for the MetricType enum that specifies the key to lookup in resources, for multi-language
+    /// </summary>
+    public class LabelResourceKeyAttribute : Attribute
+    {
+        /// <summary>
+        ///     The key to lookup in resources
+        /// </summary>
+        public string LabelResourceKey { get; }
+
+        /// <summary>
+        ///     Constructor for the LabelResourceKeyAttribute
+        /// </summary>
+        /// <param name="labelResourceKey">The key for the label</param>
+        public LabelResourceKeyAttribute(string labelResourceKey)
+        {
+            LabelResourceKey = labelResourceKey;
+        }
+    }
 }

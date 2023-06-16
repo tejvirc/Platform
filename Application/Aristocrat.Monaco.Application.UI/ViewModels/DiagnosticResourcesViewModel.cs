@@ -58,7 +58,9 @@
             _performanceCounterManager = ServiceManager.GetInstance().GetService<IPerformanceCounterManager>();
 
             LoadAvailableMetrics();
-            
+
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleEvent);
+
             ViewMemoryCommand = new ActionCommand<object>(ViewMemory);
             ToggleDiagnosticChartViewModeCommand = new ActionCommand<object>(_ => InDiagnosticViewChartMode = !InDiagnosticViewChartMode);
         }
@@ -169,6 +171,7 @@
                 {
                     continue;
                 }
+                var metricLabel = Localizer.For(CultureFor.Operator).GetString(metric.GetAttribute<LabelResourceKeyAttribute>().LabelResourceKey);
 
                 var m = new Metric
                 {
@@ -180,11 +183,38 @@
                     Unit = metric.GetAttribute<UnitAttribute>().Unit,
                     CounterType = metric.GetAttribute<CounterTypeAttribute>().CounterType,
                     MaxRange = metric.GetAttribute<MaxRangeAttribute>().MaxRange,
-                    Label = metric.GetAttribute<LabelAttribute>().Label + " " + metric.GetAttribute<UnitAttribute>().Unit
+                    Label = metricLabel + " " + metric.GetAttribute<UnitAttribute>().Unit
                 };
 
                 Metrics.Add(m);
             }
+        }
+
+        private void UpdateMetricLabels()
+        {
+            if(Metrics == null)
+            {
+                return;
+            }
+            foreach (var metric in Metrics)
+            {
+                var metricLabel = Localizer.For(CultureFor.Operator).GetString(metric.MetricType.GetAttribute<LabelResourceKeyAttribute>().LabelResourceKey);
+                var metricUnit = metric.MetricType.GetAttribute<UnitAttribute>().Unit;
+                metric.Label = metricLabel+ " " + metricUnit;
+            }
+            SetYAxesTitles();
+            RaisePropertyChanged(nameof(Metrics));
+            RaisePropertyChanged(nameof(YAxes));
+            RaisePropertyChanged(nameof(MonacoChart));
+            RaisePropertyChanged(nameof(Charts));
+        }
+
+        private void HandleEvent(OperatorCultureChangedEvent obj)
+        {
+            MvvmHelper.ExecuteOnUI(() =>
+            {
+                UpdateMetricLabels();
+            });
         }
 
         private void LoadMetricSources()
