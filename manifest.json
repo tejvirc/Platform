@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "7sCaY9DVS6NX2fvEPx8ZQI6zlUBnVd9T2uCksNOuAuw="
+          "hash": "uvYMhnNCjzpraB6wJ9gIVBzlpUMVRRO/K6uxgzAwfjs="
         }
       },
       "is_incremental": false,
@@ -19407,7 +19407,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.Common.Storage.Model.BingoGameConfiguration.html",
-          "hash": "XkCUV6yaUaNlJLx7AuHvYhfan4KWLg4ijw8drruDWA4="
+          "hash": "2oWteNcLgiJMAArbyzQp9rLdgkPvNFCZW/E2HCFCA64="
         }
       },
       "is_incremental": false,
@@ -19631,18 +19631,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/bingo/Aristocrat.Monaco.Bingo.Common.Storage.Model.PaytableEvaluation.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.Common.Storage.Model.PaytableEvaluation.html",
-          "hash": "iRnUl7ZYRkD8NRWAozQCR4+TQwnpOoAsc42eiurnEiQ="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "obj/bingo/Aristocrat.Monaco.Bingo.Common.Storage.Model.ReportEventModel.yml",
       "output": {
         ".html": {
@@ -19731,7 +19719,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.Common.Storage.Model.html",
-          "hash": "N96sxGqOOA6F3J7iVeWMnQF+UPCUl1383oyULbgf0lk="
+          "hash": "0+lgbfI4Au6H8ezmihQyLcI0lV22VO8hVPK/7fhpPNI="
         }
       },
       "is_incremental": false,
@@ -21111,7 +21099,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.Services.Configuration.GameDetailsRequiresResetComparer.html",
-          "hash": "fzA+FxGI8iK+gdy9hPU6EPoNHrqaTUEUYPPwvvNBfMs="
+          "hash": "U5FHopM6NXS2hWJeA6+Cxbh/xZncx4lVNrEnXHlkKSU="
         }
       },
       "is_incremental": false,
@@ -21207,7 +21195,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.Services.Configuration.ServerGameConfiguration.html",
-          "hash": "7+3izY5Vickxdn6/+O7zoNOuLDyb1lo1z3vOcezchgM="
+          "hash": "obr7aNyjsMpIljQOH9yqXxKKeIZBHl77tgP/LBrizec="
         }
       },
       "is_incremental": false,
@@ -21219,7 +21207,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.Services.Configuration.ServerGameConfigurationExtensions.html",
-          "hash": "Ys4CQHmdxEZ0oaVJ5QUsrGq34pZnSslGMNN9MPyPbpU="
+          "hash": "E2V++fEgQhPlUw8a6dBreZLHTvNdBNgVSdXS5ii6gUs="
         }
       },
       "is_incremental": false,
@@ -82665,7 +82653,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 6855,
+          "total_file_count": 6854,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
