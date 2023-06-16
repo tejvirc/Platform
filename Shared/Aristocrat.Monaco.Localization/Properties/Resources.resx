@@ -6903,8 +6903,8 @@ Do you really want to do partial reset?</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="TotalGameRTP" xml:space="preserve">
-	  <value>TOTAL GAME RTP</value>
-	  <comment>Aristocrat.Monaco.Gaming.UI</comment>
+    <value>TOTAL GAME RTP</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="TotalJurisdictionalRtpInfoButtonText" xml:space="preserve">
     <value>Total game RTP that may include verified progressive RTPs based on game and jurisdiction
@@ -11736,7 +11736,7 @@ Do you really want to do full reset?</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="PrimaryWonAmountLabel" xml:space="preserve">
-	  <value>Primary Game Amount Won</value>
+    <value>Primary Game Amount Won</value>
   </data>
   <data name="Standard" xml:space="preserve">
     <value>Standard</value>
@@ -12007,20 +12007,20 @@ Do you really want to do full reset?</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="SelectDate" xml:space="preserve">
-	  <value>Select a Date</value>
-	  <comment>Aristocrat.Monaco.Gaming.UI</comment>
+    <value>Select a Date</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="SecondaryWageredAmountLabel" xml:space="preserve">
-	  <value>Double Up Amount Wagered</value>
+    <value>Double Up Amount Wagered</value>
   </data>
   <data name="SecondaryWonAmountLabel" xml:space="preserve">
-	  <value>Double Up Amount Won</value>
+    <value>Double Up Amount Won</value>
   </data>
   <data name="SecondaryPlayedCountLabel" xml:space="preserve">
-	  <value>Double Up Games Played</value>
+    <value>Double Up Games Played</value>
   </data>
   <data name="SecondaryTiedAndWonCountLabel" xml:space="preserve">
-	  <value>Double Up Games Won</value>
+    <value>Double Up Games Won</value>
   </data>
   <data name="AttendantPaidExternalBonusWinLabel" xml:space="preserve">
     <value>  Attendant Paid External Bonus Win</value>
@@ -12110,5 +12110,14 @@ Do you really want to do full reset?</value>
   </data>
   <data name="TotalDashCoinsBillsAndVouchers" xml:space="preserve">
     <value>Total - Coins, Bills, Vouchers</value>
+  </data>
+  <data name="TouchScreenCalibrationInstructions" xml:space="preserve">
+    <value>1. With a single finger, touch the monitor that displays this text
+2. If the touch does not switch to the next monitor, then
+    use the large play button to switch to the next monitor
+3. Repeat for each monitor</value>
+  </data>
+  <data name="TouchScreenCalibrationProcess" xml:space="preserve">
+    <value>Touch Screen Calibration Process</value>
   </data>
 </root>
