@@ -22,7 +22,7 @@ as follows:
   <IdentityPage>
     <PrintIdentity Visibility="Hidden"/>
   </IdentityPage>
-  <HardMetersConfig CanReconfigure="true"/>
+  <HardMetersConfig CanReconfigure="true" Enable="true" />
   <ProtocolConfiguration>
     <ProtocolsAllowed>
       <Protocol Name="G2S"/>
