@@ -34,7 +34,7 @@
                Grid.Row="0"
                VerticalAlignment="Bottom"
                Style="{DynamicResource MonacoLabel}"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.VersionText}}"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.Version}}"
                AutomationProperties.AutomationId="Label5_D6DAA136" />
         <ComboBox Grid.Column="0"
                   Grid.Row="1"

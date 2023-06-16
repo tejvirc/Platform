@@ -484,6 +484,8 @@
             return new List<Ticket>();
         }
 
+        public CultureInfo CurrencyDisplayCulture => GetCurrencyDisplayCulture();
+
         protected virtual CultureInfo GetCurrencyDisplayCulture() => UseOperatorCultureForCurrencyFormatting ? Localizer.For(CultureFor.Operator).CurrentCulture : CurrencyExtensions.CurrencyCultureInfo;
 
         protected static IEnumerable<Ticket> GeneratePrintVerificationTickets()

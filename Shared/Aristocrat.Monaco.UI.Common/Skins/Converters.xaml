@@ -17,6 +17,7 @@
     <converters:StringToVisibilityConverter x:Key="EmptyStringIsVisibleConverter" EmptyValue="Visible" NotEmptyValue="Collapsed"/>
 
     <converters:CurrencyConverter x:Key="CurrencyConverter"/>
+    <converters:OperatorFormattedCurrencyConverter x:Key="FormattedCurrencyConverter"/>
     <converters:DateTimeFormatConverter x:Key="DateTimeConverter"/>
     <converters:DefaultValueConverter x:Key="EmptyToDefaultValue"/>
     <converters:InverseBooleanConverter x:Key="InverseBoolConverter"/>

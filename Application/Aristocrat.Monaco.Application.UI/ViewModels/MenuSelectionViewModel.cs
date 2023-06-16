@@ -156,7 +156,7 @@
 
             ShowExitButton = _configuration.GetSetting(OperatorMenuSetting.ShowExitButton, false);
             ShowToggleLanguageButton = _configuration.GetSetting(OperatorMenuSetting.ShowToggleLanguageButton, false);
-            
+
             _keySwitchExitOverridesButton = _configuration.GetSetting(OperatorMenuSetting.KeySwitchExitOverridesButton, false);
             _useOperatorCultureForCurrencyFormatting = _configuration.GetSetting(OperatorMenuSetting.UseOperatorCultureForCurrencyFormatting, false);
 
@@ -733,7 +733,7 @@
                 KernelConstants.SystemVersion,
                 Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Unknown));
             var versionBuilder = new StringBuilder(20);
-            versionBuilder.Append(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VersionText)).Append(" ")
+            versionBuilder.Append(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Version)).Append(" ")
                 .Append(systemVersion);
             SoftwareVersion = versionBuilder.ToString();
             var demoModeActive = (bool)_propertiesManager.GetProperty(DemoModeProperty, false);
@@ -1022,7 +1022,7 @@
             else
             {
                 defaultCulture = provider.AvailableCultures.FirstOrDefault();
-            }    
+            }
 
             _primaryCulture = defaultCulture;
 

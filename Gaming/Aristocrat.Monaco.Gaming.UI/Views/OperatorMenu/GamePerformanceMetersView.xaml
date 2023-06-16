@@ -7,7 +7,6 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
-                               xmlns:commonConverters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
@@ -23,7 +22,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <commonConverters:CurrencyConverter x:Key="CurrencyConverter" />
             <converters:ReturnToPlayerConverter x:Key="ReturnToPlayerConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
@@ -51,7 +49,7 @@
             <Run Text=" | " AutomationProperties.AutomationId="Run12_A89303F4" />
             <Run Text="{Binding GameTheme, Mode=OneWay}" AutomationProperties.AutomationId="Run13_A89303F4" />
             <Run Text=" | " AutomationProperties.AutomationId="Run14_A89303F4" />
-            <Run Text="{Binding GameDenom, Mode=OneWay, Converter={StaticResource CurrencyConverter}}" AutomationProperties.AutomationId="Run15_A89303F4" />
+            <Run Text="{Binding GameDenom, Mode=OneWay, Converter={StaticResource FormattedCurrencyConverter}}" AutomationProperties.AutomationId="Run15_A89303F4" />
             <Run Text=" | " AutomationProperties.AutomationId="Run16_A89303F4" />
             <Run Text="{Binding GamePaytable, Mode=OneWay}" AutomationProperties.AutomationId="Run17_A89303F4" />
         </TextBlock>
@@ -104,7 +102,7 @@
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Wagered}}"
                                     loc:Localizer.For="Operator"
                                     HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeader}"
-                                    Binding="{Binding Wagered, Converter={StaticResource CurrencyConverter}}"
+                                    Binding="{Binding Wagered, Converter={StaticResource FormattedCurrencyConverter}}"
                                     AutomationProperties.AutomationId="DataGridTextColumn25_A89303F4" />
             </DataGrid.Columns>
         </DataGrid>

@@ -7,7 +7,6 @@
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
                                xmlns:helpers="http://monaco.aristocrat.com/common"
                                xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
-                               xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
                                xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
@@ -51,7 +50,6 @@
                 <Setter Property="HorizontalAlignment"
                         Value="Center" />
             </Style>
-            <converters:FormattedCurrencyConverter x:Key="CurrencyConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid Name="View"
@@ -138,7 +136,7 @@
                            FontSize="16"
                            AutomationProperties.AutomationId="TextBlock15_FA38938A" />
                 <TextBlock MinWidth="200"
-                           Text="{Binding TopAwardValue, Converter={StaticResource CurrencyConverter}, ConverterParameter=ZeroNotAvailable, Mode=OneWay}"
+                           Text="{Binding TopAwardValue, Converter={StaticResource FormattedCurrencyConverter}, ConverterParameter=ZeroNotAvailable, Mode=OneWay}"
                            AutomationProperties.AutomationId="TextBlock16_FA38938A" />
             </StackPanel>
         </StackPanel>
@@ -375,7 +373,6 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.MaxBet}}"
-                                            loc:Localizer.For="Operator"
                                             HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmall}"
                                             Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.MaxBetIsVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                             MaxWidth="120"
@@ -393,7 +390,7 @@
                                             HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmall}"
                                             Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.GlobalOptionsVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                             MaxWidth="120"
-                                            Binding="{Binding TopAwardValue, Converter={StaticResource CurrencyConverter}, ConverterParameter=ZeroNotAvailable, Mode=OneWay}"
+                                            Binding="{Binding TopAwardValue, Converter={StaticResource FormattedCurrencyConverter}, ConverterParameter=ZeroNotAvailable, Mode=OneWay}"
                                             AutomationProperties.AutomationId="DataGridTextColumn50_FA38938A">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="{x:Type TextBlock}">

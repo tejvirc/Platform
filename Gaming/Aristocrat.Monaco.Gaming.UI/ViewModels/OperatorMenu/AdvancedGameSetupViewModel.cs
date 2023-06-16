@@ -604,6 +604,11 @@
             RaisePropertyChanged(nameof(ThemePlusOptions));
             RaisePropertyChanged(nameof(SelectedDenoms));
 
+            foreach (var config in GameConfigurations)
+            {
+                config.UpdateCurrencyCulture();
+            }
+
             UpdateInputStatusText();
         }
 

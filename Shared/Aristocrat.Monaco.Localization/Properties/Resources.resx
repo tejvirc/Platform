@@ -2880,10 +2880,6 @@ Max: Should be less than the Large Win Limit</value>
     <value>Game Name</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
-  <data name="GameNameText" xml:space="preserve">
-    <value>Game Name</value>
-    <comment>Aristocrat.Monaco.Gaming</comment>
-  </data>
   <data name="GameNameText2" xml:space="preserve">
     <value>GAME/EVENT</value>
     <comment>Aristocrat.Monaco.Gaming.UI - Changed from "GameNameText"</comment>
@@ -6907,8 +6903,8 @@ Do you really want to do partial reset?</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="TotalGameRTP" xml:space="preserve">
-    <value>Total Game RTP</value>
-    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+	  <value>TOTAL GAME RTP</value>
+	  <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="TotalJurisdictionalRtpInfoButtonText" xml:space="preserve">
     <value>Total game RTP that may include verified progressive RTPs based on game and jurisdiction
@@ -7891,9 +7887,6 @@ See manual for details</value>
   <data name="BoardRemovalCashoutMessage" xml:space="preserve">
     <value>Call Attendant - Cashout {0:C} required\r\nafter logic board removal</value>
     <comment>Aristocrat.Monaco.Gaming</comment>
-  </data>
-  <data name="VersionText" xml:space="preserve">
-    <value>Version</value>
   </data>
   <data name="LicenseText" xml:space="preserve">
     <value>License</value>
@@ -11743,7 +11736,7 @@ Do you really want to do full reset?</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="PrimaryWonAmountLabel" xml:space="preserve">
-    <value>Primary Game Amount Won Test</value>
+	  <value>Primary Game Amount Won</value>
   </data>
   <data name="Standard" xml:space="preserve">
     <value>Standard</value>
@@ -12016,6 +12009,18 @@ Do you really want to do full reset?</value>
   <data name="SelectDate" xml:space="preserve">
     <value>Select Date</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="SecondaryWageredAmountLabel" xml:space="preserve">
+	  <value>Double Up Amount Wagered</value>
+  </data>
+  <data name="SecondaryWonAmountLabel" xml:space="preserve">
+	  <value>Double Up Amount Won</value>
+  </data>
+  <data name="SecondaryPlayedCountLabel" xml:space="preserve">
+	  <value>Double Up Games Played</value>
+  </data>
+  <data name="SecondaryTiedAndWonCountLabel" xml:space="preserve">
+	  <value>Double Up Games Won</value>
   </data>
   <data name="AttendantPaidExternalBonusWinLabel" xml:space="preserve">
     <value>  Attendant Paid External Bonus Win</value>
