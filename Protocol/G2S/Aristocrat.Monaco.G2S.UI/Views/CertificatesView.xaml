@@ -13,6 +13,7 @@
                                d:DataContext="{d:DesignInstance viewModels:CertificatesViewModel, IsDesignTimeCreatable=False}"
                                FocusManager.FocusedElement="{Binding ElementName=MainMenu}"
                                Background="Transparent"
+                               loc:Localizer.For="Operator"
                                common:DialogParticipation.Register="{Binding}">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -48,6 +49,7 @@
                            AutomationProperties.AutomationId="RowDefinition5_2F3D0D04" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0"
+              loc:Localizer.For="Operator"
               AutomationProperties.AutomationId="Grid6_2F3D0D04">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"
@@ -167,36 +169,44 @@
                   Grid.Row="1"
                   ItemsSource="{Binding CertificateInfoData, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding SelectedCertificate}"
+                  loc:Localizer.For="Operator"
                   AutomationProperties.AutomationId="DataGrid29_2F3D0D04">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.NameLabel}}"
                                     Width="Auto"
                                     Binding="{Binding CommonName}"
+                                    loc:Localizer.For="Operator"
                                     AutomationProperties.AutomationId="DataGridTextColumn30_2F3D0D04" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CertificateThumbprint}}"
                                     Width="Auto"
                                     Binding="{Binding Thumbprint}"
                                     FontSize="14"
+                                    loc:Localizer.For="Operator"
                                     AutomationProperties.AutomationId="DataGridTextColumn31_2F3D0D04" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CertificateNotBefore}}"
                                     Width="Auto"
                                     Binding="{Binding NotBefore}"
+                                    loc:Localizer.For="Operator"
                                     AutomationProperties.AutomationId="DataGridTextColumn32_2F3D0D04" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CertificateNotAfter}}"
                                     Width="Auto"
                                     Binding="{Binding NotAfter}"
+                                    loc:Localizer.For="Operator"
                                     AutomationProperties.AutomationId="DataGridTextColumn33_2F3D0D04" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CertificateVerifyDate}}"
                                     Width="Auto"
                                     Binding="{Binding VerificationDate}"
+                                    loc:Localizer.For="Operator"
                                     AutomationProperties.AutomationId="DataGridTextColumn34_2F3D0D04" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.StatusText}}"
                                     Width="Auto"
                                     Binding="{Binding Status}"
+                                    loc:Localizer.For="Operator"
                                     AutomationProperties.AutomationId="DataGridTextColumn35_2F3D0D04" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CertificateOcspOfflineDate}}"
                                     Width="Auto"
                                     Binding="{Binding OcspOfflineDate}"
+                                    loc:Localizer.For="Operator"
                                     AutomationProperties.AutomationId="DataGridTextColumn36_2F3D0D04" />
             </DataGrid.Columns>
         </DataGrid>
