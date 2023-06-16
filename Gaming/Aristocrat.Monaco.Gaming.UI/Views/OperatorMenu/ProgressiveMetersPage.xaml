@@ -59,39 +59,14 @@
             <Label VerticalAlignment="Bottom"
                    HorizontalAlignment="Left"
                    Margin="0 20 0 0"
-                   AutomationProperties.AutomationId="Label9_F589A27">
-                <Label.Style>
-                    <Style BasedOn="{StaticResource MonacoLabel}"
-                           TargetType="{x:Type Label}">
-                        <Style.Triggers>
-                            <MultiDataTrigger AutomationProperties.AutomationId="MultiDataTrigger10_F589A27">
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding Path=HasEnabledProgressives, Mode=OneWay}"
-                                               Value="false" />
-                                    <Condition Binding="{Binding Path=HasProgressives, Mode=OneWay}"
-                                               Value="false" />
-                                </MultiDataTrigger.Conditions>
-                                <Setter Property="Content"
-                                        Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NoProgressiveGamesEnabled}}" />
-                                <Setter Property="Visibility"
-                                        Value="Visible" />
-                            </MultiDataTrigger>
-                            <DataTrigger Binding="{Binding Path=HasProgressives, Mode=OneWay}"
-                                         Value="false"
-                                         AutomationProperties.AutomationId="DataTrigger11_F589A27">
-                                <Setter Property="Content"
-                                        Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NoProgressiveMeters}}" />
-                                <Setter Property="Visibility"
-                                        Value="Visible" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                        <Setter Property="Visibility"
-                                Value="Collapsed" />
-                        <Setter Property="Content"
-                                Value="" />
-                    </Style>
-                </Label.Style>
-            </Label>
+                   AutomationProperties.AutomationId="Label9_F589A27"
+                   Visibility="{Binding HasProgressivesButNoneEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.NoProgressiveGamesEnabled}}" />
+            <Label VerticalAlignment="Bottom"
+                   HorizontalAlignment="Left"
+                   Margin="0 20 0 0"
+                   Visibility="{Binding HasProgressives, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.NoProgressiveMeters}}" />
         </StackPanel>
         <StackPanel Grid.Row="2"
                     Orientation="Horizontal"
