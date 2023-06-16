@@ -11978,6 +11978,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Fast Flash.
+		/// </summary>
+		public static string FastFlash {
+			get {
+				return ResourceManager.GetString("FastFlash", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Fault.
 		/// </summary>
         /// <remarks>
@@ -20693,6 +20702,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Medium Flash.
+		/// </summary>
+		public static string MediumFlash {
+			get {
+				return ResourceManager.GetString("MediumFlash", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Medium Flash Reversed.
+		/// </summary>
+		public static string MediumFlashReversed {
+			get {
+				return ResourceManager.GetString("MediumFlashReversed", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Medium-High.
 		/// </summary>
         /// <remarks>
@@ -23351,6 +23378,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Operator.
+		/// </summary>
+		public static string OperatorRoleName {
+			get {
+				return ResourceManager.GetString("OperatorRoleName", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Options.
 		/// </summary>
         /// <remarks>
@@ -24598,6 +24634,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string PlayOnText {
 			get {
 				return ResourceManager.GetString("PlayOnText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Play/Spin/Draw.
+		/// </summary>
+		public static string PlaySpinDraw {
+			get {
+				return ResourceManager.GetString("PlaySpinDraw", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -30104,6 +30149,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Slow Flash.
+		/// </summary>
+		public static string SlowFlash {
+			get {
+				return ResourceManager.GetString("SlowFlash", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Slow Flash Reversed.
+		/// </summary>
+		public static string SlowFlashReversed {
+			get {
+				return ResourceManager.GetString("SlowFlashReversed", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Smart Card Expired.
 		/// </summary>
 		public static string SmartCardExpired {
@@ -31210,6 +31273,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string TechnicianCardRequired {
 			get {
 				return ResourceManager.GetString("TechnicianCardRequired", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Technician.
+		/// </summary>
+		public static string TechnicianRoleName {
+			get {
+				return ResourceManager.GetString("TechnicianRoleName", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -47875,6 +47947,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Fast Flash.
+		/// </summary>
+		public static string FastFlash {
+			get {
+				return "FastFlash";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Fault.
 		/// </summary>
         /// <remarks>
@@ -56590,6 +56671,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Medium Flash.
+		/// </summary>
+		public static string MediumFlash {
+			get {
+				return "MediumFlash";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Medium Flash Reversed.
+		/// </summary>
+		public static string MediumFlashReversed {
+			get {
+				return "MediumFlashReversed";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Medium-High.
 		/// </summary>
         /// <remarks>
@@ -59248,6 +59347,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Operator.
+		/// </summary>
+		public static string OperatorRoleName {
+			get {
+				return "OperatorRoleName";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Options.
 		/// </summary>
         /// <remarks>
@@ -60495,6 +60603,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string PlayOnText {
 			get {
 				return "PlayOnText";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Play/Spin/Draw.
+		/// </summary>
+		public static string PlaySpinDraw {
+			get {
+				return "PlaySpinDraw";
 			}
 		}
 
@@ -66001,6 +66118,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Slow Flash.
+		/// </summary>
+		public static string SlowFlash {
+			get {
+				return "SlowFlash";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Slow Flash Reversed.
+		/// </summary>
+		public static string SlowFlashReversed {
+			get {
+				return "SlowFlashReversed";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Smart Card Expired.
 		/// </summary>
 		public static string SmartCardExpired {
@@ -67107,6 +67242,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string TechnicianCardRequired {
 			get {
 				return "TechnicianCardRequired";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Technician.
+		/// </summary>
+		public static string TechnicianRoleName {
+			get {
+				return "TechnicianRoleName";
 			}
 		}
 
@@ -78654,6 +78798,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		Failure,
 		/// <summary>
+		///   Looks up a localized string similar to Fast Flash.
+		/// </summary>
+		FastFlash,
+		/// <summary>
 		///   Looks up a localized string similar to Fault.
 		/// </summary>
         /// <remarks>
@@ -83644,6 +83792,14 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		Medium,
 		/// <summary>
+		///   Looks up a localized string similar to Medium Flash.
+		/// </summary>
+		MediumFlash,
+		/// <summary>
+		///   Looks up a localized string similar to Medium Flash Reversed.
+		/// </summary>
+		MediumFlashReversed,
+		/// <summary>
 		///   Looks up a localized string similar to Medium-High.
 		/// </summary>
         /// <remarks>
@@ -85162,6 +85318,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		OperatorResetRequiredMessage,
 		/// <summary>
+		///   Looks up a localized string similar to Operator.
+		/// </summary>
+		OperatorRoleName,
+		/// <summary>
 		///   Looks up a localized string similar to Options.
 		/// </summary>
         /// <remarks>
@@ -85887,6 +86047,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		PlayOnText,
+		/// <summary>
+		///   Looks up a localized string similar to Play/Spin/Draw.
+		/// </summary>
+		PlaySpinDraw,
 		/// <summary>
 		///   Looks up a localized string similar to Please Do Not Power Off The Gaming Machine.
 		/// </summary>
@@ -89035,6 +89199,14 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		SlotGameSummary,
 		/// <summary>
+		///   Looks up a localized string similar to Slow Flash.
+		/// </summary>
+		SlowFlash,
+		/// <summary>
+		///   Looks up a localized string similar to Slow Flash Reversed.
+		/// </summary>
+		SlowFlashReversed,
+		/// <summary>
 		///   Looks up a localized string similar to Smart Card Expired.
 		/// </summary>
 		SmartCardExpired,
@@ -89664,6 +89836,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		TechnicianCardRequired,
+		/// <summary>
+		///   Looks up a localized string similar to Technician.
+		/// </summary>
+		TechnicianRoleName,
 		/// <summary>
 		///   Looks up a localized string similar to Temperature Error.
 		/// </summary>

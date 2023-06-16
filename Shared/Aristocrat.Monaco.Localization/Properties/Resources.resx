@@ -12111,6 +12111,30 @@ Do you really want to do full reset?</value>
   <data name="TotalDashCoinsBillsAndVouchers" xml:space="preserve">
     <value>Total - Coins, Bills, Vouchers</value>
   </data>
+  <data name="PlaySpinDraw" xml:space="preserve">
+    <value>Play/Spin/Draw</value>
+  </data>
+  <data name="OperatorRoleName" xml:space="preserve">
+    <value>Operator</value>
+  </data>
+  <data name="TechnicianRoleName" xml:space="preserve">
+    <value>Technician</value>
+  </data>
+  <data name="FastFlash" xml:space="preserve">
+    <value>Fast Flash</value>
+  </data>
+  <data name="MediumFlash" xml:space="preserve">
+    <value>Medium Flash</value>
+  </data>
+  <data name="MediumFlashReversed" xml:space="preserve">
+    <value>Medium Flash Reversed</value>
+  </data>
+  <data name="SlowFlash" xml:space="preserve">
+    <value>Slow Flash</value>
+  </data>
+  <data name="SlowFlashReversed" xml:space="preserve">
+    <value>Slow Flash Reversed</value>
+  </data>
   <data name="TouchScreenCalibrationInstructions" xml:space="preserve">
     <value>1. With a single finger, touch the monitor that displays this text
 2. If the touch does not switch to the next monitor, then
