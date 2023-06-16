@@ -29045,7 +29045,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Select Date.
+		///   Looks up a localized string similar to Select a Date.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
@@ -64774,7 +64774,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Select Date.
+		///		Looks up a localized string similar to Select a Date.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
@@ -88090,7 +88090,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		SelectAll,
 		/// <summary>
-		///   Looks up a localized string similar to Select Date.
+		///   Looks up a localized string similar to Select a Date.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI

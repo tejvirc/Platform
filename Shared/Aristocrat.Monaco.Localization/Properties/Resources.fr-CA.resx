@@ -3993,7 +3993,7 @@ Do you really want to do partial reset????</value>
     <value>??Clear Selection??</value>
   </data>
   <data name="SelectDate" xml:space="preserve">
-    <value>??Select Date??</value>
+	  <value>??Select a Date??</value>
   </data>
   <data name="ProgressiveSummaryTitle" xml:space="preserve">
     <value>??Progressive Summary??</value>

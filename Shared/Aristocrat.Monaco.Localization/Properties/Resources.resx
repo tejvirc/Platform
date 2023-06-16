@@ -12007,8 +12007,8 @@ Do you really want to do full reset?</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="SelectDate" xml:space="preserve">
-    <value>Select Date</value>
-    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+	  <value>Select a Date</value>
+	  <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="SecondaryWageredAmountLabel" xml:space="preserve">
 	  <value>Double Up Amount Wagered</value>
