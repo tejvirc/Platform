@@ -27,6 +27,7 @@ namespace Aristocrat.Monaco.Application
     using Kernel.Contracts;
     using Kernel.Contracts.Components;
     using Kernel.Contracts.Events;
+    using Kernel.Debugging;
     using log4net;
     using Monaco.Localization.Properties;
     using Mono.Addins;
@@ -514,6 +515,10 @@ namespace Aristocrat.Monaco.Application
         {
             WritePendingActionToMessageDisplay(ResourceKeys.CheckingInitialConfiguration);
             var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+
+#if DEBUG
+            ServiceManager.GetInstance().TryGetService<IDebuggerService>()?.AttachDebuggerIfRequestedForPoint(DebuggerAttachPoint.OnInitialConfigurationCheck);
+#endif
 
             var complete = propertiesManager.GetValue(ApplicationConstants.IsInitialConfigurationComplete, false);
 
