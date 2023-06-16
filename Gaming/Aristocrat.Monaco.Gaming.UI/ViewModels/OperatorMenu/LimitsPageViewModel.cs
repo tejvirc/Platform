@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using Accounting.Contracts;
     using Accounting.Contracts.Handpay;
     using Application.Contracts;
@@ -136,9 +135,6 @@
                 RaisePropertyChanged(nameof(PageEnabled));
             }
         }
-
-        public CultureInfo CurrencyDisplayCulture => GetCurrencyDisplayCulture();
-
 
         public decimal CreditLimit
         {
@@ -599,7 +595,7 @@
             {
                 RaisePropertyChanged(nameof(CurrencyDisplayCulture));
             }
-            
+
             UpdateLimits();
         }
 

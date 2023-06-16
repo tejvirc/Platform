@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Linq;
     using Application.Contracts;
     using Application.Contracts.Extensions;
@@ -104,8 +103,6 @@
                 RaisePropertyChanged(nameof(VoucherInLimitCheckboxEnabled));
             }
         }
-
-        public CultureInfo CurrencyDisplayCulture => GetCurrencyDisplayCulture();
 
         public bool VoucherInLimitEnabledChecked
         {

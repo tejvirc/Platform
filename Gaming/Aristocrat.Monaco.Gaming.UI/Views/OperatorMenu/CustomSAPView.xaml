@@ -74,7 +74,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.LevelId}}"
                                     loc:Localizer.For="Operator"
-                                    MaxWidth="60"
+                                    MaxWidth="80"
                                     Binding="{Binding LevelId , UpdateSourceTrigger=PropertyChanged}"
                                     AutomationProperties.AutomationId="DataGridTextColumn7_EF8014A4" />
                 <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.LevelNameLabel}}"
@@ -109,7 +109,7 @@
                                     AutomationProperties.AutomationId="DataGridTextColumn12_EF8014A4" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.IncrementRate}}"
                                     loc:Localizer.For="Operator"
-                                    MaxWidth="120"
+                                    MaxWidth="200"
                                     Binding="{Binding IncrementRate, Converter={StaticResource PercentageTextValueConvert}, UpdateSourceTrigger=PropertyChanged}"
                                     AutomationProperties.AutomationId="DataGridTextColumn13_EF8014A4" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.MaxValue}}"

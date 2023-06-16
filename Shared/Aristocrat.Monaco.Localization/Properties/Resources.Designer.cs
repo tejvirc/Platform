@@ -13277,18 +13277,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Game Name.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming
-        /// </remarks>
-		public static string GameNameText {
-			get {
-				return ResourceManager.GetString("GameNameText", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
 		///   Looks up a localized string similar to GAME/EVENT.
 		/// </summary>
         /// <remarks>
@@ -24869,7 +24857,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Primary Game Amount Won Test.
+		///   Looks up a localized string similar to Primary Game Amount Won.
 		/// </summary>
 		public static string PrimaryWonAmountLabel {
 			get {
@@ -28373,6 +28361,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Double Up Games Played.
+		/// </summary>
+		public static string SecondaryPlayedCountLabel {
+			get {
+				return ResourceManager.GetString("SecondaryPlayedCountLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to To clear this lockup, remove secondary storage and....
 		/// </summary>
         /// <remarks>
@@ -28393,6 +28390,33 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string SecondaryStorageMediaNotConnectedMessage {
 			get {
 				return ResourceManager.GetString("SecondaryStorageMediaNotConnectedMessage", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Double Up Games Won.
+		/// </summary>
+		public static string SecondaryTiedAndWonCountLabel {
+			get {
+				return ResourceManager.GetString("SecondaryTiedAndWonCountLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Double Up Amount Wagered.
+		/// </summary>
+		public static string SecondaryWageredAmountLabel {
+			get {
+				return ResourceManager.GetString("SecondaryWageredAmountLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Double Up Amount Won.
+		/// </summary>
+		public static string SecondaryWonAmountLabel {
+			get {
+				return ResourceManager.GetString("SecondaryWonAmountLabel", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -32378,7 +32402,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Total Game RTP.
+		///   Looks up a localized string similar to TOTAL GAME RTP.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
@@ -34495,15 +34519,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string Version {
 			get {
 				return ResourceManager.GetString("Version", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to Version.
-		/// </summary>
-		public static string VersionText {
-			get {
-				return ResourceManager.GetString("VersionText", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -48991,18 +49006,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Game Name.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming
-        /// </remarks>
-		public static string GameNameText {
-			get {
-				return "GameNameText";
-			}
-		}
-
-		/// <summary>
 		///		Looks up a localized string similar to GAME/EVENT.
 		/// </summary>
         /// <remarks>
@@ -60583,7 +60586,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Primary Game Amount Won Test.
+		///		Looks up a localized string similar to Primary Game Amount Won.
 		/// </summary>
 		public static string PrimaryWonAmountLabel {
 			get {
@@ -64087,6 +64090,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Double Up Games Played.
+		/// </summary>
+		public static string SecondaryPlayedCountLabel {
+			get {
+				return "SecondaryPlayedCountLabel";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to To clear this lockup, remove secondary storage and....
 		/// </summary>
         /// <remarks>
@@ -64107,6 +64119,33 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string SecondaryStorageMediaNotConnectedMessage {
 			get {
 				return "SecondaryStorageMediaNotConnectedMessage";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Double Up Games Won.
+		/// </summary>
+		public static string SecondaryTiedAndWonCountLabel {
+			get {
+				return "SecondaryTiedAndWonCountLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Double Up Amount Wagered.
+		/// </summary>
+		public static string SecondaryWageredAmountLabel {
+			get {
+				return "SecondaryWageredAmountLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Double Up Amount Won.
+		/// </summary>
+		public static string SecondaryWonAmountLabel {
+			get {
+				return "SecondaryWonAmountLabel";
 			}
 		}
 
@@ -68092,7 +68131,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Total Game RTP.
+		///		Looks up a localized string similar to TOTAL GAME RTP.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
@@ -70209,15 +70248,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string Version {
 			get {
 				return "Version";
-			}
-		}
-
-		/// <summary>
-		///		Looks up a localized string similar to Version.
-		/// </summary>
-		public static string VersionText {
-			get {
-				return "VersionText";
 			}
 		}
 
@@ -79037,13 +79067,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		GameName,
 		/// <summary>
-		///   Looks up a localized string similar to Game Name.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming
-        /// </remarks>
-		GameNameText,
-		/// <summary>
 		///   Looks up a localized string similar to GAME/EVENT.
 		/// </summary>
         /// <remarks>
@@ -85674,7 +85697,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// </summary>
 		PreviouslyActive,
 		/// <summary>
-		///   Looks up a localized string similar to Primary Game Amount Won Test.
+		///   Looks up a localized string similar to Primary Game Amount Won.
 		/// </summary>
 		PrimaryWonAmountLabel,
 		/// <summary>
@@ -87673,6 +87696,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		SecondaryCashDoorName,
 		/// <summary>
+		///   Looks up a localized string similar to Double Up Games Played.
+		/// </summary>
+		SecondaryPlayedCountLabel,
+		/// <summary>
 		///   Looks up a localized string similar to To clear this lockup, remove secondary storage and....
 		/// </summary>
         /// <remarks>
@@ -87686,6 +87713,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Hardware
         /// </remarks>
 		SecondaryStorageMediaNotConnectedMessage,
+		/// <summary>
+		///   Looks up a localized string similar to Double Up Games Won.
+		/// </summary>
+		SecondaryTiedAndWonCountLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Double Up Amount Wagered.
+		/// </summary>
+		SecondaryWageredAmountLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Double Up Amount Won.
+		/// </summary>
+		SecondaryWonAmountLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Seconds.
 		/// </summary>
@@ -89968,7 +90007,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		TotalDebitLabel,
 		/// <summary>
-		///   Looks up a localized string similar to Total Game RTP.
+		///   Looks up a localized string similar to TOTAL GAME RTP.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
@@ -91183,10 +91222,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Monaco.Accounting.Contracts
         /// </remarks>
 		Version,
-		/// <summary>
-		///   Looks up a localized string similar to Version.
-		/// </summary>
-		VersionText,
 		/// <summary>
 		///   Looks up a localized string similar to Video.
 		/// </summary>

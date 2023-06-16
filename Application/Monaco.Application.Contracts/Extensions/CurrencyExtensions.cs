@@ -3,10 +3,12 @@
     using System;
     using System.Globalization;
     using Common;
+    using Currency;
+    using Kernel;
     using Localization;
     using log4net;
     using Monaco.Localization.Properties;
-    using Contracts.Currency;
+    using OperatorMenu;
 
     /// <summary>
     ///     CurrencyExtensions
@@ -25,10 +27,19 @@
         private static string _majorUnitsPlural;
         private static string _minorUnitsPlural;
 
+        private static IOperatorMenuConfiguration _configuration;
+
         /// <summary>
         /// The default amount used to generate currency description
         /// </summary>
         public const decimal DefaultDescriptionAmount = 1000.00M;
+
+        private static IOperatorMenuConfiguration Configuration =>
+            _configuration ??= ServiceManager.GetInstance().TryGetService<IOperatorMenuConfiguration>();
+
+        private static bool UseOperatorCultureForCurrencyFormatting => Configuration?.GetSetting(OperatorMenuSetting.UseOperatorCultureForCurrencyFormatting, false) ?? false;
+
+        private static CultureInfo CurrencyDisplayCulture => UseOperatorCultureForCurrencyFormatting ? Localizer.For(CultureFor.Operator).CurrentCulture : CurrencyExtensions.CurrencyCultureInfo;
 
         /// <summary>
         /// The configured currency
@@ -240,6 +251,28 @@
             }
 
             return null;
+        }
+
+        /// <summary>
+        ///     Formats currency string using Operator defined culture.
+        /// </summary>
+        /// <param name="amount">Amount</param>
+        /// <param name="withMillicents">Whether to add extra digits for fractional currency (default false)</param>
+        /// <returns></returns>
+        public static string FormattedCurrencyStringForOperator(this decimal amount, bool withMillicents = false)
+        {
+            return FormattedCurrencyString(amount, withMillicents, CurrencyDisplayCulture);
+        }
+
+        /// <summary>
+        ///     Formats currency string using Operator defined culture.
+        /// </summary>
+        /// <param name="amount">Amount</param>
+        /// <param name="withMillicents">Whether to add extra digits for fractional currency (default false)</param>
+        /// <returns></returns>
+        public static string FormattedCurrencyStringForOperator(this double amount, bool withMillicents = false)
+        {
+            return FormattedCurrencyString(amount, withMillicents, CurrencyDisplayCulture);
         }
 
         /// <summary>

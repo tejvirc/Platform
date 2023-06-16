@@ -8,7 +8,6 @@
                                xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                                xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
-                               xmlns:commonConverters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
@@ -24,7 +23,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <commonConverters:CurrencyConverter x:Key="CurrencyConverter" />
             <converters:ReturnToPlayerConverter x:Key="ReturnToPlayerConverter" />
             <converters:RtpToHoldConverter x:Key="RtpToHoldConverter" />
             <Style x:Key="HeaderStyle"
@@ -268,7 +266,7 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameNameText}}"
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameName}}"
                                     loc:Localizer.For="Operator"
                                     Width="160"
                                     Binding="{Binding ThemeId}"
@@ -290,12 +288,12 @@
                                     AutomationProperties.AutomationId="DataGridTextColumn38_361E7832" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Denom}}"
                                     loc:Localizer.For="Operator"
-                                    Binding="{Binding Denomination, Converter={StaticResource CurrencyConverter}}"
+                                    Binding="{Binding Denomination, Converter={StaticResource FormattedCurrencyConverter}}"
                                     HeaderStyle="{StaticResource HeaderStyle}"
                                     AutomationProperties.AutomationId="DataGridTextColumn39_361E7832" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.AverageBet}}"
                                     loc:Localizer.For="Operator"
-                                    Binding="{Binding AverageBet, Converter={StaticResource CurrencyConverter}}"
+                                    Binding="{Binding AverageBet, Converter={StaticResource FormattedCurrencyConverter}}"
                                     HeaderStyle="{StaticResource WrappedHeaderStyle}"
                                     AutomationProperties.AutomationId="DataGridTextColumn40_361E7832" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TheoreticalHold}}"
@@ -328,13 +326,13 @@
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CoinInText}}"
                                     loc:Localizer.For="Operator"
                                     MinWidth="80"
-                                    Binding="{Binding AmountIn, Converter={StaticResource CurrencyConverter}}"
+                                    Binding="{Binding AmountIn, Converter={StaticResource FormattedCurrencyConverter}}"
                                     HeaderStyle="{StaticResource WrappedHeaderStyle}"
                                     AutomationProperties.AutomationId="DataGridTextColumn45_361E7832" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CoinOutText}}"
                                     loc:Localizer.For="Operator"
                                     MinWidth="80"
-                                    Binding="{Binding AmountOut, Converter={StaticResource CurrencyConverter}}"
+                                    Binding="{Binding AmountOut, Converter={StaticResource FormattedCurrencyConverter}}"
                                     HeaderStyle="{StaticResource WrappedHeaderStyle}"
                                     AutomationProperties.AutomationId="DataGridTextColumn46_361E7832" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.GamesPlayed}}"

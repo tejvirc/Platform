@@ -152,5 +152,16 @@
 
         /// <summary> Gets or sets the unique id of the game+variation+denom</summary>
         public long GameNumber { get; set; }
+
+        /// <summary>
+        ///     Update all properties that are affected by a culture change (language and currency format)
+        /// </summary>
+        public void UpdateCulture()
+        {
+            RaisePropertyChanged(nameof(Denomination));
+            RaisePropertyChanged(nameof(AverageBet));
+            RaisePropertyChanged(nameof(AmountIn));
+            RaisePropertyChanged(nameof(AmountOut));
+        }
     }
 }
