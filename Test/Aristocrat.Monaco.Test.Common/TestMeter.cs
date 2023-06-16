@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Bingo.Tests.Monitors
+﻿namespace Aristocrat.Monaco.Test.Common
 {
     using System;
     using Application.Contracts;
