@@ -4094,4 +4094,10 @@ Do you really want to do partial reset????</value>
   <data name="GameName" xml:space="preserve">
 	  <value>??Game Name??</value>
   </data>
+  <data name="TotalDashBillsAndVouchers" xml:space="preserve">
+    <value>??Total - Bills, Vouchers??</value>
+  </data>
+  <data name="TotalDashCoinsBillsAndVouchers" xml:space="preserve">
+    <value>??Total - Coins, Bills, Vouchers??</value>
+  </data>
 </root>

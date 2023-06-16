@@ -32348,6 +32348,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Total - Bills and Vouchers.
+		/// </summary>
+		public static string TotalDashBillsAndVouchers {
+			get {
+				return ResourceManager.GetString("TotalDashBillsAndVouchers", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Total - Coin In.
 		/// </summary>
         /// <remarks>
@@ -32368,6 +32377,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string TotalDashCoinsAndBills {
 			get {
 				return ResourceManager.GetString("TotalDashCoinsAndBills", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Total - Coins, Bills, and Vouchers.
+		/// </summary>
+		public static string TotalDashCoinsBillsAndVouchers {
+			get {
+				return ResourceManager.GetString("TotalDashCoinsBillsAndVouchers", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -68053,6 +68071,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Total - Bills and Vouchers.
+		/// </summary>
+		public static string TotalDashBillsAndVouchers {
+			get {
+				return "TotalDashBillsAndVouchers";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Total - Coin In.
 		/// </summary>
         /// <remarks>
@@ -68073,6 +68100,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string TotalDashCoinsAndBills {
 			get {
 				return "TotalDashCoinsAndBills";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Total - Coins, Bills, and Vouchers.
+		/// </summary>
+		public static string TotalDashCoinsBillsAndVouchers {
+			get {
+				return "TotalDashCoinsBillsAndVouchers";
 			}
 		}
 
@@ -89920,6 +89956,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		TotalDashBillIn,
 		/// <summary>
+		///   Looks up a localized string similar to Total - Bills and Vouchers.
+		/// </summary>
+		TotalDashBillsAndVouchers,
+		/// <summary>
 		///   Looks up a localized string similar to Total - Coin In.
 		/// </summary>
         /// <remarks>
@@ -89933,6 +89973,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Localization.xml LOC_Total - Coins and Bills
         /// </remarks>
 		TotalDashCoinsAndBills,
+		/// <summary>
+		///   Looks up a localized string similar to Total - Coins, Bills, and Vouchers.
+		/// </summary>
+		TotalDashCoinsBillsAndVouchers,
 		/// <summary>
 		///   Looks up a localized string similar to Total Debit.
 		/// </summary>

@@ -26,6 +26,7 @@
         private const string Value = "Value";
         private IOperatorMenuConfiguration _operatorMenuConfig;
         private IMeterManager _meterManager;
+        private readonly bool _voucherInEnabled;
 
         protected const string CoinDenominationsPropertyKey = "CoinDenominations";
         protected static Collection<int> CoinDenominations = new Collection<int>();
@@ -59,6 +60,8 @@
                         );
                 }
             }
+
+            _voucherInEnabled = PropertiesManager?.GetValue(VoucherIn, false) ?? false;
         }
 
         /// <summary>
@@ -252,8 +255,26 @@
                 sumCoinsAndBillsPeriod.FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture));
             }
 
+            if (_voucherInEnabled)
+            {
+                VoucherData();
 
-            VoucherData();
+                var (_, _, ValueMaster, ValuePeriod) = GetVoucherInMeterData();
+                var valueSumMaster = ValueMaster + totalBillInMaster + totalCoinInMaster;
+                var valueSumPeriod = ValuePeriod + totalBillInPeriod + totalCoinInPeriod;
+
+                var localizedFieldName = TicketLocalizer.GetString(
+                    showCoinData ?
+                    ResourceKeys.TotalDashCoinsBillsAndVouchers :
+                    ResourceKeys.TotalDashBillsAndVouchers);
+
+                AddLine(
+                    valueSumMaster.FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture),
+                    localizedFieldName,
+                    valueSumPeriod.FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture));
+            }
+
+            AddDashesLine(); // Add dashes here to group money-in fields together
 
             if (showGameData)
             {
@@ -321,42 +342,22 @@
 
         protected void VoucherData()
         {
-            var voucherInEnabled = (bool)PropertiesManager.GetProperty(VoucherIn, false);
-
-            if (voucherInEnabled)
+            //voucher in
+            if (_voucherInEnabled)
             {
-                //voucher in 
-                long totalVoucherInCountM = 0;
-                long totalVoucherInCountP = 0;
-                double totalVoucherInValueM = 0;
-                double totalVoucherInValueP = 0;
-
-                foreach (var name in MeterInNames)
-                {
-                    var meter = MeterManager.GetMeter(name + Count);
-                    totalVoucherInCountM += meter.Lifetime;
-                    totalVoucherInCountP += meter.Period;
-
-                    var value = MeterManager.GetMeter(name + Value);
-                    totalVoucherInValueM += value.Lifetime;
-                    totalVoucherInValueP += value.Period;
-                }
-
-                AddDashesLine();
+                var (CountMaster, CountPeriod, ValueMaster, ValuePeriod) = GetVoucherInMeterData();
 
                 AddLine(
-                    string.Format(TicketLocalizer.CurrentCulture.NumberFormat, "{0:N0}", totalVoucherInCountM),
+                    string.Format(TicketLocalizer.CurrentCulture.NumberFormat, "{0:N0}", CountMaster),
                     TicketLocalizer.GetString(ResourceKeys.VoucherInTickets),
-                    string.Format(TicketLocalizer.CurrentCulture.NumberFormat, "{0:N0}", totalVoucherInCountP));
+                    string.Format(TicketLocalizer.CurrentCulture.NumberFormat, "{0:N0}", CountPeriod));
 
-                var multiplier = 1.0 / (double)PropertiesManager.GetProperty(
-                    ApplicationConstants.CurrencyMultiplierKey,
-                    null);
                 AddLine(
-                    (totalVoucherInValueM * multiplier).FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture),
+                    ValueMaster.FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture),
                     TicketLocalizer.GetString(ResourceKeys.VoucherInAmount),
-                    (totalVoucherInValueP * multiplier).FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture));
+                    ValuePeriod.FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture));
             }
+
         }
 
         protected void GameData()
@@ -377,8 +378,33 @@
                 wonCount?.Classification.CreateValueString(wonCount.Lifetime + masterPowerOffWonCount) ?? "0",
                 TicketLocalizer.GetString(ResourceKeys.GamesWon),
                 wonCount?.Classification.CreateValueString(wonCount.Period + periodPowerOffWonCount) ?? "0");
+        }
 
-            AddDashesLine();
+        protected (long CountMaster, long CountPeriod, double ValueMaster, double ValuePeriod) GetVoucherInMeterData()
+        {
+            long totalVoucherInCountM = 0;
+            long totalVoucherInCountP = 0;
+            double totalVoucherInValueM = 0;
+            double totalVoucherInValueP = 0;
+            var multiplier = 1.0 / (double)PropertiesManager.GetProperty(
+                ApplicationConstants.CurrencyMultiplierKey,
+                ApplicationConstants.DefaultCurrencyMultiplier);
+
+            foreach (var name in MeterInNames)
+            {
+                var meter = MeterManager.GetMeter(name + Count);
+                totalVoucherInCountM += meter.Lifetime;
+                totalVoucherInCountP += meter.Period;
+
+                var value = MeterManager.GetMeter(name + Value);
+                totalVoucherInValueM += value.Lifetime;
+                totalVoucherInValueP += value.Period;
+            }
+
+            totalVoucherInValueM *= multiplier;
+            totalVoucherInValueP *= multiplier;
+
+            return (totalVoucherInCountM, totalVoucherInCountP, totalVoucherInValueM, totalVoucherInValueP);
         }
     }
 }
