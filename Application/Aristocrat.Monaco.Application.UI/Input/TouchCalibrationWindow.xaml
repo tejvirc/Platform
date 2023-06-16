@@ -11,7 +11,8 @@
                    mc:Ignorable="d"
                    BorderThickness="0"
                    WindowStyle="None"
-                   ResizeMode="NoResize">
+                   ResizeMode="NoResize"
+                   loc:Localizer.For="Operator">
     <i:Interaction.Behaviors>
         <behaviors:TouchWindowBehavior />
     </i:Interaction.Behaviors>
@@ -38,7 +39,6 @@
                        FontSize="40"
                        Margin="0,10,0,0"
                        Content="{lex:Loc {x:Static loc:ResourceKeys.TouchScreenCalibrationInstructions}}"
-                       ContentStringFormat="{}{0}"
                        AutomationProperties.AutomationId="Label6_CCCCAC70" />
             </Grid>
         </Viewbox>
