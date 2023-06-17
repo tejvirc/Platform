@@ -1,23 +1,21 @@
-﻿<UserControl x:Class="Aristocrat.Monaco.Application.UI.Views.OutOfServiceButton"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
-             mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance viewModels:OutOfServiceViewModel}">
-
+﻿<UserControl
+    x:Class="Aristocrat.Monaco.Application.UI.Views.OutOfServiceButton" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance viewModels:OutOfServiceViewModel}"
+    AutomationProperties.AutomationId="UserControl0_885EDB38">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary
+                    Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Button Content="{Binding OutOfServiceButtonText}"
-            HorizontalAlignment="Left"
-            IsEnabled="{Binding OutOfServiceModeButtonIsEnabled}"
-            Command="{Binding OutOfServiceModeButtonCommand}"
-            MinWidth="250"/>
+    <Button
+        Content="{Binding OutOfServiceButtonText}"
+        HorizontalAlignment="Left"
+        IsEnabled="{Binding OutOfServiceModeButtonIsEnabled}"
+        Command="{Binding OutOfServiceModeButtonCommand}"
+        MinWidth="250"
+        AutomationProperties.AutomationId="Button1_885EDB38" />
 </UserControl>

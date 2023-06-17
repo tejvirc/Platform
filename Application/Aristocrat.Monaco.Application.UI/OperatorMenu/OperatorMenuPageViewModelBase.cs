@@ -158,11 +158,15 @@
                 if (_inputEnabled != value)
                 {
                     _inputEnabled = value;
-                    MvvmHelper.ExecuteOnUI(() =>
+
+                    if (IsLoaded)
                     {
-                        OnInputEnabledChanged();
-                        RaisePropertyChanged(nameof(InputEnabled), nameof(InputEnabledByRuleOverride), nameof(IsInputEnabled));
-                    });
+                        MvvmHelper.ExecuteOnUI(() =>
+                        {
+                            OnInputEnabledChanged();
+                            RaisePropertyChanged(nameof(InputEnabled), nameof(InputEnabledByRuleOverride), nameof(IsInputEnabled));
+                        });
+                    }
                 }
             }
         }
