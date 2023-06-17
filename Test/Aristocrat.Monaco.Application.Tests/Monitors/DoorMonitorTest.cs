@@ -20,6 +20,7 @@
     using Contracts.EdgeLight;
     using Hardware.Contracts.EdgeLighting;
     using Test.Common;
+    using Aristocrat.Monaco.Application.Contracts.Localization;
 
     /// <summary>
     ///     This is a test class for DoorMonitor and is intended
@@ -204,6 +205,7 @@
             _propertiesManager.Setup(m => m.GetProperty(It.IsAny<string>(), It.IsAny<long>())).Returns(100L);
             _propertiesManager.Setup(m => m.GetProperty(It.IsAny<string>(), It.IsAny<int>())).Returns(100L);
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.AlertVolumeKey, It.IsAny<byte>())).Returns((byte)100);
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.LockupCulture, CultureFor.Operator)).Returns(CultureFor.Operator);
 
             SetupMeters();
 

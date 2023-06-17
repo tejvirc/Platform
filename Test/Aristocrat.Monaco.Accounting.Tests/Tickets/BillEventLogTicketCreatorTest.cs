@@ -8,6 +8,7 @@
     using Application.Contracts;
     using Application.Contracts.Currency;
     using Application.Contracts.Extensions;
+    using Aristocrat.Monaco.Hardware.Contracts;
     using Contracts;
     using Contracts.Tickets;
     using Hardware.Contracts.IO;
@@ -48,6 +49,7 @@
         private BillEventLogTicketCreator _target;
         private Mock<ITime> _time;
         private Mock<IIO> _iio;
+        private Mock<IOSService> _os;
 
         /// <summary>
         ///     Gets or sets the test context which provides
@@ -108,11 +110,17 @@
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.ConfigWizardIdentityPageZoneOverride, It.IsAny<IdentityFieldOverride>()))
                 .Returns((IdentityFieldOverride)null);
 
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.LocalizationOperatorTicketLanguageSettingOperatorOverride, It.IsAny<object>()))
+                .Returns(false);
+
             _iio = MoqServiceManager.CreateAndAddService<IIO>(MockBehavior.Loose);
             _iio.Setup(i => i.DeviceConfiguration).Returns(new Device { Manufacturer = "Manufacturer", Model = "Model" });
 
             _time = MoqServiceManager.CreateAndAddService<ITime>(MockBehavior.Strict);
             _time.Setup(t => t.GetLocationTime(It.IsAny<DateTime>())).Returns(DateTime.Now);
+
+            _os = MoqServiceManager.CreateAndAddService<IOSService>(MockBehavior.Strict, true);
+            _os.Setup(mock => mock.OsImageVersion).Returns(new Version());
 
             _printerMock = MoqServiceManager.CreateAndAddService<IPrinter>(MockBehavior.Strict);
             _printerMock.Setup(mock => mock.PaperState).Returns(PaperStates.Full);

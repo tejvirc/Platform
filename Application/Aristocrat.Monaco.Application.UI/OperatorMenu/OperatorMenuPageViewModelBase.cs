@@ -556,7 +556,10 @@
 
         protected virtual void UpdateStatusText()
         {
-            MvvmHelper.ExecuteOnUI(_UpdateStatusText);
+            if (IsLoaded)
+            {
+                MvvmHelper.ExecuteOnUI(_UpdateStatusText);
+            }
         }
 
         private void _UpdateStatusText()
