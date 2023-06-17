@@ -12,6 +12,8 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using Test.Common;
+    using Aristocrat.Monaco.Hardware.Services;
+    using Aristocrat.Monaco.Hardware.Contracts;
 
     /// <summary>
     ///     This is a test class for VoucherOutTicketProxyTest and is intended
@@ -41,6 +43,7 @@
         private Mock<IPrinter> _printer;
         private Mock<IPropertiesManager> _propertiesManager;
         private Mock<ITime> _time;
+        private Mock<IOSService> _os;
 
         /// <summary>
         ///     Initializes class members and prepares for execution of a TestMethod.
@@ -55,10 +58,13 @@
 
             _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Strict, true);
             _time = MoqServiceManager.CreateAndAddService<ITime>(MockBehavior.Strict, true);
+            _os = MoqServiceManager.CreateAndAddService<IOSService>(MockBehavior.Strict, true);
 
             _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.CurrencyMultiplierKey, It.IsAny<object>()))
                 .Returns(CurrencyMultiplier);
             _time.Setup(mock => mock.GetLocationTime(_ticketTimestamp)).Returns(_ticketTimestamp);
+            _os.Setup(mock => mock.OsImageVersion).Returns(new Version());
+
             string minorUnitSymbol = "c";
             string cultureName = "en-US";
             CultureInfo culture = new CultureInfo(cultureName);

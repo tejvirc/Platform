@@ -160,6 +160,7 @@
             _configuration.Setup(m => m.GetSetting(OperatorMenuSetting.KeySwitchExitOverridesButton, false)).Returns(false);
             _configuration.Setup(m => m.GetSetting(OperatorMenuSetting.ShowToggleLanguageButton, false)).Returns(true);
             _configuration.Setup(m => m.GetAccessRuleSet(It.IsAny<MenuSelectionViewModel>())).Returns("");
+            _configuration.Setup(m => m.GetSetting(OperatorMenuSetting.UseOperatorCultureForCurrencyFormatting, false)).Returns(false);
             _gamePlayMonitor = MoqServiceManager.CreateAndAddService<IOperatorMenuGamePlayMonitor>(MockBehavior.Strict);
             _gamePlayMonitor.Setup(m => m.InReplay).Returns(false);
             _serialTouchService = MoqServiceManager.CreateAndAddService<ISerialTouchService>(MockBehavior.Strict);

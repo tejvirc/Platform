@@ -40,6 +40,9 @@
             _operatorMenuConfiguration.Setup(o => o.GetPageName(It.IsAny<IOperatorMenuConfigObject>()))
                 .Returns(string.Empty);
 
+            _operatorMenuConfiguration.Setup(o => o.GetSetting(OperatorMenuSetting.UseOperatorCultureForCurrencyFormatting, false))
+                .Returns(false);
+
             _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Strict);
 
             MoqServiceManager.CreateAndAddService<IContainerService>(MockBehavior.Loose);

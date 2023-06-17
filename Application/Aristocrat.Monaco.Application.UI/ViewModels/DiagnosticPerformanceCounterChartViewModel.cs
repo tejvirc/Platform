@@ -65,7 +65,7 @@
 
             PopulateAvailableMetrics();
 
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleEvent);
+            EventBus?.Subscribe<OperatorCultureChangedEvent>(this, HandleEvent);
 
             ResetZoomOrPanCommand = new ActionCommand<object>(
                 _ =>

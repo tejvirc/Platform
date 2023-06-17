@@ -40,6 +40,7 @@
         private Mock<IGameProvider> _gameProvider;
         private Mock<IProgressiveLevelProvider> _levelProvider;
         private Mock<ISharedSapProvider> _sharedSAPProvider;
+        private Mock<IOperatorMenuConfiguration> _operatorMenuConfiguration;
         private LogDetailsViewModel _target;
         private EventLog _eventLog;
         private EventLog _eventLogMaxLogSequence;
@@ -90,6 +91,10 @@
             _levelProvider = MoqServiceManager.CreateAndAddService<IProgressiveLevelProvider>(MockBehavior.Strict);
             _levelProvider.Setup(p => p.GetProgressiveLevels())
                 .Returns(_levels);
+
+            _operatorMenuConfiguration = MoqServiceManager.CreateAndAddService<IOperatorMenuConfiguration>(MockBehavior.Strict);
+            _operatorMenuConfiguration.Setup(o => o.GetSetting(OperatorMenuSetting.UseOperatorCultureForCurrencyFormatting, false))
+                .Returns(false);
 
             RegionInfo region = new RegionInfo(CultureInfo.CurrentCulture.Name);
             CurrencyExtensions.Currency = new Currency(region.ISOCurrencySymbol, region, CultureInfo.CurrentCulture, "c");
