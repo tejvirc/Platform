@@ -10,6 +10,7 @@
     using System.Windows;
     using System.Windows.Threading;
     using Accounting.Contracts;
+    using Aristocrat.Monaco.Application.Contracts.Localization;
     using Aristocrat.Monaco.Hardware.Contracts.Button;
     using Aristocrat.Monaco.Hardware.Contracts.IO;
     using Aristocrat.Monaco.UI.Common.Events;
@@ -226,6 +227,7 @@
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<DialogClosedEvent>>()));
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<OperatorMenuPrintJobStartedEvent>>()));
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<OperatorMenuPrintJobCompletedEvent>>()));
+            _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<OperatorCultureChangedEvent>>()));
 
             _eventBus.Setup(m => m.Publish(It.IsAny<OperatorMenuPageLoadedEvent>())).Verifiable();
             _eventBus.Setup(m => m.Publish(It.IsAny<OperatorMenuPrintJobStartedEvent>())).Verifiable();

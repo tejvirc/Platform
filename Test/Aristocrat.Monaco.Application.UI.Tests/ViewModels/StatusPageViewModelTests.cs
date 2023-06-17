@@ -4,6 +4,7 @@
 
     using System;
     using Aristocrat.Monaco.Accounting.Contracts;
+    using Aristocrat.Monaco.Application.Contracts.Localization;
     using Aristocrat.Monaco.Application.UI.Events;
     using Contracts;
     using Contracts.OperatorMenu;
@@ -32,6 +33,7 @@
         private Mock<IMessageDisplay> _messageDisplay;
         private Mock<IBattery> _batteryTestService;
         private Mock<IBank> _bank;
+        private Mock<IOperatorMenuConfiguration> _operatorMenuConfiguration;
         private StatusPageViewModel _target;
         private Action<PropertyChangedEvent> _propertyChangedHandler;
 
@@ -66,6 +68,8 @@
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<PrintCompletedEvent>>()));
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<ClosedEvent>>()));
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<OnEvent>>()));
+            _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<OperatorCultureChangedEvent>>()));
+            _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<SystemEnabledByOperatorEvent>>()));
             _disabledByOperatorManager =
                 MoqServiceManager.CreateAndAddService<IDisableByOperatorManager>(MockBehavior.Strict);
 
@@ -75,6 +79,10 @@
             _operatorMenu.Setup(m => m.InGameRound).Returns(true);
             _operatorMenu.Setup(m => m.IsRecoveryNeeded).Returns(false);
             MoqServiceManager.AddService(_operatorMenu);
+
+            _operatorMenuConfiguration = MoqServiceManager.CreateAndAddService<IOperatorMenuConfiguration>(MockBehavior.Strict);
+            _operatorMenuConfiguration.Setup(o => o.GetSetting(OperatorMenuSetting.UseOperatorCultureForCurrencyFormatting, false))
+                .Returns(false);
 
             _target = new StatusPageViewModel();
             _accessor = new DynamicPrivateObject(_target);
