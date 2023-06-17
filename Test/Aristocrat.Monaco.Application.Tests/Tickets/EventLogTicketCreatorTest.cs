@@ -19,6 +19,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using Test.Common;
+    using Aristocrat.Monaco.Hardware.Contracts;
 
     /// <summary>
     ///     Summary description for EventLogTicketCreatorTest
@@ -40,6 +41,7 @@
         private EventLogTicketCreator _target;
         private Mock<ITime> _time;
         private Mock<IIO> _iio;
+        private Mock<IOSService> _os;
 
         [TestInitialize()]
         public void MyTestInitialize()
@@ -94,6 +96,9 @@
                 .Returns(ApplicationConstants.DefaultDateFormat)
                 .Verifiable();
 
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.LocalizationOperatorTicketLanguageSettingOperatorOverride, false))
+                .Returns(false);
+
             _iio = MoqServiceManager.CreateAndAddService<IIO>(MockBehavior.Loose);
             _iio.Setup(i => i.DeviceConfiguration).Returns(new Device { Manufacturer = "Manufacturer", Model = "Model" });
 
@@ -104,6 +109,9 @@
             _printerMock = MoqServiceManager.CreateAndAddService<IPrinter>(MockBehavior.Strict);
             _printerMock.Setup(mock => mock.PaperState).Returns(PaperStates.Full);
             _printerMock.Setup(mock => mock.GetCharactersPerLine(false, 0)).Returns(36);
+
+            _os = MoqServiceManager.CreateAndAddService<IOSService>(MockBehavior.Strict);
+            _os.Setup(mock => mock.OsImageVersion).Returns(new Version());
 
             _target = new EventLogTicketCreator();
 

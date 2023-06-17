@@ -3,6 +3,7 @@
     using System;
     using System.Globalization;
     using System.IO;
+    using Aristocrat.Monaco.Hardware.Contracts;
     using Contracts;
     using Contracts.ConfigWizard;
     using Contracts.Extensions;
@@ -25,6 +26,8 @@
         private PrinterViewModel _target;
         private TestPrinterViewModel _target2;
         private Mock<IPropertiesManager> _propertiesManager;
+        private Mock<IOSService> _os;
+        private Mock<IOperatorMenuConfiguration> _operatorMenuConfiguration;
 
         private class TestPrinterViewModel : PrinterViewModel
         {
@@ -84,6 +87,13 @@
                 .Returns(false).Verifiable();
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.LocalizationPlayerTicketLanguageSettingShowCheckBox, false))
                 .Returns(false).Verifiable();
+
+            _os = MoqServiceManager.CreateAndAddService<IOSService>(MockBehavior.Strict, true);
+            _os.Setup(mock => mock.OsImageVersion).Returns(new Version());
+
+            _operatorMenuConfiguration = MoqServiceManager.CreateAndAddService<IOperatorMenuConfiguration>(MockBehavior.Strict);
+            _operatorMenuConfiguration.Setup(o => o.GetSetting(OperatorMenuSetting.UseOperatorCultureForCurrencyFormatting, false))
+                .Returns(false);
 
             TicketCurrencyExtensions.PlayerTicketLocale = "en-US";
 

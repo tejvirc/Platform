@@ -1,7 +1,9 @@
 ﻿namespace Aristocrat.Monaco.UI.Common.Tests
 {
+    using Aristocrat.Monaco.Test.Common;
     using Aristocrat.Monaco.UI.Common.Converters;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Moq;
 
     [TestClass]
     public class EnumDescriptionConverterTests
@@ -13,6 +15,9 @@
         [TestInitialize]
         public void Initialize()
         {
+            MoqServiceManager.CreateInstance(MockBehavior.Strict);
+            MockLocalization.Setup(MockBehavior.Strict);
+
             _target = new EnumDescriptionConverter();
         }
 

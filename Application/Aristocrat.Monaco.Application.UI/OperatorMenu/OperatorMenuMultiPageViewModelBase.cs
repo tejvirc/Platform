@@ -29,7 +29,7 @@
         protected OperatorMenuMultiPageViewModelBase(IOperatorMenuPageLoader mainPage, string extensionPath)
         {
             _mainPage = mainPage;
-            DisplayPageTitle = mainPage.PageName;
+            DisplayPageTitle = mainPage?.PageName ?? string.Empty;
             MenuExtensionPath = extensionPath;
             Pages = new ObservableCollection<IOperatorMenuPageLoader>();
             LoadPages();

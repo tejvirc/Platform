@@ -2,6 +2,7 @@
 namespace Aristocrat.Monaco.Application.Tests.Monitors
 {
     using Application.Monitors;
+    using Aristocrat.Monaco.Application.Contracts.Localization;
     using Aristocrat.Monaco.Hardware.Contracts.Printer;
     using Contracts;
     using Contracts.OperatorMenu;
@@ -90,6 +91,10 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
             _propertiesManager
                 .Setup(m => m.GetProperty(ApplicationConstants.AlertVolumeKey, It.IsAny<byte>()))
                 .Returns((byte)100);
+
+            _propertiesManager
+                .Setup(m => m.GetProperty(ApplicationConstants.LockupCulture, It.IsAny<object>()))
+                .Returns(CultureFor.Operator);
 
             _disposable = new Mock<IDisposable>(MockBehavior.Default);
             _disposable.Setup(d => d.Dispose()).Verifiable();

@@ -2,6 +2,7 @@
 namespace Aristocrat.Monaco.Application.Tests.Monitors
 {
     using Application.Monitors;
+    using Aristocrat.Monaco.Application.Contracts.Localization;
     using Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor;
     using Contracts;
     using Contracts.OperatorMenu;
@@ -77,6 +78,10 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
             _noteAcceptor.Setup(m => m.Enabled).Returns(true);
             _noteAcceptor.Setup(m => m.LogicalState).Returns(NoteAcceptorLogicalState.InEscrow);
             _propertiesManager.Setup(m => m.AddPropertyProvider(It.IsAny<IPropertyProvider>()));
+
+            _propertiesManager
+                .Setup(m => m.GetProperty(ApplicationConstants.LockupCulture, It.IsAny<object>()))
+                .Returns(CultureFor.Operator);
 
             _persistentStorage.Setup(m => m.BlockExists(It.IsAny<string>())).Returns(true);
             _persistentStorage.Setup(m => m.GetBlock(It.IsAny<string>())).Returns(_persistentStorageAccessor.Object);
