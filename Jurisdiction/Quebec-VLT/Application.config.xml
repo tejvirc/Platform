@@ -55,8 +55,8 @@ as follows:
   <ClearClearPeriodOffsetHours>0</ClearClearPeriodOffsetHours>
   </AutoClearPeriodMetersBehavior>
   <SoundConfiguration>
-  <UseGameTypeVolume>false</UseGameTypeVolume>
-    <AlertVolume Value="75" Configurable="false"/> 
+    <AlertVolume Value="75" Configurable="false"/>
+    <UseGameTypeVolume>false</UseGameTypeVolume>
   </SoundConfiguration>
   <ReadOnlyMedia Required="false" />
   <LogTypesAllowedForDisplay>

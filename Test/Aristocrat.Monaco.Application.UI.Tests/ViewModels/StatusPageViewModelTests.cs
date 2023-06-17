@@ -70,6 +70,7 @@
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<OnEvent>>()));
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<OperatorCultureChangedEvent>>()));
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<SystemEnabledByOperatorEvent>>()));
+            _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<SystemDisabledByOperatorEvent>>()));
             _disabledByOperatorManager =
                 MoqServiceManager.CreateAndAddService<IDisableByOperatorManager>(MockBehavior.Strict);
 
