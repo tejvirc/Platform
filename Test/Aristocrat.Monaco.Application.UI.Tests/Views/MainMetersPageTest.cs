@@ -391,6 +391,7 @@
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<DialogClosedEvent>>()));
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<OperatorMenuPrintJobStartedEvent>>()));
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<OperatorMenuPrintJobCompletedEvent>>()));
+            _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<OperatorCultureChangedEvent>>()));
             _eventBus.Setup(m => m.Publish(It.IsAny<LampTestLampStateEvent>()));
             _accessor.LoadedCommand.Execute(null);
             _accessor.UnloadedCommand.Execute(null);

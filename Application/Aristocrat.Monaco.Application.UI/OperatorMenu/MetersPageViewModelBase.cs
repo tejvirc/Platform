@@ -225,22 +225,25 @@
 
         protected virtual void RefreshMeters()
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            if (IsLoaded)
             {
-                foreach (var meter in Meters)
+                MvvmHelper.ExecuteOnUI(() =>
                 {
-                    meter.Dispose();
-                }
+                    foreach (var meter in Meters)
+                    {
+                        meter.Dispose();
+                    }
 
-                Meters.Clear();
-                MetersLeftColumn.Clear();
-                MetersRightColumn.Clear();
-                InitializeMeters();
-                SplitMeters();
-                RaisePropertyChanged(nameof(Meters));
-                RaisePropertyChanged(nameof(MetersLeftColumn));
-                RaisePropertyChanged(nameof(MetersRightColumn));
-            });
+                    Meters.Clear();
+                    MetersLeftColumn.Clear();
+                    MetersRightColumn.Clear();
+                    InitializeMeters();
+                    SplitMeters();
+                    RaisePropertyChanged(nameof(Meters));
+                    RaisePropertyChanged(nameof(MetersLeftColumn));
+                    RaisePropertyChanged(nameof(MetersRightColumn));
+                });
+            }
         }
     }
 }
