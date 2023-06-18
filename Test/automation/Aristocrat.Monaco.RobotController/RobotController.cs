@@ -12,6 +12,7 @@
     using Aristocrat.Monaco.Hardware.Contracts;
     using Aristocrat.Monaco.Kernel.Contracts;
     using Aristocrat.Monaco.Test.Automation;
+    using Aristocrat.Monaco.RobotController.Services;
     using Contracts;
     using Kernel;
     using SimpleInjector;

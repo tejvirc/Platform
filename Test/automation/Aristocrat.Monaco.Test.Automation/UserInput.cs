@@ -103,7 +103,7 @@
             _eventBus.Publish(new GameLoadRequestedEvent { GameId = gameId, Denomination = denom });
         }
 
-        public void ForceGameExit(string aGdkRuntimeHostName)
+        public void KillGameProcess(string aGdkRuntimeHostName)
         {
             try
             {
