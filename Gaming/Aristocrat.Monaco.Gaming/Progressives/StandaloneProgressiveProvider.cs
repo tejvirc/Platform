@@ -8,14 +8,17 @@
     public sealed class StandaloneProgressiveProvider : ISapProvider, IDisposable
     {
         private readonly IProgressiveCalculatorFactory _calculatorFactory;
+        private readonly IMysteryProgressiveProvider _mysteryProgressiveProvider;
         private readonly IEventBus _bus;
 
         public StandaloneProgressiveProvider(
             IProgressiveCalculatorFactory calculatorFactory,
-            IEventBus bus)
+            IEventBus bus,
+            IMysteryProgressiveProvider mysteryProgressiveProvider)
         {
             _calculatorFactory = calculatorFactory ?? throw new ArgumentNullException(nameof(calculatorFactory));
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
+            _mysteryProgressiveProvider = mysteryProgressiveProvider ?? throw new ArgumentNullException(nameof(mysteryProgressiveProvider));
 
             _bus.Subscribe<ProgressiveHitEvent>(this, Handle);
             _bus.Subscribe<ProgressiveCommitEvent>(this, Handle);
@@ -48,6 +51,11 @@
 
             var awardAmount = calculator?.Claim(level) ?? 0L;
 
+            if (level.TriggerControl == TriggerType.Mystery)
+            {
+                _mysteryProgressiveProvider.GenerateMagicNumber(level);
+            }
+
             _bus.Publish(new SapAwardedEvent(transaction.TransactionId, awardAmount, String.Empty, PayMethod.Any));
         }
 
@@ -59,7 +67,7 @@
             }
 
             var calculator = _calculatorFactory.Create(level.FundingType);
-
+            
             calculator?.Reset(level);
         }
 

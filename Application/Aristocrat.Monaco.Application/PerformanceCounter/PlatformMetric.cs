@@ -190,6 +190,7 @@
         private bool InstanceCurrentlyValid()
         {
             return string.IsNullOrEmpty(Instance) ||
+                   (Instance == "0" && PerformanceCounterCategory.InstanceExists(Instance, Category)) ||    // check if GDK Runtime counter instances are available to avoid unneeded failures when calling NextValue
                    Instance == "*" ||
                    Instance == "_Total" ||
                    Process.GetProcessesByName(Instance).Any();

@@ -654,5 +654,18 @@
 
             return EmptyResult;
         }
+
+        public override CheckMysteryJackpotResponse CheckMysteryJackpot(CheckMysteryJackpotRequest request)
+        {
+            var command = new CheckMysteryJackpot();
+
+            _handlerFactory.Create<CheckMysteryJackpot>()
+                .Handle(command);
+            var response = new CheckMysteryJackpotResponse();
+
+            response.Levels.Add(command.Results);
+
+            return response;
+        }
     }
 }

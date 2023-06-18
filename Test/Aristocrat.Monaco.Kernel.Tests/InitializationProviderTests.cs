@@ -1,8 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Kernel.Tests
 {
-    using Components;
     using Contracts;
     using Contracts.Events;
+    using Kernel.Debugging;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using Test.Common;
@@ -18,6 +18,9 @@
         {
             MoqServiceManager.CreateInstance(MockBehavior.Strict);
             _eventBus = MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Strict);
+            MoqServiceManager.CreateAndAddService<IDebuggerService>(MockBehavior.Strict)
+                .Setup(service => service.AttachDebuggerIfRequestedForPoint(It.IsAny<DebuggerAttachPoint>()))
+                .Returns(false);
             _target.Initialize();
         }
 

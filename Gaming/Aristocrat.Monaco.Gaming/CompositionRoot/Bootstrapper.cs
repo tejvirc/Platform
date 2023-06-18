@@ -83,7 +83,6 @@
             container.Register<IManifest<Image>, ImageManifest>(Lifestyle.Singleton);
             container.Register<IGameProvider, GameProvider>(Lifestyle.Singleton);
             container.Register<IGameCategoryService, GameCategoryService>(Lifestyle.Singleton);
-            container.Register<IGameHelpTextProvider, GameHelpTextProvider>(Lifestyle.Singleton);
             container.Register<ICabinetState, CabinetState>(Lifestyle.Singleton);
             container.Register<ICabinetService, CabinetService>(Lifestyle.Singleton);
             container.Register<IGamePlayState, GamePlayState>(Lifestyle.Singleton);
@@ -130,6 +129,7 @@
             container.Register<IProgressiveBroadcastTimer, ProgressiveBroadcastTimer>(Lifestyle.Singleton);
             container.Register<ISapProvider, StandaloneProgressiveProvider>(Lifestyle.Singleton);
             container.Register<IProtocolLinkedProgressiveAdapter, ProtocolLinkedProgressiveAdapter>(Lifestyle.Singleton);
+            container.Register<IMysteryProgressiveProvider, MysteryProgressiveProvider>(Lifestyle.Singleton);
             container.Register<IHandpayRuntimeFlagsHelper, HandpayRuntimeFlagsHelper>(Lifestyle.Singleton);
             container.Register<IReplayRuntimeEventHandler, ReplayRuntimeEventHandler>(Lifestyle.Singleton);
             container.Register<ReelControllerMonitor>(Lifestyle.Singleton);
