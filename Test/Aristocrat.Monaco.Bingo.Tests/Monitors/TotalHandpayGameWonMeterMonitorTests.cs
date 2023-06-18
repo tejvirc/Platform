@@ -7,6 +7,7 @@
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Aristocrat.Monaco.Bingo.Services.Reporting;
+    using Aristocrat.Monaco.Test.Common;
     using Bingo.Monitors;
     using Common.Storage;
     using Microsoft.VisualStudio.TestTools.UnitTesting;

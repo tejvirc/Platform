@@ -482,6 +482,11 @@
         public const string ProgressiveCommitTimeoutMs = @"Progressive.CommitTimeoutMs";
 
         /// <summary>
+        ///     Determines if JackpotCeiling message is enabled
+        /// </summary>
+        public const string JackpotCeilingHelpScreen = @"Cabinet.JackpotCeiling";
+
+        /// <summary>
         ///     Property manager key for the progressive lobby indicator type
         /// </summary>
         public const string ProgressiveLobbyIndicatorType = @"Progressive.LobbyIndicator";
@@ -610,17 +615,7 @@
         ///     Buttons that start continuous play mode
         /// </summary>
         public const string ContinuousPlayModeButtonsToUse = @"GamePlay.ContinuousPlaySupport.ButtonsToUse";
-
-        /// <summary>
-        ///     When enabled, for each enabled progressive level, their name and ceiling will be shown to the user in the game rules screen.
-        /// </summary>
-        public const string DisplayProgressiveCeilingMessage = @"GamePlay.DisplayProgressiveCeilingMessage";
-
-        /// <summary>
-        ///     When enabled, it will inform the player that they can press the big button to stop the reel.
-        /// </summary>
-        public const string DisplayStopReelMessage = @"GamePlay.DisplayStopReelMessage";
-
+        
         /// <summary>
         ///     When enabled, it will retain last round result for roulette games.
         /// </summary>
