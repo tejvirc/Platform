@@ -96,8 +96,7 @@
         public void Halt()
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
-            _eventBus.UnsubscribeAll(this);
-            _balanceCheckTimer?.Dispose();
+            Dispose();
         }
 
         private void SubscribeToEvents()

@@ -29,11 +29,11 @@
     <ProjectReference Include="..\Aristocrat.Monaco.Test.Automation\Aristocrat.Monaco.Test.Automation.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Aristocrat.Monaco.RobotController.xml">
+    <Content Include="Configurations\Aristocrat.Monaco.RobotController.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="RobotController.addin.xml">
+    <Content Include="Addins\RobotController.addin.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

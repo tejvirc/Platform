@@ -35,7 +35,7 @@
 
         public void Reset()
         {
-            _disposed = true;
+            _disposed = false;
         }
 
         public void Execute()
@@ -54,8 +54,7 @@
         public void Halt()
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
-            _eventBus.UnsubscribeAll(this);
-            _actionTouchTimer?.Dispose();
+            Dispose();
         }
 
         protected virtual void Dispose(bool disposing)
@@ -69,6 +68,7 @@
             {
                 if (_actionTouchTimer is not null)
                 {
+                    _logger.Info("_actionTouchTimer is disposing ***", GetType().Name);
                     _actionTouchTimer.Dispose();
                 }
                 _actionTouchTimer = null;
@@ -85,8 +85,10 @@
             }
             _logger.Info("TouchRequest Is Received!", GetType().Name);
             var Rng = new Random((int)DateTime.Now.Ticks);
+
             TouchGameScreen(Rng);
             TouchVbd(Rng);
+
             if (_robotController.Config.CurrentGameProfile != null)
             {
                 // touch any auxiliary main screen areas configured

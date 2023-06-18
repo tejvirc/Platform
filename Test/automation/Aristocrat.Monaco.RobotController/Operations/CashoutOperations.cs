@@ -40,7 +40,9 @@
         public void Execute()
         {
             _logger.Info("CashoutOperations Has Been Initiated!", GetType().Name);
+
             SubscribeToEvents();
+
             _actionCashoutTimer = new Timer(
                                 (sender) =>
                                 {
@@ -54,8 +56,7 @@
         public void Halt()
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
-            _eventBus.UnsubscribeAll(this);
-            _actionCashoutTimer?.Dispose();
+            Dispose();
         }
 
         protected virtual void Dispose(bool disposing)

@@ -39,7 +39,7 @@ namespace Aristocrat.Monaco.RobotController
         public void Halt()
         {
             _logger.Info("Halt Request is Received!", GetType().Name);
-            _eventBus.UnsubscribeAll(this);
+            Dispose();
         }
 
         private void SubscribeToEvents()
@@ -77,7 +77,6 @@ namespace Aristocrat.Monaco.RobotController
             _logger.Info("Help exited", GetType().Name);
             IsHelpDisplayed = false;
         }
-
 
         public void Dispose()
         {
