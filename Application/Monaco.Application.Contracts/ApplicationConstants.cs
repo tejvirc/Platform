@@ -130,6 +130,9 @@
         /// <summary> Test or blank </summary>
         public const string ActiveProtocol = "Active.Protocol";
 
+        /// <summary> Protocol Host URI Addresses </summary>
+        public const string HostAddresses = "Protocol.HostAddresses";
+
         /// <summary> Property Manager key for IsInitialConfigurationComplete. </summary>
         public const string IsInitialConfigurationComplete = "IsInitialConfigurationComplete";
 

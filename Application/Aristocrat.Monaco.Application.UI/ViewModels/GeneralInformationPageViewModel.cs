@@ -1,16 +1,15 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
-    using Aristocrat.G2S.Client;
+    using Aristocrat.Monaco.Application.Contracts;
     using Aristocrat.Monaco.Application.Contracts.Extensions;
     using Aristocrat.Monaco.Application.Contracts.Localization;
-    using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
     using Aristocrat.Monaco.Application.PerformanceCounter;
     using Aristocrat.Monaco.Application.UI.OperatorMenu;
     using Aristocrat.Monaco.Common;
     using Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor;
-    using Aristocrat.Monaco.Hardware.Contracts.Printer;
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Localization.Properties;
+    using Newtonsoft.Json.Linq;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -26,11 +25,31 @@
 
         private IPerformanceCounterManager _performanceCounterManager => ServiceManager.GetInstance().GetService<IPerformanceCounterManager>();
         private INoteAcceptor NoteAcceptor => ServiceManager.GetInstance().TryGetService<INoteAcceptor>();
+        private const string Addresses = "addresses";
 
         public GeneralInformationPageViewModel()
         {
-            var hosts = PropertiesManager.GetValues<IHost>(Aristocrat.G2S.Client.Constants.RegisteredHosts);
-            G2SHosts = hosts.Select(x=>x.Address).ToList();
+            var hosts = new List<Uri>();
+            var hostAddresses = (string)PropertiesManager.GetProperty(ApplicationConstants.HostAddresses, string.Empty);
+
+            if (!string.IsNullOrEmpty(hostAddresses))
+            {
+                var result = JObject.Parse(hostAddresses);
+                if (result != null && result.HasValues)
+                {
+                    var addresses = result.GetValue(Addresses)?.Values<string>();
+
+                    if (addresses != null)
+                    {
+                        foreach (var address in addresses)
+                        {
+                            hosts.Add(new Uri(address));
+                        }
+                    }
+                }
+            }
+
+            G2SHosts = hosts;
 
             LoadAvailableMetrics();
             RaisePropertyChanged(nameof(G2SHosts));

@@ -118,9 +118,12 @@
             {
                 var secondTicket = tickets[1];
                 var ticket = ticketCreator?.CreateSecondPage();
-                secondTicket[TicketConstants.Left] = $"{ticket[TicketConstants.Left]}{secondTicket[TicketConstants.Left]}";
-                secondTicket[TicketConstants.Center] = $"{ticket[TicketConstants.Center]}{secondTicket[TicketConstants.Center]}";
-                secondTicket[TicketConstants.Right] = $"{ticket[TicketConstants.Right]}{secondTicket[TicketConstants.Right]}";
+                if(ticket != null)
+                {
+                    secondTicket[TicketConstants.Left] = $"{ticket[TicketConstants.Left]}{secondTicket[TicketConstants.Left]}";
+                    secondTicket[TicketConstants.Center] = $"{ticket[TicketConstants.Center]}{secondTicket[TicketConstants.Center]}";
+                    secondTicket[TicketConstants.Right] = $"{ticket[TicketConstants.Right]}{secondTicket[TicketConstants.Right]}";
+                }
             }
 
             return tickets;

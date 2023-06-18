@@ -24,6 +24,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
     using Monaco.Common;
     using MVVM;
     using MVVM.Command;
+    using Newtonsoft.Json;
     using Views;
     using Constants = Constants;
 
@@ -184,8 +185,11 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 return;
             }
 
-            PropertiesManager.SetProperty(Constants.RegisteredHosts, Hosts.Cast<IHost>().ToList());
+            var hosts = Hosts.Cast<IHost>().ToList();
+            PropertiesManager.SetProperty(Constants.RegisteredHosts, hosts);
             PropertiesManager.SetProperty(Constants.Port, Port);
+            var addresses = new { addresses = hosts.Select(x => x.Address).ToList() };
+            PropertiesManager.SetProperty(ApplicationConstants.HostAddresses, JsonConvert.SerializeObject(addresses));
 
             Committed = true;
 

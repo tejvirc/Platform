@@ -233,10 +233,10 @@
             if (!file.Exists)
             {
 #if RETAIL
-                var message = Localizer.ForOperatorInAudit().GetString(ResourceKeys.LicenseFileMissing);
+                var message = Localizer.ForLockup().GetString(ResourceKeys.LicenseFileMissing);
                 HandleDigitalRightsError(
                     new LicenseErrorEvent(message),
-                    () => Localizer.ForOperatorInAudit().GetString(ResourceKeys.LicenseFileMissing),
+                    () => Localizer.ForLockup().GetString(ResourceKeys.LicenseFileMissing),
                     ApplicationConstants.LicenseErrorDisableKey);
 #endif
 
