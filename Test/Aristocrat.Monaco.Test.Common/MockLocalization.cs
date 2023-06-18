@@ -75,7 +75,7 @@
 
             provider.Setup(x => x.GetString(It.IsAny<string>(), It.IsAny<Action<Exception>>()))
                 .Returns(
-                    (string key) => GetObject(key, CultureInfo.CurrentCulture));
+                    (string key, Action<Exception> exceptionHandler) => GetObject(key, CultureInfo.CurrentCulture));
 
             provider.Setup(x => x.GetString(It.IsAny<CultureInfo>(), It.IsAny<string>()))
                 .Returns(
