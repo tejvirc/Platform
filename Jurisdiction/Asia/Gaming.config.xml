@@ -20,9 +20,9 @@ as follows:
 	<OperatorMenu DisableDuringGame="true" />
 	<LockupBehavior CashableLockupStrategy="Allowed" Configurable="true" />
 	<GameCategory ApplyGameCategorySettings="true" />
-    <Gamble SkipByJackpotHit="true" />
+	<Gamble SkipByJackpotHit="true" />
+	<DynamicHelpScreen JackpotCeiling="true" />
 	<ContinuousPlaySupport Mode="Continuous" Configurable="true" />
-	<DynamicHelpMenuText DisplayProgressiveCeilingMessage="true" DisplayStopReelMessage="true"/>
 <!--
 	GameRestrictions Settings:
 		ReturnToPlayerLimits:

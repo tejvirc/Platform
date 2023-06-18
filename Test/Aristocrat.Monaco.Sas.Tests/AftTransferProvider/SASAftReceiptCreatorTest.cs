@@ -4,6 +4,7 @@
     using System.Globalization;
     using Application.Contracts;
     using Application.Contracts.Extensions;
+    using Application.Contracts.Currency;
     using Aristocrat.Sas.Client.LongPollDataClasses;
     using Contracts.Client;
     using Contracts.SASProperties;
@@ -75,7 +76,13 @@
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.LocalizationPlayerTicketDateFormat, It.IsAny<string>())).Returns(TestDateFormat);
             _serviceManager.Setup(m => m.GetService<IPropertiesManager>()).Returns(_propertiesManager.Object);
 
-            CurrencyExtensions.SetCultureInfo(CultureInfo.CurrentCulture, null, null, true, true, "c");
+            string minorUnitSymbol = "c";
+            string cultureName = "en-US";
+            CultureInfo culture = new CultureInfo(cultureName);
+
+            RegionInfo region = new RegionInfo(cultureName);
+            CurrencyExtensions.Currency = new Currency(region.ISOCurrencySymbol, region, culture, minorUnitSymbol);
+            CurrencyExtensions.SetCultureInfo(region.ISOCurrencySymbol, culture, null, null, true, true, minorUnitSymbol);
 
             _aftData = new AftData();
         }

@@ -10,12 +10,13 @@
     using System.Xml.Serialization;
 
     using Contracts.Currency;
-    using Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor;
+    using Hardware.Contracts.NoteAcceptor;
     using Common.Currency;
     using Contracts;
     using Kernel;
     using Localization;
     using log4net;
+    using Contracts.Extensions;
 
     using CurrencyDefaultsCurrencyInfo = Localization.CurrencyDefaultsCurrencyInfo;
 
@@ -50,8 +51,8 @@
             return defaults;
         }
 
-        public static List<Currency> GetSupportedCurrencies(string currencyCode,
-            IDictionary<string, CurrencyDefaultsCurrencyInfo> currencyDefaults,
+        public static List<Currency> GetSupportedCurrencies(string defaultCurrencyCode,
+            IDictionary<string, CurrencyDefaultsCurrencyInfo> currencyDefaultFormats,
             ILog logger,
             INoteAcceptor noteAcceptor,
             bool currencyChangeAllowed)
@@ -75,8 +76,8 @@
                 var region = new RegionInfo(culture.Name);
                 var currency = new Currency(currencyInfo.Key, region, culture);
 
-                if (currencyDefaults != null &&
-                    currencyDefaults.TryGetValue(currencyInfo.Key, out var defaults))
+                CurrencyDefaultsCurrencyInfo defaults = null;
+                if (currencyDefaultFormats?.TryGetValue(currencyInfo.Key, out defaults) == true)
                 {
                     if (defaults != null)
                     {
@@ -116,9 +117,8 @@
                 }
 
                 if (currencyAdded ||
-                    currencyCode == null ||
-                    set.Any(c => c.IsoCode.Equals(currency.IsoCode, StringComparison.OrdinalIgnoreCase)) ||
-                    !currencyChangeAllowed && currency.IsoCode != currencyCode ||
+                    set.Any(c => c.IsoCode.Equals(currency.IsoCode, StringComparison.InvariantCultureIgnoreCase)) ||
+                    !currencyChangeAllowed && currency.IsoCode != defaultCurrencyCode ||
                     currencyChangeAllowed && noteAcceptor != null && !(noteAcceptor.GetSupportedNotes(currencyInfo.Key).Count > 0))
                 {
                     continue;
@@ -172,6 +172,62 @@
                 () => default(ApplicationConfiguration));
 
             return configuration?.Currency.Id ?? defaultValue;
+        }
+
+        public static List<NoCurrency> GetNoCurrencies()
+        {
+            List<NoCurrency> noCurrencies = new List<NoCurrency>();
+
+            // go through No Currency format options and apply it to the culture info for each no currency
+            foreach (var currencyDef in NoCurrencyOptions.Options)
+            {
+                CultureInfo currencyCulture = (CultureInfo)CultureInfo.InvariantCulture.Clone();
+                ConfigureNoCurrencyCultureFormat(currencyDef.Id, currencyCulture);
+
+                NoCurrency noSymbolCurrency = new NoCurrency(currencyDef.Id, currencyCulture);
+                noCurrencies.Add(noSymbolCurrency);
+            }
+
+            return noCurrencies;
+        }
+
+        /// <summary>
+        /// Configure the currency format in the culture info for No Currency
+        /// </summary>
+        /// <param name="id">format id</param>
+        /// <param name="currencyCulture">Currency culture</param>
+        public static void ConfigureNoCurrencyCultureFormat(int id, CultureInfo currencyCulture)
+        {
+            var format = NoCurrencyOptions.Get(id);
+            currencyCulture.ApplyNoCurrencyFormat(format);
+        }
+
+        /// <summary>
+        /// Get the format id of No Currency
+        /// </summary>
+        /// <param name="currencyDesc"></param>
+        /// <returns></returns>
+        public static int GetNoCurrencyFormatId(string currencyDesc)
+        {
+            var id = NoCurrencyOptions.Options.FirstOrDefault(o =>
+                o.FormatString.Equals(currencyDesc.Substring(NoCurrency.NoCurrencyCode.Length + 1).Trim(), StringComparison.InvariantCultureIgnoreCase))?.Id;
+
+            return id ?? -1;
+        }
+
+        /// <summary>
+        /// Check if the currency code is No Currency
+        /// </summary>
+        /// <param name="currencyCode"></param>
+        /// <returns></returns>
+        public static bool IsNoCurrency(string currencyCode)
+        {
+            if (string.IsNullOrWhiteSpace(currencyCode))
+            {
+                return false;
+            }
+
+            return currencyCode.Equals(NoCurrency.NoCurrencyCode, StringComparison.InvariantCultureIgnoreCase);
         }
     }
 }

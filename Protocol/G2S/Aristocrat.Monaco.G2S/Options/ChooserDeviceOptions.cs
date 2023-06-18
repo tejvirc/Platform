@@ -54,7 +54,7 @@
                         var position = tableRow.GetDeviceOptionConfigValue(Constants.PositionParameterName).Int32Value();
 
                         if (!string.IsNullOrEmpty(id))
-                            order.UpdatePositionPriority(id, position);
+                            order.UpdateIconPositionPriority(id, position);
                     }
                 }
             }

@@ -49,11 +49,7 @@
             {
                 _history.CompleteCashOut(theEvent.TraceId);
 
-                if (_runtime.GetState() > RuntimeState.Recovery)
-                {
-                    _runtime.UpdateBalance(_playerBank.Credits);
-                }
-
+                _runtime.UpdateBalance(_playerBank.Credits);
                 if (theEvent.Pending)
                 {
                     return;

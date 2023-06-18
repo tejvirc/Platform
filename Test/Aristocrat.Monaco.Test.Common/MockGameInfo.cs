@@ -186,7 +186,7 @@ namespace Aristocrat.Monaco.Test.Common
 
         public bool Upgraded { get; set; }
 
-        public GameCategory Category => GameCategory.Table;
+        public GameCategory Category { get; set; } = GameCategory.Table;
 
         public GameSubCategory SubCategory => GameSubCategory.FiveHand;
 

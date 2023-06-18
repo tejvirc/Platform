@@ -28,6 +28,11 @@
     <CodeAnalysisRuleSet>$(SolutionDir)Monaco.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <Nullable>warnings</Nullable>
+    <WarningsNotAsErrors>CS8600,CS8602,CS8603,CS8604,CS8618,CS8625,CS8629</WarningsNotAsErrors>
+  </PropertyGroup>
+
   <Import Project="$(MSBuildThisFileDirectory)versions.props" />
   <Import Condition="!$(MSBuildProjectName.EndsWith('.Tests'))" Project="$(MSBuildThisFileDirectory)sharedproject.props" />
   <Import Condition="$(MSBuildProjectName.EndsWith('.Tests'))" Project="$(MSBuildThisFileDirectory)sharedtest.props" />

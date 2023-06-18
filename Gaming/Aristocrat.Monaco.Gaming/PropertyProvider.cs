@@ -61,7 +61,7 @@
                     PlayOnFromPresentWins = new GamingConfigurationPlayOnFromPresentWins(),
                     Gamble = new GamingConfigurationGamble(),
                     ContinuousPlaySupport = new GamingConfigurationContinuousPlaySupport(),
-                    DynamicHelpMenuText = new GamingConfigurationDynamicHelpMenuText(),
+                    DynamicHelpScreen = new GamingConfigurationDynamicHelpScreen(),
                     ResetGamesPlayedSinceDoorClosed = new GamingConfigurationResetGamesPlayedSinceDoorClosed(),
                     GameRoundDurationMs = new GamingConfigurationGameRoundDurationMs(),
                     AttendantServiceTimeoutSupport = new GamingConfigurationAttendantServiceTimeoutSupport(),
@@ -132,8 +132,7 @@
                 { GamingConstants.ReelStopEnabled, (InitFromStorage(GamingConstants.ReelStopEnabled), true) },
                 { GamingConstants.ReelStopInBaseGameEnabled, ((object)configuration.ReelStopInBaseGame?.Enabled ?? true, false) },
                 { GamingConstants.ApplyGameCategorySettings, ((object)configuration.GameCategory?.ApplyGameCategorySettings ?? false, false) },
-                { GamingConstants.DisplayProgressiveCeilingMessage, ((object)configuration.DynamicHelpMenuText?.DisplayProgressiveCeilingMessage ?? false, false) },
-                { GamingConstants.DisplayStopReelMessage, ((object)configuration.DynamicHelpMenuText?.DisplayStopReelMessage ?? false, false) },
+                { GamingConstants.JackpotCeilingHelpScreen, ((object)configuration.DynamicHelpScreen?.JackpotCeiling ?? false, false) },
                 { GamingConstants.RetainLastRoundResult, ((object)configuration.RetainLastRoundResult?.Enabled ?? false, false) },
                 { GamingConstants.WinMeterResetOnBetLineDenomChanged, (configuration.WinMeterResetOnBetLineDenomChanged?.Enabled ?? ApplicationConstants.DefaultWinMeterResetOnBetLineDenomChanged, false) },
                 { GamingConstants.WinMeterResetOnBetLineChanged, (configuration.WinMeterResetOnBetLineChanged?.Enabled ?? configuration.WinMeterResetOnBetLineDenomChanged?.Enabled ?? ApplicationConstants.DefaultWinMeterResetOnBetLineDenomChanged, false) },
@@ -210,6 +209,7 @@
                 { GamingConstants.AutoPlayAllowed, (configuration.AutoPlay?.Allowed ?? true, false) },
                 { GamingConstants.DisplayVoucherIssuedMessage, (configuration.Messages?.VoucherIssued?.Display ?? true, false) },
                 { GamingConstants.GameStartMethod, (InitFromStorage(GamingConstants.GameStartMethod), true) },
+                { GamingConstants.GameConfigurableStartMethods, (configuration.PhysicalButtons?.GameStartButtons?.GameConfigurableButtons ?? new[] { GameStartConfigurableMethod.MaxBet }, false) },
                 { GamingConstants.GameStartMethodConfigurable, (configuration.PhysicalButtons?.GameStartButtons?.Configurable ?? false, false) },
                 { GamingConstants.GameStartMethodSettingVisible, (configuration.PhysicalButtons?.GameStartButtons?.SettingsVisible ?? true, false) },
                 { GamingConstants.ReportCashoutButtonPressWithZeroCredit, (configuration.PhysicalButtons?.CashOutButton?.ReportToHostWithZeroCredit ?? false, false) },
@@ -276,7 +276,7 @@
                 { GamingConstants.ShowPlayerSpeedButtonEnabled, (configuration.ShowPlayerSpeedButton?.Enabled ?? true, false) },
                 { GamingConstants.BonusTransferPlaySound, ((object)configuration.BonusTransfer?.PlaySound ?? true, false) },
                 { GamingConstants.LaunchGameAfterReboot, (InitFromStorage(GamingConstants.LaunchGameAfterReboot), true) },
-                { GamingConstants.DenomSelectionLobby, (configuration.DenomSelectionLobby?.Mode ?? DenomSelectionLobby.Allowed, false) }
+                { GamingConstants.DenomSelectionLobby, (configuration.DenomSelectionLobby?.Mode ?? DenomSelectionLobby.Allowed, false) },
             };
 
             if (!blockExists)

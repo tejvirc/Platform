@@ -11,7 +11,7 @@
     {
         public override string PageName => Localizer.For(CultureFor.Operator).GetString(
             (bool)PropertiesManager.GetProperty(KernelConstants.IsInspectionOnly, false)
-            ? ResourceKeys.DateAndTime : ResourceKeys.InspectionSetup);
+            ? ResourceKeys.InspectionSetup : ResourceKeys.DateAndTime);
 
         protected override IOperatorMenuPage CreatePage()
         {

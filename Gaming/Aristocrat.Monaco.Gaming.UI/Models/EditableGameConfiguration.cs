@@ -681,8 +681,24 @@
                 return;
             }
 
-            ProgressiveSetupConfigured = ViewProgressiveLevels
-                .Any(p => p.CurrentState != ProgressiveLevelState.Init);
+            ProgressiveSetupConfigured = ViewProgressiveLevels.Any(p => p.CurrentState != ProgressiveLevelState.Init);
+
+            if (Game?.Category == GameCategory.LightningLink)
+            {
+                ProgressivesEditable = ViewProgressiveLevels.Any(p => p.CanEdit) && (!_assignedLevels?.Any() ?? false);
+
+                var assignedProgressiveIds = ViewProgressiveLevels.Select(p => p.AssignedProgressiveId);
+                foreach (var assignedProgressiveId in assignedProgressiveIds)
+                {
+                    if (_progressives.ViewProgressiveLevels().Where(p => (p.AssignedProgressiveId?.Equals(assignedProgressiveId) ?? false) && !p.CanEdit).Any())
+                    {
+                        ProgressiveSetupConfigured = true;
+                        ProgressivesEditable = false;
+                        return;
+                    }
+                }
+            }
+
             ProgressivesEditable = ViewProgressiveLevels.Any(p => p.CanEdit) && (!_assignedLevels?.Any() ?? false);
             RaisePropertyChanged(nameof(UseImportedLevels));
         }

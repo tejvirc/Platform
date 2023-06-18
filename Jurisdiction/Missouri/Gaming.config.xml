@@ -21,7 +21,8 @@ as follows:
 	<GameCategory ApplyGameCategorySettings="true" />
 	<Censorship Enforced="true" Editable="false" />
 	<AutoHold Enable="false" Configurable="false" />
-    <Gamble SkipByJackpotHit="true" />
+	<Gamble SkipByJackpotHit="true" />
+	<DynamicHelpScreen JackpotCeiling="true" />
 	<ContinuousPlaySupport Configurable="true" />
 <!--
 	GameRestrictions Settings:

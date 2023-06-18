@@ -36,10 +36,9 @@
         {
             return (CurrentValue ?? this)._options.Subscribe(e =>
             {
-                var (_, args) = e;
-                if (filter?.Invoke(args.Name) ?? true)
+                if (filter?.Invoke(e.EventArgs.Name) ?? true)
                 {
-                    listener(args.Options, args.Name);
+                    listener(e.EventArgs.Options, e.EventArgs.Name);
                 }
             });
         }

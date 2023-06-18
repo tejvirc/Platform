@@ -33,8 +33,7 @@
                    x.ThemeSkinId == y.ThemeSkinId &&
                    x.PaytableId == y.PaytableId &&
                    x.Denomination == y.Denomination &&
-                   x.BetInformationDetails.SequenceEqual(y.BetInformationDetails, BetDetailsComparer) &&
-                   x.EvaluationTypePaytable == y.EvaluationTypePaytable;
+                   x.BetInformationDetails.SequenceEqual(y.BetInformationDetails, BetDetailsComparer);
         }
 
         public int GetHashCode(ServerGameConfiguration obj)
@@ -46,7 +45,6 @@
                 hashCode = (hashCode * 397) ^ obj.PaytableId.GetHashCode();
                 hashCode = (hashCode * 397) ^ obj.Denomination.GetHashCode();
                 hashCode = (hashCode * 397) ^ (obj.BetInformationDetails != null ? obj.BetInformationDetails.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (int)obj.EvaluationTypePaytable;
                 return hashCode;
             }
         }

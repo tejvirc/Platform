@@ -183,7 +183,7 @@
         {
             SelectedItem = null;
 
-            EventBus.Subscribe<GameOrderChangedEvent>(this, HandleOrderChangedEvent);
+            EventBus.Subscribe<GameIconOrderChangedEvent>(this, HandleOrderChangedEvent);
 
             GameList = new ObservableCollection<GameOrderData>(LoadGames().OrderBy(GameOrder)); // made for VLT-6867
         }
@@ -223,14 +223,14 @@
             UpButtonEnabled = false;
         }
 
-        private void HandleOrderChangedEvent(GameOrderChangedEvent @event)
+        private void HandleOrderChangedEvent(GameIconOrderChangedEvent @event)
         {
             GameList = new ObservableCollection<GameOrderData>(GameList.OrderBy(GameOrder));
         }
 
         private int GameOrder(GameOrderData game)
         {
-            return _gameOrderSettings.GetPositionPriority(game.ThemeId);
+            return _gameOrderSettings.GetIconPositionPriority(game.ThemeId);
         }
 
         protected override IEnumerable<Ticket> GenerateTicketsForPrint(OperatorMenuPrintData dataType)
