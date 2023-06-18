@@ -11,6 +11,7 @@
     using Aristocrat.Monaco.Hardware.Contracts;
     using Aristocrat.Monaco.Kernel.Contracts;
     using Aristocrat.Monaco.Test.Automation;
+    using Aristocrat.Monaco.RobotController.Services;
     using Contracts;
     using Kernel;
     using SimpleInjector;
@@ -421,6 +422,7 @@
             container.Register<BalanceOperations>(Lifestyle.Singleton);
             container.Register<RebootRequestOperations>(Lifestyle.Singleton);
             container.Register<AuditMenuOperations>(Lifestyle.Singleton);
+            container.Register<GamingService>(Lifestyle.Transient);
             return container;
         }
     }
