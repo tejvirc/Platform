@@ -146,6 +146,7 @@
         [Label("Frame Drops")]
         [Unit("#")]
         [MaxRange(10000)]
+        [LabelResourceKey("MetricGdkFrameDrops")]
         FrameDrops,
 
         /// <summary>
@@ -158,6 +159,7 @@
         [Label("Framerate")]
         [Unit("#")]
         [MaxRange(100)]
+        [LabelResourceKey("MetricGdkFramerate")]
         Framerate,
 
         /// <summary>
@@ -170,6 +172,7 @@
         [Label("Update Time")]
         [Unit("ms")]
         [MaxRange(10)]
+        [LabelResourceKey("MetricGdkGamesUpdateTimeMs")]
         GamesUpdateTime,
 
         /// <summary>
@@ -182,6 +185,7 @@
         [Label("IPC Blocking Time Acc")]
         [Unit("ms")]
         [MaxRange(100)]
+        [LabelResourceKey("MetricGdkIPCBlockingTimeAccMs")]
         IPCBlockingTimeAcc,
 
         /// <summary>
@@ -194,6 +198,7 @@
         [Label("Render Time")]
         [Unit("ms")]
         [MaxRange(100)]
+        [LabelResourceKey("MetricGdkRenderTimeMs")]
         RenderTime,
 
         /// <summary>
@@ -206,6 +211,7 @@
         [Label("Runtime Update Time")]
         [Unit("ms")]
         [MaxRange(100)]
+        [LabelResourceKey("MetricGdkRuntimeUpdateTimeMs")]
         RuntimeUpdateTime,
 
         /// <summary>
@@ -218,6 +224,7 @@
         [Label("Swapbuffer Time")]
         [Unit("ms")]
         [MaxRange(100)]
+        [LabelResourceKey("MetricGdkSwapbufferTimeMs")]
         SwapbufferTime,
 
         /// <summary>

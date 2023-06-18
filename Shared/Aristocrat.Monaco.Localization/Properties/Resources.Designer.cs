@@ -21050,6 +21050,54 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Frame Drops.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MetricGdkFrameDrops {
+			get {
+				return ResourceManager.GetString("MetricGdkFrameDrops", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Framerate.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MetricGdkFramerate {
+			get {
+				return ResourceManager.GetString("MetricGdkFramerate", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Update Time.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MetricGdkGamesUpdateTimeMs {
+			get {
+				return ResourceManager.GetString("MetricGdkGamesUpdateTimeMs", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to IPC Blocking Time Acc.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MetricGdkIPCBlockingTimeAccMs {
+			get {
+				return ResourceManager.GetString("MetricGdkIPCBlockingTimeAccMs", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Game Memory.
 		/// </summary>
         /// <remarks>
@@ -21070,6 +21118,42 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string MetricGdkProcessorTime {
 			get {
 				return ResourceManager.GetString("MetricGdkProcessorTime", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Render Time.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MetricGdkRenderTimeMs {
+			get {
+				return ResourceManager.GetString("MetricGdkRenderTimeMs", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Runtime Update Time.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MetricGdkRuntimeUpdateTimeMs {
+			get {
+				return ResourceManager.GetString("MetricGdkRuntimeUpdateTimeMs", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Swapbuffer Time.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MetricGdkSwapbufferTimeMs {
+			get {
+				return ResourceManager.GetString("MetricGdkSwapbufferTimeMs", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -57013,6 +57097,54 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Frame Drops.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MetricGdkFrameDrops {
+			get {
+				return "MetricGdkFrameDrops";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Framerate.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MetricGdkFramerate {
+			get {
+				return "MetricGdkFramerate";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Update Time.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MetricGdkGamesUpdateTimeMs {
+			get {
+				return "MetricGdkGamesUpdateTimeMs";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to IPC Blocking Time Acc.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MetricGdkIPCBlockingTimeAccMs {
+			get {
+				return "MetricGdkIPCBlockingTimeAccMs";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Game Memory.
 		/// </summary>
         /// <remarks>
@@ -57033,6 +57165,42 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string MetricGdkProcessorTime {
 			get {
 				return "MetricGdkProcessorTime";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Render Time.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MetricGdkRenderTimeMs {
+			get {
+				return "MetricGdkRenderTimeMs";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Runtime Update Time.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MetricGdkRuntimeUpdateTimeMs {
+			get {
+				return "MetricGdkRuntimeUpdateTimeMs";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Swapbuffer Time.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MetricGdkSwapbufferTimeMs {
+			get {
+				return "MetricGdkSwapbufferTimeMs";
 			}
 		}
 
@@ -83968,6 +84136,34 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		MetricFreeMemory,
 		/// <summary>
+		///   Looks up a localized string similar to Frame Drops.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		MetricGdkFrameDrops,
+		/// <summary>
+		///   Looks up a localized string similar to Framerate.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		MetricGdkFramerate,
+		/// <summary>
+		///   Looks up a localized string similar to Update Time.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		MetricGdkGamesUpdateTimeMs,
+		/// <summary>
+		///   Looks up a localized string similar to IPC Blocking Time Acc.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		MetricGdkIPCBlockingTimeAccMs,
+		/// <summary>
 		///   Looks up a localized string similar to Game Memory.
 		/// </summary>
         /// <remarks>
@@ -83981,6 +84177,27 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application
         /// </remarks>
 		MetricGdkProcessorTime,
+		/// <summary>
+		///   Looks up a localized string similar to Render Time.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		MetricGdkRenderTimeMs,
+		/// <summary>
+		///   Looks up a localized string similar to Runtime Update Time.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		MetricGdkRuntimeUpdateTimeMs,
+		/// <summary>
+		///   Looks up a localized string similar to Swapbuffer Time.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		MetricGdkSwapbufferTimeMs,
 		/// <summary>
 		///   Looks up a localized string similar to Game Threads.
 		/// </summary>

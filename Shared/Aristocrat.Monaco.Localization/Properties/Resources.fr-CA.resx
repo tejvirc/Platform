@@ -4709,4 +4709,32 @@ Do you really want to do partial reset????</value>
     <value>???Total CPU???</value>
     <comment>Aristocrat.Monaco.Application</comment>
   </data>
+  <data name="MetricGdkFrameDrops" xml:space="preserve">
+    <value>??Frame Drops??</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MetricGdkFramerate" xml:space="preserve">
+    <value>??Framerate??</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MetricGdkGamesUpdateTimeMs" xml:space="preserve">
+    <value>??Update Time??</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MetricGdkIPCBlockingTimeAccMs" xml:space="preserve">
+    <value>??IPC Blocking Time Acc??</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MetricGdkRenderTimeMs" xml:space="preserve">
+    <value>??Render Time??</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MetricGdkRuntimeUpdateTimeMs" xml:space="preserve">
+    <value>??Runtime Update Time??</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MetricGdkSwapbufferTimeMs" xml:space="preserve">
+    <value>??Swapbuffer Time??</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
 </root>
