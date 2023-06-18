@@ -10,7 +10,7 @@
             return Configuration.Load(configPath);
         }
 
-        internal static Dictionary<string, HashSet<IRobotOperations>> InitializeModeDictionary(Container container)
+        internal static Dictionary<string, HashSet<IRobotOperations>> AddOperations(Container container)
         {
             var dict = new Dictionary<string, HashSet<IRobotOperations>>
             {
