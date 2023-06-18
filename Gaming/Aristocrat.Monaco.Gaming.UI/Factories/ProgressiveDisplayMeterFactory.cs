@@ -25,7 +25,13 @@
         {
             string meterDisplayName = localizer.For(CultureFor.Operator).GetString(
                             meterNode.DisplayNameKey,
-                            _ => meterDisplayName = meterNode.DisplayName);
+                            _ => { });
+
+            if (string.IsNullOrEmpty(meterDisplayName))
+            {
+                meterDisplayName = meterNode.DisplayName;
+            }
+
             switch (meterNode.Name)
             {
                 case ProgressiveMeters.ProgressivePackNameDisplayMeter:
@@ -153,9 +159,15 @@
                 progressiveLevel.DeviceId,
                 progressiveLevel.LevelId,
                 meterNode.Name);
+
             string meterDisplayName = localizer.For(CultureFor.Operator).GetString(
                             meterNode.DisplayNameKey,
-                            _ => meterDisplayName = meterNode.DisplayName);
+                            _ => { });
+
+            if (string.IsNullOrEmpty(meterDisplayName))
+            {
+                meterDisplayName = meterNode.DisplayName;
+            }
 
             if (progressiveMeter != null)
             {
@@ -184,9 +196,16 @@
                 progressiveLevel.DeviceId,
                 progressiveLevel.LevelId,
                 meterNode.Name);
+
             string meterDisplayName = localizer.For(CultureFor.Operator).GetString(
                             meterNode.DisplayNameKey,
-                            _ => meterDisplayName = meterNode.DisplayName);
+                            _ => { });
+
+            if (string.IsNullOrEmpty(meterDisplayName))
+            {
+                meterDisplayName = meterNode.DisplayName;
+            }
+
             if (progressiveMeter != null)
             {
                 return new DisplayMeter(
