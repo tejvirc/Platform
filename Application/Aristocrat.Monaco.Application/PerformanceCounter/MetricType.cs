@@ -136,7 +136,6 @@
         [MaxRange(1000)]
         [LabelResourceKey("MetricGdkPrivateBytes")]
         GdkPrivateBytes,
-
         /// <summary>
         /// Number of frames dropped.
         /// </summary>
