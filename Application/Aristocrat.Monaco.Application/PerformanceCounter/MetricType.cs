@@ -218,7 +218,7 @@
         [Label("Swapbuffer Time")]
         [Unit("ms")]
         [MaxRange(100)]
-        SwapbufferTime
+        SwapbufferTime,
 
         /// <summary>
         ///     CPU Temperature
