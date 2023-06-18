@@ -389,7 +389,7 @@ namespace Aristocrat.Monaco.Application.Authentication
 #else
                 _cache.AddOrUpdate(physicalPath, (string)null, (key, value) => null);
 
-                HandleLiveAuthenticationFailedEvent(this, Localizer.ForOperatorInAudit().GetString(ResourceKeys.ManifestMissing));
+                HandleLiveAuthenticationFailedEvent(this, Localizer.ForLockup().GetString(ResourceKeys.ManifestMissing));
 #endif
                 return;
             }
@@ -409,7 +409,7 @@ namespace Aristocrat.Monaco.Application.Authentication
 #else
                 if (image == null || string.IsNullOrEmpty(image.AssemblyHash))
                 {
-                    HandleLiveAuthenticationFailedEvent(this, Localizer.ForOperatorInAudit().GetString(ResourceKeys.ManifestVerificationFailed));
+                    HandleLiveAuthenticationFailedEvent(this, Localizer.ForLockup().GetString(ResourceKeys.ManifestVerificationFailed));
 
                     Logger.Error($"Assembly hash is not present: {manifest}");
                 }
