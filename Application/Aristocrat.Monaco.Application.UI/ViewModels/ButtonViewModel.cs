@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
+    using Aristocrat.Monaco.Application.Contracts.Localization;
     using Contracts.ConfigWizard;
     using Hardware.Contracts.Button;
     using Kernel;
@@ -125,7 +126,7 @@
 
         private void Update()
         {
-            Name = _button.GetLocalizedButtonName(Id);
+            Name = _button.GetLocalizedButtonName(Id, Localizer.For(CultureFor.Operator).GetString);
             Action = _button.GetButtonAction(Id);
             State = _button.GetButtonState(Id);
         }

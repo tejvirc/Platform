@@ -687,7 +687,7 @@
 
                 if (physicalId > -1)
                 {
-                    content = logicalId + " " + button.GetLocalizedButtonName(logicalId) + " " +
+                    content = logicalId + " " + button.GetLocalizedButtonName(logicalId, Localizer.For(CultureFor.Operator).GetString) + " " +
                               (button.GetButtonAction(logicalId) == ButtonAction.Down
                                   ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DownText)
                                   : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.UpText));
