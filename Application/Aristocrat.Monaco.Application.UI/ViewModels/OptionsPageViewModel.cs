@@ -3,14 +3,14 @@
     using System;
     using System.Collections.Generic;
     using System.Windows.Input;
-    using Aristocrat.Monaco.Application.Contracts;
-    using Aristocrat.Monaco.Application.Contracts.Localization;
-    using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
-    using Aristocrat.Monaco.Application.UI.Events;
+    using Contracts;
+    using Contracts.Localization;
+    using Contracts.OperatorMenu;
+    using Events;
     using Aristocrat.Monaco.Hardware.Contracts.Ticket;
-    using Aristocrat.Monaco.Kernel;
+    using Kernel;
     using Aristocrat.Monaco.Localization.Properties;
-    using Aristocrat.MVVM;
+    using MVVM;
     using MVVM.Command;
     using OperatorMenu;
 

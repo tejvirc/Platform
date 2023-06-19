@@ -2,8 +2,8 @@
 {
     using System;
     using System.Linq;
-    using Aristocrat.Monaco.Application.Contracts.Localization;
-    using Aristocrat.Monaco.Localization.Properties;
+    using Contracts.Localization;
+    using Monaco.Localization.Properties;
     using Contracts;
     using Hardware.Contracts.SharedDevice;
 

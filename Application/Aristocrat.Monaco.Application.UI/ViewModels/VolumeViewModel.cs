@@ -3,10 +3,10 @@
     using System;
     using System.Collections.ObjectModel;
     using System.Linq;
-    using Aristocrat.Monaco.Application.Contracts.Localization;
-    using Aristocrat.Monaco.Hardware.Contracts;
-    using Aristocrat.Monaco.Hardware.Contracts.Audio;
-    using Aristocrat.Monaco.Kernel.Contracts;
+    using Contracts.Localization;
+    using Hardware.Contracts;
+    using Hardware.Contracts.Audio;
+    using Kernel.Contracts;
     using Contracts;
     using Kernel;
     using log4net;

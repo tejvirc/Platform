@@ -1,13 +1,13 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
-    using Aristocrat.Monaco.Application.Contracts;
-    using Aristocrat.Monaco.Application.Contracts.Extensions;
-    using Aristocrat.Monaco.Application.Contracts.Localization;
-    using Aristocrat.Monaco.Application.PerformanceCounter;
-    using Aristocrat.Monaco.Application.UI.OperatorMenu;
+    using Contracts;
+    using Contracts.Extensions;
+    using Contracts.Localization;
+    using PerformanceCounter;
+    using OperatorMenu;
     using Aristocrat.Monaco.Common;
     using Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor;
-    using Aristocrat.Monaco.Kernel;
+    using Kernel;
     using Aristocrat.Monaco.Localization.Properties;
     using Newtonsoft.Json.Linq;
     using System;

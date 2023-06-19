@@ -5,7 +5,7 @@
     using System.Collections.ObjectModel;
     using System.Linq;
     using Application.Settings;
-    using Aristocrat.Monaco.Hardware.Contracts.ButtonDeck;
+    using Monaco.Hardware.Contracts.ButtonDeck;
     using ButtonTestDeck;
     using ConfigWizard;
     using Contracts.HardwareDiagnostics;

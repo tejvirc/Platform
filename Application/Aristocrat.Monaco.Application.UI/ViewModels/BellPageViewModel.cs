@@ -2,7 +2,7 @@
 {
     using System;
     using System.Windows.Input;
-    using Aristocrat.Monaco.Localization.Properties;
+    using Monaco.Localization.Properties;
     using ConfigWizard;
     using Contracts;
     using Contracts.Extensions;

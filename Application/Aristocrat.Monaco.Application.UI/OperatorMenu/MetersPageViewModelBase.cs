@@ -12,14 +12,9 @@
     using Kernel;
     using MeterPage;
     using Monaco.UI.Common.Extensions;
-    using Aristocrat.Monaco.Application.Contracts.Localization;
-    using Aristocrat.Monaco.Localization.Markup;
-    using Org.BouncyCastle.Utilities;
-
-    using localizer = Aristocrat.Monaco.Application.Contracts.Localization.Localizer;
-    using Aristocrat.Monaco.Application.Meters;
-    using Aristocrat.MVVM;
-    using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
+    using Contracts.Localization;
+    using localizer = Contracts.Localization.Localizer;
+    using MVVM;
 
     /// <summary>
     ///     A MetersPageViewModelBase contains the base logic for meters page view models
