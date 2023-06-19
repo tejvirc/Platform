@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
-    using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
+    using Contracts.OperatorMenu;
     using OperatorMenu;
 
     /// <summary>

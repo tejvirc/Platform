@@ -9,7 +9,11 @@
   <Dependencies>
     <Addin id="Monaco.Application.UI" version="1.0" />
   </Dependencies>
-  
+
+  <Extension path="/Application/OperatorMenu/OptionsMainMenu">
+    <OptionsMainMenu type="Aristocrat.Monaco.Accounting.UI.Loaders.AccountingConfigurationLoader"/>
+  </Extension>
+
   <Extension path="/Application/OperatorMenu/MetersMenu">
     <MetersMenu type="Aristocrat.Monaco.Accounting.UI.Loaders.BillsMetersPageLoader" order="210"/>
     <MetersMenu type="Aristocrat.Monaco.Accounting.UI.Loaders.VoucherMetersPageLoader" order="220"/>

@@ -44,6 +44,9 @@
             _properties = properties;
         }
 
+        /// <summary>
+        ///   Gets or sets the default culture for the current OperatorCultureProvider.
+        /// </summary>
         [JsonProperty]
         public CultureInfo DefaultCulture { get; set; }
 

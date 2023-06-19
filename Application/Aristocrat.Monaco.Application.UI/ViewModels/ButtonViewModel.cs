@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
-    using Aristocrat.Monaco.Application.Contracts.Localization;
+    using Contracts.Localization;
     using Contracts.ConfigWizard;
     using Hardware.Contracts.Button;
     using Kernel;

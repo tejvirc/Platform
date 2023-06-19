@@ -2,11 +2,10 @@
 {
     using System;
     using System.Collections.ObjectModel;
-    using System.Collections.Specialized;
     using System.ComponentModel;
     using System.Linq;
     using Aristocrat.Monaco.Application.Contracts.Localization;
-    using Aristocrat.MVVM;
+    using MVVM;
     using ConfigWizard;
     using Contracts;
     using Contracts.OperatorMenu;

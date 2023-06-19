@@ -9,7 +9,7 @@
     using System.Windows.Input;
     using System.Windows.Threading;
     using Accounting.Contracts;
-    using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
+    using Contracts.OperatorMenu;
     using Contracts;
     using Contracts.Localization;
     using Contracts.MeterPage;

@@ -4,10 +4,9 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
-    using System.Windows;
     using System.Windows.Markup;
     using Aristocrat.Monaco.Application.Contracts.Localization;
-    using Aristocrat.MVVM;
+    using MVVM;
     using ConfigWizard;
     using Contracts;
     using Contracts.OperatorMenu;

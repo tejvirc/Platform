@@ -11,8 +11,8 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
-    using Aristocrat.Monaco.Application.Contracts.Extensions;
-    using Aristocrat.Monaco.Application.Contracts.Tickets;
+    using Contracts.Extensions;
+    using Contracts.Tickets;
     using ConfigWizard;
     using Contracts;
     using Contracts.ConfigWizard;

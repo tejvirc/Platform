@@ -2,7 +2,6 @@
 {
     using System;
     using System.Linq;
-    using Contracts;
     using Contracts.Protocol;
     using Kernel;
     using Monaco.Common;
