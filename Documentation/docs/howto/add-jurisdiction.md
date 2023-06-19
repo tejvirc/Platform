@@ -6,9 +6,9 @@ How to add a jurisdiction
 <!-- code_chunk_output -->
 
 - [Overview](#overview)
-- [Step 1 – Create a Jurisdiction Folder](#step-1-create-a-jurisdiction-folder)
-- [Step 2 – Create Jurisdiction Addin](#step-2-create-jurisdiction-addin)
-- [Step 3 – Add Jurisdiction Content](#step-3-add-jurisdiction-content)
+- [Step 1: Create a Jurisdiction Folder](#step-1-create-a-jurisdiction-folder)
+- [Step 2: Create Jurisdiction Addin](#step-2-create-jurisdiction-addin)
+- [Step 3: Add Jurisdiction Content](#step-3-add-jurisdiction-content)
   - [Hardware Config](#hardware-config)
   - [Operator Menu Config](#operator-menu-config)
   - [Tilt Logger Config](#tilt-logger-config)
@@ -24,7 +24,7 @@ platform to vary platform behavior and configurable limits and other
 data values.  This document does not describe specific jurisdictions or
 their regulations.
 
-## Step 1 – Create a Jurisdiction Folder
+## Step 1: Create a Jurisdiction Folder
 
 Configuration for all jurisdictions resides in the source tree at the
 following location:
@@ -38,7 +38,7 @@ either class 2 or class 3 which are very different jurisdictions.
 
 Create a subdirectory for the new jurisdiction.
 
-## Step 2 – Create Jurisdiction Addin
+## Step 2: Create Jurisdiction Addin
 
 Inside each jurisdiction folder there must reside a file with the
 extension *.addin.xml* that defines a Mono.Addins addin for the
@@ -122,7 +122,7 @@ etc.) can be handled through the jurisdiction configuration file.
 </Addin>
 ```
 
-## Step 3 – Add Jurisdiction Content
+## Step 3: Add Jurisdiction Content
 
 Each jurisdiction needs to specify hardware, operator menu, tilt logger,
 and lobby configuration as well as several sound files.
