@@ -44,7 +44,7 @@
         internal bool IsAttract => _lobbyStateManager.CurrentState == LobbyState.Attract;
         internal bool IsGameLoading => _lobbyStateManager.CurrentState == LobbyState.GameLoading;
         internal bool IsGameLoadingForDiagnostics => _lobbyStateManager.CurrentState == LobbyState.GameLoadingForDiagnostics;
-        internal bool IsGame => _lobbyStateManager.CurrentState == LobbyState.Game;
+        internal bool IsLobbyStateGame => _lobbyStateManager.CurrentState == LobbyState.Game;
         internal bool IsGameDiagnostics => _lobbyStateManager.CurrentState == LobbyState.GameDiagnostics;
         internal bool IsResponsibleGamingInfo => _lobbyStateManager.CurrentState == LobbyState.ResponsibleGamingInfo;
         internal bool IsResponsibleGamingInfoLayeredLobby => _lobbyStateManager.CurrentState == LobbyState.ResponsibleGamingInfoLayeredLobby;
@@ -62,9 +62,9 @@
         internal bool IsMediaPlayerResizing => _lobbyStateManager.CurrentState == LobbyState.MediaPlayerResizing;
         internal bool IsInRecovery => IsRecovery || IsRecoveryFromStartup;
 
-        internal bool AuditMenuOperationValid => IsChooser || (IsGame && !IsGameLoading);
-        internal bool BalanceOperationValid => (IsGame && !IsGameLoading);
-        internal bool CashoutOperationValid => IsChooser || (IsGame && !IsGameLoading && (IsIdle || IsPresentationIdle));
-        internal bool GameOperationValid => IsChooser || (IsGame && !IsGameLoading);
+        internal bool AuditMenuOperationValid => IsChooser || (IsLobbyStateGame && !IsGameLoading);
+        internal bool BalanceOperationValid => (IsLobbyStateGame && !IsGameLoading);
+        internal bool CashoutOperationValid => IsChooser || (IsLobbyStateGame && !IsGameLoading && (IsIdle || IsPresentationIdle));
+        internal bool GameOperationValid => IsChooser || (IsLobbyStateGame && !IsGameLoading);
     }
 }

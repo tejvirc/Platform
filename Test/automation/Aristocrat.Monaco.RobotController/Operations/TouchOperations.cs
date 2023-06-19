@@ -101,7 +101,7 @@
         private bool IsValid()
         {
             var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
-            return !isBlocked && _stateChecker.IsGame && !_stateChecker.IsGameLoading;
+            return !isBlocked && _stateChecker.IsLobbyStateGame && !_stateChecker.IsGameLoading;
         }
 
         private void TouchAnyAuxiliaryVbdAreas(Random Rng)

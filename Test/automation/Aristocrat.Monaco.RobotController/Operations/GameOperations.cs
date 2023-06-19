@@ -12,6 +12,7 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using Aristocrat.Monaco.RobotController.Services;
 
     internal class GameOperations : IRobotOperations
     {
@@ -22,7 +23,9 @@
         private readonly StateChecker _stateChecker;
         private readonly RobotController _robotController;
         private readonly IGameService _gameService;
-        private bool _goToNextGame;
+        private readonly GamingService _robotGamingService;
+        private readonly RobotService _robotService;
+
         private Timer _loadGameTimer;
         private Timer _RgTimer;
         private Timer _forceGameExitTimer;
@@ -35,7 +38,8 @@
         private bool _gameIsRunning;
 
         public GameOperations(IEventBus eventBus, RobotLogger logger, Automation automator,
-            StateChecker sc, IPropertiesManager pm, RobotController robotController, IGameService gameService)
+            StateChecker sc, IPropertiesManager pm, RobotController robotController,
+            IGameService gameService, GamingService gamingService, RobotService robotService)
         {
             _stateChecker = sc;
             _automator = automator;
@@ -44,6 +48,8 @@
             _propertyManager = pm;
             _robotController = robotController;
             _gameService = gameService;
+            _robotGamingService = gamingService;
+            _robotService = robotService;
         }
 
         ~GameOperations() => Dispose(false);
@@ -59,7 +65,7 @@
             _logger.Info("GameOperations Has Been Initiated!", GetType().Name);
             SubscribeToEvents();
 
-            if (IsRegularRobots())
+            if (_robotService.IsRegularRobots())
             {
                 return;
             }
@@ -67,7 +73,7 @@
             _loadGameTimer = new Timer(
                                (sender) =>
                                {
-                                   RequestGameLoad();
+                                   _robotGamingService.RequestGameLoad();
                                },
                                null,
                                _robotController.Config.Active.IntervalLoadGame,
@@ -81,7 +87,7 @@
                                _robotController.Config.Active.IntervalRgSet,
                                _robotController.Config.Active.IntervalRgSet);
             
-            LoadGameWithDelay(Constants.loadGameDelayDuration);
+            _robotGamingService.LoadGameWithDelay(Constants.loadGameDelayDuration);
         }
 
         public void Reset()
@@ -157,7 +163,7 @@
                      _isLoadGameInProgress = false;
                     if (!_stateChecker.IsAllowSingleGameAutoLaunch)
                     {
-                        RequestGameLoad();
+                        _robotGamingService.RequestGameLoad();
                     }
                 });
             _eventBus.Subscribe<GameInitializationCompletedEvent>(
@@ -168,7 +174,7 @@
                     _gameIsRunning = true;
                     _sanityCounter = 0;
                      _isLoadGameInProgress = false;
-                    BalanceCheckWithDelay(Constants.BalanceCheckDelayDuration);
+                    _robotGamingService.BalanceCheckWithDelay(Constants.BalanceCheckDelayDuration);
                 });
 
             _eventBus.Subscribe<GamePlayRequestFailedEvent>(
@@ -186,14 +192,6 @@
                     _logger.Info($"Keying off UnexpectedOrNoResponseEvent Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                     ToggleJackpotKey(Constants.ToggleJackpotKeyLongerDuration);
                 });
-            _eventBus.Subscribe<GameIdleEvent>(
-                 this,
-                 _ =>
-                 {
-                     _logger.Info($"GameIdleEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                     BalanceCheckWithDelay(Constants.BalanceCheckDelayDuration);
-                     HandleExitToLobbyRequest();
-                 });
 
             _eventBus.Subscribe<GameFatalErrorEvent>(
                  this,
@@ -228,7 +226,7 @@
                 _ =>
                 {
                     _logger.Info($"SystemEnabledEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                    LoadGameWithDelay(Constants.loadGameDelayDuration);
+                    _robotGamingService.LoadGameWithDelay(Constants.loadGameDelayDuration);
                 });
             InitGameProcessHungEvent();
         }
@@ -245,19 +243,6 @@
                     _robotController.Enabled = false;
                 });
             };
-        }
-
-
-
-        private void BalanceCheckWithDelay(int milliseconds)
-        {
-            _logger.Info("BalanceCheckWithDelay Request Is Received!", GetType().Name);
-            Task.Delay(milliseconds).ContinueWith(_ => BalanceCheck());
-        }
-
-        private void BalanceCheck()
-        {
-            _eventBus.Publish(new BalanceCheckEvent());
         }
 
         private void ToggleJackpotKey(int waitDuration)

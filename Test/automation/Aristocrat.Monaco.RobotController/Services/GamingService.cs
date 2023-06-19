@@ -12,24 +12,28 @@
 
     internal class GamingService
     {
+        private readonly IEventBus _eventBus;
         private readonly RobotController _robotController;
         private readonly StateChecker _stateChecker;
         private readonly RobotService _robotService;
         private readonly RobotLogger _logger;
         private readonly IPropertiesManager _propertiesManager;
         private readonly Automation _automator;
+
         private uint _sanityCounter;
         private bool _gotoNextGame;
         private bool _isGameRunning;
         private bool _isLoadGameInProgress;
-        private bool _gotoOtherGameWhenIdle;
-        private bool _isRobotGameExitInProgress;
+        private bool _toKillGamingProcessIfIdle;
+        private bool _isGameExitInProgress;
         private bool _isTimeLimitDialogVisible;
 
-        public GamingService(RobotController robotController, RobotService robotService, StateChecker stateChecker,
+        public GamingService(IEventBus eventBus, RobotController robotController, RobotService robotService, StateChecker stateChecker,
             IPropertiesManager pm, RobotLogger logger, Automation automator)
         {
+            _eventBus = eventBus;
             _robotController = robotController;
+
             _stateChecker = stateChecker;
             _robotService = robotService;
             _logger = logger;
@@ -37,7 +41,7 @@
             _automator = automator;
         }
 
-        public bool CanGotoNextGame
+        public bool SelectNextGame
         {
             get => _gotoNextGame;
             set => _gotoNextGame = value;
@@ -62,17 +66,17 @@
             return !isBlocked && isGeneralRule && !_isLoadGameInProgress;
         }
 
-        public void RequestGameLoad()
+        public void RequestGameLoad(bool selectNextGame = false)
         {
             if (!CanRequestGameLoad())
             {
                 _logger.Info($"RequestGame was not valid!", GetType().Name);
                 return;
             }
-            if (_stateChecker.IsGame && IsGameRunning)
+            if (_stateChecker.IsLobbyStateGame && IsGameRunning)
             {
                 _logger.Info($"Exit To Lobby When Idle Requested Received! Sanity Counter = {_sanityCounter}, Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                _gotoOtherGameWhenIdle = !_robotService.IsRegularRobots();
+                _toKillGamingProcessIfIdle = !_robotService.IsRegularRobots();
             }
             else if (IsGameRunning)
             {
@@ -87,6 +91,16 @@
             }
         }
 
+        public void LoadGameWithDelay(int milliseconds, bool selectNextGame = false)
+        {
+            _logger.Info($"LoadGameWithDelay Request is Received!", GetType().Name);
+            Task.Delay(milliseconds).ContinueWith(
+                _ =>
+                {
+                    _isLoadGameInProgress = false;
+                    RequestGameLoad(selectNextGame);
+                });
+        }
 
 
         public void LoadGame()
@@ -98,25 +112,14 @@
             }
         }
 
-        public void LoadGameWithDelay(int milliseconds)
-        {
-            _logger.Info($"LoadGameWithDelay Request is Received!", GetType().Name);
-            Task.Delay(milliseconds).ContinueWith(
-                _ =>
-                {
-                    _isLoadGameInProgress = false;
-                    RequestGameLoad();
-                });
-        }
-
         private bool CanKillGame(bool skipTestRecovery)
         {
             var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
 
             var canExit = IsGameRunning
                 && !_stateChecker.IsGameLoading
-                && !_isRobotGameExitInProgress
-                && !_gotoOtherGameWhenIdle
+                && !_isGameExitInProgress
+                && _robotService.IsRegularRobots()  // Regular mode only ?
                 && (_robotController.Config.Active.TestRecovery || skipTestRecovery);
 
             return !isBlocked && canExit;
@@ -131,8 +134,7 @@
 
             _logger.Info("ForceGameExit Requested Received!", GetType().Name);
 
-            _isRobotGameExitInProgress = true;
-            _gotoOtherGameWhenIdle = false;
+            _isGameExitInProgress = true;
 
             _automator.KillGameProcess(Constants.GdkRuntimeHostName);
 
@@ -142,7 +144,7 @@
         public void ExecuteGameLoad()
         {
             _isLoadGameInProgress = true;
-            SelectNextGame(CanGotoNextGame);
+            SetCurrentGame(SelectNextGame);
             
             var games = _propertiesManager.GetValues<IGameDetail>(GamingConstants.Games).ToList();
             var gameInfo = games.FirstOrDefault(g => g.ThemeName == _robotController.Config.CurrentGame && g.Enabled);
@@ -167,14 +169,14 @@
             }
         }
 
-        public void SelectNextGame(bool goToNextGame)
+        public void SetCurrentGame(bool selectNextGame)
         {
-            if (!goToNextGame)
+            if (!selectNextGame)
             {
                 return;
             }
             _logger.Info("SelectNextGame Request Is Received!", GetType().Name);
-            _robotController.Config.SelectNextGame();
+            _robotController.Config.SetCurrentGame();
         }
 
         public void DismissTimeLimitDialog()
@@ -198,6 +200,17 @@
             _logger.Error($"Game Operation Failed, Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
             _robotController.Enabled = false;
             return false;
+        }
+
+        public void BalanceCheckWithDelay(int milliseconds)
+        {
+            _logger.Info("BalanceCheckWithDelay Request Is Received!", GetType().Name);
+            Task.Delay(milliseconds).ContinueWith(_ => BalanceCheck());
+        }
+
+        public void BalanceCheck()
+        {
+            _eventBus.Publish(new BalanceCheckEvent());
         }
 
     }
