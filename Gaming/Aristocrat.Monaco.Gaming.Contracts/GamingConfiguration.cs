@@ -88,9 +88,9 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         
         private GamingConfigurationLetItRide letItRideField;
         
-        private GamingConfigurationContinuousPlaySupport continuousPlaySupportField;
+        private GamingConfigurationDynamicHelpScreen dynamicHelpScreenField;
         
-        private GamingConfigurationDynamicHelpMenuText dynamicHelpMenuTextField;
+        private GamingConfigurationContinuousPlaySupport continuousPlaySupportField;
         
         private GamingConfigurationGameRestrictions gameRestrictionsField;
         
@@ -445,22 +445,22 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         }
         
         /// <remarks/>
+        public GamingConfigurationDynamicHelpScreen DynamicHelpScreen {
+            get {
+                return this.dynamicHelpScreenField;
+            }
+            set {
+                this.dynamicHelpScreenField = value;
+            }
+        }
+        
+        /// <remarks/>
         public GamingConfigurationContinuousPlaySupport ContinuousPlaySupport {
             get {
                 return this.continuousPlaySupportField;
             }
             set {
                 this.continuousPlaySupportField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public GamingConfigurationDynamicHelpMenuText DynamicHelpMenuText {
-            get {
-                return this.dynamicHelpMenuTextField;
-            }
-            set {
-                this.dynamicHelpMenuTextField = value;
             }
         }
         
@@ -2092,6 +2092,33 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class GamingConfigurationDynamicHelpScreen {
+        
+        private bool jackpotCeilingField;
+        
+        public GamingConfigurationDynamicHelpScreen() {
+            this.jackpotCeilingField = false;
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool JackpotCeiling {
+            get {
+                return this.jackpotCeilingField;
+            }
+            set {
+                this.jackpotCeilingField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
     public partial class GamingConfigurationContinuousPlaySupport {
         
         private ContinuousPlayButton[] allowedButtonsField;
@@ -2163,48 +2190,6 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         
         /// <remarks/>
         Toggle,
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
-    public partial class GamingConfigurationDynamicHelpMenuText {
-        
-        private bool displayProgressiveCeilingMessageField;
-        
-        private bool displayStopReelMessageField;
-        
-        public GamingConfigurationDynamicHelpMenuText() {
-            this.displayProgressiveCeilingMessageField = false;
-            this.displayStopReelMessageField = false;
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        [System.ComponentModel.DefaultValueAttribute(false)]
-        public bool DisplayProgressiveCeilingMessage {
-            get {
-                return this.displayProgressiveCeilingMessageField;
-            }
-            set {
-                this.displayProgressiveCeilingMessageField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        [System.ComponentModel.DefaultValueAttribute(false)]
-        public bool DisplayStopReelMessage {
-            get {
-                return this.displayStopReelMessageField;
-            }
-            set {
-                this.displayStopReelMessageField = value;
-            }
-        }
     }
     
     /// <remarks/>
@@ -3259,9 +3244,9 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
         }
     }
-    
+
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.81.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]

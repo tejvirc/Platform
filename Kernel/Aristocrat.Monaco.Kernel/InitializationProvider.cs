@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using Contracts;
     using Contracts.Events;
+    using Kernel.Debugging;
 
     /// <summary>
     ///     Provides status on component initialization progress
@@ -15,6 +16,9 @@
         {
             IsSystemInitializationComplete = true;
             ServiceManager.GetInstance()?.GetService<IEventBus>()?.Publish(new InitializationCompletedEvent());
+#if DEBUG
+            ServiceManager.GetInstance().TryGetService<IDebuggerService>()?.AttachDebuggerIfRequestedForPoint(DebuggerAttachPoint.OnSystemInitialized);
+#endif
         }
 
         /// <inheritdoc />

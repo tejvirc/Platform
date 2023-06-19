@@ -58,7 +58,7 @@
             _performanceCounterManager = ServiceManager.GetInstance().GetService<IPerformanceCounterManager>();
 
             LoadAvailableMetrics();
-            
+
             ViewMemoryCommand = new ActionCommand<object>(ViewMemory);
             ToggleDiagnosticChartViewModeCommand = new ActionCommand<object>(_ => InDiagnosticViewChartMode = !InDiagnosticViewChartMode);
         }
@@ -196,7 +196,7 @@
             foreach (var metric in Metrics)
             {
                 metric.Index = seriesNumber;
-                metric.MetricColor = _colors[seriesNumber];
+                metric.MetricColor = _colors.Count > 0 ? _colors[seriesNumber % _colors.Count] : Brushes.White;
                 var source = new ChartValues<MeasureModel>();
 
                 CreateLineSeries(source, metric, axisNumber);
@@ -345,7 +345,7 @@
                             if (yAxis != null)
                             {
                                 // If the value is too big, increase the scale by 50%.
-                                metric.MaxRange = (int) Math.Ceiling(metric.MaxRange * 1.5);
+                                metric.MaxRange = (int)Math.Ceiling(metric.MaxRange * 1.5);
 
                                 var newAxis = CreateYAxisFromMetric(index, metric);
                                 YAxes[index] = newAxis;
