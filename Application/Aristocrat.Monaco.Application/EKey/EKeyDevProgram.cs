@@ -13,9 +13,9 @@
         {
 #if (RETAIL)
             return false;
-#endif
+#else
             return base.Run(connection, cancellation);
-
+#endif
         }
 
         /// <inheritdoc />
