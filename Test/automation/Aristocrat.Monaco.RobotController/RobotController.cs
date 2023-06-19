@@ -236,7 +236,7 @@
                     {
                         () =>
                         {
-                            if(!_stateChecker.IsGame)
+                            if(!_stateChecker.IsLobbyStateGame)
                             {
                                 Enabled = false;
                                 return;
@@ -422,7 +422,9 @@
             container.Register<BalanceOperations>(Lifestyle.Singleton);
             container.Register<RebootRequestOperations>(Lifestyle.Singleton);
             container.Register<AuditMenuOperations>(Lifestyle.Singleton);
-            container.Register<GamingService>(Lifestyle.Transient);
+            container.Register<GamingService>(Lifestyle.Singleton);
+            container.Register<RobotRunStatus>(Lifestyle.Singleton);
+
             return container;
         }
     }

@@ -113,13 +113,13 @@
 
         private bool IsSoftRebootValid()
         {
-            return _stateChecker.IsChooser || _stateChecker.IsGame;
+            return _stateChecker.IsChooser || _stateChecker.IsLobbyStateGame;
         }
 
         private bool IsRebootValid()
         {
             var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
-            return !isBlocked && _stateChecker.IsInRecovery && (_stateChecker.IsChooser || _stateChecker.IsGame);
+            return !isBlocked && _stateChecker.IsInRecovery && (_stateChecker.IsChooser || _stateChecker.IsLobbyStateGame);
         }
     }
 }

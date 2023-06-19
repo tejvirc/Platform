@@ -594,7 +594,7 @@
             }
         }
 
-        public string SelectNextGame()
+        public string SetCurrentGame()
         {
             if (Active.GameList != null && Active.GameList.Count > 0)
             {
