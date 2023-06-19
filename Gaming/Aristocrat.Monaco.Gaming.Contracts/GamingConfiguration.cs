@@ -130,6 +130,8 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         
         private GamingConfigurationBonusTransfer bonusTransferField;
         
+        private GamingConfigurationDisplayGamePayMessage displayGamePayMessageField;
+        
         /// <remarks/>
         public GamingConfigurationGameHistory GameHistory {
             get {
@@ -657,6 +659,16 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.bonusTransferField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public GamingConfigurationDisplayGamePayMessage DisplayGamePayMessage {
+            get {
+                return this.displayGamePayMessageField;
+            }
+            set {
+                this.displayGamePayMessageField = value;
             }
         }
     }
@@ -3381,9 +3393,9 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.81.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -3660,6 +3672,46 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.playSoundField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class GamingConfigurationDisplayGamePayMessage {
+        
+        private bool useField;
+        
+        private string formatField;
+        
+        public GamingConfigurationDisplayGamePayMessage() {
+            this.useField = false;
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool Use {
+            get {
+                return this.useField;
+            }
+            set {
+                this.useField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Format {
+            get {
+                return this.formatField;
+            }
+            set {
+                this.formatField = value;
             }
         }
     }

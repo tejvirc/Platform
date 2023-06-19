@@ -440,6 +440,12 @@
             <xs:attribute name="PlaySound" type="xs:boolean" use="optional" default="true" />
           </xs:complexType>
         </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="DisplayGamePayMessage">
+          <xs:complexType>
+            <xs:attribute name="Use" type="xs:boolean" use="optional" default="false" />
+            <xs:attribute name="Format" type="xs:string" use="optional" />
+          </xs:complexType>
+        </xs:element>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
