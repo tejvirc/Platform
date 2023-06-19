@@ -79,34 +79,8 @@
 
         private void Handle(SystemDisableAddedEvent evt)
         {
-            if (IsLockup(evt))
-            { 
-                cashoutConfirmationEvent.Set();
-                _eventBus.Publish(new CashoutCancelledEvent());
-            }
-        }
-
-        private bool IsLockup(SystemDisableAddedEvent evt)
-        {
-            return evt.DisableId == ApplicationConstants.OperatorMenuLauncherDisableGuid
-                    || evt.DisableId == ApplicationConstants.NoteAcceptorDisconnectedGuid
-                    || evt.DisableId == ApplicationConstants.NoteAcceptorSelfTestFailedGuid
-                    || evt.DisableId == ApplicationConstants.NoteAcceptorDocumentCheckDisableKey
-                    || evt.DisableId == ApplicationConstants.PrinterDisconnectedGuid
-                    || evt.DisableId == ApplicationConstants.BellyDoorGuid
-                    || evt.DisableId == ApplicationConstants.CashDoorGuid
-                    || evt.DisableId == ApplicationConstants.LogicDoorGuid
-                    || evt.DisableId == ApplicationConstants.MainDoorGuid
-                    || evt.DisableId == ApplicationConstants.SecondaryCashDoorGuid
-                    || evt.DisableId == ApplicationConstants.TopBoxDoorGuid
-                    || evt.DisableId == ApplicationConstants.DropDoorGuid
-                    || evt.DisableId == ApplicationConstants.MechanicalMeterDoorGuid
-                    || evt.DisableId == ApplicationConstants.MainOpticDoorGuid
-                    || evt.DisableId == ApplicationConstants.TopBoxOpticDoorGuid
-                    || evt.DisableId == ApplicationConstants.UniversalInterfaceBoxDoorGuid
-                    || evt.DisableId == ApplicationConstants.BellyDoorDiscrepencyGuid
-                    || evt.DisableId == ApplicationConstants.LogicSealBrokenKey
-                    || evt.DisableId == NoteAcceptorFaultTypes.StackerDisconnected.GetAttribute<ErrorGuidAttribute>().Id;
+            cashoutConfirmationEvent.Set();
+            _eventBus.Publish(new CashoutCancelledEvent());
         }
 
         private void Handle(CashoutAmountPlayerConfirmationReceivedEvent evt)
