@@ -480,7 +480,6 @@ namespace DiskTool
         private ulong Address => ((ulong)Cylindar * 16 + Head) * 63 + Sector;
     }
 
-#pragma warning disable CS3003 // Argument type is not CLS-compliant
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct PartitionTable
     {
@@ -532,6 +531,4 @@ namespace DiskTool
 
         public static int BootloaderSize = 515584;
     }
-
-#pragma warning restore CS3003 // Argument type is not CLS-compliant
 }

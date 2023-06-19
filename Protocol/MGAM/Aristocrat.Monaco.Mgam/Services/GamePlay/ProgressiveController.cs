@@ -26,10 +26,8 @@
     public sealed class ProgressiveController : IProgressiveController, IDisposable, IProtocolProgressiveEventHandler
     {
         // NOTE: NYL no longer wants progressive messages being sent to InfoBar. If that changes again, uncomment this code
+        //private readonly Guid _infoBarOwnershipKey = new Guid("{1E1A5CCE-AB14-498E-9472-F83F75573D85}");
 
-#pragma warning disable S125 // Sections of code should not be commented out
-                            //private readonly Guid _infoBarOwnershipKey = new Guid("{1E1A5CCE-AB14-498E-9472-F83F75573D85}");
-#pragma warning restore S125 // Sections of code should not be commented out
         private readonly IEventBus _eventBus;
         private readonly IGameProvider _gameProvider;
         private readonly IProtocolLinkedProgressiveAdapter _protocolLinkedProgressiveAdapter;
@@ -151,10 +149,7 @@
         /// <inheritdoc />
         public void Configure()
         {
-
-#pragma warning disable S1135 // Track uses of "TODO" tags
-                             // TODO: Need to determine how to handle reconfiguration of games. This may not be able to be support with MGAM protocol.
-#pragma warning restore S1135 // Track uses of "TODO" tags
+            // TODO: Need to determine how to handle reconfiguration of games. This may not be able to be support with MGAM protocol.
             _progressives.Clear();
             _activeProgressiveInfos.Clear();
             if (_pendingAwards == null)
@@ -527,7 +522,6 @@
             {
                 //// NOTE: NYL no longer wants progressive messages being sent to InfoBar. If that changes again, uncomment this code
 
-#pragma warning disable S125 // Sections of code should not be commented out
                 //var value = _attributes.Get(evt.AttributeName, string.Empty);
                 //if (!string.IsNullOrEmpty(value))
                 //{
@@ -541,7 +535,6 @@
                 //    _eventBus.Publish(infoBarEvent);
                 //}
             }
-#pragma warning restore S125 // Sections of code should not be commented out
         }
 
         private void UpdateProgressiveMeter()
@@ -647,11 +640,9 @@
 
         private string GetPoolName(string levelName)
         {
-#pragma warning disable S3267 // Loops should be simplified with "LINQ" expressions
             foreach (var progressive in _progressives)
-#pragma warning restore S3267 // Loops should be simplified with "LINQ" expressions
             {
-                if(progressive.Value.Any(i => LevelName(i).Equals(levelName)))
+                if(progressive.Value.Any(i => LevelName(i).Equals(levelName, StringComparison.InvariantCultureIgnoreCase)))
                 {
                     return progressive.Key;
                 }

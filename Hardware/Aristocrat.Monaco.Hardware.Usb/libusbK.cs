@@ -1785,21 +1785,13 @@ namespace Aristocrat.Monaco.Hardware.Usb
         /// <Summary>Creates a new hot-plug handle for USB device arrival/removal event monitoring.</Summary>
         public HotK(ref KHotParams initParams)
         {
-            //RuntimeHelpers.PrepareConstrainedRegions();   //PLANA: https://docs.microsoft.com/en-us/dotnet/fundamentals/syslib-diagnostics/syslib0004#workarounds
+            var success = NativeMethods.HotK_Init(out handle, ref initParams);
+            var errorCode = Marshal.GetLastWin32Error();
 
-            try
+            if (!success || handle.IsInvalid || handle.IsClosed)
             {
-            }
-            finally
-            {
-                var success = NativeMethods.HotK_Init(out handle, ref initParams);
-                var errorCode = Marshal.GetLastWin32Error();
-
-                if (!success || handle.IsInvalid || handle.IsClosed)
-                {
-                    handle.SetHandleAsInvalid();
-                    throw new Exception(GetType().Name + " failed. ErrorCode=" + errorCode.ToString("X"));
-                }
+                handle.SetHandleAsInvalid();
+                throw new Exception(GetType().Name + " failed. ErrorCode=" + errorCode.ToString("X"));
             }
         }
 
@@ -1835,8 +1827,6 @@ namespace Aristocrat.Monaco.Hardware.Usb
                 throw new Exception(GetType().Name + " failed loading Driver API. ErrorCode=" + error.ToString("X"));
             }
 
-            //RuntimeHelpers.PrepareConstrainedRegions();   //PLANA: https://docs.microsoft.com/en-us/dotnet/fundamentals/syslib-diagnostics/syslib0004#workarounds
-
             bool success = DriverApi.Init(out handle, devInfo);
 
             if (!success || handle.IsInvalid || handle.IsClosed)
@@ -1856,8 +1846,6 @@ namespace Aristocrat.Monaco.Hardware.Usb
 
                 throw new Exception(GetType().Name + " failed loading Driver API. ErrorCode=" + error.ToString("X"));
             }
-
-            //RuntimeHelpers.PrepareConstrainedRegions();   //PLANA: https://docs.microsoft.com/en-us/dotnet/fundamentals/syslib-diagnostics/syslib0004#workarounds
 
             bool success = DriverApi.Initialize(deviceHandle, out handle);
 
@@ -2226,8 +2214,6 @@ namespace Aristocrat.Monaco.Hardware.Usb
         /// <Summary>Creates a new overlapped pool.</Summary>
         public OvlK(KusbHandle usbHandle, int maxOverlappedCount, KOvlPoolFlag flags)
         {
-            //RuntimeHelpers.PrepareConstrainedRegions();   //PLANA: https://docs.microsoft.com/en-us/dotnet/fundamentals/syslib-diagnostics/syslib0004#workarounds
-
             bool success = NativeMethods.OvlK_Init(out handle, usbHandle, maxOverlappedCount, flags);
             int errorCode = Marshal.GetLastWin32Error();
 
@@ -2304,8 +2290,6 @@ namespace Aristocrat.Monaco.Hardware.Usb
         /// <Summary>Initializes a new uni-directional pipe stream.</Summary>
         public StmK(KusbHandle usbHandle, byte pipeId, int maxTransferSize, int maxPendingTransfers, int maxPendingIo, ref KStmCallback callbacks, KStmFlag flags)
         {
-            //RuntimeHelpers.PrepareConstrainedRegions();   //PLANA: https://docs.microsoft.com/en-us/dotnet/fundamentals/syslib-diagnostics/syslib0004#workarounds
-
             bool success = NativeMethods.StmK_Init(out handle, usbHandle, pipeId, maxTransferSize, maxPendingTransfers, maxPendingIo, ref callbacks, flags);
             int errorCode = Marshal.GetLastWin32Error();
 
@@ -2376,8 +2360,6 @@ namespace Aristocrat.Monaco.Hardware.Usb
         /// <Summary>Creates a new iso transfer context.</Summary>
         public IsoK(int numberOfPackets, int startFrame)
         {
-            //RuntimeHelpers.PrepareConstrainedRegions();   //PLANA: https://docs.microsoft.com/en-us/dotnet/fundamentals/syslib-diagnostics/syslib0004#workarounds
-
             bool success = NativeMethods.IsoK_Init(out handle, numberOfPackets, startFrame);
             int errorCode = Marshal.GetLastWin32Error();
 

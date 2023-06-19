@@ -79,9 +79,6 @@
                 amount);
 
             // test == operator
-#pragma warning disable CS1718 // Comparison made to same variable; did you mean to compare something else?
-            Assert.IsTrue(target1 == target1); // this is testing reference equality
-#pragma warning restore CS1718 // Comparison made to same variable; did you mean to compare something else?
             Assert.IsTrue(target1 == target2);
             Assert.IsFalse(target1 == target3);
             Assert.IsFalse(target1 == null);

@@ -108,9 +108,6 @@
             var target3 = new VoucherInTransaction(deviceId + 1, transactionDateTime, amount, accountType, barcode);
 
             // tests for ==
-#pragma warning disable CS1718 // Comparison made to same variable; did you mean to compare something else?
-            Assert.IsTrue(target1 == target1); // need to test references are equal
-#pragma warning restore CS1718 // Comparison made to same variable; did you mean to compare something else?
             Assert.IsTrue(target1 == target2);
             Assert.IsFalse(target1 == target3);
             Assert.IsFalse(target1 == null);

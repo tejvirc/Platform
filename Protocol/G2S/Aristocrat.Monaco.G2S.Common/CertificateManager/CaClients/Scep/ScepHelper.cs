@@ -55,17 +55,12 @@
                 var randomGenerator = new CryptoApiRandomGenerator();
                 var random = new SecureRandom(randomGenerator);
 
-                ISignatureFactory signatureFactory =
-                    new Asn1SignatureFactory(PkcsObjectIdentifiers.Sha512WithRsaEncryption.Id, keyPair.Private, random);
-
-#pragma warning disable 618
+                var signatureFactory = new Asn1SignatureFactory(PkcsObjectIdentifiers.Sha512WithRsaEncryption.Id, keyPair.Private, random);
                 request = new Pkcs10CertificationRequest(
-#pragma warning restore 618
                     signatureFactory,
                     subject,
                     keyPair.Public,
-                    attributes,
-                    keyPair.Private);
+                    attributes);
             }
 
             return Convert.ToBase64String(request.GetEncoded());

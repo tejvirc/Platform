@@ -22,8 +22,6 @@
     using MVVM.Command;
     using OperatorMenu;
 
-#pragma warning disable 2214
-
     /// <summary>
     ///     A NoteAcceptorViewModel contains the logic for NoteAcceptorViewModel.xaml.cs
     /// </summary>
@@ -866,6 +864,4 @@
             return false;
         }
     }
-
-#pragma warning restore 2214
 }
