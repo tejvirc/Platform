@@ -239,7 +239,6 @@
             _eventBus.Subscribe<BankBalanceChangedEvent>(this, _ => HandleActivity());
             _eventBus.Subscribe<GameIdleEvent>(this, _ => HandleActivity());
             _eventBus.Subscribe<GameSelectedEvent>(this, _ => HandleActivity());
-            _eventBus.Subscribe<GameProcessExitedEvent>(this, _ => HandleActivity());
             
             _eventBus.Subscribe<UserInteractionEvent>(this, _ => _lastAction = DateTime.UtcNow);
             _eventBus.Subscribe<DownEvent>(this, _ => _lastAction = DateTime.UtcNow);
