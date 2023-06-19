@@ -113,11 +113,13 @@
 
             _sharedMem = MemoryMappedFile.CreateNew(SharedMemoryName, _header.TotalSize);
             _sharedMemMutex = new Mutex(true, SharedMutexName, out _);
+            Logger.Debug("sharemem/mutex created");
 
             // We need to write the header
             using (var accessor = _sharedMem.CreateViewAccessor(0, _header.TotalSize, MemoryMappedFileAccess.ReadWrite))
             {
                 var headerData = _header.DataBytes;
+                Logger.Debug($"write header {_header}");
 
                 accessor.WriteArray(0, headerData, 0, headerData.Length);
 
@@ -190,6 +192,7 @@
 
             accessor.Write(start, strips.Count);
             start += sizeof(int);
+            Logger.Debug($"wrote strips count = {strips.Count}");
 
             var writeArray = strips.SelectMany(x => new[] { x.StripId, x.LedCount }).ToArray();
             accessor.WriteArray(start, writeArray, 0, writeArray.Length);
