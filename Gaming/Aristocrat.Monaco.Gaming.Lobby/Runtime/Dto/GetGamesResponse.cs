@@ -1,8 +1,8 @@
-﻿namespace Aristocrat.Runtime.V1;
+﻿namespace Aristocrat.LobbyRuntime.V1;
 
 using System.Collections.Generic;
 
 public class GetGamesResponse
 {
-    public IList<GameInfo>? Games { get; set; }
+    public IList<GameCombo>? Games { get; set; }
 }

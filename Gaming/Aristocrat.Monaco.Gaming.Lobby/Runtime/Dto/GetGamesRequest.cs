@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Runtime.V1;
+﻿namespace Aristocrat.LobbyRuntime.V1;
 
 public class GetGamesRequest
 {

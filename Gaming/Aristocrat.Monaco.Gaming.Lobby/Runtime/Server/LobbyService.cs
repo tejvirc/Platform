@@ -13,7 +13,7 @@ public class LobbyService : ILobbyService
         _handlerFactory = handlerFactory;
     }
 
-    public GetGamesResponse GetGames(GetGamesRequest request)
+    public GetGamesResponse GetGames(Empty request)
     {
         var command = new GetGames();
 

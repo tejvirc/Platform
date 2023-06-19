@@ -1,6 +1,6 @@
 ﻿namespace Aristocrat.LobbyRuntime.V1;
 
-public class DenomInfo
+public class Empty
 {
     
 }

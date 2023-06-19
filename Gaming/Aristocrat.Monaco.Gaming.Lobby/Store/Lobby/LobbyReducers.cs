@@ -27,7 +27,8 @@ public static class LobbyReducers
         state with
         {
             IsMultiLanguage = payload.Configuration.MultiLanguageEnabled,
-            IsAgeWarningNeeded = payload.Configuration.DisplayAgeWarning
+            IsAgeWarningNeeded = payload.Configuration.DisplayAgeWarning,
+            UseGen8IdleModeEdgeLightingOverride = payload.Configuration.EdgeLightingOverrideUseGen8IdleMode
         };
 
     [ReducerMethod]

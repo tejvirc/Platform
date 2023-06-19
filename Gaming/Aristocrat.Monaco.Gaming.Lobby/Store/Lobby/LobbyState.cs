@@ -37,4 +37,10 @@ public record LobbyState
     public bool IsSystemDisableImmediately { get; set; }
 
     public bool AllowGameInCharge { get; set; }
+
+    public bool UseGen8IdleModeEdgeLightingOverride { get; set; }
+
+    public DateTime DenomCheckTime { get; set; }
+
+    public DateTime LastUserInteractionTime { get; set; }
 }

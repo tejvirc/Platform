@@ -4,5 +4,5 @@ using Aristocrat.Runtime.V1;
 
 public interface ILobbyService
 {
-    GetGamesResponse GetGames(GetGamesRequest request);
+    GetGamesResponse GetGames(Empty request);
 }

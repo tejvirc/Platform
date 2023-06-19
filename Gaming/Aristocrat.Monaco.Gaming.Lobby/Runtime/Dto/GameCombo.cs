@@ -1,9 +1,9 @@
-﻿namespace Aristocrat.Runtime.V1;
+﻿namespace Aristocrat.LobbyRuntime.V1;
 
 using System;
 using System.Collections.Generic;
 
-public class GameInfo
+public class GameCombo
 {
     public string? ThemeId { get; init; }
 
