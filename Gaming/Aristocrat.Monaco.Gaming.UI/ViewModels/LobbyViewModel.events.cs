@@ -851,13 +851,24 @@
         {
             // Restore the fast-launch capability after tilts.
             _lobbyStateManager.AllowGameAutoLaunch = true;
-            MvvmHelper.ExecuteOnUI(() => SendTrigger(LobbyTrigger.Enable));
-
             // If game is ready but not loaded due to disable, load it now
             if (GameReady)
             {
-                Logger.Debug("GamePlayEnabledEvent during game load. Assuming we are now loaded.");
-                MvvmHelper.ExecuteOnUI(() => SendTrigger(LobbyTrigger.GameLoaded));
+                MvvmHelper.ExecuteOnUI(
+                    () =>
+                    {
+                        SendTrigger(LobbyTrigger.Enable);
+
+                        if (_lobbyStateManager.CurrentState != LobbyState.Disabled)
+                        {
+                            Logger.Debug("GamePlayEnabledEvent during game load. Assuming we are now loaded.");
+                            SendTrigger(LobbyTrigger.GameLoaded);
+                        }
+                    });
+            }
+            else
+            {
+                MvvmHelper.ExecuteOnUI(() => SendTrigger(LobbyTrigger.Enable));
             }
         }
 
