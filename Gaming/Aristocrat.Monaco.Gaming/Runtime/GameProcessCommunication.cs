@@ -31,6 +31,8 @@
 
         public void StartComms()
         {
+            EndComms();
+
             lock (_lock)
             {
                 foreach (var endpoint in _endpoints)
