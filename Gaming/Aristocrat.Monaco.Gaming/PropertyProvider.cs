@@ -76,9 +76,9 @@
                     ProgressivePoolCreation = new GamingConfigurationProgressivePoolCreation(),
                     PlayerInformationDisplay = new GamingConfigurationPlayerInformationDisplay(),
                     FreeSpin = new GamingConfigurationFreeSpin(),
-                    Win = new GamingConfigurationWin()
+                    Win = new GamingConfigurationWin(),
                     DisplayGamePayMessage = new GamingConfigurationDisplayGamePayMessage()
-                });
+                });;
 
             var blockExists = storageManager.BlockExists(storageName);
 
