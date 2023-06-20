@@ -401,10 +401,6 @@
             MvvmHelper.ExecuteOnUI(() =>
             {
                 RaisePropertyChanged(nameof(CommsInfoData));
-                foreach(var info in CommsInfoData)
-                {
-
-                }
             });
         }
     }
