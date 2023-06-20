@@ -7,16 +7,16 @@
     using System.Threading.Tasks;
     using System.Threading.Tasks.Dataflow;
     using Application.Contracts.Extensions;
-    using GdkRuntime.V1;
     using Client;
     using Commands;
     using Contracts;
     using Contracts.Central;
     using Contracts.Process;
+    using GdkRuntime.V1;
     using Kernel;
     using log4net;
-    using GameRoundDetails = GdkRuntime.V1.GameRoundDetails;
     using EventTypes = GdkRuntime.V1.RuntimeEventNotification.Types.RuntimeEvent;
+    using GameRoundDetails = GdkRuntime.V1.GameRoundDetails;
     using LocalStorage = GdkRuntime.V1.LocalStorage;
 
     public class SnappService : IGameServiceCallback
@@ -632,6 +632,11 @@
             _handlerFactory.Create<SelectDenomination>().Handle(selectDenom);
 
             return EmptyResult;
+        }
+
+        public override Empty UpdateLanguage(LanguageRequest request)
+        {
+            throw new NotImplementedException();
         }
 
         public override Empty UpdateBetOptions(UpdateBetOptionsRequest request)

@@ -1,11 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData
 {
-    using System.Diagnostics.CodeAnalysis;
-
     /// <summary>
     ///     This incorporates the data required for nudging a reel
     /// </summary>
-    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Data will be used once wired up to the game")]
     public class NudgeReelData : ISpinData
     {
         /// <summary>
