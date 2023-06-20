@@ -5,9 +5,9 @@
     using System.Linq;
     using System.Windows;
     using Application.Contracts.OperatorMenu;
+    using Application.Contracts.Localization;
     using Application.UI.OperatorMenu;
     using Aristocrat.G2S.Client;
-    using Application.Contracts.Localization;
     using G2S;
     using Kernel;
     using Localization.Properties;

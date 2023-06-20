@@ -1,16 +1,5 @@
 ﻿namespace Aristocrat.Monaco.G2S.UI.ViewModels
 {
-    using Application.Contracts;
-    using Application.UI.ConfigWizard;
-    using Aristocrat.G2S.Client.Communications;
-    using Common.CertificateManager;
-    using Common.CertificateManager.Models;
-    using Common.DHCP;
-    using Common.Events;
-    using Kernel;
-    using MVVM;
-    using MVVM.Command;
-    using Security;
     using System;
     using System.Collections.ObjectModel;
     using System.Linq;
@@ -19,9 +8,20 @@
     using System.Threading.Tasks;
     using System.Windows.Input;
     using System.Windows.Threading;
+    using Application.Contracts;
     using Application.Contracts.Localization;
+    using Aristocrat.G2S.Client.Communications;
+    using Application.UI.ConfigWizard;
+    using Common.CertificateManager;
+    using Common.CertificateManager.Models;
+    using Common.DHCP;
+    using Common.Events;
+    using Kernel;
     using Localization.Properties;
     using Monaco.UI.Common;
+    using MVVM;
+    using MVVM.Command;
+    using Security;
     using Constants = G2S.Constants;
 
     /// <summary>

@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.G2S.UI.ViewModels
 {
     using Application.UI.OperatorMenu;
-    using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
+    using Application.Contracts.OperatorMenu;
 
     /// <summary>
     ///     ViewModel for CommsMainPageViewModel.

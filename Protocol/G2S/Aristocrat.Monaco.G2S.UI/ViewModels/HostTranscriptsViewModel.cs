@@ -11,7 +11,7 @@
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices.v21;
     using Aristocrat.G2S.Protocol.v21;
-    using Aristocrat.Monaco.Application.Contracts.Localization;
+    using Application.Contracts.Localization;
     using Kernel;
     using Models;
     using Monaco.UI.Common;

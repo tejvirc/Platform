@@ -1,5 +1,9 @@
 ﻿namespace Aristocrat.Monaco.G2S.UI.ViewModels
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
     using Application.Contracts;
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
@@ -15,10 +19,6 @@
     using MVVM;
     using MVVM.Command;
     using MVVM.ViewModel;
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Linq;
     using Views;
 
     [CLSCompliant(false)]
