@@ -221,4 +221,16 @@
         <Setter Property="Margin"
                 Value="10, 5, 10, 5"></Setter>
     </Style>
+    <Style x:Key="MonacoCheckBoxSmall"
+           TargetType="CheckBox"
+                   BasedOn="{StaticResource MonacoCheckBox}">
+        <Setter Property="FontSize"
+                        Value="14" />
+        <Setter Property="helpers:CheckBoxHelper.CheckBoxPartWidth"
+                        Value="30" />
+        <Setter Property="helpers:CheckBoxHelper.CheckMarkPartWidth"
+                        Value="15" />
+        <Setter Property="helpers:CheckBoxHelper.CheckMarkPartHeight"
+                        Value="13" />
+    </Style>
 </ResourceDictionary>

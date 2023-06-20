@@ -3,9 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Events;
     using Gds.Reel;
     using ImplementationCapabilities;
+    using Aristocrat.Monaco.Hardware.Contracts.Reel.Events;
 
     /// <summary>
     ///     The reel controller implementation
@@ -55,7 +55,7 @@
         IReadOnlyDictionary<int, ReelFaults> Faults { get; }
 
         /// <summary> Gets the status for each of the available reels </summary>
-        IReadOnlyDictionary<int, ReelStatus> ReelsStatus { get; }
+        IReadOnlyDictionary<int, ReelStatus> ReelStatuses { get; }
 
         /// <summary>
         ///     Homes the reels to the requested stop

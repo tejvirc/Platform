@@ -22,9 +22,16 @@
     <b:Interaction.Behaviors>
         <behaviors:TouchWindowBehavior />
     </b:Interaction.Behaviors>
-    <InkCanvas Name="TouchCanvas" Background="Transparent"
-               AutomationProperties.AutomationId="Canvas0_9577AC4">
-        <Label Canvas.Top="50" Canvas.Left="50"
+    <InkCanvas Name="TouchCanvas"
+               Background="Transparent"
+               Opacity="1"
+               EditingMode="None"
+               ForceCursor="True"
+               Cursor="None"
+               AutomationProperties.AutomationId="InkCanvas0_9577AC4">
+        <Label InkCanvas.Top="50"
+               InkCanvas.Left="50"
+               Name="DrawLabel"
                Width="{Binding Path=ActualWidth, ElementName=TouchCanvas}"
                Content="{lex:Loc Key={x:Static loc:ResourceKeys.DrawOnTouchableArea}}"
                AutomationProperties.AutomationId="Label1_9577AC4" />

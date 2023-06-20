@@ -194,6 +194,7 @@
                 SetProperty(ref _orderNumber, value, nameof(OrderNumber));
                 SetItemPickFlag(ItemPick.Order);
             }
+
         }
 
         public string InspectorInitials
@@ -258,7 +259,7 @@
         {
             if (WizardNavigator != null)
             {
-                WizardNavigator.CanNavigateBackward = false;
+                WizardNavigator.CanNavigateBackward = !IsInspection;
                 WizardNavigator.CanNavigateForward = !IsInspection || (_ItemsPicked == ItemPick.All);
             }
         }

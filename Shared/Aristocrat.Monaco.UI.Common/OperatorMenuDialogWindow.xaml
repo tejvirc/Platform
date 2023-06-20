@@ -29,9 +29,8 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-
     <b:Interaction.Behaviors>
-        <behaviors:HighDpiWindowBehavior/>
+        <behaviors:HighDpiWindowBehavior />
     </b:Interaction.Behaviors>
 
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center"

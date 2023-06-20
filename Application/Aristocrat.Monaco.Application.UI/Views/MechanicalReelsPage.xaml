@@ -349,6 +349,12 @@
                 </StackPanel>
                 <!-- Lights -->
                 <StackPanel
+                    Visibility="{Binding LightAnimationTestScreenHidden, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                    AutomationProperties.AutomationId="StackPanel1_A06673F2">
+                    <views:MechanicalReelsLightAnimationTestControl x:Name="LightAnimationTestControl"
+                                                                    DataContext="{Binding LightAnimationTestViewModel}"/>
+                </StackPanel>
+                <StackPanel
                         Visibility="{Binding LightTestScreenHidden, Converter={StaticResource TrueCollapsedFalseVisible}}"
                             AutomationProperties.AutomationId="StackPanel49_EA876383">
                     <views:MechanicalReelsLightTestControl x:Name="LightTestControl"

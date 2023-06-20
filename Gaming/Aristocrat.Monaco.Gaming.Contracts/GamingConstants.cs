@@ -472,6 +472,11 @@
         public const string ProgressiveCommitTimeoutMs = @"Progressive.CommitTimeoutMs";
 
         /// <summary>
+        ///     Determines if JackpotCeiling message is enabled
+        /// </summary>
+        public const string JackpotCeilingHelpScreen = @"Cabinet.JackpotCeiling";
+
+        /// <summary>
         ///     Property manager key for the progressive lobby indicator type
         /// </summary>
         public const string ProgressiveLobbyIndicatorType = @"Progressive.LobbyIndicator";
@@ -585,17 +590,7 @@
         ///     Buttons that start continuous play mode
         /// </summary>
         public const string ContinuousPlayModeButtonsToUse = @"GamePlay.ContinuousPlaySupport.ButtonsToUse";
-
-        /// <summary>
-        ///     When enabled, for each enabled progressive level, their name and ceiling will be shown to the user in the game rules screen.
-        /// </summary>
-        public const string DisplayProgressiveCeilingMessage = @"GamePlay.DisplayProgressiveCeilingMessage";
-
-        /// <summary>
-        ///     When enabled, it will inform the player that they can press the big button to stop the reel.
-        /// </summary>
-        public const string DisplayStopReelMessage = @"GamePlay.DisplayStopReelMessage";
-
+        
         /// <summary>
         ///     When enabled, it will retain last round result for roulette games.
         /// </summary>
@@ -790,7 +785,7 @@
         ///     Determines whether EGM will send the cashout button press event to host in case credit is zero
         /// </summary>
         public const string ReportCashoutButtonPressWithZeroCredit = @"CashoutButton.ReportToHostWithZeroCredit";
-        
+
         /// <summary>
         ///     Determines whether or not the Voucher Issued message is displayed in game
         /// </summary>
@@ -810,6 +805,11 @@
         ///     Determines "Way to Start game"  (say bet or line etc)
         /// </summary>
         public const string GameStartMethod = @"GameStartMethod";
+
+        /// <summary>
+        ///     Determines "Way to Start game" that can be changed by the game (say bet or line etc)
+        /// </summary>
+        public const string GameConfigurableStartMethods = @"GameConfigurableStartMethod";
 
         /// <summary>
         ///     Determines whether "Way to Start game" option is configurable or not
@@ -1182,6 +1182,11 @@
         ///     Whether denomination selection lobby is required/allowed
         /// </summary>
         public const string DenomSelectionLobby = "GamingConfiguration.DenomSelectionLobby.Mode";
+
+        /// <summary>
+        ///     Command Line argument for enabling slow recovery
+        /// </summary>
+        public const string UseSlowRecovery = "UseSlowRecovery";
 
         /// <summary>
         ///     encapsulate Player Information Display options

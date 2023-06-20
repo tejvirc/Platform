@@ -6,6 +6,8 @@
     using System.Globalization;
     using System.Linq;
     using Application.Tickets;
+    using Contracts.Currency;
+    using Contracts.Extensions;
     using Contracts;
     using Contracts.Tickets;
     using Contracts.TiltLogger;
@@ -104,6 +106,14 @@
             _printerMock.Setup(mock => mock.GetCharactersPerLine(false, 0)).Returns(36);
 
             _target = new EventLogTicketCreator();
+
+            // set up currency
+            string minorUnitSymbol = "c";
+            string cultureName = "en-US";
+            CultureInfo culture = new CultureInfo(cultureName);
+
+            RegionInfo region = new RegionInfo(cultureName);
+            CurrencyExtensions.Currency = new Currency(region.ISOCurrencySymbol, region, culture, minorUnitSymbol);
         }
 
         [TestMethod]

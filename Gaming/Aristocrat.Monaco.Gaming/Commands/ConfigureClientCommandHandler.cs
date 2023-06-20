@@ -29,6 +29,8 @@ namespace Aristocrat.Monaco.Gaming.Commands
     /// </summary>
     public class ConfigureClientCommandHandler : ICommandHandler<ConfigureClient>
     {
+        private static readonly IReadOnlyCollection<ContinuousPlayButton> DefaultContinuousPlayButtons = new[] { ContinuousPlayButton.Play };
+
         private readonly IAudio _audio;
         private readonly IGameHistory _gameHistory;
         private readonly IGameRecovery _gameRecovery;
@@ -40,11 +42,9 @@ namespace Aristocrat.Monaco.Gaming.Commands
         private readonly IGameCategoryService _gameCategoryService;
         private readonly IGameProvider _gameProvider;
         private readonly ICabinetDetectionService _cabinetDetectionService;
-        private readonly IGameHelpTextProvider _gameHelpTextProvider;
         private readonly IHardwareHelper _hardwareHelper;
         private readonly IAttendantService _attendantService;
         private readonly IGameConfigurationProvider _gameConfiguration;
-
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigureClientCommandHandler" /> class.
         /// </summary>
@@ -60,7 +60,6 @@ namespace Aristocrat.Monaco.Gaming.Commands
             IGameProvider gameProvider,
             IGameCategoryService gameCategoryService,
             ICabinetDetectionService cabinetDetectionService,
-            IGameHelpTextProvider gameHelpTextProvider,
             IHardwareHelper hardwareHelper,
             IAttendantService attendantService,
             IGameConfigurationProvider gameConfiguration)
@@ -76,7 +75,6 @@ namespace Aristocrat.Monaco.Gaming.Commands
             _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _gameCategoryService = gameCategoryService ?? throw new ArgumentNullException(nameof(gameCategoryService));
             _cabinetDetectionService = cabinetDetectionService ?? throw new ArgumentNullException(nameof(cabinetDetectionService));
-            _gameHelpTextProvider = gameHelpTextProvider ?? throw new ArgumentNullException(nameof(gameHelpTextProvider));
             _hardwareHelper = hardwareHelper ?? throw new ArgumentNullException(nameof(hardwareHelper));
             _attendantService = attendantService ?? throw new ArgumentNullException(nameof(attendantService));
             _gameConfiguration = gameConfiguration ?? throw new ArgumentNullException(nameof(gameConfiguration));
@@ -105,14 +103,6 @@ namespace Aristocrat.Monaco.Gaming.Commands
             var useWinLimit = _properties.GetValue(GamingConstants.UseGambleWinLimit, false);
             var singleGameAutoLaunch = _lobbyStateManager.AllowSingleGameAutoLaunch;
 
-            var continuousPlayButtons = _properties.GetValue(GamingConstants.ContinuousPlayModeButtonsToUse, new [] { ContinuousPlayButton.Play }).ToList()
-                .Select(
-                    x => x switch
-                    {
-                        ContinuousPlayButton.MaxBet => "maxbet",
-                        _ => "play"
-                    });
-
             var parameters = new Dictionary<string, string>
             {
                 { "/Runtime/Variation/SelectedID", currentGame.VariationId },
@@ -120,13 +110,14 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 { "/Runtime/ActiveDenominations", string.Join(",", activeDenominations.Select(d => d.Value.MillicentsToCents())) },
                 { "/Runtime/Flags&RequireGameStartPermission", "true" },
                 { "/Runtime/Localization/Language", _properties.GetValue(GamingConstants.SelectedLocaleCode, "en-us") },
-                { "/Runtime/Localization/Currency&symbol", CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencySymbol },
-                { "/Runtime/Localization/Currency&minorSymbol", CurrencyExtensions.MinorUnitSymbol },
+                { "/Runtime/Localization/Currency&symbol", CurrencyExtensions.Currency.CurrencySymbol },
+                { "/Runtime/Localization/Currency&minorSymbol", CurrencyExtensions.Currency.MinorUnitSymbol },
                 { "/Runtime/Localization/Currency&positivePattern", CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencyPositivePattern.ToString() },
                 { "/Runtime/Localization/Currency&negativePattern", CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencyNegativePattern.ToString() },
                 { "/Runtime/Localization/Currency&decimalDigits", CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencyDecimalDigits.ToString() },
                 { "/Runtime/Localization/Currency&decimalSeparator", CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencyDecimalSeparator },
                 { "/Runtime/Localization/Currency&groupSeparator", CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencyGroupSeparator },
+                { "/Runtime/Localization/Currency&DenominationDisplayUnit", CurrencyExtensions.Currency.DenomDisplayUnit.ToString() }, 
                 { "/Runtime/Audio&activeLevel", maxVolumeLevel.ToString(CultureInfo.InvariantCulture) },
                 { "/Runtime/Account&balance", _playerBank.Credits.ToString() },
                 { "/Runtime/Hardware/HasUsbButtonDeck", _hardwareHelper.CheckForUsbButtonDeckHardware().ToString() },
@@ -138,6 +129,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 { "/Runtime/Flags&InServiceRequest", _attendantService.IsServiceRequested.ToString() },
                 { "/Runtime/ReelStop", _properties.GetValue(GamingConstants.ReelStopEnabled, true).ToString() },
                 { "/Runtime/ReelStopInBaseGame", _properties.GetValue(GamingConstants.ReelStopInBaseGameEnabled, true).ToString() },
+                { "/Runtime/JackpotCeiling", _properties.GetValue(GamingConstants.JackpotCeilingHelpScreen, false).ToString() },
                 { "/Runtime/Flags&NewReelSetSelectedNotification", _properties.GetValue(GamingConstants.PlayerNotificationNewReelSetSelected, false).ToString() },
                 { "/Runtime/NewReelSetSelectedNotification", _properties.GetValue(GamingConstants.PlayerNotificationNewReelSetSelected, false).ToString() },
                 { "/Runtime/Flags&GameContentCensorship", (bool)_properties.GetProperty(GamingConstants.CensorshipEnforced, false) ? "censored" : "uncensored" },
@@ -149,8 +141,6 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 { "/Runtime/GambleWinLimit&valueCents", _properties.GetValue(GamingConstants.GambleWinLimit, GamingConstants.DefaultGambleWinLimit).MillicentsToCents().ToString() },
                 { "/Runtime/MaximumGambleHandWager", !useWinLimit ? "true" : "false" },
                 { "/Runtime/MaximumGambleHandWager&valueCents", _properties.GetValue(GamingConstants.GambleWagerLimit, long.MaxValue).MillicentsToCents().ToString() },
-                { "/Runtime/Flag&ContinuousPlayMode", _properties.GetValue(GamingConstants.ContinuousPlayMode, PlayMode.Toggle) == PlayMode.Toggle ? "toggle" : "continuous" },
-                { "/Runtime/ContinuousPlay&buttons", string.Join(",", continuousPlayButtons) },
                 { "/Runtime/Hardware/EdgeLightSharedMemoryName", EdgeLightRuntimeParameters.EdgeLightSharedMemoryName },
                 { "/Runtime/Hardware/EdgeLightSharedMutexName", EdgeLightRuntimeParameters.EdgeLightSharedMutexName },
                 { "/Runtime/Hardware/VBD&type", _cabinetDetectionService.ButtonDeckType },
@@ -256,48 +246,15 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 parameters.Add("/Runtime/BonusAwardMultiplier", denomination.BonusBet.ToString());
             }
 
-            foreach (var helpText in _gameHelpTextProvider.AllHelpTexts)
-            {
-                parameters[helpText.Key] = helpText.Value();
-            }
-
             if (showVolumeControlInLobbyOnly)
             {
                 var playerVolumeScalar = _audio.GetVolumeScalar((VolumeScalar)_properties.GetValue(ApplicationConstants.PlayerVolumeScalarKey, ApplicationConstants.PlayerVolumeScalar));
                 parameters["/Runtime/Audio&playerVolumeScalar"] = playerVolumeScalar.ToString(CultureInfo.InvariantCulture);
             }
 
-            if ((bool)_properties.GetProperty(GamingConstants.ApplyGameCategorySettings, false))
-            {
-                parameters["/Runtime/Flags&AutoPlay"] = _gameCategoryService.SelectedGameCategorySetting.AutoPlay.ToString();
-                parameters["/Runtime/Flags&AutoHold"] = _gameCategoryService.SelectedGameCategorySetting.AutoHold.ToString();
-                parameters["/Runtime/AutoHold"] = _gameCategoryService.SelectedGameCategorySetting.AutoHold.ToString();
-                parameters["/Runtime/Flags&ShowPlayerSpeedButton"] = _gameCategoryService.SelectedGameCategorySetting.ShowPlayerSpeedButton.ToString();
-                parameters["/Runtime/ShowPlayerSpeedButton"] = _gameCategoryService.SelectedGameCategorySetting.ShowPlayerSpeedButton.ToString();
-                parameters["/Runtime/PlaySpeed"] = _gameCategoryService.SelectedGameCategorySetting.PlayerSpeed.ToString();
-                parameters["/Runtime/GameDuration&playSpeed"] = _gameCategoryService.SelectedGameCategorySetting.PlayerSpeed.ToString();
-                parameters["/Runtime/DealSpeed"] = _gameCategoryService.SelectedGameCategorySetting.DealSpeed.ToString();
-                parameters["/Runtime/GameDuration&dealSpeed"] = _gameCategoryService.SelectedGameCategorySetting.DealSpeed.ToString();
-                parameters["/Runtime/GamePreferences/BackgroundColor"] = (_gameCategoryService.SelectedGameCategorySetting.BackgroundColor ?? string.Empty);
-            }
-
-            // setup button layout options
-            parameters["/Runtime/PhysicalButtons&betOnBottom"] = _properties.GetValue(GamingConstants.ButtonLayoutBetButtonsOnBottom, true).ToString();
-            parameters["/Runtime/PhysicalButtons/Collect"] = _properties.GetValue(GamingConstants.ButtonLayoutPhysicalButtonCollect, "true");
-            parameters["/Runtime/PhysicalButtons/Collect&optional"] = _properties.GetValue(GamingConstants.ButtonLayoutPhysicalButtonCollectOptional, false).ToString();
-            parameters["/Runtime/PhysicalButtons/Gamble"] = _properties.GetValue(GamingConstants.ButtonLayoutPhysicalButtonGamble, "false");
-            parameters["/Runtime/PhysicalButtons/Gamble&optional"] = _properties.GetValue(GamingConstants.ButtonLayoutPhysicalButtonGambleOptional, false).ToString();
-            parameters["/Runtime/PhysicalButtons/Service"] = _properties.GetValue(GamingConstants.ButtonLayoutPhysicalButtonService, "true");
-            parameters["/Runtime/PhysicalButtons/Service&optional"] = _properties.GetValue(GamingConstants.ButtonLayoutPhysicalButtonServiceOptional, false).ToString();
-            parameters["/Runtime/PhysicalButtons/TakeWin"] = _properties.GetValue(GamingConstants.ButtonLayoutPhysicalButtonTakeWin, "false");
-            parameters["/Runtime/PhysicalButtons/TakeWin&optional"] = _properties.GetValue(GamingConstants.ButtonLayoutPhysicalButtonTakeWinOptional, false).ToString();
-            parameters["/Runtime/StartGame&buttons"] = _properties.GetValue(GamingConstants.GameStartMethod, GameStartMethodOption.Bet)
-                switch
-                {
-                    GameStartMethodOption.None => "",
-                    GameStartMethodOption.LineOrReel => "Line, MaxBet",
-                    _ => "Bet, MaxBet"
-                };
+            ApplyGameCategorySettings(parameters);
+            SetButtonLayout(parameters);
+            SetButtonBehavior(parameters);
 
             var marketParameters = new Dictionary<string, string>
             {
@@ -342,28 +299,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 }
             }
 
-            if (_gameRecovery.IsRecovering && _gameHistory.LoadRecoveryPoint(out var data))
-            {
-                _gameHistory.LogRecoveryData(data, "[RECOVERY POINT] <-");
-
-                // Uncomment for slow recovery (debug only).
-                //parameters.Add("/Runtime/Recovery", "true");
-                //parameters.Add("/Runtime/Recovery&realtime", "true");
-
-                if (data != null && data.Length > 0)
-                {
-                    parameters.Add("/Runtime/Recovery/BinaryData", Encoding.ASCII.GetString(data));
-                }
-            }
-            else if (_gameDiagnostics.IsActive)
-            {
-                // Add/merge diagnostics parameters
-                foreach (var parameter in _gameDiagnostics.Context.GetParameters())
-                {
-                    parameters[parameter.Key] = parameter.Value;
-                }
-            }
-
+            HandleGameHistoryData(parameters);
             foreach (var displayDevice in _cabinetDetectionService.ExpectedDisplayDevices.Where(d => d.Role != DisplayRole.Unknown))
             {
                 var diagonalDisplayFlag = ConfigureClientConstants.DiagonalDisplayFlag(displayDevice.Role);
@@ -375,6 +311,155 @@ namespace Aristocrat.Monaco.Gaming.Commands
 
             _runtime.UpdateParameters(parameters, ConfigurationTarget.GameConfiguration);
             _runtime.UpdateParameters(marketParameters, ConfigurationTarget.MarketConfiguration);
+        }
+
+        private static string GetGameStartMethodString(GameStartMethodOption startMethod) =>
+            startMethod switch
+            {
+                GameStartMethodOption.None => "",
+                GameStartMethodOption.LineOrReel => "Line",
+                GameStartMethodOption.LineReelOrMaxBet => "Line, MaxBet",
+                GameStartMethodOption.Bet => "Bet",
+                _ => "Bet, MaxBet"
+            };
+
+        private static string GetConfigurableGameStartMethods(IEnumerable<GameStartConfigurableMethod> startMethod)
+        {
+            return string.Join(", ", startMethod.Select(GetButtonText).Where(x => !string.IsNullOrEmpty(x)));
+
+            static string GetButtonText(GameStartConfigurableMethod button)
+            {
+                return button switch
+                {
+                    GameStartConfigurableMethod.Bet => "Bet",
+                    GameStartConfigurableMethod.MaxBet => "MaxBet",
+                    GameStartConfigurableMethod.LineOrReel => "Line",
+                    _ => string.Empty
+                };
+            }
+        }
+
+        private static string GetContinuePlayModeString(PlayMode playMode) =>
+            playMode switch
+            {
+                PlayMode.Toggle => "toggle",
+                _ => "continuous"
+            };
+
+        private static string GetContinuePlayButtonString(ContinuousPlayButton button)
+        {
+            return button switch
+            {
+                ContinuousPlayButton.MaxBet => "maxbet",
+                _ => "play"
+            };
+        }
+
+        private static string GetContinuePlayButtonsString(IEnumerable<ContinuousPlayButton> buttons)
+        {
+            return string.Join(",", buttons.Select(GetContinuePlayButtonString));
+        }
+
+        private void HandleGameHistoryData(IDictionary<string, string> parameters)
+        {
+            if (_gameRecovery.IsRecovering && _gameHistory.LoadRecoveryPoint(out var data))
+            {
+                AddRecoveryData(parameters, data);
+                return;
+            }
+
+            if (!_gameDiagnostics.IsActive)
+            {
+                return;
+            }
+
+            foreach (var parameter in _gameDiagnostics.Context.GetParameters())
+            {
+                parameters[parameter.Key] = parameter.Value;
+            }
+        }
+
+        private void AddRecoveryData(IDictionary<string, string> parameters, byte[] data)
+        {
+            _gameHistory.LogRecoveryData(data, "[RECOVERY POINT] <-");
+            if (_properties.GetValue(GamingConstants.UseSlowRecovery, false))
+            {
+                parameters.Add("/Runtime/Recovery", "true");
+                parameters.Add("/Runtime/Recovery&realtime", "true");
+            }
+
+            if (data is { Length: > 0 })
+            {
+                parameters.Add("/Runtime/Recovery/BinaryData", Encoding.ASCII.GetString(data));
+            }
+        }
+
+        private void ApplyGameCategorySettings(IDictionary<string, string> parameters)
+        {
+            if (!_properties.GetValue(GamingConstants.ApplyGameCategorySettings, false))
+            {
+                return;
+            }
+
+            var gameCategorySetting = _gameCategoryService.SelectedGameCategorySetting;
+            parameters["/Runtime/Flags&AutoPlay"] = gameCategorySetting.AutoPlay.ToString();
+            parameters["/Runtime/Flags&AutoHold"] = gameCategorySetting.AutoHold.ToString();
+            parameters["/Runtime/AutoHold"] = gameCategorySetting.AutoHold.ToString();
+            parameters["/Runtime/Flags&ShowPlayerSpeedButton"] = gameCategorySetting.ShowPlayerSpeedButton.ToString();
+            parameters["/Runtime/ShowPlayerSpeedButton"] = gameCategorySetting.ShowPlayerSpeedButton.ToString();
+            parameters["/Runtime/PlaySpeed"] = gameCategorySetting.PlayerSpeed.ToString(CultureInfo.InvariantCulture);
+            parameters["/Runtime/GameDuration&playSpeed"] =
+                gameCategorySetting.PlayerSpeed.ToString(CultureInfo.InvariantCulture);
+            parameters["/Runtime/DealSpeed"] = gameCategorySetting.DealSpeed.ToString(CultureInfo.InvariantCulture);
+            parameters["/Runtime/GameDuration&dealSpeed"] =
+                gameCategorySetting.DealSpeed.ToString(CultureInfo.InvariantCulture);
+            parameters["/Runtime/GamePreferences/BackgroundColor"] =
+                gameCategorySetting.BackgroundColor ?? string.Empty;
+        }
+
+        private void SetButtonLayout(IDictionary<string, string> parameters)
+        {
+            parameters["/Runtime/PhysicalButtons&betOnBottom"] = _properties.GetValue(
+                GamingConstants.ButtonLayoutBetButtonsOnBottom,
+                true).ToString();
+            parameters["/Runtime/PhysicalButtons/Collect"] = _properties.GetValue(
+                GamingConstants.ButtonLayoutPhysicalButtonCollect,
+                "true");
+            parameters["/Runtime/PhysicalButtons/Collect&optional"] = _properties.GetValue(
+                GamingConstants.ButtonLayoutPhysicalButtonCollectOptional,
+                false).ToString();
+            parameters["/Runtime/PhysicalButtons/Gamble"] = _properties.GetValue(
+                GamingConstants.ButtonLayoutPhysicalButtonGamble,
+                "false");
+            parameters["/Runtime/PhysicalButtons/Gamble&optional"] = _properties.GetValue(
+                GamingConstants.ButtonLayoutPhysicalButtonGambleOptional,
+                false).ToString();
+            parameters["/Runtime/PhysicalButtons/Service"] = _properties.GetValue(
+                GamingConstants.ButtonLayoutPhysicalButtonService,
+                "true");
+            parameters["/Runtime/PhysicalButtons/Service&optional"] = _properties.GetValue(
+                GamingConstants.ButtonLayoutPhysicalButtonServiceOptional,
+                false).ToString();
+            parameters["/Runtime/PhysicalButtons/TakeWin"] = _properties.GetValue(
+                GamingConstants.ButtonLayoutPhysicalButtonTakeWin,
+                "false");
+            parameters["/Runtime/PhysicalButtons/TakeWin&optional"] = _properties.GetValue(
+                GamingConstants.ButtonLayoutPhysicalButtonTakeWinOptional,
+                false).ToString();
+        }
+
+        private void SetButtonBehavior(IDictionary<string, string> parameters)
+        {
+            var defaultStartMethods = _properties.GetValue(GamingConstants.GameStartMethod, GameStartMethodOption.Bet);
+            var configurablePlayButtons = _properties.GetValue(GamingConstants.GameConfigurableStartMethods, Array.Empty<GameStartConfigurableMethod>());
+            var playMode = _properties.GetValue(GamingConstants.ContinuousPlayMode, PlayMode.Toggle);
+            var continuousPlayButtons = _properties.GetValue(
+                GamingConstants.ContinuousPlayModeButtonsToUse,
+                DefaultContinuousPlayButtons);
+            parameters["/Runtime/StartGame&configurableButtons"] = GetConfigurableGameStartMethods(configurablePlayButtons);
+            parameters["/Runtime/StartGame&buttons"] = GetGameStartMethodString(defaultStartMethods);
+            parameters["/Runtime/Flag&ContinuousPlayMode"] = GetContinuePlayModeString(playMode);
+            parameters["/Runtime/ContinuousPlay&buttons"] = GetContinuePlayButtonsString(continuousPlayButtons);
         }
     }
 }

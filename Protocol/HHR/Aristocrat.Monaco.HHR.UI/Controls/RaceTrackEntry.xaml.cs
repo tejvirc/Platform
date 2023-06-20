@@ -173,9 +173,12 @@
 
         public static void SetupHorseImages()
         {
+            var outputDirBox = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            if (outputDirBox == null)
+                return; // At this point Assembly.GetExecutingAssembly is pointing to a root directory. Critical failure; scrap the egm and get it replaced.
             for (int i = 1; i <= HhrUiConstants.MaxNumberOfHorses; i++)
             {
-                var outPutDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                var outPutDirectory = (string)outputDirBox;
                 var imagePath = Path.Combine(new[] { outPutDirectory, HorseGifPath(i) });
                 var imageLocalPath = new Uri(imagePath).LocalPath;
 

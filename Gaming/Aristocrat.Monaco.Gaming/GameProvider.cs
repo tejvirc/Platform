@@ -1481,7 +1481,7 @@
 
             if (!(game.UpgradeActions?.Any() ?? false))
             {
-                _gameOrder.UpdatePositionPriority(game.ThemeId, 1);
+                _gameOrder.UpdateIconPositionPriority(game.ThemeId, 1);
 
                 Logger.Info($"No Upgrade Actions: Game Id {game.Id} moved to position 1");
             }
@@ -1507,7 +1507,7 @@
 
                     if (!action.MaintainPosition)
                     {
-                        _gameOrder.UpdatePositionPriority(game.ThemeId, 1);
+                        _gameOrder.UpdateIconPositionPriority(game.ThemeId, 1);
 
                         Logger.Info($"Upgrade: Game Id {game.Id} moved to position 1");
                     }

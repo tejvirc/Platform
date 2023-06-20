@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using Accounting.Contracts;
     using Application.Contracts.Extensions;
@@ -1392,7 +1392,7 @@
         ///     True if the return to lobby button is enabled, false otherwise
         /// </summary>
         public bool ReturnToLobbyAllowed => (!_gameHistory.IsRecoveryNeeded && _gameState.Idle || _isGambleFeatureActive) && !_transferOutHandler.InProgress &&
-                                            !_gameHistory.HasPendingCashOut && !ContainsAnyState(LobbyState.Chooser);
+                                            !_gameHistory.HasPendingCashOut && !ContainsAnyState(LobbyState.Chooser) && !_lobbyStateManager.AllowSingleGameAutoLaunch;
 
         /// <summary>
         ///     Controls whether the machine can be put into reserve
@@ -1415,7 +1415,7 @@
             set
             {
                 _gameCount = value;
-                _lobbyStateManager.IsSingleGame = _lobbyStateManager.AllowGameInCharge || UniqueThemeIds <= 1;
+                _lobbyStateManager.IsSingleGame = UniqueThemeIds <= 1;
                 RaisePropertyChanged(nameof(GameCount));
                 RaisePropertyChanged(nameof(MarginInputs));
             }
@@ -1533,7 +1533,7 @@
         }
 
         private bool ShowAttractMode => IsAttractEnabled()
-                                        && HasZeroCredits
+                                        && _lobbyStateManager.CanAttractModeStart
                                         && !IsIdleTextScrolling
                                         && !MessageOverlayDisplay.ShowVoucherNotification
                                         && !MessageOverlayDisplay.ShowProgressiveGameDisabledNotification
@@ -2011,6 +2011,7 @@
             GameTabInfo.SetupGameTypeTabs(gameList);
             GameList = gameList;
             ProgressiveLabelDisplay.UpdateProgressiveIndicator(gameList);
+            GameList = gameList;
         }
 
         private void DisplayNotificationMessage(DisplayableMessage displayableMessage)
@@ -2091,7 +2092,7 @@
                               }).ToList();
 
             return new ObservableCollection<GameInfo>(
-                gameCombos.OrderBy(game => _gameOrderSettings.GetPositionPriority(game.ThemeId))
+                gameCombos.OrderBy(game => _gameOrderSettings.GetIconPositionPriority(game.ThemeId))
                     .ThenBy(g => g.Denomination));
         }
 
@@ -2099,8 +2100,19 @@
         {
             var distinctThemeGames = games.GroupBy(p => p.ThemeId).Select(g => g.FirstOrDefault(e => e.Active)).ToList();
 
-            _gameOrderSettings.SetGameOrderFromConfig(distinctThemeGames.Select(g => (new GameInfo { InstallDateTime = g.InstallDate, ThemeId = g.ThemeId }) as IGameInfo).ToList(),
-                Config.DefaultGameDisplayOrderByThemeId.ToList());
+            var lightningLinkEnabled = distinctThemeGames.Any(g => g.EgmEnabled && g.Enabled && g.Category == GameCategory.LightningLink);
+
+            var lightningLinkOrder = lightningLinkEnabled
+                                         ? Config.DefaultGameOrderLightningLinkEnabled
+                                         : Config.DefaultGameOrderLightningLinkDisabled;
+
+            var defaultList = lightningLinkOrder ?? Config.DefaultGameDisplayOrderByThemeId;
+            
+
+            _gameOrderSettings.SetAttractOrderFromConfig(distinctThemeGames.Select(g => new GameInfo { InstallDateTime = g.InstallDate, ThemeId = g.ThemeId } as IGameInfo).ToList(),
+                                                      defaultList);
+            _gameOrderSettings.SetIconOrderFromConfig(distinctThemeGames.Select(g => new GameInfo { InstallDateTime = g.InstallDate, ThemeId = g.ThemeId } as IGameInfo).ToList(),
+                Config.DefaultGameDisplayOrderByThemeId);
         }
 
         /// <summary>
@@ -4931,7 +4943,7 @@
                     return;
                 }
 
-                if (!IsIdleTextScrolling && HasZeroCredits)
+                if (!IsIdleTextScrolling && _lobbyStateManager.CanAttractModeStart)
                 {
                     var interval = _attractMode
                         ? Config.AttractSecondaryTimerIntervalInSeconds

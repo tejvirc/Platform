@@ -1,9 +1,10 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI
+namespace Aristocrat.Monaco.Gaming.UI
 {
     using System;
     using System.Reflection;
     using System.Threading;
     using Accounting.Contracts;
+    using Application.Contracts;
     using Contracts;
     using Contracts.Lobby;
     using Contracts.Models;
@@ -118,6 +119,9 @@
         public bool IsTabView { get; set; }
 
         public bool ResetAttractOnInterruption { get; set; }
+
+        public bool CanAttractModeStart => _bank.QueryBalance() == 0 ||
+                                           (bool)_properties.GetProperty(ApplicationConstants.ShowMode, false);
 
         public Action<LobbyState, object> OnStateEntry { get; set; }
 
@@ -375,7 +379,7 @@
                 .OnEntryFrom(LobbyTrigger.IdleTextTimer, () => UpdateLobbyUI())
                 .PermitDynamic(
                     LobbyTrigger.IdleTextScrollingComplete,
-                    () => _bank.QueryBalance() == 0 && IsAttractModeIdleTimeout()
+                    () => (CanAttractModeStart) && IsAttractModeIdleTimeout()
                         ? LobbyState.Attract
                         : LobbyState.ChooserIdleTextTimer)
                 .Permit(LobbyTrigger.SetLobbyIdleTextStatic, LobbyState.Chooser)

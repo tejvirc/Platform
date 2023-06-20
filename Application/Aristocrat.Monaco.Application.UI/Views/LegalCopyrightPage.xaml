@@ -33,8 +33,9 @@
             </events:RoutedEventTrigger>
         </b:Interaction.Triggers>
 
-        <TextBlock AutomationProperties.AutomationId="LegalCopyrightPage_TextBlock_TermsAndConditionsText"
-                   VerticalAlignment="Top"
+        <TextBlock 
+	               AutomationProperties.AutomationId="LegalCopyrightPage_TextBlock_TermsAndConditionsText"
+				   VerticalAlignment="Top"
                    Text="{Binding PageContent}"
                    FontWeight="Bold" />
     </Grid>

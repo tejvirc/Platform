@@ -28,7 +28,7 @@
                 throw new ArgumentNullException(nameof(info));
             }
 
-            OnOffKey = (Keys)info.GetValue("OnOffKey", typeof(Keys));
+            OnOffKey = (Keys)(Keys?)info.GetValue("OnOffKey", typeof(Keys));
 
             var keyDownEvents = info.GetValue("KeyDownEvents", typeof(Dictionary<Keys, (Type type, ICollection<object> args)>));
             KeyDownEvents = (Dictionary<Keys, (Type type, ICollection<object> args)>)keyDownEvents;

@@ -155,7 +155,8 @@
                                     CellStyle="{StaticResource CellStyle}"
                                     AutomationProperties.AutomationId="DataGridTextColumn14_3A60546D" />
                 <DataGridTemplateColumn Header="{lex:Loc EnabledLabel}"
-                                        IsReadOnly="False">
+                                        IsReadOnly="False"
+                                        AutomationProperties.AutomationId="DataGridTemplateColumn15_3A60546D">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <CheckBox HorizontalContentAlignment="Center"

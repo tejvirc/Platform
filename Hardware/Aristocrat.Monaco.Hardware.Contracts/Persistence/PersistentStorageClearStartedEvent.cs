@@ -35,7 +35,10 @@
         /// <param name="context">The streaming context</param>
         protected PersistentStorageClearStartedEvent(SerializationInfo info, StreamingContext context)
         {
-            Level = (PersistenceLevel)info.GetValue(PersistenceLevelValueKey, typeof(PersistenceLevel));
+            var level = info.GetValue(PersistenceLevelValueKey, typeof(PersistenceLevel));
+            if (level == null)
+                throw new ArgumentNullException(nameof(PersistenceLevelValueKey));
+            Level = (PersistenceLevel)level;
         }
 
         /// <summary>

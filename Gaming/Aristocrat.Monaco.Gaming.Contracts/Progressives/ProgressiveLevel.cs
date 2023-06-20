@@ -286,9 +286,7 @@
         Game,
 
         /// <summary>
-        ///     Mystery jackpots are not triggered by the game. They are triggered by the platform. This is unsupported currently
-        ///     and will
-        ///     result in an error if used.
+        ///     Mystery jackpots are not triggered by the game. They are triggered by the platform. 
         /// </summary>
         Mystery,
 

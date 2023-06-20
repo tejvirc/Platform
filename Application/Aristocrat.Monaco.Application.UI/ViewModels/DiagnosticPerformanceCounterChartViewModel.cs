@@ -391,7 +391,8 @@
                 result.Add(
                     new PerformanceCounters
                     {
-                        DateTime = countersSample.Last().DateTime, Values = valueSamples.ToArray()
+                        DateTime = countersSample.Last().DateTime,
+                        Values = valueSamples.ToArray()
                     });
             }
 
@@ -665,7 +666,7 @@
             var index = 0;
             foreach (var metric in AllMetrics)
             {
-                metric.MetricColor = FillingColors.Colors[index++];
+                metric.MetricColor = FillingColors.Colors[index++ % FillingColors.Colors.Count];
 
                 metric.LineSeries =
                     new LineSeries

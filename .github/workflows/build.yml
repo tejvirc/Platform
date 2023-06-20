@@ -18,6 +18,8 @@ on:
     - 'Protocol/**'
     - 'Shared/**'
     - 'Test/**'
+    paths-ignore:
+    - '.github/**'
 
   pull_request:
     branches:
@@ -45,9 +47,9 @@ jobs:
         dotnet-version: '5.x'
         source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
     - name: Setup msbuild to PATH
-      uses: microsoft/setup-msbuild@v1.1
+      uses: microsoft/setup-msbuild@v1.1.3
     - name: Setup NuGet
-      uses: nuget/setup-nuget@v1.0.5
+      uses: nuget/setup-nuget@v1.1.1
       with:
         nuget-version: '5.x'
     - name: Cache NuGet Packages
@@ -58,18 +60,18 @@ jobs:
         key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj') }}
     - name: Setup VSTest Path
       if: matrix.configuration == 'Debug'
-      uses: darenm/setup-vstest@v1
+      uses: darenm/setup-vstest@v1.2
     - name: Setup Monaco Tools
       uses: Aristocrat-Monaco-Platform/actions/setup-monaco@v1
       env:
         GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
     - name: Setup GitVersion
-      uses: gittools/actions/gitversion/setup@v0.9.7
+      uses: gittools/actions/gitversion/setup@v0.10.2
       with:
         versionSpec: '5.x'
     - name: Determine Version
       id:   gitversion
-      uses: gittools/actions/gitversion/execute@v0.9.7
+      uses: gittools/actions/gitversion/execute@v0.10.2
       with:
         useConfigFile: true
         additionalArguments: '/updateassemblyinfo'

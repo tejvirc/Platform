@@ -127,5 +127,10 @@
             SubscribeEvents();
             ViewModel.PlayClickSound();
         }
+
+        private void PlayerMenuPopupView_OnUnloaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

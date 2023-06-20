@@ -67,7 +67,8 @@
                         Orientation="Horizontal" Margin="0 0 0 5"
                         AutomationProperties.AutomationId="StackPanel10_706ACDBF">
                 <Label Content="{lex:Loc ButtonTest}"
-                       Foreground="{StaticResource LightBrush4}"/>
+                       Foreground="{StaticResource LightBrush4}"
+                       AutomationProperties.AutomationId="Label11_706ACDBF" />
                 <Button Name="WarningButton"
                         Style="{StaticResource MonacoWarningButton}"
                         Command="{Binding ShowInfoPopupCommand}"

@@ -88,7 +88,6 @@
             container.Register<IManifest<Image>, ImageManifest>(Lifestyle.Singleton);
             container.Register<IGameProvider, GameProvider>(Lifestyle.Singleton);
             container.Register<IGameCategoryService, GameCategoryService>(Lifestyle.Singleton);
-            container.Register<IGameHelpTextProvider, GameHelpTextProvider>(Lifestyle.Singleton);
             container.Register<ICabinetState, CabinetState>(Lifestyle.Singleton);
             container.Register<ICabinetService, CabinetService>(Lifestyle.Singleton);
             container.Register<IGamePlayState, GamePlayState>(Lifestyle.Singleton);
@@ -135,6 +134,7 @@
             container.Register<IProgressiveBroadcastTimer, ProgressiveBroadcastTimer>(Lifestyle.Singleton);
             container.Register<ISapProvider, StandaloneProgressiveProvider>(Lifestyle.Singleton);
             container.Register<IProtocolLinkedProgressiveAdapter, ProtocolLinkedProgressiveAdapter>(Lifestyle.Singleton);
+            container.Register<IMysteryProgressiveProvider, MysteryProgressiveProvider>(Lifestyle.Singleton);
             container.Register<IHandpayRuntimeFlagsHelper, HandpayRuntimeFlagsHelper>(Lifestyle.Singleton);
             container.Register<IReplayRuntimeEventHandler, ReplayRuntimeEventHandler>(Lifestyle.Singleton);
             container.Register<ReelControllerMonitor>(Lifestyle.Singleton);
@@ -179,7 +179,7 @@
             container.RegisterSingleton<CabinetMeterProvider>();
 
             container.Register<IRandomStateProvider, RandomStateProvider>(Lifestyle.Singleton);
-            // IPRNG implementations are keyed by PRNGLib.RandomType:
+            // IRandom implementations are keyed by Monaco.Gaming.Contracts.RandomType:
             var rngFactory = new RandomFactory(container);
             rngFactory.Register<AtiCryptoRng>(RandomType.Gaming, Lifestyle.Singleton);
             container.Register<IRandomFactory>(() => rngFactory, Lifestyle.Singleton);

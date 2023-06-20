@@ -361,7 +361,13 @@
         {
             var stopCalledField =
                 typeof(BaseRunnable).GetField("_stopCalled", BindingFlags.Instance | BindingFlags.NonPublic);
-            return (bool)stopCalledField.GetValue(concrete);
+            var result = stopCalledField.GetValue(concrete) as bool?;
+            if (result.HasValue)
+            {
+                return result.Value;
+            }
+            else
+                throw new InvalidOperationException("Failure to access field in " + nameof(GetStopCalledOnConcrete));
         }
 
         /// <summary>

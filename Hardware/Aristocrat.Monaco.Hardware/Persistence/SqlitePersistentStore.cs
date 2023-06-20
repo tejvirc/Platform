@@ -455,7 +455,7 @@
                 using var command = connection.CreateCommand();
                 command.CommandText = IfKeyLevelExistsCommand;
                 command.Parameters.Add(new SqliteParameter("@Key", key));
-                var result = command.ExecuteScalar();
+                var result = command.ExecuteScalar() ?? 0;
                 return (long)result > 0;
             }
             catch (SqliteException exception)

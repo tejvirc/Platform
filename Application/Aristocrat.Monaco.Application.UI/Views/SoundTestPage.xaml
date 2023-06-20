@@ -1,8 +1,9 @@
-﻿<UserControl x:Class="Aristocrat.Monaco.Application.UI.Views.SoundTestPage"
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.SoundTestPage"
                                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
@@ -14,8 +15,8 @@
                                xmlns:audio="clr-namespace:Aristocrat.Monaco.Hardware.Contracts.Audio;assembly=Aristocrat.Monaco.Hardware.Contracts"
                                mc:Ignorable="d" 
                                Height="Auto" Width="Auto"
-                               d:DataContext="{d:DesignInstance {x:Type viewModels:SoundTestPageViewModel}}">
-
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:SoundTestPageViewModel}}"
+                               AutomationProperties.AutomationId="UserControl0_9A0249AD">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -72,10 +73,15 @@
                    TargetType="Button">
                 <Setter Property="Foreground">
                     <Setter.Value>
-                        <LinearGradientBrush StartPoint=".5,1" EndPoint=".5,0" 
+                        <LinearGradientBrush StartPoint=".5,1"
+                                             EndPoint=".5,0"
                                              AutomationProperties.AutomationId="LinearGradientBrush2_9A0249AD">
-                            <GradientStop Color="{StaticResource MahApps.Colors.Gray5}" Offset="0" />
-                            <GradientStop Color="{StaticResource MahApps.Colors.ThemeBackground}" Offset=".5" />
+                            <GradientStop Color="{StaticResource MahApps.Colors.Gray5}"
+                                          Offset="0"
+                                          AutomationProperties.AutomationId="GradientStop3_9A0249AD" />
+                            <GradientStop Color="{StaticResource MahApps.Colors.ThemeBackground}"
+                                          Offset=".5"
+                                          AutomationProperties.AutomationId="GradientStop4_9A0249AD" />
                         </LinearGradientBrush>
                     </Setter.Value>
                 </Setter>
@@ -209,8 +215,15 @@
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate TargetType="Button">
-                                            <Border Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <iconPacks:PackIconFontAwesome FontSize="6" Kind="VolumeUpSolid" Height="40" RotationAngle="90" Width="40" />
+                                            <Border Background="Transparent"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    AutomationProperties.AutomationId="Border31_9A0249AD">
+                                                <iconPacks:PackIconFontAwesome FontSize="6"
+                                                                               Kind="VolumeUpSolid"
+                                                                               Height="40"
+                                                                               RotationAngle="90"
+                                                                               Width="40" />
                                             </Border>
                                         </ControlTemplate>
                                     </Setter.Value>
@@ -351,8 +364,8 @@
                     <TextBlock Text="{lex:Loc SideRightText}"
                                AutomationProperties.AutomationId="TextBlock47_9A0249AD" />
                 </StackPanel>
-
-                <Button Grid.Row="3" Grid.Column="2"
+                <Button Grid.Row="3"
+                        Grid.Column="2"
                         Name="LowFrequencySpeakerButton"
                         IsEnabled="{Binding LowFrequencySpeaker, Mode=TwoWay}"
                         Command="{Binding PlayCommandOnLowFrequencySpeaker}"
@@ -430,4 +443,4 @@
             </Grid>
         </GroupBox>
     </StackPanel>
-</UserControl>
+</operatorMenu:OperatorMenuPage>

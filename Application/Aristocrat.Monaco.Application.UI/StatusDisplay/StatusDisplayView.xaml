@@ -60,18 +60,17 @@
             </Style>
         </ResourceDictionary>
     </common:BaseWindow.Resources>
-
     <b:Interaction.Behaviors>
-        <behaviors:HighDpiWindowBehavior/>  
+        <behaviors:HighDpiWindowBehavior />
     </b:Interaction.Behaviors>
-
-    <Grid>
+    <Grid AutomationProperties.AutomationId="Grid7_631FA6B">
         <Grid.Background>
             <LinearGradientBrush StartPoint="0,.3"
                                  EndPoint="1,.7"
                                  AutomationProperties.AutomationId="LinearGradientBrush8_631FA6B">
                 <GradientStop Color="{StaticResource MahApps.Colors.SystemChromeBlackMedium}"
-                              Offset="0"/>
+                              Offset="0"
+                              AutomationProperties.AutomationId="GradientStop9_631FA6B" />
                 <GradientStop Color="{StaticResource DarkColor1}"
                               Offset=".1"
                               AutomationProperties.AutomationId="GradientStop10_631FA6B" />
@@ -91,11 +90,17 @@
             <RowDefinition AutomationProperties.AutomationId="RowDefinition15_631FA6B" />
             <RowDefinition AutomationProperties.AutomationId="RowDefinition16_631FA6B" />
         </Grid.RowDefinitions>
-        <GroupBox Grid.Row="0" Grid.Column="0" Header="{lex:Loc CurrentStatus}" Background="Transparent" 
+        <GroupBox Grid.Row="0" 
+                  Grid.Column="0" 
+                  Header="{lex:Loc CurrentStatus}" 
+                  Background="Transparent" 
                   AutomationProperties.AutomationId="GroupBox17_631FA6B">
             <statusDisplay:DisplayBox x:Name="StatusBox"/>
         </GroupBox>
-        <GroupBox Grid.Row="0" Grid.Column="1" Header="{lex:Loc Messages}" Background="Transparent"
+        <GroupBox Grid.Row="0" 
+                  Grid.Column="1" 
+                  Header="{lex:Loc Messages}" 
+                  Background="Transparent"
                   AutomationProperties.AutomationId="GroupBox18_631FA6B">
             <statusDisplay:DisplayBox x:Name="InformativeBox"/>
         </GroupBox>

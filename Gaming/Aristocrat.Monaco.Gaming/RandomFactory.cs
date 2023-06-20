@@ -33,7 +33,7 @@
         }
 
         /// <summary>
-        ///     Registers IPRNG of the specified type.
+        ///     Registers IRandom of the specified type.
         /// </summary>
         /// <typeparam name="TImplementation">IPRNG implemenation.</typeparam>
         /// <param name="type">RandomType - Gaming or NonGaming.</param>

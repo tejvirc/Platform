@@ -56,7 +56,8 @@
         </b:EventTrigger>
     </b:Interaction.Triggers>
 
-    <Grid x:Name="MainGrid">
+    <Grid x:Name="MainGrid"
+          AutomationProperties.AutomationId="Grid1_D3C5ECAC">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"
                               AutomationProperties.AutomationId="ColumnDefinition2_D3C5ECAC" />

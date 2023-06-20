@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming
+namespace Aristocrat.Monaco.Gaming
 {
     using System;
     using System.Collections.Generic;
@@ -34,6 +34,8 @@
 
         private readonly List<string> _gamesEnabledInConfiguration = new List<string>();
 
+        private LobbyConfiguration _lobbyConfiguration;
+
         public AttractConfigurationProvider(
             IPersistentStorageManager storageManager,
             IPropertiesManager properties,
@@ -50,6 +52,8 @@
 
             _eventBus.Subscribe<GameDisabledEvent>(this, evt=>  UpdateAttractSequence(evt.GameThemeId, false));
             _eventBus.Subscribe<GameEnabledEvent>(this, evt => UpdateAttractSequence(evt.GameThemeId, true));
+
+            _lobbyConfiguration = _properties.GetValue<LobbyConfiguration>(GamingConstants.LobbyConfig, null);
         }
 
         public bool IsAttractEnabled => _properties.GetValue(GamingConstants.AttractModeEnabled, true);
@@ -70,8 +74,8 @@
                     return GetDefaultSequence();
                 }
 
-                var enabledGames = _gameProvider.GetEnabledGames().AsQueryable().DistinctBy(g => g.ThemeId)
-                    .OrderBy(g => _gameOrder.GetPositionPriority(g.ThemeId)).ToList();
+                var enabledGames = _gameProvider.GetEnabledGames().DistinctBy(g => g.ThemeId)
+                    .OrderBy(g => _gameOrder.GetAttractPositionPriority(g.ThemeId)).ToList();
 
                 var enabledAttract = new List<IAttractInfo>();
 
@@ -90,8 +94,7 @@
                         IsSelected = stored.IsSelected
                     }).ToList();
 
-                var configuredOrderedAttract = configuredAttractSequence.OrderBy(ai => ai.SequenceNumber)
-                    .DistinctBy(a => a.ThemeId).ToList();
+                var configuredOrderedAttract = configuredAttractSequence.OrderBy(ai => ai.SequenceNumber).ToList();
 
                 // Next, some new games may have been enabled, since previous run.
                 // Add them to attract sequence here(for display for selection)
@@ -111,7 +114,7 @@
                     unselectedAttracts.Any(ai => _gamesEnabledInConfiguration.Any(g => g == ai.ThemeId)))
                 {
                     var allEnabledGames = _gameProvider.GetEnabledGames().DistinctBy(g => g.ThemeId)
-                        .OrderBy(g => _gameOrder.GetPositionPriority(g.ThemeId)).ToList();
+                        .OrderBy(g => _gameOrder.GetAttractPositionPriority(g.ThemeId)).ToList();
 
                     var newGamesToSelect = allEnabledGames
                         .Where(g => _gamesEnabledInConfiguration.Any(themeId => themeId == g.ThemeId)).ToList();
@@ -125,7 +128,7 @@
 
                     // Reorder the games.
                     newEnabledGameDetails = newEnabledGameDetails.DistinctBy(g => g.ThemeId)
-                        .OrderBy(m => _gameOrder.GetPositionPriority(m.ThemeId)).ToList();
+                        .OrderBy(m => _gameOrder.GetAttractPositionPriority(m.ThemeId)).ToList();
 
                     // Remaining unselected attract items.
                     unselectedAttracts = unselectedAttracts.Where(
@@ -204,17 +207,76 @@
 
         public IEnumerable<IAttractInfo> GetDefaultSequence()
         {
-            var enabledGames = _gameProvider.GetEnabledGames().DistinctBy(g => g.ThemeId)
-                .OrderBy(g => _gameOrder.GetPositionPriority(g.ThemeId)).ToList();
+            // lobby config loads after attract config provider, might need a refresh
+            _lobbyConfiguration ??= _properties.GetValue<LobbyConfiguration>(GamingConstants.LobbyConfig, null);
+            var enabledGames = _gameProvider.GetEnabledGames().DistinctBy(g => g.ThemeId).ToList();
 
-            var configuredAttractSequence = (from game in enabledGames
-                select new AttractInfo
-                {
-                    ThemeId = game.ThemeId,
-                    GameType = game.GameType,
-                    ThemeNameDisplayText = AttractGameThemeDisplayText(game.GameType, game.ThemeName),
-                    IsSelected = AttractGameTypeEnabled(game.GameType)
-                }).DistinctBy(a => a.ThemeId).ToList();
+            List<AttractInfo> configuredAttractSequence;
+
+            if (_lobbyConfiguration == null)
+            {
+                // if no configuration loaded at this point, follow the Game Order Priority
+                var priorityOrderedGames = enabledGames.OrderBy(g => _gameOrder.GetAttractPositionPriority(g.ThemeId)).ToList();
+
+                configuredAttractSequence = priorityOrderedGames.Select(
+                                                                    game => new AttractInfo
+                                                                    {
+                                                                        ThemeId = game.ThemeId,
+                                                                        GameType = game.GameType,
+                                                                        ThemeNameDisplayText = AttractGameThemeDisplayText(game.GameType, game.ThemeName),
+                                                                        IsSelected = AttractGameTypeEnabled(game.GameType)
+                                                                    }
+                                                                )
+                                                                .DistinctBy(a => a.ThemeId)
+                                                                .ToList();
+
+                ResetAttractSequenceNumbers(configuredAttractSequence);
+                return configuredAttractSequence;
+            }
+
+            if (_lobbyConfiguration.DefaultGameDisplayOrderByThemeId == null &&
+                _lobbyConfiguration.DefaultGameOrderLightningLinkDisabled == null &&
+                _lobbyConfiguration.DefaultGameOrderLightningLinkEnabled == null)
+            {
+                return enabledGames.Select(
+                    game => new AttractInfo
+                    {
+                        ThemeId = game.ThemeId,
+                        GameType = game.GameType,
+                        ThemeNameDisplayText = AttractGameThemeDisplayText(game.GameType, game.ThemeName),
+                        IsSelected = AttractGameTypeEnabled(game.GameType)
+                    }
+                ).ToList();
+            }
+
+            // Try to follow the Lightning Link game order
+            // Otherwise, follow the ThemeID order
+            var lightningLinkOrder = enabledGames.Any(g => g.Category == GameCategory.LightningLink)
+                                         ? _lobbyConfiguration.DefaultGameOrderLightningLinkEnabled
+                                         : _lobbyConfiguration.DefaultGameOrderLightningLinkDisabled;
+
+            var defaultGameOrderList = lightningLinkOrder ?? _lobbyConfiguration.DefaultGameDisplayOrderByThemeId;
+
+            var gamesInConfig = defaultGameOrderList
+                                .Select(game => enabledGames.FirstOrDefault(g2 => g2.ThemeId == game))
+                                .Where(game => game != null);
+
+            var gamesNotInConfig = enabledGames
+                                   .Where(g => !defaultGameOrderList.Contains(g.ThemeId))
+                                   .OrderBy(g => g.InstallDate);
+
+            var attractList = gamesNotInConfig.ToList();
+            attractList = attractList.Concat(gamesInConfig).ToList();
+
+            configuredAttractSequence = attractList.Select(
+                                                       game => new AttractInfo
+                                                       {
+                                                           ThemeId = game.ThemeId,
+                                                           GameType = game.GameType,
+                                                           ThemeNameDisplayText = AttractGameThemeDisplayText(game.GameType,game.ThemeName),
+                                                           IsSelected = AttractGameTypeEnabled(game.GameType)
+                                                       }
+                                                   ).ToList();
 
             ResetAttractSequenceNumbers(configuredAttractSequence);
 

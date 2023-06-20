@@ -1,7 +1,10 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Common.Storage.Model
 {
     using Microsoft.EntityFrameworkCore;
+    using Monaco.Common.Storage;
     using Protocol.Common.Storage;
+    using System;
+    using System.IO;
 
     public class BingoContext : DbContext
     {
@@ -22,11 +25,17 @@
         public DbSet<WinResultModel> WinResultModel { get; set; }
         public DbSet<Certificate> Certificates { get; set; }
         public DbSet<BingoDaubsModel> BingoDaubsModel { get; set; }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite(_connectionString);
+            var sqliteFile = _connectionString.Replace("Data Source=", string.Empty, StringComparison.OrdinalIgnoreCase);
+            if (sqliteFile.EndsWith(".sqlite") && !File.Exists(sqliteFile))
+            {
+                using (var fs = File.Create(sqliteFile)) { }
+            }
+
+            base.OnConfiguring(optionsBuilder);
         }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

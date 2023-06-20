@@ -53,9 +53,6 @@
         public ReportTransactionMessage()
         { }
 
-        /// <summary>
-        ///     Gets the machine serial
-        /// </summary>
         [ProtoMember(1)]
         public string MachineSerial { get; }
 

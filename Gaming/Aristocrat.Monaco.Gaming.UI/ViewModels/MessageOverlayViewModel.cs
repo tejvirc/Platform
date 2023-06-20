@@ -344,11 +344,7 @@
                     break;
             }
 
-            if (!messageSent && _overlayMessageStrategyController.GameRegistered)
-            {
-                Logger.Debug("Sending PresentOverriddenPresentation Clear");
-                _overlayMessageStrategyController.ClearGameDrivenPresentation();
-            }
+            ClearPresentationIfComplete(messageSent);
 
             Logger.Debug(MessageOverlayData.GenerateLogText());
 
@@ -681,6 +677,24 @@
                          $"CashOutState: {_lobbyStateManager.CashOutState}");
 
             HandleMessageOverlayText(string.Empty);
+        }
+
+        private void ClearPresentationIfComplete(bool messageSentToOverlay)
+        {
+            var shouldClearPresentation = !messageSentToOverlay && _overlayMessageStrategyController.GameRegistered ||
+                                          !MessageOverlayData.GameHandlesHandPayPresentation;
+
+            if (!shouldClearPresentation)
+            {
+                return;
+            }
+
+            Logger.Debug("Sending PresentOverriddenPresentation Clear");
+            _overlayMessageStrategyController.ClearGameDrivenPresentation();
+        }
+        private static void HandleEvent(IEvent evt)
+        {
+            // no implementation intentionally
         }
     }
 }

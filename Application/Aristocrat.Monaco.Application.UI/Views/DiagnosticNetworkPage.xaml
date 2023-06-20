@@ -9,8 +9,8 @@
                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
-                              xmlns:loc="http://monaco.aristocrat.com/localization"
-                              xmlns:common="http://monaco.aristocrat.com/common"
+                              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                              xmlns:helpers="http://monaco.aristocrat.com/common"
                               Background="Transparent" 
                               d:DataContext="{d:DesignInstance {x:Type viewModels:DiagnosticNetworkPageViewModel}}">
 
@@ -138,7 +138,7 @@
 
                     <Label Grid.Column="0" Grid.Row="0" Content="{lex:Loc PingIPAddressText}"
                            AutomationProperties.AutomationId="Label32_E1958C7" />
-                    <common:AlphaNumericTextBox Grid.Column="0" Grid.Row="1" 
+                    <helpers:AlphaNumericTextBox Grid.Column="0" Grid.Row="1" 
                                                 Margin="0 5 0 0"
                                                 MaxWidth="172"
                                                 Text="{Binding PingIpAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

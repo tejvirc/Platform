@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Usb
 {
+    using System;
     using System.Collections.Generic;
     using System.Runtime.InteropServices;
 
@@ -32,11 +33,13 @@
         public static TDescriptorType Parse(byte[] stream)
         {
             var pinnedPacket = GCHandle.Alloc(stream, GCHandleType.Pinned);
-            var descriptor = (TDescriptorType)Marshal.PtrToStructure(
+            var descriptor = (TDescriptorType?)Marshal.PtrToStructure(
                 pinnedPacket.AddrOfPinnedObject(),
                 typeof(TDescriptorType));
             pinnedPacket.Free();
-            return descriptor;
+            if (descriptor == null)
+                throw new ArgumentNullException(nameof(stream));
+            return descriptor.Value;
         }
     }
 

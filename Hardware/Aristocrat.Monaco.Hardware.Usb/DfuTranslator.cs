@@ -253,9 +253,12 @@
 
                 while (bytesToProcess >= Marshal.SizeOf(typeof(UsbCommonDescriptor)))
                 {
-                    var commonDescriptor = (UsbCommonDescriptor)Marshal.PtrToStructure(
+                    var commonDescriptorBox = (UsbCommonDescriptor?)Marshal.PtrToStructure(
                         memAddress,
                         typeof(UsbCommonDescriptor));
+                    if (commonDescriptorBox == null)
+                        throw new ArgumentNullException(nameof(memAddress));
+                    var commonDescriptor = commonDescriptorBox.Value;
 
                     if (bytesToProcess < commonDescriptor.bLength)
                     {
@@ -267,11 +270,13 @@
                     {
                         case UsbDescriptorType.DfuFunctional:
                         {
-                            var desc =
-                                (UsbDfuFunctionalDescriptor)Marshal.PtrToStructure(
+                            var descBox =
+                                (UsbDfuFunctionalDescriptor?)Marshal.PtrToStructure(
                                     memAddress,
                                     typeof(UsbDfuFunctionalDescriptor));
-
+                            if (descBox == null)
+                                throw new ArgumentNullException(nameof(memAddress));
+                            var desc = descBox.Value;
                             if (desc.bcdDFUVersion == DfuVersionOld || desc.bcdDFUVersion == DfuVersion)
                             {
                                 return new DfuCapabilities
@@ -286,7 +291,7 @@
                             }
                         }
 
-                            break;
+                        break;
                     }
 
                     bytesToProcess -= commonDescriptor.bLength;

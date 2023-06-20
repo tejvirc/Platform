@@ -16,6 +16,8 @@
             return false;
         }
 
+
+
         /// <inheritdoc />
         public void OnBeforeDownload(
             IWebBrowser chromiumWebBrowser,

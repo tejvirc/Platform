@@ -25,7 +25,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="0"
-                           Text="{lex:Loc LightingOverrideOnIdleAndZeroCreditsLabel}"  AutomationProperties.AutomationId="TextBlock7_F11DA2F9"/>
+                           Text="{lex:Loc LightingOverrideOnIdleAndZeroCreditsLabel}"
+                           AutomationProperties.AutomationId="TextBlock7_F11DA2F9"/>
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="0"

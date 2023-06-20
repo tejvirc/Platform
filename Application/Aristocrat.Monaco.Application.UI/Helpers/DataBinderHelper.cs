@@ -269,11 +269,11 @@ namespace Aristocrat.Monaco.Application.UI.Helpers
                 Array arrayProp = collectionProp as Array;
                 if (arrayProp != null && intIndex)
                 {
-                    prop = arrayProp.GetValue((int)indexValue);
+                    prop = arrayProp.GetValue((int)(int?)indexValue);
                 }
                 else if ((collectionProp is IList) && intIndex)
                 {
-                    prop = ((IList)collectionProp)[(int)indexValue];
+                    prop = ((IList)collectionProp)[(int)(int?)indexValue];
                 }
                 else
                 {

@@ -7,6 +7,7 @@
     using Application.Contracts;
     using Application.Contracts.Localization;
     using Aristocrat.Monaco.Accounting.Contracts.Handpay;
+    using Mgam.Common.Data.Models;
     using Contracts;
     using Hardware.Contracts.Persistence;
     using Kernel;
@@ -101,7 +102,7 @@
                     },
                 });
 
-            var storageName = GetType().ToString();
+            var storageName = this.GetType().ToString();
 
             var blockExists = storageManager.BlockExists(storageName);
 

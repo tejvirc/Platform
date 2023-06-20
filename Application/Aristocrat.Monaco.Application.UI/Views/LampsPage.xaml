@@ -262,7 +262,8 @@
                          ItemContainerStyle="{StaticResource MonacoUnselectableListBoxItem}"
                          MinWidth="275"
                          BorderBrush="{DynamicResource MahApps.Brushes.Gray9}"
-                         Style="{StaticResource MonacoListBox}">
+                         Style="{StaticResource MonacoListBox}"
+                         AutomationProperties.AutomationId="ListBox37_CE65367A">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid AutomationProperties.AutomationId="Grid38_CE65367A">

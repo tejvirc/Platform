@@ -34,7 +34,6 @@
         ContentRendered="LobbyView_OnContentRendered"
         d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}"
         Name="Root">
-
     <metro:MetroWindow.Resources>
         <ResourceDictionary>
             <!-- Apply MahApps.Metro styles to all controls -->
@@ -45,12 +44,10 @@
                 <!-- Accent and AppTheme setting -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
 
-                <ResourceDictionary Source="../../Skins/Styles.xaml"/>
-                <ResourceDictionary Source="LobbyViewLandscapeTemplate.xaml"/>
-                <ResourceDictionary Source="LobbyViewPortraitTemplate.xaml"/>
-
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml"/>
-
+                <ResourceDictionary Source="../../Skins/Styles.xaml" />
+                <ResourceDictionary Source="LobbyViewLandscapeTemplate.xaml" />
+                <ResourceDictionary Source="LobbyViewPortraitTemplate.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
                 <!-- Jurisdiction xaml dictionary is loaded dynamically; see SkinLoader -->
             </ResourceDictionary.MergedDictionaries>
             <lobby:LobbyViewTemplateSelector x:Key="LobbyViewTemplateSelector" />

@@ -142,7 +142,7 @@
                     theRequestId =>
                     {
                         Thread.Sleep(2000);
-                        proxy.NotifyTransactionReady((Guid)theRequestId);
+                        proxy.NotifyTransactionReady((Guid)theRequestId!);
                     });
                 notifyThread.Start(requestId);
 

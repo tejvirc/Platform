@@ -210,11 +210,11 @@
                           ScrollViewer.VerticalScrollBarVisibility="Auto"
                           ScrollViewer.HorizontalScrollBarVisibility="Auto"
                           ScrollViewer.CanContentScroll="True"
-                          VirtualizingPanel.IsContainerVirtualizable="True"
+                          VirtualizingPanel.IsContainerVirtualizable="False"
                           VirtualizingPanel.VirtualizationMode="Recycling"
-                          VirtualizingPanel.IsVirtualizingWhenGrouping="True"
+                          VirtualizingPanel.IsVirtualizingWhenGrouping="False"
                           VirtualizingPanel.CacheLengthUnit="Item"
-                          VirtualizingPanel.IsVirtualizing="True"
+                          VirtualizingPanel.IsVirtualizing="False"
                           VirtualizingPanel.ScrollUnit="Item"
                           EnableRowVirtualization="True"
                           EnableColumnVirtualization="True"
@@ -379,7 +379,7 @@
 
                         <DataGridTextColumn Header="{lex:Loc MaxBet}" 
                                             HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmall}"
-                                            Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.GlobalOptionsVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                            Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.MaxBetIsVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                             MaxWidth="120"
                                             Binding="{Binding MaxBet, Mode=OneWay}"
                                             AutomationProperties.AutomationId="DataGridTextColumn49_FA38938A">

@@ -395,7 +395,9 @@
 
             string SetPortText()
             {
-                if (string.IsNullOrEmpty(device.Protocol) || device.Protocol.Contains(ApplicationConstants.Fake))
+                if (string.IsNullOrEmpty(device.Protocol) ||
+                    device.Protocol.Contains(ApplicationConstants.Fake) ||
+                    device.Protocol.Contains(ApplicationConstants.RelmSim))
                 {
                     return ApplicationConstants.Fake;
                 }

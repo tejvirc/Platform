@@ -14,6 +14,7 @@
     using Aristocrat.Mgam.Client.Logging;
     using Aristocrat.Mgam.Client.Messaging;
     using Aristocrat.Monaco.Application.Contracts;
+    using Application.Contracts.Currency;
     using Aristocrat.Monaco.Mgam.Common;
     using Aristocrat.Monaco.Mgam.Services.Notification;
     using Aristocrat.Monaco.Protocol.Common.Storage.Entity;
@@ -71,9 +72,16 @@
             var factory = new Mock<ILocalizerFactory>();
             MoqServiceManager.Instance.Setup(m => m.GetService<ILocalizerFactory>()).Returns(factory.Object);
             factory.Setup(x => x.For(It.IsAny<string>())).Returns(new Mock<ILocalizer>().Object);
-            CurrencyExtensions.SetCultureInfo(CultureInfo.CurrentCulture, null, null, true, true, "c");
-            _logger = new Mock<ILogger<VoucherValidator>>();
 
+            string minorUnitSymbol = "c";
+            string cultureName = "en-US";
+            CultureInfo culture = new CultureInfo(cultureName);
+
+            RegionInfo region = new RegionInfo(cultureName);
+            CurrencyExtensions.Currency = new Currency(region.ISOCurrencySymbol, region, culture, minorUnitSymbol);
+            CurrencyExtensions.SetCultureInfo(region.ISOCurrencySymbol, culture, null, null, true, true, minorUnitSymbol);
+
+            _logger = new Mock<ILogger<VoucherValidator>>();
             _eventBus = new Mock<IEventBus>();
 
             _eventBus.Setup(b => b.Subscribe(It.IsAny<object>(), It.IsAny<Action<VoucherIssuedEvent>>()))

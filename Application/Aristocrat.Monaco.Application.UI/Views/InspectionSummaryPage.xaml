@@ -9,7 +9,7 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
-                               mc:Ignorable="d" 
+                               mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:InspectionSummaryPageViewModel}}">
     <UserControl.Resources>
         <ResourceDictionary>

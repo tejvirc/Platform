@@ -54,7 +54,7 @@
                                AutomationProperties.AutomationId="Label7_D335FFB1" />
                             <Label Margin="0" Style="{DynamicResource MonacoListBoxLabel}"
                                    AutomationProperties.AutomationId="Label8_D335FFB1">
-                                <TextBlock>
+                                <TextBlock AutomationProperties.AutomationId="TextBlock9_D335FFB1">
                                     <TextBlock.Text>
                                         <MultiBinding StringFormat="{}{0}: {1:p3}">
                                             <Binding Source="{lex:Loc TheoPaybackPctLabelText}"/>

@@ -28,7 +28,6 @@
                    BorderBrush="Black"
                    BorderThickness="1"
                    x:Name="OperatorMenuWindow">
-
     <b:Interaction.Triggers>
         <b:EventTrigger EventName="Loaded"
                         AutomationProperties.AutomationId="EventTrigger0_746B68B4">
@@ -43,7 +42,6 @@
             <b:InvokeCommandAction Command="{Binding HandleContentRenderedCommand}" />
         </b:EventTrigger>
     </b:Interaction.Triggers>
-
     <common:BaseWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -109,7 +107,6 @@
             <GridLength x:Key="GoldenRatioGridLength">1.618*</GridLength>
         </ResourceDictionary>
     </common:BaseWindow.Resources>
-
     <b:Interaction.Behaviors>
         <behaviors:TouchWindowBehavior />
         <behaviors:HighDpiWindowBehavior/>
@@ -246,7 +243,7 @@
                             </DataTemplate>
                         </common:TouchListBox.ItemTemplate>
                         <common:TouchListBox.ItemContainerStyle>
-                            <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource MahApps.Styles.ListBoxItem}">
+                            <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource MetroListBoxItem}">
                                 <Style.Resources>
                                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
                                                      Color="{StaticResource HighlightColor}"
@@ -504,8 +501,10 @@
                         <ComboBox Grid.Column="2" Name="LanguageComboBox" ItemsSource="{Binding SupportedLanguages}" Visibility="Hidden" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,20,0"
                                   AutomationProperties.AutomationId="ComboBox81_746B68B4">
                             <b:Interaction.Triggers>
-                                <b:EventTrigger EventName="SelectionChanged">
-                                    <b:InvokeCommandAction Command="{Binding LanguageChangedCommand}" CommandParameter="{Binding SelectedItem, ElementName=LanguageComboBox}" />
+                                <b:EventTrigger EventName="SelectionChanged"
+                                                AutomationProperties.AutomationId="EventTrigger82_746B68B4">
+                                    <b:InvokeCommandAction Command="{Binding LanguageChangedCommand}"
+                                                           CommandParameter="{Binding SelectedItem, ElementName=LanguageComboBox}" />
                                 </b:EventTrigger>
                             </b:Interaction.Triggers>
                         </ComboBox>

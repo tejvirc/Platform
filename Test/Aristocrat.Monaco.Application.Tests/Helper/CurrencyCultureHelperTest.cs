@@ -21,30 +21,29 @@ namespace Aristocrat.Monaco.Application.Tests.Helper
     [TestClass]
     public class CurrencyCultureHelperTest
     {
-        readonly Collection<int>  _supportedNotes = new Collection<int>() { 1, 2, 10 };
-        readonly List<string> _BNASupportedCodes = new List<string>()
+        private readonly Collection<int>  _supportedNotes = new Collection<int>() { 1, 2, 10 };
+        private readonly List<string> _BNASupportedCodes = new List<string>()
         {
             "USD",
             "EUR"
         };
 
-        const string _euroMajorSymbol = "€";
-        const string _euroMinorSymbol = "¢";
-        const string _separatorComma = ",";
-        const string _separatorDot = ".";
-        const int _symbolPostPlacement = 0;
-        const int _symbolPrePlacement = 1;
+        private const string _euroMajorSymbol = "€";
+        private const string _euroMinorSymbol = "¢";
+        private const string _separatorComma = ",";
+        private const string _separatorDot = ".";
+        private const int _symbolPostPlacement = 0;
+        private const int _symbolPrePlacement = 1;
 
-        const string _currencyCodeEuro = "EUR";
+        private const string _currencyCodeEuro = "EUR";
 
-        const int _numberOfSupportedCurrencies = 150;
+        private const int _numberOfSupportedCurrencies = 150;
 
-        Dictionary<string, CurrencyDefaultsCurrencyInfo> _currencyDefaults;
+        private Dictionary<string, CurrencyDefaultsCurrencyInfo> _currencyDefaults = new Dictionary<string, CurrencyDefaultsCurrencyInfo>();
+        private List<string> _euroCurrencyDescription;
+        private Dictionary<string, CurrencyDefaultsCurrencyInfo> _emptyCurrencyDefaults = new Dictionary<string, CurrencyDefaultsCurrencyInfo>();
 
-        List<string> _euroCurrencyDescriptionWithMinors;
-
-        Mock<ILog> _loggerMock = new Mock<ILog>();
-        Dictionary<string, CurrencyDefaultsCurrencyInfo> _emptyCurrencyDefaults = new Dictionary<string, CurrencyDefaultsCurrencyInfo>();
+        private Mock<ILog> _loggerMock = new Mock<ILog>();
 
         [TestInitialize]
         public void Initialize()
@@ -86,10 +85,10 @@ namespace Aristocrat.Monaco.Application.Tests.Helper
                         }
                 }
             };
-            _euroCurrencyDescriptionWithMinors = new List<string>()
+            _euroCurrencyDescription = new List<string>()
             {
-                "Euro EUR €1,000.00 10¢",
-                "Euro EUR 1,000.00€ 10¢"
+                "Euro EUR €1,000.00",
+                "Euro EUR 1,000.00€"
             };
         }
 
@@ -153,8 +152,8 @@ namespace Aristocrat.Monaco.Application.Tests.Helper
             Assert.AreEqual(_currencyDefaults[_currencyCodeEuro]?.Formats.Length, euroCurrencies.Count());
 
             // Check if the formats are correct
-            Assert.IsTrue(_euroCurrencyDescriptionWithMinors.Any(d => d.Equals(euroCurrencies[0].DescriptionWithMinorSymbol)));
-            Assert.IsTrue(_euroCurrencyDescriptionWithMinors.Any(d => d.Equals(euroCurrencies[1].DescriptionWithMinorSymbol)));
+            Assert.IsTrue(_euroCurrencyDescription.Any(d => d.Equals(euroCurrencies[0].Description)));
+            Assert.IsTrue(_euroCurrencyDescription.Any(d => d.Equals(euroCurrencies[1].Description)));
         }
 
         [TestMethod]

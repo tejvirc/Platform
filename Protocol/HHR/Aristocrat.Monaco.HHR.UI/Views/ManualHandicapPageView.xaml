@@ -10,6 +10,7 @@
                          xmlns:local="clr-namespace:Aristocrat.Monaco.Hhr.UI.Controls"
                          xmlns:menu="clr-namespace:Aristocrat.Monaco.Hhr.UI.Menu"
                          xmlns:converters="clr-namespace:Aristocrat.Monaco.Hhr.UI.Converters"
+                         xmlns:common="http://monaco.aristocrat.com/common"
                          xmlns:models="clr-namespace:Aristocrat.Monaco.Hhr.UI.Models"
                          xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Hhr.UI.ViewModels"
                          mc:Ignorable="d"

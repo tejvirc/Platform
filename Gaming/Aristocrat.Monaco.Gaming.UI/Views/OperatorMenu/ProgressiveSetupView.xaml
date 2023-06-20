@@ -30,6 +30,7 @@
                         Value="16" />
             </Style>
             <converters:NullToVisibilityConverter x:Key="NullToVisConverter" />
+            <converters:PercentageTextValueConvert x:Key="PercentageTextValueConvert"/>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid AutomationProperties.AutomationId="Grid0_6FC827A3">

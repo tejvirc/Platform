@@ -4,6 +4,7 @@
                                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:local="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"

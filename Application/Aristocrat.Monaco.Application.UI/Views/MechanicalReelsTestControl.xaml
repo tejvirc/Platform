@@ -293,7 +293,7 @@
                 </ItemsControl>
             </Grid>
         </Border>
-        <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.HomeButton}}"
+        <Button Content="{lex:Loc HomeButton}"
                 Command="{Binding HomeCommand}"
                 Name="HomeButton"
                 IsEnabled="{Binding HomeEnabled}"

@@ -23,10 +23,14 @@
                                     BorderThickness="{TemplateBinding BorderThickness}"
                                     CornerRadius="{Binding Path=(controls:ControlsHelper.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
                                     AutomationProperties.AutomationId="Border2_35CD297B">
-                                <Grid Margin="{TemplateBinding Padding}" ClipToBounds="True"
+                                <Grid Margin="{TemplateBinding Padding}"
+                                      ClipToBounds="True"
                                       AutomationProperties.AutomationId="Grid3_35CD297B">
-                                    <!--<Rectangle Fill="{TemplateBinding OnSwitchBrush}" />-->
-                                    <!--<Rectangle Fill="{TemplateBinding OffSwitchBrush}" RenderTransformOrigin="0.5,0.5">
+                                    <!--<Rectangle Fill="{TemplateBinding OnSwitchBrush}"
+                                               AutomationProperties.AutomationId="Rectangle4_35CD297B" />
+                                    <Rectangle Fill="{TemplateBinding OffSwitchBrush}"
+                                               RenderTransformOrigin="0.5,0.5"
+                                               AutomationProperties.AutomationId="Rectangle5_35CD297B">
                                         <Rectangle.RenderTransform>
                                             <TranslateTransform x:Name="PART_BackgroundTranslate"
                                                                 AutomationProperties.AutomationId="TranslateTransform6_35CD297B" />
@@ -166,7 +170,6 @@
             </Setter.Value>
         </Setter>
         <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
-        <Setter Property="Width" Value="13" />
         <Setter Property="Width" Value="70" />
     </Style>
 </ResourceDictionary>

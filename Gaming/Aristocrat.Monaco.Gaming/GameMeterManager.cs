@@ -398,7 +398,12 @@
         private Dictionary<string, int> ToWagerCategoryMap(IGameDetail game)
         {
             return game.WagerCategories.ToDictionary(
-                wagerCategory => wagerCategory?.Id,
+                wagerCategory =>
+                {
+                    if (wagerCategory == null)
+                        throw new NullReferenceException("Null reference exception: " + nameof(wagerCategory) + " is null.");
+                    return wagerCategory.Id;
+                },
                 _ => WagerCategoryCount++);
         }
 

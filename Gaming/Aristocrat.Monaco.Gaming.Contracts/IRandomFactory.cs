@@ -1,8 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts
 {
     using System;
-    using Aristocrat.CryptoRng;
-
+    using CryptoRng;
+    
     /// <summary>
     ///     RandomType - we use separate RNGs for gaming (outcome) and non-gaming purposes.
     /// </summary>

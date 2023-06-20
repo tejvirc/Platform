@@ -527,7 +527,6 @@
                                 </MultiBinding>
                             </controls:ToggleSwitch.IsEnabled>
                         </controls:ToggleSwitch>
-
                     </Grid>
                 </Grid>
             </ScrollViewer>

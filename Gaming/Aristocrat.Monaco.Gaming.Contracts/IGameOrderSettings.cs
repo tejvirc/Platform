@@ -1,56 +1,71 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts
 {
-    using Kernel;
     using System.Collections.Generic;
+    using Kernel;
 
     /// <summary>
-    ///     Maintains the game order.
+    ///     Maintains the attract and Icon order for games.
     /// </summary>
     public interface IGameOrderSettings : IService
     {
         /// <summary>
-        /// 
+        ///     Sets the game attract order.
         /// </summary>
-        /// <param name="games"></param>
-        /// <param name="gameOrderConfig"></param>
-        void SetGameOrderFromConfig(IList<IGameInfo> games, IList<string> gameOrderConfig);
+        /// <param name="games">Enabled games</param>
+        /// <param name="gameOrderConfig">Config of ordered list found in lobby.config.xml</param>
+        void SetAttractOrderFromConfig(IList<IGameInfo> games, IList<string> gameOrderConfig);
 
         /// <summary>
-        ///     Sets the game order based on the saved order configuration.  y = Order[k] is the theme Id of the game at order position k.
+        ///     Sets the icon order.
+        /// </summary>
+        /// <param name="games">Enabled games</param>
+        /// <param name="gameOrderConfig">Config of ordered list found in lobby.config.xml</param>
+        void SetIconOrderFromConfig(IList<IGameInfo> games, IList<string> gameOrderConfig);
+
+        /// <summary>
+        ///     Sets the icon game order based on the saved order configuration.  y = Order[k] is the theme Id of the game at order
+        ///     position k.
         /// </summary>
         /// <param name="gameOrder">The game order.</param>
         /// <param name="operatorChanged">Operator changed.</param>
-        void SetGameOrder(IEnumerable<string> gameOrder, bool operatorChanged);
+        void SetIconOrder(IEnumerable<string> gameOrder, bool operatorChanged);
 
         /// <summary>
-        ///     Gets the position priority (sort order) value
+        ///     Gets the attract position priority (sort order) value
         /// </summary>
         /// <param name="gameId">The theme Id for the game</param>
         /// <returns></returns>
-        int GetPositionPriority(string gameId);
+        int GetAttractPositionPriority(string gameId);
+
+        /// <summary>
+        ///     Gets the icon position priority (sort order) value
+        /// </summary>
+        /// <param name="gameId">The theme Id for the game</param>
+        /// <returns></returns>
+        int GetIconPositionPriority(string gameId);
 
         /// <summary>
         ///     Sets the position priority for an individual game
         /// </summary>
         /// <param name="gameId"></param>
         /// <param name="newPosition"></param>
-        void UpdatePositionPriority(string gameId, int newPosition);
+        void UpdateIconPositionPriority(string gameId, int newPosition);
 
         /// <summary>
         ///     Invoked when a game is added/enabled.  This adds the new game in the
-        ///     last order position.
+        ///     last order position of icon order.
         /// </summary>
         /// <param name="themeId">The theme Id for the game.</param>
         void OnGameAdded(string themeId);
 
         /// <summary>
-        ///     Removes a game from the game order
+        ///     Removes a game from the icon game order
         /// </summary>
         /// <param name="themeId">The theme Id for the game.</param>
         void RemoveGame(string themeId);
 
         /// <summary>
-        ///     Checked to see if a game already exists in the game order
+        ///     Checked to see if a game already exists in the icon order
         /// </summary>
         /// <param name="themeId">The theme Id for the game.</param>
         bool Exists(string themeId);

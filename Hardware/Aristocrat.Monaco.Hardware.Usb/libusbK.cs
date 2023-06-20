@@ -417,19 +417,19 @@ namespace Aristocrat.Monaco.Hardware.Usb
 
     public struct KLstDevInfoHandle : IKlibHandle
     {
-        private static readonly int OfsClassGuid = Marshal.OffsetOf(typeof (KLstDevinfo), "ClassGUID").ToInt32();
-        private static readonly int OfsCommon = Marshal.OffsetOf(typeof (KLstDevinfo), "Common").ToInt32();
-        private static readonly int OfsConnected = Marshal.OffsetOf(typeof (KLstDevinfo), "Connected").ToInt32();
-        private static readonly int OfsDeviceDesc = Marshal.OffsetOf(typeof (KLstDevinfo), "DeviceDesc").ToInt32();
-        private static readonly int OfsDeviceInterfaceGuid = Marshal.OffsetOf(typeof (KLstDevinfo), "DeviceInterfaceGUID").ToInt32();
-        private static readonly int OfsDevicePath = Marshal.OffsetOf(typeof (KLstDevinfo), "DevicePath").ToInt32();
-        private static readonly int OfsDriverId = Marshal.OffsetOf(typeof (KLstDevinfo), "DriverID").ToInt32();
-        private static readonly int OfsInstanceId = Marshal.OffsetOf(typeof (KLstDevinfo), "InstanceID").ToInt32();
-        private static readonly int OfsLUsb0FilterIndex = Marshal.OffsetOf(typeof (KLstDevinfo), "LUsb0FilterIndex").ToInt32();
-        private static readonly int OfsMfg = Marshal.OffsetOf(typeof (KLstDevinfo), "Mfg").ToInt32();
-        private static readonly int OfsService = Marshal.OffsetOf(typeof (KLstDevinfo), "Service").ToInt32();
-        private static readonly int OfsSymbolicLink = Marshal.OffsetOf(typeof (KLstDevinfo), "SymbolicLink").ToInt32();
-        private static readonly int OfsSyncFlags = Marshal.OffsetOf(typeof (KLstDevinfo), "SyncFlags").ToInt32();
+        private static readonly int OfsClassGuid = Marshal.OffsetOf(typeof(KLstDevinfo), "ClassGUID").ToInt32();
+        private static readonly int OfsCommon = Marshal.OffsetOf(typeof(KLstDevinfo), "Common").ToInt32();
+        private static readonly int OfsConnected = Marshal.OffsetOf(typeof(KLstDevinfo), "Connected").ToInt32();
+        private static readonly int OfsDeviceDesc = Marshal.OffsetOf(typeof(KLstDevinfo), "DeviceDesc").ToInt32();
+        private static readonly int OfsDeviceInterfaceGuid = Marshal.OffsetOf(typeof(KLstDevinfo), "DeviceInterfaceGUID").ToInt32();
+        private static readonly int OfsDevicePath = Marshal.OffsetOf(typeof(KLstDevinfo), "DevicePath").ToInt32();
+        private static readonly int OfsDriverId = Marshal.OffsetOf(typeof(KLstDevinfo), "DriverID").ToInt32();
+        private static readonly int OfsInstanceId = Marshal.OffsetOf(typeof(KLstDevinfo), "InstanceID").ToInt32();
+        private static readonly int OfsLUsb0FilterIndex = Marshal.OffsetOf(typeof(KLstDevinfo), "LUsb0FilterIndex").ToInt32();
+        private static readonly int OfsMfg = Marshal.OffsetOf(typeof(KLstDevinfo), "Mfg").ToInt32();
+        private static readonly int OfsService = Marshal.OffsetOf(typeof(KLstDevinfo), "Service").ToInt32();
+        private static readonly int OfsSymbolicLink = Marshal.OffsetOf(typeof(KLstDevinfo), "SymbolicLink").ToInt32();
+        private static readonly int OfsSyncFlags = Marshal.OffsetOf(typeof(KLstDevinfo), "SyncFlags").ToInt32();
 
         private readonly IntPtr handle;
 
@@ -440,7 +440,7 @@ namespace Aristocrat.Monaco.Hardware.Usb
 
         public static KLstDevInfoHandle Empty => new KLstDevInfoHandle();
 
-        public KlstSyncFlag SyncFlags => (KlstSyncFlag) Marshal.ReadInt32(handle, OfsSyncFlags);
+        public KlstSyncFlag SyncFlags => (KlstSyncFlag)Marshal.ReadInt32(handle, OfsSyncFlags);
 
         public bool Connected => Marshal.ReadInt32(handle, OfsConnected) != 0;
 
@@ -464,7 +464,18 @@ namespace Aristocrat.Monaco.Hardware.Usb
 
         public int DriverId => Marshal.ReadInt32(handle, OfsDriverId);
 
-        public KLstDevCommonInfo Common => (KLstDevCommonInfo) Marshal.PtrToStructure(new IntPtr(handle.ToInt64() + OfsCommon), typeof (KLstDevCommonInfo));
+        public KLstDevCommonInfo Common
+        {
+            get
+            {
+                var box = (KLstDevCommonInfo?)Marshal.PtrToStructure(new IntPtr(handle.ToInt64() + OfsCommon), typeof(KLstDevCommonInfo));
+                if (box == null)
+                {
+                    throw new NullReferenceException("Common");
+                }
+                return box.Value;
+            }
+        }
 
         #region IKLIB_HANDLE Members
         public KlibHandleType HandleType => KlibHandleType.LstInfok;

@@ -247,7 +247,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.Hardware.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.Hardware.Usb.Tests", "Test\Aristocrat.Monaco.Hardware.Usb.Tests\Aristocrat.Monaco.Hardware.Usb.Tests.csproj", "{10831BDA-5445-449E-A7A4-3CC79F3AFECF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.WebApiServer", "Test\automation\Aristocrat.Monaco.WebApiServer\Aristocrat.Monaco.WebApiServer.csproj", "{47C01E47-7249-4AB9-ADDE-974EC9B329F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.WebApiServer", "Test\automation\Aristocrat.Monaco.WebApiServer\Aristocrat.Monaco.WebApiServer.csproj", "{C825C004-8710-47F2-80B6-B4408D531931}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1801,24 +1801,24 @@ Global
 		{10831BDA-5445-449E-A7A4-3CC79F3AFECF}.Retail|Any CPU.ActiveCfg = Retail|Any CPU
 		{10831BDA-5445-449E-A7A4-3CC79F3AFECF}.Retail|x64.ActiveCfg = Retail|Any CPU
 		{10831BDA-5445-449E-A7A4-3CC79F3AFECF}.Retail|x86.ActiveCfg = Retail|Any CPU
-		{47C01E47-7249-4AB9-ADDE-974EC9B329F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{47C01E47-7249-4AB9-ADDE-974EC9B329F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{47C01E47-7249-4AB9-ADDE-974EC9B329F9}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{47C01E47-7249-4AB9-ADDE-974EC9B329F9}.Debug|x64.Build.0 = Debug|Any CPU
-		{47C01E47-7249-4AB9-ADDE-974EC9B329F9}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{47C01E47-7249-4AB9-ADDE-974EC9B329F9}.Debug|x86.Build.0 = Debug|Any CPU
-		{47C01E47-7249-4AB9-ADDE-974EC9B329F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{47C01E47-7249-4AB9-ADDE-974EC9B329F9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{47C01E47-7249-4AB9-ADDE-974EC9B329F9}.Release|x64.ActiveCfg = Release|Any CPU
-		{47C01E47-7249-4AB9-ADDE-974EC9B329F9}.Release|x64.Build.0 = Release|Any CPU
-		{47C01E47-7249-4AB9-ADDE-974EC9B329F9}.Release|x86.ActiveCfg = Release|Any CPU
-		{47C01E47-7249-4AB9-ADDE-974EC9B329F9}.Release|x86.Build.0 = Release|Any CPU
-		{47C01E47-7249-4AB9-ADDE-974EC9B329F9}.Retail|Any CPU.ActiveCfg = Retail|Any CPU
-		{47C01E47-7249-4AB9-ADDE-974EC9B329F9}.Retail|Any CPU.Build.0 = Retail|Any CPU
-		{47C01E47-7249-4AB9-ADDE-974EC9B329F9}.Retail|x64.ActiveCfg = Retail|Any CPU
-		{47C01E47-7249-4AB9-ADDE-974EC9B329F9}.Retail|x64.Build.0 = Retail|Any CPU
-		{47C01E47-7249-4AB9-ADDE-974EC9B329F9}.Retail|x86.ActiveCfg = Retail|Any CPU
-		{47C01E47-7249-4AB9-ADDE-974EC9B329F9}.Retail|x86.Build.0 = Retail|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Debug|x64.Build.0 = Debug|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Debug|x86.Build.0 = Debug|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Release|x64.ActiveCfg = Release|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Release|x64.Build.0 = Release|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Release|x86.ActiveCfg = Release|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Release|x86.Build.0 = Release|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Retail|Any CPU.ActiveCfg = Retail|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Retail|Any CPU.Build.0 = Retail|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Retail|x64.ActiveCfg = Retail|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Retail|x64.Build.0 = Retail|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Retail|x86.ActiveCfg = Retail|Any CPU
+		{C825C004-8710-47F2-80B6-B4408D531931}.Retail|x86.Build.0 = Retail|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1932,10 +1932,9 @@ Global
 		{D6A438DF-687F-4685-A665-957FB7744DAA} = {CD21F4D7-E6D5-462F-9F9F-22FE9618496C}
 		{67DCCDF1-A40F-4DB6-A343-ADFF3F9DCFF0} = {CD21F4D7-E6D5-462F-9F9F-22FE9618496C}
 		{10831BDA-5445-449E-A7A4-3CC79F3AFECF} = {CD21F4D7-E6D5-462F-9F9F-22FE9618496C}
-		{47C01E47-7249-4AB9-ADDE-974EC9B329F9} = {ADB20021-B352-4404-AB81-E955809FF7E3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {5A170623-08DF-4BB8-8565-F39C24A4ACA7}
 		RESX_RemoveEmptyEntries = True
+		SolutionGuid = {5A170623-08DF-4BB8-8565-F39C24A4ACA7}
 	EndGlobalSection
 EndGlobal

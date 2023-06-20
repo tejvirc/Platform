@@ -304,6 +304,14 @@
         }
 
         /// <inheritdoc />
+        public List<ISOCurrencyCode> GetSupportedCurrencies()
+        {
+            var currencies = Implementation?.SupportedNotes?.Select(n => n.CurrencyCode).Distinct();
+
+            return currencies?.ToList();
+        }
+
+        /// <inheritdoc />
         public void SetIsoCode(string isoCode)
         {
             lock (_noteLock)

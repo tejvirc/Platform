@@ -8,6 +8,7 @@
                                xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                                xmlns:commonControls="clr-namespace:Aristocrat.Monaco.UI.Common.Controls;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:helpers="http://monaco.aristocrat.com/common"
+                               xmlns:converters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
                                lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
@@ -22,6 +23,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <converters:PercentageTextValueConvert x:Key="PercentageTextValueConvert" />
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid x:Name="MainGrid"

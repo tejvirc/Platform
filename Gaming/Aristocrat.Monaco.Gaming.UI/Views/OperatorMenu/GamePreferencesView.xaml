@@ -446,12 +446,14 @@
                     <Label x:Name="SlotVolumeLevelLabel"
                        Margin="5 5 0 0"
                        VerticalAlignment="Center"
-                       Content="{lex:Loc RelativeVolume}"/>
+                       Content="{lex:Loc RelativeVolume}"
+                       AutomationProperties.AutomationId="Label55_2AB589A7" />
                 </StackPanel>
                 <!-- Keno Games Option Section -->
                 <TextBlock x:Name="KenoGamesTextBlock"
                            Margin="0 30 0 0"
-                           Text="{lex:Loc KenoGamesOptions}"/>
+                           Text="{lex:Loc KenoGamesOptions}"
+                           AutomationProperties.AutomationId="TextBlock56_2AB589A7" />
 
                 <!-- Keno Enable Auto Play Section -->
                 <CheckBox x:Name="KenoEnableAutoPlayCheckBox"
@@ -497,9 +499,10 @@
                         </ComboBox.IsEnabled>
                     </ComboBox>
                     <Label x:Name="KenoSpeedLevelLabel"
-                       Margin="5 5 0 0"
-                       VerticalAlignment="Center"
-                       Content="{lex:Loc SpeedLevel}"/>
+                           Margin="5 5 0 0"
+                           VerticalAlignment="Center"
+                           Content="{lex:Loc SpeedLevel}"
+                           AutomationProperties.AutomationId="Label61_2AB589A7" />
                 </StackPanel>
                 <!-- Keno Default Player Speed Section -->
                 <StackPanel x:Name="KenoDefaultPlaySpeedStackPanel"
@@ -520,9 +523,10 @@
                         </ComboBox.IsEnabled>
                     </ComboBox>
                     <Label x:Name="KenoDefaultPlayerSpeedLabel"
-                       Margin="5 5 0 0"
-                       VerticalAlignment="Center"
-                       Content="{lex:Loc DefaultPlayerSpeed}"/>
+                           Margin="5 5 0 0"
+                           VerticalAlignment="Center"
+                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.DefaultPlayerSpeed}}"
+                           AutomationProperties.AutomationId="Label64_2AB589A7" />
                 </StackPanel>
                 <!-- Keno Volume Section -->
                 <StackPanel x:Name="KenoVolumeStackPanel"
@@ -545,9 +549,10 @@
                         </ComboBox.IsEnabled>
                     </ComboBox>
                     <Label x:Name="KenoVolumeLabel"
-                       Margin="5 5 0 0"
-                       VerticalAlignment="Center"
-                       Content="{lex:Loc RelativeVolume}"/>
+                           Margin="5 5 0 0"
+                           VerticalAlignment="Center"
+                           Content="{lex:Loc RelativeVolume}"
+                           AutomationProperties.AutomationId="Label67_2AB589A7" />
                 </StackPanel>
             </StackPanel>
             <!-- Right Side Grid Section -->
@@ -557,12 +562,13 @@
                         AutomationProperties.AutomationId="StackPanel68_2AB589A7">
                 <!-- Poker Game Options Section -->
                 <TextBlock x:Name="PokerGameOptionsTextBlock"
-                       Text="{lex:Loc PokerGamesOptions}"/>
-
+                           Text="{lex:Loc PokerGamesOptions}"
+                           AutomationProperties.AutomationId="TextBlock69_2AB589A7" />
                 <!-- Poker Enable Auto Hold Section -->
                 <CheckBox x:Name="PokerEnableAutoHoldCheckBox"
-                      Content="{lex:Loc EnableAutoHold}" 
-                      IsChecked="{Binding PokerEnableAutoHold}">
+                          Content="{lex:Loc EnableAutoHold}"
+                          IsChecked="{Binding PokerEnableAutoHold}"
+                          AutomationProperties.AutomationId="CheckBox70_2AB589A7">
                     <CheckBox.IsEnabled>
                         <MultiBinding Converter="{StaticResource BoolAndConverter}">
                             <Binding Path="AutoHoldConfigurable" />
@@ -573,8 +579,9 @@
                 </CheckBox>
                 <!-- Poker Show Player Speed Section -->
                 <CheckBox x:Name="PokerShowPlayerSpeedCheckBox"
-                      Content="{lex:Loc ShowPlayerSpeedButton}" 
-                      IsChecked="{Binding PokerShowPlayerSpeedButton}">
+                          Content="{lex:Loc ShowPlayerSpeedButton}" 
+                          IsChecked="{Binding PokerShowPlayerSpeedButton}"
+                          AutomationProperties.AutomationId="CheckBox71_2AB589A7">
                     <CheckBox.IsEnabled>
                         <MultiBinding Converter="{StaticResource BoolAndConverter}">
                             <Binding Path="PokerOptionsEnabled" />
@@ -602,9 +609,10 @@
                         </ComboBox.IsEnabled>
                     </ComboBox>
                     <Label x:Name="PokerSpeedLevelLabel"
-                       Margin="5 5 0 0"
-                       VerticalAlignment="Center"
-                       Content="{lex:Loc SpeedLevel}"/>
+                           Margin="5 5 0 0"
+                           VerticalAlignment="Center"
+                           Content="{lex:Loc SpeedLevel}"
+                           AutomationProperties.AutomationId="Label74_2AB589A7" />
                 </StackPanel>
                 <!-- Poker Default Player Speed Section -->
                 <StackPanel x:Name="PokerDefaultPlayerSpeedStackPanel"
@@ -626,9 +634,10 @@
                     </ComboBox>
 
                     <Label x:Name="PokerDefaultPlayerSpeedLabel" 
-                       Margin="5 5 0 0"
-                       VerticalAlignment="Center"
-                       Content="{lex:Loc DefaultPlayerSpeed}"/>
+                           Margin="5 5 0 0"
+                           VerticalAlignment="Center"
+                           Content="{lex:Loc DefaultPlayerSpeed}"
+                           AutomationProperties.AutomationId="Label77_2AB589A7" />
                 </StackPanel>
                 <!-- Poker Volume Level Section -->
                 <StackPanel x:Name="PokerVolumeLevelStackPanel"
@@ -651,9 +660,10 @@
                         </ComboBox.IsEnabled>
                     </ComboBox>
                     <Label x:Name="PokerVolumeLevelLabel"
-                       Margin="5 5 0 0"
-                       VerticalAlignment="Center"
-                       Content="{lex:Loc RelativeVolume}"/>
+                           Margin="5 5 0 0"
+                           VerticalAlignment="Center"
+                           Content="{lex:Loc RelativeVolume}"
+                           AutomationProperties.AutomationId="Label80_2AB589A7" />
                 </StackPanel>
                 <!-- Poker Background color Section -->
                 <StackPanel x:Name="PokerBackgroundColorStackPanel"
@@ -677,15 +687,21 @@
                         <Label x:Name="PokerColorLabel"
                                Margin="5 5 0 0"
                                VerticalAlignment="Center"
-                               Content="{lex:Loc BackgroundColor}"/>
+                               Content="{lex:Loc BackgroundColor}"
+                               AutomationProperties.AutomationId="Label84_2AB589A7" />
                     </StackPanel>
-                    <Button Margin="10 10 0 10" HorizontalAlignment="Right" IsEnabled="{Binding BackgroundPreviewAvailable}"
-                            Content="{lex:Loc AttractModePreviewButtonText}" Command="{Binding PreviewBackgroundCommand}" />
+                    <Button Margin="10 10 0 10"
+                            HorizontalAlignment="Right"
+                            IsEnabled="{Binding BackgroundPreviewAvailable}"
+                            Content="{lex:Loc AttractModePreviewButtonText}"
+                            Command="{Binding PreviewBackgroundCommand}"
+                            AutomationProperties.AutomationId="Button85_2AB589A7" />
                 </StackPanel>
 
                 <TextBlock x:Name="BlackjackGameOptionsTextBlock"
                            Margin="0 30 0 0"
-                           Text="{lex:Loc BlackjackGamesOptions}"/>
+                           Text="{lex:Loc BlackjackGamesOptions}"
+                           AutomationProperties.AutomationId="TextBlock86_2AB589A7" />
 
                 <!-- Blackjack Volume Level Section -->
                 <StackPanel x:Name="BlackjackVolumeLevelStackPanel"
@@ -708,14 +724,16 @@
                         </ComboBox.IsEnabled>
                     </ComboBox>
                     <Label x:Name="BlackjackVolumeLevelLabel"
-                       Margin="5 5 0 0"
-                       VerticalAlignment="Center"
-                       Content="{lex:Loc RelativeVolume}"/>
+                           Margin="5 5 0 0"
+                           VerticalAlignment="Center"
+                           Content="{lex:Loc RelativeVolume}"
+                           AutomationProperties.AutomationId="Label89_2AB589A7" />
                 </StackPanel>
                 <!-- Roulette Game Options Section -->
                 <TextBlock x:Name="RouletteGameOptionsTextBlock"
                            Margin="0 30 0 0"
-                           Text="{lex:Loc RouletteGamesOptions}"/>
+                           Text="{lex:Loc RouletteGamesOptions}"
+                           AutomationProperties.AutomationId="TextBlock90_2AB589A7" />
 
                 <!-- Roulette Volume Level Section -->
                 <StackPanel x:Name="RouletteVolumeLevelStackPanel"
@@ -740,7 +758,8 @@
                     <Label x:Name="RouletteVolumeLevelLabel" 
                            Margin="5 5 0 0" 
                            VerticalAlignment="Center" 
-                           Content="{lex:Loc RelativeVolume}"/>
+                           Content="{lex:Loc RelativeVolume}"
+                           AutomationProperties.AutomationId="Label93_2AB589A7" />
                 </StackPanel>
             </StackPanel>
             <!-- Change Game Lobby Layout Section -->
