@@ -59,25 +59,5 @@
                     string.Empty)
                 : string.Empty;
         }
-
-        public static StatusEnum GetDeviceStatusType(this DeviceConfigViewModel config)
-        {
-            return config != null
-                ? Application.Helpers.DeviceHelper.GetDeviceStatusType(
-                    config.Manufacturer,
-                    string.Empty,
-                    config.Protocol,
-                    config.Port,
-                    string.Empty,
-                    string.Empty,
-                    string.Empty,
-                    string.Empty)
-                : StatusEnum.None;
-        }
-
-        public static StatusEnum GetDeviceEnum(this DeviceConfigViewModel config)
-        {
-            return StatusEnum.None;
-        }
     }
 }

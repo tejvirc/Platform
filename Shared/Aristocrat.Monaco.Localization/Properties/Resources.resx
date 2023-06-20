@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -11727,5 +11727,165 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
   </data>
   <data name="GameStartMethodLineReelorMaxBetButton" xml:space="preserve">
     <value>Line/Reel/Max Bet Button</value>
+  </data>
+  <data name="ExtendedLayout" xml:space="preserve">
+    <value>Extended Layout</value>
+    <comment>Aristocrat.Monaco.Accounting.UI</comment>
+  </data>
+  <data name="BarcodeInterleave2Of5" xml:space="preserve">
+    <value>Interleave 2 of 5</value>
+    <comment>Aristocrat.Monaco.Accounting.UI</comment>
+  </data>
+  <data name="EgmPaidGameWonAmtLabel" xml:space="preserve">
+    <value>Cash Won</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="PlayedCountLabel" xml:space="preserve">
+    <value>Games Played</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="WageredAmountLabel" xml:space="preserve">
+    <value>Cash Played</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="WonCountLabel" xml:space="preserve">
+    <value>Games Won</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="ActiveConnections" xml:space="preserve">
+    <value>Active Connections</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Ping" xml:space="preserve">
+    <value>Ping</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="ExtraLow" xml:space="preserve">
+    <value>Extra Low</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MediumLow" xml:space="preserve">
+    <value>Medium-Low</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MediumHigh" xml:space="preserve">
+    <value>Medium-High</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="ExtraHigh" xml:space="preserve">
+    <value>Extra-High</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="ClrMemoryLabel" xml:space="preserve">
+    <value>CLR Memory</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="FreeMemoryLabel" xml:space="preserve">
+    <value>Free Memory</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MegabytesAbbr" xml:space="preserve">
+    <value>MB</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="PlatformMemoryLabel" xml:space="preserve">
+    <value>Platform Memory</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="SelectDate" xml:space="preserve">
+    <value>Select Date</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="AttendantPaidExternalBonusWinLabel" xml:space="preserve">
+    <value>  Attendant Paid External Bonus Win</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="AttendantPaidPaytableWinLabel" xml:space="preserve">
+    <value>  Attendant Paid Paytable Win</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="AttendantPaidProgressiveWinLabel" xml:space="preserve">
+    <value>  Attendant Paid Progressive Win</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="GamesLost" xml:space="preserve">
+    <value>Games Lost</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MachinePaidExternalBonusWinLabel" xml:space="preserve">
+    <value>  Machine Paid External Bonus Win</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MachinePaidPaytableWinLabel" xml:space="preserve">
+    <value>  Machine Paid Paytable Win</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MachinePaidProgressiveWinLabel" xml:space="preserve">
+    <value>  Machine Paid Progressive Win</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="TotalCoinInTurnoverLabel" xml:space="preserve">
+    <value>Total Coin In (Turnover)</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="TotalCoinOutMachinePaidLabel" xml:space="preserve">
+    <value>Total Coin Out (Machine Paid)</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="TotalJackpotAttendantPaidLabel" xml:space="preserve">
+    <value>Total Jackpot (Attendant Paid)</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MetricClrBytes" xml:space="preserve">
+    <value>CLR Memory</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricCpuTemperature" xml:space="preserve">
+    <value>CPU Temperature</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricCpuTime" xml:space="preserve">
+    <value>Platform CPU</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricFreeMemory" xml:space="preserve">
+    <value>Free Memory</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricGdkPrivateBytes" xml:space="preserve">
+    <value>Game Memory</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricGdkProcessorTime" xml:space="preserve">
+    <value>Game CPU</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricGdkThreadCount" xml:space="preserve">
+    <value>Game Threads</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricGpuUsage" xml:space="preserve">
+    <value>GPU Usage</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricMonacoPrivateBytes" xml:space="preserve">
+    <value>Platform Memory</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricThreadCount" xml:space="preserve">
+    <value>Platform Threads</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricTotalCpu" xml:space="preserve">
+    <value>Total CPU</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="FalseText" xml:space="preserve">
+    <value>False</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="TrueText" xml:space="preserve">
+    <value>True</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
 </root>
