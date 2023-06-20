@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -187,6 +187,35 @@
             }
         }
 
+        private void UpdateMetricLabels()
+        {
+            if(Metrics == null)
+            {
+                return;
+            }
+            foreach (var metric in Metrics)
+            {
+                var metricLabel = Localizer.For(CultureFor.Operator).GetString(metric.MetricType.GetAttribute<LabelResourceKeyAttribute>().LabelResourceKey);
+                var metricUnit = metric.MetricType.GetAttribute<UnitAttribute>().Unit;
+                metric.Label = metricLabel+ " " + metricUnit;
+            }
+            SetXAxesTitles();
+            SetYAxesTitles();
+            RaisePropertyChanged(nameof(Metrics));
+            RaisePropertyChanged(nameof(YAxes));
+            RaisePropertyChanged(nameof(XAxes));
+            RaisePropertyChanged(nameof(MonacoChart));
+            RaisePropertyChanged(nameof(Charts));
+        }
+
+        private void HandleEvent(OperatorCultureChangedEvent obj)
+        {
+            MvvmHelper.ExecuteOnUI(() =>
+            {
+                UpdateMetricLabels();
+            });
+        }
+
         private void LoadMetricSources()
         {
             var seriesNumber = 0;
@@ -237,7 +266,7 @@
                 {
                     var axis = new Axis
                     {
-                        Title = "Time",
+                        Title = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Time),
                         LabelFormatter = DateTimeFormatter,
                         Unit = TimeSpan.FromSeconds(1).Ticks
                     };
@@ -305,6 +334,14 @@
             RaisePropertyChanged(nameof(AxisXStep));
 
             SetXAxisScale(DateTime.Now);
+        }
+
+        private void SetXAxesTitles()
+        {
+            foreach(var x in XAxes)
+            {
+                x.Title = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Time);
+            }
         }
 
         private void SetYAxesTitles()

@@ -11,6 +11,7 @@
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices.v21;
     using Aristocrat.G2S.Protocol.v21;
+    using Aristocrat.Monaco.Application.Contracts.Localization;
     using Kernel;
     using Models;
     using Monaco.UI.Common;
@@ -56,6 +57,8 @@
 
             _pollConnectionTimer = new DispatcherTimerAdapter { Interval = TimeSpan.FromSeconds(1.0) };
             _pollConnectionTimer.Tick += PollConnectionTimerOnTick;
+
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, Handle);
         }
 
         /// <summary>
@@ -391,6 +394,18 @@
                 data.TransportState = commDevice.TransportState;
                 data.State = commDevice.State;
             }
+        }
+
+        private void Handle(OperatorCultureChangedEvent obj)
+        {
+            MvvmHelper.ExecuteOnUI(() =>
+            {
+                RaisePropertyChanged(nameof(CommsInfoData));
+                foreach(var info in CommsInfoData)
+                {
+
+                }
+            });
         }
     }
 }
