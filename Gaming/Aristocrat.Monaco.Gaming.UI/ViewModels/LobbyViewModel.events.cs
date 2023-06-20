@@ -849,27 +849,21 @@
 
         private void HandleEvent(GamePlayEnabledEvent gameEnabledEvent)
         {
-            // Restore the fast-launch capability after tilts.
-            _lobbyStateManager.AllowGameAutoLaunch = true;
-            // If game is ready but not loaded due to disable, load it now
-            if (GameReady)
-            {
-                MvvmHelper.ExecuteOnUI(
-                    () =>
-                    {
-                        SendTrigger(LobbyTrigger.Enable);
+            MvvmHelper.ExecuteOnUI(
+                () =>
+                {
+                    // Restore the fast-launch capability after tilts.
+                    _lobbyStateManager.AllowGameAutoLaunch = true;
 
-                        if (_lobbyStateManager.CurrentState != LobbyState.Disabled)
-                        {
-                            Logger.Debug("GamePlayEnabledEvent during game load. Assuming we are now loaded.");
-                            SendTrigger(LobbyTrigger.GameLoaded);
-                        }
-                    });
-            }
-            else
-            {
-                MvvmHelper.ExecuteOnUI(() => SendTrigger(LobbyTrigger.Enable));
-            }
+                    // If game is ready but not loaded due to disable, load it now
+                    SendTrigger(LobbyTrigger.Enable);
+
+                    if (GameReady && _lobbyStateManager.CurrentState != LobbyState.Disabled)
+                    {
+                        Logger.Debug("GamePlayEnabledEvent during game load. Assuming we are now loaded.");
+                        SendTrigger(LobbyTrigger.GameLoaded);
+                    }
+                });
         }
 
         private void HandleEvent(ViewResizeEvent viewResizeEvent)
