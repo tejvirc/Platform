@@ -133,6 +133,7 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         private GamingConfigurationFreeSpin freeSpinField;
         
         private GamingConfigurationWin winField;
+        private GamingConfigurationDisplayGamePayMessage displayGamePayMessageField;
         
         /// <remarks/>
         public GamingConfigurationGameHistory GameHistory {
@@ -681,6 +682,15 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.winField = value;
+                }
+        }
+        
+        public GamingConfigurationDisplayGamePayMessage DisplayGamePayMessage {
+            get {
+                return this.displayGamePayMessageField;
+            }
+            set {
+                this.displayGamePayMessageField = value;
             }
         }
     }
@@ -3714,6 +3724,46 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
         }
     }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class GamingConfigurationDisplayGamePayMessage {
+        
+        private bool useField;
+        
+        private string formatField;
+        
+        public GamingConfigurationDisplayGamePayMessage() {
+            this.useField = false;
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(true)]
+        public bool Use {
+            get {
+                return this.useField;
+            }
+            set {
+                this.useField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Format {
+            get {
+                return this.formatField;
+            }
+            set {
+                this.formatField = value;
+            }
+        }
+    }
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
@@ -3736,4 +3786,3 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
         }
     }
-}

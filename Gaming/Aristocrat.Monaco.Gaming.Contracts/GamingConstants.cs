@@ -27,6 +27,26 @@
         ///     Default value for WinDestination
         /// </summary>
         public const string WinDestination = "win";
+        
+        /// <summary>
+        ///     Property key for DisplayGamePayMessageUse
+        /// </summary>
+        public const string DisplayGamePayMessageUseKey = "GamePlay.DisplayGamePayMessageUse";
+
+        /// <summary>
+        ///     Default value for DisplayGamePayMessageUse
+        /// </summary>
+        public const bool DisplayGamePayMessageUse = false;
+
+        /// <summary>
+        ///     Property key for DisplayGamePayMessageFormat
+        /// </summary>
+        public const string DisplayGamePayMessageFormatKey = "GamePlay.DisplayGamePayMessageFormat";
+
+        /// <summary>
+        ///     Default value for DisplayGamePayMessageFormat
+        /// </summary>
+        public const string DisplayGamePayMessageFormat = "currency";
 
         /// <summary>
         ///     Helper definition for handling conversions to/from millicents

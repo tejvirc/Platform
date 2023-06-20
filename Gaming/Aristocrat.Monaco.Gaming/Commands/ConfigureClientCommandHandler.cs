@@ -164,6 +164,8 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 { "/Runtime/GameDuration&kenoSpeed", _gameCategoryService.SelectedGameCategorySetting.PlayerSpeed.ToString() },
                 { "/Runtime/GameDuration&reelSpeed", _properties.GetValue(GamingConstants.ReelSpeedKey, GamingConstants.ReelSpeed).ToString() },
                 { "/Runtime/GameRules&gameDisabled", ApplicationConstants.DefaultGameDisabledUse },
+                { "/Runtime/DisplayGamePayMessage&use", _properties.GetValue(GamingConstants.DisplayGamePayMessageUseKey, GamingConstants.DisplayGamePayMessageUse) ? "allowed" : "disallowed"  },
+                { "/Runtime/DisplayGamePayMessage&format", _properties.GetValue(GamingConstants.DisplayGamePayMessageFormatKey, GamingConstants.DisplayGamePayMessageFormat).ToLower() },
                 { "/Runtime/Meters&defaultDisplay", _properties.GetValue(GamingConstants.DefaultCreditDisplayFormat, DisplayFormat.Credit).ToString().ToLower() },
                 { "/Runtime/Meters&idleDisplay", GamingConstants.IdleCreditDisplayFormat },
                 { "/Runtime/Meters/Win&destination", _properties.GetValue(GamingConstants.WinDestinationKey, GamingConstants.WinDestination) },
