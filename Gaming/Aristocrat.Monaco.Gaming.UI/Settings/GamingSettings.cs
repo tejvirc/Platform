@@ -20,6 +20,8 @@
         private VolumeScalar _relativeVolume;
         private bool _reelStopEnabled;
         private double _reelSpeed;
+        private bool _displayGamePayMessageUse;
+        private string _displayGamePayMessageFormat;
         private GameStartMethodOption _gameStartMethod;
 
         private CensorshipSettings _censorship;
@@ -125,6 +127,20 @@
             get => _reelSpeed;
 
             set => SetProperty(ref _reelSpeed, value);
+        }
+
+        public bool DisplayGamePayMessageUse
+        {
+            get => _displayGamePayMessageUse;
+
+            set => SetProperty(ref _displayGamePayMessageUse, value);
+        }
+
+        public string DisplayGamePayMessageFormat
+        {
+            get => _displayGamePayMessageFormat;
+
+            set => SetProperty(ref _displayGamePayMessageFormat, value);
         }
 
         /// <summary>

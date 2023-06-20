@@ -165,6 +165,8 @@
                 ReelStopEnabled =
                     _properties.GetValue(GamingConstants.ReelStopEnabled, false),
                 ReelSpeed = _properties.GetValue(GamingConstants.ReelSpeedKey, GamingConstants.ReelSpeed),
+                DisplayGamePayMessageUse = _properties.GetValue(GamingConstants.DisplayGamePayMessageUseKey, GamingConstants.DisplayGamePayMessageUse),
+                DisplayGamePayMessageFormat = _properties.GetValue(GamingConstants.DisplayGamePayMessageFormatKey, GamingConstants.DisplayGamePayMessageFormat),
                 GameStartMethod =
                     _properties.GetValue(GamingConstants.GameStartMethod, GameStartMethodOption.Bet),
                 Games = new ObservableCollection<GameSettings>(GetGameSettings()),

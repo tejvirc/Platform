@@ -19,6 +19,7 @@ as follows:
 	</Messages>
 	<ReelStop Enabled="false" />
   <ReelSpeed Value="5" />
+  <DisplayGamePayMessage Use="true" Format="currency"/>
 	<LockupBehavior CashableLockupStrategy="NotAllowed" />
 	<DefaultCreditDisplay Format="Currency" />
 	<AutoHold Enable="true" Configurable="false" />

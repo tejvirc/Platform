@@ -75,6 +75,7 @@
                     GameLoad = new GamingConfigurationGameLoad(),
                     ProgressivePoolCreation = new GamingConfigurationProgressivePoolCreation(),
                     PlayerInformationDisplay = new GamingConfigurationPlayerInformationDisplay(),
+                    DisplayGamePayMessage = new GamingConfigurationDisplayGamePayMessage()
                 });
 
             var blockExists = storageManager.BlockExists(storageName);
@@ -282,6 +283,8 @@
                 { GamingConstants.BonusTransferPlaySound, ((object)configuration.BonusTransfer?.PlaySound ?? true, false) },
                 { GamingConstants.LaunchGameAfterReboot, (InitFromStorage(GamingConstants.LaunchGameAfterReboot), true) },
                 { GamingConstants.DenomSelectionLobby, (configuration.DenomSelectionLobby?.Mode ?? DenomSelectionLobby.Allowed, false) },
+                { GamingConstants.DisplayGamePayMessageUseKey, (InitFromStorage(GamingConstants.DisplayGamePayMessageUseKey), true)},
+                { GamingConstants.DisplayGamePayMessageFormatKey, (InitFromStorage(GamingConstants.DisplayGamePayMessageFormatKey), true)}
             };
 
             if (!blockExists)
@@ -292,6 +295,8 @@
                 SetProperty(GamingConstants.ProgressiveCommitTimeoutMs, GamingConstants.DefaultProgressiveCommitTimeoutMs);
                 SetProperty(GamingConstants.ReelStopEnabled, configuration.ReelStop?.Enabled ?? true);
                 SetProperty(GamingConstants.ReelSpeedKey, Convert.ToDouble(configuration.ReelSpeed?.Value ?? Convert.ToString(GamingConstants.ReelSpeed)));
+                SetProperty(GamingConstants.DisplayGamePayMessageUseKey, configuration.DisplayGamePayMessage?.Use ?? GamingConstants.DisplayGamePayMessageUse);
+                SetProperty(GamingConstants.DisplayGamePayMessageFormatKey, configuration.DisplayGamePayMessage?.Format ?? GamingConstants.DisplayGamePayMessageFormat);
                 SetProperty(GamingConstants.AutoHoldEnable, configuration.AutoHold?.Enable ?? false);
                 SetProperty(GamingConstants.ReplayPauseActive, configuration.ReplayPause?.Active ?? true);
                 SetProperty(GamingConstants.GambleWagerLimit, configuration.Gamble?.WagerLimit ?? GamingConstants.DefaultGambleWagerLimit);
