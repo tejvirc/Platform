@@ -614,9 +614,8 @@
 
                     <!-- Combined animated jackpot banners -->
                     <bink:BinkViewerControl Grid.Column="1"
-                                            Grid.Row="1"
-                                            Grid.RowSpan="2"
-                                            Margin="0 120 2 0"
+                                            Grid.Row="0"
+                                            Grid.RowSpan="3"
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Top"
                                             Stretch="None"
