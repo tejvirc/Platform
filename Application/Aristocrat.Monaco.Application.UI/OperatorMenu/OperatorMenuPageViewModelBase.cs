@@ -1014,6 +1014,13 @@
             }
         }
 
+        protected string GetBooleanDisplayText(bool value)
+        {
+            return value
+                ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TrueText)
+                : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.FalseText);
+        }
+
         internal void OnLoaded(object page)
         {
             InitializeDataAsync();

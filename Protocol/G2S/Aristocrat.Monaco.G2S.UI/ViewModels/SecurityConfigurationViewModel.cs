@@ -646,10 +646,12 @@
             // if not then enable checkbox and allow them ability to enter data
             ScepEnabled = !(EnrollmentEnabled && _certificateService.HasValidCertificate());
             // VLT-6613 
-            RequestButtonCaption = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Buttons_StartEnrollment);
+            UpdateStatusButton();
             //RequestButtonCaption = (_technicianMode ? Resources.Buttons_ApplyCertificate : Resources.Buttons_StartEnrollment);
             TabsActive = true;
             OcspTestPassed = true;
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, _ => UpdateStatusButton());
+
         }
 
         /// <summary>
@@ -1189,6 +1191,16 @@
                     .FormatString(ResourceKeys.SecurityConfiguration_PendingCountdown, _timeRemaining));
 
             //RequestStatus = string.Format(CultureInfo.CurrentUICulture,Resources.SecurityConfiguration_PendingCountdown,_timeRemaning);
+        }
+
+        private void UpdateStatusButton()
+        {
+            MvvmHelper.ExecuteOnUI(
+                () =>
+                {
+                    RequestButtonCaption = Localizer.For(CultureFor.Operator)
+                        .GetString(ResourceKeys.Buttons_StartEnrollment);
+                });
         }
     }
 }

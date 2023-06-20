@@ -9,6 +9,7 @@
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.Application.UI.Converters"
                                mc:Ignorable="d"
+                               loc:Localizer.For="Operator"
                                d:DataContext="{d:DesignInstance viewModels:MultiProtocolConfigDisplayPageViewModel, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -51,6 +52,7 @@
         </Grid.ColumnDefinitions>
         <Label Grid.Row="0"
                Grid.Column="0"
+               loc:Localizer.For="Operator"
                Content="{lex:Loc Key={x:Static loc:ResourceKeys.ValidationProtocolLabel}}"
                AutomationProperties.AutomationId="Label7_B605EA59" />
         <TextBlock Grid.Row="0"
@@ -60,6 +62,7 @@
         <Label Grid.Row="1"
                Grid.Column="0"
                Margin="0 20 0 0"
+               loc:Localizer.For="Operator"
                Content="{lex:Loc Key={x:Static loc:ResourceKeys.FundTransferProtocolLabel}}"
                AutomationProperties.AutomationId="Label9_B605EA59" />
         <TextBlock Grid.Row="1"

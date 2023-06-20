@@ -166,6 +166,11 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             {
                 ResetOriginalHosts();
             }
+
+            EventBus.Subscribe<OperatorCultureChangedEvent>(
+                this,
+                _ => MvvmHelper.ExecuteOnUI(ResetOriginalHosts)
+            );
         }
 
         protected override void SaveChanges()
@@ -247,6 +252,8 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                     Address = h.Address,
                     Registered = h.Registered,
                     RequiredForPlay = h.RequiredForPlay,
+                    RegisteredDisplayText = GetBooleanDisplayText(h.Registered),
+                    RequiredForPlayDisplayText = GetBooleanDisplayText(h.RequiredForPlay)
                 };
 
                 Hosts.Add(host);
@@ -280,6 +287,8 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                         Address = host.Address,
                         Registered = host.IsEgm() || host.Registered,
                         RequiredForPlay = host.RequiredForPlay,
+                        RegisteredDisplayText = GetBooleanDisplayText(host.Registered),
+                        RequiredForPlayDisplayText = GetBooleanDisplayText(host.RequiredForPlay)
                     });
             }
 

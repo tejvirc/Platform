@@ -68,13 +68,13 @@
                                     AutomationProperties.AutomationId="DataGridTextColumn7_C13828E5" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerActive}}"
                                     IsReadOnly="False"
-                                    Binding="{Binding Active}"
+                                    Binding="{Binding ActiveDisplayText}"
                                     Width="Auto"
                                     loc:Localizer.For="Operator"
                                     AutomationProperties.AutomationId="DataGridTextColumn8_C13828E5" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerEnabled}}"
                                     IsReadOnly="True"
-                                    Binding="{Binding Enabled}"
+                                    Binding="{Binding EnabledDisplayText}"
                                     Width="Auto"
                                     loc:Localizer.For="Operator"
                                     AutomationProperties.AutomationId="DataGridTextColumn9_C13828E5" />

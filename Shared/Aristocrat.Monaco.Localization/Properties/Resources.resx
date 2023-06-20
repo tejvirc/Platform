@@ -12187,4 +12187,10 @@ Do you really want to do full reset?</value>
     <value>True</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
+  <data name="DeviceManagerActiveSelection" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="DeviceManagerOwnerSelection" xml:space="preserve">
+    <value>Owner</value>
+  </data>
 </root>

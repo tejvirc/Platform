@@ -28,6 +28,21 @@
             _centralDeterminationSystemProtocol = multiProtocolConfiguration.FirstOrDefault(x => x.IsCentralDeterminationHandled)?.Protocol;
         }
 
+        protected override void OnLoaded()
+        {
+            base.OnLoaded();
+
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this,
+                _ =>
+                {
+                    RaisePropertyChanged(
+                        nameof(ValidationProtocol),
+                        nameof(FundTransferProtocol),
+                        nameof(ProgressiveProtocol),
+                        nameof(CentralDeterminationSystemProtocol));
+                });
+        }
+
         public string ValidationProtocol => _validationProtocol.HasValue
             ? EnumParser.ToName(_validationProtocol)
             : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.None);
