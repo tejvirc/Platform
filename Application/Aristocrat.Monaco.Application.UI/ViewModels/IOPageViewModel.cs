@@ -27,6 +27,8 @@
     using DisabledEvent = Hardware.Contracts.IO.DisabledEvent;
     using EnabledEvent = Hardware.Contracts.IO.EnabledEvent;
     using Timer = System.Timers.Timer;
+    using System.Text;
+    using System.ComponentModel;
 
     [CLSCompliant(false)]
     public class IOPageViewModel : OperatorMenuPageViewModelBase
@@ -62,6 +64,7 @@
         private string _statusText;
         private Brush _stateForegroundBrush;
         private string _stateText;
+        private IOPageStatus _status;
 
         public IOPageViewModel()
         {
@@ -78,6 +81,8 @@
             _maxOutputs = io.GetMaxOutputs;
             _currentInputs = io.GetInputs;
             _currentOutputs = io.GetOutputs;
+
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleEvent);
 
             InitInputLabelContent();
         }
@@ -104,7 +109,7 @@
 
         public string StateText
         {
-            get => _stateText;
+            get => Localizer.For(CultureFor.Operator).GetString(_stateText);
             set
             {
                 _stateText = value;
@@ -129,8 +134,23 @@
             {
                 _statusText = value;
                 RaisePropertyChanged(nameof(StatusText));
+                RaisePropertyChanged(nameof(FormattedStatus));
             }
         }
+
+
+        public IOPageStatus Status
+        {
+            get => _status;
+            set
+            {
+                _status = value;
+                RaisePropertyChanged(nameof(Status));
+                RaisePropertyChanged(nameof(FormattedStatus));
+            }
+        }
+
+        public string FormattedStatus => Status.FormattedStatus;
 
         public Brush StatusForegroundBrush
         {
@@ -291,6 +311,7 @@
 
                 if (disabledEvent.Reasons != DisabledReasons.Error)
                 {
+                    Status = new IOPageStatus(ResourceKeys.DisabledByText, disabledEvent.Reasons.ToString());
                     StatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisabledByText) + disabledEvent.Reasons;
                     StatusForegroundBrush = Brushes.Yellow;
                 }
@@ -304,6 +325,7 @@
             else if (typeof(EnabledEvent) == theEvent.GetType())
             {
                 var enabledEvent = (EnabledEvent)theEvent;
+                Status = new IOPageStatus(ResourceKeys.EnabledByText, enabledEvent.Reasons.ToString());
                 StatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EnabledByText) + enabledEvent.Reasons;
                 StatusForegroundBrush = Brushes.White;
 
@@ -313,6 +335,11 @@
             {
                 var inEvent = (InputEvent)theEvent;
 
+                Status = new IOPageStatus(ResourceKeys.InputEventText,
+                                          inEvent.Id.ToString(),
+                                          inEvent.Action ?
+                                              ResourceKeys.OnText :
+                                              ResourceKeys.OffText);
                 StatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InputEventText) + " " +
                               inEvent.Id.ToString(CultureInfo.CurrentCulture) +
                               string.Format(
@@ -330,6 +357,11 @@
             {
                 var inEvent = (OutputEvent)theEvent;
 
+                Status = new IOPageStatus(ResourceKeys.OutputEventText,
+                                          inEvent.Id.ToString(),
+                                          inEvent.Action ?
+                                              ResourceKeys.OnText :
+                                              ResourceKeys.OffText);
                 StatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OutputEventText) + " " +
                               inEvent.Id.ToString(CultureInfo.CurrentCulture) +
                               string.Format(
@@ -348,6 +380,7 @@
                 var errorEvent = (ErrorEvent)theEvent;
                 var id = errorEvent.Id;
 
+                Status = new IOPageStatus(ResourceKeys.OutputEventText, id.ToString());
                 StatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OutputEventText) + " " + id;
                 StatusForegroundBrush = Brushes.Red;
 
@@ -363,6 +396,13 @@
                     physicalLabel = value.Id.ToString(CultureInfo.CurrentCulture);
                 }
 
+                Status = new IOPageStatus(ResourceKeys.PhysicalText,
+                                          physicalLabel,
+                                          ResourceKeys.OnText,
+                                          ResourceKeys.LogicalText,
+                                          buttonEvent.LogicalId.ToString(),
+                                          ResourceKeys.ButtonsLabel,
+                                          ResourceKeys.DownText);
                 StatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PhysicalText) + " " + physicalLabel + " " +
                               Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OnText) +
                               " " + Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LogicalText) + " " + buttonEvent.LogicalId + " " +
@@ -385,6 +425,13 @@
                     physicalLabel = value.Id.ToString(CultureInfo.CurrentCulture);
                 }
 
+                Status = new IOPageStatus(ResourceKeys.PhysicalText,
+                                          physicalLabel,
+                                          ResourceKeys.OnText,
+                                          ResourceKeys.LogicalText,
+                                          buttonEvent.LogicalId.ToString(),
+                                          ResourceKeys.ButtonsLabel,
+                                          ResourceKeys.UpText);
                 StatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PhysicalText) + " " + physicalLabel + " " +
                               Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OffText) +
                               " " + Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LogicalText) + " " + buttonEvent.LogicalId + " " +
@@ -431,6 +478,13 @@
                     physicalLabel = value.Id.ToString(CultureInfo.CurrentCulture);
                 }
 
+                Status = new IOPageStatus(ResourceKeys.PhysicalText,
+                                          physicalLabel,
+                                          ResourceKeys.OnText,
+                                          ResourceKeys.LogicalText,
+                                          hardMeterEvent.LogicalId.ToString(),
+                                          ResourceKeys.HardMeterLabel,
+                                          ResourceKeys.OnText);
                 StatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PhysicalText) + " " + physicalLabel + " " +
                               Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OnText) +
                               " " + Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LogicalText) + " " + hardMeterEvent.LogicalId + " " +
@@ -451,6 +505,13 @@
                     physicalLabel = value.Id.ToString(CultureInfo.CurrentCulture);
                 }
 
+                Status = new IOPageStatus(ResourceKeys.PhysicalText,
+                                          physicalLabel,
+                                          ResourceKeys.OffText,
+                                          ResourceKeys.LogicalText,
+                                          hardMeterEvent.LogicalId.ToString(),
+                                          ResourceKeys.HardMeterLabel,
+                                          ResourceKeys.OffText);
                 StatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PhysicalText) + " " + physicalLabel + " " +
                               Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OffText) +
                               " " + Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LogicalText) + " " + hardMeterEvent.LogicalId + " " +
@@ -471,6 +532,13 @@
                     physicalLabel = value.Id.ToString(CultureInfo.CurrentCulture);
                 }
 
+                Status = new IOPageStatus(ResourceKeys.PhysicalText,
+                                          physicalLabel,
+                                          ResourceKeys.OffText,
+                                          ResourceKeys.LogicalText,
+                                          keySwitchEvent.LogicalId.ToString(),
+                                          ResourceKeys.KeySwitchText,
+                                          ResourceKeys.OffText);
                 StatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PhysicalText) + " " + physicalLabel + " " +
                               Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OffText) +
                               " " + Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LogicalText) + " " + keySwitchEvent.LogicalId + " " +
@@ -493,6 +561,13 @@
                     physicalLabel = value.Id.ToString(CultureInfo.CurrentCulture);
                 }
 
+                Status = new IOPageStatus(ResourceKeys.PhysicalText,
+                                          physicalLabel,
+                                          ResourceKeys.OnText,
+                                          ResourceKeys.LogicalText,
+                                          keySwitchEvent.LogicalId.ToString(),
+                                          ResourceKeys.KeySwitchText,
+                                          ResourceKeys.OnText);
                 StatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PhysicalText) + " " + physicalLabel + " " +
                               Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OnText) +
                               " " + Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LogicalText) + " " + keySwitchEvent.LogicalId + " " +
@@ -509,9 +584,20 @@
             {
                 Logger.ErrorFormat(CultureInfo.CurrentCulture, "Unexpected event type {0}", theEvent.GetType());
 
+                Status = new IOPageStatus(ResourceKeys.UnexpectedEventText, theEvent.GetType().ToString());
                 StatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.UnexpectedEventText) + " " + theEvent.GetType();
                 StatusForegroundBrush = Brushes.Red;
             }
+        }
+
+        private void HandleEvent(OperatorCultureChangedEvent evt)
+        {
+            MvvmHelper.ExecuteOnUI(() =>
+            {
+                RaisePropertyChanged(nameof(StatusText));
+                RaisePropertyChanged(nameof(StateText));
+                RaisePropertyChanged(nameof(FormattedStatus));
+            });
         }
 
         private void InitInputLabelContent()
@@ -1027,12 +1113,20 @@
                 physicalLabel = value.Id.ToString(CultureInfo.CurrentCulture);
             }
 
+            Status = new IOPageStatus(ResourceKeys.PhysicalText,
+                                      physicalLabel,
+                                      open ? ResourceKeys.OffText : ResourceKeys.OnText,
+                                      ResourceKeys.LogicalText,
+                                      doorLogicId.ToString(),
+                                      ResourceKeys.DoorText,
+                                      open ? ResourceKeys.OpenText : ResourceKeys.ClosedText);
             StatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PhysicalText) + " " + physicalLabel + " " +
                          (open ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OffText) : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OnText)) + " " +
                          Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LogicalText) + " " + doorLogicId + " " +
                          Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DoorText) + " " +
                          (open ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OpenText) : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ClosedText));
             StatusForegroundBrush = Brushes.White;
+
         }
 
         private void UpdateScreen()
@@ -1205,11 +1299,13 @@
                 {
                     if (ioservice.ReasonDisabled != DisabledReasons.Error)
                     {
+                        Status = new IOPageStatus(ResourceKeys.DisabledByText, ioservice.ReasonDisabled.ToString());
                         StatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisabledByText) + ioservice.ReasonDisabled;
                         StatusForegroundBrush = Brushes.Yellow;
                     }
                     else
                     {
+                        Status = new IOPageStatus("", ioservice.LastError.ToString());
                         StatusText = ioservice.LastError;
                         StatusForegroundBrush = Brushes.Red;
                     }
@@ -1253,5 +1349,63 @@
 
             public bool IsEnabled { get; set; }
         }
+
+        public class IOPageStatus
+        {
+            public string ResourceKey { get; set; }
+            public string[] ResourceObjects { get; set; }
+
+            /// <summary>
+            /// Instantiate the Status object with the required fields
+            /// </summary>
+            /// <param name="resourceKey">The resource key of the string to lookup for this status</param>
+            /// <param name="resourceObjects">Optional parameter of values to pass in to be added to the resource string</param>
+            public IOPageStatus(string resourceKey, params string[] resourceObjects)
+            {
+                ResourceKey = resourceKey;
+                ResourceObjects = resourceObjects;
+            }
+
+            public string FormattedStatus
+            {
+                get
+                {
+                    var sb = new StringBuilder();
+                    var resource = Localizer.For(CultureFor.Operator).GetString(ResourceKey);
+                    if (!string.IsNullOrWhiteSpace(resource))
+                    {
+                        sb.Append(resource);
+                        sb.Append(" ");
+                    }
+                    foreach (var obj in ResourceObjects)
+                    {
+                        string objResource;
+                        try
+                        {
+                            objResource = Localizer.For(CultureFor.Operator).GetString(obj);
+                        }
+                        catch
+                        {
+                            //Not a resource
+                            objResource = string.Empty;
+                        }
+                        if (!string.IsNullOrWhiteSpace(objResource))
+                        {
+                            sb.Append(objResource);
+                        }
+                        else
+                        {
+                            sb.Append(obj);
+                        }
+                        sb.Append(" ");
+                    }
+                    return sb.ToString();
+                }
+            }
+        }
     }
+
+    /// <summary>
+    /// Class to hold information about the object and format this information in a human-readable way.
+    /// </summary>
 }
