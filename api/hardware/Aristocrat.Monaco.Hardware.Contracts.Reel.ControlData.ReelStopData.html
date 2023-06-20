@@ -129,6 +129,207 @@
   
   
   
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelStopData__ctor_System_Byte_System_Int16_System_Int16_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData.ReelStopData.%23ctor(System.Byte%2CSystem.Int16%2CSystem.Int16)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/ControlData/ReelStopData.cs/#L14" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelStopData__ctor_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData.ReelStopData.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelStopData__ctor_System_Byte_System_Int16_System_Int16_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData.ReelStopData.#ctor(System.Byte,System.Int16,System.Int16)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelStopData__ctor_System_Byte_System_Int16_System_Int16_" class="expander" data-toggle="collapse">ReelStopData(Byte, Int16, Int16)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelStopData__ctor_System_Byte_System_Int16_System_Int16_" class="collapse in">
+  <div class="markdown level1 summary"><p>Creates a new instance of ReelStopData</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ReelStopData(byte reelIndex, short duration, short step)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">Byte</a></span>
+        <span class="parametername">reelIndex</span>
+        <p><p>The reel index, based at 0</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int16">Int16</a></span>
+        <span class="parametername">duration</span>
+        <p><p>time in milliseconds the reel will try to stop</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int16">Int16</a></span>
+        <span class="parametername">step</span>
+        <p><p>what step to stop at</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelStopData_Duration.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData.ReelStopData.Duration%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/ControlData/ReelStopData.cs/#L31" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelStopData_Duration_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData.ReelStopData.Duration*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelStopData_Duration" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData.ReelStopData.Duration"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelStopData_Duration" class="expander" data-toggle="collapse">Duration</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelStopData_Duration" class="collapse in">
+  <div class="markdown level1 summary"><p>This value indicates the duration of the complete stop in milliseconds. If the required
+reel cannot stop within this duration, the reel controller firmware tries to stop the
+reel as quick as possible.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public short Duration { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int16">Int16</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelStopData_ReelIndex.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData.ReelStopData.ReelIndex%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/ControlData/ReelStopData.cs/#L24" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelStopData_ReelIndex_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData.ReelStopData.ReelIndex*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelStopData_ReelIndex" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData.ReelStopData.ReelIndex"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelStopData_ReelIndex" class="expander" data-toggle="collapse">ReelIndex</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelStopData_ReelIndex" class="collapse in">
+  <div class="markdown level1 summary"><p>This value indicates the index of the reel to stop. It must be within the range of [0,detectedReelNumber – 1].</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public byte ReelIndex { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">Byte</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelStopData_Step.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData.ReelStopData.Step%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/ControlData/ReelStopData.cs/#L37" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelStopData_Step_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData.ReelStopData.Step*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelStopData_Step" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData.ReelStopData.Step"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelStopData_Step" class="expander" data-toggle="collapse">Step</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelStopData_Step" class="collapse in">
+  <div class="markdown level1 summary"><p>This value indicates the step position at which to stop. Note: If the expected value is
+located on the edge of a tab, a USB pipe error occurs.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public short Step { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int16">Int16</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
   
   
 </article>
