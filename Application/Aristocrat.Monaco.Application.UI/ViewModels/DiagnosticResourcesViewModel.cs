@@ -202,9 +202,11 @@
                 var metricUnit = metric.MetricType.GetAttribute<UnitAttribute>().Unit;
                 metric.Label = metricLabel+ " " + metricUnit;
             }
+            SetXAxesTitles();
             SetYAxesTitles();
             RaisePropertyChanged(nameof(Metrics));
             RaisePropertyChanged(nameof(YAxes));
+            RaisePropertyChanged(nameof(XAxes));
             RaisePropertyChanged(nameof(MonacoChart));
             RaisePropertyChanged(nameof(Charts));
         }
@@ -267,7 +269,7 @@
                 {
                     var axis = new Axis
                     {
-                        Title = "Time",
+                        Title = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Time),
                         LabelFormatter = DateTimeFormatter,
                         Unit = TimeSpan.FromSeconds(1).Ticks
                     };
@@ -335,6 +337,14 @@
             RaisePropertyChanged(nameof(AxisXStep));
 
             SetXAxisScale(DateTime.Now);
+        }
+
+        private void SetXAxesTitles()
+        {
+            foreach(var x in XAxes)
+            {
+                x.Title = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Time);
+            }
         }
 
         private void SetYAxesTitles()

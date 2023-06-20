@@ -108,12 +108,12 @@
                                         loc:Localizer.For="Operator" />
                     <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_OutboundOverflow}}"
                                         Width="Auto"
-                                        Binding="{Binding OutboundOverflow}"
+                                        Binding="{Binding OutboundOverflowText}"
                                         AutomationProperties.AutomationId="DataGridTextColumn25_66620A3A"
                                         loc:Localizer.For="Operator" />
                     <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_InboundOverflow}}"
                                         Width="Auto"
-                                        Binding="{Binding InboundOverflow}"
+                                        Binding="{Binding InboundOverflowText}"
                                         AutomationProperties.AutomationId="DataGridTextColumn26_66620A3A"
                                         loc:Localizer.For="Operator" />
                 </DataGrid.Columns>
