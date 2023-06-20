@@ -11972,6 +11972,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to False.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FalseText {
+			get {
+				return ResourceManager.GetString("FalseText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Fault.
 		/// </summary>
         /// <remarks>
@@ -33296,6 +33308,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to True.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TrueText {
+			get {
+				return ResourceManager.GetString("TrueText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Tuesday.
 		/// </summary>
         /// <remarks>
@@ -47790,6 +47814,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string Failure {
 			get {
 				return "Failure";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to False.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FalseText {
+			get {
+				return "FalseText";
 			}
 		}
 
@@ -69118,6 +69154,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to True.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TrueText {
+			get {
+				return "TrueText";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Tuesday.
 		/// </summary>
         /// <remarks>
@@ -78497,6 +78545,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application
         /// </remarks>
 		Failure,
+		/// <summary>
+		///   Looks up a localized string similar to False.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		FalseText,
 		/// <summary>
 		///   Looks up a localized string similar to Fault.
 		/// </summary>
@@ -90706,6 +90761,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		TriggerLabel,
+		/// <summary>
+		///   Looks up a localized string similar to True.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		TrueText,
 		/// <summary>
 		///   Looks up a localized string similar to Tuesday.
 		/// </summary>

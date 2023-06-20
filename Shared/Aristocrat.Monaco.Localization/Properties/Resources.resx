@@ -12101,4 +12101,12 @@ Do you really want to do full reset?</value>
     <value>Total CPU</value>
     <comment>Aristocrat.Monaco.Application</comment>
   </data>
+  <data name="FalseText" xml:space="preserve">
+    <value>False</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="TrueText" xml:space="preserve">
+    <value>True</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
 </root>
