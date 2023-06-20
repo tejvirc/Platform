@@ -19,6 +19,8 @@
         private bool _showServiceButton;
         private VolumeScalar _relativeVolume;
         private bool _reelStopEnabled;
+        private bool _freeSpinClearWinMeter;
+        private string _winDestination;
         private double _reelSpeed;
         private GameStartMethodOption _gameStartMethod;
 
@@ -30,6 +32,20 @@
         private RouletteSettings _roulette;
         private GameAttractSettings _attractSettings;
         private ProgressiveLobbyIndicator _progressiveIndicator;
+
+        public string WinDestination
+        {
+            get => _winDestination;
+
+            set => SetProperty(ref _winDestination, value);
+        }
+
+        public bool FreeSpinClearWinMeter
+        {
+            get => _freeSpinClearWinMeter;
+
+            set => SetProperty(ref _freeSpinClearWinMeter, value);
+        }
 
         /// <summary>
         ///     Gets or sets a value that indicates whether auto play is allowed.

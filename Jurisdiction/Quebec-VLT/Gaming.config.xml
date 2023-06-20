@@ -19,6 +19,8 @@ as follows:
 	</Messages>
 	<ReelStop Enabled="false" />
   <ReelSpeed Value="5" />
+  <FreeSpin ClearWinMeter="true"/>
+  <Win Destination="winAndCredit"/>
 	<LockupBehavior CashableLockupStrategy="NotAllowed" />
 	<DefaultCreditDisplay Format="Currency" />
 	<AutoHold Enable="true" Configurable="false" />

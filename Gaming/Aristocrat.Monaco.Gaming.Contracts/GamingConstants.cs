@@ -9,6 +9,26 @@
     public static class GamingConstants
     {
         /// <summary>
+        ///     Properties key for FreeSpinClearWinMeter
+        /// </summary>
+        public const string FreeSpinClearWinMeterKey = @"GamePlay.FreeSpinClearWinMeter";
+
+        /// <summary>
+        ///     Default value for FreeSpinClearWinMeter
+        /// </summary>
+        public const bool FreeSpinClearWinMeter = false;
+
+        /// <summary>
+        ///     Properties key for WinDestination
+        /// </summary>
+        public const string WinDestinationKey = @"GamePlay.WinDestination";
+
+        /// <summary>
+        ///     Default value for WinDestination
+        /// </summary>
+        public const string WinDestination = "win";
+
+        /// <summary>
         ///     Helper definition for handling conversions to/from millicents
         /// </summary>
         public const long Millicents = 1000;

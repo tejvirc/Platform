@@ -166,6 +166,8 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 { "/Runtime/GameRules&gameDisabled", ApplicationConstants.DefaultGameDisabledUse },
                 { "/Runtime/Meters&defaultDisplay", _properties.GetValue(GamingConstants.DefaultCreditDisplayFormat, DisplayFormat.Credit).ToString().ToLower() },
                 { "/Runtime/Meters&idleDisplay", GamingConstants.IdleCreditDisplayFormat },
+                { "/Runtime/Meters/Win&destination", _properties.GetValue(GamingConstants.WinDestinationKey, GamingConstants.WinDestination) },
+                { "/Runtime/FreeSpin&clearWinMeter", _properties.GetValue(GamingConstants.FreeSpinClearWinMeterKey, GamingConstants.FreeSpinClearWinMeter) ? "allowed" : "disallowed" },
                 { "/Runtime/WinMeterResetOnBetLineDenomChanged", _properties.GetValue(GamingConstants.WinMeterResetOnBetLineDenomChanged, ApplicationConstants.DefaultWinMeterResetOnBetLineDenomChanged).ToString() },
                 { "/Runtime/WinMeterResetOnBetLineChanged", _properties.GetValue(GamingConstants.WinMeterResetOnBetLineChanged, ApplicationConstants.DefaultWinMeterResetOnBetLineDenomChanged).ToString() },
                 { "/Runtime/WinMeterResetOnDenomChanged", _properties.GetValue(GamingConstants.WinMeterResetOnDenomChanged, ApplicationConstants.DefaultWinMeterResetOnBetLineDenomChanged).ToString() },

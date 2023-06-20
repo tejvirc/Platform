@@ -130,6 +130,10 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         
         private GamingConfigurationBonusTransfer bonusTransferField;
         
+        private GamingConfigurationFreeSpin freeSpinField;
+        
+        private GamingConfigurationWin winField;
+        
         /// <remarks/>
         public GamingConfigurationGameHistory GameHistory {
             get {
@@ -657,6 +661,26 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.bonusTransferField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public GamingConfigurationFreeSpin FreeSpin {
+            get {
+                return this.freeSpinField;
+            }
+            set {
+                this.freeSpinField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public GamingConfigurationWin Win {
+            get {
+                return this.winField;
+            }
+            set {
+                this.winField = value;
             }
         }
     }
@@ -3381,9 +3405,9 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.81.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -3660,6 +3684,55 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.playSoundField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class GamingConfigurationFreeSpin {
+        
+        private bool clearWinMeterField;
+        
+        public GamingConfigurationFreeSpin() {
+            this.clearWinMeterField = false;
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool ClearWinMeter {
+            get {
+                return this.clearWinMeterField;
+            }
+            set {
+                this.clearWinMeterField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class GamingConfigurationWin {
+        
+        private string destinationField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Destination {
+            get {
+                return this.destinationField;
+            }
+            set {
+                this.destinationField = value;
             }
         }
     }

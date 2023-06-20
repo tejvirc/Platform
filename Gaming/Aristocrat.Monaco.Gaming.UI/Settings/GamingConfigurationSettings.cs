@@ -165,6 +165,8 @@
                 ReelStopEnabled =
                     _properties.GetValue(GamingConstants.ReelStopEnabled, false),
                 ReelSpeed = _properties.GetValue(GamingConstants.ReelSpeedKey, GamingConstants.ReelSpeed),
+                FreeSpinClearWinMeter = _properties.GetValue(GamingConstants.FreeSpinClearWinMeterKey, GamingConstants.FreeSpinClearWinMeter),
+                WinDestination = _properties.GetValue(GamingConstants.WinDestinationKey, GamingConstants.WinDestination),
                 GameStartMethod =
                     _properties.GetValue(GamingConstants.GameStartMethod, GameStartMethodOption.Bet),
                 Games = new ObservableCollection<GameSettings>(GetGameSettings()),
@@ -275,6 +277,8 @@
             _properties.SetProperty(ApplicationConstants.LobbyVolumeScalarKey, settings.RelativeVolume);
             _properties.SetProperty(GamingConstants.ReelStopEnabled, settings.ReelStopEnabled);
             _properties.SetProperty(GamingConstants.ReelSpeedKey, settings.ReelSpeed);
+            _properties.SetProperty(GamingConstants.FreeSpinClearWinMeterKey, settings.FreeSpinClearWinMeter);
+            _properties.SetProperty(GamingConstants.WinDestinationKey, settings.WinDestination);
 
             if (_properties.GetValue(GamingConstants.GameStartMethodConfigurable, false))
             {
