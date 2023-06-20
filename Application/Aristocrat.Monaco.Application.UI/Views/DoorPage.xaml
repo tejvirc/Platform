@@ -16,6 +16,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converters:DateTimeFormatConverter x:Key="DateTimeFormat" />
         </ResourceDictionary>
@@ -44,24 +45,16 @@
                                     AutomationProperties.AutomationId="DataGridTemplateColumn3_C063434">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate DataType="{x:Type viewModels:DoorViewModel}">
-                        <TextBlock Width="Auto"
-                                   AutomationProperties.AutomationId="TextBlock4_C063434">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock"
-                                       BasedOn="{StaticResource MonacoTextBlock}">
-                                    <Setter Property="Text"
-                                            Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Ignored}"
-                                                     Value="False"
-                                                     AutomationProperties.AutomationId="DataTrigger5_C063434">
-                                            <Setter Property="Text"
-                                                    Value="{Binding LastOpened, Converter={StaticResource DateTimeFormat}}" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Width="Auto"
+                                       Visibility="{Binding Ignored, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                                       Text="{Binding LastOpened, Converter={StaticResource DateTimeFormat}}"
+                                       AutomationProperties.AutomationId="TextBlock4_C063434" />
+                            <TextBlock Width="Auto"
+                                       Visibility="{Binding Ignored, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                       Text="{lex:Loc Key={x:Static loc:ResourceKeys.NotAvailable}}"
+                                       AutomationProperties.AutomationId="TempId_8585" />
+                        </StackPanel>
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
