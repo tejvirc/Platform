@@ -22,7 +22,6 @@
         private bool _goToNextGame;
         private Timer _loadGameTimer;
         private Timer _RgTimer;
-        private Timer _forceGameExitTimer;
         private bool _disposed;
         private bool _isTimeLimitDialogVisible;
         private int _sanityCounter;
@@ -101,11 +100,6 @@
                     _RgTimer.Dispose();
                 }
                 _RgTimer = null;
-                if (_forceGameExitTimer is not null)
-                {
-                    _forceGameExitTimer.Dispose();
-                }
-                _forceGameExitTimer = null;
                 _eventBus.UnsubscribeAll(this);
             }
             _disposed = true;
