@@ -80,7 +80,6 @@
     <Service type="Aristocrat.Monaco.Hardware.Services.SerialDeviceSearcher" />
     <Service type="Aristocrat.Monaco.Hardware.Services.TowerLightService" />
     <Service type="Aristocrat.Monaco.Hardware.Services.DfuProvider" />
-    <Service type="Aristocrat.Monaco.Hardware.Services.SerialDeviceSearcher" />
     <Service type="Aristocrat.Monaco.Hardware.SerialTouch.SerialTouchService" />
   </Extension>
 
@@ -95,7 +94,7 @@
     <CommandLineArgument Name="serialTouchDisabled">
       <ArgumentValue ValidValue="false" Description="The system is required to have a serial touch device if expected by the cabinet configuration. This is the default." />
       <ArgumentValue ValidValue="true" Description="The system is not required to have a serial touch device if expected by the cabinet configuration." />
-    </CommandLineArgument>    
+    </CommandLineArgument>
   </Extension>
 
   <Extension path="/Hardware/PersistentStorageService">
@@ -144,7 +143,7 @@
   <ExtensionPoint path="/Hardware/PersistentStorageService">
     <ExtensionNode name="PersistentStorageManager" />
   </ExtensionPoint>
-  
+
   <ExtensionPoint path="/Hardware/SecondaryStorageService">
     <ExtensionNode name="SecondaryStorageManager" />
   </ExtensionPoint>
@@ -218,7 +217,7 @@
   <ExtensionPoint path="/Hardware/PrinterOverrides">
     <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
   </ExtensionPoint>
-  
+
   <ExtensionPoint path="/Hardware/SerialTouch">
     <ExtensionNode name="SerialTouchService"/>
   </ExtensionPoint>
