@@ -105,26 +105,6 @@
             _disposed = true;
         }
 
-        private void RequestForceExitToLobby(bool skipTestRecovery = false)
-        {
-            if (!IsRequestForceExitToLobbyValid(skipTestRecovery))
-            {
-                return;
-            }
-            _logger.Info("ForceGameExit Requested Received!", GetType().Name);
-            _forceGameExitIsInProgress = true;
-            _exitWhenIdle = false;
-            _automator.ForceGameExit(Constants.GdkRuntimeHostName);
-            _robotController.BlockOtherOperations(RobotStateAndOperations.GameExiting);
-        }
-
-        private bool IsRequestForceExitToLobbyValid(bool skipTestRecovery)
-        {
-            var isBlocked = _robotController.IsBlockedByOtherOperation( new List<RobotStateAndOperations>());
-            var isGeneralRule = (_gameIsRunning && !_stateChecker.IsGameLoading && !_forceGameExitIsInProgress && !_exitWhenIdle &&(_robotController.Config.Active.TestRecovery || skipTestRecovery));
-            return !isBlocked && isGeneralRule;
-        }
-
         private void RequestGame()
         {
             if (!IsRequestGameValid())
