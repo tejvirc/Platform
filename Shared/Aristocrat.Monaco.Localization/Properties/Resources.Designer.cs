@@ -16256,6 +16256,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Inspector initials field is required.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string InspectorInitialsErrorMessage {
+			get {
+				return ResourceManager.GetString("InspectorInitialsErrorMessage", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Inspector.
 		/// </summary>
         /// <remarks>
@@ -22594,6 +22606,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string OrClearCredits {
 			get {
 				return ResourceManager.GetString("OrClearCredits", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Order number is a required field.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string OrderNumberErrorMessage {
+			get {
+				return ResourceManager.GetString("OrderNumberErrorMessage", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -50944,6 +50968,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Inspector initials field is required.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string InspectorInitialsErrorMessage {
+			get {
+				return "InspectorInitialsErrorMessage";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Inspector.
 		/// </summary>
         /// <remarks>
@@ -57282,6 +57318,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string OrClearCredits {
 			get {
 				return "OrClearCredits";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Order number is a required field.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string OrderNumberErrorMessage {
+			get {
+				return "OrderNumberErrorMessage";
 			}
 		}
 
@@ -78654,6 +78702,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		InspectionSummaryTitle,
 		/// <summary>
+		///   Looks up a localized string similar to Inspector initials field is required.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		InspectorInitialsErrorMessage,
+		/// <summary>
 		///   Looks up a localized string similar to Inspector.
 		/// </summary>
         /// <remarks>
@@ -82275,6 +82330,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application
         /// </remarks>
 		OrClearCredits,
+		/// <summary>
+		///   Looks up a localized string similar to Order number is a required field.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		OrderNumberErrorMessage,
 		/// <summary>
 		///   Looks up a localized string similar to Order #.
 		/// </summary>

@@ -18,6 +18,8 @@
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
                 <ResourceDictionary Source="../Resources/Templates.TimeZoneEditor.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="{x:Type TextBox}"
+                   BasedOn="{StaticResource MonacoTextBox}"/>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -49,9 +51,9 @@
                  Width="400"
                  Margin="5,0,0,0"
                  HorizontalAlignment="Left"
-                 Text="{Binding OrderNumber, Mode=TwoWay}"
+                 Text="{Binding OrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                  AutomationProperties.AutomationId="TextBox0_282D57AA"
-                 Visibility="{Binding IsInspection, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
+                 Visibility="{Binding IsInspection, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
 
         <Label Grid.Row="3"
                Content="{lex:Loc Key={x:Static loc:ResourceKeys.InspectorLabel}}"
@@ -61,7 +63,7 @@
                  Width="400"
                  Margin="5,0,0,0"
                  HorizontalAlignment="Left"
-                 Text="{Binding InspectorInitials, Mode=TwoWay}"
+                 Text="{Binding InspectorInitials, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                  AutomationProperties.AutomationId="TextBox1_282D57AA"
                  Visibility="{Binding IsInspection, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
 
