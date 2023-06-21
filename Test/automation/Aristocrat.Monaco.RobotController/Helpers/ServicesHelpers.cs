@@ -55,6 +55,7 @@
             container.Register<BalanceOperations>(Lifestyle.Transient);
             container.Register<RebootRequestOperations>(Lifestyle.Transient);
             container.Register<AuditMenuOperations>(Lifestyle.Transient);
+            container.Register<LoadGameOperations>(Lifestyle.Transient);           
 
             return container;
         }
