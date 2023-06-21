@@ -26,7 +26,6 @@
         private bool _isTimeLimitDialogVisible;
         private int _sanityCounter;
         private bool _exitWhenIdle;
-        private bool _forceGameExitIsInProgress;
         private bool _requestGameIsInProgress;
         private bool _gameIsRunning;
 
@@ -116,11 +115,6 @@
             {
                 _logger.Info($"Exit To Lobby When Idle Requested Received! Sanity Counter = {_sanityCounter}, Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                 _exitWhenIdle = !IsRegularRobots();
-            }
-            else if (_gameIsRunning)
-            {
-                _logger.Info($"lobby is saying that it is in the chooser state but the game is still running, this reset the lobbystatemanager state ,Counter = {_sanityCounter}, Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                RequestForceExitToLobby(true);
             }
             else
             {
