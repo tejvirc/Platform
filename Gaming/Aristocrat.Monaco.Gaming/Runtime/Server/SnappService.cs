@@ -7,17 +7,17 @@
     using System.Threading.Tasks;
     using System.Threading.Tasks.Dataflow;
     using Application.Contracts.Extensions;
-    using GdkRuntime.V1;
     using Client;
     using Commands;
     using Contracts;
     using Contracts.Central;
     using Contracts.Events;
     using Contracts.Process;
+    using GdkRuntime.V1;
     using Kernel;
     using log4net;
-    using GameRoundDetails = GdkRuntime.V1.GameRoundDetails;
     using EventTypes = GdkRuntime.V1.RuntimeEventNotification.Types.RuntimeEvent;
+    using GameRoundDetails = GdkRuntime.V1.GameRoundDetails;
     using LocalStorage = GdkRuntime.V1.LocalStorage;
 
     public class SnappService : IGameServiceCallback
@@ -644,6 +644,11 @@
             return EmptyResult;
         }
 
+        public override Empty UpdateLanguage(LanguageRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
         public override Empty UpdateBetOptions(UpdateBetOptionsRequest request)
         {
             Logger.Debug($"Update Bet Line option with wager : {request.Wager}");
@@ -664,12 +669,15 @@
 
         public override CheckMysteryJackpotResponse CheckMysteryJackpot(CheckMysteryJackpotRequest request)
         {
-            throw new NotImplementedException();
-        }
+            var command = new CheckMysteryJackpot();
 
-        public override Empty UpdateLanguage(LanguageRequest request)
-        {
-            throw new NotImplementedException();
+            _handlerFactory.Create<CheckMysteryJackpot>()
+                .Handle(command);
+            var response = new CheckMysteryJackpotResponse();
+
+            response.Levels.Add(command.Results);
+
+            return response;
         }
     }
 }

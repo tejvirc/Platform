@@ -33,7 +33,6 @@
         private Mock<IGameProvider> _gameProvider;
         private Mock<IGameCategoryService> _gameCategoryService;
         private Mock<ICabinetDetectionService> _cabinetDetectionService;
-        private Mock<IGameHelpTextProvider> _helpTextProvider;
         private Mock<IHardwareHelper> _hardwareHelper;
         private Mock<IAttendantService> _attendantService;
         private Mock<IGameConfigurationProvider> _gameConfiguration;
@@ -51,7 +50,6 @@
             _gameProvider = new Mock<IGameProvider>();
             _gameCategoryService = new Mock<IGameCategoryService>();
             _cabinetDetectionService = new Mock<ICabinetDetectionService>();
-            _helpTextProvider = new Mock<IGameHelpTextProvider>();
             _hardwareHelper = new Mock<IHardwareHelper>();
             _runtime = new Mock<IRuntime>();
             _handCount = new Mock<IHandCountService>();
@@ -68,7 +66,6 @@
 
             _hardwareHelper.Setup(h => h.CheckForVirtualButtonDeckHardware()).Returns(true);
             _hardwareHelper.Setup(h => h.CheckForUsbButtonDeckHardware()).Returns(true);
-            _helpTextProvider.Setup(m => m.AllHelpTexts).Returns(new Dictionary<string, Func<string>>());
             _gameCategoryService.Setup(m => m.SelectedGameCategorySetting).Returns(new GameCategorySetting());
             _lobbyStateManager.Setup(m => m.AllowSingleGameAutoLaunch).Returns(false);
             _cabinetDetectionService.Setup(m => m.ButtonDeckType).Returns(It.IsAny<string>());
@@ -86,74 +83,114 @@
             CurrencyExtensions.SetCultureInfo(region.ISOCurrencySymbol, culture, null, null, true, true, minorUnitSymbol);
         }
 
-        [DataRow(true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true)]
         [DataTestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void WhenArgumentIsNullExpectException(
-            bool nullRuntime, bool nullHandCount, bool nullHistory, bool nullRecovery,
-            bool nullDiagnostic, bool nullLobby, bool nullProperties, bool nullBank,
-            bool nullAudio, bool nullGame, bool nullCategory, bool nullCabinet,
-            bool nullHelp, bool nullHardware, bool nullAttendant, bool nullConfig)
-
+        [DataRow(true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, DisplayName = "null Runtime")]
+        [DataRow(false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, true, DisplayName = "null HandCount")]
+        [DataRow(false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, true, DisplayName = "null GameHistory")]
+        [DataRow(false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, true, DisplayName = "null GameRecovery")]
+        [DataRow(false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, true, DisplayName = "null GameDiagnostics")]
+        [DataRow(false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, true, DisplayName = "null LobbyStateManager")]
+        [DataRow(false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, true, DisplayName = "null PropertiesManager")]
+        [DataRow(false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, true, DisplayName = "null PlayerBank")]
+        [DataRow(false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, true, DisplayName = "null Audio")]
+        [DataRow(false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, true, DisplayName = "null GameProvider")]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, true, DisplayName = "null GameCategoryServicer")]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, true, DisplayName = "null CabinetDetectionService")]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, true, DisplayName = "null HardwareHelper")]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, true, DisplayName = "null AttendantService")]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, DisplayName = "null GameConfigurationProvider")]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, DisplayName = "all non-null services, expect success.")]
+        public void ConfigureClientCommandHandlerTestExpectException(
+            bool nullRuntime,
+            bool nullHandCount,
+            bool nullGameHistory,
+            bool nullGameRecovery,
+            bool nullGameDiagnostics,
+            bool nullLobbyStateManager,
+            bool nullPropertiesManager,
+            bool nullPlayerBank,
+            bool nullAudio,
+            bool nullGameProvider,
+            bool nullGameCategoryService,
+            bool nullCabinetDetectionService,
+            bool nullHardwareHelper,
+            bool nullAttendantService,
+            bool nullGameConfigurationProvider,
+            bool throwException)
         {
-            var handler = new ConfigureClientCommandHandler(
-                nullRuntime ? null : _runtime.Object,
-                nullHandCount ? null : _handCount.Object,
-                nullHistory ? null : _gameHistory.Object,
-                nullRecovery ? null : _gameRecovery.Object,
-                nullDiagnostic ? null : _gameDiagnostic.Object,
-                nullLobby ? null : _lobbyStateManager.Object,
-                nullProperties ? null : _propertiesManager.Object,
-                nullBank ? null : _playerBank.Object,
-                nullAudio ? null : _audio.Object,
-                nullGame ? null : _gameProvider.Object,
-                nullCategory ? null : _gameCategoryService.Object,
-                nullCabinet ? null : _cabinetDetectionService.Object,
-                nullHelp ? null : _helpTextProvider.Object,
-                nullHardware ? null : _hardwareHelper.Object,
-                nullAttendant ? null : _attendantService.Object,
-                nullConfig ? null : _gameConfiguration.Object);
-
-            Assert.IsNull(handler);
+            if (throwException)
+        {
+                Assert.ThrowsException<ArgumentNullException>(() => GetGameRecoveryService(
+                    nullRuntime,
+                    nullHandCount,
+                    nullGameHistory,
+                    nullGameRecovery,
+                    nullGameDiagnostics,
+                    nullLobbyStateManager,
+                    nullPropertiesManager,
+                    nullPlayerBank,
+                    nullAudio,
+                    nullGameProvider,
+                    nullGameCategoryService,
+                    nullCabinetDetectionService,
+                    nullHardwareHelper,
+                    nullAttendantService,
+                    nullGameConfigurationProvider));
+        }
+            else
+            {
+                Assert.IsNotNull(GetGameRecoveryService(
+                    nullRuntime,
+                    nullHandCount,
+                    nullGameHistory,
+                    nullGameRecovery,
+                    nullGameDiagnostics,
+                    nullLobbyStateManager,
+                    nullPropertiesManager,
+                    nullPlayerBank,
+                    nullAudio,
+                    nullGameProvider,
+                    nullGameCategoryService,
+                    nullCabinetDetectionService,
+                    nullHardwareHelper,
+                    nullAttendantService,
+                    nullGameConfigurationProvider));
+            }
         }
 
-        [TestMethod]
-        public void WhenParamsAreValidExpectSuccess()
+        private ConfigureClientCommandHandler GetGameRecoveryService(
+                bool nullRuntime,
+                bool nullHandCount,
+                bool nullGameHistory,
+                bool nullGameRecovery,
+                bool nullGameDiagnostics,
+                bool nullLobbyStateManager,
+                bool nullPropertiesManager,
+                bool nullPlayerBank,
+                bool nullAudio,
+                bool nullGameProvider,
+                bool nullGameCategoryService,
+                bool nullCabinetDetectionService,
+                bool nullHardwareHelper,
+                bool nullAttendantService,
+                bool nullGameConfigurationProvider)
         {
-            var handler = new ConfigureClientCommandHandler(
-                _runtime.Object,
-                _handCount.Object,
-                _gameHistory.Object,
-                _gameRecovery.Object,
-                _gameDiagnostic.Object,
-                _lobbyStateManager.Object,
-                _propertiesManager.Object,
-                _playerBank.Object,
-                _audio.Object,
-                _gameProvider.Object,
-                _gameCategoryService.Object,
-                _cabinetDetectionService.Object,
-                _helpTextProvider.Object,
-                _hardwareHelper.Object,
-                _attendantService.Object,
-                _gameConfiguration.Object);
-
-            Assert.IsNotNull(handler);
+            return new ConfigureClientCommandHandler(
+                nullRuntime ? null : _runtime.Object,
+                nullHandCount ? null: _handCount.Object,
+                nullGameHistory ? null : _gameHistory.Object,
+                nullGameRecovery ? null : _gameRecovery.Object,
+                nullGameDiagnostics ? null : _gameDiagnostic.Object,
+                nullLobbyStateManager ? null : _lobbyStateManager.Object,
+                nullPropertiesManager ? null : _propertiesManager.Object,
+                nullPlayerBank ? null : _playerBank.Object,
+                nullAudio ? null : _audio.Object,
+                nullGameProvider ? null : _gameProvider.Object,
+                nullGameCategoryService ? null : _gameCategoryService.Object,
+                nullCabinetDetectionService ? null : _cabinetDetectionService.Object,
+                nullHardwareHelper ? null : _hardwareHelper.Object,
+                nullAttendantService ? null : _attendantService.Object,
+                nullGameConfigurationProvider ? null : _gameConfiguration.Object);
         }
 
         [DataRow(GameStartMethodOption.BetOrMaxBet, "Bet, MaxBet")]
@@ -185,7 +222,6 @@
                 _gameProvider.Object,
                 _gameCategoryService.Object,
                 _cabinetDetectionService.Object,
-                _helpTextProvider.Object,
                 _hardwareHelper.Object,
                 _attendantService.Object,
                 _gameConfiguration.Object);
@@ -227,7 +263,6 @@
                 _gameProvider.Object,
                 _gameCategoryService.Object,
                 _cabinetDetectionService.Object,
-                _helpTextProvider.Object,
                 _hardwareHelper.Object,
                 _attendantService.Object,
                 _gameConfiguration.Object);
@@ -273,7 +308,6 @@
                 _gameProvider.Object,
                 _gameCategoryService.Object,
                 _cabinetDetectionService.Object,
-                _helpTextProvider.Object,
                 _hardwareHelper.Object,
                 _attendantService.Object,
                 _gameConfiguration.Object);
@@ -316,7 +350,6 @@
                 _gameProvider.Object,
                 _gameCategoryService.Object,
                 _cabinetDetectionService.Object,
-                _helpTextProvider.Object,
                 _hardwareHelper.Object,
                 _attendantService.Object,
                 _gameConfiguration.Object);

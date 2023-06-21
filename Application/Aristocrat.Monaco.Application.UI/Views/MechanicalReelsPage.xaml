@@ -342,7 +342,8 @@
                 <StackPanel
                     Visibility="{Binding ReelAnimationTestScreenHidden, Converter={StaticResource TrueCollapsedFalseVisible}}"
                     AutomationProperties.AutomationId="StackPanel0_A06673F2">
-                    <views:MechanicalReelsAnimationTestControl x:Name="ReelAnimationTestControl" />
+                    <views:MechanicalReelsAnimationTestControl x:Name="ReelAnimationTestControl"
+                                                               DataContext="{Binding ReelAnimationTestViewModel}"/>
                 </StackPanel>
                 <StackPanel
                         Visibility="{Binding ReelTestScreenHidden, Converter={StaticResource TrueCollapsedFalseVisible}}"

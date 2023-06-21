@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Progressives
+namespace Aristocrat.Monaco.Gaming.Progressives
 {
     using System;
     using System.Collections.Generic;
@@ -25,6 +25,7 @@
         private readonly IProgressiveMeterManager _meters;
         private readonly IPropertiesManager _properties;
         private readonly ISharedSapProvider _sharedSapProvider;
+        private readonly IMysteryProgressiveProvider _mysteryProgressiveProvider;
 
         private readonly List<ProgressiveLevel> _levels = new List<ProgressiveLevel>();
         private readonly object _sync = new object();
@@ -35,13 +36,15 @@
             IIdProvider idProvider,
             IProgressiveMeterManager meters,
             IPropertiesManager properties,
-            ISharedSapProvider sharedSapProvider)
+            ISharedSapProvider sharedSapProvider,
+            IMysteryProgressiveProvider mysteryProgressiveProvider)
         {
             _gameStorage = gameStorage ?? throw new ArgumentNullException(nameof(gameStorage));
             _idProvider = idProvider ?? throw new ArgumentNullException(nameof(idProvider));
             _meters = meters ?? throw new ArgumentNullException(nameof(meters));
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _sharedSapProvider = sharedSapProvider ?? throw new ArgumentNullException(nameof(sharedSapProvider));
+            _mysteryProgressiveProvider = mysteryProgressiveProvider ?? throw new ArgumentNullException(nameof(mysteryProgressiveProvider));
         }
 
         public void LoadProgressiveLevels(IGameDetail gameDetails, IEnumerable<ProgressiveDetail> progressiveDetails)
@@ -185,7 +188,7 @@
 
             var levelType = (ProgressiveLevelType)level.ProgressiveType;
 
-            return new ProgressiveLevel
+            var progressiveLevel = new ProgressiveLevel
             {
                 ProgressiveId = progressive.Id,
                 ProgressivePackName = progressive.Name,
@@ -242,6 +245,13 @@
                 CreationType = (LevelCreationType)progressive.CreationType,
                 WagerCredits = wagerCredits
             };
+
+            if (ShouldGenerateMagicNumber(progressiveLevel))
+            {
+                _mysteryProgressiveProvider.GenerateMagicNumber(progressiveLevel);
+            }
+
+            return progressiveLevel;
         }
 
         private IEnumerable<ProgressiveLevel> GenerateProgressiveLevelsPerGame(
@@ -594,6 +604,12 @@
             public string Id { get; }
 
             public int? MaxWagerCredits { get; }
+        }
+
+        private bool ShouldGenerateMagicNumber(ProgressiveLevel progressiveLevel)
+        {
+            return progressiveLevel.TriggerControl == TriggerType.Mystery &&
+                   !_mysteryProgressiveProvider.TryGetMagicNumber(progressiveLevel, out _);
         }
     }
 }

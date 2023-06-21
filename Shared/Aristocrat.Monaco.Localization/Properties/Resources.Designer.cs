@@ -20753,6 +20753,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Mystery Shared Standalone.
+		/// </summary>
+		public static string MysterySharedStandalone {
+			get {
+				return ResourceManager.GetString("MysterySharedStandalone", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Mystery Standalone.
+		/// </summary>
+		public static string MysteryStandalone {
+			get {
+				return ResourceManager.GetString("MysteryStandalone", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Nack.
 		/// </summary>
         /// <remarks>
@@ -23908,6 +23926,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string PlayOnText {
 			get {
 				return ResourceManager.GetString("PlayOnText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Animate.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string PlayStepperCurveButton {
+			get {
+				return ResourceManager.GetString("PlayStepperCurveButton", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -29980,6 +30010,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string StatusText {
 			get {
 				return ResourceManager.GetString("StatusText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Stop.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string StopButton {
+			get {
+				return ResourceManager.GetString("StopButton", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -55576,6 +55618,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Mystery Shared Standalone.
+		/// </summary>
+		public static string MysterySharedStandalone {
+			get {
+				return "MysterySharedStandalone";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Mystery Standalone.
+		/// </summary>
+		public static string MysteryStandalone {
+			get {
+				return "MysteryStandalone";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Nack.
 		/// </summary>
         /// <remarks>
@@ -58731,6 +58791,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string PlayOnText {
 			get {
 				return "PlayOnText";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Animate.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string PlayStepperCurveButton {
+			get {
+				return "PlayStepperCurveButton";
 			}
 		}
 
@@ -64803,6 +64875,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string StatusText {
 			get {
 				return "StatusText";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Stop.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string StopButton {
+			get {
+				return "StopButton";
 			}
 		}
 
@@ -81486,6 +81570,14 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// </summary>
 		MustBeLessThan,
 		/// <summary>
+		///   Looks up a localized string similar to Mystery Shared Standalone.
+		/// </summary>
+		MysterySharedStandalone,
+		/// <summary>
+		///   Looks up a localized string similar to Mystery Standalone.
+		/// </summary>
+		MysteryStandalone,
+		/// <summary>
 		///   Looks up a localized string similar to Nack.
 		/// </summary>
         /// <remarks>
@@ -83304,6 +83396,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		PlayOnText,
+		/// <summary>
+		///   Looks up a localized string similar to Animate.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		PlayStepperCurveButton,
 		/// <summary>
 		///   Looks up a localized string similar to Please Do Not Power Off The Gaming Machine.
 		/// </summary>
@@ -86766,6 +86865,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming
         /// </remarks>
 		StatusText,
+		/// <summary>
+		///   Looks up a localized string similar to Stop.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		StopButton,
 		/// <summary>
 		///   Looks up a localized string similar to Stopped Responding.
 		/// </summary>

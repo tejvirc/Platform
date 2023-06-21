@@ -708,7 +708,23 @@
             var isProgressiveSetupReadonly = _properties.GetValue(GamingConstants.ProgressiveSetupReadonly, false);
             ProgressiveSetupConfigured = ViewProgressiveLevels
                 .Any(p => p.CurrentState != ProgressiveLevelState.Init) || isProgressiveSetupReadonly;
+
             ProgressivesEditable = ViewProgressiveLevels.Any(p => p.CanEdit) && (!_assignedLevels?.Any() ?? false) && !isProgressiveSetupReadonly;
+
+            if (Game?.Category == GameCategory.LightningLink)
+            {
+                var assignedProgressiveIds = ViewProgressiveLevels.Select(p => p.AssignedProgressiveId);
+                foreach (var assignedProgressiveId in assignedProgressiveIds)
+                {
+                    if (_progressives.ViewProgressiveLevels().Where(p => (p.AssignedProgressiveId?.Equals(assignedProgressiveId) ?? false) && !p.CanEdit).Any())
+                    {
+                        ProgressiveSetupConfigured = true;
+                        ProgressivesEditable = false;
+                        return;
+                    }
+                }
+            }
+
             RaisePropertyChanged(nameof(UseImportedLevels));
         }
 

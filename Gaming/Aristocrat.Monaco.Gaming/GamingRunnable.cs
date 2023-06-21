@@ -258,7 +258,6 @@
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IPlayerSessionHistory>() as IService);
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IPlayerService>() as IService);
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IGameCategoryService>() as IService);
-            serviceManager.AddServiceAndInitialize(_container.GetInstance<IGameHelpTextProvider>() as IService);
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IBrowserProcessManager>());
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IAttendantService>());
             serviceManager.AddService(_container.GetInstance<IBarkeeperPropertyProvider>() as IService);
@@ -309,7 +308,6 @@
             serviceManager.RemoveService(_container.GetInstance<IGameOrderSettings>());
             serviceManager.RemoveService(_container.GetInstance<IPlayerService>() as IService);
             serviceManager.RemoveService(_container.GetInstance<IPlayerSessionHistory>() as IService);
-            serviceManager.RemoveService(_container.GetInstance<IGameHelpTextProvider>() as IService);
             serviceManager.RemoveService(_container.GetInstance<IBrowserProcessManager>());
             serviceManager.RemoveService(_container.GetInstance<IAttendantService>());
             serviceManager.RemoveService(_container.GetInstance<IUserActivityService>());

@@ -1,14 +1,14 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
-    using Hardware.Contracts.Reel;
-    using Hardware.Contracts.Reel.Capabilities;
-    using Hardware.Contracts.Reel.ControlData;
-    using Monaco.Common;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Linq;
     using System.Threading.Tasks;
+    using Hardware.Contracts.Reel;
+    using Hardware.Contracts.Reel.Capabilities;
+    using Hardware.Contracts.Reel.ControlData;
+    using Monaco.Common;
 
     /// <summary>
     ///     The MechanicalReelsLightAnimationTestViewModel class
@@ -113,7 +113,7 @@
                 Step = -1,
                 LoopCount = -1,
                 ReelIndex = -1,
-                Id = _animationCapabilities.AnimationFiles.FirstOrDefault(x => x.FriendlyName == lightShowName)?.AnimationId ?? 0
+                AnimationName = lightShowName
             };
 
             await _animationCapabilities.PrepareAnimation(lightShow);

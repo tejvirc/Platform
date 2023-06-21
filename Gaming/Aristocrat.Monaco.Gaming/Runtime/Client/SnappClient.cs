@@ -6,17 +6,17 @@
     using System.Reflection;
     using System.Threading;
     using Application.Contracts.Extensions;
-    using GdkRuntime.V1;
     using Contracts;
     using Contracts.Process;
+    using GdkRuntime.V1;
     using Google.Protobuf.WellKnownTypes;
     using Hardware.Contracts.Reel;
     using Kernel;
     using log4net;
     using Snapp;
-    using V1 = GdkRuntime.V1;
     using Empty = GdkRuntime.V1.Empty;
     using Outcome = Contracts.Central.Outcome;
+    using V1 = GdkRuntime.V1;
 
     public class SnappClient : IRuntime, IDisposable, IReelService, IPresentationService
     {

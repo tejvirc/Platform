@@ -61,7 +61,7 @@
                     PlayOnFromPresentWins = new GamingConfigurationPlayOnFromPresentWins(),
                     Gamble = new GamingConfigurationGamble(),
                     ContinuousPlaySupport = new GamingConfigurationContinuousPlaySupport(),
-                    DynamicHelpMenuText = new GamingConfigurationDynamicHelpMenuText(),
+                    DynamicHelpScreen = new GamingConfigurationDynamicHelpScreen(),
                     ResetGamesPlayedSinceDoorClosed = new GamingConfigurationResetGamesPlayedSinceDoorClosed(),
                     GameRoundDurationMs = new GamingConfigurationGameRoundDurationMs(),
                     AttendantServiceTimeoutSupport = new GamingConfigurationAttendantServiceTimeoutSupport(),
@@ -125,8 +125,7 @@
                 { GamingConstants.ReelStopEnabled, (InitFromStorage(GamingConstants.ReelStopEnabled), true) },
                 { GamingConstants.ReelStopInBaseGameEnabled, ((object)configuration.ReelStopInBaseGame?.Enabled ?? true, false) },
                 { GamingConstants.ApplyGameCategorySettings, ((object)configuration.GameCategory?.ApplyGameCategorySettings ?? false, false) },
-                { GamingConstants.DisplayProgressiveCeilingMessage, ((object)configuration.DynamicHelpMenuText?.DisplayProgressiveCeilingMessage ?? false, false) },
-                { GamingConstants.DisplayStopReelMessage, ((object)configuration.DynamicHelpMenuText?.DisplayStopReelMessage ?? false, false) },
+                { GamingConstants.JackpotCeilingHelpScreen, ((object)configuration.DynamicHelpScreen?.JackpotCeiling ?? false, false) },
                 { GamingConstants.RetainLastRoundResult, ((object)configuration.RetainLastRoundResult?.Enabled ?? false, false) },
                 {
                     GamingConstants.WinMeterResetOnBetLineDenomChanged, (

@@ -210,6 +210,11 @@
             <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false" />
           </xs:complexType>
         </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="DynamicHelpScreen">
+          <xs:complexType>
+            <xs:attribute default="false" name="JackpotCeiling" type="xs:boolean" use="optional" />
+          </xs:complexType>
+        </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="ContinuousPlaySupport">
           <xs:complexType>
             <xs:sequence>
@@ -223,12 +228,6 @@
             </xs:sequence>
             <xs:attribute name="Mode" type="PlayMode" use="optional" default="Toggle" />
             <xs:attribute name="Configurable" type="xs:boolean" use="optional" default="false" />
-          </xs:complexType>
-        </xs:element>
-        <xs:element minOccurs="0" maxOccurs="1" name="DynamicHelpMenuText">
-          <xs:complexType>
-            <xs:attribute name="DisplayProgressiveCeilingMessage" type="xs:boolean" use="optional" default="false" />
-            <xs:attribute name="DisplayStopReelMessage" type="xs:boolean" use="optional" default="false" />
           </xs:complexType>
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="GameRestrictions">
