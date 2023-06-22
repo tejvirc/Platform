@@ -22,7 +22,7 @@
                     container.GetInstance<BalanceOperations>(),
                     container.GetInstance<ServiceRequestOperations>(),
                     container.GetInstance<GameOperations>(),
-                    container.GetInstance<ForceExitOperations>(),
+                    //container.GetInstance<ForceExitOperations>(),
                     container.GetInstance<GameHelpOperations>()
                 },
 
@@ -34,7 +34,7 @@
                     container.GetInstance<AuditMenuOperations>(),
                     container.GetInstance<BalanceOperations>(),
                     container.GetInstance<GameOperations>(),
-                    container.GetInstance<ForceExitOperations>(),
+                    //container.GetInstance<ForceExitOperations>(),
                     container.GetInstance<ServiceRequestOperations>(),
                     container.GetInstance<LockUpOperations>(),
                     container.GetInstance<OperatingHoursOperations>(),
