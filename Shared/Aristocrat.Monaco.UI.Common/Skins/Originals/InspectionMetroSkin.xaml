@@ -147,7 +147,7 @@
                 Value="{StaticResource DefaultFontSize}" />
     </Style>
     <Style TargetType="{x:Type CheckBox}"
-           BasedOn="{StaticResource MetroCheckBox}">
+           BasedOn="{StaticResource MahApps.Styles.CheckBox}">
         <Setter Property="Width"
                 Value="40" />
         <Setter Property="Height"
@@ -330,7 +330,7 @@
         </Setter>
     </Style>
     <Style TargetType="{x:Type DatePicker}"
-           BasedOn="{StaticResource MetroDatePicker}">
+           BasedOn="{StaticResource MahApps.Styles.DatePicker}">
         <Setter Property="FontSize"
                 Value="{StaticResource DefaultFontSize}" />
     </Style>
