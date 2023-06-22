@@ -63,4 +63,5 @@ as follows:
     <InitialSetupView Readonly="true" />
   </ProgressiveView>
   <MaxWin OnMaxWinReached="endGameAfterPresentation" />
+  <AutoEnableSingleGames Enabled ="false"/>
 </GamingConfiguration>

@@ -453,6 +453,11 @@
             <xs:attribute name="OnMaxWinReached" type="xs:string" use="optional" default="endgame" />
           </xs:complexType>
         </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="AutoEnableSingleGames">
+          <xs:complexType>
+            <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
+          </xs:complexType>
+        </xs:element>
       </xs:sequence>     
     </xs:complexType>
   </xs:element>

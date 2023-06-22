@@ -281,7 +281,8 @@
                 { GamingConstants.DenomSelectionLobby, (configuration.DenomSelectionLobby?.Mode ?? DenomSelectionLobby.Allowed, false) },
                 { GamingConstants.AutocompleteGameRoundEnabled, (configuration.AutoCompleteGameRound?.Enabled ?? true, false) },
                 { GamingConstants.ProgressiveSetupReadonly, (configuration.ProgressiveView?.InitialSetupView?.Readonly ?? false, false) },
-                { GamingConstants.ActionOnMaxWinReached, (configuration.MaxWin?.OnMaxWinReached ?? "endgame", false) }
+                { GamingConstants.ActionOnMaxWinReached, (configuration.MaxWin?.OnMaxWinReached ?? "endgame", false) },
+                { GamingConstants.AutoEnableSingleGames, (configuration.AutoEnableSingleGames?.Enabled?? true, false) }
             };
 
             if (!blockExists)

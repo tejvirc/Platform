@@ -1229,6 +1229,11 @@
         public const string ActionOnMaxWinReached = @"ActionOnMaxWinReached";
 
         /// <summary>
+        ///     If true, platform will try to auto enable games that have a single variation and denomination
+        /// </summary>
+        public const string AutoEnableSingleGames = @"AutoEnableSingleGames";
+
+        /// <summary>
         ///     encapsulate Player Information Display options
         /// </summary>
         public static class PlayerInformationDisplay
