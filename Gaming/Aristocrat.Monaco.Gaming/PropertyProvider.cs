@@ -282,7 +282,7 @@
                 { GamingConstants.AutocompleteGameRoundEnabled, (configuration.AutoCompleteGameRound?.Enabled ?? true, false) },
                 { GamingConstants.ProgressiveSetupReadonly, (configuration.ProgressiveView?.InitialSetupView?.Readonly ?? false, false) },
                 { GamingConstants.ActionOnMaxWinReached, (configuration.MaxWin?.OnMaxWinReached ?? "endgame", false) },
-                { GamingConstants.AutoEnableSingleGames, (configuration.AutoEnableSingleGames?.Enabled?? true, false) }
+                { GamingConstants.AutoEnableSimpleGames, (configuration.AutoEnableSimpleGames?.Enabled?? true, false) }
             };
 
             if (!blockExists)

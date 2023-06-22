@@ -1231,7 +1231,7 @@
         /// <summary>
         ///     If true, platform will try to auto enable games that have a single variation and denomination
         /// </summary>
-        public const string AutoEnableSingleGames = @"AutoEnableSingleGames";
+        public const string AutoEnableSimpleGames = @"AutoEnableSimpleGames";
 
         /// <summary>
         ///     encapsulate Player Information Display options

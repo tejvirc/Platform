@@ -130,7 +130,7 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         
         private GamingConfigurationMaxWin maxWinField;
         
-        private GamingConfigurationAutoEnableSingleGames autoEnableSingleGamesField;
+        private GamingConfigurationAutoEnableSimpleGames autoEnableSimpleGamesField;
         
         /// <remarks/>
         public GamingConfigurationGameHistory GameHistory {
@@ -663,12 +663,12 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         }
         
         /// <remarks/>
-        public GamingConfigurationAutoEnableSingleGames AutoEnableSingleGames {
+        public GamingConfigurationAutoEnableSimpleGames AutoEnableSimpleGames {
             get {
-                return this.autoEnableSingleGamesField;
+                return this.autoEnableSimpleGamesField;
             }
             set {
-                this.autoEnableSingleGamesField = value;
+                this.autoEnableSimpleGamesField = value;
             }
         }
     }
@@ -3782,11 +3782,11 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
-    public partial class GamingConfigurationAutoEnableSingleGames {
+    public partial class GamingConfigurationAutoEnableSimpleGames {
         
         private bool enabledField;
         
-        public GamingConfigurationAutoEnableSingleGames() {
+        public GamingConfigurationAutoEnableSimpleGames() {
             this.enabledField = true;
         }
         

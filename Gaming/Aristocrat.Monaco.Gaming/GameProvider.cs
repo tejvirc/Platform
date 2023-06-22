@@ -983,7 +983,7 @@ namespace Aristocrat.Monaco.Gaming
                 }).ToList();
 
             isComplex = isComplex || game.Denominations.Count() > 1;
-            var shouldAutoEnableGame = !isComplex && _properties.GetValue(GamingConstants.AutoEnableSingleGames, true);
+            var shouldAutoEnableGame = !isComplex && _properties.GetValue(GamingConstants.AutoEnableSimpleGames, true);
 
             var gameDetail = FindGame(game.ThemeId, game.PaytableId, gameContent.ReleaseNumber);
             if (gameDetail is null)
