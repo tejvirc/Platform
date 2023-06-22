@@ -70,7 +70,11 @@
 
         public void Dispose()
         {
-            _forceGameExitTimer.Dispose();
+            if (_forceGameExitTimer != null)
+            {
+                _forceGameExitTimer.Dispose();
+            }
+
             _eventBus.UnsubscribeAll(this);
         }
 
