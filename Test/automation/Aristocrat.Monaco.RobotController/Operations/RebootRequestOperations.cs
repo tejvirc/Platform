@@ -10,14 +10,14 @@
     internal class RebootRequestOperations : IRobotOperations
     {
         private readonly IEventBus _eventBus;
-        private readonly StateChecker _stateChecker;
+        private readonly LobbyStateChecker _stateChecker;
         private readonly RobotLogger _logger;
         private readonly RobotController _robotController;
         private Timer _rebootTimer;
         private Timer _softRebootTimer;
         private bool _disposed;
 
-        public RebootRequestOperations(IEventBus eventBus, RobotLogger logger, StateChecker sc, RobotController robotController)
+        public RebootRequestOperations(IEventBus eventBus, RobotLogger logger, LobbyStateChecker sc, RobotController robotController)
         {
             _stateChecker = sc;
             _logger = logger;
@@ -47,8 +47,8 @@
                                    RequestHardReboot();
                                },
                                null,
-                               _robotController.Config.Active.IntervalRebootMachine,
-                               _robotController.Config.Active.IntervalRebootMachine);
+                               _robotController.Config.ActiveGameMode.IntervalRebootMachine,
+                               _robotController.Config.ActiveGameMode.IntervalRebootMachine);
 
             _softRebootTimer = new Timer(
                                (sender) =>
@@ -56,8 +56,8 @@
                                    RequestSoftReboot();
                                },
                                null,
-                               _robotController.Config.Active.IntervalSoftReboot,
-                               _robotController.Config.Active.IntervalSoftReboot);
+                               _robotController.Config.ActiveGameMode.IntervalSoftReboot,
+                               _robotController.Config.ActiveGameMode.IntervalSoftReboot);
         }
 
         public void Halt()

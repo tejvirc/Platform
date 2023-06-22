@@ -4,12 +4,12 @@
     using Aristocrat.Monaco.Gaming.Contracts.Lobby;
     using Aristocrat.Monaco.Gaming.Contracts.Models;
 
-    internal class StateChecker
+    internal class LobbyStateChecker
     {
         public readonly ILobbyStateManager _lobbyStateManager;
         public readonly IGamePlayState _gamePlayState;
 
-        public StateChecker(ILobbyStateManager lobbyStateManager, IGamePlayState gamePlayState)
+        public LobbyStateChecker(ILobbyStateManager lobbyStateManager, IGamePlayState gamePlayState)
         {
             _lobbyStateManager = lobbyStateManager;
             _gamePlayState = gamePlayState;

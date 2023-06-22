@@ -15,63 +15,71 @@
     internal class ForceExitSimulationOperations : IRobotOperations
     {
         private readonly RobotLogger _logger;
-        private readonly StateChecker _stateChecker;
+        private readonly LobbyStateChecker _lobbyStateChecker;
         private Timer _forceGameExitTimer;
         private readonly RobotController _robotController;
         private readonly Automation _automator;
         private readonly IEventBus _eventBus;
-        //private readonly IGameService _gamingService;
+
         private readonly GamingService _robotGamingService;
         private readonly RobotService _robotService;
-        private readonly RobotRunStatus _robotRunStatus;
-
-        private bool _gotoOtherGameWhenIdle;
-        private bool _isGameRunning;
+        private readonly StatusManager _statusManager;
+        private readonly IGameService _platformGameService;
 
         public ForceExitSimulationOperations(IEventBus eventBus, RobotLogger logger, Automation automator,
-            StateChecker stateChecker, IPropertiesManager pm, RobotController robotController,
+            LobbyStateChecker stateChecker, IPropertiesManager pm, RobotController robotController,
             GamingService gamingService, RobotService robotService,
-            IGameService gameService, RobotRunStatus robotStatus)
+            IGameService gameService, StatusManager robotStatusManager)
         {
             _logger = logger;
-            _stateChecker = stateChecker;
+            _lobbyStateChecker = stateChecker;
             _robotController = robotController;
             _automator = automator;
             _eventBus = eventBus;
             _robotGamingService = gamingService;
             _robotService = robotService;
-            _robotRunStatus = robotStatus;
+            _statusManager = robotStatusManager;
+            _platformGameService = gameService;
         }
 
         public void Execute()
         {
             _logger.Info("ForceExitSimulationOperations Has Been Initiated!", nameof(ForceExitSimulationOperations));
 
+            SubscribeEvents();
+
             _forceGameExitTimer = new Timer(
                                (sender) =>
                                {
+                                   if (!_robotGamingService.CanKillGame())
+                                   {
+                                       return;
+                                   }
+
                                    _robotGamingService.KillGame();
                                },
                                null,
-                               _robotController.Config.Active.IntervalLobby,
-                               _robotController.Config.Active.IntervalLobby);
+                               _robotController.Config.ActiveGameMode.IntervalLobby,
+                               _robotController.Config.ActiveGameMode.IntervalLobby);
         }
 
         public void Halt()
         {
-
+            Dispose();
         }
 
         public void Dispose()
         {
-
+            _forceGameExitTimer.Dispose();
+            _eventBus.UnsubscribeAll(this);
         }
 
         public void Reset()
         {
-            _gotoOtherGameWhenIdle = false;
+            _statusManager.ExitToLobbyWhenGameIdle = false;
+            _statusManager.IsGameRunning = _platformGameService.Running;
+            _statusManager.GoingNextGame = false;
         }
-
 
         public void SubscribeEvents()
         {
@@ -79,48 +87,31 @@
                  this,
                  evt =>
                  {
-                     _isGameRunning = false;
+                     _statusManager.IsGameRunning = false;
                      _robotController.UnBlockOtherOperations(RobotStateAndOperations.GameExiting);
                      if (evt.Unexpected)
                      {
-                         if (!_isRobotGameExitInProgress)
+                         if (!_statusManager.IsGameExitInProgress)
                          {
                              _logger.Error($"GameProcessExitedEvent-Unexpected Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                              _robotController.Enabled = false;
                              return;
                          }
                          _logger.Info($"GameProcessExitedEvent-Unexpected-ForceGameExit Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                         _isRobotGameExitInProgress = false;
-                         _goToNextGame = false;
-                         _gotoOtherGameWhenIdle = !_robotService.IsRegularRobots();
+                         _statusManager.IsGameExitInProgress = false;
+
+                         _statusManager.GoingNextGame = false;
+                         _statusManager.ExitToLobbyWhenGameIdle = !_robotService.IsRegularRobots();
                      }
                      else
                      {
                          _logger.Info($"GameProcessExitedEvent-Normal Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                         _goToNextGame = !_robotService.IsRegularRobots();
+
+                         _statusManager.GoingNextGame = !_robotService.IsRegularRobots();
                      }
                      _robotGamingService.LoadGameWithDelay(Constants.loadGameDelayDuration);
                  });
 
-            _eventBus.Subscribe<TimeLimitDialogVisibleEvent>(
-     this,
-     evt =>
-     {
-         _logger.Info($"TimeLimitDialogVisibleEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-         _robotGamingService.IsTimeLimitDialogVisible = true;
-         if (evt.IsLastPrompt)
-         {
-             _gotoOtherGameWhenIdle = !_robotService.IsRegularRobots();
-         }
-     });
-
-            _eventBus.Subscribe<TimeLimitDialogHiddenEvent>(
-                this,
-                evt =>
-                {
-                    _logger.Info($"TimeLimitDialogHiddenEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                    _robotGamingService.IsTimeLimitDialogVisible = false;
-                });
             _eventBus.Subscribe<GameIdleEvent>(
                  this,
                  _ =>
@@ -135,16 +126,16 @@
 
         private bool IsExitToLobbyWhenIdleValid()
         {
-            return _isGameRunning
-                    && (_stateChecker.IsIdle || _stateChecker.IsPresentationIdle)
-                    && _gotoOtherGameWhenIdle
-                    && !_robotRunStatus.IsGameExitInProgress;
+            return _statusManager.IsGameRunning
+                    && (_lobbyStateChecker.IsIdle || _lobbyStateChecker.IsPresentationIdle)
+                    && _statusManager.ExitToLobbyWhenGameIdle
+                    && !_statusManager.IsGameExitInProgress;
         }
 
         private void HandleExitToLobbyRequest()
         {
-            //if (_gotoOtherGameWhenIdle)
-            //{
+            if (_statusManager.ExitToLobbyWhenGameIdle)
+            {
                 _robotController.BlockOtherOperations(RobotStateAndOperations.GameExiting);
                 if (!IsExitToLobbyWhenIdleValid())
                 {
@@ -153,10 +144,10 @@
                 }
                 _logger.Info($"ExitToLobby Request Is Received! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                 _automator.RequestGameExit();
-                _robotRunStatus.IsGameExitInProgress = true;
-               // _gotoOtherGameWhenIdle = false;
+                _statusManager.IsGameExitInProgress = true;
+                _statusManager.ExitToLobbyWhenGameIdle = false;
                 //GameProcessExitedEvent gets trigered
             }
-        //}
+        }
     }
 }

@@ -11,7 +11,7 @@
     internal class ServiceRequestOperations : IRobotOperations
     {
         private readonly IEventBus _eventBus;
-        private readonly StateChecker _stateChecker;
+        private readonly LobbyStateChecker _stateChecker;
         private readonly RobotLogger _logger;
         private readonly Automation _automator;
         private readonly RobotController _robotController;
@@ -19,7 +19,7 @@
         private Timer _handlerTimer;
         private bool _disposed;
 
-        public ServiceRequestOperations(IEventBus eventBus, RobotLogger logger, Automation automator, StateChecker sc, RobotController robotController)
+        public ServiceRequestOperations(IEventBus eventBus, RobotLogger logger, Automation automator, LobbyStateChecker sc, RobotController robotController)
         {
             _stateChecker = sc;
             _automator = automator;
@@ -45,8 +45,8 @@
                                    RequestService();
                                },
                                null,
-                               _robotController.Config.Active.IntervalServiceRequest,
-                               _robotController.Config.Active.IntervalServiceRequest);
+                               _robotController.Config.ActiveGameMode.IntervalServiceRequest,
+                               _robotController.Config.ActiveGameMode.IntervalServiceRequest);
         }
 
         private void SubscribeToEvents()

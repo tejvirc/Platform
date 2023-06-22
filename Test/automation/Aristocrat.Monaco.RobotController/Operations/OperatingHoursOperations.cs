@@ -10,14 +10,14 @@
     internal class OperatingHoursOperations : IRobotOperations
     {
         private readonly IEventBus _eventBus;
-        private readonly StateChecker _stateChecker;
+        private readonly LobbyStateChecker _stateChecker;
         private readonly RobotLogger _logger;
         private readonly IPropertiesManager _propertyManager;
         private readonly RobotController _robotController;
         private Timer _operatingHoursTimer;
         private bool _disposed;
 
-        public OperatingHoursOperations(IEventBus eventBus, RobotLogger logger, StateChecker sc, IPropertiesManager pm, RobotController robotController)
+        public OperatingHoursOperations(IEventBus eventBus, RobotLogger logger, LobbyStateChecker sc, IPropertiesManager pm, RobotController robotController)
         {
             _stateChecker = sc;
             _logger = logger;
@@ -43,7 +43,7 @@
         {
             _logger.Info("OperatingHoursOperations Has Been Initiated!", GetType().Name);
             SubscribeToEvents();
-            if (_robotController.Config.Active.IntervalSetOperatingHours == 0)
+            if (_robotController.Config.ActiveGameMode.IntervalSetOperatingHours == 0)
             {
                 return;
             }
@@ -53,8 +53,8 @@
                                    SetOperatingHours();
                                },
                                null,
-                               _robotController.Config.Active.IntervalSetOperatingHours,
-                               _robotController.Config.Active.IntervalSetOperatingHours);
+                               _robotController.Config.ActiveGameMode.IntervalSetOperatingHours,
+                               _robotController.Config.ActiveGameMode.IntervalSetOperatingHours);
         }
 
         public void Halt()
@@ -112,11 +112,11 @@
                 return;
             }
 
-            _logger.Info($"Setting operating hours to timeout in 3 seconds for {_robotController.Config.Active.OperatingHoursDisabledDuration} milliseconds", GetType().Name);
+            _logger.Info($"Setting operating hours to timeout in 3 seconds for {_robotController.Config.ActiveGameMode.OperatingHoursDisabledDuration} milliseconds", GetType().Name);
 
             DateTime soon = DateTime.Now.AddSeconds(3);
 
-            DateTime then = soon.AddMilliseconds(Math.Max(_robotController.Config.Active.OperatingHoursDisabledDuration, 100));
+            DateTime then = soon.AddMilliseconds(Math.Max(_robotController.Config.ActiveGameMode.OperatingHoursDisabledDuration, 100));
 
             List<OperatingHours> updatedOperatingHours = new List<OperatingHours>()
             {

@@ -24,7 +24,7 @@
         private readonly ThreadSafeHashSet<RobotStateAndOperations> _inProgressRequests;
         private IPropertiesManager _propertiesManager;
         private IGameProvider _gameProvider;
-        private StateChecker _stateChecker;
+        private LobbyStateChecker _stateChecker;
         private RobotLogger _logger;
         private Dictionary<string, HashSet<IRobotOperations>> _modeOperations;
         private Dictionary<string, IList<Action>> _gameStarterActions;
@@ -242,10 +242,10 @@
 
         private void SetMaxWinLimit()
         {
-            if (Config.Active.MaxWinLimitOverrideMilliCents > 0)
+            if (Config.ActiveGameMode.MaxWinLimitOverrideMilliCents > 0)
             {
                 _logger.Info($"{nameof(SetMaxWinLimit)} Is Initiated", GetType().Name);
-                _automator.SetMaxWinLimit(Config.Active.MaxWinLimitOverrideMilliCents);
+                _automator.SetMaxWinLimit(Config.ActiveGameMode.MaxWinLimitOverrideMilliCents);
             }
         }
 

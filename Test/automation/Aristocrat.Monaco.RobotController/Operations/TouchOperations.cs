@@ -11,12 +11,12 @@
         private readonly IEventBus _eventBus;
         private readonly Automation _automator;
         private readonly RobotLogger _logger;
-        private readonly StateChecker _stateChecker;
+        private readonly LobbyStateChecker _stateChecker;
         private readonly RobotController _robotController;
         private Timer _actionTouchTimer;
         private bool _disposed;
 
-        public TouchOperations(IEventBus eventBus, RobotLogger logger, Automation automator, StateChecker sc, RobotController robotController)
+        public TouchOperations(IEventBus eventBus, RobotLogger logger, Automation automator, LobbyStateChecker sc, RobotController robotController)
         {
             _stateChecker = sc;
             _automator = automator;
@@ -47,8 +47,8 @@
                                     TouchRequest();
                                 },
                                 null,
-                                _robotController.Config.Active.IntervalTouch,
-                                _robotController.Config.Active.IntervalTouch);
+                                _robotController.Config.ActiveGameMode.IntervalTouch,
+                                _robotController.Config.ActiveGameMode.IntervalTouch);
         }
 
         public void Halt()

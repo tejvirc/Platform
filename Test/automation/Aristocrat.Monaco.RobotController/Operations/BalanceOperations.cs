@@ -16,7 +16,7 @@
     internal class BalanceOperations : IRobotOperations
     {
         private readonly IEventBus _eventBus;
-        private readonly StateChecker _stateChecker;
+        private readonly LobbyStateChecker _stateChecker;
         private readonly RobotLogger _logger;
         private readonly Automation _automator;
         private readonly RobotController _robotController;
@@ -24,7 +24,7 @@
         private Timer _balanceCheckTimer;
         private bool _disposed;
 
-        public BalanceOperations(IEventBus eventBus,IBank bank, RobotLogger logger, Automation automator, StateChecker sc, RobotController robotController)
+        public BalanceOperations(IEventBus eventBus,IBank bank, RobotLogger logger, Automation automator, LobbyStateChecker sc, RobotController robotController)
         {
             _stateChecker = sc;
             _automator = automator;
@@ -57,8 +57,8 @@
                                     CheckBalance();
                                 },
                                 null,
-                                _robotController.Config.Active.IntervalBalanceCheck,
-                                _robotController.Config.Active.IntervalBalanceCheck);
+                                _robotController.Config.ActiveGameMode.IntervalBalanceCheck,
+                                _robotController.Config.ActiveGameMode.IntervalBalanceCheck);
         }
 
         protected virtual void Dispose(bool disposing)
@@ -140,7 +140,7 @@
             var bankBalanceInDollars = CurrencyExtensions.MillicentsToDollars(_bank.QueryBalance());
             var minBalanceInDollars = CurrencyExtensions.CentsToMillicents(_robotController.Config.GetMinimumBalance());
             var enoughBlanace = !CurrencyExtensions.IsBelowMinimum(bankBalanceInDollars, minBalanceInDollars);
-            var hasEdgeCase = _robotController.Config?.Active?.InsertCreditsDuringGameRound == true;
+            var hasEdgeCase = _robotController.Config?.ActiveGameMode?.InsertCreditsDuringGameRound == true;
             //inserting credits can lead to race conditions that make the platform not update the runtime balance
             //we now support inserting credits during game round for some jurisdictions
             if (enoughBlanace || (!_stateChecker.IsIdle && !hasEdgeCase))
