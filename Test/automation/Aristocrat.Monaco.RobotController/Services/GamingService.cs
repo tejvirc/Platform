@@ -22,11 +22,11 @@
         private readonly StatusManager _statusManager;
 
         //private uint _statusManager.SanityCounter;
-        //private bool _goingNextGame;
-        //private bool _isGameRunning;
-        //private bool _isLoadGameInProgress;
-        //private bool _exitToLobbyWhenGameIdle;
-        //private bool _isGameExitInProgress;
+        //private bool _goingNextGame;   // _goToNextGame
+        //private bool _isGameRunning;   // _gameIsRunning;
+        //private bool _isLoadGameInProgress;   // _requestGameIsInProgress
+        //private bool _exitToLobbyWhenGameIdle;  // _exitWhenIdle
+        //private bool _isGameExitInProgress;   // _forceGameExitIsInProgress
 
         public GamingService(IEventBus eventBus, RobotController robotController, RobotService robotService, LobbyStateChecker stateChecker,
             IPropertiesManager pm, RobotLogger logger, Automation automator, StatusManager robotStatusManager)
