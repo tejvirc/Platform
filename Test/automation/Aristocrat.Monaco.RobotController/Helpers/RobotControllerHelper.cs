@@ -22,7 +22,7 @@
                     container.GetInstance<BalanceOperations>(),
                     container.GetInstance<ServiceRequestOperations>(),
                     container.GetInstance<GameOperations>(),
-                    //container.GetInstance<ForceExitOperations>(),
+                    container.GetInstance<ForceExitOperations>(),
                     container.GetInstance<GameHelpOperations>()
                 },
 
