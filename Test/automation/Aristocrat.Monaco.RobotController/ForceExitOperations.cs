@@ -51,9 +51,6 @@
             _forceGameExitTimer = new Timer(
                                (sender) =>
                                {
-                                   var canKillGame = _robotGamingService.CanKillGame();
-                                   Console.WriteLine($"{DateTime.Now} CanKillGame: {canKillGame}");
-
                                    if (!_robotGamingService.CanKillGame())
                                    {
                                        return;
