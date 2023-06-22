@@ -12,7 +12,7 @@
     using Aristocrat.Monaco.Gaming.Contracts.Lobby;
     using Aristocrat.Monaco.RobotController.Services;
 
-    internal class ForceExitSimulationOperations : IRobotOperations
+    internal class ForceExitOperations : IRobotOperations
     {
         private readonly RobotLogger _logger;
         private readonly LobbyStateChecker _lobbyStateChecker;
@@ -26,7 +26,7 @@
         private readonly StatusManager _statusManager;
         private readonly IGameService _platformGameService;
 
-        public ForceExitSimulationOperations(IEventBus eventBus, RobotLogger logger, Automation automator,
+        public ForceExitOperations(IEventBus eventBus, RobotLogger logger, Automation automator,
             LobbyStateChecker stateChecker, IPropertiesManager pm, RobotController robotController,
             GamingService gamingService, RobotService robotService,
             IGameService gameService, StatusManager robotStatusManager)
@@ -44,7 +44,7 @@
 
         public void Execute()
         {
-            _logger.Info("ForceExitSimulationOperations Has Been Initiated!", nameof(ForceExitSimulationOperations));
+            _logger.Info("ForceExitSimulationOperations Has Been Initiated!", nameof(ForceExitOperations));
 
             SubscribeEvents();
 
