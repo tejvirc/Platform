@@ -74,6 +74,31 @@
             return new NudgeReelsResponse { Result = command.Success };
         }
 
+        public override MessageResponse PrepareLightShowAnimations(PrepareLightShowAnimationsRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MessageResponse PrepareStepperCurves(PrepareStepperCurvesRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MessageResponse PrepareStepperRule(PrepareStepperRuleRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MessageResponse PrepareStopReel(PrepareStopReelRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MessageResponse SetBrightness(SetBrightnessRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
         public override SpinReelsResponse SpinReels(SpinReelsRequest request)
         {
             Logger.Debug($"SpinReels");
@@ -96,6 +121,31 @@
             Logger.Debug($"SpinReels with request: {request} Result: {command.Success}");
 
             return new SpinReelsResponse { Result = command.Success };
+        }
+
+        public override MessageResponse StartAnimations(Empty request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MessageResponse StopAllAnimationTags(StopAllAnimationTagsRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MessageResponse StopAllLightshowAnimations(Empty request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MessageResponse StopLightshowAnimation(StopLightshowAnimationRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MessageResponse SynchronizeReels(SynchronizeReelsRequest request)
+        {
+            throw new NotImplementedException();
         }
 
         public override UpdateReelsSpeedResponse UpdateReelsSpeed(UpdateReelsSpeedRequest request)

@@ -28,7 +28,7 @@
     <ProjectReference Include="..\Aristocrat.Monaco.Application.Contracts.Tests\Aristocrat.Monaco.Application.Contracts.Tests.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.GdkRuntime.Snapp" Version="0.1.17" />
+    <PackageReference Include="Aristocrat.GdkRuntime.Snapp" Version="0.1.23" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="3.8.1" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.7.1" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />

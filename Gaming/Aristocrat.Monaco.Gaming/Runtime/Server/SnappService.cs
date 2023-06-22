@@ -664,5 +664,10 @@
 
             return response;
         }
+
+        public override Empty UpdateLanguage(LanguageRequest request)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

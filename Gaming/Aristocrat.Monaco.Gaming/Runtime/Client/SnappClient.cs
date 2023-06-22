@@ -204,7 +204,7 @@
 
         public void UpdateReelState(IDictionary<int, ReelLogicalState> updateData)
         {
-            var stateRequest = new UpdateReelStateRequest
+            var stateRequest = new UpdateReelStateNotification
             {
                 States = { updateData.ToDictionary(x => x.Key, x => HardwareReelExtensions.GetReelState(x.Value)) }
             };
