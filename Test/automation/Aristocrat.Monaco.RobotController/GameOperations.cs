@@ -20,28 +20,23 @@
         private readonly Automation _automator;
         private readonly IPropertiesManager _propertyManager;
         private readonly RobotLogger _logger;
-        private readonly StateChecker _stateChecker;
+        private readonly LobbyStateChecker _lobbyStateChecker;
         private readonly RobotController _robotController;
         private readonly IGameService _gameService;
         private readonly GamingService _robotGamingService;
         private readonly RobotService _robotService;
+        private readonly StatusManager _statusManager;
 
         private Timer _loadGameTimer;
         private Timer _RgTimer;
-        private Timer _forceGameExitTimer;
         private bool _disposed;
-        private bool _isTimeLimitDialogVisible;
-        private int _sanityCounter;
-
-        private bool _isRobotGameExitInProgress;
-        private bool _isLoadGameInProgress;
-        private bool _gameIsRunning;
 
         public GameOperations(IEventBus eventBus, RobotLogger logger, Automation automator,
-            StateChecker sc, IPropertiesManager pm, RobotController robotController,
-            IGameService gameService, GamingService gamingService, RobotService robotService)
+            LobbyStateChecker sc, IPropertiesManager pm, RobotController robotController,
+            IGameService gameService, GamingService gamingService, RobotService robotService,
+            StatusManager statusManager)
         {
-            _stateChecker = sc;
+            _lobbyStateChecker = sc;
             _automator = automator;
             _logger = logger;
             _eventBus = eventBus;
@@ -50,6 +45,7 @@
             _gameService = gameService;
             _robotGamingService = gamingService;
             _robotService = robotService;
+            _statusManager = statusManager;
         }
 
         ~GameOperations() => Dispose(false);
@@ -76,27 +72,28 @@
                                    _robotGamingService.RequestGameLoad();
                                },
                                null,
-                               _robotController.Config.Active.IntervalLoadGame,
-                               _robotController.Config.Active.IntervalLoadGame);
+                               _robotController.Config.ActiveGameMode.IntervalLoadGame,
+                               _robotController.Config.ActiveGameMode.IntervalLoadGame);
             _RgTimer = new Timer(
                                (sender) =>
                                {
                                    RequestRg();
                                },
                                null,
-                               _robotController.Config.Active.IntervalRgSet,
-                               _robotController.Config.Active.IntervalRgSet);
-            
+                               _robotController.Config.ActiveGameMode.IntervalRgSet,
+                               _robotController.Config.ActiveGameMode.IntervalRgSet);
+
             _robotGamingService.LoadGameWithDelay(Constants.loadGameDelayDuration);
         }
 
         public void Reset()
         {
             _disposed = false;
-            _sanityCounter = 0;
-            _isLoadGameInProgress = false;
-            _gameIsRunning = _gameService.Running;
-            //_goToNextGame = false;
+            _statusManager.SanityCounter = 0;
+
+            _statusManager.IsLoadGameInProgress = false;
+            _statusManager.IsGameRunning = _gameService.Running;
+            _statusManager.GoingNextGame = false;
         }
 
         public void Halt()
@@ -105,7 +102,6 @@
             _eventBus.UnsubscribeAll(this);
             _loadGameTimer?.Dispose();
             _RgTimer?.Dispose();
-            _forceGameExitTimer?.Dispose();
         }
 
         protected virtual void Dispose(bool disposing)
@@ -127,11 +123,7 @@
                     _RgTimer.Dispose();
                 }
                 _RgTimer = null;
-                if (_forceGameExitTimer is not null)
-                {
-                    _forceGameExitTimer.Dispose();
-                }
-                _forceGameExitTimer = null;
+
                 _eventBus.UnsubscribeAll(this);
             }
             _disposed = true;
@@ -139,7 +131,7 @@
 
         private void RequestRg()
         {
-            if (!_gameIsRunning)
+            if (!_statusManager.IsGameRunning)
             {
                 return;
             }
@@ -151,20 +143,35 @@
             }
         }
 
-
-
-
-
         private void SubscribeToEvents()
         {
+            _eventBus.Subscribe<TimeLimitDialogVisibleEvent>(
+                this,
+                evt =>
+                {
+                    _logger.Info($"TimeLimitDialogVisibleEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+                    _statusManager.IsTimeLimitDialogVisible = true;
+                    if (evt.IsLastPrompt)
+                    {
+                        _statusManager.ExitToLobbyWhenGameIdle = !_robotService.IsRegularRobots();
+                    }
+                });
+
+            _eventBus.Subscribe<TimeLimitDialogHiddenEvent>(
+                this,
+                evt =>
+                {
+                    _logger.Info($"TimeLimitDialogHiddenEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+                    _statusManager.IsTimeLimitDialogVisible = false;
+                });
 
             _eventBus.Subscribe<GameRequestFailedEvent>(
                 this,
                 _ =>
                 {
                     _logger.Error($"GameRequestFailedEvent Got Triggered!  Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                     _isLoadGameInProgress = false;
-                    if (!_stateChecker.IsAllowSingleGameAutoLaunch)
+                    _statusManager.IsLoadGameInProgress = false;
+                    if (!_lobbyStateChecker.IsAllowSingleGameAutoLaunch)
                     {
                         _robotGamingService.RequestGameLoad();
                     }
@@ -174,9 +181,9 @@
                 _ =>
                 {
                     _logger.Info($"GameInitializationCompletedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                    _gameIsRunning = true;
-                    _sanityCounter = 0;
-                     _isLoadGameInProgress = false;
+                    _statusManager.IsGameRunning = true;
+                    _statusManager.SanityCounter = 0;
+                    _statusManager.IsLoadGameInProgress = false;
                     _robotGamingService.BalanceCheckWithDelay(Constants.BalanceCheckDelayDuration);
                 });
 
@@ -209,7 +216,7 @@
                  {
                      _logger.Info($"GamePlayStateChangedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                      _robotController.IdleDuration = 0;
-                     _sanityCounter = 0;
+                     _statusManager.SanityCounter = 0;
                  });
             _eventBus.Subscribe<HandpayStartedEvent>(this, evt =>
             {

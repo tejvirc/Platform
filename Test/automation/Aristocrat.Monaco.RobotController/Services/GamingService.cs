@@ -14,79 +14,68 @@
     {
         private readonly IEventBus _eventBus;
         private readonly RobotController _robotController;
-        private readonly StateChecker _stateChecker;
+        private readonly LobbyStateChecker _lobbyStateChecker;
         private readonly RobotService _robotService;
         private readonly RobotLogger _logger;
         private readonly IPropertiesManager _propertiesManager;
         private readonly Automation _automator;
+        private readonly StatusManager _statusManager;
 
-        private uint _sanityCounter;
-        private bool _gotoNextGame;
-        private bool _isGameRunning;
-        private bool _isLoadGameInProgress;
-        private bool _toKillGamingProcessIfIdle;
-        private bool _isGameExitInProgress;
-        private bool _isTimeLimitDialogVisible;
+        //private uint _statusManager.SanityCounter;
+        //private bool _goingNextGame;
+        //private bool _isGameRunning;
+        //private bool _isLoadGameInProgress;
+        //private bool _exitToLobbyWhenGameIdle;
+        //private bool _isGameExitInProgress;
 
-        public GamingService(IEventBus eventBus, RobotController robotController, RobotService robotService, StateChecker stateChecker,
-            IPropertiesManager pm, RobotLogger logger, Automation automator)
+        public GamingService(IEventBus eventBus, RobotController robotController, RobotService robotService, LobbyStateChecker stateChecker,
+            IPropertiesManager pm, RobotLogger logger, Automation automator, StatusManager robotStatusManager)
         {
             _eventBus = eventBus;
             _robotController = robotController;
 
-            _stateChecker = stateChecker;
+            _lobbyStateChecker = stateChecker;
             _robotService = robotService;
             _logger = logger;
             _propertiesManager = pm;
             _automator = automator;
-        }
-
-        public bool SelectNextGame
-        {
-            get => _gotoNextGame;
-            set => _gotoNextGame = value;
-        }
-
-        public bool IsTimeLimitDialogVisible
-        {
-            get => _isTimeLimitDialogVisible;
-            set => _isTimeLimitDialogVisible = value;
-        }
-
-        public bool IsGameRunning
-        {
-            get => _isGameRunning;
-            set => _isGameRunning = value;
+            _statusManager = robotStatusManager;
         }
 
         public bool CanRequestGameLoad()
         {
             var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
-            var isGeneralRule = _stateChecker.IsChooser || (IsGameRunning && !_stateChecker.IsGameLoading);
-            return !isBlocked && isGeneralRule && !_isLoadGameInProgress;
+            var isGeneralRule = _lobbyStateChecker.IsChooser || (_statusManager.IsGameRunning && !_lobbyStateChecker.IsGameLoading);
+            return !isBlocked && isGeneralRule && !_statusManager.IsLoadGameInProgress;
         }
 
-        public void RequestGameLoad(bool selectNextGame = false)
+        public void RequestGameLoad()
         {
             if (!CanRequestGameLoad())
             {
                 _logger.Info($"RequestGame was not valid!", GetType().Name);
                 return;
             }
-            if (_stateChecker.IsLobbyStateGame && IsGameRunning)
+            if (_lobbyStateChecker.IsLobbyStateGame && _statusManager.IsGameRunning)
             {
-                _logger.Info($"Exit To Lobby When Idle Requested Received! Sanity Counter = {_sanityCounter}, Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                _toKillGamingProcessIfIdle = !_robotService.IsRegularRobots();
+                _logger.Info($"Exit To Lobby When Idle Requested Received! Sanity Counter = {_statusManager.SanityCounter}, Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+                _statusManager.ExitToLobbyWhenGameIdle = !_robotService.IsRegularRobots();
             }
-            else if (IsGameRunning)
+            else if (_statusManager.IsGameRunning)
             {
-                _logger.Info($"lobby is saying that it is in the chooser state but the game is still running, this reset the lobbystatemanager state ,Counter = {_sanityCounter}, Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+                _logger.Info($"lobby is saying that it is in the chooser state but the game is still running, this reset the lobbystatemanager state ,Counter = {_statusManager.SanityCounter}, Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+
+                if (!CanKillGame(true))
+                {
+                    return;
+                }
+
                 KillGame(true);
             }
             else
             {
-                _logger.Info($"LoadGame Requested Received! Sanity Counter = {_sanityCounter}", GetType().Name);
-                _sanityCounter++;
+                _logger.Info($"LoadGame Requested Received! Sanity Counter = {_statusManager.SanityCounter}", GetType().Name);
+                _statusManager.SanityCounter++;
                 LoadGame();
             }
         }
@@ -97,11 +86,11 @@
             Task.Delay(milliseconds).ContinueWith(
                 _ =>
                 {
-                    _isLoadGameInProgress = false;
-                    RequestGameLoad(selectNextGame);
+                    // this seems can be omitted
+                    _statusManager.IsLoadGameInProgress = false;
+                    RequestGameLoad();
                 });
         }
-
 
         public void LoadGame()
         {
@@ -112,29 +101,26 @@
             }
         }
 
-        private bool CanKillGame(bool skipTestRecovery)
+        public bool CanKillGame(bool skipTestRecovery = false)
         {
             var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
 
-            var canExit = IsGameRunning
-                && !_stateChecker.IsGameLoading
-                && !_isGameExitInProgress
-                && _robotService.IsRegularRobots()  // Regular mode only ?
-                && (_robotController.Config.Active.TestRecovery || skipTestRecovery);
+            var canExit = _statusManager.IsGameRunning
+                && !_lobbyStateChecker.IsGameLoading
+                && !_statusManager.IsGameExitInProgress
+                && !_statusManager.ExitToLobbyWhenGameIdle  // shows this is on Regular mode
+                && (_robotController.Config.ActiveGameMode.TestRecovery || skipTestRecovery);
 
             return !isBlocked && canExit;
         }
 
         public void KillGame(bool skipTestRecovery = false)
         {
-            if (!CanKillGame(skipTestRecovery))
-            {
-                return;
-            }
-
             _logger.Info("ForceGameExit Requested Received!", GetType().Name);
 
-            _isGameExitInProgress = true;
+            _statusManager.IsGameExitInProgress = true;
+
+            _statusManager.ExitToLobbyWhenGameIdle = false;
 
             _automator.KillGameProcess(Constants.GdkRuntimeHostName);
 
@@ -143,9 +129,9 @@
 
         public void ExecuteGameLoad()
         {
-            _isLoadGameInProgress = true;
-            SetCurrentGame(SelectNextGame);
-            
+            _statusManager.IsLoadGameInProgress = true;
+            SetCurrentGame(_statusManager.GoingNextGame);
+
             var games = _propertiesManager.GetValues<IGameDetail>(GamingConstants.Games).ToList();
             var gameInfo = games.FirstOrDefault(g => g.ThemeName == _robotController.Config.CurrentGame && g.Enabled);
             if (gameInfo != null)
@@ -181,7 +167,7 @@
 
         public void DismissTimeLimitDialog()
         {
-            _automator.DismissTimeLimitDialog(IsTimeLimitDialogVisible);
+            _automator.DismissTimeLimitDialog(_statusManager.IsTimeLimitDialogVisible);
         }
 
         private bool IsTimeLimitDialogInProgress()
@@ -193,7 +179,7 @@
 
         private bool CheckSanity()
         {
-            if (_sanityCounter < 5)
+            if (_statusManager.SanityCounter < 5)
             {
                 return true;
             }

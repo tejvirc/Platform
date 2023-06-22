@@ -11,12 +11,12 @@
     {
         private readonly IEventBus _eventBus;
         private readonly RobotLogger _logger;
-        private readonly StateChecker _stateChecker;
+        private readonly LobbyStateChecker _stateChecker;
         private readonly RobotController _robotController;
         private Timer _actionCashoutTimer;
         private bool _disposed;
 
-        public CashoutOperations(IEventBus eventBus, RobotLogger logger, StateChecker sc, RobotController robotController)
+        public CashoutOperations(IEventBus eventBus, RobotLogger logger, LobbyStateChecker sc, RobotController robotController)
         {
             _stateChecker = sc;
             _logger = logger;
@@ -47,8 +47,8 @@
                                     RequestCashOut();
                                 },
                                 null,
-                                _robotController.Config.Active.IntervalCashOut,
-                                _robotController.Config.Active.IntervalCashOut);
+                                _robotController.Config.ActiveGameMode.IntervalCashOut,
+                                _robotController.Config.ActiveGameMode.IntervalCashOut);
         }
 
         public void Halt()

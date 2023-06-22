@@ -9,14 +9,14 @@
     internal class LockUpOperations : IRobotOperations
     {
         private readonly IEventBus _eventBus;
-        private readonly StateChecker _stateChecker;
+        private readonly LobbyStateChecker _stateChecker;
         private readonly RobotLogger _logger;
         private readonly Automation _automator;
         private readonly RobotController _robotController;
         private bool _disposed;
         private Timer _lockupTimer;
 
-        public LockUpOperations(IEventBus eventBus, RobotLogger logger, Automation automator, StateChecker sc, RobotController robotController)
+        public LockUpOperations(IEventBus eventBus, RobotLogger logger, Automation automator, LobbyStateChecker sc, RobotController robotController)
         {
             _stateChecker = sc;
             _automator = automator;
@@ -41,7 +41,7 @@
         public void Execute()
         {
             _logger.Info("LockUpOperations Has Been Initiated!", GetType().Name);
-            if (_robotController.Config.Active.IntervalTriggerLockup == 0)
+            if (_robotController.Config.ActiveGameMode.IntervalTriggerLockup == 0)
             {
                 return;
             }
@@ -51,8 +51,8 @@
                                    RequestLockUp();
                                },
                                null,
-                               _robotController.Config.Active.IntervalTriggerLockup,
-                               _robotController.Config.Active.IntervalTriggerLockup);
+                               _robotController.Config.ActiveGameMode.IntervalTriggerLockup,
+                               _robotController.Config.ActiveGameMode.IntervalTriggerLockup);
         }
 
         public void Halt()

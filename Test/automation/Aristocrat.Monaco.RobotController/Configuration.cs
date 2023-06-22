@@ -361,13 +361,13 @@
 
         [XmlIgnore] private string _currentGame;
 
-        [XmlIgnore] public Mode Active;
+        [XmlIgnore] public Mode ActiveGameMode;
 
         [XmlIgnore] public GameProfile CurrentGameProfile;
 
         public Configuration()
         {
-            Active = new Mode();
+            ActiveGameMode = new Mode();
             ActiveType = ModeType.Regular;
             Speed = "1.0";
             Modes = new List<Mode>();
@@ -451,17 +451,17 @@
                     }
                 }
 
-                config.SetActiveMode();
+                config.SetActiveGameMode();
 
 
-                if (config.Active == null)
+                if (config.ActiveGameMode == null)
                 {
-                    config.Active = new Mode();
+                    config.ActiveGameMode = new Mode();
                 }
 
-                if (config.Active.GameList.Count > 0)
+                if (config.ActiveGameMode.GameList.Count > 0)
                 {
-                    config.CurrentGame = config.Active.GameList.First();
+                    config.CurrentGame = config.ActiveGameMode.GameList.First();
                 }
             }
             catch (Exception ex)
@@ -491,22 +491,22 @@
 
         public int GetTimeElapsedOverride()
         {
-            return Active.RgElapsedTimeSeconds;
+            return ActiveGameMode.RgElapsedTimeSeconds;
         }
 
         public int GetSessionCountOverride()
         {
-            return Active.RgSessionCountOverride;
+            return ActiveGameMode.RgSessionCountOverride;
         }
 
         public int GetDollarsInserted()
         {
-            return CurrentGameProfile?.InsertedDollars ?? Active.InsertedDollars;
+            return CurrentGameProfile?.InsertedDollars ?? ActiveGameMode.InsertedDollars;
         }
 
         public int GetMinimumBalance()
         {
-            return CurrentGameProfile?.MinimumBalanceCents ?? Active.MinimumBalanceCents;
+            return CurrentGameProfile?.MinimumBalanceCents ?? ActiveGameMode.MinimumBalanceCents;
         }
 
         public List<int> GetBetIndices()
@@ -558,8 +558,8 @@
 
         public List<string> GetTimeLimitButtons()
         {
-            return Active != null
-                ? Active.TimeLimitButtons
+            return ActiveGameMode != null
+                ? ActiveGameMode.TimeLimitButtons
                 : new TimeLimitButtons { "btn60Min", "btnExpired60Min", "btnForcedCashOut" };
         }
 
@@ -573,15 +573,15 @@
             }
         }
 
-        public void SetActiveMode()
+        public void SetActiveGameMode()
         {
             if (Modes != null)
             {
-                Active = Modes.FirstOrDefault(m => m.Type == ActiveType);
+                ActiveGameMode = Modes.FirstOrDefault(m => m.Type == ActiveType);
             }
         }
 
-        public void Validate()
+        public void RemoveInvalidLineBetLevel()
         {
             if (GetLineIndices().Count < 1 && CurrentGameProfile.RobotActions.Contains(Actions.LineLevel))
             {
@@ -596,43 +596,44 @@
 
         public string SetCurrentGame()
         {
-            if (Active.GameList != null && Active.GameList.Count > 0)
+            if (ActiveGameMode.GameList != null && ActiveGameMode.GameList.Count > 0)
             {
-                switch (Active.Selection)
+                switch (ActiveGameMode.Selection)
                 {
                     case GameSelection.Sequence:
                     {
                         if (string.IsNullOrEmpty(CurrentGame))
                         {
-                            CurrentGame = Active.GameList.First();
+                            CurrentGame = ActiveGameMode.GameList.First();
                         }
-                        else if (Active.GameList.Count > 1)
+                        else if (ActiveGameMode.GameList.Count > 1)
                         {
-                            var currentIndex = Active.GameList.IndexOf(CurrentGame);
+                            var currentIndex = ActiveGameMode.GameList.IndexOf(CurrentGame);
 
-                            CurrentGame = currentIndex == Active.GameList.Count - 1
-                                ? Active.GameList.First()
-                                : Active.GameList[++currentIndex];
+                            CurrentGame = currentIndex == ActiveGameMode.GameList.Count - 1
+                                ? ActiveGameMode.GameList.First()
+                                : ActiveGameMode.GameList[++currentIndex];
                         }
 
                         break;
                     }
                     case GameSelection.Random:
                     {
-                        var random = Rng.Next(Active.GameList.Count);
-                        CurrentGame = Active.GameList[random];
+                        var random = Rng.Next(ActiveGameMode.GameList.Count);
+                        CurrentGame = ActiveGameMode.GameList[random];
                         break;
                     }
                     case GameSelection.Single:
                     {
-                        CurrentGame = Active.GameList.First();
+                        CurrentGame = ActiveGameMode.GameList.First();
                         break;
                     }
                 }
             }
 
             SetCurrentActiveGame(CurrentGame);
-            Validate();
+            RemoveInvalidLineBetLevel();
+
             return CurrentGame;
         }
 

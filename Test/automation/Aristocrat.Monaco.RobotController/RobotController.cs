@@ -23,7 +23,7 @@
         private readonly ThreadSafeHashSet<RobotStateAndOperations> _inProgressRequests;
         private IPropertiesManager _propertiesManager;
         private IGameProvider _gameProvider;
-        private StateChecker _stateChecker;
+        private LobbyStateChecker _stateChecker;
         private RobotLogger _logger;
         private Dictionary<string, HashSet<IRobotOperations>> _modeOperations;
         private Dictionary<string, IList<Action>> _executionActions;
@@ -278,10 +278,10 @@
 
         private void SetMaxWinLimit()
         {
-            if (Config.Active.MaxWinLimitOverrideMilliCents > 0)
+            if (Config.ActiveGameMode.MaxWinLimitOverrideMilliCents > 0)
             {
                 _logger.Info($"{nameof(SetMaxWinLimit)} Is Initiated", GetType().Name);
-                _automator.SetMaxWinLimit(Config.Active.MaxWinLimitOverrideMilliCents);
+                _automator.SetMaxWinLimit(Config.ActiveGameMode.MaxWinLimitOverrideMilliCents);
             }
         }
 
@@ -289,7 +289,7 @@
         {
             _configPath = Path.Combine(_container.GetInstance<IPathMapper>().GetDirectory(HardwareConstants.DataPath).FullName, Constants.ConfigurationFileName);
             _gameProvider = _container.GetInstance<IGameProvider>();
-            _stateChecker = _container.GetInstance<StateChecker>();
+            _stateChecker = _container.GetInstance<LobbyStateChecker>();
             _propertiesManager = _container.GetInstance<IPropertiesManager>();
             _automator = _container.GetInstance<Automation>();
             _logger = _container.GetInstance<RobotLogger>();
@@ -410,7 +410,7 @@
             container.RegisterInstance(serviceManager.GetService<IContainerService>().Container.GetInstance<IGameService>());
             container.Register<RobotLogger>(Lifestyle.Singleton);
             container.Register<Automation>(Lifestyle.Singleton);
-            container.Register<StateChecker>(Lifestyle.Singleton);
+            container.Register<LobbyStateChecker>(Lifestyle.Singleton);
             container.Register<CashoutOperations>(Lifestyle.Singleton);
             container.Register<GameOperations>(Lifestyle.Singleton);
             container.Register<PlayerOperations>(Lifestyle.Singleton);
@@ -423,7 +423,7 @@
             container.Register<RebootRequestOperations>(Lifestyle.Singleton);
             container.Register<AuditMenuOperations>(Lifestyle.Singleton);
             container.Register<GamingService>(Lifestyle.Singleton);
-            container.Register<RobotRunStatus>(Lifestyle.Singleton);
+            container.Register<StatusManager>(Lifestyle.Singleton);
 
             return container;
         }
