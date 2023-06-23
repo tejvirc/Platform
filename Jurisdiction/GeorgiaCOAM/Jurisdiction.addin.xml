@@ -14,7 +14,7 @@
   </Dependencies>
   <Runtime>
     <Import assembly="..\..\bin\Aristocrat.Monaco.Kernel.dll" />
-    <Import assembly="..\..\bin\Aristocrat.Monaco.Gaming.Class3.dll" />
+    <Import assembly="..\..\bin\Aristocrat.Monaco.Gaming.Class3Coam.dll" />
   </Runtime>
   <Extension path="/Kernel/SelectableAddinConfiguration/Jurisdiction">
     <SelectableJurisdiction name="Georgia COAM" description="Top level Georgia COAM jurisdiction group" id="JUR000300,JUR000998,JUR000999,JUR000033">
@@ -184,6 +184,6 @@
     <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Bonus.BonusTransaction" maxTransactions="100" persistenceLevel="Critical" isPrintable="true" />
   </Extension>
   <Extension path="/Accounting/BootExtender" filterid="GeorgiaCOAMAccountingRunnable">
-    <BootExtender type="Aristocrat.Monaco.Gaming.Class3.Class3Runnable" />
+    <BootExtender type="Aristocrat.Monaco.Gaming.Class3Coam.Class3CoamRunnable" />
   </Extension>
 </Addin>

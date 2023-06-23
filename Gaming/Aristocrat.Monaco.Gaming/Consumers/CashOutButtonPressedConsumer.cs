@@ -2,9 +2,7 @@
 {
     using System;
     using System.Reflection;
-    using Accounting.Contracts.HandCount;
     using Contracts;
-    using Kernel;
     using log4net;
 
     /// <summary>
@@ -17,7 +15,6 @@
 
         private readonly IGamePlayState _gamePlayState;
         private readonly IPlayerBank _playerBank;
-        private readonly ICashOutAmountCalculator _calculator;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="CashOutButtonPressedConsumer" /> class.
@@ -28,13 +25,6 @@
         {
             _gamePlayState = gamePlayState ?? throw new ArgumentNullException(nameof(gamePlayState));
             _playerBank = playerBank ?? throw new ArgumentNullException(nameof(playerBank));
-
-            // Check if hand count calculations are active, and if so, fetch the calculator.
-            var handCountService = ServiceManager.GetInstance().TryGetService<IHandCountService>();
-            if (handCountService.HandCountServiceEnabled)
-            {
-                _calculator = ServiceManager.GetInstance().TryGetService<ICashOutAmountCalculator>();
-            }
         }
 
         /// <inheritdoc />
@@ -47,28 +37,9 @@
                 return;
             }
 
-            if (_calculator != null)
+            if (!_playerBank.CashOut())
             {
-                var amountCashable = _calculator.GetCashableAmount(_playerBank.Balance);
-
-                if (amountCashable > 0)
-                {
-                    if (!_playerBank.CashOut(amountCashable))
-                    {
-                        Logger.Error($"Player bank cashout ({amountCashable}) failed");
-                    }
-                }
-                else
-                {
-                    // Do something to indicate we couldn't cash out anything?
-                }
-            }
-            else
-            {
-                if (!_playerBank.CashOut())
-                {
-                    Logger.Error("Player bank cashout failed");
-                }
+                Logger.Error("Player bank cashout failed");
             }
         }
     }
