@@ -7,7 +7,7 @@
     using Aristocrat.Monaco.Test.Automation;
     using SimpleInjector;
     using System;
-
+    using Aristocrat.Monaco.RobotController.Services;
     internal static class ServicesHelpers
     {
         internal static Container InitializeContainer(Container container, object context = null)
@@ -42,7 +42,10 @@
 
             container.Register<RobotLogger>(Lifestyle.Singleton);
             container.Register<Automation>(Lifestyle.Singleton);
-            container.Register<StateChecker>(Lifestyle.Singleton);
+            container.Register<LobbyStateChecker>(Lifestyle.Singleton);
+            container.Register<GamingService>(Lifestyle.Singleton);
+            container.Register<RobotService>(Lifestyle.Singleton);
+            container.Register<StatusManager>(Lifestyle.Singleton);
 
             container.Register<CashoutOperations>(Lifestyle.Transient);
             container.Register<GameOperations>(Lifestyle.Transient);

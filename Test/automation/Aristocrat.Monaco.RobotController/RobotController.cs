@@ -24,7 +24,7 @@
         private readonly ThreadSafeHashSet<RobotStateAndOperations> _inProgressRequests;
         private IPropertiesManager _propertiesManager;
         private IGameProvider _gameProvider;
-        private LobbyStateChecker _stateChecker;
+        private LobbyStateChecker _lobbyStateChecker;
         private RobotLogger _logger;
         private Dictionary<string, HashSet<IRobotOperations>> _modeOperations;
         private Dictionary<string, IList<Action>> _gameStarterActions;
@@ -119,7 +119,7 @@
                 }
                 _propertiesManager = null;
                 _gameProvider = null;
-                _stateChecker = null;
+                _lobbyStateChecker = null;
                 _logger = null;
                 if (_modeOperations is not null)
                 {
@@ -317,7 +317,7 @@
             if (_idleDuration > Constants.IdleTimeout)
             {
                 //FreeGames can prevent changing the game states for up to 20+ minutes.
-                if (_stateChecker.IsPrimaryGameStarted)
+                if (_lobbyStateChecker.IsPrimaryGameStarted)
                 {
                     _idleDuration = 0;
                     return;
@@ -339,7 +339,7 @@
             _container = container;
             _configPath = Path.Combine(_container.GetInstance<IPathMapper>().GetDirectory(HardwareConstants.DataPath).FullName, Constants.ConfigurationFileName);
             _gameProvider = _container.GetInstance<IGameProvider>();
-            _stateChecker = _container.GetInstance<StateChecker>();
+            _lobbyStateChecker = _container.GetInstance<LobbyStateChecker>();
             _propertiesManager = _container.GetInstance<IPropertiesManager>();
             _automator = _container.GetInstance<Automation>();
             _logger = _container.GetInstance<RobotLogger>();
@@ -386,7 +386,7 @@
             {
                 () =>
                 {
-                    if(!_stateChecker.IsGame)
+                    if(!_lobbyStateChecker.IsLobbyStateGame)
                     {
                         Enabled = false;
                         return;
