@@ -107,7 +107,7 @@
                          Visibility="Visible"
                          IsEnabled="True"
                          HorizontalAlignment="Stretch"
-                         Style="{StaticResource MonacoScrollButtonsListBox}"
+                         Style="{StaticResource MonacoScrollBarListBox}"
                          BorderBrush="{StaticResource Brush3}"
                          ItemsSource="{Binding ConfigurationSettings}"
                          ItemTemplate="{StaticResource SettingsViewer}"

@@ -2,9 +2,11 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="clr-namespace:Aristocrat.Monaco.UI.Common.Controls"
                     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                    xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events">
+                    xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Controls.Label.xaml" />
+        <ResourceDictionary Source="Controls.ScrollBar.xaml" />
         <ResourceDictionary Source="Reskin.xaml" />
     </ResourceDictionary.MergedDictionaries>
     <Style x:Key="MonacoListBoxLabel"
@@ -357,6 +359,97 @@
                                                                     Margin="5 25 0 0" />
                                 </StackPanel>
                             </DockPanel>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="MonacoScrollBarListBox"
+           TargetType="{x:Type ListBox}"
+           BasedOn="{StaticResource MonacoListBox}">
+        <Setter Property="ItemContainerStyle"
+                Value="{DynamicResource MonacoScrollButtonsListBoxItem}" />
+        <Setter Property="AllowDrop"
+                Value="False" />
+        <Setter Property="Focusable"
+                Value="False" />
+        <Setter Property="HorizontalAlignment"
+                Value="Left" />
+        <Setter Property="IsTabStop"
+                Value="False" />
+        <Setter Property="ScrollViewer.CanContentScroll"
+                Value="False" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
+                Value="Auto" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
+                Value="Auto" />
+        <Setter Property="SelectionMode"
+                Value="Single" />
+        <Setter Property="VerticalAlignment"
+                Value="Top" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBox}">
+                    <Border Padding="{TemplateBinding Padding}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            SnapsToDevicePixels="True"
+                            AutomationProperties.AutomationId="Border31_FDE84D7">
+                        <Grid AutomationProperties.AutomationId="Grid32_FDE84D7">
+                            <ScrollViewer x:Name="LB2_ScrollViewer"
+                                          Style="{StaticResource MonacoScrollViewer}"
+                                          Padding="{TemplateBinding Padding}"
+                                          CanContentScroll="{TemplateBinding ScrollViewer.CanContentScroll}"
+                                          Focusable="False"
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                          VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                          AutomationProperties.AutomationId="ScrollViewer35_FDE84D7">
+                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                AutomationProperties.AutomationId="ItemsPresenter28_FDE84D7" />
+                                <ScrollViewer.Resources>
+                                    <system:Double x:Key="{x:Static SystemParameters.VerticalScrollBarButtonHeightKey}">35</system:Double>
+                                    <Style x:Key="ScrollBarThumb" TargetType="{x:Type Thumb}">
+                                        <Setter Property="Margin" Value="5" />
+                                        <Setter Property="Width" Value="50" />
+                                        <Setter Property="Height" Value="50" />
+                                        <Setter Property="Foreground" Value="{DynamicResource DarkBrush3}" />
+                                        <Setter Property="Background">
+                                            <Setter.Value>
+                                                <LinearGradientBrush StartPoint=".5,0"
+                                                                     EndPoint=".5,1"
+                                                                     AutomationProperties.AutomationId="LinearGradientBrush31_880761DA">
+                                                    <GradientStop Color="{DynamicResource Color6}"
+                                                                  Offset="0"
+                                                                  AutomationProperties.AutomationId="GradientStop32_880761DA" />
+                                                    <GradientStop Color="{DynamicResource LightColor1}"
+                                                                  Offset=".4"
+                                                                  AutomationProperties.AutomationId="GradientStop33_880761DA" />
+                                                    <GradientStop Color="{DynamicResource LightColor3}"
+                                                                  Offset=".6"
+                                                                  AutomationProperties.AutomationId="GradientStop34_880761DA" />
+                                                </LinearGradientBrush>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Setter Property="BorderThickness" Value="0" />
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Thumb}">
+                                                    <Border 
+                                                        CornerRadius="3"
+                                                        BorderThickness="15" />
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ScrollViewer.Resources>
+                                <i:Interaction.Triggers>
+                                    <events:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
+                                        <events:EventToCommandAction Command="{Binding EventViewerScrolledCommand}" />
+                                    </events:RoutedEventTrigger>
+                                </i:Interaction.Triggers>
+                            </ScrollViewer>
                         </Grid>
                     </Border>
                 </ControlTemplate>
