@@ -611,11 +611,14 @@
                     overrides.ExcludePluralizeMajorUnits = configuredCurrency?.Format?.ExcludePluralizeMajorUnits;
                     overrides.ExcludePluralizeMinorUnits = configuredCurrency?.Format?.ExcludePluralizeMinorUnits;
 
-                    SetFormatOverrides(overrides, cultureInfo, ref minorUnitSymbol);
+                    var culture = cultureInfo.Clone() as CultureInfo;
+                    // load format overrides into culture
+                    SetFormatOverrides(overrides, culture, ref minorUnitSymbol);
 
                     if (configuredCurrency?.Format?.id == overrides.id ||
-                        configuredCurrency?.Format == null && MatchCulture(currencyDescription, cultureInfo))
-                    {
+                        configuredCurrency?.Format == null && MatchCulture(currencyDescription, culture, currencyCode))
+                     {
+                        cultureInfo = culture;
                         return overrides;
                     }
                 }

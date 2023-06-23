@@ -490,6 +490,10 @@
         {
             region ??= !string.IsNullOrEmpty(culture.Name) ? new RegionInfo(culture.Name) : null;
 
+            if (string.IsNullOrEmpty(isoCurrencyCode) && region != null)
+            {
+                isoCurrencyCode = region.ISOCurrencySymbol;
+            }
             return
                 $"{region?.CurrencyEnglishName} {isoCurrencyCode} {FormattedCurrencyString(DefaultDescriptionAmount, false, culture)}".Trim();
         }
