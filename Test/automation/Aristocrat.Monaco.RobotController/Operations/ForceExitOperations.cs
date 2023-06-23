@@ -48,6 +48,11 @@
 
             SubscribeEvents();
 
+            if (_robotService.IsRegularRobots())
+            {
+                return;
+            }
+
             _forceGameExitTimer = new Timer(
                                (sender) =>
                                {
