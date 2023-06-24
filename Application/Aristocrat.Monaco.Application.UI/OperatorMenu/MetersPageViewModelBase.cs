@@ -6,12 +6,14 @@
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Contracts;
+    using Contracts.Localization;
     using Contracts.MeterPage;
     using Contracts.Tickets;
     using Hardware.Contracts.Ticket;
     using Kernel;
     using MeterPage;
     using Monaco.UI.Common.Extensions;
+    using MVVM;
 
     /// <summary>
     ///     A MetersPageViewModelBase contains the base logic for meters page view models
@@ -98,11 +100,17 @@
         protected override void OnLoaded()
         {
             EventBus.Subscribe<PeriodOrMasterButtonClickedEvent>(this, evt => PeriodOrMasterButtonClicked(evt.MasterClicked));
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleOperatorCultureChanged);
             // VLT-12225
             // Fires an event fired when a specific meter page is loaded (switching tabs) so we can
             // synchronize the ShowLifetime and Master/period button status
             EventBus.Publish(new MeterPageLoadedEvent());
-            UpdateMeters();
+            RefreshMeters();
+        }
+
+        protected virtual void HandleOperatorCultureChanged(OperatorCultureChangedEvent @event)
+        {
+            RefreshMeters();
         }
 
         protected virtual void InitializeMeters()
@@ -114,13 +122,33 @@
                 if (meterManager.IsMeterProvided(meterNode.Name))
                 {
                     var meter = meterManager.GetMeter(meterNode.Name);
-                    Meters.Add(new DisplayMeter(meterNode.DisplayName, meter, ShowLifetime, meterNode.Order, meterNode.Period));
+                    string meterDisplayName = Localizer.For(CultureFor.Operator).GetString(
+                            meterNode.DisplayNameKey,
+                            _ => meterDisplayName = meterNode.DisplayName);
+
+                    Meters.Add(
+                        new DisplayMeter(
+                            meterDisplayName,
+                            meter,
+                            ShowLifetime,
+                            meterNode.Order,
+                            meterNode.Period,
+                            false,
+                            UseOperatorCultureForCurrencyFormatting));
                 }
                 else
                 {
                     if (meterNode.ShowNotApplicable)
                     {
-                        Meters.Add(new DisplayMeter(meterNode.DisplayName, null, ShowLifetime, meterNode.Order, meterNode.Period, meterNode.ShowNotApplicable));
+                        Meters.Add(
+                            new DisplayMeter(
+                                meterNode.DisplayName,
+                                null,
+                                ShowLifetime,
+                                meterNode.Order,
+                                meterNode.Period,
+                                meterNode.ShowNotApplicable,
+                                UseOperatorCultureForCurrencyFormatting));
                     }
 
                     if (meterNode.DisplayName.IsEmpty() && meterNode.Name == "blank line")
@@ -187,6 +215,26 @@
             }
 
             RaisePropertyChanged(nameof(ShowRightColumn));
+        }
+
+        protected virtual void RefreshMeters()
+        {
+            MvvmHelper.ExecuteOnUI(() =>
+            {
+                foreach (var meter in Meters)
+                {
+                    meter.Dispose();
+                }
+
+                Meters.Clear();
+                MetersLeftColumn.Clear();
+                MetersRightColumn.Clear();
+                InitializeMeters();
+                SplitMeters();
+                RaisePropertyChanged(nameof(Meters));
+                RaisePropertyChanged(nameof(MetersLeftColumn));
+                RaisePropertyChanged(nameof(MetersRightColumn));
+            });
         }
     }
 }

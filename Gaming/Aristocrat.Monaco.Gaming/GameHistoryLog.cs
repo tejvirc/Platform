@@ -67,14 +67,14 @@
                     case PlayState.Idle when FinalWager == 0:
                         return GameResult.Failed;
                     default:
-                    {
-                        if (PlayState != PlayState.GameEnded && PlayState != PlayState.Idle)
                         {
-                            return GameResult.None;
-                        }
+                            if (PlayState != PlayState.GameEnded && PlayState != PlayState.Idle)
+                            {
+                                return GameResult.None;
+                            }
 
-                        return FinalWin > 0 ? GameResult.Won : GameResult.Lost;
-                    }
+                            return FinalWin > 0 ? GameResult.Won : GameResult.Lost;
+                        }
                 }
             }
         }
@@ -110,6 +110,8 @@
         public string GameRoundDescriptions { get; set; }
 
         public IEnumerable<Jackpot> JackpotSnapshot { get; set; }
+
+        public IEnumerable<Jackpot> JackpotSnapshotEnd { get; set; }
 
         public IEnumerable<JackpotInfo> Jackpots { get; set; }
 

@@ -5,8 +5,12 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                               xmlns:views="clr-namespace:Aristocrat.Monaco.Application.UI.Views"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
-                               d:DataContext="{d:DesignInstance viewModels:OptionsPageViewModel}">
+                               d:DataContext="{d:DesignInstance viewModels:OptionsPageViewModel}"
+                               loc:Localizer.For="Operator">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -14,27 +18,44 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <ItemsControl ItemsSource="{Binding Pages}"
-                  AutomationProperties.AutomationId="ItemsControl0_181C33F1">
-        <ItemsControl.ItemsPanel>
-            <ItemsPanelTemplate>
-                <StackPanel Orientation="Vertical"
-                            AutomationProperties.AutomationId="StackPanel1_181C33F1" />
-            </ItemsPanelTemplate>
-        </ItemsControl.ItemsPanel>
-        <ItemsControl.ItemContainerStyle>
-            <Style d:DataContext="{d:DesignInstance operatorMenu:OperatorMenuPage}">
-                <Setter Property="Control.Visibility"
-                        Value="{Binding IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
-            </Style>
-        </ItemsControl.ItemContainerStyle>
-        <ItemsControl.ItemTemplate>
-            <DataTemplate>
-                <ContentControl Content="{Binding Page}"
-                                IsEnabled="{Binding Page}"
-                                Margin="0 0 0 40"
-                                AutomationProperties.AutomationId="ContentControl2_181C33F1" />
-            </DataTemplate>
-        </ItemsControl.ItemTemplate>
-    </ItemsControl>
+    <StackPanel x:Name="OptionsPanel"
+                Orientation="Vertical"
+                AutomationProperties.AutomationId="StackPanel0_3F60AB3C">
+        <ItemsControl ItemsSource="{Binding Pages}" AutomationProperties.AutomationId="ItemsControl0_181C33F1">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical" AutomationProperties.AutomationId="StackPanel1_181C33F1" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style d:DataContext="{d:DesignInstance operatorMenu:OperatorMenuPage}">
+                    <Setter Property="Control.Visibility" Value="{Binding IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <ContentControl Content="{Binding Page}"
+                                    IsEnabled="{Binding Page}"
+                                    Margin="0 0 0 40"
+                                    AutomationProperties.AutomationId="ContentControl2_181C33F1" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <views:VolumeControl DataContext="{Binding VolumeViewModel}"
+                             Margin="0 0 0 20"
+                             HorizontalAlignment="Left"
+                             Visibility="{Binding DataContext.VolumeControlIsVisible, ElementName=OptionsPanel, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
+        <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintVerificationButtonText}}"
+                Margin="0 0 0 20"
+                HorizontalAlignment="Left"
+                MinWidth="250"
+                Command="{Binding PrintVerificationButtonClickedCommand}"
+                IsEnabled="{Binding PrinterButtonsEnabled}"
+                Visibility="{Binding PrintVerificationButtonIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                AutomationProperties.AutomationId="Button1_3F60AB3C" />
+        <views:OutOfServiceButton DataContext="{Binding OutOfServiceViewModel}"
+                                  Margin="0 0 0 20"
+                                  HorizontalAlignment="Left"
+                                  Visibility="{Binding DataContext.OutOfServiceButtonIsVisible, ElementName=OptionsPanel, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
+    </StackPanel>
 </operatorMenu:OperatorMenuPage>

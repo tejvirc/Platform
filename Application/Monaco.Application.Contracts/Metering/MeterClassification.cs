@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Application.Contracts
 {
     using System;
+    using System.Globalization;
 
     /// <summary>
     ///     An abstract class used as a base for defining a specific classification
@@ -80,8 +81,9 @@
         ///     Creates and returns a string representation of the value
         /// </summary>
         /// <param name="meterValue">The value to convert to a string</param>
+        /// <param name="culture">The optional Culture to use for string formatting</param>
         /// <returns>A string representation of the value</returns>
-        public abstract string CreateValueString(long meterValue);
+        public abstract string CreateValueString(long meterValue, CultureInfo culture = null);
 
         /// <summary>
         ///     Returns the hash value for the classification.

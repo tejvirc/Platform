@@ -5,17 +5,18 @@
     using System.Reflection;
     using System.Text;
     using System.Text.RegularExpressions;
-    using Vouchers;
     using Application.Contracts;
     using Application.Contracts.ConfigWizard;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
+    using Aristocrat.Monaco.Hardware.Contracts;
     using Hardware.Contracts.Printer;
     using Hardware.Contracts.Ticket;
     using Kernel;
     using Kernel.Contracts;
     using Localization.Properties;
     using log4net;
+    using Vouchers;
 
     /// <summary>
     ///     Defines choices for the expiration text formats on tickets
@@ -115,8 +116,8 @@
             ticket["title"] = propertiesManager.GetValue(
                 AccountingConstants.TicketTitleNonCash,
                 string.Empty);
-                
-            if(string.IsNullOrEmpty(ticket["title"]))
+
+            if (string.IsNullOrEmpty(ticket["title"]))
             {
                 ticket["title"] = Localizer.For(CultureFor.PlayerTicket).GetString(ResourceKeys.PlayableOnly);
             }
@@ -275,6 +276,7 @@
 
                     ticket["title"] = VoucherExtensions.PrefixToTitle(transaction.HostOnline) + ticketTitleCash;
                     ticket["title 1"] = ticketTitleCash;
+                    ticket["title localized"] = scope.GetString(ResourceKeys.CashoutTicket);
                 }
 
                 ticket["serial id"] = propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty);
@@ -328,7 +330,7 @@
                     ApplicationConstants.Zone,
                     scope.GetString(ResourceKeys.DataUnavailable));
 
-                ticket["license"] = $"{scope.GetString(ResourceKeys.RetailerNumber)} : {license}"; // Resources.License
+                ticket["license"] = $"{scope.GetString(ResourceKeys.RetailerNumber)}: {license}"; // Resources.License
                 ticket["license alt"] = $"{license}";
 
                 ticket["online"] = string.IsNullOrEmpty(transaction.ManualVerification)
@@ -352,7 +354,7 @@
                 ticket["value in wrapped words 2"] = words?[1];
 
                 ticket["value in words with newline"] = words?[0];
-                if (!string.IsNullOrEmpty(words?[0]) && !string.IsNullOrEmpty(words[1])) 
+                if (!string.IsNullOrEmpty(words?[0]) && !string.IsNullOrEmpty(words[1]))
                 {
                     ticket["value in words with newline"] += "\r\n" + words[1];
                 }
@@ -394,9 +396,7 @@
                 ticket["location address"] = propertiesManager.GetValue(PropertyKey.TicketTextLine3, string.Empty);
                 ticket["location name"] = propertiesManager.GetValue(PropertyKey.TicketTextLine2, string.Empty);
 
-                ticket["full address"] = propertiesManager.GetValue(PropertyKey.TicketTextLine2, string.Empty) +
-                    " " +
-                                         propertiesManager.GetValue(PropertyKey.TicketTextLine3, string.Empty);
+                ticket["full address"] = $"{propertiesManager.GetValue(PropertyKey.TicketTextLine2, string.Empty)} {propertiesManager.GetValue(PropertyKey.TicketTextLine3, string.Empty)}".TrimEnd(' ');
 
                 ticket["sequence number"] = transaction.LogSequence.ToString(CultureInfo.InvariantCulture);
 
@@ -409,11 +409,11 @@
                 var paperLow = printer?.PaperState != PaperStates.Full;
 
                 ticket["paper status"] =
-                    scope.GetString(ResourceKeys.PaperLevelText) + " : " +
-                    (paperLow ? scope.GetString(ResourceKeys.StatusLow) : scope.GetString(ResourceKeys.OK));
+                    scope.GetString(ResourceKeys.PaperLevelText) + ": " +
+                    (paperLow ? scope.GetString(ResourceKeys.StatusLow) : scope.GetString(ResourceKeys.StatusOk));
 
                 ticket["paper level"] =
-                    scope.GetString(ResourceKeys.PaperLevelText) + " : " +
+                    scope.GetString(ResourceKeys.PaperLevelText) + ": " +
                     (paperLow ? scope.GetString(ResourceKeys.StatusLow) : scope.GetString(ResourceKeys.StatusGood));
 
                 var sequenceNumber = voidTicket || transaction.VoucherSequence != 0
@@ -421,7 +421,7 @@
                     : scope.GetString(ResourceKeys.StatusError);
 
                 ticket["vlt sequence number"] =
-                    scope.GetString(ResourceKeys.SequenceNumber) + " : " + sequenceNumber;
+                    scope.GetString(ResourceKeys.SequenceNumber) + ": " + sequenceNumber;
                 ticket["vlt sequence number alt"] = scope.GetString(ResourceKeys.SequenceNumber) + ": " + sequenceNumber;
                 ticket["ticket number 2"] = scope.GetString(ResourceKeys.SequenceNumber) + " : " + sequenceNumber;
                 ticket["ticket number 3"] = scope.GetString(ResourceKeys.Ticket) + "# " + sequenceNumber;
@@ -434,11 +434,16 @@
                     KernelConstants.SystemVersion,
                     scope.GetString(ResourceKeys.NotSet));
 
+                ticket["os version"] = ServiceManager.GetInstance().TryGetService<IOSService>()?.OsImageVersion.ToString() ?? scope.GetString(ResourceKeys.DataUnavailable);
+
                 ticket["mac"] = MacAddressWithColon(NetworkInterfaceInfo.DefaultPhysicalAddress);
 
                 // TODO: until the template supports it as three individual fields/regions, provide as a single field
                 ticket["serial version mac"] =
                     $"{scope.GetString(ResourceKeys.AssetNumber)}:{ticket["machine id"]} {scope.GetString(ResourceKeys.Version)}:{ticket["version"]} {scope.GetString(ResourceKeys.Mac)}: {ticket["mac"]}     ";
+
+                ticket["serial osversion mac"] =
+                    $"{scope.GetString(ResourceKeys.AssetNumber)}:{ticket["machine id"]} {scope.GetString(ResourceKeys.Version)}:{ticket["os version"]} {scope.GetString(ResourceKeys.Mac)}: {ticket["mac"]}     ";
 
                 ticket["machine version"] =
                     $"{scope.GetString(ResourceKeys.AssetNumber)}:{ticket["machine id"]} {scope.GetString(ResourceKeys.Version)}:{ticket["version"]}     ";
@@ -580,7 +585,7 @@
                         default:
                             return scope.GetString(ResourceKeys.NeverExpires);
                     }
-                }                
+                }
                 else
                 {
                     switch (version)
@@ -614,7 +619,7 @@
         {
             using (var scope = new CultureScope(CultureFor.PlayerTicket))
             {
-                switch(version)
+                switch (version)
                 {
                     case ExpiryDateText.Version1:
                         return $"{scope.GetString(ResourceKeys.ExpiryDate)} : {expirationDate.ToString(localeDateFormat)}";
@@ -685,7 +690,7 @@
                 out var date)
                 ? date
                 : (DateTime?)null;
-    }
+        }
 
         private static string ReplaceAsciiCharacters(string value, string replacementValue = " ") =>
             ReplaceAsciiRegex.Replace(value, replacementValue);

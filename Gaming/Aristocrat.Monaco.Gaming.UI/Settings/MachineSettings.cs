@@ -1,7 +1,20 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.Settings
 {
-    public class MachineSettings
+    using Application.Contracts.Localization;
+    using Application.UI.Settings;
+
+    public class MachineSettings : SettingsBase
     {
+        public MachineSettings()
+        {
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, RefreshAllDisplayableSettings);
+        }
+
+        ~MachineSettings()
+        {
+            EventBus.UnsubscribeAll(this);
+        }
+
         /// <summary>
         ///     Gets or sets a value that indicates whether the game category settings are applied.
         /// </summary>

@@ -56,6 +56,8 @@
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.LocalizationOperatorTicketDateFormat, ApplicationConstants.DefaultDateFormat))
                 .Returns(ApplicationConstants.DefaultDateFormat)
                 .Verifiable();
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.LocalizationOperatorTicketLanguageSettingOperatorOverride, It.IsAny<object>()))
+                .Returns(false);
 
             _meterManager = MoqServiceManager.CreateAndAddService<IMeterManager>(MockBehavior.Strict);
             _time = MoqServiceManager.CreateAndAddService<ITime>(MockBehavior.Strict);

@@ -70,7 +70,7 @@
 
                 _commandBuilder.Build(device, status);
 
-                _eventLift.Report(device, EventCode.G2S_CBE314, device.DeviceList(status));
+                _eventLift.Report(device, EventCode.G2S_CBE314, device.DeviceList(status), theEvent);
             }
 
             base.Consume(theEvent);

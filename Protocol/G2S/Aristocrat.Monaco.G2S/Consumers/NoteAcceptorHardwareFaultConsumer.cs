@@ -115,7 +115,8 @@
                 _eventLift.Report(device,
                     eventCode,
                     device.DeviceList(status),
-                    meters);
+                    meters,
+                    theEvent);
 
                 if (meters != null)
                 {

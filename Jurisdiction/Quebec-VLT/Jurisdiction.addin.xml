@@ -14,6 +14,7 @@
     <Import assembly="..\..\bin\Aristocrat.Monaco.Kernel.dll" />
     <Import assembly="..\..\bin\Aristocrat.Monaco.Gaming.VideoLottery.dll" />
     <Import assembly="..\..\bin\Aristocrat.Monaco.Application.dll" />
+    <Import assembly="..\..\bin\Aristocrat.Monaco.G2S.dll" />
   </Runtime>
   <Extension path="/Kernel/SelectableAddinConfiguration/Jurisdiction">
     <SelectableJurisdiction name="Quebec" description="Top level Quebec jurisdiction group" id="JUR000078,JUR000998,JUR000999,JUR000033">
@@ -116,7 +117,11 @@
     <FilePath FilePath="..\jurisdiction\Quebec-VLT\ConfigWizard.config.xml" filterid="QuebecConfigWizardConfig" />
   </Extension>
   <Extension path="/OperatorMenu/Sound/Configuration">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" filterid="QuebecOperatorMenuSoundConfig" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" Name="Ding" filterid="QuebecOperatorMenuSoundConfig" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\feature_bell.ogg" Name="Feature Bell" filterid="QuebecOperatorMenuSoundConfig" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\touch_sound.ogg" Name="Touch Sound" filterid="QuebecOperatorMenuSoundConfig" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\collect.ogg" Name="Collect" filterid="QuebecOperatorMenuSoundConfig" />
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\snd_print_ticket.ogg" Name="Send Print Ticket" filterid="QuebecOperatorMenuSoundConfig" />
   </Extension>
   <Extension path="/OperatorMenu/GamePreferences/Sounds">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" Name="Ding" filterid="QuebecGamePreferencesSounds" />
@@ -129,6 +134,10 @@
   </Extension>
   <Extension path="/Locale/Configuration">
     <FilePath FilePath="..\jurisdiction\Quebec-VLT\Locale.config.xml" filterid="QuebecLocaleConfig" />
+  </Extension>
+  <Extension path="/Locale/Overrides" filterid="QuebecLocaleOverrides">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\VLT\" />
+    <FilePath FilePath="..\jurisdiction\Quebec-VLT\resources\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\Quebec-VLT\Lobby.config.xml" filterid="QuebecLobbyConfig" />
@@ -163,8 +172,14 @@
   <ExtensionPoint path="/Application/Quebec/Runnables">
     <ExtensionNode name="Runnable" />
   </ExtensionPoint>
-  <Extension path="/Application/Quebec/Runnables">&gt;
-    <Runnable type="Aristocrat.Monaco.Application.Monitors.AuditTicketMonitor" /></Extension>
+  <Extension path="/Application/Quebec/Runnables">
+    <Runnable type="Aristocrat.Monaco.Application.Monitors.AuditTicketMonitor" />
+  </Extension>
+  <Extension path="/AuditTicketMonitor/Configuration" filterid="QuebecAuditTicketMonitorConfig">
+    <Triggers>
+      <Door name="Logic Door" />
+    </Triggers>
+  </Extension>
   <Extension path="/Accounting/TransactionHistories" filterid="QuebecTransactionConfiguration">
     <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.BillTransaction" maxTransactions="100" persistenceLevel="Critical" />
     <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
@@ -180,5 +195,8 @@
   </Extension>
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.VLT.config.xml" filterid="QuebecHardMeterMappingConfig" />
+  </Extension>
+  <Extension path="/Application/Services">
+    <Service type="Aristocrat.Monaco.G2S.G2SEventLogger" />
   </Extension>
 </Addin>

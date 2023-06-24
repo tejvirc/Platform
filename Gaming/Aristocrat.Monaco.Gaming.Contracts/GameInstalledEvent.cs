@@ -15,10 +15,12 @@
         /// </summary>
         /// <param name="packageId">The package identifier</param>
         /// <param name="gamePackage">The game package</param>
-        public GameInstalledEvent(string packageId, string gamePackage)
+        /// <param name="gameDetail">The game detail</param>
+        public GameInstalledEvent(string packageId, string gamePackage, IGameDetail gameDetail)
         {
             PackageId = packageId;
             GamePackage = gamePackage;
+            GameDetail = gameDetail;
         }
 
         /// <summary>
@@ -30,5 +32,10 @@
         ///     Gets the game package
         /// </summary>
         public string GamePackage { get; }
+
+        /// <summary>
+        ///     Gets the game's details
+        /// </summary>
+        public IGameDetail GameDetail { get; }
     }
 }

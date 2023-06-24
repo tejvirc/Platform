@@ -73,6 +73,7 @@
   <Extension path="/Application/OperatorMenu/StatusMenu">
     <StatusMenu type="Aristocrat.Monaco.Application.UI.Loaders.StatusPageLoader" order="10"/>
     <StatusMenu type="Aristocrat.Monaco.Application.UI.Loaders.DoorPageLoader" order="30"/>
+    <StatusMenu type="Aristocrat.Monaco.Application.UI.Loaders.GeneralInformationPageLoader" order="50" />
   </Extension>
 
   <Extension path="/Application/OperatorMenu/IdentificationMenu">

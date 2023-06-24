@@ -196,6 +196,11 @@
         IEnumerable<Jackpot> JackpotSnapshot { get; }
 
         /// <summary>
+        ///     Gets the final jackpot data after the game round has ended
+        /// </summary>
+        IEnumerable<Jackpot> JackpotSnapshotEnd { get; }
+
+        /// <summary>
         ///     Gets the recovery blob
         /// </summary>
         byte[] RecoveryBlob { get; }

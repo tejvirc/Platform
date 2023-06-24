@@ -10,7 +10,7 @@ as follows:
     the corresponding class definition in csharp (AccountingConfiguration.cs).
 -->
 <AccountingConfiguration>
-<!--
+  <!--
     TenderIn Settings:
        CheckCreditsIn:
            "None" = Disable checking the bank balance against max credits in.
@@ -25,16 +25,17 @@ as follows:
            "Editable"= This value may be over-ridden by the technician in the audit menu settings, if set to true. Default is true, if not defined.
 -->
   <TenderIn CheckCreditsIn="Balance" AllowCreditUnderLimit="false">
-    <MaxCreditsIn Default="10000000" />
+    <MaxCreditsIn Default="100000000" />
   </TenderIn>
-    <CreditLimits>
-	<MaxCreditMeter Default="99999000"/>
+  <CreditLimits>
+    <MaxCreditMeter Default="100000000"/>
   </CreditLimits>
   <WinLimits>
-	<LargeWinLimit Editable="false"/>
+    <LargeWinLimit Default="100000000" Editable="false"/>
+    <HandpayResetOptions Visible="false"/>
   </WinLimits>
   <VoucherIn State="Disabled"/>
-<!--
+  <!--
     VoucherOut Settings:
        State:
            "Enable" = Voucher Out is allowed.
@@ -48,23 +49,23 @@ as follows:
            "Days" = Number of days by which ticket will expire. "0" means Never Expire.
            "Editable" = This value may be over-ridden by the technician in the audit menu settings, if set to true. Default is true, if not defined.
 -->
-  <VoucherOut State="Enabled" AllowNonCashableTicket="Disabled"/>
-<!--
+  <VoucherOut State="Enabled" AllowNonCashableTicket="Disabled" LimitDefault="100000000000" />
+  <!--
     RebootWhilePrinting Behavior: 
        "Reprint" = After operator key-off of reboot while printing error, will remove remaining credits and automatically reprint a cashout ticket.
        "Clear"   = After operator key-off of reboot while printing error, will remove remaining credits.
        "Prompt"  = After operator key-off of reboot while printing error, will prompt with a pop-up selection to reprint the voucher or cancel.  Either 
                    option will remove remaining credits.  If cancel is selected, the voucher will not be allowed for reprint.  
--->  
+-->
   <RebootWhilePrinting Behavior="Clear"/>
-<!--
+  <!--
     ReprintLoggedVoucher Behavior: 
        "None" = No vouchers can be reprinted from the Logs - All screen (Reprint button is hidden).
        "Any"  = Any voucher can be reprinted from the Logs - All screen.
        "Last" = Only the last voucher can be reprinted from the Logs - All screen (Reprint button is disabled for all other logged vouchers).
--->  
-  <ReprintLoggedVoucher Behavior="None"/>  
+-->
+  <ReprintLoggedVoucher Behavior="None"/>
   <Handpay>
     <PrintHandpayReceipt Enabled="true"/>
   </Handpay>
-</AccountingConfiguration>  
+</AccountingConfiguration>

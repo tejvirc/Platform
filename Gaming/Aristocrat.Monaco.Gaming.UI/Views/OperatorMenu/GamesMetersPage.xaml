@@ -13,7 +13,8 @@
                                d:DesignHeight="300"
                                d:DesignWidth="300"
                                Background="Transparent"
-                               d:DataContext="{d:DesignInstance {x:Type viewModels:GameMetersViewModel}, IsDesignTimeCreatable=True}">
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:GameMetersViewModel}, IsDesignTimeCreatable=True}"
+                               loc:Localizer.For="Operator">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -82,10 +83,12 @@
                           AutomationProperties.AutomationId="DataGrid11_C3C105D5">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
+                                            loc:Localizer.For="Operator"
                                             Width="360"
                                             Binding="{Binding Name}"
                                             AutomationProperties.AutomationId="DataGridTextColumn12_C3C105D5" />
                         <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
+                                            loc:Localizer.For="Operator"
                                             Width="200"
                                             Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
                                             HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
@@ -102,10 +105,12 @@
                           AutomationProperties.AutomationId="DataGrid14_C3C105D5">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
+                                            loc:Localizer.For="Operator"
                                             Width="360"
                                             Binding="{Binding Name}"
                                             AutomationProperties.AutomationId="DataGridTextColumn15_C3C105D5" />
                         <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
+                                            loc:Localizer.For="Operator"
                                             Width="200"
                                             Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
                                             HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
@@ -120,23 +125,18 @@
                     HorizontalAlignment="Left"
                     Margin="0 30 0 0"
                     AutomationProperties.AutomationId="StackPanel17_C3C105D5">
-            <Button Margin="0 0 10 0"
-                    Width="65"
+            <Button Style="{StaticResource MonacoPrevNextButton}"
                     Command="{Binding PreviousGameCommand}"
                     IsEnabled="{Binding PreviousGameIsEnabled}"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrevButton}}"
                     AutomationProperties.AutomationId="Button18_C3C105D5" />
-            <ComboBox Margin="0 0 10 0"
-                      VerticalAlignment="Center"
-                      Width="500"
-                      MaxWidth="500"
+            <ComboBox Style="{StaticResource MonacoMetersComboBox}"
                       SelectedValuePath="Id"
                       ScrollViewer.CanContentScroll="True"
                       ItemsSource="{Binding Games}"
                       SelectedIndex="{Binding SelectedGameIndex, Mode=TwoWay}"
                       SelectedItem="{Binding SelectedGame, Mode=TwoWay}"
                       Visibility="{Binding SelectByGameNameAndDenomination, Converter={StaticResource TrueCollapsedFalseVisible}}"
-                      MaxDropDownHeight="240"
                       AutomationProperties.AutomationId="ComboBox19_C3C105D5">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
@@ -152,17 +152,13 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <ComboBox Margin="0 0 10 0"
-                      VerticalAlignment="Center"
-                      Width="500"
-                      MaxWidth="500"
+            <ComboBox Style="{StaticResource MonacoMetersComboBox}"
                       SelectedValuePath="Id"
                       ScrollViewer.CanContentScroll="True"
                       ItemsSource="{Binding Games}"
                       SelectedIndex="{Binding SelectedGameIndex, Mode=TwoWay}"
                       SelectedItem="{Binding SelectedGame, Mode=TwoWay}"
                       Visibility="{Binding SelectByGameNameAndDenomination, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                      MaxDropDownHeight="240"
                       AutomationProperties.AutomationId="ComboBox21_C3C105D5">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
@@ -171,8 +167,7 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <Button Margin="0 0 10 0"
-                    Width="65"
+            <Button Style="{StaticResource MonacoPrevNextButton}"
                     Command="{Binding NextGameCommand}"
                     IsEnabled="{Binding NextGameIsEnabled}"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.NextButtonText}}"
@@ -181,7 +176,7 @@
                     Command="{Binding PrintSelectedButtonCommand}" 
                     IsEnabled="{Binding PrintSelectedButtonEnabled}"
                     Content="Print Selected"/>-->
-            <Button HorizontalAlignment="Center"
+            <Button Style="{StaticResource MonacoAuditButton}"
                     Command="{Binding DisplayCategoriesCommand}"
                     IsEnabled="{Binding DisplayCategoriesButtonEnabled}"
                     Visibility="{Binding WagerCategoryMetersVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
@@ -194,24 +189,20 @@
                     HorizontalAlignment="Left"
                     Margin="0 30 0 0"
                     AutomationProperties.AutomationId="StackPanel25_C3C105D5">
-            <Button Margin="0 0 10 0"
-                    Width="65"
+            <Button Style="{StaticResource MonacoPrevNextButton}"
                     Command="{Binding PreviousDenomCommand}"
                     IsEnabled="{Binding PreviousDenomIsEnabled}"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrevButton}}"
                     AutomationProperties.AutomationId="Button26_C3C105D5" />
-            <ComboBox Margin="0 0 10 0"
-                      VerticalAlignment="Center"
+            <ComboBox Style="{StaticResource MonacoMetersComboBox}"
                       SelectedValuePath="Id"
                       ScrollViewer.CanContentScroll="True"
-                      Width="400"
                       DisplayMemberPath="DisplayValue"
                       ItemsSource="{Binding Denoms}"
                       SelectedIndex="{Binding SelectedDenomIndex, Mode=TwoWay}"
                       SelectedItem="{Binding SelectedDenom, Mode=TwoWay}"
                       AutomationProperties.AutomationId="ComboBox27_C3C105D5" />
-            <Button Margin="0 0 10 0"
-                    Width="65"
+            <Button Style="{StaticResource MonacoPrevNextButton}"
                     Command="{Binding NextDenomCommand}"
                     IsEnabled="{Binding NextDenomIsEnabled}"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.NextButtonText}}"

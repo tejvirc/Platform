@@ -18,5 +18,10 @@
         {
             return new IdleTextViewModel();
         }
+
+        public override bool GetVisible()
+        {
+            return Configuration.GetSetting(typeof(OptionsPageLoader), OperatorMenuSetting.IdleTextEditorVisible, false);
+        }
     }
 }

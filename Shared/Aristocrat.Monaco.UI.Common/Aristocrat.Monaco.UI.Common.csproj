@@ -81,7 +81,7 @@
     <ProjectReference Include="..\Aristocrat.Monaco.Localization\Aristocrat.Monaco.Localization.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.17" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.22" />
     <PackageReference Include="Aristocrat.MVVM" Version="2.0.16" />
     <PackageReference Include="CefSharp.Wpf" Version="93.1.140" />
     <PackageReference Include="Expression.Blend.Sdk" Version="1.0.2" />
@@ -90,6 +90,11 @@
     <PackageReference Include="MahApps.Metro" Version="1.6.5" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="1.9.1" />
     <PackageReference Include="WPFLocalizeExtension" Version="3.3.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Skins\Controls.FilterButton.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
   </ItemGroup>
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition=" '$(PlatformStyle)' == 'Inspection' ">
     <Exec Command="copy /Y &quot;$(ProjectDir)Skins\Originals\InspectionMetroSkin.xaml&quot; &quot;$(ProjectDir)Skins\MetroSkin.xaml&quot;&#xD;&#xA;copy /Y &quot;$(ProjectDir)Skins\Originals\InspectionReskin.xaml&quot; &quot;$(ProjectDir)Skins\Reskin.xaml&quot;" />

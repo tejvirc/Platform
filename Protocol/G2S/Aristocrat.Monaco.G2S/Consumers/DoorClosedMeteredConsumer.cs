@@ -116,7 +116,8 @@
                 device,
                 doorInfo.Item1,
                 device.DeviceList(status),
-                new meterList { meterInfo = meters.ToArray() });
+                new meterList { meterInfo = meters.ToArray() },
+                theEvent);
 
             if (!theEvent.WhilePoweredDown)
             {
@@ -144,7 +145,8 @@
             _eventLift.Report(
                 device,
                 doorInfo.Item1,
-                device.DeviceList(status));
+                device.DeviceList(status),
+                theEvent);
 
             if (!theEvent.WhilePoweredDown)
             {

@@ -21,7 +21,7 @@
         {
             var device = _egm.GetDevice<IBonusDevice>(theEvent.Transaction.DeviceId);
 
-            _eventLift.Report(device, EventCode.IGT_BNE001);
+            _eventLift.Report(device, EventCode.IGT_BNE001, theEvent);
         }
     }
 }

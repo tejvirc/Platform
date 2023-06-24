@@ -31,7 +31,8 @@
                 device,
                 EventCode.G2S_PRE104,
                 theEvent.Log.TransactionId,
-                device.TransactionList(theEvent.Log.ToPlayerLog(device)));
+                device.TransactionList(theEvent.Log.ToPlayerLog(device)),
+                theEvent);
         }
     }
 }

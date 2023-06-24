@@ -9,7 +9,7 @@
 
     public class VoucherMetersPageLoader : OperatorMenuPageLoader
     {
-        public override string PageName => Localizer.For(CultureFor.Player).GetString(ResourceKeys.MetersVouchers);
+        public override string PageName => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MetersVouchers);
 
         protected override IOperatorMenuPage CreatePage()
         {

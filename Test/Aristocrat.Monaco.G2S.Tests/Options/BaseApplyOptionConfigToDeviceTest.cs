@@ -33,6 +33,8 @@
         protected readonly Mock<IEventPersistenceManager> _eventPersistenceManagermMock =
             new Mock<IEventPersistenceManager>();
 
+        protected readonly Mock<IEventLift> _eventLiftMock = new Mock<IEventLift>();
+
         protected readonly Mock<IHostQueue> _hostQueueMock = new Mock<IHostQueue>();
 
         protected readonly Mock<IProfileService> _profileServiceMock = new Mock<IProfileService>();

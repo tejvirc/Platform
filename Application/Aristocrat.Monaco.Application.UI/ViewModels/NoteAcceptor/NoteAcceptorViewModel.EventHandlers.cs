@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
+namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
 {
     using System;
     using System.Globalization;
@@ -38,6 +38,7 @@
             EventBus.Subscribe<SelfTestPassedEvent>(this, HandleHardwareNoteAcceptorSelfTestPassedEvent);
             EventBus.Subscribe<SelfTestFailedEvent>(this, HandleHardwareNoteAcceptorSelfTestFailedEvent);
             EventBus.Subscribe<PropertyChangedEvent>(this, HandleEvent, e => e.PropertyName.Equals(PropertyKey.VoucherIn));
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, _ => UpdateCurrencyFields());
 #if !RETAIL
             EventBus.Subscribe<DebugNoteEvent>(this, HandleDebugNoteEvent);
 #endif

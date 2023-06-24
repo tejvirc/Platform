@@ -17,8 +17,8 @@
         /// <summary>
         ///     Initializes a new instance of the <see cref="AggregateDisplayMeter" /> class.
         /// </summary>
-        public AggregateDisplayMeter(string meterName, IList<IMeter> meters, bool showLifetime, MeterClassification meterClassification, int order)
-            : base(meterName, null, showLifetime, order)
+        public AggregateDisplayMeter(string meterName, IList<IMeter> meters, bool showLifetime, MeterClassification meterClassification, int order, bool useOperatorCultureForCurrency = false)
+            : base(meterName, null, showLifetime, order, true, false, useOperatorCultureForCurrency)
         {
             _meters = meters;
             _meterClassification = meterClassification;

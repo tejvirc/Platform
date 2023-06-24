@@ -18,7 +18,7 @@
         /// <param name="instance">The instance name of the counter we wish to read</param>
         public SinglePerformanceCounterWrapper(string category, string counter, string instance)
         {
-            _counter = new PerformanceCounter(category, counter, instance);
+            _counter = new PerformanceCounter(category, counter, instance);   
         }
 
         /// <summary>
@@ -30,6 +30,11 @@
         public SinglePerformanceCounterWrapper(string category, string counter)
         {
             _counter = new PerformanceCounter(category, counter);
+        }
+
+        public void SetRawValue(uint value)
+        {
+            throw new System.NotImplementedException();
         }
 
         /// <inheritdoc />

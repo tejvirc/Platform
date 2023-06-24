@@ -412,6 +412,23 @@
             RaisePropertyChanged(nameof(PrintLast15ButtonVisible));
             EventBus.Subscribe<OperatorMenuPrintJobStartedEvent>(this, o => FilterMenuEnabled = false);
             EventBus.Subscribe<OperatorMenuPrintJobCompletedEvent>(this, o => FilterMenuEnabled = true);
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleOperatorCultureChangedEvent);
+        }
+
+        protected void HandleOperatorCultureChangedEvent(OperatorCultureChangedEvent @event)
+        {
+            foreach (var eventFilter in EventFilterCollection)
+            {
+                string newDisplayText = Localizer.For(CultureFor.Operator).GetString(eventFilter.EventType);
+                if (!string.IsNullOrEmpty(newDisplayText))
+                {
+                    eventFilter.DisplayText = newDisplayText;
+                }
+            }
+
+            SetupTiltLogAppendedTilt(false);
+            ReloadEventHistory();
+            SetupTiltLogAppendedTilt(true);
         }
 
         protected override void OnUnloaded()
@@ -432,10 +449,20 @@
                 if (add)
                 {
                     _tiltLogger.TiltLogAppendedTilt += EventLogAppended;
+
+                    foreach (var logAdapter in _eventLogAdapters.Where(e => e is ISubscribableEventLogAdapter))
+                    {
+                        ((ISubscribableEventLogAdapter)logAdapter).Appended += EventLogAppended;
+                    }
                 }
                 else
                 {
                     _tiltLogger.TiltLogAppendedTilt -= EventLogAppended;
+
+                    foreach (var logAdapter in _eventLogAdapters.Where(e => e is ISubscribableEventLogAdapter))
+                    {
+                        ((ISubscribableEventLogAdapter)logAdapter).Appended -= EventLogAppended;
+                    }
                 }
             }
         }

@@ -19,6 +19,25 @@
         private bool _showServiceButton;
         private VolumeScalar _relativeVolume;
         private bool _reelStopEnabled;
+        private bool _freeSpinClearWinMeter;
+        private string _winDestination;
+        private double _reelSpeed;
+        private bool _displayGamePayMessageUse;
+        private string _displayGamePayMessageFormat;
+        private long _wagerLimitsMaxTotalWager;
+        private bool _wagerLimitsUse;
+        private string _maximumGameRoundWinResetWinAmount;
+        private bool _volumeLevelShowInHelpScreen;
+        private bool _serviceUse;
+        private bool _clockUseHInDisplay;
+        private bool _kenoFreeGamesSelectionChange;
+        private bool _kenoFreeGamesAutoPlay;
+        private bool _initialZeroWagerUse;
+        private bool _changeLineSelectionAtZeroCreditUse;
+        private bool _gameDurationUseMarketGameTime;
+        private bool _gameLogEnabled;
+        private bool _gameLogOutcomeDetails;
+        private bool _buttonAnimationGoodLuck;
         private GameStartMethodOption _gameStartMethod;
 
         private CensorshipSettings _censorship;
@@ -29,6 +48,125 @@
         private RouletteSettings _roulette;
         private GameAttractSettings _attractSettings;
         private ProgressiveLobbyIndicator _progressiveIndicator;
+
+        public bool ButtonAnimationGoodLuck
+        {
+            get => _buttonAnimationGoodLuck;
+
+            set => SetProperty(ref _buttonAnimationGoodLuck, value);
+        }
+
+        public bool AudioAudioChannels
+        {
+            get => _gameLogOutcomeDetails;
+
+            set => SetProperty(ref _gameLogOutcomeDetails, value);
+        }
+
+        public bool GameLogOutcomeDetails
+        {
+            get => _gameLogOutcomeDetails;
+
+            set => SetProperty(ref _gameLogOutcomeDetails, value);
+        }
+
+        public bool GameLogEnabled
+        {
+            get => _gameLogEnabled;
+
+            set => SetProperty(ref _gameLogEnabled, value);
+        }
+
+        public bool GameDurationUseMarketGameTime
+        {
+            get => _gameDurationUseMarketGameTime;
+
+            set => SetProperty(ref _gameDurationUseMarketGameTime, value);
+        }
+
+        public bool ChangeLineSelectionAtZeroCreditUse
+        {
+            get => _changeLineSelectionAtZeroCreditUse;
+
+            set => SetProperty(ref _changeLineSelectionAtZeroCreditUse, value);
+        }
+
+        public bool InitialZeroWagerUse
+        {
+            get => _initialZeroWagerUse;
+
+            set => SetProperty(ref _initialZeroWagerUse, value);
+        }
+
+        public bool KenoFreeGamesAutoPlay
+        {
+            get => _kenoFreeGamesAutoPlay;
+
+            set => SetProperty(ref _kenoFreeGamesAutoPlay, value);
+        }
+
+        public bool KenoFreeGamesSelectionChange
+        {
+            get => _kenoFreeGamesSelectionChange;
+
+            set => SetProperty(ref _kenoFreeGamesSelectionChange, value);
+        }
+
+        public bool ClockUseHInDisplay
+        {
+            get => _clockUseHInDisplay;
+
+            set => SetProperty(ref _clockUseHInDisplay, value);
+        }
+
+        public bool ServiceUse
+        {
+            get => _serviceUse;
+
+            set => SetProperty(ref _serviceUse, value);
+        }
+
+        public bool VolumeLevelShowInHelpScreen
+        {
+            get => _volumeLevelShowInHelpScreen;
+
+            set => SetProperty(ref _volumeLevelShowInHelpScreen, value);
+        }
+
+        public string MaximumGameRoundWinResetWinAmount
+        {
+            get => _maximumGameRoundWinResetWinAmount;
+
+            set => SetProperty(ref _maximumGameRoundWinResetWinAmount, value);
+        }
+
+        public bool WagerLimitsUse
+        {
+            get => _wagerLimitsUse;
+
+            set => SetProperty(ref _wagerLimitsUse, value);
+        }
+
+        public long WagerLimitsMaxTotalWager
+        {
+            get => _wagerLimitsMaxTotalWager;
+
+            set => SetProperty(ref _wagerLimitsMaxTotalWager, value);
+        }
+
+        public string WinDestination
+        {
+            get => _winDestination;
+
+            set => SetProperty(ref _winDestination, value);
+        }
+
+        public bool FreeSpinClearWinMeter
+        {
+            get => _freeSpinClearWinMeter;
+
+            set => SetProperty(ref _freeSpinClearWinMeter, value);
+        }
 
         /// <summary>
         ///     Gets or sets a value that indicates whether auto play is allowed.
@@ -117,6 +255,27 @@
             get => _reelStopEnabled;
 
             set => SetProperty(ref _reelStopEnabled, value);
+        }
+
+        public double ReelSpeed
+        {
+            get => _reelSpeed;
+
+            set => SetProperty(ref _reelSpeed, value);
+        }
+
+        public bool DisplayGamePayMessageUse
+        {
+            get => _displayGamePayMessageUse;
+
+            set => SetProperty(ref _displayGamePayMessageUse, value);
+        }
+
+        public string DisplayGamePayMessageFormat
+        {
+            get => _displayGamePayMessageFormat;
+
+            set => SetProperty(ref _displayGamePayMessageFormat, value);
         }
 
         /// <summary>

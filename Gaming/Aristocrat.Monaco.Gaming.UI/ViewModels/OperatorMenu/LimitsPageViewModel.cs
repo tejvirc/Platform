@@ -95,7 +95,7 @@
 
             if (IsWizardPage)
             {
-                HandpayLimitVisible = true;
+                HandpayLimitVisible = (bool)PropertiesManager.GetProperty(ApplicationConstants.ConfigWizardHandpayLimitVisible, true);
                 LargeWinLimitVisible = true;
                 LargeWinRatioVisible = (bool)PropertiesManager.GetProperty(AccountingConstants.DisplayLargeWinRatio, false);
                 LargeWinRatioThresholdVisible = (bool)PropertiesManager.GetProperty(AccountingConstants.DisplayLargeWinRatioThreshold, false);
@@ -130,7 +130,7 @@
                 {
                     return;
                 }
-                
+
                 _pageEnabled = value;
                 RaisePropertyChanged(nameof(PageEnabled));
             }
@@ -222,7 +222,7 @@
         }
 
         public bool IncrementThresholdVisible { get; }
-        
+
         public decimal LargeWinLimit
         {
             get => LargeWinLimitIsChecked ? _largeWinLimit : AccountingConstants.DefaultLargeWinLimit.MillicentsToDollars();
@@ -584,8 +584,19 @@
             MaxBetLimitIsChecked = MaxBetLimit < long.MaxValue.MillicentsToDollars();
 
             EventBus?.Subscribe<PropertyChangedEvent>(this, HandleEvent);
+            EventBus?.Subscribe<OperatorCultureChangedEvent>(this, HandleEvent);
 
             CheckNavigation();
+        }
+
+        private void HandleEvent(OperatorCultureChangedEvent evt)
+        {
+            if (UseOperatorCultureForCurrencyFormatting)
+            {
+                RaisePropertyChanged(nameof(CurrencyDisplayCulture));
+            }
+
+            UpdateLimits();
         }
 
         protected override void LoadAutoConfiguration()

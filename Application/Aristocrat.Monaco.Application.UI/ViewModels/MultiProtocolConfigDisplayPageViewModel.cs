@@ -2,10 +2,11 @@
 {
     using System;
     using System.Linq;
-    using Contracts;
+    using Contracts.Localization;
     using Contracts.Protocol;
     using Kernel;
     using Monaco.Common;
+    using Monaco.Localization.Properties;
     using OperatorMenu;
 
     [CLSCompliant(false)]
@@ -27,12 +28,35 @@
             _centralDeterminationSystemProtocol = multiProtocolConfiguration.FirstOrDefault(x => x.IsCentralDeterminationHandled)?.Protocol;
         }
 
-        public string ValidationProtocol => _validationProtocol.HasValue ? EnumParser.ToName(_validationProtocol) : ProtocolNames.None;
+        protected override void OnLoaded()
+        {
+            base.OnLoaded();
 
-        public string FundTransferProtocol => _fundTransferProtocol.HasValue ? EnumParser.ToName(_fundTransferProtocol) : ProtocolNames.None;
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this,
+                _ =>
+                {
+                    RaisePropertyChanged(
+                        nameof(ValidationProtocol),
+                        nameof(FundTransferProtocol),
+                        nameof(ProgressiveProtocol),
+                        nameof(CentralDeterminationSystemProtocol));
+                });
+        }
 
-        public string ProgressiveProtocol => _progressiveProtocol.HasValue ? EnumParser.ToName(_progressiveProtocol) : ProtocolNames.None;
+        public string ValidationProtocol => _validationProtocol.HasValue
+            ? EnumParser.ToName(_validationProtocol)
+            : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.None);
 
-        public string CentralDeterminationSystemProtocol => _centralDeterminationSystemProtocol.HasValue ? EnumParser.ToName(_centralDeterminationSystemProtocol) : ProtocolNames.None;
+        public string FundTransferProtocol => _fundTransferProtocol.HasValue
+            ? EnumParser.ToName(_fundTransferProtocol)
+            : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.None);
+
+        public string ProgressiveProtocol => _progressiveProtocol.HasValue
+            ? EnumParser.ToName(_progressiveProtocol)
+            : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.None);
+
+        public string CentralDeterminationSystemProtocol => _centralDeterminationSystemProtocol.HasValue
+            ? EnumParser.ToName(_centralDeterminationSystemProtocol)
+            : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.None);
     }
 }

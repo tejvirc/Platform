@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using Application.Contracts;
+    using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Application.Contracts.MeterPage;
     using Application.Contracts.OperatorMenu;
@@ -202,10 +203,8 @@
 
                     foreach (var meterNode in MeterNodes)
                     {
-                        var label = meterNode.Name + "Label";
-
                         string meterDisplayName = localizer.GetString(
-                            label,
+                            meterNode.DisplayNameKey,
                             _ => meterDisplayName = meterNode.DisplayName);
 
                         if (meterNode.DisplayName.IsEmpty() && meterNode.Name == "blank line")
@@ -231,7 +230,8 @@
                                             metersToBeAggregated,
                                             ShowLifetime,
                                             metersToBeAggregated.First().Classification,
-                                            meterNode.Order));
+                                            meterNode.Order,
+                                            UseOperatorCultureForCurrencyFormatting));
                                 }
                                 else
                                 {
@@ -241,7 +241,10 @@
                                             meterDisplayName ?? meterNode.DisplayName,
                                             meter,
                                             ShowLifetime,
-                                            meterNode.Order));
+                                            meterNode.Order,
+                                            true,
+                                            false,
+                                            UseOperatorCultureForCurrencyFormatting));
                                 }
                             }
                             catch (MeterNotFoundException)
@@ -251,7 +254,10 @@
                                         meterDisplayName ?? meterNode.DisplayName,
                                         null,
                                         ShowLifetime,
-                                        meterNode.Order));
+                                        meterNode.Order,
+                                        true,
+                                        false,
+                                        UseOperatorCultureForCurrencyFormatting));
 
                                 Logger.ErrorFormat("Meter not found: {0}", meterNode.Name);
                             }
@@ -365,7 +371,7 @@
             Denoms.Clear();
             foreach (var d in _selectedGame.Denominations)
             {
-                Denoms.Add(new Denomination(d.Value));
+                Denoms.Add(new Denomination(d.Value, d.Value.MillicentsToDollars().FormattedCurrencyString(false, GetCurrencyDisplayCulture())));
             }
 
             SelectedDenomIndex = 0;

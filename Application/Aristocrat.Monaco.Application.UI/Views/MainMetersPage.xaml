@@ -11,7 +11,8 @@
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:MainMetersPageViewModel}}"
-                               common:DialogParticipation.Register="{Binding}">
+                               common:DialogParticipation.Register="{Binding}"
+                               loc:Localizer.For="Operator">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -95,10 +96,12 @@
                 </DataGrid.RowStyle>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
+                                        loc:Localizer.For="Operator"
                                         Width="360"
                                         Binding="{Binding Name}"
                                         AutomationProperties.AutomationId="DataGridTextColumn11_79024055" />
                     <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
+                                        loc:Localizer.For="Operator"
                                         Width="200"
                                         Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
@@ -149,28 +152,24 @@
                     Orientation="Horizontal"
                     Margin="0 15 0 0"
                     AutomationProperties.AutomationId="StackPanel17_79024055">
-            <Button Margin="0 0 15 0"
-                    Width="250"
+            <Button Style="{StaticResource MonacoAuditButton}"
                     Command="{Binding ClearPeriodCommand}"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.ClearPeriodButtonText}}"
                     IsEnabled="{Binding ClearButtonEnabled, UpdateSourceTrigger=PropertyChanged}"
                     Visibility="{Binding ClearPeriodMetersButtonIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     AutomationProperties.AutomationId="Button18_79024055" />
-            <Button Margin="0 0 15 0"
-                    Width="250"
+            <Button Style="{StaticResource MonacoAuditButton}"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintVerificationButtonText}}"
                     Command="{Binding PrintVerificationButtonClickedCommand}"
                     IsEnabled="{Binding PrinterButtonsEnabled}"
                     Visibility="{Binding PrintVerificationButtonIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     AutomationProperties.AutomationId="Button19_79024055" />
-            <Button Margin="0 0 15 0"
-                    Width="250"
+            <Button Style="{StaticResource MonacoAuditButton}"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintPeriodicResetButtonText}}"
                     Command="{Binding PrintPeriodicResetButtonClickedCommand}"
                     IsEnabled="{Binding PrinterButtonsEnabled}"
                     AutomationProperties.AutomationId="Button20_79024055" />
-            <Button Margin="0 0 15 0"
-                    Width="250"
+            <Button Style="{StaticResource MonacoAuditButton}"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintAuditTicketButtonText}}"
                     Command="{Binding PrintAuditTicketButtonClickedCommand}"
                     IsEnabled="{Binding PrinterButtonsEnabled}"

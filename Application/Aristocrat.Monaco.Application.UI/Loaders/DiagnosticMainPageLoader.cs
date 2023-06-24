@@ -17,7 +17,7 @@
 
         protected override IOperatorMenuPageViewModel CreateViewModel()
         {
-            return new DiagnosticMainPageViewModel(PageName);
+            return new DiagnosticMainPageViewModel(this);
         }
     }
 }

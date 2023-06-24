@@ -7,6 +7,7 @@
     using System.Text;
     using ConfigWizard;
     using Extensions;
+    using Hardware.Contracts;
     using Hardware.Contracts.IO;
     using Hardware.Contracts.Printer;
     using Hardware.Contracts.Ticket;
@@ -29,12 +30,12 @@
         /// <summary>
         ///     The number of lines in the ticket casino info header
         /// </summary>
-        public virtual int TicketCasinoInfoLineCount => 3;
+        public virtual int TicketCasinoInfoLineCount => 4;
 
         /// <summary>
         ///     The number of lines in the ticket header
         /// </summary>
-        public virtual int TicketHeaderLineCount => 10;
+        public virtual int TicketHeaderLineCount => 11;
 
         /// <summary>
         ///     The number of lines in the ticket footer (currently same for all tickets)
@@ -65,15 +66,18 @@
         /// <param name="localizer"></param>
         protected TextTicket(ILocalizer localizer)
         {
-            TicketLocalizer = localizer;
-
             _leftField = new StringBuilder();
             _centerField = new StringBuilder();
             _rightField = new StringBuilder();
             ServiceManager = Kernel.ServiceManager.GetInstance();
             PropertiesManager = ServiceManager.GetService<IPropertiesManager>();
             Time = ServiceManager.GetService<ITime>();
-            DateTimeFormatInfo = CultureInfo.CurrentCulture.DateTimeFormat;
+
+            TicketLocalizer = PropertiesManager.GetValue(ApplicationConstants.LocalizationOperatorTicketLanguageSettingOperatorOverride, false) ?
+                Localizer.For(CultureFor.Operator) :
+                localizer;
+
+            DateTimeFormatInfo = TicketLocalizer.CurrentCulture.DateTimeFormat;
 
             StateText = new Dictionary<PaperStates, string>
             {
@@ -185,10 +189,10 @@
                 if (ConfigWizardUtil.VisibleByConfig(PropertiesManager, ApplicationConstants.ConfigWizardIdentityPageZoneOverride))
                 {
                     AddLine(
-                        $"{(!RetailerOverride ? scope.GetString(ResourceKeys.LicenseText) : scope.GetString(ResourceKeys.RetailerText))}",
+                        $"{(!RetailerOverride ? scope.GetString(ResourceKeys.LicenseText) : scope.GetString(ResourceKeys.RetailerText))}:",
                         null,
                         string.Format(
-                            CultureInfo.CurrentCulture,
+                            TicketLocalizer.CurrentCulture,
                             "{0}",
                             PropertiesManager.GetProperty(ApplicationConstants.Zone, scope.GetString(ResourceKeys.DataUnavailable))));
                 }
@@ -216,7 +220,7 @@
                     $"{scope.GetString(ResourceKeys.MacAddressLabel)}:",
                     null,
                     string.Format(
-                        CultureInfo.CurrentCulture,
+                        TicketLocalizer.CurrentCulture,
                         "{0}",
                         MacAddressWithColon(NetworkInterfaceInfo.DefaultPhysicalAddress)));
 
@@ -224,7 +228,7 @@
                     $"{scope.GetString(ResourceKeys.IPAddressesLabel)}:",
                     null,
                     string.Format(
-                        CultureInfo.CurrentCulture,
+                        TicketLocalizer.CurrentCulture,
                         "{0}",
                         NetworkInterfaceInfo.DefaultIpAddress));
 
@@ -234,7 +238,7 @@
                     $"{scope.GetString(ResourceKeys.ManufacturerLabel)}:",
                     null,
                     string.Format(
-                        CultureInfo.CurrentCulture,
+                        TicketLocalizer.CurrentCulture,
                         "{0}",
                         ioService.DeviceConfiguration.Manufacturer));
 
@@ -242,7 +246,7 @@
                     $"{scope.GetString(ResourceKeys.ModelLabel)}:",
                     null,
                     string.Format(
-                        CultureInfo.CurrentCulture,
+                        TicketLocalizer.CurrentCulture,
                         "{0}",
                         ioService.DeviceConfiguration.Model));
 
@@ -258,7 +262,7 @@
                     $"{scope.GetString(ResourceKeys.AssetNumber)}:",
                     null,
                     string.Format(
-                        CultureInfo.CurrentCulture,
+                        TicketLocalizer.CurrentCulture,
                         "{0}",
                         assetNumber)); //VignetteText
 
@@ -266,25 +270,31 @@
                     $"{scope.GetString(ResourceKeys.SerialNumberLabel)}:",
                     null,
                     string.Format(
-                        CultureInfo.CurrentCulture,
+                        TicketLocalizer.CurrentCulture,
                         "{0}",
                         PropertiesManager.GetValue(ApplicationConstants.SerialNumber, scope.GetString(ResourceKeys.DataUnavailable))));
 
                 AddLine(
-                    $"{scope.GetString(ResourceKeys.SoftwareVersionText)}:",
+                    $"{scope.GetString(ResourceKeys.OSImageVersionText)}:",
                     null,
                     string.Format(
-                        CultureInfo.CurrentCulture,
+                        TicketLocalizer.CurrentCulture,
                         "{0}",
-                        PropertiesManager.GetProperty(
-                            KernelConstants.SystemVersion,
-                            scope.GetString(ResourceKeys.NotSet)))); // Resources.FirmwareVersionText
+                        ServiceManager.TryGetService<IOSService>()?.OsImageVersion.ToString() ?? scope.GetString(ResourceKeys.DataUnavailable)));
+
+                AddLine(
+                    $"{scope.GetString(ResourceKeys.PlatformVersionText)}:",
+                    null,
+                    string.Format(
+                        TicketLocalizer.CurrentCulture,
+                        "{0}",
+                        PropertiesManager.GetValue(KernelConstants.SystemVersion, scope.GetString(ResourceKeys.DataUnavailable))));
 
                 AddLine(
                   $"{scope.GetString(ResourceKeys.Currency)}:",
                   null,
                   string.Format(
-                      CultureInfo.CurrentCulture,
+                      TicketLocalizer.CurrentCulture,
                       "{0}",
                       CurrencyExtensions.Currency.CurrencyName));
             }
@@ -316,6 +326,7 @@
         public virtual void AddCasinoInfo()
         {
             // NOTE: If additional lines are added here, update the TicketCasinoInfoLineCount
+            AddEmptyLines();
             AddLine(
                 null,
                 (string)PropertiesManager.GetProperty(PropertyKey.TicketTextLine1, string.Empty),

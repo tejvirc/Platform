@@ -112,7 +112,7 @@
         /// <summary>
         ///     Gets whether the image for this game is a bink video
         /// </summary>
-        public bool ImageIsBink => ImagePath.EndsWith(".bk2");
+        public bool ImageIsBink => ImagePath?.EndsWith(".bk2") ?? false;
 
         /// <summary>
         ///     Gets or sets the game image path
@@ -424,7 +424,7 @@
         public bool RequiresMechanicalReels { get; set; }
 
         /// <summary>
-        ///     Select the appropriate for the Locale Graphics
+        ///     Select the appropriate image for the Locale Graphics
         /// </summary>
         /// <param name="activeLocaleCode">locale code to use</param>
         public void SelectLocaleGraphics(string activeLocaleCode)

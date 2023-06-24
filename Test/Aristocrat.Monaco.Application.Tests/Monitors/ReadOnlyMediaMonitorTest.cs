@@ -1,12 +1,13 @@
 ﻿namespace Aristocrat.Monaco.Application.Tests.Monitors
 {
+    using System;
+    using System.IO;
     using Application.Monitors;
     using Contracts;
+    using Contracts.Localization;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
-    using System;
-    using System.IO;
     using Test.Common;
 
     [TestClass]
@@ -28,7 +29,14 @@
             _bus = new Mock<IEventBus>();
             _disableManager = new Mock<ISystemDisableManager>();
             _pathMapper = new Mock<IPathMapper>();
-            _properties = new Mock<IPropertiesManager>();
+            _properties = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Strict, false);
+
+            _properties.Setup(m => m.GetProperty(It.IsAny<string>(), It.IsAny<object>()))
+                .Returns(string.Empty);
+
+            _properties
+                .Setup(m => m.GetProperty(ApplicationConstants.LockupCulture, It.IsAny<object>()))
+                .Returns(CultureFor.Operator);
         }
 
         [TestMethod]

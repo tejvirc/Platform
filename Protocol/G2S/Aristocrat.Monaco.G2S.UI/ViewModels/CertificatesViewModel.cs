@@ -411,7 +411,7 @@
         {
             CheckLogicDoorStatus();
             RefreshCertificateData();
-            SubscribeToDoorEvents();
+            SubscribeToEvents();
         }
 
         protected override void UpdateStatusText()
@@ -821,13 +821,19 @@
             CheckLogicDoorStatus();
         }
 
-        private void SubscribeToDoorEvents()
+        private void SubscribeToEvents()
         {
-            // Subscribe to door events
+            // Subscribe to events
             EventBus.Subscribe<ClosedEvent>(this, CheckLogicDoorStatus);
             EventBus.Subscribe<OpenEvent>(this, CheckLogicDoorStatus);
             EventBus.Subscribe<DoorOpenMeteredEvent>(this, CheckLogicDoorStatus);
             EventBus.Subscribe<DoorClosedMeteredEvent>(this, CheckLogicDoorStatus);
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, OnOperatorCultureChanged);
+        }
+
+        private void OnOperatorCultureChanged(OperatorCultureChangedEvent obj)
+        {
+            CheckLogicDoorStatus();
         }
     }
 }

@@ -39,10 +39,12 @@
                   AutomationProperties.AutomationId="DataGrid4_8109713E">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
+                                    loc:Localizer.For="Operator"
                                     Width="360"
                                     Binding="{Binding Name}"
                                     AutomationProperties.AutomationId="DataGridTextColumn5_8109713E" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Count}}"
+                                    loc:Localizer.For="Operator"
                                     Width="200"
                                     Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
                                     HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
@@ -62,10 +64,12 @@
                   AutomationProperties.AutomationId="DataGrid7_8109713E">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
+                                    loc:Localizer.For="Operator"
                                     Width="380"
                                     Binding="{Binding Name}"
                                     AutomationProperties.AutomationId="DataGridTextColumn8_8109713E" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Count}}"
+                                    loc:Localizer.For="Operator"
                                     Width="200"
                                     Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
                                     HeaderStyle="{StaticResource DataGridColumnHeaderRight}"

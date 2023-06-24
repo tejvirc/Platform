@@ -11,5 +11,7 @@
         /// </summary>
         /// <returns>A performance counter value</returns>
         float NextValue();
+
+        void SetRawValue(uint value);
     }
 }

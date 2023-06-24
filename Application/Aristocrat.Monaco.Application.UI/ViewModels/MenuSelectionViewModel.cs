@@ -26,6 +26,7 @@
     using Hardware.Contracts.Touch;
     using Kernel;
     using Kernel.Contracts;
+    using Localization;
     using log4net;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common;
@@ -57,6 +58,7 @@
         private readonly IOperatorMenuConfiguration _configuration;
         private readonly IOperatorMenuGamePlayMonitor _gamePlayMonitor;
         private readonly ISerialTouchService _serialTouchService;
+        private readonly ILocalization _localization;
 
         private readonly ButtonDeckNavigator _buttonNavigator = new ButtonDeckNavigator();
         private readonly object _printLock = new object();
@@ -95,9 +97,15 @@
         private bool _exitRequested;
         private string _lastEnteredEventRole;
         private readonly object _lock = new object();
+        private readonly object _languageSwitchLock = new object();
         private bool _keySwitchExitOverridesButton;
         private string _warningMessageText;
         private bool _calibrationAccess;
+        private bool _showToggleLanguageButton;
+        private string _toggleLanguageButtonText;
+        private CultureInfo _primaryCulture;
+        private CultureInfo _secondaryCulture;
+        private bool _useOperatorCultureForCurrencyFormatting;
 
         public MenuSelectionViewModel()
             : this(
@@ -111,7 +119,8 @@
                 ServiceManager.GetInstance().GetService<IDialogService>(),
                 ServiceManager.GetInstance().GetService<IOperatorMenuConfiguration>(),
                 ServiceManager.GetInstance().GetService<IOperatorMenuGamePlayMonitor>(),
-                ServiceManager.GetInstance().GetService<ISerialTouchService>())
+                ServiceManager.GetInstance().GetService<ISerialTouchService>(),
+                ServiceManager.GetInstance().GetService<ILocalization>())
         {
         }
 
@@ -129,7 +138,8 @@
             IDialogService dialogService,
             IOperatorMenuConfiguration configuration,
             IOperatorMenuGamePlayMonitor gamePlayMonitor,
-            ISerialTouchService serialTouchService)
+            ISerialTouchService serialTouchService,
+            ILocalization localization)
         {
             _eventBus = eventBus;
             _printer = printer;
@@ -142,9 +152,13 @@
             _configuration = configuration;
             _gamePlayMonitor = gamePlayMonitor;
             _serialTouchService = serialTouchService;
+            _localization = localization;
 
             ShowExitButton = _configuration.GetSetting(OperatorMenuSetting.ShowExitButton, false);
+            ShowToggleLanguageButton = _configuration.GetSetting(OperatorMenuSetting.ShowToggleLanguageButton, false);
+
             _keySwitchExitOverridesButton = _configuration.GetSetting(OperatorMenuSetting.KeySwitchExitOverridesButton, false);
+            _useOperatorCultureForCurrencyFormatting = _configuration.GetSetting(OperatorMenuSetting.UseOperatorCultureForCurrencyFormatting, false);
 
             MenuItems = new ObservableCollection<IOperatorMenuPageLoader>();
 
@@ -156,9 +170,10 @@
             ExitButtonCommand = new ActionCommand<object>(_ => ExitMenu());
             HelpButtonCommand = new ActionCommand<object>(HandleHelpButtonCommand);
 
-            SupportedLanguages = new ObservableCollection<string>();
+            ConfigureSubscriptions();
 
             EnableOperatorMenuButtons();
+            SetupLanguageSwitching();
 
             var access = ServiceManager.GetInstance().GetService<IOperatorMenuAccess>();
             var accessRuleSet = _configuration?.GetAccessRuleSet(this);
@@ -189,23 +204,6 @@
                     accessRuleSet,
                     UpdateAccess);
             }
-
-            _eventBus.Subscribe<SystemDownEvent>(this, HandleEvent);
-            _eventBus.Subscribe<UpdateOperatorMenuRoleEvent>(this, e => UpdateOperatorMenuRole(e.IsTechnicianRole));
-            _eventBus.Subscribe<TouchDisplayDisconnectedEvent>(this, HandleTouchScreenEvent);
-            _eventBus.Subscribe<OperatorMenuPrintJobEvent>(this, HandleOperatorMenuPrintJob);
-            _eventBus.Subscribe<OperatorMenuPageLoadedEvent>(this, OnPageLoaded);
-            _eventBus.Subscribe<OperatorMenuPrintJobStartedEvent>(this, OnPrintJobStarted);
-            _eventBus.Subscribe<OperatorMenuPrintJobCompletedEvent>(this, OnPrintJobCompleted);
-            _eventBus.Subscribe<OperatorMenuPopupEvent>(this, OnShowPopup);
-            _eventBus.Subscribe<OperatorMenuWarningMessageEvent>(this, OnUpdateWarningMessage);
-            _eventBus.Subscribe<ServiceAddedEvent>(this, UpdatePrinter);
-            _eventBus.Subscribe<OffEvent>(this, HandleEvent);
-            _eventBus.Subscribe<DisplayConnectedEvent>(this, HandleEvent);
-            _eventBus.Subscribe<TouchCalibrationCompletedEvent>(this, HandleEvent);
-            _eventBus.Subscribe<SerialTouchCalibrationCompletedEvent>(this, HandleEvent);
-            _eventBus.Subscribe<DialogOpenedEvent>(this, _ => RaisePropertyChanged(nameof(CanCalibrateTouchScreens)));
-            _eventBus.Subscribe<DialogClosedEvent>(this, _ => RaisePropertyChanged(nameof(CanCalibrateTouchScreens)));
 
             LoadMenus();
 
@@ -629,6 +627,32 @@
             }
         }
 
+        public bool ShowToggleLanguageButton
+        {
+            get => _showToggleLanguageButton;
+            set
+            {
+                if (_showToggleLanguageButton != value)
+                {
+                    _showToggleLanguageButton = value;
+                    RaisePropertyChanged(nameof(ShowToggleLanguageButton));
+                }
+            }
+        }
+
+        public string ToggleLanguageButtonText
+        {
+            get => _toggleLanguageButtonText;
+            set
+            {
+                if (_toggleLanguageButtonText != value)
+                {
+                    _toggleLanguageButtonText = value;
+                    RaisePropertyChanged(nameof(ToggleLanguageButtonText));
+                }
+            }
+        }
+
         private bool PrintButtonEnabledInternal
         {
             get => _printButtonEnabledInternal;
@@ -709,7 +733,7 @@
                 KernelConstants.SystemVersion,
                 Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Unknown));
             var versionBuilder = new StringBuilder(20);
-            versionBuilder.Append(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VersionText)).Append(" ")
+            versionBuilder.Append(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Version)).Append(" ")
                 .Append(systemVersion);
             SoftwareVersion = versionBuilder.ToString();
             var demoModeActive = (bool)_propertiesManager.GetProperty(DemoModeProperty, false);
@@ -721,6 +745,26 @@
         public void SetInitialSelectedMenuItem()
         {
             SelectedItem = MenuItems.FirstOrDefault();
+        }
+
+        private void ConfigureSubscriptions()
+        {
+            _eventBus.Subscribe<SystemDownEvent>(this, HandleEvent);
+            _eventBus.Subscribe<UpdateOperatorMenuRoleEvent>(this, e => UpdateOperatorMenuRole(e.IsTechnicianRole));
+            _eventBus.Subscribe<TouchDisplayDisconnectedEvent>(this, HandleTouchScreenEvent);
+            _eventBus.Subscribe<OperatorMenuPrintJobEvent>(this, HandleOperatorMenuPrintJob);
+            _eventBus.Subscribe<OperatorMenuPageLoadedEvent>(this, OnPageLoaded);
+            _eventBus.Subscribe<OperatorMenuPrintJobStartedEvent>(this, OnPrintJobStarted);
+            _eventBus.Subscribe<OperatorMenuPrintJobCompletedEvent>(this, OnPrintJobCompleted);
+            _eventBus.Subscribe<OperatorMenuPopupEvent>(this, OnShowPopup);
+            _eventBus.Subscribe<OperatorMenuWarningMessageEvent>(this, OnUpdateWarningMessage);
+            _eventBus.Subscribe<ServiceAddedEvent>(this, UpdatePrinter);
+            _eventBus.Subscribe<OffEvent>(this, HandleEvent);
+            _eventBus.Subscribe<DisplayConnectedEvent>(this, HandleEvent);
+            _eventBus.Subscribe<TouchCalibrationCompletedEvent>(this, HandleEvent);
+            _eventBus.Subscribe<SerialTouchCalibrationCompletedEvent>(this, HandleEvent);
+            _eventBus.Subscribe<DialogOpenedEvent>(this, _ => RaisePropertyChanged(nameof(CanCalibrateTouchScreens)));
+            _eventBus.Subscribe<DialogClosedEvent>(this, _ => RaisePropertyChanged(nameof(CanCalibrateTouchScreens)));
         }
 
         private void OnPrintButtonStatusUpdated(PrintButtonStatus status)
@@ -835,10 +879,6 @@
             SubscribeToEvents();
             LoadFinished?.Invoke(this, EventArgs.Empty);
             RefreshPageOperatorLabel();
-
-#if USE_OPERATOR_MENU_LANGUAGE_SELECTION
-            SetSupportedLanguages();
-#endif
 
             ShowCancelPrintButton = false;
             UpdateCreditBalance();
@@ -967,16 +1007,81 @@
             }
         }
 
-        private void SetSupportedLanguages()
+        private void SetupLanguageSwitching()
         {
-            MvvmHelper.ExecuteOnUI(
-                () =>
-                {
-                    SupportedLanguages.Clear();
+            var provider = _localization.GetProvider(CultureFor.Operator);
+            var cultures = provider.AvailableCultures;
 
-                    SupportedLanguages.Add("ENGLISH");
-                    SupportedLanguages.Add("FRENCH");
-                });
+            CultureInfo currentCulture = provider.CurrentCulture;
+            CultureInfo defaultCulture;
+
+            if (provider is OperatorCultureProvider operatorCultureProvider)
+            {
+                defaultCulture = operatorCultureProvider.DefaultCulture;
+            }
+            else
+            {
+                defaultCulture = provider.AvailableCultures.FirstOrDefault();
+            }
+
+            _primaryCulture = defaultCulture;
+
+            if (cultures.Count <= 1)
+            {
+                ShowToggleLanguageButton = false;
+                return;
+            }
+            else if (cultures.Count == 2)
+            {
+                _secondaryCulture = cultures.FirstOrDefault(
+                    c => !c.Equals(defaultCulture) && !c.Equals(currentCulture));
+            }
+            else
+            {
+                // We always include en-US in operator cultures even if not explicitly configured.
+                // Filter out en-US if it's in our list of operator cultures and we have more than two.
+                // We can revisit later if we ever need to have en-US and another culture be switched between but want
+                // the list of operator cultures to be more than two (probably a niche scenario).
+
+                _secondaryCulture = cultures.FirstOrDefault(
+                    c => !c.Equals(defaultCulture) && !c.Equals(currentCulture) &&
+                            !c.Equals(new CultureInfo(ApplicationConstants.DefaultLanguage)));
+            }
+
+            if (_secondaryCulture == null && currentCulture.Equals(defaultCulture))
+            {
+                ShowToggleLanguageButton = false;
+                return;
+            }
+            else if (_secondaryCulture == null && !currentCulture.Equals(defaultCulture))
+            {
+                _secondaryCulture = currentCulture;
+            }
+
+            UpdateToggleLanguageButton();
+        }
+
+        private void UpdateToggleLanguageButton()
+        {
+            if (!ShowToggleLanguageButton)
+            {
+                return;
+            }
+
+            var otherCulture = GetTogglableCulture();
+
+            if (otherCulture != null)
+            {
+                var buttonText = otherCulture.TextInfo.ToTitleCase(otherCulture.NativeName);
+
+                // Strip off locale name unless both primary and secondary cultures have same language name
+                if (!_primaryCulture.ThreeLetterISOLanguageName.Equals(_secondaryCulture.ThreeLetterISOLanguageName, StringComparison.OrdinalIgnoreCase))
+                {
+                    buttonText = buttonText.Split(' ').FirstOrDefault();
+                }
+
+                ToggleLanguageButtonText = buttonText;
+            }
         }
 
         private void HandleClosing(object obj)
@@ -986,15 +1091,30 @@
             _lastEnteredEventRole = null;
         }
 
-        private void HandleLanguageChangedCommand(object selectedItem)
+        private void HandleLanguageChangedCommand(object obj)
         {
-            if (string.IsNullOrEmpty(selectedItem.ToString()))
+            lock (_languageSwitchLock)
             {
-                return;
-            }
+                var otherCulture = GetTogglableCulture();
 
-            //// TODO: Add support to load and update display resources for selected language.
-            Log.Debug($"Language {selectedItem} selected");
+                if (otherCulture != null)
+                {
+                    _propertiesManager.SetProperty(ApplicationConstants.LocalizationOperatorCurrentCulture, otherCulture.Name);
+
+                    UpdateToggleLanguageButton();
+                    UpdateCreditBalance();
+
+                    if (_selectedItem != null && !_selectedItem.IsMultiPage)
+                    {
+                        PageTitleContent = _selectedItem.PageName;
+                    }
+                }
+            }
+        }
+
+        private CultureInfo GetTogglableCulture()
+        {
+            return Localizer.For(CultureFor.Operator).CurrentCulture.Equals(_primaryCulture) ? _secondaryCulture : _primaryCulture;
         }
 
         private void Dispose(bool disposing)
@@ -1339,9 +1459,11 @@
         {
             var balance = (long)_propertiesManager.GetProperty(PropertyKey.CurrentBalance, 0L);
             var dollarAmount = GetDollarAmount(balance);
+            var culture = _useOperatorCultureForCurrencyFormatting ?
+                Localizer.For(CultureFor.Operator).CurrentCulture : CurrencyExtensions.CurrencyCultureInfo;
 
             CreditBalanceContent = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CreditBalance) + ": " +
-                                   dollarAmount.FormattedCurrencyString();
+                                   dollarAmount.FormattedCurrencyString(false, culture);
         }
 
         private void HandleOperatorMenuPrintJob(OperatorMenuPrintJobEvent printJob)

@@ -7,7 +7,6 @@
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
                                xmlns:helpers="http://monaco.aristocrat.com/common"
                                xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
-                               xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
                                xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
@@ -16,7 +15,8 @@
                                mc:Ignorable="d"
                                Background="Transparent"
                                d:DataContext="{d:DesignInstance viewModels:AdvancedGameSetupViewModel, IsDesignTimeCreatable=True}"
-                               common:DialogParticipation.Register="{Binding}">
+                               common:DialogParticipation.Register="{Binding}"
+                               loc:Localizer.For="Operator">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -50,7 +50,6 @@
                 <Setter Property="HorizontalAlignment"
                         Value="Center" />
             </Style>
-            <converters:FormattedCurrencyConverter x:Key="CurrencyConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid Name="View"
@@ -74,6 +73,7 @@
                         Visibility="{Binding HasMultipleGames, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         AutomationProperties.AutomationId="StackPanel5_FA38938A">
                 <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.GameType}}"
+                           loc:Localizer.For="Operator"
                            VerticalAlignment="Center"
                            Margin="0 0 5 0"
                            FontSize="16"
@@ -100,6 +100,7 @@
                     </ComboBox.ItemsPanel>
                 </ComboBox>
                 <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.GameText}}"
+                           loc:Localizer.For="Operator"
                            VerticalAlignment="Center"
                            Margin="20 0 5 0"
                            FontSize="16"
@@ -135,7 +136,7 @@
                            FontSize="16"
                            AutomationProperties.AutomationId="TextBlock15_FA38938A" />
                 <TextBlock MinWidth="200"
-                           Text="{Binding TopAwardValue, Converter={StaticResource CurrencyConverter}, ConverterParameter=ZeroNotAvailable, Mode=OneWay}"
+                           Text="{Binding TopAwardValue, Converter={StaticResource FormattedCurrencyConverter}, ConverterParameter=ZeroNotAvailable, Mode=OneWay}"
                            AutomationProperties.AutomationId="TextBlock16_FA38938A" />
             </StackPanel>
         </StackPanel>
@@ -189,12 +190,15 @@
                         </Button.CommandParameter>
                     </Button>
                 </StackPanel>
-                <TextBlock Grid.Row="1"
-                           HorizontalAlignment="Left"
-                           Visibility="{Binding DenomSelectionLimitExists, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+
+                <TextBlock Grid.Row="1" 
+                           HorizontalAlignment="Left" 
+                           Visibility="{Binding DenomSelectionLimitExists, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
                            Text="{Binding SelectedDenoms}"
                            AutomationProperties.AutomationId="TextBlock27_FA38938A" />
-                <DataGrid Grid.Row="2"
+
+                <DataGrid Grid.Row="2" Margin="0 -15 0 0" 
+                          Style="{StaticResource MonacoScrollButtonDataGrid}"
                           ItemsSource="{Binding GameConfigurations, UpdateSourceTrigger=PropertyChanged}"
                           Height="{Binding ElementName=GridGameConfigs, Path=ActualHeight}"
                           Width="{Binding ElementName=GridGameConfigs, Path=ActualWidth}"
@@ -202,8 +206,6 @@
                           RowHeight="75"
                           RowStyle="{StaticResource MonacoUnselectableDataGridRow}"
                           CellStyle="{StaticResource MonacoExtraCompactDataGridCell}"
-                          AutoGenerateColumns="False"
-                          VerticalAlignment="Top"
                           ScrollViewer.PanningMode="VerticalOnly"
                           ScrollViewer.VerticalScrollBarVisibility="Auto"
                           ScrollViewer.HorizontalScrollBarVisibility="Auto"
@@ -217,13 +219,6 @@
                           EnableRowVirtualization="True"
                           EnableColumnVirtualization="True"
                           SelectedItem="{Binding SelectedConfig}"
-                          CanUserAddRows="False"
-                          CanUserResizeColumns="False"
-                          CanUserResizeRows="False"
-                          CanUserDeleteRows="False"
-                          CanUserReorderColumns="False"
-                          CanUserSortColumns="False"
-                          IsReadOnly="True"
                           AutomationProperties.AutomationId="DataGrid28_FA38938A">
                     <DataGrid.Resources>
                         <common:BindingProxy x:Key="PageModel"
@@ -240,6 +235,7 @@
                     </DataGrid.Resources>
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Denom}}"
+                                                loc:Localizer.For="Operator"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 AutomationProperties.AutomationId="DataGridTemplateColumn29_FA38938A">
                             <DataGridTemplateColumn.CellTemplate>
@@ -262,6 +258,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.PaytableRTP}}"
+                                                loc:Localizer.For="Operator"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 AutomationProperties.AutomationId="DataGridTemplateColumn33_FA38938A">
                             <DataGridTemplateColumn.CellTemplate>
@@ -289,6 +286,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.BetOption}}"
+                                                loc:Localizer.For="Operator"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.OptionColumnVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                                 AutomationProperties.AutomationId="DataGridTemplateColumn37_FA38938A">
@@ -312,6 +310,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.LineOption}}"
+                                                loc:Localizer.For="Operator"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.OptionColumnVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                                 AutomationProperties.AutomationId="DataGridTemplateColumn40_FA38938A">
@@ -334,6 +333,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.BonusBet}}"
+                                                loc:Localizer.For="Operator"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.IsPokerGameSelected), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                                 AutomationProperties.AutomationId="DataGridTemplateColumn43_FA38938A">
@@ -386,10 +386,11 @@
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
                         <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TopAward}}"
+                                            loc:Localizer.For="Operator"
                                             HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmall}"
                                             Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.GlobalOptionsVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                             MaxWidth="120"
-                                            Binding="{Binding TopAwardValue, Converter={StaticResource CurrencyConverter}, ConverterParameter=ZeroNotAvailable, Mode=OneWay}"
+                                            Binding="{Binding TopAwardValue, Converter={StaticResource FormattedCurrencyConverter}, ConverterParameter=ZeroNotAvailable, Mode=OneWay}"
                                             AutomationProperties.AutomationId="DataGridTextColumn50_FA38938A">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="{x:Type TextBlock}">
@@ -399,6 +400,7 @@
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
                         <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Gamble}}"
+                                                loc:Localizer.For="Operator"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.GambleOptionVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                                 AutomationProperties.AutomationId="DataGridTemplateColumn51_FA38938A">
@@ -412,6 +414,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.LetItRide}}"
+                                                loc:Localizer.For="Operator"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.LetItRideOptionVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                                 AutomationProperties.AutomationId="DataGridTemplateColumn53_FA38938A">
@@ -425,6 +428,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ForcedMinBet}}"
+                                                loc:Localizer.For="Operator"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.OptionColumnVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                                 AutomationProperties.AutomationId="DataGridTemplateColumn55_FA38938A">
@@ -444,6 +448,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ForcedMinBet}}"
+                                                loc:Localizer.For="Operator"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.IsRouletteGameSelected), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                                 AutomationProperties.AutomationId="DataGridTemplateColumn56_FA38938A">
@@ -462,6 +467,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ForcedMaxBetInside}}"
+                                                loc:Localizer.For="Operator"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.IsRouletteGameSelected), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                                 AutomationProperties.AutomationId="DataGridTemplateColumn57_FA38938A">
@@ -479,6 +485,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ForcedMaxBetOutside}}"
+                                                loc:Localizer.For="Operator"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.IsRouletteGameSelected), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                                 AutomationProperties.AutomationId="DataGridTemplateColumn58_FA38938A">
@@ -514,8 +521,8 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn
-                                Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveColumnHeader}}"
+                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveColumnHeader}}"
+                                                loc:Localizer.For="Operator"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmall}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.OptionColumnVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                                 AutomationProperties.AutomationId="DataGridTemplateColumn61_FA38938A">

@@ -3,6 +3,7 @@
     using System;
     using Contracts;
     using Hardware.Contracts.SharedDevice;
+    using Localization;
     using ViewModels;
 
     [CLSCompliant(false)]
@@ -57,6 +58,25 @@
                     string.Empty,
                     string.Empty)
                 : string.Empty;
+        }
+        public static DeviceState GetDeviceStatusType(this DeviceConfigViewModel config)
+        {
+            return config != null
+                ? Application.Helpers.DeviceHelper.GetDeviceStatusType(
+                    config.Manufacturer,
+                    string.Empty,
+                    config.Protocol,
+                    config.Port,
+                    string.Empty,
+                    string.Empty,
+                    string.Empty,
+                    string.Empty)
+                : DeviceState.None;
+        }
+
+        public static DeviceState GetDeviceEnum(this DeviceConfigViewModel config)
+        {
+            return DeviceState.None;
         }
     }
 }
