@@ -148,7 +148,7 @@ and rolls over at 99,999,999.99999 (8 significant plus 2 insignificant digits)</
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Contracts_CurrencyMeterClassification__ctor.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Contracts.CurrencyMeterClassification.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CurrencyMeterClassification.cs/#L15" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CurrencyMeterClassification.cs/#L16" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_Contracts_CurrencyMeterClassification__ctor_" data-uid="Aristocrat.Monaco.Application.Contracts.CurrencyMeterClassification.#ctor*"></a>
@@ -182,24 +182,24 @@ and rolls over at 99,999,999.99999 (8 significant plus 2 insignificant digits)</
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Contracts_CurrencyMeterClassification_CreateValueString_System_Int64_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Contracts.CurrencyMeterClassification.CreateValueString(System.Int64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Contracts_CurrencyMeterClassification_CreateValueString_System_Int64_System_Globalization_CultureInfo_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Contracts.CurrencyMeterClassification.CreateValueString(System.Int64%2CSystem.Globalization.CultureInfo)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CurrencyMeterClassification.cs/#L25" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CurrencyMeterClassification.cs/#L27" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_Contracts_CurrencyMeterClassification_CreateValueString_" data-uid="Aristocrat.Monaco.Application.Contracts.CurrencyMeterClassification.CreateValueString*"></a>
   
-  <h4 id="Aristocrat_Monaco_Application_Contracts_CurrencyMeterClassification_CreateValueString_System_Int64_" data-uid="Aristocrat.Monaco.Application.Contracts.CurrencyMeterClassification.CreateValueString(System.Int64)"><a href="#collapsible-Aristocrat_Monaco_Application_Contracts_CurrencyMeterClassification_CreateValueString_System_Int64_" class="expander" data-toggle="collapse">CreateValueString(Int64)</a></h4>
+  <h4 id="Aristocrat_Monaco_Application_Contracts_CurrencyMeterClassification_CreateValueString_System_Int64_System_Globalization_CultureInfo_" data-uid="Aristocrat.Monaco.Application.Contracts.CurrencyMeterClassification.CreateValueString(System.Int64,System.Globalization.CultureInfo)"><a href="#collapsible-Aristocrat_Monaco_Application_Contracts_CurrencyMeterClassification_CreateValueString_System_Int64_System_Globalization_CultureInfo_" class="expander" data-toggle="collapse">CreateValueString(Int64, CultureInfo)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Application_Contracts_CurrencyMeterClassification_CreateValueString_System_Int64_" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Application_Contracts_CurrencyMeterClassification_CreateValueString_System_Int64_System_Globalization_CultureInfo_" class="collapse in">
   <div class="markdown level1 summary"><p>Creates and returns a string representation of the value</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override string CreateValueString(long meterValue)</code></pre>
+    <pre><code class="lang-csharp hljs">public override string CreateValueString(long meterValue, CultureInfo culture = null)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -209,6 +209,14 @@ and rolls over at 99,999,999.99999 (8 significant plus 2 insignificant digits)</
         <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">Int64</a></span>
         <span class="parametername">meterValue</span>
         <p><p>The value in to convert to a string</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.globalization.cultureinfo">CultureInfo</a></span>
+        <span class="parametername">culture</span>
+        <p><p>The optional CultureInfo to use for string formatting</p>
 </p>
       </td>
     </tr>
@@ -230,7 +238,7 @@ and rolls over at 99,999,999.99999 (8 significant plus 2 insignificant digits)</
   
   
   <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="Aristocrat.Monaco.Application.Contracts.MeterClassification.html#Aristocrat_Monaco_Application_Contracts_MeterClassification_CreateValueString_System_Int64_">MeterClassification.CreateValueString(Int64)</a></div>
+  <div><a class="xref" href="Aristocrat.Monaco.Application.Contracts.MeterClassification.html#Aristocrat_Monaco_Application_Contracts_MeterClassification_CreateValueString_System_Int64_System_Globalization_CultureInfo_">MeterClassification.CreateValueString(Int64, CultureInfo)</a></div>
   
   
   
@@ -243,7 +251,7 @@ and rolls over at 99,999,999.99999 (8 significant plus 2 insignificant digits)</
           </div>
           <div class="contribution-panel mobile-hide">
               <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_Contracts_CurrencyMeterClassification.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.Contracts.CurrencyMeterClassification%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
-              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CurrencyMeterClassification.cs/#L10" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Monaco.Application.Contracts/Metering/CurrencyMeterClassification.cs/#L11" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">

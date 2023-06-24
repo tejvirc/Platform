@@ -87,12 +87,38 @@
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><span class="xref">MachineSettings</span></div>
+    <div class="level1"><span class="xref">Aristocrat.MVVM.Model.BaseNotify</span></div>
+    <div class="level2"><a class="xref" href="../application/Aristocrat.Monaco.Application.UI.Settings.SettingsBase.html">SettingsBase</a></div>
+    <div class="level3"><span class="xref">MachineSettings</span></div>
   </div>
   
   
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.Settings.SettingsBase.html#Aristocrat_Monaco_Application_UI_Settings_SettingsBase_EventBus">SettingsBase.EventBus</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.Settings.SettingsBase.html#Aristocrat_Monaco_Application_UI_Settings_SettingsBase_OperatorLocalizer">SettingsBase.OperatorLocalizer</a>
+    </div>
+    <div>
+      <a class="xref" href="../application/Aristocrat.Monaco.Application.UI.Settings.SettingsBase.html#Aristocrat_Monaco_Application_UI_Settings_SettingsBase_RefreshAllDisplayableSettings_Aristocrat_Monaco_Application_Contracts_Localization_OperatorCultureChangedEvent_">SettingsBase.RefreshAllDisplayableSettings(OperatorCultureChangedEvent)</a>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.MVVM.Model.BaseNotify.RaisePropertyChanged(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.MVVM.Model.BaseNotify.RaisePropertyChanged(System.String[])</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.MVVM.Model.BaseNotify.SetProperty&lt;T&gt;(T, T, System.String)</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.MVVM.Model.BaseNotify.SetProperty&lt;T&gt;(T, T, System.String[])</span>
+    </div>
+    <div>
+      <span class="xref">Aristocrat.MVVM.Model.BaseNotify.PropertyChanged</span>
+    </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
     </div>
@@ -121,13 +147,49 @@
   
   <h5 id="Aristocrat_Monaco_Gaming_UI_Settings_MachineSettings_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class MachineSettings</code></pre>
+    <pre><code class="lang-csharp hljs">public class MachineSettings : SettingsBase, INotifyPropertyChanged</code></pre>
   </div>
   
   
   
   
   
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Settings_MachineSettings__ctor.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Settings.MachineSettings.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Settings/MachineSettings.cs/#L8" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_Settings_MachineSettings__ctor_" data-uid="Aristocrat.Monaco.Gaming.UI.Settings.MachineSettings.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_Settings_MachineSettings__ctor" data-uid="Aristocrat.Monaco.Gaming.UI.Settings.MachineSettings.#ctor"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_Settings_MachineSettings__ctor" class="expander" data-toggle="collapse">MachineSettings()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_Settings_MachineSettings__ctor" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public MachineSettings()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
   <h3 id="properties">Properties
   </h3>
   
@@ -136,7 +198,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Settings_MachineSettings_ApplyGameCategorySettings.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Settings.MachineSettings.ApplyGameCategorySettings%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Settings/MachineSettings.cs/#L8" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Settings/MachineSettings.cs/#L21" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_UI_Settings_MachineSettings_ApplyGameCategorySettings_" data-uid="Aristocrat.Monaco.Gaming.UI.Settings.MachineSettings.ApplyGameCategorySettings*"></a>
@@ -180,7 +242,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Settings_MachineSettings_GameRoundDurationMs.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Settings.MachineSettings.GameRoundDurationMs%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Settings/MachineSettings.cs/#L23" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Settings/MachineSettings.cs/#L36" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_UI_Settings_MachineSettings_GameRoundDurationMs_" data-uid="Aristocrat.Monaco.Gaming.UI.Settings.MachineSettings.GameRoundDurationMs*"></a>
@@ -224,7 +286,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Settings_MachineSettings_IdleText.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Settings.MachineSettings.IdleText%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Settings/MachineSettings.cs/#L13" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Settings/MachineSettings.cs/#L26" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_UI_Settings_MachineSettings_IdleText_" data-uid="Aristocrat.Monaco.Gaming.UI.Settings.MachineSettings.IdleText*"></a>
@@ -268,7 +330,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Settings_MachineSettings_IdleTimePeriod.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Settings.MachineSettings.IdleTimePeriod%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Settings/MachineSettings.cs/#L18" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Settings/MachineSettings.cs/#L31" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_UI_Settings_MachineSettings_IdleTimePeriod_" data-uid="Aristocrat.Monaco.Gaming.UI.Settings.MachineSettings.IdleTimePeriod*"></a>
@@ -312,7 +374,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Settings_MachineSettings_ReelStopConfigured.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Settings.MachineSettings.ReelStopConfigured%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Settings/MachineSettings.cs/#L28" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Settings/MachineSettings.cs/#L41" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_UI_Settings_MachineSettings_ReelStopConfigured_" data-uid="Aristocrat.Monaco.Gaming.UI.Settings.MachineSettings.ReelStopConfigured*"></a>
@@ -350,13 +412,49 @@
   
   
   </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Settings_MachineSettings_Finalize.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Settings.MachineSettings.Finalize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Settings/MachineSettings.cs/#L13" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_UI_Settings_MachineSettings_Finalize_" data-uid="Aristocrat.Monaco.Gaming.UI.Settings.MachineSettings.Finalize*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_UI_Settings_MachineSettings_Finalize" data-uid="Aristocrat.Monaco.Gaming.UI.Settings.MachineSettings.Finalize"><a href="#collapsible-Aristocrat_Monaco_Gaming_UI_Settings_MachineSettings_Finalize" class="expander" data-toggle="collapse">Finalize()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_UI_Settings_MachineSettings_Finalize" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void Finalize()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
   
   
 </article>
           </div>
           <div class="contribution-panel mobile-hide">
               <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_UI_Settings_MachineSettings.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.UI.Settings.MachineSettings%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
-              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Settings/MachineSettings.cs/#L3" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.UI/Settings/MachineSettings.cs/#L6" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">

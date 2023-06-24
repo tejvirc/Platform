@@ -232,7 +232,7 @@ public class AggregateDisplayMeter : DisplayMeter, IViewModel, INotifyPropertyCh
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_MeterPage_AggregateDisplayMeter__ctor_System_String_System_Collections_Generic_IList_Aristocrat_Monaco_Application_Contracts_IMeter__System_Boolean_Aristocrat_Monaco_Application_Contracts_MeterClassification_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.MeterPage.AggregateDisplayMeter.%23ctor(System.String%2CSystem.Collections.Generic.IList%7BAristocrat.Monaco.Application.Contracts.IMeter%7D%2CSystem.Boolean%2CAristocrat.Monaco.Application.Contracts.MeterClassification%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_MeterPage_AggregateDisplayMeter__ctor_System_String_System_Collections_Generic_IList_Aristocrat_Monaco_Application_Contracts_IMeter__System_Boolean_Aristocrat_Monaco_Application_Contracts_MeterClassification_System_Int32_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.MeterPage.AggregateDisplayMeter.%23ctor(System.String%2CSystem.Collections.Generic.IList%7BAristocrat.Monaco.Application.Contracts.IMeter%7D%2CSystem.Boolean%2CAristocrat.Monaco.Application.Contracts.MeterClassification%2CSystem.Int32%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/MeterPage/AggregateDisplayMeter.cs/#L20" title="View Source"><i class="fa fa-code"></i></a>
@@ -240,16 +240,16 @@ public class AggregateDisplayMeter : DisplayMeter, IViewModel, INotifyPropertyCh
   
   <a id="Aristocrat_Monaco_Application_UI_MeterPage_AggregateDisplayMeter__ctor_" data-uid="Aristocrat.Monaco.Application.UI.MeterPage.AggregateDisplayMeter.#ctor*"></a>
   
-  <h4 id="Aristocrat_Monaco_Application_UI_MeterPage_AggregateDisplayMeter__ctor_System_String_System_Collections_Generic_IList_Aristocrat_Monaco_Application_Contracts_IMeter__System_Boolean_Aristocrat_Monaco_Application_Contracts_MeterClassification_System_Int32_" data-uid="Aristocrat.Monaco.Application.UI.MeterPage.AggregateDisplayMeter.#ctor(System.String,System.Collections.Generic.IList{Aristocrat.Monaco.Application.Contracts.IMeter},System.Boolean,Aristocrat.Monaco.Application.Contracts.MeterClassification,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Application_UI_MeterPage_AggregateDisplayMeter__ctor_System_String_System_Collections_Generic_IList_Aristocrat_Monaco_Application_Contracts_IMeter__System_Boolean_Aristocrat_Monaco_Application_Contracts_MeterClassification_System_Int32_" class="expander" data-toggle="collapse">AggregateDisplayMeter(String, IList&lt;IMeter&gt;, Boolean, MeterClassification, Int32)</a></h4>
+  <h4 id="Aristocrat_Monaco_Application_UI_MeterPage_AggregateDisplayMeter__ctor_System_String_System_Collections_Generic_IList_Aristocrat_Monaco_Application_Contracts_IMeter__System_Boolean_Aristocrat_Monaco_Application_Contracts_MeterClassification_System_Int32_System_Boolean_" data-uid="Aristocrat.Monaco.Application.UI.MeterPage.AggregateDisplayMeter.#ctor(System.String,System.Collections.Generic.IList{Aristocrat.Monaco.Application.Contracts.IMeter},System.Boolean,Aristocrat.Monaco.Application.Contracts.MeterClassification,System.Int32,System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Application_UI_MeterPage_AggregateDisplayMeter__ctor_System_String_System_Collections_Generic_IList_Aristocrat_Monaco_Application_Contracts_IMeter__System_Boolean_Aristocrat_Monaco_Application_Contracts_MeterClassification_System_Int32_System_Boolean_" class="expander" data-toggle="collapse">AggregateDisplayMeter(String, IList&lt;IMeter&gt;, Boolean, MeterClassification, Int32, Boolean)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Application_UI_MeterPage_AggregateDisplayMeter__ctor_System_String_System_Collections_Generic_IList_Aristocrat_Monaco_Application_Contracts_IMeter__System_Boolean_Aristocrat_Monaco_Application_Contracts_MeterClassification_System_Int32_" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_MeterPage_AggregateDisplayMeter__ctor_System_String_System_Collections_Generic_IList_Aristocrat_Monaco_Application_Contracts_IMeter__System_Boolean_Aristocrat_Monaco_Application_Contracts_MeterClassification_System_Int32_System_Boolean_" class="collapse in">
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.Monaco.Application.UI.MeterPage.AggregateDisplayMeter.html">AggregateDisplayMeter</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public AggregateDisplayMeter(string meterName, IList&lt;IMeter&gt; meters, bool showLifetime, MeterClassification meterClassification, int order)</code></pre>
+    <pre><code class="lang-csharp hljs">public AggregateDisplayMeter(string meterName, IList&lt;IMeter&gt; meters, bool showLifetime, MeterClassification meterClassification, int order, bool useOperatorCultureForCurrency = false)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -286,6 +286,13 @@ public class AggregateDisplayMeter : DisplayMeter, IViewModel, INotifyPropertyCh
       <td>
         <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a></span>
         <span class="parametername">order</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">useOperatorCultureForCurrency</span>
         <p>
       </td>
     </tr>

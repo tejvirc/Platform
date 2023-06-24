@@ -208,24 +208,24 @@ public class DisplayMeter : BaseViewModel, IViewModel, INotifyPropertyChanged, I
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter__ctor_System_String_Aristocrat_Monaco_Application_Contracts_IMeter_System_Boolean_System_Int32_System_Boolean_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.%23ctor(System.String%2CAristocrat.Monaco.Application.Contracts.IMeter%2CSystem.Boolean%2CSystem.Int32%2CSystem.Boolean%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter__ctor_System_String_Aristocrat_Monaco_Application_Contracts_IMeter_System_Boolean_System_Int32_System_Boolean_System_Boolean_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.%23ctor(System.String%2CAristocrat.Monaco.Application.Contracts.IMeter%2CSystem.Boolean%2CSystem.Int32%2CSystem.Boolean%2CSystem.Boolean%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/MeterPage/DisplayMeter.cs/#L28" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/MeterPage/DisplayMeter.cs/#L31" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter__ctor_" data-uid="Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.#ctor*"></a>
   
-  <h4 id="Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter__ctor_System_String_Aristocrat_Monaco_Application_Contracts_IMeter_System_Boolean_System_Int32_System_Boolean_System_Boolean_" data-uid="Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.#ctor(System.String,Aristocrat.Monaco.Application.Contracts.IMeter,System.Boolean,System.Int32,System.Boolean,System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter__ctor_System_String_Aristocrat_Monaco_Application_Contracts_IMeter_System_Boolean_System_Int32_System_Boolean_System_Boolean_" class="expander" data-toggle="collapse">DisplayMeter(String, IMeter, Boolean, Int32, Boolean, Boolean)</a></h4>
+  <h4 id="Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter__ctor_System_String_Aristocrat_Monaco_Application_Contracts_IMeter_System_Boolean_System_Int32_System_Boolean_System_Boolean_System_Boolean_" data-uid="Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.#ctor(System.String,Aristocrat.Monaco.Application.Contracts.IMeter,System.Boolean,System.Int32,System.Boolean,System.Boolean,System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter__ctor_System_String_Aristocrat_Monaco_Application_Contracts_IMeter_System_Boolean_System_Int32_System_Boolean_System_Boolean_System_Boolean_" class="expander" data-toggle="collapse">DisplayMeter(String, IMeter, Boolean, Int32, Boolean, Boolean, Boolean)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter__ctor_System_String_Aristocrat_Monaco_Application_Contracts_IMeter_System_Boolean_System_Int32_System_Boolean_System_Boolean_" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter__ctor_System_String_Aristocrat_Monaco_Application_Contracts_IMeter_System_Boolean_System_Int32_System_Boolean_System_Boolean_System_Boolean_" class="collapse in">
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.html">DisplayMeter</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public DisplayMeter(string meterName, IMeter meter, bool showLifetime, int order = 0, bool displayPeriod = true, bool showNotApplicable = false)</code></pre>
+    <pre><code class="lang-csharp hljs">public DisplayMeter(string meterName, IMeter meter, bool showLifetime, int order = 0, bool displayPeriod = true, bool showNotApplicable = false, bool useOperatorCultureForCurrency = false)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -278,6 +278,13 @@ public class DisplayMeter : BaseViewModel, IViewModel, INotifyPropertyChanged, I
 </p>
       </td>
     </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">useOperatorCultureForCurrency</span>
+        <p>
+      </td>
+    </tr>
   </table>
   
   
@@ -299,7 +306,7 @@ public class DisplayMeter : BaseViewModel, IViewModel, INotifyPropertyChanged, I
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter_Count.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.Count%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/MeterPage/DisplayMeter.cs/#L58" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/MeterPage/DisplayMeter.cs/#L69" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter_Count_" data-uid="Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.Count*"></a>
@@ -344,7 +351,7 @@ property change for binding</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter_DisplayPeriod.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.DisplayPeriod%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/MeterPage/DisplayMeter.cs/#L68" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/MeterPage/DisplayMeter.cs/#L79" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter_DisplayPeriod_" data-uid="Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.DisplayPeriod*"></a>
@@ -388,7 +395,7 @@ property change for binding</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter_HideRowForPeriod.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.HideRowForPeriod%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/MeterPage/DisplayMeter.cs/#L78" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/MeterPage/DisplayMeter.cs/#L89" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter_HideRowForPeriod_" data-uid="Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.HideRowForPeriod*"></a>
@@ -432,7 +439,7 @@ property change for binding</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter_Meter.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.Meter%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/MeterPage/DisplayMeter.cs/#L46" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/MeterPage/DisplayMeter.cs/#L57" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter_Meter_" data-uid="Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.Meter*"></a>
@@ -476,7 +483,7 @@ property change for binding</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter_Name.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/MeterPage/DisplayMeter.cs/#L51" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/MeterPage/DisplayMeter.cs/#L62" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter_Name_" data-uid="Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.Name*"></a>
@@ -520,7 +527,7 @@ property change for binding</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter_Order.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.Order%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/MeterPage/DisplayMeter.cs/#L63" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/MeterPage/DisplayMeter.cs/#L74" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter_Order_" data-uid="Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.Order*"></a>
@@ -564,7 +571,7 @@ property change for binding</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter_ShowLifetime.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.ShowLifetime%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/MeterPage/DisplayMeter.cs/#L101" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/MeterPage/DisplayMeter.cs/#L118" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter_ShowLifetime_" data-uid="Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.ShowLifetime*"></a>
@@ -608,7 +615,7 @@ property change for binding</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter_ShowNotApplicable.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.ShowNotApplicable%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/MeterPage/DisplayMeter.cs/#L73" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/MeterPage/DisplayMeter.cs/#L84" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter_ShowNotApplicable_" data-uid="Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.ShowNotApplicable*"></a>
@@ -652,7 +659,7 @@ property change for binding</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter_Value.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.Value%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/MeterPage/DisplayMeter.cs/#L83" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/MeterPage/DisplayMeter.cs/#L94" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter_Value_" data-uid="Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.Value*"></a>
@@ -698,7 +705,7 @@ property change for binding</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter_Dispose.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/MeterPage/DisplayMeter.cs/#L125" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/MeterPage/DisplayMeter.cs/#L142" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter_Dispose_" data-uid="Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.Dispose*"></a>
@@ -734,7 +741,7 @@ property change for binding</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/MeterPage/DisplayMeter.cs/#L134" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/MeterPage/DisplayMeter.cs/#L151" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter_Dispose_" data-uid="Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.Dispose*"></a>
@@ -779,7 +786,7 @@ property change for binding</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter_OnMeterChangedEvent.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.OnMeterChangedEvent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/MeterPage/DisplayMeter.cs/#L111" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/MeterPage/DisplayMeter.cs/#L128" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter_OnMeterChangedEvent_" data-uid="Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.OnMeterChangedEvent*"></a>
@@ -813,7 +820,7 @@ property change for binding</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter_OnMeterChangedEvent_System_Object_Aristocrat_Monaco_Application_Contracts_MeterChangedEventArgs_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.OnMeterChangedEvent(System.Object%2CAristocrat.Monaco.Application.Contracts.MeterChangedEventArgs)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/MeterPage/DisplayMeter.cs/#L119" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/MeterPage/DisplayMeter.cs/#L136" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter_OnMeterChangedEvent_" data-uid="Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter.OnMeterChangedEvent*"></a>
@@ -865,7 +872,7 @@ property change for binding</p>
           </div>
           <div class="contribution-panel mobile-hide">
               <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_MeterPage_DisplayMeter.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.MeterPage.DisplayMeter%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
-              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/MeterPage/DisplayMeter.cs/#L13" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/MeterPage/DisplayMeter.cs/#L14" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">

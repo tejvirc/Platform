@@ -288,24 +288,24 @@ voucher redemption.
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_VoucherDevice__ctor_Aristocrat_G2S_Client_Devices_IDeviceObserver_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.VoucherDevice.%23ctor(Aristocrat.G2S.Client.Devices.IDeviceObserver)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_VoucherDevice__ctor_Aristocrat_G2S_Client_Devices_IDeviceObserver_Aristocrat_G2S_Client_IEventLift_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.VoucherDevice.%23ctor(Aristocrat.G2S.Client.Devices.IDeviceObserver%2CAristocrat.G2S.Client.IEventLift)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L158" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L161" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice__ctor_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.#ctor*"></a>
   
-  <h4 id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice__ctor_Aristocrat_G2S_Client_Devices_IDeviceObserver_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.#ctor(Aristocrat.G2S.Client.Devices.IDeviceObserver)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_VoucherDevice__ctor_Aristocrat_G2S_Client_Devices_IDeviceObserver_" class="expander" data-toggle="collapse">VoucherDevice(IDeviceObserver)</a></h4>
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice__ctor_Aristocrat_G2S_Client_Devices_IDeviceObserver_Aristocrat_G2S_Client_IEventLift_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.#ctor(Aristocrat.G2S.Client.Devices.IDeviceObserver,Aristocrat.G2S.Client.IEventLift)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_VoucherDevice__ctor_Aristocrat_G2S_Client_Devices_IDeviceObserver_Aristocrat_G2S_Client_IEventLift_" class="expander" data-toggle="collapse">VoucherDevice(IDeviceObserver, IEventLift)</a></h4>
   
-  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_VoucherDevice__ctor_Aristocrat_G2S_Client_Devices_IDeviceObserver_" class="collapse in">
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_VoucherDevice__ctor_Aristocrat_G2S_Client_Devices_IDeviceObserver_Aristocrat_G2S_Client_IEventLift_" class="collapse in">
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.html">VoucherDevice</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public VoucherDevice(IDeviceObserver deviceStateObserver)</code></pre>
+    <pre><code class="lang-csharp hljs">public VoucherDevice(IDeviceObserver deviceStateObserver, IEventLift eventLift)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -315,6 +315,14 @@ voucher redemption.
         <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.Devices.IDeviceObserver.html">IDeviceObserver</a></span>
         <span class="parametername">deviceStateObserver</span>
         <p><p>An IDeviceStateObserver instance.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.IEventLift.html">IEventLift</a></span>
+        <span class="parametername">eventLift</span>
+        <p><p>An IEventLift instance.</p>
 </p>
       </td>
     </tr>
@@ -1158,7 +1166,7 @@ voucher redemption.
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_VoucherDevice_CashOutToVoucher.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.VoucherDevice.CashOutToVoucher%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L213" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L217" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice_CashOutToVoucher_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.CashOutToVoucher*"></a>
@@ -1204,7 +1212,7 @@ voucher redemption.
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_VoucherDevice_CombineCashableOut.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.VoucherDevice.CombineCashableOut%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L171" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L175" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice_CombineCashableOut_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.CombineCashableOut*"></a>
@@ -1250,7 +1258,7 @@ voucher redemption.
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_VoucherDevice_ExpireCashPromo.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.VoucherDevice.ExpireCashPromo%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L192" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L196" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice_ExpireCashPromo_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.ExpireCashPromo*"></a>
@@ -1296,7 +1304,7 @@ voucher redemption.
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_VoucherDevice_ExpireNonCash.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.VoucherDevice.ExpireNonCash%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L198" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L202" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice_ExpireNonCash_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.ExpireNonCash*"></a>
@@ -1342,7 +1350,7 @@ voucher redemption.
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_VoucherDevice_IdReaderId.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.VoucherDevice.IdReaderId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L168" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L172" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice_IdReaderId_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.IdReaderId*"></a>
@@ -1388,7 +1396,7 @@ voucher redemption.
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_VoucherDevice_MaxOffLinePayOut.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.VoucherDevice.MaxOffLinePayOut%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L207" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L211" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice_MaxOffLinePayOut_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.MaxOffLinePayOut*"></a>
@@ -1434,7 +1442,7 @@ voucher redemption.
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_VoucherDevice_MaxOnLinePayOut.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.VoucherDevice.MaxOnLinePayOut%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L204" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L208" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice_MaxOnLinePayOut_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.MaxOnLinePayOut*"></a>
@@ -1480,7 +1488,7 @@ voucher redemption.
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_VoucherDevice_MaxValueIds.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.VoucherDevice.MaxValueIds%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L174" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L178" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice_MaxValueIds_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.MaxValueIds*"></a>
@@ -1526,7 +1534,7 @@ voucher redemption.
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_VoucherDevice_MinLevelValueIds.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.VoucherDevice.MinLevelValueIds%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L177" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L181" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice_MinLevelValueIds_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.MinLevelValueIds*"></a>
@@ -1572,7 +1580,7 @@ voucher redemption.
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_VoucherDevice_MinLogEntries.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.VoucherDevice.MinLogEntries%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L216" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L220" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice_MinLogEntries_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.MinLogEntries*"></a>
@@ -1618,7 +1626,7 @@ voucher redemption.
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_VoucherDevice_PrintExpirationCashPromo.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.VoucherDevice.PrintExpirationCashPromo%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L195" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L199" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice_PrintExpirationCashPromo_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.PrintExpirationCashPromo*"></a>
@@ -1664,7 +1672,7 @@ voucher redemption.
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_VoucherDevice_PrintExpirationNonCash.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.VoucherDevice.PrintExpirationNonCash%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L201" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L205" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice_PrintExpirationNonCash_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.PrintExpirationNonCash*"></a>
@@ -1710,7 +1718,7 @@ voucher redemption.
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_VoucherDevice_PrintNonCashOffLine.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.VoucherDevice.PrintNonCashOffLine%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L210" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L214" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice_PrintNonCashOffLine_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.PrintNonCashOffLine*"></a>
@@ -1756,7 +1764,7 @@ voucher redemption.
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_VoucherDevice_PrintOffLine.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.VoucherDevice.PrintOffLine%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L189" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L193" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice_PrintOffLine_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.PrintOffLine*"></a>
@@ -1802,7 +1810,7 @@ voucher redemption.
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_VoucherDevice_RestartStatus.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.VoucherDevice.RestartStatus%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L219" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L223" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice_RestartStatus_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.RestartStatus*"></a>
@@ -1848,7 +1856,7 @@ voucher redemption.
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_VoucherDevice_TimeToLive.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.VoucherDevice.TimeToLive%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L165" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L169" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice_TimeToLive_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.TimeToLive*"></a>
@@ -1894,7 +1902,7 @@ voucher redemption.
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_VoucherDevice_ValueIdListLife.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.VoucherDevice.ValueIdListLife%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L183" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L187" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice_ValueIdListLife_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.ValueIdListLife*"></a>
@@ -1940,7 +1948,7 @@ voucher redemption.
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_VoucherDevice_ValueIdListRefresh.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.VoucherDevice.ValueIdListRefresh%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L180" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L184" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice_ValueIdListRefresh_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.ValueIdListRefresh*"></a>
@@ -1986,7 +1994,7 @@ voucher redemption.
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_VoucherDevice_VoucherHoldTime.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.VoucherDevice.VoucherHoldTime%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L186" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L190" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice_VoucherHoldTime_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.VoucherHoldTime*"></a>
@@ -2034,7 +2042,7 @@ voucher redemption.
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_VoucherDevice_ApplyOptions_Aristocrat_G2S_Client_Devices_DeviceOptionConfigValues_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.VoucherDevice.ApplyOptions(Aristocrat.G2S.Client.Devices.DeviceOptionConfigValues)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L234" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L238" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice_ApplyOptions_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.ApplyOptions*"></a>
@@ -2084,7 +2092,7 @@ voucher redemption.
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_VoucherDevice_Close.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.VoucherDevice.Close%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L228" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L232" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice_Close_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.Close*"></a>
@@ -2123,7 +2131,7 @@ voucher redemption.
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_VoucherDevice_ConfigureDefaults.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.VoucherDevice.ConfigureDefaults%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L836" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L847" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice_ConfigureDefaults_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.ConfigureDefaults*"></a>
@@ -2160,7 +2168,7 @@ voucher redemption.
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_VoucherDevice_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.VoucherDevice.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L802" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L813" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice_Dispose_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.Dispose*"></a>
@@ -2209,7 +2217,7 @@ resources.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_VoucherDevice_GetValidationData_System_Int32_System_Boolean_System_Int64_System_Action_Aristocrat_G2S_Protocol_v21_validationData_Aristocrat_G2S_Client_Devices_IVoucherDevice__.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.VoucherDevice.GetValidationData(System.Int32%2CSystem.Boolean%2CSystem.Int64%2CSystem.Action%7BAristocrat.G2S.Protocol.v21.validationData%2CAristocrat.G2S.Client.Devices.IVoucherDevice%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L750" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L761" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice_GetValidationData_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.GetValidationData*"></a>
@@ -2291,7 +2299,7 @@ resources.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_VoucherDevice_Open_Aristocrat_G2S_Client_IStartupContext_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.VoucherDevice.Open(Aristocrat.G2S.Client.IStartupContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L222" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L226" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice_Open_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.Open*"></a>
@@ -2341,7 +2349,7 @@ resources.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_VoucherDevice_RegisterEvents.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.VoucherDevice.RegisterEvents%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L364" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L371" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice_RegisterEvents_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.RegisterEvents*"></a>
@@ -2380,7 +2388,7 @@ resources.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_VoucherDevice_SendCommitVoucher_Aristocrat_G2S_Protocol_v21_commitVoucher_Aristocrat_G2S_Protocol_v21_voucherLog_System_Action_Aristocrat_G2S_Protocol_v21_commitVoucher__System_Func_Aristocrat_G2S_Client_Devices_IVoucherDevice_Aristocrat_G2S_Protocol_v21_meterList__System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.VoucherDevice.SendCommitVoucher(Aristocrat.G2S.Protocol.v21.commitVoucher%2CAristocrat.G2S.Protocol.v21.voucherLog%2CSystem.Action%7BAristocrat.G2S.Protocol.v21.commitVoucher%7D%2CSystem.Func%7BAristocrat.G2S.Client.Devices.IVoucherDevice%2CAristocrat.G2S.Protocol.v21.meterList%7D%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L599" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L608" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice_SendCommitVoucher_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.SendCommitVoucher*"></a>
@@ -2469,7 +2477,7 @@ resources.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_VoucherDevice_SendIssueVoucher_Aristocrat_G2S_Protocol_v21_issueVoucher_System_Func_System_Int64_System_Boolean__System_Action_System_Int64__.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.VoucherDevice.SendIssueVoucher(Aristocrat.G2S.Protocol.v21.issueVoucher%2CSystem.Func%7BSystem.Int64%2CSystem.Boolean%7D%2CSystem.Action%7BSystem.Int64%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L388" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L395" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice_SendIssueVoucher_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.SendIssueVoucher*"></a>
@@ -2543,7 +2551,7 @@ resources.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_VoucherDevice_SendRedeemVoucher_Aristocrat_G2S_Protocol_v21_redeemVoucher_Aristocrat_G2S_Protocol_v21_voucherLog_System_Boolean_System_DateTime_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.VoucherDevice.SendRedeemVoucher(Aristocrat.G2S.Protocol.v21.redeemVoucher%2CAristocrat.G2S.Protocol.v21.voucherLog%2CSystem.Boolean%2CSystem.DateTime)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L472" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/VoucherDevice.cs/#L479" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_VoucherDevice_SendRedeemVoucher_" data-uid="Aristocrat.G2S.Client.Devices.v21.VoucherDevice.SendRedeemVoucher*"></a>
