@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Fluxor.Extensions;
 
 using System;
-using System.Net.NetworkInformation;
 using System.Reactive.Linq;
 
 public class MemorizedSelector<TState, TSelector1, TResult> : ISelector<TState, TResult>

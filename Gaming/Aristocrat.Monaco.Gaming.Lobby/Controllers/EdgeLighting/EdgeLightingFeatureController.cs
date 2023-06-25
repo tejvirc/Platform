@@ -1,16 +1,15 @@
-﻿namespace Aristocrat.Monaco.Gaming.Lobby.Services;
+﻿namespace Aristocrat.Monaco.Gaming.Lobby.Controllers.EdgeLighting;
 
 using Aristocrat.Monaco.Application.Contracts.EdgeLight;
 using Aristocrat.Monaco.Gaming.Contracts.Models;
+using Aristocrat.Monaco.Gaming.Lobby.Store;
 using global::Fluxor;
-using Kernel;
-using Store;
 
-public class EdgeLightingController
+public class EdgeLightingFeatureController
 {
     private readonly IStore _store;
 
-    public EdgeLightingController(IStore store)
+    public EdgeLightingFeatureController(IStore store)
     {
         _store = store;
 

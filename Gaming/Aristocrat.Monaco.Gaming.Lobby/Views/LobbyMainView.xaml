@@ -23,7 +23,16 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <mah:MetroContentControl Grid.Row="0" regions:RegionManager.Region="{x:Static views:RegionNames.Chooser}" />
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <mah:MetroContentControl Grid.Row="0" regions:RegionManager.Region="{x:Static views:RegionNames.Chooser}" />
+            <mah:MetroContentControl Grid.Row="1" regions:RegionManager.Region="{x:Static views:RegionNames.IdleText}" />
+        </Grid>
+
         <mah:MetroContentControl Grid.Row="1" regions:RegionManager.Region="{x:Static views:RegionNames.Upi}" />
         <mah:MetroContentControl Grid.Row="2" regions:RegionManager.Region="{x:Static views:RegionNames.PaidMeter}" />
         <mah:MetroContentControl Grid.Row="3" regions:RegionManager.Region="{x:Static views:RegionNames.Banner}" />

@@ -33,4 +33,6 @@ public static class RegionNames
     public const string MediaTop = "MediaTop";
 
     public const string ReplayNav = "ReplayNav";
+
+    public const string IdleText = "IdleText";
 }

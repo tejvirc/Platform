@@ -1,6 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Services;
 
-public class IButtonDeckController
+public class LobbyFeature
 {
     
 }

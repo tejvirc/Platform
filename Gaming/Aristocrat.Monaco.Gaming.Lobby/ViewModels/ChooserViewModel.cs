@@ -10,7 +10,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Controls;
 using Models;
-using Aristocrat.Fluxor.Extensions;
+using Fluxor.Extensions;
 using static Store.Lobby.LobbySelectors;
 
 public class ChooserViewModel : ObservableObject

@@ -1,10 +1,10 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby;
 
 using System;
+using System.Threading.Tasks;
 using global::Fluxor;
-using global::Fluxor.Selectors;
+using Fluxor.Extensions;
 using Microsoft.Extensions.DependencyInjection;
-using Services;
 using SimpleInjector;
 
 public static class FluxorExtensions
@@ -13,7 +13,21 @@ public static class FluxorExtensions
     {
         var services = new ServiceCollection();
 
-        services.AddFluxor(options => options.ScanAssemblies(typeof(FluxorExtensions).Assembly));
+        services.AddFluxor(
+            options =>
+            {
+                options
+                    .ScanAssemblies(typeof(FluxorExtensions).Assembly)
+                    .UseRemoteReduxDevTools(
+                        devToolsOptions =>
+                        {
+                            devToolsOptions.RemoteReduxDevToolsUri = new Uri("https://localhost:7232/clientapphub");
+                            devToolsOptions.RemoteReduxDevToolsSessionId = "71637a4c-43b7-4ab0-a658-15b85e3c037f";
+                            devToolsOptions.Name = "Monaco Lobby";
+                            //devToolsOptions.EnableStackTrace();
+                        });
+            }
+        );
 
         foreach (var d in services)
         {
@@ -49,12 +63,10 @@ public static class FluxorExtensions
         return container;
     }
 
-    public static ISelectorSubscription<TResult> SubscribeSelector<TFeatureState, TResult>(
-        this IStore store,
-        Func<TFeatureState, TResult> projector)
+    public static Task DispatchAsync(this IDispatcher dispatcher, object action)
     {
-        var state = SelectorFactory.CreateFeatureSelector<TFeatureState>();
-        var selectItems = SelectorFactory.CreateSelector(state, projector);
-        return store.SubscribeSelector(selectItems);
+        dispatcher.Dispatch(action);
+
+        return Task.CompletedTask;
     }
 }
