@@ -156,7 +156,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public const long WagerLimitsMaxTotalWager = 500;
+        public const long WagerLimitsMaxTotalWager = 0;
 
         /// <summary>
         ///     Properties key for FreeSpinClearWinMeter

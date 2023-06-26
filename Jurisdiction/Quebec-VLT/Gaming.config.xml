@@ -41,7 +41,7 @@ as follows:
   <FreeSpin ClearWinMeter="true"/>
   <Win Destination="winAndCredit"/>
   <DisplayGamePayMessage Use="true" Format="currency"/>
-  <WagerLimits Use="true" MaxTotalWager="500" />
+  <WagerLimits Use="true" MaxTotalWager="250" />
   <VolumeLevel ShowInHelpScreen="false" />
   <Service Use="true" />
   <Clock UseHInDisplay="true" />
