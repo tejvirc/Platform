@@ -392,6 +392,8 @@
             else
             {
                 // No currency is configured
+                valueCultureInfo = SetNoCurrencyFormat(currencyCode);
+
                 TicketCurrencyExtensions.SetCultureInfo(
                     entry.Locale,
                     valueCultureInfo,
