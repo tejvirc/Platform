@@ -67,7 +67,7 @@
             {
                 // if no BNA, all pre-specified currencies should be supported
                 if (!Enum.IsDefined(typeof(ISOCurrencyCode), currencyInfo.Key.ToUpper()) ||
-                    noteAcceptor != null && noteAcceptor.GetSupportedNotes(currencyInfo.Key).Count == 0)
+                    (noteAcceptor != null && noteAcceptor.GetSupportedNotes(currencyInfo.Key).Count == 0))
                 {
                     // not a supported currency code
                     continue;
@@ -129,7 +129,6 @@
                 set.Add(currency);
             }
 
-            
             return set;
         }
 

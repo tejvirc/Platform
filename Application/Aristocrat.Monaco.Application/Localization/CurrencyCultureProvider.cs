@@ -618,7 +618,7 @@
                     SetFormatOverrides(overrides, culture, ref minorUnitSymbol);
 
                     if (configuredCurrency?.Format?.id == overrides.id ||
-                        configuredCurrency?.Format == null && MatchCulture(currencyDescription, culture, currencyCode))
+                        (configuredCurrency?.Format == null && MatchCulture(currencyDescription, culture, currencyCode)))
                      {
                         cultureInfo = culture;
                         return overrides;
