@@ -12,8 +12,7 @@
                                common:DialogParticipation.Register="{Binding}"
                                d:DesignWidth="1280"
                                d:DesignHeight="720"
-                               d:DataContext="{d:DesignInstance {x:Type viewModels:ButtonPageViewModel}}"
-                               loc:Localizer.For="Operator">
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:ButtonPageViewModel}}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

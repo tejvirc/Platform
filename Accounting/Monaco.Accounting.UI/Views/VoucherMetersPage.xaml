@@ -9,8 +9,7 @@
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Accounting.UI.ViewModels"
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
                                mc:Ignorable="d"
-                               d:DataContext="{d:DesignInstance {x:Type viewModels:VoucherMetersPageViewModel}}"
-                               loc:Localizer.For="Operator">
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:VoucherMetersPageViewModel}}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -30,6 +29,8 @@
                            AutomationProperties.AutomationId="RowDefinition3_D1FE7F80" />
             <RowDefinition Height="Auto"
                            AutomationProperties.AutomationId="RowDefinition4_D1FE7F80" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition5_D1FE7F80" />
         </Grid.RowDefinitions>
         <Border HorizontalAlignment="Left"
                 Visibility="{Binding IsVoucherInVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"

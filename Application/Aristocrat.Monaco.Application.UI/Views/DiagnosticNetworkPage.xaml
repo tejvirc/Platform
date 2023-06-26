@@ -9,9 +9,7 @@
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:common="http://monaco.aristocrat.com/common"
-                               Background="Transparent"
-                               d:DataContext="{d:DesignInstance {x:Type viewModels:DiagnosticNetworkPageViewModel}}"
-                               loc:Localizer.For="Operator">
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:DiagnosticNetworkPageViewModel}}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

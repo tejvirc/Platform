@@ -8,8 +8,7 @@
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
-                               d:DataContext="{d:DesignInstance {x:Type viewModels:DenomMetersPageViewModel}, IsDesignTimeCreatable=True}"
-                               loc:Localizer.For="Operator">
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:DenomMetersPageViewModel}, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

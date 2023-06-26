@@ -11,10 +11,8 @@
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
-                               Background="Transparent"
                                mc:Ignorable="d"
-                               d:DataContext="{d:DesignInstance {x:Type viewModels:MetersMainPageViewModel}}"
-                               loc:Localizer.For="Operator">
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:MetersMainPageViewModel}}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

@@ -13,9 +13,7 @@
                                xmlns:helpers="http://monaco.aristocrat.com/common"
                                xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
                                mc:Ignorable="d"
-                               Background="Transparent"
-                               d:DataContext="{d:DesignInstance {x:Type viewModels:ProgressiveSetupViewModel}, IsDesignTimeCreatable=True}"
-                               loc:Localizer.For="Operator">
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:ProgressiveSetupViewModel}, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

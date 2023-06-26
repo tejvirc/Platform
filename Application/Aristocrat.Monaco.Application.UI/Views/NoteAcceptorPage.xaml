@@ -13,10 +13,8 @@
                                xmlns:helpers="http://monaco.aristocrat.com/common"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance viewModels:NoteAcceptorViewModel, IsDesignTimeCreatable=False}"
-                               Background="Transparent"
                                common:DialogParticipation.Register="{Binding}"
-                               Loaded="NoteAcceptorPage_Loaded"
-                               loc:Localizer.For="Operator">
+                               Loaded="NoteAcceptorPage_Loaded">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

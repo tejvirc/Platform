@@ -11,7 +11,6 @@
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
-                               loc:Localizer.For="Operator"
                                d:DataContext="{d:DesignInstance viewModels:MachineSettingsPageViewModel}">
     <UserControl.Resources>
         <ResourceDictionary>

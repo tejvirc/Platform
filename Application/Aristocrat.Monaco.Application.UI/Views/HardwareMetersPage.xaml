@@ -8,7 +8,6 @@
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:common="http://monaco.aristocrat.com/common"
-                               Background="Transparent"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:HardwareMetersPageViewModel}}"
                                common:DialogParticipation.Register="{Binding}">

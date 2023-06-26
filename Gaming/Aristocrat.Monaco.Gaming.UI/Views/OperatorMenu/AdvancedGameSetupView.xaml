@@ -13,10 +13,8 @@
                                xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
                                xmlns:behaviors="clr-namespace:Aristocrat.Monaco.Gaming.UI.Behaviors"
                                mc:Ignorable="d"
-                               Background="Transparent"
                                d:DataContext="{d:DesignInstance viewModels:AdvancedGameSetupViewModel, IsDesignTimeCreatable=True}"
-                               common:DialogParticipation.Register="{Binding}"
-                               loc:Localizer.For="Operator">
+                               common:DialogParticipation.Register="{Binding}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

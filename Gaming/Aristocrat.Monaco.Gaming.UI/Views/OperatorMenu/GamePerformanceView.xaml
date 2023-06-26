@@ -15,9 +15,7 @@
                                x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.GamePerformanceView"
                                dialog:DialogParticipation.Register="{Binding}"
                                mc:Ignorable="d"
-                               Background="Transparent"
-                               d:DataContext="{d:DesignInstance {x:Type viewModels:GamePerformanceViewModel}, IsDesignTimeCreatable=True}"
-                               loc:Localizer.For="Operator">
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:GamePerformanceViewModel}, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
