@@ -12,21 +12,25 @@
     using Configuration;
     using Gaming.Contracts;
     using Gaming.Contracts.Configuration;
+    using Kernel;
     using log4net;
 
     public class BingoPaytableInstaller : IBingoPaytableInstaller
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
+        private readonly IEventBus _eventBus;
         private readonly IServerPaytableInstaller _serverPaytableInstaller;
         private readonly IGameProvider _gameProvider;
         private readonly IConfigurationProvider _restrictionProvider;
 
         public BingoPaytableInstaller(
+            IEventBus eventBus,
             IServerPaytableInstaller serverPaytableInstaller,
             IGameProvider gameProvider,
             IConfigurationProvider restrictionProvider)
         {
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _serverPaytableInstaller = serverPaytableInstaller ?? throw new ArgumentNullException(nameof(serverPaytableInstaller));
             _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _restrictionProvider = restrictionProvider ?? throw new ArgumentNullException(nameof(restrictionProvider));
@@ -58,6 +62,8 @@
                     yield return setting.ToGameConfiguration(gameDetail);
                 }
             }
+
+            _eventBus.Publish(new PaytablesInstalledEvent());
         }
 
         public IEnumerable<BingoGameConfiguration> UpdateConfiguration(IEnumerable<ServerGameConfiguration> gameConfigurations)

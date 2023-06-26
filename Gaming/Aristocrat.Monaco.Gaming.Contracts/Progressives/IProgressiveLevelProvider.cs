@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts.Progressives
 {
+    using System;
     using System.Collections.Generic;
     using PackageManifest.Models;
 
@@ -9,6 +10,11 @@
     /// </summary>
     public interface IProgressiveLevelProvider
     {
+        /// <summary>
+        ///     Registers a <see cref="ProgressivesLoaded" /> event handler.
+        /// </summary>
+        event EventHandler<ProgressivesLoadedEventArgs> ProgressivesLoaded;
+
         /// <summary>
         ///     Loads progressive levels from the progressive detail data when games are loaded.
         /// </summary>

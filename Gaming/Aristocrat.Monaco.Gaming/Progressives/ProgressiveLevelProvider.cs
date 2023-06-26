@@ -44,6 +44,9 @@
             _sharedSapProvider = sharedSapProvider ?? throw new ArgumentNullException(nameof(sharedSapProvider));
         }
 
+        /// <inheritdoc />
+        public event EventHandler<ProgressivesLoadedEventArgs> ProgressivesLoaded;
+
         public void LoadProgressiveLevels(IGameDetail gameDetails, IEnumerable<ProgressiveDetail> progressiveDetails)
         {
             if (gameDetails == null)
@@ -56,6 +59,7 @@
                 throw new ArgumentNullException(nameof(progressiveDetails));
             }
 
+            var progressiveLevels = new List<ProgressiveLevel>();
             lock (_sync)
             {
                 _sharedSapProvider.AutoGenerateAssociatedLevels(gameDetails, progressiveDetails);
@@ -64,17 +68,22 @@
                 {
                     var denominations = ToDenoms(gameDetails, detail.Denomination.ToList()).ToList();
 
-                    _levels.AddRange(
-                        ToProgressiveLevels(
+                    var levels = ToProgressiveLevels(
                             gameDetails.Id,
                             denominations,
                             gameDetails.BetOptionList,
                             detail,
                             gameDetails.CentralAllowed
                                 ? gameDetails.CdsGameInfos.Select(x => new WagerInfos(x.Id, x.MaxWagerCredits))
-                                : gameDetails.WagerCategories.Select(x => new WagerInfos(x.Id, x.MaxWagerCredits))));
+                                : gameDetails.WagerCategories.Select(x => new WagerInfos(x.Id, x.MaxWagerCredits)))
+                        .ToList();
+                    progressiveLevels.AddRange(levels);
+                    _levels.AddRange(levels);
                 }
             }
+
+            // Invoke progressives loaded
+            ProgressivesLoaded?.Invoke(this, new ProgressivesLoadedEventArgs(progressiveLevels));
         }
 
         public IReadOnlyCollection<ProgressiveLevel> GetProgressiveLevels()

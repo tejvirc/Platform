@@ -183,10 +183,10 @@
             _eventBus.Subscribe<ProgressiveHostOfflineEvent>(this, Handle);
             _multiProtocolEventBusRegistry.SubscribeProgressiveEvent<LinkedProgressiveHitEvent>(ProtocolNames.Bingo, this);
             _eventBus.Subscribe<PendingLinkedProgressivesHitEvent>(this, Handle);
-            _eventBus.Subscribe<ProtocolInitialized>(this, Handle);
+            _eventBus.Subscribe<PaytablesInstalledEvent>(this, Handle);
         }
 
-        private void Handle(ProtocolInitialized evt)
+        private void Handle(PaytablesInstalledEvent evt)
         {
             Configure();
         }
