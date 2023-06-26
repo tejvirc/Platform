@@ -4859,6 +4859,9 @@ Do you really want to do partial reset????</value>
 	  <value>??At Most??</value>
   </data>
   <data name="VerifyingSignaturesText" xml:space="preserve">
-	  <value>???Verifying Signatures???</value>
+    <value>???Verifying Signatures???</value>
+  </data>
+  <data name="SoftwareLicense" xml:space="preserve">
+    <value>??Software Licence??</value>
   </data>
 </root>
