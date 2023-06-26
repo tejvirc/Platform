@@ -22,9 +22,9 @@
         private readonly ICashOutAmountCalculator _cashOutAmountCalculator;
         public PlayerBankCoamDecorator(IPlayerBank decorated, IHandCountService handCountService, ICashOutAmountCalculator cashOutAmountCalculator)
         {
-            _decorated = decorated;
-            _handCountService = handCountService;
-            _cashOutAmountCalculator = cashOutAmountCalculator;
+            _decorated = decorated ?? throw new ArgumentNullException(nameof(decorated));
+            _handCountService = handCountService ?? throw new ArgumentNullException(nameof(handCountService));
+            _cashOutAmountCalculator = cashOutAmountCalculator ?? throw new ArgumentNullException(nameof(cashOutAmountCalculator));
         }
         public long Balance => _decorated.Balance;
 

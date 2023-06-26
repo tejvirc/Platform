@@ -86,7 +86,7 @@
         private ObservableCollection<EditableGameProfile> _games = new();
         private long _maxBetLimit;
 
-        private string _saveWarningText = string.Empty; 
+        private string _saveWarningText = string.Empty;
 
         public AdvancedGameSetupViewModel()
         {
@@ -254,10 +254,10 @@
             {
                 lock (_gamesMappingLock)
                 {
-                if (!_gamesMapping.ContainsKey(value) || !_gamesMapping[value].Any())
-                {
-                    return;
-                }
+                    if (!_gamesMapping.ContainsKey(value) || !_gamesMapping[value].Any())
+                    {
+                        return;
+                    }
                 }
 
                 SetProperty(ref _selectedGameType, value);
@@ -623,7 +623,7 @@
 
             lock (_gamesMappingLock)
             {
-            _gamesMapping.Clear();
+                _gamesMapping.Clear();
             }
 
             ClearEditableGames();
@@ -1031,15 +1031,15 @@
                 _editableGames.Add(groupKey.ThemeName, gameProfile);
                 lock (_gamesMappingLock)
                 {
-                if (_gamesMapping.ContainsKey(groupKey.GameType))
-                {
-                    _gamesMapping[groupKey.GameType].Add(gameProfile);
+                    if (_gamesMapping.ContainsKey(groupKey.GameType))
+                    {
+                        _gamesMapping[groupKey.GameType].Add(gameProfile);
+                    }
+                    else
+                    {
+                        _gamesMapping.Add(groupKey.GameType, new List<EditableGameProfile> { gameProfile });
+                    }
                 }
-                else
-                {
-                    _gamesMapping.Add(groupKey.GameType, new List<EditableGameProfile> { gameProfile });
-                }
-            }
             }
 
             if (!string.IsNullOrEmpty(editableConfig.SubGameType))
@@ -1472,10 +1472,10 @@
         {
             lock (_gamesMappingLock)
             {
-            Games = new ObservableCollection<EditableGameProfile>(
-                _gamesMapping.TryGetValue(SelectedGameType, out var gameProfiles)
-                    ? gameProfiles.OrderBy(g => g.ThemeName)
-                    : Enumerable.Empty<EditableGameProfile>());
+                Games = new ObservableCollection<EditableGameProfile>(
+                    _gamesMapping.TryGetValue(SelectedGameType, out var gameProfiles)
+                        ? gameProfiles.OrderBy(g => g.ThemeName)
+                        : Enumerable.Empty<EditableGameProfile>());
             }
 
             SelectedGame = Games.FirstOrDefault();
@@ -1951,10 +1951,10 @@
         {
             lock (_gamesMappingLock)
             {
-            foreach (var key in _gamesMapping.Keys.ToList())
-            {
-                _gamesMapping[key].ForEach(AutoEnableGame);
-            }
+                foreach (var key in _gamesMapping.Keys.ToList())
+                {
+                    _gamesMapping[key].ForEach(AutoEnableGame);
+                }
 
                 var configs = GameConfigurations?.ToList();
                 if (HasNoErrors && _editableGameConfigByGameTypeMapping.Keys.Count == 1 && configs != null && configs.Count == 1)
@@ -1964,7 +1964,7 @@
                     {
                         // If there is only one game auto-enabled by protocol with one variation, auto-save the configuration
                         ConfirmSaveChanges(true);
-        }
+                    }
                 }
             }
         }

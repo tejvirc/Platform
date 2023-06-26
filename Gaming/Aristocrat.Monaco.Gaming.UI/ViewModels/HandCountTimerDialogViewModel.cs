@@ -58,17 +58,16 @@
         /// <param name="eventBus">Event bus</param>
         /// <param name="systemDisableManager">System disable Manager</param>
         /// <param name="handCountService"> HandCount service</param>
-        /// <param name="buttonDeckFilter"> Button Deck filter</param>
         /// <param name="bank"> Bank</param>
         public HandCountTimerDialogViewModel(IEventBus eventBus,
                                              ISystemDisableManager systemDisableManager,
                                              IHandCountService handCountService,
                                              IBank bank)
         {
-            _eventBus = eventBus;
-            _systemDisableManager = systemDisableManager;
-            _handCountService = handCountService;
-            _bank = bank;
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+            _systemDisableManager = systemDisableManager ?? throw new ArgumentNullException(nameof(systemDisableManager));
+            _handCountService = handCountService ?? throw new ArgumentNullException(nameof(handCountService));
+            _bank = bank ?? throw new ArgumentNullException(nameof(bank));
 
             _resetTimer = new DispatcherTimerAdapter() { Interval = oneSecondElapsed };
             TimeLeft = TimeSpan.FromSeconds(initialTimeSeconds);
@@ -138,9 +137,9 @@
 
             if (disposing)
             {
-                _eventBus?.UnsubscribeAll(this);
-                _resetTimer?.Stop();
-                ServiceManager.GetInstance().GetService<IEventBus>().UnsubscribeAll(this);
+                _eventBus.UnsubscribeAll(this);
+                _resetTimer.Tick -= resetTimer_Tick;
+                _resetTimer.Stop();
             }
             _disposed = true;
         }

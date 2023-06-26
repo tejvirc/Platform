@@ -298,7 +298,7 @@
             var transaction = RecordBillTransaction(amount);
 
             UpdateLaundryLimit(transaction);
-            
+
             var note = new Note()
             {
                 Value = debugNoteEvent.Denomination,
@@ -401,7 +401,6 @@
                     VerifyBalance(_transaction.NewAccountBalance, creditType);
 
                     ResetState();
-                    
 
                     return true;
                 }
@@ -419,7 +418,7 @@
         private void UpdateMeters(AccountType type, long amount)
         {
             var meters = ServiceManager.GetInstance().TryGetService<IMeterManager>();
-            
+
             switch (type)
             {
                 case AccountType.Cashable:
@@ -642,7 +641,7 @@
             }
 
             var wagerMatchEnabled = ServiceManager.GetInstance().GetService<IPropertiesManager>()
-            .GetValue(GamingConstants.ShowProgramEnableResetCredits, true);
+                .GetValue(GamingConstants.ShowProgramEnableResetCredits, true);
             if (!wagerMatchEnabled)
             {
                 return;

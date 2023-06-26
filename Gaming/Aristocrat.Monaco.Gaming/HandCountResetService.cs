@@ -35,7 +35,7 @@
         private bool _isPlayable;
         private DateTime _lastAction = DateTime.UtcNow;
 
-        private Timer _timer;
+        private readonly Timer _timer;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="HandCountResetService" /> class.
@@ -138,10 +138,9 @@
             if (disposing)
             {
                 _eventBus.UnsubscribeAll(this);
+                _timer.Elapsed -= IdleTimerTicker;
                 _timer.Dispose();
             }
-
-            _timer = null;
 
             _disposed = true;
         }
@@ -239,7 +238,7 @@
             _eventBus.Subscribe<BankBalanceChangedEvent>(this, _ => HandleActivity());
             _eventBus.Subscribe<GameIdleEvent>(this, _ => HandleActivity());
             _eventBus.Subscribe<GameSelectedEvent>(this, _ => HandleActivity());
-            
+
             _eventBus.Subscribe<UserInteractionEvent>(this, _ => _lastAction = DateTime.UtcNow);
             _eventBus.Subscribe<DownEvent>(this, _ => _lastAction = DateTime.UtcNow);
 

@@ -26,7 +26,7 @@
         private MaxWinDialog _maxWinDialog;
         private MaxWinDialogViewModel _maxWinDialogViewModel;
         private bool _disposed;
-        private IEventBus _eventBus;
+        private readonly IEventBus _eventBus;
         private readonly IPropertiesManager _properties;
         private readonly IBank _bank;
 
@@ -36,28 +36,30 @@
         private TimeSpan MaxWinDialogDispalyTime = TimeSpan.FromSeconds(MaxWinDialogDisplaySeconds);
         private const double ResetTimerIntervalSeconds = 1.0;
         private TimeSpan oneSecondElapsed = TimeSpan.FromSeconds(ResetTimerIntervalSeconds);
-        private Timer _maxWinShowTimer;
+        private readonly Timer _maxWinShowTimer;
 
         private TimeSpan TimeLeft { get; set; }
 
         public string Name { get; } = "MaxWinOverlayService";
 
         public ICollection<Type> ServiceTypes => new[] { typeof(IService), typeof(IMaxWinOverlayService) };
-    
 
-        public bool ShowingMaxWinWarning { get; set;}
+        public bool ShowingMaxWinWarning { get; set; }
 
-        public MaxWinOverlayService() : this(ServiceManager.GetInstance().GetService<IEventBus>(),
-            ServiceManager.GetInstance().TryGetService<IPropertiesManager>(),
-            ServiceManager.GetInstance().TryGetService<IBank>())
-        { }
+        public MaxWinOverlayService()
+            : this(
+                ServiceManager.GetInstance().GetService<IEventBus>(),
+                ServiceManager.GetInstance().TryGetService<IPropertiesManager>(),
+                ServiceManager.GetInstance().TryGetService<IBank>())
+        {
+        }
 
         public MaxWinOverlayService(IEventBus eventBus, IPropertiesManager properties, IBank bank)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
-            
+
             _maxWinShowTimer = new Timer(oneSecondElapsed.TotalMilliseconds);
             _maxWinShowTimer.Elapsed += resetTimer_Tick;
 
@@ -79,11 +81,11 @@
 
         private void Handle(SystemEnabledEvent obj)
         {
-            if(TimeLeft.TotalSeconds > 0)
+            if (TimeLeft.TotalSeconds > 0)
             {
                 ShowMaxWinDialog();
                 _maxWinShowTimer.Start();
-            } 
+            }
         }
 
         private void Handle(SystemDisabledEvent obj)
@@ -94,7 +96,7 @@
 
         private void Handle(DownEvent obj)
         {
-           if(ShowingMaxWinWarning)
+            if (ShowingMaxWinWarning)
             {
                 _maxWinShowTimer.Stop();
                 CloseMaxWinDialog();
@@ -162,7 +164,8 @@
 
             if (disposing)
             {
-                _maxWinShowTimer?.Stop();
+                _maxWinShowTimer.Elapsed -= resetTimer_Tick;
+                _maxWinShowTimer.Stop();
                 _eventBus.UnsubscribeAll(this);
             }
 

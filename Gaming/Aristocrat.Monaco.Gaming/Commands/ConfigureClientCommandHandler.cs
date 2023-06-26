@@ -121,7 +121,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 { "/Runtime/Localization/Currency&decimalDigits", CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencyDecimalDigits.ToString() },
                 { "/Runtime/Localization/Currency&decimalSeparator", CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencyDecimalSeparator },
                 { "/Runtime/Localization/Currency&groupSeparator", CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencyGroupSeparator },
-                { "/Runtime/Localization/Currency&DenominationDisplayUnit", CurrencyExtensions.Currency.DenomDisplayUnit.ToString() }, 
+                { "/Runtime/Localization/Currency&DenominationDisplayUnit", CurrencyExtensions.Currency.DenomDisplayUnit.ToString() },
                 { "/Runtime/Audio&activeLevel", maxVolumeLevel.ToString(CultureInfo.InvariantCulture) },
                 { "/Runtime/Account&balance", _playerBank.Credits.ToString() },
                 { "/Runtime/Hardware/HasUsbButtonDeck", _hardwareHelper.CheckForUsbButtonDeckHardware().ToString() },
@@ -237,7 +237,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
                     _properties.GetValue(GamingConstants.PlayOnFromPresentWins, false) ? "true" : "false");
             }
 
-            if(_properties.GetValue(GamingConstants.RetainLastRoundResult, false))
+            if (_properties.GetValue(GamingConstants.RetainLastRoundResult, false))
             {
                 parameters.Add("/Runtime/RetainLastRoundResult&optional", "false");
                 parameters.Add("/Runtime/RetainLastRoundResult", "true");
@@ -352,7 +352,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
             if (_handCountProvider.HandCountServiceEnabled)
             {
                 parameters.Add("/Runtime/DisplayHandCount", "true");
-                parameters.Add("/Runtime/HandCountValue",_handCountProvider.HandCount.ToString());
+                parameters.Add("/Runtime/HandCountValue", _handCountProvider.HandCount.ToString());
                 parameters.Add("/Runtime/MinResidualCreditInCents", _properties.GetValue(AccountingConstants.HandCountMinimumRequiredCredits, AccountingConstants.HandCountDefaultRequiredCredits).MillicentsToCents().ToString());
             }
 
@@ -372,7 +372,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
 
         private static string GetGameStartMethodString(GameStartMethodOption startMethod) =>
             startMethod switch
-                {
+            {
                 GameStartMethodOption.None => "",
                 GameStartMethodOption.LineOrReel => "Line",
                 GameStartMethodOption.LineReelOrMaxBet => "Line, MaxBet",
@@ -393,8 +393,8 @@ namespace Aristocrat.Monaco.Gaming.Commands
                     GameStartConfigurableMethod.LineOrReel => "Line",
                     _ => string.Empty
                 };
-                }
             }
+        }
 
         private static string GetContinuePlayModeString(PlayMode playMode) =>
             playMode switch
@@ -430,20 +430,20 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 return;
             }
 
-                foreach (var parameter in _gameDiagnostics.Context.GetParameters())
-                {
-                    parameters[parameter.Key] = parameter.Value;
-                }
+            foreach (var parameter in _gameDiagnostics.Context.GetParameters())
+            {
+                parameters[parameter.Key] = parameter.Value;
             }
+        }
 
         private void AddRecoveryData(IDictionary<string, string> parameters, byte[] data)
-            {
+        {
             _gameHistory.LogRecoveryData(data, "[RECOVERY POINT] <-");
             if (_properties.GetValue(GamingConstants.UseSlowRecovery, false))
-                {
+            {
                 parameters.Add("/Runtime/Recovery", "true");
                 parameters.Add("/Runtime/Recovery&realtime", "true");
-                }
+            }
 
             if (data is { Length: > 0 })
             {
@@ -461,7 +461,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 }
 
                 return;
-        }
+            }
 
             var gameCategorySetting = _gameCategoryService.SelectedGameCategorySetting;
             parameters["/Runtime/Flags&AutoPlay"] = gameCategorySetting.AutoPlay.ToString();
@@ -477,7 +477,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 gameCategorySetting.DealSpeed.ToString(CultureInfo.InvariantCulture);
             parameters["/Runtime/GamePreferences/BackgroundColor"] =
                 gameCategorySetting.BackgroundColor ?? string.Empty;
-    }
+        }
 
         private void SetButtonLayout(IDictionary<string, string> parameters)
         {
@@ -523,7 +523,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
             parameters["/Runtime/PhysicalButtons/TakeWin&optional"] = _properties.GetValue(
                 GamingConstants.ButtonLayoutPhysicalButtonTakeWinOptional,
                 false).ToString();
-}
+        }
 
         private void SetButtonBehavior(IDictionary<string, string> parameters)
         {

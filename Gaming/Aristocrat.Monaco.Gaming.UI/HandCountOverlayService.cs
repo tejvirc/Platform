@@ -49,7 +49,6 @@
                 ServiceManager.GetInstance().TryGetService<IPropertiesManager>()
             )
         {
-
         }
 
         public HandCountOverlayService(IEventBus eventBus, IHandCountService handCountService, IPropertiesManager properties)
@@ -71,9 +70,9 @@
                     _cashoutDialog = new CashoutDialog(_cashoutDialogViewModel);
                 });
 
-            _eventBus.Subscribe<HandCountResetTimerElapsedEvent>(this, HandleEvent);
-            _eventBus.Subscribe<HandCountResetTimerStartedEvent>(this, HandleEvent);
-            _eventBus.Subscribe<HandCountResetTimerCancelledEvent>(this, HandleEvent);
+            _eventBus.Subscribe<HandCountResetTimerElapsedEvent>(this, Handle);
+            _eventBus.Subscribe<HandCountResetTimerStartedEvent>(this, Handle);
+            _eventBus.Subscribe<HandCountResetTimerCancelledEvent>(this, Handle);
             _eventBus.Subscribe<CashoutAmountPlayerConfirmationRequestedEvent>(this, Handle);
             _eventBus.Subscribe<CashoutAmountPlayerConfirmationReceivedEvent>(this, Handle);
             _eventBus.Subscribe<CashoutCancelledEvent>(this, Handle);
@@ -95,17 +94,17 @@
             _eventBus.Publish(new ViewInjectionEvent(_cashoutDialog, DisplayRole.Main, ViewInjectionEvent.ViewAction.Add));
         }
 
-        private void HandleEvent(HandCountResetTimerCancelledEvent obj)
+        private void Handle(HandCountResetTimerCancelledEvent obj)
         {
             HandCountResetTimerCancelled();
         }
 
-        private void HandleEvent(HandCountResetTimerStartedEvent e)
+        private void Handle(HandCountResetTimerStartedEvent e)
         {
             HandCountResetTimerStarted();
         }
 
-        private void HandleEvent(HandCountResetTimerElapsedEvent e)
+        private void Handle(HandCountResetTimerElapsedEvent e)
         {
             Logger.Debug("HandCountResetTimerElapsed");
             _handCountService.ResetHandCount(e.ResidualAmount);
