@@ -32,7 +32,7 @@
         {
             _serviceManager = ServiceManager.GetInstance();
             _currencyCultureProvider = currencyCultureProvider ?? throw new ArgumentNullException(nameof(currencyCultureProvider));
-            _noteAcceptor = noteAcceptor ?? throw new ArgumentNullException(nameof(noteAcceptor));
+            _noteAcceptor = noteAcceptor;
 
             if (SerialNumber.EditedValue == "0")
             {

@@ -65,7 +65,9 @@
             var currencies = CurrencyLoader.GetCurrenciesFromWindows(logger);
             foreach(var currencyInfo in currencies)
             {
-                if (!Enum.IsDefined(typeof(ISOCurrencyCode), currencyInfo.Key.ToUpper()))
+                // if no BNA, all pre-specified currencies should be supported
+                if (!Enum.IsDefined(typeof(ISOCurrencyCode), currencyInfo.Key.ToUpper()) ||
+                    noteAcceptor != null && noteAcceptor.GetSupportedNotes(currencyInfo.Key).Count == 0)
                 {
                     // not a supported currency code
                     continue;
