@@ -122,9 +122,7 @@
                 if (meterManager.IsMeterProvided(meterNode.Name))
                 {
                     var meter = meterManager.GetMeter(meterNode.Name);
-                    string meterDisplayName = Localizer.For(CultureFor.Operator).GetString(
-                            meterNode.DisplayNameKey,
-                            _ => meterDisplayName = meterNode.DisplayName);
+                    string meterDisplayName = GetDisplayNameFromMeterNode(meterNode);
 
                     Meters.Add(
                         new DisplayMeter(
@@ -235,6 +233,20 @@
                 RaisePropertyChanged(nameof(MetersLeftColumn));
                 RaisePropertyChanged(nameof(MetersRightColumn));
             });
+        }
+
+        protected string GetDisplayNameFromMeterNode(MeterNode meterNode)
+        {
+            string meterDisplayName = Localizer.For(CultureFor.Operator).GetString(
+                meterNode.DisplayNameKey,
+                _ => { });
+
+            if (string.IsNullOrEmpty(meterDisplayName))
+            {
+                meterDisplayName = meterNode.DisplayName;
+            }
+
+            return meterDisplayName;
         }
     }
 }
