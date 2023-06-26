@@ -25,19 +25,21 @@
     {
         private readonly IGameProvider _gameProvider;
         private readonly IDialogService _dialogService;
-        private string _range;
-        private int _enabledGamesCount;
         private readonly double _denomMultiplier;
-        private ObservableCollection<ReadOnlyGameConfiguration> _enabledGames;
-        private string _maxBetLimit;
-        private IReadOnlyCollection<IGameDetail> _enabledGamesList;
+        private readonly IRtpService _rtpService;
         private readonly List<IGameDetail> _filteredGamesList;
+        private IReadOnlyCollection<IGameDetail> _enabledGamesList;
+        private ObservableCollection<ReadOnlyGameConfiguration> _enabledGames;
+        private int _enabledGamesCount;
+        private string _range;
+        private string _maxBetLimit;
         private string _hashesComponentId;
         private const string HashesFileExtension = ".hashes";
 
         public GamesSummaryViewModel()
         {
             _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
+            _rtpService = ServiceManager.GetInstance().GetService<IRtpService>();
 
             ShowRtpBreakdownDialogCommand = new ActionCommand<ReadOnlyGameConfiguration>(ShowRtpBreakdownDialog);
 
@@ -144,7 +146,11 @@
 
             var configs = _filteredGamesList.SelectMany(
                 g => g.ActiveDenominations,
-                (game, denom) => new ReadOnlyGameConfiguration(game, denom, _denomMultiplier));
+                (game, denom) =>
+                {
+                    var rtpBreakdown = _rtpService.GetTotalRtpBreakdown(game);
+                    return new ReadOnlyGameConfiguration(rtpBreakdown, game, denom, _denomMultiplier);
+                });
 
             EnabledGames = new ObservableCollection<ReadOnlyGameConfiguration>(configs);
 

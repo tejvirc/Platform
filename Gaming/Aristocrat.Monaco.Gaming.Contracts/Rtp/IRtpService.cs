@@ -36,55 +36,75 @@
     ///                 Validating that RTP information meets specific requirements set by regulators and business
     ///                 management.
     ///             </item>
-    ///            
     ///         </list>
     ///     </para>
     /// </remarks>
     public interface IRtpService
     {
         /// <summary>
-        ///     Gets the average RTP percent over a set of games (variations) and their WagerCategories.
+        ///     Gets an object containing a breakdown of the Total RTP of a game's WagerCategory, into its individual
+        ///     contributions.
         /// </summary>
-        /// <param name="games">The games.</param>
-        decimal GetAverageRtp(IEnumerable<IGameProfile> games);
+        /// <remarks>
+        ///     <para>
+        ///         Important information about RTP validation:
+        ///         <list type="bullet">
+        ///             <item>
+        ///                 This method validates all RTP contributions represented in the breakdown and verifies progressive RTP
+        ///                 with the progressive provider. Validation results can be reviewed by checking the
+        ///                 <see cref="RtpBreakdown.IsValid" /> and <see cref="RtpBreakdown.FailureFlags" /> properties of the
+        ///                 <see cref="RtpBreakdown" /> object that's returned.
+        ///             </item>
+        ///             <item>
+        ///                 This service does not disable games with invalid RTP or modify the game models in any way. Invalid
+        ///                 games will need to be handled externally, most likely disabled or taken out of play, according to the
+        ///                 business logic. The reason for this service not disabling games, is to help maintain a stateless
+        ///                 service with no destructive actions.
+        ///             </item>
+        ///         </list>
+        ///     </para>
+        /// </remarks>
+        /// <param name="game">The <see cref="IGameDetail" /> to retrieve the RTP breakdown from.</param>
+        /// <param name="wagerCategoryId">The id of the wager category used to populate the <see cref="RtpBreakdown" /> fields.</param>
+        /// <returns>A breakdown of the Total RTP for the given game, into its individual contributions.</returns>
+        RtpBreakdown GetRtpBreakdownForWagerCategory(IGameDetail game, string wagerCategoryId);
 
         /// <summary>
-        ///     Gets the average RTP percent for a game (variation) and its WagerCategories.
-        /// </summary>
-        /// <param name="game">The game.</param>
-        decimal GetAverageRtp(IGameProfile game);
-
-        /// <summary>
-        ///     Gets the Total RTP for a set of games (variations). Total RTP is an RTP Range composed of the lowest minimum and highest maximum RTP
-        ///     of all RTP values of all given games (variations).
-        /// </summary>
-        /// <param name="games">The games used to calculate Total RTP with.</param>
-        RtpRange GetTotalRtp(IEnumerable<IGameProfile> games);
-
-        /// <summary>
-        ///     Gets the total RTP for a single game (variation). Total RTP is an RTP Range composed of the lowest minimum and highest maximum RTP
-        ///     of all RTP values of all given games (variations).
-        /// </summary>
-        /// <param name="game">The game used to calculate Total RTP with.</param>
-        RtpRange GetTotalRtp(IGameProfile game);
-
-        /// <summary>
-        ///     Gets a Totaled RTP contribution breakdown for all Wager categories in the provided game (variation).
+        ///     Gets a Totaled RTP contribution breakdown for all Wager categories for the provided game (variation).
         /// </summary>
         /// <param name="game">The game (variations) for which to breakdown.</param>
-        RtpBreakdown GetTotalRtpBreakdown(IGameProfile game);
+        RtpBreakdown GetTotalRtpBreakdown(IGameDetail game);
 
         /// <summary>
-        ///     Validates that all RTP values, contained in a game, conforms to jurisdictional and
-        ///     business rules.
+        ///     Gets the Total RTP across a set of game variations. Total RTP is an RTP Range composed of the lowest minimum and
+        ///     highest maximum RTP of all RTP values in the given games (variations).
         /// </summary>
-        /// <param name="game">The game to run RTP validation on.</param>
-        RtpValidationReport ValidateGame(IGameProfile game);
+        /// <param name="game">The game to calculate Total RTP.</param>
+        RtpRange GetTotalRtp(IGameDetail game);
+
+        /// <summary>
+        ///     Gets the Total RTP across a set of game variations. Total RTP is an RTP Range composed of the lowest minimum and
+        ///     highest maximum RTP of all RTP values in the given games (variations).
+        /// </summary>
+        /// <param name="games">The games to calculate Total RTP over.</param>
+        RtpRange GetTotalRtp(IEnumerable<IGameDetail> games);
+
+        /// <summary>
+        ///     Gets the average RTP percent over the given set of games (variations) and their WagerCategories.
+        /// </summary>
+        /// <param name="game">The game to calculate Average RTP.</param>
+        decimal GetAverageRtp(IGameDetail game);
+
+        /// <summary>
+        ///     Gets the average RTP percent over the given set of games (variations) and their WagerCategories.
+        /// </summary>
+        /// <param name="games">The list of games to calculate Average RTP.</param>
+        decimal GetAverageRtp(IEnumerable<IGameDetail> games);
 
         /// <summary>
         ///     Gets the jurisdiction RTP rules for a specific GameType.
         /// </summary>
-        /// <param name="gameType">GameType.</param>
+        /// <param name="gameType">The GameType to get the rules for</param>
         RtpRules GetJurisdictionalRtpRules(GameType gameType);
     }
 }

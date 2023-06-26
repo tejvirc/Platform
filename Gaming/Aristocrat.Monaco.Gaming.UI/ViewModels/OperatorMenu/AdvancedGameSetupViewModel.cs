@@ -26,6 +26,7 @@
     using Contracts.Models;
     using Contracts.Progressives;
     using Contracts.Progressives.SharedSap;
+    using Contracts.Rtp;
     using Kernel;
     using Localization.Properties;
     using Microsoft.Expression.Interactivity.Core;
@@ -47,6 +48,7 @@
         private readonly IConfigurationSettingsManager _settingsManager;
         private readonly IGameService _gameService;
         private readonly IDigitalRights _digitalRights;
+        private readonly IRtpService _rtpService;
 
         private readonly double _denomMultiplier;
         private readonly bool _enableRtpScaling;
@@ -85,7 +87,7 @@
         private ObservableCollection<EditableGameProfile> _games = new();
         private long _maxBetLimit;
 
-        private string _saveWarningText = string.Empty; 
+        private string _saveWarningText = string.Empty;
 
         public AdvancedGameSetupViewModel()
         {
@@ -124,6 +126,9 @@
             _gameConfiguration = ServiceManager.GetInstance().GetService<IGameConfigurationProvider>();
             _restrictionProvider = ServiceManager.GetInstance().GetService<IConfigurationProvider>();
 
+            var container = ServiceManager.GetInstance().GetService<IContainerService>().Container;
+            _rtpService = container.GetInstance<IRtpService>();
+
             _digitalRights = ServiceManager.GetInstance().GetService<IDigitalRights>();
 
             _cachedConfigProgressiveLevels = new List<IViewableProgressiveLevel>();
@@ -149,10 +154,8 @@
 
         public ActionCommand<object> ExportCommand { get; }
 
-        // ReSharper disable once UnusedAutoPropertyAccessor.Global - used by xaml
         public ICommand ProgressiveSetupCommand { get; }
 
-        // ReSharper disable once UnusedAutoPropertyAccessor.Global - used by xaml
         public ICommand ProgressiveViewCommand { get; }
 
         public string ReadOnlyStatus
@@ -1805,7 +1808,10 @@
                 return;
             }
 
+            var rtpBreakdown = _rtpService.GetTotalRtpBreakdown(gameConfig.Game);
+
             var readOnlyConfig = new ReadOnlyGameConfiguration(
+                rtpBreakdown,
                 gameConfig.Game,
                 gameConfig.ResolveDenomination().Value,
                 _denomMultiplier,
@@ -1844,7 +1850,10 @@
 
             var denomValue = gameConfig.ResolveDenomination().Value;
 
+            var rtpBreakdown = _rtpService.GetTotalRtpBreakdown(gameConfig.Game);
+
             var readOnlyConfig = new ReadOnlyGameConfiguration(
+                rtpBreakdown,
                 gameConfig.Game,
                 denomValue,
                 _denomMultiplier,

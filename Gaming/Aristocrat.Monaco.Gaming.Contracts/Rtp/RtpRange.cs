@@ -39,7 +39,7 @@
         /// </summary>
         /// <param name="rtpRanges">The RTP ranges to be totaled together.</param>
         /// <returns>A new <see cref="RtpRange"/> which is the total of a many ranges.</returns>
-        public static RtpRange Total(params RtpRange[] rtpRanges) => rtpRanges.Aggregate((r1, r2) => r1.TotalWith(r2));
+        public static RtpRange Total(params RtpRange[] rtpRanges) => rtpRanges.Aggregate((r1, r2) => r1.GetTotalWith(r2));
 
         /// <summary>
         ///     Totals this RTP range with another RTP range.
@@ -53,7 +53,7 @@
         /// </remarks>
         /// <param name="otherRtp">The other RTP range.</param>
         /// <returns>A new <see cref="RtpRange"/> with the most minimum and maximum values of the two given ranges.</returns>
-        public RtpRange TotalWith(RtpRange otherRtp)
+        public RtpRange GetTotalWith(RtpRange otherRtp)
         {
             if (otherRtp.Equals(Zero))
             {

@@ -187,7 +187,7 @@ namespace Aristocrat.Monaco.Gaming.Contracts
         int? MaximumProgressivePerDenom { get; }
 
         /// <summary>
-        ///     Gets the reference Id.  This can be used by the platform to
+        ///     Gets the reference Id. This can be used by the platform to
         ///     identify the reference variation used when the game is loaded
         /// </summary>
         string ReferenceId { get; }
@@ -233,15 +233,25 @@ namespace Aristocrat.Monaco.Gaming.Contracts
         public bool NextToMaxBetTopAwardMultiplier { get; set; }
 
         /// <summary>
-        ///     Gets a value indicating whether this game includes extended RTP information. After the release of GDK 5.0, games are
-        ///     required to supply additional information about how the Total RTP is broken down.
+        ///     Gets a value indicating whether this game includes extended RTP information. After the release of GDK 5.0, games
+        ///     are required to supply additional information about how the Total RTP is broken down.
         /// </summary>
         bool HasExtendedRtpInformation { get; }
 
         /// <summary>
-        ///     Gets a value indicating whether the RTP information from the game matches the same RTP on the Linked Progressive
-        ///     Host. If LinkedProgressiveVerification is disabled, this property will default to false.
+        ///     This is a boolean flag which if set to true, means that the game has undergone verification with the remote
+        ///     LinkedProgressive host, that all RTP values are matching between host and platform. The result of the verification
+        ///     can then be read from <see cref="LinkedProgressiveVerificationResult" />
         /// </summary>
-        bool LinkedProgressiveVerified { get; }
+        bool LinkedProgressiveVerificationComplete { get; }
+
+        /// <summary>
+        ///     If this flag is true, all LinkedProgressive RTP values have been verified with the LinkedProgressive host as
+        ///     matching what the RTP values host has. If this false, then the RTP values between the host and the game are not
+        ///     matching, which means something has gone wrong. This property will remain null until verification is complete. The
+        ///     <see cref="LinkedProgressiveVerificationComplete" /> flag can be checked to find out if verification is complete or
+        ///     not.
+        /// </summary>
+        bool? LinkedProgressiveVerificationResult { get; }
     }
 }

@@ -93,7 +93,9 @@
             }
         }
 
-        public bool LinkedProgressiveVerified { get; set; }
+        public bool LinkedProgressiveVerificationComplete => LinkedProgressiveVerificationResult is not null;
+
+        public bool? LinkedProgressiveVerificationResult { get; }
 
         public IEnumerable<IWinLevel> WinLevels { get; set; }
 

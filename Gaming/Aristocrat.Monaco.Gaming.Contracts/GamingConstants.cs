@@ -1248,7 +1248,8 @@ namespace Aristocrat.Monaco.Gaming.Contracts
         public const string UseSlowRecovery = "UseSlowRecovery";
 
         /// <summary>
-        ///     encapsulate Player Information Display options
+        ///     Key for the LinkedProgressiveVerificationEnabled property in Property Manager. If set to true, the platform will
+        ///     verify all Linked Progressive RTP values for all games that have Linked Progressives.
         /// </summary>
         public static string LinkedProgressiveVerificationEnabled = "LinkedProgressiveVerificationEnabled";
 

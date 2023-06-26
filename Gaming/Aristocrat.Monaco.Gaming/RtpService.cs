@@ -3,19 +3,27 @@ namespace Aristocrat.Monaco.Gaming
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Aristocrat.Monaco.Gaming.Contracts.Progressives;
+    using Progressives;
     using Contracts;
     using Contracts.Models;
     using Contracts.Rtp;
     using Kernel;
+    using ProgressiveRtp = Contracts.Progressives.ProgressiveRtp;
 
     public class RtpService : IRtpService, IService
     {
         private readonly IPropertiesManager _properties;
+        private readonly IProgressiveConfigurationProvider _progressiveConfigProvider;
         private readonly Dictionary<GameType, RtpRules> _rules = new ();
 
-        public RtpService(IPropertiesManager propertiesManager)
+        public RtpService(
+            IPropertiesManager propertiesManager,
+            IProgressiveConfigurationProvider progressiveConfigProvider)
         {
             _properties = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
+            _progressiveConfigProvider = progressiveConfigProvider ??
+                                         throw new ArgumentNullException(nameof(progressiveConfigProvider));
         }
 
         public string Name => GetType().ToString();
@@ -24,147 +32,241 @@ namespace Aristocrat.Monaco.Gaming
 
         public void Initialize()
         {
-            LoadRtpRules();
+            LoadRtpCalculationRules();
         }
 
-        public decimal GetAverageRtp(IGameProfile game)
+        public decimal GetAverageRtp(IGameDetail game) => GetAverageRtp(new[] { game });
+
+        public decimal GetAverageRtp(IEnumerable<IGameDetail> games)
         {
-            var wagerCategoryRtpAverages = new List<decimal>();
-
-            foreach (var wagerCategory in game.WagerCategories)
-            {
-                var wagerCategoryTotalRtp = GetRtpBreakdown(game.GameType, wagerCategory).TotalRtp;
-
-                wagerCategoryRtpAverages.Add((wagerCategoryTotalRtp.Minimum + wagerCategoryTotalRtp.Maximum) / 2.0m);
-            }
-
-            return wagerCategoryRtpAverages.Average();
-        }
-
-        public decimal GetAverageRtp(IEnumerable<IGameProfile> games)
-        {
-            var rtpAveragesOfGames = games.Select(GetAverageRtp);
+            var rtpAveragesOfGames = games.Select(GetAverageRtpInternal);
 
             var averageOfTheAverages = rtpAveragesOfGames.Average();
 
             return averageOfTheAverages;
-        }
 
-        public RtpRange GetTotalRtp(IGameProfile game)
-        {
-            // New RTP information (GDK 5.0 and above)
-            if (game.HasExtendedRtpInformation)
+            decimal GetAverageRtpInternal(IGameDetail game)
             {
-                var totalRtp = new RtpRange();
+                var wagerCategoryRtpAverages = new List<decimal>();
 
                 foreach (var wagerCategory in game.WagerCategories)
                 {
-                    var rtpBreakdown = GetRtpBreakdown(game.GameType, wagerCategory);
+                    var wagerCategoryTotalRtp = GetRtpBreakdownForWagerCategory(game, wagerCategory.Id).TotalRtp;
 
-                    totalRtp = totalRtp.TotalWith(rtpBreakdown.TotalRtp);
+                    wagerCategoryRtpAverages.Add((wagerCategoryTotalRtp.Minimum + wagerCategoryTotalRtp.Maximum) / 2.0m);
                 }
 
-                return totalRtp;
+                return wagerCategoryRtpAverages.Average();
             }
-
-            // Legacy RTP information (pre-GDK 5.0). This is for backwards compatibility only.
-            return new RtpRange(game.MinimumPaybackPercent, game.MaximumPaybackPercent);
         }
 
-        public RtpRange GetTotalRtp(IEnumerable<IGameProfile> games)
+        public RtpRange GetTotalRtp(IGameDetail game) => GetTotalRtp(new[] { game });
+
+        public RtpRange GetTotalRtp(IEnumerable<IGameDetail> games)
         {
             var totalRtp = RtpRange.Zero;
 
             foreach (var game in games)
             {
-                var rtp = GetTotalRtp(game);
-                totalRtp = totalRtp.TotalWith(rtp);
+                RtpRange rtp;
+
+                // Handle new RTP information (Approx. GDK 5.0 onward)
+                if (game.HasExtendedRtpInformation)
+                {
+                    var totalGameRtp = new RtpRange();
+
+                    rtp = totalGameRtp;
+                    foreach (var wagerCategory in game.WagerCategories)
+                    {
+                        var breakdown = GetRtpBreakdownForWagerCategory(game, wagerCategory.Id);
+                        rtp = rtp.GetTotalWith(breakdown.TotalRtp);
+                    }
+                }
+                // Handle legacy RTP information. This block is for backwards compatibility only.
+                // It includes all games up to GDK 5.0. Also included, is a handful of GDK 5 games
+                // that still have the legacy RTP format. Those are handled here too.
+                else 
+                {
+                    rtp = new RtpRange(game.MinimumPaybackPercent, game.MaximumPaybackPercent);
+                }
+                
+                totalRtp = totalRtp.GetTotalWith(rtp);
             }
 
             return totalRtp;
         }
 
-        public RtpBreakdown GetTotalRtpBreakdown(IGameProfile game)
+        public RtpBreakdown GetTotalRtpBreakdown(IGameDetail game)
         {
-            return game.WagerCategories
-                .Select(w => GetWagerCategoryRtpBreakdown(game, w.Id))
-                .Aggregate((r1, r2) => r1.TotalWith(r2));
-        }
-
-        public RtpValidationReport ValidateGame(IGameProfile game)
-        {
-            // TODO: Handle games without ExtendedRTP Info
-
-            var resultEntries = new List<(string wagerCategoryId, RtpValidationResult validationResult)>();
-
-            foreach (var wagerCategory in game.WagerCategories)
+            RtpBreakdown result = null;
+            bool first = true;
+            foreach (var w in game.WagerCategories)
             {
-                var breakdown = GetRtpBreakdown(game.GameType, wagerCategory);
+                var breakdown = GetRtpBreakdownForWagerCategory(game, w.Id);
+                if (first)
+                {
+                    first = false;
+                    result = breakdown;
+                    continue;
+                }
 
-                RunRtpValidation(breakdown, game.GameType);
-
-                resultEntries.Add((wagerCategory.Id, breakdown.ValidationResult));
+                result = RtpBreakdown.GetTotal(result, breakdown);
             }
 
-            var validation = new RtpValidation
+            return result;
+        }
+
+        public RtpBreakdown GetRtpBreakdownForWagerCategory(IGameDetail game, string wagerCategoryId)
+        {
+            // Gather information about any Standalone Progressives because it is used to populate RTP values in legacy games.
+            var (sapRtpState, progressiveRtp) = GetSapInfoFromProgressiveProvider(game);
+
+            // Build up a empty breakdown with error flags zeroed out.
+            var wagerCategory = game.WagerCategories.Single(w => w.Id.Equals(wagerCategoryId, StringComparison.Ordinal));
+
+            var rtpBreakdown = new RtpBreakdown
             {
-                Game = game,
-                IsValid = resultEntries.All(r => r.validationResult.IsValid),
-                ValidationResults = resultEntries
+                Base = new RtpRange(wagerCategory.MinBaseRtpPercent, wagerCategory.MaxBaseRtpPercent),
+                FailureFlags = RtpValidationFailureFlags.None,
             };
 
-            var validationReport = new RtpValidationReport(new [] {(game, validation)});
+            if (game.HasExtendedRtpInformation)
+            {
+                rtpBreakdown.StandaloneProgressiveIncrement = new RtpRange(wagerCategory.SapIncrementRtpPercent, wagerCategory.SapIncrementRtpPercent);
+                rtpBreakdown.StandaloneProgressiveReset = new RtpRange(wagerCategory.MinSapStartupRtpPercent, wagerCategory.MaxSapStartupRtpPercent);
+                rtpBreakdown.LinkedProgressiveIncrement = new RtpRange(wagerCategory.LinkIncrementRtpPercent, wagerCategory.LinkIncrementRtpPercent);
+                rtpBreakdown.LinkedProgressiveReset = new RtpRange(wagerCategory.MinLinkStartupRtpPercent, wagerCategory.MaxLinkStartupRtpPercent);
+            }
+            else
+            {
+                // Populate game SAP RTP values from the progressive provider's RTP. This is the legacy way of doing it.
+                // It's for backwards support. Games with the New RTP values include SAP RTP in the game config.
+                rtpBreakdown.StandaloneProgressiveIncrement = progressiveRtp?.Increment ?? RtpRange.Zero;
+                rtpBreakdown.StandaloneProgressiveReset = progressiveRtp?.Reset ?? RtpRange.Zero;
+                rtpBreakdown.LinkedProgressiveIncrement = RtpRange.Zero;
+                rtpBreakdown.LinkedProgressiveReset = RtpRange.Zero;
+            }
 
-            return validationReport;
+            // Verify SAP and LP RTP.
+            var isLpVerified = VerifyLinkedProgressiveRtp(game, rtpBreakdown);
+            var isSapVerified = sapRtpState == RtpVerifiedState.Verified;
+            
+            // Value validations will set error flags on RtpBreakdown object and change invalid rtp values to zero.
+            if (game.HasExtendedRtpInformation)
+            {
+                ValidateRtpRangeBoundaries(rtpBreakdown);
+
+                ValidatePrecision(rtpBreakdown, GamingConstants.NumberOfDecimalPlacesForRtpCalculations);
+            }
+
+            ValidateJurisdictionalLimits(rtpBreakdown, game.GameType);
+
+            ValidateJurisdictionalRtpRules(rtpBreakdown, game.GameType);
+            
+            // Build up and assign RTP Verification states to breakdown, for use with UI mainly.
+            rtpBreakdown.ProgressiveVerificationState = game.HasExtendedRtpInformation
+                ? GenerateRtpVerificationStates(game, rtpBreakdown.IsValid, isSapVerified, isLpVerified)
+                : GenerateRtpVerificationStatesLegacy(game, sapRtpState);
+
+            return rtpBreakdown;
         }
 
         public RtpRules GetJurisdictionalRtpRules(GameType gameType) => _rules[gameType];
 
-        /// <summary>
-        ///     Creates a custom RTP breakdown, based on jurisdictional RTP rules, which is used to seed the final RTP calculation.
-        /// </summary>
-        /// <param name="gameType">Type of the game.</param>
-        /// <param name="wagerCategory">The wager category used to populate the <see cref="RtpBreakdown" /> fields.</param>
-        /// <returns>An breakdown of RTP ranges, used in RTP calculation.</returns>
-        private RtpBreakdown GetRtpBreakdown(GameType gameType, IWagerCategory wagerCategory)
+        private (RtpVerifiedState, ProgressiveRtp) GetSapInfoFromProgressiveProvider(IGameDetail game)
         {
-            return new RtpBreakdown
+            var denom = game.ActiveDenominations.Any()
+                ? game.ActiveDenominations.First()
+                : game.SupportedDenominations.First();
+
+            var betOption = game.GetBetOption(denom)?.Name;
+            var (progressiveRtp, rtpState) =
+                _progressiveConfigProvider.GetProgressivePackRtp(game.Id, denom, betOption);
+
+            return (rtpState, progressiveRtp);
+        }
+
+        private ProgressiveRtpVerificationState GenerateRtpVerificationStates(
+            IGameDetail game,
+            bool isRtpValueValid,
+            bool isSapVerified,
+            bool isLpVerified)
+        {
+            var jurisdictionalRtpRules = _rules[game.GameType];
+
+            // NOTE ->                                                           Can be read like this:
+            var standaloneProgressiveResetRtpState = !isRtpValueValid            // if
+                ? RtpVerifiedState.NotAvailable                                  // then
+                : !jurisdictionalRtpRules.IncludeStandaloneProgressiveStartUpRtp // else if
+                    ? RtpVerifiedState.NotUsed                                   // then
+                    : !isSapVerified                                             // else if
+                        ? RtpVerifiedState.NotAvailable                          // then
+                        : RtpVerifiedState.Verified;                             // else
+
+            var standaloneProgressiveIncrementRtpState = !isRtpValueValid
+                ? RtpVerifiedState.NotAvailable
+                : !jurisdictionalRtpRules.IncludeStandaloneProgressiveIncrementRtp
+                    ? RtpVerifiedState.NotUsed
+                    : !isSapVerified
+                        ? RtpVerifiedState.NotAvailable
+                        : RtpVerifiedState.Verified;
+
+            var linkedProgressiveResetRtpState = !isRtpValueValid
+                ? RtpVerifiedState.NotAvailable
+                : !jurisdictionalRtpRules.IncludeLinkProgressiveStartUpRtp
+                    ? RtpVerifiedState.NotUsed
+                    : !isLpVerified
+                        ? RtpVerifiedState.NotVerified
+                        : RtpVerifiedState.Verified;
+
+            var linkedProgressiveIncrementRtpState = !isRtpValueValid
+                ? RtpVerifiedState.NotAvailable
+                : !jurisdictionalRtpRules.IncludeLinkProgressiveIncrementRtp
+                    ? RtpVerifiedState.NotUsed
+                    : !isLpVerified
+                        ? RtpVerifiedState.NotVerified
+                        : RtpVerifiedState.Verified;
+
+            var rtpVerificationStates = new ProgressiveRtpVerificationState
             {
-                Base = new RtpRange(wagerCategory.MinBaseRtpPercent, wagerCategory.MaxBaseRtpPercent),
-                StandaloneProgressiveIncrement = _rules[gameType].IncludeStandaloneProgressiveIncrementRtp
-                    ? new RtpRange(wagerCategory.SapIncrementRtpPercent, wagerCategory.SapIncrementRtpPercent)
-                    : RtpRange.Zero,
-                StandaloneProgressiveReset = _rules[gameType].IncludeStandaloneProgressiveStartUpRtp
-                    ? new RtpRange(wagerCategory.MinSapStartupRtpPercent, wagerCategory.MaxSapStartupRtpPercent)
-                    : RtpRange.Zero,
-                LinkedProgressiveIncrement = _rules[gameType].IncludeLinkProgressiveIncrementRtp
-                    ? new RtpRange(wagerCategory.LinkIncrementRtpPercent, wagerCategory.LinkIncrementRtpPercent)
-                    : RtpRange.Zero,
-                LinkedProgressiveReset = _rules[gameType].IncludeLinkProgressiveStartUpRtp
-                    ? new RtpRange(wagerCategory.MinLinkStartupRtpPercent, wagerCategory.MaxLinkStartupRtpPercent)
-                    : RtpRange.Zero,
+                SapResetRtpState = standaloneProgressiveResetRtpState,
+                SapIncrementRtpState = standaloneProgressiveIncrementRtpState,
+                LpResetRtpState = linkedProgressiveResetRtpState,
+                LpIncrementRtpState = linkedProgressiveIncrementRtpState
             };
+
+            return rtpVerificationStates;
         }
 
-        private RtpBreakdown GetWagerCategoryRtpBreakdown(IGameProfile game, string wagerCategoryId)
+        /// <summary>
+        ///     This RTP Verification logic matches that of the legacy games. These games existed before the new RTP Reporting
+        ///     feature which allowed games to offer more detailed RTP information. This methods logic is the exact same as it
+        ///     was before the New RTP Reporting.
+        /// </summary>
+        /// <param name="game">The game to generate validation states for.</param>
+        /// <param name="sapRtpState"></param>
+        /// <returns>The RTP verification states for the given game</returns>
+        private ProgressiveRtpVerificationState GenerateRtpVerificationStatesLegacy(
+            IGameDetail game,
+            RtpVerifiedState sapRtpState)
         {
-            if (!game.HasExtendedRtpInformation)
+            var jurisdictionalRtpRules = _rules[game.GameType];
+
+            var rtpVerificationState = new ProgressiveRtpVerificationState
             {
-                throw new ArgumentException(
-                    $"Cannot get an RTP Breakdown for a game that has {nameof(game.HasExtendedRtpInformation)}=false", nameof(game));
-            }
+                SapResetRtpState = sapRtpState,
+                SapIncrementRtpState = !jurisdictionalRtpRules.IncludeStandaloneProgressiveIncrementRtp &&
+                                       sapRtpState == RtpVerifiedState.Verified
+                    ? RtpVerifiedState.NotUsed
+                    : sapRtpState,
+                LpResetRtpState = RtpVerifiedState.NotAvailable,
+                LpIncrementRtpState = RtpVerifiedState.NotAvailable
+            };
 
-            var wagerCategory = game.WagerCategories.FirstOrDefault(w => w.Id.Equals(wagerCategoryId))
-                                ?? throw new ArgumentException(nameof(wagerCategoryId), $"No WagerCategory exists with id={wagerCategoryId}");
-
-            var breakdown = GetRtpBreakdown(game.GameType, wagerCategory);
-
-            RunRtpValidation(breakdown, game.GameType);
-
-            return breakdown;
+            return rtpVerificationState;
         }
 
-        private void LoadRtpRules()
+        private void LoadRtpCalculationRules()
         {
             _rules[GameType.Slot] = new RtpRules
             {
@@ -216,24 +318,53 @@ namespace Aristocrat.Monaco.Gaming
             _rules[GameType.Undefined] = _rules[GameType.Slot];
         }
 
-        private void RunRtpValidation(RtpBreakdown breakdown, GameType gameType)
+        private bool VerifyLinkedProgressiveRtp(IGameDetail game, RtpBreakdown rtpBreakdown)
         {
-            ValidateRtpRangeBoundaries(breakdown);
+            // TODO: To be implemented soon by another team (Most likely James King's)
 
-            ValidatePrecision(breakdown, GamingConstants.NumberOfDecimalPlacesForRtpCalculations);
+            return false;
+        }
 
-            ValidateJurisdictionalLimits(breakdown, gameType);
+        /// <summary>
+        ///     Excludes individual RTP contributions from total RTP calculation. These RTP exclusions
+        ///     are configured in the jurisdictional configuration.
+        /// </summary>
+        /// <param name="breakdown">The RTP Breakdown</param>
+        /// <param name="gameType">The GameType</param>
+        private void ValidateJurisdictionalRtpRules(RtpBreakdown breakdown, GameType gameType)
+        {
+            var rtpRules = _rules[gameType];
+
+            if (!rtpRules.IncludeStandaloneProgressiveStartUpRtp)
+            {
+                breakdown.StandaloneProgressiveReset = RtpRange.Zero;
+            }
+
+            if (!rtpRules.IncludeStandaloneProgressiveIncrementRtp)
+            {
+                breakdown.StandaloneProgressiveIncrement = RtpRange.Zero;
+            }
+
+            if (!rtpRules.IncludeLinkProgressiveStartUpRtp)
+            {
+                breakdown.LinkedProgressiveReset = RtpRange.Zero;
+            }
+
+            if (!rtpRules.IncludeLinkProgressiveIncrementRtp)
+            {
+                breakdown.StandaloneProgressiveReset = RtpRange.Zero;
+            }
         }
 
         private void ValidateJurisdictionalLimits(RtpBreakdown rtpBreakdown, GameType gameType)
         {
             if (rtpBreakdown.TotalRtp.Minimum < _rules[gameType].MinimumRtp)
             {
-                rtpBreakdown.ValidationResult.FailureFlags |= RtpValidationFailureFlags.RtpExceedsJurisdictionalMinimum;
+                rtpBreakdown.FailureFlags |= RtpValidationFailureFlags.RtpExceedsJurisdictionalMinimum;
             }
             if (rtpBreakdown.TotalRtp.Maximum > _rules[gameType].MaximumRtp)
             {
-                rtpBreakdown.ValidationResult.FailureFlags |= RtpValidationFailureFlags.RtpExceedsJurisdictionalMaximum;
+                rtpBreakdown.FailureFlags |= RtpValidationFailureFlags.RtpExceedsJurisdictionalMaximum;
             }
         }
 
@@ -249,7 +380,7 @@ namespace Aristocrat.Monaco.Gaming
                 return;
             }
 
-            rtpBreakdown.ValidationResult.FailureFlags |= RtpValidationFailureFlags.InvalidRtpValue;
+            rtpBreakdown.FailureFlags |= RtpValidationFailureFlags.InvalidRtpValue;
         }
 
         private void ValidatePrecision(RtpBreakdown rtpBreakdown, int numOfDecimalPlaces)
@@ -268,7 +399,7 @@ namespace Aristocrat.Monaco.Gaming
                 return;
             }
 
-            rtpBreakdown.ValidationResult.FailureFlags |= RtpValidationFailureFlags.InsufficientRtpPrecision;
+            rtpBreakdown.FailureFlags |= RtpValidationFailureFlags.InsufficientRtpPrecision;
         }
 
         private static bool CheckPrecision(decimal value, int numOfDecimalPlaces)

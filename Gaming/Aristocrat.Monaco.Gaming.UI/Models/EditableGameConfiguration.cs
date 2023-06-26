@@ -32,6 +32,7 @@
         private readonly IDictionary<int, IDenomination> _denominationMapping;
         private readonly decimal _denomMultiplier;
         private readonly bool _allowEditHostDisabled;
+        private readonly bool _showGameRtpAsRange;
 
         private bool _active = true;
         private bool _enabled;
@@ -64,7 +65,6 @@
         private long _topAwardValue;
         private bool _progressivesEditable;
         private bool _gameOptionsEnabled;
-        private bool _showGameRtpAsRange;
         private IReadOnlyList<PaytableDisplay> _availablePaytables;
         private PaytableDisplay _selectedPaytable;
 

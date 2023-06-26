@@ -170,7 +170,7 @@
                             <helpers:CurrencyTextBox x:Name="InitialValueCurrencyTextBox"
                                                      PreventNegatives="True"
                                                      IsEnabled="{Binding CanSetInitialValue}"
-                                                     Number="{                                     Binding Path=InitialValue,                                      Mode=TwoWay,                                      UpdateSourceTrigger=PropertyChanged,                                      ValidatesOnDataErrors=True,                                      NotifyOnValidationError=True}" />
+                                                     Number="{Binding Path=InitialValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -224,7 +224,7 @@
                             <helpers:CurrencyTextBox x:Name="OverflowCurrencyTextBox"
                                                      PreventNegatives="True"
                                                      IsEnabled="{Binding CanSetOverflowValue}"
-                                                     Number="{                                     Binding Path=OverflowValue,                                      Mode=TwoWay,                                      UpdateSourceTrigger=PropertyChanged,                                      ValidatesOnDataErrors=True,                                      NotifyOnValidationError=True}" />
+                                                     Number="{Binding Path=OverflowValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

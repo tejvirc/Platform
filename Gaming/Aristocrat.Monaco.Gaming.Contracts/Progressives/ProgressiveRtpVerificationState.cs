@@ -3,7 +3,7 @@
     /// <summary>
     ///     Contains the verification state for Games progressive RTP contributions.
     /// </summary>
-    public class ProgressiveRtpState
+    public class ProgressiveRtpVerificationState
     {
         /// <summary>
         ///     Gets or sets the verification state of the Stand Alone Progressive Increment RTP.
