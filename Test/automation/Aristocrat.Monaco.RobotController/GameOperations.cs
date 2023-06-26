@@ -27,7 +27,7 @@
         private Timer _RgTimer;
         private Timer _forceGameExitTimer;
         private bool _disposed;
-        private bool _isTimeLimitDialogVisible;
+        //private bool _isTimeLimitDialogVisible;
         private int _sanityCounter;
         private bool _exitWhenIdle;
         private bool _forceGameExitIsInProgress;
@@ -223,19 +223,21 @@
                  this,
                  evt =>
                  {
+                     _robotController.BlockOtherOperations(RobotStateAndOperations.ResponsibleGamingDialog);
                      _logger.Info($"TimeLimitDialogVisibleEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                     _isTimeLimitDialogVisible = true;
-                     if (evt.IsLastPrompt)
-                     {
-                         _exitWhenIdle = !IsRegularRobots();
-                     }
+                     //_isTimeLimitDialogVisible = true;
+                     //if (evt.IsLastPrompt)
+                     //{
+                     //    _exitWhenIdle = !IsRegularRobots();
+                     //}
                  });
             _eventBus.Subscribe<TimeLimitDialogHiddenEvent>(
                 this,
                 evt =>
                 {
-                    _logger.Info($"TimeLimitDialogHiddenEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                    _isTimeLimitDialogVisible = false;
+                    _robotController.UnBlockOtherOperations(RobotStateAndOperations.ResponsibleGamingDialog);
+                    //_logger.Info($"TimeLimitDialogHiddenEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+                    //_isTimeLimitDialogVisible = false;
                 });
             _eventBus.Subscribe<GameRequestFailedEvent>(
                 this,
@@ -411,7 +413,7 @@
 
         private void DismissTimeLimitDialog()
         {
-            _automator.DismissTimeLimitDialog(_isTimeLimitDialogVisible);
+            //_automator.DismissTimeLimitDialog(_isTimeLimitDialogVisible);
         }
 
         private bool IsTimeLimitDialogInProgress()
