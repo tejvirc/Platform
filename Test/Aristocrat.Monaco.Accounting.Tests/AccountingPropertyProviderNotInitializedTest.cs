@@ -27,6 +27,7 @@
         private Mock<IPropertiesManager> _propertiesManager;
         private Mock<IPersistentStorageManager> _storageManager;
         private AccountingPropertyProvider _target;
+#endif
 
         [TestInitialize]
         public void MyTestInitialize()
