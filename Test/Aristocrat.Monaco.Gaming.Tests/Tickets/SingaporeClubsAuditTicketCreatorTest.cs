@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Globalization;
     using System.Linq;
     using Accounting.Contracts;
@@ -387,6 +388,15 @@
             _propertiesManager
                 .Setup(m => m.GetProperty(ApplicationConstants.CurrencyMeterRolloverText, It.IsAny<object>()))
                 .Returns(10000000000000);
+            _propertiesManager
+                .Setup(m => m.GetProperty(ApplicationConstants.LocalizationOperatorTicketLanguageSettingOperatorOverride, It.IsAny<object>()))
+                .Returns(false);
+            _propertiesManager
+                .Setup(m => m.GetProperty("CoinDenominations", It.IsAny<object>()))
+                .Returns(new Collection<int> { 1, 2 });
+            _propertiesManager
+                .Setup(m => m.GetProperty("System.VoucherIn", It.IsAny<object>()))
+                .Returns(false);
 
             _gameProvider.Setup(m => m.GetEnabledGames()).Returns(_mockGames);
 

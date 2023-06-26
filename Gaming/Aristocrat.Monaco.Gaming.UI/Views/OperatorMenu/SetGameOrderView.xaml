@@ -13,7 +13,8 @@
                                d:DataContext="{d:DesignInstance viewModels:SetGameOrderViewModel, IsDesignTimeCreatable=False}"
                                FocusManager.FocusedElement="{Binding ElementName=MainMenu}"
                                dialog:DialogParticipation.Register="{Binding}"
-                               Background="Transparent">
+                               Background="Transparent"
+                               loc:Localizer.For="Operator">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

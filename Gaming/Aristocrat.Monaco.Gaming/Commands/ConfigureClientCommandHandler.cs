@@ -155,6 +155,21 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 { "/Runtime/WagerLimit", _properties.GetValue(AccountingConstants.MaxBetLimit, AccountingConstants.DefaultMaxBetLimit).MillicentsToCents().ToString() },
                 { "/Runtime/AttractMode", _properties.GetValue(GamingConstants.AttractModeEnabled, ApplicationConstants.DefaultAttractMode).ToString() },
                 { "/Runtime/AttractMode&optional", "true" },
+                { "/Runtime/WagerLimits&maxTotalWager", _properties.GetValue(GamingConstants.WagerLimitsMaxTotalWagerKey, GamingConstants.WagerLimitsMaxTotalWager).MillicentsToCents().ToString() },
+                { "/Runtime/WagerLimits&use", _properties.GetValue(GamingConstants.WagerLimitsUseKey, GamingConstants.WagerLimitsUse) ? "required" : "disallowed"  },
+                { "/Runtime/MaximumGameRoundWin&resetWinAmount", _properties.GetValue(GamingConstants.MaximumGameRoundWinResetWinAmountKey, GamingConstants.MaximumGameRoundWinResetWinAmount).ToLower() },
+                { "/Runtime/VolumeLevel&showInHelpScreen", _properties.GetValue(GamingConstants.VolumeLevelShowInHelpScreenKey, GamingConstants.VolumeLevelShowInHelpScreen) ? "allowed" : "disallowed"  },
+                { "/Runtime/Service&use", _properties.GetValue(GamingConstants.ServiceUseKey, GamingConstants.ServiceUse).ToString()  },
+                { "/Runtime/Clock&useHInDisplay", _properties.GetValue(GamingConstants.ClockUseHInDisplayKey, GamingConstants.ClockUseHInDisplay).ToString()  },
+                { "/Runtime/KenoFreeGames&selectionChange", _properties.GetValue(GamingConstants.KenoFreeGamesSelectionChangeKey, GamingConstants.KenoFreeGamesSelectionChange) ? "allowed" : "disallowed"  },
+                { "/Runtime/KenoFreeGames&autoPlay", _properties.GetValue(GamingConstants.KenoFreeGamesAutoPlayKey, GamingConstants.KenoFreeGamesAutoPlay) ? "allowed" : "disallowed"  },
+                { "/Runtime/InitialZeroWager&use", _properties.GetValue(GamingConstants.InitialZeroWagerUseKey, GamingConstants.InitialZeroWagerUse) ? "allowed" : "disallowed"  },
+                { "/Runtime/ChangeLineSelectionAtZeroCredit&use", _properties.GetValue(GamingConstants.ChangeLineSelectionAtZeroCreditUseKey, GamingConstants.ChangeLineSelectionAtZeroCreditUse).ToString()  },
+                { "/Runtime/GameDuration&useMarketGameTime", _properties.GetValue(GamingConstants.GameDurationUseMarketGameTimeKey, GamingConstants.GameDurationUseMarketGameTime).ToString()  },
+                { "/Runtime/GameLog&enabled", _properties.GetValue(GamingConstants.GameLogEnabledKey, GamingConstants.GameLogEnabled).ToString()  },
+                { "/Runtime/GameLog&outcomeDetails", _properties.GetValue(GamingConstants.GameLogOutcomeDetailsKey, GamingConstants.GameLogOutcomeDetails).ToString()  },
+                { "/Runtime/Audio&audioChannels", _properties.GetValue(GamingConstants.AudioAudioChannelsKey, GamingConstants.AudioAudioChannels).ToString()  },
+                { "/Runtime/ButtonAnimation&goodluck", _properties.GetValue(GamingConstants.ButtonAnimationGoodLuckKey, GamingConstants.ButtonAnimationGoodLuck) ? "allowed" : "disallowed"  },
                 { "/Runtime/CardRevealDelayValue", GamingConstants.CardRevealDelayValue.ToString() },
                 { "/Runtime/Cashout&clearWins", _properties.GetValue(ApplicationConstants.CashoutClearWins, true).ToString() },
                 { "/Runtime/Cashout&commitStorageAfterCashout", _properties.GetValue(ApplicationConstants.CommitStorageAfterCashout, false).ToString() },
@@ -166,10 +181,14 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 { "/Runtime/Gamble&maxRounds", GamingConstants.MaxRounds.ToString() },
                 { "/Runtime/Gamble&skipByJackpotHit", _properties.GetValue(GamingConstants.GambleSkipByJackpotHit, false).ToString() },
                 { "/Runtime/GameDuration&kenoSpeed", _gameCategoryService.SelectedGameCategorySetting.PlayerSpeed.ToString() },
-                { "/Runtime/GameDuration&reelSpeed", GamingConstants.ReelSpeed.ToString(CultureInfo.InvariantCulture) },
+                { "/Runtime/GameDuration&reelSpeed", _properties.GetValue(GamingConstants.ReelSpeedKey, GamingConstants.ReelSpeed).ToString() },
                 { "/Runtime/GameRules&gameDisabled", ApplicationConstants.DefaultGameDisabledUse },
+                { "/Runtime/DisplayGamePayMessage&use", _properties.GetValue(GamingConstants.DisplayGamePayMessageUseKey, GamingConstants.DisplayGamePayMessageUse) ? "allowed" : "disallowed"  },
+                { "/Runtime/DisplayGamePayMessage&format", _properties.GetValue(GamingConstants.DisplayGamePayMessageFormatKey, GamingConstants.DisplayGamePayMessageFormat).ToLower() },
                 { "/Runtime/Meters&defaultDisplay", _properties.GetValue(GamingConstants.DefaultCreditDisplayFormat, DisplayFormat.Credit).ToString().ToLower() },
                 { "/Runtime/Meters&idleDisplay", GamingConstants.IdleCreditDisplayFormat },
+                { "/Runtime/Meters/Win&destination", _properties.GetValue(GamingConstants.WinDestinationKey, GamingConstants.WinDestination) },
+                { "/Runtime/FreeSpin&clearWinMeter", _properties.GetValue(GamingConstants.FreeSpinClearWinMeterKey, GamingConstants.FreeSpinClearWinMeter) ? "allowed" : "disallowed" },
                 { "/Runtime/WinMeterResetOnBetLineDenomChanged", _properties.GetValue(GamingConstants.WinMeterResetOnBetLineDenomChanged, ApplicationConstants.DefaultWinMeterResetOnBetLineDenomChanged).ToString() },
                 { "/Runtime/WinMeterResetOnBetLineChanged", _properties.GetValue(GamingConstants.WinMeterResetOnBetLineChanged, ApplicationConstants.DefaultWinMeterResetOnBetLineDenomChanged).ToString() },
                 { "/Runtime/WinMeterResetOnDenomChanged", _properties.GetValue(GamingConstants.WinMeterResetOnDenomChanged, ApplicationConstants.DefaultWinMeterResetOnBetLineDenomChanged).ToString() },
@@ -251,6 +270,14 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 }
             }
 
+            var maxGameRoundWin = _properties.GetValue(GamingConstants.MaximumGameRoundWinAmount, 0L);
+            if (maxGameRoundWin is not 0L)
+            {
+                parameters.Add("/Runtime/MaximumGameRoundWin&use", "allowed");
+                parameters.Add("/Runtime/MaximumGameRoundWin&valueCents", maxGameRoundWin.MillicentsToCents().ToString(CultureInfo.InvariantCulture));
+                parameters.Add("/Runtime/MaximumGameRoundWin&onMaxWinReach", "endGameAfterPresentation");
+            }
+
             if (denomination.LineOption != null)
             {
                 parameters.Add("/Runtime/LineOption", denomination.LineOption);
@@ -270,6 +297,14 @@ namespace Aristocrat.Monaco.Gaming.Commands
             ApplyGameCategorySettings(parameters);
             SetButtonLayout(parameters);
             SetButtonBehavior(parameters);
+
+            if (_properties.GetValue(GamingConstants.PlayLinesAllowed, false))
+            {
+                parameters["/Runtime/PlayLines&showLinesOnFeatureStart"] =
+                    _properties.GetValue(GamingConstants.PlayLinesShowLinesOnFeatureStart, false) ? "allowed" : "disallowed";
+                parameters["/Runtime/PlayLines&type"] =
+                    _properties.GetValue(GamingConstants.PlayLinesType, string.Empty);
+            }
 
             var marketParameters = new Dictionary<string, string>
             {
@@ -420,6 +455,11 @@ namespace Aristocrat.Monaco.Gaming.Commands
         {
             if (!_properties.GetValue(GamingConstants.ApplyGameCategorySettings, false))
             {
+                if (_properties.GetValue(GamingConstants.AutoPlayAllowed, false))
+                {
+                    parameters["/Runtime/Flags&AutoPlay"] = "true";
+                }
+
                 return;
         }
 

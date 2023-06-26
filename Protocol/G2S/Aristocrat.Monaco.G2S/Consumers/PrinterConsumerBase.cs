@@ -55,7 +55,8 @@
                 printer,
                 _eventCode,
                 printer.DeviceList(status),
-                GetMeters());
+                GetMeters(),
+                theEvent);
         }
 
         /// <summary>

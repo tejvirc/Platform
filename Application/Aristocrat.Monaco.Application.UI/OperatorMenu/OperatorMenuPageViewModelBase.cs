@@ -14,9 +14,11 @@
     using ConfigWizard;
     using Contracts;
     using Contracts.ConfigWizard;
+    using Contracts.Extensions;
     using Contracts.HardwareDiagnostics;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
+    using Contracts.Tickets;
     using Events;
     using Hardware.Contracts.Button;
     using Hardware.Contracts.Printer;
@@ -66,6 +68,7 @@
         private IPropertiesManager _properties;
         private IOperatorMenuConfiguration _configuration;
         protected IOperatorMenuAccess Access;
+        protected bool UseOperatorCultureForCurrencyFormatting;
 
         private int _firstVisibleElement = -1;
         private bool _initialized;
@@ -106,6 +109,7 @@
             EventViewerScrolledCommand = new ActionCommand<ScrollChangedEventArgs>(OnEventViewerScrolledCommand);
             ShowInfoPopupCommand = new ActionCommand<object>(ShowInfoPopup);
             DefaultPrintButtonEnabled = defaultPrintButtonEnabled;
+            UseOperatorCultureForCurrencyFormatting = Configuration?.GetSetting(OperatorMenuSetting.UseOperatorCultureForCurrencyFormatting, false) ?? false;
             SetIgnoreProperties();
         }
 
@@ -154,6 +158,7 @@
                 if (_inputEnabled != value)
                 {
                     _inputEnabled = value;
+
                     MvvmHelper.ExecuteOnUI(() =>
                     {
                         OnInputEnabledChanged();
@@ -457,6 +462,10 @@
                     TestWarningText = Localizer.For(CultureFor.Operator)
                         .GetString(ResourceKeys.TestModeDisabledStatusDoor);
                     break;
+                case OperatorMenuAccessRestriction.ZeroCredits:
+                    TestWarningText = Localizer.For(CultureFor.Operator)
+                        .GetString(ResourceKeys.TestModeDisabledStatusCredits);
+                    break;
             }
         }
 
@@ -474,6 +483,36 @@
 
             // no implementation for base class; this will print nothing
             return new List<Ticket>();
+        }
+
+        public CultureInfo CurrencyDisplayCulture => GetCurrencyDisplayCulture();
+
+        protected virtual CultureInfo GetCurrencyDisplayCulture() => UseOperatorCultureForCurrencyFormatting ? Localizer.For(CultureFor.Operator).CurrentCulture : CurrencyExtensions.CurrencyCultureInfo;
+
+        protected IEnumerable<Ticket> GeneratePrintVerificationTickets()
+        {
+            List<Ticket> tickets = null;
+            var ticketCreator = ServiceManager.GetInstance().TryGetService<IVerificationTicketCreator>();
+            if (ticketCreator != null)
+            {
+                tickets = new List<Ticket>();
+                for (var i = 0; i < 3; i++)
+                {
+                    var baseTickets = SplitTicket(ticketCreator.Create(i));
+
+                    if (baseTickets.Count > 1)
+                    {
+                        var secondTicket = baseTickets[1];
+                        var ticket = ticketCreator.CreateOverflowPage(i);
+                        secondTicket[TicketConstants.Left] = $"{ticket[TicketConstants.Left]}{secondTicket[TicketConstants.Left]}";
+                        secondTicket[TicketConstants.Center] = $"{ticket[TicketConstants.Center]}{secondTicket[TicketConstants.Center]}";
+                        secondTicket[TicketConstants.Right] = $"{ticket[TicketConstants.Right]}{secondTicket[TicketConstants.Right]}";
+                    }
+                    tickets.AddRange(baseTickets);
+                }
+            }
+
+            return tickets;
         }
 
         /// <summary>
@@ -517,7 +556,10 @@
 
         protected virtual void UpdateStatusText()
         {
-            MvvmHelper.ExecuteOnUI(_UpdateStatusText);
+            if (IsLoaded)
+            {
+                MvvmHelper.ExecuteOnUI(_UpdateStatusText);
+            }
         }
 
         private void _UpdateStatusText()
@@ -784,7 +826,7 @@
                     warningMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VerifiedEKeyRequired);
                     return true;
                 case OperatorMenuAccessRestriction.InitialGameConfigNotCompleteOrEKeyVerified:
-                    warningMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VerifiedEKeyRequired);
+                    warningMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VerifiedEKeyRequiredGameConfiguration);
                     return true;
                 case OperatorMenuAccessRestriction.NoHardLockups:
                     warningMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.RemoveAllHardLockupsBeforeChange);
@@ -968,6 +1010,13 @@
             }
         }
 
+        protected string GetBooleanDisplayText(bool value)
+        {
+            return value
+                ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TrueText)
+                : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.FalseText);
+        }
+
         internal void OnLoaded(object page)
         {
             InitializeDataAsync();
@@ -1144,7 +1193,6 @@
                     nameof(TestWarningText),
                     nameof(IsLoadingData),
                     nameof(IsLoaded),
-                    nameof(DataEmpty),
                     nameof(MainPrintButtonEnabled),
                     nameof(PageSupportsMainPrintButton),
                     nameof(PopupOpen),

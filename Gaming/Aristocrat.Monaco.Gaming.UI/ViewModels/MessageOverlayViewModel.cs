@@ -198,8 +198,8 @@
 
         public bool ShowPaidMeterForAutoCashout { get; set; }
 
-        public readonly ConcurrentDictionary<string, DisplayableMessage> HardErrorMessages =
-            new ConcurrentDictionary<string, DisplayableMessage>();
+        public readonly ConcurrentDictionary<Guid, DisplayableMessage> HardErrorMessages =
+            new ConcurrentDictionary<Guid, DisplayableMessage>();
 
         private bool _isSelectPayModeVisible;
 
@@ -214,12 +214,12 @@
             MvvmHelper.ExecuteOnUI(
                 () =>
                 {
-                    if (HardErrorMessages.ContainsKey(displayableMessage.Message))
+                    if (HardErrorMessages.ContainsKey(displayableMessage.Id))
                     {
                         return;
                     }
 
-                    HardErrorMessages.TryAdd(displayableMessage.Message, displayableMessage);
+                    HardErrorMessages.TryAdd(displayableMessage.Id, displayableMessage);
                     ForceBuildLockupText = HardErrorMessages.Count > 1 && !_systemDisableManager.CurrentDisableKeys.Contains(ApplicationConstants.OperatorMenuLauncherDisableGuid);
                     MessageOverlayData.IsDialogFadingOut = false;
                     HandleMessageOverlayText(displayableMessage.Message);
@@ -231,7 +231,7 @@
             MvvmHelper.ExecuteOnUI(
                 () =>
                 {
-                    if (!HardErrorMessages.TryRemove(displayableMessage.Message, out _))
+                    if (!HardErrorMessages.TryRemove(displayableMessage.Id, out _))
                     {
                         Logger.Warn($"RemoveMessage failed to remove message {displayableMessage.Message}");
                     }
@@ -603,7 +603,7 @@
                     isCashInOverridden ||
                     IsCashingOutDlgVisible && _lobbyStateManager.CashOutState == LobbyCashOutState.Undefined);
         }
-        
+
         public void HandpayCancelled()
         {
             _overlayMessageStrategyController.SetLastCashOutAmount(0);

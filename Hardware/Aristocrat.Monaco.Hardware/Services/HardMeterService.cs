@@ -317,7 +317,7 @@
         {
             LastError = string.Empty;
 
-            _hardMeterEnabled = _properties.GetValue(HardwareConstants.HardMetersEnabledKey, true);
+            _hardMeterEnabled = _properties.GetValue(HardwareConstants.HardMetersEnabledKey, false);
 
             if (!_hardMeterEnabled)
             {
@@ -456,7 +456,7 @@
 
         private void HandleEvent(PropertyChangedEvent evt)
         {
-            _hardMeterEnabled = _properties.GetValue(HardwareConstants.HardMetersEnabledKey, true);
+            _hardMeterEnabled = _properties.GetValue(HardwareConstants.HardMetersEnabledKey, false);
 
             if (!_hardMeterEnabled && (ReasonDisabled & DisabledReasons.Error) != 0)
             {

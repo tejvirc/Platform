@@ -5,10 +5,8 @@
     using Application.Contracts;
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
-    using Application.UI.OperatorMenu;
-    using Application.Contracts.Currency;
     using Application.Localization;
-    using Application.UI.ViewModels;
+    using Application.UI.OperatorMenu;
     using Contracts;
     using Contracts.Tickets;
     using Hardware.Contracts.HardMeter;
@@ -23,6 +21,19 @@
     public sealed class JurisdictionSettingsPageViewModel : OperatorMenuPageViewModelBase
     {
         private const string ShowAllowedRtpSetting = "ShowAllowedRTP";
+
+        private readonly int _defaultAnyGameMinimum;
+        private readonly int _defaultAnyGameMaximum;
+        private readonly HardMeterLogicalState _mechanicalMeter;
+        private readonly bool _doorOpticSensor;
+        private readonly bool _zeroCreditOnOos;
+
+        private string _allowedSlotRtp;
+        private string _allowedPokerRtp;
+        private string _allowedKenoRtp;
+        private string _allowedBlackjackRtp;
+        private string _allowedRouletteRtp;
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="JurisdictionSettingsPageViewModel" /> class.
         /// </summary>
@@ -30,8 +41,7 @@
         {
             Jurisdiction = PropertiesManager.GetValue(ApplicationConstants.JurisdictionKey, string.Empty);
 
-            var localization =
-                ServiceManager.GetInstance().GetService<ILocalization>();
+            var localization = ServiceManager.GetInstance().GetService<ILocalization>();
             var currencyProvider = localization.GetProvider(CultureFor.Currency) as CurrencyCultureProvider;
             Currency = currencyProvider?.ConfiguredCurrency.DisplayName;
 
@@ -41,39 +51,65 @@
             SetupRtpValuesAndVisibility();
 
             var hardMeter = ServiceManager.GetInstance().TryGetService<IHardMeter>();
+            _mechanicalMeter = hardMeter?.LogicalState ?? HardMeterLogicalState.Disabled;
 
-            MechanicalMeter = HardMeterLogicalStateToString(hardMeter?.LogicalState ?? HardMeterLogicalState.Disabled);
+            MechanicalMeterVisibility = PropertiesManager.GetValue(
+                ApplicationConstants.ConfigWizardHardMetersConfigVisible,
+                true);
 
-            MechanicalMeterVisibility = PropertiesManager.GetValue(ApplicationConstants.ConfigWizardHardMetersConfigVisible, true);
+            _doorOpticSensor = PropertiesManager.GetValue(
+                ApplicationConstants.ConfigWizardDoorOpticsEnabled,
+                false);
 
-            DoorOpticSensor = (bool)PropertiesManager.GetProperty(ApplicationConstants.ConfigWizardDoorOpticsEnabled, false) ? "Enabled" : "Disabled";
-
-            ZeroCreditOnOos = !PropertiesManager.GetValue(
+            _zeroCreditOnOos = !PropertiesManager.GetValue(
                 ApplicationConstants.MachineSetupConfigEnterOutOfServiceWithCreditsEnabled,
-                false)
-                ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OnText)
-                : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OffText);
+                false);
+
         }
 
         public string Jurisdiction { get; }
 
         public string Currency { get; }
 
-        public string AllowedSlotRtp { get; private set; }
+        public string AllowedSlotRtp
+        {
+            get => _allowedSlotRtp;
+            private set => SetProperty(ref _allowedSlotRtp, value);
+        }
 
-        public string AllowedPokerRtp { get; private set; }
+        public string AllowedPokerRtp
+        {
+            get => _allowedPokerRtp;
+            private set => SetProperty(ref _allowedPokerRtp, value);
+        }
 
-        public string AllowedKenoRtp { get; private set; }
+        public string AllowedKenoRtp
+        {
+            get => _allowedKenoRtp;
+            private set => SetProperty(ref _allowedKenoRtp, value);
+        }
 
-        public string AllowedBlackjackRtp { get; private set; }
+        public string AllowedBlackjackRtp
+        {
+            get => _allowedBlackjackRtp;
+            private set => SetProperty(ref _allowedBlackjackRtp, value);
+        }
 
-        public string AllowedRouletteRtp { get; private set; }
+        public string AllowedRouletteRtp
+        {
+            get => _allowedRouletteRtp;
+            private set => SetProperty(ref _allowedRouletteRtp, value);
+        }
 
-        public string MechanicalMeter { get; }
+        public string MechanicalMeter => HardMeterLogicalStateToString(_mechanicalMeter);
 
-        public string DoorOpticSensor { get; }
+        public string DoorOpticSensor => _doorOpticSensor
+            ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EnabledLabel)
+            : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Disabled);
 
-        public string ZeroCreditOnOos { get; }
+        public string ZeroCreditOnOos => _zeroCreditOnOos
+            ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OnText)
+            : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OffText);
 
         public bool SlotRtpVisibility { get; private set; }
 
@@ -87,9 +123,17 @@
 
         public bool MechanicalMeterVisibility { get; private set; }
 
-        private readonly int _defaultAnyGameMinimum;
+        protected override void OnLoaded()
+        {
+            SetupRtpValuesAndVisibility();
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, OnOperatorCultureChanged);
+        }
 
-        private readonly int _defaultAnyGameMaximum;
+        private void OnOperatorCultureChanged(OperatorCultureChangedEvent obj)
+        {
+            SetupRtpValuesAndVisibility();
+            RaisePropertyChanged(nameof(MechanicalMeter), nameof(DoorOpticSensor), nameof(ZeroCreditOnOos));
+        }
 
         protected override IEnumerable<Ticket> GenerateTicketsForPrint(OperatorMenuPrintData dataType)
         {
@@ -100,7 +144,7 @@
                 case OperatorMenuPrintData.Main:
                     var ticketCreator = ServiceManager.GetInstance()
                         .TryGetService<IJurisdictionSetupInformationTicketCreator>();
-                    tickets =  ticketCreator.CreateJurisdictionSetupInformationTicket();
+                    tickets = ticketCreator.CreateJurisdictionSetupInformationTicket();
                     break;
             }
 
@@ -114,14 +158,13 @@
             var config = ServiceManager.GetInstance().GetService<IOperatorMenuConfiguration>();
             var showAllowedRtp = config.GetSetting(this, ShowAllowedRtpSetting, true);
 
-            string rtpRange = string.Empty;
-            SlotRtpVisibility = showAllowedRtp &&
-                GetAllowedRtpForGameType(
+            var rtpRange = string.Empty;
+            SlotRtpVisibility = showAllowedRtp && GetAllowedRtpForGameType(
                 GamingConstants.AllowSlotGames,
                 GamingConstants.SlotMinimumReturnToPlayer,
                 GamingConstants.SlotMaximumReturnToPlayer,
                 ref rtpRange);
-                
+
             AllowedSlotRtp = rtpRange;
 
             PokerRtpVisibility = showAllowedRtp &&
@@ -130,7 +173,7 @@
                 GamingConstants.PokerMinimumReturnToPlayer,
                 GamingConstants.PokerMaximumReturnToPlayer,
                 ref rtpRange);
-               
+
             AllowedPokerRtp = rtpRange;
 
             KenoRtpVisibility = showAllowedRtp &&
@@ -139,7 +182,7 @@
                 GamingConstants.KenoMinimumReturnToPlayer,
                 GamingConstants.KenoMaximumReturnToPlayer,
                 ref rtpRange);
-              
+
             AllowedKenoRtp = rtpRange;
 
             BlackjackRtpVisibility = showAllowedRtp &&
@@ -148,7 +191,7 @@
                 GamingConstants.BlackjackMinimumReturnToPlayer,
                 GamingConstants.BlackjackMaximumReturnToPlayer,
                 ref rtpRange);
-                
+
             AllowedBlackjackRtp = rtpRange;
 
             RouletteRtpVisibility = showAllowedRtp &&

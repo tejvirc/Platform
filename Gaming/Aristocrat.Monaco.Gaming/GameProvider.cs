@@ -497,7 +497,7 @@ namespace Aristocrat.Monaco.Gaming
             {
                 foreach (var gameDetail in _games)
                 {
-                    if(!string.IsNullOrEmpty(gameDetail.Folder))
+                    if (!string.IsNullOrEmpty(gameDetail.Folder))
                     {
                         var manifest = GetManifest(gameDetail.Folder);
                         if (string.IsNullOrEmpty(manifest))

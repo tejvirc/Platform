@@ -431,8 +431,8 @@
                             _channel.setCallback(_callback);
                             _channel.setMode(mode);
                             _channel.setLoopCount(loopCount);
-                            _channel.setPaused(false);
                             _channel.setVolume(volume);
+                            _channel.setPaused(false);
                             _channel.SetSpeakerMix(speakers);
 
                             Logger.Debug($"Playback of audio file {file} has started.");

@@ -111,7 +111,7 @@
 
             if (IsWizardPage)
             {
-                HandpayLimitVisible = true;
+                HandpayLimitVisible = (bool)PropertiesManager.GetProperty(ApplicationConstants.ConfigWizardHandpayLimitVisible, true);
                 LargeWinLimitVisible = true;
                 BillAcceptanceLimitVisible = (bool)PropertiesManager.GetProperty(AccountingConstants.BillAcceptanceLimitVisible, false);
                 HandCountPayoutLimitVisible = (bool)PropertiesManager.GetProperty(AccountingConstants.HandCountPayoutLimitVisible, false);
@@ -727,12 +727,23 @@
             MaxBetLimitIsChecked = MaxBetLimit < long.MaxValue.MillicentsToDollars();
 
             EventBus?.Subscribe<PropertyChangedEvent>(this, HandleEvent);
+            EventBus?.Subscribe<OperatorCultureChangedEvent>(this, HandleEvent);
             if (IsWizardPage)
             {
                 EventBus?.Subscribe<OperatorMenuPopupEvent>(this, OnShowPopup);
             }
 
             CheckNavigation();
+        }
+
+        private void HandleEvent(OperatorCultureChangedEvent evt)
+        {
+            if (UseOperatorCultureForCurrencyFormatting)
+            {
+                RaisePropertyChanged(nameof(CurrencyDisplayCulture));
+            }
+
+            UpdateLimits();
         }
 
         protected override void LoadAutoConfiguration()

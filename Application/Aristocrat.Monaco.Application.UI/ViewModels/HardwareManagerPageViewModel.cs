@@ -4,9 +4,12 @@
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Linq;
+    using Contracts.Localization;
     using Contracts.OperatorMenu;
     using Kernel;
     using Kernel.Contracts;
+    using Localization;
+    using MVVM;
     using MVVM.Command;
     using Vgt.Client12.Application.OperatorMenu;
 
@@ -28,6 +31,7 @@
             : base(false)
         {
             _operatorMenuLauncher = ServiceManager.GetInstance().GetService<IOperatorMenuLauncher>();
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, Handle);
 
             ApplyHardwareSettingsCommand = new ActionCommand<object>(Apply, _ => IsDirty);
             _initialDoorOpticSensor = DoorOpticSensorEnabled;
@@ -183,6 +187,7 @@
                             modifiedDevice.PortEnabled && modifiedDevice.Port != device.Port)
                         {
                             modifiedDevice.Status = string.Empty;
+                            modifiedDevice.StatusType = DeviceState.None;
                             return true;
                         }
                     }
@@ -190,6 +195,17 @@
 
                 return false; // falling through means no changes are detected
             }
+        }
+
+        private void Handle(OperatorCultureChangedEvent obj)
+        {
+            MvvmHelper.ExecuteOnUI(() =>
+            {
+                foreach (var device in Devices)
+                {
+                    device.RefreshProps();
+                }
+            });
         }
     }
 }

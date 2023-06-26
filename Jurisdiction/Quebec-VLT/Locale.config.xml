@@ -10,21 +10,28 @@ as follows:
 --> 
 <LocaleConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <PlayerTicket Locale="fr-CA">
-    <LanguageSetting Visible="true" OperatorOverride="false" ShowCheckBox="true" />
+    <Selectable>
+      <Entry Locale="fr-CA" CurrencyValueLocale="fr-CA" CurrencyWordsLocale="fr-CA" />
+    </Selectable>
+    <LanguageSetting Visible="true" OperatorOverride="false" ShowCheckBox="true"/>
   </PlayerTicket>
-  <OperatorTicket Locale="en-US" />
-  <Operator Default="en-CA">
-    <Available>
-      <string>en-CA</string>
-    </Available>
+  <OperatorTicket Locale="en-US" DateFormat="yyyy-MM-dd">
+    <LanguageSetting OperatorOverride="true"/>
+  </OperatorTicket>
+  <Operator Default="fr-CA">
+      <Available>
+          <string>en-CA</string>
+          <string>fr-CA</string>
+      </Available>
   </Operator>
-  <Player Primary="en-CA">
-    <Available>
-      <string>en-CA</string>
-      <string>fr-CA</string>
-    </Available>
+  <Player Primary="fr-CA">
+      <Available>
+          <string>en-CA</string>
+          <string>fr-CA</string>
+      </Available>
   </Player>
   <Overrides>
     <string>VLT</string>
+    <string>QuebecVLT</string>
   </Overrides>
 </LocaleConfiguration>

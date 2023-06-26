@@ -25,10 +25,14 @@
         ///     Creates and returns a string representation of the value
         /// </summary>
         /// <param name="meterValue">The value to convert to a string</param>
+        /// <param name="culture">The optional CultureInfo to use for string formatting</param>
         /// <returns>A string representation of the value</returns>
-        public override string CreateValueString(long meterValue)
+        public override string CreateValueString(long meterValue, CultureInfo culture = null)
         {
-            return string.Format(NumberFormatInfo.CurrentInfo, "{0:N0}", meterValue);
+            return string.Format(
+                culture?.NumberFormat ?? NumberFormatInfo.CurrentInfo,
+                "{0:N0}",
+                meterValue);
         }
     }
 }

@@ -11,7 +11,8 @@
                                mc:Ignorable="d"
                                d:DesignHeight="300"
                                d:DesignWidth="300"
-                               d:DataContext="{d:DesignInstance {x:Type viewModels:KeyPageViewModel}}">
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:KeyPageViewModel}}"
+                               loc:Localizer.For="Operator">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -34,11 +35,13 @@
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.NameLabel}}"
                                     MinWidth="250"
                                     Binding="{Binding Name, Mode=OneWay, Converter={StaticResource KeyNameActionConverter}}"
-                                    AutomationProperties.AutomationId="DataGridTextColumn2_BD483096" />
+                                    AutomationProperties.AutomationId="DataGridTextColumn2_BD483096"
+                                    loc:Localizer.For="Operator" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ActionLabel}}"
                                     MinWidth="150"
                                     Binding="{Binding Action, Mode=OneWay,  Converter={StaticResource KeyNameActionConverter}}"
-                                    AutomationProperties.AutomationId="DataGridTextColumn3_BD483096" />
+                                    AutomationProperties.AutomationId="DataGridTextColumn3_BD483096"
+                                    loc:Localizer.For="Operator" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

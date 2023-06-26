@@ -54,7 +54,7 @@
         {
             using (var scope = _persistentStorage.ScopedTransaction())
             {
-                _gameHistory.End();
+                _gameHistory.End(_progressiveGameProvider.GetJackpotSnapshot(string.Empty));
 
                 _gameRecovery.EndRecovery();
 

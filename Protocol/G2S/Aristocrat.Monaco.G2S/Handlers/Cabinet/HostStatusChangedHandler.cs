@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.G2S.Handlers.Cabinet
 {
     using Aristocrat.G2S;
+    using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Client.Devices.v21;
     using Aristocrat.G2S.Protocol.v21;

@@ -26,9 +26,9 @@
         /// </summary>
         public ObservableCollection<DisplayMeter> Details { get; }
 
-        public DisplayMeter this[string name]
+        public DisplayMeter this[int order]
         {
-            get { return Details.First(x => x.Name == name); }
+            get { return Details.First(x => x.Order == order); }
         }
 
         /// <inheritdoc />

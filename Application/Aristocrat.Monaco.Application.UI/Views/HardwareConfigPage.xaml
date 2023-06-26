@@ -14,7 +14,8 @@
                                d:DesignHeight="400"
                                d:DesignWidth="1420"
                                Background="Transparent"
-                               d:DataContext="{d:DesignInstance {x:Type viewModels:HardwareManagerPageViewModel}, IsDesignTimeCreatable=True}">
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:HardwareManagerPageViewModel}, IsDesignTimeCreatable=True}"
+                               loc:Localizer.For="Operator">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -125,6 +126,13 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
+            <Style x:Key="CheckBoxStyle"
+                   TargetType="{x:Type CheckBox}"
+                   BasedOn="{StaticResource MonacoCheckBoxGeneral}">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="Margin" Value="-10 5 0 5" />
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid AutomationProperties.AutomationId="Grid5_3A60546D">
@@ -145,20 +153,24 @@
                            AutomationProperties.AutomationId="RowDefinition12_3A60546D" />
         </Grid.RowDefinitions>
         <DataGrid Grid.Row="0"
+                  x:Name="DeviceDataGrid"
                   ItemsSource="{Binding Devices}"
                   RowStyle="{StaticResource RowStyle}"
                   IsEnabled="{Binding InputEnabled}"
-                  AutomationProperties.AutomationId="DataGrid13_3A60546D">
+                  AutomationProperties.AutomationId="DataGrid13_3A60546D"
+                  loc:Localizer.For="Operator">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceLabel}}"
                                     MinWidth="200"
                                     FontSize="{StaticResource LabelFontSize}"
                                     Binding="{Binding DeviceName}"
                                     CellStyle="{StaticResource CellStyle}"
-                                    AutomationProperties.AutomationId="DataGridTextColumn14_3A60546D" />
+                                    AutomationProperties.AutomationId="DataGridTextColumn14_3A60546D"
+                                    loc:Localizer.For="Operator"/>
                 <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.EnabledLabel}}"
                                         IsReadOnly="False"
-                                        AutomationProperties.AutomationId="DataGridTemplateColumn15_3A60546D">
+                                        AutomationProperties.AutomationId="DataGridTemplateColumn15_3A60546D"
+                                        loc:Localizer.For="Operator">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <CheckBox HorizontalContentAlignment="Center"
@@ -190,7 +202,8 @@
                                         IsReadOnly="False"
                                         MinWidth="300"
                                         CellStyle="{StaticResource MakeCellStyle}"
-                                        AutomationProperties.AutomationId="DataGridTemplateColumn17_3A60546D">
+                                        AutomationProperties.AutomationId="DataGridTemplateColumn17_3A60546D"
+                                        loc:Localizer.For="Operator">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type viewModels:DeviceConfigViewModel}">
                             <ComboBox
@@ -221,12 +234,14 @@
                                     MinWidth="110"
                                     CellStyle="{StaticResource ProtocolCellStyle}"
                                     Binding="{Binding Protocol}"
-                                    AutomationProperties.AutomationId="DataGridTextColumn19_3A60546D" />
+                                    AutomationProperties.AutomationId="DataGridTextColumn19_3A60546D"
+                                    loc:Localizer.For="Operator" />
                 <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Port}}"
                                         IsReadOnly="False"
                                         MinWidth="110"
                                         CellStyle="{StaticResource PortCellStyle}"
-                                        AutomationProperties.AutomationId="DataGridTemplateColumn20_3A60546D">
+                                        AutomationProperties.AutomationId="DataGridTemplateColumn20_3A60546D"
+                                        loc:Localizer.For="Operator">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type viewModels:DeviceConfigViewModel}">
                             <common:VariableItemsControl
@@ -252,7 +267,8 @@
                                     FontSize="{StaticResource SmallLabelFontSize}"
                                     Binding="{Binding Status}"
                                     CellStyle="{StaticResource StatusCellStyle}"
-                                    AutomationProperties.AutomationId="DataGridTextColumn21_3A60546D" />
+                                    AutomationProperties.AutomationId="DataGridTextColumn21_3A60546D" 
+                                    loc:Localizer.For="Operator"/>
             </DataGrid.Columns>
         </DataGrid>
         <Grid Grid.Row="1"
@@ -266,21 +282,16 @@
                                AutomationProperties.AutomationId="RowDefinition24_3A60546D" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition MaxWidth="208"
+                <ColumnDefinition Width="{Binding ElementName=DeviceDataGrid, Path=Columns[0].ActualWidth}"
                                   AutomationProperties.AutomationId="ColumnDefinition25_3A60546D" />
-                <ColumnDefinition MaxWidth="80"
+                <ColumnDefinition Width="{Binding ElementName=DeviceDataGrid, Path=Columns[1].ActualWidth}"
                                   AutomationProperties.AutomationId="ColumnDefinition26_3A60546D" />
                 <ColumnDefinition Width="Auto"
                                   AutomationProperties.AutomationId="ColumnDefinition27_3A60546D" />
-                <ColumnDefinition Width="Auto"
-                                  AutomationProperties.AutomationId="ColumnDefinition28_3A60546D" />
-                <ColumnDefinition Width="Auto"
-                                  AutomationProperties.AutomationId="ColumnDefinition29_3A60546D" />
-                <ColumnDefinition Width="Auto"
-                                  AutomationProperties.AutomationId="ColumnDefinition30_3A60546D" />
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0"
                    Grid.Column="0"
+                   Width="{Binding ElementName=DeviceDataGrid, Path=Columns[0].ActualWidth}"
                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.HardMetersLabel}}"
                    AutomationProperties.AutomationId="Label31_3A60546D" />
             <CheckBox Grid.Row="0"
@@ -288,21 +299,19 @@
                       Name="HardMeterEnabled"
                       IsChecked="{Binding Path=HardMetersEnabled, Mode=TwoWay}"
                       IsEnabled="{Binding ConfigurableHardMeters}"
-                      Style="{DynamicResource MonacoCheckBoxGeneral}"
-                      HorizontalAlignment="Left"
-                      Margin="8 4 0 0"
-                      AutomationProperties.AutomationId="CheckBox32_3A60546D" />
+                      Style="{StaticResource CheckBoxStyle}"
+                      AutomationProperties.AutomationId="CheckBox32_3A60546D"/>
             <StackPanel Grid.Row="0"
                         Grid.Column="2"
                         Orientation="Horizontal"
-                        Visibility="{Binding ElementName=HardMeterEnabled, Path=IsChecked, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                        Visibility="{Binding ElementName=HardMeterEnabled, Path=IsChecked, Converter={StaticResource TrueVisibleFalseHidden}}"
                         AutomationProperties.AutomationId="StackPanel33_3A60546D">
                 <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.AvailableMeterMappings}}"
                        AutomationProperties.AutomationId="Label34_3A60546D" />
                 <ComboBox Style="{StaticResource MonacoComboBox}"
                           SelectedValue="{Binding HardMeterMapSelection, Mode=TwoWay}"
                           ItemsSource="{Binding HardMeterMapNames}"
-                          Margin="10"
+                          Margin="10 0"
                           Width="Auto"
                           HorizontalAlignment="Left"
                           IsEnabled="{Binding ConfigurableHardMeters}"
@@ -335,9 +344,9 @@
                                AutomationProperties.AutomationId="RowDefinition40_3A60546D" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition MaxWidth="208"
+                <ColumnDefinition Width="{Binding ElementName=DeviceDataGrid, Path=Columns[0].ActualWidth}"
                                   AutomationProperties.AutomationId="ColumnDefinition41_3A60546D" />
-                <ColumnDefinition MaxWidth="80"
+                <ColumnDefinition Width="{Binding ElementName=DeviceDataGrid, Path=Columns[1].ActualWidth}"
                                   AutomationProperties.AutomationId="ColumnDefinition42_3A60546D" />
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0"
@@ -348,9 +357,7 @@
             <CheckBox Grid.Row="0"
                       Grid.Column="1"
                       IsChecked="{Binding Path=EnabledDoorOpticSensor, Mode=TwoWay}"
-                      Style="{DynamicResource MonacoCheckBoxGeneral}"
-                      HorizontalAlignment="Left"
-                      Margin="8 12 0 10"
+                      Style="{StaticResource CheckBoxStyle}"
                       AutomationProperties.AutomationId="CheckBox44_3A60546D">
                 <CheckBox.IsEnabled>
                     <MultiBinding Converter="{StaticResource BoolAndConverter}">
@@ -369,9 +376,9 @@
                                AutomationProperties.AutomationId="RowDefinition46_3A60546D" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition MaxWidth="208"
+                <ColumnDefinition Width="{Binding ElementName=DeviceDataGrid, Path=Columns[0].ActualWidth}"
                                   AutomationProperties.AutomationId="ColumnDefinition47_3A60546D" />
-                <ColumnDefinition MaxWidth="80"
+                <ColumnDefinition Width="{Binding ElementName=DeviceDataGrid, Path=Columns[1].ActualWidth}"
                                   AutomationProperties.AutomationId="ColumnDefinition48_3A60546D" />
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0"
@@ -382,9 +389,7 @@
             <CheckBox Grid.Row="0"
                       Grid.Column="1"
                       IsChecked="{Binding Path=BellyPanelDoorEnabled, Mode=TwoWay}"
-                      Style="{DynamicResource MonacoCheckBoxGeneral}"
-                      HorizontalAlignment="Left"
-                      Margin="8 4 0 10"
+                      Style="{StaticResource CheckBoxStyle}"
                       IsEnabled="{Binding ConfigurableBellyPanelDoor}"
                       AutomationProperties.AutomationId="CheckBox50_3A60546D" />
         </Grid>
@@ -397,9 +402,9 @@
                                AutomationProperties.AutomationId="RowDefinition52_3A60546D" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition MaxWidth="208"
+                <ColumnDefinition Width="{Binding ElementName=DeviceDataGrid, Path=Columns[0].ActualWidth}"
                                   AutomationProperties.AutomationId="ColumnDefinition53_3A60546D" />
-                <ColumnDefinition MaxWidth="80"
+                <ColumnDefinition Width="{Binding ElementName=DeviceDataGrid, Path=Columns[1].ActualWidth}"
                                   AutomationProperties.AutomationId="ColumnDefinition54_3A60546D" />
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0"
@@ -410,9 +415,7 @@
             <CheckBox Grid.Row="0"
                       Grid.Column="1"
                       IsChecked="{Binding Path=BellEnabled, Mode=TwoWay}"
-                      Style="{DynamicResource MonacoCheckBoxGeneral}"
-                      HorizontalAlignment="Left"
-                      Margin="8 12 0 10"
+                      Style="{StaticResource CheckBoxStyle}"
                       IsEnabled="{Binding ConfigurableBell}"
                       AutomationProperties.AutomationId="CheckBox56_3A60546D" />
         </Grid>
@@ -425,7 +428,7 @@
                                AutomationProperties.AutomationId="RowDefinition58_3A60546D" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition MaxWidth="208"
+                <ColumnDefinition Width="{Binding ElementName=DeviceDataGrid, Path=Columns[0].ActualWidth}"
                                   AutomationProperties.AutomationId="ColumnDefinition59_3A60546D" />
                 <ColumnDefinition Width="Auto"
                                   AutomationProperties.AutomationId="ColumnDefinition60_3A60546D" />
@@ -460,10 +463,10 @@
                     AutomationProperties.AutomationId="Button64_3A60546D" />
             <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ApplyLabel}}"
                     Visibility="{Binding ShowApplyButton, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                    IsEnabled="{Binding InputEnabled}"
                     Command="{Binding ApplyHardwareSettingsCommand}"
                     AutomationProperties.AutomationId="Button65_3A60546D" />
-            <Button Margin="0 15 0 0"
-                    Style="{StaticResource MonacoWarningButton}"
+            <Button Style="{StaticResource MonacoWarningButton}"
                     Name="ApplyInfoButton"
                     Command="{Binding ShowInfoPopupCommand}"
                     Visibility="{Binding ShowApplyButton, Converter={StaticResource TrueVisibleFalseCollapsed}}"

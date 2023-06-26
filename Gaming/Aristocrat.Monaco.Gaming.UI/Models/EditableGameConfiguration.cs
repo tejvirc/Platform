@@ -423,9 +423,9 @@
 
         public decimal Denom => BaseDenom / _denomMultiplier;
 
-        public string DenomString => $"{Denom.FormattedCurrencyString()}";
+        public string DenomString => Denom.FormattedCurrencyStringForOperator();
 
-        public string MaxBet => $"{BetMaximum.FormattedCurrencyString()}";
+        public string MaxBet => BetMaximum.FormattedCurrencyStringForOperator();
 
         public bool Gamble
         {
@@ -637,6 +637,11 @@
             RaisePropertyChanged(nameof(CanEditAndEnableLetItRide));
         }
 
+        public void UpdateCurrencyCulture()
+        {
+            RaisePropertyChanged(nameof(DenomString), nameof(MaxBet));
+        }
+
         public void SetAllowedRtpRange(decimal? lowestAllowed, decimal? highestAllowed)
         {
             var lowest = lowestAllowed ?? LowestAvailableMinimumRtp;
@@ -770,7 +775,7 @@
                 WarningText = string.Format(
                     CultureInfo.CurrentCulture,
                     Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InvalidBetAmountForDenom),
-                    Denom.FormattedCurrencyString());
+                    DenomString);
             }
             else
             {
@@ -784,7 +789,7 @@
             // MaximumWagerCredits and MaxBet is not simple. Hence we only perform this check on Roulette for now.
             var game = FilteredAvailableGames.FirstOrDefault();
 
-            if (game is not { GameType: GameType.Roulette})
+            if (game is not { GameType: GameType.Roulette })
             {
                 return false;
             }

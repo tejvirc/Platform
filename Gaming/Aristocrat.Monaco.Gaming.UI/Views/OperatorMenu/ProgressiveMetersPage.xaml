@@ -8,7 +8,8 @@
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
-                               d:DataContext="{d:DesignInstance {x:Type viewModels:ProgressiveMetersPageViewModel}}">
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:ProgressiveMetersPageViewModel}}"
+                               loc:Localizer.For="Operator">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -18,12 +19,9 @@
             <Style x:Key="WrappedHeaderStyle"
                    TargetType="{x:Type DataGridColumnHeader}"
                    BasedOn="{StaticResource MonacoDataGridWrappedColumnHeader}">
-                <Setter Property="MinWidth"
-                        Value="250" />
-                <Setter Property="MinHeight"
-                        Value="80" />
-                <Setter Property="Margin"
-                        Value="0 0 15 0" />
+                <Setter Property="MinWidth" Value="250" />
+                <Setter Property="MinHeight" Value="80" />
+                <Setter Property="Margin" Value="0 0 15 0" />
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -31,18 +29,15 @@
           Visibility="{Binding Path=HasEnabledProgressives, Converter={StaticResource TrueVisibleFalseCollapsed}}"
           AutomationProperties.AutomationId="Grid0_F589A27">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"
-                           AutomationProperties.AutomationId="RowDefinition1_F589A27" />
-            <RowDefinition Height="Auto"
-                           AutomationProperties.AutomationId="RowDefinition2_F589A27" />
-            <RowDefinition Height="Auto"
-                           AutomationProperties.AutomationId="RowDefinition3_F589A27" />
-            <RowDefinition Height="Auto"
-                           AutomationProperties.AutomationId="RowDefinition4_F589A27" />
-            <RowDefinition Height="Auto"
-                           AutomationProperties.AutomationId="RowDefinition5_F589A27" />
+            <RowDefinition Height="Auto" MinHeight="100" AutomationProperties.AutomationId="RowDefinition1_F589A27" />
+            <RowDefinition Height="*" AutomationProperties.AutomationId="RowDefinition2_F589A27" />
+            <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition3_F589A27" />
+            <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition4_F589A27" />
+            <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition5_F589A27" />
         </Grid.RowDefinitions>
-        <Border HorizontalAlignment="Left"
+        <Border Grid.Row="0"
+                Grid.RowSpan="2"
+                HorizontalAlignment="Left"
                 MinWidth="1250"
                 AutomationProperties.AutomationId="Border6_F589A27">
             <DataGrid ColumnWidth="*"
@@ -56,70 +51,40 @@
                     VerticalAlignment="Top"
                     Orientation="Horizontal"
                     AutomationProperties.AutomationId="StackPanel8_F589A27">
-            <Label VerticalAlignment="Bottom"
+            <Label VerticalAlignment="Top"
                    HorizontalAlignment="Left"
                    Margin="0 20 0 0"
-                   AutomationProperties.AutomationId="Label9_F589A27">
-                <Label.Style>
-                    <Style BasedOn="{StaticResource MonacoLabel}"
-                           TargetType="{x:Type Label}">
-                        <Style.Triggers>
-                            <MultiDataTrigger AutomationProperties.AutomationId="MultiDataTrigger10_F589A27">
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding Path=HasEnabledProgressives, Mode=OneWay}"
-                                               Value="false" />
-                                    <Condition Binding="{Binding Path=HasProgressives, Mode=OneWay}"
-                                               Value="false" />
-                                </MultiDataTrigger.Conditions>
-                                <Setter Property="Content"
-                                        Value="{lex:Loc Key={x:Static loc:ResourceKeys.NoProgressiveGamesEnabled}}" />
-                                <Setter Property="Visibility"
-                                        Value="Visible" />
-                            </MultiDataTrigger>
-                            <DataTrigger Binding="{Binding Path=HasProgressives, Mode=OneWay}"
-                                         Value="false"
-                                         AutomationProperties.AutomationId="DataTrigger11_F589A27">
-                                <Setter Property="Content"
-                                        Value="{lex:Loc Key={x:Static loc:ResourceKeys.NoProgressiveMeters}}" />
-                                <Setter Property="Visibility"
-                                        Value="Visible" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                        <Setter Property="Visibility"
-                                Value="Collapsed" />
-                        <Setter Property="Content"
-                                Value="" />
-                    </Style>
-                </Label.Style>
-            </Label>
+                   AutomationProperties.AutomationId="Label9_F589A27"
+                   Visibility="{Binding HasProgressivesButNoneEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.NoProgressiveGamesEnabled}}" />
+            <Label VerticalAlignment="Top"
+                   HorizontalAlignment="Left"
+                   Margin="0 20 0 0"
+                   Visibility="{Binding HasProgressives, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.NoProgressiveMeters}}"
+                   AutomationProperties.AutomationId="Label0_7471432F" />
         </StackPanel>
         <StackPanel Grid.Row="2"
                     Orientation="Horizontal"
                     HorizontalAlignment="Left"
                     Margin="0 30 0 0"
                     AutomationProperties.AutomationId="StackPanel12_F589A27">
-            <Button Margin="0 0 10 0"
-                    Width="65"
+            <Button Style="{StaticResource MonacoPrevNextButton}"
                     Command="{Binding PreviousGameCommand}"
                     IsEnabled="{Binding PreviousGameIsEnabled}"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrevButton}}"
                     AutomationProperties.AutomationId="Button13_F589A27" />
-            <ComboBox Margin="0 0 10 0"
-                      VerticalAlignment="Center"
-                      Width="500"
-                      MaxWidth="500"
+            <ComboBox Style="{StaticResource MonacoMetersComboBox}"
                       SelectedValuePath="Id"
                       ScrollViewer.CanContentScroll="True"
                       ItemsSource="{Binding Games}"
                       SelectedIndex="{Binding SelectedGameIndex, Mode=TwoWay}"
                       SelectedItem="{Binding SelectedGame, Mode=TwoWay}"
-                      MaxDropDownHeight="240"
                       Visibility="{Binding SelectByGameNameAndDenomination, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                       AutomationProperties.AutomationId="ComboBox14_F589A27">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Height="24"
-                                   AutomationProperties.AutomationId="TextBlock15_F589A27">
+                        <TextBlock Height="24" AutomationProperties.AutomationId="TextBlock15_F589A27">
                             <TextBlock.Text>
                                 <Binding Path="ThemeName" />
                             </TextBlock.Text>
@@ -127,22 +92,17 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <ComboBox Margin="0 0 10 0"
-                      VerticalAlignment="Center"
-                      Width="500"
-                      MaxWidth="500"
+            <ComboBox Style="{StaticResource MonacoMetersComboBox}"
                       SelectedValuePath="Id"
                       ScrollViewer.CanContentScroll="True"
                       ItemsSource="{Binding Games}"
                       SelectedIndex="{Binding SelectedGameIndex, Mode=TwoWay}"
                       SelectedItem="{Binding SelectedGame, Mode=TwoWay}"
-                      MaxDropDownHeight="240"
                       Visibility="{Binding SelectByGameNameAndDenomination, Converter={StaticResource TrueCollapsedFalseVisible}}"
                       AutomationProperties.AutomationId="ComboBox16_F589A27">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Height="24"
-                                   AutomationProperties.AutomationId="TextBlock17_F589A27">
+                        <TextBlock Height="24" AutomationProperties.AutomationId="TextBlock17_F589A27">
                             <TextBlock.Text>
                                 <MultiBinding StringFormat="{}{0} ({1} - {2})">
                                     <Binding Path="ThemeName" />
@@ -154,8 +114,7 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <Button Margin="0 0 10 0"
-                    Width="65"
+            <Button Style="{StaticResource MonacoPrevNextButton}"
                     Command="{Binding NextGameCommand}"
                     IsEnabled="{Binding NextGameIsEnabled}"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.NextButtonText}}"
@@ -164,26 +123,22 @@
         <StackPanel Grid.Row="3"
                     Orientation="Horizontal"
                     HorizontalAlignment="Left"
-                    Margin="0 30 0 0"
+                    Margin="0 10 0 0"
                     AutomationProperties.AutomationId="StackPanel19_F589A27">
-            <Button Margin="0 0 10 0"
-                    Width="65"
+            <Button Style="{StaticResource MonacoPrevNextButton}"
                     Command="{Binding PreviousDenomCommand}"
                     IsEnabled="{Binding PreviousDenomIsEnabled}"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrevButton}}"
                     AutomationProperties.AutomationId="Button20_F589A27" />
-            <ComboBox Margin="0 0 10 0"
-                      VerticalAlignment="Center"
+            <ComboBox Style="{StaticResource MonacoMetersComboBox}"
                       SelectedValuePath="Id"
                       ScrollViewer.CanContentScroll="True"
-                      Width="400"
                       DisplayMemberPath="DisplayValue"
                       ItemsSource="{Binding Denoms}"
                       SelectedIndex="{Binding SelectedDenomIndex, Mode=TwoWay}"
                       SelectedItem="{Binding SelectedDenom, Mode=TwoWay}"
                       AutomationProperties.AutomationId="ComboBox21_F589A27" />
-            <Button Margin="0 0 10 0"
-                    Width="65"
+            <Button Style="{StaticResource MonacoPrevNextButton}"
                     Command="{Binding NextDenomCommand}"
                     IsEnabled="{Binding NextDenomIsEnabled}"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.NextButtonText}}"
@@ -193,25 +148,21 @@
                     Visibility="{Binding ViewBetOptionFilter, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     Orientation="Horizontal"
                     HorizontalAlignment="Left"
-                    Margin="0 30 0 0"
+                    Margin="0 10 0 0"
                     AutomationProperties.AutomationId="StackPanel23_F589A27">
-            <Button Margin="0 0 10 0"
-                    Width="65"
+            <Button Style="{StaticResource MonacoPrevNextButton}"
                     Command="{Binding PreviousBetOptionCommand}"
                     IsEnabled="{Binding PreviousBetOptionIsEnabled}"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrevButton}}"
                     AutomationProperties.AutomationId="Button24_F589A27" />
-            <ComboBox Margin="0 0 10 0"
-                      VerticalAlignment="Center"
+            <ComboBox Style="{StaticResource MonacoMetersComboBox}"
                       SelectedValuePath="Id"
                       ScrollViewer.CanContentScroll="True"
-                      Width="400"
                       ItemsSource="{Binding BetOptions}"
                       SelectedIndex="{Binding SelectedBetOptionIndex, Mode=TwoWay}"
                       SelectedItem="{Binding SelectedBetOption, Mode=TwoWay}"
                       AutomationProperties.AutomationId="ComboBox25_F589A27" />
-            <Button Margin="0 0 10 0"
-                    Width="65"
+            <Button Style="{StaticResource MonacoPrevNextButton}"
                     Command="{Binding NextBetOptionCommand}"
                     IsEnabled="{Binding NextBetOptionIsEnabled}"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.NextButtonText}}"

@@ -18,7 +18,7 @@
 
         protected override IOperatorMenuPageViewModel CreateViewModel()
         {
-            return new GamesMainPageViewModel(PageName);
+            return new GamesMainPageViewModel(this);
         }
     }
 }

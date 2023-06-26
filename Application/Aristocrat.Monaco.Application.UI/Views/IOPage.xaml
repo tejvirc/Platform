@@ -9,7 +9,8 @@
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                Background="Transparent"
                                mc:Ignorable="d"
-                               d:DataContext="{d:DesignInstance {x:Type viewModels:IOPageViewModel}}">
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:IOPageViewModel}}"
+                               loc:Localizer.For="Operator">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -97,7 +98,7 @@
             <TextBlock Grid.Row="1"
                        Grid.Column="4"
                        Name="Status"
-                       Text="{Binding StatusText}"
+                       Text="{Binding FormattedStatus}"
                        Foreground="{Binding StatusForegroundBrush}"
                        AutomationProperties.AutomationId="TextBlock21_9C8A3C39" />
             <Label Grid.Row="2"

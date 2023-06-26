@@ -52,6 +52,8 @@
 
         private bool _noteAcceptorEnabled;
 
+        private bool _showModeActive;
+
         // Default _restrictDebugCreditsIn is off (false) to allow debug credits in to be inserted over the configured max credits in limit.
         // Use F5 key to toggle on/off.  When on, debug credits in will be restricted to the configured max credits in limit the same as when 
         // real currency with the note acceptor.
@@ -454,13 +456,14 @@
             eventBus.Subscribe<DebugAnyCreditEvent>(this, ReceiveEvent);
             eventBus.Subscribe<InitializationCompletedEvent>(this, InitializationCompletedEventHandler);
 
-            var showMode = (bool)ServiceManager.GetInstance().GetService<IPropertiesManager>()
+            _showModeActive = (bool)ServiceManager.GetInstance().GetService<IPropertiesManager>()
                 .GetProperty(ApplicationConstants.ShowMode, false);
-            if (showMode)
+            if (_showModeActive)
             {
                 eventBus.Subscribe<GameIdleEvent>(this, _ => UpdateShowModeAccountBalance());
                 eventBus.Subscribe<HandpayKeyOffPendingEvent>(this, ShowModeHandleEvent);
                 eventBus.Subscribe<OperatorMenuExitedEvent>(this, _ => UpdateShowModeAccountBalance());
+                eventBus.Subscribe<TransferOutCompletedEvent>(this, _ => UpdateShowModeAccountBalance());
             }
         }
 
@@ -581,7 +584,7 @@
                 }
             }
 
-            if (_noteAcceptorEnabled == false)
+            if (_noteAcceptorEnabled == false && !_showModeActive)
             {
                 var noteAcceptor = ServiceManager.GetInstance().TryGetService<INoteAcceptor>();
                 if (noteAcceptor != null)

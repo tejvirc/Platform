@@ -99,7 +99,6 @@
                            AutomationProperties.AutomationId="Label21_5E78AF2B" />
                     <TextBlock Grid.Row="0"
                                Grid.Column="1"
-                               Foreground="{Binding ManufacturerForeground}"
                                AutomationProperties.AutomationId="TextBlock22_5E78AF2B">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock"
@@ -123,7 +122,6 @@
                            AutomationProperties.AutomationId="Label24_5E78AF2B" />
                     <TextBlock Grid.Row="1"
                                Grid.Column="1"
-                               Foreground="{Binding ModelForeground}"
                                AutomationProperties.AutomationId="TextBlock25_5E78AF2B">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock"
@@ -147,7 +145,6 @@
                            AutomationProperties.AutomationId="Label27_5E78AF2B" />
                     <TextBlock Grid.Row="2"
                                Grid.Column="1"
-                               Foreground="{Binding ProtocolForeground}"
                                AutomationProperties.AutomationId="TextBlock28_5E78AF2B">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock"
@@ -172,7 +169,6 @@
                            AutomationProperties.AutomationId="Label30_5E78AF2B" />
                     <TextBlock Grid.Row="3"
                                Grid.Column="1"
-                               Foreground="{Binding PortForeground}"
                                Visibility="{Binding PortVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                AutomationProperties.AutomationId="TextBlock31_5E78AF2B">
                         <TextBlock.Style>
@@ -197,7 +193,6 @@
                            AutomationProperties.AutomationId="Label33_5E78AF2B" />
                     <TextBlock Grid.Row="4"
                                Grid.Column="1"
-                               Foreground="{Binding SerialNumberForeground}"
                                AutomationProperties.AutomationId="TextBlock34_5E78AF2B">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock"
@@ -221,7 +216,6 @@
                            AutomationProperties.AutomationId="Label36_5E78AF2B" />
                     <TextBlock Grid.Row="5"
                                Grid.Column="1"
-                               Foreground="{Binding FirmwareVersionForeground}"
                                AutomationProperties.AutomationId="TextBlock37_5E78AF2B">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock"
@@ -246,7 +240,6 @@
                            AutomationProperties.AutomationId="Label39_5E78AF2B" />
                     <TextBlock Grid.Row="6"
                                Grid.Column="1"
-                               Foreground="{Binding FirmwareRevisionForeground}"
                                AutomationProperties.AutomationId="TextBlock40_5E78AF2B">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock"
@@ -271,7 +264,6 @@
                            AutomationProperties.AutomationId="Label42_5E78AF2B" />
                     <TextBlock Grid.Row="7"
                                Grid.Column="1"
-                               Foreground="{Binding FirmwareCrcForeground}"
                                AutomationProperties.AutomationId="TextBlock43_5E78AF2B">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock"
@@ -297,7 +289,6 @@
                     <TextBlock Grid.Row="8"
                                Grid.Column="1"
                                Text="{Binding ActivationTime}"
-                               Foreground="{Binding ActivationForeground}"
                                Visibility="{Binding ActivationVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                AutomationProperties.AutomationId="TextBlock46_5E78AF2B" />
                 </Grid>

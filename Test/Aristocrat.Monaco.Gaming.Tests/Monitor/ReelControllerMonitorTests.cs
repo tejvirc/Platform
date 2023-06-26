@@ -5,6 +5,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Application.Contracts;
+    using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
     using Common;
     using Contracts;
@@ -42,6 +43,7 @@
         private Mock<IGameService> _gameService;
         private Mock<IGameHistory> _gameHistory;
         private Mock<IOperatorMenuLauncher> _operatorMenuLauncher;
+        private Mock<IPropertiesManager> _propertiesManager;
 
         private Func<ClosedEvent, CancellationToken, Task> _doorClosedAction;
         private Func<ConnectedEvent, CancellationToken, Task> _connectedAction;
@@ -80,6 +82,11 @@
             _operatorMenuLauncher = new Mock<IOperatorMenuLauncher>(MockBehavior.Default);
             _gamePlayState = new Mock<IGamePlayState>(MockBehavior.Default);
             _edgeLightingController = new Mock<IEdgeLightingController>(MockBehavior.Default);
+
+            _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Strict);
+            _propertiesManager
+                .Setup(m => m.GetProperty(ApplicationConstants.LockupCulture, It.IsAny<object>()))
+                .Returns(CultureFor.Operator);
 
             var games = new List<IGameDetail>
             {
@@ -988,7 +995,7 @@
 
             _gamePlayState.Setup(x => x.Enabled).Returns(!areReelsTilted);
             _gamePlayState.Setup(x => x.InGameRound).Returns(false);
-            _disable.Setup(x => x.CurrentDisableKeys).Returns( new List<Guid> { ApplicationConstants.SystemDisableGuid });
+            _disable.Setup(x => x.CurrentDisableKeys).Returns(new List<Guid> { ApplicationConstants.SystemDisableGuid });
             if (areReelsTilted)
             {
                 var count = 0;

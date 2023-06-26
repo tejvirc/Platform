@@ -523,7 +523,13 @@
                     SetProperty(PropertyKey.VoucherIn, configuration.VoucherIn.State.Equals("Enabled"));
                     SetProperty(AccountingConstants.VoucherOut, configuration.VoucherOut?.State.Equals("Enabled"));
                     SetProperty(AccountingConstants.VoucherOutNonCash, configuration.VoucherOut?.AllowNonCashableTicket.Equals("Enabled"));
-                    SetProperty(AccountingConstants.VoucherOutLimit, Math.Min(configuration.CreditLimits?.MaxCreditMeter?.Default ?? long.MaxValue, voucherOutLimit));
+                    SetProperty(
+                                            AccountingConstants.VoucherOutLimit,
+                                            voucherOutLimit != AccountingConstants.DefaultVoucherOutLimit
+                                                ? voucherOutLimit
+                                                : Math.Min(
+                                                    configuration.CreditLimits?.MaxCreditMeter?.Default ?? long.MaxValue,
+                                                    voucherOutLimit));
                     SetProperty(AccountingConstants.VoucherOutExpirationDays, configuration.VoucherOut?.Expiration?.Days ?? AccountingConstants.DefaultVoucherExpirationDays);
                     SetProperty(AccountingConstants.VoucherOutNonCashExpirationDays, configuration.VoucherOut?.Expiration?.Days ?? AccountingConstants.DefaultVoucherExpirationDays);
                     SetProperty(AccountingConstants.AllowCashWinTicket, configuration.VoucherOut?.AllowCashWinTicket ?? false);

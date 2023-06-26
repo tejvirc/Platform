@@ -135,7 +135,7 @@
             _disableManager.Disable(
                 StorageFaultGuid,
                 SystemDisablePriority.Immediate,
-                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.IntegrityCheckFailed));
+                () => Localizer.ForLockup().GetString(ResourceKeys.IntegrityCheckFailed));
 
             PlayErrorSound();
         }
@@ -157,7 +157,7 @@
             _disableManager.Disable(
                 StorageFaultGuid,
                 SystemDisablePriority.Immediate,
-                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.StorageFault));
+                () => Localizer.ForLockup().GetString(ResourceKeys.StorageFault));
 
             PlayErrorSound();
 
@@ -176,7 +176,7 @@
                     _disableManager.Disable(
                         ApplicationConstants.SecondaryStorageMediaNotConnectedKey,
                         SystemDisablePriority.Immediate,
-                        () => Localizer.For(CultureFor.Operator)
+                        () => Localizer.ForLockup()
                             .GetString(ResourceKeys.ErrorInfoSecondaryStorageMediaNotConnected));
                     PlayErrorSound();
 
@@ -189,7 +189,7 @@
                         _disableManager.Disable(
                             ApplicationConstants.SecondaryStorageMediaConnectedKey,
                             SystemDisablePriority.Immediate,
-                            () => Localizer.For(CultureFor.Operator)
+                            () => Localizer.ForLockup()
                                 .GetString(ResourceKeys.ErrorInfoSecondaryStorageMediaConnected));
                         PlayErrorSound();
                     }
@@ -207,7 +207,7 @@
                 ApplicationConstants.PeriodicCriticalMemoryIntegrityCheckSoundFilePath,
                 string.Empty);
             _audioService.LoadSound(_criticalMemoryCheckFailedErrorSoundFilePath);
-            }
+        }
 
         /// <summary>
         /// Plays the sound defined in the Application Config for DB Integrity check failed.

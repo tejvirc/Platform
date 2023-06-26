@@ -27,6 +27,12 @@ namespace Aristocrat.Monaco.Application.Tickets
             return ticket.CreateTextTicket();
         }
 
+        public Ticket CreateSecondPage()
+        {
+            var ticket = new PeriodicResetTicket();
+            return ticket.CreateSecondPageTextTicket();
+        }
+
         public string Name => "Periodic Reset Ticket Creator";
 
         public ICollection<Type> ServiceTypes => new[] { typeof(IPeriodicResetTicketCreator) };

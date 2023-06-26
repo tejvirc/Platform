@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts.Button
 {
+    using System;
     using System.Collections.Generic;
 
     /// <summary>Logical Button state enumerations.</summary>
@@ -63,8 +64,9 @@
 
         /// <summary>Gets the localized button name for the given logical button ID.</summary>
         /// <param name="buttonId">The logical button ID.</param>
+        /// <param name="getStringCallback">Method that resolves a string. Usually used in conjunction with a culture provider.</param>
         /// <returns>The localized button name.</returns>
-        string GetLocalizedButtonName(int buttonId);
+        string GetLocalizedButtonName(int buttonId, Func<string, Action<Exception>, string> getStringCallback);
 
         /// <summary>Gets the lamp bit for the given logical button ID.</summary>
         /// <param name="buttonId">The logical button ID.</param>

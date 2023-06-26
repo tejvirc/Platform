@@ -100,10 +100,10 @@
             switch (cashInType)
             {
                 case CashInType.Currency:
-                    data.SubText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InsertingBillText);
+                    data.SubText = Localizer.For(CultureFor.Player).GetString(ResourceKeys.InsertingBillText);
                     break;
                 case CashInType.Voucher:
-                    data.SubText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InsertingVoucherText);
+                    data.SubText = Localizer.For(CultureFor.Player).GetString(ResourceKeys.InsertingVoucherText);
                     break;
                 case CashInType.Wat:
                     if (stateContainsCashOut &&
@@ -137,17 +137,17 @@
             data.IsSubText2Visible = true;
 
             data.Text = CashOutButtonPressed || LastHandpayType == HandpayType.CancelCredit
-                ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HandpayPresentationText)
-                : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.JackpotPresentationText);
+                ? Localizer.For(CultureFor.Player).GetString(ResourceKeys.HandpayPresentationText)
+                : Localizer.For(CultureFor.Player).GetString(ResourceKeys.JackpotPresentationText);
 
             data.SubText = OverlayMessageUtils.ToCredits(HandpayAmount).FormattedCurrencyString();
-            data.SubText2 = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CancelCreditPending);
+            data.SubText2 = Localizer.For(CultureFor.Player).GetString(ResourceKeys.CancelCreditPending);
 
             if (_properties.GetValue(ApplicationConstants.ShowWagerWithLargeWinInfo, false) &&
                 LastHandpayType == HandpayType.GameWin && LargeWinWager > 0)
             {
                 data.IsSubText3Visible = true;
-                data.SubText3 = Localizer.For(CultureFor.Operator)
+                data.SubText3 = Localizer.For(CultureFor.Player)
                     .FormatString(ResourceKeys.JackpotWager, OverlayMessageUtils.ToCredits(LargeWinWager).FormattedCurrencyString());
             }
 
@@ -159,14 +159,14 @@
             {
                 data.IsButtonVisible = true;
                 data.ButtonCommand = ExitHandpayPendingCommand;
-                data.ButtonText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PlayOnText);
-                data.SubText2 = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CancelCreditPending);
+                data.ButtonText = Localizer.For(CultureFor.Player).GetString(ResourceKeys.PlayOnText);
+                data.SubText2 = Localizer.For(CultureFor.Player).GetString(ResourceKeys.CancelCreditPending);
             }
 
             if (enableHandpayExit && LastHandpayType == HandpayType.GameWin)
             {
                 // Display a different message for Substantial Win
-                data.SubText2 = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SubstantialWinHandpay);
+                data.SubText2 = Localizer.For(CultureFor.Player).GetString(ResourceKeys.SubstantialWinHandpay);
             }
 
             return data;
@@ -179,11 +179,11 @@
             data.DisplayForEvents = true;
             data.DisplayImageResourceKey = HandPayDisplayKey;
 
-            data.Text = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CashWinPresentationVoucher);
+            data.Text = Localizer.For(CultureFor.Player).GetString(ResourceKeys.CashWinPresentationVoucher);
             data.SubText = OverlayMessageUtils.ToCredits(LastCashOutAmount).FormattedCurrencyString();
-            data.SubText2 = Localizer.For(CultureFor.Operator)
+            data.SubText2 = Localizer.For(CultureFor.Player)
                              .GetString(ResourceKeys.MaximumValueReachedCashOutText1) + " " +
-                             Localizer.For(CultureFor.Operator).FormatString(
+                             Localizer.For(CultureFor.Player).FormatString(
                              ResourceKeys.PrintingPresentationVoucher,
                              OverlayMessageUtils.ToCredits(LastCashOutAmount).FormattedCurrencyString());
 
@@ -197,7 +197,7 @@
             {
                 data.IsSubText2Visible = true;
                 data.SubText2 = Environment.NewLine +
-                                Localizer.For(CultureFor.Operator).FormatString(
+                                Localizer.For(CultureFor.Player).FormatString(
                                 ResourceKeys.PrintingPresentationVoucher,
                                 OverlayMessageUtils.ToCredits(LastCashOutAmount)
                                 .FormattedCurrencyString());
@@ -234,7 +234,7 @@
             Logger.Debug("HandleMessageOverlayHandPayCashout entered");
 
             data.SubText = OverlayMessageUtils.ToCredits(HandpayAmount).FormattedCurrencyString();
-            data.Text = Localizer.For(CultureFor.Operator).FormatString(ResourceKeys.HandPayPaidPresentationText);
+            data.Text = Localizer.For(CultureFor.Player).FormatString(ResourceKeys.HandPayPaidPresentationText);
             data.DisplayImageResourceKey = HandPayDisplayKey;
 
             var printHandpayReceipt = _properties.GetValue(AccountingConstants.EnableReceipts, false);

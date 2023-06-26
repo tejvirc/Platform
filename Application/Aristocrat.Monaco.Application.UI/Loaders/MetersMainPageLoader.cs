@@ -17,7 +17,7 @@
 
         protected override IOperatorMenuPageViewModel CreateViewModel()
         {
-            return new MetersMainPageViewModel(PageName);
+            return new MetersMainPageViewModel(this);
         }
     }
 }

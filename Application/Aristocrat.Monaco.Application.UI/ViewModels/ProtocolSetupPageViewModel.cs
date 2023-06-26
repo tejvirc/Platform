@@ -45,18 +45,44 @@
                     }
                 });
 
+            ProtocolSelections = new List<ProtocolSelection>();
+
+            if (PropertiesManager.GetValue(ApplicationConstants.ShowMode, false))
+            {
+                var protocolsToMerge = protocolsConfiguration.ProtocolConfiguration.ProtocolsAllowed;
+                protocolsConfiguration.ProtocolConfiguration.ProtocolsAllowed =
+                    new GlobalProtocol[protocolsToMerge.Length + 1];
+                protocolsConfiguration.ProtocolConfiguration.ProtocolsAllowed[0] =
+                    new GlobalProtocol { Name = CommsProtocol.DemonstrationMode, IsMandatory = true };
+                Array.Copy(protocolsToMerge, 0, protocolsConfiguration.ProtocolConfiguration.ProtocolsAllowed, 1, protocolsToMerge.Length);
+
+                var demo = new ProtocolSelection()
+                {
+                    Enabled = true,
+                    ProtocolName = CommsProtocol.DemonstrationMode.ToString(),
+                    Selected = true
+                };
+
+                demo.PropertyChanged += ProtocolSelection_PropertyChanged;
+                ProtocolSelections.Add(demo);
+            }
+
             _requiredFunctionality = protocolsConfiguration.ProtocolConfiguration.RequiredFunctionality?.ToList() ?? new List<FunctionalityType>();
 
             var savedProtocols = _protocolConfigurationProvider.MultiProtocolConfiguration.ToList();
             var protocolsAllowed = protocolsConfiguration.ProtocolConfiguration.ProtocolsAllowed ?? Array.Empty<GlobalProtocol>();
 
-            ProtocolSelections = new List<ProtocolSelection>(protocolsAllowed.Length);
-
-            foreach (var p in protocolsAllowed.OrderBy(x => Enum.GetName(typeof(CommsProtocol), x.Name)))
+            foreach (var protocolName in protocolsAllowed.OrderBy(x => Enum.GetName(typeof(CommsProtocol), x.Name)))
             {
-                if (p.IsMandatory)
+                var enumName = Enum.GetName(typeof(CommsProtocol), protocolName.Name);
+
+                if (ProtocolSelections.Any(p => p.ProtocolName.Equals(enumName)))
                 {
-                    var enumName = Enum.GetName(typeof(CommsProtocol), p.Name);
+                    continue;
+                }
+
+                if (protocolName.IsMandatory)
+                {
                     var selection = new ProtocolSelection();
                     selection.Initialize(enumName);
                     selection.Selected = true;
@@ -69,10 +95,9 @@
                 }
                 else
                 {
-                    var enumName = Enum.GetName(typeof(CommsProtocol), p.Name);
                     var selection = new ProtocolSelection();
                     selection.Initialize(enumName);
-                    selection.Selected = savedProtocols.Any(x => x.Protocol == p.Name);
+                    selection.Selected = savedProtocols.Any(x => x.Protocol == protocolName.Name);
                     selection.PropertyChanged += ProtocolSelection_PropertyChanged;
                     ProtocolSelections.Add(selection);
                 }

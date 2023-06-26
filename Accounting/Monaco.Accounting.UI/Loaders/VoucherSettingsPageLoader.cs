@@ -9,7 +9,7 @@
 
     public class VoucherSettingsPageLoader : OperatorMenuPageLoader
     {
-        public override string PageName => Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.MetersVouchers);
+        public override string PageName => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MetersVouchers);
         protected override IOperatorMenuPage CreatePage()
         {
             return new VoucherSettingsPage { DataContext = ViewModel };

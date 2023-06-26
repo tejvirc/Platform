@@ -55,7 +55,8 @@
                 device.DeviceList(status),
                 theEvent.Media.TransactionId,
                 device.TransactionList(log),
-                null);
+                null,
+                theEvent);
         }
     }
 }

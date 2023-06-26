@@ -1,5 +1,9 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Globalization;
+    using System.Linq;
     using Accounting.Contracts;
     using Application.Contracts;
     using Application.Contracts.Extensions;
@@ -11,10 +15,6 @@
     using Kernel.Contracts.Components;
     using Localization.Properties;
     using Models;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Globalization;
-    using System.Linq;
 
     public class GamesSummaryViewModel : OperatorMenuPageViewModelBase
     {
@@ -49,7 +49,7 @@
             var components = componentRegistry.Components;
 
             var hashesFileName = components.SingleOrDefault(c => c.ComponentId.EndsWith(HashesFileExtension))?.ComponentId;
-            if(!string.IsNullOrEmpty(hashesFileName))
+            if (!string.IsNullOrEmpty(hashesFileName))
             {
                 HashesComponentId = hashesFileName.Substring(0, hashesFileName.LastIndexOf(HashesFileExtension[0]));
             }
@@ -122,7 +122,7 @@
                 AccountingConstants.MaxBetLimit,
                 AccountingConstants.DefaultMaxBetLimit)).MillicentsToDollars();
             var maxBetLimitCents = maxBetLimitDollars.DollarsToCents();
- 
+
             _enabledGamesList = _gameProvider.GetEnabledGames();
             _filteredGamesList.Clear();
 
@@ -133,11 +133,7 @@
                         .Select(d => (g.MaximumWagerCredits(d) * d.Value / denomMultiplier).DollarsToCents())
                         .Any(c => c <= maxBetLimitCents)));
 
-            var configs = _filteredGamesList.SelectMany(
-                g => g.ActiveDenominations,
-                (game, denom) => new ReadOnlyGameConfiguration(game, denom, _denomMultiplier));
-
-            EnabledGames = new ObservableCollection<ReadOnlyGameConfiguration>(configs);
+            RefreshGames();
 
             if (_filteredGamesList.Any())
             {
@@ -157,6 +153,22 @@
 
                 Range = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable);
             }
+
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleOperatorCultureChanged);
+        }
+
+        private void RefreshGames()
+        {
+            var configs = _filteredGamesList.SelectMany(
+                g => g.ActiveDenominations,
+                (game, denom) => new ReadOnlyGameConfiguration(game, denom, _denomMultiplier));
+
+            EnabledGames = new ObservableCollection<ReadOnlyGameConfiguration>(configs);
+        }
+
+        private void HandleOperatorCultureChanged(OperatorCultureChangedEvent obj)
+        {
+            RefreshGames();
         }
     }
 }

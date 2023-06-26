@@ -21,6 +21,7 @@
     using LampTest;
     using Models;
     using Monaco.Localization.Properties;
+    using MVVM;
     using MVVM.Command;
     using Timer = System.Timers.Timer;
 
@@ -52,21 +53,30 @@
             TowerLightsEnabled = !(_towerLightManager?.TowerLightsDisabled ?? true) || (bool)PropertiesManager.GetProperty(KernelConstants.IsInspectionOnly, false);
             TowerLights = new List<TowerLight>();
             _allFlashStates.AddRange((FlashState[])Enum.GetValues(typeof(FlashState)));
-            _strobeFlashStates.AddRange(new []{ FlashState.Off, FlashState.On });
+            _strobeFlashStates.AddRange(new[] { FlashState.Off, FlashState.On });
 
             var towerLightConfig = ServiceManager.GetInstance().GetService<IConfigurationUtility>()
                 .GetConfiguration(TowerLightConfigPath, () => new TowerLightConfiguration());
-            var tiers = towerLightConfig.SignalDefinitions
-                .SelectMany(s => s.OperationalCondition
-                .SelectMany(c => c.DoorCondition
-                .SelectMany(d => d.Set
-                .Select(s => (LightTier)Enum.Parse(typeof(LightTier), s.lightTier)
-                )))).Distinct().ToList();
-            foreach (var tier in tiers)
+
+            if (towerLightConfig.SignalDefinitions != null)
             {
-                var state = _towerLight?.GetFlashState(tier);
-                var lamp = new TowerLight(tier, state.GetValueOrDefault(FlashState.Off));
-                TowerLights.Add(lamp);
+                var tiers = towerLightConfig?.SignalDefinitions
+                    .SelectMany(
+                        s => s.OperationalCondition
+                            .SelectMany(
+                                c => c.DoorCondition
+                                    .SelectMany(
+                                        d => d.Set
+                                            .Select(
+                                                s => (LightTier)Enum.Parse(typeof(LightTier), s.lightTier)
+                                            )))).Distinct().ToList();
+
+                foreach (var tier in tiers)
+                {
+                    var state = _towerLight?.GetFlashState(tier);
+                    var lamp = new TowerLight(tier, state.GetValueOrDefault(FlashState.Off));
+                    TowerLights.Add(lamp);
+                }
             }
 
             _selectedTowerLight = TowerLights.FirstOrDefault();
@@ -160,16 +170,7 @@
 
             EventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.Lamps));
 
-            // Clean Collections
-            Intervals.Clear();
-            ButtonLamps.Clear();
-
-            Intervals.Add(125);
-            Intervals.Add(250);
-            Intervals.Add(500);
-
-            ButtonLamps.Add(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BashButtonLamp));
-            ButtonLamps.Add(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TestAllButtonLamps));
+            LoadButtonLampsAndIntervals();
 
             if (TowerLightsEnabled)
             {
@@ -194,6 +195,31 @@
                     }
                 }
             }
+
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleOperatorCultureChanged);
+        }
+
+        private void LoadButtonLampsAndIntervals()
+        {
+            // Clean Collections
+            Intervals.Clear();
+            ButtonLamps.Clear();
+
+            Intervals.Add(125);
+            Intervals.Add(250);
+            Intervals.Add(500);
+
+            ButtonLamps.Add(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BashButtonLamp));
+            ButtonLamps.Add(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TestAllButtonLamps));
+        }
+
+        private void HandleOperatorCultureChanged(OperatorCultureChangedEvent obj)
+        {
+            MvvmHelper.ExecuteOnUI(() =>
+            {
+                LoadButtonLampsAndIntervals();
+                RaisePropertyChanged(nameof(SelectedFlashState));
+            });
         }
 
         protected override void OnInputEnabledChanged()

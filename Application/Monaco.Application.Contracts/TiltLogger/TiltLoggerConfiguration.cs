@@ -66,6 +66,10 @@ namespace Aristocrat.Monaco.Application.Contracts.TiltLogger {
         
         private string combinedField;
         
+        private bool appendSecurityLevelField;
+        
+        private bool appendSecurityLevelFieldSpecified;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
         public string Type {
@@ -107,6 +111,28 @@ namespace Aristocrat.Monaco.Application.Contracts.TiltLogger {
             }
             set {
                 this.combinedField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool AppendSecurityLevel {
+            get {
+                return this.appendSecurityLevelField;
+            }
+            set {
+                this.appendSecurityLevelField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool AppendSecurityLevelSpecified {
+            get {
+                return this.appendSecurityLevelFieldSpecified;
+            }
+            set {
+                this.appendSecurityLevelFieldSpecified = value;
             }
         }
     }

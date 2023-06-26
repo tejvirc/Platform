@@ -22,6 +22,7 @@
         private readonly IEventBus _eventBus;
         private readonly IPlayerBank _bank;
         private readonly ISystemDisableManager _systemDisableManager;
+        private readonly IEventLift _eventLift;
         private readonly ICommandBuilder<IInformedPlayerDevice, ipStatus> _commandBuilder;
 
         private bool _disposed;
@@ -33,13 +34,15 @@
             IG2SEgm egm,
             IEventBus eventBus,
             IPlayerBank bank,
-            ISystemDisableManager systemDisableManager)
+            ISystemDisableManager systemDisableManager,
+            IEventLift eventLift)
         {
             _egm = egm ?? throw new ArgumentNullException(nameof(egm));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
             _systemDisableManager =
                 systemDisableManager ?? throw new ArgumentNullException(nameof(systemDisableManager));
+            _eventLift = eventLift ?? throw new ArgumentNullException(nameof(eventLift));
             _commandBuilder = new IpStatusCommandBuilder();
         }
 
@@ -204,9 +207,8 @@
 
             var deviceList = device.DeviceList(status);
 
-            EventHandlerDevice.EventReport(
-                device.PrefixedDeviceClass(),
-                device.Id,
+            _eventLift.Report(
+                device,
                 eventStr,
                 noStatus ? null : deviceList);
         }

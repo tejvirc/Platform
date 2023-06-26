@@ -2,8 +2,7 @@
 {
     using System;
     using System.Linq;
-    using Aristocrat.Monaco.Application.Contracts.Localization;
-    using Aristocrat.Monaco.Localization.Properties;
+    using Aristocrat.Monaco.Application.Localization;
     using Contracts;
     using Hardware.Contracts.SharedDevice;
 
@@ -16,8 +15,7 @@
 
         protected override void SetupNavigation()
         {
-            WizardNavigator.CanNavigateForward = EnabledDevices.All(div => div.Status.Contains(Localizer.For(CultureFor.Operator)
-               .GetString(ResourceKeys.ConnectedText))) && !IsValidating;
+            WizardNavigator.CanNavigateForward = EnabledDevices.All(div => div.StatusType == DeviceState.ConnectedText) && !IsValidating;
 
             WizardNavigator.CanNavigateBackward = false;
         }
@@ -33,8 +31,7 @@
         {
             if (WizardNavigator != null)
             {
-                WizardNavigator.CanNavigateForward = EnabledDevices.All(d => d.Status.Contains(Localizer.For(CultureFor.Operator)
-                    .GetString(ResourceKeys.ConnectedText))) && !IsValidating;
+                WizardNavigator.CanNavigateForward = Validated;
 
                 if (WizardNavigator.CanNavigateForward && !_autoNavigated && AutoConfigurator != null &&
                     AutoConfigurator.AutoConfigurationExists)

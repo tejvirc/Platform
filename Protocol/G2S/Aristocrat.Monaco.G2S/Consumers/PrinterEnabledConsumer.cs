@@ -57,7 +57,8 @@
                 _eventLift.Report(
                     printer,
                     EventCode.G2S_PTE002,
-                    printer.DeviceList(status));
+                    printer.DeviceList(status),
+                    theEvent);
 
                 if (theEvent.Reasons.HasFlag(EnabledReasons.Reset))
                 {
@@ -65,7 +66,8 @@
                     _eventLift.Report(
                         printer,
                         EventCode.G2S_PTE099,
-                        printer.DeviceList(status));
+                        printer.DeviceList(status),
+                        theEvent);
                 }
             }
         }

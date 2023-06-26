@@ -139,6 +139,8 @@
             _eventBus.Subscribe<PlayerInfoDisplayExitedEvent>(this, HandleEvent);
             _eventBus.Subscribe<PlayerInfoDisplayEnteredEvent>(this, HandleEvent);
             _eventBus.Subscribe<GambleFeatureActiveEvent>(this, HandleEvent);
+            _eventBus.Subscribe<GameInstalledEvent>(this, HandleEvent);
+            _eventBus.Subscribe<OverlayWindowVisibilityChangedEvent>(this, HandleEvent);
             _eventBus.Subscribe<HandCountChangedEvent>(this, HandCountChangedEvent);
             _eventBus.Subscribe<HandCountResetTimerStartedEvent>(this, HandCountResetStartedEvent);
             _eventBus.Subscribe<HandCountResetTimerElapsedEvent>(this, HandCountDialogElapsed);
@@ -220,7 +222,11 @@
 
         private void HandleEvent(CashoutNotificationEvent evt)
         {
+            if (Config?.DisplayVoucherNotification ?? false)
+            {
             MessageOverlayDisplay.ShowVoucherNotification = evt.PaperIsInChute;
+            }
+
             if (evt.PaperIsInChute && !_systemDisableManager.IsDisabled)
             {
                 PlayLoopingAlert(Sound.PaperInChute, -1);
@@ -253,6 +259,7 @@
                 {
                     CurrentAttractIndex = 0;
                     SetAttractVideos();
+                    LoadGameInfo();
                 });
         }
 
@@ -498,6 +505,10 @@
                         _lobbyStateManager.RemoveFlagState(LobbyState.CashOutFailure);
                     }
 
+                    if (_bank.QueryBalance() == 0 && _gameState.Idle && !_gameState.InGameRound)
+                    {
+                        _overlimitCashoutProcessed = true;
+                    }
                     HandleMessageOverlayText();
                 });
         }
@@ -1509,6 +1520,30 @@
             _isGambleFeatureActive = evt.Active;
             RaisePropertyChanged(nameof(ReturnToLobbyAllowed));
             RaisePropertyChanged(nameof(CashOutEnabledInPlayerMenu));
+        }
+
+        private void HandleEvent(GameInstalledEvent evt)
+        {
+            MvvmHelper.ExecuteOnUI(
+                () =>
+                {
+                    OnUserInteraction();
+                    LoadGameInfo();
+                });
+        }
+
+        private void HandleEvent(OverlayWindowVisibilityChangedEvent evt)
+        {
+            if (_overlimitCashoutProcessed && !MessageOverlayDisplay.IsOverlayWindowVisible)
+            {
+                Logger.Debug("Cashed out after going over limit. Returning player to Lobby and changing Language to default.");
+                MvvmHelper.ExecuteOnUI(() =>
+                {
+                    IsPrimaryLanguageSelected = true;
+                    _runtime.SetRequestExitGame(true);
+                });
+                _overlimitCashoutProcessed = false;
+            }
         }
 
         private void HandleMessageOverlayVisibility()

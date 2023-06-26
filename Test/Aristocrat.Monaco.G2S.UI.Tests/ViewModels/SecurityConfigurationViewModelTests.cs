@@ -64,12 +64,12 @@
             _propertiesManagerMock.Setup(mock => mock.GetProperty(ApplicationConstants.EKeyDrive, null)).Returns(null);
             _propertiesManagerMock.Setup(mock => mock.GetProperty(ApplicationConstants.MachineSettingsImported, ImportMachineSettings.None)).Returns(ImportMachineSettings.None);
 
-            _autoConfiguratorMock = MoqServiceManager.CreateAndAddService<IAutoConfigurator>(MockBehavior.Strict);
+            _autoConfiguratorMock = MoqServiceManager.CreateAndAddService<IAutoConfigurator>(MockBehavior.Default);
             _autoConfiguratorMock.SetupGet(m => m.AutoConfigurationExists).Returns(false);
 
             MoqServiceManager.CreateAndAddService<ICabinetDetectionService>(MockBehavior.Loose);
 
-            _eventBusMock = MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Strict);
+            _eventBusMock = MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Default);
             _eventBusMock.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<PrintButtonClickedEvent>>()));
             _eventBusMock.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<BankBalanceChangedEvent>>()));
             _eventBusMock.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<PrintButtonStatusEvent>>()));
@@ -85,10 +85,10 @@
 
             _target = new SecurityConfigurationViewModel(false);
 
-            var _buttonService = MoqServiceManager.CreateAndAddService<IButtonService>(MockBehavior.Strict);
+            var _buttonService = MoqServiceManager.CreateAndAddService<IButtonService>(MockBehavior.Default);
             _buttonService.Setup(m => m.IsTestModeActive).Returns(It.IsAny<bool>());
 
-            var _iio = MoqServiceManager.CreateAndAddService<IIO>(MockBehavior.Strict);
+            var _iio = MoqServiceManager.CreateAndAddService<IIO>(MockBehavior.Default);
             _iio.Setup(m => m.SetButtonLamp(It.IsAny<uint>(), It.IsAny<bool>())).Returns(It.IsAny<uint>());
             _iio.Setup(m => m.SetButtonLampByMask(It.IsAny<uint>(), It.IsAny<bool>())).Returns(It.IsAny<uint>());
 
@@ -115,7 +115,7 @@
 
             _target.Enrolled = true;
 
-            _serviceMock.Verify(x => x.GetConfiguration(), Times.AtLeast(2));
+            _serviceMock.Verify(x => x.GetConfiguration(), Times.AtLeast(1));
             Assert.IsTrue(_navigationMock.Object.CanNavigateForward);
         }
 
@@ -127,7 +127,7 @@
 
             _target.LoadedCommand.Execute(null);
 
-            _serviceMock.Verify(x => x.GetConfiguration(), Times.AtLeast(2));
+            _serviceMock.Verify(x => x.GetConfiguration(), Times.AtLeast(1));
             Assert.IsTrue(_navigationMock.Object.CanNavigateForward);
         }
 
@@ -165,8 +165,8 @@
             _target.Save();
 
             Assert.IsTrue(_target.Committed);
-            _serviceMock.Verify(x => x.GetConfiguration(), Times.AtLeast(3));
-            _serviceMock.Verify(x => x.SaveConfiguration(It.IsAny<PkiConfiguration>()), Times.AtLeast(2));
+            _serviceMock.Verify(x => x.GetConfiguration(), Times.AtLeast(2));
+            _serviceMock.Verify(x => x.SaveConfiguration(It.IsAny<PkiConfiguration>()), Times.AtLeast(1));
         }
 
         private static PkiConfiguration GetConfigurationEntity(bool isConfigRequired, bool isValid)

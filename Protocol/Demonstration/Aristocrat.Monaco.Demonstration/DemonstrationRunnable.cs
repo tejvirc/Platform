@@ -42,10 +42,23 @@
         {
             var serviceManager = ServiceManager.GetInstance();
 
+            _serviceWaiter.AddServiceToWaitFor<ITransactionCoordinator>();
+            _serviceWaiter.AddServiceToWaitFor<ICabinetService>();
+            _serviceWaiter.AddServiceToWaitFor<IGameHistory>();
+            _serviceWaiter.AddServiceToWaitFor<IPlayerBank>();
+            _serviceWaiter.AddServiceToWaitFor<IAttendantService>();
+            _serviceWaiter.AddServiceToWaitFor<IGameProvider>();
+            _serviceWaiter.AddServiceToWaitFor<INoteAcceptor>();
+            _serviceWaiter.AddServiceToWaitFor<ITransactionHistory>();
+            _serviceWaiter.WaitForServices();
+
             // Demonstration Overlay
-            serviceManager.GetService<IPropertiesManager>().SetProperty(
-                ApplicationConstants.ActiveProtocol,
-                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DemonstrationPage));
+            if (!serviceManager.GetService<IPropertiesManager>().GetValue(ApplicationConstants.ShowMode, false))
+            {
+                serviceManager.GetService<IPropertiesManager>().SetProperty(
+                    ApplicationConstants.ActiveProtocol,
+                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DemonstrationPage));
+            }
 
             // Handpay Validator
             _handpayValidator = new HandpayValidator();
@@ -58,27 +71,18 @@
             // Voucher Validator
             _voucherValidator = new VoucherValidator();
             _voucherValidator.Initialize();
-            serviceManager.AddService(_voucherValidator);
             ServiceManager.GetInstance().GetService<IValidationProvider>().Register(
                 ApplicationConstants.DemonstrationMode,
                 _voucherValidator);
-            
 
-            _serviceWaiter.AddServiceToWaitFor<IGameProvider>();
-            _serviceWaiter.AddServiceToWaitFor<INoteAcceptor>();
-            _serviceWaiter.AddServiceToWaitFor<ITransactionHistory>();
-
-            if (_serviceWaiter.WaitForServices())
+            var gameProvider = serviceManager.GetService<IGameProvider>();
+            foreach (var game in gameProvider.GetGames())
             {
-                var gameProvider = serviceManager.GetService<IGameProvider>();
-                foreach (var game in gameProvider.GetGames())
-                {
-                    gameProvider.EnableGame(game.Id, GameStatus.DisabledByBackend);
-                }
-
-                // Disable NoteAcceptor
-                serviceManager.TryGetService<INoteAcceptor>()?.Disable(DisabledReasons.Backend);
+                gameProvider.EnableGame(game.Id, GameStatus.DisabledByBackend);
             }
+
+            // Disable NoteAcceptor
+            serviceManager.TryGetService<INoteAcceptor>()?.Disable(DisabledReasons.Backend);
         }
 
         protected override void OnRun()

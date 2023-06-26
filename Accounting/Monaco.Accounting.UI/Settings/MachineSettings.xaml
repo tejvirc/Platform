@@ -3,6 +3,9 @@
                     xmlns:local="clr-namespace:Aristocrat.Monaco.Accounting.UI.Settings"
                     xmlns:lex="http://wpflocalizeextension.codeplex.com"
                     xmlns:loc="http://monaco.aristocrat.com/localization">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
+    </ResourceDictionary.MergedDictionaries>
     <DataTemplate DataType="{x:Type local:MachineSettings}">
         <ScrollViewer VerticalScrollBarVisibility="Auto"
                       HorizontalScrollBarVisibility="Disabled"
@@ -222,7 +225,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="7"
-                           Text="{Binding AllowRemoteHandpayReset}"
+                           Text="{Binding AllowRemoteHandpayReset, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock82_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -232,7 +235,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="8"
-                           Text="{Binding LargeWinHandpayResetMethod}"
+                           Text="{Binding LargeWinHandpayResetMethod, Converter={StaticResource EnumDescriptionToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock84_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -252,7 +255,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="10"
-                           Text="{Binding VoucherOut}"
+                           Text="{Binding VoucherOut, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock88_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -272,7 +275,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="12"
-                           Text="{Binding VoucherOutNonCash}"
+                           Text="{Binding VoucherOutNonCash, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock92_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -282,7 +285,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="13"
-                           Text="{Binding EnableReceipts}"
+                           Text="{Binding EnableReceipts, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock94_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -312,7 +315,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="16"
-                           Text="{Binding AllowCashWinTicket}"
+                           Text="{Binding AllowCashWinTicket, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock100_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -322,7 +325,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="17"
-                           Text="{Binding AllowCreditUnderLimit}"
+                           Text="{Binding AllowCreditUnderLimit, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock102_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -332,7 +335,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="18"
-                           Text="{Binding CheckCreditsIn}"
+                           Text="{Binding CheckCreditsIn, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock104_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -342,7 +345,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="19"
-                           Text="{Binding CombineCashableOut}"
+                           Text="{Binding CombineCashableOut, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock106_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -352,7 +355,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="20"
-                           Text="{Binding DisabledLocalCredit}"
+                           Text="{Binding DisabledLocalCredit, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock108_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -362,7 +365,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="21"
-                           Text="{Binding DisabledLocalHandpay}"
+                           Text="{Binding DisabledLocalHandpay, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock110_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -372,7 +375,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="22"
-                           Text="{Binding DisabledLocalVoucher}"
+                           Text="{Binding DisabledLocalVoucher, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock112_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -382,7 +385,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="23"
-                           Text="{Binding DisabledLocalWat}"
+                           Text="{Binding DisabledLocalWat, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock114_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -392,7 +395,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="24"
-                           Text="{Binding DisabledRemoteCredit}"
+                           Text="{Binding DisabledRemoteCredit, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock116_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -402,7 +405,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="25"
-                           Text="{Binding DisabledRemoteHandpay}"
+                           Text="{Binding DisabledRemoteHandpay, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock118_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -412,7 +415,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="26"
-                           Text="{Binding DisabledRemoteVoucher}"
+                           Text="{Binding DisabledRemoteVoucher, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock120_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -422,7 +425,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="27"
-                           Text="{Binding DisabledRemoteWat}"
+                           Text="{Binding DisabledRemoteWat, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock122_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -432,7 +435,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="28"
-                           Text="{Binding EnabledLocalCredit}"
+                           Text="{Binding EnabledLocalCredit, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock124_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -442,7 +445,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="29"
-                           Text="{Binding EnabledLocalHandpay}"
+                           Text="{Binding EnabledLocalHandpay, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock126_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -452,7 +455,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="30"
-                           Text="{Binding EnabledLocalVoucher}"
+                           Text="{Binding EnabledLocalVoucher, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock128_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -462,7 +465,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="31"
-                           Text="{Binding EnabledLocalWat}"
+                           Text="{Binding EnabledLocalWat, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock130_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -472,7 +475,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="32"
-                           Text="{Binding EnabledRemoteCredit}"
+                           Text="{Binding EnabledRemoteCredit, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock132_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -482,7 +485,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="33"
-                           Text="{Binding EnabledRemoteHandpay}"
+                           Text="{Binding EnabledRemoteHandpay, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock134_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -492,7 +495,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="34"
-                           Text="{Binding EnabledRemoteVoucher}"
+                           Text="{Binding EnabledRemoteVoucher, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock136_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -502,7 +505,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="35"
-                           Text="{Binding EnabledRemoteWat}"
+                           Text="{Binding EnabledRemoteWat, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock138_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -522,7 +525,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="37"
-                           Text="{Binding IgnoreVoucherStackedDuringReboot}"
+                           Text="{Binding IgnoreVoucherStackedDuringReboot, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock142_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -532,7 +535,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="38"
-                           Text="{Binding LocalKeyOff}"
+                           Text="{Binding LocalKeyOff, Converter={StaticResource EnumDescriptionToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock144_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -562,7 +565,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="41"
-                           Text="{Binding MixCreditTypes}"
+                           Text="{Binding MixCreditTypes, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock150_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -572,7 +575,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="42"
-                           Text="{Binding MoneyInEnabled}"
+                           Text="{Binding MoneyInEnabled, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock152_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -582,7 +585,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="43"
-                           Text="{Binding PartialHandpays}"
+                           Text="{Binding PartialHandpays, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock154_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -622,7 +625,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="47"
-                           Text="{Binding ReprintLoggedVoucherTitleOverride}"
+                           Text="{Binding ReprintLoggedVoucherTitleOverride, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock162_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -632,7 +635,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="48"
-                           Text="{Binding RequestNonCash}"
+                           Text="{Binding RequestNonCash, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock164_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -762,7 +765,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="61"
-                           Text="{Binding UsePlayerIdReader}"
+                           Text="{Binding UsePlayerIdReader, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock190_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -772,7 +775,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="62"
-                           Text="{Binding ValidateHandpays}"
+                           Text="{Binding ValidateHandpays, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock192_D57C8E38" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"

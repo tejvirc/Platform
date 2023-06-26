@@ -7,8 +7,8 @@
     using System.Threading;
     using Application.Contracts;
     using Application.Contracts.Localization;
-    using Contracts.Events;
     using Contracts;
+    using Contracts.Events;
     using Kernel;
     using Localization.Properties;
     using log4net;
@@ -210,7 +210,7 @@
             _systemDisableManager.Disable(
                 ApplicationConstants.ReserveDisableKey,
                 SystemDisablePriority.Immediate,
-                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReservedMachine));
+                () => Localizer.ForLockup().GetString(ResourceKeys.ReservedMachine));
 
             _propertiesManager.SetProperty(ApplicationConstants.ReserveServiceLockupPresent, true);
         }

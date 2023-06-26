@@ -6,6 +6,7 @@
     using ConfigWizard;
     using Contracts;
     using Contracts.Protocol;
+    using Kernel;
     using Monaco.Common;
     using Protocol = global::Protocol;
 
@@ -161,6 +162,7 @@
 
         protected override void Loaded()
         {
+            _validationProtocol = default(CommsProtocol);
             _multiProtocolConfiguration = _multiProtocolConfigurationProvider.MultiProtocolConfiguration.ToList();
 
             var protocolsConfiguration = _configurationUtilitiesProvider
@@ -194,6 +196,23 @@
             CentralDeterminationSystemProtocols = _multiProtocolConfigurationProvider.IsCentralDeterminationSystemRequired ?
                     GetProtocols(protocolDetails, Functionality.CentralDeterminationSystem, s => s.IsCentralDeterminationSystemSupported) :
                     new List<CommsProtocol>();
+
+            if (PropertiesManager.GetValue(ApplicationConstants.ShowMode, false) &&
+                _multiProtocolConfiguration.Count == 1 && _multiProtocolConfiguration.First().Protocol
+                    .Equals(CommsProtocol.DemonstrationMode))
+            {
+                _protocolConfiguration.ExclusiveProtocols = new[]
+                {
+                    new ExclusiveProtocol
+                    {
+                        Function = Functionality.Validation, Name = CommsProtocol.DemonstrationMode
+                    }
+                };
+
+                ValidationProtocols = new[] { CommsProtocol.DemonstrationMode };
+
+                IsValidationComboBoxEnabled = true;
+            }
 
             SelectProtocol(
                 Functionality.Validation,
