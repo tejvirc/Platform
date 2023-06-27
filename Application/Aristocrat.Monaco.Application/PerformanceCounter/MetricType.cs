@@ -17,6 +17,7 @@
         [Label("Total CPU")]
         [Unit("%")]
         [MaxRange(100)]
+        [LabelResourceKey("MetricTotalCpu")]
         TotalProcessorTime,
 
         /// <summary>
@@ -29,6 +30,8 @@
         [Label("Free Memory")]
         [Unit("MB")]
         [MaxRange(4096)]
+        [LabelResourceKey("MetricFreeMemory")]
+        [UnitResourceKey("MBLabel")]
         FreeMemory,
 
         /// <summary>
@@ -41,6 +44,7 @@
         [Label("GPU Usage")]
         [Unit("%")]
         [MaxRange(100)]
+        [LabelResourceKey("MetricGpuUsage")]
         TotalGpuTime,
 
         /// <summary>
@@ -53,6 +57,7 @@
         [Label("Platform CPU")]
         [Unit("%")]
         [MaxRange(100)]
+        [LabelResourceKey("MetricCpuTime")]
         MonacoProcessorTime,
 
         /// <summary>
@@ -65,6 +70,7 @@
         [Label("Platform Threads")]
         [Unit("#")]
         [MaxRange(200)]
+        [LabelResourceKey("MetricThreadCount")]
         MonacoThreadCount,
 
         /// <summary>
@@ -76,7 +82,9 @@
         [Counter("Private Bytes")]
         [Label("Platform Memory")]
         [Unit("MB")]
-        [MaxRange(1000)]
+        [MaxRange(3072)]
+        [LabelResourceKey("MetricMonacoPrivateBytes")]
+        [UnitResourceKey("MBLabel")]
         MonacoPrivateBytes,
 
         /// <summary>
@@ -89,6 +97,8 @@
         [Label("CLR Memory")]
         [Unit("MB")]
         [MaxRange(1000)]
+        [LabelResourceKey("MetricClrBytes")]
+        [UnitResourceKey("MBLabel")]
         ClrBytes,
 
         /// <summary>
@@ -101,6 +111,7 @@
         [Label("Game CPU")]
         [Unit("%")]
         [MaxRange(100)]
+        [LabelResourceKey("MetricGdkProcessorTime")]
         GdkProcessorTime,
 
         /// <summary>
@@ -113,6 +124,7 @@
         [Label("Game Threads")]
         [Unit("#")]
         [MaxRange(200)]
+        [LabelResourceKey("MetricGdkThreadCount")]
         GdkThreadCount,
 
         /// <summary>
@@ -125,6 +137,115 @@
         [Label("Game Memory")]
         [Unit("MB")]
         [MaxRange(1000)]
-        GdkPrivateBytes
+        [LabelResourceKey("MetricGdkPrivateBytes")]
+        [UnitResourceKey("MBLabel")]
+        GdkPrivateBytes,
+        /// <summary>
+        /// Number of frames dropped.
+        /// </summary>
+        [CounterType("General")]
+        [Instance("0")]
+        [Category("Aristocrat Runtime Host")]
+        [Counter("Frame Drops")]
+        [Label("Frame Drops")]
+        [Unit("#")]
+        [MaxRange(10000)]
+        [LabelResourceKey("MetricGdkFrameDrops")]
+        FrameDrops,
+
+        /// <summary>
+        /// Number of frames per second.
+        /// </summary>
+        [CounterType("General")]
+        [Instance("0")]
+        [Category("Aristocrat Runtime Host")]
+        [Counter("Framerate")]
+        [Label("Framerate")]
+        [Unit("#")]
+        [MaxRange(100)]
+        [LabelResourceKey("MetricGdkFramerate")]
+        Framerate,
+
+        /// <summary>
+        /// Update Time(ms).
+        /// </summary>
+        [CounterType("General")]
+        [Instance("0")]
+        [Category("Aristocrat Runtime Host")]
+        [Counter("Game Update Time(ms)")]
+        [Label("Update Time")]
+        [Unit("ms")]
+        [MaxRange(10)]
+        [LabelResourceKey("MetricGdkGamesUpdateTimeMs")]
+        [UnitResourceKey("MillisecondLabel")]
+        GamesUpdateTime,
+
+        /// <summary>
+        /// Total Time spent in IPC Communication(ms).
+        /// </summary>
+        [CounterType("General")]
+        [Instance("0")]
+        [Category("Aristocrat Runtime Host")]
+        [Counter("IPC Blocking Time Acc(ms)")]
+        [Label("IPC Blocking Time Acc")]
+        [Unit("ms")]
+        [MaxRange(100)]
+        [LabelResourceKey("MetricGdkIPCBlockingTimeAccMs")]
+        [UnitResourceKey("MillisecondLabel")]
+        IPCBlockingTimeAcc,
+
+        /// <summary>
+        /// Dotnet memory usage
+        /// </summary>
+        [CounterType("General")]
+        [Instance("0")]
+        [Category("Aristocrat Runtime Host")]
+        [Counter("Render Time(ms)")]
+        [Label("Render Time")]
+        [Unit("ms")]
+        [MaxRange(100)]
+        [LabelResourceKey("MetricGdkRenderTimeMs")]
+        [UnitResourceKey("MillisecondLabel")]
+        RenderTime,
+
+        /// <summary>
+        /// Runtime Update Time(ms).
+        /// </summary>
+        [CounterType("General")]
+        [Instance("0")]
+        [Category("Aristocrat Runtime Host")]
+        [Counter("Runtime Update Time(ms)")]
+        [Label("Runtime Update Time")]
+        [Unit("ms")]
+        [MaxRange(100)]
+        [LabelResourceKey("MetricGdkRuntimeUpdateTimeMs")]
+        [UnitResourceKey("MillisecondLabel")]
+        RuntimeUpdateTime,
+
+        /// <summary>
+        /// Swapbuffer Time(ms).
+        /// </summary>
+        [CounterType("General")]
+        [Instance("0")]
+        [Category("Aristocrat Runtime Host")]
+        [Counter("Swapbuffer Time(ms)")]
+        [Label("Swapbuffer Time")]
+        [Unit("ms")]
+        [MaxRange(100)]
+        [LabelResourceKey("MetricGdkSwapbufferTimeMs")]
+        [UnitResourceKey("MillisecondLabel")]
+        SwapbufferTime,
+        /// <summary>
+        ///     CPU Temperature
+        /// </summary>
+        [CounterType("CPUTemp")]
+        [Instance("Bootstrap")]
+        [Category("CPUTemp")]
+        [Counter("CPU Temp")]
+        [Label("CPU Temperature")]
+        [Unit("*")]
+        [MaxRange(100)]
+        [LabelResourceKey("MetricCpuTemperature")]
+        CpuTemperature
     }
 }

@@ -315,10 +315,19 @@
         {
             LoadData();
 
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleOperatorCultureChanged);
             EventBus.Subscribe<GameEnabledEvent>(this, evt => UpdateGameStatus(evt.GameId, true));
             EventBus.Subscribe<GameDisabledEvent>(this, evt => UpdateGameStatus(evt.GameId, false));
             EventBus.Subscribe<GameAddedEvent>(this, evt => UpdateGameStatus(evt.GameId, true));
             EventBus.Subscribe<GameRemovedEvent>(this, evt => UpdateGameStatus(evt.GameId, false));
+        }
+
+        private void HandleOperatorCultureChanged(OperatorCultureChangedEvent obj)
+        {
+            foreach (var item in GamePerformanceItems)
+            {
+                item.UpdateCulture();
+            }
         }
 
         private void UpdateGameStatus(int gameId, bool enable)

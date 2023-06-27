@@ -43,4 +43,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Stateless" Version="4.0.0" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
+  </ItemGroup>
 </Project>

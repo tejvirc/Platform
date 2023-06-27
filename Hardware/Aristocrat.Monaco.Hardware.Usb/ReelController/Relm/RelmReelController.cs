@@ -1,17 +1,19 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Usb.ReelController.Relm
 {
-    using Contracts.Communicator;
-    using Contracts.Reel;
-    using Contracts.Reel.Events;
-    using Contracts.Reel.ImplementationCapabilities;
-    using Contracts.SharedDevice;
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.IO;
+    using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
+    using Contracts.Communicator;
+    using Contracts.Reel;
     using Contracts.Reel.ControlData;
+    using Contracts.Reel.Events;
+    using Contracts.Reel.ImplementationCapabilities;
+    using Contracts.SharedDevice;
     using log4net;
 
     /// <summary>
@@ -19,8 +21,9 @@
     /// </summary>
     public class RelmReelController : IReelControllerImplementation
     {
-        private const string SampleLightShowPath = @"ReelController\Relm\SampleShows\AllWhite5Reels.lightshow";
-        private const string SampleLightShowName = "SampleLightShow";
+        private const string SampleAnimationsPath = @"ReelController\Relm\SampleAnimations";
+        private const string LightShowExtenstion = ".lightshow";
+        private const string StepperCurveExtenstion = ".stepper";
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
@@ -170,7 +173,7 @@
                     _supportedCapabilities.Add(typeof(IAnimationImplementation), new RelmAnimation(_communicator));
                     _supportedCapabilities.Add(typeof(IReelBrightnessImplementation), new RelmBrightness(_communicator));
                     _supportedCapabilities.Add(typeof(ISynchronizationImplementation), new RelmSynchronization(_communicator));
-                    await LoadPlatformSampleShows();
+                    await LoadPlatformSampleShowsAndCurves();
 
                     IsInitialized = true;
                 }
@@ -368,6 +371,7 @@
             }
             
             _communicator.StatusesReceived += OnReelStatusesReceived;
+            _communicator.ReelIdleInterruptReceived += OnReelStopped;
         }
 
         private void UnregisterEventListeners()
@@ -378,21 +382,45 @@
             }
 
             _communicator.StatusesReceived -= OnReelStatusesReceived;
+            _communicator.ReelIdleInterruptReceived -= OnReelStopped;
         }
 
-        private async Task LoadPlatformSampleShows()
+        private async Task LoadPlatformSampleShowsAndCurves()
         {
-            if (_communicator is null || !File.Exists(SampleLightShowPath))
+            if (_communicator is null || !Directory.Exists(SampleAnimationsPath))
             {
                 return;
             }
 
-            Logger.Debug("Loading platform sample shows");
+            var animationFiles = (from file in GetSampleAnimationFilePaths()
+                let extension = Path.GetExtension(file)
+                let type = extension == LightShowExtenstion
+                    ? AnimationType.PlatformLightShow
+                    : AnimationType.PlatformStepperCurve
+                select new AnimationFile(file, type)).ToList();
+
             await _communicator.RemoveAllControllerAnimations();
+            
+            Logger.Debug($"Loading {animationFiles.Count} platform sample animations");
+            if (animationFiles.Count > 0)
+            {
+                Logger.Debug($"Loading {animationFiles.Select(x => x.FriendlyName)} platform sample animations");
+                await _communicator.LoadAnimationFiles(animationFiles);
+            }
+        }
 
-            var animationFile = new AnimationFile(SampleLightShowPath, AnimationType.PlatformLightShow, SampleLightShowName);
+        private IEnumerable<string> GetSampleAnimationFilePaths()
+        {
+            return Directory.EnumerateFiles(SampleAnimationsPath).Where(x =>
+                x.EndsWith(LightShowExtenstion, true, CultureInfo.InvariantCulture) ||
+                x.EndsWith(StepperCurveExtenstion, true, CultureInfo.InvariantCulture));
+        }
 
-            await _communicator.LoadAnimationFile(animationFile);
+        private void OnReelStopped(object sender, ReelStopData stopData)
+        {
+            Logger.Debug($"Reel stopped [index: {stopData.ReelIndex + 1}, step:{stopData.Step}]");
+            ReelEventArgs args = new(stopData.ReelIndex + 1, stopData.Step);
+            ReelStopped.Invoke(sender, args);
         }
     }
 }

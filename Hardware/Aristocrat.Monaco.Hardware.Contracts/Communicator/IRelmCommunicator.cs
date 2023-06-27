@@ -4,6 +4,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Reel.Capabilities;
+    using Reel.ControlData;
     using Reel.Events;
 
     /// <summary>
@@ -20,6 +21,12 @@
         ///     Event that occurs when component statuses are received.
         /// </summary>
         public event EventHandler<ReelStatusReceivedEventArgs> StatusesReceived;
+
+        /// TODO: Future work will be needed to properly handle interrupts
+        /// <summary>
+        ///     Event occurs when a reel idle interrupt is received
+        /// </summary>
+        public event EventHandler<ReelStopData> ReelIdleInterruptReceived;
 
         /// <summary>
         ///     Initializes the communicator.

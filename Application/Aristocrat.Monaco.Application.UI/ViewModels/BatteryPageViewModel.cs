@@ -37,8 +37,14 @@
         protected override void OnLoaded()
         {
             TestBatteries();
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, OnOperatorCultureChanged);
 
             base.OnLoaded();
+        }
+
+        private void OnOperatorCultureChanged(OperatorCultureChangedEvent obj)
+        {
+            RaisePropertyChanged(nameof(Battery1Label), nameof(Battery2Label), nameof(Battery1StatusText), nameof(Battery2StatusText));
         }
 
         protected override void SetupNavigation()

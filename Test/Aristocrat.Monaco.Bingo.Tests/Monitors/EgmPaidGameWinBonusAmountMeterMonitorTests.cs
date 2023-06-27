@@ -6,6 +6,7 @@
     using Accounting.Contracts.Handpay;
     using Application.Contracts;
     using Application.Contracts.Extensions;
+    using Aristocrat.Monaco.Test.Common;
     using Bingo.Monitors;
     using Bingo.Services.Reporting;
     using Common.Storage;

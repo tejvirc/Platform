@@ -1,11 +1,7 @@
 ﻿namespace Aristocrat.Monaco.TestController
 {
-    using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Net;
     using System.ServiceModel;
-    using System.ServiceModel.Channels;
     using System.ServiceModel.Web;
     using DataModel;
 
@@ -267,7 +263,7 @@
         CommandResult GetRuntimeState();
 
         [OperationContract]
-        [WebInvoke( 
+        [WebInvoke(
             UriTemplate = "/Runtime/Running",
             ResponseFormat = WebMessageFormat.Json,
             RequestFormat = WebMessageFormat.Json)]
@@ -628,6 +624,13 @@
             BodyStyle = WebMessageBodyStyle.WrappedRequest,
             ResponseFormat = WebMessageFormat.Json)]
         CommandResult NoteAcceptorStackerFull(string id);
+
+        [OperationContract]
+        [WebInvoke(
+            UriTemplate = "/BNA/{id}/Stacker/Jam",
+            BodyStyle = WebMessageBodyStyle.WrappedRequest,
+            ResponseFormat = WebMessageFormat.Json)]
+        CommandResult NoteAcceptorStackerJam(string id);
 
         [OperationContract]
         [WebInvoke(

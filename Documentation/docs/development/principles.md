@@ -10,7 +10,7 @@ Principles and Practices
 - [III. Code Reviews](#iii-code-reviews)
 - [IV. Dev Testing](#iv-dev-testing)
 - [V. Static Analysis and Tooling](#v-static-analysis-and-tooling)
-- [VI. Dynamic Analysis – Memory and Performance Profiling](#vi-dynamic-analysis-memory-and-performance-profiling)
+- [VI. Dynamic Analysis: Memory and Performance Profiling](#vi-dynamic-analysis-memory-and-performance-profiling)
 - [VII. Automation (Work in progress)](#vii-automation-work-in-progress)
 
 <!-- /code_chunk_output -->
@@ -90,7 +90,7 @@ practices. This is a living document, so changes can and will occur.
     6.  ReSharper will help you avoid getting roasted in a code review.
         I promise.
 
-## VI. Dynamic Analysis – Memory and Performance Profiling
+## VI. Dynamic Analysis: Memory and Performance Profiling
     1.  Use Visual Studio to monitor memory usage and performance. It
         makes life easier.
     2.  [The teams run CI builds in Robot and Super Robot mode in labs

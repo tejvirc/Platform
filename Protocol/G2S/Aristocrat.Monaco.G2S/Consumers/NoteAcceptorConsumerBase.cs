@@ -64,7 +64,8 @@
                 noteAcceptor.DeviceList(status),
                 log?.transactionId ?? 0,
                 log != null ? noteAcceptor.TransactionList(log) : null,
-                GetMeters());
+                GetMeters(),
+                theEvent);
         }
 
         /// <summary>

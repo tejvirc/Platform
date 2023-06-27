@@ -6,7 +6,9 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
-                               mc:Ignorable="d">
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
+                               mc:Ignorable="d"
+                               d:DataContext="{d:DesignInstance viewModels:GameStatisticsViewModel, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -21,20 +23,18 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"
                                AutomationProperties.AutomationId="RowDefinition2_2A57DBA" />
-                <RowDefinition Height="20"
-                               AutomationProperties.AutomationId="RowDefinition3_2A57DBA" />
                 <RowDefinition Height="Auto"
                                AutomationProperties.AutomationId="RowDefinition4_2A57DBA" />
-                <RowDefinition Height="20"
-                               AutomationProperties.AutomationId="RowDefinition5_2A57DBA" />
                 <RowDefinition Height="*"
                                AutomationProperties.AutomationId="RowDefinition6_2A57DBA" />
             </Grid.RowDefinitions>
             <GroupBox Grid.Row="0"
+                      Margin="0 0 0 20"
                       Header="{lex:Loc Key={x:Static loc:ResourceKeys.BaseGameStatisticsTitle}}"
                       Visibility="{Binding BaseStatsCollapsed, Converter={StaticResource TrueCollapsedFalseVisible}}"
                       AutomationProperties.AutomationId="GroupBox7_2A57DBA"></GroupBox>
-            <GroupBox Grid.Row="2"
+            <GroupBox Grid.Row="1"
+                      Margin="0 0 0 20"
                       Header="Lucky Chance Feature Statistics"
                       Visibility="{Binding FeatureStatsCollapsed, Converter={StaticResource TrueCollapsedFalseVisible}}"
                       AutomationProperties.AutomationId="GroupBox8_2A57DBA">
@@ -63,61 +63,45 @@
                                   IsEnabled="{Binding GameSelectionEnabled}"
                                   AutomationProperties.AutomationId="ComboBox14_2A57DBA" />
                     </StackPanel>
-                    <StackPanel Grid.Row="1"
-                                AutomationProperties.AutomationId="StackPanel15_2A57DBA">
-                        <Grid AutomationProperties.AutomationId="Grid16_2A57DBA">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"
-                                               AutomationProperties.AutomationId="RowDefinition17_2A57DBA" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"
-                                                  AutomationProperties.AutomationId="ColumnDefinition18_2A57DBA" />
-                            </Grid.ColumnDefinitions>
-                            <DataGrid ItemsSource="{Binding GameFeatureMeters}"
-                                      AutomationProperties.AutomationId="DataGrid19_2A57DBA">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
-                                                        Width="400"
-                                                        Binding="{Binding MeterName}"
-                                                        AutomationProperties.AutomationId="DataGridTextColumn20_2A57DBA" />
-                                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
-                                                        Width="500"
-                                                        Binding="{Binding Value}"
-                                                        AutomationProperties.AutomationId="DataGridTextColumn21_2A57DBA" />
-                                </DataGrid.Columns>
-                            </DataGrid>
-                        </Grid>
-                    </StackPanel>
+                    <Grid Grid.Row="1"
+                          AutomationProperties.AutomationId="Grid16_2A57DBA">
+                        <DataGrid ItemsSource="{Binding GameFeatureMeters}"
+                                  AutomationProperties.AutomationId="DataGrid19_2A57DBA">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
+                                                    loc:Localizer.For="Operator"
+                                                    Width="400"
+                                                    Binding="{Binding MeterName}"
+                                                    AutomationProperties.AutomationId="DataGridTextColumn20_2A57DBA" />
+                                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
+                                                    loc:Localizer.For="Operator"
+                                                    Width="500"
+                                                    Binding="{Binding Value}"
+                                                    AutomationProperties.AutomationId="DataGridTextColumn21_2A57DBA" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
                 </Grid>
             </GroupBox>
             <GroupBox x:Name="MeterGroup"
-                      Grid.Row="4"
+                      Grid.Row="2"
                       Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameStatisticsGambleFeature}}"
                       AutomationProperties.AutomationId="GroupBox22_2A57DBA">
-                <Grid AutomationProperties.AutomationId="Grid23_2A57DBA">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"
-                                       AutomationProperties.AutomationId="RowDefinition24_2A57DBA" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"
-                                          AutomationProperties.AutomationId="ColumnDefinition25_2A57DBA" />
-                    </Grid.ColumnDefinitions>
-                    <DataGrid ItemsSource="{Binding GameGambleMeters}"
-                              AutomationProperties.AutomationId="DataGrid26_2A57DBA">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
-                                                Width="400"
-                                                Binding="{Binding Name}"
-                                                AutomationProperties.AutomationId="DataGridTextColumn27_2A57DBA" />
-                            <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
-                                                Width="500"
-                                                Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
-                                                AutomationProperties.AutomationId="DataGridTextColumn28_2A57DBA" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Grid>
+                <DataGrid ItemsSource="{Binding GameGambleMeters}"
+                          AutomationProperties.AutomationId="DataGrid26_2A57DBA">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
+                                            loc:Localizer.For="Operator"
+                                            Width="400"
+                                            Binding="{Binding Name}"
+                                            AutomationProperties.AutomationId="DataGridTextColumn27_2A57DBA" />
+                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
+                                            loc:Localizer.For="Operator"
+                                            Width="500"
+                                            Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
+                                            AutomationProperties.AutomationId="DataGridTextColumn28_2A57DBA" />
+                    </DataGrid.Columns>
+                </DataGrid>
             </GroupBox>
         </Grid>
     </ScrollViewer>

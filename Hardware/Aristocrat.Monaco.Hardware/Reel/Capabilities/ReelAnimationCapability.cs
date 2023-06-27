@@ -50,13 +50,13 @@
         }
 
         /// <inheritdoc />
-        public Task<bool> PrepareControllerAnimation(ReelCurveData curveData, CancellationToken token = default)
+        public Task<bool> PrepareAnimation(ReelCurveData curveData, CancellationToken token = default)
         {
             return _implementation.PrepareAnimation(curveData, token);
         }
 
         /// <inheritdoc />
-        public Task<bool> PrepareControllerAnimations(IEnumerable<ReelCurveData> curveData, CancellationToken token = default)
+        public Task<bool> PrepareAnimations(IEnumerable<ReelCurveData> curveData, CancellationToken token = default)
         {
             return _implementation.PrepareAnimations(curveData, token);
         }
@@ -68,7 +68,7 @@
         }
 
         /// <inheritdoc />
-        public Task<bool> StopControllerLightShowAnimations(IEnumerable<LightShowData> showData, CancellationToken token = default)
+        public Task<bool> StopLightShowAnimations(IEnumerable<LightShowData> showData, CancellationToken token = default)
         {
             return _implementation.StopLightShowAnimations(showData, token);
         }
@@ -80,13 +80,19 @@
         }
 
         /// <inheritdoc />
-        public Task<bool> PrepareControllerStopReels(IEnumerable<ReelStopData> stopData, CancellationToken token = default)
+        public Task<bool> StopAllAnimationTags(string animationName, CancellationToken token = default)
+        {
+            return _implementation.StopAllAnimationTags(animationName, token);
+        }
+
+        /// <inheritdoc />
+        public Task<bool> PrepareStopReels(IEnumerable<ReelStopData> stopData, CancellationToken token = default)
         {
             return _implementation.PrepareStopReels(stopData, token);
         }
 
         /// <inheritdoc />
-        public Task<bool> PrepareControllerNudgeReels(IEnumerable<NudgeReelData> nudgeData, CancellationToken token = default)
+        public Task<bool> PrepareNudgeReels(IEnumerable<NudgeReelData> nudgeData, CancellationToken token = default)
         {
             return _implementation.PrepareNudgeReels(nudgeData, token);
         }

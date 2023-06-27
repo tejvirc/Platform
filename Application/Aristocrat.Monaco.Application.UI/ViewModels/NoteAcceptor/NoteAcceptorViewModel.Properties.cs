@@ -46,6 +46,7 @@
         private bool _allowBillInEnabled;
         private string _voucherInEnabledText;
         private bool _inNoteAcceptorTest;
+        private string _stateTextLocalized;
 
         public bool IsNoteAcceptorConnected => NoteAcceptor != null;
 
@@ -111,7 +112,7 @@
 
         public string VoucherInEnabledText
         {
-            get => _voucherInEnabledText;
+            get => Localizer.For(CultureFor.Operator).GetString(_voucherInEnabledText);
             set
             {
                 if (_voucherInEnabledText != value)
@@ -122,7 +123,39 @@
             }
         }
 
-        public Brush VoucherInEnabledTextForeground => Brushes.White;
+        public string StatusTextLocalized
+        {
+            get
+            {
+                string fullMessage = string.Empty;
+                var splitMessages = _stateTextLocalized.Split('|');
+                if (splitMessages.Length > 1)
+                {
+                    foreach (var message in splitMessages)
+                    {
+                        fullMessage += Localizer.For(CultureFor.Operator).GetString(message) + " ";
+                    }
+                    return fullMessage;
+                }
+                try
+                {
+                    var localized = Localizer.For(CultureFor.Operator).GetString(_stateTextLocalized);
+                    return localized;
+                }
+                catch
+                {
+                    return _stateTextLocalized;
+                }
+            }
+            set
+            {
+                if (_stateTextLocalized != value)
+                {
+                    _stateTextLocalized = value;
+                }
+                RaisePropertyChanged(nameof(StatusTextLocalized));
+            }
+        }
 
         public bool CanEgmModifyDenominations => IsDenomEditable && InputEnabled;  // bound to view
 
@@ -297,7 +330,6 @@
             {
                 _variantNameText = value;
                 RaisePropertyChanged(nameof(VariantNameText));
-                RaisePropertyChanged(nameof(VariantNameForeground));
             }
         }
 
@@ -309,13 +341,8 @@
             {
                 _variantVersionText = value;
                 RaisePropertyChanged(nameof(VariantVersionText));
-                RaisePropertyChanged(nameof(VariantVersionForeground));
             }
         }
-
-        public SolidColorBrush VariantNameForeground => Brushes.White;
-
-        public SolidColorBrush VariantVersionForeground => Brushes.White;
 
         public bool SelfTestButtonVisible
         {
@@ -393,6 +420,8 @@
                 RaisePropertyChanged(nameof(InspectButtonFocused));
             }
         }
+
+        public string BillAcceptanceRate => GetBillAcceptanceRate();
 
         private INoteAcceptor NoteAcceptor => ServiceManager.GetInstance().TryGetService<INoteAcceptor>();
 

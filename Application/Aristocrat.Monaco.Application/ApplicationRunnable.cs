@@ -27,6 +27,7 @@ namespace Aristocrat.Monaco.Application
     using Kernel.Contracts;
     using Kernel.Contracts.Components;
     using Kernel.Contracts.Events;
+    using Kernel.Debugging;
     using log4net;
     using Monaco.Localization.Properties;
     using Mono.Addins;
@@ -515,6 +516,10 @@ namespace Aristocrat.Monaco.Application
             WritePendingActionToMessageDisplay(ResourceKeys.CheckingInitialConfiguration);
             var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
 
+#if DEBUG
+            ServiceManager.GetInstance().TryGetService<IDebuggerService>()?.AttachDebuggerIfRequestedForPoint(DebuggerAttachPoint.OnInitialConfigurationCheck);
+#endif
+
             var complete = propertiesManager.GetValue(ApplicationConstants.IsInitialConfigurationComplete, false);
 
             if (complete && ImportIncomplete(propertiesManager))
@@ -588,7 +593,7 @@ namespace Aristocrat.Monaco.Application
         {
             var machineSettingsImported = propertiesManager.GetValue(ApplicationConstants.MachineSettingsImported, ImportMachineSettings.None);
 
-            var importIncomplete =  machineSettingsImported != ImportMachineSettings.None &&
+            var importIncomplete = machineSettingsImported != ImportMachineSettings.None &&
                    (!machineSettingsImported.HasFlag(ImportMachineSettings.Imported) ||
                     !machineSettingsImported.HasFlag(ImportMachineSettings.ConfigWizardConfigurationPropertiesLoaded) ||
                     !machineSettingsImported.HasFlag(ImportMachineSettings.AccountingPropertiesLoaded) ||
@@ -645,7 +650,7 @@ namespace Aristocrat.Monaco.Application
             // Create a soft error message for Power Reset
             var display = ServiceManager.GetInstance().GetService<IMessageDisplay>();
             var powerResetMessage = new DisplayableMessage(
-                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PowerResetText),
+                () => Localizer.ForLockup().GetString(ResourceKeys.PowerResetText),
                 DisplayableMessageClassification.Informative,
                 DisplayableMessagePriority.Immediate,
                 typeof(PlatformBootedEvent),
@@ -754,7 +759,7 @@ namespace Aristocrat.Monaco.Application
                 _digitalRights = null;
             }
 
-            if(_ekeyService != null)
+            if (_ekeyService != null)
             {
                 serviceManager.RemoveService(_ekeyService);
                 _ekeyService = null;
@@ -792,7 +797,7 @@ namespace Aristocrat.Monaco.Application
                 _multiProtocolConfigurationProvider = null;
             }
 
-            if(_keyboardService != null)
+            if (_keyboardService != null)
             {
                 serviceManager.RemoveService(_keyboardService);
                 _keyboardService = null;

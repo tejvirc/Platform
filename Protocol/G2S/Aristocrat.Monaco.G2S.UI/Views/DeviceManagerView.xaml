@@ -12,7 +12,7 @@
                                common:DialogParticipation.Register="{Binding}"
                                d:DesignHeight="450"
                                d:DesignWidth="800"
-                               d:DataContext="{d:DesignInstance {x:Type vm:DeviceManagerViewModel }, IsDesignTimeCreatable=True}">
+                               d:DataContext="{d:DesignInstance {x:Type vm:DeviceManagerViewModel}, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -44,32 +44,38 @@
                   ItemsSource="{Binding ActiveDevices}"
                   SelectedItem="{Binding SelectedDevice}"
                   ScrollViewer.CanContentScroll="True"
+                  loc:Localizer.For="Operator"
                   AutomationProperties.AutomationId="DataGrid4_C13828E5">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerDeviceName}}"
                                     IsReadOnly="True"
                                     Binding="{Binding DeviceClass}"
-                                    Width="240"
+                                    Width="Auto"
+                                    loc:Localizer.For="Operator"
                                     AutomationProperties.AutomationId="DataGridTextColumn5_C13828E5" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceId}}"
                                     IsReadOnly="True"
                                     Binding="{Binding Id}"
-                                    Width="120"
+                                    Width="Auto"
+                                    loc:Localizer.For="Operator"
                                     AutomationProperties.AutomationId="DataGridTextColumn6_C13828E5" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerOwner}}"
                                     IsReadOnly="False"
                                     Binding="{Binding Owner}"
-                                    Width="120"
+                                    Width="Auto"
+                                    loc:Localizer.For="Operator"
                                     AutomationProperties.AutomationId="DataGridTextColumn7_C13828E5" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerActive}}"
                                     IsReadOnly="False"
-                                    Binding="{Binding Active}"
-                                    Width="120"
+                                    Binding="{Binding ActiveDisplayText}"
+                                    Width="Auto"
+                                    loc:Localizer.For="Operator"
                                     AutomationProperties.AutomationId="DataGridTextColumn8_C13828E5" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerEnabled}}"
                                     IsReadOnly="True"
-                                    Binding="{Binding Enabled}"
-                                    Width="120"
+                                    Binding="{Binding EnabledDisplayText}"
+                                    Width="Auto"
+                                    loc:Localizer.For="Operator"
                                     AutomationProperties.AutomationId="DataGridTextColumn9_C13828E5" />
             </DataGrid.Columns>
         </DataGrid>
@@ -78,26 +84,26 @@
                     Margin="0,20,0,0"
                     AutomationProperties.AutomationId="StackPanel10_C13828E5">
             <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerMassChangeButton}}"
-                    Width="150"
+                    Width="170"
                     IsEnabled="{Binding DeviceChangeEnabled}"
                     Command="{Binding BulkChangesCommand}"
                     ToolTip="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerMassChangeToolTip}}"
                     AutomationProperties.AutomationId="Button11_C13828E5" />
             <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.EditSelected}}"
-                    Width="150"
+                    Width="170"
                     HorizontalAlignment="Left"
                     IsEnabled="{Binding DeviceChangeEnabled}"
                     Command="{Binding EditCommand}"
                     ToolTip="{lex:Loc Key={x:Static loc:ResourceKeys.EditSelected}}"
                     AutomationProperties.AutomationId="Button12_C13828E5" />
             <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerSaveButton}}"
-                    Width="150"
+                    Width="170"
                     IsEnabled="{Binding DeviceChangeEnabled}"
                     Command="{Binding SaveChangesCommand}"
                     ToolTip="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerSaveToolTip}}"
                     AutomationProperties.AutomationId="Button13_C13828E5" />
             <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerCancelButton}}"
-                    Width="150"
+                    Width="180"
                     Margin="0"
                     IsEnabled="{Binding DeviceChangeEnabled}"
                     Command="{Binding CancelChangesCommand}"

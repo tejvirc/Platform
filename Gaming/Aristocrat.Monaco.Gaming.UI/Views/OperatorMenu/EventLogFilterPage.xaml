@@ -59,6 +59,7 @@
                 </i:Interaction.Triggers>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DateAndTime}}"
+                                        loc:Localizer.For="Operator"
                                         MinWidth="200"
                                         Width="Auto"
                                         FontSize="18"
@@ -66,6 +67,7 @@
                                         AutomationProperties.AutomationId="DataGridTextColumn7_26AF2323" />
                     <DataGridTextColumn x:Name="LogType"
                                         Header="{lex:Loc Key={x:Static loc:ResourceKeys.LogType}}"
+                                        loc:Localizer.For="Operator"
                                         FontSize="18"
                                         MinWidth="200"
                                         Width="Auto"
@@ -74,6 +76,7 @@
                                         AutomationProperties.AutomationId="DataGridTextColumn8_26AF2323" />
                     <DataGridTemplateColumn x:Name="EventLog"
                                             Header="{lex:Loc Key={x:Static loc:ResourceKeys.EventLog}}"
+                                            loc:Localizer.For="Operator"
                                             MinWidth="350"
                                             Width="Auto"
                                             x:FieldModifier="public"
@@ -143,10 +146,10 @@
                 </StackPanel>
             </StackPanel>
         </Grid>
+
         <Grid Grid.Column="1"
               AutomationProperties.AutomationId="Grid20_26AF2323">
-            <Label Content="Filter By"
-                   VerticalAlignment="Top"
+            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.FilterBy}}" VerticalAlignment="Top"
                    AutomationProperties.AutomationId="Label21_26AF2323" />
             <DataGrid Margin="0 20 0 0"
                       x:Name="FilterByDataGrid"
@@ -171,7 +174,7 @@
                     <DataGridTemplateColumn AutomationProperties.AutomationId="DataGridTemplateColumn23_26AF2323">
                         <DataGridTemplateColumn.HeaderTemplate>
                             <DataTemplate>
-                                <CheckBox Content="All"
+                                <CheckBox Content = "{lex:Loc Key={x:Static loc:ResourceKeys.All}}"
                                           Margin="0 5 0 0"
                                           FontSize="16"
                                           IsChecked="{Binding DataContext.IsAllFiltersSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=DataGrid}}"

@@ -53,6 +53,7 @@
 
         private readonly IDictionary<string, EditableGameProfile> _editableGames;
         private readonly IDictionary<GameType, List<EditableGameProfile>> _gamesMapping;
+        private readonly object _gamesMappingLock = new object();
         private readonly IDictionary<GameType, List<EditableGameConfiguration>> _editableGameConfigByGameTypeMapping;
 
         private readonly IDictionary<(GameType gameType, string subType), List<EditableGameConfiguration>>
@@ -85,7 +86,7 @@
         private ObservableCollection<EditableGameProfile> _games = new();
         private long _maxBetLimit;
 
-        private string _saveWarningText = string.Empty; 
+        private string _saveWarningText = string.Empty;
 
         public AdvancedGameSetupViewModel()
         {
@@ -149,18 +150,13 @@
 
         public ActionCommand<object> ExportCommand { get; }
 
-        // ReSharper disable once UnusedAutoPropertyAccessor.Global - used by xaml
-        // ReSharper disable once MemberCanBePrivate.Global - used by xaml
         public ICommand ProgressiveSetupCommand { get; }
 
-        // ReSharper disable once UnusedAutoPropertyAccessor.Global - used by xaml
-        // ReSharper disable once MemberCanBePrivate.Global - used by xaml
         public ICommand ProgressiveViewCommand { get; }
 
         public string ReadOnlyStatus
         {
             get => _readOnlyStatus;
-            // ReSharper disable once MemberCanBePrivate.Global - used by xaml
             set => SetProperty(ref _readOnlyStatus, value, nameof(ReadOnlyStatus), nameof(ThemePlusOptions));
         }
 
@@ -191,9 +187,10 @@
 
         public bool InitialConfigComplete => PropertiesManager.GetValue(GamingConstants.OperatorMenuGameConfigurationInitialConfigComplete, false);
 
-        public override bool CanSave => !HasErrors && InputEnabled && !Committed &&
-                                        (HasChanges() || !InitialConfigComplete) && !IsEnabledGamesLimitExceeded &&
-                                        !_editableGames.Any(g => g.Value.HasErrors);
+        public override bool CanSave => HasNoErrors && InputEnabled && !Committed &&
+                                        (HasChanges() || !InitialConfigComplete) && !IsEnabledGamesLimitExceeded;
+
+        public bool HasNoErrors => !HasErrors && !_editableGames.Any(g => g.Value.HasErrors);
 
         public bool ShowSaveButtonOverride => ShowSaveButton && IsInEditMode;
 
@@ -225,7 +222,11 @@
         public bool GambleOptionVisible => GlobalOptionsVisible && SelectedGameType != GameType.Blackjack &&
                                            SelectedGameType != GameType.Keno && !IsRouletteGameSelected;
 
-        public bool LetItRideOptionVisible => GlobalOptionsVisible && SelectedGameType == GameType.Blackjack;
+        public bool MaxBetIsVisible => GlobalOptionsVisible &&
+                                       !IsRouletteGameSelected;
+
+        public bool LetItRideOptionVisible => GlobalOptionsVisible &&
+                                              SelectedGameType == GameType.Blackjack;
 
         public bool CanExecuteImportCommand => CanExecuteExportCommand && _settingsManager.IsConfigurationImportFilePresent(ConfigurationGroup.Game);
 
@@ -249,9 +250,12 @@
             get => _selectedGameType;
             set
             {
-                if (!_gamesMapping.ContainsKey(value) || !_gamesMapping[value].Any())
+                lock (_gamesMappingLock)
                 {
-                    return;
+                    if (!_gamesMapping.ContainsKey(value) || !_gamesMapping[value].Any())
+                    {
+                        return;
+                    }
                 }
 
                 SetProperty(ref _selectedGameType, value);
@@ -368,9 +372,18 @@
 
         public bool IsEnabledGamesLimitExceeded => TotalEnabledGames > _digitalRights.LicenseCount;
 
-        public int TotalEnabledGames => _gamesMapping.Values
-            .SelectMany(m => m)
-            .Count(m => m.Enabled);
+        public int TotalEnabledGames
+        {
+            get
+            {
+                lock (_gamesMappingLock)
+                {
+                    return _gamesMapping.Values
+                        .SelectMany(m => m)
+                        .Count(m => m.Enabled);
+                }
+            }
+        }
 
         public string SaveWarningText
         {
@@ -390,7 +403,14 @@
             });
         }
 
-        public override bool HasChanges() => _gamesMapping.Values.SelectMany(gameProfiles => gameProfiles).Any(gameProfile => gameProfile.HasChanges());
+        public override bool HasChanges()
+        {
+            lock (_gamesMappingLock)
+            {
+                return _gamesMapping.Values.SelectMany(gameProfiles => gameProfiles)
+                    .Any(gameProfile => gameProfile.HasChanges());
+            }
+        }
 
         public override void Save()
         {
@@ -429,17 +449,7 @@
                 dialogService.ShowDialog<AdvancedGameConfigurationSavingPopupView>(
                     this,
                     new AdvancedGameConfigurationSavingPopupViewModel(
-                        () =>
-                        {
-                            SaveChanges();
-                            CalculateTopAward();
-                            IsInEditMode = false;
-                            EventBus.Publish(new GameConfigurationSaveCompleteEvent());
-                            _pendingImportSettings.Clear();
-                            FieldAccessStatusText = string.Empty;
-                            SetEditMode();
-                            UpdateRestrictions();
-                        },
+                        () => ConfirmSaveChanges(),
                         dialogService),
                     string.Empty,
                     DialogButton.None);
@@ -473,6 +483,7 @@
 
             _canEdit = GetConfigSetting(OperatorMenuSetting.EnableAdvancedConfig, false);
             IsInEditMode = _canEdit && !InitialConfigComplete;
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, OperatorCultureChanged);
 
             SetEditMode();
             lock (_gamesMapping)
@@ -553,6 +564,18 @@
             SetEditMode();
         }
 
+        private void ConfirmSaveChanges(bool forceSave = false)
+        {
+            SaveChanges(forceSave);
+            CalculateTopAward();
+            IsInEditMode = false;
+            EventBus.Publish(new GameConfigurationSaveCompleteEvent());
+            _pendingImportSettings.Clear();
+            FieldAccessStatusText = string.Empty;
+            SetEditMode();
+            UpdateRestrictions();
+        }
+
         private static bool IsGameRecoveryNeeded()
         {
             return ServiceManager.GetInstance().TryGetService<IContainerService>()?.Container
@@ -569,6 +592,26 @@
             return text;
         }
 
+        private void OperatorCultureChanged(OperatorCultureChangedEvent obj)
+        {
+            SaveButtonText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SaveText);
+            CancelButtonText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExitConfigurationText);
+
+            ReadOnlyStatus = IsInEditMode
+                ? string.Empty
+                : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReadOnlyModeText);
+
+            RaisePropertyChanged(nameof(ThemePlusOptions));
+            RaisePropertyChanged(nameof(SelectedDenoms));
+
+            foreach (var config in GameConfigurations)
+            {
+                config.UpdateCurrencyCulture();
+            }
+
+            UpdateInputStatusText();
+        }
+
         private void LoadGames()
         {
             _maxBetLimit = ((long)PropertiesManager.GetProperty(
@@ -576,7 +619,11 @@
                     AccountingConstants.DefaultMaxBetLimit))
                 .MillicentsToCents();
 
-            _gamesMapping.Clear();
+            lock (_gamesMappingLock)
+            {
+                _gamesMapping.Clear();
+            }
+
             ClearEditableGames();
 
             Logger.Debug("Loading games...");
@@ -624,6 +671,9 @@
 
             CalculateTopAward();
             ScaleEnabledRtpValues();
+
+            // This must be done after the _gamesMapping setup is finished in SetupPaytableOptions
+            AutoEnableGames();
         }
 
         private void CheckForMaximumDenominations(List<EditableGameConfiguration> gameConfigs, ICollection<long> activeDenoms)
@@ -848,7 +898,7 @@
 
         private void CheckForRestrictionMismatch(EditableGameProfile profile, IConfigurationRestriction restriction)
         {
-            if (!profile.ValidRestrictions.Any())
+            if (!profile?.ValidRestrictions?.Any() ?? false)
             {
                 return;
             }
@@ -977,13 +1027,16 @@
                     _restrictionProvider,
                     _gameConfiguration);
                 _editableGames.Add(groupKey.ThemeName, gameProfile);
-                if (_gamesMapping.ContainsKey(groupKey.GameType))
+                lock (_gamesMappingLock)
                 {
-                    _gamesMapping[groupKey.GameType].Add(gameProfile);
-                }
-                else
-                {
-                    _gamesMapping.Add(groupKey.GameType, new List<EditableGameProfile> { gameProfile });
+                    if (_gamesMapping.ContainsKey(groupKey.GameType))
+                    {
+                        _gamesMapping[groupKey.GameType].Add(gameProfile);
+                    }
+                    else
+                    {
+                        _gamesMapping.Add(groupKey.GameType, new List<EditableGameProfile> { gameProfile });
+                    }
                 }
             }
 
@@ -1048,7 +1101,7 @@
             RaisePropertyChanged(nameof(editableConfig.DenomString));
         }
 
-        private void SaveChanges()
+        private void SaveChanges(bool forceSave)
         {
             var hasChanges = HasChanges();
             var progressiveLevels = _progressiveConfiguration.ViewProgressiveLevels()
@@ -1108,7 +1161,7 @@
             {
                 SaveImportSettings();
             }
-            else if (hasChanges)
+            else if (hasChanges || forceSave)
             {
                 var currentGame = _gameProvider.GetGame(PropertiesManager.GetValue(GamingConstants.SelectedGameId, 0));
 
@@ -1415,16 +1468,21 @@
 
         private void ApplySelectedGameType()
         {
-            Games = new ObservableCollection<EditableGameProfile>(
-                _gamesMapping.TryGetValue(SelectedGameType, out var gameProfiles)
-                    ? gameProfiles.OrderBy(g => g.ThemeName)
-                    : Enumerable.Empty<EditableGameProfile>());
+            lock (_gamesMappingLock)
+            {
+                Games = new ObservableCollection<EditableGameProfile>(
+                    _gamesMapping.TryGetValue(SelectedGameType, out var gameProfiles)
+                        ? gameProfiles.OrderBy(g => g.ThemeName)
+                        : Enumerable.Empty<EditableGameProfile>());
+            }
 
             SelectedGame = Games.FirstOrDefault();
 
             ApplyGameOptionsEnabled();
+
             RaisePropertyChanged(nameof(LetItRideOptionVisible), nameof(GambleOptionVisible),
-                nameof(OptionColumnVisible), nameof(IsRouletteGameSelected), nameof(IsPokerGameSelected));
+                nameof(OptionColumnVisible), nameof(IsRouletteGameSelected),
+                nameof(IsPokerGameSelected), nameof(MaxBetIsVisible));
         }
 
         private void ApplyGameOptionsEnabled()
@@ -1889,9 +1947,23 @@
 
         private void AutoEnableGames()
         {
-            foreach (var key in _gamesMapping.Keys.ToList())
+            lock (_gamesMappingLock)
             {
-                _gamesMapping[key].ForEach(AutoEnableGame);
+                foreach (var key in _gamesMapping.Keys.ToList())
+                {
+                    _gamesMapping[key].ForEach(AutoEnableGame);
+                }
+
+                var configs = GameConfigurations?.ToList();
+                if (HasNoErrors && _editableGameConfigByGameTypeMapping.Keys.Count == 1 && configs != null && configs.Count == 1)
+                {
+                    var game = configs.Single();
+                    if (game.Enabled && game.AvailablePaytables?.Count == 1)
+                    {
+                        // If there is only one game auto-enabled by protocol with one variation, auto-save the configuration
+                        ConfirmSaveChanges(true);
+                    }
+                }
             }
         }
 
@@ -1901,10 +1973,10 @@
             {
                 return;
             }
-            
-            for (var i = 0; i < gameProfile.GameConfigurations.Count; i++)
+
+            foreach (var config in gameProfile.GameConfigurations)
             {
-                gameProfile.GameConfigurations[i].Enabled = true;
+                config.Enabled = true;
             }
         }
 

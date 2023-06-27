@@ -141,6 +141,7 @@
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<ClosedEvent>>()));
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<OpenEvent>>()));
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<DialogClosedEvent>>()));
+            _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<OperatorCultureChangedEvent>>()));
             _eventBus.Setup(m => m.Publish(It.IsAny<OperatorMenuPopupEvent>()));
             _eventBus.Setup(m => m.Publish(It.IsAny<MeterPageLoadedEvent>()));
             _eventBus.Setup(m => m.Publish(It.IsAny<OperatorMenuWarningMessageEvent>()));

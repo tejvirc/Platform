@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.ObjectModel;
-    using System.Drawing;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
@@ -150,6 +149,7 @@
         protected override void OnLoaded()
         {
             EventBus.Subscribe<OperatorMenuEnteredEvent>(this, HandleOperatorMenuEntered);
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleOperatorCultureChanged);
 
             // get the monitor brightness setting and adjust the slider value to match
             if (IsCabinetThatAllowsChangingBrightness)
@@ -301,6 +301,11 @@
             }
         }
 
+        private void HandleOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            RefreshDisplays();
+        }
+
         private async void OnEnterTouchScreenCommand(object obj)
         {
             if (!(obj is DependencyObject dependencyObject))
@@ -445,9 +450,9 @@
                         continue;
                     }
 
-                    Rectangle screenBounds = WindowToScreenMapper.GetScreenBounds(display.DisplayDevice);
+                    var screenBounds = WindowToScreenMapper.GetScreenBounds(display.DisplayDevice);
                     var windowToScreenMapper = new WindowToScreenMapper(display.DisplayDevice.Role, true);
-                    Rectangle visibleArea = windowToScreenMapper.GetVisibleArea();
+                    var visibleArea = windowToScreenMapper.GetVisibleArea();
                     // Translate the origin of the Visible Area for the global Screen coordinate space to
                     // local relative space. This is needed for ScreenIdentifyWindow as it takes a
                     // visible area rectangle that is relative to the origin of the Window. 

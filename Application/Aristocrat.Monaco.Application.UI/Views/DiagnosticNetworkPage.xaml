@@ -9,7 +9,6 @@
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:common="http://monaco.aristocrat.com/common"
-                               Background="Transparent"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:DiagnosticNetworkPageViewModel}}">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -149,7 +148,7 @@
                             Margin="0 15 0 0"
                             HorizontalAlignment="Left"
                             Width="100"
-                            Content="Ping"
+                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.Ping}}"
                             Command="{Binding PingCommand}"
                             AutomationProperties.AutomationId="Button33_E1958C7" />
                     <Label Grid.Column="1"
@@ -191,7 +190,7 @@
         <GroupBox Grid.Column="1"
                   VerticalAlignment="Stretch"
                   Margin="10,0,0,0"
-                  Header="Active Connections"
+                  Header="{lex:Loc Key={x:Static loc:ResourceKeys.ActiveConnections}}"
                   AutomationProperties.AutomationId="GroupBox39_E1958C7">
             <DataGrid ItemsSource="{Binding NetstatResultSet}"
                       MinHeight="400"
@@ -206,19 +205,23 @@
                     <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProtocolLabel}}"
                                         Width="120"
                                         Binding="{Binding Protocol}"
-                                        AutomationProperties.AutomationId="DataGridTextColumn41_E1958C7" />
+                                        AutomationProperties.AutomationId="DataGridTextColumn41_E1958C7"
+                                        loc:Localizer.For="Operator" />
                     <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.LocalAddressText}}"
                                         Width="300"
                                         Binding="{Binding LocalAddress}"
-                                        AutomationProperties.AutomationId="DataGridTextColumn42_E1958C7" />
+                                        AutomationProperties.AutomationId="DataGridTextColumn42_E1958C7"
+                                        loc:Localizer.For="Operator" />
                     <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ForeignAddressText}}"
                                         Width="300"
                                         Binding="{Binding ForeignAddress}"
-                                        AutomationProperties.AutomationId="DataGridTextColumn43_E1958C7" />
+                                        AutomationProperties.AutomationId="DataGridTextColumn43_E1958C7"
+                                        loc:Localizer.For="Operator" />
                     <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.StateLabel}}"
                                         Width="160"
                                         Binding="{Binding State}"
-                                        AutomationProperties.AutomationId="DataGridTextColumn44_E1958C7" />
+                                        AutomationProperties.AutomationId="DataGridTextColumn44_E1958C7"
+                                        loc:Localizer.For="Operator" />
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>

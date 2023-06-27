@@ -16,6 +16,8 @@
     using Hardware.Contracts.Ticket;
     using Kernel;
     using Localization.Properties;
+    using Monaco.UI.Common.Extensions;
+    using MVVM;
     using MVVM.Command;
     using Views.OperatorMenu;
 
@@ -185,6 +187,7 @@
             SelectedItem = null;
 
             EventBus.Subscribe<GameIconOrderChangedEvent>(this, HandleOrderChangedEvent);
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleOperatorCultureChangedEvent);
 
             GameList = new ObservableCollection<GameOrderData>(LoadGames().OrderBy(GameOrder)); // made for VLT-6867
         }
@@ -209,7 +212,9 @@
                         ThemeId = game.ThemeId,
                         ThemeName = game.ThemeName,
                         GameTags = new ObservableCollection<string>(game.GameTags ?? new List<string>()),
-                        TheoPaybackPct = game.MaximumPaybackPercent.ToDecimal()
+                        TheoPaybackPct = game.MaximumPaybackPercent.ToDecimal(),
+                        TheoPaybackPctDisplay =
+                            $"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TheoPaybackPctLabelText)}: {game.MaximumPaybackPercent.ToDecimal():p3}"
                     });
             }
 
@@ -224,16 +229,6 @@
             UpButtonEnabled = false;
         }
 
-        private void HandleOrderChangedEvent(GameIconOrderChangedEvent @event)
-        {
-            GameList = new ObservableCollection<GameOrderData>(GameList.OrderBy(GameOrder));
-        }
-
-        private int GameOrder(GameOrderData game)
-        {
-            return _gameOrderSettings.GetIconPositionPriority(game.ThemeId);
-        }
-
         protected override IEnumerable<Ticket> GenerateTicketsForPrint(OperatorMenuPrintData dataType)
         {
             if (dataType != OperatorMenuPrintData.Main)
@@ -244,6 +239,26 @@
             var ticketCreator = ServiceManager.GetInstance().TryGetService<IGameInfoTicketCreator>();
 
             return ticketCreator?.Create(GameList.ToList());
+        }
+
+        private void HandleOrderChangedEvent(GameIconOrderChangedEvent @event)
+        {
+            GameList = new ObservableCollection<GameOrderData>(GameList.OrderBy(GameOrder));
+        }
+
+        private void HandleOperatorCultureChangedEvent(OperatorCultureChangedEvent @event)
+        {
+            MvvmHelper.ExecuteOnUI(
+                () =>
+                {
+                    GameList.Clear();
+                    GameList.AddRange(LoadGames().OrderBy(GameOrder));
+                });
+        }
+
+        private int GameOrder(GameOrderData game)
+        {
+            return _gameOrderSettings.GetIconPositionPriority(game.ThemeId);
         }
 
         private void SetGameOrder(object obj)

@@ -143,6 +143,8 @@
 
         private const bool DefaultRestartStatus = true;
 
+        private readonly IEventLift _eventLift;
+
         private bool _closed;
 
         private bool _disposed;
@@ -155,9 +157,11 @@
         ///     Initializes a new instance of the <see cref="VoucherDevice" /> class.
         /// </summary>
         /// <param name="deviceStateObserver">An IDeviceStateObserver instance.</param>
-        public VoucherDevice(IDeviceObserver deviceStateObserver)
+        /// <param name="eventLift">An IEventLift instance.</param>
+        public VoucherDevice(IDeviceObserver deviceStateObserver, IEventLift eventLift)
             : base(1, deviceStateObserver)
         {
+            _eventLift = eventLift;
             SetDefaults();
         }
 
@@ -353,11 +357,14 @@
             status.hostEnabled = HostEnabled;
 
             var deviceList = this.DeviceList(status);
-            EventHandlerDevice.EventReport(
-                this.PrefixedDeviceClass(),
-                Id,
-                eventText: "Voucher device configuration changed by Host",
-                deviceList: deviceList);
+            _eventLift.Report(
+                this,
+                string.Empty,
+                deviceList,
+                "Voucher device configuration changed by Host",
+                -1,
+                null,
+                null);
         }
 
         /// <inheritdoc />
@@ -487,13 +494,13 @@
 
             if (triggerEvent)
             {
-                EventHandlerDevice.EventReport(
-                    this.PrefixedDeviceClass(),
-                    Id,
+                _eventLift.Report(
+                    this,
                     EventCode.G2S_VCE106,
-                    eventText: "Voucher Redemption Requested",
-                    transactionId: voucher.transactionId,
-                    transactionList: new transactionList
+                    null,
+                    "Voucher Redemption Requested",
+                    voucher.transactionId,
+                    new transactionList
                     {
                         transactionInfo = new[]
                         {
@@ -504,7 +511,8 @@
                                 Item = log
                             }
                         }
-                    });
+                    },
+                    null);
             }
 
             var request = InternalCreateClass();
@@ -535,12 +543,12 @@
                     log.egmAction = t_egmVoucherActions.G2S_pending;
                     log.egmException = 0;
 
-                    EventHandlerDevice.EventReport(
-                        this.PrefixedDeviceClass(),
-                        Id,
+                    _eventLift.Report(
+                        this,
                         EventCode.G2S_VCE107,
-                        eventText: "Voucher Authorized",
-                        transactionId: voucher.transactionId,
+                        null,
+                        "Voucher Authorized",
+                        voucher.transactionId,
                         transactionList: new transactionList
                         {
                             transactionInfo = new[]
@@ -552,7 +560,8 @@
                                     Item = log
                                 }
                             }
-                        });
+                        },
+                        null);
                 }
 
                 return aVoucher;
@@ -620,13 +629,13 @@
                     log.egmAction = t_egmVoucherActions.G2S_redeemed;
                     log.egmException = 0;
 
-                    EventHandlerDevice.EventReport(
-                        this.PrefixedDeviceClass(),
-                        Id,
+                    _eventLift.Report(
+                        this,
                         EventCode.G2S_VCE108,
-                        eventText: "Voucher Redeemed",
-                        transactionId: voucher.transactionId,
-                        transactionList: new transactionList
+                        null,
+                        "Voucher Redeemed",
+                        voucher.transactionId,
+                        new transactionList
                         {
                             transactionInfo = new[]
                             {
@@ -638,7 +647,7 @@
                                 }
                             }
                         },
-                        meterList: getMetersCallback(this));
+                        getMetersCallback(this));
                 }
                 else
                 {
@@ -649,13 +658,13 @@
                     //// 5 (five) if the EGM aborted the transaction before it was authorized (timed out).
                     log.egmException = voucher.egmException != 0 ? voucher.egmException : log.hostException != 0 ? 2 : 3;
 
-                    EventHandlerDevice.EventReport(
-                        this.PrefixedDeviceClass(),
-                        Id,
+                    _eventLift.Report(
+                        this,
                         EventCode.G2S_VCE109,
-                        eventText: "Voucher Rejected",
-                        transactionId: voucher.transactionId,
-                        transactionList: new transactionList
+                        null,
+                        "Voucher Rejected",
+                        voucher.transactionId,
+                        new transactionList
                         {
                             transactionInfo = new[]
                             {
@@ -666,7 +675,8 @@
                                     Item = log
                                 }
                             }
-                        });
+                        },
+                        null);
                 }
             }
 
@@ -685,13 +695,13 @@
 
                 log.voucherState = t_voucherStates.G2S_commitAcked;
 
-                EventHandlerDevice.EventReport(
-                    this.PrefixedDeviceClass(),
-                    Id,
+                _eventLift.Report(
+                    this,
                     EventCode.G2S_VCE111,
-                    eventText: "Voucher Commit Command Acknowledged",
-                    transactionId: voucher.transactionId,
-                    transactionList: new transactionList
+                    null,
+                    "Voucher Commit Command Acknowledged",
+                    voucher.transactionId,
+                    new transactionList
                     {
                         transactionInfo = new[]
                         {
@@ -702,7 +712,8 @@
                                 Item = log
                             }
                         }
-                    });
+                    },
+                    null);
 
                 ackCallback(voucher);
             }

@@ -1,14 +1,15 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
-    using OperatorMenu;
     using System;
+    using Contracts.OperatorMenu;
+    using OperatorMenu;
 
     [CLSCompliant(false)]
     public class IdentificationMainPageViewModel : OperatorMenuMultiPageViewModelBase
     {
         private const string MenuExtensionPointPath = "/Application/OperatorMenu/IdentificationMenu";
 
-        public IdentificationMainPageViewModel(string displayPageTitle) : base(displayPageTitle, MenuExtensionPointPath)
+        public IdentificationMainPageViewModel(IOperatorMenuPageLoader mainPage) : base(mainPage, MenuExtensionPointPath)
         {
         }
     }

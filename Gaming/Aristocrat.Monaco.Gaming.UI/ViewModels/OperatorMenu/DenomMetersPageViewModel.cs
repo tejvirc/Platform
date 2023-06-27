@@ -6,6 +6,7 @@
     using System.Windows.Input;
     using Application.Contracts;
     using Application.Contracts.Extensions;
+    using Application.Contracts.Localization;
     using Application.Contracts.MeterPage;
     using Application.UI.MeterPage;
     using Application.UI.OperatorMenu;
@@ -30,11 +31,6 @@
         {
             _meters = ServiceManager.GetInstance().TryGetService<IGameMeterManager>();
 
-            var games = PropertiesManager.GetValues<IGameDetail>(GamingConstants.Games);
-            Denoms = new List<Denomination>(
-                games.SelectMany(g => g.SupportedDenominations).Distinct().OrderBy(d => d).Select(d => new Denomination(d)));
-            SelectedDenom = Denoms.FirstOrDefault();
-
             PreviousDenomCommand = new ActionCommand<object>(PreviousDenom);
             NextDenomCommand = new ActionCommand<object>(NextDenom);
         }
@@ -45,9 +41,9 @@
 
         public bool PreviousDenomIsEnabled => SelectedDenomIndex > 0 && !DataEmpty;
 
-        public bool NextDenomIsEnabled => SelectedDenomIndex < Denoms.Count - 1 && !DataEmpty;
+        public bool NextDenomIsEnabled => SelectedDenomIndex < Denoms?.Count - 1 && !DataEmpty;
 
-        public List<Denomination> Denoms { get; }
+        public List<Denomination> Denoms { get; private set; }
 
         public Denomination SelectedDenom
         {
@@ -85,7 +81,7 @@
             {
                 return;
             }
-            
+
             // This will occur each time a different denom is selected
             MvvmHelper.ExecuteOnUI(
                 () =>
@@ -108,14 +104,32 @@
                         }
                         else
                         {
+                            string meterDisplayName = GetDisplayNameFromMeterNode(meterNode);
+
                             try
                             {
                                 var meter = _meters.GetMeter(SelectedDenom.Millicents, meterNode.Name);
-                                Meters.Add(new DisplayMeter(meterNode.DisplayName, meter, ShowLifetime, meterNode.Order));
+                                Meters.Add(
+                                    new DisplayMeter(
+                                        meterDisplayName,
+                                        meter,
+                                        ShowLifetime,
+                                        meterNode.Order,
+                                        true,
+                                        false,
+                                        UseOperatorCultureForCurrencyFormatting));
                             }
                             catch (MeterNotFoundException)
                             {
-                                Meters.Add(new DisplayMeter(meterNode.DisplayName, null, ShowLifetime, meterNode.Order));
+                                Meters.Add(
+                                    new DisplayMeter(
+                                        meterDisplayName,
+                                        null,
+                                        ShowLifetime,
+                                        meterNode.Order,
+                                        true,
+                                        false,
+                                        UseOperatorCultureForCurrencyFormatting));
                                 Logger.ErrorFormat("Meter not found: {0}", meterNode.Name);
                             }
                         }
@@ -159,8 +173,19 @@
 
         protected override void OnLoaded()
         {
+            LoadDenoms();
             SelectedDenomIndex = 0;
             base.OnLoaded();
+        }
+
+        protected override void HandleOperatorCultureChanged(OperatorCultureChangedEvent @event)
+        {
+            MvvmHelper.ExecuteOnUI(() =>
+            {
+                LoadDenoms();
+            });
+
+            base.HandleOperatorCultureChanged(@event);
         }
 
         private void NextDenom(object sender)
@@ -179,12 +204,23 @@
                 : SelectedDenomIndex - 1;
         }
 
+        private void LoadDenoms()
+        {
+            Denoms?.Clear();
+
+            var games = PropertiesManager.GetValues<IGameDetail>(GamingConstants.Games);
+            Denoms = new List<Denomination>(
+                games.SelectMany(g => g.SupportedDenominations).Distinct().OrderBy(d => d).Select(d => new Denomination(d, d.MillicentsToDollars().FormattedCurrencyString(false, GetCurrencyDisplayCulture()))));
+            RaisePropertyChanged(nameof(Denoms));
+            SelectedDenom = Denoms.FirstOrDefault();
+        }
+
         public struct Denomination
         {
-            public Denomination(long millicents)
+            public Denomination(long millicents, string displayValue)
             {
                 Millicents = millicents;
-                DisplayValue = millicents.MillicentsToDollars().FormattedCurrencyString();
+                DisplayValue = displayValue;
             }
 
             public long Millicents { get; }

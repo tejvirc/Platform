@@ -22,7 +22,7 @@
         /// <inheritdoc />
         protected override IOperatorMenuPageViewModel CreateViewModel()
         {
-            return new ToolsMainPageViewModel(PageName);
+            return new ToolsMainPageViewModel(this);
         }
     }
 }

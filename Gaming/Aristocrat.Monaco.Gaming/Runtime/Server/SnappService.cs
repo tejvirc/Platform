@@ -7,16 +7,16 @@
     using System.Threading.Tasks;
     using System.Threading.Tasks.Dataflow;
     using Application.Contracts.Extensions;
-    using GdkRuntime.V1;
     using Client;
     using Commands;
     using Contracts;
     using Contracts.Central;
     using Contracts.Process;
+    using GdkRuntime.V1;
     using Kernel;
     using log4net;
-    using GameRoundDetails = GdkRuntime.V1.GameRoundDetails;
     using EventTypes = GdkRuntime.V1.RuntimeEventNotification.Types.RuntimeEvent;
+    using GameRoundDetails = GdkRuntime.V1.GameRoundDetails;
     using LocalStorage = GdkRuntime.V1.LocalStorage;
 
     public class SnappService : IGameServiceCallback
@@ -180,6 +180,9 @@
                         request.RuntimeEvent == RuntimeEventNotification.Types.RuntimeEvent.GameSelectionScreenEntered));
                     break;
                 case RuntimeEventNotification.Types.RuntimeEvent.RequestAllowGameRound:
+                    // Not used
+                    break;
+                case EventTypes.MaxWinReached:
                     // Not used
                     break;
                 default:
@@ -634,6 +637,11 @@
             return EmptyResult;
         }
 
+        public override Empty UpdateLanguage(LanguageRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
         public override Empty UpdateBetOptions(UpdateBetOptionsRequest request)
         {
             Logger.Debug($"Update Bet Line option with wager : {request.Wager}");
@@ -650,6 +658,19 @@
             _handlerFactory.Create<UpdateBetOptions>().Handle(betOptions);
 
             return EmptyResult;
+        }
+
+        public override CheckMysteryJackpotResponse CheckMysteryJackpot(CheckMysteryJackpotRequest request)
+        {
+            var command = new CheckMysteryJackpot();
+
+            _handlerFactory.Create<CheckMysteryJackpot>()
+                .Handle(command);
+            var response = new CheckMysteryJackpotResponse();
+
+            response.Levels.Add(command.Results);
+
+            return response;
         }
     }
 }

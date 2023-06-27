@@ -33,7 +33,7 @@
         private void AddGamesInfo()
         {
             AddLine(null, Dashes, null);
-            AddLine(TicketLocalizer.GetString(ResourceKeys.ComponentText), null, TicketLocalizer.GetString(ResourceKeys.VersionText));
+            AddLine(TicketLocalizer.GetString(ResourceKeys.ComponentText), null, TicketLocalizer.GetString(ResourceKeys.Version));
             var lineLength = ServiceManager.GetService<IPrinter>().GetCharactersPerLine(false, 0);
             var gameNamePaddingLength = $"{TicketLocalizer.GetString(ResourceKeys.GameText)} - ".Length; // for padding the game name in case game name takes more then 1 line.
 

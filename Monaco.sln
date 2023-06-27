@@ -580,6 +580,7 @@ Global
 		{CCA190F1-D08B-4481-B7E2-4ADB6F7DE86E}.Release|x86.ActiveCfg = Release|Any CPU
 		{CCA190F1-D08B-4481-B7E2-4ADB6F7DE86E}.Release|x86.Build.0 = Release|Any CPU
 		{CCA190F1-D08B-4481-B7E2-4ADB6F7DE86E}.Retail|Any CPU.ActiveCfg = Retail|Any CPU
+		{CCA190F1-D08B-4481-B7E2-4ADB6F7DE86E}.Retail|Any CPU.Build.0 = Retail|Any CPU
 		{CCA190F1-D08B-4481-B7E2-4ADB6F7DE86E}.Retail|x64.ActiveCfg = Retail|Any CPU
 		{CCA190F1-D08B-4481-B7E2-4ADB6F7DE86E}.Retail|x86.ActiveCfg = Retail|Any CPU
 		{75755BD4-938B-4980-997F-314477736E85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -1953,7 +1954,7 @@ Global
 		{10831BDA-5445-449E-A7A4-3CC79F3AFECF} = {CD21F4D7-E6D5-462F-9F9F-22FE9618496C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_RemoveEmptyEntries = True
 		SolutionGuid = {5A170623-08DF-4BB8-8565-F39C24A4ACA7}
+		RESX_RemoveEmptyEntries = True
 	EndGlobalSection
 EndGlobal

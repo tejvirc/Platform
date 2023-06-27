@@ -29,6 +29,8 @@
                            AutomationProperties.AutomationId="RowDefinition3_D1FE7F80" />
             <RowDefinition Height="Auto"
                            AutomationProperties.AutomationId="RowDefinition4_D1FE7F80" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition5_D1FE7F80" />
         </Grid.RowDefinitions>
         <Border HorizontalAlignment="Left"
                 Visibility="{Binding IsVoucherInVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
@@ -39,10 +41,12 @@
                       AutomationProperties.AutomationId="DataGrid6_D1FE7F80">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
+                                        loc:Localizer.For="Operator"
                                         Width="350"
                                         Binding="{Binding Name}"
                                         AutomationProperties.AutomationId="DataGridTextColumn7_D1FE7F80" />
                     <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Count}}"
+                                        loc:Localizer.For="Operator"
                                         Width="500"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
                                         CellStyle="{StaticResource DataGridCellRight}"
@@ -58,6 +62,7 @@
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
                     <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
+                                        loc:Localizer.For="Operator"
                                         Width="500"
                                         Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
@@ -106,10 +111,12 @@
                       AutomationProperties.AutomationId="DataGrid19_D1FE7F80">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
+                                        loc:Localizer.For="Operator"
                                         Width="350"
                                         Binding="{Binding Name}"
                                         AutomationProperties.AutomationId="DataGridTextColumn20_D1FE7F80" />
                     <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Count}}"
+                                        loc:Localizer.For="Operator"
                                         Width="500"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
                                         CellStyle="{StaticResource DataGridCellRight}"
@@ -125,6 +132,7 @@
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
                     <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
+                                        loc:Localizer.For="Operator"
                                         Width="500"
                                         Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
@@ -171,10 +179,12 @@
                   AutomationProperties.AutomationId="DataGrid31_D1FE7F80">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
+                                    loc:Localizer.For="Operator"
                                     Width="350"
                                     Binding="{Binding Name}"
                                     AutomationProperties.AutomationId="DataGridTextColumn32_D1FE7F80" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Count}}"
+                                    loc:Localizer.For="Operator"
                                     HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
                                     CellStyle="{StaticResource DataGridCellRight}"
                                     Width="500"

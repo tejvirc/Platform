@@ -10,28 +10,46 @@ as follows:
     the corresponding class definition in csharp (GamingConfiguration.cs).
 -->
 <GamingConfiguration>
-	<GameHistory KeepGameRoundEvents="false" KeepGameRoundMeterSnapshots="false" />
-	<GameEnd CashOutStrategy="Full" />
-	<FreeGames MeterIndependently="true" />
-	<Messages>
-		<MinBetMessage MustDisplay="false" Format="Currency" />
-	</Messages>
-	<ReelStop Enabled="false" />
-	<LockupBehavior CashableLockupStrategy="NotAllowed" />
-	<DefaultCreditDisplay Format="Currency" />
-	<AutoHold Enable="true" Configurable="false" />
-	<Gamble Allowed="false" />
-	<LetItRide Allowed="false" />
-	<!--
-		Some VLT markets deliberately set GameStartButtons/Methods value as empty string and want
-		to start game with Play button only. For such situations we should set "Method" parameter to "None"
-		and hide the UI settings by setting "SettingsVisible" to "false"
-	-->
-	<PhysicalButtons>
-		<GameStartButtons SettingsVisible="false" Method="None">
-			<GameConfigurableButtons />
-		</GameStartButtons>
-	</PhysicalButtons>
-	<AttractModeOptions KenoAttractSelected="true" PokerAttractSelected="true" BlackjackAttractSelected="true" />
-	<ProgressiveLobbyIndicator Indicator="Disabled" />
+  <GameHistory KeepGameRoundEvents="false" KeepGameRoundMeterSnapshots="false" />
+  <GameEnd CashOutStrategy="Full" />
+  <MaximumGameRoundWin Amount="100000000" ResetWinAmount="primary"/>
+  <FreeGames MeterIndependently="true" />
+  <Messages ShowMessages="true">
+    <MinBetMessage MustDisplay="false" Format="Currency" />
+  </Messages>
+  <ReelStop Enabled="false" />
+  <ReelSpeed Value="5" />
+  <LockupBehavior CashableLockupStrategy="NotAllowed" />
+  <DefaultCreditDisplay Format="Currency" />
+  <AutoHold Enable="true" Configurable="false" />
+  <Gamble Allowed="false" />
+  <PlayLines Allowed="true" ShowLinesOnFeatureStart="true" Type="boxedPlayLines" />
+  <LetItRide Allowed="false" />
+  <AutoPlay Allowed="true" />
+  <!--
+    Some VLT markets deliberately set GameStartButtons/Methods value as empty string and want
+    to start game with Play button only. For such situations we should set "Method" parameter to "None"
+    and hide the UI settings by setting "SettingsVisible" to "false"
+  -->
+  <PhysicalButtons>
+    <GameStartButtons SettingsVisible="false" Method="None">
+      <GameConfigurableButtons />
+    </GameStartButtons>
+  </PhysicalButtons>
+  <AttractModeOptions KenoAttractSelected="true" PokerAttractSelected="true" BlackjackAttractSelected="true" />
+  <ProgressiveLobbyIndicator Indicator="Disabled" />
+  <FreeSpin ClearWinMeter="true"/>
+  <Win Destination="winAndCredit"/>
+  <DisplayGamePayMessage Use="true" Format="currency"/>
+  <WagerLimits Use="true" MaxTotalWager="250" />
+  <VolumeLevel ShowInHelpScreen="false" />
+  <Service Use="true" />
+  <Clock UseHInDisplay="true" />
+  <KenoFreeGames SelectionChange="false" AutoPlay="true" />
+  <InitialZeroWager Use="true" />
+  <ChangeLineSelectionAtZeroCredit Use="true" />
+  <GameDuration UseMarketGameTime="true" />
+  <GameLog Enabled="true" OutcomeDetails="true" />
+  <Audio AudioChannels="true" />
+  <ButtonAnimation GoodLuck="false" />
 </GamingConfiguration>
