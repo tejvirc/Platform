@@ -287,12 +287,12 @@
             }
         }
 
-        public bool ViewBetOptionFilter 
+        public bool ViewBetOptionFilter
         {
             get => _viewBetOptionFilter;
             set
             {
-                if(value != _viewBetOptionFilter)
+                if (value != _viewBetOptionFilter)
                 {
                     _viewBetOptionFilter = value;
                     RaisePropertyChanged(nameof(ViewBetOptionFilter));
@@ -445,9 +445,11 @@
                 {
                     SelectedGame = Games.FirstOrDefault();
                 }
+
+                UpdateStatusText();
             });
 
-            OnShouldRegenerateColumns?.Invoke(this, new EventArgs()); // Used by page code-behind
+            OnShouldRegenerateColumns?.Invoke(this, EventArgs.Empty); // Used by page code-behind
 
             base.HandleOperatorCultureChanged(@event);
         }

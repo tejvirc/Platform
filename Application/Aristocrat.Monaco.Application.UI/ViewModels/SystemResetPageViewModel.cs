@@ -4,7 +4,6 @@
     using System.Windows.Input;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
-    using Events;
     using Hardware.Contracts.Persistence;
     using Kernel;
     using Monaco.Localization.Properties;
@@ -15,27 +14,10 @@
     [CLSCompliant(false)]
     public class SystemResetPageViewModel : OperatorMenuPageViewModelBase
     {
-        private string _statusText;
-
         public SystemResetPageViewModel()
         {
             PartialResetButtonClickCommand = new ActionCommand<object>(OnPartialResetButtonClickCommand);
             FullResetButtonClickCommand = new ActionCommand<object>(OnFullResetButtonClickCommand);
-        }
-
-        /// <summary>
-        ///     Gets or sets status text.
-        /// </summary>
-        public string StatusText
-        {
-            get => _statusText;
-
-            set
-            {
-                _statusText = value;
-                RaisePropertyChanged(nameof(StatusText));
-                UpdateStatusText();
-            }
         }
 
         /// <summary>
@@ -79,18 +61,6 @@
 
                 var persistentStorage = ServiceManager.GetInstance().GetService<IPersistentStorageManager>();
                 persistentStorage.Clear(PersistenceLevel.Static);
-            }
-        }
-
-        protected override void UpdateStatusText()
-        {
-            if (!string.IsNullOrEmpty(StatusText))
-            {
-                EventBus.Publish(new OperatorMenuWarningMessageEvent(StatusText));
-            }
-            else
-            {
-                base.UpdateStatusText();
             }
         }
 
