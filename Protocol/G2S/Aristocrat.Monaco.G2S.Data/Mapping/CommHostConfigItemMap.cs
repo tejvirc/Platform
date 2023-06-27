@@ -1,10 +1,8 @@
 ﻿namespace Aristocrat.Monaco.G2S.Data.Mapping
 {
+    using CommConfig;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using Microsoft.EntityFrameworkCore.Sqlite.Metadata;
-    using CommConfig;
-    using System.Diagnostics;
 
     /// <summary>
     ///     Configuration for the <see cref="CommHostConfigItem" /> entity

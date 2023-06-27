@@ -28,11 +28,4 @@
     <ProjectReference Include="..\..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
     <ProjectReference Include="..\Aristocrat.G2S.Client\Aristocrat.G2S.Client.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Aristocrat.G2S" Version="5.0.0-beta0006" />
-    <PackageReference Include="Aristocrat.Microsoft.EntityFrameworkCore" Version="6.0.18" />
-    <PackageReference Include="Aristocrat.Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.18" />
-    <PackageReference Include="Aristocrat.SQLitePCLRaw.bundle_e_sqlcipher" Version="2.1.4" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-  </ItemGroup>
 </Project>
