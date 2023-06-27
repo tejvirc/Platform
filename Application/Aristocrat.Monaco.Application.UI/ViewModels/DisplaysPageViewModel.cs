@@ -143,7 +143,6 @@
         protected override void OnLoaded()
         {
             EventBus.Subscribe<OperatorMenuEnteredEvent>(this, HandleOperatorMenuEntered);
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleOperatorCultureChanged);
 
             // get the monitor brightness setting and adjust the slider value to match
             if (IsCabinetThatAllowsChangingBrightness)
@@ -290,9 +289,10 @@
             }
         }
 
-        private void HandleOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             RefreshDisplays();
+            base.OnOperatorCultureChanged(evt);
         }
 
         private async void OnEnterTouchScreenCommand(object obj)

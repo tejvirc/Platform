@@ -153,8 +153,6 @@
 
                 Range = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable);
             }
-
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleOperatorCultureChanged);
         }
 
         private void RefreshGames()
@@ -166,9 +164,10 @@
             EnabledGames = new ObservableCollection<ReadOnlyGameConfiguration>(configs);
         }
 
-        private void HandleOperatorCultureChanged(OperatorCultureChangedEvent obj)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             RefreshGames();
+            base.OnOperatorCultureChanged(evt);
         }
     }
 }

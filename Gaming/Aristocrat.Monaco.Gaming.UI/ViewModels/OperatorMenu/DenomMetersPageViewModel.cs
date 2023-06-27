@@ -178,14 +178,11 @@
             base.OnLoaded();
         }
 
-        protected override void HandleOperatorCultureChanged(OperatorCultureChangedEvent @event)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() =>
-            {
-                LoadDenoms();
-            });
+            MvvmHelper.ExecuteOnUI(LoadDenoms);
 
-            base.HandleOperatorCultureChanged(@event);
+            base.OnOperatorCultureChanged(evt);
         }
 
         private void NextDenom(object sender)

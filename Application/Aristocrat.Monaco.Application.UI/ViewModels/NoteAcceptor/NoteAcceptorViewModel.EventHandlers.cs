@@ -38,7 +38,6 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
             EventBus.Subscribe<SelfTestPassedEvent>(this, HandleHardwareNoteAcceptorSelfTestPassedEvent);
             EventBus.Subscribe<SelfTestFailedEvent>(this, HandleHardwareNoteAcceptorSelfTestFailedEvent);
             EventBus.Subscribe<PropertyChangedEvent>(this, HandleEvent, e => e.PropertyName.Equals(PropertyKey.VoucherIn));
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this, _ => UpdateCurrencyFields());
 #if !RETAIL
             EventBus.Subscribe<DebugNoteEvent>(this, HandleDebugNoteEvent);
 #endif
@@ -116,6 +115,12 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
             }
 
             base.StopEventHandler();
+        }
+
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            UpdateCurrencyFields();
+            base.OnOperatorCultureChanged(evt);
         }
 
         private void HandleHardwareNoteAcceptorDisabledEvent(DisabledEvent @event)

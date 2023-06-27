@@ -3398,7 +3398,7 @@ Do you really want to do partial reset????</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="VerifiedEKeyRequired" xml:space="preserve">
-    <value>???EKey device is required to perform configuration.???</value>
+    <value>???EKey device is required to perform configuration???</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="ActiveConnections" xml:space="preserve">
@@ -4853,15 +4853,18 @@ Do you really want to do partial reset????</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="AtLeast" xml:space="preserve">
-	  <value>??At Least??</value>
+    <value>??At Least??</value>
   </data>
   <data name="AtMost" xml:space="preserve">
-	  <value>??At Most??</value>
+    <value>??At Most??</value>
   </data>
   <data name="VerifyingSignaturesText" xml:space="preserve">
     <value>???Verifying Signatures???</value>
   </data>
   <data name="SoftwareLicense" xml:space="preserve">
     <value>??Software Licence??</value>
+  </data>
+  <data name="RebootWarningMessage" xml:space="preserve">
+    <value>??Any new changes will restart the machine??</value>
   </data>
 </root>

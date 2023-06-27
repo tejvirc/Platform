@@ -412,10 +412,9 @@
             RaisePropertyChanged(nameof(PrintLast15ButtonVisible));
             EventBus.Subscribe<OperatorMenuPrintJobStartedEvent>(this, o => FilterMenuEnabled = false);
             EventBus.Subscribe<OperatorMenuPrintJobCompletedEvent>(this, o => FilterMenuEnabled = true);
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleOperatorCultureChangedEvent);
         }
 
-        protected void HandleOperatorCultureChangedEvent(OperatorCultureChangedEvent @event)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             foreach (var eventFilter in EventFilterCollection)
             {
@@ -429,6 +428,8 @@
             SetupTiltLogAppendedTilt(false);
             ReloadEventHistory();
             SetupTiltLogAppendedTilt(true);
+
+            base.OnOperatorCultureChanged(evt);
         }
 
         protected override void OnUnloaded()

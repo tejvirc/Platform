@@ -67,7 +67,7 @@
         private IEventBus _eventBus;
         private IPropertiesManager _properties;
         private IOperatorMenuConfiguration _configuration;
-        protected IOperatorMenuAccess Access;
+        private IOperatorMenuAccess _access;
         protected bool UseOperatorCultureForCurrencyFormatting;
 
         private int _firstVisibleElement = -1;
@@ -402,6 +402,8 @@
 
         public virtual bool PopupOpen { get; set; }
 
+        public CultureInfo CurrencyDisplayCulture => GetCurrencyDisplayCulture();
+
         protected IEventBus EventBus =>
             _eventBus ??= ServiceManager.GetInstance().TryGetService<IEventBus>();
 
@@ -410,6 +412,9 @@
 
         protected IOperatorMenuConfiguration Configuration =>
             _configuration ??= ServiceManager.GetInstance().TryGetService<IOperatorMenuConfiguration>();
+
+        protected IOperatorMenuAccess Access =>
+            _access ??= ServiceManager.GetInstance().TryGetService<IOperatorMenuAccess>();
 
         protected IPrinter Printer => ServiceManager.GetInstance().TryGetService<IPrinter>();
 
@@ -484,8 +489,6 @@
             return new List<Ticket>();
         }
 
-        public CultureInfo CurrencyDisplayCulture => GetCurrencyDisplayCulture();
-
         protected virtual CultureInfo GetCurrencyDisplayCulture() => UseOperatorCultureForCurrencyFormatting ? Localizer.For(CultureFor.Operator).CurrentCulture : CurrencyExtensions.CurrencyCultureInfo;
 
         protected IEnumerable<Ticket> GeneratePrintVerificationTickets()
@@ -559,6 +562,11 @@
             {
                 MvvmHelper.ExecuteOnUI(_UpdateStatusText);
             }
+        }
+
+        protected virtual void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            SetInputStatus();
         }
 
         private void _UpdateStatusText()
@@ -781,7 +789,8 @@
                 ? accessRestriction
                 : OperatorMenuAccessRestriction.None;
         }
-        protected virtual bool AllFieldsReadonly()
+
+        private bool AllFieldsReadonly()
         {
             return !InputEnabled;
         }
@@ -865,7 +874,6 @@
                 SetPrintAccessStatus(evt.Enabled, OperatorMenuAccessRestriction.None);
             });
         }
-
 
         protected void OnDialogClosed(DialogClosedEvent evt)
         {
@@ -1023,9 +1031,31 @@
             EventBus.Subscribe<PrintButtonClickedEvent>(this, OnPrintButtonClicked);
             EventBus.Subscribe<PrintButtonStatusEvent>(this, OnPrintButtonStatusChanged);
             EventBus.Subscribe<DialogClosedEvent>(this, OnDialogClosed);
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, OnOperatorCultureChanged);
 
             CheckPlayedCountMeter();
 
+            SetInputStatus();
+
+            PageSupportsMainPrintButton = Configuration?.GetPrintButtonEnabled(this, DefaultPrintButtonEnabled) ?? false;
+            PrintCurrentPageButtonVisible = GetGlobalConfigSetting(OperatorMenuSetting.PrintCurrentPage, true);
+            PrintLast15ButtonVisible = GetGlobalConfigSetting(OperatorMenuSetting.PrintLast15, true);
+            PrintSelectedButtonVisible = GetGlobalConfigSetting(OperatorMenuSetting.PrintSelected, true);
+
+            OnLoaded();
+            RaisePropertyChanged(nameof(DataEmpty));
+            EventBus.Publish(new OperatorMenuPageLoadedEvent(this));
+            EventBus.Publish(new OperatorMenuPopupEvent(false));
+
+            UpdateStatusText();
+
+            TurnOffLamps();  // VLT-10029
+
+            IsLoaded = true;
+        }
+
+        private void SetInputStatus()
+        {
             var wizardPage = this is ConfigWizardViewModelBase wizard && wizard.IsWizardPage
                              || this is IConfigWizardNavigator
                              || this is IConfigWizardDialog dialog && dialog.IsInWizard;
@@ -1037,7 +1067,6 @@
             }
             else
             {
-                Access = ServiceManager.GetInstance().GetService<IOperatorMenuAccess>();
                 var accessRuleSet = Configuration?.GetAccessRuleSet(this);
                 if (string.IsNullOrEmpty(accessRuleSet))
                 {
@@ -1061,22 +1090,6 @@
                 RegisterAccessRule(TestMode, nameof(TestModeEnabled), nameof(TestModeRestriction));
                 RegisterAccessRule(FieldAccess, nameof(FieldAccessEnabled), nameof(FieldAccessRestriction));
             }
-
-            PageSupportsMainPrintButton = Configuration?.GetPrintButtonEnabled(this, DefaultPrintButtonEnabled) ?? false;
-            PrintCurrentPageButtonVisible = GetGlobalConfigSetting(OperatorMenuSetting.PrintCurrentPage, true);
-            PrintLast15ButtonVisible = GetGlobalConfigSetting(OperatorMenuSetting.PrintLast15, true);
-            PrintSelectedButtonVisible = GetGlobalConfigSetting(OperatorMenuSetting.PrintSelected, true);
-
-            OnLoaded();
-            RaisePropertyChanged(nameof(DataEmpty));
-            EventBus.Publish(new OperatorMenuPageLoadedEvent(this));
-            EventBus.Publish(new OperatorMenuPopupEvent(false));
-
-            UpdateStatusText();
-
-            TurnOffLamps();  // VLT-10029
-
-            IsLoaded = true;
         }
 
         private void TurnOffLamps()

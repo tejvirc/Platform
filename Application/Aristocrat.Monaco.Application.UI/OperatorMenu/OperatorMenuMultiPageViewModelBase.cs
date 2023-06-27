@@ -184,12 +184,12 @@
             EventBus.Subscribe<OperatorMenuPrintJobCompletedEvent>(this, _ => SetButtonsEnabled(true));
             EventBus.Subscribe<EnableOperatorMenuEvent>(this, evt => SetButtonsEnabled(evt.Enable));
             EventBus.Subscribe<OperatorMenuWarningMessageEvent>(this, OnUpdateWarningMessage);
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this, OnOperatorCultureChanged);
         }
 
-        protected void OnOperatorCultureChanged(OperatorCultureChangedEvent @event)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             SetPageTitle();
+            base.OnOperatorCultureChanged(evt);
         }
 
         protected override void OnUnloaded()

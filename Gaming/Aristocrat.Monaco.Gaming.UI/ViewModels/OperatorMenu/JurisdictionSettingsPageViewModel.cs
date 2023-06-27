@@ -126,13 +126,13 @@
         protected override void OnLoaded()
         {
             SetupRtpValuesAndVisibility();
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this, OnOperatorCultureChanged);
         }
 
-        private void OnOperatorCultureChanged(OperatorCultureChangedEvent obj)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             SetupRtpValuesAndVisibility();
             RaisePropertyChanged(nameof(MechanicalMeter), nameof(DoorOpticSensor), nameof(ZeroCreditOnOos));
+            base.OnOperatorCultureChanged(evt);
         }
 
         protected override IEnumerable<Ticket> GenerateTicketsForPrint(OperatorMenuPrintData dataType)

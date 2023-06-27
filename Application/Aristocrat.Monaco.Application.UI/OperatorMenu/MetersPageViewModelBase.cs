@@ -100,7 +100,6 @@
         protected override void OnLoaded()
         {
             EventBus.Subscribe<PeriodOrMasterButtonClickedEvent>(this, evt => PeriodOrMasterButtonClicked(evt.MasterClicked));
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleOperatorCultureChanged);
             // VLT-12225
             // Fires an event fired when a specific meter page is loaded (switching tabs) so we can
             // synchronize the ShowLifetime and Master/period button status
@@ -108,9 +107,10 @@
             RefreshMeters();
         }
 
-        protected virtual void HandleOperatorCultureChanged(OperatorCultureChangedEvent @event)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             RefreshMeters();
+            base.OnOperatorCultureChanged(evt);
         }
 
         protected virtual void InitializeMeters()

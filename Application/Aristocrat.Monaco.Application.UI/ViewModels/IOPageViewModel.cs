@@ -81,8 +81,6 @@
             _currentInputs = io.GetInputs;
             _currentOutputs = io.GetOutputs;
 
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleEvent);
-
             InitInputLabelContent();
         }
 
@@ -589,7 +587,7 @@
             }
         }
 
-        private void HandleEvent(OperatorCultureChangedEvent evt)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             MvvmHelper.ExecuteOnUI(() =>
             {
@@ -597,6 +595,8 @@
                 RaisePropertyChanged(nameof(StateText));
                 RaisePropertyChanged(nameof(FormattedStatus));
             });
+
+            base.OnOperatorCultureChanged(evt);
         }
 
         private void InitInputLabelContent()

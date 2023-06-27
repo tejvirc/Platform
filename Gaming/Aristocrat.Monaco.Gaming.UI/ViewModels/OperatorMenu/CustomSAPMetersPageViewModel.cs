@@ -70,8 +70,12 @@
             base.OnLoaded();
 
             SetupMeters();
+        }
 
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this, _ => UpdateStatusText());
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            UpdateStatusText();
+            base.OnOperatorCultureChanged(evt);
         }
 
         protected override void InitializeMeters()

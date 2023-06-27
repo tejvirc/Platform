@@ -437,7 +437,7 @@
             base.DisposeInternal();
         }
 
-        protected override void HandleOperatorCultureChanged(OperatorCultureChangedEvent @event)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             MvvmHelper.ExecuteOnUI(() =>
             {
@@ -451,7 +451,7 @@
 
             OnShouldRegenerateColumns?.Invoke(this, EventArgs.Empty); // Used by page code-behind
 
-            base.HandleOperatorCultureChanged(@event);
+            base.OnOperatorCultureChanged(evt);
         }
 
         private void NextGame(object sender)

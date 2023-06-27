@@ -5,7 +5,6 @@
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Application.UI.OperatorMenu;
-    using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
     using Contracts;
     using Kernel;
     using Localization.Properties;
@@ -50,7 +49,6 @@
 
         protected override void OnLoaded()
         {
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleOperatorCultureChangedEvent);
             UpdateCredits();
         }
 
@@ -83,9 +81,10 @@
             }
         }
 
-        private void HandleOperatorCultureChangedEvent(OperatorCultureChangedEvent @event)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             UpdateCredits();
+            base.OnOperatorCultureChanged(evt);
         }
 
         public class Credit

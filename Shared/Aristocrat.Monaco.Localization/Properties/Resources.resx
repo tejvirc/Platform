@@ -8274,7 +8274,7 @@ See manual for details</value>
     <comment>Monaco.Accounting</comment>
   </data>
   <data name="VerifiedEKeyRequired" xml:space="preserve">
-    <value>EKey device is required to perform game re-configuration</value>
+    <value>EKey device is required to perform configuration</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="EmployeeCardRequired" xml:space="preserve">

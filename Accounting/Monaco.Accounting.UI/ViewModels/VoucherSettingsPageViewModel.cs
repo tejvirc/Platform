@@ -448,7 +448,6 @@
             PrinterEnabled = PropertiesManager.GetValue(ApplicationConstants.PrinterEnabled, false);
 
             EventBus?.Subscribe<PropertyChangedEvent>(this, HandleEvent);
-            EventBus?.Subscribe<OperatorCultureChangedEvent>(this, OnOperatorCultureChangedEvent);
         }
 
         protected override void OnUnloaded()
@@ -532,7 +531,7 @@
             _selectedLayoutType = LayoutTypes.FirstOrDefault();
         }
 
-        private void OnOperatorCultureChangedEvent(OperatorCultureChangedEvent obj)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             MvvmHelper.ExecuteOnUI(() =>
             {
@@ -547,6 +546,8 @@
 
             RaisePropertyChanged(nameof(VoucherInLimit));
             RaisePropertyChanged(nameof(VoucherOutLimit));
+
+            base.OnOperatorCultureChanged(evt);
         }
 
         private void HandleEvent(PropertyChangedEvent @event)

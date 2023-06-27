@@ -177,8 +177,6 @@
             LoadDevices();
             ReloadEditableView();
 
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleOperatorCultureChange);
-
             IsDirty = false;
             InputStatusText =
                 GameIdle ? string.Empty : _operatorLocalizer.GetString(ResourceKeys.EndGameRoundBeforeChange);
@@ -425,9 +423,10 @@
             MvvmHelper.ExecuteOnUI(() => SaveInProgress = false);
         }
 
-        private void HandleOperatorCultureChange(OperatorCultureChangedEvent evt)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             MvvmHelper.ExecuteOnUI(ReloadEditableView);
+            base.OnOperatorCultureChanged(evt);
         }
     }
 

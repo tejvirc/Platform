@@ -204,8 +204,6 @@
                     }
                 }
             }
-
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleOperatorCultureChanged);
         }
 
         private void LoadButtonLampsAndIntervals()
@@ -222,7 +220,7 @@
             ButtonLamps.Add(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TestAllButtonLamps));
         }
 
-        private void HandleOperatorCultureChanged(OperatorCultureChangedEvent obj)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             MvvmHelper.ExecuteOnUI(() =>
             {
@@ -232,6 +230,8 @@
                     state.UpdateString();
                 }
             });
+
+            base.OnOperatorCultureChanged(evt);
         }
 
         protected override void OnInputEnabledChanged()

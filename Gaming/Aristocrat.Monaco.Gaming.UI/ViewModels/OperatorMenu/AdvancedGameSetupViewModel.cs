@@ -483,7 +483,6 @@
 
             _canEdit = GetConfigSetting(OperatorMenuSetting.EnableAdvancedConfig, false);
             IsInEditMode = _canEdit && !InitialConfigComplete;
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this, OperatorCultureChanged);
 
             SetEditMode();
             lock (_gamesMapping)
@@ -592,7 +591,7 @@
             return text;
         }
 
-        private void OperatorCultureChanged(OperatorCultureChangedEvent obj)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             SaveButtonText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SaveText);
             CancelButtonText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExitConfigurationText);
@@ -610,6 +609,7 @@
             }
 
             UpdateInputStatusText();
+            base.OnOperatorCultureChanged(evt);
         }
 
         private void LoadGames()

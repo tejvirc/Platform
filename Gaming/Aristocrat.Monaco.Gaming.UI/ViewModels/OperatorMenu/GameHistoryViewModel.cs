@@ -430,7 +430,6 @@
             EventBus.Subscribe<ReelStoppedEvent>(this, HandleReelRelatedFault);
             EventBus.Subscribe<SystemDisableAddedEvent>(this, HandleSystemDisableAddedEvent);
             EventBus.Subscribe<SystemDisableRemovedEvent>(this, HandleSystemDisableRemovedEvent);
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleOperatorCultureChanged);
 
             // We don't need to subscribe to completed events because that is handled by the UpdatePrinterButtons override
 
@@ -1157,7 +1156,7 @@
             }
         }
 
-        private void HandleOperatorCultureChanged(OperatorCultureChangedEvent obj)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             MvvmHelper.ExecuteOnUI(
                 () =>
@@ -1165,6 +1164,8 @@
                     RefreshGameHistory();
                     RaisePropertyChanged(nameof(PendingCurrencyIn));
                 });
+
+            base.OnOperatorCultureChanged(evt);
         }
 
         protected override IEnumerable<Ticket> GenerateTicketsForPrint(OperatorMenuPrintData dataType)

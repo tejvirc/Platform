@@ -148,7 +148,6 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         {
             EventBus.Subscribe<DownEvent>(_context, HandleEvent);
             EventBus.Subscribe<UpEvent>(_context, HandleEvent);
-            EventBus.Subscribe<OperatorCultureChangedEvent>(_context, HandleEvent);
         }
 
         private void Unsubscribe()
@@ -209,7 +208,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             _buttonDeck?.Released(evt.LogicalId);
         }
 
-        private void HandleEvent(OperatorCultureChangedEvent evt)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             MvvmHelper.ExecuteOnUI(() =>
             {
@@ -223,6 +222,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 PressedButtonsData.AddRange(coll);
                 RaisePropertyChanged(nameof(PressedButtonsData));
             });
+
+            base.OnOperatorCultureChanged(evt);
         }
     }
 }
