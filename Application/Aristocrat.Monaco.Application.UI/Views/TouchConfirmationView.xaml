@@ -11,7 +11,6 @@
                                common:DialogParticipation.Register="{Binding}"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance viewModels:TouchCalibrationConfirmationViewModel}"
-                               loc:Localizer.For="Operator"
                                Width="600">
     <UserControl.Resources>
         <ResourceDictionary>

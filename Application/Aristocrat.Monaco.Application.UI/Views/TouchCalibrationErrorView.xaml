@@ -10,8 +10,7 @@
                                mc:Ignorable="d"
                                Height="Auto"
                                Width="Auto"
-                               d:DataContext="{d:DesignInstance {x:Type viewModels:TouchCalibrationErrorViewModel}}"
-                               loc:Localizer.For="Operator">
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:TouchCalibrationErrorViewModel}}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

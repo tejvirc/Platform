@@ -17,14 +17,14 @@
     using LiveCharts;
     using LiveCharts.Configurations;
     using LiveCharts.Wpf;
+    using Monaco.Common;
+    using Monaco.Localization.Properties;
     using MVVM;
     using MVVM.Command;
     using MVVM.ViewModel;
     using OperatorMenu;
-    using Views;
-    using Monaco.Common;
-    using Monaco.Localization.Properties;
     using PerformanceCounter;
+    using Views;
     using Brushes = System.Windows.Media.Brushes;
     using Timer = System.Timers.Timer;
     using UIElement = System.Windows.UIElement;
@@ -59,8 +59,6 @@
             _performanceCounterManager = ServiceManager.GetInstance().GetService<IPerformanceCounterManager>();
 
             LoadAvailableMetrics();
-
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleEvent);
 
             ViewMemoryCommand = new ActionCommand<object>(ViewMemory);
             ToggleDiagnosticChartViewModeCommand = new ActionCommand<object>(_ => InDiagnosticViewChartMode = !InDiagnosticViewChartMode);
@@ -197,7 +195,7 @@
 
         private void UpdateMetricLabels()
         {
-            if(Metrics == null)
+            if (Metrics == null)
             {
                 return;
             }
@@ -205,7 +203,7 @@
             {
                 var metricLabel = Localizer.For(CultureFor.Operator).GetString(metric.MetricType.GetAttribute<LabelResourceKeyAttribute>().LabelResourceKey);
                 var metricUnit = metric.MetricType.GetAttribute<UnitAttribute>().Unit;
-                metric.Label = metricLabel+ " " + metricUnit;
+                metric.Label = metricLabel + " " + metricUnit;
             }
             SetXAxesTitles();
             SetYAxesTitles();
@@ -216,12 +214,10 @@
             RaisePropertyChanged(nameof(Charts));
         }
 
-        private void HandleEvent(OperatorCultureChangedEvent obj)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() =>
-            {
-                UpdateMetricLabels();
-            });
+            MvvmHelper.ExecuteOnUI(UpdateMetricLabels);
+            base.OnOperatorCultureChanged(evt);
         }
 
         private void LoadMetricSources()
@@ -346,7 +342,7 @@
 
         private void SetXAxesTitles()
         {
-            foreach(var x in XAxes)
+            foreach (var x in XAxes)
             {
                 x.Title = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Time);
             }
@@ -390,7 +386,7 @@
                             if (yAxis != null)
                             {
                                 // If the value is too big, increase the scale by 50%.
-                                metric.MaxRange = (int) Math.Ceiling(metric.MaxRange * 1.5);
+                                metric.MaxRange = (int)Math.Ceiling(metric.MaxRange * 1.5);
 
                                 var newAxis = CreateYAxisFromMetric(index, metric);
                                 YAxes[index] = newAxis;

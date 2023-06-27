@@ -52,7 +52,6 @@
             SelfTestClearButtonCommand = new ActionCommand<object>(OnSelfTestClearNvmCmd);
 
             SelfTestCurrentState = SelfTestState.None;
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleEvent);
         }
 
         public IIdReader IdReader
@@ -431,7 +430,7 @@
             }
         }
 
-        private void HandleEvent(OperatorCultureChangedEvent evt)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             MvvmHelper.ExecuteOnUI(() =>
             {
@@ -441,6 +440,8 @@
                 RaisePropertyChanged(nameof(SelfTestText));
                 RaisePropertyChanged(nameof(StatusText));
             });
+
+            base.OnOperatorCultureChanged(evt);
         }
 
         private void SetIdCardReadData()

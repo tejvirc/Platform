@@ -9,7 +9,6 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                mc:Ignorable="d"
                                Width="600"
-                               loc:Localizer.For="Operator"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:EditBulkDeviceViewModel}, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <ResourceDictionary>

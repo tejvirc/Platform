@@ -232,7 +232,6 @@
             EventBus.Subscribe<PeriodMetersDateTimeChangeRequestEvent>(
                 this,
                 HandlePeriodMetersDateTimeChangeRequestEvent);
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleOperatorCultureChanged);
         }
 
         private void HandlePeriodMetersClearedEvent(PeriodMetersClearedEvent evt)
@@ -249,10 +248,11 @@
             RefreshPage();
         }
 
-        private void HandleOperatorCultureChanged(OperatorCultureChangedEvent @event)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             SetPageTitle();
             RefreshPage();
+            base.OnOperatorCultureChanged(evt);
         }
 
         private void OnIsVisibleChanged(Page page)

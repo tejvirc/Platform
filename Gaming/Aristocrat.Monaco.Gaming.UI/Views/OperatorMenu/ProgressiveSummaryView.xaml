@@ -10,10 +10,7 @@
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
-                               Background="Transparent"
-                               d:DataContext="{d:DesignInstance {x:Type viewModels:ProgressiveSummaryViewModel},
-                                                                IsDesignTimeCreatable=True}"
-                               loc:Localizer.For="Operator">
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:ProgressiveSummaryViewModel}, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

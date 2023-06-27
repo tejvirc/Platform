@@ -14,9 +14,7 @@
                                x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.CustomSAPView"
                                dialog:DialogParticipation.Register="{Binding}"
                                mc:Ignorable="d"
-                               Background="Transparent"
-                               d:DataContext="{d:DesignInstance {x:Type viewModels:CustomSAPViewModel}, IsDesignTimeCreatable=True}"
-                               loc:Localizer.For="Operator">
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:CustomSAPViewModel}, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

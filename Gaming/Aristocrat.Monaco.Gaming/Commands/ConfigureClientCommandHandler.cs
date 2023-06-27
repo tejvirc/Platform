@@ -155,7 +155,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 { "/Runtime/WagerLimit", _properties.GetValue(AccountingConstants.MaxBetLimit, AccountingConstants.DefaultMaxBetLimit).MillicentsToCents().ToString() },
                 { "/Runtime/AttractMode", _properties.GetValue(GamingConstants.AttractModeEnabled, ApplicationConstants.DefaultAttractMode).ToString() },
                 { "/Runtime/AttractMode&optional", "true" },
-                { "/Runtime/WagerLimits&maxTotalWager", _properties.GetValue(GamingConstants.WagerLimitsMaxTotalWagerKey, GamingConstants.WagerLimitsMaxTotalWager).MillicentsToCents().ToString() },
+                { "/Runtime/WagerLimits&maxTotalWager", _properties.GetValue(GamingConstants.WagerLimitsMaxTotalWagerKey, GamingConstants.WagerLimitsMaxTotalWager).ToString() },
                 { "/Runtime/WagerLimits&use", _properties.GetValue(GamingConstants.WagerLimitsUseKey, GamingConstants.WagerLimitsUse) ? "required" : "disallowed"  },
                 { "/Runtime/MaximumGameRoundWin&resetWinAmount", _properties.GetValue(GamingConstants.MaximumGameRoundWinResetWinAmountKey, GamingConstants.MaximumGameRoundWinResetWinAmount).ToLower() },
                 { "/Runtime/VolumeLevel&showInHelpScreen", _properties.GetValue(GamingConstants.VolumeLevelShowInHelpScreenKey, GamingConstants.VolumeLevelShowInHelpScreen) ? "allowed" : "disallowed"  },

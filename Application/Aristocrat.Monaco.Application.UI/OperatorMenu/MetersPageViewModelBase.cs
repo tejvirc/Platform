@@ -100,7 +100,6 @@
         protected override void OnLoaded()
         {
             EventBus.Subscribe<PeriodOrMasterButtonClickedEvent>(this, evt => PeriodOrMasterButtonClicked(evt.MasterClicked));
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleOperatorCultureChanged);
             // VLT-12225
             // Fires an event fired when a specific meter page is loaded (switching tabs) so we can
             // synchronize the ShowLifetime and Master/period button status
@@ -108,9 +107,10 @@
             RefreshMeters();
         }
 
-        protected virtual void HandleOperatorCultureChanged(OperatorCultureChangedEvent @event)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             RefreshMeters();
+            base.OnOperatorCultureChanged(evt);
         }
 
         protected virtual void InitializeMeters()
@@ -122,9 +122,7 @@
                 if (meterManager.IsMeterProvided(meterNode.Name))
                 {
                     var meter = meterManager.GetMeter(meterNode.Name);
-                    string meterDisplayName = Localizer.For(CultureFor.Operator).GetString(
-                            meterNode.DisplayNameKey,
-                            _ => meterDisplayName = meterNode.DisplayName);
+                    string meterDisplayName = GetDisplayNameFromMeterNode(meterNode);
 
                     Meters.Add(
                         new DisplayMeter(
@@ -235,6 +233,20 @@
                 RaisePropertyChanged(nameof(MetersLeftColumn));
                 RaisePropertyChanged(nameof(MetersRightColumn));
             });
+        }
+
+        protected string GetDisplayNameFromMeterNode(MeterNode meterNode)
+        {
+            string meterDisplayName = Localizer.For(CultureFor.Operator).GetString(
+                meterNode.DisplayNameKey,
+                _ => { });
+
+            if (string.IsNullOrEmpty(meterDisplayName))
+            {
+                meterDisplayName = meterNode.DisplayName;
+            }
+
+            return meterDisplayName;
         }
     }
 }

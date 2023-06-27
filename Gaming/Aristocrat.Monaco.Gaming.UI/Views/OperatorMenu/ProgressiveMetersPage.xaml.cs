@@ -4,6 +4,7 @@
     using System.Windows.Controls;
     using System.Windows.Data;
     using Application.Contracts.Localization;
+    using Application.Contracts.MeterPage;
     using MVVM;
     using ViewModels.OperatorMenu;
 
@@ -51,12 +52,28 @@
                 var textColumn = new DataGridTextColumn
                 {
                     Binding = new Binding($"[{meterNode.Order}].Value"),
-                    Header = Localizer.For(CultureFor.Operator).GetString(meterNode.DisplayNameKey),
+                    Header = GetHeaderFromMeterNode(meterNode),
                     Width = DataGridLength.Auto
                 };
 
                 ProgressiveDataGrid?.Columns.Add(textColumn);
             }
+        }
+
+        private string GetHeaderFromMeterNode(MeterNode meterNode)
+        {
+            if (string.IsNullOrEmpty(meterNode.DisplayNameKey))
+            {
+                return meterNode.DisplayName;
+            }
+
+            var header = Localizer.For(CultureFor.Operator).GetString(meterNode.DisplayNameKey, _ => { });
+            if (string.IsNullOrEmpty(header))
+            {
+                header = meterNode.DisplayName;
+            }
+
+            return header;
         }
     }
 }

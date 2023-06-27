@@ -187,7 +187,6 @@
             SelectedItem = null;
 
             EventBus.Subscribe<GameIconOrderChangedEvent>(this, HandleOrderChangedEvent);
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleOperatorCultureChangedEvent);
 
             GameList = new ObservableCollection<GameOrderData>(LoadGames().OrderBy(GameOrder)); // made for VLT-6867
         }
@@ -246,7 +245,7 @@
             GameList = new ObservableCollection<GameOrderData>(GameList.OrderBy(GameOrder));
         }
 
-        private void HandleOperatorCultureChangedEvent(OperatorCultureChangedEvent @event)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             MvvmHelper.ExecuteOnUI(
                 () =>
@@ -254,6 +253,7 @@
                     GameList.Clear();
                     GameList.AddRange(LoadGames().OrderBy(GameOrder));
                 });
+            base.OnOperatorCultureChanged(evt);
         }
 
         private int GameOrder(GameOrderData game)

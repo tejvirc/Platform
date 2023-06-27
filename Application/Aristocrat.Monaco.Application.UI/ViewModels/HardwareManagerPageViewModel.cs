@@ -31,7 +31,6 @@
             : base(false)
         {
             _operatorMenuLauncher = ServiceManager.GetInstance().GetService<IOperatorMenuLauncher>();
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this, Handle);
 
             ApplyHardwareSettingsCommand = new ActionCommand<object>(Apply, _ => IsDirty);
             _initialDoorOpticSensor = DoorOpticSensorEnabled;
@@ -197,7 +196,7 @@
             }
         }
 
-        private void Handle(OperatorCultureChangedEvent obj)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             MvvmHelper.ExecuteOnUI(() =>
             {
@@ -206,6 +205,8 @@
                     device.RefreshProps();
                 }
             });
+
+            base.OnOperatorCultureChanged(evt);
         }
     }
 }

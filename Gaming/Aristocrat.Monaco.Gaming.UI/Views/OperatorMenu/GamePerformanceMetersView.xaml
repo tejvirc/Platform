@@ -13,10 +13,7 @@
                                common:DialogParticipation.Register="{Binding}"
                                d:DesignHeight="300"
                                d:DesignWidth="300"
-                               Background="Transparent"
-                               d:DataContext="{d:DesignInstance {x:Type viewModels:GamePerformanceMetersViewModel},
-                                                                IsDesignTimeCreatable=True}"
-                               loc:Localizer.For="Operator">
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:GamePerformanceMetersViewModel}, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

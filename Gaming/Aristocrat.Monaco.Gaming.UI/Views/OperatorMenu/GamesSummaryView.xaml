@@ -6,14 +6,11 @@
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
-                               xmlns:progressive="clr-namespace:Aristocrat.Monaco.Gaming.Contracts.Progressives;assembly=Aristocrat.Monaco.Gaming.Contracts"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
-                               xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:GamesSummaryViewModel}}"
-                               common:DialogParticipation.Register="{Binding}"
-                               loc:Localizer.For="Operator">
+                               common:DialogParticipation.Register="{Binding}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

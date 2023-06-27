@@ -155,6 +155,8 @@
                 { GamingConstants.GameLogEnabledKey, (InitFromStorage(GamingConstants.GameLogEnabledKey), true) },
                 { GamingConstants.GameLogOutcomeDetailsKey, (InitFromStorage(GamingConstants.GameLogOutcomeDetailsKey), true) },
                 { GamingConstants.AudioAudioChannelsKey, (InitFromStorage(GamingConstants.AudioAudioChannelsKey), true) },
+                { GamingConstants.FreeSpinClearWinMeterKey, (InitFromStorage(GamingConstants.FreeSpinClearWinMeterKey), true) },
+                { GamingConstants.WinDestinationKey, (InitFromStorage(GamingConstants.WinDestinationKey), true) },
                 { GamingConstants.ButtonAnimationGoodLuckKey, (InitFromStorage(GamingConstants.ButtonAnimationGoodLuckKey), true) },
                 { GamingConstants.ReelStopInBaseGameEnabled, ((object)configuration.ReelStopInBaseGame?.Enabled ?? true, false) },
                 { GamingConstants.ApplyGameCategorySettings, ((object)configuration.GameCategory?.ApplyGameCategorySettings ?? false, false) },
@@ -346,6 +348,8 @@
                 SetProperty(GamingConstants.GameLogEnabledKey, configuration.GameLog?.Enabled ?? GamingConstants.GameLogEnabled);
                 SetProperty(GamingConstants.GameLogOutcomeDetailsKey, configuration.GameLog?.OutcomeDetails ?? GamingConstants.GameLogOutcomeDetails);
                 SetProperty(GamingConstants.AudioAudioChannelsKey, configuration.Audio?.AudioChannels ?? GamingConstants.AudioAudioChannels);
+                SetProperty(GamingConstants.FreeSpinClearWinMeterKey, configuration.FreeSpin?.ClearWinMeter ?? GamingConstants.FreeSpinClearWinMeter);
+                SetProperty(GamingConstants.WinDestinationKey, configuration.Win?.Destination ?? GamingConstants.WinDestination);
                 SetProperty(GamingConstants.ButtonAnimationGoodLuckKey, configuration.ButtonAnimation?.GoodLuck ?? GamingConstants.ButtonAnimationGoodLuck);
                 SetProperty(GamingConstants.DisplayGamePayMessageUseKey, configuration.DisplayGamePayMessage?.Use ?? GamingConstants.DisplayGamePayMessageUse);
                 SetProperty(GamingConstants.DisplayGamePayMessageFormatKey, configuration.DisplayGamePayMessage?.Format ?? GamingConstants.DisplayGamePayMessageFormat);

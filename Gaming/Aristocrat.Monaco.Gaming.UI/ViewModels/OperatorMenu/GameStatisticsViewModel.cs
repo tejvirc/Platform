@@ -71,13 +71,12 @@
             FeatureStatsCollapsed = !_games.Any();
             InitializeMeters();
             SelectedGame = Games?.FirstOrDefault();
-
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this, OperatorCultureChanged);
         }
 
-        private void OperatorCultureChanged(OperatorCultureChangedEvent obj)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             InitializeMeters();
+            base.OnOperatorCultureChanged(evt);
         }
 
         private void LoadMeters()

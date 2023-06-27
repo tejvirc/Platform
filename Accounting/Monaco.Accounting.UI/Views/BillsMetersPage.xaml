@@ -10,8 +10,7 @@
                                xmlns:common="http://monaco.aristocrat.com/common"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:BillsMetersPageViewModel}}"
-                               common:DialogParticipation.Register="{Binding}"
-                               loc:Localizer.For="Operator">
+                               common:DialogParticipation.Register="{Binding}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

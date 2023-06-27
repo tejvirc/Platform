@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Accounting.UI.ViewModels
 {
     using System;
-    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using Application.Contracts;
     using Application.Contracts.Extensions;
@@ -13,6 +13,7 @@
     using Kernel.Contracts;
     using Localization.Properties;
     using Models;
+    using MVVM;
 
     [CLSCompliant(false)]
     public class VoucherSettingsPageViewModel : OperatorMenuPageViewModelBase
@@ -27,7 +28,7 @@
         private string _propertyAddress1;
         private string _propertyAddress2;
         private string _propertyName;
-        private BarcodeTypeOptions _selectedBarcodeType;
+        private BarcodeTypeData _selectedBarcodeType;
         private string _selectedLayoutType;
         private string _selectedValidationLength;
         private int _voucherExpirationDays;
@@ -42,25 +43,11 @@
         private bool _isCashableVoucherExpirationVisible;
         private bool _arePropertyFieldsEnabled;
         private bool _printerEnabled;
-        private string _printerDisabledWarningText;
-
-        public List<BarcodeTypeData> BarCodeTypes => new List<BarcodeTypeData>
-        {
-            new BarcodeTypeData(
-                BarcodeTypeOptions.Interleave2of5,
-                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BarcodeInterleave2Of5)),
-        };
 
         public VoucherSettingsPageViewModel()
         {
-            _selectedBarcodeType = PropertiesManager.GetValue(ApplicationConstants.BarCodeType, BarcodeTypeOptions.Interleave2of5);
-            ValidationLengths = new List<string> { Localizer.For(CultureFor.Operator).GetString(ResourceKeys.System) };
-            _selectedValidationLength = ValidationLengths.FirstOrDefault();
+            LoadLocalizedLists();
 
-            LayoutTypes = new List<string> { Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExtendedLayout) };
-            _selectedLayoutType = LayoutTypes.FirstOrDefault();
-
-            _printerDisabledWarningText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Printer_Disabled);
             VoucherInLimitEditable = (bool)PropertiesManager.GetProperty(AccountingConstants.VoucherInLimitEditable, true);
             VoucherOutLimitEditable = (bool)PropertiesManager.GetProperty(AccountingConstants.VoucherOutLimitEditable, true);
         }
@@ -166,18 +153,7 @@
             }
         }
 
-        public string PrinterDisabledWarningText
-        {
-            get => _printerDisabledWarningText;
-            set
-            {
-                if (_printerDisabledWarningText != value)
-                {
-                    _printerDisabledWarningText = value;
-                    RaisePropertyChanged(nameof(PrinterDisabledWarningText));
-                }
-            }
-        }
+        public string PrinterDisabledWarningText => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Printer_Disabled);
 
         public bool IsCashableVoucherExpirationVisible
         {
@@ -296,23 +272,22 @@
             }
         }
 
-        public BarcodeTypeOptions SelectedBarcodeType
+        public ObservableCollection<BarcodeTypeData> BarcodeTypes { get; } =
+            new ObservableCollection<BarcodeTypeData>();
+
+        public BarcodeTypeData SelectedBarcodeType
         {
             get => _selectedBarcodeType;
             set
             {
-                if (_selectedBarcodeType == value)
+                if (SetProperty(ref _selectedBarcodeType, value))
                 {
-                    return;
+                    PropertiesManager.SetProperty(ApplicationConstants.BarCodeType, value.Value);
                 }
-
-                _selectedBarcodeType = value;
-                RaisePropertyChanged(nameof(SelectedBarcodeType));
-                PropertiesManager.SetProperty(ApplicationConstants.BarCodeType, value);
             }
         }
 
-        public List<string> ValidationLengths { get; }
+        public ObservableCollection<string> ValidationLengths { get; } = new ObservableCollection<string>();
 
         public string SelectedValidationLength
         {
@@ -324,7 +299,7 @@
             }
         }
 
-        public List<string> LayoutTypes { get; }
+        public ObservableCollection<string> LayoutTypes { get; } = new ObservableCollection<string>();
 
         public string SelectedLayoutType
         {
@@ -473,18 +448,6 @@
             PrinterEnabled = PropertiesManager.GetValue(ApplicationConstants.PrinterEnabled, false);
 
             EventBus?.Subscribe<PropertyChangedEvent>(this, HandleEvent);
-            EventBus?.Subscribe<OperatorCultureChangedEvent>(this, OnOperatorCultureChangedEvent);
-        }
-
-        private void OnOperatorCultureChangedEvent(OperatorCultureChangedEvent obj)
-        {
-            if (UseOperatorCultureForCurrencyFormatting)
-            {
-                RaisePropertyChanged(nameof(CurrencyDisplayCulture));
-            }
-
-            RaisePropertyChanged(nameof(VoucherInLimit));
-            RaisePropertyChanged(nameof(VoucherOutLimit));
         }
 
         protected override void OnUnloaded()
@@ -547,6 +510,44 @@
             {
                 base.SetError(propertyName, error);
             }
+        }
+
+        private void LoadLocalizedLists()
+        {
+            BarcodeTypes.Clear();
+            BarcodeTypes.Add(
+                new BarcodeTypeData(
+                    BarcodeTypeOptions.Interleave2of5,
+                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BarcodeInterleave2Of5)));
+            var barcodeType = PropertiesManager.GetValue(ApplicationConstants.BarCodeType, BarcodeTypeOptions.Interleave2of5);
+            _selectedBarcodeType = BarcodeTypes.FirstOrDefault(b => b.Value == barcodeType);
+
+            ValidationLengths.Clear();
+            ValidationLengths.Add(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.System));
+            _selectedValidationLength = ValidationLengths.FirstOrDefault();
+
+            LayoutTypes.Clear();
+            LayoutTypes.Add(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExtendedLayout));
+            _selectedLayoutType = LayoutTypes.FirstOrDefault();
+        }
+
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            MvvmHelper.ExecuteOnUI(() =>
+            {
+                LoadLocalizedLists();
+                RaisePropertyChanged(nameof(SelectedBarcodeType), nameof(SelectedValidationLength), nameof(SelectedLayoutType), nameof(PrinterDisabledWarningText));
+            });
+
+            if (UseOperatorCultureForCurrencyFormatting)
+            {
+                RaisePropertyChanged(nameof(CurrencyDisplayCulture));
+            }
+
+            RaisePropertyChanged(nameof(VoucherInLimit));
+            RaisePropertyChanged(nameof(VoucherOutLimit));
+
+            base.OnOperatorCultureChanged(evt);
         }
 
         private void HandleEvent(PropertyChangedEvent @event)

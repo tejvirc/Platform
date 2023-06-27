@@ -34,7 +34,6 @@
             _key = ServiceManager.GetInstance().GetService<IKeySwitch>();
             _buttonService = ServiceManager.GetInstance().GetService<IButtonService>();
             _identificationValidator = ServiceManager.GetInstance().TryGetService<IIdentificationValidator>();
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleEvent);
         }
 
         public ObservableCollection<BaseViewModel> Keys { get; } = new ObservableCollection<BaseViewModel>();
@@ -145,7 +144,7 @@
             _operatorInitialStatus = ((long)currentInputs & ((long)1 << OperatorBitIndex)) != 0;
         }
 
-        private void HandleEvent(OperatorCultureChangedEvent obj)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             MvvmHelper.ExecuteOnUI(() =>
             {
@@ -162,6 +161,8 @@
                 }
                 RaisePropertyChanged(nameof(Keys));
             });
+
+            base.OnOperatorCultureChanged(evt);
         }
     }
 }

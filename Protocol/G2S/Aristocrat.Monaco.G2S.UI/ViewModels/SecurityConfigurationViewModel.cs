@@ -10,8 +10,8 @@
     using System.Windows.Threading;
     using Application.Contracts;
     using Application.Contracts.Localization;
-    using Aristocrat.G2S.Client.Communications;
     using Application.UI.ConfigWizard;
+    using Aristocrat.G2S.Client.Communications;
     using Common.CertificateManager;
     using Common.CertificateManager.Models;
     using Common.DHCP;
@@ -79,7 +79,7 @@
         private bool _scepEnabled;
         private int? _manualPollingIntervalInitial;
         private bool? _validateDomainInitial;
-        private bool _ocspTestPassed; 
+        private bool _ocspTestPassed;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="SecurityConfigurationViewModel" /> class.
@@ -324,7 +324,6 @@
                 {
                     EnrollCertificateCommand.RaiseCanExecuteChanged();
                 }
-               
             }
         }
 
@@ -649,8 +648,12 @@
             //RequestButtonCaption = (_technicianMode ? Resources.Buttons_ApplyCertificate : Resources.Buttons_StartEnrollment);
             TabsActive = true;
             OcspTestPassed = true;
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this, _ => UpdateStatusButton());
+        }
 
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            UpdateStatusButton();
+            base.OnOperatorCultureChanged(evt);
         }
 
         /// <summary>
@@ -1012,7 +1015,7 @@
             {
                 EventBus.Publish(new RestartProtocolEvent());
             }
-            
+
         }
 
         private PkiConfiguration GeneratePkiConfiguration()

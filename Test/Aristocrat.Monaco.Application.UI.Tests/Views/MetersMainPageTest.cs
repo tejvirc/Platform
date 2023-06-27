@@ -1,11 +1,21 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.Tests.Views
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.IO;
+    using System.Threading;
+    using System.Windows;
     using Accounting.Contracts;
     using Contracts;
     using Contracts.MeterPage;
     using Contracts.OperatorMenu;
     using Events;
+    using Hardware.Contracts;
+    using Hardware.Contracts.Button;
+    using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.Door;
+    using Hardware.Contracts.IO;
     using Hardware.Contracts.Printer;
     using Hardware.Contracts.SharedDevice;
     using Kernel;
@@ -14,20 +24,11 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Mono.Addins;
     using Moq;
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Threading;
-    using System.Windows;
-    using Hardware.Contracts;
-    using Hardware.Contracts.Cabinet;
+    using OperatorMenu;
     using Test.Common;
     using UI.ViewModels;
     using Vgt.Client12.Application.OperatorMenu;
     using EnabledEvent = Hardware.Contracts.Printer.EnabledEvent;
-    using Aristocrat.Monaco.Hardware.Contracts.Button;
-    using Aristocrat.Monaco.Hardware.Contracts.IO;
-    using System.Globalization;
 
     /// <summary>
     ///     Tests for MetersScreen
@@ -112,7 +113,7 @@
             MoqServiceManager.CreateAndAddService<ICabinetDetectionService>(MockBehavior.Loose);
 
             var access = MoqServiceManager.CreateAndAddService<IOperatorMenuAccess>(MockBehavior.Strict);
-            access.Setup(m => m.UnregisterAccessRules(It.IsAny<MetersMainPageViewModel>()));
+            access.Setup(m => m.UnregisterAccessRules(It.IsAny<OperatorMenuPageViewModelBase>()));
             access.Setup(m => m.UnregisterAccessRules(It.IsAny<MainMetersPageLoader>()));
 
             var config = MoqServiceManager.CreateAndAddService<IOperatorMenuConfiguration>(MockBehavior.Strict);
@@ -122,7 +123,8 @@
             config.Setup(m => m.GetPrintButtonEnabled(It.IsAny<MetersMainPageViewModel>(), It.IsAny<bool>())).Returns(It.IsAny<bool>());
             config.Setup(m => m.GetSetting(It.IsAny<MainMetersPageViewModel>(), It.IsAny<string>(), It.IsAny<bool>())).Returns(It.IsAny<bool>());
 
-            config.Setup(m => m.GetSetting(It.IsAny<string>(), It.IsAny<bool>())).Returns(It.IsAny<bool>());config.Setup(m => m.GetSetting(It.IsAny<MetersMainPageViewModel>(), It.IsAny<string>(), It.IsAny<bool>())).Returns(It.IsAny<bool>());
+            config.Setup(m => m.GetSetting(It.IsAny<string>(), It.IsAny<bool>())).Returns(It.IsAny<bool>());
+            config.Setup(m => m.GetSetting(It.IsAny<MetersMainPageViewModel>(), It.IsAny<string>(), It.IsAny<bool>())).Returns(It.IsAny<bool>());
 
             _target = new MetersMainPageViewModel(null);
 
@@ -214,7 +216,7 @@
             _target.LoadedCommand.Execute(null);
 
             _target.IsPeriodMasterButtonChecked = true;
-            _target.PeriodMasterButtonClickedCommand.Execute(null);  
+            _target.PeriodMasterButtonClickedCommand.Execute(null);
             Assert.IsTrue(_waiter.WaitOne(Timeout));
             Assert.IsTrue(pageTitle.Contains("Master"));
             Assert.IsTrue(master);

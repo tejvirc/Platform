@@ -10,12 +10,9 @@
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
-                               d:DataContext="{d:DesignInstance viewModels:GameInfoViewModel,
-                                                                IsDesignTimeCreatable=False}"
+                               d:DataContext="{d:DesignInstance viewModels:GameInfoViewModel, IsDesignTimeCreatable=False}"
                                FocusManager.FocusedElement="{Binding ElementName=MainMenu}"
-                               dialog:DialogParticipation.Register="{Binding}"
-                               Background="Transparent"
-                               loc:Localizer.For="Operator">
+                               dialog:DialogParticipation.Register="{Binding}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

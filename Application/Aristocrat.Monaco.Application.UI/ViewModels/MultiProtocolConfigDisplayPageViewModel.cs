@@ -28,19 +28,14 @@
             _centralDeterminationSystemProtocol = multiProtocolConfiguration.FirstOrDefault(x => x.IsCentralDeterminationHandled)?.Protocol;
         }
 
-        protected override void OnLoaded()
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            base.OnLoaded();
-
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this,
-                _ =>
-                {
-                    RaisePropertyChanged(
+            RaisePropertyChanged(
                         nameof(ValidationProtocol),
                         nameof(FundTransferProtocol),
                         nameof(ProgressiveProtocol),
                         nameof(CentralDeterminationSystemProtocol));
-                });
+            base.OnOperatorCultureChanged(evt);
         }
 
         public string ValidationProtocol => _validationProtocol.HasValue

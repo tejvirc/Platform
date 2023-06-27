@@ -79,15 +79,10 @@
             base.InitializeData();
         }
 
-        protected override void OnLoaded()
-        {
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleOperatorCultureChanged);
-            base.OnLoaded();
-        }
-
-        protected void HandleOperatorCultureChanged(OperatorCultureChangedEvent @event)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             InitializeDataAsync();
+            base.OnOperatorCultureChanged(evt);
         }
     }
 }

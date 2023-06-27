@@ -5,7 +5,6 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
-                               xmlns:helpers="http://monaco.aristocrat.com/common"
                                xmlns:local="clr-namespace:Aristocrat.Monaco.Application.UI.Views"
                                common:DialogParticipation.Register="{Binding}"
                                xmlns:lvcwpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
@@ -13,8 +12,7 @@
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
-                               d:DataContext="{d:DesignInstance viewModels:DiagnosticResourcesViewModel}"
-                               loc:Localizer.For="Operator">
+                               d:DataContext="{d:DesignInstance viewModels:DiagnosticResourcesViewModel}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

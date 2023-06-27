@@ -85,6 +85,7 @@
                                     <MultiBinding Converter="{StaticResource MultiValueConverter}">
                                         <Binding ElementName="InfoButton" />
                                         <Binding Path="DataContext.AdditionalInfo"
+                                                 UpdateSourceTrigger="PropertyChanged"
                                                  RelativeSource="{RelativeSource Self}" />
                                     </MultiBinding>
                                 </Button.CommandParameter>

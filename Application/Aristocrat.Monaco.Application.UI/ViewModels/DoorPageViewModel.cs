@@ -41,20 +41,20 @@
 
         protected override void OnLoaded()
         {
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleOperatorCultureChanged);
-
             LoadDoors();
 
             base.OnLoaded();
         }
 
-        private void HandleOperatorCultureChanged(OperatorCultureChangedEvent @event)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             MvvmHelper.ExecuteOnUI(() =>
             {
                 ClearDoors();
                 LoadDoors();
             });
+
+            base.OnOperatorCultureChanged(evt);
         }
 
         protected override void OnUnloaded()

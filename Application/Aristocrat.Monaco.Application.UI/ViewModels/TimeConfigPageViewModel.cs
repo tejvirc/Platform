@@ -296,7 +296,6 @@
         protected override void Loaded()
         {
             EventBus.Subscribe<TimeZoneOffsetUpdatedEvent>(this, OnOffsetUpdated);
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this, OnOperatorCultureChanged);
             if (!IsInspection)
             {
                 TimeZoneId = _time.TimeZoneInformation?.Id;
@@ -358,9 +357,10 @@
                 .GetFormattedOffset();
         }
 
-        private void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             UpdateDatePickerLanguage();
+            base.OnOperatorCultureChanged(evt);
         }
 
         private void UpdateDatePickerLanguage()

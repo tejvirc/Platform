@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Linq;
-    using System.Runtime.CompilerServices;
     using Application.Helpers;
     using Contracts;
     using Contracts.Extensions;
@@ -104,13 +103,12 @@
         protected override void OnLoaded()
         {
             RaisePropertyChanged(nameof(G2SHosts));
-
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleOperatorCultureChangedEvent);
         }
 
-        private void HandleOperatorCultureChangedEvent(OperatorCultureChangedEvent @event)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             RaisePropChangedForAll();
+            base.OnOperatorCultureChanged(evt);
         }
 
         private void RaisePropChangedForAll()

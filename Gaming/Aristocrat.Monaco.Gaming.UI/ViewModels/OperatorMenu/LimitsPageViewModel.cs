@@ -727,7 +727,6 @@
             MaxBetLimitIsChecked = MaxBetLimit < long.MaxValue.MillicentsToDollars();
 
             EventBus?.Subscribe<PropertyChangedEvent>(this, HandleEvent);
-            EventBus?.Subscribe<OperatorCultureChangedEvent>(this, HandleEvent);
             if (IsWizardPage)
             {
                 EventBus?.Subscribe<OperatorMenuPopupEvent>(this, OnShowPopup);
@@ -736,7 +735,7 @@
             CheckNavigation();
         }
 
-        private void HandleEvent(OperatorCultureChangedEvent evt)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             if (UseOperatorCultureForCurrencyFormatting)
             {
@@ -744,6 +743,7 @@
             }
 
             UpdateLimits();
+            base.OnOperatorCultureChanged(evt);
         }
 
         protected override void LoadAutoConfiguration()

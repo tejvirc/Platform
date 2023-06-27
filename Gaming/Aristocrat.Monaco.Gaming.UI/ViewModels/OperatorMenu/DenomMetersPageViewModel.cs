@@ -41,7 +41,7 @@
 
         public bool PreviousDenomIsEnabled => SelectedDenomIndex > 0 && !DataEmpty;
 
-        public bool NextDenomIsEnabled => SelectedDenomIndex < Denoms.Count - 1 && !DataEmpty;
+        public bool NextDenomIsEnabled => SelectedDenomIndex < Denoms?.Count - 1 && !DataEmpty;
 
         public List<Denomination> Denoms { get; private set; }
 
@@ -104,12 +104,14 @@
                         }
                         else
                         {
+                            string meterDisplayName = GetDisplayNameFromMeterNode(meterNode);
+
                             try
                             {
                                 var meter = _meters.GetMeter(SelectedDenom.Millicents, meterNode.Name);
                                 Meters.Add(
                                     new DisplayMeter(
-                                        Localizer.For(CultureFor.Operator).GetString(meterNode.DisplayNameKey),
+                                        meterDisplayName,
                                         meter,
                                         ShowLifetime,
                                         meterNode.Order,
@@ -121,7 +123,7 @@
                             {
                                 Meters.Add(
                                     new DisplayMeter(
-                                        Localizer.For(CultureFor.Operator).GetString(meterNode.DisplayName),
+                                        meterDisplayName,
                                         null,
                                         ShowLifetime,
                                         meterNode.Order,
@@ -176,14 +178,11 @@
             base.OnLoaded();
         }
 
-        protected override void HandleOperatorCultureChanged(OperatorCultureChangedEvent @event)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() =>
-            {
-                LoadDenoms();
-            });
+            MvvmHelper.ExecuteOnUI(LoadDenoms);
 
-            base.HandleOperatorCultureChanged(@event);
+            base.OnOperatorCultureChanged(evt);
         }
 
         private void NextDenom(object sender)

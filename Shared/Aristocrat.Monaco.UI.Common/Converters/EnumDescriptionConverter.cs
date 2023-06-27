@@ -4,7 +4,7 @@
     using System.Globalization;
     using System.Windows.Data;
     using Application.Contracts.Localization;
-    using Extensions;
+    using Monaco.Common;
 
     /// <summary>
     ///     Convert an enum value to its corresponding Description attribute string

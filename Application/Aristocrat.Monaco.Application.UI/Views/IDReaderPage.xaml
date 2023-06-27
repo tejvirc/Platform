@@ -10,8 +10,7 @@
                                mc:Ignorable="d"
                                d:DesignHeight="600"
                                d:DesignWidth="900"
-                               d:DataContext="{d:DesignInstance viewModels:IdReaderPageViewModel}"
-                               loc:Localizer.For="Operator">
+                               d:DataContext="{d:DesignInstance viewModels:IdReaderPageViewModel}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

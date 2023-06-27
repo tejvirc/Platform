@@ -204,4 +204,7 @@
   <data name="LicenseId" xml:space="preserve">
     <value>Licence ID</value>
   </data>
+  <data name="SoftwareLicense" xml:space="preserve">
+    <value>Software Licence</value>
+  </data>
 </root>

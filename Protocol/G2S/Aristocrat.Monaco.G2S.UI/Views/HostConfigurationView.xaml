@@ -15,7 +15,6 @@
                                d:DesignWidth="1500"
                                dialog:DialogParticipation.Register="{Binding}"
                                mc:Ignorable="d"
-                               loc:Localizer.For="Operator"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:HostConfigurationViewModel}, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <ResourceDictionary>

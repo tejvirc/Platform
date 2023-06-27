@@ -35006,7 +35006,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to EKey device is required to perform game re-configu....
+		///   Looks up a localized string similar to EKey device is required to perform configuration.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -71296,7 +71296,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to EKey device is required to perform game re-configu....
+		///		Looks up a localized string similar to EKey device is required to perform configuration.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -92538,7 +92538,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		VerificationTicketTitle,
 		/// <summary>
-		///   Looks up a localized string similar to EKey device is required to perform game re-configu....
+		///   Looks up a localized string similar to EKey device is required to perform configuration.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI

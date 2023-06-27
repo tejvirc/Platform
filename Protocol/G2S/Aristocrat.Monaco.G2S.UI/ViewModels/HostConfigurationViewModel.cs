@@ -157,7 +157,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             RaisePropertyChanged(nameof(EgmId));
 
             MacAddress = NetworkInterfaceInfo.DefaultPhysicalAddress;
-            
+
             if (!_activated)
             {
                 _activated = true;
@@ -166,11 +166,12 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             {
                 ResetOriginalHosts();
             }
+        }
 
-            EventBus.Subscribe<OperatorCultureChangedEvent>(
-                this,
-                _ => MvvmHelper.ExecuteOnUI(ResetOriginalHosts)
-            );
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            MvvmHelper.ExecuteOnUI(ResetOriginalHosts);
+            base.OnOperatorCultureChanged(evt);
         }
 
         protected override void SaveChanges()

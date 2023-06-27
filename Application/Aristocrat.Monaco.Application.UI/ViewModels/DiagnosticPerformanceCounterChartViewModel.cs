@@ -66,8 +66,6 @@
 
             PopulateAvailableMetrics();
 
-            EventBus?.Subscribe<OperatorCultureChangedEvent>(this, HandleEvent);
-
             ResetZoomOrPanCommand = new ActionCommand<object>(
                 _ =>
                 {
@@ -481,16 +479,18 @@
             MonacoPlotModel.InvalidatePlot(true);
         }
 
-        private void HandleEvent(OperatorCultureChangedEvent obj)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             MvvmHelper.ExecuteOnUI(() =>
             {
-                if(MonacoPlotModel == null || AllMetrics == null)
+                if (MonacoPlotModel == null || AllMetrics == null)
                 {
                     return;
                 }
                 UpdateMetricLabels();
             });
+
+            base.OnOperatorCultureChanged(evt);
         }
 
         private void ViewMetric_PropertyChanged(object sender, PropertyChangedEventArgs args)

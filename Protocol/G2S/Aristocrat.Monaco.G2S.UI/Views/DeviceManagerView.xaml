@@ -12,8 +12,7 @@
                                common:DialogParticipation.Register="{Binding}"
                                d:DesignHeight="450"
                                d:DesignWidth="800"
-                               loc:Localizer.For="Operator"
-                               d:DataContext="{d:DesignInstance {x:Type vm:DeviceManagerViewModel }, IsDesignTimeCreatable=True}">
+                               d:DataContext="{d:DesignInstance {x:Type vm:DeviceManagerViewModel}, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

@@ -81,12 +81,7 @@
             }
         }
 
-        protected override void OnLoaded()
-        {
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this, OnOperatorCultureChanged);
-        }
-
-        private void OnOperatorCultureChanged(OperatorCultureChangedEvent obj)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             RaisePropertyChanged(
                 nameof(Id),
@@ -94,6 +89,7 @@
                 nameof(TimeRemaining),
                 nameof(JurisdictionId),
                 nameof(EnabledGamesLimit));
+            base.OnOperatorCultureChanged(evt);
         }
     }
 }

@@ -828,12 +828,12 @@
             EventBus.Subscribe<OpenEvent>(this, CheckLogicDoorStatus);
             EventBus.Subscribe<DoorOpenMeteredEvent>(this, CheckLogicDoorStatus);
             EventBus.Subscribe<DoorClosedMeteredEvent>(this, CheckLogicDoorStatus);
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this, OnOperatorCultureChanged);
         }
 
-        private void OnOperatorCultureChanged(OperatorCultureChangedEvent obj)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             CheckLogicDoorStatus();
+            base.OnOperatorCultureChanged(evt);
         }
     }
 }
