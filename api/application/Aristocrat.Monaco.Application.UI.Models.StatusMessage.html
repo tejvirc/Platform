@@ -153,7 +153,7 @@ public class StatusMessage : BaseNotify, INotifyPropertyChanged</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_Models_StatusMessage__ctor_Aristocrat_Monaco_Kernel_DisplayableMessage_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.Models.StatusMessage.%23ctor(Aristocrat.Monaco.Kernel.DisplayableMessage%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/Models/StatusMessage.cs/#L12" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/Models/StatusMessage.cs/#L14" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_Models_StatusMessage__ctor_" data-uid="Aristocrat.Monaco.Application.UI.Models.StatusMessage.#ctor*"></a>
@@ -166,7 +166,7 @@ public class StatusMessage : BaseNotify, INotifyPropertyChanged</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public StatusMessage(DisplayableMessage displayableMessage, string additionalInfo)</code></pre>
+    <pre><code class="lang-csharp hljs">public StatusMessage(DisplayableMessage displayableMessage, string resourceKey)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -181,7 +181,7 @@ public class StatusMessage : BaseNotify, INotifyPropertyChanged</code></pre>
     <tr>
       <td>
         <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></span>
-        <span class="parametername">additionalInfo</span>
+        <span class="parametername">resourceKey</span>
         <p>
       </td>
     </tr>
@@ -206,7 +206,7 @@ public class StatusMessage : BaseNotify, INotifyPropertyChanged</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_Models_StatusMessage_AdditionalInfo.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.Models.StatusMessage.AdditionalInfo%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/Models/StatusMessage.cs/#L20" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/Models/StatusMessage.cs/#L25" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_Models_StatusMessage_AdditionalInfo_" data-uid="Aristocrat.Monaco.Application.UI.Models.StatusMessage.AdditionalInfo*"></a>
@@ -219,7 +219,7 @@ public class StatusMessage : BaseNotify, INotifyPropertyChanged</code></pre>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string AdditionalInfo { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public string AdditionalInfo { get; }</code></pre>
   </div>
   
   
@@ -246,10 +246,53 @@ public class StatusMessage : BaseNotify, INotifyPropertyChanged</code></pre>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_Models_StatusMessage_AdditionalInfoCallback.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.Models.StatusMessage.AdditionalInfoCallback%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/Models/StatusMessage.cs/#L43" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_Models_StatusMessage_AdditionalInfoCallback_" data-uid="Aristocrat.Monaco.Application.UI.Models.StatusMessage.AdditionalInfoCallback*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_Models_StatusMessage_AdditionalInfoCallback" data-uid="Aristocrat.Monaco.Application.UI.Models.StatusMessage.AdditionalInfoCallback"><a href="#collapsible-Aristocrat_Monaco_Application_UI_Models_StatusMessage_AdditionalInfoCallback" class="expander" data-toggle="collapse">AdditionalInfoCallback</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_Models_StatusMessage_AdditionalInfoCallback" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Func&lt;string&gt; AdditionalInfoCallback { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_Models_StatusMessage_Message.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.Models.StatusMessage.Message%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/Models/StatusMessage.cs/#L18" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/Models/StatusMessage.cs/#L21" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_Models_StatusMessage_Message_" data-uid="Aristocrat.Monaco.Application.UI.Models.StatusMessage.Message*"></a>
@@ -287,12 +330,91 @@ public class StatusMessage : BaseNotify, INotifyPropertyChanged</code></pre>
   
   </div>
   
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_Models_StatusMessage_MessageId.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.Models.StatusMessage.MessageId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/Models/StatusMessage.cs/#L23" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_Models_StatusMessage_MessageId_" data-uid="Aristocrat.Monaco.Application.UI.Models.StatusMessage.MessageId*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_Models_StatusMessage_MessageId" data-uid="Aristocrat.Monaco.Application.UI.Models.StatusMessage.MessageId"><a href="#collapsible-Aristocrat_Monaco_Application_UI_Models_StatusMessage_MessageId" class="expander" data-toggle="collapse">MessageId</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_Models_StatusMessage_MessageId" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Guid? MessageId { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">Guid</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_Models_StatusMessage_UpdateAdditionalInfo.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.Models.StatusMessage.UpdateAdditionalInfo%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/Models/StatusMessage.cs/#L45" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_Models_StatusMessage_UpdateAdditionalInfo_" data-uid="Aristocrat.Monaco.Application.UI.Models.StatusMessage.UpdateAdditionalInfo*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_Models_StatusMessage_UpdateAdditionalInfo" data-uid="Aristocrat.Monaco.Application.UI.Models.StatusMessage.UpdateAdditionalInfo"><a href="#collapsible-Aristocrat_Monaco_Application_UI_Models_StatusMessage_UpdateAdditionalInfo" class="expander" data-toggle="collapse">UpdateAdditionalInfo()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_Models_StatusMessage_UpdateAdditionalInfo" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void UpdateAdditionalInfo()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
   
 </article>
           </div>
           <div class="contribution-panel mobile-hide">
               <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_Models_StatusMessage.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.Models.StatusMessage%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
-              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/Models/StatusMessage.cs/#L7" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/Models/StatusMessage.cs/#L8" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
