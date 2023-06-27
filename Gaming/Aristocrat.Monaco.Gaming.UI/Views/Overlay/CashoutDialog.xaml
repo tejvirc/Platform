@@ -10,9 +10,10 @@
              xmlns:viewmodels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
              d:DataContext="{d:DesignInstance {x:Type viewmodels:CashoutDialogViewModel}}"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             AutomationProperties.AutomationId="UserControl1_4AC9E16A">
     <UserControl.Background>
-        <SolidColorBrush x:Name="backgroundColor"  Color="Black" Opacity=".35" />
+        <SolidColorBrush x:Name="backgroundColor"  Color="Black" Opacity=".35" AutomationProperties.AutomationId="SolidColorBrush1_4AC9E16A"/>
     </UserControl.Background>
     <UserControl.Resources>
         <ResourceDictionary>
@@ -33,14 +34,15 @@
             <gamingConverters:ScaleConverter x:Key="ScaleConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
-    <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Grid x:Name="ViewInjectionRoot" Width="auto" Height="auto">
+    <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center" AutomationProperties.AutomationId="Viewbox2_4AC9E16A">
+        <Grid x:Name="ViewInjectionRoot" Width="auto" Height="auto" AutomationProperties.AutomationId="Grid1_4AC9E16A">
             <Image x:Name="BackgroundImage"
                Stretch="uniform"
                converters:ImageHelper.SourceResourceKey="HandPayImage"
                VerticalAlignment="Center" HorizontalAlignment="Center"
-               Visibility="Visible"/>
-            <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center">
+               Visibility="Visible"
+               AutomationProperties.AutomationId="Image1_4AC9E16A"/>
+            <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center" AutomationProperties.AutomationId="Viewbox1_4AC9E16A">
                 <Viewbox.Style>
                     <Style TargetType="Viewbox">
                         <Setter Property="Stretch" Value="Uniform"/>
@@ -48,10 +50,10 @@
                         <Setter Property="Width" Value="{Binding ElementName=BackgroundImage, Path=ActualWidth, Converter={StaticResource ScaleConverter}, ConverterParameter=0.75}"/>
                     </Style>
                 </Viewbox.Style>
-                <Grid>
+                <Grid AutomationProperties.AutomationId="Grid2_4AC9E16A">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="100"/>
-                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="100" AutomationProperties.AutomationId="RowDefinition1_4AC9E16A"/>
+                        <RowDefinition Height="100" AutomationProperties.AutomationId="RowDefinition2_4AC9E16A"/>
                     </Grid.RowDefinitions>
                     <controls:TextPath 
                             HorizontalAlignment="Center"  
@@ -73,9 +75,10 @@
                              VerticalAlignment="Center" HorizontalAlignment="Center"
                              Style="{StaticResource stlFlatButton}"
                              Command="{Binding CashoutDialogYesNoCommand}"
-                             CommandParameter="yes">
+                             CommandParameter="yes"
+                             AutomationProperties.AutomationId="Button1_4AC9E16A">
                         <Button.Background>
-                            <ImageBrush Stretch="Fill" ImageSource="{DynamicResource CashOutButtonFrame}"/>
+                            <ImageBrush Stretch="Fill" ImageSource="{DynamicResource CashOutButtonFrame}" AutomationProperties.AutomationId="ImageBrush1_4AC9E16A"/>
                         </Button.Background>
                     </Button>
                     <Button  x:Name="btnNo" Grid.Row="1" 
@@ -92,9 +95,10 @@
                              HorizontalAlignment="Center"
                              Command="{Binding CashoutDialogYesNoCommand}"
                              CommandParameter="no"
-                             Style="{StaticResource stlFlatButton}">
+                             Style="{StaticResource stlFlatButton}"
+                             AutomationProperties.AutomationId="Button2_4AC9E16A">
                         <Button.Background>
-                            <ImageBrush Stretch="Fill" ImageSource="{DynamicResource CashOutButtonFrame}"/>
+                            <ImageBrush Stretch="Fill" ImageSource="{DynamicResource CashOutButtonFrame}" AutomationProperties.AutomationId="ImageBrush2_4AC9E16A"/>
                         </Button.Background>
                     </Button>
                 </Grid>

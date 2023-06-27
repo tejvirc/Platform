@@ -1285,18 +1285,20 @@
     </DataTemplate>
 
     <DataTemplate x:Key="GeorgiaCOAMUpiTemplate" DataType="{x:Type viewModels:LobbyViewModel}">
-        <Grid Width="1920">
-            <Image Source="{DynamicResource UpiBackgroundNoVolumeNoService}" Stretch="None"/>
-            <Canvas>
+        <Grid Width="1920" AutomationProperties.AutomationId="Grid156_74910100">
+            <Image Source="{DynamicResource UpiBackgroundNoVolumeNoService}" Stretch="None" AutomationProperties.AutomationId="Image163_74910100"/>
+            <Canvas AutomationProperties.AutomationId="Canvas165_74910100">
                 <Border Canvas.Left="582"
                         Canvas.Top="50"
-                        Width="230">
+                        Width="230"
+                        AutomationProperties.AutomationId="Border1_74910100">
                     <controls:TextPath Style="{StaticResource TextStyle}" Text="{Binding HandCount}"/>
                 </Border>
 
                 <Border Canvas.Left="844"
                         Canvas.Top="50"
-                        Width="230">
+                        Width="230"
+                        AutomationProperties.AutomationId="Border2_74910100">
                     <controls:TextPath Style="{StaticResource TextStyle}" Text="{Binding FormattedCredits}"/>
                 </Border>
 
@@ -1305,12 +1307,13 @@
                         Canvas.Top="45"
                         IsEnabled="{Binding Path=CashOutEnabled}"
                         Command="{Binding Path=CashOutCommand}"
-                        Style="{StaticResource stlFlatButton}">
+                        Style="{StaticResource stlFlatButton}"
+                        AutomationProperties.AutomationId="Button184_74910100">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
-                            <Image Name="cashOutImage" Source="{DynamicResource CashOutNormal}"/>
+                            <Image Name="cashOutImage" Source="{DynamicResource CashOutNormal}" AutomationProperties.AutomationId="Image164_74910100"/>
                             <ControlTemplate.Triggers>
-                                <Trigger Property="IsEnabled" Value="false">
+                                <Trigger Property="IsEnabled" Value="false" AutomationProperties.AutomationId="Trigger186_74910100">
                                     <Setter TargetName="cashOutImage" Property="Source" Value="{DynamicResource CashOutDisabled}"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>

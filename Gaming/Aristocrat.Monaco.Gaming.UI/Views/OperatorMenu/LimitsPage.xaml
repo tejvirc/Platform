@@ -353,12 +353,13 @@
             </StackPanel>
             <!-- HandCount -->
             <StackPanel Grid.Row="13" Orientation="Horizontal" Margin="0 5 0 0"
-                        Visibility="{Binding BillAcceptanceLimitVisible, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}">
-                <Grid>
+                        Visibility="{Binding BillAcceptanceLimitVisible, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}"
+                        AutomationProperties.AutomationId="StackPanel56_EF05BF33">
+                <Grid AutomationProperties.AutomationId="Grid2_EF05BF33">
                     <Grid.ColumnDefinitions>
                         <!-- The Label Width is 400, we want the label and button close together-->
-                        <ColumnDefinition Width="220" />
-                        <ColumnDefinition Width="180" />
+                        <ColumnDefinition Width="220" AutomationProperties.AutomationId="ColumnDefinition3_EF05BF33"/>
+                        <ColumnDefinition Width="180" AutomationProperties.AutomationId="ColumnDefinition4_EF05BF33"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.BillAcceptanceLimit}}"
                        AutomationProperties.AutomationId="Label57_EF05BF33"/>
@@ -366,7 +367,8 @@
                             HorizontalAlignment="Left"
                             Style="{StaticResource MonacoInfoButton}"
                             Margin="0 10 0 0"
-                            Command="{Binding ShowInfoPopupCommand}">
+                            Command="{Binding ShowInfoPopupCommand}"
+                            AutomationProperties.AutomationId="Button46_EF05BF33">
                         <Button.CommandParameter>
                             <MultiBinding Converter="{StaticResource MultiValueConverter}">
                                 <Binding ElementName="HandCountInfoButton" />
@@ -390,19 +392,20 @@
             </StackPanel>
             
             <StackPanel Grid.Row="14" Orientation="Horizontal" Margin="0 10 0 0"
-                        Visibility="{Binding HandCountPayoutLimitVisible, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}">
-                <Grid>
+                        Visibility="{Binding HandCountPayoutLimitVisible, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}"
+                        AutomationProperties.AutomationId="StackPanel57_EF05BF33">
+                <Grid AutomationProperties.AutomationId="Grid3_EF05BF33">
                     <!-- The Label Width is 400, we want the label and button close together-->
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="130" />
-                        <ColumnDefinition Width="270" />
+                        <ColumnDefinition Width="130" AutomationProperties.AutomationId="ColumnDefinition5_EF05BF33"/>
+                        <ColumnDefinition Width="270" AutomationProperties.AutomationId="ColumnDefinition6_EF05BF33"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.PayoutLimit}}"
                            AutomationProperties.AutomationId="Label58_EF05BF33"/>
                 <Button Grid.Column="1" HorizontalAlignment="Left" x:Name="PayoutLimitInfoButton"
                              Style="{StaticResource MonacoInfoButton}"
                              Margin="0 10 0 0"
-
+                             AutomationProperties.AutomationId="Button47_EF05BF33"
                              Command="{Binding ShowInfoPopupCommand}">
                     <Button.CommandParameter>
                         <MultiBinding Converter="{StaticResource MultiValueConverter}">
@@ -433,19 +436,21 @@
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        StaysOpen="False"
-                       IsOpen="{Binding ConfigPopupOpen}">
+                       IsOpen="{Binding ConfigPopupOpen}"
+                       AutomationProperties.AutomationId="Popup1_EF05BF33">
                     <Border BorderBrush="{StaticResource HighlightBrush1}"
                             BorderThickness="2"
                             Background="{StaticResource DarkBrush4}"
                             Name="PopupBorder"
-                            AutomationProperties.AutomationId="Border13_8C42549B">
+                            AutomationProperties.AutomationId="Border13_EF05BF33">
                         <TextBlock Name="PopupTextBlock"
                                            Text="{Binding DataContext.LimitsPopUpInfoText, RelativeSource={RelativeSource AncestorType=Control}}"
                                            TextWrapping="Wrap"
                                            Padding="10"
                                            MaxWidth="400"
                                            Foreground="{StaticResource HighlightBrush1}"
-                                           FontSize="16"/>
+                                           FontSize="16"
+                                           AutomationProperties.AutomationId="TextBlock61_EF05BF33"/>
                     </Border>
                 </Popup>
             </StackPanel>

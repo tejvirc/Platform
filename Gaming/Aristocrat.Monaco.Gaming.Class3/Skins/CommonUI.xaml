@@ -364,20 +364,45 @@
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_PROGRESSIVE_MAJOR/U+0020.png"
                  AutomationProperties.AutomationId="BitmapImage117_60EFD60A"/>
 
-    <BitmapImage x:Key="MidKnightGrandChar0" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_MIDKNIGHT_GRAND/U+0030.png"/>
-    <BitmapImage x:Key="MidKnightGrandChar1" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_MIDKNIGHT_GRAND/U+0031.png"/>
-    <BitmapImage x:Key="MidKnightGrandChar2" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_MIDKNIGHT_GRAND/U+0032.png"/>
-    <BitmapImage x:Key="MidKnightGrandChar3" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_MIDKNIGHT_GRAND/U+0033.png"/>
-    <BitmapImage x:Key="MidKnightGrandChar4" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_MIDKNIGHT_GRAND/U+0034.png"/>
-    <BitmapImage x:Key="MidKnightGrandChar5" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_MIDKNIGHT_GRAND/U+0035.png"/>
-    <BitmapImage x:Key="MidKnightGrandChar6" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_MIDKNIGHT_GRAND/U+0036.png"/>
-    <BitmapImage x:Key="MidKnightGrandChar7" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_MIDKNIGHT_GRAND/U+0037.png"/>
-    <BitmapImage x:Key="MidKnightGrandChar8" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_MIDKNIGHT_GRAND/U+0038.png"/>
-    <BitmapImage x:Key="MidKnightGrandChar9" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_MIDKNIGHT_GRAND/U+0039.png"/>
-
-    <BitmapImage x:Key="MidKnightGrandChar$" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_MIDKNIGHT_GRAND/U+0024.png"/>
-    <BitmapImage x:Key="MidKnightGrandChar." UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_MIDKNIGHT_GRAND/U+002E.png"/>
-    <BitmapImage x:Key="MidKnightGrandChar," UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_MIDKNIGHT_GRAND/U+002C.png"/>
+    <BitmapImage x:Key="MidKnightGrandChar0" 
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_MIDKNIGHT_GRAND/U+0030.png" 
+                 AutomationProperties.AutomationId="BitmapImage160_60EFD60A"/>
+    <BitmapImage x:Key="MidKnightGrandChar1" 
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_MIDKNIGHT_GRAND/U+0031.png" 
+                 AutomationProperties.AutomationId="BitmapImage161_60EFD60A"/>
+    <BitmapImage x:Key="MidKnightGrandChar2" 
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_MIDKNIGHT_GRAND/U+0032.png" 
+                 AutomationProperties.AutomationId="BitmapImage162_60EFD60A"/>
+    <BitmapImage x:Key="MidKnightGrandChar3" 
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_MIDKNIGHT_GRAND/U+0033.png" 
+                 AutomationProperties.AutomationId="BitmapImage163_60EFD60A"/>
+    <BitmapImage x:Key="MidKnightGrandChar4" 
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_MIDKNIGHT_GRAND/U+0034.png" 
+                 AutomationProperties.AutomationId="BitmapImage164_60EFD60A"/>
+    <BitmapImage x:Key="MidKnightGrandChar5" 
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_MIDKNIGHT_GRAND/U+0035.png" 
+                 AutomationProperties.AutomationId="BitmapImage165_60EFD60A"/>
+    <BitmapImage x:Key="MidKnightGrandChar6" 
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_MIDKNIGHT_GRAND/U+0036.png" 
+                 AutomationProperties.AutomationId="BitmapImage166_60EFD60A"/>
+    <BitmapImage x:Key="MidKnightGrandChar7" 
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_MIDKNIGHT_GRAND/U+0037.png" 
+                 AutomationProperties.AutomationId="BitmapImage167_60EFD60A"/>
+    <BitmapImage x:Key="MidKnightGrandChar8" 
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_MIDKNIGHT_GRAND/U+0038.png" 
+                 AutomationProperties.AutomationId="BitmapImage168_60EFD60A"/>
+    <BitmapImage x:Key="MidKnightGrandChar9" 
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_MIDKNIGHT_GRAND/U+0039.png" 
+                 AutomationProperties.AutomationId="BitmapImage169_60EFD60A"/>
+    <BitmapImage x:Key="MidKnightGrandChar$" 
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_MIDKNIGHT_GRAND/U+0024.png" 
+                 AutomationProperties.AutomationId="BitmapImage170_60EFD60A"/>
+    <BitmapImage x:Key="MidKnightGrandChar." 
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_MIDKNIGHT_GRAND/U+002E.png" 
+                 AutomationProperties.AutomationId="BitmapImage171_60EFD60A"/>
+    <BitmapImage x:Key="MidKnightGrandChar," 
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/ProgressiveIndicator/FONT_MIDKNIGHT_GRAND/U+002C.png" 
+                 AutomationProperties.AutomationId="BitmapImage172_60EFD60A"/>
 
     <BitmapImage x:Key="DenominationBackOff"
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Denominations/DenomBackOff.png"

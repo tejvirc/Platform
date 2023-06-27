@@ -405,7 +405,8 @@
                                             HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmall}"
                                             Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.MaxWinColumnVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                             MaxWidth="200"
-                                            Binding="{Binding MaxWinAmount, Converter={StaticResource CurrencyConverter}, ConverterParameter=ZeroNotAvailable, Mode=OneWay}">
+                                            Binding="{Binding MaxWinAmount, Converter={StaticResource CurrencyConverter}, ConverterParameter=ZeroNotAvailable, Mode=OneWay}"
+                                            AutomationProperties.AutomationId="DataGridTextColumn51_FA38938A">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="{x:Type TextBlock}">
                                     <Setter Property="Margin" Value="5 0 0 0" />

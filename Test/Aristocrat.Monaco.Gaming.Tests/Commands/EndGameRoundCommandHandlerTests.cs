@@ -56,6 +56,9 @@
             _properties.Setup(p => p.GetProperty(GamingConstants.SelectedDenom, It.IsAny<long>()))
                 .Returns(Denomination);
 
+            _properties.Setup(p => p.GetProperty(GamingConstants.MeterFreeGamesIndependently, It.IsAny<bool>()))
+                .Returns(true);
+
             _history.SetupGet(h => h.CurrentLog).Returns(_gameHistory.Object);
         }
 
