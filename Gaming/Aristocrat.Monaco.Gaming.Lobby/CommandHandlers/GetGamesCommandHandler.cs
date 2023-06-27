@@ -2,7 +2,7 @@
 
 using System;
 using System.Linq;
-using Aristocrat.Runtime.V1;
+using Aristocrat.LobbyRuntime.V1;
 using Contracts;
 using Kernel;
 
@@ -25,7 +25,7 @@ public class GetGamesCommandHandler : ICommandHandler<GetGames>
             from game in games
             from denom in game.ActiveDenominations
             where game.Enabled
-            select new GameInfo
+            select new GameDetail
             {
                 GameId = game.Id,
                 Name = game.ThemeName,

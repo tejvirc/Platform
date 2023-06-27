@@ -253,7 +253,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.WebApiSer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.Gaming.Lobby", "Gaming\Aristocrat.Monaco.Gaming.Lobby\Aristocrat.Monaco.Gaming.Lobby.csproj", "{F248C6CF-367C-4979-9F4F-79CF106701F0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Fluxor.Extensions", "Shared\Fluxor.Selectors\Aristocrat.Fluxor.Extensions.csproj", "{51E9D41C-B78A-4DD8-81C9-83753C9D19EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Extensions.Fluxor", "Shared\Aristocrat.Extensions.Fluxor\Aristocrat.Extensions.Fluxor.csproj", "{51E9D41C-B78A-4DD8-81C9-83753C9D19EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

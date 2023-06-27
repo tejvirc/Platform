@@ -1,0 +1,11 @@
+﻿namespace Aristocrat.Monaco.Gaming.Lobby;
+
+using Contracts.Lobby;
+using Store.Lobby;
+
+public static class StateExtensions
+{
+    public static bool HasZeroCredits(this LobbyState state) => state.Equals(0.0);
+
+    public static bool IsTextScrolling(this LobbyState state) => state.BannerDisplayMode == BannerDisplayMode.Scrolling;
+}

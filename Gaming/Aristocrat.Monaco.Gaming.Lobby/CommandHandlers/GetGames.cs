@@ -1,9 +1,9 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.CommandHandlers;
 
 using System.Collections.Generic;
-using Aristocrat.Runtime.V1;
+using Aristocrat.LobbyRuntime.V1;
 
 public class GetGames
 {
-    public IList<GameInfo>? Games { get; set; }
+    public IList<GameDetail>? Games { get; set; }
 }

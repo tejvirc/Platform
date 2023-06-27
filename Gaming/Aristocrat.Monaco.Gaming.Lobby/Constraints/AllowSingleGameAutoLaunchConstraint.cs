@@ -28,6 +28,7 @@ public sealed class AllowSingleGameAutoLaunchConstraint : IConstraint
     public bool Validate<T>(T? parameter = default) where T : ConstraintParameters
     {
         var allowGameInCharge = _properties.GetValue(GamingConstants.AllowGameInCharge, GetDefaultValue());
+        return false;
     }
 
     public bool GetDefaultValue()

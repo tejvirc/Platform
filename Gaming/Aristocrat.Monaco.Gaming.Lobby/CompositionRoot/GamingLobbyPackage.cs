@@ -1,8 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.CompositionRoot;
 
+using System;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using Aristocrat.Monaco.Gaming.Contracts;
+using Aristocrat.Monaco.Gaming.Lobby.Platform.Consumers;
 using CommandHandlers;
 using Commands;
 using Common.Container;
@@ -22,7 +25,7 @@ public class GamingLobbyPackage : IPackage
 {
     public void RegisterServices(Container container)
     {
-        container.Register<ILobby, LobbyController>(Lifestyle.Singleton);
+        container.Register<ILobby, LobbyEngine>(Lifestyle.Singleton);
 
         container.Register<ILobbyService, LobbyService>(Lifestyle.Singleton);
 
@@ -49,10 +52,6 @@ public class GamingLobbyPackage : IPackage
 
         container.RegisterInstance<IRegionAdapterMapper>(regionAdapterMapper);
 
-        container.Register<ISelector, StoreSelector>(Lifestyle.Singleton);
-
-        container.Register(typeof(IStateSelectors<>), typeof(StateSelectors<>), Lifestyle.Singleton);
-
         container.Register<IApplicationCommands, ApplicationCommands>(Lifestyle.Singleton);
 
         container.Register<IObjectFactory, ObjectFactory>(Lifestyle.Singleton);
@@ -65,6 +64,11 @@ public class GamingLobbyPackage : IPackage
         container.RegisterFluxor();
 
         container.RegisterInstance(ServiceManager.GetInstance().GetService<IWpfWindowLauncher>());
+
+        container.RegisterSingleton(
+            () => container.GetInstance<IPropertiesManager>()
+                      .GetValue<LobbyConfiguration?>(GamingConstants.LobbyConfig, null) ??
+                  throw new InvalidOperationException("Lobby configuration not found"));
 
         ((MonacoApplication)Application.Current).Services = container;
     }

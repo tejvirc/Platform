@@ -24,6 +24,7 @@ public sealed class AllowSingleGameAutoLaunchConstraint : IConstraint
     /// <inheritdoc />
     public bool Validate<T>(T parameter = default) where T : ConstraintParameters
     {
-        var allowGameInCharge = _properties.
+        // var allowGameInCharge = _properties.
+        return false;
     }
 }

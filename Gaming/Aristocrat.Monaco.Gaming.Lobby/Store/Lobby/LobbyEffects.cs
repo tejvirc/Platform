@@ -2,9 +2,13 @@
 
 using System.Linq;
 using System.Threading.Tasks;
+using Aristocrat.Monaco.Gaming.Lobby.Services.Attract;
+using Aristocrat.Monaco.Gaming.Lobby.Services.EdgeLighting;
 using Commands;
 using Controllers;
-using global::Fluxor;
+using Controllers.Attract;
+using Controllers.EdgeLighting;
+using Fluxor;
 using Microsoft.Extensions.Logging;
 using Services;
 
@@ -13,8 +17,8 @@ public partial class LobbyEffects
     private readonly ILogger<LobbyEffects> _logger;
     private readonly IState<LobbyState> _state;
     private readonly LobbyConfiguration _configuration;
-    private readonly IControllerFactory _controllers;
-    private readonly ILayoutManager _layoutManager;
+    private readonly IAttractService _attractService;
+    private readonly IEdgeLightingService _edgeLightingService;
     private readonly IOperatorMenuController _operatorMenu;
     private readonly IGameLoader _gameLoader;
     private readonly IApplicationCommands _commands;
@@ -23,8 +27,8 @@ public partial class LobbyEffects
         ILogger<LobbyEffects> logger,
         IState<LobbyState> state,
         LobbyConfiguration configuration,
-        IControllerFactory controllers,
-        ILayoutManager layoutManager,
+        IAttractService attractService,
+        IEdgeLightingService edgeLightingService,
         IOperatorMenuController operatorMenu,
         IGameLoader gameLoader,
         IApplicationCommands commands)
@@ -32,8 +36,8 @@ public partial class LobbyEffects
         _logger = logger;
         _state = state;
         _configuration = configuration;
-        _controllers = controllers;
-        _layoutManager = layoutManager;
+        _attractService = attractService;
+        _edgeLightingService = edgeLightingService;
         _operatorMenu = operatorMenu;
         _gameLoader = gameLoader;
         _commands = commands;
@@ -47,15 +51,7 @@ public partial class LobbyEffects
     }
 
     [EffectMethod]
-    public Task Startup(StartupAction _, IDispatcher dispatcher)
-    {
-        _layoutManager.CreateWindows();
-
-        return Task.CompletedTask;
-    }
-
-    [EffectMethod]
-    public Task Initialize(SystemInitializedAction action, IDispatcher dispatcher)
+    public Task Initialize(SystemInitializedAction _, IDispatcher dispatcher)
     {
         _operatorMenu.Enable();
 
@@ -65,52 +61,9 @@ public partial class LobbyEffects
     }
 
     [EffectMethod]
-    public Task Shutdown(ShutdownAction _, IDispatcher dispatcher)
+    public Task Shutdown(ShutdownAction _)
     {
-        _layoutManager.DestroyWindows();
-
         _commands.ShutdownCommand.Execute(null);
-
-        return Task.CompletedTask;
-    }
-
-    [EffectMethod]
-    public async Task AttractVideoCompleted(AttractVideoCompletedAction payload, IDispatcher dispatcher)
-    {
-        var consecutiveAttractCount = _state.Value.ConsecutiveAttractCount;
-
-        if (!_state.Value.HasAttractIntroVideo || _state.Value.CurrentAttractIndex != 0 || AttractList.Count <= 1)
-        {
-            consecutiveAttractCount++;
-
-            _logger.LogDebug("Consecutive Attract Video count: {ConsecutiveAttractCount}", consecutiveAttractCount);
-
-            if (consecutiveAttractCount >= _state.Value.ConsecutiveAttractVideos ||
-                consecutiveAttractCount >= _state.Value.Games.Count)
-            {
-                _logger.LogDebug("Stopping attract video sequence");
-
-                await dispatcher.DispatchAsync(new AttractExitAction { ConsecutiveAttractCount = consecutiveAttractCount});
-
-                return;
-            }
-
-            _logger.LogDebug("Starting another attract video");
-        }
-
-        await dispatcher.DispatchAsync(new AttractNextVideoAction { ConsecutiveAttractCount = consecutiveAttractCount });
-
-        Task.Run(
-            () =>
-            {
-                if (AttractList.Count <= 1)
-                {
-                    StopAndUnloadAttractVideo();
-                }
-
-                AdvanceAttractIndex();
-                SetAttractVideos();
-            });
 
         return Task.CompletedTask;
     }

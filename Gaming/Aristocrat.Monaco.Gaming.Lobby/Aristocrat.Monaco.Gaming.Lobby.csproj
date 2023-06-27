@@ -55,10 +55,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Application\Monaco.Application.Contracts\Aristocrat.Monaco.Application.Contracts.csproj" />
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
+    <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Localization\Aristocrat.Monaco.Localization.csproj" />
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.UI.Common\Aristocrat.Monaco.UI.Common.csproj" />
     <ProjectReference Include="..\..\Application\Aristocrat.Monaco.Application.UI\Aristocrat.Monaco.Application.UI.csproj" />
-    <ProjectReference Include="..\..\Shared\Fluxor.Selectors\Aristocrat.Fluxor.Extensions.csproj" />
+    <ProjectReference Include="..\..\Shared\Aristocrat.Extensions.Fluxor\Aristocrat.Extensions.Fluxor.csproj" />
     <ProjectReference Include="..\Aristocrat.Monaco.Gaming.Contracts\Aristocrat.Monaco.Gaming.Contracts.csproj" />
   </ItemGroup>
   <ItemGroup>
@@ -68,5 +70,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Constraints\" />
+    <Folder Include="Controllers\Cashout\" />
+    <Folder Include="Store\Attract\" />
+    <Folder Include="Store\Chooser\" />
   </ItemGroup>
 </Project>

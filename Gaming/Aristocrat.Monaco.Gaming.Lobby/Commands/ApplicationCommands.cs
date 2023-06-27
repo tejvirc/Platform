@@ -4,5 +4,5 @@ using Toolkit.Mvvm.Extensions.Commands;
 
 public class ApplicationCommands : IApplicationCommands
 {
-    public CompositeCommand ShutdownCommand => GlobalApplicationCommands.ShutdownCommand;
+    public CompositeCommand ShutdownCommand => ApplicationCommandConstants.ShutdownCommand;
 }
