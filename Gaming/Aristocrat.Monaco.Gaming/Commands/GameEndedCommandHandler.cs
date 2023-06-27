@@ -105,7 +105,7 @@
             Logger.Debug("PendingHandpay set to false");
             _runtime.UpdateFlag(RuntimeCondition.PendingHandpay, false);
 
-            if(!_maxWinOverlayService.ShowingMaxWinWarning)
+            if (!_maxWinOverlayService.ShowingMaxWinWarning)
             {
                 _runtime.UpdateBalance(_bank.Credits);
             }

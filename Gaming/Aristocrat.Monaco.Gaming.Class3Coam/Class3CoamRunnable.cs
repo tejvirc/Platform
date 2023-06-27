@@ -45,7 +45,6 @@
             container.RegisterDecorator<IPlayerBank, PlayerBankCoamDecorator>(Lifestyle.Singleton);
         }
 
-
         protected override void LoadUi(Container container)
         {
             var lobbyStateManager = container.GetInstance<ILobbyStateManager>();

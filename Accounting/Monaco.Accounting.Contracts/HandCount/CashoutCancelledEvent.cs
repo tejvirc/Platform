@@ -3,7 +3,7 @@
     using Aristocrat.Monaco.Kernel;
 
     /// <summary>
-    /// Event to cancel the cashout when there is lockup scenario
+    ///     Event to cancel the cashout when there is lockup scenario
     /// </summary>
     public class CashoutCancelledEvent : BaseEvent
     {

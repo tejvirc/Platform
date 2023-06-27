@@ -136,8 +136,7 @@
                 Amount,
                 Reason,
                 State,
-                HardMeterCompletedDateTime
-                );
+                HardMeterCompletedDateTime);
 
             return builder.ToString();
         }

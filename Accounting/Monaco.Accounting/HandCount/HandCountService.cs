@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Accounting.HandCount
+namespace Aristocrat.Monaco.Accounting.HandCount
 {
     using Application.Contracts.Metering;
     using Contracts;
@@ -43,8 +43,7 @@
                 ServiceManager.GetInstance().GetService<IPersistentStorageManager>(),
                 ServiceManager.GetInstance().GetService<IBank>(),
                 ServiceManager.GetInstance().GetService<ITransactionHistory>(),
-                ServiceManager.GetInstance().GetService<ITransactionCoordinator>()
-            )
+                ServiceManager.GetInstance().GetService<ITransactionCoordinator>())
         {
         }
 
@@ -58,8 +57,7 @@
             IPersistentStorageManager storage,
             IBank bank,
             ITransactionHistory transactions,
-            ITransactionCoordinator transactionCoordinator
-            )
+            ITransactionCoordinator transactionCoordinator)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
 
@@ -67,6 +65,7 @@
             {
                 throw new ArgumentNullException(nameof(meters));
             }
+
             _handCountMeter = meters.GetMeter(AccountingMeters.HandCount);
             _residualAmountMeter = meters.GetMeter(AccountingMeters.ResidualAmount);
 
@@ -84,23 +83,21 @@
         public ICollection<Type> ServiceTypes => new[] { typeof(IHandCountService) };
 
         /// <inheritdoc />
-        public bool HandCountServiceEnabled => (bool)ServiceManager.GetInstance().GetService<IPropertiesManager>()
-            .GetProperty(AccountingConstants.HandCountServiceEnabled, false);
+        public bool HandCountServiceEnabled => _properties.GetValue(AccountingConstants.HandCountServiceEnabled, false);
 
         public void Initialize()
         {
             _eventBus.Subscribe<InitializationCompletedEvent>(this, HandleEvent);
         }
-        private void HandleEvent(InitializationCompletedEvent obj)
-        {
-            SendHandCountChangedEvent();
-        }
 
         public void IncrementHandCount()
         {
-            _handCountMeter.Increment(1);
-            SendHandCountChangedEvent();
-            Logger.Info($"IncrementHandCount to {HandCount}");
+            if (HandCountServiceEnabled)
+            {
+                _handCountMeter.Increment(1);
+                SendHandCountChangedEvent();
+                Logger.Info($"IncrementHandCount to {HandCount}");
+            }
         }
 
         public void DecreaseHandCount(int n)
@@ -167,11 +164,6 @@
             Logger.Info($"ResetHandCount:{HandCount} ResidualAmount:{residualAmount}");
         }
 
-        private void SendHandCountChangedEvent()
-        {
-            _eventBus.Publish(new HandCountChangedEvent(HandCount));
-        }
-
         public void Dispose()
         {
             Dispose(true);
@@ -191,6 +183,16 @@
             }
 
             _disposed = true;
+        }
+
+        private void HandleEvent(InitializationCompletedEvent obj)
+        {
+            SendHandCountChangedEvent();
+        }
+
+        private void SendHandCountChangedEvent()
+        {
+            _eventBus.Publish(new HandCountChangedEvent(HandCount));
         }
     }
 }

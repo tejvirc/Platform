@@ -3,7 +3,7 @@
     using Aristocrat.Monaco.Kernel;
 
     /// <summary>
-    /// Definition of the HandCountResetTimerCancelledEvent class
+    ///     Definition of the HandCountResetTimerCancelledEvent class
     /// </summary>
     public class HandCountResetTimerCancelledEvent : BaseEvent
     {

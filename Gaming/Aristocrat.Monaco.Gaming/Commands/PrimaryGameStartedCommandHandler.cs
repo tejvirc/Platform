@@ -60,10 +60,7 @@
                 _commandFactory.Create<Wager>().Handle(new Wager(command.GameId, command.Denomination, command.Wager));
 
                 //assumption this will be only trigger for the jurisdiction
-                if (_handCountService.HandCountServiceEnabled)
-                {
-                    _handCountService.IncrementHandCount();
-                }
+                _handCountService.IncrementHandCount();
 
                 scope.Complete();
 

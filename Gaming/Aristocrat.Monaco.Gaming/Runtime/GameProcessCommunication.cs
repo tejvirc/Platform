@@ -31,10 +31,9 @@
 
         public void StartComms()
         {
-            EndComms();
-
             lock (_lock)
             {
+                EndComms();
                 foreach (var endpoint in _endpoints)
                 {
                     endpoint.Start();

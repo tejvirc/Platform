@@ -11,7 +11,7 @@
     using Application.Contracts.Settings;
     using Application.Contracts.TiltLogger;
     using Aristocrat.Monaco.Accounting.Contracts.HandCount;
-    using Aristocrat.Monaco.Gaming.Contracts;
+    using Contracts;
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.Bell;
     using Hardware.Contracts.Button;

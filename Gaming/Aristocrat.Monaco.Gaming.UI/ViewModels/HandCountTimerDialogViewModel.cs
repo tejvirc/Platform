@@ -9,7 +9,7 @@
     using Contracts;
 
     /// <summary>
-    ///  Defines the HandCountTimerDialogViewModel class
+    ///     Defines the HandCountTimerDialogViewModel class
     /// </summary>
     public class HandCountTimerDialogViewModel : BaseViewModel
     {

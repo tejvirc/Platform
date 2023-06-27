@@ -14,7 +14,6 @@
     using System.Windows.Forms;
     using Accounting.Contracts;
     using Application.Contracts.EKey;
-    using Aristocrat.Monaco.Accounting.Contracts.HandCount;
     using Gaming.Contracts;
     using Hardware.Contracts.Button;
     using Hardware.Contracts.IO;

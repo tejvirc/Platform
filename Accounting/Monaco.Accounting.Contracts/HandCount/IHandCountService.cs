@@ -3,7 +3,6 @@
     using Kernel;
     using System;
 
-
     /// <summary>
     ///     Interface for a hand count service, which tracks the number of games a player has played.
     /// </summary>

@@ -3,7 +3,7 @@
     using Aristocrat.Monaco.Kernel;
 
     /// <summary>
-    /// Event to decide whether to proceed cash out or not.
+    ///     Event to decide whether to proceed cash out or not.
     /// </summary>
     public class CashoutAmountPlayerConfirmationReceivedEvent : BaseEvent
     {

@@ -60,16 +60,11 @@
 
         private bool CanCashoutFromHandcount()
         {
-            var minimumRequiredCredits = (long)_properties.GetProperty(
+            var minimumRequiredCredits = _properties.GetValue(
                 AccountingConstants.HandCountMinimumRequiredCredits,
                 AccountingConstants.HandCountDefaultRequiredCredits);
 
-            if (_playerBank.Balance < minimumRequiredCredits || _handCountService.HandCount == 0)
-            {
-                return false;
-            }
-
-            return true;
+            return !(_playerBank.Balance < minimumRequiredCredits || _handCountService.HandCount == 0);
         }
     }
 }

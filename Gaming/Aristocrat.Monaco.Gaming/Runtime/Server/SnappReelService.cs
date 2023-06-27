@@ -91,8 +91,8 @@
             }
 
             var command = new SpinReels(spinData);
-                _handlerFactory.Create<SpinReels>()
-                    .Handle(command);
+            _handlerFactory.Create<SpinReels>()
+                .Handle(command);
 
             Logger.Debug($"SpinReels with request: {request} Result: {command.Success}");
 

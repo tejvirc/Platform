@@ -10,12 +10,10 @@
     using Contracts;
     using Contracts.TransferOut;
     using Contracts.HandCount;
-    using Hardware.Contracts.Button;
     using Hardware.Contracts.HardMeter;
     using Hardware.Contracts.Persistence;
     using Kernel;
     using Localization.Properties;
-    using System.Timers;
     using Hardware.Contracts;
     using Aristocrat.Monaco.Accounting.Contracts.Transactions;
 
@@ -37,7 +35,6 @@
         private readonly ICashOutAmountCalculator _cashOutAmountCalculator;
         private readonly ISystemDisableManager _systemDisableManager;
         private readonly int _cashOutHardMeterId;
-        private readonly System.Timers.Timer _timer;
 
         private bool _disposed;
 
@@ -73,8 +70,7 @@
             ICashOutAmountCalculator cashOutAmountCalculator,
             IPropertiesManager properties,
             IIdProvider idProvider,
-            ISystemDisableManager systemDisableManager
-            )
+            ISystemDisableManager systemDisableManager)
         {
             _bank = bank
                 ?? throw new ArgumentNullException(nameof(bank));
@@ -98,9 +94,6 @@
                 ?? throw new ArgumentNullException(nameof(systemDisableManager));
 
             _cashOutHardMeterId = GetCashOutHardMeterId();
-
-            _timer = new System.Timers.Timer(interval: 3000);
-            _timer.AutoReset = false;
         }
 
         /// <inheritdoc />
@@ -199,6 +192,18 @@
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    _eventBus.UnsubscribeAll(this);
+                }
+
+                _disposed = true;
+            }
+        }
 
         private int GetCashOutHardMeterId()
         {
@@ -236,8 +241,11 @@
 
             if (inRecovery)
             {
-                if (_hardMeter.GetHardMeterState(_cashOutHardMeterId) != HardMeterState.Enabled || _hardMeter.GetHardMeterValue(_cashOutHardMeterId) > 0)
+                if (_hardMeter.GetHardMeterState(_cashOutHardMeterId) != HardMeterState.Enabled ||
+                    _hardMeter.GetHardMeterValue(_cashOutHardMeterId) > 0)
+                {
                     await keyOff.Task;
+                }
             }
             else
                 await keyOff.Task;
@@ -260,15 +268,11 @@
                 }
             }
 
-            void OnTimedEvent(Object source, ElapsedEventArgs e)
-            {
-                timesUp = true;
-                CheckStatus();
-                _timer.Elapsed -= OnTimedEvent;
-            }
-
-            _timer.Elapsed += OnTimedEvent;
-            _timer.Start();
+            Task.Delay(3000).ContinueWith(_ =>
+             {
+                 timesUp = true;
+                 CheckStatus();
+             });
 
             var hardMetersEnabled = _properties.GetValue(
                 HardwareConstants.HardMetersEnabledKey,
@@ -276,16 +280,6 @@
 
             if (hardMetersEnabled)
             {
-                /* confirm the behavior -- remove before merge to trunk */
-                //_eventBus.Subscribe<DownEvent>(
-                //    this,
-                //    _ =>
-                //    {
-                //        ticketPrinted = true;
-                //        CheckStatus();
-                //    },
-                //    evt => evt.LogicalId == (int)ButtonLogicalId.Button30);
-
                 _eventBus.Subscribe<HardMeterTickStoppedEvent>(
                     this,
                     _ =>
@@ -392,20 +386,6 @@
             transaction.State = HardMeterOutState.Completed;
 
             _transactions.UpdateTransaction(transaction);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!_disposed)
-            {
-                if (disposing)
-                {
-                    _eventBus.UnsubscribeAll(this);
-                    _timer.Dispose();
-                }
-
-                _disposed = true;
-            }
         }
     }
 }

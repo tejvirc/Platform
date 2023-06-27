@@ -3,7 +3,7 @@
     using Kernel;
 
     /// <summary>
-    /// Definition of the HandCountResetTimerElapsedEvent class
+    ///     Definition of the HandCountResetTimerElapsedEvent class
     /// </summary>
     public class HandCountResetTimerElapsedEvent : BaseEvent
     {

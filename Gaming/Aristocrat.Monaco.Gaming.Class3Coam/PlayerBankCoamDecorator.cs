@@ -3,9 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    using Aristocrat.Monaco.Accounting.Contracts.HandCount;
-    using Aristocrat.Monaco.Accounting.Contracts.TransferOut;
-    using Aristocrat.Monaco.Kernel;
+    using Accounting.Contracts.HandCount;
+    using Accounting.Contracts.TransferOut;
+    using Kernel;
     using Contracts;
     using log4net;
 
@@ -20,7 +20,11 @@
         private readonly IPlayerBank _decorated;
         private readonly IHandCountService _handCountService;
         private readonly ICashOutAmountCalculator _cashOutAmountCalculator;
-        public PlayerBankCoamDecorator(IPlayerBank decorated, IHandCountService handCountService, ICashOutAmountCalculator cashOutAmountCalculator)
+
+        public PlayerBankCoamDecorator(
+            IPlayerBank decorated,
+            IHandCountService handCountService,
+            ICashOutAmountCalculator cashOutAmountCalculator)
         {
             _decorated = decorated ?? throw new ArgumentNullException(nameof(decorated));
             _handCountService = handCountService ?? throw new ArgumentNullException(nameof(handCountService));
@@ -41,28 +45,23 @@
         public bool CashOut()
         {
             // Check if hand count calculations are active, and if so, fetch the calculator.
-            if (_handCountService.HandCountServiceEnabled && _cashOutAmountCalculator != null)
+            if (_handCountService.HandCountServiceEnabled)
             {
                 var amountCashable = _cashOutAmountCalculator.GetCashableAmount(_decorated.Balance);
 
                 if (amountCashable > 0)
                 {
-                    var res = _decorated.CashOut(amountCashable);
-
-                    if (!res)
-                    {
-                        Logger.Error($"Player bank cashout ({amountCashable}) failed");
-                    }
-
-                    return res;
+                    return _decorated.CashOut(amountCashable);
                 }
                 else
                 {
-                    // Do something to indicate we couldn't cash out anything?
+                    return true;
                 }
             }
-
-            return _decorated.CashOut();
+            else
+            {
+                return _decorated.CashOut();
+            }
         }
 
         public bool CashOut(bool forcedCashout) => _decorated.CashOut(forcedCashout);

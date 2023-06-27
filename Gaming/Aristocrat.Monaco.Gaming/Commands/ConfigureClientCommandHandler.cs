@@ -254,21 +254,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 parameters.Add("/Runtime/ResponsibleGambling", lobbyConfiguration.ResponsibleGamingTimeLimitEnabled.ToString());
             }
 
-            if (denomination.BetOption != null) // check that the bet option has been set by the operator
-            {
-                parameters.Add("/Runtime/BetOption", denomination.BetOption);
-                var selectedBetOption = currentGame.BetOptionList?.FirstOrDefault(x => x.Name == denomination.BetOption);
-                if (selectedBetOption?.MaxWin != null)
-                {
-                    parameters["/Runtime/MaximumGameRoundWin&use"] = "allowed";
-                    parameters["/Runtime/MaximumGameRoundWin&valueCents"] = (selectedBetOption.MaxWin.Value * denomination.Value).MillicentsToCents().ToString(CultureInfo.InvariantCulture);
-                    parameters["/Runtime/MaximumGameRoundWin&onMaxWinReach"] = _properties.GetValue(GamingConstants.ActionOnMaxWinReached, "endgame");
-                }
-                else
-                {
-                    parameters["/Runtime/MaximumGameRoundWin&use"] = "disallowed";
-                }
-            }
+            SetBeOptionData(parameters, denomination, currentGame);
 
             var maxGameRoundWin = _properties.GetValue(GamingConstants.MaximumGameRoundWinAmount, 0L);
             if (maxGameRoundWin is not 0L)
@@ -349,14 +335,9 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 }
             }
 
-            if (_handCountProvider.HandCountServiceEnabled)
-            {
-                parameters.Add("/Runtime/DisplayHandCount", "true");
-                parameters.Add("/Runtime/HandCountValue", _handCountProvider.HandCount.ToString());
-                parameters.Add("/Runtime/MinResidualCreditInCents", _properties.GetValue(AccountingConstants.HandCountMinimumRequiredCredits, AccountingConstants.HandCountDefaultRequiredCredits).MillicentsToCents().ToString());
-            }
-
+            AddHandCountSettings(parameters);
             HandleGameHistoryData(parameters);
+
             foreach (var displayDevice in _cabinetDetectionService.ExpectedDisplayDevices.Where(d => d.Role != DisplayRole.Unknown))
             {
                 var diagonalDisplayFlag = ConfigureClientConstants.DiagonalDisplayFlag(displayDevice.Role);
@@ -368,6 +349,43 @@ namespace Aristocrat.Monaco.Gaming.Commands
 
             _runtime.UpdateParameters(parameters, ConfigurationTarget.GameConfiguration);
             _runtime.UpdateParameters(marketParameters, ConfigurationTarget.MarketConfiguration);
+        }
+
+        private void SetBeOptionData(Dictionary<string, string> parameters, IDenomination denomination, IGameDetail currentGame)
+        {
+            if (denomination.BetOption != null) // check that the bet option has been set by the operator
+            {
+                parameters.Add("/Runtime/BetOption", denomination.BetOption);
+                var selectedBetOption = currentGame.BetOptionList?.FirstOrDefault(x => x.Name == denomination.BetOption);
+                if (selectedBetOption?.MaxWin != null)
+                {
+                    parameters["/Runtime/MaximumGameRoundWin&use"] = "allowed";
+                    parameters["/Runtime/MaximumGameRoundWin&valueCents"] =
+                        (selectedBetOption.MaxWin.Value * denomination.Value).MillicentsToCents()
+                        .ToString(CultureInfo.InvariantCulture);
+                    parameters["/Runtime/MaximumGameRoundWin&onMaxWinReach"] = _properties.GetValue(
+                        GamingConstants.ActionOnMaxWinReached,
+                        "endgame");
+                }
+                else
+                {
+                    parameters["/Runtime/MaximumGameRoundWin&use"] = "disallowed";
+                }
+            }
+        }
+
+        private void AddHandCountSettings(Dictionary<string, string> parameters)
+        {
+            if (_handCountProvider.HandCountServiceEnabled)
+            {
+                parameters.Add("/Runtime/DisplayHandCount", "true");
+                parameters.Add("/Runtime/HandCountValue", _handCountProvider.HandCount.ToString());
+                parameters.Add(
+                    "/Runtime/MinResidualCreditInCents",
+                    _properties.GetValue(
+                        AccountingConstants.HandCountMinimumRequiredCredits,
+                        AccountingConstants.HandCountDefaultRequiredCredits).MillicentsToCents().ToString());
+            }
         }
 
         private static string GetGameStartMethodString(GameStartMethodOption startMethod) =>

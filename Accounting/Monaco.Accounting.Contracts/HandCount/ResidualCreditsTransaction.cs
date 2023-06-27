@@ -98,8 +98,7 @@
                 LogSequence,
                 TransactionDateTime.ToString(CultureInfo.InvariantCulture),
                 TransactionId,
-                Amount
-                );
+                Amount);
 
             return builder.ToString();
         }

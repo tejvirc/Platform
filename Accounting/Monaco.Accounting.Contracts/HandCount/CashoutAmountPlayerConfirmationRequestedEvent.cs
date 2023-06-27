@@ -3,7 +3,7 @@
     using Aristocrat.Monaco.Kernel;
 
     /// <summary>
-    /// Event to decide whether to show warning dialog.
+    ///     Event to decide whether to show warning dialog.
     /// </summary>
     public class CashoutAmountPlayerConfirmationRequestedEvent : BaseEvent
     {

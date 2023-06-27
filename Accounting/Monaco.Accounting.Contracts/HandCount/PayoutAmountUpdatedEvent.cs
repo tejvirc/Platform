@@ -1,9 +1,9 @@
 ﻿namespace Aristocrat.Monaco.Accounting.Contracts.HandCount
 {
-    using Aristocrat.Monaco.Kernel;
+    using Kernel;
 
     /// <summary>
-    /// Event to trigger cash out dialog.
+    ///     Event to trigger cash out dialog.
     /// </summary>
     public class PayoutAmountUpdatedEvent : BaseEvent
     {

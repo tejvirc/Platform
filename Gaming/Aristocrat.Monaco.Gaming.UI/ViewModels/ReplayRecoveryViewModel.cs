@@ -437,9 +437,7 @@
             {
                 _cashOutTexts.Add(
                     Localizer.For(CultureFor.Player)
-                        .FormatString(ResourceKeys.ReplayTicketPrinted) + " " +
-                    (Convert.ToDecimal(amountOut / GamingConstants.Millicents) /
-                     CurrencyExtensions.CurrencyMinorUnitsPerMajorUnit).FormattedCurrencyString());
+                        .FormatString(ResourceKeys.ReplayTicketPrinted) + " " + amountOut.MillicentsToDollars().FormattedCurrencyString());
             }
         }
 
