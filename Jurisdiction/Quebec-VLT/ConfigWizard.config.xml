@@ -10,20 +10,23 @@ as follows:
     the corresponding class definition in csharp (ConfigWizardConfiguration.cs).
 -->
 <ConfigWizardConfiguration>
-    <MachineSetupConfig>
-        <EnterOutOfServiceWithCredits Enabled="false"/>
-    </MachineSetupConfig>
-    <IOConfigPage>
-        <UseSelection Enabled="false"/>
-    </IOConfigPage>
-    <IdentityPage>
-        <PrintIdentity Visibility="Hidden"/>
-    </IdentityPage>
-    <HardMetersConfig CanReconfigure="true"/>
-    <ProtocolConfiguration>
-        <ProtocolsAllowed>
-            <Protocol Name="G2S"/>
-            <Protocol Name="Test"/>
-        </ProtocolsAllowed>
-    </ProtocolConfiguration>
+  <MachineSetupConfig>
+    <EnterOutOfServiceWithCredits Enabled="false"/>
+  </MachineSetupConfig>
+  <IOConfigPage>
+    <UseSelection Enabled="false"/>
+  </IOConfigPage>
+  <LimitsPage>
+    <HandpayLimit Visible="false"/>
+  </LimitsPage>
+  <IdentityPage>
+    <PrintIdentity Visibility="Hidden"/>
+  </IdentityPage>
+  <HardMetersConfig CanReconfigure="true" Enable="true" />
+  <ProtocolConfiguration>
+    <ProtocolsAllowed>
+      <Protocol Name="G2S"/>
+      <Protocol Name="Test"/>
+    </ProtocolsAllowed>
+  </ProtocolConfiguration>
 </ConfigWizardConfiguration>

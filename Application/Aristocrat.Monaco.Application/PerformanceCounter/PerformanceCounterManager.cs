@@ -5,6 +5,8 @@
     using System.IO;
     using System.Linq;
     using System.Reflection;
+    using System.Runtime.InteropServices;
+    using System.Runtime.Serialization.Formatters.Binary;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Timers;
@@ -32,10 +34,14 @@
         private readonly IPathMapper _pathMapper;
         private readonly object _lock = new object();
         private readonly int _performanceCounterInterval;
+        private readonly int _cpuTempInterval = 5;
 
         private Timer _pollingTimer;
+        private Timer _cpuTempPollingTimer;
         private string _logDirectoryPath;
         private bool _disposed;
+
+        private CPUTemperatureSensor _cPUTemperatureSensor = new CPUTemperatureSensor();
 
         public PerformanceCounterManager()
             : this(ServiceManager.GetInstance().GetService<IPathMapper>(),
@@ -107,6 +113,8 @@
 
             InitializeAndStartTimer();
 
+            InitializeAndStartCPUTempTimer();
+
             Logger.Debug("PerformanceCounterManager Initialized");
         }
 
@@ -148,6 +156,15 @@
                     _pollingTimer.Dispose();
                     _pollingTimer = null;
                 }
+
+                if (_cpuTempPollingTimer != null)
+                {
+                    _cpuTempPollingTimer.Stop();
+                    _cpuTempPollingTimer.Dispose();
+                    _cpuTempPollingTimer = null;
+                }
+
+                _cPUTemperatureSensor.Dispose();
             }
 
             _disposed = true;
@@ -168,6 +185,16 @@
             _pollingTimer?.Start();
         }
 
+        private void InitializeAndStartCPUTempTimer()
+        {
+            _cpuTempPollingTimer = new Timer();
+            _cpuTempPollingTimer.Elapsed += OnCpuTempTimerElapsed;
+            _cpuTempPollingTimer.Interval = TimeSpan.FromSeconds(_cpuTempInterval).TotalMilliseconds;
+            _cpuTempPollingTimer.AutoReset = true;
+            _cpuTempPollingTimer.Enabled = true;
+            _cpuTempPollingTimer?.Start();
+        }
+
         private string GetLogFileName(DateTime dateTime)
         {
             return Path.Combine(
@@ -175,6 +202,16 @@
                 LogNamePrefix
                 + dateTime.ToString(LogNameSuffix)
                 + LogFileExtension);
+        }
+
+        private void OnCpuTempTimerElapsed(object sender, ElapsedEventArgs _)
+        {
+            lock (_lock)
+            {
+                var data = _cPUTemperatureSensor.Get();
+
+                Metrics.Where(x => x.MetricName == MetricType.CpuTemperature).Single().SetMetric(data.AverageTemperature);
+            }
         }
 
         private void OnLoggingTimerElapsed(object sender, ElapsedEventArgs _)

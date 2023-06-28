@@ -74,7 +74,7 @@
         /// <summary>Gets or sets the renderer.</summary>
         /// <value>The renderer.</value>
         private ITemplateRenderer Renderer { get; set; }
-
+        
         private bool IsSerial => DeviceConfiguration?.Mode?.Contains("RS232") ?? false;
 
         private bool IsJcm => DeviceConfiguration?.Manufacturer?.Contains("JCM") ?? false;
@@ -487,15 +487,34 @@
             Logger.Debug("Loading regions and templates...");
             PostEvent(new LoadingRegionsAndTemplatesEvent());
 
+            var printerOverridesPath = AddinFactory.FindFirstFilePath(PrinterOverridesExtensionPath);
+            PrinterOverrideParser.LoadOverrides(printerOverridesPath);
+
+            var printerOverride = PrinterOverrideParser.GetPrinterSpecificOverride($"{DeviceConfiguration.Manufacturer} {DeviceConfiguration.Protocol}", DeviceConfiguration.FirmwareId);
+            
+
             // Load the printable regions.
             foreach (var item in Regions)
             {
+                item.Format = SetFontOverride();
+
                 var region = item.ToPDL(UseLargeFont);
                 Logger.Debug($"Loading region {item.Id} : {region} Implementation is null {Implementation is null} ");
                 if (Implementation == null || !await Implementation.DefineRegion(region))
                 {
                     Logger.Error($"Error loading print region - ID:{item.Id}; Name:{item.Name}");
                     return false;
+                }
+
+                string SetFontOverride()
+                {
+                    var fontOverride = printerOverride?.GetSpecificFont(item.Format.Substring(2), item.Id.ToString()) ?? string.Empty; // Format = F=XXX where "XXX" are numbers 0-9
+
+                    if (!string.IsNullOrEmpty(fontOverride) && int.TryParse(fontOverride, out int newFont))
+                    {
+                        return $"F={newFont:000}";
+                    }
+                    return item.Format;
                 }
             }
 

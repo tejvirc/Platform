@@ -116,6 +116,7 @@
                           AutomationProperties.AutomationId="CheckBox20_EF05BF33" />
                 <helpers:CurrencyTextBox IsEnabled="{Binding PageEnabled}"
                                          Number="{Binding Path=CreditLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                         Culture="{Binding Path=CurrencyDisplayCulture, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                          Visibility="{Binding CreditLimitIsChecked, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock Text="{lex:Loc NoLimit}"
                            Visibility="{Binding CreditLimitIsChecked, Converter={StaticResource TrueHiddenFalseVisible}, UpdateSourceTrigger=PropertyChanged}"
@@ -133,6 +134,7 @@
                           AutomationProperties.AutomationId="CheckBox24_EF05BF33" />
                 <helpers:CurrencyTextBox
                         Number="{Binding Path=HandpayLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                         Culture="{Binding Path=CurrencyDisplayCulture, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                          IsEnabled="{Binding PageEnabled}"
                                          Visibility="{Binding HandpayLimitIsChecked, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock Text="{lex:Loc NoLimit}"
@@ -151,6 +153,7 @@
                           AutomationProperties.AutomationId="CheckBox28_EF05BF33" />
                 <helpers:CurrencyTextBox
                         Number="{Binding Path=LargeWinLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                         Culture="{Binding Path=CurrencyDisplayCulture, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                          IsEnabled="{Binding LargeWinLimitEditable}"
                                          Visibility="{Binding LargeWinLimitIsChecked, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock Text="{lex:Loc NoLimit}"
@@ -189,6 +192,7 @@
                           AutomationProperties.AutomationId="CheckBox35_EF05BF33" />
                 <helpers:CurrencyTextBox
                         Number="{Binding Path=LargeWinRatioThreshold, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                         Culture="{Binding Path=CurrencyDisplayCulture, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                          IsEnabled="{Binding LargeWinRatioThresholdCheckboxIsEnabled}"
                                          Visibility="{Binding LargeWinRatioThresholdIsChecked, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock Text="{lex:Loc NoLimit}"
@@ -207,6 +211,7 @@
                           AutomationProperties.AutomationId="CheckBox39_EF05BF33" />
                 <helpers:CurrencyTextBox
                         Number="{Binding Path=MaxBetLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                         Culture="{Binding Path=CurrencyDisplayCulture, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                          IsEnabled="{Binding MaxBetLimitCheckboxIsEnabled}"
                                          Visibility="{Binding MaxBetLimitIsChecked, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock Text="{lex:Loc NoLimit}"
@@ -225,6 +230,7 @@
                           AutomationProperties.AutomationId="CheckBox43_EF05BF33" />
                 <helpers:CurrencyTextBox InputMethod.IsInputMethodEnabled="{Binding PageEnabled}"
                                          Number="{Binding Path=CelebrationLockupLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                          Culture="{Binding Path=CurrencyDisplayCulture, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                          IsEnabled="{Binding CelebrationLockupLimitCheckboxIsEnabled}"
                                          Visibility="{Binding CelebrationLockupLimitIsChecked, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock Text="{lex:Loc NoLimit}"
@@ -290,6 +296,7 @@
                                          InputScope="Number"
                                          PreventNegatives="True"
                                          Visibility="{Binding ShowGambleWagerLimit, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                         Culture="{Binding Path=CurrencyDisplayCulture, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                          Number="{Binding Path=GambleWagerLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}">
                     <helpers:CurrencyTextBox.IsEnabled>
                         <MultiBinding Converter="{StaticResource BoolAndConverter}">
@@ -311,6 +318,7 @@
                                          InputScope="Number"
                                          PreventNegatives="True"
                                          Visibility="{Binding ShowGambleWinLimit, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                         Culture="{Binding Path=CurrencyDisplayCulture, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                          Number="{Binding Path=GambleWinLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}">
                     <helpers:CurrencyTextBox.IsEnabled>
                         <MultiBinding Converter="{StaticResource BoolAndConverter}">
@@ -332,6 +340,7 @@
                 <CheckBox IsChecked="{Binding IncrementThresholdIsChecked, Mode=TwoWay}"
                           AutomationProperties.AutomationId="CheckBox57_EF05BF33" />
                 <helpers:CurrencyTextBox WholeCurrency="True"
+                                         Culture="{Binding Path=CurrencyDisplayCulture, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                          Number="{Binding Path=IncrementThreshold, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                                          Visibility="{Binding IncrementThresholdIsChecked, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock Text="{lex:Loc NoLimit}"

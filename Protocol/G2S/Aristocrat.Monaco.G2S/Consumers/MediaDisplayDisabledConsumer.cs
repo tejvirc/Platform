@@ -36,7 +36,7 @@
 
             var status = new mediaDisplayStatus();
             _command.Build(device, status);
-            _eventLift.Report(device, EventCode.IGT_MDE003, device.DeviceList(status));
+            _eventLift.Report(device, EventCode.IGT_MDE003, device.DeviceList(status), theEvent);
         }
     }
 }

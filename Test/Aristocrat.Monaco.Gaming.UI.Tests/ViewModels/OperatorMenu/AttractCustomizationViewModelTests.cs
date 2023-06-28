@@ -22,6 +22,7 @@
         private Mock<IEventBus> _eventBus;
         private Mock<IAttractConfigurationProvider> _attractProvider;
         private Mock<IGameProvider> _gameProvider;
+        private Mock<IOperatorMenuConfiguration> _operatorMenuConfiguration;
 
         private List<IAttractInfo> _attractInfo;
         private List<IGameDetail> _gameDetail;
@@ -50,6 +51,10 @@
             _propertiesManager.Setup(p => p.GetProperty(It.IsAny<string>(), It.IsAny<object>()))
                 .Returns<string, object>((s, o) => o);
             _propertiesManager.Setup(p => p.SetProperty(It.IsAny<string>(), It.IsAny<object>()));
+
+            _operatorMenuConfiguration = MoqServiceManager.CreateAndAddService<IOperatorMenuConfiguration>(MockBehavior.Strict);
+            _operatorMenuConfiguration.Setup(o => o.GetSetting(OperatorMenuSetting.UseOperatorCultureForCurrencyFormatting, false))
+                .Returns(false);
 
             _attractInfo = MockGameInfo.GetMockAttractInfo().ToList();
             _attractProvider.Setup(a => a.GetAttractSequence()).Returns(_attractInfo);

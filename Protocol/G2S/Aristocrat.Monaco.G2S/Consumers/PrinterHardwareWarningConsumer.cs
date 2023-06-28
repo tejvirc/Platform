@@ -70,7 +70,8 @@
                     printer,
                     eventCode,
                     printer.DeviceList(status),
-                    null);
+                    null,
+                    theEvent);
             }
         }
     }

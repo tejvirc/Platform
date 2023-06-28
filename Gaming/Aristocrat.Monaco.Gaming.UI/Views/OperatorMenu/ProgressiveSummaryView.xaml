@@ -47,29 +47,30 @@
                   Visibility="{Binding HasGames, Mode=OneWay, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                   AutomationProperties.AutomationId="DataGrid2_62364A9">
             <DataGrid.ColumnHeaderStyle>
-                <Style TargetType="DataGridColumnHeader"
-                       BasedOn="{StaticResource MonacoDataGridColumnHeader}">
-                    <Setter Property="FontSize"
-                            Value="14" />
+                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MonacoDataGridColumnHeader}">
+                    <Setter Property="FontSize" Value="14" />
                 </Style>
             </DataGrid.ColumnHeaderStyle>
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="{lex:Loc ProgressiveLevel}"
+                                        loc:Localizer.For="Operator"
                                         AutomationProperties.AutomationId="DataGridTemplateColumn3_62364A9">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="models:ProgressiveSummaryModel">
-                            <commonControls:SmartLongNameTextBlock ContentText="{Binding ProgressiveLevel}"
-                                                                   ContentMaxWidth="350" />
+                            <commonControls:SmartLongNameTextBlock ContentText="{Binding ProgressiveLevel}" ContentMaxWidth="350" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="{lex:Loc CurrentValue}"
+                                    loc:Localizer.For="Operator"
                                     Binding="{Binding CurrentValue}"
                                     AutomationProperties.AutomationId="DataGridTextColumn4_62364A9" />
                 <DataGridTextColumn Header="{lex:Loc ConfiguredGame}"
+                                    loc:Localizer.For="Operator"
                                     Binding="{Binding ConfiguredGame}"
                                     AutomationProperties.AutomationId="DataGridTextColumn5_62364A9" />
                 <DataGridTextColumn Header="{lex:Loc WinLevel}"
+                                    loc:Localizer.For="Operator"
                                     Binding="{Binding WinLevel}"
                                     AutomationProperties.AutomationId="DataGridTextColumn6_62364A9" />
             </DataGrid.Columns>

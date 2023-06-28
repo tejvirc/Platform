@@ -72,6 +72,12 @@
             SetupMeters();
         }
 
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            UpdateStatusText();
+            base.OnOperatorCultureChanged(evt);
+        }
+
         protected override void InitializeMeters()
         {
         }

@@ -92,7 +92,7 @@
         /// <param name="initialWager">The initial wager.</param>
         /// <param name="data">The initial recovery blob.</param>
         /// <param name="jackpotSnapshot">A jackpot snapshot</param>
-        void Start(long initialWager, byte[] data, IEnumerable<Models.Jackpot> jackpotSnapshot);
+        void Start(long initialWager, byte[] data, IEnumerable<Jackpot> jackpotSnapshot);
 
         /// <summary>
         ///     Adds an additional wager to the game round.
@@ -188,7 +188,7 @@
         /// <summary>
         ///     Used to finalize the game history.
         /// </summary>
-        void End();
+        void End(IEnumerable<Jackpot> jackpotSnapshot);
 
         /// <summary>
         ///     Associates the specified transactions with the active game round

@@ -24,6 +24,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
     using Monaco.Common;
     using MVVM;
     using MVVM.Command;
+    using Newtonsoft.Json;
     using Views;
     using Constants = Constants;
 
@@ -156,7 +157,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             RaisePropertyChanged(nameof(EgmId));
 
             MacAddress = NetworkInterfaceInfo.DefaultPhysicalAddress;
-            
+
             if (!_activated)
             {
                 _activated = true;
@@ -165,6 +166,12 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             {
                 ResetOriginalHosts();
             }
+        }
+
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            MvvmHelper.ExecuteOnUI(ResetOriginalHosts);
+            base.OnOperatorCultureChanged(evt);
         }
 
         protected override void SaveChanges()
@@ -184,8 +191,11 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 return;
             }
 
-            PropertiesManager.SetProperty(Constants.RegisteredHosts, Hosts.Cast<IHost>().ToList());
+            var hosts = Hosts.Cast<IHost>().ToList();
+            PropertiesManager.SetProperty(Constants.RegisteredHosts, hosts);
             PropertiesManager.SetProperty(Constants.Port, Port);
+            var addresses = new { addresses = hosts.Select(x => x.Address).ToList() };
+            PropertiesManager.SetProperty(ApplicationConstants.HostAddresses, JsonConvert.SerializeObject(addresses));
 
             Committed = true;
 
@@ -243,6 +253,8 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                     Address = h.Address,
                     Registered = h.Registered,
                     RequiredForPlay = h.RequiredForPlay,
+                    RegisteredDisplayText = GetBooleanDisplayText(h.Registered),
+                    RequiredForPlayDisplayText = GetBooleanDisplayText(h.RequiredForPlay)
                 };
 
                 Hosts.Add(host);
@@ -276,6 +288,8 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                         Address = host.Address,
                         Registered = host.IsEgm() || host.Registered,
                         RequiredForPlay = host.RequiredForPlay,
+                        RegisteredDisplayText = GetBooleanDisplayText(host.Registered),
+                        RequiredForPlayDisplayText = GetBooleanDisplayText(host.RequiredForPlay)
                     });
             }
 

@@ -101,6 +101,12 @@
             _eventBus.UnsubscribeAll(_context);
         }
 
+        public void UpdateProps()
+        {
+            RaisePropertyChanged(nameof(Name));
+            RaisePropertyChanged(nameof(Action));
+        }
+
         private void HandleEvent(OffEvent evt)
         {
             if (evt.LogicalId != Id)

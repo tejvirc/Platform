@@ -75,7 +75,8 @@
                 _eventLift.Report(
                     device,
                     eventCode,
-                    device.DeviceList(status));
+                    device.DeviceList(status),
+                    theEvent);
             }
 
             var noteAcceptor = _deviceRegistry.GetDevice<INoteAcceptor>();
@@ -84,7 +85,8 @@
                 _eventLift.Report(
                     device,
                     EventCode.G2S_NAE099,
-                    device.DeviceList(status));
+                    device.DeviceList(status),
+                    theEvent);
             }
         }
     }

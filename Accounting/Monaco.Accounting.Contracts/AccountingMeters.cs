@@ -338,6 +338,11 @@
         public const string TotalVoucherOutCashableAndPromoAmount = "TotalVoucherOutCashableAndPromoAmount";
 
         /// <summary>
+        ///     Voucher out cashable
+        /// </summary>
+        public const string VoucherOutCashable = "VoucherOutCashable";
+
+        /// <summary>
         ///     Voucher out cashable amount
         /// </summary>
         public const string VoucherOutCashableAmount = "VoucherOutCashableValue";
@@ -346,6 +351,11 @@
         ///     Voucher out cashable count
         /// </summary>
         public const string VoucherOutCashableCount = "VoucherOutCashableCount";
+
+        /// <summary>
+        ///     Voucher out cashable promotional
+        /// </summary>
+        public const string VoucherOutCashablePromo = "VoucherOutCashablePromotional";
 
         /// <summary>
         ///     Voucher out cashable promotional amount
@@ -368,6 +378,11 @@
         public const string VoucherOutNonCashableCount = "VoucherOutNonCashablePromotionalCount";
 
         /// <summary>
+        ///     Voucher out non-cashable promotional
+        /// </summary>
+        public const string VoucherOutNonCashablePromo = "VoucherOutNonCashablePromotional";
+
+        /// <summary>
         ///     The name of a composite meter that holds the total voucher in amount
         /// </summary>
         public const string TotalVouchersIn = "TotalVouchersIn";
@@ -388,6 +403,11 @@
         public const string TotalVoucherInCashableAndPromoCount = "TotalVoucherInCashableAndPromoCount";
 
         /// <summary>
+        /// Voucher in cashable
+        /// </summary>
+        public const string VoucherInCashable = "VoucherInCashable";
+
+        /// <summary>
         ///     Voucher in cashable amount
         /// </summary>
         public const string VoucherInCashableAmount = "VoucherInCashableValue";
@@ -396,6 +416,11 @@
         ///     Voucher in cashable count
         /// </summary>
         public const string VoucherInCashableCount = "VoucherInCashableCount";
+
+        /// <summary>
+        ///     Voucher in cashable promotional
+        /// </summary>
+        public const string VoucherInCashablePromo = "VoucherInCashablePromotional";
 
         /// <summary>
         ///     Voucher in cashable promotional amount
@@ -416,6 +441,11 @@
         ///     Voucher in non-cashable count
         /// </summary>
         public const string VoucherInNonCashableCount = "VoucherInNonCashablePromotionalCount";
+
+        /// <summary>
+        ///     Voucher in non-cashable promo
+        /// </summary>
+        public const string VoucherInNonCashablePromo = "VoucherInNonCashablePromotional";
 
         /// <summary>
         ///     Voucher in non-transferable amount

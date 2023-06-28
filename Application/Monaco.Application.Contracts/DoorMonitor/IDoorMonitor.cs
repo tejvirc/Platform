@@ -105,8 +105,9 @@ namespace Aristocrat.Monaco.Application.Contracts
 
         /// <summary>Gets the localized door name for the given logical door ID.</summary>
         /// <param name="doorId">The logical door ID.</param>
+        /// <param name="useDefaultCulture">If you don't care what the operator's culture is and only want default</param>
         /// <returns>The localized door name.</returns>
-        string GetLocalizedDoorName(int doorId);
+        string GetLocalizedDoorName(int doorId, bool useDefaultCulture = false);
     }
 
     #region DoorMessage struct

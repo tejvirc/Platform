@@ -5,6 +5,7 @@
                     xmlns:loc="http://monaco.aristocrat.com/localization"
                     xmlns:common="http://monaco.aristocrat.com/common">
     <common:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
+    <common:BoolToStringConverter x:Key="BoolToStringConverter" />
     <DataTemplate DataType="{x:Type local:MachineSettings}">
         <ScrollViewer VerticalScrollBarVisibility="Auto"
                       HorizontalScrollBarVisibility="Disabled"
@@ -36,7 +37,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="0"
-                           Text="{Binding ApplyGameCategorySettings}"
+                           Text="{Binding ApplyGameCategorySettings, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock10_28204D57" />
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
@@ -76,7 +77,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="4"
-                           Text="{Binding ReelStopConfigured}"
+                           Text="{Binding ReelStopConfigured, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock18_28204D57" />
             </Grid>
         </ScrollViewer>

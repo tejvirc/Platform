@@ -194,13 +194,14 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private bool _gameLaunchOnStartup;
         private bool _isDebugCurrencyButtonVisible;
         private bool _disableDebugCurrency;
-        private bool _nextAttractModeLanguageIsPrimary = true;
-        private bool _lastInitialAttractModeLanguageIsPrimary = true;
+        private bool _nextAttractModeLanguageIsPrimary = true; // Whether the next played attract video is in the primary language
+        private bool _lastInitialAttractModeLanguageIsPrimary = true; // This keeps track of alternating the starting language for the attract video list
         private bool _initialLanguageEventSent;
         private bool _vbdServiceButtonDisabled;
         private bool _isDemonstrationMode;
         private bool _serviceButtonVisible;
         private bool _volumeButtonVisible;
+        private bool _overlimitCashoutProcessed;
         private string _bottomAttractVideoPath;
         private double _chooseGameOffsetY;
         private double _cashoutDialogOpacity;
@@ -549,6 +550,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
             IsDemonstrationMode = _properties.GetValue(ApplicationConstants.DemonstrationMode, false);
 
+            if (_bank.QueryBalance() == 0 && _gameState.Idle && !_gameHistory.IsRecoveryNeeded)
+            {
+                IsPrimaryLanguageSelected = true;
+            }
+
             Volume = new LobbyVolumeViewModel(OnUserInteraction);
 
             TopperLobbyVideoPath = Config.TopperLobbyVideoFilename;
@@ -756,6 +762,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     RaisePropertyChanged(nameof(IsSingleTabView));
                     RaisePropertyChanged(nameof(IsSingleDenomDisplayed));
                     RaisePropertyChanged(nameof(IsSingleGameDisplayed));
+                    RaisePropertyChanged(nameof(NoGamesForThisLanguageErrorIsVisible));
                 }
             }
         }
@@ -787,6 +794,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             get => _multiLanguageEnabled;
             set => SetProperty(ref _multiLanguageEnabled, value);
         }
+
+        public bool NoGamesForThisLanguageErrorIsVisible => MultiLanguageEnabled && DisplayedGameList.Any() && DisplayedGameList.All(g => g.ImagePath == null);
 
         /// <summary>
         ///     Gets or sets a value indicating whether VBD rendering is disabled (as it is in system lockup).
@@ -1337,6 +1346,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
                     OnLanguageChanged();
 
+                    CurrencyExtensions.UpdateCurrencyCulture();
                     RaisePropertyChanged(nameof(IsPrimaryLanguageSelected));
                     RaisePropertyChanged(nameof(ActiveLocaleCode));
                     RaisePropertyChanged(nameof(FormattedCredits));
@@ -1622,7 +1632,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             set => SetProperty(ref _disableCountdownTimeRemaining, value);
         }
 
-        public string DisableCountdownMessage => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisableCountdownMessage);
+        public string DisableCountdownMessage => Localizer.For(CultureFor.Player).GetString(ResourceKeys.DisableCountdownMessage);
 
         public bool IsPaidMeterVisible => PaidMeterValue != string.Empty;
 
@@ -1661,7 +1671,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             set => SetProperty(ref _isDisabledCountdownMessageSuppressed, value);
         }
 
-        public string PaidMeterLabel => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PaidMeterLabel);
+        public string PaidMeterLabel => Localizer.For(CultureFor.Player).GetString(ResourceKeys.PaidMeterLabel);
 
         public ClockTimer ClockTimer { get; }
 
@@ -1862,7 +1872,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             var idleText = (string)_properties.GetProperty(GamingConstants.IdleText, string.Empty);
             if (string.IsNullOrWhiteSpace(IdleText))
             {
-                idleText = (string)LobbyView.TryFindResource(LobbyIdleTextDefaultResourceKey) ?? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.IdleTextDefault);
+                idleText = (string)LobbyView.TryFindResource(LobbyIdleTextDefaultResourceKey) ?? Localizer.For(CultureFor.Player).GetString(ResourceKeys.IdleTextDefault);
                 _properties.SetProperty(GamingConstants.IdleText, idleText);
             }
 
@@ -1966,7 +1976,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
             _operatorMenu.EnableKey(ApplicationConstants.OperatorMenuInitializationKey);
 
-            if ((bool)_properties.GetProperty(ApplicationConstants.ShowMode, false))
+            var showMode = (bool)_properties.GetProperty(ApplicationConstants.ShowMode, false);
+
+            if (showMode)
             {
                 SetShowModeLobbyLabel();
 #if !(RETAIL)
@@ -1975,7 +1987,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             }
 
             var drm = ServiceManager.GetInstance().TryGetService<IDigitalRights>();
-            if (drm?.IsDeveloper ?? false)
+            if (!showMode && (drm?.IsDeveloper ?? false))
             {
                 SetShowDeveloperLabel();
             }
@@ -2011,6 +2023,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             GameTabInfo.SetupGameTypeTabs(gameList);
             GameList = gameList;
             ProgressiveLabelDisplay.UpdateProgressiveIndicator(gameList);
+            EvaluateGamesForNew();
         }
 
         private void DisplayNotificationMessage(DisplayableMessage displayableMessage)
@@ -2106,7 +2119,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                                          : Config.DefaultGameOrderLightningLinkDisabled;
 
             var defaultList = lightningLinkOrder ?? Config.DefaultGameDisplayOrderByThemeId;
-            
+
 
             _gameOrderSettings.SetAttractOrderFromConfig(distinctThemeGames.Select(g => new GameInfo { InstallDateTime = g.InstallDate, ThemeId = g.ThemeId } as IGameInfo).ToList(),
                                                       defaultList);
@@ -2501,21 +2514,21 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             StopAndUnloadAttractVideo();
 
             // Increment to next attract mode video.
-            bool wrap = AdvanceAttractIndex();
+            var wrap = AdvanceAttractIndex();
             if (Config.AlternateAttractModeLanguage)
             {
-                _nextAttractModeLanguageIsPrimary = !_nextAttractModeLanguageIsPrimary;
+                if (wrap)
+                {
+                    _nextAttractModeLanguageIsPrimary = !_lastInitialAttractModeLanguageIsPrimary;
+                    _lastInitialAttractModeLanguageIsPrimary = _nextAttractModeLanguageIsPrimary;
+                }
+                else
+                {
+                    _nextAttractModeLanguageIsPrimary = !_nextAttractModeLanguageIsPrimary;
+                }
             }
 
             SetEdgeLighting();
-
-            if (wrap && Config.AlternateAttractModeLanguage)
-            {
-                _nextAttractModeLanguageIsPrimary = !_lastInitialAttractModeLanguageIsPrimary;
-                _lastInitialAttractModeLanguageIsPrimary = _nextAttractModeLanguageIsPrimary;
-            }
-
-            SetAttractVideos();
 
             _consecutiveAttractCount = 0;
 
@@ -3957,6 +3970,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
             ClockTimer.UpdateTime();
             SendLanguageChangedEvent();
+
+            var idleText = (string)LobbyView?.TryFindResource(LobbyIdleTextDefaultResourceKey) ?? Localizer.For(CultureFor.Player).GetString(ResourceKeys.IdleTextDefault);
+            IdleText = idleText;
+
+            RaisePropertyChanged(nameof(NoGamesForThisLanguageErrorIsVisible));
         }
 
         private void GameList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -4182,6 +4200,10 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             if (AttractList.Count > 0)
             {
                 attract = AttractList[CurrentAttractIndex];
+                if (attract is IGameInfo game)
+                {
+                    Logger.Debug($"CurrentAttractIndex = {CurrentAttractIndex}, AttractDetails = {game.ThemeId}");
+                }
             }
 
             if (Config.AlternateAttractModeLanguage)
@@ -4218,6 +4240,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                         attract?.BottomAttractVideoPath.NullIfEmpty() ?? Config.DefaultTopAttractVideoFilename;
                 }
             }
+
+            Logger.Debug($"BottomAttractVideoPath = {BottomAttractVideoPath}");
         }
 
         private bool ResetResponsibleGamingDialog(bool resetDueToOperatorMenu = false)
@@ -5013,7 +5037,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 }
             }
         }
-        // returns true if we wrap around to index 0
+
+        // Returns true if we wrap around to index 0
         private bool AdvanceAttractIndex()
         {
             lock (_attractLock)

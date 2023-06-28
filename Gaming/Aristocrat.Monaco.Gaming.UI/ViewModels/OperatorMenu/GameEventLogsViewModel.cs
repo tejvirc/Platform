@@ -4,6 +4,7 @@
     using System.Collections.ObjectModel;
     using System.Linq;
     using Application.Contracts;
+    using Application.Contracts.Localization;
     using Application.UI.OperatorMenu;
     using Contracts;
     using Contracts.Models;
@@ -76,6 +77,12 @@
             LogEvents = new ObservableCollection<GameEventLogEntry>(
                 logs.OrderByDescending(entry => entry.TransactionId).ThenByDescending(entry => entry.EntryDate));
             base.InitializeData();
+        }
+
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            InitializeDataAsync();
+            base.OnOperatorCultureChanged(evt);
         }
     }
 }

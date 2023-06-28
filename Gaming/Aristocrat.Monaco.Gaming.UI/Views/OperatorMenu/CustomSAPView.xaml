@@ -16,7 +16,6 @@
                                x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.CustomSAPView"
                                dialog:DialogParticipation.Register="{Binding}"
                                mc:Ignorable="d"
-                               Background="Transparent"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:CustomSAPViewModel}, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -74,10 +73,12 @@
             </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{lex:Loc LevelId}"
-                                    MaxWidth="60"
+                                    loc:Localizer.For="Operator"
+                                    MaxWidth="80"
                                     Binding="{Binding LevelId , UpdateSourceTrigger=PropertyChanged}"
                                     AutomationProperties.AutomationId="DataGridTextColumn7_EF8014A4" />
                 <DataGridTemplateColumn Header="{lex:Loc LevelNameLabel}"
+                                        loc:Localizer.For="Operator"
                                         AutomationProperties.AutomationId="DataGridTemplateColumn8_EF8014A4">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type viewModels:CustomSAPViewModel+SharedLevelDisplay}">
@@ -87,26 +88,32 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="{lex:Loc CurrentValue}"
+                                    loc:Localizer.For="Operator"
                                     MaxWidth="200"
                                     Binding="{Binding CurrentValue, UpdateSourceTrigger=PropertyChanged}"
                                     AutomationProperties.AutomationId="DataGridTextColumn9_EF8014A4" />
                 <DataGridTextColumn Header="{lex:Loc InitialValue}"
+                                    loc:Localizer.For="Operator"
                                     MaxWidth="200"
                                     Binding="{Binding InitialValue, UpdateSourceTrigger=PropertyChanged}"
                                     AutomationProperties.AutomationId="DataGridTextColumn10_EF8014A4" />
                 <DataGridTextColumn Header="{lex:Loc BonusInfoOverflowColumn}"
+                                    loc:Localizer.For="Operator"
                                     MaxWidth="200"
                                     Binding="{Binding OverflowValue , UpdateSourceTrigger=PropertyChanged}"
                                     AutomationProperties.AutomationId="DataGridTextColumn11_EF8014A4" />
                 <DataGridTextColumn Header="{lex:Loc ResetValue}"
+                                    loc:Localizer.For="Operator"
                                     MaxWidth="200"
                                     Binding="{Binding ResetValue, UpdateSourceTrigger=PropertyChanged}"
                                     AutomationProperties.AutomationId="DataGridTextColumn12_EF8014A4" />
                 <DataGridTextColumn Header="{lex:Loc IncrementRate}"
-                                    MaxWidth="120"
+                                    loc:Localizer.For="Operator"
+                                    MaxWidth="200"
                                     Binding="{Binding IncrementRate, StringFormat={}{0:#0.00'%'}, UpdateSourceTrigger=PropertyChanged}"
                                     AutomationProperties.AutomationId="DataGridTextColumn13_EF8014A4" />
                 <DataGridTextColumn Header="{lex:Loc MaxValue}"
+                                    loc:Localizer.For="Operator"
                                     MaxWidth="200"
                                     Binding="{Binding MaximumValue, UpdateSourceTrigger=PropertyChanged}"
                                     AutomationProperties.AutomationId="DataGridTextColumn14_EF8014A4" />

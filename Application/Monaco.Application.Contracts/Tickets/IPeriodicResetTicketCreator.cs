@@ -22,5 +22,11 @@ namespace Aristocrat.Monaco.Application.Contracts.Tickets
         /// </summary>
         /// <returns>A Ticket object with fields required for a periodic reset ticket.</returns>
         Ticket Create();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>A Ticket with the headers and casino info when periodic reset data exceeds the line limit</returns>
+        Ticket CreateSecondPage();
     }
 }

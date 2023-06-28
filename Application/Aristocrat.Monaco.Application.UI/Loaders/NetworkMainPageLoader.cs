@@ -17,7 +17,7 @@
 
         protected override IOperatorMenuPageViewModel CreateViewModel()
         {
-            return new NetworkMainPageViewModel(PageName);
+            return new NetworkMainPageViewModel(this);
         }
     }
 }

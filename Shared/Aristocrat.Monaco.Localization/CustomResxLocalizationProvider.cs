@@ -57,7 +57,13 @@
                 }
                 catch (Exception ex)
                 {
-                    OnProviderError(null, _resourceDebugKey, ex.Message);
+                    var exceptionToPropagate = ex;
+                    if (ex is AggregateException aggregateException)
+                    {
+                        exceptionToPropagate = aggregateException.InnerException;
+                    }
+
+                    OnProviderError(null, _resourceDebugKey, exceptionToPropagate.Message);
                 }
             });
         }

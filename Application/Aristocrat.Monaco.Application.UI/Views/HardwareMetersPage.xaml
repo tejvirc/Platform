@@ -10,7 +10,6 @@
                                lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:common="http://monaco.aristocrat.com/common"
-                               Background="Transparent"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:HardwareMetersPageViewModel}}"
                                common:DialogParticipation.Register="{Binding}">
@@ -41,10 +40,12 @@
                   AutomationProperties.AutomationId="DataGrid4_8109713E">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{lex:Loc Meter}" 
+                                    loc:Localizer.For="Operator"
                                     Width="360" 
                                     Binding="{Binding Name}" 
                                     AutomationProperties.AutomationId="DataGridTextColumn5_8109713E" />
                 <DataGridTextColumn Header="{lex:Loc Count}" 
+                                    loc:Localizer.For="Operator"
                                     Width="200" 
                                     Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}" 
                                     HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
@@ -64,10 +65,12 @@
                   AutomationProperties.AutomationId="DataGrid7_8109713E">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{lex:Loc Meter}" 
+                                    loc:Localizer.For="Operator"
                                     Width="380" 
                                     Binding="{Binding Name}" 
                                     AutomationProperties.AutomationId="DataGridTextColumn8_8109713E" />
                 <DataGridTextColumn Header="{lex:Loc Count}" 
+                                    loc:Localizer.For="Operator"
                                     Width="200" 
                                     Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}" 
                                     HeaderStyle="{StaticResource DataGridColumnHeaderRight}"

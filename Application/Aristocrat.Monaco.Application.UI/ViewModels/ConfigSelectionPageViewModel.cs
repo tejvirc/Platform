@@ -6,7 +6,6 @@
     using System.Linq;
     using System.Windows;
     using System.Windows.Input;
-    using System.Windows.Navigation;
     using System.Windows.Threading;
     using ConfigWizard;
     using Contracts;
@@ -508,6 +507,10 @@
                 CanNavigateForward = true;
                 CanNavigateBackward = true;
                 _onFinishedPage = true;
+            }
+            else
+            {
+                NextButtonText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NextButtonText);
             }
 
             NextButtonFocused = true;

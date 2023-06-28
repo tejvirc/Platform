@@ -1,24 +1,25 @@
 ﻿namespace Aristocrat.Monaco.Application.Tests.Monitors
 {
-    using Application.Monitors;
-    using Contracts;
-    using Hardware.Contracts;
-    using Hardware.Contracts.Audio;
-    using Hardware.Contracts.Door;
-    using Hardware.Contracts.IO;
-    using Hardware.Contracts.NoteAcceptor;
-    using Hardware.Contracts.Persistence;
-    using Kernel;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Moq;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.IO.Packaging;
     using System.Linq;
     using System.Threading;
+    using Application.Monitors;
+    using Contracts;
     using Contracts.EdgeLight;
+    using Contracts.Localization;
+    using Hardware.Contracts;
+    using Hardware.Contracts.Audio;
+    using Hardware.Contracts.Door;
     using Hardware.Contracts.EdgeLighting;
+    using Hardware.Contracts.IO;
+    using Hardware.Contracts.NoteAcceptor;
+    using Hardware.Contracts.Persistence;
+    using Kernel;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Moq;
     using Test.Common;
 
     /// <summary>
@@ -204,6 +205,7 @@
             _propertiesManager.Setup(m => m.GetProperty(It.IsAny<string>(), It.IsAny<long>())).Returns(100L);
             _propertiesManager.Setup(m => m.GetProperty(It.IsAny<string>(), It.IsAny<int>())).Returns(100L);
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.AlertVolumeKey, It.IsAny<byte>())).Returns((byte)100);
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.LockupCulture, CultureFor.Operator)).Returns(CultureFor.Operator);
 
             SetupMeters();
 

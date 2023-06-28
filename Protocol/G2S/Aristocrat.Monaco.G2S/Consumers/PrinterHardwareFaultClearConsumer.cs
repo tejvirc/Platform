@@ -77,7 +77,8 @@
                     device,
                     eventCode,
                     device.DeviceList(status),
-                    null);
+                    metersList: null,
+                    theEvent);
             }
 
             var printer = ServiceManager.GetInstance().TryGetService<IPrinter>();
@@ -87,7 +88,8 @@
                     device,
                     EventCode.G2S_PTE099,
                     device.DeviceList(status),
-                    null);
+                    metersList: null,
+                    theEvent);
             }
         }
     }

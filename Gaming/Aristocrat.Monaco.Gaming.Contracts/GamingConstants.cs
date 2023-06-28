@@ -9,6 +9,196 @@
     public static class GamingConstants
     {
         /// <summary>
+        /// 
+        /// </summary>
+        public const string ButtonAnimationGoodLuckKey = @"GamePlay.ButtonAnimationGoodLuck";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const bool ButtonAnimationGoodLuck = true;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string AudioAudioChannelsKey = @"GamePlay.AudioAudioChannels";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const bool AudioAudioChannels = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string GameLogOutcomeDetailsKey = @"GamePlay.GameLogOutcomeDetails";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const bool GameLogOutcomeDetails = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string GameLogEnabledKey = @"GamePlay.GameLogEnabled";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const bool GameLogEnabled = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string GameDurationUseMarketGameTimeKey = @"GamePlay.GameDurationUseMarketGameTime";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const bool GameDurationUseMarketGameTime = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string ChangeLineSelectionAtZeroCreditUseKey = @"GamePlay.ChangeLineSelectionAtZeroCreditUse";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const bool ChangeLineSelectionAtZeroCreditUse = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string InitialZeroWagerUseKey = @"GamePlay.InitialZeroWagerUse";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const bool InitialZeroWagerUse = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string KenoFreeGamesAutoPlayKey = @"GamePlay.KenoFreeGamesAutoPlay";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const bool KenoFreeGamesAutoPlay = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string KenoFreeGamesSelectionChangeKey = @"GamePlay.KenoFreeGamesSelectionChange";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const bool KenoFreeGamesSelectionChange = true;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string ClockUseHInDisplayKey = @"GamePlay.ClockUseHInDisplay";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const bool ClockUseHInDisplay = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string ServiceUseKey = @"GamePlay.ServiceUse";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const bool ServiceUse = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string VolumeLevelShowInHelpScreenKey = @"GamePlay.VolumeLevelShowInHelpScreen";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const bool VolumeLevelShowInHelpScreen = true;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string MaximumGameRoundWinResetWinAmountKey = @"GamePlay.MaximumGameRoundWinResetWinAmount";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string MaximumGameRoundWinResetWinAmount = "primary";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string WagerLimitsUseKey = @"GamePlay.WagerLimitsUse";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const bool WagerLimitsUse = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string WagerLimitsMaxTotalWagerKey = @"GamePlay.WagerLimitsMaxTotalWager";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const long WagerLimitsMaxTotalWager = 0;
+
+        /// <summary>
+        ///     Properties key for FreeSpinClearWinMeter
+        /// </summary>
+        public const string FreeSpinClearWinMeterKey = @"GamePlay.FreeSpinClearWinMeter";
+
+        /// <summary>
+        ///     Default value for FreeSpinClearWinMeter
+        /// </summary>
+        public const bool FreeSpinClearWinMeter = false;
+
+        /// <summary>
+        ///     Properties key for WinDestination
+        /// </summary>
+        public const string WinDestinationKey = @"GamePlay.WinDestination";
+
+        /// <summary>
+        ///     Default value for WinDestination
+        /// </summary>
+        public const string WinDestination = "win";
+        
+        /// <summary>
+        ///     Property key for DisplayGamePayMessageUse
+        /// </summary>
+        public const string DisplayGamePayMessageUseKey = "GamePlay.DisplayGamePayMessageUse";
+
+        /// <summary>
+        ///     Default value for DisplayGamePayMessageUse
+        /// </summary>
+        public const bool DisplayGamePayMessageUse = false;
+
+        /// <summary>
+        ///     Property key for DisplayGamePayMessageFormat
+        /// </summary>
+        public const string DisplayGamePayMessageFormatKey = "GamePlay.DisplayGamePayMessageFormat";
+
+        /// <summary>
+        ///     Default value for DisplayGamePayMessageFormat
+        /// </summary>
+        public const string DisplayGamePayMessageFormat = "currency";
+
+        /// <summary>
         ///     Helper definition for handling conversions to/from millicents
         /// </summary>
         public const long Millicents = 1000;
@@ -194,6 +384,11 @@
         ///     The game win large win cash out strategy to use
         /// </summary>
         public const string GameWinLargeWinCashOutStrategy = @"GamePlay.GameWinLargeWinCashOutStrategy";
+
+        /// <summary>
+        ///     The value in millicents of the maximum win amount from a single game round
+        /// </summary>
+        public const string MaximumGameRoundWinAmount = @"GamePlay.MaximumGameRoundWin.Amount";
 
         /// <summary>
         ///     The state change override setting
@@ -412,6 +607,11 @@
         public const string ReelStopEnabled = @"Cabinet.ReelStop";
 
         /// <summary>
+        ///     Determines reel speed
+        /// </summary>
+        public const string ReelSpeedKey = @"Cabinet.ReelSpeed";
+
+        /// <summary>
         ///     Determines if reel stop in base game is enabled
         /// </summary>
         public const string ReelStopInBaseGameEnabled = @"Cabinet.ReelStopInBaseGame";
@@ -565,6 +765,21 @@
         ///     The Maximum gamble win amount is configurable or not
         /// </summary>
         public const string GambleWinLimitConfigurable = @"GamePlay.Gamble.WinLimitConfigurable";
+
+        /// <summary>
+        ///     Whether play lines are allowed or not
+        /// </summary>
+        public const string PlayLinesAllowed = @"GamePlay.PlayLines.Allowed";
+
+        /// <summary>
+        ///     Whether play lines are showed when a feature begins or not
+        /// </summary>
+        public const string PlayLinesShowLinesOnFeatureStart = @"GamePlay.PlayLines.ShowLinesOnFeatureStart";
+
+        /// <summary>
+        ///     The type of play lines to use
+        /// </summary>
+        public const string PlayLinesType = @"GamePlay.PlayLines.Type";
 
         /// <summary>
         ///     Whether let it ride is allowed or not.

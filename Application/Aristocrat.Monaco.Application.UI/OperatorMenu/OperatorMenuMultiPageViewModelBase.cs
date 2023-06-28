@@ -4,6 +4,7 @@
     using System.Collections.ObjectModel;
     using System.Linq;
     using Contracts;
+    using Contracts.Localization;
     using Contracts.MeterPage;
     using Contracts.OperatorMenu;
     using Events;
@@ -13,6 +14,8 @@
     [CLSCompliant(false)]
     public abstract class OperatorMenuMultiPageViewModelBase : OperatorMenuPageViewModelBase
     {
+        private readonly IOperatorMenuPageLoader _mainPage;
+
         protected readonly string MenuExtensionPath;
         private bool _buttonsEnabled = true;
         private IOperatorMenuPageLoader _selectedPage;
@@ -21,11 +24,12 @@
         /// <summary>
         ///     Constructor
         /// </summary>
-        /// <param name="displayPageTitle">The page title to use in the Operator Menu header and window title</param>
+        /// <param name="mainPage">Page loader for the main page for this view model</param>
         /// <param name="extensionPath">The path of the extension point to load the sub-pages</param>;
-        protected OperatorMenuMultiPageViewModelBase(string displayPageTitle, string extensionPath)
+        protected OperatorMenuMultiPageViewModelBase(IOperatorMenuPageLoader mainPage, string extensionPath)
         {
-            DisplayPageTitle = displayPageTitle;
+            _mainPage = mainPage;
+            DisplayPageTitle = mainPage?.PageName ?? string.Empty;
             MenuExtensionPath = extensionPath;
             Pages = new ObservableCollection<IOperatorMenuPageLoader>();
             LoadPages();
@@ -182,6 +186,12 @@
             EventBus.Subscribe<OperatorMenuWarningMessageEvent>(this, OnUpdateWarningMessage);
         }
 
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            SetPageTitle();
+            base.OnOperatorCultureChanged(evt);
+        }
+
         protected override void OnUnloaded()
         {
             EventBus.UnsubscribeAll(this);
@@ -253,6 +263,8 @@
         {
             if (!ParentIsMultiPage)
             {
+                DisplayPageTitle = _mainPage.PageName;
+
                 if (!string.IsNullOrEmpty(DisplayPageTitle))
                 {
                     var title = !string.IsNullOrEmpty(SelectedPage.PageName)

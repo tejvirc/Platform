@@ -9,7 +9,6 @@
     using System.Threading;
     using System.Threading.Tasks;
     using System.Timers;
-    using Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor;
     using Contracts;
     using Contracts.EdgeLight;
     using Contracts.Localization;
@@ -20,9 +19,11 @@
     using Hardware.Contracts.EdgeLighting;
     using Hardware.Contracts.IO;
     using Hardware.Contracts.KeySwitch;
+    using Hardware.Contracts.NoteAcceptor;
     using Hardware.Contracts.Persistence;
     using Kernel;
     using Kernel.Contracts;
+    using Localization;
     using log4net;
     using Monaco.Localization.Properties;
     using Timer = System.Timers.Timer;
@@ -279,36 +280,42 @@
             return result;
         }
 
-        public string GetLocalizedDoorName(int doorId)
+        public string GetLocalizedDoorName(int doorId, bool useDefaultCulture = false)
         {
+            var provider = Localizer.For(CultureFor.Operator) as OperatorCultureProvider;
+            var culture = useDefaultCulture ? provider.DefaultCulture : provider.CurrentCulture;
+
             switch (doorId)
             {
                 case (int)DoorLogicalId.Main:
-                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MainDoorName);
+                    return provider.GetString(culture, ResourceKeys.MainDoorName);
 
                 case (int)DoorLogicalId.MechanicalMeter:
-                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MechanicalMeterDoorName);
+                    return provider.GetString(culture, ResourceKeys.MechanicalMeterDoorName);
 
                 case (int)DoorLogicalId.Logic:
-                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LogicDoorName);
+                    return provider.GetString(culture, ResourceKeys.LogicDoorName);
 
                 case (int)DoorLogicalId.DropDoor:
-                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DropDoorName);
+                    return provider.GetString(culture, ResourceKeys.DropDoorName);
 
                 case (int)DoorLogicalId.TopBox:
-                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TopBoxDoorName);
+                    return provider.GetString(culture, ResourceKeys.TopBoxDoorName);
 
                 case (int)DoorLogicalId.CashBox:
-                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CashDoorName);
+                    return provider.GetString(culture, ResourceKeys.CashDoorName);
 
                 case (int)DoorLogicalId.Belly:
-                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BellyDoorName);
+                    return provider.GetString(culture, ResourceKeys.BellyDoorName);
 
                 case (int)DoorLogicalId.MainOptic:
-                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MainOpticDoorName);
+                    return provider.GetString(culture, ResourceKeys.MainOpticDoorName);
 
                 case (int)DoorLogicalId.TopBoxOptic:
-                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TopBoxOpticDoorName);
+                    return provider.GetString(culture, ResourceKeys.TopBoxOpticDoorName);
+
+                case (int)DoorLogicalId.UniversalInterfaceBox:
+                    return provider.GetString(ResourceKeys.UniversalInterfaceBoxDoorName);
 
                 default:
                     return _doorService.GetDoorName(doorId);
@@ -493,7 +500,7 @@
                 _handlers.Add((int)DoorLogicalId.TopBoxOptic, topOpticDoorHandler);
             }
 
-            var hardMetersEnabled = _propertiesManager.GetValue(HardwareConstants.HardMetersEnabledKey, true);
+            var hardMetersEnabled = _propertiesManager.GetValue(HardwareConstants.HardMetersEnabledKey, false);
             if (!hardMetersEnabled)
             {
                 _doorService.IgnoredDoors.Add((int)DoorLogicalId.MechanicalMeter);
@@ -828,7 +835,7 @@
                             _disableManager.Disable(
                                 ApplicationConstants.BellyDoorDiscrepencyGuid,
                                 SystemDisablePriority.Immediate,
-                                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BellyDoorDiscrepancy));
+                                () => Localizer.ForLockup().GetString(ResourceKeys.BellyDoorDiscrepancy));
 
                             _eventBus.Publish(new BellyDoorDiscrepancyEvent());
                         }
@@ -1443,9 +1450,10 @@
                 this,
                 _ =>
                 {
-                    if (_doorOpenAlarmCanBeStopped)
+                    _auditMenuWindowOpen = true;
+                    if (_doorOpenAlarmOperatorCanCancel)
                     {
-                        _auditMenuWindowOpen = true;
+                        StopOpenDoorAlarm();
                     }
                 });
             _eventBus.Subscribe<OperatorMenuExitingEvent>(

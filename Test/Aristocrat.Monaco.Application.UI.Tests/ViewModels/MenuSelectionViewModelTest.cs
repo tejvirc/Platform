@@ -3,11 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Globalization;
     using System.IO;
     using System.Windows;
-    using Aristocrat.Monaco.Application.Contracts.Input;
-    using Aristocrat.Monaco.UI.Common.Events;
     using Contracts;
+    using Contracts.Input;
+    using Contracts.Localization;
     using Contracts.OperatorMenu;
     using Events;
     using Hardware.Contracts.Button;
@@ -19,6 +20,7 @@
     using Hardware.Contracts.Touch;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Monaco.UI.Common.Events;
     using Mono.Addins;
     using Moq;
     using OperatorMenu;
@@ -114,6 +116,8 @@
                 .Verifiable();
             _eventBus.Setup(m => m.Subscribe(It.IsAny<OperatorMenuPrintHandler>(), It.IsAny<Action<PrintStartedEvent>>()))
                 .Verifiable();
+            _eventBus.Setup(m => m.Subscribe(It.IsAny<OperatorMenuPrintHandler>(), It.IsAny<Action<OperatorCultureChangedEvent>>()))
+                .Verifiable();
             _eventBus.Setup(m => m.Subscribe(It.IsAny<MenuSelectionViewModel>(), It.IsAny<Action<DisplayConnectedEvent>>()))
                 .Verifiable();
             _eventBus.Setup(m => m.Subscribe(It.IsAny<MenuSelectionViewModel>(), It.IsAny<Action<OperatorMenuWarningMessageEvent>>()))
@@ -125,6 +129,8 @@
             _eventBus.Setup(m => m.Subscribe(It.IsAny<MenuSelectionViewModel>(), It.IsAny<Action<DialogClosedEvent>>()))
                 .Verifiable();
             _eventBus.Setup(m => m.Subscribe(It.IsAny<MenuSelectionViewModel>(), It.IsAny<Action<SerialTouchCalibrationCompletedEvent>>()))
+                .Verifiable();
+            _eventBus.Setup(m => m.Subscribe(It.IsAny<MenuSelectionViewModel>(), It.IsAny<Action<OperatorCultureChangedEvent>>()))
                 .Verifiable();
 
             _printerService = new Mock<IDeviceService>(MockBehavior.Strict);
@@ -154,7 +160,9 @@
             _configuration.Setup(m => m.GetSetting(OperatorMenuSetting.ShowExitButton, false)).Returns(true);
             _configuration.Setup(m => m.GetSetting(OperatorMenuSetting.ShowOperatorRole, false)).Returns(false);
             _configuration.Setup(m => m.GetSetting(OperatorMenuSetting.KeySwitchExitOverridesButton, false)).Returns(false);
+            _configuration.Setup(m => m.GetSetting(OperatorMenuSetting.ShowToggleLanguageButton, false)).Returns(true);
             _configuration.Setup(m => m.GetAccessRuleSet(It.IsAny<MenuSelectionViewModel>())).Returns("");
+            _configuration.Setup(m => m.GetSetting(OperatorMenuSetting.UseOperatorCultureForCurrencyFormatting, false)).Returns(false);
             _gamePlayMonitor = MoqServiceManager.CreateAndAddService<IOperatorMenuGamePlayMonitor>(MockBehavior.Strict);
             _gamePlayMonitor.Setup(m => m.InReplay).Returns(false);
             _serialTouchService = MoqServiceManager.CreateAndAddService<ISerialTouchService>(MockBehavior.Strict);
@@ -421,6 +429,18 @@
 
             Assert.IsTrue(_target.PrintButtonEnabled);
             Assert.IsFalse(_target.ShowCancelPrintButton);
+        }
+
+        [TestMethod]
+        public void TestToggleLanguageButton()
+        {
+            _accessor._secondaryCulture = new CultureInfo("fr-CA");
+            _accessor.ShowToggleLanguageButton = true;
+            _accessor.UpdateToggleLanguageButton();
+
+            Assert.IsTrue(_target.ShowToggleLanguageButton);
+            Assert.AreEqual("Français", _target.ToggleLanguageButtonText);
+            Assert.AreEqual(MockLocalization.Localizer.Object.CurrentCulture, new CultureInfo("en-US"));
         }
 
         private void CreateViews()

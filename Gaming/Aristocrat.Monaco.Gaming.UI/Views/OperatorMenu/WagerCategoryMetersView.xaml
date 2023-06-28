@@ -6,7 +6,6 @@
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
                                common:DialogParticipation.Register="{Binding}"
                                xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
-                               xmlns:commonConverters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
@@ -20,7 +19,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <commonConverters:CurrencyConverter x:Key="CurrencyConverter" />
             <converters:ReturnToPlayerConverter x:Key="ReturnToPlayerConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
@@ -45,18 +43,22 @@
                   AutomationProperties.AutomationId="DataGrid5_BD1AF1C1">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{lex:Loc WagerCategoryGameNumberCaption}"
+                                    loc:Localizer.For="Operator"
                                     MinWidth="100"
                                     Binding="{Binding WagerCategoryId}"
                                     AutomationProperties.AutomationId="DataGridTextColumn6_BD1AF1C1" />
                 <DataGridTextColumn Header="{lex:Loc RTP}"
+                                    loc:Localizer.For="Operator"
                                     MinWidth="180"
                                     Binding="{Binding Rtp, Converter={StaticResource ReturnToPlayerConverter}, UpdateSourceTrigger=PropertyChanged}"
                                     AutomationProperties.AutomationId="DataGridTextColumn7_BD1AF1C1" />
                 <DataGridTextColumn Header="{lex:Loc WagerCategoryWageredCaption}"
+                                    loc:Localizer.For="Operator"
                                     MinWidth="180"
-                                    Binding="{Binding Wagered, Converter={StaticResource CurrencyConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                    Binding="{Binding Wagered, Converter={StaticResource FormattedCurrencyConverter}, UpdateSourceTrigger=PropertyChanged}"
                                     AutomationProperties.AutomationId="DataGridTextColumn8_BD1AF1C1" />
                 <DataGridTextColumn Header="{lex:Loc GamesPlayed}"
+                                    loc:Localizer.For="Operator"
                                     MinWidth="200"
                                     Binding="{Binding GamesPlayed, UpdateSourceTrigger=PropertyChanged}"
                                     AutomationProperties.AutomationId="DataGridTextColumn9_BD1AF1C1" />

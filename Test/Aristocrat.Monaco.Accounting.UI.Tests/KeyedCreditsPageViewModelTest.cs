@@ -5,7 +5,6 @@
     using Accounting.Contracts.Transactions;
     using Contracts;
     using System;
-    using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
     using Hardware.Contracts.Persistence;
@@ -15,6 +14,7 @@
     using Test.Common;
     using Test.Common.UnitTesting;
     using UI.ViewModels;
+    using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
 
     /// <summary>
     ///     Summary description for KeyedCreditsPageViewModelTest
@@ -33,6 +33,7 @@
         private Mock<ITransactionHistory> _transactionHistory;
         private Guid _transactionGuid;
         private Mock<IDisposable> _disposable;
+        private Mock<IOperatorMenuConfiguration> _operatorMenuConfiguration;
 
         [TestInitialize]
         public void TestInitialize()
@@ -70,6 +71,10 @@
             _disposable = new Mock<IDisposable>(MockBehavior.Default);
             _disposable.Setup(d => d.Dispose()).Verifiable();
 
+            _operatorMenuConfiguration = MoqServiceManager.CreateAndAddService<IOperatorMenuConfiguration>(MockBehavior.Strict);
+            _operatorMenuConfiguration.Setup(o => o.GetSetting(OperatorMenuSetting.UseOperatorCultureForCurrencyFormatting, false))
+                .Returns(false);
+
             _meterManager = MoqServiceManager.CreateAndAddService<IMeterManager>(MockBehavior.Loose);
             _meterManager.Setup(m => m.GetMeter(It.IsAny<string>()).Increment(It.IsAny<long>()));
             _persistentStorageManager =
@@ -79,6 +84,7 @@
             _transactionHistory.Setup(m => m.AddTransaction(It.IsAny<KeyedOnCreditsTransaction>()));
             _transactionHistory.Setup(m => m.AddTransaction(It.IsAny<KeyedOffCreditsTransaction>()));
             _target = new KeyedCreditsPageViewModel();
+            _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<OperatorCultureChangedEvent>>()));
             _eventBus.Setup(m => m.Publish(It.IsAny<KeyedCreditOnEvent>())).Verifiable();
             _eventBus.Setup(m => m.Publish(It.IsAny<KeyedCreditOffEvent>())).Verifiable();
         }

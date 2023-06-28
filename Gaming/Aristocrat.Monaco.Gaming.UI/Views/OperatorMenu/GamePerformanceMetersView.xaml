@@ -7,7 +7,6 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
-                               xmlns:commonConverters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
                                lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
@@ -16,36 +15,26 @@
                                common:DialogParticipation.Register="{Binding}"
                                d:DesignHeight="300"
                                d:DesignWidth="300"
-                               Background="Transparent"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:GamePerformanceMetersViewModel}, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <commonConverters:CurrencyConverter x:Key="CurrencyConverter" />
             <converters:ReturnToPlayerConverter x:Key="ReturnToPlayerConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid MaxHeight="560"
-          AutomationProperties.AutomationId="Grid0_A89303F4">
+    <Grid MaxHeight="560" AutomationProperties.AutomationId="Grid0_A89303F4">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"
-                              AutomationProperties.AutomationId="ColumnDefinition1_A89303F4" />
-            <ColumnDefinition Width="50"
-                              AutomationProperties.AutomationId="ColumnDefinition2_A89303F4" />
-            <ColumnDefinition Width="Auto"
-                              AutomationProperties.AutomationId="ColumnDefinition3_A89303F4" />
+            <ColumnDefinition Width="Auto" AutomationProperties.AutomationId="ColumnDefinition1_A89303F4" />
+            <ColumnDefinition Width="50" AutomationProperties.AutomationId="ColumnDefinition2_A89303F4" />
+            <ColumnDefinition Width="Auto" AutomationProperties.AutomationId="ColumnDefinition3_A89303F4" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"
-                           AutomationProperties.AutomationId="RowDefinition4_A89303F4" />
-            <RowDefinition Height="Auto"
-                           AutomationProperties.AutomationId="RowDefinition5_A89303F4" />
-            <RowDefinition Height="*"
-                           AutomationProperties.AutomationId="RowDefinition6_A89303F4" />
-            <RowDefinition Height="Auto"
-                           AutomationProperties.AutomationId="RowDefinition7_A89303F4" />
+            <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition4_A89303F4" />
+            <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition5_A89303F4" />
+            <RowDefinition Height="*" AutomationProperties.AutomationId="RowDefinition6_A89303F4" />
+            <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition7_A89303F4" />
         </Grid.RowDefinitions>
         <TextBlock Grid.Column="0"
                    Grid.ColumnSpan="3"
@@ -53,24 +42,15 @@
                    HorizontalAlignment="Center"
                    FontSize="{StaticResource LabelFontSize}"
                    AutomationProperties.AutomationId="TextBlock8_A89303F4">
-            <Run Text="{lex:Loc Game}"
-                 AutomationProperties.AutomationId="Run9_A89303F4" />
-            <Run Text="#"
-                 AutomationProperties.AutomationId="Run10_A89303F4" />
-            <Run Text="{Binding GameNumber, Mode=OneWay}"
-                 AutomationProperties.AutomationId="Run11_A89303F4" />
-            <Run Text=" | "
-                 AutomationProperties.AutomationId="Run12_A89303F4" />
-            <Run Text="{Binding GameTheme, Mode=OneWay}"
-                 AutomationProperties.AutomationId="Run13_A89303F4" />
-            <Run Text=" | "
-                 AutomationProperties.AutomationId="Run14_A89303F4" />
-            <Run Text="{Binding GameDenom, Mode=OneWay, Converter={StaticResource CurrencyConverter}}"
-                 AutomationProperties.AutomationId="Run15_A89303F4" />
-            <Run Text=" | "
-                 AutomationProperties.AutomationId="Run16_A89303F4" />
-            <Run Text="{Binding GamePaytable, Mode=OneWay}"
-                 AutomationProperties.AutomationId="Run17_A89303F4" />
+            <Run Text="{lex:Loc Game}" AutomationProperties.AutomationId="Run9_A89303F4" />
+            <Run Text="#" AutomationProperties.AutomationId="Run10_A89303F4" />
+            <Run Text="{Binding GameNumber, Mode=OneWay}" AutomationProperties.AutomationId="Run11_A89303F4" />
+            <Run Text=" | " AutomationProperties.AutomationId="Run12_A89303F4" />
+            <Run Text="{Binding GameTheme, Mode=OneWay}" AutomationProperties.AutomationId="Run13_A89303F4" />
+            <Run Text=" | " AutomationProperties.AutomationId="Run14_A89303F4" />
+            <Run Text="{Binding GameDenom, Mode=OneWay, Converter={StaticResource FormattedCurrencyConverter}}" AutomationProperties.AutomationId="Run15_A89303F4" />
+            <Run Text=" | " AutomationProperties.AutomationId="Run16_A89303F4" />
+            <Run Text="{Binding GamePaytable, Mode=OneWay}" AutomationProperties.AutomationId="Run17_A89303F4" />
         </TextBlock>
         <TextBlock Grid.Column="2"
                    Grid.Row="1"
@@ -88,10 +68,12 @@
                   AutomationProperties.AutomationId="DataGrid19_A89303F4">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{lex:Loc Meter}" 
+                                    loc:Localizer.For="Operator"
                                     HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeader}"
                                     Binding="{Binding Name}"
                                     AutomationProperties.AutomationId="DataGridTextColumn20_A89303F4" />
                 <DataGridTextColumn Header="{lex:Loc Value}"
+                                    loc:Localizer.For="Operator"
                                     Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
                                     HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
                                     CellStyle="{StaticResource DataGridCellRight}"
@@ -107,16 +89,19 @@
                   AutomationProperties.AutomationId="DataGrid22_A89303F4">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="#"
+                                    loc:Localizer.For="Operator"
                                     HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeader}"
                                     Binding="{Binding Id}"
                                     AutomationProperties.AutomationId="DataGridTextColumn23_A89303F4" />
                 <DataGridTextColumn Header="{lex:Loc RTP}"
+                                    loc:Localizer.For="Operator"
                                     HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeader}"
                                     Binding="{Binding RTP, Converter={StaticResource ReturnToPlayerConverter}}"
                                     AutomationProperties.AutomationId="DataGridTextColumn24_A89303F4" />
                 <DataGridTextColumn Header="{lex:Loc Wagered}"
+                                    loc:Localizer.For="Operator"
                                     HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeader}"
-                                    Binding="{Binding Wagered, Converter={StaticResource CurrencyConverter}}"
+                                    Binding="{Binding Wagered, Converter={StaticResource FormattedCurrencyConverter}}"
                                     AutomationProperties.AutomationId="DataGridTextColumn25_A89303F4" />
             </DataGrid.Columns>
         </DataGrid>

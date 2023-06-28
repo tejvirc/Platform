@@ -1,34 +1,32 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.Tests.ViewModels
 {
-    #region Using
-
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-    using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
-    using Aristocrat.Monaco.Hardware.Contracts.Button;
-    using Aristocrat.Monaco.Hardware.Contracts.IO;
-    using Aristocrat.Monaco.UI.Common.Events;
+    using System.Windows;
     using Contracts;
+    using Contracts.Localization;
+    using Contracts.OperatorMenu;
     using Contracts.Tickets;
     using Events;
+    using Hardware.Contracts.Button;
     using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.Door;
+    using Hardware.Contracts.IO;
     using Hardware.Contracts.Printer;
     using Hardware.Contracts.SharedDevice;
     using Hardware.Contracts.Ticket;
     using Kernel;
     using Kernel.Contracts;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Monaco.UI.Common.Events;
     using Mono.Addins;
     using Moq;
     using Test.Common;
     using UI.ViewModels;
-
-    #endregion
 
     /// <summary>
     ///     Summary description for HardwareMeterScreenTest
@@ -114,6 +112,7 @@
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<ClosedEvent>>()));
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<OpenEvent>>()));
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<DialogClosedEvent>>()));
+            _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<OperatorCultureChangedEvent>>()));
             _eventBus.Setup(m => m.Publish(It.IsAny<OperatorMenuPageLoadedEvent>())).Verifiable();
             _eventBus.Setup(m => m.Publish(It.IsAny<OperatorMenuPopupEvent>()));
             _eventBus.Setup(m => m.Publish(It.IsAny<OperatorMenuWarningMessageEvent>()));
@@ -125,6 +124,12 @@
             var _iio = MoqServiceManager.CreateAndAddService<IIO>(MockBehavior.Strict);
             _iio.Setup(m => m.SetButtonLamp(It.IsAny<uint>(), It.IsAny<bool>())).Returns(It.IsAny<uint>());
             _iio.Setup(m => m.SetButtonLampByMask(It.IsAny<uint>(), It.IsAny<bool>())).Returns(It.IsAny<uint>());
+
+            // This will allow the UI Dispatcher to be used
+            if (Application.Current == null)
+            {
+                new Application { ShutdownMode = ShutdownMode.OnExplicitShutdown };
+            }
         }
 
         // Use TestCleanup to run code after each test has run

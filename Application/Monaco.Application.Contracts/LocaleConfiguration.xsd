@@ -27,7 +27,12 @@
   <xs:complexType name="OperatorTicket">
     <xs:sequence>
       <xs:element minOccurs="0" name="Selectable" type="ArrayOfString" />
-    </xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name ="LanguageSetting">
+        <xs:complexType>
+          <xs:attribute default="false" name="OperatorOverride" use="optional" type="xs:boolean"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence> 
     <xs:attribute name="Locale" type="xs:string" use="optional"/>
     <xs:attribute default ="yyyy-MM-dd" name="DateFormat" type="xs:string" use="optional" />
   </xs:complexType>

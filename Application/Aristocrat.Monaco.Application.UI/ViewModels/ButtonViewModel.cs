@@ -2,6 +2,7 @@
 {
     using System;
     using Contracts.ConfigWizard;
+    using Contracts.Localization;
     using Hardware.Contracts.Button;
     using Kernel;
     using MVVM.ViewModel;
@@ -101,6 +102,12 @@
             _eventBus.UnsubscribeAll(_context);
         }
 
+        public void UpdateProps()
+        {
+            RaisePropertyChanged(nameof(Name));
+            RaisePropertyChanged(nameof(Action));
+        }
+
         private void HandleEvent(UpEvent evt)
         {
             if (evt.LogicalId != Id)
@@ -125,7 +132,7 @@
 
         private void Update()
         {
-            Name = _button.GetLocalizedButtonName(Id);
+            Name = _button.GetLocalizedButtonName(Id, Localizer.For(CultureFor.Operator).GetString);
             Action = _button.GetButtonAction(Id);
             State = _button.GetButtonState(Id);
         }

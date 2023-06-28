@@ -368,7 +368,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type CalendarItem}">
                     <ControlTemplate.Resources>
-                        <!--  Used for day names  -->
+                        <!-- Used for day names -->
                         <DataTemplate x:Key="{x:Static CalendarItem.DayTitleTemplateResourceKey}">
                             <TextBlock Margin="0 6 0 6"
                                        HorizontalAlignment="Center"

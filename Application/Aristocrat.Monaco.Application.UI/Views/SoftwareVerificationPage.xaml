@@ -12,8 +12,7 @@
                                lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:common="http://monaco.aristocrat.com/common"
-                               d:DataContext="{d:DesignInstance {x:Type viewModels:SoftwareVerificationPageViewModel}, IsDesignTimeCreatable=False}"
-                               Background="Transparent">
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:SoftwareVerificationPageViewModel}, IsDesignTimeCreatable=False}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -129,20 +128,23 @@
                   VerticalContentAlignment="Top"
                   VerticalAlignment="Top"
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
-                  AutomationProperties.AutomationId="DataGrid18_9BB4B1CA">
+                  AutomationProperties.AutomationId="DataGrid18_9BB4B1CA"
+                  loc:Localizer.For="Operator">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{lex:Loc ComponentIdVersion}"
                                     Width="Auto"
                                     MinWidth="320"
                                     Binding="{Binding ComponentId}"
-                                    AutomationProperties.AutomationId="DataGridTextColumn19_9BB4B1CA" />
+                                    AutomationProperties.AutomationId="DataGridTextColumn19_9BB4B1CA"
+                                    loc:Localizer.For="Operator" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.HashResult}}"
                                     FontFamily="Consolas"
                                     MinWidth="600"
                                     MaxWidth="800"
                                     ElementStyle="{StaticResource WrapText}"
                                     Binding="{Binding HashResult, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ShaConverter}}"
-                                    AutomationProperties.AutomationId="DataGridTextColumn20_9BB4B1CA" />
+                                    AutomationProperties.AutomationId="DataGridTextColumn20_9BB4B1CA"
+                                    loc:Localizer.For="Operator" />
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Column="0"

@@ -11,7 +11,6 @@
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.G2S.UI.ViewModels"
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
                                mc:Ignorable="d"
-                               Background="Transparent"
                                d:DataContext="{d:DesignInstance viewModels:HostTranscriptsViewModel, IsDesignTimeCreatable=False}"
                                FocusManager.FocusedElement="{Binding ElementName=MainMenu}">
     <UserControl.Resources>
@@ -84,32 +83,39 @@
                 AutomationProperties.AutomationId="Border19_66620A3A">
             <DataGrid x:Name="CommsDevice"
                       ItemsSource="{Binding CommsInfoData, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                      AutomationProperties.AutomationId="DataGrid20_66620A3A">
+                      AutomationProperties.AutomationId="DataGrid20_66620A3A"
+                      loc:Localizer.For="Operator">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{lex:Loc CommsInfo_HostId}"
                                         Width="Auto"
                                         Binding="{Binding HostId}"
-                                        AutomationProperties.AutomationId="DataGridTextColumn21_66620A3A" />
+                                        AutomationProperties.AutomationId="DataGridTextColumn21_66620A3A" 
+                                        loc:Localizer.For="Operator"/>
                     <DataGridTextColumn Header="{lex:Loc CommsInfo_Address}"
                                         Width="Auto"
                                         Binding="{Binding Address}"
-                                        AutomationProperties.AutomationId="DataGridTextColumn22_66620A3A" />
+                                        AutomationProperties.AutomationId="DataGridTextColumn22_66620A3A"
+                                        loc:Localizer.For="Operator" />
                     <DataGridTextColumn Header="{lex:Loc CommsInfo_TransportState}"
                                         Width="Auto"
                                         Binding="{Binding TransportState}"
-                                        AutomationProperties.AutomationId="DataGridTextColumn23_66620A3A" />
+                                        AutomationProperties.AutomationId="DataGridTextColumn23_66620A3A" 
+                                        loc:Localizer.For="Operator"/>
                     <DataGridTextColumn Header="{lex:Loc State}"
                                         Width="Auto"
                                         Binding="{Binding State}"
-                                        AutomationProperties.AutomationId="DataGridTextColumn24_66620A3A" />
+                                        AutomationProperties.AutomationId="DataGridTextColumn24_66620A3A"
+                                        loc:Localizer.For="Operator" />
                     <DataGridTextColumn Header="{lex:Loc CommsInfo_OutboundOverflow}"
                                         Width="Auto"
                                         Binding="{Binding OutboundOverflow}"
-                                        AutomationProperties.AutomationId="DataGridTextColumn25_66620A3A" />
+                                        AutomationProperties.AutomationId="DataGridTextColumn25_66620A3A"
+                                        loc:Localizer.For="Operator" />
                     <DataGridTextColumn Header="{lex:Loc CommsInfo_InboundOverflow}"
                                         Width="Auto"
-                                        Binding="{Binding InboundOverflow}"
-                                        AutomationProperties.AutomationId="DataGridTextColumn26_66620A3A" />
+                                        Binding="{Binding InboundOverflowText}"
+                                        AutomationProperties.AutomationId="DataGridTextColumn26_66620A3A"
+                                        loc:Localizer.For="Operator" />
                 </DataGrid.Columns>
             </DataGrid>
         </Border>
@@ -136,7 +142,8 @@
                   SelectedItem="{Binding SelectedHostTranscript, Mode=TwoWay}"
                   ItemsSource="{Binding HostTranscriptsData, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   ScrollViewer.CanContentScroll="True"
-                  AutomationProperties.AutomationId="DataGrid30_66620A3A">
+                  AutomationProperties.AutomationId="DataGrid30_66620A3A"
+                  loc:Localizer.For="Operator">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{lex:Loc HostTranscriptsDateReceived}"
                                     Width="Auto"
@@ -169,7 +176,8 @@
                 <DataGridTextColumn Header="{lex:Loc HostTranscriptsErrorCode}"
                                     Width="Auto"
                                     Binding="{Binding ErrorCode}"
-                                    AutomationProperties.AutomationId="DataGridTextColumn38_66620A3A" />
+                                    AutomationProperties.AutomationId="DataGridTextColumn38_66620A3A"
+                                    loc:Localizer.For="Operator" />
             </DataGrid.Columns>
         </DataGrid>
         <GroupBox x:Name="GroupBoxGameInfo"

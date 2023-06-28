@@ -1,15 +1,17 @@
 ﻿namespace Aristocrat.Monaco.G2S.UI.ViewModels
 {
-    using Application.Contracts.OperatorMenu;
-    using Application.UI.OperatorMenu;
-    using Aristocrat.G2S.Client;
-    using G2S;
-    using Kernel;
-    using MVVM;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Windows;
+    using Application.Contracts.OperatorMenu;
+    using Application.Contracts.Localization;
+    using Application.UI.OperatorMenu;
+    using Aristocrat.G2S.Client;
+    using G2S;
+    using Kernel;
+    using Localization.Properties;
+    using MVVM;
 
     public class EditBulkDeviceViewModel : OperatorMenuSaveViewModelBase
     {
@@ -19,6 +21,7 @@
         private bool _selectedActive;
         private string _selectedField;
         private List<IHostControl> _hosts;
+        private readonly ILocalizer _operatorLocalizer;
 
         public string SelectedField
         {
@@ -64,24 +67,36 @@
             }
         }
 
-        public Visibility OwnerVisibility => SelectedField == "Owner" ? Visibility.Visible : Visibility.Hidden;
+        public Visibility OwnerVisibility =>
+            SelectedField == _operatorLocalizer.GetString(ResourceKeys.DeviceManagerOwnerSelection)
+                ? Visibility.Visible
+                : Visibility.Hidden;
 
-        public Visibility ActiveVisibility => SelectedField == "Active" ? Visibility.Visible : Visibility.Hidden;
+        public Visibility ActiveVisibility =>
+            SelectedField == _operatorLocalizer.GetString(ResourceKeys.DeviceManagerActiveSelection)
+                ? Visibility.Visible
+                : Visibility.Hidden;
 
         public List<int> HostIds { get; }
+
         public ObservableCollection<string> EditableFields { get; }
 
         public EditBulkDeviceViewModel()
         {
+            _operatorLocalizer = Localizer.For(CultureFor.Operator);
             _egm = _containerService.Container.GetInstance<IG2SEgm>();
             EventBus.Subscribe<OperatorMenuEnteredEvent>(this, HandleOperatorMenuEntered);
             _hosts = new List<IHostControl>();
             HostIds = new List<int>();
-            EditableFields = new ObservableCollection<string> {"Owner", "Active"};
+            EditableFields = new ObservableCollection<string>
+            {
+                _operatorLocalizer.GetString(ResourceKeys.DeviceManagerOwnerSelection),
+                _operatorLocalizer.GetString(ResourceKeys.DeviceManagerActiveSelection)
+            };
             GetHosts();
             HostIds = DistinctHostIDs();
             _selectedHostId = HostIds.FirstOrDefault();
-            _selectedField = "Owner";
+            _selectedField = EditableFields.First();
         }
 
         private void GetHosts()
@@ -97,7 +112,7 @@
         {
             return _hosts.Select(h => h.Id).ToList();
         }
-      
+
         protected override void OnCommitted()
         {
             base.OnCommitted();

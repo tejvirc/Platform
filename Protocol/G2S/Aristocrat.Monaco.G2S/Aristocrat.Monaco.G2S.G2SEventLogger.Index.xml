@@ -1,0 +1,6 @@
+﻿<?xml version="1.0"?>
+<BlockFormat version="1" name="Aristocrat.Monaco.G2S.G2SEventLogger.Index">
+  <Fields>
+    <Field DataType="Int32" FieldName="Index" />
+  </Fields>
+</BlockFormat>

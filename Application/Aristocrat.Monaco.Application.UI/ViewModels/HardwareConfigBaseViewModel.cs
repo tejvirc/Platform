@@ -11,6 +11,7 @@
     using System.Xml;
     using System.Xml.Serialization;
     using Application.Helpers;
+    using Application.Localization;
     using ConfigWizard;
     using Contracts;
     using Contracts.Detection;
@@ -214,7 +215,7 @@
             }
         }
 
-        public bool ShowApplyButton => this is HardwareManagerPageViewModel && InputEnabled;
+        public bool ShowApplyButton => this is HardwareManagerPageViewModel;
 
         public bool ShowValidateButton => !(this is HardwareManagerPageViewModel);
 
@@ -524,6 +525,13 @@
             CheckBellyPanelDoor();
         }
 
+        protected bool Validated => !IsValidating && EnabledDevices.All(
+            d =>
+            {
+                IDevice device = null;
+                return CheckHardware(d, ref device);
+            });
+
         private void CheckBellyPanelDoor()
         {
             var disableManager = ServiceManager.GetInstance().GetService<ISystemDisableManager>();
@@ -555,7 +563,7 @@
 
             if (!string.IsNullOrWhiteSpace(device?.Manufacturer))
             {
-                SetDeviceStatusAndValidate(config.DeviceType, device.GetDeviceStatus(), validated);
+                SetDeviceStatusAndValidate(config.DeviceType, device.GetDeviceStatus(), device.GetDeviceStatusType(), validated);
             }
             else
             {
@@ -569,9 +577,7 @@
         private bool CanValidate =>
             !IsValidating && InputEnabled &&
             !EnabledDevices.All(
-                div => div.Status.Contains(
-                    Localizer.For(CultureFor.Operator)
-                        .GetString(ResourceKeys.ConnectedText))) &&
+                div => div.StatusType == DeviceState.ConnectedText) &&
             !EnabledDevices.Any(dev => dev.IsDetectionFailure) &&
             EnabledDevices.Any(
                 d =>
@@ -579,13 +585,6 @@
                     IDevice device = null;
                     return CheckHardware(d, ref device) != true;
                 });
-
-        private bool Validated => !IsValidating && EnabledDevices.All(
-            d =>
-            {
-                IDevice device = null;
-                return CheckHardware(d, ref device);
-            });
 
         private static ConfiguredDevices GetConfiguredDevices()
         {
@@ -774,7 +773,7 @@
                             if (_serviceManager.IsServiceAvailable<INoteAcceptor>())
                             {
                                 var device = GetDevice<INoteAcceptor>();
-                                SetDeviceStatusAndValidate(DeviceType.NoteAcceptor, GetUpdateStatus(device), true);
+                                SetDeviceStatusAndValidate(DeviceType.NoteAcceptor, GetUpdateStatus(device), GetUpdateStatusType(device), true);
                             }
 
                             break;
@@ -785,7 +784,7 @@
                             if (_serviceManager.IsServiceAvailable<IPrinter>())
                             {
                                 var device = GetDevice<IPrinter>();
-                                SetDeviceStatusAndValidate(DeviceType.Printer, GetUpdateStatus(device), true);
+                                SetDeviceStatusAndValidate(DeviceType.Printer, GetUpdateStatus(device), GetUpdateStatusType(device), true);
                             }
 
                             break;
@@ -794,7 +793,7 @@
                     case ReelInspectionFailedEvent _:
                         {
                             _deviceDiscoveryStatus[DeviceType.ReelController] = false;
-                            SetDeviceStatusAndValidate(DeviceType.ReelController, errorText, false);
+                            SetDeviceStatusAndValidate(DeviceType.ReelController, errorText, DeviceState.ErrorText, false);
                             break;
                         }
 
@@ -803,7 +802,7 @@
                             if (_serviceManager.IsServiceAvailable<IReelController>())
                             {
                                 var device = GetDevice<IReelController>();
-                                SetDeviceStatusAndValidate(DeviceType.ReelController, GetUpdateStatus(device), true);
+                                SetDeviceStatusAndValidate(DeviceType.ReelController, GetUpdateStatus(device), GetUpdateStatusType(device), true);
                             }
 
                             break;
@@ -825,7 +824,7 @@
                                     _deviceDiscoveryStatus[DeviceType.IdReader] = true;
                                 }
 
-                                SetDeviceStatusAndValidate(DeviceType.IdReader, GetUpdateStatus(device), true);
+                                SetDeviceStatusAndValidate(DeviceType.IdReader, GetUpdateStatus(device), GetUpdateStatusType(device), true);
                             }
 
                             break;
@@ -833,19 +832,19 @@
 
                     case IdReaderInspectionFailedEvent _:
                         _deviceDiscoveryStatus[DeviceType.IdReader] = false;
-                        SetDeviceStatusAndValidate(DeviceType.IdReader, errorText, false);
+                        SetDeviceStatusAndValidate(DeviceType.IdReader, errorText, DeviceState.ErrorText, false);
                         break;
 
                     case NoteAcceptorDisconnectedEvent _:
                     case NoteAcceptorInspectionFailedEvent _:
                         _deviceDiscoveryStatus[DeviceType.NoteAcceptor] = false;
-                        SetDeviceStatusAndValidate(DeviceType.NoteAcceptor, errorText, false);
+                        SetDeviceStatusAndValidate(DeviceType.NoteAcceptor, errorText, DeviceState.ErrorText, false);
                         break;
 
                     case PrinterDisconnectedEvent _:
                     case PrinterInspectionFailedEvent _:
                         _deviceDiscoveryStatus[DeviceType.Printer] = false;
-                        SetDeviceStatusAndValidate(DeviceType.Printer, errorText, false);
+                        SetDeviceStatusAndValidate(DeviceType.Printer, errorText, DeviceState.ErrorText, false);
                         break;
 
                     default:
@@ -865,8 +864,7 @@
                         IDevice device = null;
                         CheckHardware(d, ref device);
 
-                        return !d.Status.Equals(
-                            Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Validating)) && device != null;
+                        return !(d.StatusType == DeviceState.Validating) && device != null;
                     }))
                 {
                     IsValidating = false;
@@ -923,7 +921,13 @@
             return result;
         }
 
-        private void SetDeviceStatusAndValidate(DeviceType type, string statusText, bool validated)
+        private DeviceState GetUpdateStatusType(IDevice device)
+        {
+            var result = device == null ? DeviceState.None : device.GetDeviceStatusType();
+            return result;
+        }
+
+        private void SetDeviceStatusAndValidate(DeviceType type, string statusText, DeviceState statusType, bool validated)
         {
             if (string.IsNullOrEmpty(statusText))
             {
@@ -933,6 +937,7 @@
             if (_deviceConfigurationDictionary.TryGetValue(type, out var deviceConfig))
             {
                 deviceConfig.Status = statusText;
+                deviceConfig.StatusType = statusType;
             }
 
             if (validated)
@@ -969,6 +974,9 @@
                     : string.Format(
                         CultureInfo.CurrentCulture,
                         $"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ErrorText)} {GetDeviceErrorName()}");
+                config.StatusType = validated
+                    ? config.GetDeviceStatusType()
+                    : DeviceState.ErrorText;
             }
 
             CheckValidatedStatus();
@@ -1222,7 +1230,7 @@
             ShowHardMeters = configuredDevices.Excluded.All(d => d.Type != HardMetersDeviceType);
             if (ShowHardMeters)
             {
-                _hardMetersEnabled = _propertiesManager.GetValue(HardwareConstants.HardMetersEnabledKey, true);
+                _hardMetersEnabled = _propertiesManager.GetValue(HardwareConstants.HardMetersEnabledKey, false);
             }
 
             var configurableHardMeters = _propertiesManager.GetValue(
@@ -1447,6 +1455,12 @@
                         : device.Protocol == Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailableText)
                             ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InvalidProtocol)
                             : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotValidated);
+                    device.StatusType = device.Port ==
+                                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailableText)
+                        ? DeviceState.InvalidPort
+                        : device.Protocol == Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailableText)
+                            ? DeviceState.InvalidProtocol
+                            : DeviceState.NotValidated;
                 }
 
                 return;
@@ -1464,6 +1478,7 @@
                 foreach (var device in devices)
                 {
                     device.Status = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Validating);
+                    device.StatusType = DeviceState.Validating;
                 }
 
                 if (saveConfig && !IsValidating)
@@ -1516,6 +1531,10 @@
                 _deviceDetection.BeginDetection(discoverableDevices.Select(d => d.DeviceType));
                 return;
             }
+            else
+            {
+                MvvmHelper.ExecuteOnUI(() => UpdateScreen());
+            }
 
             TryValidationAfterDetection();
         }
@@ -1541,6 +1560,7 @@
                         deviceConfig.IsDetectionComplete = true;
                         deviceConfig.IsDetectionFailure = true;
                         deviceConfig.Status = $"{evt.Device.Name} {Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InvalidDeviceDetectedTemplate)}";
+                        deviceConfig.StatusType = DeviceState.InvalidDeviceDetectedTemplate;
                     }
                     else
                     {
@@ -1567,6 +1587,7 @@
                     Logger.Debug($"Undetected for {device.DeviceType}");
                     device.IsDetectionComplete = true;
                     device.Status = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoDeviceDetected);
+                    device.StatusType = DeviceState.NoDeviceDetected;
 #if RETAIL
                     device.IsDetectionFailure = true;
 #else
@@ -1604,6 +1625,7 @@
                 if (result && device != null)
                 {
                     deviceConfigVm.Status = GetUpdateStatus(device);
+                    deviceConfigVm.StatusType = GetUpdateStatusType(device);
                 }
             }
 
@@ -1619,9 +1641,7 @@
             }
 
             var done = EnabledDevices.All(
-                d => d.Status.Contains(
-                    Localizer.For(CultureFor.Operator)
-                        .GetString(ResourceKeys.ConnectedText)));
+                d => d.StatusType == DeviceState.ConnectedText);
 
             if (done || Validated)
             {
@@ -1680,6 +1700,7 @@
                 }))
             {
                 device.Status = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotValidated);
+                device.StatusType = DeviceState.NotValidated;
             }
 
             MvvmHelper.ExecuteOnUI(

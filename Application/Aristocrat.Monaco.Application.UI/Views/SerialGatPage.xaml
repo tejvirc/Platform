@@ -10,8 +10,7 @@
                                lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
                                lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
-                               d:DataContext="{d:DesignInstance {x:Type viewModels:SerialGatPageViewModel}, IsDesignTimeCreatable=False}"
-                               Background="Transparent">
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:SerialGatPageViewModel}, IsDesignTimeCreatable=False}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

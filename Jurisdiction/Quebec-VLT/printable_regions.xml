@@ -3,7 +3,7 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="../../bin/Region.xsd"
   xml:space="preserve">
-    <DPR name="TextTicketLeft" id="100" x="28" px="00000" y="20" py="00020" dx="476" pdx="00504" dy="2000" pdy="01000" rot="1" jst="1" type="F=009" m1="1" m2="1" attr="001" property="left">
+    <DPR name="TextTicketLeft" id="100" x="28" px="00008" y="20" py="00020" dx="476" pdx="00504" dy="2000" pdy="01000" rot="1" jst="1" type="F=009" m1="1" m2="1" attr="001" property="left">
       <D></D>                                                                                                   
     </DPR>                                                                                                      
     <DPR name="TextTicketCenter" id="101" x="28" px="00000" y="20" py="00020" dx="476" pdx="00496" dy="2000" pdy="01000" rot="1" jst="2" type="F=009" m1="1" m2="1" attr="001" property="center">
@@ -15,8 +15,8 @@
     <DPR name="TextTicketTitle" id="103" x="28" px="00000" y="20" py="00000" dx="476" pdx="00504" dy="2000" pdy="01000" rot="1" jst="2" type="F=008" m1="1" m2="1" attr="001" property="title">
      <D></D>                                                                                                    
     </DPR>                                                                                                      
-    <DPR name="CashSlipTitle" id="106" x="216" px="00080" y="1051" py="00000" dx="89" pdx="00100" dy="1020" pdy="01020" rot="4" jst="2" type="F=003" m1="1" m2="1" attr="001" property="title">
-      <D>COUPON DE REMBOURSEMENT</D>                                                                            
+    <DPR name="CashSlipTitle" id="106" x="216" px="00105" y="1051" py="00020" dx="89" pdx="00100" dy="1020" pdy="01020" rot="4" jst="2" type="F=003" m1="1" m2="1" attr="001" property="title localized">
+      <D></D>                                                                            
     </DPR>                                                                                                      
     <DPR name="ValidationNo" id="107" x="28" px="00028" y="15" py="00015" dx="476" pdx="00476" dy="31" pdy="00031" rot="1" jst="2" type="F=008" m1="1" m2="1" attr="001" property="validation number">
       <D></D>                                                                                                   
@@ -36,31 +36,28 @@
     <DPR name="Online" id="112" x="28" px="00028" y="190" py="00190" dx="476" pdx="00476" dy="31" pdy="00031" rot="1" jst="2" type="F=008" m1="1" m2="1" attr="001" property="online">
       <D></D>                                                                                           
     </DPR>                                                                                                      
-    <DPR name="VignetteVersMac" id="113" x="378" px="00320" y="822" py="00000" dx="24" pdx="00064" dy="600" pdy="01020" rot="4" jst="2" type="F=007" m1="1" m2="1" attr="001" property="serial version mac">
+    <DPR name="VignetteVersMac" id="113" x="378" px="00320" y="822" py="00000" dx="24" pdx="00064" dy="600" pdy="01020" rot="4" jst="2" type="F=007" m1="1" m2="1" attr="001" property="serial osversion mac">
       <D></D>                                                                                                   
     </DPR>                                                                                                      
-    <DPR name="CashValue" id="114" x="450" px="00350" y="1051" py="00000" dx="70" pdx="00100" dy="1020" pdy="01020" rot="4" jst="2" type="F=002" m1="1" m2="1" attr="001" property="value">
+    <DPR name="CashValue" id="114" x="450" px="00350" y="1051" py="00020" dx="70" pdx="00100" dy="1020" pdy="01020" rot="4" jst="2" type="F=002" m1="1" m2="1" attr="001" property="value">
       <D></D>                                                                                                   
     </DPR>                                                                                                      
-    <DPR name="CashValueText" id="115" x="476" px="00414" y="1051" py="00000" dx="24" pdx="00064" dy="1020" pdy="01020" rot="4" jst="2" type="F=006" m1="1" m2="1" attr="001" property="value in words 1">
+    <DPR name="CashValueText" id="115" x="476" px="00414" y="1051" py="00020" dx="24" pdx="00064" dy="1020" pdy="01020" rot="4" jst="2" type="F=006" m1="1" m2="1" attr="001" property="value in words 1">
       <D></D>                                                                                                   
     </DPR>                                                                                                      
-    <DPR name="CreditsText" id="116" x="508" px="00444" y="1051" py="00000" dx="24" pdx="00064" dy="1020" pdy="01020" rot="4" jst="2" type="F=007" m1="1" m2="1" attr="001" property="vlt credits">
+    <DPR name="CreditsText" id="116" x="508" px="00444" y="1051" py="00020" dx="24" pdx="00064" dy="1020" pdy="01020" rot="4" jst="2" type="F=007" m1="1" m2="1" attr="001" property="vlt credits">
       <D></D>                                                                                                   
     </DPR>                                                                                                     
-    <DPR name="CashSlipBarcode" id="117" x="210" px="00180" y="175" py="00225" dx="108" pdx="00108" dy="724" pdy="00624" rot="2" jst="2" type="B=001" m1="4" m2="8" attr="128" property="barcode">
+    <DPR name="CashSlipBarcode" id="117" x="210" px="00180" y="175" py="00225" dx="108" pdx="00128" dy="724" pdy="00624" rot="4" jst="2" type="B=001" m1="4" m2="8" attr="128" property="barcode">
       <D></D>                                                                                                   
     </DPR>                                                                                                      
-    <DPR name="EstablishmentName" id="121" x="108" px="00000" y="1051" py="00000" dx="65" pdx="00065" dy="1020" pdy="01020" rot="4" jst="2" type="F=004" m1="1" m2="1" attr="001" property="establishment name">
+    <DPR name="EstablishmentName" id="121" x="108" px="00005" y="1051" py="00020" dx="65" pdx="00065" dy="1020" pdy="01020" rot="4" jst="2" type="F=003" m1="1" m2="1" attr="001" property="establishment name">
       <D></D>                                                                                                   
     </DPR>                                                                                                      
-    <DPR name="LocationName" id="122" x="122" px="00050" y="1027" py="00464" dx="31" pdx="00031" dy="502" pdy="00486" rot="4" jst="2" type="F=008" m1="1" m2="1" attr="001" property="location name">
+    <DPR name="FullAddress" id="122" x="122" px="00045" y="1051" py="00020" dx="65" pdx="00065" dy="1020" pdy="01020" rot="4" jst="2" type="F=003" m1="1" m2="1" attr="001" property="full address">
       <D></D>                                                                                                   
     </DPR>                                                                                                      
-    <DPR name="LocationAddress" id="123" x="122" px="00050" y="520" py="00000" dx="31" pdx="00031" dy="520" pdy="00486" rot="4" jst="1" type="F=008" m1="1" m2="1" attr="001" property="location address">
-      <D></D>
-    </DPR>
-	<DPR name="CashSlipPaperLevel" id="134" x="28" px="00028" y="85" py="00085" dx="476" pdx="00476" dy="31" pdy="00031" rot="1" jst="2" type="F=008" m1="1" m2="1" attr="001" property="paper level">
+    <DPR name="CashSlipPaperLevel" id="134" x="28" px="00028" y="85" py="00085" dx="476" pdx="00476" dy="31" pdy="00031" rot="1" jst="2" type="F=008" m1="1" m2="1" attr="001" property="paper level">
       <D></D>                                                                                                   
     </DPR>     
 </DPR_Collection>

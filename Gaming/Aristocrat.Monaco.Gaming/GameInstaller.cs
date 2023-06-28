@@ -190,8 +190,9 @@
 
             if (current == null)
             {
+                current = _games.Exists(mountPath);
                 Logger.Info($"Installed game {packageId} from {gamePackage.FullName}");
-                _bus.Publish(new GameInstalledEvent(packageId, gamePackage.FullName));
+                _bus.Publish(new GameInstalledEvent(packageId, gamePackage.FullName, current));
                 _bus.Publish(new MediaAlteredEvent(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MediaType),
                                                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InstallReason),
                                                    packageId));

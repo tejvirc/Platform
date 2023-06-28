@@ -1,8 +1,12 @@
 ﻿
 namespace Aristocrat.Monaco.Application.Tests.Monitors
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Reflection;
     using Application.Monitors;
     using Contracts;
+    using Contracts.Localization;
     using Contracts.OperatorMenu;
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.Persistence;
@@ -10,9 +14,6 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
-    using System;
-    using System.Collections.Generic;
-    using System.Reflection;
     using Test.Common;
     using Test.Common.UnitTesting;
 
@@ -90,6 +91,10 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
             _propertiesManager
                 .Setup(m => m.GetProperty(ApplicationConstants.AlertVolumeKey, It.IsAny<byte>()))
                 .Returns((byte)100);
+
+            _propertiesManager
+                .Setup(m => m.GetProperty(ApplicationConstants.LockupCulture, It.IsAny<object>()))
+                .Returns(CultureFor.Operator);
 
             _disposable = new Mock<IDisposable>(MockBehavior.Default);
             _disposable.Setup(d => d.Dispose()).Verifiable();

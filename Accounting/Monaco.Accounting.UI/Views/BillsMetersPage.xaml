@@ -37,16 +37,19 @@
                       AutomationProperties.AutomationId="DataGrid6_EC411710">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{lex:Loc Denomination}" 
+                                        loc:Localizer.For="Operator"
                                         Width="200" 
                                         Binding="{Binding Name}" 
                                         AutomationProperties.AutomationId="DataGridTextColumn7_EC411710" />
                     <DataGridTextColumn Header="{lex:Loc Count}" 
+                                        loc:Localizer.For="Operator"
                                         Width="500" 
                                         Binding="{Binding Count, UpdateSourceTrigger=PropertyChanged}" 
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
                                         CellStyle="{StaticResource DataGridCellRight}"
                                         AutomationProperties.AutomationId="DataGridTextColumn8_EC411710" />
                     <DataGridTextColumn Header="{lex:Loc Value}" 
+                                        loc:Localizer.For="Operator"
                                         Width="500" 
                                         Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
@@ -93,10 +96,12 @@
                   AutomationProperties.AutomationId="DataGrid18_EC411710">
             <DataGrid.Columns>
                 	<DataGridTextColumn Header="{lex:Loc Meter}"
+                                    loc:Localizer.For="Operator"
                                     Width="200"
                                     Binding="{Binding Name}"
                                     AutomationProperties.AutomationId="DataGridTextColumn19_EC411710" />
                 <DataGridTextColumn Header="{lex:Loc Count}" 
+                                    loc:Localizer.For="Operator"
                                     HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
                                     CellStyle="{StaticResource DataGridCellRight}"
                                     Width="500"

@@ -1,16 +1,5 @@
 ﻿namespace Aristocrat.Monaco.G2S.UI.ViewModels
 {
-    using Application.Contracts;
-    using Application.UI.ConfigWizard;
-    using Aristocrat.G2S.Client.Communications;
-    using Common.CertificateManager;
-    using Common.CertificateManager.Models;
-    using Common.DHCP;
-    using Common.Events;
-    using Kernel;
-    using MVVM;
-    using MVVM.Command;
-    using Security;
     using System;
     using System.Collections.ObjectModel;
     using System.Linq;
@@ -19,9 +8,20 @@
     using System.Threading.Tasks;
     using System.Windows.Input;
     using System.Windows.Threading;
+    using Application.Contracts;
     using Application.Contracts.Localization;
+    using Application.UI.ConfigWizard;
+    using Aristocrat.G2S.Client.Communications;
+    using Common.CertificateManager;
+    using Common.CertificateManager.Models;
+    using Common.DHCP;
+    using Common.Events;
+    using Kernel;
     using Localization.Properties;
     using Monaco.UI.Common;
+    using MVVM;
+    using MVVM.Command;
+    using Security;
     using Constants = G2S.Constants;
 
     /// <summary>
@@ -79,7 +79,7 @@
         private bool _scepEnabled;
         private int? _manualPollingIntervalInitial;
         private bool? _validateDomainInitial;
-        private bool _ocspTestPassed; 
+        private bool _ocspTestPassed;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="SecurityConfigurationViewModel" /> class.
@@ -319,13 +319,11 @@
                 ValidateManualPollingInterval(value);
                 _manualPollingInterval = value;
                 RaisePropertyChanged(nameof(ManualPollingInterval));
-                UpdateConfiguration(true);   // VLT-10896 :  save to update the polling interval
                 // if we do not have a valid cert enable Enroll command
                 if (!_certificateService.HasValidCertificate())
                 {
                     EnrollCertificateCommand.RaiseCanExecuteChanged();
                 }
-               
             }
         }
 
@@ -611,7 +609,7 @@
 
         protected override void SaveChanges()
         {
-            Committed = true;
+            OnCommitted();
         }
 
         protected override void Loaded()
@@ -646,10 +644,16 @@
             // if not then enable checkbox and allow them ability to enter data
             ScepEnabled = !(EnrollmentEnabled && _certificateService.HasValidCertificate());
             // VLT-6613 
-            RequestButtonCaption = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Buttons_StartEnrollment);
+            UpdateStatusButton();
             //RequestButtonCaption = (_technicianMode ? Resources.Buttons_ApplyCertificate : Resources.Buttons_StartEnrollment);
             TabsActive = true;
             OcspTestPassed = true;
+        }
+
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            UpdateStatusButton();
+            base.OnOperatorCultureChanged(evt);
         }
 
         /// <summary>
@@ -1001,14 +1005,9 @@
             ValidateAll();
         }
 
-        private void UpdateConfiguration(bool updateOnly = false)
+        private void UpdateConfiguration()
         {
-            _certificateService.SaveConfiguration(LoadCurrentCertificateSettings());
-            
-            if (updateOnly)
-            {
-                return;
-            }
+            _certificateService.SaveConfiguration(GeneratePkiConfiguration());
 
             if (_technicianMode && _manualPollingIntervalInitial.HasValue &&
                     _manualPollingIntervalInitial.Value != ManualPollingInterval ||
@@ -1016,10 +1015,10 @@
             {
                 EventBus.Publish(new RestartProtocolEvent());
             }
-            
+
         }
 
-        private PkiConfiguration LoadCurrentCertificateSettings()
+        private PkiConfiguration GeneratePkiConfiguration()
         {
             var configuration = _certificateService.GetConfiguration() ?? new PkiConfiguration();
 
@@ -1189,6 +1188,16 @@
                     .FormatString(ResourceKeys.SecurityConfiguration_PendingCountdown, _timeRemaining));
 
             //RequestStatus = string.Format(CultureInfo.CurrentUICulture,Resources.SecurityConfiguration_PendingCountdown,_timeRemaning);
+        }
+
+        private void UpdateStatusButton()
+        {
+            MvvmHelper.ExecuteOnUI(
+                () =>
+                {
+                    RequestButtonCaption = Localizer.For(CultureFor.Operator)
+                        .GetString(ResourceKeys.Buttons_StartEnrollment);
+                });
         }
     }
 }

@@ -130,6 +130,9 @@
         /// <summary> Test or blank </summary>
         public const string ActiveProtocol = "Active.Protocol";
 
+        /// <summary> Protocol Host URI Addresses </summary>
+        public const string HostAddresses = "Protocol.HostAddresses";
+
         /// <summary> Property Manager key for IsInitialConfigurationComplete. </summary>
         public const string IsInitialConfigurationComplete = "IsInitialConfigurationComplete";
 
@@ -588,6 +591,11 @@
         public const string DisabledByOperatorText = "Application.GeneralMessages.DisabledByOperatorText";
 
         /// <summary>
+        ///     Property manager key for DisabledByOperatorText.
+        /// </summary>
+        public const string LockupCulture = "Application.GeneralMessages.LockupCulture";
+
+        /// <summary>
         ///     Property manager key for NoteAcceptorErrorBillJam.
         /// </summary>
         public const string NoteAcceptorErrorBillJamText = "Application.NoteAcceptorErrorMessages.BillJamText";
@@ -753,6 +761,11 @@
         ///     Property manager key for LocalizationOperatorTicketSelectable
         /// </summary>
         public const string LocalizationOperatorTicketSelectable = "Localization.OperatorTicket.Selectable";
+
+        /// <summary>
+        ///     Property manager key for LocalizationOperatorTicketLanguageSettingOperatorOverride
+        /// </summary>
+        public const string LocalizationOperatorTicketLanguageSettingOperatorOverride = "Localization.OperatorTicket.LanguageSetting.OperatorOverride";
 
         /// <summary>
         ///     Property manager key for LocalizationPlayerTicketCurrentCulture.
@@ -932,6 +945,9 @@
 
         /// <summary> Property manager key for ConfigWizardLimitsPageEnabled. </summary>
         public const string ConfigWizardCreditLimitCheckboxEditable = "ConfigWizard.LimitsPage.CreditLimit.CheckboxEditable";
+
+        /// <summary> Property manager key for ConfigWizardLimitsPageEnabled. </summary>
+        public const string ConfigWizardHandpayLimitVisible = "ConfigWizard.LimitsPage.HandpayLimit.Visible";
 
         /// <summary> Property manager key for ConfigWizardLimitsPageEnabled. </summary>
         public const string ConfigWizardHandpayLimitCheckboxEditable = "ConfigWizard.LimitsPage.HandpayLimit.CheckboxEditable";
@@ -1167,6 +1183,11 @@
         ///     PrinterDisconnectedGuid GUID
         /// </summary>
         public static readonly Guid PrinterDisconnectedGuid = new Guid("{91B975FC-1EC9-4C24-9700-B3749FEF73C3}");
+
+        /// <summary>
+        ///     PrinterDisconnectedGuid GUID
+        /// </summary>
+        public static readonly Guid IdReaderDisconnectedGuid = new Guid("{3E94D25D-5146-45A9-BD95-25215153CD97}");
 
         /// <summary>
         ///     Battery 1 GUID

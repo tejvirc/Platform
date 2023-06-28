@@ -5,8 +5,6 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
-                               xmlns:converters="http://monaco.aristocrat.com/common"
-                               xmlns:converters1="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
                                lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
@@ -48,10 +46,12 @@
                       AutomationProperties.AutomationId="DataGrid6_7F68A5EA">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{lex:Loc MachinePaidBonusAwardsLabel}"
+                                        loc:Localizer.For="Operator"
                                         Width="460"
                                         Binding="{Binding Name}"
                                         AutomationProperties.AutomationId="DataGridTextColumn7_7F68A5EA" />
                     <DataGridTextColumn Header="{lex:Loc Value}"
+                                        loc:Localizer.For="Operator"
                                         Width="200"
                                         Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
@@ -107,10 +107,12 @@
                       AutomationProperties.AutomationId="DataGrid17_7F68A5EA">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{lex:Loc AttendantPaidBonusAwardsLabel}"
+                                        loc:Localizer.For="Operator"
                                         Width="460"
                                         Binding="{Binding Name}"
                                         AutomationProperties.AutomationId="DataGridTextColumn18_7F68A5EA" />
                     <DataGridTextColumn Header="{lex:Loc Value}"
+                                        loc:Localizer.For="Operator"
                                         Width="200"
                                         Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"

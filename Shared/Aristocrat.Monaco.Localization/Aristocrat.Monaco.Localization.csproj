@@ -31,6 +31,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources_AfricanNations.resx</DependentUpon>
     </Compile>
+    <Compile Update="Overrides\Resources_QuebecVLT.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_QuebecVLT.resx</DependentUpon>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -186,6 +191,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources_Philippines.resx</DependentUpon>
     </Compile>
+	<Compile Update="Overrides\Resources_Quebec.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources_Quebec.resx</DependentUpon>
+    </Compile>
     <Compile Update="Overrides\Resources_RhodeIsland.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -248,6 +258,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Update="Overrides\Resources_QuebecVLT.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources_QuebecVLT.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Properties\Resources.en-CA.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>

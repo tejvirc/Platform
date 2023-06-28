@@ -14,7 +14,7 @@
 
     public class GameStatisticsViewModel : OperatorMenuDiagnosticPageViewModelBase
     {
-        private Dictionary<string, string> _gambleMeters;
+        private List<string> _gambleMeters;
         private readonly Dictionary<string, InGameMeter> _featureMeters;
 
         private bool _baseStatsCollapsed;
@@ -24,7 +24,7 @@
 
         public GameStatisticsViewModel()
         {
-            _games = PropertiesManager.GetValues<IGameDetail>(GamingConstants.AllGames).Where(x => x.Features != null && x.Features.Any() && x.Features.All(e=> e.Enable));
+            _games = PropertiesManager.GetValues<IGameDetail>(GamingConstants.AllGames).Where(x => x.Features != null && x.Features.Any() && x.Features.All(e => e.Enable));
             _featureMeters = new Dictionary<string, InGameMeter>();
             LoadMeters();
         }
@@ -73,15 +73,21 @@
             SelectedGame = Games?.FirstOrDefault();
         }
 
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            InitializeMeters();
+            base.OnOperatorCultureChanged(evt);
+        }
+
         private void LoadMeters()
         {
-            _gambleMeters = new Dictionary<string, string>
+            _gambleMeters = new List<string>
             {
-                { GamingMeters.PrimaryWonAmount, "Primary Game Amount Won" },
-                { GamingMeters.SecondaryWageredAmount, "Double Up Amount Wagered" },
-                { GamingMeters.SecondaryWonAmount, "Double Up Amount Won" },
-                { GamingMeters.SecondaryPlayedCount, "Double Up Games Played" },
-                { GamingMeters.SecondaryTiedAndWonCount, "Double Up Games Won" }
+                GamingMeters.PrimaryWonAmount,
+                GamingMeters.SecondaryWageredAmount,
+                GamingMeters.SecondaryWonAmount,
+                GamingMeters.SecondaryPlayedCount,
+                GamingMeters.SecondaryTiedAndWonCount
             };
         }
 
@@ -104,21 +110,18 @@
 
                     foreach (var meterNode in _gambleMeters)
                     {
-                        var label = meterNode.Key + "Label";
-
-                        string meterDisplayName = localizer.GetString(label, _ => meterDisplayName = meterNode.Value);
+                        var label = meterNode + "Label";
+                        var meterDisplayName = localizer.GetString(label);
 
                         try
                         {
-                            var meter = meterManager.GetMeter(meterNode.Key);
-                            GameGambleMeters.Add(new DisplayMeter(meterDisplayName ?? meterNode.Value, meter, true));
+                            var meter = meterManager.GetMeter(meterNode);
+                            GameGambleMeters.Add(new DisplayMeter(meterDisplayName, meter, true, 0, true, false, UseOperatorCultureForCurrencyFormatting));
                         }
                         catch (MeterNotFoundException)
                         {
-
-                            GameGambleMeters.Add(new DisplayMeter(meterDisplayName ?? meterNode.Value, null, true));
-
-                            Logger.ErrorFormat("Meter not found: {0}", meterNode.Key);
+                            GameGambleMeters.Add(new DisplayMeter(meterDisplayName, null, true, 0, true, false, UseOperatorCultureForCurrencyFormatting));
+                            Logger.ErrorFormat("Meter not found: {0}", meterNode);
                         }
                     }
 
@@ -146,9 +149,10 @@
             _featureMeters.Clear();
 
             _games?.FirstOrDefault(x => x.ThemeName == game)
-                ?.Features.FirstOrDefault()?.StatInfo.ToList().ForEach(x => {
-                _featureMeters[x.Name] = new InGameMeter { MeterName = x.DisplayName };
-            });
+                ?.Features.FirstOrDefault()?.StatInfo.ToList().ForEach(x =>
+                {
+                    _featureMeters[x.Name] = new InGameMeter { MeterName = x.DisplayName };
+                });
 
 
             _featureMeters.ToList().ForEach(i => _featureMeters[i.Key].Value = 0);
@@ -158,7 +162,8 @@
 
             _games?.Where(x => x.ThemeName == game).ToList().ForEach(g =>
             {
-                g.SupportedDenominations.ToList().ForEach(denom => {
+                g.SupportedDenominations.ToList().ForEach(denom =>
+                {
                     gameStorage.GetValues<InGameMeter>(g.Id, denom, GamingConstants.InGameMeters).ToList().ForEach(meter =>
                     {
                         if (_featureMeters.ContainsKey(meter.MeterName))

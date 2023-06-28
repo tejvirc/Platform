@@ -45,7 +45,9 @@
                                 <Border Grid.Column="0"
                                         AutomationProperties.AutomationId="Border3_CE65367A">
                                     <controls:ToggleSwitch Style="{StaticResource ToggleSwitchButtonStyle}"
-                                                                 IsOn="{Binding IsSelected, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
+                                                                 IsOn="{Binding IsSelected, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                                                 common:ToggleSwitchButtonHelper.OffContent="{lex:Loc Off}"
+                                                                 common:ToggleSwitchButtonHelper.OnContent="{lex:Loc On}" />
                                 </Border>
                                 <Border Grid.Column="1"
                                         Margin="10 0 0 0"
@@ -108,7 +110,9 @@
                                 <Border Grid.Column="0"
                                         AutomationProperties.AutomationId="Border10_CE65367A">
                                     <controls:ToggleSwitch Style="{StaticResource ToggleSwitchButtonStyle}"
-                                                                 IsOn="{Binding IsSelected, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
+                                                                 IsOn="{Binding IsSelected, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" 
+                                                                 common:ToggleSwitchButtonHelper.OffContent="{lex:Loc Off}"
+                                                                 common:ToggleSwitchButtonHelper.OnContent="{lex:Loc On}"/>
                                 </Border>
                                 <Border Grid.Column="1"
                                         Margin="10 0 0 0"
@@ -204,9 +208,9 @@
         </GroupBox>
         <GroupBox Grid.Row="2"
                   Grid.Column="0"
-                  IsEnabled="{Binding TestModeEnabled}"
+                  IsEnabled="{Binding TowerLightsIsEnabled}"
                   Header="{lex:Loc TestTowerLights}"
-                  Visibility="{Binding TowerLightsEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                  Visibility="{Binding TowerLightsIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                   AutomationProperties.AutomationId="GroupBox25_CE65367A">
             <Grid Margin="4"
                   VerticalAlignment="Top"
@@ -238,18 +242,12 @@
                 <ComboBox Grid.Column="1"
                           Name="TowerLightFlashStatesComboBox"
                           ItemsSource="{Binding FlashStates}"
-                          SelectedItem="{Binding SelectedFlashState}"
+                          SelectedItem="{Binding SelectedFlashState, UpdateSourceTrigger=PropertyChanged}"
+                          DisplayMemberPath="FlashStateString"
                           MinWidth="240"
                           MaxHeight="45"
                           Margin="15 0 0 0"
-                          AutomationProperties.AutomationId="ComboBox34_CE65367A">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}"
-                                       AutomationProperties.AutomationId="TextBlock35_CE65367A" />
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
+                          AutomationProperties.AutomationId="ComboBox34_CE65367A" />
                 <Button Grid.Column="2"
                         Name="SetTowerLightFlashStateButton"
                         Content="{lex:Loc Key={x:Static loc:ResourceKeys.Set}}"

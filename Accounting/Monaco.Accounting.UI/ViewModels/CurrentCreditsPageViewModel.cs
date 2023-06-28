@@ -49,6 +49,18 @@
 
         protected override void OnLoaded()
         {
+            UpdateCredits();
+        }
+
+        protected override void OnUnloaded()
+        {
+            EventBus.UnsubscribeAll(this);
+        }
+
+        protected void UpdateCredits()
+        {
+            var culture = GetCurrencyDisplayCulture();
+
             var credits = new List<Credit>();
             using (var scope = new CultureScope(CultureFor.Operator))
             {
@@ -60,13 +72,19 @@
                     if (name != string.Empty)
                     {
                         credits.Add(new Credit(name,
-                            _bank.QueryBalance(credit.Key).MillicentsToDollars().FormattedCurrencyString()));
+                            _bank.QueryBalance(credit.Key).MillicentsToDollars().FormattedCurrencyString(false, culture)));
                     }
                 }
 
                 Credits = credits;
-                TotalCredits = _bank.QueryBalance().MillicentsToDollars().FormattedCurrencyString();
+                TotalCredits = _bank.QueryBalance().MillicentsToDollars().FormattedCurrencyString(false, culture);
             }
+        }
+
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            UpdateCredits();
+            base.OnOperatorCultureChanged(evt);
         }
 
         public class Credit

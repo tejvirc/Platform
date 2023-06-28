@@ -1395,4 +1395,12 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style x:Key="MonacoMetersComboBox"
+           TargetType="ComboBox"
+           BasedOn="{StaticResource MonacoComboBox}">
+        <Setter Property="Margin" Value="0 0 10 0" />
+        <Setter Property="MaxDropDownHeight" Value="240" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Width" Value="500" />
+    </Style>
 </ResourceDictionary>

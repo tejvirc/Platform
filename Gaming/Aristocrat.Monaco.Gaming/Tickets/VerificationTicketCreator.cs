@@ -46,5 +46,11 @@
 
             return ticket.CreateTextTicket();
         }
+
+        public Ticket CreateOverflowPage(int pageNumber = 0)
+        {
+            var ticket = new VerificationTicket(pageNumber);
+            return ticket.CreateSecondPageTextTicket();
+        }
     }
 }

@@ -9,6 +9,7 @@
                               xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                               xmlns:loc="http://monaco.aristocrat.com/localization"
                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                              xmlns:views="clr-namespace:Aristocrat.Monaco.Application.UI.Views"
                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                               common:DialogParticipation.Register="{Binding}"
@@ -86,6 +87,7 @@
                                     <MultiBinding Converter="{StaticResource MultiValueConverter}">
                                         <Binding ElementName="InfoButton" />
                                         <Binding Path="DataContext.AdditionalInfo"
+                                                 UpdateSourceTrigger="PropertyChanged"
                                                  RelativeSource="{RelativeSource Self}" />
                                     </MultiBinding>
                                 </Button.CommandParameter>
@@ -95,27 +97,17 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
-        <StackPanel Grid.Row="1"
-                    Orientation="Horizontal"
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal"
                     AutomationProperties.AutomationId="StackPanel12_189ED632">
-            <Grid AutomationProperties.AutomationId="Grid13_189ED632">
-                <Button Content="{Binding OutOfServiceButtonText}"
-                        TabIndex="2"
-                        HorizontalAlignment="Left"
-                        IsEnabled="{Binding OutOfServiceModeButtonActive}"
-                        Command="{Binding OutOfServiceModeButtonCommand}"
-                        MinWidth="215"
-                        AutomationProperties.AutomationId="Button14_189ED632" />
-            </Grid>
-            <Grid AutomationProperties.AutomationId="Grid15_189ED632">
-                <Button Width="200"
-                        HorizontalAlignment="Left"
-                        Margin="10 0 0 0"
-                        Content="{lex:Loc ExitReserve}"
-                        Command="{Binding ExitReserveCommand}"
-                        Visibility="{Binding IsExitReserveButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}"
-                        AutomationProperties.AutomationId="Button16_189ED632" />
-            </Grid>
+            <views:OutOfServiceButton DataContext="{Binding OutOfServiceViewModel}"
+                                      Margin="10 0 0 0"/>
+            <Button Width="250"
+                    HorizontalAlignment="Left" Margin="10 0 0 0"
+                    Content="{lex:Loc ExitReserve}"
+                    Command="{Binding ExitReserveCommand}"
+                    Visibility="{Binding IsExitReserveButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}"
+                    AutomationProperties.AutomationId="Button16_189ED632" />
         </StackPanel>
     </Grid>
 </operatorMenu:OperatorMenuPage>

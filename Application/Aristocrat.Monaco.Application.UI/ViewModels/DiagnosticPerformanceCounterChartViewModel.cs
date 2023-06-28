@@ -7,6 +7,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows.Input;
+    using Application.Helpers;
     using Contracts.Localization;
     using Kernel;
     using Monaco.Common;
@@ -440,6 +441,11 @@
 
             foreach (var metric in metrics)
             {
+                var metricLabel = Localizer.For(CultureFor.Operator).GetString(metric.GetAttribute<LabelResourceKeyAttribute>().LabelResourceKey);
+                var metricUnitResourceKey = metric.GetAttribute<UnitResourceKeyAttribute>()?.UnitResourceKey;
+                var metricUnit = string.IsNullOrWhiteSpace(metricUnitResourceKey)
+                    ? metric.GetAttribute<UnitAttribute>().Unit
+                    : Localizer.For(CultureFor.Operator).GetString(metricUnitResourceKey);
                 var m = new ViewChartMetric
                 {
                     InstanceName = metric.GetAttribute<InstanceAttribute>().Instance,
@@ -449,12 +455,43 @@
                     Unit = metric.GetAttribute<UnitAttribute>().Unit,
                     CounterType = metric.GetAttribute<CounterTypeAttribute>().CounterType,
                     MaxRange = metric.GetAttribute<MaxRangeAttribute>().MaxRange,
-                    Label = metric.GetAttribute<LabelAttribute>().Label + " " + metric.GetAttribute<UnitAttribute>().Unit
+                    Label = metricLabel + " " + metricUnit
                 };
 
                 m.PropertyChanged += ViewMetric_PropertyChanged;
                 AllMetrics.Add(m);
             }
+        }
+
+        private void UpdateMetricLabels()
+        {
+            foreach (var metric in AllMetrics)
+            {
+                metric.Label = metric.MetricType.GetMetricLabel();
+            }
+            foreach (var series in MonacoPlotModel.Series)
+            {
+                var metric = (MetricType)series.Tag;
+                series.Title = metric.GetMetricLabel();
+            }
+            MonacoPlotModel.Title = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PerformanceCountersPlotting);
+            RaisePropertyChanged(nameof(AllMetrics));
+            RaisePropertyChanged(nameof(MonacoPlotModel));
+            MonacoPlotModel.InvalidatePlot(true);
+        }
+
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            MvvmHelper.ExecuteOnUI(() =>
+            {
+                if (MonacoPlotModel == null || AllMetrics == null)
+                {
+                    return;
+                }
+                UpdateMetricLabels();
+            });
+
+            base.OnOperatorCultureChanged(evt);
         }
 
         private void ViewMetric_PropertyChanged(object sender, PropertyChangedEventArgs args)
@@ -677,7 +714,8 @@
                         Color = metric.MetricColor.ToOxyColor(),
                         MarkerStroke = metric.MetricColor.ToOxyColor(),
                         StrokeThickness = 1,
-                        IsVisible = true
+                        IsVisible = true,
+                        Tag = metric.MetricType
                     };
 
                 metric.MetricEnabled = true;
