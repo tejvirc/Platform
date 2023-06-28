@@ -4,6 +4,7 @@
     using Aristocrat.Monaco.Kernel;
     using System;
     using System.Threading;
+    using System.Threading.Tasks;
     using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
     using System.Collections.Generic;
 
@@ -44,16 +45,14 @@
 
         public void Execute()
         {
+            var loadInterval = _robotController.Config.Active.IntervalLoadAuditMenu;
+
             _logger.Info("AuditMenuOperations Has Been Initiated!", GetType().Name);
             SubscribeToEvents();
             _loadAuditMenuTimer = new Timer(
-                (sender) =>
-                {
-                    RequestAuditMenu();
-                },
+                sender => RequestAuditMenu(),
                 null,
-                _robotController.Config.Active.IntervalLoadAuditMenu,
-                _robotController.Config.Active.IntervalLoadAuditMenu);
+                loadInterval, loadInterval);
         }
 
         public void Halt()
@@ -95,15 +94,10 @@
             }
             _logger.Info("Requesting Audit Menu", GetType().Name);
             _automator.LoadAuditMenu();
-            _exitAuditMenuTimer = new Timer(
-                (sender) =>
-                {
-                    _automator.ExitAuditMenu();
-                    _exitAuditMenuTimer.Dispose();
-                },
-                null,
-                Constants.AuditMenuDuration,
-                Timeout.Infinite);
+
+            var auditMenuDuration = TimeSpan.FromMilliseconds(Constants.AuditMenuDuration);
+            Task.Delay(auditMenuDuration)
+                .ContinueWith(task => _automator.ExitAuditMenu());
         }
 
         private void SubscribeToEvents()

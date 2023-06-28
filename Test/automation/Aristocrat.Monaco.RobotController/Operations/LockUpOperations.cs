@@ -5,6 +5,7 @@
     using System;
     using System.Collections.Generic;
     using System.Threading;
+    using System.Threading.Tasks;
 
     internal class LockUpOperations : IRobotOperations
     {
@@ -89,14 +90,14 @@
             _robotController.BlockOtherOperations(RobotStateAndOperations.LockUpOperation);
             _logger.Info("RequestLockUp Received!", GetType().Name);
             _automator.EnterLockup();
-            _lockupTimer = new Timer(
-            (sender) =>
+
+            var lockupDuration = TimeSpan.FromMilliseconds(Constants.LockupDuration);
+            Task.Delay(lockupDuration).ContinueWith(task =>
             {
                 _logger.Info("RequestExitLockup Received!", GetType().Name);
                 _automator.ExitLockup();
-                _lockupTimer.Dispose();
                 _robotController.UnBlockOtherOperations(RobotStateAndOperations.LockUpOperation);
-            }, null, Constants.LockupDuration, Timeout.Infinite);
+            });
         }
 
         private bool IsValid()
