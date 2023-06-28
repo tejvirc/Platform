@@ -53,9 +53,9 @@
         [DataRow(1, 100, true, true, true, DisplayName = "Reel 1, Step 100, Both clients, Exception")]
         [DataRow(1, -1, true, false, true, DisplayName = "Reel 1, Step -1, Clent 1, Exception")]
         [DataRow(1, 100, false, false, false, DisplayName = "Reel 1, Step 100, No clients, No exception")]
-        [DataRow(0, 100, true, false, false, DisplayName = "Reel 0, Step 100, Clent 1, No exception")]
+        [DataRow(0, 100, true, false, true, DisplayName = "Reel 0, Step 100, Clent 1, No exception")]
         [DataRow(9, 100, true, false, true, DisplayName = "Reel 9, Step 100, Clent 1, Exception")]
-        [DataRow(10, 100, true, false, false, DisplayName = "Reel 10, Step 100, Clent 1, No exception")]
+        [DataRow(10, 100, true, false, true, DisplayName = "Reel 10, Step 100, Clent 1, No exception")]
         [DataRow(1, 1000, true, false, true, DisplayName = "Reel 1, Step 1000, Clent 1, Exception")]
         [DataTestMethod]
         public void ConsumeTest(int reel, int step, bool client1RteEnabled, bool client2RteEnabled, bool expectException)

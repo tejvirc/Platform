@@ -22,6 +22,7 @@
         [TestInitialize]
         public void Setup()
         {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             _directoriesList = Helper.GetDirectoriesList(Helper.XmlPathDirectory, Helper.FilterDirectoryList);
             _fileList = Helper.GetFilesList(Helper.XmlPathDirectory, "Jurisdiction*.xml");
             Assert.AreEqual(_directoriesList.Length, _fileList.Length);
