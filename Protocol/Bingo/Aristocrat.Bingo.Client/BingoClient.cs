@@ -1,7 +1,6 @@
 namespace Aristocrat.Bingo.Client
 {
     using System;
-    using System.Linq;
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
@@ -10,7 +9,6 @@ namespace Aristocrat.Bingo.Client
     using Grpc.Core;
     using Grpc.Core.Interceptors;
     using Grpc.Net.Client;
-    using Grpc.Net.Client.Balancer;
     using log4net;
     using Messages.Interceptor;
     using ClientApi = ServerApiGateway.ClientApi.ClientApiClient;
@@ -76,11 +74,7 @@ namespace Aristocrat.Bingo.Client
             {
                 await Stop().ConfigureAwait(false);
                 using var configuration = _configurationProvider.CreateConfiguration();
-                var credentials = configuration.Certificates.Any()
-                    ? new SslCredentials(
-                        string.Join(Environment.NewLine, configuration.Certificates.Select(x => x.ConvertToPem())))
-                    : ChannelCredentials.Insecure;
-                _channel = GrpcChannel.ForAddress(configuration.Address, new GrpcChannelOptions() { Credentials = credentials });
+                _channel = GrpcChannel.ForAddress(configuration.Address, new GrpcChannelOptions());
                 var callInvoker = _channel.Intercept(_communicationInterceptor);
                 if (configuration.ConnectionTimeout > TimeSpan.Zero)
                 {

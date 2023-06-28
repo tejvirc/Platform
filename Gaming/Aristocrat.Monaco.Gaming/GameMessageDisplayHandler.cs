@@ -22,19 +22,17 @@ namespace Aristocrat.Monaco.Gaming
         private static readonly TimeSpan MaxDisplayLimit = TimeSpan.FromSeconds(3);
         private static readonly TimeSpan UpdateInterval = TimeSpan.FromMilliseconds(100);
         private static readonly TimeSpan ShutdownTimeout = TimeSpan.FromSeconds(5);
-
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IRuntime _runtime;
         private readonly IGameDiagnostics _gameDiagnostics;
         private readonly IEventBus _eventBus;
         private readonly IMessageDisplay _messageDisplay;
-        private readonly List<DisplayableMessage> _displayMessages = new List<DisplayableMessage>();
-        private readonly bool _showMessages;
-        private readonly object _messageLock = new object();
+        private readonly IPropertiesManager _properties;
+        private readonly List<DisplayableMessage> _displayMessages = new();
+        private readonly object _messageLock = new();
 
         private Timer _changePropagationTimer;
-
         private string _lastMessage = string.Empty;
         private TimeSpan _currentMessageDisplayTime;
         private bool _disposed;
@@ -57,17 +55,11 @@ namespace Aristocrat.Monaco.Gaming
             _runtime = runtimeService ?? throw new ArgumentNullException(nameof(runtimeService));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _messageDisplay = messageDisplay ?? throw new ArgumentNullException(nameof(messageDisplay));
-
-            if (properties == null)
-            {
-                throw new ArgumentNullException(nameof(properties));
-            }
+            _properties = properties ?? throw new ArgumentNullException(nameof(properties));
 
             _gameDiagnostics = gameDiagnostics ?? throw new ArgumentNullException(nameof(gameDiagnostics));
 
             _changePropagationTimer = new Timer(UpdateMessages, null, Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
-
-            _showMessages = properties.GetValue(GamingConstants.ShowMessages, false);
 
             _messageDisplay.AddMessageDisplayHandler(this);
 
@@ -78,9 +70,10 @@ namespace Aristocrat.Monaco.Gaming
         /// <inheritdoc />
         public void DisplayMessage(DisplayableMessage displayableMessage)
         {
-            if (!_showMessages || _gameDiagnostics.IsActive || displayableMessage == null ||
-                (displayableMessage.Classification != DisplayableMessageClassification.SoftError &&
-                 displayableMessage.Classification != DisplayableMessageClassification.Informative))
+            var showMessages = _properties.GetValue(GamingConstants.ShowMessages, false);
+            if (!showMessages || _gameDiagnostics.IsActive || displayableMessage == null ||
+                displayableMessage.Classification != DisplayableMessageClassification.SoftError &&
+                displayableMessage.Classification != DisplayableMessageClassification.Informative)
             {
                 return;
             }
