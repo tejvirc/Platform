@@ -11,9 +11,6 @@
     using Hardware.NoteAcceptor;
     using Kernel;
     using Kernel.Contracts;
-    using System;
-    using System.Collections.Generic;
-    using Application.Contracts;
     using Microsoft.AspNetCore.Mvc;
     using Aristocrat.Monaco.TestController.Models.Request;
 

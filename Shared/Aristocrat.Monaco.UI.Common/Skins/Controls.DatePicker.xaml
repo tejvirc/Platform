@@ -2,7 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                     xmlns:lex="http://wpflocalizeextension.codeplex.com"
-                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                     xmlns:behaviours="http://metro.mahapps.com/winfx/xaml/shared"
                     xmlns:b="http://schemas.microsoft.com/xaml/behaviors">
 
@@ -26,29 +25,22 @@
                       Offset=".95"
                       AutomationProperties.AutomationId="GradientStop4_DA77BB9A" />
     </LinearGradientBrush>
-    
-    <Style x:Key="MonacoDatePickerTextBox" TargetType="{x:Type DatePicker}">
+
+    <Style x:Key="MonacoDatePickerTextBox" TargetType="{x:Type DatePickerTextBox}">
         <Setter Property="Background" Value="{DynamicResource ControlBackgroundBrush}" />
         <Setter Property="ContextMenu" Value="{DynamicResource MonacoTextBoxContextMenu}" />
         <Setter Property="controls:TextBoxHelper.IsMonitoring" Value="True" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="FontFamily" Value="{DynamicResource ContentFontFamily}" />
         <Setter Property="FontSize" Value="{DynamicResource ContentFontSize}" />
-        <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
         <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst" />
         <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
         <Setter Property="VerticalContentAlignment"
                 Value="Center" />
-        <Setter Property="FontSize"
-                Value="28" />
         <Setter Property="Foreground"
                 Value="{DynamicResource LightBrush4}" />
-        <Setter Property="IsTodayHighlighted"
-                Value="True" />
         <Setter Property="Padding"
                 Value="5 10" />
-        <Setter Property="SelectedDateFormat"
-                Value="Short" />
         <Setter Property="SnapsToDevicePixels"
                 Value="True" />
         <Setter Property="Template">
@@ -333,10 +325,10 @@
                                 <Condition Binding="{Binding Path=(controls:TextBoxHelper.HasText), RelativeSource={RelativeSource Self}}" Value="True" />
                             </MultiDataTrigger.Conditions>
                             <MultiDataTrigger.EnterActions>
-                                <BeginStoryboard Storyboard="{StaticResource ShowFloatingMessageStoryboard}" AutomationProperties.AutomationId="BeginStoryboard24_DA77BB9A" />
+                                <BeginStoryboard Storyboard="{StaticResource MahApps.Storyboard.ShowFloatingMessage}" AutomationProperties.AutomationId="BeginStoryboard24_DA77BB9A" />
                             </MultiDataTrigger.EnterActions>
                             <MultiDataTrigger.ExitActions>
-                                <BeginStoryboard Storyboard="{StaticResource HideFloatingMessageStoryboard}" AutomationProperties.AutomationId="BeginStoryboard25_DA77BB9A" />
+                                <BeginStoryboard Storyboard="{StaticResource MahApps.Storyboard.HideFloatingMessage}" AutomationProperties.AutomationId="BeginStoryboard25_DA77BB9A" />
                             </MultiDataTrigger.ExitActions>
                         </MultiDataTrigger>
                     </ControlTemplate.Triggers>
