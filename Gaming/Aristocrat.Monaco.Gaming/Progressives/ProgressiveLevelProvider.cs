@@ -175,15 +175,13 @@ namespace Aristocrat.Monaco.Gaming.Progressives
         {
             var denominationList = denominations.ToList();
 
-            var betLinePreset =
+            var hasProgressiveBetLinePreset =
                 !string.IsNullOrEmpty(progressive.BetLinePreset) &&
                 !string.IsNullOrEmpty(betOption?.BetLinePreset) &&
-                progressive.BetLinePreset == betOption.BetLinePreset
-                    ? betOption?.Name
-                    : string.Empty;
+                progressive.BetLinePreset == betOption.BetLinePreset;
 
             var resetValueInMillicents =
-                level.ResetValue(denominationList, betLinePreset != string.Empty ? null : betOption)
+                level.ResetValue(denominationList, hasProgressiveBetLinePreset ? null : betOption)
                     .CentsToMillicents();
 
             var levelType = (ProgressiveLevelType)level.ProgressiveType;
@@ -196,7 +194,7 @@ namespace Aristocrat.Monaco.Gaming.Progressives
                 GameId = gameId,
                 Denomination = denominationList,
                 BetOption = betOption?.Name,
-                BetLinePreset = betLinePreset,
+                BetLinePreset = betOption?.Name,
                 AllowTruncation = level.AllowTruncation,
                 LevelId = level.LevelId,
                 IncrementRate = level.IncrementRate.ToPercentage(),
