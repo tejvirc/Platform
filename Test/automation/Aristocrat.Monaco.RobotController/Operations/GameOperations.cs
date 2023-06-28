@@ -408,7 +408,12 @@
 
         private void DismissTimeLimitDialog()
         {
-            _automator.DismissTimeLimitDialog(_isTimeLimitDialogVisible);
+            if (!_isTimeLimitDialogVisible)
+            {
+                return;
+            }
+
+            _automator.DismissTimeLimitDialog();
         }
 
         private bool IsTimeLimitDialogInProgress()

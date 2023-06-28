@@ -16,6 +16,7 @@
         private readonly RobotController _robotController;
         private Timer _ResponsibleGamingTimer;
         private bool _gameIsRunning;
+        private bool _isTimeLimitDialogVisible;
         private bool disposedValue;
 
         public ResponsibleGamingOperations(IEventBus eventBus, RobotLogger logger, Automation automator, RobotController robotController)
@@ -86,7 +87,9 @@
                 return;
             }
             _logger.Info($"Performing Responsible Gaming Request Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+
             _automator.SetResponsibleGamingTimeElapsed(_robotController.Config.GetTimeElapsedOverride());
+
             if (_robotController.Config.GetSessionCountOverride() != 0)
             {
                 _automator.SetRgSessionCountOverride(_robotController.Config.GetSessionCountOverride());
@@ -105,6 +108,8 @@
                  evt =>
                  {
                      _logger.Info($"TimeLimitDialogVisibleEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+
+                     _automator.DismissTimeLimitDialog();
                  });
             _eventBus.Subscribe<TimeLimitDialogHiddenEvent>(
                 this,

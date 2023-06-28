@@ -127,13 +127,10 @@
             _eventBus.Publish(new GameRequestExitEvent());
         }
 
-        public void DismissTimeLimitDialog(bool isTimeLimitDialogVisible)
+        public void DismissTimeLimitDialog()
         {
-            if (isTimeLimitDialogVisible)
-            {
-                Log("Attempting to dismiss the RG Time Limit Dialog");
-                _mouseHelper.ClickRG(); //clicks the 60 minute option of the Responsible Gaming dialog.
-            }
+            Log("Attempting to dismiss the RG Time Limit Dialog");
+            _mouseHelper.ClickRG(); //clicks the 60 minute option of the Responsible Gaming dialog.
         }
 
         public void SetResponsibleGamingTimeElapsed(int timeElapsed)
