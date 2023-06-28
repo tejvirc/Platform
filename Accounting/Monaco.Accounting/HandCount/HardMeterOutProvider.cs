@@ -97,6 +97,9 @@
         }
 
         /// <inheritdoc />
+        ~HardMeterOutProvider() => Dispose(disposing: false);
+
+        /// <inheritdoc />
         public string Name => typeof(HardMeterOutProvider).ToString();
 
         /// <inheritdoc />
@@ -183,15 +186,13 @@
         }
 
         /// <inheritdoc />
-        ~HardMeterOutProvider() => Dispose(disposing: false);
-
-        /// <inheritdoc />
         public void Dispose()
         {
             // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
+
         protected virtual void Dispose(bool disposing)
         {
             if (!_disposed)
