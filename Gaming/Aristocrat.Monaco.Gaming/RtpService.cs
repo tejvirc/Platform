@@ -148,7 +148,9 @@ namespace Aristocrat.Monaco.Gaming
             }
 
             // Verify SAP and LP RTP.
-            var isLpVerified = VerifyLinkedProgressiveRtp(game, rtpBreakdown);
+            var isLpVerified = (game.LinkedProgressiveVerificationComplete
+                ? game.LinkedProgressiveVerificationResult
+                : false) ?? false;
             var isSapVerified = sapRtpState == RtpVerifiedState.Verified;
             
             // Value validations will set error flags on RtpBreakdown object and change invalid rtp values to zero.

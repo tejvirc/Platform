@@ -154,6 +154,8 @@ namespace Aristocrat.Monaco.Sas.Tests.Handlers
             }
         }
 
-        public bool LinkedProgressiveVerified { get; set; }
+        public bool LinkedProgressiveVerificationComplete { get; set;}
+
+        public bool? LinkedProgressiveVerificationResult { get; set;}
     }
 }

@@ -291,9 +291,9 @@ namespace Aristocrat.Monaco.Test.Common
             }
         }
 
-        public bool LinkedProgressivesVerified { get; set; }
+        public bool LinkedProgressiveVerificationComplete { get; set; }
 
-        public bool LinkedProgressiveVerified => throw new NotImplementedException();
+        public bool? LinkedProgressiveVerificationResult { get; set; }
     }
 
     public class MockLocalGameGraphics : ILocaleGameGraphics

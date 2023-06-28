@@ -69,7 +69,24 @@
         {
             var total = rtpBreakdowns.Aggregate(
                 (r1, r2) =>
-                    new RtpBreakdown
+                {
+                    var progressiveRtpVerificationState = new ProgressiveRtpVerificationState
+                    {
+                        SapResetRtpState = MergeRtpVerificationStates(
+                            r1.ProgressiveVerificationState.SapResetRtpState,
+                            r2.ProgressiveVerificationState.SapResetRtpState),
+                        SapIncrementRtpState = MergeRtpVerificationStates(
+                            r1.ProgressiveVerificationState.SapIncrementRtpState,
+                            r2.ProgressiveVerificationState.SapIncrementRtpState),
+                        LpResetRtpState = MergeRtpVerificationStates(
+                            r1.ProgressiveVerificationState.LpResetRtpState,
+                            r2.ProgressiveVerificationState.LpResetRtpState),
+                        LpIncrementRtpState = MergeRtpVerificationStates(
+                            r1.ProgressiveVerificationState.LpIncrementRtpState,
+                            r2.ProgressiveVerificationState.LpIncrementRtpState)
+                    };
+
+                    return new RtpBreakdown
                     {
                         Base = r1.Base.GetTotalWith(r2.Base),
                         StandaloneProgressiveIncrement =
@@ -80,10 +97,37 @@
                             r1.LinkedProgressiveIncrement.GetTotalWith(r2.LinkedProgressiveIncrement),
                         LinkedProgressiveReset = r1.LinkedProgressiveReset.GetTotalWith(r2.LinkedProgressiveReset),
                         FailureFlags = r1.FailureFlags | r2.FailureFlags,
-                        ProgressiveVerificationState = null
-                    });
+                        ProgressiveVerificationState = progressiveRtpVerificationState
+                    };
+                });
+                    
 
             return total;
+        }
+
+        private static RtpVerifiedState MergeRtpVerificationStates(RtpVerifiedState s1, RtpVerifiedState s2)
+        {
+            if (s1 == RtpVerifiedState.NotUsed || s2 == RtpVerifiedState.NotUsed)
+            {
+                return RtpVerifiedState.NotUsed;
+            }
+
+            if (s1 == RtpVerifiedState.NotAvailable || s2 == RtpVerifiedState.NotAvailable)
+            {
+                return RtpVerifiedState.NotAvailable;
+            }
+
+            if (s1 == RtpVerifiedState.NotVerified || s2 == RtpVerifiedState.NotVerified)
+            {
+                return RtpVerifiedState.NotVerified;
+            }
+
+            if (s1 == RtpVerifiedState.Verified && s2 == RtpVerifiedState.Verified)
+            {
+                return RtpVerifiedState.Verified;
+            }
+
+            return RtpVerifiedState.NotAvailable;
         }
 
         /// <summary>

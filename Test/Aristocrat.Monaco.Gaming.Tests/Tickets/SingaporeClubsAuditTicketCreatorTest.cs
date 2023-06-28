@@ -167,9 +167,9 @@ namespace Aristocrat.Monaco.Gaming.Tests.Tickets
             }
         }
 
-        public bool LinkedProgressivesVerified { get; set; }
+        public bool LinkedProgressiveVerificationComplete { get; set;}
 
-        public bool LinkedProgressiveVerified => throw new NotImplementedException();
+        public bool? LinkedProgressiveVerificationResult { get; set;}
     }
 
     internal class TestDenomination : IDenomination
