@@ -524,6 +524,12 @@
             <xs:attribute name="GoodLuck" type="xs:boolean" use="optional" default="true" />
           </xs:complexType>
         </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="WinIncrement">
+          <xs:complexType>
+            <xs:attribute name="WinTuneCapping" type="xs:boolean" use="optional" default="false" />
+            <xs:attribute name="WinIncrementSpeed" type="WinIncrementSpeed" use="optional" default="WinAmountOnly" />
+          </xs:complexType>
+        </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="AutoCompleteGameRound">
           <xs:complexType>
             <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
@@ -667,6 +673,12 @@
       <xs:enumeration value="Required" />
       <xs:enumeration value="Allowed" />
       <xs:enumeration value="Disallowed" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="WinIncrementSpeed">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="WinAmountOnly" />
+      <xs:enumeration value="WinAmountAndDenom" />
     </xs:restriction>
   </xs:simpleType>
 </xs:schema>

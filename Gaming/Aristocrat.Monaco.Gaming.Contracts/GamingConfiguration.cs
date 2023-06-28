@@ -158,6 +158,8 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         
         private GamingConfigurationButtonAnimation buttonAnimationField;
         
+        private GamingConfigurationWinIncrement winIncrementField;
+        
         private GamingConfigurationAutoCompleteGameRound autoCompleteGameRoundField;
         
         private GamingConfigurationProgressiveView progressiveViewField;
@@ -837,10 +839,21 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         }
         
         /// <remarks/>
+        public GamingConfigurationWinIncrement WinIncrement {
+            get {
+                return this.winIncrementField;
+            }
+            set {
+                this.winIncrementField = value;
+            }
+        }
+        
+        /// <remarks/>
         public GamingConfigurationAutoCompleteGameRound AutoCompleteGameRound {
             get {
                 return this.autoCompleteGameRoundField;
             }
+
             set {
                 this.autoCompleteGameRoundField = value;
             }
@@ -4432,6 +4445,60 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
                 this.goodLuckField = value;
             }
         }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class GamingConfigurationWinIncrement {
+        
+        private bool winTuneCappingField;
+        
+        private WinIncrementSpeed winIncrementSpeedField;
+        
+        public GamingConfigurationWinIncrement() {
+            this.winTuneCappingField = false;
+            this.winIncrementSpeedField = WinIncrementSpeed.WinAmountOnly;
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(true)]
+        public bool WinTuneCapping {
+            get {
+                return this.winTuneCappingField;
+            }
+            set {
+                this.winTuneCappingField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(WinIncrementSpeed.WinAmountOnly)]
+        public WinIncrementSpeed WinIncrementSpeed {
+            get {
+                return this.winIncrementSpeedField;
+            }
+            set {
+                this.winIncrementSpeedField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    public enum WinIncrementSpeed {
+        
+        /// <remarks/>
+        WinAmountOnly,
+        
+        /// <remarks/>
+        WinAmountAndDenom,
     }
     
     /// <remarks/>

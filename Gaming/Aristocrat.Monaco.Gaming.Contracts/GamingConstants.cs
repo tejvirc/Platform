@@ -1429,6 +1429,16 @@
         public const string UseSlowRecovery = "UseSlowRecovery";
 
         /// <summary>
+        ///     Flag Win tune is played based on win amount when true
+        /// </summary>
+        public const string WinTuneCapping = "WinTuneCapping";
+
+        /// <summary>
+        ///     Whether Win increment duration is based on win amount or with denom
+        /// </summary>
+        public const string WinIncrementSpeed = "WinIncrementSpeed";
+
+        /// <summary>
         ///     Whether Autocomplete game round is enabled
         /// </summary>
         public const string AutocompleteGameRoundEnabled = @"AutocompleteGameRoundEnabled";

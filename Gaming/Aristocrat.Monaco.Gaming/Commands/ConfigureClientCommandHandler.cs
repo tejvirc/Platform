@@ -216,26 +216,12 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 { "/Runtime/Multigame&gameMenuButton", singleGameAutoLaunch ? GamingConstants.SetSubGame : GamingConstants.RequestExitGame },
                 { "/Runtime/IKey", _properties.GetValue(GamingConstants.PlayerInformationDisplay.Enabled, false) ? "true" : "false" },
                 { "/Runtime/IKey&restrictedModeUse", _properties.GetValue(GamingConstants.PlayerInformationDisplay.RestrictedModeUse, false) ? "allowed" : "disallowed" },
-                { "/Runtime/Bell&Use", _properties.GetValue(HardwareConstants.BellEnabledKey, false) ? "allowed" : "disallowed" }
+                { "/Runtime/Bell&Use", _properties.GetValue(HardwareConstants.BellEnabledKey, false) ? "allowed" : "disallowed" },
+                { "/Runtime/WinTuneCapping", _properties.GetValue(GamingConstants.WinTuneCapping, false).ToString().ToLower() },
+                { "/Runtime/WinIncrementSpeed&scheme", _properties.GetValue(GamingConstants.WinIncrementSpeed, WinIncrementSpeed.WinAmountOnly).ToString() }
             };
 
-            if (currentGame.GameType == GameType.Blackjack)
-            {
-                parameters.Add("/Runtime/LetItRide", denomination.LetItRideAllowed ? "true" : "false");
-            }
-            else
-            {
-                var gambleAllowed = _properties.GetValue(GamingConstants.GambleAllowed, true) &&
-                                    denomination.SecondaryAllowed;
-                parameters.Add("/Runtime/Flags&Gamble", gambleAllowed ? "true" : "false");
-                parameters.Add("/Runtime/Gamble", gambleAllowed ? "true" : "false");
-                parameters.Add(
-                    "/Runtime/PlayOnFromGambleAvailable",
-                    _properties.GetValue(GamingConstants.PlayOnFromGambleAvailable, true) ? "true" : "false");
-                parameters.Add(
-                    "/Runtime/PlayOnFromPresentWins",
-                    _properties.GetValue(GamingConstants.PlayOnFromPresentWins, false) ? "true" : "false");
-            }
+            SetGambleParameters(parameters, currentGame.GameType, denomination);
 
             if (_properties.GetValue(GamingConstants.RetainLastRoundResult, false))
             {
@@ -292,22 +278,6 @@ namespace Aristocrat.Monaco.Gaming.Commands
                     _properties.GetValue(GamingConstants.PlayLinesType, string.Empty);
             }
 
-            var marketParameters = new Dictionary<string, string>
-            {
-                { "/Market/Multigame&use", singleGameAutoLaunch ? "disallowed" : "allowed" },
-                { "/Market/MinimumBetMessage&use", _properties.GetValue(GamingConstants.MinBetMessageMustDisplay, false) ? "required" : "allowed" },
-                { "/Market/MinimumBetMessage&format", _properties.GetProperty(GamingConstants.MinBetMessageFormat, DisplayFormat.Credit.ToString()).ToString().ToLower() },
-                { "/Market/DisplayJackpotOdds&use", _properties.GetValue(GamingConstants.JackpotOddsMustDisplay, false) ? "required" : "allowed" },
-                { "/Runtime/DisplayJackpotOdds", _properties.GetValue(GamingConstants.JackpotOddsMustDisplay, false) ? "required" : "allowed" },
-                { "/Market/Meters&defaultDisplay", _properties.GetValue(GamingConstants.DefaultCreditDisplayFormat, DisplayFormat.Credit).ToString().ToLower() },
-            };
-
-            var inGameDisplayVal = _properties.GetValue(GamingConstants.InGameDisplayFormat, DisplayFormat.Any);
-            if (inGameDisplayVal != DisplayFormat.Any)
-            {
-                marketParameters["/Market/Meters&inGameDisplay"] = inGameDisplayVal.ToString().ToCamelCase();
-                parameters["/Runtime/Meters&inGameDisplay"] = inGameDisplayVal.ToString().ToCamelCase();
-            }
 
             var gameRoundDuration = _properties.GetValue(GamingConstants.GameRoundDurationMs, GamingConstants.DefaultMinimumGameRoundDurationMs);
             if (gameRoundDuration > GamingConstants.DefaultMinimumGameRoundDurationMs)
@@ -348,6 +318,49 @@ namespace Aristocrat.Monaco.Gaming.Commands
             }
 
             _runtime.UpdateParameters(parameters, ConfigurationTarget.GameConfiguration);
+            SetMarketParameters(parameters, singleGameAutoLaunch);
+        }
+
+        private void SetGambleParameters(Dictionary<string, string> parameters, GameType gameType, IDenomination denomination)
+        {
+            if (gameType == GameType.Blackjack)
+            {
+                parameters.Add("/Runtime/LetItRide", denomination.LetItRideAllowed ? "true" : "false");
+            }
+            else
+            {
+                var gambleAllowed = _properties.GetValue(GamingConstants.GambleAllowed, true) &&
+                                    denomination.SecondaryAllowed;
+                parameters.Add("/Runtime/Flags&Gamble", gambleAllowed ? "true" : "false");
+                parameters.Add("/Runtime/Gamble", gambleAllowed ? "true" : "false");
+                parameters.Add(
+                    "/Runtime/PlayOnFromGambleAvailable",
+                    _properties.GetValue(GamingConstants.PlayOnFromGambleAvailable, true) ? "true" : "false");
+                parameters.Add(
+                    "/Runtime/PlayOnFromPresentWins",
+                    _properties.GetValue(GamingConstants.PlayOnFromPresentWins, false) ? "true" : "false");
+            }
+        }
+
+        private void SetMarketParameters(IDictionary<string, string> parameters, bool singleGameAutoLaunch)
+        {
+            var marketParameters = new Dictionary<string, string>
+            {
+                { "/Market/Multigame&use", singleGameAutoLaunch ? "disallowed" : "allowed" },
+                { "/Market/MinimumBetMessage&use", _properties.GetValue(GamingConstants.MinBetMessageMustDisplay, false) ? "required" : "allowed" },
+                { "/Market/MinimumBetMessage&format", _properties.GetProperty(GamingConstants.MinBetMessageFormat, DisplayFormat.Credit.ToString()).ToString().ToLower() },
+                { "/Market/DisplayJackpotOdds&use", _properties.GetValue(GamingConstants.JackpotOddsMustDisplay, false) ? "required" : "allowed" },
+                { "/Runtime/DisplayJackpotOdds", _properties.GetValue(GamingConstants.JackpotOddsMustDisplay, false) ? "required" : "allowed" },
+                { "/Market/Meters&defaultDisplay", _properties.GetValue(GamingConstants.DefaultCreditDisplayFormat, DisplayFormat.Credit).ToString().ToLower() },
+            };
+
+            var inGameDisplayVal = _properties.GetValue(GamingConstants.InGameDisplayFormat, DisplayFormat.Any);
+            if (inGameDisplayVal != DisplayFormat.Any)
+            {
+                marketParameters["/Market/Meters&inGameDisplay"] = inGameDisplayVal.ToString().ToCamelCase();
+                parameters["/Runtime/Meters&inGameDisplay"] = inGameDisplayVal.ToString().ToCamelCase();
+            }
+
             _runtime.UpdateParameters(marketParameters, ConfigurationTarget.MarketConfiguration);
         }
 

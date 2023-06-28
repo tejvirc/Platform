@@ -320,6 +320,9 @@
                 { GamingConstants.DenomSelectionLobby, (configuration.DenomSelectionLobby?.Mode ?? DenomSelectionLobby.Allowed, false) },
                 { GamingConstants.DisplayGamePayMessageUseKey, (InitFromStorage(GamingConstants.DisplayGamePayMessageUseKey), true)},
                 { GamingConstants.DisplayGamePayMessageFormatKey, (InitFromStorage(GamingConstants.DisplayGamePayMessageFormatKey), true)},
+                { GamingConstants.WinTuneCapping, (configuration.WinIncrement?.WinTuneCapping ?? false, false) },
+                { GamingConstants.WinIncrementSpeed, (configuration.WinIncrement?.WinIncrementSpeed ?? WinIncrementSpeed.WinAmountOnly, false) },
+                { GamingConstants.DisplayGamePayMessageFormatKey, (InitFromStorage(GamingConstants.DisplayGamePayMessageFormatKey), true)},
                 { GamingConstants.AutocompleteGameRoundEnabled, (configuration.AutoCompleteGameRound?.Enabled ?? true, false) },
                 { GamingConstants.ProgressiveSetupReadonly, (configuration.ProgressiveView?.InitialSetupView?.Readonly ?? false, false) },
                 { GamingConstants.ActionOnMaxWinReached, (configuration.MaxWin?.OnMaxWinReached ?? "endgame", false) },
@@ -328,6 +331,12 @@
 
             if (!blockExists)
             {
+                SetPropertyBlockNotExist(configuration);
+            }
+        }
+
+        private void SetPropertyBlockNotExist(GamingConfiguration configuration)
+        {
                 // This is just weird, but because the storage block accessor is typed it will return the default value vs. a null
                 // It renders the default passed in to GetProperty useless, since it returns the default type.
                 SetProperty(GamingConstants.ShowServiceButton, true);
@@ -392,7 +401,6 @@
                     propertiesManager.SetProperty(ApplicationConstants.MachineSettingsImported, machineSettingsImported);
                 }
             }
-        }
 
         /// <inheritdoc />
         public ICollection<KeyValuePair<string, object>> GetCollection

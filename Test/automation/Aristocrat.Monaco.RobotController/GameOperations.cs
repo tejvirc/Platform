@@ -229,6 +229,7 @@
                  {
                      _logger.Info($"TimeLimitDialogVisibleEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                      _isTimeLimitDialogVisible = true;
+                     DismissTimeLimitDialog();
                      if (evt.IsLastPrompt)
                      {
                          _exitWhenIdle = !IsRegularRobots();
