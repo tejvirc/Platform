@@ -22,6 +22,7 @@
         private readonly ICommandBuilder<IOptionConfigDevice, optionConfigModeStatus> _optionConfigCommandBuilder;
         private readonly ICommandBuilder<IProgressiveDevice, progressiveStatus> _progressiveCommandBuilder;
         private readonly IEventLift _eventLift;
+        private readonly IProgressiveDeviceManager _progressiveDeviceManager;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="OperatorMenuSettingsChangedConsumer" /> class.
@@ -32,13 +33,15 @@
             ICommandBuilder<ICabinetDevice, cabinetStatus> cabinetCommandBuilder,
             ICommandBuilder<IOptionConfigDevice, optionConfigModeStatus> optionConfigCommandBuilder,
             ICommandBuilder<IProgressiveDevice, progressiveStatus> progressiveCommandBuilder,
-            IEventLift eventLift)
+            IEventLift eventLift,
+            IProgressiveDeviceManager progressiveDeviceManager)
         {
             _egm = egm ?? throw new ArgumentNullException(nameof(egm));
             _cabinetCommandBuilder = cabinetCommandBuilder ?? throw new ArgumentNullException(nameof(cabinetCommandBuilder));
             _optionConfigCommandBuilder = optionConfigCommandBuilder ?? throw new ArgumentNullException(nameof(optionConfigCommandBuilder));
             _progressiveCommandBuilder = progressiveCommandBuilder ?? throw new ArgumentNullException(nameof(progressiveCommandBuilder));
             _eventLift = eventLift ?? throw new ArgumentNullException(nameof(eventLift));
+            _progressiveDeviceManager = progressiveDeviceManager ?? throw new ArgumentNullException(nameof(progressiveDeviceManager));
         }
 
         /// <summary>
@@ -68,10 +71,8 @@
                 _optionConfigCommandBuilder.Build(optionConfigDevice, optionConfigStatus);
                 _eventLift.Report(optionConfigDevice, EventCode.G2S_OCE004, optionConfigDevice.DeviceList(optionConfigStatus));
             }
-
-            var progressiveService = ServiceManager.GetInstance().TryGetService<IProgressiveService>();
-            if (progressiveService == null) return;
-            progressiveService.OnConfiguredProgressives(true);
+            
+            _progressiveDeviceManager.OnConfiguredProgressives(true);
             foreach (var progressiveDevice in progressiveDevices)
             {
                 var progressiveStatus = new progressiveStatus();

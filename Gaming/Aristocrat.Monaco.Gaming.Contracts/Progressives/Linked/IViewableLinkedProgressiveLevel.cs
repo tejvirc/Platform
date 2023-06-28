@@ -24,6 +24,16 @@
         int LevelId { get; }
 
         /// <summary>
+        ///     Gets or sets the level id provided by the protocol
+        /// </summary>
+        int ProtocolLevelId { get; }
+
+        /// <summary>
+        ///     Gets level Id to display on UI based on ProtocolName
+        /// </summary>
+        public int DisplayLevelId { get; }
+
+        /// <summary>
         ///     Gets or the name of the level. This should always be unique as it is
         ///     a concatenation of ProtocolName, ProgressiveGroupId, and LevelId.
         /// </summary>

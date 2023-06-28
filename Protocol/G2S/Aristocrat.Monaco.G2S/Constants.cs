@@ -185,11 +185,6 @@ namespace Aristocrat.Monaco.G2S
         public const string DefaultLocalKeyoff = "G2S_anyKeyOff";
 
         /// <summary>
-        ///     The stored values for the vertex progressive IDs.
-        /// </summary>
-        public const string VertexProgressiveIds = "G2S_vertexProgressiveIds";
-
-        /// <summary>
         ///     The stored values for the vertex progressive level IDs.
         /// </summary>
         /// <remarks>

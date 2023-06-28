@@ -21,7 +21,9 @@
         private Mock<IG2SEgm> _egm;
         private Mock<ICommandBuilder<IProgressiveDevice, progressiveValueAck>> _commandBuilder;
         private Mock<IProgressiveLevelProvider> _progressiveProvider;
-        private Mock<IProgressiveService> _progressiveService;
+        private Mock<IProgressiveLevelManager> _progressiveLevelManager;
+        private Mock<IProgressiveDeviceManager> _progressiveDeviceManager;
+        private Mock<IProtocolLinkedProgressiveAdapter> _protocolLinkedProgressiveAdapter;
 
         [TestInitialize]
         public void Initialize()
@@ -29,28 +31,51 @@
             _egm = new Mock<IG2SEgm>();
             _commandBuilder = new Mock<ICommandBuilder<IProgressiveDevice, progressiveValueAck>>();
             _progressiveProvider = new Mock<IProgressiveLevelProvider>();
-            _progressiveService = new Mock<IProgressiveService>();
+            _progressiveLevelManager = new Mock<IProgressiveLevelManager>();
+            _progressiveDeviceManager = new Mock<IProgressiveDeviceManager>();
+            _protocolLinkedProgressiveAdapter = new Mock<IProtocolLinkedProgressiveAdapter>();
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void WhenConstructWithNoEgmExpectException()
         {
-            Assert.IsNull(new SetProgressiveValue(null, _commandBuilder.Object, _progressiveProvider.Object, _progressiveService.Object));
+            Assert.IsNull(new SetProgressiveValue(null, _commandBuilder.Object, _progressiveProvider.Object, _progressiveLevelManager.Object, _progressiveDeviceManager.Object, _protocolLinkedProgressiveAdapter.Object));
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void WhenConstructWithNoCommandBuilderExpectException()
         {
-            Assert.IsNull(new SetProgressiveValue(_egm.Object, null, _progressiveProvider.Object, _progressiveService.Object));
+            Assert.IsNull(new SetProgressiveValue(_egm.Object, null, _progressiveProvider.Object, _progressiveLevelManager.Object, _progressiveDeviceManager.Object, _protocolLinkedProgressiveAdapter.Object));
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void WhenConstructWithNoProgressiveProviderExpectException()
         {
-            Assert.IsNull(new SetProgressiveValue(_egm.Object, _commandBuilder.Object, null, _progressiveService.Object));
+            Assert.IsNull(new SetProgressiveValue(_egm.Object, _commandBuilder.Object, null, _progressiveLevelManager.Object, _progressiveDeviceManager.Object, _protocolLinkedProgressiveAdapter.Object));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void WhenConstructWithNoProgressiveServiceExpectException()
+        {
+            Assert.IsNull(new SetProgressiveValue(_egm.Object, _commandBuilder.Object, _progressiveProvider.Object, null, _progressiveDeviceManager.Object, _protocolLinkedProgressiveAdapter.Object));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void WhenConstructWithNoProgressiveDeviceManagerExpectException()
+        {
+            Assert.IsNull(new SetProgressiveValue(_egm.Object, _commandBuilder.Object, _progressiveProvider.Object, _progressiveLevelManager.Object, null, _protocolLinkedProgressiveAdapter.Object));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void WhenConstructWithNoProtocolLinkedProgressiveAdapterExpectException()
+        {
+            Assert.IsNull(new SetProgressiveValue(_egm.Object, _commandBuilder.Object, _progressiveProvider.Object, _progressiveLevelManager.Object, _progressiveDeviceManager.Object, null));
         }
 
         [TestMethod]
@@ -64,7 +89,9 @@
                 _egm.Object,
                 _commandBuilder.Object,
                 _progressiveProvider.Object,
-                _progressiveService.Object);
+                _progressiveLevelManager.Object,
+                _progressiveDeviceManager.Object,
+                _protocolLinkedProgressiveAdapter.Object);
 
             Assert.IsNotNull(handler);
         }
@@ -74,7 +101,7 @@
         {
             var device = new Mock<IProgressiveDevice>();
             var egm = HandlerUtilities.CreateMockEgm(device);
-            var handler = CreateHandler(egm, _commandBuilder.Object, _progressiveProvider.Object, _progressiveService.Object);
+            var handler = CreateHandler(egm, _commandBuilder.Object, _progressiveProvider.Object, _progressiveLevelManager.Object, _progressiveDeviceManager.Object, _protocolLinkedProgressiveAdapter.Object);
 
             await VerificationTests.VerifyChecksForOwner(handler);
         }
@@ -82,9 +109,11 @@
         private SetProgressiveValue CreateHandler(IG2SEgm egm = null,
             ICommandBuilder<IProgressiveDevice, progressiveValueAck> commandBuilder = null,
             IProgressiveLevelProvider progressiveProvider = null,
-            IProgressiveService progressiveService = null)
+            IProgressiveLevelManager progressiveLevelManager = null,
+            IProgressiveDeviceManager progressiveDeviceManager = null,
+            IProtocolLinkedProgressiveAdapter protocolLinkedProgressiveAdapter = null)
         {
-            var handler = new SetProgressiveValue(egm, commandBuilder, progressiveProvider, progressiveService);
+            var handler = new SetProgressiveValue(egm, commandBuilder, progressiveProvider, progressiveLevelManager, progressiveDeviceManager, _protocolLinkedProgressiveAdapter.Object);
 
             return handler;
         }

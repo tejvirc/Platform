@@ -198,25 +198,20 @@
                 if (_g2sProgressivesEnabled)
                 {
                     //Populate the levelID fields in the ProgressiveService
-                    var progService = ServiceManager.GetInstance().TryGetService<IProgressiveService>();
+                    var progressiveDeviceManager = _container.GetInstance<IProgressiveDeviceManager>();
 
-                    if (progService != null)
+                    if (progressiveDeviceManager != null)
                     {
                         var vertexLevelIds = (Dictionary<string, int>)propertiesManager.GetProperty(Constants.VertexProgressiveLevelIds, new Dictionary<string, int>());
-                        var vertexProgIds = (List<int>)propertiesManager.GetProperty(Constants.VertexProgressiveIds, new List<int>());
     
-                        progService.LevelIds.SetProgressiveLevelIds(vertexLevelIds);
-                        progService.VertexProgressiveIds = vertexProgIds;
                         propertiesManager.SetProperty(GamingConstants.ProgressiveConfiguredLevelIds, vertexLevelIds);
-                        propertiesManager.SetProperty(GamingConstants.ProgressiveConfiguredIds, vertexProgIds);
-                        progService.Engine = engine;
-                        if (vertexProgIds != null && vertexProgIds.Count > 0)
+                        if (vertexLevelIds.Any())
                         {
-                            progService?.OnConfiguredProgressives(false, true);
+                            progressiveDeviceManager?.OnConfiguredProgressives(false, true);
                         }
                         else
                         {
-                            progService?.OnConfiguredProgressives();
+                            progressiveDeviceManager?.OnConfiguredProgressives();
                         }
                     }
                 }

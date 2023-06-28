@@ -26,11 +26,5 @@
         /// </summary>
         /// <param name="context">The startup context.</param>
         void Restart(IStartupContext context);
-
-        /// <summary>
-        /// Create any needed IProgressiveDevices
-        /// </summary>
-        /// <param name="progressiveDeviceManager"></param>
-        void AddProgressiveDevices(IProgressiveDeviceManager progressiveDeviceManager);
     }
 }

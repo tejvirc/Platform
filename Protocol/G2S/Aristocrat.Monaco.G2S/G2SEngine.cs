@@ -35,7 +35,7 @@
         private readonly IDeviceFactory _deviceFactory;
         private readonly IDeviceRegistryService _deviceRegistryService;
         private readonly IDeviceObserver _deviceStateObserver;
-        private readonly IProgressiveDeviceObserver _progressiveDeviceStateObserver;
+        private readonly IProgressiveDeviceManager _progressiveDeviceManager;
         private readonly IG2SEgm _egm;
         private readonly IEgmStateObserver _egmStateObserver;
         private readonly IEmdi _emdi;
@@ -61,7 +61,7 @@
             IScriptManager scriptManager,
             IPackageDownloadManager packageDownloadManager,
             IDeviceObserver deviceStateObserver,
-            IProgressiveDeviceObserver progressiveDeviceStateObserver,
+            IProgressiveDeviceManager progressiveDeviceManager,
             IEgmStateObserver egmStateObserver,
             IDeviceRegistryService deviceRegistryService,
             IGatComponentFactory gatComponentFactory,
@@ -83,10 +83,9 @@
             _packageDownloadManager = packageDownloadManager ??
                                       throw new ArgumentNullException(nameof(packageDownloadManager));
             _deviceStateObserver = deviceStateObserver ?? throw new ArgumentNullException(nameof(deviceStateObserver));
-            _progressiveDeviceStateObserver = progressiveDeviceStateObserver ?? throw new ArgumentNullException(nameof(progressiveDeviceStateObserver));
+            _progressiveDeviceManager = progressiveDeviceManager ?? throw new ArgumentNullException(nameof(progressiveDeviceManager));
             _egmStateObserver = egmStateObserver ?? throw new ArgumentNullException(nameof(egmStateObserver));
-            _deviceRegistryService =
-                deviceRegistryService ?? throw new ArgumentNullException(nameof(deviceRegistryService));
+            _deviceRegistryService = deviceRegistryService ?? throw new ArgumentNullException(nameof(deviceRegistryService));
             _gatComponentFactory = gatComponentFactory ?? throw new ArgumentNullException(nameof(gatComponentFactory));
             _metersSubscriptionManager = metersSubscriptionManager ??
                                          throw new ArgumentNullException(nameof(metersSubscriptionManager));
@@ -163,26 +162,6 @@
             Stop();
 
             Start(context);
-        }
-
-        public void AddProgressiveDevices(IProgressiveDeviceManager progressiveDeviceManager)
-        {
-            var hosts = _properties.GetValues<IHost>(Constants.RegisteredHosts).ToList();
-            var defaultHost = hosts.OrderBy(h => h.Index).FirstOrDefault(h => !h.IsEgm() && h.Registered);
-            var progressiveHost = hosts.FirstOrDefault(h => h.IsProgressiveHost);
-            var defaultNoProgInfo = (int)(progressiveHost?.OfflineTimerInterval.TotalMilliseconds ??
-                                          Constants.DefaultNoProgInfo);
-
-            foreach (var id in progressiveDeviceManager.VertexProgressiveIds)
-            {
-                if (_egm.GetDevice<IProgressiveDevice>(id) != null) continue;
-                var device = (IProgressiveDevice)_deviceFactory.Create(
-                             progressiveHost ?? defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
-                             hosts.Where(h => !h.IsEgm() && h.Registered),
-                             () => new ProgressiveDevice(id, _progressiveDeviceStateObserver, defaultNoProgInfo));
-
-                progressiveDeviceManager.DeviceProgIdMap.Add(device.Id, id);
-            }
         }
 
         /// <summary>
@@ -333,38 +312,11 @@
                 defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
                 hosts.Where(h => !h.IsEgm() && h.Registered),
                 () => new BonusDevice(1, _deviceStateObserver));
-
-            var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
-            var g2sProgressivesEnabled = (bool)propertiesManager.GetProperty(Constants.G2SProgressivesEnabled, false);
+            
+            var g2sProgressivesEnabled = (bool)_properties.GetProperty(Constants.G2SProgressivesEnabled, false);
             if (g2sProgressivesEnabled)
             {
-                var progressiveService = ServiceManager.GetInstance().GetService<IProgressiveService>();
-                List<int> configuredIds = (List<int>)propertiesManager.GetProperty(Constants.VertexProgressiveIds, new List<int>());
-                var progressiveHost = hosts.FirstOrDefault(h => h.IsProgressiveHost);
-                var defaultNoProgInfo = (int)(progressiveHost?.OfflineTimerInterval.TotalMilliseconds ??
-                                              Constants.DefaultNoProgInfo);
-
-                if (configuredIds != null && configuredIds.Any())
-                {
-                    foreach (var id in configuredIds)
-                    {
-                        var device = _deviceFactory.Create(
-                            progressiveHost ??
-                            defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
-                            hosts.Where(h => !h.IsEgm() && h.Registered),
-                            () => new ProgressiveDevice(id, _progressiveDeviceStateObserver, defaultNoProgInfo));
-
-                        progressiveService?.DeviceProgIdMap.Add(device.Id, id);
-                    }
-                }
-
-                if(!_egm.GetDevices<IProgressiveDevice>().Any())
-                {
-                    _deviceFactory.Create(
-                        progressiveHost ?? defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
-                        hosts.Where(h => !h.IsEgm() && h.Registered),
-                        () => new ProgressiveDevice(1, _progressiveDeviceStateObserver, defaultNoProgInfo));
-                }
+                _progressiveDeviceManager.AddProgressiveDevices(initialCreation: true);
             }
         }
 

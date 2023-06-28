@@ -5,24 +5,30 @@
     using System.Linq;
     using System.Threading.Tasks;
     using Aristocrat.G2S.Client.Devices;
-    using Aristocrat.G2S.Client.Devices.v21;
     using Aristocrat.G2S.Protocol.v21;
     using Aristocrat.Monaco.G2S.Services.Progressive;
     using Aristocrat.Monaco.Kernel;
     using Gaming.Contracts.Progressives;
+    using Gaming.Contracts.Progressives.Linked;
+    using Gaming.Progressives;
 
     /// <inheritdoc />
     public class ProgressiveStatusCommandBuilder : ICommandBuilder<IProgressiveDevice, progressiveStatus>
     {
-        private readonly IProgressiveLevelProvider _progressives;
+        private readonly IProgressiveLevelProvider _progressiveLevelProvider;
+        private readonly IProtocolLinkedProgressiveAdapter _protocolLinkedProgressiveAdapter;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ProgressiveStatusCommandBuilder"></see>
         /// </summary>
-        /// <param name="progressiveProvider">This parameter provide the data related to progressive</param>
-        public ProgressiveStatusCommandBuilder(IProgressiveLevelProvider progressiveProvider)
+        /// <param name="progressiveLevelProvider">This parameter provide the data related to progressive</param>
+        /// <param name="protocolLinkedProgressiveAdapter">Adapter to access LinkedProgressiveLevel objects</param>
+        public ProgressiveStatusCommandBuilder(
+            IProgressiveLevelProvider progressiveLevelProvider,
+            IProtocolLinkedProgressiveAdapter protocolLinkedProgressiveAdapter)
         {
-            _progressives = progressiveProvider ?? throw new ArgumentNullException(nameof(progressiveProvider));
+            _progressiveLevelProvider = progressiveLevelProvider ?? throw new ArgumentNullException(nameof(progressiveLevelProvider));
+            _protocolLinkedProgressiveAdapter = protocolLinkedProgressiveAdapter ?? throw new ArgumentNullException(nameof(protocolLinkedProgressiveAdapter));
         }
 
         /// <inheritdoc />
@@ -33,30 +39,32 @@
             command.hostEnabled = device.HostEnabled;
             command.hostLocked = device.HostLocked;
 
-            var progService = ServiceManager.GetInstance().TryGetService<IProgressiveService>();
-            if (progService == null)
+            var levels = _progressiveLevelProvider.GetProgressiveLevels().Where(l => l.ProgressiveId == device.Id && l.DeviceId != 0).ToList();
+
+
+            var statuses = new List<levelStatus>();
+            foreach(var level in levels)
             {
-                return Task.CompletedTask;
-            }
+                IViewableLinkedProgressiveLevel linkedLevel = null;
 
-            List<ProgressiveLevel> levels = _progressives.GetProgressiveLevels().Where(l => l.ProgressiveId == device.ProgressiveId && (progService.VertexDeviceIds.TryGetValue(l.DeviceId, out int value) ? value : l.DeviceId) == device.Id).ToList();
+                if (!string.IsNullOrEmpty(level?.AssignedProgressiveId?.AssignedProgressiveKey))
+                {
+                    _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevel(level?.AssignedProgressiveId?.AssignedProgressiveKey, out linkedLevel);
+                }
 
+                var levelId = linkedLevel?.ProtocolLevelId ?? level.LevelId;
 
-            List<levelStatus> statuses = new List<levelStatus>();
-            foreach(ProgressiveLevel level in levels)
-            {
-                var levelId = progService.LevelIds.GetVertexProgressiveLevelId(level.GameId, level.ProgressiveId, level.LevelId);
                 if (levelId == -1)
                 {
                     continue;
                 }
 
-                if (statuses.Where(s => s.levelId == levelId).Count() > 0)
+                if (statuses.Any(s => s.levelId == levelId))
                 {
                     continue;
                 }
 
-                levelStatus status = new levelStatus();
+                var status = new levelStatus();
 
                 status.progId = level.ProgressiveId;
                 status.levelId = levelId;
@@ -84,7 +92,7 @@
             }
 
             command.configComplete = device.ConfigComplete;
-            if (device.ConfigDateTime != default(DateTime))
+            if (device.ConfigDateTime != default)
             {
                 command.configDateTime = device.ConfigDateTime;
                 command.configDateTimeSpecified = true;

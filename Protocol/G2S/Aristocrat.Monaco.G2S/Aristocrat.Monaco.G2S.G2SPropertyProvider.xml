@@ -16,7 +16,6 @@
       <Field FieldName="G2S.StartupContext" DataType="String" Size="256"/>
       <Field FieldName="G2SClient.Port" DataType="Int32" />
       <Field FieldName="G2S_vertexLevelIds" DataType="String" Size="256"/>
-      <Field FieldName="G2S_vertexProgressiveIds" DataType="String" Size="256"/>
     </Fields>
   </BlockFormat>
 </ArrayOfBlockFormat>

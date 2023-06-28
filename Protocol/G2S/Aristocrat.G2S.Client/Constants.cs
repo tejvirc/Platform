@@ -63,6 +63,21 @@
         public const int ExpirationNotSet = -1;
 
         /// <summary>
+        ///     G2S Identifier for linked progressives
+        /// </summary>
+        public const string ProgressiveTypeLinked = Constants.ManufacturerPrefix + "_LP";
+
+        /// <summary>
+        ///     G2S Identifier for standalone progressives
+        /// </summary>
+        public const string ProgressiveTypeSap = Constants.ManufacturerPrefix + "_Sap";
+
+        /// <summary>
+        ///     G2S Identifier for selectable progressives
+        /// </summary>
+        public const string ProgressiveTypeSelectable = Constants.ManufacturerPrefix + "_Selectable";
+
+        /// <summary>
         ///     The default time to live behavior
         /// </summary>
         public const TimeToLiveBehavior DefaultTimeToLiveBehavior = TimeToLiveBehavior.Strict;

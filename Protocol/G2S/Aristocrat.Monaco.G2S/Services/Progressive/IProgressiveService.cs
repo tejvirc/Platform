@@ -2,5 +2,5 @@
 { using Aristocrat.G2S.Client.Devices;
     using Kernel;
 
-    public interface IProgressiveService : IService, IProgressiveDeviceManager, IProgressiveLevelManager { }
+    public interface IProgressiveService : IService { }
 }

@@ -1,23 +1,26 @@
 ﻿namespace Aristocrat.Monaco.G2S.Services.Progressive
 {
-    using Aristocrat.Monaco.Application.Contracts;
-    using Aristocrat.Monaco.G2S.Meters;
-    using Aristocrat.Monaco.Gaming.Contracts.Progressives.Linked;
-    using Aristocrat.Monaco.Gaming.Contracts.Progressives;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Application.Contracts;
     using Aristocrat.G2S.Protocol.v21;
-    using Aristocrat.Monaco.G2S.DisableProvider;
-    using Aristocrat.Monaco.Kernel;
-    using System.Timers;
+    using Gaming.Contracts.Meters;
+    using Gaming.Contracts.Progressives;
+    using Gaming.Contracts.Progressives.Linked;
+    using Meters;
 
-    public partial class ProgressiveService : IProgressiveLevelManager, IProtocolProgressiveIdProvider
+    public class ProgressiveLevelManager : IProgressiveLevelManager
     {
-        /// <inheritdoc />
-        public ProgressiveLevelIdManager LevelIds { get; } = new ProgressiveLevelIdManager();
+        private readonly IProtocolLinkedProgressiveAdapter _protocolLinkedProgressiveAdapter;
+        private readonly IProgressiveMeterManager _progressiveMeters;
 
-        /// <inheritdoc />
+        public ProgressiveLevelManager(IProtocolLinkedProgressiveAdapter protocolLinkedProgressiveAdapter, IProgressiveMeterManager progressiveMeters)
+        {
+            _protocolLinkedProgressiveAdapter = protocolLinkedProgressiveAdapter ?? throw new ArgumentNullException(nameof(protocolLinkedProgressiveAdapter));
+            _progressiveMeters = progressiveMeters ?? throw new ArgumentNullException(nameof(progressiveMeters));
+        }
+
         public IEnumerable<simpleMeter> GetProgressiveLevelMeters(int deviceId, params string[] includedMeters)
         {
             return MeterMap.ProgressiveMeters
@@ -38,10 +41,12 @@
         public LinkedProgressiveLevel UpdateLinkedProgressiveLevels(
         int progId,
         int levelId,
+        int gameId,
+        int protocolLevelId,
         long valueInCents,
         bool initialize = false)
         {
-            var linkedLevel = LinkedProgressiveLevel(progId, levelId, valueInCents);
+            var linkedLevel = LinkedProgressiveLevel(progId, levelId, protocolLevelId, valueInCents);
 
             if (!initialize || !_protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevels()
                 .Any(l => l.LevelName.Equals(linkedLevel.LevelName)))
@@ -54,33 +59,28 @@
             return linkedLevel;
         }
 
-        private static LinkedProgressiveLevel LinkedProgressiveLevel(int progId, int levelId, long valueInCents)
+        private static LinkedProgressiveLevel LinkedProgressiveLevel(
+            int progId,
+            int levelId,
+            int protocolLevelId,
+            long valueInCents)
         {
             return new LinkedProgressiveLevel
             {
                 ProtocolName = ProtocolNames.G2S,
                 ProgressiveGroupId = progId,
                 LevelId = levelId,
+                ProtocolLevelId = protocolLevelId,
                 Amount = valueInCents,
                 Expiration = DateTime.UtcNow.AddDays(365),
                 CurrentErrorStatus = ProgressiveErrors.None
             };
         }
 
-        /// <inheritdoc />
-        public void OverrideLevelId(int gameId, int progressiveId, ref int levelId)
+        public int GetVertexProgressiveLevelId(Dictionary<string, int> vertexLevelIds, int gameId, int progressiveId, int levelId)
         {
-            if (!_g2sProgressivesEnabled)
-            {
-                return;
-            }
-
-            var vertexLevelId = LevelIds.GetVertexProgressiveLevelId(gameId, progressiveId, levelId);
-
-            if (vertexLevelId != -1)
-            {
-                levelId = vertexLevelId;
-            }
+            string key = $"{gameId}|{progressiveId}|{levelId}";
+            return vertexLevelIds.TryGetValue(key, out int value) ? value : -1;
         }
     }
 }

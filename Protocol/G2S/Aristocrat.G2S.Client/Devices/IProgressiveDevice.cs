@@ -13,7 +13,7 @@
         /// <summary>
         ///     Get Progressive Identifier value
         /// </summary>
-        int ProgressiveId { get; }
+        int ProgressiveId { get; set; }
 
         /// <summary>
         ///     Get No Progressive Info

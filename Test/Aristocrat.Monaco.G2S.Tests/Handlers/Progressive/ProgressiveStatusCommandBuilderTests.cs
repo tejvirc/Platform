@@ -5,7 +5,6 @@
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Protocol.v21;
     using Aristocrat.Monaco.G2S.Services.Progressive;
-    using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Test.Common;
     using G2S.Handlers.Progressive;
     using Gaming.Contracts.Progressives;
@@ -21,7 +20,8 @@
             MoqServiceManager.CreateInstance(MockBehavior.Default);
             MoqServiceManager.CreateAndAddService<IProgressiveService>(MockBehavior.Default);
             var progressiveProvider = new Mock<IProgressiveLevelProvider>();
-            var builder = new ProgressiveStatusCommandBuilder(progressiveProvider.Object);
+            var protocolLinkedProgressiveAdapter = new Mock<IProtocolLinkedProgressiveAdapter>();
+            var builder = new ProgressiveStatusCommandBuilder(progressiveProvider.Object, protocolLinkedProgressiveAdapter.Object);
             var device = new Mock<IProgressiveDevice>();
             var status = new progressiveStatus();
 

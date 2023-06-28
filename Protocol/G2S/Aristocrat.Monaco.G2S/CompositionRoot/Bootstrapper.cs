@@ -25,7 +25,9 @@
     using Data.Hosts;
     using Data.Profile;
     using DisableProvider;
+    using Gaming.Contracts.Progressives;
     using Gaming.Contracts.Session;
+    using Gaming.Progressives;
     using Handlers;
     using Handlers.CommConfig;
     using Handlers.OptionConfig;
@@ -158,8 +160,9 @@
             @this.Register<ITarArchive, TarArchive>(Lifestyle.Singleton);
             @this.Register<IPackageService, PackageService>(Lifestyle.Singleton);
             @this.Register<IManifest<Image>, ImageManifest>(Lifestyle.Singleton);
-
             @this.Register<IProgressiveService, ProgressiveService>(Lifestyle.Singleton);
+            @this.Register<IProgressiveDeviceManager, ProgressiveDeviceManager>(Lifestyle.Singleton);
+            @this.Register<IProgressiveLevelManager, ProgressiveLevelManager>(Lifestyle.Singleton);
         }
 
         private static void ConfigureMeterProviders(this Container @this)

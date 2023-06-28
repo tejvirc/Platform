@@ -10,6 +10,7 @@
     using G2S.Meters;
     using G2S.Security;
     using G2S.Services;
+    using G2S.Services.Progressive;
     using Hardware.Contracts;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -35,7 +36,7 @@
             var scriptManager = new Mock<IScriptManager>();
             var packageDownloadManager = new Mock<IPackageDownloadManager>();
             var deviceObserver = new Mock<IDeviceObserver>();
-            var progressiveDeviceObserver = new Mock<IProgressiveDeviceObserver>();
+            var progressiveDeviceManager = new Mock<IProgressiveDeviceManager>();
             var egmStateObserver = new Mock<IEgmStateObserver>();
             var deviceRegistryService = new Mock<IDeviceRegistryService>();
             var gatComponentFactory = new Mock<IGatComponentFactory>();
@@ -57,7 +58,7 @@
                 scriptManager.Object,
                 packageDownloadManager.Object,
                 deviceObserver.Object,
-                progressiveDeviceObserver.Object,
+                progressiveDeviceManager.Object,
                 egmStateObserver.Object,
                 deviceRegistryService.Object,
                 gatComponentFactory.Object,

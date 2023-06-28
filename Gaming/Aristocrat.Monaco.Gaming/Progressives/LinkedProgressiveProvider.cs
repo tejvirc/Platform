@@ -86,6 +86,7 @@
                     ProtocolName = level.ProtocolName,
                     ProgressiveGroupId = level.ProgressiveGroupId,
                     LevelId = level.LevelId,
+                    ProtocolLevelId = level.ProtocolLevelId,
                     Amount = level.Amount,
                     Expiration = level.Expiration,
                     CurrentErrorStatus = ProgressiveErrors.None,
@@ -147,6 +148,7 @@
                         ProtocolName = linkedLevel.ProtocolName,
                         ProgressiveGroupId = linkedLevel.ProgressiveGroupId,
                         LevelId = linkedLevel.LevelId,
+                        ProtocolLevelId = linkedLevel.ProtocolLevelId,
                         Amount = linkedLevel.Amount,
                         Expiration = linkedLevel.Expiration.ToUniversalTime(),
                         CurrentErrorStatus = ProgressiveErrors.None,
@@ -317,6 +319,31 @@
             var lookupResult = _linkedProgressiveIndex.TryGetValue(levelName, out var level);
             levelOut = level;
             return lookupResult;
+        }
+
+        /// <inheritdoc />
+        public bool ViewLinkedProgressiveLevels(IEnumerable<string> levelNames, out IReadOnlyCollection<IViewableLinkedProgressiveLevel> levelsOut)
+        {
+            var result = true;
+            var returnList = new List<IViewableLinkedProgressiveLevel>();
+
+            foreach (var name in levelNames)
+            {
+                result &= ViewLinkedProgressiveLevel(name, out var level);
+
+                if (result)
+                {
+                    returnList.Add(level);
+                }
+                else
+                {
+                    returnList.Clear();
+                    break;
+                }
+            }
+
+            levelsOut = returnList;
+            return result;
         }
 
         /// <inheritdoc />

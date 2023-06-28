@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.G2S.Tests.Services
 {
+    using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
     using Aristocrat.G2S.Client;
@@ -37,6 +38,9 @@
         private readonly Mock<ITransactionHistory> _transactionHistoryMock = new Mock<ITransactionHistory>();
         private readonly Mock<IUnitOfWorkFactory> _unitOfWorkFactoryMock = new Mock<IUnitOfWorkFactory>();
         private readonly Mock<IG2SDisableProvider> _disableProviderMock = new Mock<IG2SDisableProvider>();
+        private readonly Mock<IPropertiesManager> _propertiesManager = new Mock<IPropertiesManager>();
+        private readonly Mock<IProgressiveDeviceManager> _progressiveDeviceManager = new Mock<IProgressiveDeviceManager>();
+        private readonly Mock<IProgressiveLevelManager> _progressiveLevelManager = new Mock<IProgressiveLevelManager>();
         private readonly Mock<ICommandBuilder<IProgressiveDevice, progressiveHit>> _progressiveHitBuilderMock = new Mock<ICommandBuilder<IProgressiveDevice, progressiveHit>>();
         private readonly Mock<ICommandBuilder<IProgressiveDevice, progressiveCommit>> _progressiveCommitBuilderMock = new Mock<ICommandBuilder<IProgressiveDevice, progressiveCommit>>();
         private readonly Mock<IProtocolProgressiveEventsRegistry> _protocolProgressiveEventsRegistryMock = new Mock<IProtocolProgressiveEventsRegistry>();
@@ -66,6 +70,9 @@
                 _transactionHistoryMock.Object,
                 _unitOfWorkFactoryMock.Object,
                 _disableProviderMock.Object,
+                _propertiesManager.Object,
+                _progressiveDeviceManager.Object,
+                _progressiveLevelManager.Object,
                 _commandBuilderMock.Object,
                 _progressiveStatusBuilderMock.Object,
                 _progressiveHitBuilderMock.Object,

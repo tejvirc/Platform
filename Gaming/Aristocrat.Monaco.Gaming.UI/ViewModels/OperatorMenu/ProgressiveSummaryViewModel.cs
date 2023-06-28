@@ -18,7 +18,6 @@
         private readonly IGameProvider _gameProvider;
         private readonly IProgressiveConfigurationProvider _progressiveConfiguration;
         private ObservableCollection<ProgressiveSummaryModel> _progressiveSummary;
-        private readonly IProtocolProgressiveIdProvider _levelIdProvider;
 
         public ProgressiveSummaryViewModel()
         {
@@ -26,7 +25,6 @@
 
             _gameProvider = container.GetInstance<IGameProvider>();
             _progressiveConfiguration = container.GetInstance<IProgressiveConfigurationProvider>();
-            _levelIdProvider = ServiceManager.GetInstance().TryGetService<IProtocolProgressiveIdProvider>();
         }
 
         public ObservableCollection<ProgressiveSummaryModel> ProgressiveSummary
@@ -181,13 +179,10 @@
         {
             var levelName = linkedLevel?.LevelName;
 
-            if (_levelIdProvider != null && linkedLevel != null)
+            if (linkedLevel != null)
             {
-                var levelId = linkedLevel.LevelId;
-                _levelIdProvider.OverrideLevelId(gameId, linkedLevel.ProgressiveGroupId, ref levelId);
-
                 levelName = $"{linkedLevel.ProtocolName}, " +
-                            $"Level Id: {levelId}, " +
+                            $"Level Id: {linkedLevel.DisplayLevelId}, " +
                             $"Progressive Group Id: {linkedLevel.ProgressiveGroupId}";
             }
 

@@ -276,7 +276,6 @@
                 { GamingConstants.LaunchGameAfterReboot, (InitFromStorage(GamingConstants.LaunchGameAfterReboot), true) },
                 { GamingConstants.DenomSelectionLobby, (configuration.DenomSelectionLobby?.Mode ?? DenomSelectionLobby.Allowed, false) },
                 { GamingConstants.ProgressiveConfigurableId, (false, false) },
-                { GamingConstants.ProgressiveConfiguredIds, (new List<int>(), false)},
                 { GamingConstants.ProgressiveConfiguredLevelIds, (new Dictionary<string, int>(), false)}
             };
 

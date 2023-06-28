@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Monaco.G2S.Handlers.Progressive
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using Accounting.Contracts;
@@ -12,6 +11,7 @@
     using Aristocrat.Monaco.Kernel;
     using Gaming.Contracts;
     using Gaming.Contracts.Progressives;
+    using Gaming.Contracts.Progressives.Linked;
 
     /// <summary>
     ///     A progressive hit command builder.
@@ -23,6 +23,8 @@
         private readonly IGameProvider _gameProvider;
         private readonly ITransactionHistory _transactionHistory;
         private readonly IProgressiveLevelProvider _progressiveProvider;
+        private readonly IProtocolLinkedProgressiveAdapter _protocolLinkedProgressiveAdapter;
+        private readonly IProgressiveDeviceManager _progressiveDeviceManager;
 
         /// <summary>
         ///     Initializes a new instance of the Aristocrat.Monaco.G2S.Handlers.Progressive.ProgressiveHitCommandBuilder class.
@@ -30,11 +32,15 @@
         public ProgressiveHitCommandBuilder(
             IGameProvider gameProvider,
             ITransactionHistory transactionHistory,
-            IProgressiveLevelProvider progressiveProvider)
+            IProgressiveLevelProvider progressiveProvider,
+            IProtocolLinkedProgressiveAdapter protocolLinkedProgressiveAdapter,
+            IProgressiveDeviceManager progressiveDeviceManager)
         {
             _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _transactionHistory = transactionHistory ?? throw new ArgumentNullException(nameof(transactionHistory));
             _progressiveProvider = progressiveProvider ?? throw new ArgumentNullException(nameof(progressiveProvider));
+            _protocolLinkedProgressiveAdapter = protocolLinkedProgressiveAdapter ?? throw new ArgumentNullException(nameof(protocolLinkedProgressiveAdapter));
+            _progressiveDeviceManager = progressiveDeviceManager ?? throw new ArgumentNullException(nameof(progressiveDeviceManager));
         }
 
         /// <inheritdoc />
@@ -47,11 +53,9 @@
                 return Task.CompletedTask;
             }
 
-            var progressiveService = ServiceManager.GetInstance().GetService<IProgressiveService>();
-
             if (transaction.ValueSequence == 1L) // If unset, set this to be used for the corresponding progressiveCommit and Vertex recovery
             {
-                var level = _progressiveProvider.GetProgressiveLevels().First(l => l.ProgressiveId == device.ProgressiveId && l.LevelId == transaction.LevelId && (progressiveService.VertexDeviceIds.TryGetValue(l.DeviceId, out int value) ? value : l.DeviceId) == device.Id);
+                var level = _progressiveProvider.GetProgressiveLevels().First(l => l.ProgressiveId == device.ProgressiveId && l.LevelId == transaction.LevelId && (_progressiveDeviceManager.VertexDeviceIds.TryGetValue(l.DeviceId, out int value) ? value : l.DeviceId) == device.Id);
                 if (level != null)
                 {
                     transaction.ValueSequence = level.ProgressiveValueSequence;
@@ -59,7 +63,14 @@
                 }
             }
 
-            var levelId = progressiveService.LevelIds.GetVertexProgressiveLevelId(transaction.GameId, transaction.ProgressiveId, transaction.LevelId);
+            IViewableLinkedProgressiveLevel linkedLevel = null;
+
+            if (!string.IsNullOrEmpty(transaction.AssignedProgressiveKey))
+            {
+                _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevel(transaction.AssignedProgressiveKey, out linkedLevel);
+            }
+
+            var levelId = linkedLevel?.ProtocolLevelId ?? transaction.LevelId;
 
             command.denomId = transaction.DenomId;
             command.gamePlayId = transaction.GameId;

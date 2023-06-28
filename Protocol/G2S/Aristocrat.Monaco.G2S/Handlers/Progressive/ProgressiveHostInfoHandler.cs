@@ -43,53 +43,44 @@
                 return;
             }
 
-            List<ProgressiveLevel> egmLevels = _progressives.GetProgressiveLevels().Where(p => p.DeviceId == device.Id).ToList();
-            var progressiveService = ServiceManager.GetInstance().TryGetService<IProgressiveService>();
-            if(progressiveService == null) return;
+            var egmLevels = _progressives.GetProgressiveLevels().Where(p => p.DeviceId == device.Id).ToList();
 
-            foreach (progressiveLevel hostLevel in command.Command.progressiveLevel)
+            foreach (var hostLevel in command.Command.progressiveLevel)
             {
-                foreach(ProgressiveLevel p in egmLevels)
+                foreach(var p in egmLevels)
                 {
-                    if(p.ProgressiveId == hostLevel.progId)
-                    {
-                        p.LevelId = progressiveService.LevelIds == null ? -1 : progressiveService.LevelIds.GetMonacoProgressiveLevelId(p.GameId, hostLevel.progId, hostLevel.levelId);
-                        p.LevelType = G2STypeToPlatformType(hostLevel.levelType);                 
-                        p.ResetValue = hostLevel.resetValue;
-                        p.IncrementRate = hostLevel.incrementRate;
+                    if (p.ProgressiveId != hostLevel.progId) {continue;}
 
-                        List<long> denoms = new List<long>();
-                        denoms.Add(hostLevel.rangeLow.denomId);
-                        denoms.Add(hostLevel.rangeHigh.denomId);
-                        p.Denomination = denoms.ToArray();
+                    p.LevelType = G2STypeToPlatformType(hostLevel.levelType);
+                    p.ResetValue = hostLevel.resetValue;
+                    p.IncrementRate = hostLevel.incrementRate;
 
-                        List<ProgressiveLevel> levelsToUpdate = new List<ProgressiveLevel>();
-                        levelsToUpdate.Add(p);
+                    var denoms = new List<long>();
+                    denoms.Add(hostLevel.rangeLow.denomId);
+                    denoms.Add(hostLevel.rangeHigh.denomId);
+                    p.Denomination = denoms.ToArray();
 
-                        _progressives.UpdateProgressiveLevels(p.ProgressivePackName, p.GameId, p.Denomination.ElementAt(0), levelsToUpdate);
-                    }
+                    _progressives.UpdateProgressiveLevels(
+                        p.ProgressivePackName,
+                        p.GameId,
+                        p.Denomination.ElementAt(0),
+                        new List<ProgressiveLevel>() { p });
+
                 }
             }
 
             await Task.CompletedTask;
         }
 
-        private ProgressiveLevelType G2STypeToPlatformType(string G2SType)
+        private ProgressiveLevelType G2STypeToPlatformType(string g2SType)
         {
-            ProgressiveLevelType type = ProgressiveLevelType.Unknown;
-
-            if (G2SType ==  Constants.ManufacturerPrefix + "_LP")
+            var type = g2SType switch
             {
-                type = ProgressiveLevelType.LP;
-            }
-            else if (G2SType == Constants.ManufacturerPrefix + "_Sap")
-            {
-                type = ProgressiveLevelType.Sap;
-            }
-            else if (G2SType == Constants.ManufacturerPrefix + "_Selectable")
-            {
-                type = ProgressiveLevelType.Selectable;
-            }
+                Constants.ProgressiveTypeLinked => ProgressiveLevelType.LP,
+                Constants.ProgressiveTypeSap => ProgressiveLevelType.Sap,
+                Constants.ProgressiveTypeSelectable => ProgressiveLevelType.Selectable,
+                _ => ProgressiveLevelType.Unknown
+            };
 
             return type;
         }

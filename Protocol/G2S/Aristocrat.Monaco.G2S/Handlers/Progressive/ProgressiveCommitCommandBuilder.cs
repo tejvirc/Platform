@@ -1,16 +1,13 @@
 ﻿namespace Aristocrat.Monaco.G2S.Handlers.Progressive
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
     using Accounting.Contracts;
     using Accounting.Contracts.Transactions;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Protocol.v21;
-    using Aristocrat.Monaco.G2S.Services.Progressive;
-    using Aristocrat.Monaco.Kernel;
     using Gaming.Contracts.Progressives;
+    using Gaming.Contracts.Progressives.Linked;
 
     /// <summary>
     ///     A progressive commit command builder.
@@ -20,17 +17,17 @@
     public class ProgressiveCommitCommandBuilder : ICommandBuilder<IProgressiveDevice, progressiveCommit>
     {
         private readonly ITransactionHistory _transactionHistory;
-        private readonly IProgressiveLevelProvider _progressiveProvider;
+        private readonly IProtocolLinkedProgressiveAdapter _protocolLinkedProgressiveAdapter;
 
         /// <summary>
         ///     Initializes a new instance of the Aristocrat.Monaco.G2S.Handlers.Progressive.ProgressiveCommitCommandBuilder class.
         /// </summary>
         /// <param name="transactionHistory">The transaction history.</param>
         public ProgressiveCommitCommandBuilder(ITransactionHistory transactionHistory,
-            IProgressiveLevelProvider progressiveProvider)
+            IProtocolLinkedProgressiveAdapter protocolLinkedProgressiveAdapter)
         {
-            _transactionHistory = transactionHistory ?? throw new ArgumentNullException(nameof(transactionHistory)); ;
-            _progressiveProvider = progressiveProvider ?? throw new ArgumentNullException(nameof(progressiveProvider));
+            _transactionHistory = transactionHistory ?? throw new ArgumentNullException(nameof(transactionHistory));
+            _protocolLinkedProgressiveAdapter = protocolLinkedProgressiveAdapter ?? throw new ArgumentNullException(nameof(protocolLinkedProgressiveAdapter));
         }
 
         /// <inheritdoc />
@@ -43,8 +40,14 @@
                 return Task.CompletedTask;
             }
 
-            var progressiveService = ServiceManager.GetInstance().GetService<IProgressiveService>();
-            var levelId = progressiveService.LevelIds.GetVertexProgressiveLevelId(transaction.GameId, transaction.ProgressiveId, transaction.LevelId);
+            IViewableLinkedProgressiveLevel linkedLevel = null;
+
+            if (!string.IsNullOrEmpty(transaction.AssignedProgressiveKey))
+            {
+                _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevel(transaction.AssignedProgressiveKey, out linkedLevel);
+            }
+
+            var levelId = linkedLevel?.ProtocolLevelId ?? transaction.LevelId;
 
             command.progId = transaction.ProgressiveId;
             command.levelId = levelId;

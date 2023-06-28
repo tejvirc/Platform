@@ -7,6 +7,7 @@
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Protocol.v21;
+    using Aristocrat.Monaco.G2S.Services.Progressive;
     using G2S.Handlers.Meters;
     using G2S.Meters;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -19,7 +20,7 @@
         [ExpectedException(typeof(ArgumentNullException))]
         public void WhenConstructWithNullEgmExpectException()
         {
-            var handler = new GetMeterInfo(null, null);
+            var handler = new GetMeterInfo(null, null, null, null);
 
             Assert.IsNull(handler);
         }
@@ -30,7 +31,34 @@
         {
             var egm = new Mock<IG2SEgm>();
 
-            var handler = new GetMeterInfo(egm.Object, null);
+            var handler = new GetMeterInfo(egm.Object, null, null, null);
+
+            Assert.IsNull(handler);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void WhenConstructWithNullProgressiveServiceExpectException()
+        {
+            var egm = new Mock<IG2SEgm>();
+            var meterSubscriptionManager = new Mock<IMetersSubscriptionManager>();
+
+
+            var handler = new GetMeterInfo(egm.Object, meterSubscriptionManager.Object, null, null);
+
+            Assert.IsNull(handler);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void WhenConstructWithNullProgressiveDeviceManagerExpectException()
+        {
+            var egm = new Mock<IG2SEgm>();
+            var meterSubscriptionManager = new Mock<IMetersSubscriptionManager>();
+            var progressiveLevelManager = new Mock<IProgressiveLevelManager>();
+
+
+            var handler = new GetMeterInfo(egm.Object, meterSubscriptionManager.Object, progressiveLevelManager.Object, null);
 
             Assert.IsNull(handler);
         }
@@ -40,8 +68,10 @@
         {
             var egm = new Mock<IG2SEgm>();
             var meterSubscriptionManager = new Mock<IMetersSubscriptionManager>();
+            var progressiveLevelManager = new Mock<IProgressiveLevelManager>();
+            var progressiveDeviceManager = new Mock<IProgressiveDeviceManager>();
 
-            var handler = new GetMeterInfo(egm.Object, meterSubscriptionManager.Object);
+            var handler = new GetMeterInfo(egm.Object, meterSubscriptionManager.Object, progressiveLevelManager.Object, progressiveDeviceManager.Object);
 
             Assert.IsNotNull(handler);
         }
@@ -51,8 +81,10 @@
         {
             var egm = new Mock<IG2SEgm>();
             var meterSubscriptionManager = new Mock<IMetersSubscriptionManager>();
+            var progressiveLevelManager = new Mock<IProgressiveLevelManager>();
+            var progressiveDeviceManager = new Mock<IProgressiveDeviceManager>();
 
-            var handler = new GetMeterInfo(egm.Object, meterSubscriptionManager.Object);
+            var handler = new GetMeterInfo(egm.Object, meterSubscriptionManager.Object, progressiveLevelManager.Object, progressiveDeviceManager.Object);
             await VerificationTests.VerifyChecksForNoDevice(handler);
         }
 
@@ -61,13 +93,15 @@
         {
             var egm = new Mock<IG2SEgm>();
             var meterSubscriptionManager = new Mock<IMetersSubscriptionManager>();
+            var progressiveLevelManager = new Mock<IProgressiveLevelManager>();
+            var progressiveDeviceManager = new Mock<IProgressiveDeviceManager>();
             var queue = new Mock<ICommandQueue>();
             var device = new Mock<IMetersDevice>();
             queue.SetupGet(q => q.TimeToLiveBehavior).Returns(TimeToLiveBehavior.Strict);
             device.SetupGet(evt => evt.Queue).Returns(queue.Object);
             egm.Setup(e => e.GetDevice<IMetersDevice>(It.Is<int>(id => id == TestConstants.HostId)))
                 .Returns(device.Object);
-            var handler = new GetMeterInfo(egm.Object, meterSubscriptionManager.Object);
+            var handler = new GetMeterInfo(egm.Object, meterSubscriptionManager.Object, progressiveLevelManager.Object, progressiveDeviceManager.Object);
             await VerificationTests.VerifyChecksTimeToLive(handler);
         }
 
@@ -76,6 +110,8 @@
         {
             var egm = new Mock<IG2SEgm>();
             var meterSubscriptionManager = new Mock<IMetersSubscriptionManager>();
+            var progressiveLevelManager = new Mock<IProgressiveLevelManager>();
+            var progressiveDeviceManager = new Mock<IProgressiveDeviceManager>();
             var device = new Mock<IMetersDevice>();
             var queue = new Mock<ICommandQueue>();
 
@@ -85,7 +121,7 @@
             egm.Setup(e => e.GetDevice<IMetersDevice>(It.Is<int>(id => id == TestConstants.HostId)))
                 .Returns(device.Object);
 
-            var handler = new GetMeterInfo(egm.Object, meterSubscriptionManager.Object);
+            var handler = new GetMeterInfo(egm.Object, meterSubscriptionManager.Object, progressiveLevelManager.Object, progressiveDeviceManager.Object);
             await VerificationTests.VerifyCanSucceed(handler);
         }
 
@@ -94,8 +130,10 @@
         {
             var egm = new Mock<IG2SEgm>();
             var meterSubManager = new Mock<IMetersSubscriptionManager>();
+            var progressiveLevelManager = new Mock<IProgressiveLevelManager>();
+            var progressiveDeviceManager = new Mock<IProgressiveDeviceManager>();
 
-            var handler = new GetMeterInfo(egm.Object, meterSubManager.Object);
+            var handler = new GetMeterInfo(egm.Object, meterSubManager.Object, progressiveLevelManager.Object, progressiveDeviceManager.Object);
 
             var command = CreateCommand();
 
@@ -113,10 +151,12 @@
         {
             var egm = new Mock<IG2SEgm>();
             var meterSubManager = new Mock<IMetersSubscriptionManager>();
+            var progressiveLevelManager = new Mock<IProgressiveLevelManager>();
+            var progressiveDeviceManager = new Mock<IProgressiveDeviceManager>();
             meterSubManager.Setup(
                     x => x.GetMeters(It.Is<getMeterInfo>(i => i != null), It.Is<meterInfo>(i => i != null)))
                 .Returns(ErrorCode.G2S_none);
-            var handler = new GetMeterInfo(egm.Object, meterSubManager.Object);
+            var handler = new GetMeterInfo(egm.Object, meterSubManager.Object, progressiveLevelManager.Object, progressiveDeviceManager.Object);
 
             var command = CreateCommand();
             command.Command.meterInfoType = "G2S_onDemand";
