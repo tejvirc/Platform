@@ -1,11 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Accounting.Contracts.HandCount
 {
-    using Aristocrat.Monaco.Kernel;
+    using Kernel;
 
     /// <summary>
     ///     Event to cancel the cashout when there is lockup scenario
     /// </summary>
-    public class CashoutCancelledEvent : BaseEvent
+    public class CashoutAuthorizationCancelledEvent : BaseEvent
     {
     }
 }

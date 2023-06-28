@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Contracts
+namespace Aristocrat.Monaco.Gaming.Contracts
 {
     using Accounting.Contracts.Handpay;
     using Models;
@@ -39,7 +39,7 @@
         bool IsBasic { get; }
 
         /// <summary>
-        /// Current pay out amount
+        ///     Current pay out amount
         /// </summary>
         long CashableAmount { get; set; }
 
@@ -68,7 +68,7 @@
         IMessageOverlayData HandleMessageOverlayHandPay(IMessageOverlayData data, string subText2);
 
         /// <summary>
-        /// Handles PayOut message scenarios
+        ///     Handles PayOut message scenarios
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>

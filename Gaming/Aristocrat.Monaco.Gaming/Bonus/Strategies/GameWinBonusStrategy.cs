@@ -40,7 +40,7 @@
             IPlayerService players,
             IPersistentStorageManager storage,
             IPaymentDeterminationProvider bonusPayDetermination,
-            IMaxWinOverlayService maxWinOverlayService)
+            IBalanceUpdateService balanceUpdateService)
             : base(
                 properties,
                 bank,
@@ -54,7 +54,7 @@
                 players,
                 storage,
                 bonusPayDetermination,
-                maxWinOverlayService)
+                balanceUpdateService)
         {
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _gamePlay = gamePlay ?? throw new ArgumentNullException(nameof(gamePlay));

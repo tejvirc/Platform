@@ -51,12 +51,12 @@
             var runtime = ServiceManager.GetInstance().GetService<IContainerService>().Container.GetInstance<IRuntime>();
             if (obj.ToString().Equals("YES", StringComparison.InvariantCultureIgnoreCase))
             {
-                _eventBus.Publish(new CashoutAmountPlayerConfirmationReceivedEvent(true));
+                _eventBus.Publish(new CashoutAmountAuthorizationReceivedEvent(true));
 
             }
             else
             {
-                _eventBus.Publish(new CashoutAmountPlayerConfirmationReceivedEvent(false));
+                _eventBus.Publish(new CashoutAmountAuthorizationReceivedEvent(false));
                 runtime.UpdateFlag(RuntimeCondition.CashingOut, false);
             }
         }

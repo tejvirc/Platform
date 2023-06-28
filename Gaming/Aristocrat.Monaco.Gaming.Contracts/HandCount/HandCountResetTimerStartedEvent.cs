@@ -1,6 +1,6 @@
-﻿namespace Aristocrat.Monaco.Accounting.Contracts.HandCount
+﻿namespace Aristocrat.Monaco.Gaming.Contracts.HandCount
 {
-    using Aristocrat.Monaco.Kernel;
+    using Kernel;
 
     /// <summary>
     ///     Definition of the HandCountResetTimerStartedEvent class

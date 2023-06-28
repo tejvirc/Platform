@@ -107,6 +107,7 @@
             container.Register<IPlayerSessionHistory, PlayerSessionHistory>(Lifestyle.Singleton);
             container.Register<IMessageDisplayHandler, GameMessageDisplayHandler>(Lifestyle.Singleton);
             container.Register<IAttendantService, AttendantService>(Lifestyle.Singleton);
+            container.Register<IBalanceUpdateService, BalanceUpdateService>(Lifestyle.Singleton);
             container.Register<IReserveService, ReserveService>(Lifestyle.Singleton);
             container.Register<IUserActivityService, UserActivityService>(Lifestyle.Singleton);
             container.Register<IHardwareHelper, HardwareHelper>(Lifestyle.Singleton);

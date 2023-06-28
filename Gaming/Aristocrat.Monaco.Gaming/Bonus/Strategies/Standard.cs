@@ -35,8 +35,8 @@
             IPlayerService players,
             ISystemDisableManager systemDisable,
             IPaymentDeterminationProvider paymentDeterminationProvider,
-            IMaxWinOverlayService maxWinOverlayService)
-            : base(properties, bank, transferHandler, transactions, history, meters, runtime, bus, messages, players, storage, paymentDeterminationProvider, maxWinOverlayService)
+            IBalanceUpdateService balanceUpdateService)
+            : base(properties, bank, transferHandler, transactions, history, meters, runtime, bus, messages, players, storage, paymentDeterminationProvider, balanceUpdateService)
         {
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
             _gamePlay = gamePlay ?? throw new ArgumentNullException(nameof(gamePlay));

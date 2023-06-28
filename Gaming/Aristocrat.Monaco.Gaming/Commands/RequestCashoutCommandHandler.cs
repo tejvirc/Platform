@@ -3,8 +3,6 @@
     using System;
     using Accounting.Contracts;
     using Accounting.Contracts.HandCount;
-    using Accounting.Contracts.Handpay;
-    using Application.Contracts.Extensions;
     using Contracts;
     using Kernel;
 

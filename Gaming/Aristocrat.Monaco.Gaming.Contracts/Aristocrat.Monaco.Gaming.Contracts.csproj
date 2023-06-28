@@ -24,9 +24,6 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="IHandCountSessionService.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Update="Barkeeper\BarkeeperRewardLevels.cs">
       <DependentUpon>BarkeeperRewardLevels.xsd</DependentUpon>
     </Compile>

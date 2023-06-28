@@ -7,6 +7,7 @@
     using Aristocrat.Monaco.Accounting.Contracts.HandCount;
     using Aristocrat.Monaco.Application.Contracts.Extensions;
     using Contracts;
+    using Contracts.HandCount;
     using ViewModels;
     using Views.Overlay;
     using Kernel;
@@ -73,22 +74,22 @@
             _eventBus.Subscribe<HandCountResetTimerElapsedEvent>(this, Handle);
             _eventBus.Subscribe<HandCountResetTimerStartedEvent>(this, Handle);
             _eventBus.Subscribe<HandCountResetTimerCancelledEvent>(this, Handle);
-            _eventBus.Subscribe<CashoutAmountPlayerConfirmationRequestedEvent>(this, Handle);
-            _eventBus.Subscribe<CashoutAmountPlayerConfirmationReceivedEvent>(this, Handle);
-            _eventBus.Subscribe<CashoutCancelledEvent>(this, Handle);
+            _eventBus.Subscribe<CashoutAmountAuthorizationRequestedEvent>(this, Handle);
+            _eventBus.Subscribe<CashoutAmountAuthorizationReceivedEvent>(this, Handle);
+            _eventBus.Subscribe<CashoutAuthorizationCancelledEvent>(this, Handle);
         }
 
-        private void Handle(CashoutCancelledEvent evt)
+        private void Handle(CashoutAuthorizationCancelledEvent evt)
         {
             _eventBus.Publish(new ViewInjectionEvent(_cashoutDialog, DisplayRole.Main, ViewInjectionEvent.ViewAction.Remove));
         }
 
-        private void Handle(CashoutAmountPlayerConfirmationReceivedEvent evt)
+        private void Handle(CashoutAmountAuthorizationReceivedEvent evt)
         {
             _eventBus.Publish(new ViewInjectionEvent(_cashoutDialog, DisplayRole.Main, ViewInjectionEvent.ViewAction.Remove));
         }
 
-        private void Handle(CashoutAmountPlayerConfirmationRequestedEvent evt)
+        private void Handle(CashoutAmountAuthorizationRequestedEvent evt)
         {
             _cashoutDialogViewModel.HandCountAmount = (long)(_handCountService.HandCount * _cashOutAmountPerHand).MillicentsToDollars();
             _eventBus.Publish(new ViewInjectionEvent(_cashoutDialog, DisplayRole.Main, ViewInjectionEvent.ViewAction.Add));

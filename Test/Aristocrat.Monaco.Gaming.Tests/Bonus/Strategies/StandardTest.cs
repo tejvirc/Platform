@@ -35,7 +35,7 @@ namespace Aristocrat.Monaco.Gaming.Tests.Bonus.Strategies
         private readonly Mock<IGameMeterManager> _meterManager = new Mock<IGameMeterManager>(MockBehavior.Default);
 
         private Mock<IScopedTransaction> _scopedTransaction;
-        private Mock<IMaxWinOverlayService> _maxWinOverlayService = new Mock<IMaxWinOverlayService>();
+        private Mock<IBalanceUpdateService> _balanceUpdateService = new Mock<IBalanceUpdateService>();
         private Gaming.Bonus.Strategies.Standard _standard;
 
         [TestInitialize]
@@ -76,7 +76,7 @@ namespace Aristocrat.Monaco.Gaming.Tests.Bonus.Strategies
                  _transferOutHandler.Object,
                  _messageDisplay.Object, _players.Object, _systemDisableManager.Object,
                  _largeWinDetermination.Object,
-                 _maxWinOverlayService.Object);
+                 _balanceUpdateService.Object);
 
         }
 

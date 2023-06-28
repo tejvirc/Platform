@@ -39,7 +39,7 @@
         private readonly Mock<IBarkeeperHandler> _barkeeperHandler = new Mock<IBarkeeperHandler>();
         private readonly Mock<IProgressiveGameProvider> _progressiveGame = new Mock<IProgressiveGameProvider>();
         private readonly Mock<IProgressiveLevelProvider> _progressiveLevel = new Mock<IProgressiveLevelProvider>();
-        private readonly Mock<IMaxWinOverlayService> _maxWinOverlayService = new Mock<IMaxWinOverlayService>();
+        private readonly Mock<IBalanceUpdateService> _balanceUpdateService = new Mock<IBalanceUpdateService>();
         private readonly Mock<IGameHistoryLog> _gameHistory = new Mock<IGameHistoryLog>();
         private Mock<IScopedTransaction> _transactionScope;
 
@@ -207,9 +207,9 @@
             var packName = "UnitTestPackage";
             var meter = new Mock<IMeter>();
             meter.Setup(m => m.Increment(winAmount)).Verifiable();
-            _gameHistory.SetupGet(g => g.Jackpots).Returns(new List<JackpotInfo>{ new JackpotInfo { PackName = packName, WinAmount = winAmount, DeviceId = deviceId } } );
+            _gameHistory.SetupGet(g => g.Jackpots).Returns(new List<JackpotInfo> { new JackpotInfo { PackName = packName, WinAmount = winAmount, DeviceId = deviceId } });
             var progressiveLevel = new ProgressiveLevel();
-            progressiveLevel.ProgressivePackName= packName ;
+            progressiveLevel.ProgressivePackName = packName;
             progressiveLevel.DeviceId = deviceId;
             progressiveLevel.LevelType = ProgressiveLevelType.LP;
             var readOnlyCollection = new List<ProgressiveLevel> { progressiveLevel };
@@ -255,7 +255,7 @@
             bool nullBarkeeperHandler = false,
             bool nullProgressiveGame = false,
             bool nullProgressiveLevel = false,
-            bool nullMaxWinOverlayService = false)
+            bool nullBalanceUpdateService = false)
         {
             return new GameEndedCommandHandler(
                 nullBank ? null : _bank.Object,
@@ -271,7 +271,7 @@
                 nullBarkeeperHandler ? null : _barkeeperHandler.Object,
                 nullProgressiveGame ? null : _progressiveGame.Object,
                 nullProgressiveLevel ? null : _progressiveLevel.Object,
-                nullMaxWinOverlayService ? null: _maxWinOverlayService.Object
+                nullBalanceUpdateService ? null : _balanceUpdateService.Object
                 );
         }
     }

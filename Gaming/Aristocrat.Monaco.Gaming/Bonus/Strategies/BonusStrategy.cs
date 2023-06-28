@@ -42,7 +42,7 @@
         private readonly ITransferOutHandler _transferHandler;
         private readonly IPersistentStorageManager _storage;
         private readonly IPaymentDeterminationProvider _bonusPayDetermination;
-        private readonly IMaxWinOverlayService _maxWinOverlayService;
+        private readonly IBalanceUpdateService _balanceUpdateService;
 
         protected BonusStrategy(
             IPropertiesManager properties,
@@ -57,7 +57,7 @@
             IPlayerService players,
             IPersistentStorageManager storage,
             IPaymentDeterminationProvider bonusPayDetermination,
-            IMaxWinOverlayService maxWinOverlayService)
+            IBalanceUpdateService balanceUpdateService)
         {
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
@@ -74,7 +74,7 @@
 
             _bonusPayDetermination.BonusHandler ??= new BonusPaymentDeterminationHandler(_properties, _bank);
 
-            _maxWinOverlayService = maxWinOverlayService ?? throw new ArgumentNullException(nameof(maxWinOverlayService));
+            _balanceUpdateService = balanceUpdateService ?? throw new ArgumentNullException(nameof(balanceUpdateService));
         }
 
         protected BonusTransaction ToTransaction(int deviceId, IBonusRequest request)
@@ -546,10 +546,7 @@
             _bank.Deposit(AccountType.NonCash, nonCashAmount, transactionId);
             _bank.Deposit(AccountType.Promo, promoAmount, transactionId);
 
-            if (!_maxWinOverlayService.ShowingMaxWinWarning)
-            {
-                _runtime.UpdateBalance(_bank.QueryBalance().MillicentsToCents());
-            }
+            _balanceUpdateService.UpdateBalance();
         }
 
         private TaskCompletionSource<bool> PayTo<T>(

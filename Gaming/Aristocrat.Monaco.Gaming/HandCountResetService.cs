@@ -13,6 +13,7 @@
     using Aristocrat.Monaco.Accounting.Contracts.HandCount;
     using Aristocrat.Monaco.Kernel.Contracts;
     using Aristocrat.Monaco.Gaming.Contracts.Events;
+    using Aristocrat.Monaco.Gaming.Contracts.HandCount;
 
     /// <summary>
     ///     An implementation of <see cref="IHandCountResetService" />

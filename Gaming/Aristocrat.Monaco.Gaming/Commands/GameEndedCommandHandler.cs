@@ -42,7 +42,7 @@
         private readonly ITransactionHistory _transactionHistory;
         private readonly IBarkeeperHandler _barkeeperHandler;
         private readonly IProgressiveGameProvider _progressiveGameProvider;
-        private readonly IMaxWinOverlayService _maxWinOverlayService;
+        private readonly IBalanceUpdateService _balanceUpdateService;
 
         private readonly bool _meterFreeGames;
         private readonly IProgressiveLevelProvider _progressiveLevelProvider;
@@ -64,7 +64,7 @@
             IBarkeeperHandler barkeeperHandler,
             IProgressiveGameProvider progressiveGameProvider,
             IProgressiveLevelProvider progressiveLevelProvider,
-            IMaxWinOverlayService maxWinOverlayService)
+            IBalanceUpdateService balanceUpdateService)
         {
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
             _persistentStorage = persistentStorage ?? throw new ArgumentNullException(nameof(persistentStorage));
@@ -79,9 +79,9 @@
             _barkeeperHandler = barkeeperHandler ?? throw new ArgumentNullException(nameof(barkeeperHandler));
             _progressiveGameProvider = progressiveGameProvider ?? throw new ArgumentNullException(nameof(progressiveGameProvider));
             _progressiveLevelProvider = progressiveLevelProvider ?? throw new ArgumentNullException(nameof(progressiveGameProvider));
+            _balanceUpdateService = balanceUpdateService ?? throw new ArgumentNullException(nameof(balanceUpdateService));
 
             _meterFreeGames = _properties.GetValue(GamingConstants.MeterFreeGamesIndependently, false);
-            _maxWinOverlayService = maxWinOverlayService ?? throw new ArgumentNullException(nameof(maxWinOverlayService));
         }
 
         /// <inheritdoc />
@@ -105,10 +105,7 @@
             Logger.Debug("PendingHandpay set to false");
             _runtime.UpdateFlag(RuntimeCondition.PendingHandpay, false);
 
-            if (!_maxWinOverlayService.ShowingMaxWinWarning)
-            {
-                _runtime.UpdateBalance(_bank.Credits);
-            }
+            _balanceUpdateService.UpdateBalance();
         }
 
         private void IncrementMeters()

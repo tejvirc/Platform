@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Accounting.Contracts.HandCount
+﻿namespace Aristocrat.Monaco.Gaming.Contracts.HandCount
 {
     using Kernel;
 
@@ -15,6 +15,7 @@
         {
             ResidualAmount = residualAmount;
         }
+
         /// <summary>
         /// The residual amount with the hand count to be reset
         /// </summary>

@@ -1,12 +1,12 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
-    using Aristocrat.Monaco.Accounting.Contracts.HandCount;
+    using Accounting.Contracts.HandCount;
     using Kernel;
     using Monaco.UI.Common;
     using MVVM.ViewModel;
     using System;
     using Accounting.Contracts;
-    using Contracts;
+    using Contracts.HandCount;
 
     /// <summary>
     ///     Defines the HandCountTimerDialogViewModel class

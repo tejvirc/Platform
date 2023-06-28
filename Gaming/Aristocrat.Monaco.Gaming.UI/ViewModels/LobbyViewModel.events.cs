@@ -20,6 +20,7 @@
     using Contracts.InfoBar;
     using Contracts.Models;
     using Contracts.Progressives;
+    using Contracts.HandCount;
     using Events;
     using Hardware.Contracts.Button;
     using Hardware.Contracts.ButtonDeck;

@@ -18,7 +18,7 @@
     <ResponsibleGamingSessionLimit>5</ResponsibleGamingSessionLimit>
     <LobbyUiDirectoryPath>../jurisdiction/DefaultAssets/ui/</LobbyUiDirectoryPath>
     <SkinFilenames>
-        <string>GeorgiaCOAMUI.xaml</string>
+        <string>DefaultClass3CoamUI.xaml</string>
     </SkinFilenames>
     <LocaleCodes>
         <string>en-us</string>

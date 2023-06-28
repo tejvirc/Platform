@@ -73,17 +73,17 @@
             _cashOutAmountPerHand = properties.GetValue(AccountingConstants.CashoutAmountPerHandCount, 0L);
             _properties = properties
                  ?? throw new ArgumentNullException(nameof(properties));
-            _eventBus.Subscribe<CashoutAmountPlayerConfirmationReceivedEvent>(this, Handle);
+            _eventBus.Subscribe<CashoutAmountAuthorizationReceivedEvent>(this, Handle);
             _eventBus.Subscribe<SystemDisableAddedEvent>(this, Handle);
         }
 
         private void Handle(SystemDisableAddedEvent evt)
         {
             cashoutConfirmationEvent.Set();
-            _eventBus.Publish(new CashoutCancelledEvent());
+            _eventBus.Publish(new CashoutAuthorizationCancelledEvent());
         }
 
-        private void Handle(CashoutAmountPlayerConfirmationReceivedEvent evt)
+        private void Handle(CashoutAmountAuthorizationReceivedEvent evt)
         {
             isCashOut = evt.IsCashout;
             cashoutConfirmationEvent.Set();
@@ -117,7 +117,7 @@
             if (handCountAmount < ((long)amount.MillicentsToDollars()).DollarsToMillicents())
             {
                 cashoutConfirmationEvent.Reset();
-                _eventBus.Publish(new CashoutAmountPlayerConfirmationRequestedEvent());
+                _eventBus.Publish(new CashoutAmountAuthorizationRequestedEvent());
                 cashoutConfirmationEvent.WaitOne();
                 if (isCashOut)
                 {
