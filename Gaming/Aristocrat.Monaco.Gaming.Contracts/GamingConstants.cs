@@ -1404,6 +1404,16 @@
         public const string UseSlowRecovery = "UseSlowRecovery";
 
         /// <summary>
+        ///     Flag Win tune is played based on win amount when true
+        /// </summary>
+        public const string WinTuneCapping = "WinTuneCapping";
+
+        /// <summary>
+        ///     Whether Win increment duration is based on win amount or with denom
+        /// </summary>
+        public const string WinIncrementSpeed = "WinIncrementSpeed";
+
+        /// <summary>
         ///     encapsulate Player Information Display options
         /// </summary>
         public static class PlayerInformationDisplay

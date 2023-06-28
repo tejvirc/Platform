@@ -314,74 +314,81 @@
                 { GamingConstants.LaunchGameAfterReboot, (InitFromStorage(GamingConstants.LaunchGameAfterReboot), true) },
                 { GamingConstants.DenomSelectionLobby, (configuration.DenomSelectionLobby?.Mode ?? DenomSelectionLobby.Allowed, false) },
                 { GamingConstants.DisplayGamePayMessageUseKey, (InitFromStorage(GamingConstants.DisplayGamePayMessageUseKey), true)},
-                { GamingConstants.DisplayGamePayMessageFormatKey, (InitFromStorage(GamingConstants.DisplayGamePayMessageFormatKey), true)}
+                { GamingConstants.DisplayGamePayMessageFormatKey, (InitFromStorage(GamingConstants.DisplayGamePayMessageFormatKey), true)},
+                { GamingConstants.WinTuneCapping, (configuration.WinIncrement?.WinTuneCapping ?? false, false) },
+                { GamingConstants.WinIncrementSpeed, (configuration.WinIncrement?.WinIncrementSpeed ?? WinIncrementSpeed.WinAmountOnly, false) }
             };
 
             if (!blockExists)
             {
-                // This is just weird, but because the storage block accessor is typed it will return the default value vs. a null
-                // It renders the default passed in to GetProperty useless, since it returns the default type.
-                SetProperty(GamingConstants.ShowServiceButton, true);
-                SetProperty(GamingConstants.ProgressiveCommitTimeoutMs, GamingConstants.DefaultProgressiveCommitTimeoutMs);
-                SetProperty(GamingConstants.ReelStopEnabled, configuration.ReelStop?.Enabled ?? true);
-                SetProperty(GamingConstants.ReelSpeedKey, Convert.ToDouble(configuration.ReelSpeed?.Value ?? Convert.ToString(GamingConstants.ReelSpeed)));
-                SetProperty(GamingConstants.WagerLimitsMaxTotalWagerKey, configuration.WagerLimits?.MaxTotalWager ?? GamingConstants.WagerLimitsMaxTotalWager);
-                SetProperty(GamingConstants.WagerLimitsUseKey, configuration.WagerLimits?.Use ?? GamingConstants.WagerLimitsUse);
-                SetProperty(GamingConstants.MaximumGameRoundWinResetWinAmountKey, configuration.MaximumGameRoundWin?.ResetWinAmount ?? GamingConstants.MaximumGameRoundWinResetWinAmount);
-                SetProperty(GamingConstants.VolumeLevelShowInHelpScreenKey, configuration.VolumeLevel?.ShowInHelpScreen ?? GamingConstants.VolumeLevelShowInHelpScreen);
-                SetProperty(GamingConstants.ServiceUseKey, configuration.Service?.Use ?? GamingConstants.ServiceUse);
-                SetProperty(GamingConstants.ClockUseHInDisplayKey, configuration.Clock?.UseHInDisplay ?? GamingConstants.ClockUseHInDisplay);
-                SetProperty(GamingConstants.KenoFreeGamesSelectionChangeKey, configuration.KenoFreeGames?.SelectionChange ?? GamingConstants.KenoFreeGamesSelectionChange);
-                SetProperty(GamingConstants.KenoFreeGamesAutoPlayKey, configuration.KenoFreeGames?.AutoPlay ?? GamingConstants.KenoFreeGamesAutoPlay);
-                SetProperty(GamingConstants.InitialZeroWagerUseKey, configuration.InitialZeroWager?.Use ?? GamingConstants.InitialZeroWagerUse);
-                SetProperty(GamingConstants.ChangeLineSelectionAtZeroCreditUseKey, configuration.ChangeLineSelectionAtZeroCredit?.Use ?? GamingConstants.ChangeLineSelectionAtZeroCreditUse);
-                SetProperty(GamingConstants.GameDurationUseMarketGameTimeKey, configuration.GameDuration?.UseMarketGameTime ?? GamingConstants.GameDurationUseMarketGameTime);
-                SetProperty(GamingConstants.GameLogEnabledKey, configuration.GameLog?.Enabled ?? GamingConstants.GameLogEnabled);
-                SetProperty(GamingConstants.GameLogOutcomeDetailsKey, configuration.GameLog?.OutcomeDetails ?? GamingConstants.GameLogOutcomeDetails);
-                SetProperty(GamingConstants.AudioAudioChannelsKey, configuration.Audio?.AudioChannels ?? GamingConstants.AudioAudioChannels);
-                SetProperty(GamingConstants.FreeSpinClearWinMeterKey, configuration.FreeSpin?.ClearWinMeter ?? GamingConstants.FreeSpinClearWinMeter);
-                SetProperty(GamingConstants.WinDestinationKey, configuration.Win?.Destination ?? GamingConstants.WinDestination);
-                SetProperty(GamingConstants.ButtonAnimationGoodLuckKey, configuration.ButtonAnimation?.GoodLuck ?? GamingConstants.ButtonAnimationGoodLuck);
-                SetProperty(GamingConstants.DisplayGamePayMessageUseKey, configuration.DisplayGamePayMessage?.Use ?? GamingConstants.DisplayGamePayMessageUse);
-                SetProperty(GamingConstants.DisplayGamePayMessageFormatKey, configuration.DisplayGamePayMessage?.Format ?? GamingConstants.DisplayGamePayMessageFormat);
-                SetProperty(GamingConstants.AutoHoldEnable, configuration.AutoHold?.Enable ?? false);
-                SetProperty(GamingConstants.ReplayPauseActive, configuration.ReplayPause?.Active ?? true);
-                SetProperty(GamingConstants.GambleWagerLimit, configuration.Gamble?.WagerLimit ?? GamingConstants.DefaultGambleWagerLimit);
-                SetProperty(GamingConstants.GambleWinLimit, configuration.Gamble?.WinLimit ?? GamingConstants.DefaultGambleWinLimit);
-                SetProperty(GamingConstants.ContinuousPlayMode, (int)(configuration.ContinuousPlaySupport?.Mode ?? PlayMode.Toggle));
-                SetProperty(GamingConstants.GameStartMethod, (int)(configuration.PhysicalButtons?.GameStartButtons?.Method ?? GameStartMethodOption.Bet));
-                SetProperty(GamingConstants.ShowProgramPinRequired, true);
-                SetProperty(GamingConstants.ShowProgramPin, GamingConstants.DefaultShowProgramPin);
-                SetProperty(GamingConstants.ShowProgramEnableResetCredits, true);
-                SetProperty(GamingConstants.AttractModeEnabled, (configuration.AttractModeOptions?.AttractEnabled ?? true));
-                SetProperty(GamingConstants.ProgressiveLobbyIndicatorType,
-                    configuration.ProgressiveLobbyIndicator?.Indicator ?? ProgressiveLobbyIndicator.ProgressiveValue);
-                SetProperty(GamingConstants.ShowTopPickBanners,true);
-                SetProperty(GamingConstants.ShowPlayerMenuPopup, true);
-                SetProperty(GamingConstants.LaunchGameAfterReboot, false);
-                var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
-                var machineSettingsImported = propertiesManager.GetValue(ApplicationConstants.MachineSettingsImported, ImportMachineSettings.None);
-                if (machineSettingsImported == ImportMachineSettings.None)
-                {
-                    SetProperty(GamingConstants.IdleTimePeriod, (int)GamingConstants.DefaultIdleTimeoutPeriod.TotalMilliseconds);
-                    SetProperty(GamingConstants.GameRoundDurationMs, (configuration.GameRoundDurationMs?.Minimum ?? 0) > GamingConstants.DefaultMinimumGameRoundDurationMs ? configuration.GameRoundDurationMs.Minimum : GamingConstants.DefaultMinimumGameRoundDurationMs);
-                    SetProperty(GamingConstants.LockupBehavior, configuration.LockupBehavior?.CashableLockupStrategy ?? CashableLockupStrategy.Allowed);
-                    SetProperty(GamingConstants.DefaultAttractSequenceOverridden, false);
-                }
-                else
-                {
-                    // The following settings were imported and set to the default property provider since the gaming property provider was not yet loaded
-                    // at the time of import, so we set each to their imported values here.
-                    SetProperty(GamingConstants.ApplyGameCategorySettings, propertiesManager.GetValue(GamingConstants.ApplyGameCategorySettings, false));
-                    SetProperty(GamingConstants.IdleText, propertiesManager.GetValue(GamingConstants.IdleText, string.Empty));
-                    SetProperty(GamingConstants.IdleTimePeriod, propertiesManager.GetValue(GamingConstants.IdleTimePeriod, 0));
-                    SetProperty(GamingConstants.GameRoundDurationMs, propertiesManager.GetValue(GamingConstants.GameRoundDurationMs, GamingConstants.DefaultMinimumGameRoundDurationMs));
-                    SetProperty(GamingConstants.LockupBehavior, propertiesManager.GetValue(GamingConstants.LockupBehavior, CashableLockupStrategy.NotAllowed));
-                    SetProperty(GamingConstants.DefaultAttractSequenceOverridden, propertiesManager.GetProperty(GamingConstants.DefaultAttractSequenceOverridden, false));
+                SetPropertyBlockNotExist(configuration);
+            }
+        }
 
-                    machineSettingsImported |= ImportMachineSettings.GamingPropertiesLoaded;
-                    propertiesManager.SetProperty(ApplicationConstants.MachineSettingsImported, machineSettingsImported);
-                }
+        private void SetPropertyBlockNotExist(GamingConfiguration configuration)
+        {
+            // This is just weird, but because the storage block accessor is typed it will return the default value vs. a null
+            // It renders the default passed in to GetProperty useless, since it returns the default type.
+            SetProperty(GamingConstants.ShowServiceButton, true);
+            SetProperty(GamingConstants.ProgressiveCommitTimeoutMs, GamingConstants.DefaultProgressiveCommitTimeoutMs);
+            SetProperty(GamingConstants.ReelStopEnabled, configuration.ReelStop?.Enabled ?? true);
+            SetProperty(GamingConstants.ReelSpeedKey, Convert.ToDouble(configuration.ReelSpeed?.Value ?? Convert.ToString(GamingConstants.ReelSpeed)));
+            SetProperty(GamingConstants.WagerLimitsMaxTotalWagerKey, configuration.WagerLimits?.MaxTotalWager ?? GamingConstants.WagerLimitsMaxTotalWager);
+            SetProperty(GamingConstants.WagerLimitsUseKey, configuration.WagerLimits?.Use ?? GamingConstants.WagerLimitsUse);
+            SetProperty(GamingConstants.MaximumGameRoundWinResetWinAmountKey, configuration.MaximumGameRoundWin?.ResetWinAmount ?? GamingConstants.MaximumGameRoundWinResetWinAmount);
+            SetProperty(GamingConstants.VolumeLevelShowInHelpScreenKey, configuration.VolumeLevel?.ShowInHelpScreen ?? GamingConstants.VolumeLevelShowInHelpScreen);
+            SetProperty(GamingConstants.ServiceUseKey, configuration.Service?.Use ?? GamingConstants.ServiceUse);
+            SetProperty(GamingConstants.ClockUseHInDisplayKey, configuration.Clock?.UseHInDisplay ?? GamingConstants.ClockUseHInDisplay);
+            SetProperty(GamingConstants.KenoFreeGamesSelectionChangeKey, configuration.KenoFreeGames?.SelectionChange ?? GamingConstants.KenoFreeGamesSelectionChange);
+            SetProperty(GamingConstants.KenoFreeGamesAutoPlayKey, configuration.KenoFreeGames?.AutoPlay ?? GamingConstants.KenoFreeGamesAutoPlay);
+            SetProperty(GamingConstants.InitialZeroWagerUseKey, configuration.InitialZeroWager?.Use ?? GamingConstants.InitialZeroWagerUse);
+            SetProperty(GamingConstants.ChangeLineSelectionAtZeroCreditUseKey, configuration.ChangeLineSelectionAtZeroCredit?.Use ?? GamingConstants.ChangeLineSelectionAtZeroCreditUse);
+            SetProperty(GamingConstants.GameDurationUseMarketGameTimeKey, configuration.GameDuration?.UseMarketGameTime ?? GamingConstants.GameDurationUseMarketGameTime);
+            SetProperty(GamingConstants.GameLogEnabledKey, configuration.GameLog?.Enabled ?? GamingConstants.GameLogEnabled);
+            SetProperty(GamingConstants.GameLogOutcomeDetailsKey, configuration.GameLog?.OutcomeDetails ?? GamingConstants.GameLogOutcomeDetails);
+            SetProperty(GamingConstants.AudioAudioChannelsKey, configuration.Audio?.AudioChannels ?? GamingConstants.AudioAudioChannels);
+            SetProperty(GamingConstants.FreeSpinClearWinMeterKey, configuration.FreeSpin?.ClearWinMeter ?? GamingConstants.FreeSpinClearWinMeter);
+            SetProperty(GamingConstants.WinDestinationKey, configuration.Win?.Destination ?? GamingConstants.WinDestination);
+            SetProperty(GamingConstants.ButtonAnimationGoodLuckKey, configuration.ButtonAnimation?.GoodLuck ?? GamingConstants.ButtonAnimationGoodLuck);
+            SetProperty(GamingConstants.DisplayGamePayMessageUseKey, configuration.DisplayGamePayMessage?.Use ?? GamingConstants.DisplayGamePayMessageUse);
+            SetProperty(GamingConstants.DisplayGamePayMessageFormatKey, configuration.DisplayGamePayMessage?.Format ?? GamingConstants.DisplayGamePayMessageFormat);
+            SetProperty(GamingConstants.AutoHoldEnable, configuration.AutoHold?.Enable ?? false);
+            SetProperty(GamingConstants.ReplayPauseActive, configuration.ReplayPause?.Active ?? true);
+            SetProperty(GamingConstants.GambleWagerLimit, configuration.Gamble?.WagerLimit ?? GamingConstants.DefaultGambleWagerLimit);
+            SetProperty(GamingConstants.GambleWinLimit, configuration.Gamble?.WinLimit ?? GamingConstants.DefaultGambleWinLimit);
+            SetProperty(GamingConstants.ContinuousPlayMode, (int)(configuration.ContinuousPlaySupport?.Mode ?? PlayMode.Toggle));
+            SetProperty(GamingConstants.GameStartMethod, (int)(configuration.PhysicalButtons?.GameStartButtons?.Method ?? GameStartMethodOption.Bet));
+            SetProperty(GamingConstants.ShowProgramPinRequired, true);
+            SetProperty(GamingConstants.ShowProgramPin, GamingConstants.DefaultShowProgramPin);
+            SetProperty(GamingConstants.ShowProgramEnableResetCredits, true);
+            SetProperty(GamingConstants.AttractModeEnabled, (configuration.AttractModeOptions?.AttractEnabled ?? true));
+            SetProperty(GamingConstants.ProgressiveLobbyIndicatorType,
+                configuration.ProgressiveLobbyIndicator?.Indicator ?? ProgressiveLobbyIndicator.ProgressiveValue);
+            SetProperty(GamingConstants.ShowTopPickBanners, true);
+            SetProperty(GamingConstants.ShowPlayerMenuPopup, true);
+            SetProperty(GamingConstants.LaunchGameAfterReboot, false);
+            var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+            var machineSettingsImported = propertiesManager.GetValue(ApplicationConstants.MachineSettingsImported, ImportMachineSettings.None);
+            if (machineSettingsImported == ImportMachineSettings.None)
+            {
+                SetProperty(GamingConstants.IdleTimePeriod, (int)GamingConstants.DefaultIdleTimeoutPeriod.TotalMilliseconds);
+                SetProperty(GamingConstants.GameRoundDurationMs, (configuration.GameRoundDurationMs?.Minimum ?? 0) > GamingConstants.DefaultMinimumGameRoundDurationMs ? configuration.GameRoundDurationMs.Minimum : GamingConstants.DefaultMinimumGameRoundDurationMs);
+                SetProperty(GamingConstants.LockupBehavior, configuration.LockupBehavior?.CashableLockupStrategy ?? CashableLockupStrategy.Allowed);
+                SetProperty(GamingConstants.DefaultAttractSequenceOverridden, false);
+            }
+            else
+            {
+                // The following settings were imported and set to the default property provider since the gaming property provider was not yet loaded
+                // at the time of import, so we set each to their imported values here.
+                SetProperty(GamingConstants.ApplyGameCategorySettings, propertiesManager.GetValue(GamingConstants.ApplyGameCategorySettings, false));
+                SetProperty(GamingConstants.IdleText, propertiesManager.GetValue(GamingConstants.IdleText, string.Empty));
+                SetProperty(GamingConstants.IdleTimePeriod, propertiesManager.GetValue(GamingConstants.IdleTimePeriod, 0));
+                SetProperty(GamingConstants.GameRoundDurationMs, propertiesManager.GetValue(GamingConstants.GameRoundDurationMs, GamingConstants.DefaultMinimumGameRoundDurationMs));
+                SetProperty(GamingConstants.LockupBehavior, propertiesManager.GetValue(GamingConstants.LockupBehavior, CashableLockupStrategy.NotAllowed));
+                SetProperty(GamingConstants.DefaultAttractSequenceOverridden, propertiesManager.GetProperty(GamingConstants.DefaultAttractSequenceOverridden, false));
+
+                machineSettingsImported |= ImportMachineSettings.GamingPropertiesLoaded;
+                propertiesManager.SetProperty(ApplicationConstants.MachineSettingsImported, machineSettingsImported);
             }
         }
 
