@@ -62,7 +62,7 @@
         {
             var container = new Container();
             container.AddResolveUnregisteredType(typeof(Bootstrapper).FullName, Logger);
-            
+
             container.Register<SnappService>(Lifestyle.Singleton);
             container.Register<SnappReelService>(Lifestyle.Singleton);
             container.Register<SnappPresentationService>(Lifestyle.Singleton);
@@ -75,7 +75,7 @@
             container.Collection.Register<IServerEndpoint>(
                 new[]
                 {
-                    Lifestyle.Singleton.CreateRegistration(typeof(SnappServer), container),
+                    Lifestyle.Singleton.CreateRegistration(typeof(SnappServer), container)
                 });
 
             container.Register<IGameService, GameService>(Lifestyle.Singleton);
@@ -207,6 +207,8 @@
             container.Register<ExcessiveMeterIncrementMonitor>(Lifestyle.Singleton);
 
             container.Register<RngCyclingService>(Lifestyle.Singleton);
+            container.Register<BonusEventLogAdapter>(Lifestyle.Singleton);
+            //container.Register<DetailedGameMetersViewModel>(Lifestyle.Singleton);
 
             //#if !(RETAIL)
             //            PerformanceCounters.RegisterFromAttribute(typeof(ICommandHandler<>).Assembly);

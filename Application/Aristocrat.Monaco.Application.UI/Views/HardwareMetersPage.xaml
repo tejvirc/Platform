@@ -66,7 +66,7 @@
                 <DataGridTextColumn Header="{lex:Loc Meter}" 
                                     Width="380" 
                                     Binding="{Binding Name}" 
-                                    AutomationProperties.AutomationId="DataGridTextColumn9_8109713E" />
+                                    AutomationProperties.AutomationId="DataGridTextColumn8_8109713E" />
                 <DataGridTextColumn Header="{lex:Loc Count}" 
                                     Width="200" 
                                     Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}" 

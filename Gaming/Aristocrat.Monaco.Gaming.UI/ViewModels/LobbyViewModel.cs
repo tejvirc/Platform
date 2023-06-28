@@ -2011,7 +2011,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             GameTabInfo.SetupGameTypeTabs(gameList);
             GameList = gameList;
             ProgressiveLabelDisplay.UpdateProgressiveIndicator(gameList);
-            GameList = gameList;
         }
 
         private void DisplayNotificationMessage(DisplayableMessage displayableMessage)

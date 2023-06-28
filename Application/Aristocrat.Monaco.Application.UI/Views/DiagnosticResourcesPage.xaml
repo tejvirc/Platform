@@ -32,7 +32,8 @@
             <!-- navigation buttons -->
         </Grid.RowDefinitions>
         <!-- graph area -->
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0"
+              AutomationProperties.AutomationId="Grid3_73D1C618">
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"

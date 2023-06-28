@@ -35,10 +35,11 @@
                                AutomationProperties.AutomationId="RowDefinition10_7030A184" />
             </Grid.RowDefinitions>
             <!-- Time Zone -->
-            <Label Content="{lex:Loc TimeZoneLabel}" Grid.Row="0"
+            <Label Content="{lex:Loc TimeZoneLabel}"
+                   Grid.Row="0"
                    AutomationProperties.AutomationId="Label11_7030A184" />
-
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1"
+                  AutomationProperties.AutomationId="Grid12_7030A184">
                 <!-- Hack Alert: This ItemsControl is only used to expand the width of the combobox to the width of the largest item -->
                 <ItemsControl ItemsSource="{Binding TimeZones}"
                               Height="0"

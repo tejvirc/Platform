@@ -47,12 +47,13 @@
                 <DataGridTextColumn Header="{lex:Loc DateAndTimeHeader}"
                                     IsReadOnly="True"
                                     Binding="{Binding TimeStamp}"
-                                    MinWidth="200"/>
+                                    MinWidth="200"
+                                    AutomationProperties.AutomationId="DataGridTextColumn7_FB95605C" />
                 <DataGridTextColumn Header="{lex:Loc AmountHeader}"
                                     IsReadOnly="True"
                                     Binding="{Binding Amount}"
                                     MinWidth="160"
-                                    AutomationProperties.AutomationId="DataGridTextColumn7_FB95605C" />
+                                    AutomationProperties.AutomationId="DataGridTextColumn8_FB95605C" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TypeOfAccountHeader}}"
                                     IsReadOnly="True"
                                     Binding="{Binding TypeOfAccount}"

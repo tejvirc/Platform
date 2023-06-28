@@ -334,8 +334,8 @@
                                           CanContentScroll="{TemplateBinding ScrollViewer.CanContentScroll}"
                                           Focusable="False"
                                           SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                          AutomationProperties.AutomationId="ScrollViewer27_FDE84D7"
-                                          VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                                          VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                          AutomationProperties.AutomationId="ScrollViewer27_FDE84D7">
                                 <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
                                                 AutomationProperties.AutomationId="ItemsPresenter28_FDE84D7" />
                                 <b:Interaction.Triggers>

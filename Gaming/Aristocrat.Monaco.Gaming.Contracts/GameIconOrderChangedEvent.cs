@@ -12,13 +12,6 @@
     public class GameIconOrderChangedEvent : BaseEvent
     {
         /// <summary>
-        /// 
-        /// </summary>
-        public GameIconOrderChangedEvent()
-        {
-        }
-
-        /// <summary>
         ///     Initializes a new instance of the <see cref="GameIconOrderChangedEvent" /> class.
         /// </summary>
         /// <param name="orderedGameIds">The ordered list of unique identifiers of the game.</param>

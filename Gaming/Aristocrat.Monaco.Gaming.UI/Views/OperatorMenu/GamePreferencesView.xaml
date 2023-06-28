@@ -769,7 +769,8 @@
                 Content="{lex:Loc ChangeGameLobbyLayout}"
                 Margin="5"
                 Visibility="Hidden"
-                Command="{Binding ChangeGameLobbyLayoutCommand}"/>
+                Command="{Binding ChangeGameLobbyLayoutCommand}"
+                AutomationProperties.AutomationId="Button94_2AB589A7"/>
         </Grid>
     </ScrollViewer>
 </operatorMenu:OperatorMenuPage>

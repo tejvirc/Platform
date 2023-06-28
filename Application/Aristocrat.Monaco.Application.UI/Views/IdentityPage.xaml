@@ -50,7 +50,8 @@
 
         <!-- Area -->
         <Label Content="{lex:Loc AreaLabel}"
-            Visibility="{Binding Area.IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
+            Visibility="{Binding Area.IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+               AutomationProperties.AutomationId="Label3_C095EB08"/>
         <ContentControl
             IsTabStop="False"
             ContentTemplate="{StaticResource LiveStringSettingTextBoxEditor}"

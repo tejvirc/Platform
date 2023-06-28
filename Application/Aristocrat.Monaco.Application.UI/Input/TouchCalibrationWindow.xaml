@@ -10,7 +10,8 @@
     <b:Interaction.Behaviors>
         <behaviors:TouchWindowBehavior />
     </b:Interaction.Behaviors>
-    <Grid x:Name="ContentView" Margin="75,50,75,0">
+    <Grid x:Name="ContentView" Margin="75,50,75,0"
+          AutomationProperties.AutomationId="Grid0_CCCCAC70">
         <Viewbox Stretch="Uniform" AutomationProperties.AutomationId="Viewbox1_CCCCAC70">
             <Grid VerticalAlignment="Center" AutomationProperties.AutomationId="Grid2_CCCCAC70"> 
                 <Grid.RowDefinitions>

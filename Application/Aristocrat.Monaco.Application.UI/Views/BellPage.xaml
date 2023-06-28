@@ -57,7 +57,8 @@
                   Margin="0"
                   Header="{lex:Loc StatusLabel}"
                   AutomationProperties.AutomationId="GroupBox7_7095ED6D">
-            <TextBlock Text="{Binding Status}" />
+            <TextBlock Text="{Binding Status}" 
+                       AutomationProperties.AutomationId="TextBlock8_7095ED6D" />
         </GroupBox>
         <GroupBox Grid.Row="1"
                   Margin="0"

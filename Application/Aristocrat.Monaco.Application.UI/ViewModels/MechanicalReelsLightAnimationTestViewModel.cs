@@ -113,7 +113,7 @@
                 Step = -1,
                 LoopCount = -1,
                 ReelIndex = -1,
-                Id = _animationCapabilities.AnimationFiles.FirstOrDefault(x => x.FriendlyName == lightShowName)?.AnimationId ?? 0
+                AnimationName = lightShowName
             };
 
             await _animationCapabilities.PrepareAnimation(lightShow);

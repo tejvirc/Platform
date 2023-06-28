@@ -2,12 +2,13 @@
 {
     using System;
     using System.Reflection;
-    using GdkRuntime.V1;
+    using Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData;
     using Commands;
+    using GdkRuntime.V1;
     using log4net;
     using NudgeReelData = Hardware.Contracts.Reel.ControlData.NudgeReelData;
-    using ReelSpinData = Hardware.Contracts.Reel.ControlData.ReelSpinData;
     using ReelSpeedData = Hardware.Contracts.Reel.ControlData.ReelSpeedData;
+    using ReelSpinData = Hardware.Contracts.Reel.ControlData.ReelSpinData;
     using SpinDirection = Hardware.Contracts.Reel.SpinDirection;
 
     public class SnappReelService : IReelServiceCallback
@@ -22,7 +23,7 @@
 
         public override ConnectedReelsResponse GetConnectedReels(ConnectedReelsRequest request)
         {
-            Logger.Debug($"GetConnectedReels");
+            Logger.Debug("GetConnectedReels");
 
             var command = new ConnectedReels();
             _handlerFactory.Create<ConnectedReels>()
@@ -35,7 +36,7 @@
 
         public override GetReelsStateResponse GetReelsState(GetReelsStateRequest request)
         {
-            Logger.Debug($"GetReelsState");
+            Logger.Debug("GetReelsState");
 
             var command = new GetReelState();
             _handlerFactory.Create<GetReelState>()
@@ -52,7 +53,7 @@
 
         public override NudgeReelsResponse NudgeReels(NudgeReelsRequest request)
         {
-            Logger.Debug($"NudgeReels");
+            Logger.Debug("NudgeReels");
 
             var nudgeSpinData = new NudgeReelData[request.NudgeData.Count];
             for (var i = 0; i < request.NudgeData.Count; ++i)
@@ -76,7 +77,7 @@
 
         public override SpinReelsResponse SpinReels(SpinReelsRequest request)
         {
-            Logger.Debug($"SpinReels");
+            Logger.Debug("SpinReels");
 
             var spinData = new ReelSpinData[request.SpinData.Count];
             for (var i = 0; i < request.SpinData.Count; ++i)
@@ -90,8 +91,8 @@
             }
 
             var command = new SpinReels(spinData);
-                _handlerFactory.Create<SpinReels>()
-                    .Handle(command);
+            _handlerFactory.Create<SpinReels>()
+                .Handle(command);
 
             Logger.Debug($"SpinReels with request: {request} Result: {command.Success}");
 
@@ -100,7 +101,7 @@
 
         public override UpdateReelsSpeedResponse UpdateReelsSpeed(UpdateReelsSpeedRequest request)
         {
-            Logger.Debug($"UpdateReelsSpeed");
+            Logger.Debug("UpdateReelsSpeed");
 
             var speedData = new ReelSpeedData[request.SpeedData.Count];
             for (var i = 0; i < request.SpeedData.Count; ++i)
@@ -117,6 +118,93 @@
             Logger.Debug($"UpdateReelsSpeed with request: {request} Result: {command.Success}");
 
             return new UpdateReelsSpeedResponse { Result = command.Success };
+        }
+
+        public override MessageResponse PrepareLightShowAnimations(PrepareLightShowAnimationsRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MessageResponse PrepareStepperCurves(PrepareStepperCurvesRequest request)
+        {
+            Logger.Debug("PrepareStepperCurves");
+
+            var curveData = new ReelCurveData[request.StepperData.Count];
+
+            for (var i = 0; i < request.StepperData.Count; ++i)
+            {
+                curveData[i] = new ReelCurveData(
+                    (byte)request.StepperData[i].ReelIndex,
+                    request.StepperData[i].AnimationName);
+            }
+
+            var command = new PrepareStepperCurves(curveData);
+            _handlerFactory.Create<PrepareStepperCurves>()
+                .Handle(command);
+
+            return new MessageResponse { Result = command.Success };
+        }
+
+        public override MessageResponse StartAnimations(Empty request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MessageResponse StopLightshowAnimation(StopLightshowAnimationRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MessageResponse StopAllLightshowAnimations(Empty request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MessageResponse StopAllAnimationTags(StopAllAnimationTagsRequest request)
+        {
+            Logger.Debug("StopAllAnimationTags");
+
+            var command = new StopAllAnimationTags(request.AnimationName);
+            _handlerFactory.Create<StopAllAnimationTags>()
+                .Handle(command);
+
+            return new MessageResponse { Result = command.Success };
+        }
+
+        public override MessageResponse PrepareStopReel(PrepareStopReelRequest request)
+        {
+            Logger.Debug("PrepareStopReel");
+
+            var stopData = new ReelStopData[request.StopReelData.Count];
+
+            for (var i = 0; i < request.StopReelData.Count; ++i)
+            {
+                stopData[i] = new ReelStopData(
+                    (byte)request.StopReelData[i].ReelIndex,
+                    (short)request.StopReelData[i].Duration,
+                    (short)request.StopReelData[i].Step);
+            }
+
+            var command = new PrepareStopReels(stopData);
+            _handlerFactory.Create<PrepareStopReels>()
+                .Handle(command);
+
+            return new MessageResponse { Result = command.Success };
+        }
+
+        public override MessageResponse PrepareStepperRule(PrepareStepperRuleRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MessageResponse SynchronizeReels(SynchronizeReelsRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override MessageResponse SetBrightness(SetBrightnessRequest request)
+        {
+            throw new NotImplementedException();
         }
     }
 }

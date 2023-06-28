@@ -163,7 +163,8 @@
 
             <Label Grid.Row="4" Grid.Column="0" Margin="0 15 0 4" Content="{lex:Loc AllowVoucherOut}"
                    AutomationProperties.AutomationId="Label31_468E4704" />
-            <StackPanel Grid.Row="5" Grid.Column ="0" Orientation="Horizontal">
+            <StackPanel Grid.Row="5" Grid.Column ="0" Orientation="Horizontal"
+                        AutomationProperties.AutomationId="StackPanel32_468E4704">
                 <controls:ToggleSwitch 
                     IsOn="{Binding AllowVoucherOut}"
                     controls:ControlsHelper.ContentCharacterCasing="Upper"
@@ -195,7 +196,8 @@
 
             <Label Grid.Row="6" Grid.Column="0" Margin="0 15 0 4" Content="{lex:Loc VoucherOutLimit}" 
                    AutomationProperties.AutomationId="Label34_468E4704" />
-            <StackPanel Grid.Row="7" Grid.Column ="0" Orientation="Horizontal" IsEnabled="{Binding InputEnabledByRuleOverride}">
+            <StackPanel Grid.Row="7" Grid.Column ="0" Orientation="Horizontal" IsEnabled="{Binding InputEnabledByRuleOverride}"
+                        AutomationProperties.AutomationId="StackPanel35_468E4704">
                 <Grid AutomationProperties.AutomationId="Grid36_468E4704">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"
@@ -280,7 +282,8 @@
 
             <Label Grid.Row="10" Grid.Column="0" Margin="0 15 0 4" Content="{lex:Loc PrintHandpayReceipt}" 
                    AutomationProperties.AutomationId="Label45_468E4704" />
-            <StackPanel Grid.Row="11" Grid.Column ="0" Orientation="Horizontal">
+            <StackPanel Grid.Row="11" Grid.Column ="0" Orientation="Horizontal"
+                        AutomationProperties.AutomationId="StackPanel46_468E4704">
                 <controls:ToggleSwitch  
                     IsOn="{Binding PrintHandpayReceipt}"
                     controls:ControlsHelper.ContentCharacterCasing="Upper"

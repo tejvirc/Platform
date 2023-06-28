@@ -132,20 +132,20 @@
         private string GetAbsoluteXPath(XElement element)
         {
             Func<XElement, string> relativeXPath = e =>
-                {
-                    int index = IndexPosition(e);
-                    string name = e.Name.LocalName;
+            {
+                int index = IndexPosition(e);
+                string name = e.Name.LocalName;
 
-                    // If the element is the root or has no sibling elements, no index is required
-                    return (index is -1 or -2) ? "/" + name : $"/{name}[{index}]";
-                };
+                // If the element is the root or has no sibling elements, no index is required
+                return (index is -1 or -2) ? "/" + name : $"/{name}[{index}]";
+            };
 
             var ancestors = from e in element.Ancestors()
                             select relativeXPath(e);
 
             return string.Concat(ancestors.Reverse().ToArray()) +
                    relativeXPath(element);
-                }
+        }
 
         private int IndexPosition(XElement element)
         {

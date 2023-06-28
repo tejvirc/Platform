@@ -26,7 +26,9 @@
                    TargetType="controls:ToggleSwitch"
                    BasedOn="{StaticResource MonacoToggleSwitchButton}">
                 <Style.Triggers>
-                    <!--<Trigger Property="IsChecked" Value="False">
+                    <!--<Trigger Property="IsChecked"
+                             Value="False"
+                             AutomationProperties.AutomationId="Trigger0_38500696">
                         <Setter Property="ThumbIndicatorBrush">
                             <Setter.Value>
                                 <LinearGradientBrush StartPoint="0,.5"

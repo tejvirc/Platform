@@ -42,7 +42,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.RelmReels" Version="0.1.15" />
+    <PackageReference Include="Aristocrat.RelmReels" Version="0.1.19" />
     <PackageReference Include="HidSharp" Version="2.0.2" />
     <PackageReference Include="log4net" Version="2.0.13" />
   </ItemGroup>
@@ -51,6 +51,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Update="ReelController\Relm\SampleShows\AllWhite5Reels.lightshow">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="ReelController\Relm\SampleAnimations\SampleStepperCurve.stepper">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="ReelController\Relm\SampleAnimations\SampleLightShow.lightshow">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -1,5 +1,13 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Fake
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.IO;
+    using System.Linq;
+    using System.Reflection;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Aristocrat.Monaco.Hardware.Contracts.Reel;
     using Aristocrat.Simulation.HarkeyReels.Controls;
     using Contracts.Communicator;
@@ -9,14 +17,6 @@
     using Kernel;
     using log4net;
     using MVVM;
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.IO;
-    using System.Linq;
-    using System.Reflection;
-    using System.Threading;
-    using System.Threading.Tasks;
 
     public class FakeRelmCommunicator : IRelmCommunicator
     {
@@ -62,6 +62,10 @@
 
         /// <inheritdoc/>
         public event EventHandler<ReelStatusReceivedEventArgs> StatusesReceived;
+#pragma warning disable 67
+        /// <inheritdoc/>
+        public event EventHandler<ReelStopData> ReelIdleInterruptReceived;
+#pragma warning restore 67
 
         /// <summary>
         ///     Gets or sets the reel sim window
@@ -300,13 +304,13 @@
         }
 
         /// <inheritdoc/>
-        public Task<bool> PrepareControllerAnimation(ReelCurveData file, CancellationToken token)
+        public Task<bool> PrepareAnimation(ReelCurveData file, CancellationToken token)
         {
             throw new NotImplementedException();
         }
 
         /// <inheritdoc/>
-        public Task<bool> PrepareControllerAnimations(IEnumerable<ReelCurveData> files, CancellationToken token)
+        public Task<bool> PrepareAnimations(IEnumerable<ReelCurveData> files, CancellationToken token)
         {
             throw new NotImplementedException();
         }
@@ -326,7 +330,7 @@
         }
 
         /// <inheritdoc/>
-        public Task<bool> StopControllerLightShowAnimations(IEnumerable<LightShowData> data, CancellationToken token)
+        public Task<bool> StopLightShowAnimations(IEnumerable<LightShowData> data, CancellationToken token)
         {
             throw new NotImplementedException();
         }
@@ -338,19 +342,24 @@
         }
 
         /// <inheritdoc/>
-        public Task<bool> PrepareControllerStopReels(IEnumerable<ReelStopData> stopData, CancellationToken token)
+        public Task<bool> StopAllAnimationTags(string animationName, CancellationToken token)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> PrepareStopReels(IEnumerable<ReelStopData> stopData, CancellationToken token)
         {
             throw new NotImplementedException();
         }
 
         /// <inheritdoc/>
-        public Task<bool> PrepareControllerNudgeReels(IEnumerable<NudgeReelData> nudgeData, CancellationToken token)
+        public Task<bool> PrepareNudgeReels(IEnumerable<NudgeReelData> nudgeData, CancellationToken token)
         {
             //if (ReelSimWindow == null)
             //{
             //    return Task.FromResult(false);
             //}
-            //
+
             //foreach (var nudge in nudgeData)
             //{
             //    ReelSimWindow.NudgeReel(nudge.ReelId, nudge.Direction == SpinDirection.Backwards, nudge.Step);

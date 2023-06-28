@@ -135,7 +135,8 @@
                                     Property="Opacity"
                                     Value="0.55" />
                         </Trigger>
-                        <Trigger Property="IsOn" Value="True">
+                        <Trigger Property="IsOn" Value="True"
+                                 AutomationProperties.AutomationId="Trigger22_35CD297B">
                             <Setter TargetName="PART_OnContent" Property="Foreground" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(helpers:ToggleSwitchButtonHelper.OnBrush)}" />
                             <Setter TargetName="PART_OffContent" Property="Foreground"  Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(helpers:ToggleSwitchButtonHelper.OffBrush)}" />
                             <Trigger.EnterActions >
@@ -161,7 +162,8 @@
                                 </BeginStoryboard>
                             </Trigger.ExitActions>
                         </Trigger>
-                        <Trigger Property="IsOn" Value="False">
+                        <Trigger Property="IsOn" Value="False"
+                                 AutomationProperties.AutomationId="Trigger23_35CD297B">
                             <Setter TargetName="PART_OnContent" Property="Foreground"  Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(helpers:ToggleSwitchButtonHelper.OffBrush)}" />
                             <Setter TargetName="PART_OffContent" Property="Foreground" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(helpers:ToggleSwitchButtonHelper.OnBrush)}" />
                         </Trigger>

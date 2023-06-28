@@ -15,11 +15,12 @@
     [TestClass]
     public class NudgeReelsCommandHandlerTests
     {
-        /// <summary>
-        ///     Gets or sets the test context which provides
-        ///     information about and functionality for the current test run.
-        /// </summary>
-        public TestContext TestContext { get; set; }
+        private readonly NudgeReelData[] _nudgeData =
+        {
+            new(1, SpinDirection.Forward, 50, 1, 10),
+            new(2, SpinDirection.Backwards, 100, 2, 20),
+            new(3, SpinDirection.Forward, 200, 3, 30)
+        };
 
         [TestInitialize]
         public void TestInitialization()
@@ -40,25 +41,53 @@
         }
 
         [TestMethod]
-        public void HandleTest()
+        public void HandleTestForNoCapabilitiesShouldFail()
+        {
+            var reelController = MoqServiceManager.CreateAndAddService<IReelController>(MockBehavior.Default);
+            reelController.Setup(x => x.HasCapability<IReelSpinCapabilities>()).Returns(false);
+            reelController.Setup(x => x.HasCapability<IReelAnimationCapabilities>()).Returns(false);
+
+            var command = new NudgeReels(_nudgeData);
+            var handler = Factory_CreateHandler();
+            handler.Handle(command);
+
+            Assert.AreEqual(command.Success, false);
+        }
+
+        [DataTestMethod]
+        [DataRow(true)]
+        [DataRow(false)]
+        public void HandleTestForSpinCapabilities(bool capabilityResponse)
         {
             var reelController = MoqServiceManager.CreateAndAddService<IReelController>(MockBehavior.Default);
             reelController.Setup(x => x.HasCapability<IReelSpinCapabilities>()).Returns(true);
+            reelController.Setup(r => r.GetCapability<IReelSpinCapabilities>().NudgeReels(It.IsAny<NudgeReelData[]>())).Returns(Task.FromResult(capabilityResponse));
 
-            var nudgeSpinData = new NudgeReelData[3];
-            nudgeSpinData[0] = new NudgeReelData(1, SpinDirection.Forward, 50, 1, 10);
-            nudgeSpinData[1] = new NudgeReelData(2, SpinDirection.Backwards, 100, 2, 20);
-            nudgeSpinData[2] = new NudgeReelData(3, SpinDirection.Forward, 200, 3, 30);
-
-            var command = new NudgeReels(nudgeSpinData);
-
-            reelController.Setup(r => r.GetCapability<IReelSpinCapabilities>().NudgeReels(command.NudgeSpinData)).Returns(Task.FromResult(true));
-
+            var command = new NudgeReels(_nudgeData);
             var handler = Factory_CreateHandler();
             handler.Handle(command);
 
             reelController.Verify(r => r.GetCapability<IReelSpinCapabilities>().NudgeReels(command.NudgeSpinData), Times.Once);
-            Assert.AreEqual(command.Success, true);
+            reelController.Verify(r => r.GetCapability<IReelAnimationCapabilities>().PrepareNudgeReels(command.NudgeSpinData, default), Times.Never);
+            Assert.AreEqual(command.Success, capabilityResponse);
+        }
+
+        [DataTestMethod]
+        [DataRow(true)]
+        [DataRow(false)]
+        public void HandleTestForAnimationCapabilities(bool capabilityResponse)
+        {
+            var reelController = MoqServiceManager.CreateAndAddService<IReelController>(MockBehavior.Default);
+            reelController.Setup(x => x.HasCapability<IReelAnimationCapabilities>()).Returns(true);
+            reelController.Setup(r => r.GetCapability<IReelAnimationCapabilities>().PrepareNudgeReels(It.IsAny<NudgeReelData[]>(), default)).Returns(Task.FromResult(capabilityResponse));
+
+            var command = new NudgeReels(_nudgeData);
+            var handler = Factory_CreateHandler();
+            handler.Handle(command);
+            
+            reelController.Verify(r => r.GetCapability<IReelSpinCapabilities>().NudgeReels(command.NudgeSpinData), Times.Never);
+            reelController.Verify(r => r.GetCapability<IReelAnimationCapabilities>().PrepareNudgeReels(command.NudgeSpinData, default), Times.Once);
+            Assert.AreEqual(command.Success, capabilityResponse);
         }
 
         private NudgeReelsCommandHandler Factory_CreateHandler()

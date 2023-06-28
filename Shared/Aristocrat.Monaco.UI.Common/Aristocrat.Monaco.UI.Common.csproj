@@ -118,6 +118,25 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugInspection|AnyCPU' ">
+    <DefineConstants>CODE_ANALYSIS;DEBUG;TRACE</DefineConstants>
+    <PlatformStyle>Inspection</PlatformStyle>
+    <OutputPath>$(SolutionDir)bin\Debug\Platform\bin\</OutputPath>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseInspection|AnyCPU' ">
+    <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
+    <PlatformStyle>Inspection</PlatformStyle>
+    <OutputPath>$(SolutionDir)bin\Release\Platform\bin\</OutputPath>
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'RetailInspection|AnyCPU'">
+    <DefineConstants>CODE_ANALYSIS;TRACE;RETAIL</DefineConstants>
+    <PlatformStyle>Inspection</PlatformStyle>
+    <OutputPath>$(SolutionDir)bin\Retail\Platform\bin\</OutputPath>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
   <ItemGroup>
     <None Remove="PlatformCommandLineArguments.addin.xml" />
   </ItemGroup>

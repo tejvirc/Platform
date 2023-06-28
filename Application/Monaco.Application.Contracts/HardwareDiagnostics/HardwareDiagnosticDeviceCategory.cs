@@ -15,6 +15,7 @@
 		/// </summary>
 		Machine,
 
+
         /// <summary>
         /// Hardware device being tested relates to Buttons
         /// </summary>

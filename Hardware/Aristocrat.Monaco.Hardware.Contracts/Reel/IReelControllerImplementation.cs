@@ -3,9 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Gds.Reel;
+    using Events;
     using ImplementationCapabilities;
-    using Aristocrat.Monaco.Hardware.Contracts.Reel.Events;
 
     /// <summary>
     ///     The reel controller implementation

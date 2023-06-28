@@ -12,6 +12,7 @@
     using System.Threading.Tasks;
     using Kernel;
     using Kernel.Contracts;
+    using Kernel.Debugging;
     using log4net;
     using log4net.Config;
     using log4net.Repository;
@@ -411,6 +412,13 @@
                 serviceManager.AddServiceAndInitialize(service);
                 _optionalServices.Add(service);
             }
+
+#if DEBUG
+            // Register the DebuggerService when using the Debug build configuration.
+            // This allows for auto-attaching the debugger at key points in the app.
+            // See the IDebuggerService's xml docs for more info.
+            ServiceManager.GetInstance().AddServiceAndInitialize(new DebuggerService());
+#endif
 
             Logger.Info("Done.");
 

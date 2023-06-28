@@ -78,8 +78,9 @@
                        TextWrapping="Wrap"
                        AutomationProperties.AutomationId="TextBlock12_ED0F5ED8" />
         </StackPanel>
-
-        <Button Grid.Row="1" Grid.Column="0" Name="PartialResetButton"
+        <Button Grid.Row="1"
+                Grid.Column="0"
+                Name="PartialResetButton"
                 Content="{lex:Loc Key={x:Static loc:ResourceKeys.PartialClearButtonContent}}"
                 Command="{Binding PartialResetButtonClickCommand}"
                 IsEnabled="{Binding PartialResetButtonActive}"
