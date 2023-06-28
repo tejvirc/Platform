@@ -134,6 +134,7 @@
             ViewModel.CustomEventViewChangedEvent += ViewModelOnCustomEventViewChangedEvent;
             ViewModel.PropertyChanged += ViewModel_OnPropertyChanged;
 
+            //*** if ResponsibleGamingTimeLimitEnabled then show ResponsibleGamingWindow
             if (ViewModel.Config.ResponsibleGamingTimeLimitEnabled)
             {
                 Logger.Debug("Creating RG window");

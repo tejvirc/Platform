@@ -15,7 +15,7 @@
 
         private IntPtr _gameWindow = IntPtr.Zero;
 
-        public List<string> TimeLimitButtons { get; set; } = new List<string>() { "btnOk", "btnYes" };
+        public List<string> TimeLimitButtons { get; set; } = new List<string>() { "btnOk", "btnYes", "" };
 
         public Action<string> Logger = null;
 

@@ -21,7 +21,13 @@
         public string Name => "Container Service";
 
         /// <inheritdoc />
-        public ICollection<Type> ServiceTypes => new[] { typeof(IContainerService) };
+        public ICollection<Type> ServiceTypes
+        {
+            get
+            {
+                return new[] { typeof(IContainerService) };
+            }
+        }
 
         /// <inheritdoc />
         public Container Container { get; }

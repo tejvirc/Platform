@@ -128,6 +128,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private bool _broadcastDisableCountdownMessagePending;
 
         private IResponsibleGaming _responsibleGaming;
+
+        //public IResponsibleGaming ResponsibleGaming => _responsibleGaming;
+
         private IEventBus _eventBus;
 
         private readonly AgeWarningTimer _ageWarningTimer;
@@ -3355,6 +3358,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             _disposed = true;
         }
 
+        //***!! show ResponsibleGamingDialog
         private void OnResponsibleGamingDialogPending(bool allowDialogWhileDisabled = false)
         {
             Logger.Debug($"OnResponsibleGamingDialogPending: allowDialogWhileDisabled: {allowDialogWhileDisabled}");
@@ -3412,7 +3416,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 }
             }
         }
-
+        //*** ResponsibleGamingOnPropertyChanged
         private void ResponsibleGamingOnPropertyChanged(
             object sender,
             PropertyChangedEventArgs propertyChangedEventArgs)
@@ -3623,6 +3627,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             }
         }
 
+        //*** open ResponsibleGamingDialog
         private void ResponsibleGamingDialogOpenButtonPressed(object obj)
         {
             OnUserInteraction();

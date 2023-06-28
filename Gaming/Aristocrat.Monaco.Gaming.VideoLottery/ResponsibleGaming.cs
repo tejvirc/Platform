@@ -385,6 +385,7 @@
             Logger.Debug("ResponsibleGaming Initialized.");
         }
 
+        //*** ResponsibleGaming - ShowDialog
         public void ShowDialog(bool allowDialogWhileDisabled = false)
         {
             UpdateElapsedTimeFromOverride();
@@ -515,6 +516,7 @@
             }
         }
 
+        //*** AcceptTimeLimit
         /// <inheritdoc />
         public void AcceptTimeLimit(int timeLimitIndex)
         {
@@ -567,6 +569,9 @@
                                 playBreakInMinutes = playBreaks[timeLimitIndex];
                             }
                         }
+
+                        //*** zhg override timeLimitInMinutes
+                        timeLimitInMinutes = 3;
 
                         Logger.Debug($"Time {timeLimitInMinutes} minutes.");
                         Logger.Debug($"PlayBreak At: {playBreakInMinutes} minutes.");
@@ -970,6 +975,7 @@
             ShowTimeLimitDlgPending = true;
         }
 
+        //*** Show ResponsibleGaming dialog or not
         private void PlayLimitTimerTick(object sender, EventArgs e)
         {
             Logger.Debug($"Play Limit Timer Tick.  Dialog Visible: {IsTimeLimitDialogVisible} SessionPlayBreakHit: {SessionPlayBreakHit} DialogShown (timed): {_dialogShownTime.HasValue}");
@@ -1136,7 +1142,7 @@
                 () => { _properties.SetProperty(LobbyConstants.ResponsibleGamingPlayBreakHit, SessionPlayBreakHit); });
         }
 
-        private bool IsAlcTimeToShowDialog()
+        private bool IsAlcTimeToShowDialog()   // Atlantic Lottery Corporation
         {
             return _sessionElapsedTime >= GetCurrentAlcTimeOut();
         }
