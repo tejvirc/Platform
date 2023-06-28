@@ -625,7 +625,22 @@
             _progressiveProvider.LoadProgressiveLevels(result, progressiveDetails);
             scope.Complete();
 
-            return result;
+            var success = ValidateGameRtp(game);
+
+            return success ? result : null;
+        }
+
+        private bool ValidateGameRtp(GameDetail game)
+        {
+            var rtpBreakdown = _rtpService.GetTotalRtpBreakdown(game);
+            if (!rtpBreakdown.IsValid)
+            {
+                Logger.Error($@"Disabling game ({game.ThemeName}-{game.VariationId}) for invalid RTP values");
+                DisableGame(game.Id, GameStatus.DisabledBySystem);
+                return false;
+            }
+
+            return true;
         }
 
         IReadOnlyCollection<IGameDetail> IServerPaytableInstaller.GetAvailableGames()
@@ -1208,7 +1223,11 @@
 
                     lock (_sync)
                     {
-                        _availableGames.Add((gameDetail, progressiveDetails));
+                        if (ValidateGameRtp(gameDetail))
+                        {
+                            _availableGames.Add((gameDetail, progressiveDetails));
+                        }
+
                         gameThemeId = gameDetail.ThemeId;
                     }
                 } // End foreach (game in definedGames)

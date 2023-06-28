@@ -2,8 +2,11 @@ namespace Aristocrat.Monaco.Gaming
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
+    using Application.Contracts.Extensions;
     using Aristocrat.Monaco.Gaming.Contracts.Progressives;
+    using Common;
     using Progressives;
     using Contracts;
     using Contracts.Models;
@@ -387,16 +390,16 @@ namespace Aristocrat.Monaco.Gaming
 
         private void ValidatePrecision(RtpBreakdown rtpBreakdown, int numOfDecimalPlaces)
         {
-            if (CheckPrecision(rtpBreakdown.Base.Minimum, numOfDecimalPlaces) &&
-                CheckPrecision(rtpBreakdown.Base.Maximum, numOfDecimalPlaces) &&
-                CheckPrecision(rtpBreakdown.StandaloneProgressiveReset.Minimum, numOfDecimalPlaces) &&
-                CheckPrecision(rtpBreakdown.StandaloneProgressiveReset.Maximum, numOfDecimalPlaces) &&
-                CheckPrecision(rtpBreakdown.StandaloneProgressiveIncrement.Minimum, numOfDecimalPlaces) &&
-                CheckPrecision(rtpBreakdown.StandaloneProgressiveIncrement.Maximum, numOfDecimalPlaces) &&
-                CheckPrecision(rtpBreakdown.LinkedProgressiveReset.Minimum, numOfDecimalPlaces) &&
-                CheckPrecision(rtpBreakdown.LinkedProgressiveReset.Maximum, numOfDecimalPlaces) &&
-                CheckPrecision(rtpBreakdown.LinkedProgressiveIncrement.Minimum, numOfDecimalPlaces) &&
-                CheckPrecision(rtpBreakdown.LinkedProgressiveIncrement.Maximum, numOfDecimalPlaces))
+            if (rtpBreakdown.Base.Minimum.CheckPrecision(numOfDecimalPlaces) &&
+               rtpBreakdown.Base.Maximum.CheckPrecision(numOfDecimalPlaces) &&
+               rtpBreakdown.StandaloneProgressiveReset.Minimum.CheckPrecision(numOfDecimalPlaces) &&
+               rtpBreakdown.StandaloneProgressiveReset.Maximum.CheckPrecision(numOfDecimalPlaces) &&
+               rtpBreakdown.StandaloneProgressiveIncrement.Minimum.CheckPrecision(numOfDecimalPlaces) &&
+               rtpBreakdown.StandaloneProgressiveIncrement.Maximum.CheckPrecision(numOfDecimalPlaces) &&
+               rtpBreakdown.LinkedProgressiveReset.Minimum.CheckPrecision(numOfDecimalPlaces) &&
+               rtpBreakdown.LinkedProgressiveReset.Maximum.CheckPrecision(numOfDecimalPlaces) &&
+               rtpBreakdown.LinkedProgressiveIncrement.Minimum.CheckPrecision(numOfDecimalPlaces) &&
+               rtpBreakdown.LinkedProgressiveIncrement.Maximum.CheckPrecision(numOfDecimalPlaces))
             {
                 return;
             }
@@ -404,17 +407,11 @@ namespace Aristocrat.Monaco.Gaming
             rtpBreakdown.FailureFlags |= RtpValidationFailureFlags.InsufficientRtpPrecision;
         }
 
-        private static bool CheckPrecision(decimal value, int numOfDecimalPlaces)
-        {
-            // https://stackoverflow.com/questions/6092243/c-sharp-check-if-a-decimal-has-more-than-3-decimal-places
-            return decimal.Round(value, numOfDecimalPlaces) == value;
-        }
-
         private static bool CheckRtpRange(RtpRange rtpRange)
         {
-            return rtpRange.Maximum is >= decimal.Zero and <= 100m &&
+            return rtpRange.Maximum >= decimal.Zero &&
                    rtpRange.Maximum >= rtpRange.Minimum &&
-                   rtpRange.Minimum is >= decimal.Zero and <= 100m &&
+                   rtpRange.Minimum >= decimal.Zero &&
                    rtpRange.Minimum <= rtpRange.Maximum;
         }
     }
