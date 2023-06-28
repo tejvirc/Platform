@@ -11707,7 +11707,7 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
 	  <value>Link Progressive Increment</value>
   </data>
   <data name="LinkedProgressiveVerificationEnabledLabel" xml:space="preserve">
-    <value>Linked Progressive Verification Enabled</value>
+    <value>Linked Progressive Verification</value>
   </data>
   <data name="CreatingKeyboardService" xml:space="preserve">
     <value>Creating Keyboard Service</value>

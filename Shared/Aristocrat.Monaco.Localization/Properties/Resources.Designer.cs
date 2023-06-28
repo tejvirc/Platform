@@ -18185,7 +18185,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Linked Progressive Verification Enabled.
+		///   Looks up a localized string similar to Linked Progressive Verification.
 		/// </summary>
 		public static string LinkedProgressiveVerificationEnabledLabel {
 			get {
@@ -30632,7 +30632,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Theoretical RTP:.
+		///   Looks up a localized string similar to Theoretical RTP.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
@@ -52972,7 +52972,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Linked Progressive Verification Enabled.
+		///		Looks up a localized string similar to Linked Progressive Verification.
 		/// </summary>
 		public static string LinkedProgressiveVerificationEnabledLabel {
 			get {
@@ -65419,7 +65419,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Theoretical RTP:.
+		///		Looks up a localized string similar to Theoretical RTP.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
@@ -79956,7 +79956,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		LinkedProgressive,
 		/// <summary>
-		///   Looks up a localized string similar to Linked Progressive Verification Enabled.
+		///   Looks up a localized string similar to Linked Progressive Verification.
 		/// </summary>
 		LinkedProgressiveVerificationEnabledLabel,
 		/// <summary>
@@ -87058,7 +87058,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		TestTowerLights,
 		/// <summary>
-		///   Looks up a localized string similar to Theoretical RTP:.
+		///   Looks up a localized string similar to Theoretical RTP.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
