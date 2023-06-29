@@ -49,6 +49,8 @@
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
 
             _multiplier = properties.GetValue(ApplicationConstants.CurrencyMultiplierKey, 1d);
+            AddLevelCacheData(_levelProvider.GetProgressiveLevels());
+            _eventBus.Subscribe<GameAddedEvent>(this, Handle);
 
             _levelProvider.ProgressivesLoaded += UpdateLevelCache;
         }
@@ -302,6 +304,11 @@
         private IEnumerable<ProgressiveLevel> GetProgressiveLevels(int gameId, long denom, string packName)
         {
             return GetProgressiveLevels(gameId, denom).Where(x => x.ProgressivePackName == packName);
+        }
+
+        private void Handle(GameAddedEvent evt)
+        {
+            AddLevelCacheData(_levelProvider.GetProgressiveLevels().Where(x => x.GameId == evt.GameId));
         }
 
         private void AddLevelCacheData(IEnumerable<ProgressiveLevel> progressiveLevels)

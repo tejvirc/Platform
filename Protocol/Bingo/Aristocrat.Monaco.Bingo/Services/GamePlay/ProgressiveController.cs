@@ -184,10 +184,18 @@
             _multiProtocolEventBusRegistry.SubscribeProgressiveEvent<LinkedProgressiveHitEvent>(ProtocolNames.Bingo, this);
             _eventBus.Subscribe<PendingLinkedProgressivesHitEvent>(this, Handle);
             _eventBus.Subscribe<PaytablesInstalledEvent>(this, Handle);
+            _eventBus.Subscribe<ProtocolInitialized>(this, Handle);
         }
 
         private void Handle(PaytablesInstalledEvent evt)
         {
+            // On an initial boot must configure after paytables are installed. This event is only sent on initial boot.
+            Configure();
+        }
+
+        private void Handle(ProtocolInitialized evt)
+        {
+            // On normal boot configure when the protocol is initialized
             Configure();
         }
 
