@@ -19,6 +19,7 @@
     using Kernel.Contracts.Components;
     using log4net;
     using Stateless;
+    using Constants = Kernel.Contracts.Components.Constants;
 
     /// <summary>A note acceptor adapter.</summary>
     /// <seealso cref="INoteAcceptorImplementation" />
@@ -73,18 +74,6 @@
 
         private EventWaitHandle _stackingEventWaitHandle;
 
-        public NoteAcceptorAdapter()
-            : this(
-                ServiceManager.GetInstance().GetService<IEventBus>(),
-                ServiceManager.GetInstance().GetService<IComponentRegistry>(),
-                ServiceManager.GetInstance().GetService<IDfuProvider>(),
-                ServiceManager.GetInstance().GetService<IPersistentStorageManager>(),
-                ServiceManager.GetInstance().GetService<IDisabledNotesService>(),
-                ServiceManager.GetInstance().GetService<IPersistenceProvider>(),
-                ServiceManager.GetInstance().GetService<ISerialPortsService>())
-        {
-        }
-
         /// <summary>
         ///     Initializes a new instance of the Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter class.
         /// </summary>
@@ -102,7 +91,8 @@
             _storageManager = storageManager ?? throw new ArgumentNullException(nameof(storageManager));
             _accessor = _storageManager.GetAccessor(PersistenceLevel.Transient, LastConfigurationBlock);
             _configuration = (string)_accessor["Configuration"];
-            _disabledNotesService = disabledNotesService ?? throw new ArgumentNullException(nameof(disabledNotesService));
+            _disabledNotesService =
+                disabledNotesService ?? throw new ArgumentNullException(nameof(disabledNotesService));
             _persistence = persistence ?? throw new ArgumentNullException(nameof(persistence));
             Disable(DisabledReasons.Device);
         }
@@ -127,6 +117,13 @@
             }
         }
 
+#if !(RETAIL)
+        /// <summary>
+        ///     Get NoteAcceptor implementation for automation.
+        /// </summary>
+        public INoteAcceptorImplementation NoteAcceptorImplementation => Implementation;
+#endif
+
         /// <inheritdoc />
         protected override INoteAcceptorImplementation Implementation => _noteAcceptor;
 
@@ -134,7 +131,7 @@
         protected override string Description => NoteAcceptor;
 
         /// <inheritdoc />
-        protected override string Path => Kernel.Contracts.Components.Constants.NoteAcceptorPath;
+        protected override string Path => Constants.NoteAcceptorPath;
 
         public override DeviceType DeviceType => DeviceType.NoteAcceptor;
 
@@ -278,13 +275,6 @@
         /// <inheritdoc />
         public override ICollection<Type> ServiceTypes => new[] { typeof(INoteAcceptor) };
 
-#if !(RETAIL)
-        /// <summary>
-        /// Get NoteAcceptor implementation for automation.
-        /// </summary>
-        public INoteAcceptorImplementation NoteAcceptorImplementation => Implementation;
-#endif
-
         public bool DenomIsValid(int value)
         {
             return Denominations.Contains(value);
@@ -309,7 +299,8 @@
                     if (_supportedNotesPersistentBlock.GetValue(SupportedNotesKey, out NoteInfo noteInfo))
                     {
                         foreach (var denom in noteInfo.Notes.Select(a => a)
-                            .Where(a => string.IsNullOrEmpty(isoCode) || a.IsoCode == isoCode).Select(a => a.Denom))
+                                     .Where(a => string.IsNullOrEmpty(isoCode) || a.IsoCode == isoCode)
+                                     .Select(a => a.Denom))
                         {
                             if (!_excludedNotes.Any(a => a.Denom == denom && a.IsoCode == _isoCode))
                             {
@@ -611,7 +602,9 @@
                     throw new ServiceException(errorMessage);
                 }
 
-                _supportedNotesPersistentBlock = _persistence.GetOrCreateBlock(SupportedNotesKey, PersistenceLevel.Critical);
+                _supportedNotesPersistentBlock = _persistence.GetOrCreateBlock(
+                    SupportedNotesKey,
+                    PersistenceLevel.Critical);
 
                 ReadOrCreateOptions();
                 HandlePowerUpStacking();
@@ -885,7 +878,7 @@
             if (_supportedNotesPersistentBlock.GetValue(SupportedNotesKey, out NoteInfo noteInfo))
             {
                 if (supportedNotes.Notes.Any(
-                    note => !noteInfo.Notes.Any(a => a.Denom == note.Denom && a.IsoCode == note.IsoCode)))
+                        note => !noteInfo.Notes.Any(a => a.Denom == note.Denom && a.IsoCode == note.IsoCode)))
                 {
                     notesUpdated = true;
                 }
@@ -1155,9 +1148,9 @@
         private void ImplementationTicketValidated(object sender, TicketEventArgs e)
         {
             if (Fire(
-                NoteAcceptorLogicalStateTrigger.Escrowed,
-                new VoucherEscrowedEvent(NoteAcceptorId, e.Barcode),
-                true))
+                    NoteAcceptorLogicalStateTrigger.Escrowed,
+                    new VoucherEscrowedEvent(NoteAcceptorId, e.Barcode),
+                    true))
             {
                 LastDocumentResult = DocumentResult.Escrowed;
                 Logger.Info($"Escrowed voucher {e.Barcode}");

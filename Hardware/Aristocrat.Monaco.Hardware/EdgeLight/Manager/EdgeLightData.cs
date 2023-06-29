@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using Hardware.Contracts.EdgeLighting;
-    using Kernel;
 
     /// <summary>
     ///     Interfaces with shared memory to transfer data.
@@ -11,11 +10,6 @@
     internal class EdgeLightData
     {
         private readonly ISharedMemoryManager _sharedMemoryManager;
-
-        public EdgeLightData()
-            : this(ServiceManager.GetInstance().GetService<ISharedMemoryManager>())
-        {
-        }
 
         public EdgeLightData(ISharedMemoryManager sharedMemory)
         {

@@ -29,25 +29,14 @@
         private readonly IPropertiesManager _propertiesManager;
         private readonly object _lock = new();
         private readonly List<(IDisplayDevice, ITouchDevice)> _displayToTouchMappings = new();
-        private IPersistentStorageAccessor _accessor;
-        private ICabinet _cabinet = new Cabinet();
 
         private readonly List<DisplayRole> _displayOrderInCabinet = new()
         {
-            DisplayRole.Topper,
-            DisplayRole.Top,
-            DisplayRole.Main,
-            DisplayRole.VBD
+            DisplayRole.Topper, DisplayRole.Top, DisplayRole.Main, DisplayRole.VBD
         };
 
-        public CabinetDetectionService()
-            : this(
-                Container.Instance.GetInstance<ICabinetManager>(),
-                Container.Instance.GetInstance<ICabinetDisplaySettings>(),
-                ServiceManager.GetInstance().GetService<IPersistentStorageManager>(),
-                ServiceManager.GetInstance().GetService<IPropertiesManager>())
-        {
-        }
+        private IPersistentStorageAccessor _accessor;
+        private ICabinet _cabinet = new Cabinet();
 
         public CabinetDetectionService(
             ICabinetManager cabinetManager,
@@ -121,9 +110,15 @@
 
         public int NumberOfDisplaysConnected => ExpectedDisplayDevices.Count(d => d.Status == DeviceStatus.Connected);
 
-        public bool IsDisplayExpected(DisplayRole role) => GetDisplayDeviceByItsRole(role) != null;
+        public bool IsDisplayExpected(DisplayRole role)
+        {
+            return GetDisplayDeviceByItsRole(role) != null;
+        }
 
-        public bool IsDisplayConnected(DisplayRole role) => GetDisplayDeviceByItsRole(role)?.Status == DeviceStatus.Connected;
+        public bool IsDisplayConnected(DisplayRole role)
+        {
+            return GetDisplayDeviceByItsRole(role)?.Status == DeviceStatus.Connected;
+        }
 
         public bool IsDisplayConnectedOrNotExpected(DisplayRole role)
         {
@@ -208,9 +203,10 @@
 
         public IDisplayDevice GetDisplayMappedToTouchDevice(ITouchDevice touchDevice)
         {
-            var mapping = _displayToTouchMappings.FirstOrDefault(entry =>
-                entry.Item2.ProductId == touchDevice.ProductId &&
-                entry.Item2.VendorId == touchDevice.VendorId);
+            var mapping = _displayToTouchMappings.FirstOrDefault(
+                entry =>
+                    entry.Item2.ProductId == touchDevice.ProductId &&
+                    entry.Item2.VendorId == touchDevice.VendorId);
 
             return mapping.Item1;
         }
@@ -228,7 +224,8 @@
         {
             lock (_lock)
             {
-                Logger.Info($"MapTouchscreens - CabinetType {_cabinet.CabinetType} Id {_cabinet.Id} - persistMappings {persistMapping}");
+                Logger.Info(
+                    $"MapTouchscreens - CabinetType {_cabinet.CabinetType} Id {_cabinet.Id} - persistMappings {persistMapping}");
 
                 // Invalidate current mapping
                 TouchscreensMapped = false;
@@ -238,7 +235,8 @@
                 var success = _cabinetDisplaySettings.MapTouchscreens(_cabinet, out var map);
                 if (!success)
                 {
-                    Logger.Warn($"MapTouchscreens - FAILED mapping touchscreens to displays, returning TouchscreensMapped {TouchscreensMapped}");
+                    Logger.Warn(
+                        $"MapTouchscreens - FAILED mapping touchscreens to displays, returning TouchscreensMapped {TouchscreensMapped}");
                     return TouchscreensMapped;
                 }
 
@@ -248,8 +246,9 @@
                 // If missing some displays (developer mode) then we return true for success but with an empty mappings collection.
                 if (!ExpectedDisplayDevices.Any() || !ExpectedTouchDevices.Any())
                 {
-                     Logger.Debug($"MapTouchscreens - ExpectedDisplayDevices.Any() {ExpectedDisplayDevices.Any()} ExpectedTouchDevices.Any() {ExpectedTouchDevices.Any()}, returning TouchscreensMapped TRUE");
-                     return TouchscreensMapped = true;
+                    Logger.Debug(
+                        $"MapTouchscreens - ExpectedDisplayDevices.Any() {ExpectedDisplayDevices.Any()} ExpectedTouchDevices.Any() {ExpectedTouchDevices.Any()}, returning TouchscreensMapped TRUE");
+                    return TouchscreensMapped = true;
                 }
 
                 // Persist if requested
@@ -279,13 +278,6 @@
                 device.Name = updates.Model;
                 return MapTouchscreens(true);
             }
-        }
-
-        private void PersistCabinet()
-        {
-            var cabinetXml = _cabinet.ToXml();
-            CabinetXml = cabinetXml;
-            Logger.Info($"MapTouchscreens - Persisted cabinet mapped touch screens. Detected cabinet :- {CabinetXml}");
         }
 
         public ITouchDevice TouchDeviceByCursorId(int touchDeviceId)
@@ -353,6 +345,13 @@
             ApplyDisplaySettings();
             MapTouchscreens();
             Logger.Info("Finished initialization");
+        }
+
+        private void PersistCabinet()
+        {
+            var cabinetXml = _cabinet.ToXml();
+            CabinetXml = cabinetXml;
+            Logger.Info($"MapTouchscreens - Persisted cabinet mapped touch screens. Detected cabinet :- {CabinetXml}");
         }
 
         private IPersistentStorageAccessor GetAccessor()

@@ -32,20 +32,11 @@
         private readonly IEventBus _bus;
         private readonly IIO _io;
 
-        private readonly Dictionary<int, LogicalKeySwitchData> _logicalKeySwitchesById =
-            new Dictionary<int, LogicalKeySwitchData>();
+        private readonly Dictionary<int, LogicalKeySwitchData> _logicalKeySwitchesById = new();
 
-        private readonly Dictionary<Timer, LogicalKeySwitchData> _logicalKeySwitchesByTimer =
-            new Dictionary<Timer, LogicalKeySwitchData>();
+        private readonly Dictionary<Timer, LogicalKeySwitchData> _logicalKeySwitchesByTimer = new();
 
         private bool _disposed;
-
-        public KeySwitchService()
-            : this(
-                ServiceManager.GetInstance().GetService<IEventBus>(),
-                ServiceManager.GetInstance().GetService<IIO>())
-        {
-        }
 
         public KeySwitchService(
             IEventBus bus,
@@ -193,6 +184,56 @@
         }
 
         /// <inheritdoc />
+        public string Name => "KeySwitch Service";
+
+        /// <inheritdoc />
+        public ICollection<Type> ServiceTypes => new[] { typeof(IKeySwitch) };
+
+        /// <inheritdoc />
+        public void Initialize()
+        {
+            if (Initialized)
+            {
+                return;
+            }
+
+            Logger.Info("Initializing...");
+
+            LastError = string.Empty;
+
+            foreach (var key in _io.GetConfiguration().KeySwitches)
+            {
+                var timer = new Timer(MinimumHeldKeyTime) { AutoReset = false };
+                timer.Elapsed += HandleKeySwitchTimerElapsed;
+
+                var keySwitch =
+                    new LogicalKeySwitch(key.PhysicalId, key.Name, key.Name) { State = KeySwitchState.Enabled };
+
+                var data = new LogicalKeySwitchData(key.LogicalId, keySwitch, timer);
+
+                _logicalKeySwitchesById.Add(key.LogicalId, data);
+                _logicalKeySwitchesByTimer.Add(timer, data);
+
+                Logger.Debug($"Added KeySwitch physicalID {key.PhysicalId}, logicalID {key.LogicalId} - {key.Name}");
+
+                if (LogicalState == KeySwitchLogicalState.Uninitialized)
+                {
+                    LogicalState = KeySwitchLogicalState.Idle;
+                }
+            }
+
+            _bus.Subscribe<InputEvent>(this, ReceiveEvent);
+
+            Initialized = true;
+
+            Enable(EnabledReasons.Service);
+
+            _bus.Publish(new KeySwitchServiceInitializedEvent());
+
+            Logger.Info("Initialized");
+        }
+
+        /// <inheritdoc />
         public void Dispose()
         {
             Dispose(true);
@@ -309,56 +350,6 @@
             return _logicalKeySwitchesById.TryGetValue(keySwitchId, out var keySwitchData)
                 ? keySwitchData.KeySwitch.LocalizedName
                 : string.Empty;
-        }
-
-        /// <inheritdoc />
-        public string Name => "KeySwitch Service";
-
-        /// <inheritdoc />
-        public ICollection<Type> ServiceTypes => new[] { typeof(IKeySwitch) };
-
-        /// <inheritdoc />
-        public void Initialize()
-        {
-            if (Initialized)
-            {
-                return;
-            }
-
-            Logger.Info("Initializing...");
-
-            LastError = string.Empty;
-
-            foreach (var key in _io.GetConfiguration().KeySwitches)
-            {
-                var timer = new Timer(MinimumHeldKeyTime) { AutoReset = false };
-                timer.Elapsed += HandleKeySwitchTimerElapsed;
-
-                var keySwitch =
-                    new LogicalKeySwitch(key.PhysicalId, key.Name, key.Name) { State = KeySwitchState.Enabled };
-
-                var data = new LogicalKeySwitchData(key.LogicalId, keySwitch, timer);
-
-                _logicalKeySwitchesById.Add(key.LogicalId, data);
-                _logicalKeySwitchesByTimer.Add(timer, data);
-
-                Logger.Debug($"Added KeySwitch physicalID {key.PhysicalId}, logicalID {key.LogicalId} - {key.Name}");
-
-                if (LogicalState == KeySwitchLogicalState.Uninitialized)
-                {
-                    LogicalState = KeySwitchLogicalState.Idle;
-                }
-            }
-
-            _bus.Subscribe<InputEvent>(this, ReceiveEvent);
-
-            Initialized = true;
-
-            Enable(EnabledReasons.Service);
-
-            _bus.Publish(new KeySwitchServiceInitializedEvent());
-
-            Logger.Info("Initialized");
         }
 
         /// <summary>Disposes the service.</summary>

@@ -1,15 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <Addin id="Monaco.Hardware" namespace="Client12Addins" version="1.0">
 
   <Runtime>
-    <Import assembly="Aristocrat.Monaco.Kernel.dll"/>
+    <Import assembly="Aristocrat.Monaco.Kernel.dll" />
     <Import assembly="Aristocrat.Monaco.Hardware.dll" />
     <Import assembly="Aristocrat.Monaco.Hardware.Contracts.dll" />
   </Runtime>
 
   <Dependencies>
-      <Addin id="Bootstrap" version="1.0" />
-      <Addin id="HardwareRunnable" version="1.0" />
+    <Addin id="Bootstrap" version="1.0" />
+    <Addin id="HardwareRunnable" version="1.0" />
   </Dependencies>
 
   <ExtensionPoint path="/IO/Configuration">
@@ -44,62 +45,25 @@
   </Extension>
 
   <Extension path="/Hardware/Services">
-    <Service type="Aristocrat.Monaco.Hardware.Services.DeviceWatcher" />
     <Service type="Aristocrat.Monaco.Hardware.Services.IdReaderProvider" />
-    <Service type="Aristocrat.Monaco.Hardware.Services.DeviceRegistryService" />
-    <Service type="Aristocrat.Monaco.Hardware.HardwareConfiguration" />
-    <Service type="Aristocrat.Monaco.Hardware.Services.CabinetDetectionService" />
-    <Service type="Aristocrat.Monaco.Hardware.Services.SerialPortsService" />
-    <Service type="Aristocrat.Monaco.Hardware.Services.IOService" />
-    <Service type="Aristocrat.Monaco.Hardware.Services.KeySwitchService" />
-    <Service type="Aristocrat.Monaco.Hardware.Services.DoorService" />
-    <Service type="Aristocrat.Monaco.Hardware.Services.HardMeterService" />
-    <Service type="Aristocrat.Monaco.Hardware.Services.ButtonService" />
-    <Service type="Aristocrat.Monaco.Hardware.Services.ButtonDeckDisplayService" />
-    <Service type="Aristocrat.Monaco.Hardware.Services.DisabledNotesService" />
-    <Service type="Aristocrat.Monaco.Hardware.Services.BellService" />
-    <Service type="Aristocrat.Monaco.Hardware.EdgeLight.Services.BeagleBoneControllerService" />
-    <Service type="Aristocrat.Monaco.Hardware.Services.OSService" />
-    <Service type="Aristocrat.Monaco.Hardware.Services.InstrumentationService" />
-    <Service type="Aristocrat.Monaco.Hardware.Services.DisplayService" />
-    <Service type="Aristocrat.Monaco.Hardware.Services.AudioService" />
-    <Service type="Aristocrat.Monaco.Hardware.EdgeLight.Manager.SharedMemoryManager" />
-    <Service type="Aristocrat.Monaco.Hardware.VHD.VirtualDisk" />
-    <Service type="Aristocrat.Monaco.Hardware.Services.DfuProvider" />
-    <Service type="Aristocrat.Monaco.Hardware.Services.NoteAcceptorFirmwareInstaller" />
-    <Service type="Aristocrat.Monaco.Hardware.Services.PrinterFirmwareInstaller" />
-    <Service type="Aristocrat.Monaco.Hardware.OSInstaller" />
-    <Service type="Aristocrat.Monaco.Hardware.Services.BatteryService" />
-    <Service type="Aristocrat.Monaco.Hardware.Services.TowerLightService" />
-    <Service type="Aristocrat.Monaco.Hardware.Services.SerialDeviceSearcher" />
-    <Service type="Aristocrat.Monaco.Hardware.SerialTouch.SerialTouchService" />
   </Extension>
 
   <Extension path="/Kernel/CommandLineArguments">
     <CommandLineArgument Name="audioDeviceOptional">
-      <ArgumentValue ValidValue="false" Description="The system is required to have an audio device attached if required for the jurisdiction. This is the default." />
-      <ArgumentValue ValidValue="true" Description="The system does not have to have an audio device attached. Does not work in retail mode." />
+      <ArgumentValue ValidValue="false"
+                     Description="The system is required to have an audio device attached if required for the jurisdiction. This is the default." />
+      <ArgumentValue ValidValue="true"
+                     Description="The system does not have to have an audio device attached. Does not work in retail mode." />
     </CommandLineArgument>
     <CommandLineArgument Name="maxFailedPollCount">
       <ArgumentValue ValidValue="int" Description="The failed poll count before disconnecting a serial device." />
     </CommandLineArgument>
     <CommandLineArgument Name="serialTouchDisabled">
-      <ArgumentValue ValidValue="false" Description="The system is required to have a serial touch device if expected by the cabinet configuration. This is the default." />
-      <ArgumentValue ValidValue="true" Description="The system is not required to have a serial touch device if expected by the cabinet configuration." />
+      <ArgumentValue ValidValue="false"
+                     Description="The system is required to have a serial touch device if expected by the cabinet configuration. This is the default." />
+      <ArgumentValue ValidValue="true"
+                     Description="The system is not required to have a serial touch device if expected by the cabinet configuration." />
     </CommandLineArgument>
-  </Extension>
-
-  <Extension path="/Hardware/PersistentStorageService">
-    <PersistentStorageManager type="Aristocrat.Monaco.Hardware.StorageAdapters.SqlPersistentStorageManager" />
-    <!--<PersistentStorageManager type="Aristocrat.Monaco.Hardware.StorageAdapters.PersistentStorageManagerImplementation" />-->
-  </Extension>
-
-  <Extension path="/Hardware/SecondaryStorageService">
-    <SecondaryStorageManager type="Aristocrat.Monaco.Hardware.StorageAdapters.SqlSecondaryStorageManager" />
-  </Extension>
-
-  <Extension path="/Hardware/Persistence">
-    <PersistenceProvider type="Aristocrat.Monaco.Hardware.Services.PersistenceProviderFacade" />
   </Extension>
 
   <Extension path="/Hardware/Printer">
@@ -118,31 +82,14 @@
     <ReelControllerService type="Aristocrat.Monaco.Hardware.Reel.ReelControllerAdapter" />
   </Extension>
 
-  <Extension path="/Hardware/PropertyProviders">
-    <PropertyProvider type="Aristocrat.Monaco.Hardware.HardwarePropertyProvider" />
-  </Extension>
-
   <ExtensionPoint path="/Platform/Discovery/Configuration">
     <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
   </ExtensionPoint>
 
   <!--Must implement IGdsCommunicator-->
-  <ExtensionPoint path = "/Hardware/CommunicatorDrivers">
-    <ExtensionNode name="DeviceImplementation" type="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceImplementationExtensionNode"/>
-  </ExtensionPoint>
-
-  <!--Must implement IPersistentStorageManager-->
-  <ExtensionPoint path="/Hardware/PersistentStorageService">
-    <ExtensionNode name="PersistentStorageManager" />
-  </ExtensionPoint>
-
-  <ExtensionPoint path="/Hardware/SecondaryStorageService">
-    <ExtensionNode name="SecondaryStorageManager" />
-  </ExtensionPoint>
-
-  <!--Must implement IPersistenceProvider-->
-  <ExtensionPoint path = "/Hardware/Persistence">
-    <ExtensionNode name="PersistenceProvider"/>
+  <ExtensionPoint path="/Hardware/CommunicatorDrivers">
+    <ExtensionNode name="DeviceImplementation"
+                   type="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceImplementationExtensionNode" />
   </ExtensionPoint>
 
   <!--Must implement INoteAcceptor-->
@@ -162,10 +109,6 @@
 
   <ExtensionPoint path="/Hardware/ReelController">
     <ExtensionNode name="ReelControllerService" />
-  </ExtensionPoint>
-
-  <ExtensionPoint path="/Hardware/BeagleBoneController">
-   <ExtensionNode name="BeagleBoneControllerService"/>
   </ExtensionPoint>
 
   <ExtensionPoint path="/Hardware/IO/IOImplementations">
@@ -209,9 +152,4 @@
   <ExtensionPoint path="/Hardware/PrinterOverrides">
     <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
   </ExtensionPoint>
-
-  <ExtensionPoint path="/Hardware/SerialTouch">
-    <ExtensionNode name="SerialTouchService"/>
-  </ExtensionPoint>
-
 </Addin>

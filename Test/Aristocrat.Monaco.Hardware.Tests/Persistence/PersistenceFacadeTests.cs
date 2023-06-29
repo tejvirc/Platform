@@ -6,8 +6,8 @@
     using System.IO;
     using System.Linq;
     using System.Reflection;
-    using Aristocrat.Monaco.Hardware.Services;
     using Contracts.Persistence;
+    using Hardware.Services;
     using Hardware.StorageAdapters;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -20,59 +20,57 @@
     public class TestTransaction
     {
         public long TransactionId { get; set; }
+
         public long LogSequence { get; set; }
+
         public DateTime Timestamp { get; set; }
+
         public int GameId { get; set; }
+
         public long DenomId { get; set; }
+
         public long StartCredits { get; set; }
+
         public long EndCredits { get; set; }
+
         public long InitialWager { get; set; }
+
         public long FinalWager { get; set; }
+
         public long UncommittedWin { get; set; }
+
         public long InitialWin { get; set; }
+
         public long SecondaryPlayed { get; set; }
+
         public long SecondaryWager { get; set; }
+
         public long SecondaryWin { get; set; }
+
         public long FinalWin { get; set; }
+
         public long AmountIn { get; set; }
+
         public long PostAmountIn { get; set; }
+
         public long AmountOut { get; set; }
+
         public string Log { get; set; }
+
         public short ShortAmount { get; set; }
+
         public ushort UshortAmount { get; set; }
+
         public uint UintAmount { get; set; }
+
         public ulong UlongAmount { get; set; }
+
         public float FloatAmount { get; set; }
+
         public double DoubleAmount { get; set; }
 
-        /// <inheritdoc />
-        public override bool Equals(object obj)
-        {
-            if(!(obj is TestTransaction other))
-            {
-                return false;
-            }
-
-            return TransactionId == other.TransactionId && LogSequence == other.LogSequence &&
-                   GameId == other.GameId && DenomId == other.DenomId &&
-                   StartCredits == other.StartCredits && EndCredits == other.EndCredits &&
-                   InitialWager == other.InitialWager && FinalWager == other.FinalWager &&
-                   UncommittedWin == other.UncommittedWin && InitialWin == other.InitialWin &&
-                   SecondaryPlayed == other.SecondaryPlayed && SecondaryWager == other.SecondaryWager &&
-                   SecondaryWin == other.SecondaryWin && FinalWin == other.FinalWin && AmountIn == other.AmountIn &&
-                   PostAmountIn == other.PostAmountIn && AmountOut == other.AmountOut && string.Equals(Log, other.Log) &&
-                   ShortAmount == other.ShortAmount && UshortAmount == other.UshortAmount && UintAmount == other.UintAmount &&
-                   UlongAmount == other.UlongAmount && FloatAmount == other.FloatAmount && DoubleAmount == other.DoubleAmount;
-        }
-
-        /// <inheritdoc/>
-        public override int GetHashCode()
-        {
-            return HashCode();
-        }
-
         /// <summary>
-        /// Gets random object.
+        ///     Gets random object.
         /// </summary>
         /// <param name="random">The random.</param>
         /// <returns>The random object.</returns>
@@ -104,8 +102,45 @@
                 UintAmount = (uint)random.Next(int.MaxValue) + int.MaxValue,
                 UlongAmount = (ulong)random.Next(int.MaxValue) * long.MaxValue,
                 FloatAmount = (float)(random.NextDouble() - 0.5) * float.MaxValue,
-                DoubleAmount = (double)(random.NextDouble() - 0.5) * double.MaxValue
+                DoubleAmount = (random.NextDouble() - 0.5) * double.MaxValue
             };
+        }
+
+        /// <inheritdoc />
+        public override bool Equals(object obj)
+        {
+            if (!(obj is TestTransaction other))
+            {
+                return false;
+            }
+
+            return TransactionId == other.TransactionId && LogSequence == other.LogSequence &&
+                   GameId == other.GameId && DenomId == other.DenomId &&
+                   StartCredits == other.StartCredits && EndCredits == other.EndCredits &&
+                   InitialWager == other.InitialWager && FinalWager == other.FinalWager &&
+                   UncommittedWin == other.UncommittedWin && InitialWin == other.InitialWin &&
+                   SecondaryPlayed == other.SecondaryPlayed && SecondaryWager == other.SecondaryWager &&
+                   SecondaryWin == other.SecondaryWin && FinalWin == other.FinalWin && AmountIn == other.AmountIn &&
+                   PostAmountIn == other.PostAmountIn && AmountOut == other.AmountOut &&
+                   string.Equals(Log, other.Log) &&
+                   ShortAmount == other.ShortAmount && UshortAmount == other.UshortAmount &&
+                   UintAmount == other.UintAmount &&
+                   UlongAmount == other.UlongAmount && FloatAmount == other.FloatAmount &&
+                   DoubleAmount == other.DoubleAmount;
+        }
+
+        /// <inheritdoc />
+        public override int GetHashCode()
+        {
+            return HashCode();
+        }
+
+        private static string RandomString(int length, Random random)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(
+                Enumerable.Repeat(chars, length)
+                    .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
         private int HashCode()
@@ -137,22 +172,15 @@
             hashCode = (hashCode * 397) ^ DoubleAmount.GetHashCode();
             return hashCode;
         }
-
-        private static string RandomString(int length, Random random)
-        {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            return new string(Enumerable.Repeat(chars, length)
-                .Select(s => s[random.Next(s.Length)]).ToArray());
-        }
     }
 
     [TestClass]
     public class PersistenceFacadeTests
     {
-        private string _assemblyDirectory;
         private const string DatabaseDirectoryName = @"Data";
         private const string DatabaseFilename = @"PersistenceFacadeTests.sqlite";
         private const string DatabasePassword = @"tk7tjBLQ8GpySFNZTHYD";
+        private string _assemblyDirectory;
         private string _databaseFullPath;
 
         private Mock<IPathMapper> _pathMapper;
@@ -173,7 +201,9 @@
 
             _assemblyDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             if (string.IsNullOrEmpty(_assemblyDirectory))
+            {
                 throw new NullReferenceException(nameof(_assemblyDirectory));
+            }
 
             var databaseDirectoryPath = Path.Combine(_assemblyDirectory, DatabaseDirectoryName);
             if (!Directory.Exists(databaseDirectoryPath))
@@ -190,8 +220,7 @@
                 _pathMapper.Object,
                 _eventBus.Object,
                 secondaryStorage.Object,
-                DatabaseFilename,
-                DatabasePassword);
+                new SqliteStorageInformation { Name = DatabaseFilename, Password = DatabasePassword });
 
             MoqServiceManager.AddService<IPersistentStorageManager>(_persistentStorageManager);
 
@@ -223,7 +252,7 @@
             Assert.IsNull(block);
         }
 
-       [TestMethod]
+        [TestMethod]
         public void TestPersistenceProviderFacade_GetOrCreateBlock()
         {
             const string key = @"TestKey";
@@ -279,7 +308,6 @@
             var data2 = TestTransaction.GetRandomObject(random);
             var data3 = TestTransaction.GetRandomObject(random);
 
-
             var block = _persistenceProviderFacade.GetOrCreateBlock(blockName, PersistenceLevel.Critical);
 
             Assert.AreEqual(false, block.GetValue<TestTransaction>(key1, out var result1));
@@ -327,7 +355,6 @@
             Assert.AreEqual(true, block.GetValue(key, out result));
             Assert.AreEqual(data, result);
         }
-
 
         [TestMethod]
         public void TestPersistentBlockFacade_GetSetValueWithinScope2()
@@ -390,7 +417,7 @@
                 Assert.AreEqual(true, block1.GetValue(block1Key, out block1Result));
                 Assert.AreEqual(block1Data1, block1Result);
 
-                Assert.AreEqual(true,block2.SetValue(block2Key, block2Data2));
+                Assert.AreEqual(true, block2.SetValue(block2Key, block2Data2));
                 Assert.AreEqual(true, block2.GetValue(block2Key, out block2Result));
                 Assert.AreEqual(block2Data1, block2Result);
 

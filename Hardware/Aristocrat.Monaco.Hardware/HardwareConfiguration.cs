@@ -9,19 +9,23 @@
     using System.Threading.Tasks;
     using System.Xml;
     using System.Xml.Serialization;
-    using Aristocrat.Monaco.Kernel.Contracts;
     using Contracts;
     using Contracts.Communicator;
+    using Contracts.Dfu;
     using Contracts.IdReader;
     using Contracts.NoteAcceptor;
     using Contracts.Persistence;
     using Contracts.Printer;
     using Contracts.Reel;
+    using Contracts.SerialPorts;
     using Contracts.SharedDevice;
     using Kernel;
+    using Kernel.Contracts;
+    using Kernel.Contracts.Components;
     using log4net;
     using NoteAcceptor;
     using Printer;
+    using Properties;
     using Reel;
 
     public class HardwareConfiguration : IHardwareConfiguration, IDisposable
@@ -30,31 +34,25 @@
         private const string SupportedDevicesPath = @".\SupportedDevices.xml";
         private const PersistenceLevel Level = PersistenceLevel.Static;
         private const int DefaultBaudRate = 9600;
-        private const int ReelControllerInspectionTimeout = 30000;  // Reel controller needs more time to home the reels during inspection
 
-        private readonly Dictionary<string, string> _deviceProtocolUpdateMap = new Dictionary<string, string> { { "Epic950", "EpicTTL" } };
+        private const int
+            ReelControllerInspectionTimeout =
+                30000; // Reel controller needs more time to home the reels during inspection
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private static readonly TimeSpan InspectionTimeout = TimeSpan.FromSeconds(1);
+
+        private readonly Dictionary<string, string> _deviceProtocolUpdateMap = new() { { "Epic950", "EpicTTL" } };
 
         private readonly IPersistentStorageAccessor _accessor;
         private readonly IDeviceRegistryService _deviceRegistry;
         private readonly IEventBus _bus;
         private readonly ISystemDisableManager _disableManager;
         private readonly IPropertiesManager _propertiesManager;
-        private readonly object _serviceRegistrationLock = new object();
+        private readonly object _serviceRegistrationLock = new();
 
         private bool _disposed;
         private bool _shuttingDown;
-
-        public HardwareConfiguration()
-            : this(ServiceManager.GetInstance().GetService<IPersistentStorageManager>(),
-                ServiceManager.GetInstance().GetService<IDeviceRegistryService>(),
-                ServiceManager.GetInstance().GetService<IEventBus>(),
-                ServiceManager.GetInstance().GetService<ISystemDisableManager>(),
-                ServiceManager.GetInstance().GetService<IPropertiesManager>())
-        {
-        }
 
         public HardwareConfiguration(
             IPersistentStorageManager storage,
@@ -78,13 +76,13 @@
             SupportedDevices = GetAllDevices();
         }
 
-        public SupportedDevices SupportedDevices { get; }
-
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
+        public SupportedDevices SupportedDevices { get; }
 
         public IReadOnlyCollection<ConfigurationData> GetCurrent()
         {
@@ -109,15 +107,17 @@
                         var oldProtocolName = protocolName;
                         protocolName = _deviceProtocolUpdateMap[protocolName];
                         hasProtocolMismatch = true;
-                        Logger.Info($"Found old protocol name {oldProtocolName} for {(DeviceType)item}, replaced with {protocolName}");
+                        Logger.Info(
+                            $"Found old protocol name {oldProtocolName} for {(DeviceType)item}, replaced with {protocolName}");
                     }
 
-                    current.Add(new ConfigurationData(
-                        (DeviceType)item,
-                        (bool)_accessor[(int)item, "Enabled"],
-                        (string)_accessor[(int)item, "Make"],
-                        protocolName,
-                        (string)_accessor[(int)item, "Port"]));
+                    current.Add(
+                        new ConfigurationData(
+                            (DeviceType)item,
+                            (bool)_accessor[(int)item, "Enabled"],
+                            (string)_accessor[(int)item, "Make"],
+                            protocolName,
+                            (string)_accessor[(int)item, "Port"]));
                 }
                 catch (Exception ex)
                 {
@@ -127,7 +127,10 @@
 
             if (hasProtocolMismatch)
             {
-                _disableManager.Disable(HardwareConstants.HardwareProtocolMismatchDisabledKey, SystemDisablePriority.Immediate, () => Properties.Resources.ProtocolMismatch);
+                _disableManager.Disable(
+                    HardwareConstants.HardwareProtocolMismatchDisabledKey,
+                    SystemDisablePriority.Immediate,
+                    () => Resources.ProtocolMismatch);
             }
 
             return current;
@@ -158,7 +161,6 @@
                     {
                         inspectedDevices.Add(current);
                     }
-
                 }
 
                 transaction.Commit();
@@ -166,49 +168,9 @@
 
             Logger.Info("Device configuration has been updated");
 
-            if(inspect)
+            if (inspect)
             {
                 HandleDeviceInspectionAsync(GetCurrent(), inspectedDevices);
-            }
-        }
-
-        private IComConfiguration Configuration(ConfigurationData data)
-        {
-            try
-            {
-                if (!data.Enabled)
-                {
-                    return null;
-                }
-
-                var element = SupportedDevices.Devices.FirstOrDefault(
-                    d => d.Type == data.DeviceType.ToString() && d.Name == data.Make && d.Protocol == data.Model);
-
-                if (element == null)
-                {
-                    return null;
-                }
-
-                var config = new ComConfiguration
-                {
-                    Mode = element.Mode,
-                    Protocol = element.Protocol,
-                    PortName = data.Port,
-                    Name = element.Name,
-                    MaxPollTimeouts = _propertiesManager.GetValue(
-                        HardwareConstants.MaxFailedPollCount,
-                        HardwareConstants.DefaultMaxFailedPollCount)
-                };
-
-                SetDeviceData(config, element);
-
-                return config;
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex);
-
-                return null;
             }
         }
 
@@ -240,110 +202,15 @@
             _disposed = true;
         }
 
-        private void HandleDeviceInspectionAsync(IEnumerable<ConfigurationData> configuration, IList<ConfigurationData> inspectedDevices = null)
-        {
-            if (!_shuttingDown)
-            {
-                Task.Run(() => HandleDeviceInspection(configuration, inspectedDevices));
-            }
-        }
-
-        private void HandleDeviceInspection(IEnumerable<ConfigurationData> configuration, IList<ConfigurationData> inspectedDevices)
-        {
-            Parallel.ForEach(configuration, data =>
-            {
-                IDeviceAdapter adapter = null;
-
-                var inspectedDevice = inspectedDevices?.Any(
-                    d => d.DeviceType == data.DeviceType && d.Enabled == data.Enabled
-                                                         && d.Make.Equals(data.Make) &&
-                                                         d.Model.Equals(data.Model) &&
-                                                         d.Port.Equals(data.Port)) ?? false;
-
-                var config = Configuration(data);
-
-                switch (data.DeviceType)
-                {
-                    case DeviceType.IdReader:
-                        lock (_serviceRegistrationLock)
-                        {
-                            var provider = _deviceRegistry.GetDevice<IIdReaderProvider>();
-                            if (provider != null)
-                            {
-                                if (!inspectedDevice || provider.Adapters.Any(a => !a.Connected))
-                                {
-                                    adapter = HandleProviderRegistration(provider, config, data.Make);
-                                }
-                            }
-                        }
-
-                        break;
-                    case DeviceType.NoteAcceptor:
-                        adapter = HandleServiceRegistration<INoteAcceptor>(new NoteAcceptorAdapter(), config, data, inspectedDevice);
-                        break;
-                    case DeviceType.Printer:
-                        adapter = HandleServiceRegistration<IPrinter>(new PrinterAdapter(), config, data, inspectedDevice);
-                        break;
-                    case DeviceType.ReelController:
-                        adapter = HandleServiceRegistration<IReelController>(
-                            new ReelControllerAdapter(),
-                            config,
-                            data,
-                            inspectedDevice);
-                        break;
-                }
-
-                if (adapter != null && (!adapter.Connected || !adapter.Initialized))
-                {
-                    adapter.ServiceProtocol = config.Protocol;
-                    adapter.Initialize();
-                    adapter.Inspect(config, data.DeviceType == DeviceType.ReelController ? ReelControllerInspectionTimeout : (int)InspectionTimeout.TotalMilliseconds);
-                }
-            });
-        }
-
-        private static IDeviceAdapter HandleProviderRegistration<T>(IDeviceProvider<T> provider, IComConfiguration configuration, string name)
+        private static IDeviceAdapter HandleProviderRegistration<T>(
+            IDeviceProvider<T> provider,
+            IComConfiguration configuration,
+            string name)
             where T : IDeviceAdapter
         {
             provider.ClearAdapters();
 
             return configuration != null ? provider.CreateAdapter(name) : null;
-        }
-
-        private IDeviceAdapter HandleServiceRegistration<T>(T service, IComConfiguration configuration, ConfigurationData data, bool inspectedDevice)
-            where T : IDeviceAdapter
-        {
-            lock (_serviceRegistrationLock)
-            {
-                var current = _deviceRegistry.GetDevice<T>();
-
-                if (inspectedDevice && (current?.Connected ?? false))
-                {
-                    return current;
-                }
-
-                if ((configuration == null && current != null) ||
-                    (current != null && (!data.Make.Contains(current.DeviceConfiguration.Manufacturer) ||
-                                         !data.Port.Equals(current.DeviceConfiguration.Mode))))
-                {
-                    _deviceRegistry.RemoveDevice(current);
-                    if (configuration == null)
-                    {
-                        return null;
-                    }
-
-                    current = default(T);
-                }
-
-                if (configuration != null && current == null)
-                {
-                    _deviceRegistry.AddDevice(service);
-
-                    return service;
-                }
-
-                return current;
-            }
         }
 
         private static SupportedDevices GetAllDevices()
@@ -365,19 +232,23 @@
                 switch (element.ItemsElementName[i])
                 {
                     case ItemsChoiceType.BaudRate:
+                    {
+                        if (!string.IsNullOrEmpty(element.Items[i]))
                         {
-                            if (!string.IsNullOrEmpty(element.Items[i]))
+                            if (!int.TryParse(
+                                    element.Items[i],
+                                    NumberStyles.Number,
+                                    CultureInfo.InvariantCulture,
+                                    out var baudRate))
                             {
-                                if (!int.TryParse(element.Items[i], NumberStyles.Number, CultureInfo.InvariantCulture, out var baudRate))
-                                {
-                                    baudRate = DefaultBaudRate;
-                                }
-
-                                configuration.BaudRate = baudRate;
+                                baudRate = DefaultBaudRate;
                             }
 
-                            break;
+                            configuration.BaudRate = baudRate;
                         }
+
+                        break;
+                    }
 
                     case ItemsChoiceType.Parity:
                         if (!string.IsNullOrEmpty(element.Items[i]))
@@ -432,6 +303,179 @@
                         Logger.Warn($"Parsed unhandled ItemsElementName {element.ItemsElementName[i]}");
                         break;
                 }
+            }
+        }
+
+        private IComConfiguration Configuration(ConfigurationData data)
+        {
+            try
+            {
+                if (!data.Enabled)
+                {
+                    return null;
+                }
+
+                var element = SupportedDevices.Devices.FirstOrDefault(
+                    d => d.Type == data.DeviceType.ToString() && d.Name == data.Make && d.Protocol == data.Model);
+
+                if (element == null)
+                {
+                    return null;
+                }
+
+                var config = new ComConfiguration
+                {
+                    Mode = element.Mode,
+                    Protocol = element.Protocol,
+                    PortName = data.Port,
+                    Name = element.Name,
+                    MaxPollTimeouts = _propertiesManager.GetValue(
+                        HardwareConstants.MaxFailedPollCount,
+                        HardwareConstants.DefaultMaxFailedPollCount)
+                };
+
+                SetDeviceData(config, element);
+
+                return config;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
+
+                return null;
+            }
+        }
+
+        private void HandleDeviceInspectionAsync(
+            IEnumerable<ConfigurationData> configuration,
+            IList<ConfigurationData> inspectedDevices = null)
+        {
+            if (!_shuttingDown)
+            {
+                Task.Run(() => HandleDeviceInspection(configuration, inspectedDevices));
+            }
+        }
+
+        private void HandleDeviceInspection(
+            IEnumerable<ConfigurationData> configuration,
+            IList<ConfigurationData> inspectedDevices)
+        {
+            Parallel.ForEach(
+                configuration,
+                data =>
+                {
+                    var serviceManager = ServiceManager.GetInstance();
+                    IDeviceAdapter adapter = null;
+
+                    var inspectedDevice = inspectedDevices?.Any(
+                        d => d.DeviceType == data.DeviceType && d.Enabled == data.Enabled
+                                                             && d.Make.Equals(data.Make) &&
+                                                             d.Model.Equals(data.Model) &&
+                                                             d.Port.Equals(data.Port)) ?? false;
+
+                    var config = Configuration(data);
+
+                    switch (data.DeviceType)
+                    {
+                        case DeviceType.IdReader:
+                            lock (_serviceRegistrationLock)
+                            {
+                                var provider = _deviceRegistry.GetDevice<IIdReaderProvider>();
+                                if (provider != null)
+                                {
+                                    if (!inspectedDevice || provider.Adapters.Any(a => !a.Connected))
+                                    {
+                                        adapter = HandleProviderRegistration(provider, config, data.Make);
+                                    }
+                                }
+                            }
+
+                            break;
+                        case DeviceType.NoteAcceptor:
+                            adapter = HandleServiceRegistration<INoteAcceptor>(
+                                new NoteAcceptorAdapter(
+                                    _bus,
+                                    serviceManager.GetService<IComponentRegistry>(),
+                                    serviceManager.GetService<IDfuProvider>(),
+                                    serviceManager.GetService<IPersistentStorageManager>(),
+                                    serviceManager.GetService<IDisabledNotesService>(),
+                                    serviceManager.GetService<IPersistenceProvider>(),
+                                    serviceManager.GetService<ISerialPortsService>()),
+                                config,
+                                data,
+                                inspectedDevice);
+                            break;
+                        case DeviceType.Printer:
+                            adapter = HandleServiceRegistration<IPrinter>(
+                                new PrinterAdapter(
+                                    _bus,
+                                    serviceManager.GetService<IComponentRegistry>(),
+                                    serviceManager.GetService<IDfuProvider>(),
+                                    serviceManager.GetService<IPersistentStorageManager>(),
+                                    serviceManager.GetService<ISerialPortsService>()),
+                                config,
+                                data,
+                                inspectedDevice);
+                            break;
+                        case DeviceType.ReelController:
+                            adapter = HandleServiceRegistration<IReelController>(
+                                new ReelControllerAdapter(),
+                                config,
+                                data,
+                                inspectedDevice);
+                            break;
+                    }
+
+                    if (adapter != null && (!adapter.Connected || !adapter.Initialized))
+                    {
+                        adapter.ServiceProtocol = config.Protocol;
+                        adapter.Initialize();
+                        adapter.Inspect(
+                            config,
+                            data.DeviceType == DeviceType.ReelController
+                                ? ReelControllerInspectionTimeout
+                                : (int)InspectionTimeout.TotalMilliseconds);
+                    }
+                });
+        }
+
+        private IDeviceAdapter HandleServiceRegistration<T>(
+            T service,
+            IComConfiguration configuration,
+            ConfigurationData data,
+            bool inspectedDevice)
+            where T : IDeviceAdapter
+        {
+            lock (_serviceRegistrationLock)
+            {
+                var current = _deviceRegistry.GetDevice<T>();
+
+                if (inspectedDevice && (current?.Connected ?? false))
+                {
+                    return current;
+                }
+
+                if (configuration == null && current != null ||
+                    current != null && (!data.Make.Contains(current.DeviceConfiguration.Manufacturer) ||
+                                        !data.Port.Equals(current.DeviceConfiguration.Mode)))
+                {
+                    _deviceRegistry.RemoveDevice(current);
+                    if (configuration == null)
+                    {
+                        return null;
+                    }
+
+                    current = default;
+                }
+
+                if (configuration != null && current == null)
+                {
+                    _deviceRegistry.AddDevice(service);
+
+                    return service;
+                }
+
+                return current;
             }
         }
     }

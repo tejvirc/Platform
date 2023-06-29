@@ -24,21 +24,24 @@
         [ExpectedException(typeof(ArgumentException))]
         public void WhenPathToXmlIsEmpty()
         {
-            _logicalStripFactory = new LogicalStripFactory("");
+            _logicalStripFactory =
+                new LogicalStripFactory(new LogicalStripInformation { LogicalStripCreationRuleXmlPath = "" });
         }
 
         [TestMethod]
         [ExpectedException(typeof(Exception))]
         public void WhenPathToXmlIsNotSupported()
         {
-            _logicalStripFactory = new LogicalStripFactory("com1:");
+            _logicalStripFactory =
+                new LogicalStripFactory(new LogicalStripInformation { LogicalStripCreationRuleXmlPath = "com1:" });
         }
 
         [TestMethod]
         [ExpectedException(typeof(Exception))]
         public void WhenPathToXmlDoesNotExist()
         {
-            _logicalStripFactory = new LogicalStripFactory("MyPath.xml");
+            _logicalStripFactory = new LogicalStripFactory(
+                new LogicalStripInformation { LogicalStripCreationRuleXmlPath = "MyPath.xml" });
         }
 
         [TestMethod]
@@ -46,11 +49,11 @@
         {
             var physicalStrips = new List<Mock<IStrip>>
             {
-                new Mock<IStrip>(),
-                new Mock<IStrip>(),
-                new Mock<IStrip>(),
-                new Mock<IStrip>(),
-                new Mock<IStrip>()
+                new(),
+                new(),
+                new(),
+                new(),
+                new()
             };
             var stripId = 0x1200;
             foreach (var strip in physicalStrips)
@@ -60,7 +63,10 @@
             }
 
             _logicalStripFactory = new LogicalStripFactory(
-                @"EdgeLight\Manager\LogicalStripsCreationRuleTest.xml");
+                new LogicalStripInformation
+                {
+                    LogicalStripCreationRuleXmlPath = @"EdgeLight\Manager\LogicalStripsCreationRuleTest.xml"
+                });
 
             var logicalStrips =
                 _logicalStripFactory.GetLogicalStrips(physicalStrips.Select(x => x.Object).ToList());
@@ -78,11 +84,11 @@
         {
             var physicalStrips = new List<Mock<IStrip>>
             {
-                new Mock<IStrip>(),
-                new Mock<IStrip>(),
-                new Mock<IStrip>(),
-                new Mock<IStrip>(),
-                new Mock<IStrip>()
+                new(),
+                new(),
+                new(),
+                new(),
+                new()
             };
             var stripId = 0x130000;
             foreach (var strip in physicalStrips)
@@ -92,7 +98,10 @@
             }
 
             _logicalStripFactory = new LogicalStripFactory(
-                @"EdgeLight\Manager\LogicalStripsCreationRuleTest.xml");
+                new LogicalStripInformation
+                {
+                    LogicalStripCreationRuleXmlPath = @"EdgeLight\Manager\LogicalStripsCreationRuleTest.xml"
+                });
 
             var logicalStrips =
                 _logicalStripFactory.GetLogicalStrips(physicalStrips.Select(x => x.Object).ToList());
@@ -117,11 +126,11 @@
         {
             var physicalStrips = new List<Mock<IStrip>>
             {
-                new Mock<IStrip>(),
-                new Mock<IStrip>(),
-                new Mock<IStrip>(),
-                new Mock<IStrip>(),
-                new Mock<IStrip>()
+                new(),
+                new(),
+                new(),
+                new(),
+                new()
             };
             var stripId = 0x120000;
             foreach (var strip in physicalStrips)
@@ -129,6 +138,7 @@
                 strip.SetupGet(x => x.StripId).Returns(stripId++);
                 strip.SetupGet(x => x.LedCount).Returns(24);
             }
+
             physicalStrips.Add(new Mock<IStrip>());
             physicalStrips[5].SetupGet(x => x.StripId).Returns(0xC9);
             physicalStrips[5].SetupGet(x => x.LedCount).Returns(24);
@@ -140,7 +150,10 @@
             physicalStrips[7].SetupGet(x => x.LedCount).Returns(24);
 
             _logicalStripFactory = new LogicalStripFactory(
-                @"EdgeLight\Manager\LogicalStripsCreationRuleTest.xml");
+                new LogicalStripInformation
+                {
+                    LogicalStripCreationRuleXmlPath = @"EdgeLight\Manager\LogicalStripsCreationRuleTest.xml"
+                });
 
             var logicalStrips =
                 _logicalStripFactory.GetLogicalStrips(physicalStrips.Select(x => x.Object).ToList());

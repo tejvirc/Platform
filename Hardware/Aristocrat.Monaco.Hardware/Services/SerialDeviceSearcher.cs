@@ -11,19 +11,13 @@
     using Contracts.Communicator;
     using Contracts.SerialPorts;
     using Contracts.SharedDevice;
-    using Kernel;
     using log4net;
     using Serial.Protocols;
 
     public class SerialDeviceSearcher : ISerialDeviceSearcher
     {
-        private readonly ISerialPortsService _serialPortsService;
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
-
-        public SerialDeviceSearcher()
-            : this(ServiceManager.GetInstance().GetService<ISerialPortsService>())
-        {
-        }
+        private readonly ISerialPortsService _serialPortsService;
 
         public SerialDeviceSearcher(ISerialPortsService serialPortsService)
         {
@@ -39,7 +33,10 @@
             Logger.Debug("Initialize");
         }
 
-        public SupportedDevicesDevice Search(string port, List<SupportedDevicesDevice> supportedDevices, CancellationToken token)
+        public SupportedDevicesDevice Search(
+            string port,
+            List<SupportedDevicesDevice> supportedDevices,
+            CancellationToken token)
         {
             if (!supportedDevices.Any())
             {
@@ -55,7 +52,8 @@
             {
                 if (type.GetCustomAttributes(typeof(SearchableSerialProtocolAttribute), false).Length > 0)
                 {
-                    if (type.GetCustomAttribute(typeof(SearchableSerialProtocolAttribute)) is SearchableSerialProtocolAttribute attr
+                    if (type.GetCustomAttribute(typeof(SearchableSerialProtocolAttribute)) is
+                            SearchableSerialProtocolAttribute attr
                         && attr.DeviceType == deviceType)
                     {
                         protocolTypes.Add(type);
@@ -68,7 +66,9 @@
             foreach (var protocolType in protocolTypes)
             {
                 var protocolDevices = supportedDevices.Where
-                    (d => protocolType.Name.ToLower().Contains(d.Protocol.ToLower()) || d.Protocol.ToLower().Contains(protocolType.Name.ToLower()))
+                    (
+                        d => protocolType.Name.ToLower().Contains(d.Protocol.ToLower()) ||
+                             d.Protocol.ToLower().Contains(protocolType.Name.ToLower()))
                     .ToList();
                 Logger.Debug($"({deviceType}) Protocol {protocolType} used by {protocolDevices.Count} devices");
 
@@ -79,8 +79,11 @@
                     try
                     {
                         // Use this protocol
-                        protocol = (SerialDeviceProtocol)protocolType.GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
-                            null, Type.EmptyTypes, null)?.Invoke(Array.Empty<object>());
+                        protocol = (SerialDeviceProtocol)protocolType.GetConstructor(
+                            BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
+                            null,
+                            Type.EmptyTypes,
+                            null)?.Invoke(Array.Empty<object>());
                         if (protocol is null)
                         {
                             Logger.Debug($"({deviceType}) Couldn't find constructor() for {protocolType.Name}");
@@ -93,19 +96,27 @@
                             PortName = port,
                             BaudRate = int.Parse(GetDeviceItemByName(protocolDevice, ItemsChoiceType.BaudRate)),
                             DataBits = int.Parse(GetDeviceItemByName(protocolDevice, ItemsChoiceType.DataBits)),
-                            StopBits = (StopBits)Enum.Parse(typeof(StopBits), GetDeviceItemByName(protocolDevice, ItemsChoiceType.StopBits)),
-                            Parity = (Parity)Enum.Parse(typeof(Parity), GetDeviceItemByName(protocolDevice, ItemsChoiceType.Parity)),
-                            Handshake = (Handshake)Enum.Parse(typeof(Handshake), GetDeviceItemByName(protocolDevice, ItemsChoiceType.Handshake))
+                            StopBits =
+                                (StopBits)Enum.Parse(
+                                    typeof(StopBits),
+                                    GetDeviceItemByName(protocolDevice, ItemsChoiceType.StopBits)),
+                            Parity = (Parity)Enum.Parse(
+                                typeof(Parity),
+                                GetDeviceItemByName(protocolDevice, ItemsChoiceType.Parity)),
+                            Handshake = (Handshake)Enum.Parse(
+                                typeof(Handshake),
+                                GetDeviceItemByName(protocolDevice, ItemsChoiceType.Handshake))
                         };
 
-                        Logger.Debug($"({deviceType}) Configure? {protocolDevice.Name} setup=({GetDeviceDescription(protocolDevice)})");
+                        Logger.Debug(
+                            $"({deviceType}) Configure? {protocolDevice.Name} setup=({GetDeviceDescription(protocolDevice)})");
                         protocol.Device = new Device(null, null, _serialPortsService);
                         protocol.Manufacturer = string.Empty;
 
                         if (protocol.Configure(config))
                         {
                             if (protocolType.GetCustomAttribute(typeof(SearchableSerialProtocolAttribute)) is
-                                    SearchableSerialProtocolAttribute delayAttr)
+                                SearchableSerialProtocolAttribute delayAttr)
                             {
                                 var delay = delayAttr.MaxWaitForResponse;
                                 while (delay > 0 && string.IsNullOrEmpty(protocol.FirmwareVersion))
@@ -118,8 +129,11 @@
                             }
 
                             // Find device to match the results
-                            Logger.Debug($"({deviceType}) Tried {protocolDevice.Name} mfg={protocol.Manufacturer} model={protocol.Model} proto={protocol.Protocol} firmware={protocol.FirmwareVersion}");
-                            if (DoesDeviceFirmwareMatch(protocol.FirmwareVersion, GetDeviceItemByName(protocolDevice, ItemsChoiceType.FirmwareVersionRegex)))
+                            Logger.Debug(
+                                $"({deviceType}) Tried {protocolDevice.Name} mfg={protocol.Manufacturer} model={protocol.Model} proto={protocol.Protocol} firmware={protocol.FirmwareVersion}");
+                            if (DoesDeviceFirmwareMatch(
+                                    protocol.FirmwareVersion,
+                                    GetDeviceItemByName(protocolDevice, ItemsChoiceType.FirmwareVersionRegex)))
                             {
                                 return protocolDevice;
                             }
@@ -156,12 +170,13 @@
 
         private string GetDeviceDescription(SupportedDevicesDevice x)
         {
-            return string.Join(" ", new[] {
+            return string.Join(
+                " ",
                 GetDeviceItemByName(x, ItemsChoiceType.BaudRate),
                 GetDeviceItemByName(x, ItemsChoiceType.DataBits),
                 GetDeviceItemByName(x, ItemsChoiceType.StopBits),
                 GetDeviceItemByName(x, ItemsChoiceType.Parity),
-                GetDeviceItemByName(x, ItemsChoiceType.Handshake) });
+                GetDeviceItemByName(x, ItemsChoiceType.Handshake));
         }
 
         private bool DoesDeviceFirmwareMatch(string reportedFirmware, string matchRegex)

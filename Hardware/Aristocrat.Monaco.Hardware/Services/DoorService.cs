@@ -1,5 +1,10 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Services
 {
+    using System;
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
     using Contracts;
     using Contracts.Door;
     using Contracts.IO;
@@ -7,11 +12,6 @@
     using Contracts.SharedDevice;
     using Kernel;
     using log4net;
-    using System;
-    using System.Collections.Concurrent;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
     using DisabledEvent = Contracts.Door.DisabledEvent;
     using EnabledEvent = Contracts.Door.EnabledEvent;
 
@@ -31,14 +31,6 @@
         private bool _disposed;
         private DateTime _lastInput;
         private bool _platformBooted;
-
-        public DoorService()
-            : this(
-                ServiceManager.GetInstance().GetService<IIO>(),
-                ServiceManager.GetInstance().GetService<IPersistentStorageManager>(),
-                ServiceManager.GetInstance().GetService<IEventBus>())
-        {
-        }
 
         public DoorService(IIO io, IPersistentStorageManager storageManager, IEventBus bus)
         {
@@ -170,51 +162,6 @@
             return Enabled;
         }
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        /// <inheritdoc />
-        public IReadOnlyDictionary<int, LogicalDoor> LogicalDoors =>
-            _logicalDoors
-            .Where(logicalDoor => !IgnoredDoors.Contains(logicalDoor.Key))
-            .ToDictionary(pair => pair.Key, pair => pair.Value);
-
-        public List<int> IgnoredDoors { get; set; } = new List<int>();
-
-        /// <inheritdoc />
-        public DoorLogicalState LogicalState { get; private set; }
-
-        /// <inheritdoc />
-        public string GetDoorName(int doorId)
-        {
-            return _logicalDoors.TryGetValue(doorId, out var door) ? door.Name : string.Empty;
-        }
-
-        public DateTime GetDoorLastOpened(int doorId)
-        {
-            return _logicalDoors.TryGetValue(doorId, out var door) ? door.LastOpenedDateTime : DateTime.MinValue;
-        }
-
-        /// <inheritdoc />
-        public int GetDoorPhysicalId(int doorId)
-        {
-            return _logicalDoors.TryGetValue(doorId, out var door) ? door.PhysicalId : -1;
-        }
-
-        /// <inheritdoc />
-        public DoorState GetDoorState(int doorId)
-        {
-            return _logicalDoors.TryGetValue(doorId, out var door) ? door.State : DoorState.Uninitialized;
-        }
-
-        /// <inheritdoc />
-        public bool GetDoorClosed(int doorId) => !_logicalDoors.TryGetValue(doorId, out var door) || door.Closed;
-
-        public bool GetDoorOpen(int doorId) => !GetDoorClosed(doorId);
-
         public string Name => "Door Service";
 
         /// <inheritdoc />
@@ -241,7 +188,8 @@
 
                     door.LastOpenedDateTime = (DateTime)accessor[GetLastDoorOpenStorageKey(item.LogicalId)];
 
-                    Logger.Debug($"Adding logical Door {item.LogicalId} {door.Name} with physical ID {door.PhysicalId}");
+                    Logger.Debug(
+                        $"Adding logical Door {item.LogicalId} {door.Name} with physical ID {door.PhysicalId}");
                 }
             }
 
@@ -273,6 +221,57 @@
             Logger.Info($"{Name} initialized");
         }
 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <inheritdoc />
+        public IReadOnlyDictionary<int, LogicalDoor> LogicalDoors =>
+            _logicalDoors
+                .Where(logicalDoor => !IgnoredDoors.Contains(logicalDoor.Key))
+                .ToDictionary(pair => pair.Key, pair => pair.Value);
+
+        public List<int> IgnoredDoors { get; set; } = new();
+
+        /// <inheritdoc />
+        public DoorLogicalState LogicalState { get; private set; }
+
+        /// <inheritdoc />
+        public string GetDoorName(int doorId)
+        {
+            return _logicalDoors.TryGetValue(doorId, out var door) ? door.Name : string.Empty;
+        }
+
+        public DateTime GetDoorLastOpened(int doorId)
+        {
+            return _logicalDoors.TryGetValue(doorId, out var door) ? door.LastOpenedDateTime : DateTime.MinValue;
+        }
+
+        /// <inheritdoc />
+        public int GetDoorPhysicalId(int doorId)
+        {
+            return _logicalDoors.TryGetValue(doorId, out var door) ? door.PhysicalId : -1;
+        }
+
+        /// <inheritdoc />
+        public DoorState GetDoorState(int doorId)
+        {
+            return _logicalDoors.TryGetValue(doorId, out var door) ? door.State : DoorState.Uninitialized;
+        }
+
+        /// <inheritdoc />
+        public bool GetDoorClosed(int doorId)
+        {
+            return !_logicalDoors.TryGetValue(doorId, out var door) || door.Closed;
+        }
+
+        public bool GetDoorOpen(int doorId)
+        {
+            return !GetDoorClosed(doorId);
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (_disposed)
@@ -288,9 +287,15 @@
             _disposed = true;
         }
 
-        private static string GetLastDoorOpenStorageKey(int logicalDoorId) => $"LogicalId{logicalDoorId}LastDoorOpen";
+        private static string GetLastDoorOpenStorageKey(int logicalDoorId)
+        {
+            return $"LogicalId{logicalDoorId}LastDoorOpen";
+        }
 
-        private static string GetLastDoorOpenActionStorageKey(int logicalDoorId) => $"LogicalId{logicalDoorId}LastDoorOpenAction";
+        private static string GetLastDoorOpenActionStorageKey(int logicalDoorId)
+        {
+            return $"LogicalId{logicalDoorId}LastDoorOpenAction";
+        }
 
         private void HandleEvent(InputEvent theEvent)
         {

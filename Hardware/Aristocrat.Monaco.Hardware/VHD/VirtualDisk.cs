@@ -17,12 +17,6 @@
         private readonly IEventBus _bus;
         private bool _disposed;
 
-        public VirtualDisk()
-            : this(ServiceManager.GetInstance().GetService<IEventBus>(),
-                VirtualDiskFactory.CreateVirtualDisk())
-        {
-        }
-
         public VirtualDisk(IEventBus bus, NativeDisk.IVirtualDisk virtualDisk)
         {
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
@@ -30,12 +24,6 @@
             _virtualDisk.DiskMounted += VirtualDiskOnDiskMounted;
             _virtualDisk.DiskUnmounted += VirtualDiskOnDiskUnmounted;
         }
-
-        /// <inheritdoc />
-        public string Name => GetType().ToString();
-
-        /// <inheritdoc />
-        public ICollection<Type> ServiceTypes => new[] { typeof(IVirtualDisk) };
 
         public void Dispose()
         {
@@ -48,6 +36,12 @@
             _virtualDisk.DiskUnmounted -= VirtualDiskOnDiskUnmounted;
             _disposed = true;
         }
+
+        /// <inheritdoc />
+        public string Name => GetType().ToString();
+
+        /// <inheritdoc />
+        public ICollection<Type> ServiceTypes => new[] { typeof(IVirtualDisk) };
 
         /// <inheritdoc />
         public void Initialize()

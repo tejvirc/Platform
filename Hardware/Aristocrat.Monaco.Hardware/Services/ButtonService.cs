@@ -26,17 +26,9 @@
         private readonly IEventBus _bus;
         private readonly IIO _io;
 
-        private readonly ConcurrentDictionary<int, LogicalButton> _logicalButtons =
-            new ConcurrentDictionary<int, LogicalButton>();
+        private readonly ConcurrentDictionary<int, LogicalButton> _logicalButtons = new();
 
         private bool _disposed;
-
-        public ButtonService()
-            : this(
-                ServiceManager.GetInstance().GetService<IIO>(),
-                ServiceManager.GetInstance().GetService<IEventBus>())
-        {
-        }
 
         public ButtonService(IIO io, IEventBus bus)
         {
@@ -266,12 +258,6 @@
             return Enabled;
         }
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
         /// <inheritdoc />
         public string Name => "Button Service";
 
@@ -300,6 +286,12 @@
             Enable(EnabledReasons.Service);
 
             Logger.Info(Name + " initialized");
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         protected virtual void Dispose(bool disposing)

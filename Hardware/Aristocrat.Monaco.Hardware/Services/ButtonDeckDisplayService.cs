@@ -32,6 +32,7 @@
         private const int SharedMemBufferLength = BetButtonImageLength + BashButtonImageLength;
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private static readonly SemaphoreSlim DriverAccessSemaphore = new(1, 1);
 
         private readonly uint[] _frameId = { 0, 0 };
 
@@ -45,20 +46,11 @@
         private MemoryMappedViewStream _sharedMemStream;
 
         private Mutex _sharedMemMutex;
-        private static readonly SemaphoreSlim DriverAccessSemaphore = new(1, 1);
 
         private byte[] _virtualBashButtonImageData;
         private byte[] _virtualBetButtonImageData;
 
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="ButtonDeckDisplayService" /> class.
-        /// </summary>
-        public ButtonDeckDisplayService()
-            : this(
-                ServiceManager.GetInstance().GetService<IEventBus>(),
-                ServiceManager.GetInstance().GetService<IPropertiesManager>())
-        {
-        }
+        private bool _isInitialized;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ButtonDeckDisplayService" /> class.
@@ -187,25 +179,33 @@
             }
         }
 
-        private void InternalDraw(int displayIndex, IntPtr imageData, int imageLength)
+        public async Task<int> CalculateCrc(int seed)
         {
-            // Do we have the actual hardware device?
-            if (_displays[displayIndex] != null)
-            {
-                _displays[displayIndex].DrawScreen(imageData, imageLength);
-            }
-            else
-            {
-                var destBuffer = GetRenderedFrame(displayIndex);
-                if (destBuffer == null)
-                {
-                    return;
-                }
+            int result;
+            Crc = 0;
+            Seed = 0;
+            string displayName;
 
-                Marshal.Copy(imageData, destBuffer, 0, imageLength);
+            try
+            {
+                await DriverAccessSemaphore.WaitAsync();
+
+                displayName = _displays[0]?.Name;
+                result = _displays[0]?.SetConfigValue((int)ConfigValues.CrcCalculation, seed) ?? -1;
+            }
+            finally
+            {
+                DriverAccessSemaphore.Release();
             }
 
-            ++_frameId[displayIndex];
+            if (result >= 0)
+            {
+                Crc = GetCrcResult(_displays[0]);
+                Seed = seed;
+            }
+
+            Logger.Debug($"CalculateCrc: display: {displayName}, seed: {seed}, result: {result}, CRC: {Crc}");
+            return Crc;
         }
 
         /// <inheritdoc />
@@ -220,9 +220,6 @@
 
         /// <inheritdoc />
         public ICollection<Type> ServiceTypes => new[] { typeof(IButtonDeckDisplay) };
-
-
-        private bool _isInitialized;
 
         /// <inheritdoc />
         public void Initialize()
@@ -263,42 +260,10 @@
 
             _eventBus.Subscribe<DeviceConnectedEvent>(
                 this,
-                _ =>
-                {
-                    Task.Run(OpenDisplays);
-                },
+                _ => { Task.Run(OpenDisplays); },
                 x => x.Description == LcdButtonDeckDescription);
 
             Logger.Info("Initialized");
-        }
-
-        public async Task<int> CalculateCrc(int seed)
-        {
-            int result;
-            Crc = 0;
-            Seed = 0;
-            string displayName;
-
-            try
-            {
-                await DriverAccessSemaphore.WaitAsync();
-
-                displayName = _displays[0]?.Name;
-                result = _displays[0]?.SetConfigValue((int)ConfigValues.CrcCalculation, seed) ?? -1;
-            }
-            finally
-            {
-                DriverAccessSemaphore.Release();
-            }
-
-            if (result >= 0)
-            {
-                Crc = GetCrcResult(_displays[0]);
-                Seed = seed;
-            }
-
-            Logger.Debug($"CalculateCrc: display: {displayName}, seed: {seed}, result: {result}, CRC: {Crc}");
-            return Crc;
         }
 
         /// <summary>Disposes the service.</summary>
@@ -336,7 +301,8 @@
 
         private static void PrintDisplayInfo(UsbDisplay480 display)
         {
-            Logger.Debug($"{display.Name} has serial {display.Serial} with size {display.PixelWidth}x{display.PixelHeight} and firmware Id {display.FirmwareID}");
+            Logger.Debug(
+                $"{display.Name} has serial {display.Serial} with size {display.PixelWidth}x{display.PixelHeight} and firmware Id {display.FirmwareID}");
         }
 
         private static void ClearDisplay(UsbDisplay480 display)
@@ -358,33 +324,6 @@
             return Enumerable.Repeat(color.AsR5G6B5Color(), pixelCount).ToArray();
         }
 
-        private async Task OpenDisplays()
-        {
-            try
-            {
-                await DriverAccessSemaphore.WaitAsync();
-
-                CloseDisplays();
-
-                for (var i = 0; i < _displays.Length; i++)
-                {
-                    _displays[i] = OpenDisplay(i);
-                    if (_displays[i] == null)
-                    {
-                        return;
-                    }
-                }
-
-                Array.Sort(_displays, (x, y) => y.PixelWidth.CompareTo(x.PixelWidth));
-            }
-            finally
-            {
-                DriverAccessSemaphore.Release();
-            }
-
-            await CalculateCrc(0);
-        }
-
         private static UsbDisplay480 OpenDisplay(int i)
         {
             var display = new UsbDisplay480();
@@ -399,7 +338,6 @@
             ClearDisplay(display);
             return display;
         }
-
 
         private static int GetCrcResult(UsbDisplay480 display)
         {
@@ -451,6 +389,54 @@
             }
 
             return Task.FromResult(0);
+        }
+
+        private void InternalDraw(int displayIndex, IntPtr imageData, int imageLength)
+        {
+            // Do we have the actual hardware device?
+            if (_displays[displayIndex] != null)
+            {
+                _displays[displayIndex].DrawScreen(imageData, imageLength);
+            }
+            else
+            {
+                var destBuffer = GetRenderedFrame(displayIndex);
+                if (destBuffer == null)
+                {
+                    return;
+                }
+
+                Marshal.Copy(imageData, destBuffer, 0, imageLength);
+            }
+
+            ++_frameId[displayIndex];
+        }
+
+        private async Task OpenDisplays()
+        {
+            try
+            {
+                await DriverAccessSemaphore.WaitAsync();
+
+                CloseDisplays();
+
+                for (var i = 0; i < _displays.Length; i++)
+                {
+                    _displays[i] = OpenDisplay(i);
+                    if (_displays[i] == null)
+                    {
+                        return;
+                    }
+                }
+
+                Array.Sort(_displays, (x, y) => y.PixelWidth.CompareTo(x.PixelWidth));
+            }
+            finally
+            {
+                DriverAccessSemaphore.Release();
+            }
+
+            await CalculateCrc(0);
         }
 
         private void CloseDisplays()

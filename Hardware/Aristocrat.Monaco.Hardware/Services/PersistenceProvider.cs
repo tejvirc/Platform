@@ -5,32 +5,18 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Contracts.Persistence;
-    using JetBrains.Annotations;
     using Kernel;
     using Persistence;
 
     /// <summary> A persistence provider. </summary>
-    /// <seealso cref="IPersistenceProvider"/>
+    /// <seealso cref="IPersistenceProvider" />
     public class PersistenceProvider : IPersistenceProvider, IService
     {
         private readonly IEventBus _eventBus;
         private readonly IPathMapper _pathMapper;
-        private KeyAccessor _accessor;
 
         private readonly ConcurrentDictionary<string, IPersistentBlock> _persistentBlocks = new();
-
-        /// <inheritdoc/>
-        public string Name => GetType().ToString();
-
-        /// <inheritdoc/>
-        public ICollection<Type> ServiceTypes => new[] { typeof(IPersistenceProvider) };
-
-        public PersistenceProvider()
-            : this(
-                ServiceManager.GetInstance().GetService<IEventBus>(),
-                ServiceManager.GetInstance().GetService<IPathMapper>())
-        {
-        }
+        private KeyAccessor _accessor;
 
         public PersistenceProvider(IEventBus eventBus, IPathMapper pathMapper)
         {
@@ -38,33 +24,7 @@
             _pathMapper = pathMapper ?? throw new ArgumentNullException(nameof(pathMapper));
         }
 
-        /// <inheritdoc/>
-        public void Initialize()
-        {
-            _accessor = new KeyAccessor(new SqlitePersistentStore(_pathMapper));
-            var block = GetOrCreateBlock(KeyConstants.LevelStaticClearedKey, PersistenceLevel.Static);
-            block.SetValue(new LevelClearedInfo
-            {
-                LastClearTime = DateTime.Now
-            });
-
-            block = GetOrCreateBlock(KeyConstants.LevelCriticalClearedKey, PersistenceLevel.Critical);
-            block.SetValue(new LevelClearedInfo
-            {
-                LastClearTime = DateTime.Now,
-                JustExecuted = true
-            });
-
-            block = GetOrCreateBlock(KeyConstants.LevelTransientClearedKey, PersistenceLevel.Transient);
-            block.SetValue(new LevelClearedInfo
-            {
-                LastClearTime = DateTime.Now
-            });
-
-            _eventBus.Subscribe<PersistentStorageClearReadyEvent>(this, HandleEvent);
-        }
-
-        /// <inheritdoc/>
+        /// <inheritdoc />
         public IPersistentBlock GetBlock(string key)
         {
             if (_persistentBlocks.TryGetValue(key, out var block))
@@ -83,7 +43,7 @@
             return _persistentBlocks.TryAdd(key, block) ? block : null;
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         public IPersistentBlock GetOrCreateBlock(string key, PersistenceLevel level)
         {
             var block = GetBlock(key);
@@ -101,22 +61,45 @@
             return _persistentBlocks.TryAdd(key, block) ? block : null;
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         public IScopedTransaction ScopedTransaction()
         {
             return ScopedTransactionHolder.CreateTransaction(_accessor);
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         public async Task Verify(bool full)
         {
-            await Task.Run(() =>
-            {
-                if (!_accessor.Verify(full))
+            await Task.Run(
+                () =>
                 {
-                    PostEvent(new PersistentStorageIntegrityCheckFailedEvent());
-                }
-            });
+                    if (!_accessor.Verify(full))
+                    {
+                        PostEvent(new PersistentStorageIntegrityCheckFailedEvent());
+                    }
+                });
+        }
+
+        /// <inheritdoc />
+        public string Name => GetType().ToString();
+
+        /// <inheritdoc />
+        public ICollection<Type> ServiceTypes => new[] { typeof(IPersistenceProvider) };
+
+        /// <inheritdoc />
+        public void Initialize()
+        {
+            _accessor = new KeyAccessor(new SqlitePersistentStore(_pathMapper));
+            var block = GetOrCreateBlock(KeyConstants.LevelStaticClearedKey, PersistenceLevel.Static);
+            block.SetValue(new LevelClearedInfo { LastClearTime = DateTime.Now });
+
+            block = GetOrCreateBlock(KeyConstants.LevelCriticalClearedKey, PersistenceLevel.Critical);
+            block.SetValue(new LevelClearedInfo { LastClearTime = DateTime.Now, JustExecuted = true });
+
+            block = GetOrCreateBlock(KeyConstants.LevelTransientClearedKey, PersistenceLevel.Transient);
+            block.SetValue(new LevelClearedInfo { LastClearTime = DateTime.Now });
+
+            _eventBus.Subscribe<PersistentStorageClearReadyEvent>(this, HandleEvent);
         }
 
         protected virtual void HandleEvent(PersistentStorageClearReadyEvent @event)
@@ -131,18 +114,9 @@
             var block = GetBlock(key);
             block.SetValue(
                 key,
-                new LevelClearedInfo
-                {
-                    LastClearTime = DateTime.Now,
-                    JustExecuted = true
-                });
+                new LevelClearedInfo { LastClearTime = DateTime.Now, JustExecuted = true });
 
             PostEvent(new PersistentStorageClearedEvent(@event.Level));
-        }
-
-        private void PostEvent<T>(T @event) where T : IEvent
-        {
-            _eventBus.Publish(@event);
         }
 
         private static string LevelClearedKey(PersistenceLevel level)
@@ -154,6 +128,11 @@
                 PersistenceLevel.Transient => KeyConstants.LevelTransientClearedKey,
                 _ => string.Empty
             };
+        }
+
+        private void PostEvent<T>(T @event) where T : IEvent
+        {
+            _eventBus.Publish(@event);
         }
     }
 }

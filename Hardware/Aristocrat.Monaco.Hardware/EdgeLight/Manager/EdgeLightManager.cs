@@ -6,7 +6,6 @@
     using System.Linq;
     using System.Reflection;
     using Contracts;
-    using Device;
     using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.EdgeLighting;
     using Kernel;
@@ -26,11 +25,11 @@
 
         private readonly IEdgeLightDevice _edgeLightDevice;
 
-        private readonly object _lock = new object();
+        private readonly object _lock = new();
 
         private readonly ILogicalStripFactory _logicalStripFactory;
 
-        private readonly List<int> _platformControlledColorStrips = new List<int>
+        private readonly List<int> _platformControlledColorStrips = new()
         {
             (int)StripIDs.LandingStripLeft,
             (int)StripIDs.LandingStripRight,
@@ -46,21 +45,6 @@
         private bool _connectionStatus;
         private bool _disposed;
         private IDictionary<int, IStrip> _logicalStrips = new Dictionary<int, IStrip>();
-
-        public EdgeLightManager()
-            : this(new PriorityComparer())
-        {
-        }
-
-        public EdgeLightManager(PriorityComparer priorityComparer)
-            : this(
-                new LogicalStripFactory(),
-                new DeviceMultiplexer(ServiceManager.GetInstance().GetService<IEdgeLightDeviceFactory>()),
-                new StripDataRenderer(priorityComparer),
-                priorityComparer,
-                ServiceManager.GetInstance().GetService<IEventBus>())
-        {
-        }
 
         public EdgeLightManager(
             ILogicalStripFactory logicalStripFactory,

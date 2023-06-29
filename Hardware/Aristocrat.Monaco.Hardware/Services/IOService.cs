@@ -24,6 +24,7 @@
     using Constants = Kernel.Contracts.Components.Constants;
     using DisabledEvent = Contracts.IO.DisabledEvent;
     using EnabledEvent = Contracts.IO.EnabledEvent;
+    using ErrorEventId = NativeOS.Services.IO.ErrorEventId;
     using Timer = System.Timers.Timer;
 
     /// <summary>
@@ -38,12 +39,6 @@
     public class IOService : BaseRunnable, IDeviceService, IIO
     {
         private const int IOPollTimeMs = 100;
-
-        private readonly IEventBus _eventBus;
-        private readonly IComponentRegistry _componentRegistry;
-        private readonly IIOProvider _inputOutput;
-        private readonly ICabinetDetectionService _cabinetService;
-        private readonly ISerialPortsService _serialPortsService;
         private const ulong IntrusionMasks = 0X3F;
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
@@ -52,7 +47,14 @@
         private static readonly AutoResetEvent Poll = new(true);
 
         private static readonly object QueuedEventsLock = new();
+
+        private readonly IEventBus _eventBus;
+        private readonly IComponentRegistry _componentRegistry;
+        private readonly IIOProvider _inputOutput;
+        private readonly ICabinetDetectionService _cabinetService;
+        private readonly ISerialPortsService _serialPortsService;
         private readonly Collection<IEvent> _queuedEvents = new();
+        private readonly IReadOnlyDictionary<int, Doors> _doorsMap;
 
         private bool _hardMeterStoppedResponding;
 
@@ -60,7 +62,6 @@
         private bool _pendingInspectionFailedEvent;
         private bool _platformBooted;
         private bool _postedInspectionFailedEvent;
-        private readonly IReadOnlyDictionary<int, Doors> _doorsMap;
 
         public IOService(
             IEventBus eventBus,
@@ -88,19 +89,6 @@
             };
         }
 
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="IOService" /> class.
-        /// </summary>
-        public IOService()
-            : this(
-                ServiceManager.GetInstance().GetService<IEventBus>(),
-                ServiceManager.GetInstance().GetService<IComponentRegistry>(),
-                ServiceManager.GetInstance().GetService<ICabinetDetectionService>(),
-                ServiceManager.GetInstance().GetService<ISerialPortsService>(),
-                IOFactory.CreateIOProvider())
-        {
-        }
-
         /// <summary>Gets or sets the last enabled logical state.</summary>
         /// <returns>Last enabled logical state.</returns>
         private static IOLogicalState LastEnabledLogicalState { get; set; }
@@ -120,10 +108,6 @@
 
         /// <inheritdoc />
         public string ServiceProtocol { get; set; } = @"Gen8";
-
-        /// <summary>Get whether the carrier board was removed during power-down or changed.</summary>
-        /// <returns>true if board was removed, else false</returns>
-        public bool WasCarrierBoardRemoved => _inputOutput.WasCarrierBoardRemoved;
 
         /// <inheritdoc />
         [CLSCompliant(false)]
@@ -189,6 +173,14 @@
 
             return Enabled;
         }
+
+        public string Name => nameof(IOService);
+
+        public ICollection<Type> ServiceTypes => new[] { typeof(IIO) };
+
+        /// <summary>Get whether the carrier board was removed during power-down or changed.</summary>
+        /// <returns>true if board was removed, else false</returns>
+        public bool WasCarrierBoardRemoved => _inputOutput.WasCarrierBoardRemoved;
 
         /// <inheritdoc />
         [CLSCompliant(false)]
@@ -424,10 +416,6 @@
             return _inputOutput.SetMultipurposeInputOutput(bankOn);
         }
 
-        public string Name => nameof(IOService);
-
-        public ICollection<Type> ServiceTypes => new[] { typeof(IIO) };
-
         protected override void OnInitialize()
         {
             if (string.IsNullOrEmpty(ServiceProtocol))
@@ -652,7 +640,7 @@
                     formattedBits.Append(' ');
                 }
 
-                formattedBits.Append((value & (1UL << i)) != 0 ?'1' : '0');
+                formattedBits.Append((value & (1UL << i)) != 0 ? '1' : '0');
             }
 
             return formattedBits.ToString();
@@ -758,17 +746,17 @@
         {
             switch (e.Error)
             {
-                case NativeOS.Services.IO.ErrorEventId.None:
-                case NativeOS.Services.IO.ErrorEventId.Read:
-                case NativeOS.Services.IO.ErrorEventId.Write:
-                case NativeOS.Services.IO.ErrorEventId.WatchdogDisableFailure:
-                case NativeOS.Services.IO.ErrorEventId.WatchdogResetFailure:
+                case ErrorEventId.None:
+                case ErrorEventId.Read:
+                case ErrorEventId.Write:
+                case ErrorEventId.WatchdogDisableFailure:
+                case ErrorEventId.WatchdogResetFailure:
                     Logger.Info($"Handled ErrorEventId {e.Error}");
                     break;
-                case NativeOS.Services.IO.ErrorEventId.InputFailure:
-                case NativeOS.Services.IO.ErrorEventId.OutputFailure:
-                case NativeOS.Services.IO.ErrorEventId.InvalidHandle:
-                case NativeOS.Services.IO.ErrorEventId.ReadBoardInfoFailure:
+                case ErrorEventId.InputFailure:
+                case ErrorEventId.OutputFailure:
+                case ErrorEventId.InvalidHandle:
+                case ErrorEventId.ReadBoardInfoFailure:
                     Logger.Info($"Handled ErrorEventId {e.Error}");
 
                     if (LogicalState == IOLogicalState.Uninitialized && !_postedInspectionFailedEvent)
@@ -807,7 +795,7 @@
 
             var component = new Component
             {
-                ComponentId = ($"ATI_{componentId}").Replace(" ", "_"),
+                ComponentId = $"ATI_{componentId}".Replace(" ", "_"),
                 Description = description,
                 Path = path,
                 Size = size,

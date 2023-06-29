@@ -2,20 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Linq;
-    using System.Management;
-    using System.Reflection;
-    using System.Runtime.InteropServices;
     using System.Threading;
-    using System.Windows;
-    using System.Windows.Interop;
     using Common;
     using Contracts.Cabinet;
-    using JetBrains.Annotations;
     using Kernel;
-    using log4net;
-    using Microsoft.Win32;
     using NativeUsb.DeviceWatcher;
 
     internal sealed class DeviceWatcher : IDisposable, IService
@@ -23,13 +13,6 @@
         private readonly IEventBus _eventBus;
         private readonly IDeviceWatcher _deviceWatcher;
         private bool _disposed;
-
-        public DeviceWatcher()
-            : this(
-                ServiceManager.GetInstance().GetService<IEventBus>(),
-                DeviceWatcherFactory.CreateDeviceWatcher())
-        {
-        }
 
         public DeviceWatcher(IEventBus eventBus, IDeviceWatcher deviceWatcher)
         {

@@ -17,168 +17,38 @@
     [TestClass]
     public class EdgeLightSharedMemoryManagerTest
     {
-        private readonly List<int> _gameStripIdsList = new List<int>();
+        private readonly List<int> _gameStripIdsList = new();
         private int _brightnessSentFromGame;
         private Header _header;
-        private Mock<ILogicalStripFactory> _logicalStripFactoryMoq = new Mock<ILogicalStripFactory>();
+        private Mock<ILogicalStripFactory> _logicalStripFactoryMoq = new();
         private List<Mock<IStrip>> _logicalStripMocks;
         private List<IStrip> _logicalStrips;
         private MemoryMappedFile _sharedMem;
         private Mutex _sharedMemMutex;
         private MemoryMappedViewStream _sharedMemoryStream;
         private SharedMemoryManager _sharedMemoryManager;
+        private List<Color> _colors;
 
         private string SharedMutexName { get; set; } = "TestEdgeLightSharedMutex";
+
         private string SharedMemoryName { get; set; } = "TestEdgeLightSharedMemory";
-        private List<Color> _colors;
 
         [TestInitialize]
         public void Setup()
         {
             _logicalStripMocks = new List<Mock<IStrip>>
             {
-                new Mock<IStrip>(),
-                new Mock<IStrip>(),
-                new Mock<IStrip>(),
-                new Mock<IStrip>(),
-                new Mock<IStrip>(MockBehavior.Strict)
+                new(),
+                new(),
+                new(),
+                new(),
+                new(MockBehavior.Strict)
             };
 
             _logicalStripFactoryMoq = new Mock<ILogicalStripFactory>(MockBehavior.Strict);
 
             MoqServiceManager.CreateInstance(MockBehavior.Default);
             _header = new Header();
-        }
-
-        private void SetupLogicalStrips()
-        {
-            _logicalStrips = _logicalStripMocks.Select(x => x.Object).ToList();
-            _logicalStripFactoryMoq.Setup(x => x.GetLogicalStrips(It.IsAny<IReadOnlyCollection<IStrip>>()))
-                .Returns(_logicalStrips);
-            var stripId = 0;
-            foreach (var logicalStripMock in _logicalStripMocks)
-            {
-                logicalStripMock.SetupGet(x => x.StripId).Returns(stripId++);
-                logicalStripMock.SetupGet(x => x.LedCount).Returns(24);
-            }
-        }
-
-        private void SetupSharedMemory(
-            bool setupLogicalStrips,
-            string sharedMemoryName = null,
-            string sharedMutexName = null)
-        {
-            if (setupLogicalStrips)
-            {
-                SetupLogicalStrips();
-            }
-
-            SharedMemoryName = sharedMemoryName ?? SharedMemoryName;
-            SharedMutexName = sharedMutexName ?? SharedMutexName;
-            _sharedMemoryManager?.Dispose();
-            _sharedMemoryManager = new SharedMemoryManager(
-                SharedMemoryName,
-                SharedMutexName);
-        }
-
-        private void OpenExistingMemory(string sharedMemoryName, string sharedMutexName)
-        {
-            _sharedMemMutex?.Dispose();
-            _sharedMem?.Dispose();
-            _sharedMemoryStream?.Dispose();
-            _sharedMemMutex = Mutex.OpenExisting(sharedMutexName);
-            _sharedMem = MemoryMappedFile.OpenExisting(sharedMemoryName, MemoryMappedFileRights.ReadWrite);
-            _sharedMemoryStream = _sharedMem.CreateViewStream();
-        }
-
-        private IList<int> ReadHeaderData(UnmanagedMemoryAccessor accessor)
-        {
-            const int start = 0;
-            var strips = new int[_header.DataBytes.Length];
-            accessor.ReadArray(start, strips, 0, strips.Length);
-            return strips.ToList();
-        }
-
-        private (int stripCount, List<int> platfromData) ReadPlatformData(UnmanagedMemoryAccessor accessor)
-        {
-            var start = _header.PlatformOffset;
-            var stripCount = accessor.ReadInt32(start);
-            start += sizeof(int);
-            var strips = new int[stripCount * 2];
-            accessor.ReadArray(start, strips, 0, strips.Length);
-            return (stripCount, strips.ToList());
-        }
-
-        private void WriteGameData(UnmanagedMemoryAccessor accessor, int brightness, IReadOnlyCollection<int> strips)
-        {
-            var start = _header.GameOffset;
-            accessor.Write(start, brightness);
-            start += sizeof(int);
-            accessor.Write(start, strips.Count);
-            start += sizeof(int);
-            accessor.WriteArray(
-                start,
-                strips.ToArray(),
-                0,
-                strips.ToArray().Length);
-        }
-
-        private void DoAccessorAction(Action<MemoryMappedViewAccessor> action)
-        {
-            try
-            {
-                _sharedMemMutex.WaitOne();
-                using (var accessor = _sharedMem.CreateViewAccessor(
-                    0,
-                    _header.TotalSize,
-                    MemoryMappedFileAccess.ReadWrite))
-                {
-                    action(accessor);
-                }
-            }
-            finally
-            {
-                // Let runtime host access the shared memory for writing.
-                _sharedMemMutex.ReleaseMutex();
-            }
-        }
-
-        private void SetData(int stripId, List<Color> colorList = null)
-        {
-            _colors = colorList ?? new List<Color> { Color.Blue, Color.Black, Color.Transparent, Color.White };
-            WritePlatformData(_colors.ToArray(), stripId);
-        }
-
-        private void WritePlatformData(IEnumerable<Color> colors, int stripId)
-        {
-            try
-            {
-                _sharedMemMutex.WaitOne();
-                _sharedMemoryStream.Seek(
-                    _header.HeaderSize +
-                    (stripId & 0xFF)
-                    * EdgeLightConstants.StrideLength,
-                    SeekOrigin.Begin);
-                foreach (var color in colors)
-                {
-                    var temp = BitConverter.GetBytes(color.ToArgb()).Reverse().ToArray();
-                    var count = temp.Length;
-                    _sharedMemoryStream.Write(
-                        temp,
-                        0,
-                        count);
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-            finally
-            {
-                _sharedMemMutex.ReleaseMutex();
-            }
-
         }
 
         [TestCleanup]
@@ -192,17 +62,16 @@
         [TestMethod]
         public void CallingWithDefault()
         {
-            _sharedMemoryManager = new SharedMemoryManager();
+            _sharedMemoryManager = new SharedMemoryManager(new SharedMemoryInformation());
         }
 
         [TestMethod]
         public void CallingDisposeAfterAlreadyDisposed()
         {
-            _sharedMemoryManager = new SharedMemoryManager();
+            _sharedMemoryManager = new SharedMemoryManager(new SharedMemoryInformation());
             _sharedMemoryManager.Dispose();
             _sharedMemoryManager.Dispose();
         }
-
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
@@ -431,12 +300,6 @@
             CollectionAssert.AreNotEquivalent(flatPlatformList.ToList(), readPlatformData.Item2);
         }
 
-        private void AbandonMutex()
-        {
-            _sharedMemMutex.WaitOne();
-            // Abandon the mutexes by exiting without releasing them.
-        }
-
         [TestMethod]
         public void WhenAbandonedMutexExceptionIsRaised()
         {
@@ -461,6 +324,141 @@
             Assert.AreEqual(writtenPlatformData.Count, readPlatformData.Item1);
             flatPlatformList.RemoveAt(5);
             Assert.IsFalse(flatPlatformList.SequenceEqual(readPlatformData.Item2));
+        }
+
+        private void SetupLogicalStrips()
+        {
+            _logicalStrips = _logicalStripMocks.Select(x => x.Object).ToList();
+            _logicalStripFactoryMoq.Setup(x => x.GetLogicalStrips(It.IsAny<IReadOnlyCollection<IStrip>>()))
+                .Returns(_logicalStrips);
+            var stripId = 0;
+            foreach (var logicalStripMock in _logicalStripMocks)
+            {
+                logicalStripMock.SetupGet(x => x.StripId).Returns(stripId++);
+                logicalStripMock.SetupGet(x => x.LedCount).Returns(24);
+            }
+        }
+
+        private void SetupSharedMemory(
+            bool setupLogicalStrips,
+            string sharedMemoryName = null,
+            string sharedMutexName = null)
+        {
+            if (setupLogicalStrips)
+            {
+                SetupLogicalStrips();
+            }
+
+            SharedMemoryName = sharedMemoryName ?? SharedMemoryName;
+            SharedMutexName = sharedMutexName ?? SharedMutexName;
+            _sharedMemoryManager?.Dispose();
+            _sharedMemoryManager = new SharedMemoryManager(
+                new SharedMemoryInformation { MemoryName = SharedMemoryName, MutexName = SharedMutexName });
+        }
+
+        private void OpenExistingMemory(string sharedMemoryName, string sharedMutexName)
+        {
+            _sharedMemMutex?.Dispose();
+            _sharedMem?.Dispose();
+            _sharedMemoryStream?.Dispose();
+            _sharedMemMutex = Mutex.OpenExisting(sharedMutexName);
+            _sharedMem = MemoryMappedFile.OpenExisting(sharedMemoryName, MemoryMappedFileRights.ReadWrite);
+            _sharedMemoryStream = _sharedMem.CreateViewStream();
+        }
+
+        private IList<int> ReadHeaderData(UnmanagedMemoryAccessor accessor)
+        {
+            const int start = 0;
+            var strips = new int[_header.DataBytes.Length];
+            accessor.ReadArray(start, strips, 0, strips.Length);
+            return strips.ToList();
+        }
+
+        private (int stripCount, List<int> platfromData) ReadPlatformData(UnmanagedMemoryAccessor accessor)
+        {
+            var start = _header.PlatformOffset;
+            var stripCount = accessor.ReadInt32(start);
+            start += sizeof(int);
+            var strips = new int[stripCount * 2];
+            accessor.ReadArray(start, strips, 0, strips.Length);
+            return (stripCount, strips.ToList());
+        }
+
+        private void WriteGameData(UnmanagedMemoryAccessor accessor, int brightness, IReadOnlyCollection<int> strips)
+        {
+            var start = _header.GameOffset;
+            accessor.Write(start, brightness);
+            start += sizeof(int);
+            accessor.Write(start, strips.Count);
+            start += sizeof(int);
+            accessor.WriteArray(
+                start,
+                strips.ToArray(),
+                0,
+                strips.ToArray().Length);
+        }
+
+        private void DoAccessorAction(Action<MemoryMappedViewAccessor> action)
+        {
+            try
+            {
+                _sharedMemMutex.WaitOne();
+                using (var accessor = _sharedMem.CreateViewAccessor(
+                           0,
+                           _header.TotalSize,
+                           MemoryMappedFileAccess.ReadWrite))
+                {
+                    action(accessor);
+                }
+            }
+            finally
+            {
+                // Let runtime host access the shared memory for writing.
+                _sharedMemMutex.ReleaseMutex();
+            }
+        }
+
+        private void SetData(int stripId, List<Color> colorList = null)
+        {
+            _colors = colorList ?? new List<Color> { Color.Blue, Color.Black, Color.Transparent, Color.White };
+            WritePlatformData(_colors.ToArray(), stripId);
+        }
+
+        private void WritePlatformData(IEnumerable<Color> colors, int stripId)
+        {
+            try
+            {
+                _sharedMemMutex.WaitOne();
+                _sharedMemoryStream.Seek(
+                    _header.HeaderSize +
+                    (stripId & 0xFF)
+                    * EdgeLightConstants.StrideLength,
+                    SeekOrigin.Begin);
+                foreach (var color in colors)
+                {
+                    var temp = BitConverter.GetBytes(color.ToArgb()).Reverse().ToArray();
+                    var count = temp.Length;
+                    _sharedMemoryStream.Write(
+                        temp,
+                        0,
+                        count);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            finally
+            {
+                _sharedMemMutex.ReleaseMutex();
+            }
+        }
+
+        private void AbandonMutex()
+        {
+            _sharedMemMutex.WaitOne();
+            // Abandon the mutexes by exiting without releasing them.
         }
     }
 }

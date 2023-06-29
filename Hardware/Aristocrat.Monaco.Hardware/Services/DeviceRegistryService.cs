@@ -13,11 +13,6 @@
     {
         private readonly IServiceManager _services;
 
-        public DeviceRegistryService()
-            : this(ServiceManager.GetInstance())
-        {
-        }
-
         public DeviceRegistryService(IServiceManager services)
         {
             _services = services ?? throw new ArgumentNullException(nameof(services));

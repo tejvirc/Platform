@@ -22,16 +22,6 @@
         private readonly List<SerialPortInfo> _logicalSerialPorts = new();
         private readonly IList<SerialPortInfo> _serialPorts;
 
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="SerialPortsService" /> class.
-        /// </summary>
-        public SerialPortsService()
-            : this(
-                new SerialPortEnumerator(),
-                ServiceManager.GetInstance().GetService<ICabinetDetectionService>())
-        {
-        }
-
         public SerialPortsService(SerialPortEnumerator enumerator, ICabinetDetectionService cabinetService)
         {
             _cabinetIdentificationService = cabinetService ?? throw new ArgumentNullException(nameof(cabinetService));

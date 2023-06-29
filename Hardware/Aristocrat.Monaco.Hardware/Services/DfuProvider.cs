@@ -10,8 +10,6 @@
     using Contracts;
     using Contracts.Dfu;
     using Contracts.SharedDevice;
-    using DFU;
-    using Kernel;
     using log4net;
 
     /// <summary>A dfu provider.</summary>
@@ -28,11 +26,6 @@
         private readonly ConcurrentDictionary<int, ConcurrentDictionary<int, IDfuAdapter>> _adapters = new();
 
         private readonly ConcurrentDictionary<(int VendorId, int ProductId), IDfuAdapter> _downloads = new();
-
-        public DfuProvider()
-            : this(new DfuFactory(ServiceManager.GetInstance().GetService<IEventBus>()))
-        {
-        }
 
         public DfuProvider(IDfuFactory dfuFactory)
         {

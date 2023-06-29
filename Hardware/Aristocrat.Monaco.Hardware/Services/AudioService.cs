@@ -16,6 +16,7 @@
     using Kernel;
     using Kernel.Contracts;
     using log4net;
+    using Properties;
 
     /// <summary>
     ///     An audio service provider.
@@ -33,11 +34,11 @@
         private readonly IEventBus _bus;
         private readonly ISystemDisableManager _disableManager;
         private readonly IPropertiesManager _properties;
-        private readonly object _lock = new object();
-        private readonly ConcurrentDictionary<string, Sound> _sounds = new ConcurrentDictionary<string, Sound>();
-        private readonly ConcurrentQueue<Action> _callbackQueue = new ConcurrentQueue<Action>();
+        private readonly object _lock = new();
+        private readonly ConcurrentDictionary<string, Sound> _sounds = new();
+        private readonly ConcurrentQueue<Action> _callbackQueue = new();
 
-        private readonly Dictionary<VolumeScalar, float> _volumeScalars = new Dictionary<VolumeScalar, float>
+        private readonly Dictionary<VolumeScalar, float> _volumeScalars = new()
         {
             { VolumeScalar.Scale20, 0.100f },
             { VolumeScalar.Scale40, 0.177f },
@@ -46,7 +47,7 @@
             { VolumeScalar.Scale100, 1.000f }
         };
 
-        private readonly Dictionary<VolumeLevel, float> _volumePresets = new Dictionary<VolumeLevel, float>
+        private readonly Dictionary<VolumeLevel, float> _volumePresets = new()
         {
             { VolumeLevel.ExtraLow, 1.5f },
             { VolumeLevel.Low, 3.0f },
@@ -64,17 +65,6 @@
         private Timer _pollingTimer;
         private bool _disposed;
 
-        public AudioService()
-            : this(
-                ServiceManager.GetInstance().GetService<IPropertiesManager>(),
-                ServiceManager.GetInstance().GetService<IEventBus>(),
-                ServiceManager.GetInstance().GetService<ISystemDisableManager>())
-        {
-            _pollingTimer = new Timer(UpdateLoopPollingInterval);
-            _pollingTimer.Elapsed += PollingTimerOnElapsed;
-            _pollingTimer.AutoReset = true;
-        }
-
         public AudioService(IPropertiesManager properties, IEventBus bus, ISystemDisableManager disableManager)
         {
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
@@ -82,6 +72,10 @@
             _disableManager = disableManager ?? throw new ArgumentNullException(nameof(disableManager));
             _callback = ChannelCallback;
             SetSystemMuted(false);
+
+            _pollingTimer = new Timer(UpdateLoopPollingInterval);
+            _pollingTimer.Elapsed += PollingTimerOnElapsed;
+            _pollingTimer.AutoReset = true;
         }
 
         public event EventHandler PlayEnded;
@@ -282,31 +276,6 @@
             GC.SuppressFinalize(this);
         }
 
-        /// <inheritdoc />
-        public string Name => GetType().Name;
-
-        /// <inheritdoc />
-        public ICollection<Type> ServiceTypes => new[] { typeof(IAudio) };
-
-        /// <inheritdoc />
-        public void Initialize()
-        {
-            Logger.Debug("Initializing Audio Service");
-
-            AudioManager.RegisterEndpointNotificationCallback(this);
-
-            if (AudioManager.IsSpeakerDeviceAvailable())
-            {
-                _bus.Publish(new EnabledEvent(EnabledReasons.Device));
-
-                CreateSoundSystem();
-            }
-            else
-            {
-                Disable();
-            }
-        }
-
         public void OnDeviceStateChanged(string deviceId, DeviceState newState)
         {
             Logger.Info($"OnDeviceStateChanged {deviceId} - {newState}");
@@ -334,7 +303,7 @@
                         _disableManager.Disable(
                             AudioReconnectedLock,
                             SystemDisablePriority.Immediate,
-                            () => Properties.Resources.AudioConnected);
+                            () => Resources.AudioConnected);
                         _disableManager.Enable(AudioDisconnectedLock);
                     }
 
@@ -368,6 +337,31 @@
         public void OnPropertyValueChanged(string deviceId, AudioProperty propertyKey)
         {
             Logger.Info($"OnDefaultDeviceChanged {deviceId} {propertyKey}");
+        }
+
+        /// <inheritdoc />
+        public string Name => GetType().Name;
+
+        /// <inheritdoc />
+        public ICollection<Type> ServiceTypes => new[] { typeof(IAudio) };
+
+        /// <inheritdoc />
+        public void Initialize()
+        {
+            Logger.Debug("Initializing Audio Service");
+
+            AudioManager.RegisterEndpointNotificationCallback(this);
+
+            if (AudioManager.IsSpeakerDeviceAvailable())
+            {
+                _bus.Publish(new EnabledEvent(EnabledReasons.Device));
+
+                CreateSoundSystem();
+            }
+            else
+            {
+                Disable();
+            }
         }
 
         protected virtual void Dispose(bool disposing)
@@ -412,7 +406,7 @@
 
                         if (!Load(file))
                         {
-                            return; 
+                            return;
                         }
 
                         if (!_sounds.TryGetValue(file, out var sound))
@@ -545,7 +539,7 @@
             _disableManager.Disable(
                 AudioDisconnectedLock,
                 SystemDisablePriority.Immediate,
-                () => Properties.Resources.AudioDisconnect);
+                () => Resources.AudioDisconnect);
         }
 
         private void PollingTimerOnElapsed(object sender, ElapsedEventArgs e)

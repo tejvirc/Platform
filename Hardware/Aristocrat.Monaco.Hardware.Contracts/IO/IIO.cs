@@ -182,7 +182,7 @@
         string GetFirmwareVersion(FirmwareData location);
 
         /// <summary>
-        /// Tests the specified battery
+        ///     Tests the specified battery
         /// </summary>
         /// <param name="batteryIndex"></param>
         /// <returns></returns>

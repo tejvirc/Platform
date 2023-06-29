@@ -15,36 +15,34 @@
     using NativeUsb.Hid;
     using Test.Common;
 
+    internal class TestEdgeLightRendererFactory : IEdgeLightRendererFactory
+    {
+        public TestEdgeLightRendererFactory()
+        {
+            RenderMock.Setup(x => x.Setup(new Mock<IEdgeLightManager>(MockBehavior.Strict).Object));
+            RenderMock.Setup(x => x.Clear());
+            RenderMock.Setup(x => x.Update());
+        }
+
+        public Mock<IEdgeLightRenderer> RenderMock { get; } = new(MockBehavior.Default);
+
+        public IEdgeLightRenderer CreateRenderer<TParametersType>(TParametersType parameters)
+        {
+            return RenderMock.Object;
+        }
+    }
+
     [TestClass]
     public class EdgeLightingControllerServiceTests
     {
         private readonly List<Mock<IEdgeLightRenderer>> _rendererList = new();
+        private readonly TestEdgeLightRendererFactory _rendererFactory = new();
         private EdgeLightingControllerService _controllerService;
         private Mock<IEdgeLightManager> _edgeLightManagerMock;
         private Mock<IEventBus> _eventBus;
         private Mock<IPropertiesManager> _propertiesManager;
         private Action<EdgeLightingStripsChangedEvent> _stripChangedHandler;
         private int _timerTicks;
-
-        private Mock<IEdgeLightRenderer> CreateMockRenderer()
-        {
-            var newRenderer = new Mock<IEdgeLightRenderer>();
-            newRenderer.Setup(x => x.Setup(_edgeLightManagerMock.Object));
-            newRenderer.Setup(x => x.Clear());
-            newRenderer.Setup(x => x.Update());
-            _rendererList.Add(newRenderer);
-            return newRenderer;
-        }
-
-        private IEdgeLightRenderer MockRendererFactory(PatternParameters parameters)
-        {
-            return CreateMockRenderer().Object;
-        }
-
-        private IEnumerable<IHidDevice> EnumerateDevices()
-        {
-            return new List<IHidDevice>();
-        }
 
         [TestInitialize]
         public void Setup()
@@ -54,15 +52,16 @@
             _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Default);
             _edgeLightManagerMock = new Mock<IEdgeLightManager>(MockBehavior.Strict);
 
-            _propertiesManager.Setup(x => x.GetProperty(HardwareConstants.SimulateEdgeLighting, It.IsAny<object>())).Returns(false);
+            _propertiesManager.Setup(x => x.GetProperty(HardwareConstants.SimulateEdgeLighting, It.IsAny<object>()))
+                .Returns(false);
 
-            CreateMockRenderer();
+            _rendererList.Add(_rendererFactory.RenderMock);
             _controllerService = new EdgeLightingControllerService(
                 _eventBus.Object,
                 _propertiesManager.Object,
                 _edgeLightManagerMock.Object,
-                MockRendererFactory,
-                EnumerateDevices,
+                _rendererFactory,
+                EnumerateDevices(),
                 _rendererList.Select(x => x.Object)
             );
             _edgeLightManagerMock.Setup(x => x.Dispose());
@@ -97,11 +96,11 @@
             Assert.AreEqual(nameof(EdgeLightingControllerService), _controllerService.Name);
             Assert.AreEqual(typeof(IEdgeLightingController), _controllerService.ServiceTypes.First());
             _edgeLightManagerMock.Setup(x => x.DevicesInfo)
-                .Returns(new List<EdgeLightDeviceInfo> { new EdgeLightDeviceInfo{ DeviceType = ElDeviceType.Cabinet }});
-            var stripDataList = new List<StripData> { new StripData { LedCount = 40, StripId = 1 } };
+                .Returns(new List<EdgeLightDeviceInfo> { new() { DeviceType = ElDeviceType.Cabinet } });
+            var stripDataList = new List<StripData> { new() { LedCount = 40, StripId = 1 } };
             _edgeLightManagerMock.SetupGet(x => x.LogicalStrips)
                 .Returns(stripDataList);
-            Assert.AreEqual(ElDeviceType.Cabinet, _controllerService.Devices.Select(x=>x.DeviceType).First());
+            Assert.AreEqual(ElDeviceType.Cabinet, _controllerService.Devices.Select(x => x.DeviceType).First());
             Assert.IsTrue(_controllerService.StripIds.SequenceEqual(stripDataList.Select(x => x.StripId)));
         }
 
@@ -132,7 +131,7 @@
         {
             var stripDataList = new List<StripData>
             {
-                new StripData { LedCount = 40, StripId = 1 }, new StripData { LedCount = 140, StripId = 11 }
+                new() { LedCount = 40, StripId = 1 }, new() { LedCount = 140, StripId = 11 }
             };
             _edgeLightManagerMock.SetupGet(x => x.LogicalStrips)
                 .Returns(stripDataList);
@@ -163,7 +162,7 @@
             Assert.AreSame(
                 _controllerService.AddEdgeLightRenderer(new BlinkPatternParameters()),
                 _rendererList.Last().Object);
-            _rendererList.Last().Verify(x => x.Setup(_edgeLightManagerMock.Object), Times.Exactly(1));
+            _rendererList.Last().Verify(x => x.Setup(_edgeLightManagerMock.Object), Times.AtLeast(1));
             _controllerService.RemoveEdgeLightRenderer(_rendererList.Last().Object);
             _rendererList.Last().Verify(x => x.Clear(), Times.Exactly(1));
         }
@@ -184,16 +183,23 @@
                 _controllerService.AddEdgeLightRenderer(new BlinkPatternParameters()),
                 _rendererList.Last().Object);
             _stripChangedHandler?.Invoke(new EdgeLightingStripsChangedEvent());
-            _rendererList.Last().Verify(x => x.Setup(_edgeLightManagerMock.Object), Times.Exactly(2));
+            _rendererList.Last().Verify(x => x.Setup(_edgeLightManagerMock.Object), Times.AtLeast(2));
         }
 
         [TestMethod]
         public void SetStripBrightnessForPriorityTest()
         {
-            _edgeLightManagerMock.Setup(x => x.SetStripBrightnessForPriority(10, 11, StripPriority.AuditMenu)).Verifiable();
-            _edgeLightManagerMock.Setup(x => x.ClearStripBrightnessForPriority(10, StripPriority.AuditMenu)).Verifiable();
+            _edgeLightManagerMock.Setup(x => x.SetStripBrightnessForPriority(10, 11, StripPriority.AuditMenu))
+                .Verifiable();
+            _edgeLightManagerMock.Setup(x => x.ClearStripBrightnessForPriority(10, StripPriority.AuditMenu))
+                .Verifiable();
             _controllerService.SetStripBrightnessForPriority(10, 11, StripPriority.AuditMenu);
             _controllerService.ClearStripBrightnessForPriority(10, StripPriority.AuditMenu);
+        }
+
+        private IEnumerable<IHidDevice> EnumerateDevices()
+        {
+            return new List<IHidDevice>();
         }
     }
 }

@@ -9,12 +9,7 @@
     public class BatteryService : IBattery, IService
     {
         private readonly IIO _io;
-        private readonly object _lockObject = new object();
-
-        public BatteryService()
-            : this(ServiceManager.GetInstance().GetService<IIO>())
-        {
-        }
+        private readonly object _lockObject = new();
 
         public BatteryService(IIO io)
         {

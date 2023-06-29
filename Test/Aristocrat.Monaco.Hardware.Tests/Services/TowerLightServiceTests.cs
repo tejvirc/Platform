@@ -7,7 +7,6 @@
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
-    using Test.Common;
 
     [TestClass]
     public class TowerLightServiceTests
@@ -21,9 +20,7 @@
         {
             _iio = new Mock<IIO>();
             _eventBus = new Mock<IEventBus>();
-            MoqServiceManager.AddService(_iio);
-            MoqServiceManager.AddService(_eventBus);
-            _underTest = new TowerLightService();
+            _underTest = new TowerLightService(_iio.Object, _eventBus.Object);
             _underTest.Reset();
         }
 
@@ -34,14 +31,18 @@
         }
 
         [TestMethod]
-        [DataRow(LightTier.Tier1,FlashState.SlowFlashReversed, false, 0)]
-        [DataRow(LightTier.Tier1,FlashState.SlowFlash, true, 0)]
-        [DataRow(LightTier.Tier1,FlashState.MediumFlashReversed, false, 0)]
-        [DataRow(LightTier.Tier1,FlashState.MediumFlash, true, 0)]
-        [DataRow(LightTier.Tier1,FlashState.FastFlash, true, 0)]
-        [DataRow(LightTier.Tier1,FlashState.Off, false, -1)]
-        [DataRow(LightTier.Tier1,FlashState.On, true, -1)]
-        public void GivenTierSignalWhenSetTowerLightThenExpectedOnOff(LightTier tier, FlashState signal, bool isOn, int duration)
+        [DataRow(LightTier.Tier1, FlashState.SlowFlashReversed, false, 0)]
+        [DataRow(LightTier.Tier1, FlashState.SlowFlash, true, 0)]
+        [DataRow(LightTier.Tier1, FlashState.MediumFlashReversed, false, 0)]
+        [DataRow(LightTier.Tier1, FlashState.MediumFlash, true, 0)]
+        [DataRow(LightTier.Tier1, FlashState.FastFlash, true, 0)]
+        [DataRow(LightTier.Tier1, FlashState.Off, false, -1)]
+        [DataRow(LightTier.Tier1, FlashState.On, true, -1)]
+        public void GivenTierSignalWhenSetTowerLightThenExpectedOnOff(
+            LightTier tier,
+            FlashState signal,
+            bool isOn,
+            int duration)
         {
             _iio.Setup(x => x.SetTowerLight((int)tier, isOn)).Returns(true);
             if (signal == FlashState.Off)
@@ -50,17 +51,17 @@
                 _underTest.SetFlashState(tier, FlashState.On, new TimeSpan(0, 0, 0, 0, -1));
                 _iio.ResetCalls();
             }
+
             _underTest.SetFlashState(tier, signal, new TimeSpan(0, 0, 0, 0, duration));
             _iio.Verify(x => x.SetTowerLight((int)tier, isOn), Times.Once);
             _eventBus.Verify(
                 x =>
-                    x.Publish(It.Is<TowerLightOnEvent>(p => p.LightTier == tier && p.FlashState == signal))
-                , isOn ? Times.Once() : Times.Never());
+                    x.Publish(It.Is<TowerLightOnEvent>(p => p.LightTier == tier && p.FlashState == signal)),
+                isOn ? Times.Once() : Times.Never());
             _eventBus.Verify(
                 x =>
-                    x.Publish(It.Is<TowerLightOffEvent>(p => p.LightTier == tier && p.FlashState == signal))
-                , !isOn ? Times.Once() : Times.Never());
-
+                    x.Publish(It.Is<TowerLightOffEvent>(p => p.LightTier == tier && p.FlashState == signal)),
+                !isOn ? Times.Once() : Times.Never());
         }
     }
 }

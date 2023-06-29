@@ -5,7 +5,6 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Contracts.Persistence;
-    using JetBrains.Annotations;
     using Kernel;
     using Newtonsoft.Json;
     using Persistence;
@@ -19,14 +18,9 @@
         private const string ProviderBlockKey = @"PersistenceProvider";
         private const string ProviderBlockFieldKey = @"PersistentBlocks";
 
-        private ConcurrentDictionary<string, PersistentBlockFacade> _persistentBlocks = new();
-
         private readonly IPersistentStorageManager _persistentStorageManager;
 
-        public PersistenceProviderFacade()
-            : this(ServiceManager.GetInstance().GetService<IPersistentStorageManager>())
-        {
-        }
+        private ConcurrentDictionary<string, PersistentBlockFacade> _persistentBlocks = new();
 
         public PersistenceProviderFacade(IPersistentStorageManager storageManager)
         {

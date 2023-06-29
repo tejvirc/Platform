@@ -30,17 +30,9 @@
         private bool _disposed;
 
         /// <summary>
-        ///     Creates an instance of <see cref="BeagleBoneControllerService"/>
+        ///     Creates an instance of <see cref="BeagleBoneControllerService" />
         /// </summary>
-        public BeagleBoneControllerService()
-            : this(ServiceManager.GetInstance().GetService<ICabinetDetectionService>())
-        {
-        }
-
-        /// <summary>
-        ///     Creates an instance of <see cref="BeagleBoneControllerService"/>
-        /// </summary>
-        /// <param name="cabinetService">An instance of <see cref="ICabinetDetectionService"/></param>
+        /// <param name="cabinetService">An instance of <see cref="ICabinetDetectionService" /></param>
         public BeagleBoneControllerService(ICabinetDetectionService cabinetService)
         {
             _cabinetService = cabinetService ?? throw new ArgumentNullException(nameof(cabinetService));
@@ -53,6 +45,11 @@
         public string Name => nameof(BeagleBoneControllerService);
 
         public ICollection<Type> ServiceTypes { get; } = new[] { typeof(IBeagleBoneController) };
+
+        public void SendShow(LightShows lightShow)
+        {
+            _beagleBoneProtocol?.SendShow(lightShow);
+        }
 
         public IReadOnlyList<IStrip> PhysicalStrips { get; private set; } = new List<IStrip>();
 
@@ -76,11 +73,6 @@
         public bool LowPowerMode { get; set; }
 
         public bool IsOpen => Initialized && PhysicalStrips.Any();
-
-        public void SendShow(LightShows lightShow)
-        {
-            _beagleBoneProtocol?.SendShow(lightShow);
-        }
 
         public void RenderAllStripData()
         {
@@ -185,7 +177,7 @@
 
             DevicesInfo = new List<EdgeLightDeviceInfo>
             {
-                new EdgeLightDeviceInfo
+                new()
                 {
                     DeviceType = ElDeviceType.Cabinet,
                     Manufacturer = "Aristocrat",

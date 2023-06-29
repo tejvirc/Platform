@@ -25,7 +25,7 @@
 
     /// <summary>A printer adapter.</summary>
     /// <seealso
-    ///     cref="IPrinterImplementation}" />
+    ///     cref="IPrinterImplementation" />
     /// <seealso cref="IPrinter" />
     public class PrinterAdapter : DeviceAdapter<IPrinterImplementation>,
         IPrinter,
@@ -57,6 +57,25 @@
 
         private bool _formFeedPending;
         private string _renderTarget = "PDL";
+
+        public PrinterAdapter(
+            IEventBus eventBus,
+            IComponentRegistry componentRegistry,
+            IDfuProvider dfuProvider,
+            IPersistentStorageManager storageManager,
+            ISerialPortsService serialPortsService)
+            : base(eventBus, componentRegistry, dfuProvider, serialPortsService)
+        {
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+            _storageManager = storageManager ?? throw new ArgumentNullException(nameof(storageManager));
+        }
+
+#if !(RETAIL)
+        /// <summary>
+        ///     Get printer implementation for automation.
+        /// </summary>
+        public IPrinterImplementation PrinterImplementation => Implementation;
+#endif
 
         /// <inheritdoc />
         protected override IPrinterImplementation Implementation => _printer;
@@ -98,35 +117,6 @@
         public override bool Connected => !(_state?.State == PrinterLogicalState.Uninitialized ||
                                             _state?.State == PrinterLogicalState.Disconnected ||
                                             (!Implementation?.IsConnected ?? false));
-
-        public PrinterAdapter()
-            : this(
-                ServiceManager.GetInstance().GetService<IEventBus>(),
-                ServiceManager.GetInstance().GetService<IComponentRegistry>(),
-                ServiceManager.GetInstance().GetService<IDfuProvider>(),
-                ServiceManager.GetInstance().GetService<IPersistentStorageManager>(),
-                ServiceManager.GetInstance().GetService<ISerialPortsService>())
-        {
-        }
-
-        public PrinterAdapter(
-            IEventBus eventBus,
-            IComponentRegistry componentRegistry,
-            IDfuProvider dfuProvider,
-            IPersistentStorageManager storageManager,
-            ISerialPortsService serialPortsService)
-            : base(eventBus, componentRegistry, dfuProvider, serialPortsService)
-        {
-            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
-            _storageManager = storageManager ?? throw new ArgumentNullException(nameof(storageManager));
-        }
-
-#if !(RETAIL)
-        /// <summary>
-        /// Get printer implementation for automation.
-        /// </summary>
-        public IPrinterImplementation PrinterImplementation => Implementation;
-#endif
 
         /// <inheritdoc />
         public PrinterLogicalState LogicalState => _state?.State ?? PrinterLogicalState.Uninitialized;
@@ -603,8 +593,11 @@
             PrinterOverrideParser.LoadOverrides(printableRegionPath);
 
             // get the overrides for this protocol/firmware
-            Logger.Debug($"Getting template overrides for protocol '{DeviceConfiguration?.Protocol}' and firmware '{DeviceConfiguration?.FirmwareId}' revision '{DeviceConfiguration?.FirmwareRevision}' boot version '{DeviceConfiguration?.FirmwareBootVersion}'");
-            var templateOverrides = PrinterOverrideParser.GetTemplateOverrides(DeviceConfiguration?.Protocol, DeviceConfiguration?.FirmwareId);
+            Logger.Debug(
+                $"Getting template overrides for protocol '{DeviceConfiguration?.Protocol}' and firmware '{DeviceConfiguration?.FirmwareId}' revision '{DeviceConfiguration?.FirmwareRevision}' boot version '{DeviceConfiguration?.FirmwareBootVersion}'");
+            var templateOverrides = PrinterOverrideParser.GetTemplateOverrides(
+                DeviceConfiguration?.Protocol,
+                DeviceConfiguration?.FirmwareId);
             if (templateOverrides is null)
             {
                 return;
@@ -612,7 +605,8 @@
 
             foreach (var change in templateOverrides)
             {
-                Logger.Debug($"Overriding template '{change.Name}' '{change.PlatformTemplateId}' with regions '{change.Regions}'");
+                Logger.Debug(
+                    $"Overriding template '{change.Name}' '{change.PlatformTemplateId}' with regions '{change.Regions}'");
                 var regions = change.Regions.Split(' ').Select(int.Parse).ToList();
                 AddPrintableTemplate(new PrintableTemplate(change.Name, change.PlatformTemplateId, 0, 0, regions));
             }

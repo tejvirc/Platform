@@ -7,9 +7,15 @@
 
     internal sealed class EdgeLightDataRenderer : IEdgeLightRenderer
     {
+        private readonly ISharedMemoryManager _sharedMemoryManager;
         private EdgeLightData _edgeLightData;
         private IEdgeLightManager _edgeLightManager;
         private StripCloningHandler _mappings;
+
+        public EdgeLightDataRenderer(ISharedMemoryManager sharedMemoryManager)
+        {
+            _sharedMemoryManager = sharedMemoryManager;
+        }
 
         public int Id => GetHashCode();
 
@@ -17,7 +23,7 @@
         {
             _edgeLightManager = edgeLightManager;
             _mappings = new StripCloningHandler(_edgeLightManager);
-            _edgeLightData = _edgeLightData ?? new EdgeLightData();
+            _edgeLightData = _edgeLightData ?? new EdgeLightData(_sharedMemoryManager);
             _edgeLightData.SetStrips(_edgeLightManager.ExternalLogicalStrips);
         }
 

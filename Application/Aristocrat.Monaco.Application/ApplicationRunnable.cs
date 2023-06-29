@@ -59,21 +59,23 @@ namespace Aristocrat.Monaco.Application
         private const string PersistenceCriticalClearedBlockName = "PersistenceCriticalCleared";
         private const string PersistenceCriticalClearExecutedField = "JustExecuted";
         private const string PowerResetMeterName = "PowerReset";
-        private const string MultiProtocolConfigurationProviderExtensionPath = "/Application/Protocol/MultiProtocolConfigurationProvider";
+
+        private const string MultiProtocolConfigurationProviderExtensionPath =
+            "/Application/Protocol/MultiProtocolConfigurationProvider";
 
         // The int representing a verbose logging level for MonoLogger
         private const int VerboseMonoLogLevel = 2;
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
+        private readonly RunnablesManager _runnablesManager = new();
+        private readonly List<IService> _services = new();
+        private readonly object _thisLock = new();
+
         private IPathMapper _pathMapper;
         private IVirtualDisk _virtualDisk;
         private SafeHandle _jurisdictionMountHandle;
         private string _jurisdictionLinkPath;
-
-        private readonly RunnablesManager _runnablesManager = new RunnablesManager();
-        private readonly List<IService> _services = new List<IService>();
-        private readonly object _thisLock = new object();
 
         private IRunnable _configurationWizard;
         private IRunnable _inspectionWizard;
@@ -227,99 +229,25 @@ namespace Aristocrat.Monaco.Application
             }
         }
 
-        private void SetupJurisdiction()
-        {
-            _pathMapper = ServiceManager.GetInstance().GetService<IPathMapper>();
-            _jurisdictionLinkPath = _pathMapper.GetDirectory(ApplicationConstants.JurisdictionsPath).FullName;
-
-            if (Directory.Exists(_jurisdictionLinkPath))
-            {
-                // It's already valid.
-                if (Directory.GetDirectories(_jurisdictionLinkPath).Length > 0)
-                {
-                    return;
-                }
-
-                // It's just a placeholder created by PathMapper.
-                Directory.Delete(_jurisdictionLinkPath);
-            }
-
-            var packagesFolder = _pathMapper.GetDirectory(ApplicationConstants.ManifestPath).FullName;
-            var jurIsoPackages = Directory.GetFiles(packagesFolder, ApplicationConstants.JurisdictionPackagePrefix + "*.iso", SearchOption.TopDirectoryOnly).ToList();
-            if (jurIsoPackages.Count > 0)
-            {
-                jurIsoPackages.Sort(new VersionComparer());
-                jurIsoPackages.ForEach(p => Logger.Debug($"found package {p}"));
-                var newestJurIsoPackagePath = Path.GetFullPath(jurIsoPackages.Last());
-
-                // mount the newest version.
-                Directory.CreateDirectory(_jurisdictionLinkPath);
-
-                _virtualDisk = ServiceManager.GetInstance().GetService<IVirtualDisk>();
-                _jurisdictionMountHandle = _virtualDisk.AttachImage(newestJurIsoPackagePath, _jurisdictionLinkPath);
-                if (_jurisdictionMountHandle.IsInvalid)
-                {
-                    Logger.Warn($"invalid handle; couldn't mount {newestJurIsoPackagePath} at {_jurisdictionLinkPath}");
-                    _jurisdictionMountHandle.Close();
-                    return;
-                }
-                Logger.Debug($"Mounted {newestJurIsoPackagePath} at {_jurisdictionLinkPath}");
-            }
-            else
-            {
-                // Default behavior: link to the as-built data folder
-                var jurisdictionSourcePath = Path.Combine(Directory.GetCurrentDirectory(), @"jurisdiction");
-                Logger.Debug($"No jurisdiction ISO packages found; link '{jurisdictionSourcePath}' at '{_jurisdictionLinkPath}'");
-
-                // Hard link using "mklink"
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = "cmd.exe",
-                    Arguments = $"/c mklink /j \"{_jurisdictionLinkPath}\" \"{jurisdictionSourcePath}\"",
-                    CreateNoWindow = false
-                })?.WaitForExit();
-                Logger.Debug($"Attached {jurisdictionSourcePath} to {_jurisdictionLinkPath}");
-            }
-
-            // Update the add-ins registry
-            AddinManager.Registry.Update(new MonoLogger(VerboseMonoLogLevel));
-        }
-
-        private class VersionComparer : IComparer<string>
-        {
-            public int Compare(string x, string y)
-            {
-                var xVersion = GetVersion(x);
-                var yVersion = GetVersion(y);
-
-                if (xVersion != null && yVersion != null)
-                {
-                    return xVersion.CompareTo(yVersion);
-                }
-
-                return string.Compare(x, y, StringComparison.InvariantCulture);
-
-                Version GetVersion(string text)
-                {
-                    return !Version.TryParse(text, out var version) ? null : version;
-                }
-            }
-        }
-
         private static void WritePendingActionToMessageDisplay(string resourceStringName)
         {
             var display = ServiceManager.GetInstance().GetService<IMessageDisplay>();
 
             var localizer = Localizer.For(CultureFor.Operator);
 
-            var displayMessage = localizer.GetString(resourceStringName, _ => display.DisplayStatus(resourceStringName));
+            var displayMessage = localizer.GetString(
+                resourceStringName,
+                _ => display.DisplayStatus(resourceStringName));
 
             if (!string.IsNullOrWhiteSpace(displayMessage))
             {
                 display.DisplayStatus(displayMessage);
             }
 
-            var logMessage = localizer.GetString(CultureInfo.InvariantCulture, resourceStringName, _ => Logger.Info(resourceStringName));
+            var logMessage = localizer.GetString(
+                CultureInfo.InvariantCulture,
+                resourceStringName,
+                _ => Logger.Info(resourceStringName));
 
             if (!string.IsNullOrWhiteSpace(logMessage))
             {
@@ -341,7 +269,8 @@ namespace Aristocrat.Monaco.Application
         private static void LoadConfigurationSettingsManager()
         {
             WritePendingActionToMessageDisplay(ResourceKeys.LoadingConfigurationSettingsManager);
-            var node = MonoAddinsHelper.GetSingleSelectedExtensionNode<TypeExtensionNode>(ConfigurationSettingsManagerExtensionPath);
+            var node = MonoAddinsHelper.GetSingleSelectedExtensionNode<TypeExtensionNode>(
+                ConfigurationSettingsManagerExtensionPath);
             var settingsManager = (IService)node.CreateInstance();
             settingsManager.Initialize();
             ServiceManager.GetInstance().AddService(settingsManager);
@@ -363,6 +292,70 @@ namespace Aristocrat.Monaco.Application
             {
                 node.CreateInstance();
             }
+        }
+
+        private void SetupJurisdiction()
+        {
+            _pathMapper = ServiceManager.GetInstance().GetService<IPathMapper>();
+            _jurisdictionLinkPath = _pathMapper.GetDirectory(ApplicationConstants.JurisdictionsPath).FullName;
+
+            if (Directory.Exists(_jurisdictionLinkPath))
+            {
+                // It's already valid.
+                if (Directory.GetDirectories(_jurisdictionLinkPath).Length > 0)
+                {
+                    return;
+                }
+
+                // It's just a placeholder created by PathMapper.
+                Directory.Delete(_jurisdictionLinkPath);
+            }
+
+            var packagesFolder = _pathMapper.GetDirectory(ApplicationConstants.ManifestPath).FullName;
+            var jurIsoPackages = Directory.GetFiles(
+                packagesFolder,
+                ApplicationConstants.JurisdictionPackagePrefix + "*.iso",
+                SearchOption.TopDirectoryOnly).ToList();
+            if (jurIsoPackages.Count > 0)
+            {
+                jurIsoPackages.Sort(new VersionComparer());
+                jurIsoPackages.ForEach(p => Logger.Debug($"found package {p}"));
+                var newestJurIsoPackagePath = Path.GetFullPath(jurIsoPackages.Last());
+
+                // mount the newest version.
+                Directory.CreateDirectory(_jurisdictionLinkPath);
+
+                _virtualDisk = ServiceManager.GetInstance().GetService<IVirtualDisk>();
+                _jurisdictionMountHandle = _virtualDisk.AttachImage(newestJurIsoPackagePath, _jurisdictionLinkPath);
+                if (_jurisdictionMountHandle.IsInvalid)
+                {
+                    Logger.Warn($"invalid handle; couldn't mount {newestJurIsoPackagePath} at {_jurisdictionLinkPath}");
+                    _jurisdictionMountHandle.Close();
+                    return;
+                }
+
+                Logger.Debug($"Mounted {newestJurIsoPackagePath} at {_jurisdictionLinkPath}");
+            }
+            else
+            {
+                // Default behavior: link to the as-built data folder
+                var jurisdictionSourcePath = Path.Combine(Directory.GetCurrentDirectory(), @"jurisdiction");
+                Logger.Debug(
+                    $"No jurisdiction ISO packages found; link '{jurisdictionSourcePath}' at '{_jurisdictionLinkPath}'");
+
+                // Hard link using "mklink"
+                Process.Start(
+                    new ProcessStartInfo
+                    {
+                        FileName = "cmd.exe",
+                        Arguments = $"/c mklink /j \"{_jurisdictionLinkPath}\" \"{jurisdictionSourcePath}\"",
+                        CreateNoWindow = false
+                    })?.WaitForExit();
+                Logger.Debug($"Attached {jurisdictionSourcePath} to {_jurisdictionLinkPath}");
+            }
+
+            // Update the add-ins registry
+            AddinManager.Registry.Update(new MonoLogger(VerboseMonoLogLevel));
         }
 
         private void LoadTimeService()
@@ -587,21 +580,28 @@ namespace Aristocrat.Monaco.Application
 
         private bool ImportIncomplete(IPropertiesManager propertiesManager)
         {
-            var machineSettingsImported = propertiesManager.GetValue(ApplicationConstants.MachineSettingsImported, ImportMachineSettings.None);
+            var machineSettingsImported = propertiesManager.GetValue(
+                ApplicationConstants.MachineSettingsImported,
+                ImportMachineSettings.None);
 
-            var importIncomplete =  machineSettingsImported != ImportMachineSettings.None &&
-                   (!machineSettingsImported.HasFlag(ImportMachineSettings.Imported) ||
-                    !machineSettingsImported.HasFlag(ImportMachineSettings.ConfigWizardConfigurationPropertiesLoaded) ||
-                    !machineSettingsImported.HasFlag(ImportMachineSettings.AccountingPropertiesLoaded) ||
-                    !machineSettingsImported.HasFlag(ImportMachineSettings.HandpayPropertiesLoaded) ||
-                    !machineSettingsImported.HasFlag(ImportMachineSettings.ApplicationConfigurationPropertiesLoaded) ||
-                    !machineSettingsImported.HasFlag(ImportMachineSettings.CabinetFeaturesPropertiesLoaded) ||
-                    !machineSettingsImported.HasFlag(ImportMachineSettings.GamingPropertiesLoaded)
-                   );
+            var importIncomplete = machineSettingsImported != ImportMachineSettings.None &&
+                                   (!machineSettingsImported.HasFlag(ImportMachineSettings.Imported) ||
+                                    !machineSettingsImported.HasFlag(
+                                        ImportMachineSettings.ConfigWizardConfigurationPropertiesLoaded) ||
+                                    !machineSettingsImported.HasFlag(
+                                        ImportMachineSettings.AccountingPropertiesLoaded) ||
+                                    !machineSettingsImported.HasFlag(ImportMachineSettings.HandpayPropertiesLoaded) ||
+                                    !machineSettingsImported.HasFlag(
+                                        ImportMachineSettings.ApplicationConfigurationPropertiesLoaded) ||
+                                    !machineSettingsImported.HasFlag(
+                                        ImportMachineSettings.CabinetFeaturesPropertiesLoaded) ||
+                                    !machineSettingsImported.HasFlag(ImportMachineSettings.GamingPropertiesLoaded)
+                                   );
 
             if (importIncomplete)
             {
-                Logger.Debug($"Initial configuration is incomplete, EGM was rebooted with imported machine settings {machineSettingsImported}");
+                Logger.Debug(
+                    $"Initial configuration is incomplete, EGM was rebooted with imported machine settings {machineSettingsImported}");
             }
 
             return importIncomplete;
@@ -610,12 +610,14 @@ namespace Aristocrat.Monaco.Application
         private void RemoveUnusedStartupEventListener()
         {
             var serviceMan = ServiceManager.GetInstance();
-            var selectedProtocols = serviceMan.GetService<IMultiProtocolConfigurationProvider>().MultiProtocolConfiguration.Select(x => x.Protocol);
-            List<string> protocols = new List<string>(
+            var selectedProtocols = serviceMan.GetService<IMultiProtocolConfigurationProvider>()
+                .MultiProtocolConfiguration.Select(x => x.Protocol);
+            var protocols = new List<string>(
                 MonoAddinsHelper.GetSelectableConfigurationAddins(ApplicationConstants.Protocol));
             MonoAddinsHelper.GetSelectableConfigurationAddins(ApplicationConstants.Protocol);
             // removes the selected protocol from the list.
-            protocols.RemoveAll(r => selectedProtocols.Select(s => EnumParser.ToName(s)).Contains(r)
+            protocols.RemoveAll(
+                r => selectedProtocols.Select(s => EnumParser.ToName(s)).Contains(r)
             );
 
             var eventListenerNodes =
@@ -755,7 +757,7 @@ namespace Aristocrat.Monaco.Application
                 _digitalRights = null;
             }
 
-            if(_ekeyService != null)
+            if (_ekeyService != null)
             {
                 serviceManager.RemoveService(_ekeyService);
                 _ekeyService = null;
@@ -793,7 +795,7 @@ namespace Aristocrat.Monaco.Application
                 _multiProtocolConfigurationProvider = null;
             }
 
-            if(_keyboardService != null)
+            if (_keyboardService != null)
             {
                 serviceManager.RemoveService(_keyboardService);
                 _keyboardService = null;
@@ -863,6 +865,27 @@ namespace Aristocrat.Monaco.Application
         {
             var logAdapterService = ServiceManager.GetInstance().TryGetService<ILogAdaptersService>();
             logAdapterService?.UnRegisterLogAdapter(EventLogType.SoftwareChange.GetDescription(typeof(EventLogType)));
+        }
+
+        private class VersionComparer : IComparer<string>
+        {
+            public int Compare(string x, string y)
+            {
+                var xVersion = GetVersion(x);
+                var yVersion = GetVersion(y);
+
+                if (xVersion != null && yVersion != null)
+                {
+                    return xVersion.CompareTo(yVersion);
+                }
+
+                return string.Compare(x, y, StringComparison.InvariantCulture);
+
+                Version GetVersion(string text)
+                {
+                    return !Version.TryParse(text, out var version) ? null : version;
+                }
+            }
         }
     }
 }

@@ -5,19 +5,54 @@ namespace Aristocrat.Monaco.Hardware
     using System.Linq;
     using System.Reflection;
     using System.Threading;
+    using Aristocrat.Monaco.NativeDisk;
+    using Aristocrat.Monaco.NativeOS.Services.IO;
+    using Aristocrat.Monaco.NativeUsb.DeviceWatcher;
+    using Cabinet.Contracts;
     using Contracts;
+    using Contracts.Audio;
+    using Contracts.Battery;
+    using Contracts.Bell;
+    using Contracts.Button;
+    using Contracts.ButtonDeck;
+    using Contracts.Cabinet;
+    using Contracts.Dfu;
     using Contracts.Discovery;
+    using Contracts.Display;
+    using Contracts.Door;
+    using Contracts.EdgeLighting;
+    using Contracts.HardMeter;
     using Contracts.IO;
+    using Contracts.KeySwitch;
+    using Contracts.NoteAcceptor;
     using Contracts.Persistence;
+    using Contracts.SerialPorts;
     using Contracts.SharedDevice;
+    using Contracts.Touch;
+    using Contracts.TowerLight;
+    using Contracts.VHD;
+    using DFU;
+    using EdgeLight.Contracts;
     using EdgeLight.Device;
+    using EdgeLight.Manager;
+    using EdgeLight.SequenceLib;
     using EdgeLight.Services;
+    using EdgeLight.Strips;
     using Kernel;
     using Kernel.Contracts;
+    using Kernel.Contracts.Components;
     using Kernel.Contracts.Events;
     using log4net;
     using Mono.Addins;
+    using NativeOS.Services.OS;
+    using NativeTouch;
+    using NativeUsb.Hid;
     using Properties;
+    using SerialTouch;
+    using Services;
+    using SimpleInjector;
+    using StorageAdapters;
+    using VHD;
 
     /// <summary>
     ///     <para>
@@ -83,9 +118,6 @@ namespace Aristocrat.Monaco.Hardware
     /// </summary>
     public class HardwareRunnable : BaseRunnable
     {
-        private const string StoragePath = "/Hardware/PersistentStorageService";
-        private const string SecondaryStoragePath = "/Hardware/SecondaryStorageService";
-        private const string StorageExtensionPath = "/Hardware/Persistence";
         private const string ServicesPath = "/Hardware/Services";
         private const string RunnablesPath = "/Hardware/Runnables";
         private const string ExtenderPath = "/Hardware/BootExtender";
@@ -93,17 +125,22 @@ namespace Aristocrat.Monaco.Hardware
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private readonly RunnablesManager _runnablesManager = new RunnablesManager();
-        private readonly List<IService> _services = new List<IService>();
+        private readonly RunnablesManager _runnablesManager = new();
+        private readonly List<IService> _services = new();
 
         private bool _clearingPersistentStorage;
-        private AutoResetEvent _clearingPersistentStorageResetEvent = new AutoResetEvent(false);
+        private AutoResetEvent _clearingPersistentStorageResetEvent = new(false);
         private IRunnable _extender;
         private PersistenceLevel _persistenceLevelToClear = PersistenceLevel.Static;
         private bool _waitingOnPersistentStorageClearedEvent;
+        private Container _container;
 
         protected override void OnInitialize()
         {
+            _container = new Container();
+            ConfigureContainer(_container);
+            _container.Verify();
+
             Logger.Info("Initialized");
         }
 
@@ -111,7 +148,7 @@ namespace Aristocrat.Monaco.Hardware
         {
             Logger.Info("Run started");
 
-            LoadStorage();
+            LoadStorageFromContainer();
 
             if (RunState == RunnableState.Running)
             {
@@ -125,10 +162,11 @@ namespace Aristocrat.Monaco.Hardware
                     .Subscribe<PersistentStorageClearStartedEvent>(this, HandleClearStartedEvent);
 
                 ServiceManager.GetInstance().GetService<IEventBus>()
-                    .Subscribe<ServiceRemovedEvent>(this,
+                    .Subscribe<ServiceRemovedEvent>(
+                        this,
                         a =>
                         {
-                            if(_services.Any(service => service.GetType() == a.ServiceType))
+                            if (_services.Any(service => service.GetType() == a.ServiceType))
                             {
                                 _services.RemoveAll(service => service.GetType() == a.ServiceType);
                             }
@@ -183,6 +221,7 @@ namespace Aristocrat.Monaco.Hardware
                 {
                     _clearingPersistentStorageResetEvent.Close();
                     _clearingPersistentStorageResetEvent = null;
+                    _container?.Dispose();
                 }
             }
 
@@ -211,29 +250,25 @@ namespace Aristocrat.Monaco.Hardware
             }
         }
 
-        private void LoadStorage()
+        private static void LoadPropertyProviders()
+        {
+            var manager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+            foreach (var node in MonoAddinsHelper.GetSelectedNodes<TypeExtensionNode>(PropertyProvidersPath))
+            {
+                manager.AddPropertyProvider((IPropertyProvider)node.CreateInstance());
+            }
+        }
+
+        private void LoadStorageFromContainer()
         {
             Logger.Debug("Creating Persistent Storage");
+            var serviceManager = ServiceManager.GetInstance();
 
-            var baseSecondaryStorageNode = MonoAddinsHelper.GetSingleTypeExtensionNode(SecondaryStoragePath);
-            var baseSecondaryStorage = (IService)baseSecondaryStorageNode.CreateInstance();
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<ISecondaryStorageManager>() as IService);
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<IPersistentStorageManager>() as IService);
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<IPersistenceProvider>() as IService);
 
-            ServiceManager.GetInstance().AddServiceAndInitialize(baseSecondaryStorage);
-            _services.Add(baseSecondaryStorage); 
-
-            var baseStorageNode = MonoAddinsHelper.GetSingleTypeExtensionNode(StoragePath);
-            var baseStorage = (IService)baseStorageNode.CreateInstance();
-
-            ServiceManager.GetInstance().AddServiceAndInitialize(baseStorage);
-            _services.Add(baseStorage);
-
-            var storageExtension = MonoAddinsHelper.GetSingleTypeExtensionNode(StorageExtensionPath);
-            var extension = (IService)storageExtension.CreateInstance();
-
-            ServiceManager.GetInstance().AddServiceAndInitialize(extension);
-            _services.Add(extension);
-
-            ServiceManager.GetInstance().GetService<IEventBus>().Publish(new PersistenceReadyEvent());
+            serviceManager.GetService<IEventBus>().Publish(new PersistenceReadyEvent());
         }
 
         private void HandleClearStartedEvent(PersistentStorageClearStartedEvent incomingEvent)
@@ -262,7 +297,8 @@ namespace Aristocrat.Monaco.Hardware
             {
                 Logger.Debug("Posting SoftRebootEvent");
                 _waitingOnPersistentStorageClearedEvent = false;
-                ServiceManager.GetInstance().GetService<IEventBus>().Publish(new ExitRequestedEvent(ExitAction.Restart));
+                ServiceManager.GetInstance().GetService<IEventBus>()
+                    .Publish(new ExitRequestedEvent(ExitAction.Restart));
             }
             else
             {
@@ -280,11 +316,45 @@ namespace Aristocrat.Monaco.Hardware
         private void LoadServices()
         {
             WritePendingActionToMessageDisplay("LoadingHardwareServices");
-            foreach (var eventListenerNode in AddinManager.GetExtensionNodes<StartupEventListenerImplementationExtensionNode>(
-                HardwareConstants.StartupEventListenerExtensionPoint))
+            var serviceManager = ServiceManager.GetInstance();
+
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<DeviceWatcher>());
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<IDeviceRegistryService>());
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<IHardwareConfiguration>());
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<ICabinetDetectionService>() as IService);
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<ISerialPortsService>() as IService);
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<IIO>() as IService);
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<IKeySwitch>() as IService);
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<IDoorService>() as IService);
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<IHardMeter>());
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<IButtonService>() as IService);
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<IButtonDeckDisplay>() as IService);
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<IDisabledNotesService>() as IService);
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<IBell>());
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<IBeagleBoneController>());
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<IOSService>());
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<InstrumentationService>());
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<IDisplayService>() as IService);
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<IAudio>() as IService);
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<ISharedMemoryManager>());
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<Contracts.VHD.IVirtualDisk>());
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<IDfuProvider>());
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<IPrinterFirmwareInstaller>());
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<IOSInstaller>());
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<IBattery>() as IService);
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<ITowerLight>() as IService);
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<ISerialDeviceSearcher>());
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<ISerialTouchService>() as IService);
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<IEdgeLightDeviceFactory>());
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<IEdgeLightingController>() as IService);
+
+            // get services not yet portable to container
+            foreach (var eventListenerNode in AddinManager
+                         .GetExtensionNodes<StartupEventListenerImplementationExtensionNode>(
+                             HardwareConstants.StartupEventListenerExtensionPoint))
             {
                 var listenerBase = (StartupEventListenerBase)eventListenerNode.CreateInstance();
-                listenerBase.EventBus = ServiceManager.GetInstance().GetService<IEventBus>();
+                listenerBase.EventBus = serviceManager.GetService<IEventBus>();
                 InitializeService(listenerBase);
             }
 
@@ -293,28 +363,7 @@ namespace Aristocrat.Monaco.Hardware
                 InitializeService((IService)serviceNode.CreateInstance());
             }
 
-#if !(RETAIL)
-            var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
-            var simulatedEdgeLightCabinet = propertiesManager.GetValue(
-                HardwareConstants.SimulateEdgeLighting,
-                false);
-
-            if (!simulatedEdgeLightCabinet)
-            {
-                InitializeService(new EdgeLightDeviceFactory());
-            }
-            else
-            {
-                Logger.Debug("Initializing simulated edge lighting services");
-                InitializeService(new SimEdgeLightDeviceFactory());
-            }
-#else
-            InitializeService(new EdgeLightDeviceFactory());
-#endif
-
-            InitializeService(new EdgeLightingControllerService());
-
-            if (ServiceManager.GetInstance().GetService<IIO>() is IDeviceService service)
+            if (serviceManager.GetService<IIO>() is IDeviceService service)
             {
                 service.Enable(EnabledReasons.Configuration);
             }
@@ -322,8 +371,7 @@ namespace Aristocrat.Monaco.Hardware
 
         private void InitializeService(IService service)
         {
-            service.Initialize();
-            ServiceManager.GetInstance().AddService(service);
+            ServiceManager.GetInstance().AddServiceAndInitialize(service);
             _services.Add(service);
         }
 
@@ -331,15 +379,6 @@ namespace Aristocrat.Monaco.Hardware
         {
             WritePendingActionToMessageDisplay("LoadingHardwareRunnables");
             _runnablesManager.StartRunnables(RunnablesPath);
-        }
-
-        private static void LoadPropertyProviders()
-        {
-            var manager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
-            foreach (var node in MonoAddinsHelper.GetSelectedNodes<TypeExtensionNode>(PropertyProvidersPath))
-            {
-                manager.AddPropertyProvider((IPropertyProvider)node.CreateInstance());
-            }
         }
 
         private void RunBootExtender()
@@ -375,12 +414,48 @@ namespace Aristocrat.Monaco.Hardware
         private void UnloadServices()
         {
             WritePendingActionToMessageDisplay("UnloadingHardwareServices");
+            var serviceManager = ServiceManager.GetInstance();
+
             foreach (var service in _services.ToArray().Reverse())
             {
-                ServiceManager.GetInstance().RemoveService(service);
+                serviceManager.RemoveService(service);
             }
 
             _services.Clear();
+
+            serviceManager.RemoveService(_container.GetInstance<IEdgeLightingController>() as IService);
+            serviceManager.RemoveService(_container.GetInstance<IEdgeLightDeviceFactory>());
+            serviceManager.RemoveService(_container.GetInstance<ISerialTouchService>() as IService);
+            serviceManager.RemoveService(_container.GetInstance<ISerialDeviceSearcher>());
+            serviceManager.RemoveService(_container.GetInstance<ITowerLight>() as IService);
+            serviceManager.RemoveService(_container.GetInstance<IBattery>() as IService);
+            serviceManager.RemoveService(_container.GetInstance<IOSInstaller>());
+            serviceManager.RemoveService(_container.GetInstance<IPrinterFirmwareInstaller>());
+            serviceManager.RemoveService(_container.GetInstance<IDfuProvider>());
+            serviceManager.RemoveService(_container.GetInstance<Contracts.VHD.IVirtualDisk>());
+            serviceManager.RemoveService(_container.GetInstance<ISharedMemoryManager>());
+            serviceManager.RemoveService(_container.GetInstance<IAudio>() as IService);
+            serviceManager.RemoveService(_container.GetInstance<IDisplayService>() as IService);
+            serviceManager.RemoveService(_container.GetInstance<InstrumentationService>());
+            serviceManager.RemoveService(_container.GetInstance<IOSService>());
+            serviceManager.RemoveService(_container.GetInstance<IBeagleBoneController>());
+            serviceManager.RemoveService(_container.GetInstance<IBell>());
+            serviceManager.RemoveService(_container.GetInstance<IDisabledNotesService>() as IService);
+            serviceManager.RemoveService(_container.GetInstance<IButtonDeckDisplay>() as IService);
+            serviceManager.RemoveService(_container.GetInstance<IButtonService>() as IService);
+            serviceManager.RemoveService(_container.GetInstance<IHardMeter>());
+            serviceManager.RemoveService(_container.GetInstance<IDoorService>() as IService);
+            serviceManager.RemoveService(_container.GetInstance<IKeySwitch>() as IService);
+            serviceManager.RemoveService(_container.GetInstance<IIO>() as IService);
+            serviceManager.RemoveService(_container.GetInstance<ISerialPortsService>() as IService);
+            serviceManager.RemoveService(_container.GetInstance<ICabinetDetectionService>() as IService);
+            serviceManager.RemoveService(_container.GetInstance<IHardwareConfiguration>());
+            serviceManager.RemoveService(_container.GetInstance<IDeviceRegistryService>());
+            serviceManager.RemoveService(_container.GetInstance<DeviceWatcher>());
+
+            serviceManager.RemoveService(_container.GetInstance<IPersistenceProvider>() as IService);
+            serviceManager.RemoveService(_container.GetInstance<IPersistentStorageManager>() as IService);
+            serviceManager.RemoveService(_container.GetInstance<ISecondaryStorageManager>() as IService);
         }
 
         private void UnLoadLayer()
@@ -392,6 +467,121 @@ namespace Aristocrat.Monaco.Hardware
             UnloadServices();
 
             Logger.Info("Layer unloaded");
+        }
+
+        private void ConfigureContainer(Container container)
+        {
+            AddExternalServices(container);
+            AddInternalServices(container);
+        }
+
+        private void AddExternalServices(Container container)
+        {
+            var serviceManager = ServiceManager.GetInstance();
+            container.RegisterInstance<IServiceManager>(serviceManager);
+
+            container.RegisterInstance(serviceManager.GetService<IComponentRegistry>());
+            container.RegisterInstance(serviceManager.GetService<IPropertiesManager>());
+            container.RegisterInstance(serviceManager.GetService<IEventBus>());
+            container.RegisterInstance(serviceManager.GetService<IMessageDisplay>());
+            container.RegisterInstance(serviceManager.GetService<ISystemDisableManager>());
+            container.RegisterInstance(serviceManager.GetService<IPathMapper>());
+            container.RegisterSingleton<IVirtualPartition>(
+                () => VirtualPartitionProviderFactory.CreateVirtualPartitionProvider());
+            container.RegisterSingleton<IIOProvider>(
+                () => IOFactory.CreateIOProvider());
+            container.RegisterSingleton<NativeDisk.IVirtualDisk>(
+                () => VirtualDiskFactory.CreateVirtualDisk());
+            container.RegisterSingleton<IDeviceWatcher>(
+                () => DeviceWatcherFactory.CreateDeviceWatcher());
+            container.RegisterSingleton<INativeTouch>(
+                () => NativeTouchFactory.CreateNativeTouch());
+        }
+
+        private void AddInternalServices(Container container)
+        {
+            container.RegisterSingleton<ISqliteStorageInformation, SqliteStorageInformation>();
+            container.RegisterSingleton<ISecondaryStorageManager, SqlSecondaryStorageManager>();
+            container.RegisterSingleton<IPersistentStorageManager, SqlPersistentStorageManager>();
+            container.RegisterSingleton<IPersistenceProvider, PersistenceProviderFacade>();
+
+            container.Register<DeviceWatcher>(Lifestyle.Singleton);
+            container.RegisterSingleton<IDeviceRegistryService, DeviceRegistryService>();
+            container.RegisterSingleton<IHardwareConfiguration, HardwareConfiguration>();
+            container.RegisterSingleton<ICabinetManager>(
+                () => Cabinet.Container.Instance.GetInstance<ICabinetManager>());
+            container.RegisterSingleton<ICabinetDisplaySettings>(
+                () => Cabinet.Container.Instance.GetInstance<ICabinetDisplaySettings>());
+            container.RegisterSingleton<ICabinetDetectionService, CabinetDetectionService>();
+            container.Register<SerialPortEnumerator>(Lifestyle.Singleton);
+            container.RegisterSingleton<ISerialPortsService, SerialPortsService>();
+            container.RegisterSingleton<IIO, IOService>();
+            container.RegisterSingleton<IKeySwitch, KeySwitchService>();
+            container.RegisterSingleton<IDoorService, DoorService>();
+            container.RegisterSingleton<IHardMeter, HardMeterService>();
+            container.RegisterSingleton<IButtonService, ButtonService>();
+            container.RegisterSingleton<HardwarePropertyProvider>();
+            container.RegisterSingleton<IButtonDeckDisplay, ButtonDeckDisplayService>();
+            container.RegisterSingleton<IDisabledNotesService, DisabledNotesService>();
+            container.RegisterSingleton<IBell, BellService>();
+            container.RegisterSingleton<IBeagleBoneController, BeagleBoneControllerService>();
+            container.RegisterSingleton<IOSService, OSService>();
+            container.Register<InstrumentationService>(Lifestyle.Singleton);
+            container.RegisterSingleton<IDisplayService, DisplayService>();
+            container.RegisterSingleton<IAudio, AudioService>();
+            container.RegisterSingleton<ISharedMemoryInformation, SharedMemoryInformation>();
+            container.RegisterSingleton<ISharedMemoryManager, SharedMemoryManager>();
+            container.RegisterSingleton<Contracts.VHD.IVirtualDisk, VirtualDisk>();
+            container.RegisterSingleton<IDfuFactory, DfuFactory>();
+            container.RegisterSingleton<IDfuProvider, DfuProvider>();
+            container.RegisterSingleton<IPrinterFirmwareInstaller, PrinterFirmwareInstaller>();
+            container.RegisterSingleton<IOSInstaller, OSInstaller>();
+            container.RegisterSingleton<IBattery, BatteryService>();
+            container.RegisterSingleton<ITowerLight, TowerLightService>();
+            container.RegisterSingleton<ISerialDeviceSearcher, SerialDeviceSearcher>();
+            container.RegisterSingleton<ISerialPortController, SerialPortController>();
+            container.RegisterSingleton<ISerialTouchService, SerialTouchService>();
+
+            var reelRegistration = Lifestyle.Singleton.CreateRegistration<ReelLightDevice>(container);
+            var beagleBoneRegistration = Lifestyle.Singleton.CreateRegistration<BeagleBoneControllerService>(container);
+            container.Collection.Register<IEdgeLightDevice>(new[] { reelRegistration, beagleBoneRegistration });
+
+#if !(RETAIL)
+            var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+            var simulatedEdgeLightCabinet = propertiesManager.GetValue(
+                HardwareConstants.SimulateEdgeLighting,
+                false);
+
+            if (!simulatedEdgeLightCabinet)
+            {
+                container.RegisterSingleton<IEdgeLightDeviceFactory, EdgeLightDeviceFactory>();
+            }
+            else
+            {
+                Logger.Debug("Registering simulated edge lighting services");
+                container.RegisterSingleton<IEdgeLightDeviceFactory, SimEdgeLightDeviceFactory>();
+            }
+#else
+            container.RegisterSingleton<IEdgeLightDeviceFactory, EdgeLightDeviceFactory>();
+#endif
+
+            var edgeLightRendererRegistration =
+                Lifestyle.Singleton.CreateRegistration<EdgeLightDataRenderer>(container);
+            container.Collection.Register<IEdgeLightRenderer>(new[] { edgeLightRendererRegistration });
+
+            container.Collection.Register(
+                HidDeviceFactory.Enumerate(EdgeLightConstants.VendorId, EdgeLightConstants.ProductId)
+                    .ToArray<IHidDevice>());
+
+            container.RegisterSingleton<ILogicalStripInformation, LogicalStripInformation>();
+            container.Register<PriorityComparer>(Lifestyle.Singleton);
+            container.Register<StripDataRenderer>(Lifestyle.Singleton);
+            container.RegisterSingleton<ILogicalStripFactory, LogicalStripFactory>();
+            container.RegisterSingleton<IEdgeLightDevice, DeviceMultiplexer>();
+            container.RegisterSingleton<IEdgeLightRendererFactory, RendererFactory>();
+            container.Register<EdgeLightData>(Lifestyle.Singleton);
+            container.RegisterSingleton<IEdgeLightManager, EdgeLightManager>();
+            container.RegisterSingleton<IEdgeLightingController, EdgeLightingControllerService>();
         }
     }
 }

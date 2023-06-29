@@ -39,29 +39,15 @@
         private readonly IPersistentStorageManager _persistentStorage;
         private readonly IPropertiesManager _properties;
         private readonly string _blockDataTickValue = "TickValue";
-        private readonly IOConfigurations _ioConfiguration;
         private readonly AutoResetEvent _meterRequestEvent = new(false);
         private readonly object _lock = new();
         private readonly string _blockName = typeof(HardMeterService).ToString();
         private readonly string _pendingBlockName = $"{typeof(HardMeterService)}Pending";
         private readonly Dictionary<string, IPersistentStorageAccessor> _accessors = new();
         private readonly Dictionary<int, long> _pendingMeters = new();
+        private IOConfigurations _ioConfiguration;
         private Timer _monitor;
         private bool _hardMeterEnabled;
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="HardMeterService" /> class.
-        /// </summary>
-        public HardMeterService()
-            : this(
-                ServiceManager.GetInstance().GetService<IEventBus>(),
-                ServiceManager.GetInstance().GetService<IIO>(),
-                ServiceManager.GetInstance().GetService<IPersistentStorageManager>(),
-                ServiceManager.GetInstance().GetService<IPropertiesManager>(),
-                ServiceManager.GetInstance().GetService<IKeySwitch>(),
-                ServiceManager.GetInstance().GetService<IDoorService>())
-        {
-        }
 
         public HardMeterService(
             IEventBus bus,
@@ -79,8 +65,6 @@
             _doorService = doorService ?? throw new ArgumentNullException(nameof(doorService));
 
             Disable(DisabledReasons.Service);
-            _ioConfiguration = _io.GetConfiguration();
-            InitializeBlocks();
         }
 
         /// <inheritdoc />
@@ -200,7 +184,7 @@
         }
 
         /// <inheritdoc />
-        public Dictionary<int, LogicalHardMeter> LogicalHardMeters { get; } = new Dictionary<int, LogicalHardMeter>();
+        public Dictionary<int, LogicalHardMeter> LogicalHardMeters { get; } = new();
 
         /// <inheritdoc />
         public HardMeterLogicalState LogicalState { get; set; }
@@ -286,7 +270,7 @@
             lock (_lock)
             {
                 foreach (var logicalHardMeter in LogicalHardMeters.Values.Where(
-                    l => listOfMeters.ContainsKey(l.LogicalId)))
+                             l => listOfMeters.ContainsKey(l.LogicalId)))
                 {
                     logicalHardMeter.TickValue = listOfMeters[logicalHardMeter.LogicalId];
                     _accessors[_blockName][logicalHardMeter.LogicalId, _blockDataTickValue] =
@@ -320,6 +304,8 @@
         protected override void OnInitialize()
         {
             LastError = string.Empty;
+            _ioConfiguration = _io.GetConfiguration();
+            InitializeBlocks();
 
             _hardMeterEnabled = _properties.GetValue(HardwareConstants.HardMetersEnabledKey, true);
 
@@ -339,8 +325,16 @@
                 this,
                 UpdateHardMeterLight,
                 e => e.LogicalId == _keySwitch.GetKeySwitchId(HardMeterLightSwitch));
-            _bus.Subscribe<OpenEvent>(this, UpdateHardMeterLight, e => e.LogicalId == (int)DoorLogicalId.TopBox || e.LogicalId == (int)DoorLogicalId.UniversalInterfaceBox);
-            _bus.Subscribe<ClosedEvent>(this, UpdateHardMeterLight, e => e.LogicalId == (int)DoorLogicalId.TopBox || e.LogicalId == (int)DoorLogicalId.UniversalInterfaceBox);
+            _bus.Subscribe<OpenEvent>(
+                this,
+                UpdateHardMeterLight,
+                e => e.LogicalId == (int)DoorLogicalId.TopBox ||
+                     e.LogicalId == (int)DoorLogicalId.UniversalInterfaceBox);
+            _bus.Subscribe<ClosedEvent>(
+                this,
+                UpdateHardMeterLight,
+                e => e.LogicalId == (int)DoorLogicalId.TopBox ||
+                     e.LogicalId == (int)DoorLogicalId.UniversalInterfaceBox);
             _bus.Subscribe<PropertyChangedEvent>(
                 this,
                 HandleEvent,
@@ -494,9 +488,10 @@
                 var blockPending = _accessors[_pendingBlockName];
 
                 foreach (var meter in LogicalHardMeters
-                                          .Where(meter => (long)blockPending[meter.Value.LogicalId, BlockDataMeterValue] > 0))
+                             .Where(meter => (long)blockPending[meter.Value.LogicalId, BlockDataMeterValue] > 0))
                 {
-                    _pendingMeters[meter.Value.LogicalId] = (long)blockPending[meter.Value.LogicalId, BlockDataMeterValue];
+                    _pendingMeters[meter.Value.LogicalId] =
+                        (long)blockPending[meter.Value.LogicalId, BlockDataMeterValue];
 
                     Logger.Info($"Updating pending meter {meter.Value.Name} {_pendingMeters[meter.Value.LogicalId]}");
                 }

@@ -16,10 +16,11 @@
     {
         private const int StartBrightnessChannel = 0;
         private const int MaxBrightnessChannel = 4;
+
         public static readonly ILog Logger =
             LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private readonly List<IStrip> _physicalStrips = new List<IStrip>();
+        private readonly List<IStrip> _physicalStrips = new();
         private bool _connected;
         private bool _disposed;
         private bool _gen9Board;
@@ -124,6 +125,15 @@
             return IsOpen;
         }
 
+        public void SetSystemBrightness(int brightness)
+        {
+            if (brightness != _systemBrightness)
+            {
+                _systemBrightness = brightness < 0 ? 0 : brightness > 100 ? 100 : brightness;
+                _updateBrightness = true;
+            }
+        }
+
         public void NewStripsDiscovered(IEnumerable<IStrip> strips, bool removeOldStrips)
         {
             if (removeOldStrips)
@@ -135,15 +145,6 @@
             var stripList = strips.ToList();
             _physicalStrips.AddRange(stripList);
             SubscribeBrightnessEvents(stripList);
-        }
-
-        public void SetSystemBrightness(int brightness)
-        {
-            if (brightness != _systemBrightness)
-            {
-                _systemBrightness = brightness < 0 ? 0 :( brightness > 100 ? 100 : brightness);
-                _updateBrightness = true;
-            }
         }
 
         private void Open()
@@ -198,7 +199,7 @@
                 EdgeLightConstants.MaxChannelBrightness);
 
             if (!(CommandFactory.CreateRequest(RequestType.SetBarkeeperLedBrightness) is StripBrightnessControl
-                request))
+                    request))
             {
                 return;
             }
@@ -335,7 +336,8 @@
                 _hidDevice?.ReadSerialNumber(out data);
                 info.SerialNumber = Encoding.Unicode.GetString(data).Trim('\0');
                 info.Version = _hidDevice?.Attributes.Version ?? 0;
-                info.DeviceType = _physicalStrips.FirstOrDefault(x => x.LedCount > 0)?.GetDeviceType(_gen9Board) ?? ElDeviceType.None;
+                info.DeviceType = _physicalStrips.FirstOrDefault(x => x.LedCount > 0)?.GetDeviceType(_gen9Board) ??
+                                  ElDeviceType.None;
             }
             catch (Exception ex)
             {

@@ -28,13 +28,6 @@
         private readonly IPathMapper _pathMapper;
         private readonly IVirtualDisk _virtualDisk;
 
-        public OSInstaller()
-            : this(
-                ServiceManager.GetInstance().GetService<IVirtualDisk>(),
-                ServiceManager.GetInstance().GetService<IPathMapper>())
-        {
-        }
-
         public OSInstaller(IVirtualDisk virtualDisk, IPathMapper pathMapper)
         {
             _pathMapper = pathMapper ?? throw new ArgumentNullException(nameof(pathMapper));
@@ -200,7 +193,8 @@
         {
             var packages = _pathMapper.GetDirectory(DownloadsPath);
 
-            return packages.GetFiles($"{packageId}.{WinUpdateExtension}", SearchOption.TopDirectoryOnly).FirstOrDefault();
+            return packages.GetFiles($"{packageId}.{WinUpdateExtension}", SearchOption.TopDirectoryOnly)
+                .FirstOrDefault();
         }
     }
 }

@@ -12,15 +12,7 @@
     {
         private readonly ICabinetDetectionService _cabinetDetection;
 
-        private readonly IReadOnlyDictionary<string, int> _frameRates = new Dictionary<string, int>
-        {
-            { "GT630", 30 }
-        };
-
-        public DisplayService()
-            : this(ServiceManager.GetInstance().GetService<ICabinetDetectionService>())
-        {
-        }
+        private readonly IReadOnlyDictionary<string, int> _frameRates = new Dictionary<string, int> { { "GT630", 30 } };
 
         public DisplayService(ICabinetDetectionService cabinetDetection)
         {

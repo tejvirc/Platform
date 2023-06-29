@@ -10,9 +10,7 @@
     using Hardware.Contracts.EdgeLighting;
     using Kernel;
     using log4net;
-    using Manager;
     using NativeUsb.Hid;
-    using SequenceLib;
 
     internal class EdgeLightingControllerService : BaseRunnable, IEdgeLightingController, IService
     {
@@ -20,9 +18,9 @@
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
-        private readonly Func<IEnumerable<IHidDevice>> _deviceEnumerator;
+        private readonly IEnumerable<IHidDevice> _deviceList;
         private readonly IEventBus _eventBus;
-        private readonly Func<PatternParameters, IEdgeLightRenderer> _rendererFactory;
+        private readonly IEdgeLightRendererFactory _rendererFactory;
 
         private readonly List<IEdgeLightRenderer> _rendererList = new();
         private readonly object _rendererListLock = new();
@@ -30,29 +28,18 @@
 
         private readonly bool _isSimulated;
 
-        public EdgeLightingControllerService()
-            : this(
-                ServiceManager.GetInstance().GetService<IEventBus>(),
-                ServiceManager.GetInstance().GetService<IPropertiesManager>(),
-                new EdgeLightManager(),
-                RendererFactory.CreateRenderer,
-                () => HidDeviceFactory.Enumerate(EdgeLightConstants.VendorId, EdgeLightConstants.ProductId),
-                new List<IEdgeLightRenderer> { new EdgeLightDataRenderer() })
-        {
-        }
-
         public EdgeLightingControllerService(
             IEventBus eventBus,
             IPropertiesManager propertiesManager,
             IEdgeLightManager edgeLightManager,
-            Func<PatternParameters, IEdgeLightRenderer> rendererFactory,
-            Func<IEnumerable<IHidDevice>> deviceEnumerator,
+            IEdgeLightRendererFactory rendererFactory,
+            IEnumerable<IHidDevice> deviceList,
             IEnumerable<IEdgeLightRenderer> initialRendererList)
         {
             _edgeLightManager = edgeLightManager ?? throw new ArgumentNullException(nameof(edgeLightManager));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _rendererFactory = rendererFactory ?? throw new ArgumentNullException(nameof(rendererFactory));
-            _deviceEnumerator = deviceEnumerator ?? throw new ArgumentNullException(nameof(deviceEnumerator));
+            _deviceList = deviceList ?? throw new ArgumentNullException(nameof(deviceList));
 
             _isSimulated = propertiesManager.GetValue(HardwareConstants.SimulateEdgeLighting, false);
 
@@ -63,7 +50,7 @@
             }
         }
 
-        public bool IsDetected => _isSimulated ? StripIds.Any() : _deviceEnumerator.Invoke().Any();
+        public bool IsDetected => _isSimulated ? StripIds.Any() : _deviceList.Any();
 
         public bool DetectedOnStartup { get; }
 
@@ -108,7 +95,7 @@
 
         public IEdgeLightToken AddEdgeLightRenderer(PatternParameters forParameters)
         {
-            var renderer = _rendererFactory.Invoke(forParameters) ??
+            var renderer = _rendererFactory.CreateRenderer(forParameters) ??
                            throw new ArgumentException(nameof(forParameters));
             return AddEdgeLightRenderer(renderer);
         }

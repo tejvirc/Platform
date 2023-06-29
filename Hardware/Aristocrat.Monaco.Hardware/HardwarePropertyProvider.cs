@@ -20,11 +20,9 @@
 
         private readonly IPersistentStorageManager _storageManager;
 
-        public HardwarePropertyProvider()
+        public HardwarePropertyProvider(IPersistentStorageManager persistentStorage, IPropertiesManager properties)
         {
-            _storageManager = ServiceManager.GetInstance().GetService<IPersistentStorageManager>();
-
-            var defaultProvider = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+            _storageManager = persistentStorage;
 
             _blockExists = _storageManager.BlockExists(GetBlockName());
 
@@ -38,61 +36,61 @@
                 {
                     HardwareConstants.Display1, Tuple.Create(
                         (object)InitFromStorage<string>(HardwareConstants.Display1) ??
-                        defaultProvider.GetValue<string>(HardwareConstants.Display1, null),
+                        properties.GetValue<string>(HardwareConstants.Display1, null),
                         true)
                 },
                 {
                     HardwareConstants.Display2, Tuple.Create(
                         (object)InitFromStorage<string>(HardwareConstants.Display2) ??
-                        defaultProvider.GetValue<string>(HardwareConstants.Display2, null),
+                        properties.GetValue<string>(HardwareConstants.Display2, null),
                         true)
                 },
                 {
                     HardwareConstants.Display3, Tuple.Create(
                         (object)InitFromStorage<string>(HardwareConstants.Display3) ??
-                        defaultProvider.GetValue<string>(HardwareConstants.Display3, null),
+                        properties.GetValue<string>(HardwareConstants.Display3, null),
                         true)
                 },
                 {
                     HardwareConstants.Display4, Tuple.Create(
                         (object)InitFromStorage<string>(HardwareConstants.Display4) ??
-                        defaultProvider.GetValue<string>(HardwareConstants.Display4, null),
+                        properties.GetValue<string>(HardwareConstants.Display4, null),
                         true)
                 },
                 {
                     HardwareConstants.Display5, Tuple.Create(
                         (object)InitFromStorage<string>(HardwareConstants.Display5) ??
-                        defaultProvider.GetValue<string>(HardwareConstants.Display5, null),
+                        properties.GetValue<string>(HardwareConstants.Display5, null),
                         true)
                 },
                 {
                     HardwareConstants.TouchDevice1, Tuple.Create(
                         (object)InitFromStorage<string>(HardwareConstants.TouchDevice1) ??
-                        defaultProvider.GetValue<string>(HardwareConstants.TouchDevice1, null),
+                        properties.GetValue<string>(HardwareConstants.TouchDevice1, null),
                         true)
                 },
                 {
                     HardwareConstants.TouchDevice2, Tuple.Create(
                         (object)InitFromStorage<string>(HardwareConstants.TouchDevice2) ??
-                        defaultProvider.GetValue<string>(HardwareConstants.TouchDevice2, null),
+                        properties.GetValue<string>(HardwareConstants.TouchDevice2, null),
                         true)
                 },
                 {
                     HardwareConstants.TouchDevice3, Tuple.Create(
                         (object)InitFromStorage<string>(HardwareConstants.TouchDevice3) ??
-                        defaultProvider.GetValue<string>(HardwareConstants.TouchDevice3, null),
+                        properties.GetValue<string>(HardwareConstants.TouchDevice3, null),
                         true)
                 },
                 {
                     HardwareConstants.TouchDevice4, Tuple.Create(
                         (object)InitFromStorage<string>(HardwareConstants.TouchDevice4) ??
-                        defaultProvider.GetValue<string>(HardwareConstants.TouchDevice4, null),
+                        properties.GetValue<string>(HardwareConstants.TouchDevice4, null),
                         true)
                 },
                 {
                     HardwareConstants.TouchDevice5, Tuple.Create(
                         (object)InitFromStorage<string>(HardwareConstants.TouchDevice5) ??
-                        defaultProvider.GetValue<string>(HardwareConstants.TouchDevice5, null),
+                        properties.GetValue<string>(HardwareConstants.TouchDevice5, null),
                         true)
                 },
                 {
@@ -109,9 +107,7 @@
                     HardwareConstants.BellEnabledKey,
                     Tuple.Create((object)InitFromStorage<bool>(HardwareConstants.BellEnabledKey), true)
                 },
-                {
-                    HardwareConstants.DoorAlarmEnabledKey, Tuple.Create((object)true, false)
-                }
+                { HardwareConstants.DoorAlarmEnabledKey, Tuple.Create((object)true, false) }
             };
 
             if (!_blockExists)
@@ -122,6 +118,7 @@
             }
 
             _blockExists = true;
+            properties.AddPropertyProvider(this);
         }
 
         public ICollection<KeyValuePair<string, object>> GetCollection =>
@@ -179,7 +176,7 @@
             return string.IsNullOrEmpty(name) ? baseName : $"{baseName}.{name}";
         }
 
-        private T InitFromStorage<T>(string propertyName, T defaultValue = default(T))
+        private T InitFromStorage<T>(string propertyName, T defaultValue = default)
         {
             var accessor = GetAccessor();
             if (!_blockExists)

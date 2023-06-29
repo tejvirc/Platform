@@ -26,7 +26,7 @@
 
         private const string DbFileName = "NVRam.sqlite";
         private const string DbFilePassword = "tk7tjBLQ8GpySFNZTHYD";
-        private readonly List<string> _nonDbFiles = new List<string> { "test1.txt", "test2.log" };
+        private readonly List<string> _nonDbFiles = new() { "test1.txt", "test2.log" };
 
         private string _primaryDirectory;
         private string _secondaryDirectory;
@@ -51,7 +51,7 @@
             _eventBus =
                 MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Strict);
 
-            _target = new SqlSecondaryStorageManager();
+            _target = new SqlSecondaryStorageManager(_eventBus.Object, _propertiesManager.Object);
         }
 
         // Use TestCleanup to run code after each test has run
@@ -226,13 +226,11 @@
 
             _eventBus.Setup(e => e.Publish(It.IsAny<SecondaryStorageErrorEvent>())).Verifiable();
 
-
             _target.SetPaths(_primaryDirectory, _secondaryDirectory);
 
             _target.VerifyConfiguration();
 
             _eventBus.Verify();
-
         }
 
         [TestMethod]
@@ -247,8 +245,8 @@
             _propertiesManager.Setup(p => p.GetProperty(SecondaryStorageConstants.MirrorRootKey, It.IsAny<string>()))
                 .Returns(_secondaryDirectory);
 
-            _eventBus.Setup(e => e.Publish(It.IsAny<SecondaryStorageErrorEvent>())).Throws(new Exception("Shouldn't raise storage error if secondary storage is required and connected"));
-
+            _eventBus.Setup(e => e.Publish(It.IsAny<SecondaryStorageErrorEvent>())).Throws(
+                new Exception("Shouldn't raise storage error if secondary storage is required and connected"));
 
             _target.SetPaths(_primaryDirectory, _secondaryDirectory);
 
@@ -257,7 +255,6 @@
             _target.VerifyConfiguration();
 
             _eventBus.Verify();
-
         }
 
         [TestMethod]
@@ -279,7 +276,6 @@
             _target.VerifyConfiguration();
 
             _eventBus.Verify();
-
         }
 
         [TestMethod]
@@ -305,7 +301,6 @@
             _target.VerifyConfiguration();
 
             _eventBus.Verify();
-
         }
 
         private static void WriteToFile(string filePath, string content)

@@ -1,43 +1,30 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Services
 {
-    using Contracts.IO;
-    using Contracts.TowerLight;
-    using Kernel;
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Timers;
-    using Timer = System.Timers.Timer;
     using System.Threading;
+    using System.Timers;
+    using Contracts.IO;
+    using Contracts.TowerLight;
+    using Kernel;
+    using Timer = System.Timers.Timer;
 
     /// <summary>Implementation of TowerLight service.</summary>
     public class TowerLightService : ITowerLight, IService, IDisposable
     {
-        private readonly IIO _io;
-        private readonly IEventBus _eventBus;
         private const int FlashIntervalUnitTime = 125; // in milliseconds
         private const int FlashFastInterval = 1;
         private const int FlashMediumInterval = 2;
         private const int FlashSlowInterval = 4;
+        private readonly IIO _io;
+        private readonly IEventBus _eventBus;
 
         private readonly ConcurrentDictionary<LightTier, LightTierInfo> _lightTierInfo = new();
         private Timer _flashTimer;
         private uint _flashTickCounter;
         private bool _disposed;
-
-        /// <inheritdoc />
-        public string Name => GetType().Name;
-
-        /// <inheritdoc />
-        public ICollection<Type> ServiceTypes => new[] { typeof(ITowerLight) };
-
-        public TowerLightService()
-            : this(
-                ServiceManager.GetInstance().GetService<IIO>(),
-                ServiceManager.GetInstance().GetService<IEventBus>())
-        {
-        }
 
         /// <summary>Initializes a new instance of the <see cref="TowerLightService" /> class.</summary>
         public TowerLightService(IIO io, IEventBus eventBus)
@@ -56,6 +43,19 @@
         }
 
         /// <inheritdoc />
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <inheritdoc />
+        public string Name => GetType().Name;
+
+        /// <inheritdoc />
+        public ICollection<Type> ServiceTypes => new[] { typeof(ITowerLight) };
+
+        /// <inheritdoc />
         public void Initialize()
         {
             foreach (LightTier lightTier in Enum.GetValues(typeof(LightTier)))
@@ -64,36 +64,6 @@
             }
 
             Reset();
-        }
-
-        /// <inheritdoc />
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        /// <summary>Releases allocated resources.</summary>
-        /// <param name="disposing">True to release both managed and unmanaged resources; False to release only unmanaged resources.</param>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-            {
-                return;
-            }
-
-            if (disposing)
-            {
-                if (_flashTimer != null)
-                {
-                    _flashTimer.Stop();
-                    _flashTimer.Elapsed -= OnFlashTick;
-                    _flashTimer.Dispose();
-                }
-            }
-
-            _flashTimer = null;
-            _disposed = true;
         }
 
         public bool IsLit => _lightTierInfo.Values.Any(a => a.FlashState != FlashState.Off);
@@ -151,6 +121,32 @@
         public FlashState GetFlashState(LightTier lightTier)
         {
             return _lightTierInfo.TryGetValue(lightTier, out var value) ? value.FlashState : FlashState.Off;
+        }
+
+        /// <summary>Releases allocated resources.</summary>
+        /// <param name="disposing">
+        ///     True to release both managed and unmanaged resources; False to release only unmanaged
+        ///     resources.
+        /// </param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                if (_flashTimer != null)
+                {
+                    _flashTimer.Stop();
+                    _flashTimer.Elapsed -= OnFlashTick;
+                    _flashTimer.Dispose();
+                }
+            }
+
+            _flashTimer = null;
+            _disposed = true;
         }
 
         private void SetTowerLightDevice(LightTier lightTier, bool lightOn)

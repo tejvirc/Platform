@@ -11,21 +11,19 @@
 
     public class LogicalStripFactory : ILogicalStripFactory
     {
-        private const string LogicalStripsCreationRuleXml = @".\EdgeLightStripsCreationRule.xml";
-
         public static readonly ILog Logger =
             LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private EdgeLightMappings _mappings;
 
-        public LogicalStripFactory()
-            : this(LogicalStripsCreationRuleXml)
+        public LogicalStripFactory(ILogicalStripInformation logicalStripInfo)
         {
-        }
+            if (logicalStripInfo == null)
+            {
+                throw new ArgumentNullException(nameof(logicalStripInfo));
+            }
 
-        public LogicalStripFactory(string pathToXml)
-        {
-            LoadXmlDefinition(pathToXml);
+            LoadXmlDefinition(logicalStripInfo.LogicalStripCreationRuleXmlPath);
         }
 
         public IList<IStrip> GetLogicalStrips(IReadOnlyCollection<IStrip> physicalStrips)
@@ -45,13 +43,33 @@
                     CreateDefaultLogicalStrips(unmatchedPhysicalStrips.Where(x => x.LedCount > 0)))
                 .ToList();
             foreach (var ledSegment in logicalStrips.SelectMany(
-                mappingLogicalStrip => mappingLogicalStrip.LedSegments))
+                         mappingLogicalStrip => mappingLogicalStrip.LedSegments))
             {
                 ledSegment.PhysicalStrip =
                     physicalStrips.FirstOrDefault(x => x.LedCount > 0 && x.StripId == ledSegment.HardwareStripId);
             }
 
             return logicalStrips.Cast<IStrip>().ToList();
+        }
+
+        private static IEnumerable<LogicalStrip> CreateDefaultLogicalStrips(IEnumerable<IStrip> physicalStrips)
+        {
+            return physicalStrips.Select(
+                x => new LogicalStrip
+                {
+                    HexStringId = (x.StripId & 0xff).ToString("x"),
+                    LedSegments = new List<LedSegment>
+                    {
+                        new()
+                        {
+                            From = 0,
+                            To = x.LedCount - 1,
+                            HardwareStripId = x.StripId,
+                            PhysicalStrip = x,
+                            Id = 0
+                        }
+                    }
+                });
         }
 
         private void LoadXmlDefinition(Stream stream)
@@ -83,26 +101,6 @@
             {
                 LoadXmlDefinition(stream);
             }
-        }
-
-        private static IEnumerable<LogicalStrip> CreateDefaultLogicalStrips(IEnumerable<IStrip> physicalStrips)
-        {
-            return physicalStrips.Select(
-                x => new LogicalStrip
-                {
-                    HexStringId = (x.StripId & 0xff).ToString("x"),
-                    LedSegments = new List<LedSegment>
-                    {
-                        new LedSegment
-                        {
-                            From = 0,
-                            To = x.LedCount - 1,
-                            HardwareStripId = x.StripId,
-                            PhysicalStrip = x,
-                            Id = 0
-                        }
-                    }
-                });
         }
     }
 }

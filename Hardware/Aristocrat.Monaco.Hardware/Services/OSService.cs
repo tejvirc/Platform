@@ -22,34 +22,31 @@
     /// </summary>
     public class OSService : IOSService, IDisposable
     {
-        private readonly IComponentRegistry _componentRegistry;
-        private readonly IPathMapper _pathMapper;
-        private readonly IVirtualPartition _virtualPartition;
-        private const int DiskDriveId = 0; /* Change this if you wish to test Virtual Partitions on a different drive than first drive */
+        private const int
+            DiskDriveId =
+                0; /* Change this if you wish to test Virtual Partitions on a different drive than first drive */
 
         private const string VersionInfoPath = @"/Tools";
         private const string VersionInfoFile = @"OS_Image_Version.txt";
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private readonly IComponentRegistry _componentRegistry;
+        private readonly IPathMapper _pathMapper;
+        private readonly IVirtualPartition _virtualPartition;
 
         private bool _disposed;
 
         private Timer _stats;
 
-        public OSService(IComponentRegistry componentRegistry, IPathMapper pathMapper, IVirtualPartition virtualPartition)
+        public OSService(
+            IComponentRegistry componentRegistry,
+            IPathMapper pathMapper,
+            IVirtualPartition virtualPartition)
         {
             _componentRegistry = componentRegistry ?? throw new ArgumentNullException(nameof(componentRegistry));
             _pathMapper = pathMapper ?? throw new ArgumentNullException(nameof(pathMapper));
             _virtualPartition = virtualPartition ?? throw new ArgumentNullException(nameof(virtualPartition));
             _stats = new Timer(OnCollectStats, null, TimeSpan.Zero, TimeSpan.FromHours(1));
-        }
-
-        public OSService()
-            : this(
-                ServiceManager.GetInstance().GetService<IComponentRegistry>(),
-                ServiceManager.GetInstance().GetService<IPathMapper>(),
-                VirtualPartitionProviderFactory.CreateVirtualPartitionProvider())
-        {
         }
 
         public void Dispose()
@@ -73,7 +70,27 @@
 
         public IReadOnlyCollection<VirtualPartition> VirtualPartitions => _virtualPartition.VirtualPartitions;
 
-        public IEnumerable<byte> GetOperatingSystemHash() => _virtualPartition.GetOperatingSystemHash();
+        public IEnumerable<byte> GetOperatingSystemHash()
+        {
+            return _virtualPartition.GetOperatingSystemHash();
+        }
+
+        private static void OnCollectStats(object state)
+        {
+            var process = Process.GetCurrentProcess();
+
+            Logger.Info(
+                $@"Current Stats
+    Total processor time: {process.TotalProcessorTime}
+    Thread count: {process.Threads.Count}
+    Handle count: {process.HandleCount}
+    Working set: {process.WorkingSet64}
+    Handle count: {process.HandleCount}
+    Working set: {process.WorkingSet64}
+    Peak working set: {process.PeakWorkingSet64}
+    Private bytes: {process.PrivateMemorySize64}
+    GC total: {GC.GetTotalMemory(false)}");
+        }
 
         private Version GetOsImageVersion()
         {
@@ -99,23 +116,6 @@
             }
 
             return new Version();
-        }
-
-        private static void OnCollectStats(object state)
-        {
-            var process = Process.GetCurrentProcess();
-
-            Logger.Info(
-                $@"Current Stats
-    Total processor time: {process.TotalProcessorTime}
-    Thread count: {process.Threads.Count}
-    Handle count: {process.HandleCount}
-    Working set: {process.WorkingSet64}
-    Handle count: {process.HandleCount}
-    Working set: {process.WorkingSet64}
-    Peak working set: {process.PeakWorkingSet64}
-    Private bytes: {process.PrivateMemorySize64}
-    GC total: {GC.GetTotalMemory(false)}");
         }
 
         private void Dispose(bool disposing)
@@ -146,7 +146,9 @@
 
             var component = new Component
             {
-                ComponentId = $"ATI_{Environment.OSVersion.Platform}-{Environment.OSVersion.Version}_{OsImageVersion}".Replace(" ", "_"),
+                ComponentId =
+                    $"ATI_{Environment.OSVersion.Platform}-{Environment.OSVersion.Version}_{OsImageVersion}"
+                        .Replace(" ", "_"),
                 Type = ComponentType.OS,
                 Description = Resources.OSPackageDescription,
                 FileSystemType = FileSystemType.Stream,

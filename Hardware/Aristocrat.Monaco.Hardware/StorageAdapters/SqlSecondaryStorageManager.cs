@@ -17,8 +17,6 @@
 
     public class SqlSecondaryStorageManager : ISecondaryStorageManager, IService
     {
-        private readonly IEventBus _eventBus;
-        private readonly IPropertiesManager _propertiesManager;
         private const string TempFileName = "test.tmp";
         private const string G2SDbFileName = @"protocol.sqlite";
         private const string ProtocolDatabaseFiles = @"Database_.*\.sqlite";
@@ -28,18 +26,13 @@
             RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.Singleline);
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private readonly IEventBus _eventBus;
+        private readonly IPropertiesManager _propertiesManager;
 
         private string _primaryPath;
         private string _secondaryPath;
         private bool _verified;
         private bool _initialized;
-
-        public SqlSecondaryStorageManager()
-            : this(
-                ServiceManager.GetInstance().GetService<IEventBus>(),
-                ServiceManager.GetInstance().GetService<IPropertiesManager>())
-        {
-        }
 
         public SqlSecondaryStorageManager(IEventBus eventBus, IPropertiesManager propertiesManager)
         {
@@ -115,6 +108,14 @@
             }
         }
 
+        public string GetMirrorPath(string primaryStorageRoot)
+        {
+            var mirrorRoot = _propertiesManager.GetValue(StorageConstants.MirrorRootKey, string.Empty);
+            mirrorRoot = GetSecondaryMediaRoot(primaryStorageRoot, mirrorRoot);
+            _propertiesManager.SetProperty(StorageConstants.MirrorRootKey, mirrorRoot);
+            return mirrorRoot;
+        }
+
         /// <inheritdoc />
         public string Name => nameof(ISecondaryStorageManager);
 
@@ -123,14 +124,6 @@
 
         public void Initialize()
         {
-        }
-
-        public string GetMirrorPath(string primaryStorageRoot)
-        {
-            var mirrorRoot = _propertiesManager.GetValue(StorageConstants.MirrorRootKey, string.Empty);
-            mirrorRoot = GetSecondaryMediaRoot(primaryStorageRoot, mirrorRoot);
-            _propertiesManager.SetProperty(StorageConstants.MirrorRootKey, mirrorRoot);
-            return mirrorRoot;
         }
 
         private static string GetSecondaryMediaRoot(string primaryStorageRoot, string currentMirrorRoot)
@@ -275,8 +268,8 @@
             bool ValidateSqlFiles(FileSystemInfo primary, FileSystemInfo secondary)
             {
                 if (!IsValidSqlFile(
-                    primary.FullName,
-                    StorageConstants.DatabasePassword))
+                        primary.FullName,
+                        StorageConstants.DatabasePassword))
                 {
                     return false;
                 }
@@ -319,9 +312,10 @@
             var allowedDatabases = Directory.GetFiles(_primaryPath)
                 .Select(Path.GetFileName)
                 .Where(x => PlatformDatabaseRegex.IsMatch(x))
-                .Concat(Directory.GetFiles(_secondaryPath)
-                    .Select(Path.GetFileName)
-                    .Where(x => PlatformDatabaseRegex.IsMatch(x)))
+                .Concat(
+                    Directory.GetFiles(_secondaryPath)
+                        .Select(Path.GetFileName)
+                        .Where(x => PlatformDatabaseRegex.IsMatch(x)))
                 .Distinct()
                 .ToList();
 

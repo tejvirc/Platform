@@ -2,12 +2,10 @@
 {
     using Contracts;
     using Hardware.Contracts.EdgeLighting;
-    using RendererFactoryType =
-        System.Collections.Generic.Dictionary<
-            System.Type,
-            System.Func<Hardware.Contracts.EdgeLighting.PatternParameters, Contracts.IEdgeLightRenderer>>;
+    using RendererFactoryType = System.Collections.Generic.Dictionary<
+        System.Type, System.Func<Hardware.Contracts.EdgeLighting.PatternParameters, Contracts.IEdgeLightRenderer>>;
 
-    internal class RendererFactory
+    internal class RendererFactory : IEdgeLightRendererFactory
     {
         private static readonly RendererFactoryType RendererFactories = new()
         {
@@ -37,7 +35,7 @@
             }
         };
 
-        public static IEdgeLightRenderer CreateRenderer<TParametersType>(TParametersType parameters)
+        public IEdgeLightRenderer CreateRenderer<TParametersType>(TParametersType parameters)
         {
             return !RendererFactories.TryGetValue(parameters.GetType(), out var factory)
                 ? null

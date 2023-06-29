@@ -25,19 +25,12 @@
 
         private bool _disposed;
 
-        public SharedMemoryManager()
-            : this(
-                EdgeLightRuntimeParameters.EdgeLightSharedMemoryName,
-                EdgeLightRuntimeParameters.EdgeLightSharedMutexName)
-        {
-        }
-
-        public SharedMemoryManager(string edgeLightSharedMemoryName, string edgeLightSharedMutexName)
+        public SharedMemoryManager(ISharedMemoryInformation sharedMemoryInformation)
         {
             _header = new Header();
 
-            SharedMutexName = edgeLightSharedMutexName;
-            SharedMemoryName = edgeLightSharedMemoryName;
+            SharedMutexName = sharedMemoryInformation.MutexName;
+            SharedMemoryName = sharedMemoryInformation.MemoryName;
 
             Initialize();
         }
@@ -52,18 +45,9 @@
             }
         }
 
-        public GameEdgelightData GetGameData()
-        {
-            return GameData;
-        }
-
         private string SharedMutexName { get; }
 
         private string SharedMemoryName { get; }
-
-        public string Name => nameof(SharedMemoryManager);
-
-        public ICollection<Type> ServiceTypes { get; } = new[] { typeof(ISharedMemoryManager) };
 
         public void Dispose()
         {
@@ -71,35 +55,18 @@
             GC.SuppressFinalize(this);
         }
 
+        public GameEdgelightData GetGameData()
+        {
+            return GameData;
+        }
+
+        public string Name => nameof(SharedMemoryManager);
+
+        public ICollection<Type> ServiceTypes { get; } = new[] { typeof(ISharedMemoryManager) };
+
         public void SetPlatformStripCount(IReadOnlyCollection<StripData> strips = null)
         {
             DoAccessorAction(x => WritePlatformData(x, strips));
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-            {
-                return;
-            }
-
-            if (disposing)
-            {
-                if (_sharedMemMutex != null)
-                {
-                    _sharedMemMutex.Dispose();
-                }
-
-                if (_sharedMem != null)
-                {
-                    _sharedMem.Dispose();
-                }
-            }
-
-            _sharedMemMutex = null;
-            _sharedMem = null;
-
-            _disposed = true;
         }
 
         public void Initialize()
@@ -128,15 +95,42 @@
             _sharedMemMutex.ReleaseMutex();
         }
 
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                if (_sharedMemMutex != null)
+                {
+                    _sharedMemMutex.Dispose();
+                }
+
+                if (_sharedMem != null)
+                {
+                    _sharedMem.Dispose();
+                }
+            }
+
+            _sharedMemMutex = null;
+            _sharedMem = null;
+            _initialized = false;
+
+            _disposed = true;
+        }
+
         private void DoAccessorAction(Action<MemoryMappedViewAccessor> action)
         {
             try
             {
                 _sharedMemMutex.WaitOne();
                 using (var accessor = _sharedMem.CreateViewAccessor(
-                    0,
-                    _header.TotalSize,
-                    MemoryMappedFileAccess.ReadWrite))
+                           0,
+                           _header.TotalSize,
+                           MemoryMappedFileAccess.ReadWrite))
                 {
                     action(accessor);
                 }

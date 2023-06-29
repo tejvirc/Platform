@@ -4,32 +4,25 @@
     using System.Collections.Generic;
     using System.Linq;
     using Contracts;
-    using Hardware.Contracts.EdgeLighting;
-    using Kernel;
 
     public class SimEdgeLightDeviceFactory : IEdgeLightDeviceFactory
     {
         private readonly IReadOnlyCollection<IEdgeLightDevice> _existingDevices;
 
-        public SimEdgeLightDeviceFactory()
-            : this(
-                new[]{
-                    ServiceManager.GetInstance().GetService<IBeagleBoneController>() as IEdgeLightDevice,
-                    new ReelLightDevice()})
+        public SimEdgeLightDeviceFactory(IEnumerable<IEdgeLightDevice> existingDevices)
         {
-        }
-
-        public SimEdgeLightDeviceFactory(IEdgeLightDevice[] existingDevices)
-        {
-            _existingDevices = existingDevices ?? throw new ArgumentNullException(nameof(existingDevices));
+            _existingDevices = existingDevices?.ToArray() ?? throw new ArgumentNullException(nameof(existingDevices));
 
             var simEdgeLightDevice = new SimEdgeLightDevice();
             SimulatedEdgeLightDevice = simEdgeLightDevice;
         }
 
-        public IEnumerable<IEdgeLightDevice> GetDevices() => _existingDevices.Append(SimulatedEdgeLightDevice);
-
         public SimEdgeLightDevice SimulatedEdgeLightDevice { get; }
+
+        public IEnumerable<IEdgeLightDevice> GetDevices()
+        {
+            return _existingDevices.Append(SimulatedEdgeLightDevice);
+        }
 
         public string Name => nameof(SimEdgeLightDeviceFactory);
 

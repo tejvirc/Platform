@@ -19,27 +19,28 @@
     /// </summary>
     public class InstrumentationService : IService, IDisposable
     {
-        private readonly IEventBus _eventBus;
         private const string DevicesName = "Monaco-usbDevices.dmp";
         private const string Devices1Name = "Monaco-usbDevices1Log.dmp";
         private const string Devices2Name = "Monaco-usbDevices2Log.dmp";
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private readonly IEventBus _eventBus;
 
         private bool _disposed;
-
-        public string Name => nameof(InstrumentationService);
-
-        public ICollection<Type> ServiceTypes => new[] { typeof(InstrumentationService) };
-
-        public InstrumentationService()
-            : this(ServiceManager.GetInstance().GetService<IEventBus>())
-        {
-        }
 
         public InstrumentationService(IEventBus eventBus)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
         }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        public string Name => nameof(InstrumentationService);
+
+        public ICollection<Type> ServiceTypes => new[] { typeof(InstrumentationService) };
 
         public void Initialize()
         {
@@ -54,12 +55,6 @@
             {
                 UsbDeviceLogger.CreateUsbDeviceLogs(logFile);
             }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
 
         private static void Handle(DoorOpenMeteredEvent @event)
@@ -89,22 +84,6 @@
             }
         }
 
-        private void Dispose(bool disposing)
-        {
-            if (_disposed)
-            {
-                return;
-            }
-
-            if (disposing)
-            {
-                _eventBus.UnsubscribeAll(this);
-            }
-
-            _disposed = true;
-        }
-
-
         private static bool GetLoggerPath(out string logFolder)
         {
             logFolder = string.Empty;
@@ -120,6 +99,21 @@
 
             logFolder = Path.GetDirectoryName(rootAppender.File);
             return true;
+        }
+
+        private void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                _eventBus.UnsubscribeAll(this);
+            }
+
+            _disposed = true;
         }
     }
 }

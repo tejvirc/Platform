@@ -39,14 +39,6 @@
         private readonly IEventBus _bus;
         private bool _bellEnabled;
 
-        public BellService()
-            : this(
-                ServiceManager.GetInstance().GetService<IIO>(),
-                ServiceManager.GetInstance().GetService<IPropertiesManager>(),
-                ServiceManager.GetInstance().GetService<IEventBus>())
-        {
-        }
-
         public BellService(IIO io, IPropertiesManager properties, IEventBus bus)
         {
             _io = io ?? throw new ArgumentNullException(nameof(io));
