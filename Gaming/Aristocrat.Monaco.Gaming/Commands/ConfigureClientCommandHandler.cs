@@ -245,9 +245,9 @@ namespace Aristocrat.Monaco.Gaming.Commands
             var maxGameRoundWin = _properties.GetValue(GamingConstants.MaximumGameRoundWinAmount, 0L);
             if (maxGameRoundWin is not 0L)
             {
-                parameters.Add("/Runtime/MaximumGameRoundWin&use", "allowed");
-                parameters.Add("/Runtime/MaximumGameRoundWin&valueCents", maxGameRoundWin.MillicentsToCents().ToString(CultureInfo.InvariantCulture));
-                parameters.Add("/Runtime/MaximumGameRoundWin&onMaxWinReach", "endGameAfterPresentation");
+                parameters["/Runtime/MaximumGameRoundWin&use"] = "allowed";
+                parameters["/Runtime/MaximumGameRoundWin&valueCents"] = maxGameRoundWin.MillicentsToCents().ToString(CultureInfo.InvariantCulture);
+                parameters["/Runtime/MaximumGameRoundWin&onMaxWinReach"] = "endGameAfterPresentation";
             }
 
             if (denomination.LineOption != null)
