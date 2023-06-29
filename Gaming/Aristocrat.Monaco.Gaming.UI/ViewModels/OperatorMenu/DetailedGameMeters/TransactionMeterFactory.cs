@@ -191,6 +191,9 @@
                 snapshot.WatOffCashableAmount +
                 snapshot.WatOffCashablePromoAmount +
                 snapshot.WatOffNonCashableAmount;
+
+            model.TotalHardMeterOutAmount =
+                snapshot.HardMeterOutAmount;
         }
     }
 }

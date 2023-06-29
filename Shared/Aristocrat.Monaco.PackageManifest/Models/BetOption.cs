@@ -49,6 +49,16 @@
         /// </summary>
         public IEnumerable<int> BonusBets { get; set; }
 
+        /// <summary>
+        /// Gets or sets the game-driven MaxWin, value in credits.
+        /// </summary>
+        public long? MaxWin { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the BetLinePreset.
+        /// </summary>
+        public string BetLinePreset { get; set; }
+
         /// <inheritdoc />
         public bool Equals(BetOption other)
         {

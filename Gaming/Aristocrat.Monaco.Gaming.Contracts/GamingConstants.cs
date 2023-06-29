@@ -1000,7 +1000,7 @@
         ///     Determines whether EGM will send the cashout button press event to host in case credit is zero
         /// </summary>
         public const string ReportCashoutButtonPressWithZeroCredit = @"CashoutButton.ReportToHostWithZeroCredit";
-
+        
         /// <summary>
         ///     Determines whether or not the Voucher Issued message is displayed in game
         /// </summary>
@@ -1097,6 +1097,31 @@
         ///     Property Key for Button layout : Bet buttons on bottom
         /// </summary>
         public const string ButtonLayoutBetButtonsOnBottom = @"ButtonLayoutOptions.PhysicalButtons.BetButtonsOnBottom";
+
+        /// <summary>
+        ///     Property Key for Button layout : Bet Down button
+        /// </summary>
+        public const string ButtonLayoutBetButtonsBetDown = @"ButtonLayoutOptions.PhysicalButtons.BetButtonsBetDown";
+
+        /// <summary>
+        ///     Property Key for Button layout : Bet Up button
+        /// </summary>
+        public const string ButtonLayoutBetButtonsBetUp = @"ButtonLayoutOptions.PhysicalButtons.BetButtonsBetUp";
+
+        /// <summary>
+        ///     Property Key for Button layout : Max Bet button
+        /// </summary>
+        public const string ButtonLayoutBetButtonsMaxBet = @"ButtonLayoutOptions.PhysicalButtons.BetButtonsMaxBet";
+
+        /// <summary>
+        ///     Property Key for Physical button layout for Left Play button
+        /// </summary>
+        public const string ButtonLayoutPhysicalButtonLeftPlay = @"ButtonLayoutOptions.PhysicalButtons.LeftPlay";
+
+        /// <summary>
+        ///     Property Key for Physical button layout for Left Play button optional
+        /// </summary>
+        public const string ButtonLayoutPhysicalButtonLeftPlayOptional = @"ButtonLayoutOptions.PhysicalButtons.LeftPlayOptional";
 
         /// <summary>
         ///     Property Key for Physical button layout for Collect button
@@ -1412,6 +1437,26 @@
         ///     Whether Win increment duration is based on win amount or with denom
         /// </summary>
         public const string WinIncrementSpeed = "WinIncrementSpeed";
+
+        /// <summary>
+        ///     Whether Autocomplete game round is enabled
+        /// </summary>
+        public const string AutocompleteGameRoundEnabled = @"AutocompleteGameRoundEnabled";
+
+        /// <summary>
+        ///     Determines if progressive settings is editable during setup
+        /// </summary>
+        public const string ProgressiveSetupReadonly = @"ProgressiveSetupReadonly";
+
+        /// <summary>
+        ///     Determines action on MaxWin reached
+        /// </summary>
+        public const string ActionOnMaxWinReached = @"ActionOnMaxWinReached";
+
+        /// <summary>
+        ///     If true, platform will try to auto enable games that have a single variation and denomination
+        /// </summary>
+        public const string AutoEnableSimpleGames = @"AutoEnableSimpleGames";
 
         /// <summary>
         ///     encapsulate Player Information Display options

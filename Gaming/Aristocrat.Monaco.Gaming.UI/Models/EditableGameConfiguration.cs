@@ -61,6 +61,7 @@
         private decimal _lowestAllowedMinimumRtp;
         private decimal _highestAllowedMinimumRtp;
         private long _topAwardValue;
+        private long? _maxWinAmount;
         private bool _progressivesEditable;
         private bool _gameOptionsEnabled;
         private bool _showGameRtpAsRange;
@@ -133,6 +134,12 @@
             private set => SetProperty(ref _topAwardValue, value);
         }
 
+        public long? MaxWinAmount
+        {
+            get => _maxWinAmount;
+            private set => SetProperty(ref _maxWinAmount, value);
+        }
+
         public IReadOnlyList<IGameDetail> AvailableGames { get; }
 
         public IReadOnlyList<PaytableDisplay> AvailablePaytables
@@ -179,6 +186,7 @@
                 ConfigurationMinBet();
                 SetProgressivesConfigured();
                 TopAwardValue = RecalculateTopAward();
+                MaxWinAmount = _selectedBetOption.MaxWin != null ? ResolveDenomination().Value * _selectedBetOption.MaxWin : null;
             }
         }
 
@@ -702,12 +710,14 @@
                 return;
             }
 
-            ProgressiveSetupConfigured = ViewProgressiveLevels.Any(p => p.CurrentState != ProgressiveLevelState.Init);
+            var isProgressiveSetupReadonly = _properties.GetValue(GamingConstants.ProgressiveSetupReadonly, false);
+            ProgressiveSetupConfigured = ViewProgressiveLevels
+                .Any(p => p.CurrentState != ProgressiveLevelState.Init) || isProgressiveSetupReadonly;
+
+            ProgressivesEditable = ViewProgressiveLevels.Any(p => p.CanEdit) && (!_assignedLevels?.Any() ?? false) && !isProgressiveSetupReadonly;
 
             if (Game?.Category == GameCategory.LightningLink)
             {
-                ProgressivesEditable = ViewProgressiveLevels.Any(p => p.CanEdit) && (!_assignedLevels?.Any() ?? false);
-
                 var assignedProgressiveIds = ViewProgressiveLevels.Select(p => p.AssignedProgressiveId);
                 foreach (var assignedProgressiveId in assignedProgressiveIds)
                 {
@@ -720,7 +730,6 @@
                 }
             }
 
-            ProgressivesEditable = ViewProgressiveLevels.Any(p => p.CanEdit) && (!_assignedLevels?.Any() ?? false);
             RaisePropertyChanged(nameof(UseImportedLevels));
         }
 

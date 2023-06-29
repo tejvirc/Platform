@@ -216,6 +216,8 @@
 
         public bool OptionColumnVisible => GlobalOptionsVisible && !IsRouletteGameSelected;
 
+        public bool MaxWinColumnVisible => GameConfigurations?.Any(c => c.BetOptions.Any(d => d.MaxWin != null)) ?? false;
+
         // ReSharper disable once MemberCanBePrivate.Global - used by xaml
         public bool GlobalOptionsVisible { get; }
 
@@ -290,7 +292,7 @@
 
                 _selectedGame = value;
                 UpdateInputStatusText();
-                RaisePropertyChanged(nameof(SelectedGame), nameof(GameConfigurations), nameof(ThemePlusOptions), nameof(SelectedDenoms));
+                RaisePropertyChanged(nameof(SelectedGame), nameof(GameConfigurations), nameof(ThemePlusOptions), nameof(SelectedDenoms), nameof(MaxWinColumnVisible));
                 if (_selectedGame == null)
                 {
                     return;
@@ -379,8 +381,8 @@
                 lock (_gamesMappingLock)
                 {
                     return _gamesMapping.Values
-                        .SelectMany(m => m)
-                        .Count(m => m.Enabled);
+            .SelectMany(m => m)
+            .Count(m => m.Enabled);
                 }
             }
         }

@@ -1289,7 +1289,9 @@
                 return;
             }
 
-            if (downEvent.LogicalId == (int)ButtonLogicalId.Play && downEvent.Enabled == false)
+            if ((downEvent.LogicalId == (int)ButtonLogicalId.Play ||
+                 downEvent.LogicalId == (int)ButtonLogicalId.DualPlay) &&
+                downEvent.Enabled == false)
             {
                 MvvmHelper.ExecuteOnUI(
                     () =>

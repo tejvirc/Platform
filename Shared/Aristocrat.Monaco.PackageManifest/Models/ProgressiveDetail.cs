@@ -21,7 +21,7 @@
         /// <summary>
         ///     Gets or sets the progressive pack Id
         /// </summary>
-        public int  PackId { get; set; }
+        public int PackId { get; set; }
 
         /// <summary>
         ///     Gets or sets the progressive level pack
@@ -77,5 +77,10 @@
         ///     Gets or sets the pool creation type {Default, All, Max}. Case-sensitive
         /// </summary>
         public poolCreationType CreationType { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the BetLinePreset
+        /// </summary>
+        public string BetLinePreset { get; set; }
     }
 }

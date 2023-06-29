@@ -5,6 +5,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Accounting.Contracts;
+    using Accounting.Contracts.HandCount;
     using Accounting.Contracts.Handpay;
     using Accounting.Contracts.Wat;
     using Application.Contracts;
@@ -19,6 +20,7 @@
     using Contracts.InfoBar;
     using Contracts.Models;
     using Contracts.Progressives;
+    using Contracts.HandCount;
     using Events;
     using Hardware.Contracts.Button;
     using Hardware.Contracts.ButtonDeck;
@@ -140,6 +142,10 @@
             _eventBus.Subscribe<GambleFeatureActiveEvent>(this, HandleEvent);
             _eventBus.Subscribe<GameInstalledEvent>(this, HandleEvent);
             _eventBus.Subscribe<OverlayWindowVisibilityChangedEvent>(this, HandleEvent);
+            _eventBus.Subscribe<HandCountChangedEvent>(this, HandCountChangedEvent);
+            _eventBus.Subscribe<HandCountResetTimerStartedEvent>(this, HandCountResetStartedEvent);
+            _eventBus.Subscribe<HandCountResetTimerElapsedEvent>(this, HandCountDialogElapsed);
+            _eventBus.Subscribe<HandCountResetTimerCancelledEvent>(this, HandCountDialogCancelled);
         }
 
         public delegate void CustomViewChangedEventHandler(ViewInjectionEvent ev);
@@ -150,7 +156,7 @@
         {
             Logger.Debug($"ViewInjectionEvent: Role: {evt.DisplayRole}, Action: {evt.Action}, Element: {evt.Element?.GetType().FullName}/{evt.Element?.GetHashCode()}");
 
-            if (evt.DisplayRole == DisplayRole.Main && !MessageOverlayDisplay.CustomMainViewElementVisible)
+            if (evt.DisplayRole == DisplayRole.Main)
             {
                 MessageOverlayDisplay.CustomMainViewElementVisible = evt.Action == ViewInjectionEvent.ViewAction.Add;
             }
@@ -855,16 +861,21 @@
 
         private void HandleEvent(GamePlayEnabledEvent gameEnabledEvent)
         {
-            // Restore the fast-launch capability after tilts.
-            _lobbyStateManager.AllowGameAutoLaunch = true;
-            MvvmHelper.ExecuteOnUI(() => SendTrigger(LobbyTrigger.Enable));
+            MvvmHelper.ExecuteOnUI(
+                () =>
+                {
+                    // Restore the fast-launch capability after tilts.
+                    _lobbyStateManager.AllowGameAutoLaunch = true;
 
-            // If game is ready but not loaded due to disable, load it now
-            if (GameReady)
-            {
-                Logger.Debug("GamePlayEnabledEvent during game load. Assuming we are now loaded.");
-                MvvmHelper.ExecuteOnUI(() => SendTrigger(LobbyTrigger.GameLoaded));
-            }
+                    // If game is ready but not loaded due to disable, load it now
+                    SendTrigger(LobbyTrigger.Enable);
+
+                    if (GameReady && _lobbyStateManager.CurrentState != LobbyState.Disabled)
+                    {
+                        Logger.Debug("GamePlayEnabledEvent during game load. Assuming we are now loaded.");
+                        SendTrigger(LobbyTrigger.GameLoaded);
+                    }
+                });
         }
 
         private void HandleEvent(ViewResizeEvent viewResizeEvent)
@@ -1539,6 +1550,27 @@
         private void HandleMessageOverlayVisibility()
         {
             MessageOverlayDisplay.HandleOverlayWindowDialogVisibility();
+        }
+
+        private void HandCountChangedEvent(HandCountChangedEvent evt)
+        {
+            HandCount = evt.HandCount;
+        }
+
+        private void HandCountResetStartedEvent(HandCountResetTimerStartedEvent evt)
+        {
+            _isHandCountResetDialogOpen = true;
+            ExitAndResetAttractMode();
+        }
+
+        private void HandCountDialogElapsed(HandCountResetTimerElapsedEvent evt)
+        {
+            _isHandCountResetDialogOpen = false;
+        }
+
+        private void HandCountDialogCancelled(HandCountResetTimerCancelledEvent evt)
+        {
+            _isHandCountResetDialogOpen = false;
         }
     }
 }

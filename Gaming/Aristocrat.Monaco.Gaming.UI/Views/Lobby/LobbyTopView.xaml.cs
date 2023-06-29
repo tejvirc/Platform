@@ -3,6 +3,7 @@
     using System;
     using System.Windows;
     using System.Windows.Data;
+    using System.Windows.Input;
     using Application.Contracts;
     using Application.Contracts.Media;
     using Application.UI.Views;
@@ -130,6 +131,11 @@
             {
                 ViewModel.OnGameAttractVideoCompleted();
             }
+        }
+
+        private void LobbyTopScreenRoot_OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ViewModel.OnUserInteraction();
         }
 
         private void LobbyTopView_OnClosed(object sender, EventArgs e)

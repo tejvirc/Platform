@@ -22,14 +22,19 @@
         {
             if (value != null)
             {
-                if (value is decimal value1)
+                if (value is decimal decimalValue)
                 {
-                    return value1.FormattedCurrencyString();
+                    return decimalValue.FormattedCurrencyString();
                 }
 
-                if (value is double value2)
+                if (value is double doubleValue)
                 {
-                    return value2.FormattedCurrencyString();
+                    return doubleValue.FormattedCurrencyString();
+                }
+
+                if (value is long longValue)
+                {
+                    return longValue.FormattedCurrencyString();
                 }
             }
 

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0"?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Vgt.Client12.Accounting.HandCount.ResidualCreditsTransaction">
+    <Fields>
+      <Field DataType="Int32" FieldName="DeviceId" />
+      <Field DataType="Int64" FieldName="LogSequence" />
+      <Field DataType="DateTime" FieldName="TransactionDateTime" />
+      <Field DataType="Int64" FieldName="TransactionId" />
+      <Field DataType="Int64" FieldName="Amount" />
+      <Field DataType="Guid" FieldName="BankTransactionId" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>
