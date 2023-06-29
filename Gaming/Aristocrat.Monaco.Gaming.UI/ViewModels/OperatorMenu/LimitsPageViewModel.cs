@@ -99,7 +99,7 @@
                 LargeWinLimitVisible = true;
                 LargeWinRatioVisible = (bool)PropertiesManager.GetProperty(AccountingConstants.DisplayLargeWinRatio, false);
                 LargeWinRatioThresholdVisible = (bool)PropertiesManager.GetProperty(AccountingConstants.DisplayLargeWinRatioThreshold, false);
-                MaxBetLimitVisible = true;
+                MaxBetLimitVisible = GetConfigSetting(OperatorMenuSetting.MaxBetLimitVisible, true);
                 CelebrationLockupLimitVisible = false;
                 GambleAllowed = false;  // don't show gamble info on config wizard
                 AllowRemoteHandpayResetVisible = LargeWinHandpayResetMethodVisible =
