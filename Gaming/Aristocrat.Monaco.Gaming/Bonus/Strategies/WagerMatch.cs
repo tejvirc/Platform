@@ -288,6 +288,8 @@
             }
 
             public long Context { get; }
+
+            public bool ShouldPersistPostCommit => true;
         }
     }
 }
