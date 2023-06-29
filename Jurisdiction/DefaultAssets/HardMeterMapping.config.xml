@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <HardMeterMappingConfiguration>
-	<HardMeterMapping Name="(1)Turnover,(2)Total Won,(4)Handpay,(5)Bills In,(7)Coins In,(8)Coins Out" Default="true">
+	<HardMeterMapping Name="(1)Turnover,(2)Total Won,(4)Handpay,(5)Bills In,(6)Collect Credit" Default="true">
 		<HardMeter LogicalId="0" Name="Total Bet">
 			<SoftMeter Name="WageredAmount" />
 		</HardMeter>
@@ -17,11 +17,8 @@
 		<HardMeter LogicalId="4" Name="Total Cash In">
 			<SoftMeter Name="TotalCashIn" />
 		</HardMeter>
-		<HardMeter LogicalId="6" Name="Total In">
-			<SoftMeter Name="TotalIn" />
-		</HardMeter>
-		<HardMeter LogicalId="7" Name="Total Out">
-			<SoftMeter Name="TotalOutHard" />
+		<HardMeter LogicalId="5" Name="Collect Credit">
+			<SoftMeter Name="TotalVouchersOut" />
 		</HardMeter>
 	</HardMeterMapping>
 </HardMeterMappingConfiguration>

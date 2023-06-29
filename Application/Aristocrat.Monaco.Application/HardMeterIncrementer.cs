@@ -165,6 +165,12 @@
 
                 var hardMeter = ServiceManager.GetInstance().GetService<IHardMeter>();
 
+                if (!(hardMeter.LogicalHardMeters.TryGetValue(Configuration.LogicalId, out var _value) && _value.IsAvailable))
+                {
+                    Logger.Debug($"hard meter for id: {Configuration.LogicalId} is not available");
+                    return;
+                }
+
                 var value = e.Amount;
                 if (meter.Classification.Name.Equals("Currency"))
                 {

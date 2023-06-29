@@ -41,6 +41,7 @@
             Ready = false;
             Suspended = false;
             Count = 0;
+            IsAvailable = true;
         }
 
         /// <summary>
@@ -51,12 +52,14 @@
         /// <param name="name">The hard meter name.</param>
         /// <param name="localizedName">The localized hard meter name.</param>
         /// <param name="tickValue">The hard meter tick value.</param>
+        /// <param name="isAvailable">Is hard meter available</param>
         public LogicalHardMeter(
             int physicalId,
             int logicalId,
             string name,
             string localizedName,
-            long tickValue)
+            long tickValue,
+            bool isAvailable)
             : base(physicalId, name, localizedName)
         {
             LogicalId = logicalId;
@@ -87,5 +90,8 @@
 
         /// <summary>Gets or sets the value for the hard meter count.</summary>
         public long Count { get; set; }
+
+        /// <summary>Is hard meter available</summary>
+        public bool IsAvailable { get; set; }
     }
 }
