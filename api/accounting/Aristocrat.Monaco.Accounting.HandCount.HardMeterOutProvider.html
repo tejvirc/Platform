@@ -1,0 +1,888 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class HardMeterOutProvider
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class HardMeterOutProvider
+   ">
+    <meta name="generator" content="docfx 2.59.4.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider">
+  <h1 id="Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider" data-uid="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider">Class HardMeterOutProvider
+  </h1>
+  <div class="markdown level0 summary"><p>An <a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.TransferOut.ITransferOutProvider.html">ITransferOutProvider</a> that transfers funds off the EGM by ticking
+a hard meter that is connected to some external device.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.TransferOutProviderBase.html">TransferOutProviderBase</a></div>
+    <div class="level2"><span class="xref">HardMeterOutProvider</span></div>
+  </div>
+  
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.TransferOutProviderBase.html#Aristocrat_Monaco_Accounting_Contracts_TransferOutProviderBase_MaxSequence">TransferOutProviderBase.MaxSequence</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.TransferOutProviderBase.html#Aristocrat_Monaco_Accounting_Contracts_TransferOutProviderBase_Logger">TransferOutProviderBase.Logger</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.TransferOutProviderBase.html#Aristocrat_Monaco_Accounting_Contracts_TransferOutProviderBase_IsPrinterAvailable">TransferOutProviderBase.IsPrinterAvailable</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.TransferOutProviderBase.html#Aristocrat_Monaco_Accounting_Contracts_TransferOutProviderBase_GetPrinter_System_Threading_CancellationToken_">TransferOutProviderBase.GetPrinter(CancellationToken)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.TransferOutProviderBase.html#Aristocrat_Monaco_Accounting_Contracts_TransferOutProviderBase_GetTicketSequence_System_Int64_">TransferOutProviderBase.GetTicketSequence(Int64)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Accounting.HandCount.html">Aristocrat.Monaco.Accounting.HandCount</a></h6>
+  <h6><strong>Assembly</strong>: Monaco.Accounting.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public class HardMeterOutProvider : TransferOutProviderBase, IHardMeterOutProvider, ITransferOutProvider, IService, IDisposable</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider__ctor.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/HandCount/HardMeterOutProvider.cs/#L46" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider__ctor_" data-uid="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider__ctor" data-uid="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.#ctor"><a href="#collapsible-Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider__ctor" class="expander" data-toggle="collapse">HardMeterOutProvider()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider__ctor" class="collapse in">
+  <div class="markdown level1 summary"><p>Constructs the provider by retrieving all necessary services from the service manager. This
+constructor is necessary because this is a service in the accounting layer where DI is not used.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HardMeterOutProvider()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider__ctor_Aristocrat_Monaco_Accounting_Contracts_IBank_Aristocrat_Monaco_Accounting_Contracts_ITransactionHistory_Aristocrat_Monaco_Application_Contracts_IMeterManager_Aristocrat_Monaco_Hardware_Contracts_HardMeter_IHardMeter_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageManager_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Accounting_Contracts_HandCount_ICashOutAmountCalculator_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Application_Contracts_IIdProvider_Aristocrat_Monaco_Kernel_ISystemDisableManager_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.%23ctor(Aristocrat.Monaco.Accounting.Contracts.IBank%2CAristocrat.Monaco.Accounting.Contracts.ITransactionHistory%2CAristocrat.Monaco.Application.Contracts.IMeterManager%2CAristocrat.Monaco.Hardware.Contracts.HardMeter.IHardMeter%2CAristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageManager%2CAristocrat.Monaco.Kernel.IEventBus%2CAristocrat.Monaco.Accounting.Contracts.HandCount.ICashOutAmountCalculator%2CAristocrat.Monaco.Kernel.IPropertiesManager%2CAristocrat.Monaco.Application.Contracts.IIdProvider%2CAristocrat.Monaco.Kernel.ISystemDisableManager)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/HandCount/HardMeterOutProvider.cs/#L64" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider__ctor_" data-uid="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider__ctor_Aristocrat_Monaco_Accounting_Contracts_IBank_Aristocrat_Monaco_Accounting_Contracts_ITransactionHistory_Aristocrat_Monaco_Application_Contracts_IMeterManager_Aristocrat_Monaco_Hardware_Contracts_HardMeter_IHardMeter_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageManager_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Accounting_Contracts_HandCount_ICashOutAmountCalculator_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Application_Contracts_IIdProvider_Aristocrat_Monaco_Kernel_ISystemDisableManager_" data-uid="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.#ctor(Aristocrat.Monaco.Accounting.Contracts.IBank,Aristocrat.Monaco.Accounting.Contracts.ITransactionHistory,Aristocrat.Monaco.Application.Contracts.IMeterManager,Aristocrat.Monaco.Hardware.Contracts.HardMeter.IHardMeter,Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageManager,Aristocrat.Monaco.Kernel.IEventBus,Aristocrat.Monaco.Accounting.Contracts.HandCount.ICashOutAmountCalculator,Aristocrat.Monaco.Kernel.IPropertiesManager,Aristocrat.Monaco.Application.Contracts.IIdProvider,Aristocrat.Monaco.Kernel.ISystemDisableManager)"><a href="#collapsible-Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider__ctor_Aristocrat_Monaco_Accounting_Contracts_IBank_Aristocrat_Monaco_Accounting_Contracts_ITransactionHistory_Aristocrat_Monaco_Application_Contracts_IMeterManager_Aristocrat_Monaco_Hardware_Contracts_HardMeter_IHardMeter_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageManager_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Accounting_Contracts_HandCount_ICashOutAmountCalculator_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Application_Contracts_IIdProvider_Aristocrat_Monaco_Kernel_ISystemDisableManager_" class="expander" data-toggle="collapse">HardMeterOutProvider(IBank, ITransactionHistory, IMeterManager, IHardMeter, IPersistentStorageManager, IEventBus, ICashOutAmountCalculator, IPropertiesManager, IIdProvider, ISystemDisableManager)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider__ctor_Aristocrat_Monaco_Accounting_Contracts_IBank_Aristocrat_Monaco_Accounting_Contracts_ITransactionHistory_Aristocrat_Monaco_Application_Contracts_IMeterManager_Aristocrat_Monaco_Hardware_Contracts_HardMeter_IHardMeter_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageManager_Aristocrat_Monaco_Kernel_IEventBus_Aristocrat_Monaco_Accounting_Contracts_HandCount_ICashOutAmountCalculator_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Application_Contracts_IIdProvider_Aristocrat_Monaco_Kernel_ISystemDisableManager_" class="collapse in">
+  <div class="markdown level1 summary"><p>Constructs the provider taking all required services as parameters. For unit testing.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HardMeterOutProvider(IBank bank, ITransactionHistory transactions, IMeterManager meters, IHardMeter hardMeter, IPersistentStorageManager storage, IEventBus eventBus, ICashOutAmountCalculator cashOutAmountCalculator, IPropertiesManager properties, IIdProvider idProvider, ISystemDisableManager systemDisableManager)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.IBank.html">IBank</a></span>
+        <span class="parametername">bank</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.ITransactionHistory.html">ITransactionHistory</a></span>
+        <span class="parametername">transactions</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../application/Aristocrat.Monaco.Application.Contracts.IMeterManager.html">IMeterManager</a></span>
+        <span class="parametername">meters</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../hardware/Aristocrat.Monaco.Hardware.Contracts.HardMeter.IHardMeter.html">IHardMeter</a></span>
+        <span class="parametername">hardMeter</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../hardware/Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageManager.html">IPersistentStorageManager</a></span>
+        <span class="parametername">storage</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IEventBus.html">IEventBus</a></span>
+        <span class="parametername">eventBus</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.HandCount.ICashOutAmountCalculator.html">ICashOutAmountCalculator</a></span>
+        <span class="parametername">cashOutAmountCalculator</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IPropertiesManager.html">IPropertiesManager</a></span>
+        <span class="parametername">properties</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../application/Aristocrat.Monaco.Application.Contracts.IIdProvider.html">IIdProvider</a></span>
+        <span class="parametername">idProvider</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.ISystemDisableManager.html">ISystemDisableManager</a></span>
+        <span class="parametername">systemDisableManager</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Active.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.Active%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/HandCount/HardMeterOutProvider.cs/#L100" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Active_" data-uid="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.Active*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Active" data-uid="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.Active"><a href="#collapsible-Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Active" class="expander" data-toggle="collapse">Active</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Active" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets flag for determining if the provider has an active transfer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Active { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.TransferOut.ITransferOutProvider.html#Aristocrat_Monaco_Accounting_Contracts_TransferOut_ITransferOutProvider_Active">ITransferOutProvider.Active</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Name.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/HandCount/HardMeterOutProvider.cs/#L94" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Name_" data-uid="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.Name*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Name" data-uid="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.Name"><a href="#collapsible-Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Name" class="expander" data-toggle="collapse">Name</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Name" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Name">IService.Name</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_ServiceTypes.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.ServiceTypes%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/HandCount/HardMeterOutProvider.cs/#L97" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_ServiceTypes_" data-uid="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.ServiceTypes*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_ServiceTypes" data-uid="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.ServiceTypes"><a href="#collapsible-Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_ServiceTypes" class="expander" data-toggle="collapse">ServiceTypes</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_ServiceTypes" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICollection&lt;Type&gt; ServiceTypes { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_ServiceTypes">IService.ServiceTypes</a></div>
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_CanRecover_System_Guid_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.CanRecover(System.Guid)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/HandCount/HardMeterOutProvider.cs/#L151" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_CanRecover_" data-uid="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.CanRecover*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_CanRecover_System_Guid_" data-uid="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.CanRecover(System.Guid)"><a href="#collapsible-Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_CanRecover_System_Guid_" class="expander" data-toggle="collapse">CanRecover(Guid)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_CanRecover_System_Guid_" class="collapse in">
+  <div class="markdown level1 summary"><p>Allows the handler to determine if the specified transaction can be recovered</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool CanRecover(Guid transactionId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">transactionId</span>
+        <p><p>The transaction Id for the transfer.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>true if the transaction can be recovered/completed, else false</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.TransferOut.ITransferOutProvider.html#Aristocrat_Monaco_Accounting_Contracts_TransferOut_ITransferOutProvider_CanRecover_System_Guid_">ITransferOutProvider.CanRecover(Guid)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Dispose.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.Dispose%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/HandCount/HardMeterOutProvider.cs/#L184" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Dispose_" data-uid="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Dispose" data-uid="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.Dispose"><a href="#collapsible-Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Dispose" class="expander" data-toggle="collapse">Dispose()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Dispose" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable.dispose#system-idisposable-dispose">IDisposable.Dispose()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/HandCount/HardMeterOutProvider.cs/#L191" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Dispose_" data-uid="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.Dispose*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Dispose_System_Boolean_" data-uid="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.Dispose(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Dispose_System_Boolean_" class="expander" data-toggle="collapse">Dispose(Boolean)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Dispose_System_Boolean_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool disposing)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">disposing</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Finalize.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.Finalize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/HandCount/HardMeterOutProvider.cs/#L91" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Finalize_" data-uid="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.Finalize*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Finalize" data-uid="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.Finalize"><a href="#collapsible-Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Finalize" class="expander" data-toggle="collapse">Finalize()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Finalize" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void Finalize()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Initialize.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.Initialize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/HandCount/HardMeterOutProvider.cs/#L103" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Initialize_" data-uid="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.Initialize*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Initialize" data-uid="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.Initialize"><a href="#collapsible-Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Initialize" class="expander" data-toggle="collapse">Initialize()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Initialize" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Initialize()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IService.html#Aristocrat_Monaco_Kernel_IService_Initialize">IService.Initialize()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Recover_Aristocrat_Monaco_Accounting_Contracts_Transactions_IRecoveryTransaction_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.Recover(Aristocrat.Monaco.Accounting.Contracts.Transactions.IRecoveryTransaction%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/HandCount/HardMeterOutProvider.cs/#L158" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Recover_" data-uid="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.Recover*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Recover_Aristocrat_Monaco_Accounting_Contracts_Transactions_IRecoveryTransaction_System_Threading_CancellationToken_" data-uid="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.Recover(Aristocrat.Monaco.Accounting.Contracts.Transactions.IRecoveryTransaction,System.Threading.CancellationToken)"><a href="#collapsible-Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Recover_Aristocrat_Monaco_Accounting_Contracts_Transactions_IRecoveryTransaction_System_Threading_CancellationToken_" class="expander" data-toggle="collapse">Recover(IRecoveryTransaction, CancellationToken)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Recover_Aristocrat_Monaco_Accounting_Contracts_Transactions_IRecoveryTransaction_System_Threading_CancellationToken_" class="collapse in">
+  <div class="markdown level1 summary"><p>Allows the provider to recover the transaction Id. The provider may not have a matching transaction or may not need
+to recover the transaction.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public async Task&lt;bool&gt; Recover(IRecoveryTransaction recoveryTransaction, CancellationToken cancellationToken)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.Transactions.IRecoveryTransaction.html">IRecoveryTransaction</a></span>
+        <span class="parametername">recoveryTransaction</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></span>
+        <span class="parametername">cancellationToken</span>
+        <p><p>A cancellation token used to end the transfer</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
+        <p><p>true if the transaction was recovered/completed, else false</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.TransferOut.ITransferOutProvider.html#Aristocrat_Monaco_Accounting_Contracts_TransferOut_ITransferOutProvider_Recover_Aristocrat_Monaco_Accounting_Contracts_Transactions_IRecoveryTransaction_System_Threading_CancellationToken_">ITransferOutProvider.Recover(IRecoveryTransaction, CancellationToken)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Transfer_System_Guid_System_Int64_System_Int64_System_Int64_System_Collections_Generic_IReadOnlyCollection_System_Int64__Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_System_Guid_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.Transfer(System.Guid%2CSystem.Int64%2CSystem.Int64%2CSystem.Int64%2CSystem.Collections.Generic.IReadOnlyCollection%7BSystem.Int64%7D%2CAristocrat.Monaco.Accounting.Contracts.TransferOut.TransferOutReason%2CSystem.Guid%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/HandCount/HardMeterOutProvider.cs/#L109" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Transfer_" data-uid="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.Transfer*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Transfer_System_Guid_System_Int64_System_Int64_System_Int64_System_Collections_Generic_IReadOnlyCollection_System_Int64__Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_System_Guid_System_Threading_CancellationToken_" data-uid="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider.Transfer(System.Guid,System.Int64,System.Int64,System.Int64,System.Collections.Generic.IReadOnlyCollection{System.Int64},Aristocrat.Monaco.Accounting.Contracts.TransferOut.TransferOutReason,System.Guid,System.Threading.CancellationToken)"><a href="#collapsible-Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Transfer_System_Guid_System_Int64_System_Int64_System_Int64_System_Collections_Generic_IReadOnlyCollection_System_Int64__Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_System_Guid_System_Threading_CancellationToken_" class="expander" data-toggle="collapse">Transfer(Guid, Int64, Int64, Int64, IReadOnlyCollection&lt;Int64&gt;, TransferOutReason, Guid, CancellationToken)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider_Transfer_System_Guid_System_Int64_System_Int64_System_Int64_System_Collections_Generic_IReadOnlyCollection_System_Int64__Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_System_Guid_System_Threading_CancellationToken_" class="collapse in">
+  <div class="markdown level1 summary"><p>Transfer an amount of credits from a specific account in the bank out of the system.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public async Task&lt;TransferResult&gt; Transfer(Guid transactionId, long cashableAmount, long promoAmount, long nonCashAmount, IReadOnlyCollection&lt;long&gt; associatedTransactions, TransferOutReason reason, Guid traceId, CancellationToken cancellationToken)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">transactionId</span>
+        <p><p>The transaction Id for the transfer.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">cashableAmount</span>
+        <p><p>The cashable amount requiring a handpay</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">promoAmount</span>
+        <p><p>The promotional amount requiring a handpay</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">nonCashAmount</span>
+        <p><p>The non-cashable amount requiring a handpay</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">Int64</a>&gt;</span>
+        <span class="parametername">associatedTransactions</span>
+        <p><p>An optional list of associated transactions</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.TransferOut.TransferOutReason.html">TransferOutReason</a></span>
+        <span class="parametername">reason</span>
+        <p><p>The reason for transfer out.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">Guid</a></span>
+        <span class="parametername">traceId</span>
+        <p><p>A reference Id that should be associated with the cash out</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></span>
+        <span class="parametername">cancellationToken</span>
+        <p><p>A cancellation token used to end the transfer</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.TransferOut.TransferResult.html">TransferResult</a>&gt;
+        <p><p>a <a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.TransferOut.TransferResult.html">TransferResult</a></p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Accounting.Contracts.TransferOut.ITransferOutProvider.html#Aristocrat_Monaco_Accounting_Contracts_TransferOut_ITransferOutProvider_Transfer_System_Guid_System_Int64_System_Int64_System_Int64_System_Collections_Generic_IReadOnlyCollection_System_Int64__Aristocrat_Monaco_Accounting_Contracts_TransferOut_TransferOutReason_System_Guid_System_Threading_CancellationToken_">ITransferOutProvider.Transfer(Guid, Int64, Int64, Int64, IReadOnlyCollection&lt;Int64&gt;, TransferOutReason, Guid, CancellationToken)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Accounting_HandCount_HardMeterOutProvider.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Accounting/Monaco.Accounting/HandCount/HardMeterOutProvider.cs/#L25" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'default'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>
