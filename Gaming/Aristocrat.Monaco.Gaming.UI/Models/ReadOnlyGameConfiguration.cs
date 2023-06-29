@@ -85,7 +85,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
 
         private GameRtpDisplay CreateRtpDisplay(RtpBreakdown rtp)
         {
-            var rtpStates = rtp?.ProgressiveVerificationState ?? throw new ArgumentNullException(nameof(rtp));
+            var rtpStates = rtp.ProgressiveVerificationState;
 
             var rtpDisplay = new GameRtpDisplay 
             { 

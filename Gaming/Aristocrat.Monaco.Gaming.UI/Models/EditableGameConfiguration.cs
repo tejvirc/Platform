@@ -67,6 +67,7 @@
         private bool _gameOptionsEnabled;
         private IReadOnlyList<PaytableDisplay> _availablePaytables;
         private PaytableDisplay _selectedPaytable;
+        private IReadOnlyList<PaytableDisplay> _illegalPaytables;
 
         public EditableGameConfiguration(long denom, IReadOnlyList<IGameDetail> games, bool showGameRtpAsRange)
         {
@@ -85,7 +86,8 @@
             _lowestAllowedMinimumRtp = LowestAvailableMinimumRtp = AvailableGames.Min(g => g.MinimumPaybackPercent);
             _highestAllowedMinimumRtp = HighestAvailableMinimumRtp = AvailableGames.Max(g => g.MinimumPaybackPercent);
 
-            _gamble = _properties.GetValue(GamingConstants.GambleAllowed, false) && _properties.GetValue(GamingConstants.GambleEnabled, false);
+            _gamble = _properties.GetValue(GamingConstants.GambleAllowed, false) &&
+                      _properties.GetValue(GamingConstants.GambleEnabled, false);
             _letItRide = _properties.GetValue(GamingConstants.LetItRideEnabled, false);
 
             _allowEditHostDisabled = _properties.GetValue(GamingConstants.AllowEditHostDisabled, false);
@@ -93,7 +95,8 @@
                 x => x.Id,
                 x => x.Denominations.FirstOrDefault(d => d.Value == BaseDenom));
 
-            SetAvailableGamesAndDenom();
+            SetAvailablePaytablesAndDenom();
+            RemoveIllegalPaytables();
             SetWarningText();
             ResetChanges();
         }
@@ -141,6 +144,12 @@
         {
             get => _availablePaytables;
             private set => SetProperty(ref _availablePaytables, value);
+        }
+
+        public IReadOnlyList<PaytableDisplay> IllegalPaytables
+        {
+            get => _illegalPaytables;
+            private set => SetProperty(ref _illegalPaytables, value);
         }
 
         public decimal HighestAvailableMinimumRtp { get; }
@@ -596,7 +605,7 @@
             ForcedMaxBet = denomination?.MaximumWagerCredits * Denom ?? BetMaximum;
             ForcedMaxBetOutside = denomination?.MaximumWagerOutsideCredits * Denom ?? BetMaximum;
 
-            if (Game.GameType == GameType.Roulette)
+            if (Game?.GameType == GameType.Roulette)
             {
                 MaximumInsideBet = Game?.MaximumWagerInsideCredits > 0 ?
                     Game.MaximumWagerInsideCredits * Denom :
@@ -609,10 +618,10 @@
 
             SelectedBetOption = string.IsNullOrEmpty(denomination?.BetOption)
                 ? null
-                : BetOptions?.FirstOrDefault(o => o.Name == denomination.BetOption) ?? BetOptions?.FirstOrDefault();
+                : BetOptions?.FirstOrDefault(o => o.Name == denomination?.BetOption) ?? BetOptions?.FirstOrDefault();
             SelectedLineOption = string.IsNullOrEmpty(denomination?.LineOption)
                 ? null
-                : LineOptions?.FirstOrDefault(o => o.Name == denomination.LineOption) ?? LineOptions?.FirstOrDefault();
+                : LineOptions?.FirstOrDefault(o => o.Name == denomination?.LineOption) ?? LineOptions?.FirstOrDefault();
             SelectedBonusBet = denomination?.BonusBet ?? BonusBets.FirstOrDefault();
         }
 
@@ -637,7 +646,7 @@
             _lowestAllowedMinimumRtp = lowest;
             _highestAllowedMinimumRtp = highest;
 
-            SetAvailableGamesAndDenom();
+            SetAvailablePaytablesAndDenom();
 
             if (!AvailablePaytables.Contains(SelectedPaytable))
             {
@@ -852,7 +861,7 @@
             return Game?.TopAward(ResolveDenomination(), SelectedBetOption, SelectedLineOption) ?? 0;
         }
 
-        private void SetAvailableGamesAndDenom()
+        private void SetAvailablePaytablesAndDenom()
         {
             AvailablePaytables = FilteredAvailableGames.OrderByDescending(g => g.VariationId == "99")
                 .ThenBy(g => Convert.ToInt32(g.VariationId))
@@ -885,6 +894,23 @@
                 betAmount.FormattedCurrencyString().Length - padding;
 
             return defaultBetWidth + Math.Max(textLength, 1) * currencyDigitWidth;
+        }
+
+        private void RemoveIllegalPaytables()
+        {
+            var game = Game ?? AvailableGames.FirstOrDefault();
+            if (game is null)
+            {
+                return;
+            }
+
+            var rules = _rtpService.GetJurisdictionalRtpRules(game.GameType);
+
+            IllegalPaytables = AvailablePaytables.Where(
+                paytable => paytable.Rtp.Minimum < rules.MinimumRtp ||
+                            paytable.Rtp.Maximum > rules.MaximumRtp).ToList();
+
+            AvailablePaytables = AvailablePaytables.Where(p => !IllegalPaytables.Contains(p)).ToList();
         }
     }
 }

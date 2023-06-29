@@ -166,12 +166,32 @@ namespace Aristocrat.Monaco.Gaming
 
             ValidateJurisdictionalLimits(rtpBreakdown, game.GameType);
 
-            ValidateJurisdictionalRtpRules(rtpBreakdown, game.GameType);
+            ApplyJurisdictionalRtpRules(rtpBreakdown, game.GameType);
             
             // Build up and assign RTP Verification states to breakdown, for use with UI mainly.
-            rtpBreakdown.ProgressiveVerificationState = game.HasExtendedRtpInformation
+            var rtpStates = game.HasExtendedRtpInformation
                 ? GenerateRtpVerificationStates(game, rtpBreakdown.IsValid, isSapVerified, isLpVerified)
                 : GenerateRtpVerificationStatesLegacy(game, sapRtpState);
+
+            rtpBreakdown.ProgressiveVerificationState = rtpStates;
+
+            // Zero out progressive RTP values which are not verified
+            if (rtpStates.SapIncrementRtpState != RtpVerifiedState.Verified)
+            {
+                rtpBreakdown.StandaloneProgressiveIncrement = RtpRange.Zero;
+            }
+            if (rtpStates.SapResetRtpState != RtpVerifiedState.Verified)
+            {
+                rtpBreakdown.StandaloneProgressiveReset = RtpRange.Zero;
+            }
+            if (rtpStates.LpIncrementRtpState != RtpVerifiedState.Verified)
+            {
+                rtpBreakdown.LinkedProgressiveIncrement = RtpRange.Zero;
+            }
+            if (rtpStates.LpResetRtpState != RtpVerifiedState.Verified)
+            {
+                rtpBreakdown.LinkedProgressiveReset = RtpRange.Zero;
+            }
 
             return rtpBreakdown;
         }
@@ -323,20 +343,13 @@ namespace Aristocrat.Monaco.Gaming
             _rules[GameType.Undefined] = _rules[GameType.Slot];
         }
 
-        private bool VerifyLinkedProgressiveRtp(IGameDetail game, RtpBreakdown rtpBreakdown)
-        {
-            // TODO: To be implemented soon by another team (Most likely James King's)
-
-            return false;
-        }
-
         /// <summary>
         ///     Excludes individual RTP contributions from total RTP calculation. These RTP exclusions
         ///     are configured in the jurisdictional configuration.
         /// </summary>
         /// <param name="breakdown">The RTP Breakdown</param>
         /// <param name="gameType">The GameType</param>
-        private void ValidateJurisdictionalRtpRules(RtpBreakdown breakdown, GameType gameType)
+        private void ApplyJurisdictionalRtpRules(RtpBreakdown breakdown, GameType gameType)
         {
             var rtpRules = _rules[gameType];
 
