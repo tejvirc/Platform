@@ -234,11 +234,11 @@
                                                      PreventNegatives="True"
                                                      IsEnabled="{Binding CanSetInitialValue}"
                                                      Number="{
-                                    Binding Path=InitialValue, 
-                                    Mode=TwoWay, 
-                                    UpdateSourceTrigger=PropertyChanged, 
-                                    ValidatesOnDataErrors=True, 
-                                    NotifyOnValidationError=True}"
+                                                        Binding Path=InitialValue, 
+                                                        Mode=TwoWay, 
+                                                        UpdateSourceTrigger=PropertyChanged, 
+                                                        ValidatesOnDataErrors=True, 
+                                                        NotifyOnValidationError=True}"
                             />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -294,11 +294,11 @@
                                                      PreventNegatives="True"
                                                      IsEnabled="{Binding CanSetOverflowValue}"
                                                      Number="{
-                                    Binding Path=OverflowValue,
-                                    Mode=TwoWay,
-                                    UpdateSourceTrigger=PropertyChanged,
-                                    ValidatesOnDataErrors=True,
-                                    NotifyOnValidationError=True}"
+                                                        Binding Path=OverflowValue,
+                                                        Mode=TwoWay,
+                                                        UpdateSourceTrigger=PropertyChanged,
+                                                        ValidatesOnDataErrors=True,
+                                                        NotifyOnValidationError=True}"
                             />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

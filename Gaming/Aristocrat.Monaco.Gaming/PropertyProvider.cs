@@ -4,12 +4,14 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using System.Runtime.Remoting.Contexts;
     using Application.Contracts;
     using Contracts;
     using Contracts.Progressives;
     using Hardware.Contracts.Persistence;
     using Kernel;
     using log4net;
+    using Newtonsoft.Json;
 
     /// <summary>
     ///     A <see cref="IPropertyProvider" /> implementation for the gaming layer
@@ -276,7 +278,7 @@
                 { GamingConstants.LaunchGameAfterReboot, (InitFromStorage(GamingConstants.LaunchGameAfterReboot), true) },
                 { GamingConstants.DenomSelectionLobby, (configuration.DenomSelectionLobby?.Mode ?? DenomSelectionLobby.Allowed, false) },
                 { GamingConstants.ProgressiveConfigurableId, (false, false) },
-                { GamingConstants.ProgressiveConfiguredLevelIds, (new Dictionary<string, int>(), false)}
+                { GamingConstants.ProgressiveConfiguredLinkedLevelIds, (InitLinkedProgressiveConfigFromStorage(), true)}
             };
 
             if (!blockExists)
@@ -301,6 +303,7 @@
                 SetProperty(GamingConstants.ShowTopPickBanners,true);
                 SetProperty(GamingConstants.ShowPlayerMenuPopup, true);
                 SetProperty(GamingConstants.LaunchGameAfterReboot, false);
+                SetProperty(GamingConstants.ProgressiveConfiguredLinkedLevelIds, new Dictionary<string, int>());
                 var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
                 var machineSettingsImported = propertiesManager.GetValue(ApplicationConstants.MachineSettingsImported, ImportMachineSettings.None);
                 if (machineSettingsImported == ImportMachineSettings.None)
@@ -358,9 +361,15 @@
             // NOTE:  Not all properties are persisted
             if (value.isPersisted)
             {
+                //transform property for storage
+                var storablePropertyValue = propertyName switch
+                {
+                    GamingConstants.ProgressiveConfiguredLinkedLevelIds => JsonConvert.SerializeObject(propertyValue),
+                    _ => propertyValue
+                };
                 Logger.Debug(
                     $"setting property {propertyName} to {propertyValue}. Type is {propertyValue.GetType()}");
-                _persistentStorageAccessor[propertyName] = propertyValue;
+                _persistentStorageAccessor[propertyName] = storablePropertyValue;
             }
 
             _properties[propertyName] = (propertyValue, value.isPersisted);
@@ -369,6 +378,20 @@
         private object InitFromStorage(string propertyName)
         {
             return _persistentStorageAccessor[propertyName];
+        }
+
+        private object InitLinkedProgressiveConfigFromStorage()
+        {
+            var storedValue = InitFromStorage(GamingConstants.ProgressiveConfiguredLinkedLevelIds).ToString();
+
+            var toReturn = new Dictionary<string, int>();
+
+            if (!string.IsNullOrEmpty(storedValue))
+            {
+                toReturn = JsonConvert.DeserializeObject<Dictionary<string, int>>(storedValue);
+            }
+
+            return toReturn;
         }
 
         private int GetRtpValue(int configRtp, int defaultRtp)

@@ -202,9 +202,7 @@
 
                     if (progressiveDeviceManager != null)
                     {
-                        var vertexLevelIds = (Dictionary<string, int>)propertiesManager.GetProperty(Constants.VertexProgressiveLevelIds, new Dictionary<string, int>());
-    
-                        propertiesManager.SetProperty(GamingConstants.ProgressiveConfiguredLevelIds, vertexLevelIds);
+                        var vertexLevelIds = (Dictionary<string, int>)propertiesManager.GetProperty(GamingConstants.ProgressiveConfiguredLinkedLevelIds, new Dictionary<string, int>());
                         if (vertexLevelIds.Any())
                         {
                             progressiveDeviceManager?.OnConfiguredProgressives(false, true);

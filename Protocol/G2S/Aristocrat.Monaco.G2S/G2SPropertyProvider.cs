@@ -45,7 +45,6 @@
                 { Constants.RegisteredHosts, InitHostsFromStorage() },
                 { Constants.StartupContext, InitStartupContext() },
                 { Constants.Port, port != 0 ? port : Constants.DefaultPort },
-                { Constants.VertexProgressiveLevelIds, InitVertexLevelIds() },
                 { Constants.G2SProgressivesEnabled, false }
             };
         }
@@ -123,14 +122,6 @@
                     }
 
                     break;
-
-                case Constants.Port:
-                    
-                    break;
-
-                case Constants.VertexProgressiveLevelIds:
-                    _persistentStorageAccessor[Constants.VertexProgressiveLevelIds] = JsonConvert.SerializeObject(propertyValue);
-                    break;
             }
 
             _properties[propertyName] = propertyValue;
@@ -167,20 +158,6 @@
             var context = (string)_persistentStorageAccessor[Constants.StartupContext];
 
             return string.IsNullOrEmpty(context) ? null : JsonConvert.DeserializeObject<StartupContext>(context);
-        }
-
-        private Dictionary<string, int> InitVertexLevelIds()
-        {
-            var context = (string)_persistentStorageAccessor[Constants.VertexProgressiveLevelIds];
-
-            var toReturn = new Dictionary<string, int>();
-
-            if (!string.IsNullOrEmpty(context))
-            {
-                toReturn = JsonConvert.DeserializeObject<Dictionary<string, int>>(context);
-            }
-
-            return toReturn;
         }
 
         private object InitFromStorage(string propertyName)

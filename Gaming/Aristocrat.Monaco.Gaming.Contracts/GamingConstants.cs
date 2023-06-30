@@ -484,7 +484,7 @@
         /// <summary> 
         ///     Property Manager for the collection of configured level ids 
         /// </summary> 
-        public const string ProgressiveConfiguredLevelIds = "@Progressive.ConfiguredLevelIds";
+        public const string ProgressiveConfiguredLinkedLevelIds = @"Progressive.ConfiguredLinkedLevelIds";
 
         /// <summary>
         ///     Property manager key for CensorshipEnforced.

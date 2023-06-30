@@ -596,9 +596,8 @@
             _pools.Clear();
 
             var propertiesManager = ServiceManager.GetInstance().TryGetService<IPropertiesManager>();
-            var vertexLevelIds = (Dictionary<string, int>)propertiesManager.GetProperty(GamingConstants.ProgressiveConfiguredLevelIds,
+            var vertexLevelIds = (Dictionary<string, int>)propertiesManager.GetProperty(GamingConstants.ProgressiveConfiguredLinkedLevelIds,
                 new Dictionary<string, int>());
-            propertiesManager.SetProperty(G2S.Constants.VertexProgressiveLevelIds, vertexLevelIds);
 
             try
             {
