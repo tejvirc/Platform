@@ -14,7 +14,7 @@
     using Usb.ReelController.Relm;
 
     [TestClass]
-    public class RelmUsbCommunicatorTests
+    public class AnimationTests
     {
         private const string AnimationPath = @"\\TestDirectory\TestFile.show";
         private const string DefaultFriendlyName = "TestFile";

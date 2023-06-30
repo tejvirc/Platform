@@ -11940,6 +11940,18 @@ Do you really want to do full reset?</value>
   <data name="GameStartMethodLineReelorMaxBetButton" xml:space="preserve">
     <value>Line/Reel/Max Bet Button</value>
   </data>
+  <data name="ReelFaults_IdleUnknown" xml:space="preserve">
+    <value>Reel Controller Error</value>
+  </data>
+  <data name="ReelFaults_ReelOpticSequenceError" xml:space="preserve">
+    <value>Reel Controller Error</value>
+  </data>
+  <data name="ReelFaults_UnknownStop" xml:space="preserve">
+    <value>Reel Controller Error</value>
+  </data>
+  <data name="ReelControllerFaults_LightError" xml:space="preserve">
+    <value>Reel Controller Error</value>
+  </data>
   <data name="PlayStepperCurveButton" xml:space="preserve">
     <value>Animate</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
