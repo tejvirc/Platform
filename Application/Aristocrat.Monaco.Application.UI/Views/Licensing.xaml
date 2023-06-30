@@ -137,8 +137,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.SoftwareLicense}}"
                                     Binding="{Binding}"
-                                    AutomationProperties.AutomationId="DataGridTextColumn22_1D4F2826"
-                                    loc:Localizer.For="Operator"  />
+                                    AutomationProperties.AutomationId="DataGridTextColumn22_1D4F2826" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
