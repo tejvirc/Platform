@@ -11,6 +11,7 @@
     using Commands;
     using Contracts;
     using Contracts.Central;
+    using Contracts.Events;
     using Contracts.Process;
     using GdkRuntime.V1;
     using Kernel;
@@ -183,7 +184,13 @@
                     // Not used
                     break;
                 case EventTypes.MaxWinReached:
-                    // Not used
+                    if (!_gameDiagnostics.IsActive)
+                    {
+                        _bus.Publish(new MaxWinReachedEvent());
+                    }
+                    break;
+                case EventTypes.GameIdleActivity:
+                    _bus.Publish(new UserInteractionEvent());
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

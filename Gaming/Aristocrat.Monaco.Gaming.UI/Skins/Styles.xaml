@@ -18,6 +18,7 @@
                               AutomationProperties.AutomationId="ContentPresenter1_56D3D2F0" />
         </Border>
     </ControlTemplate>
+    <FontFamily x:Key="CountdownFont">./DSEG7Modern-Regular.ttf#DSEG7 Modern</FontFamily>
     <!-- null FocusVisualStyle fixes the dotted line border around focused buttons -->
     <Style x:Key="stlFlatButton"
            TargetType="{x:Type Button}">

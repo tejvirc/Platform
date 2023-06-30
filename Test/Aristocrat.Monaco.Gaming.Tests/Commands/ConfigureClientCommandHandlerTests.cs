@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Globalization;
     using Application.Contracts.Extensions;
+    using Aristocrat.Monaco.Accounting.Contracts.HandCount;
     using Application.Contracts.Currency;
     using Contracts.Configuration;
     using Contracts;
@@ -22,6 +23,7 @@
     {
         private Mock<IPlayerBank> _playerBank;
         private Mock<IRuntime> _runtime;
+        private Mock<IHandCountService> _handCount;
         private Mock<IGameHistory> _gameHistory;
         private Mock<IPropertiesManager> _propertiesManager;
         private Mock<ILobbyStateManager> _lobbyStateManager;
@@ -50,6 +52,7 @@
             _cabinetDetectionService = new Mock<ICabinetDetectionService>();
             _hardwareHelper = new Mock<IHardwareHelper>();
             _runtime = new Mock<IRuntime>();
+            _handCount = new Mock<IHandCountService>();
             _attendantService = new Mock<IAttendantService>();
             _gameConfiguration = new Mock<IGameConfigurationProvider>();
             _attendantService.Setup(attendant => attendant.IsServiceRequested).Returns(true);
@@ -80,24 +83,26 @@
             CurrencyExtensions.SetCultureInfo(region.ISOCurrencySymbol, culture, null, null, true, true, minorUnitSymbol);
         }
 
-        [TestMethod]
-        [DataRow(true, false, false, false, false, false, false, false, false, false, false, false, false, false, true, DisplayName = "null Runtime")]
-        [DataRow(false, true, false, false, false, false, false, false, false, false, false, false, false, false, true, DisplayName = "null GameHistory")]
-        [DataRow(false, false, true, false, false, false, false, false, false, false, false, false, false, false, true, DisplayName = "null GameRecovery")]
-        [DataRow(false, false, false, true, false, false, false, false, false, false, false, false, false, false, true, DisplayName = "null GameDiagnostics")]
-        [DataRow(false, false, false, false, true, false, false, false, false, false, false, false, false, false, true, DisplayName = "null LobbyStateManager")]
-        [DataRow(false, false, false, false, false, true, false, false, false, false, false, false, false, false, true, DisplayName = "null PropertiesManager")]
-        [DataRow(false, false, false, false, false, false, true, false, false, false, false, false, false, false, true, DisplayName = "null PlayerBank")]
-        [DataRow(false, false, false, false, false, false, false, true, false, false, false, false, false, false, true, DisplayName = "null Audio")]
-        [DataRow(false, false, false, false, false, false, false, false, true, false, false, false, false, false, true, DisplayName = "null GameProvider")]
-        [DataRow(false, false, false, false, false, false, false, false, false, true, false, false, false, false, true, DisplayName = "null GameCategoryServicer")]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, true, false, false, false, true, DisplayName = "null CabinetDetectionService")]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, false, true, false, false, true, DisplayName = "null HardwareHelper")]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, true, false, true, DisplayName = "null AttendantService")]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, DisplayName = "null GameConfigurationProvider")]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, DisplayName = "all non-null services, expect success.")]
+        [DataTestMethod]
+        [DataRow(true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, DisplayName = "null Runtime")]
+        [DataRow(false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, true, DisplayName = "null HandCount")]
+        [DataRow(false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, true, DisplayName = "null GameHistory")]
+        [DataRow(false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, true, DisplayName = "null GameRecovery")]
+        [DataRow(false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, true, DisplayName = "null GameDiagnostics")]
+        [DataRow(false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, true, DisplayName = "null LobbyStateManager")]
+        [DataRow(false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, true, DisplayName = "null PropertiesManager")]
+        [DataRow(false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, true, DisplayName = "null PlayerBank")]
+        [DataRow(false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, true, DisplayName = "null Audio")]
+        [DataRow(false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, true, DisplayName = "null GameProvider")]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, true, DisplayName = "null GameCategoryServicer")]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, true, DisplayName = "null CabinetDetectionService")]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, true, DisplayName = "null HardwareHelper")]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, true, DisplayName = "null AttendantService")]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, DisplayName = "null GameConfigurationProvider")]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, DisplayName = "all non-null services, expect success.")]
         public void ConfigureClientCommandHandlerTestExpectException(
             bool nullRuntime,
+            bool nullHandCount,
             bool nullGameHistory,
             bool nullGameRecovery,
             bool nullGameDiagnostics,
@@ -114,9 +119,10 @@
             bool throwException)
         {
             if (throwException)
-            {
+        {
                 Assert.ThrowsException<ArgumentNullException>(() => GetGameRecoveryService(
                     nullRuntime,
+                    nullHandCount,
                     nullGameHistory,
                     nullGameRecovery,
                     nullGameDiagnostics,
@@ -130,11 +136,12 @@
                     nullHardwareHelper,
                     nullAttendantService,
                     nullGameConfigurationProvider));
-            }
+        }
             else
             {
                 Assert.IsNotNull(GetGameRecoveryService(
                     nullRuntime,
+                    nullHandCount,
                     nullGameHistory,
                     nullGameRecovery,
                     nullGameDiagnostics,
@@ -153,6 +160,7 @@
 
         private ConfigureClientCommandHandler GetGameRecoveryService(
                 bool nullRuntime,
+                bool nullHandCount,
                 bool nullGameHistory,
                 bool nullGameRecovery,
                 bool nullGameDiagnostics,
@@ -169,6 +177,7 @@
         {
             return new ConfigureClientCommandHandler(
                 nullRuntime ? null : _runtime.Object,
+                nullHandCount ? null: _handCount.Object,
                 nullGameHistory ? null : _gameHistory.Object,
                 nullGameRecovery ? null : _gameRecovery.Object,
                 nullGameDiagnostics ? null : _gameDiagnostic.Object,
@@ -202,6 +211,7 @@
 
             var handler = new ConfigureClientCommandHandler(
                 _runtime.Object,
+                _handCount.Object,
                 _gameHistory.Object,
                 _gameRecovery.Object,
                 _gameDiagnostic.Object,
@@ -242,6 +252,7 @@
 
             var handler = new ConfigureClientCommandHandler(
                 _runtime.Object,
+                _handCount.Object,
                 _gameHistory.Object,
                 _gameRecovery.Object,
                 _gameDiagnostic.Object,
@@ -286,6 +297,7 @@
 
             var handler = new ConfigureClientCommandHandler(
                 _runtime.Object,
+                _handCount.Object,
                 _gameHistory.Object,
                 _gameRecovery.Object,
                 _gameDiagnostic.Object,
@@ -327,6 +339,7 @@
 
             var handler = new ConfigureClientCommandHandler(
                 _runtime.Object,
+                _handCount.Object,
                 _gameHistory.Object,
                 _gameRecovery.Object,
                 _gameDiagnostic.Object,

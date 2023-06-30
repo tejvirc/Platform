@@ -67,6 +67,11 @@
             _serviceProvider.Client?.UpdateVolume(level);
         }
 
+        public void UpdateHandCount(int handCount)
+        {
+            _serviceProvider.Client?.UpdateHandCount(handCount);
+        }
+
         public void UpdateButtonState(uint buttonId, ButtonMask mask, ButtonState state)
         {
             _serviceProvider.Client?.UpdateButtonState(buttonId, mask, state);

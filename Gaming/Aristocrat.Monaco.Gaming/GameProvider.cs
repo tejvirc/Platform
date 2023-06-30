@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming
+namespace Aristocrat.Monaco.Gaming
 {
     using System;
     using System.Collections.Generic;
@@ -991,6 +991,8 @@
                 }).ToList();
 
             isComplex = isComplex || game.Denominations.Count() > 1;
+            var shouldAutoEnableGame = !isComplex && _properties.GetValue(GamingConstants.AutoEnableSimpleGames, true);
+
             var gameDetail = FindGame(game.ThemeId, game.PaytableId, gameContent.ReleaseNumber);
             if (gameDetail is null)
             {
@@ -1008,7 +1010,10 @@
                     Version = gameContent.ReleaseNumber,
                     Status = GameStatus.DisabledByBackend,
                     Denominations =
-                        FromValueBasedDenominations(game, validDenoms, isComplex ? 0 : game.Denominations.Single()),
+                        FromValueBasedDenominations(
+                            game,
+                            validDenoms,
+                            shouldAutoEnableGame ? game.Denominations.Single() : 0),
                     WagerCategories = wagerCategories,
                     New = true,
                     InstallDate = installDate,

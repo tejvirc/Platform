@@ -34,7 +34,6 @@
         private GameCategory _category;
         private GameSubCategory _subCategory;
         private bool _isSelected;
-        private bool _hasProgressiveOrBonusValue;
         private string _imagePath;
 
         // Used to determine if "new" game.  For example, a requirement is that
@@ -222,11 +221,7 @@
         /// <summary>
         ///     Gets or sets a value indicating whether the game has a progressive bonus
         /// </summary>
-        public bool HasProgressiveOrBonusValue
-        {
-            get => _hasProgressiveOrBonusValue;
-            set => SetProperty(ref _hasProgressiveOrBonusValue, value, nameof(HasProgressiveOrBonusValue), nameof(ProgressiveOrBonusValue));
-        }
+        public bool HasProgressiveOrBonusValue => !string.IsNullOrWhiteSpace(ProgressiveOrBonusValue);
 
         /// <summary>
         ///     Gets or sets the denomination

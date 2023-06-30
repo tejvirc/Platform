@@ -14,7 +14,7 @@
 namespace Aristocrat.Monaco.Gaming.Contracts {
     using System.Xml.Serialization;
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -157,6 +157,16 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         private GamingConfigurationAudio audioField;
         
         private GamingConfigurationButtonAnimation buttonAnimationField;
+        
+        private GamingConfigurationWinIncrement winIncrementField;
+        
+        private GamingConfigurationAutoCompleteGameRound autoCompleteGameRoundField;
+        
+        private GamingConfigurationProgressiveView progressiveViewField;
+        
+        private GamingConfigurationMaxWin maxWinField;
+        
+        private GamingConfigurationAutoEnableSimpleGames autoEnableSimpleGamesField;
         
         /// <remarks/>
         public GamingConfigurationGameHistory GameHistory {
@@ -825,6 +835,57 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.buttonAnimationField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public GamingConfigurationWinIncrement WinIncrement {
+            get {
+                return this.winIncrementField;
+            }
+            set {
+                this.winIncrementField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public GamingConfigurationAutoCompleteGameRound AutoCompleteGameRound {
+            get {
+                return this.autoCompleteGameRoundField;
+            }
+
+            set {
+                this.autoCompleteGameRoundField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public GamingConfigurationProgressiveView ProgressiveView {
+            get {
+                return this.progressiveViewField;
+            }
+            set {
+                this.progressiveViewField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public GamingConfigurationMaxWin MaxWin {
+            get {
+                return this.maxWinField;
+            }
+            set {
+                this.maxWinField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public GamingConfigurationAutoEnableSimpleGames AutoEnableSimpleGames {
+            get {
+                return this.autoEnableSimpleGamesField;
+            }
+            set {
+                this.autoEnableSimpleGamesField = value;
             }
         }
     }
@@ -2954,6 +3015,8 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         
         private GamingConfigurationPhysicalButtonsBetButtons betButtonsField;
         
+        private GamingConfigurationPhysicalButtonsLeftPlayButton leftPlayButtonField;
+        
         private GamingConfigurationPhysicalButtonsCollectButton collectButtonField;
         
         private GamingConfigurationPhysicalButtonsGambleButton gambleButtonField;
@@ -2973,6 +3036,16 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.betButtonsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public GamingConfigurationPhysicalButtonsLeftPlayButton LeftPlayButton {
+            get {
+                return this.leftPlayButtonField;
+            }
+            set {
+                this.leftPlayButtonField = value;
             }
         }
         
@@ -3047,8 +3120,17 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         
         private bool displayOnBottomField;
         
+        private string betDownField;
+        
+        private string betUpField;
+        
+        private string maxBetField;
+        
         public GamingConfigurationPhysicalButtonsBetButtons() {
             this.displayOnBottomField = false;
+            this.betDownField = "false";
+            this.betUpField = "false";
+            this.maxBetField = "false";
         }
         
         /// <remarks/>
@@ -3060,6 +3142,84 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.displayOnBottomField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute("false")]
+        public string BetDown {
+            get {
+                return this.betDownField;
+            }
+            set {
+                this.betDownField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute("false")]
+        public string BetUp {
+            get {
+                return this.betUpField;
+            }
+            set {
+                this.betUpField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute("false")]
+        public string MaxBet {
+            get {
+                return this.maxBetField;
+            }
+            set {
+                this.maxBetField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class GamingConfigurationPhysicalButtonsLeftPlayButton {
+        
+        private string requiredField;
+        
+        private bool optionalField;
+        
+        public GamingConfigurationPhysicalButtonsLeftPlayButton() {
+            this.requiredField = "false";
+            this.optionalField = false;
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute("false")]
+        public string Required {
+            get {
+                return this.requiredField;
+            }
+            set {
+                this.requiredField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool Optional {
+            get {
+                return this.optionalField;
+            }
+            set {
+                this.optionalField = value;
             }
         }
     }
@@ -4283,6 +4443,189 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.goodLuckField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class GamingConfigurationWinIncrement {
+        
+        private bool winTuneCappingField;
+        
+        private WinIncrementSpeed winIncrementSpeedField;
+        
+        public GamingConfigurationWinIncrement() {
+            this.winTuneCappingField = false;
+            this.winIncrementSpeedField = WinIncrementSpeed.WinAmountOnly;
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(true)]
+        public bool WinTuneCapping {
+            get {
+                return this.winTuneCappingField;
+            }
+            set {
+                this.winTuneCappingField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(WinIncrementSpeed.WinAmountOnly)]
+        public WinIncrementSpeed WinIncrementSpeed {
+            get {
+                return this.winIncrementSpeedField;
+            }
+            set {
+                this.winIncrementSpeedField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    public enum WinIncrementSpeed {
+        
+        /// <remarks/>
+        WinAmountOnly,
+        
+        /// <remarks/>
+        WinAmountAndDenom,
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class GamingConfigurationAutoCompleteGameRound {
+        
+        private bool enabledField;
+        
+        public GamingConfigurationAutoCompleteGameRound() {
+            this.enabledField = true;
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(true)]
+        public bool Enabled {
+            get {
+                return this.enabledField;
+            }
+            set {
+                this.enabledField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class GamingConfigurationProgressiveView {
+        
+        private GamingConfigurationProgressiveViewInitialSetupView initialSetupViewField;
+        
+        /// <remarks/>
+        public GamingConfigurationProgressiveViewInitialSetupView InitialSetupView {
+            get {
+                return this.initialSetupViewField;
+            }
+            set {
+                this.initialSetupViewField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class GamingConfigurationProgressiveViewInitialSetupView {
+        
+        private bool readonlyField;
+        
+        public GamingConfigurationProgressiveViewInitialSetupView() {
+            this.readonlyField = false;
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool Readonly {
+            get {
+                return this.readonlyField;
+            }
+            set {
+                this.readonlyField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class GamingConfigurationMaxWin {
+        
+        private string onMaxWinReachedField;
+        
+        public GamingConfigurationMaxWin() {
+            this.onMaxWinReachedField = "endgame";
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute("endgame")]
+        public string OnMaxWinReached {
+            get {
+                return this.onMaxWinReachedField;
+            }
+            set {
+                this.onMaxWinReachedField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class GamingConfigurationAutoEnableSimpleGames {
+        
+        private bool enabledField;
+        
+        public GamingConfigurationAutoEnableSimpleGames() {
+            this.enabledField = true;
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(true)]
+        public bool Enabled {
+            get {
+                return this.enabledField;
+            }
+            set {
+                this.enabledField = value;
             }
         }
     }

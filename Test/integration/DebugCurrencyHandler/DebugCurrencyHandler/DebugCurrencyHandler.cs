@@ -16,6 +16,7 @@
     using log4net;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Reflection;
     using System.Runtime.InteropServices;
     using System.Text;
@@ -297,7 +298,7 @@
             var transaction = RecordBillTransaction(amount);
 
             UpdateLaundryLimit(transaction);
-            
+
             var note = new Note()
             {
                 Value = debugNoteEvent.Denomination,
@@ -400,7 +401,6 @@
                     VerifyBalance(_transaction.NewAccountBalance, creditType);
 
                     ResetState();
-                    
 
                     return true;
                 }
@@ -418,7 +418,7 @@
         private void UpdateMeters(AccountType type, long amount)
         {
             var meters = ServiceManager.GetInstance().TryGetService<IMeterManager>();
-            
+
             switch (type)
             {
                 case AccountType.Cashable:
@@ -633,6 +633,13 @@
 
         private void UpdateShowModeAccountBalance()
         {
+            var gameProvider = ServiceManager.GetInstance().GetService<IGameProvider>();
+            if (!gameProvider.GetEnabledGames().Any())
+            {
+                Log.Info("Can't update show mode account balance when no game is enabled.");
+                return;
+            }
+
             var wagerMatchEnabled = ServiceManager.GetInstance().GetService<IPropertiesManager>()
                 .GetValue(GamingConstants.ShowProgramEnableResetCredits, true);
             if (!wagerMatchEnabled)
@@ -645,7 +652,7 @@
             var bank = ServiceManager.GetInstance().GetService<IBank>();
 
             // set to half of limit, rounded to nearest $100
-            var limit = (long)Math.Round((double)bank.Limit / 2 / 100M.DollarsToMillicents()) *                         100M.DollarsToMillicents();
+            var limit = (long)Math.Round((double)bank.Limit / 2 / 100M.DollarsToMillicents()) * 100M.DollarsToMillicents();
             limit = Math.Min(limit, _showModeMaxBankReset);
 
             if (balance < limit)

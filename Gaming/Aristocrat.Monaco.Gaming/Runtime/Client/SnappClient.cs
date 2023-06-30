@@ -150,6 +150,11 @@
             Invoke(client => client.UpdateVolume(new VolumeUpdateNotification { Volume = level }));
         }
 
+        public void UpdateHandCount(int handCount)
+        {
+            Invoke(client => client.UpdateHandCount(new UpdateHandCountNotification { Value = (ulong)handCount }));
+        }
+
         public void UpdateButtonState(uint buttonId, ButtonMask mask, ButtonState state)
         {
             Invoke(

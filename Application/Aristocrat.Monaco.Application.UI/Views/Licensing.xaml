@@ -138,7 +138,8 @@
             </DataGrid.CellStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{lex:Loc SoftwareLicense}" Binding="{Binding}" 
-                                    AutomationProperties.AutomationId="DataGridTextColumn22_1D4F2826" />
+                                    AutomationProperties.AutomationId="DataGridTextColumn22_1D4F2826"
+                                    loc:Localizer.For="Operator"  />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

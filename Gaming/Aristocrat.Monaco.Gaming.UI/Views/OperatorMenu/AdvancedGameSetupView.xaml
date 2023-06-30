@@ -191,9 +191,9 @@
                     </Button>
                 </StackPanel>
 
-                <TextBlock Grid.Row="1" 
-                           HorizontalAlignment="Left" 
-                           Visibility="{Binding DenomSelectionLimitExists, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
+                <TextBlock Grid.Row="1"
+                           HorizontalAlignment="Left"
+                           Visibility="{Binding DenomSelectionLimitExists, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                            Text="{Binding SelectedDenoms}"
                            AutomationProperties.AutomationId="TextBlock27_FA38938A" />
 
@@ -404,7 +404,21 @@
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
 
-                        <DataGridTemplateColumn Header="{lex:Loc Gamble}" 
+                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.BetOptionMaxWin}}"
+                                            loc:Localizer.For="Operator"
+                                            HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmall}"
+                                            Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.MaxWinColumnVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                            MaxWidth="200"
+                                            Binding="{Binding MaxWinAmount, Converter={StaticResource CurrencyConverter}, ConverterParameter=ZeroNotAvailable, Mode=OneWay}"
+                                            AutomationProperties.AutomationId="DataGridTextColumn51_FA38938A">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Margin" Value="5 0 0 0" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Gamble}}" 
                                                 loc:Localizer.For="Operator"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.GambleOptionVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"

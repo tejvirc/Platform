@@ -717,7 +717,7 @@
         public const string DocumentsRejectedCount = "RejectCount";
 
         /// <summary>
-        ///     Count of documents (notes and vochers) accepted by the note acceptor
+        ///     Count of documents (notes and vouchers) accepted by the note acceptor
         /// </summary>
         public const string DocumentsAcceptedCount = "AcceptanceCount";
 
@@ -727,7 +727,7 @@
         public const string VouchersRejectedCount = "VouchersRejectedCount";
 
         /// <summary>
-        ///     Count of currencys/notes rejected by the note acceptor
+        ///     Count of currencies/notes rejected by the note acceptor
         /// </summary>
         public const string BillsRejectedCount = "BillsRejectedCount";
 
@@ -743,5 +743,25 @@
         /// </summary>
         public const string TotalCashCoinTicketInAmount = "TotalCashCoinTicketInAmount";
 
+        /// <summary>
+        ///     Count of hand played by the player in this hand count session
+        /// </summary>
+        public const string HandCount = "HandCount";
+
+        /// <summary>
+        ///     Hard meter cash out amount, amount that is cashed out by incrementing a hard meter
+        ///     connected to some external device
+        /// </summary>
+        public const string HardMeterOutAmount = "HardMeterOutAmount";
+
+        /// <summary>
+        ///     Hard meter cash out count, the number of hard meter cash outs that have occurred.
+        /// </summary>
+        public const string HardMeterOutCount = "HardMeterOutCount";
+
+        /// <summary>
+        ///     Cancelled residual credit amount, amount that is cancelled by hand count reset
+        /// </summary>
+        public const string ResidualAmount = "ResidualAmount";
     }
 }

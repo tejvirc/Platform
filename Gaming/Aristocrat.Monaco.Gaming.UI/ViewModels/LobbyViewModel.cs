@@ -49,6 +49,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.Button;
+    using Progressives;
     using Timers;
     using Utils;
     using Vgt.Client12.Application.OperatorMenu;
@@ -122,6 +123,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private readonly IAudio _audio;
         private readonly ICashoutController _cashoutController;
         private readonly IAttractConfigurationProvider _attractInfoProvider;
+        private readonly IProgressiveConfigurationProvider _progressiveProvider;
         private readonly IPlayerInfoDisplayManager _playerInfoDisplayManager;
         private readonly IReserveService _reserveService;
         // Broadcasting platform messages to a game
@@ -208,6 +210,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private bool _cashoutDialogHidden;
         private GameInfo _selectedGame;
         private bool _isInitialStartup = true;
+        private bool _isHandCountResetDialogOpen = false;
 
         private double _credits;
         private int _currentAttractIndex;
@@ -267,6 +270,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private MenuSelectionPayOption _selectedMenuSelectionPayOption;
         private bool _vbdInfoBarOpenRequested;
         private bool _isGambleFeatureActive;
+        private int _handCount;
+        private readonly bool _handCountServiceEnabled;
 
         /****** UPI ******/
         /* TODO: Make UpiViewModel to break up this class */
@@ -291,7 +296,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 ServiceManager.GetInstance().TryGetService<ICabinetDetectionService>(),
                 ServiceManager.GetInstance().TryGetService<IAudio>(),
                 ServiceManager.GetInstance().TryGetService<ICashoutController>(),
-                ServiceManager.GetInstance().TryGetService<IAttractConfigurationProvider>())
+                ServiceManager.GetInstance().TryGetService<IAttractConfigurationProvider>(),
+                ServiceManager.GetInstance().TryGetService<IProgressiveConfigurationProvider>())
         {
         }
 
@@ -315,7 +321,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             ICabinetDetectionService cabinetDetectionService,
             IAudio audio,
             ICashoutController cashoutController,
-            IAttractConfigurationProvider attractInfoProvider)
+            IAttractConfigurationProvider attractInfoProvider,
+            IProgressiveConfigurationProvider progressiveProvider)
         {
             if (buttonDeckDisplay == null)
             {
@@ -342,6 +349,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             _audio = audio ?? throw new ArgumentNullException(nameof(audio));
             _cashoutController = cashoutController ?? throw new ArgumentNullException(nameof(cashoutController));
             _attractInfoProvider = attractInfoProvider ?? throw new ArgumentNullException(nameof(attractInfoProvider));
+            _progressiveProvider = progressiveProvider ?? throw new ArgumentNullException(nameof(progressiveProvider));
             ProgressiveLabelDisplay = new ProgressiveLobbyIndicatorViewModel(this);
 
             _operatorMenu = containerService.Container.GetInstance<IOperatorMenuLauncher>();
@@ -547,7 +555,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             _ageWarningTimer.AgeWarningNeeded = Config.DisplayAgeWarning && !_gameHistory.IsRecoveryNeeded && HasZeroCredits;
 
             SendLanguageChangedEvent(true);
-
+            _handCountServiceEnabled = _properties.GetValue(AccountingConstants.HandCountServiceEnabled, false);
             IsDemonstrationMode = _properties.GetValue(ApplicationConstants.DemonstrationMode, false);
 
             if (_bank.QueryBalance() == 0 && _gameState.Idle && !_gameHistory.IsRecoveryNeeded)
@@ -574,7 +582,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         public string VbdTitle => GamingConstants.VbdWindowTitle;
 
-        public bool IsTabView => _lobbyStateManager?.IsTabView ?? false;
+        public bool IsTabView => (_lobbyStateManager?.IsTabView ?? false) && !Config.MidKnightLobbyEnabled;
 
         /// <summary>
         ///     Is the current tab hosting extra large game icons
@@ -934,7 +942,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         /// <summary>
         ///     Gets a value indicating whether the EGM has zero credits.
         /// </summary>
-        public bool HasZeroCredits => _credits.Equals(0.0);
+        public bool HasZeroCredits => _bank.QueryBalance() == 0;
 
         /// <summary>
         ///     Gets or sets the paid meter
@@ -1369,6 +1377,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         ///     Gets a value indicating whether the cash out button is enabled.
         /// </summary>
         public bool CashOutEnabled =>
+            !IsDisabledByHandCount() &&
             RedeemableCredits > 0.0 && !IsBottomLoadingScreenVisible &&
             !ContainsAnyState(LobbyState.CashOut, LobbyState.CashOutFailure, LobbyState.AgeWarningDialog) &&
             !MessageOverlayDisplay.ShowVoucherNotification;
@@ -1547,6 +1556,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                                         && !IsIdleTextScrolling
                                         && !MessageOverlayDisplay.ShowVoucherNotification
                                         && !MessageOverlayDisplay.ShowProgressiveGameDisabledNotification
+                                        && !MessageOverlayDisplay.CustomMainViewElementVisible
                                         && !(_playerInfoDisplayManager?.IsActive()).GetValueOrDefault();
 
         public LobbyState CurrentState => _lobbyStateManager.CurrentState;
@@ -1655,9 +1665,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private bool IsIdleTextScrolling => LobbyBannerDisplayMode == BannerDisplayMode.Scrolling;
 
-        public bool IsBlinkingIdleTextVisible => !IsIdleTextScrolling && (!Config.HideIdleTextOnCashIn || HasZeroCredits) && !IsTabView;
+        public bool IsBlinkingIdleTextVisible => !IsIdleTextScrolling && (!Config.HideIdleTextOnCashIn || HasZeroCredits) && !IsTabView && !Config.MidKnightLobbyEnabled;
 
-        public bool IsScrollingIdleTextEnabled => IsIdleTextScrolling && (!Config.HideIdleTextOnCashIn || HasZeroCredits) && !IsTabView;
+        public bool IsScrollingIdleTextEnabled => IsIdleTextScrolling && (!Config.HideIdleTextOnCashIn || HasZeroCredits) && !IsTabView && !Config.MidKnightLobbyEnabled;
 
         public bool IsIdleTextBlinking => IsInLobby && !IsInState(LobbyState.Disabled);
 
@@ -1764,6 +1774,24 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public bool IsSingleGameMode => (_lobbyStateManager?.AllowGameInCharge ?? false) && UniqueThemeIds <= 1;
 
         private int UniqueThemeIds => (GameList?.Where(g => g.Enabled).Select(o => o.ThemeId).Distinct().Count() ?? 0);
+
+        /// <summary>
+        /// Display Hand count for Georgia COAM jurisdiction
+        /// </summary>
+        public int HandCount
+        {
+            get => _handCount;
+            set
+            {
+                if (_handCount.Equals(value))
+                {
+                    return;
+                }
+                _handCount = value;
+                RaisePropertyChanged(nameof(HandCount));
+                RaisePropertyChanged(nameof(CashOutEnabled));
+            }
+        }
 
         /// <summary>
         ///     Dispose
@@ -2083,8 +2111,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                                   TopperAttractVideoPath = game.LocaleGraphics[ActiveLocaleCode].TopperAttractVideo,
                                   BottomAttractVideoPath = game.LocaleGraphics[ActiveLocaleCode].BottomAttractVideo,
                                   LoadingScreenPath = game.LocaleGraphics[ActiveLocaleCode].LoadingScreen,
-                                  HasProgressiveOrBonusValue = !string.IsNullOrEmpty(game.DisplayMeterName),
-                                  ProgressiveOrBonusValue = GetProgressiveOrBonusValue(game.Id, denom),
+                                  ProgressiveOrBonusValue = GetProgressiveOrBonusValue(game.Id, denom, game.Denominations.Single(d => d.Value == denom).BetOption),
                                   ProgressiveIndicator = ProgressiveLobbyIndicator.Disabled,
                                   Denomination = denom,
                                   BetOption = game.Denominations.Single(d => d.Value == denom).BetOption,
@@ -2404,7 +2431,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             // Update any progressive values displayed the lobby each time we enter the lobby
             foreach (var game in GameList)
             {
-                game.ProgressiveOrBonusValue = GetProgressiveOrBonusValue(game.GameId, game.Denomination);
+                game.ProgressiveOrBonusValue = GetProgressiveOrBonusValue(game.GameId, game.Denomination, game.BetOption);
                 ProgressiveLabelDisplay.UpdateGameProgressiveText(game);
                 ProgressiveLabelDisplay.UpdateGameAssociativeSapText(game);
             }
@@ -3009,7 +3036,20 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             {
                 // VLT-4326: Do not include all Disabled states here because we handle Replay stuff in the above code block
                 ReplayRecovery.BackgroundOpacity = OpacityFifth;
-                MessageOverlayDisplay.MessageOverlayData.Opacity = _gameHistory.IsGameFatalError || _cashoutDialogHidden ? OpacityFull : OpacityHalf;
+
+                // TXM-11348: Some times it will show black background when cashout for COAM
+                double opacity;
+                if (_systemDisableManager.CurrentImmediateDisableKeys.Contains(ApplicationConstants.PrintingTicketDisableKey))
+                {
+                    opacity = OpacityHalf;
+                }
+                else
+                {
+                    opacity = _gameHistory.IsGameFatalError || _cashoutDialogHidden ? OpacityFull : OpacityHalf;
+                }
+
+                MessageOverlayDisplay.MessageOverlayData.Opacity = opacity;
+
                 _rotateTopImageTimer?.Stop();
                 _rotateTopperImageTimer?.Stop();
                 IsVbdCashOutDialogVisible = false;
@@ -3032,15 +3072,16 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             }
 
             var disableButtons = !IsInState(LobbyState.GameDiagnostics) &&
-                                (IsInState(LobbyState.Disabled) ||
-                                 MessageOverlayDisplay.ShowProgressiveGameDisabledNotification ||
-                                 MessageOverlayDisplay.ShowVoucherNotification ||
-                                 ContainsAnyState(
-                                     LobbyState.CashOut,
-                                     LobbyState.CashIn,
-                                     LobbyState.CashOutFailure,
-                                     LobbyState.PrintHelpline,
-                                     LobbyState.MediaPlayerOverlay));
+                                 (IsInState(LobbyState.Disabled) ||
+                                  MessageOverlayDisplay.ShowProgressiveGameDisabledNotification ||
+                                  MessageOverlayDisplay.ShowVoucherNotification ||
+                                  _isHandCountResetDialogOpen ||
+                                  ContainsAnyState(
+                                      LobbyState.CashOut,
+                                      LobbyState.CashIn,
+                                      LobbyState.CashOutFailure,
+                                      LobbyState.PrintHelpline,
+                                      LobbyState.MediaPlayerOverlay));
 
             EnableButtons(!disableButtons);
 
@@ -3287,6 +3328,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         {
             Logger.Debug($"OnUserInteraction, state: {CurrentState}");
 
+            _eventBus.Publish(new UserInteractionEvent());
+
             // Reset idle timer when user interacted with lobby.
             if (_idleTimer != null && _idleTimer.IsEnabled)
             {
@@ -3294,6 +3337,14 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 _idleTimer.Start();
             }
 
+            ExitAndResetAttractMode();
+
+            _lobbyStateManager.OnUserInteraction();
+            SetEdgeLighting();
+        }
+
+        private void ExitAndResetAttractMode()
+        {
             _attractMode = false;
             if (_attractTimer != null && _attractTimer.IsEnabled)
             {
@@ -3301,12 +3352,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             }
 
             // Don't display Age Warning while the inserting cash dialog is up.
-            if (_ageWarningTimer.CheckForAgeWarning() == AgeWarningCheckResult.False)
+            if (_ageWarningTimer.CheckForAgeWarning() == AgeWarningCheckResult.False && CurrentState == LobbyState.Attract)
             {
-                if (CurrentState == LobbyState.Attract)
-                {
-                    SendTrigger(LobbyTrigger.AttractModeExit);
-                }
+                SendTrigger(LobbyTrigger.AttractModeExit);
             }
 
             if (_lobbyStateManager.ResetAttractOnInterruption && CurrentAttractIndex != 0)
@@ -3314,9 +3362,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 ResetAttractIndex();
                 SetAttractVideos();
             }
-
-            _lobbyStateManager.OnUserInteraction();
-            SetEdgeLighting();
         }
 
         /// <summary>
@@ -3612,6 +3657,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private void CashOutPressed(object obj)
         {
+            if (IsDisabledByHandCount())
+            {
+                return;
+            }
+
             // TODO:  Not sure about time limit dialog here
             if (!(IsTimeLimitDlgVisible && (_responsibleGaming?.IsSessionLimitHit ?? false)) &&
                 obj != null && obj.ToString().ToUpperInvariant() == "VBD" && _cabinetDetectionService.IsTouchVbd())
@@ -3805,7 +3855,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 GameCount = DisplayedGameList.Count;
             }
 
-            if (IsTabView)
+            if (_lobbyStateManager?.IsTabView ?? false)
             {
                 var gameToSelect = DisplayedGameList.FirstOrDefault(game => game.GameId == _selectedGame?.GameId);
                 if (gameToSelect is null)
@@ -3953,7 +4003,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             // We just need to change what is needed the currency format and the icon.  This way it will be fast.
             foreach (var game in GameList)
             {
-                game.ProgressiveOrBonusValue = GetProgressiveOrBonusValue(game.GameId, game.Denomination);
+                game.ProgressiveOrBonusValue = GetProgressiveOrBonusValue(game.GameId, game.Denomination, game.BetOption);
                 ProgressiveLabelDisplay.UpdateGameProgressiveText(game);
                 if (IsExtraLargeGameIconTabActive)
                 {
@@ -4100,25 +4150,41 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             return null;
         }
 
-        private string GetProgressiveOrBonusValue(int gameId, long denomId)
+        private string GetProgressiveOrBonusValue(int gameId, long denomId, string betOption = null)
         {
+            Logger.Debug($"GetProgressiveOrBonusValue(gameId={gameId}, denomId={denomId}, betOption={betOption}");
             var game = _properties.GetValues<IGameDetail>(GamingConstants.Games).SingleOrDefault(g => g.Id == gameId);
-            if (string.IsNullOrEmpty(game?.DisplayMeterName))
+            if (!string.IsNullOrEmpty(game?.DisplayMeterName))
             {
-                return string.Empty;
+                var currentValue = game.InitialValue;
+
+                var meter =
+                    _gameStorage.GetValues<InGameMeter>(gameId, denomId, GamingConstants.InGameMeters)
+                        .FirstOrDefault(m => m.MeterName == game.DisplayMeterName);
+                if (meter != null)
+                {
+                    currentValue = meter.Value;
+                }
+
+                Logger.Debug($"DisplayMeterName={game.DisplayMeterName}, JackpotValue={currentValue}");
+                return (currentValue / CurrencyExtensions.CurrencyMinorUnitsPerMajorUnit).FormattedCurrencyString();
             }
 
-            var currentValue = game.InitialValue;
-
-            var meter =
-                _gameStorage.GetValues<InGameMeter>(gameId, denomId, GamingConstants.InGameMeters)
-                    .FirstOrDefault(m => m.MeterName == game.DisplayMeterName);
-            if (meter != null)
+            var levels = _progressiveProvider.ViewProgressiveLevels(gameId, denomId).ToList();
+            if (levels.Any() && !string.IsNullOrWhiteSpace(betOption))
             {
-                currentValue = meter.Value;
+                var match = levels.FirstOrDefault(
+                    p => string.IsNullOrEmpty(p.BetOption) || p.BetOption == betOption);
+
+                if (match != null)
+                {
+                    Logger.Debug($"Found {levels.Count} levels, returning first JackpotValue={match.CurrentValue}");
+                    return match.CurrentValue.MillicentsToDollarsNoFraction().FormattedCurrencyString();
+                }
             }
 
-            return (currentValue / CurrencyExtensions.CurrencyMinorUnitsPerMajorUnit).FormattedCurrencyString();
+            Logger.Debug("Returning empty progressive value");
+            return string.Empty;
         }
 
         private void DismissResponsibleGamingDialog(int choiceIndex)
@@ -4559,9 +4625,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             bool disabledOnlyWithLiveAuthentication = (systemDisableCount == 1) &&
                                                       _systemDisableManager.CurrentDisableKeys.Contains(
                                                           ApplicationConstants.LiveAuthenticationDisableKey);
+            bool disabledByPrintingTicket = _systemDisableManager.CurrentDisableKeys.Contains(ApplicationConstants.PrintingTicketDisableKey);
+
             if (HasZeroCredits && CurrentState == LobbyState.Disabled &&
                 GameReady && _gameState.Idle && !_lobbyStateManager.AllowSingleGameAutoLaunch
-                && (systemDisableCount > 0 && !disabledOnlyWithLiveAuthentication))
+                && (systemDisableCount > 0 && !disabledOnlyWithLiveAuthentication) && !disabledByPrintingTicket)
             {
                 _gameService?.ShutdownBegin();
             }
@@ -4630,6 +4698,56 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             }
         }
 
+        private bool IsDisabledByHandCount()
+        {
+
+            if (!_handCountServiceEnabled)
+            {
+                return false;
+            }
+
+            if (!IsCreditAboveAcceptableResidual() || HandCount == 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool IsCreditAboveAcceptableResidual()
+        {
+
+            if (!_handCountServiceEnabled)
+            {
+                return false;
+            }
+
+            var minimumRequiredCredits = (long)_properties.GetProperty(
+                AccountingConstants.HandCountMinimumRequiredCredits,
+                AccountingConstants.HandCountDefaultRequiredCredits);
+
+            var minimumRequiredCreditsInDollars = (double)minimumRequiredCredits.MillicentsToDollars();
+
+            if (RedeemableCredits < minimumRequiredCreditsInDollars)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool ResidualCreditsInMachine()
+        {
+            if (!_handCountServiceEnabled || (BaseState != LobbyState.Game))
+            {
+                return false;
+            }
+
+            var redeemableCreditsInMillicents = _bank.QueryBalance();
+
+            return redeemableCreditsInMillicents > 0;
+        }
+
         private void UpdatePaidMeterValue(double paidCashAmount)
         {
             if (Config.DisplayPaidMeter)
@@ -4666,6 +4784,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             }
 
             buttonsLampState.Add(SetLampState(LampName.Bash, state));
+            buttonsLampState.Add(SetLampState(LampName.DualBashLeft, state));
         }
 
         private void DetermineCollectLampState(ref IList<ButtonLampState> buttonsLampState)
@@ -4734,6 +4853,22 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private void UpdateLamps()
         {
             IList<ButtonLampState> buttonsLampState = new List<ButtonLampState>();
+
+            // After cashout if there are still residual credit in the machine, do not turn off all buttons.
+            // Only turn off the cashout button
+            if (ResidualCreditsInMachine())
+            {
+                if (IsCreditAboveAcceptableResidual())
+                {
+                    return;
+                }
+
+                DetermineCollectLampState(ref buttonsLampState);
+                _buttonLamps?.SetLampState(buttonsLampState);
+
+                return;
+            }
+
             DetermineUnusedLampStates(ref buttonsLampState);
             DetermineNavLampStates(ref buttonsLampState);
             DetermineBashLampState(ref buttonsLampState);
@@ -5181,7 +5316,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private void HandleLcdButtonDeckButtonPress(LcdButtonDeckLobby lobbyAction)
         {
-            if (!IsTabView)
+            if (!(_lobbyStateManager?.IsTabView ?? false))
             {
                 return;
             }
@@ -5219,6 +5354,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     CashOutPressed(new object());
                     break;
                 case LcdButtonDeckLobby.LaunchGame:
+                case LcdButtonDeckLobby.DualLaunchGame:
                     if (_selectedGame != null)
                     {
                         if (_selectedGame.Category == GameCategory.LightningLink && _selectedGame.SelectedDenomination != null)
@@ -5248,8 +5384,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 TopAttractVideoPath = game.LocaleGraphics[ActiveLocaleCode].TopAttractVideo,
                 BottomAttractVideoPath = game.LocaleGraphics[ActiveLocaleCode].BottomAttractVideo,
                 LoadingScreenPath = game.LocaleGraphics[ActiveLocaleCode].LoadingScreen,
-                HasProgressiveOrBonusValue = !string.IsNullOrEmpty(game.DisplayMeterName),
-                ProgressiveOrBonusValue = GetProgressiveOrBonusValue(game.Id, denomId),
+                ProgressiveOrBonusValue = GetProgressiveOrBonusValue(game.Id, denomId, game.Denominations.Single(d => d.Value == denomId).BetOption),
                 Denomination = denomId,
                 BetOption = game.Denominations.Single(d => d.Value == denomId).BetOption,
                 FilteredDenomination = Config.MinimumWagerCreditsAsFilter ? game.MinimumWagerCredits * denomId : denomId,

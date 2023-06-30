@@ -255,6 +255,9 @@
             _block.SetupGet(m => m[AccountingConstants.ExcessiveDocumentRejectLockupEnabled]).Returns(false);
             _block.SetupSet(m => m[AccountingConstants.ExcessiveDocumentRejectLockupEnabled] = It.IsAny<bool>());
 
+            _block.SetupGet(m => m[AccountingConstants.HandCountPayoutLimit]).Returns(1_199_00_000L);
+            _block.SetupSet(m => m[AccountingConstants.HandCountPayoutLimit] = It.IsAny<long>());
+
             MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Default);
 
             _target = new AccountingPropertyProvider();

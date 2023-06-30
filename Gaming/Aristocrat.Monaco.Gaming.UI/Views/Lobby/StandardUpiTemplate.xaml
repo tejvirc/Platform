@@ -30,6 +30,18 @@
     <system:Int32 x:Key="DenomA">1</system:Int32>
     <system:Int32 x:Key="DenomB">5</system:Int32>
     <system:Int32 x:Key="DenomC">25</system:Int32>
+
+    <Style x:Key="TextStyle" TargetType="controls:TextPath">
+        <Setter Property="Fill" Value="White"/>
+        <Setter Property="FontFamily" Value="Impact"/>
+        <Setter Property="FontSize" Value="46"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Stroke" Value="Black"/>
+        <Setter Property="StrokeThickness" Value="2.0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
     <DataTemplate x:Key="NevadaUpiTemplate"
                   DataType="{x:Type viewModels:LobbyViewModel}">
         <Grid Width="1881"
@@ -1257,6 +1269,46 @@
                                     <Setter TargetName="cashOutImage"
                                             Property="Source"
                                             Value="{DynamicResource CashOutDisabled}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Canvas>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="GeorgiaCOAMUpiTemplate" DataType="{x:Type viewModels:LobbyViewModel}">
+        <Grid Width="1920" AutomationProperties.AutomationId="Grid156_74910100">
+            <Image Source="{DynamicResource UpiBackgroundNoVolumeNoService}" Stretch="None" AutomationProperties.AutomationId="Image163_74910100"/>
+            <Canvas AutomationProperties.AutomationId="Canvas165_74910100">
+                <Border Canvas.Left="582"
+                        Canvas.Top="50"
+                        Width="230"
+                        AutomationProperties.AutomationId="Border1_74910100">
+                    <controls:TextPath Style="{StaticResource TextStyle}" Text="{Binding HandCount}"/>
+                </Border>
+
+                <Border Canvas.Left="844"
+                        Canvas.Top="50"
+                        Width="230"
+                        AutomationProperties.AutomationId="Border2_74910100">
+                    <controls:TextPath Style="{StaticResource TextStyle}" Text="{Binding FormattedCredits}"/>
+                </Border>
+
+                <Button x:Name="btnCashOut"
+                        Canvas.Left="1110"
+                        Canvas.Top="45"
+                        IsEnabled="{Binding Path=CashOutEnabled}"
+                        Command="{Binding Path=CashOutCommand}"
+                        Style="{StaticResource stlFlatButton}"
+                        AutomationProperties.AutomationId="Button184_74910100">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Image Name="cashOutImage" Source="{DynamicResource CashOutNormal}" AutomationProperties.AutomationId="Image164_74910100"/>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="false" AutomationProperties.AutomationId="Trigger186_74910100">
+                                    <Setter TargetName="cashOutImage" Property="Source" Value="{DynamicResource CashOutDisabled}"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>

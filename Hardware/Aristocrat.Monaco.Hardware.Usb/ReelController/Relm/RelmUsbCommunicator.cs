@@ -57,7 +57,7 @@
 
         private void HandleInterrupt(object sender, RelmInterruptEventArgs args)
         {
-            switch(args.Interrupt)
+            switch (args.Interrupt)
             {
                 case ReelIdle reelIdle:
                     var stopData = new ReelStopData(reelIdle.ReelIndex, default, reelIdle.Step);
@@ -187,7 +187,7 @@
             {
                 return false;
             }
-            
+
             _relmCommunicator.Close();
             return !_relmCommunicator.IsOpen;
         }
@@ -199,7 +199,7 @@
             {
                 return false;
             }
-            
+
             _relmCommunicator.Open(RelmConstants.ReelsAddress);
             return _relmCommunicator.IsOpen;
         }
@@ -307,7 +307,7 @@
             {
                 return success;
             }
-            
+
             Logger.Debug($"Preparing {command.Animations.Count} light shows");
             var result = await _relmCommunicator.SendCommandAsync(command, token);
             return result && success;
@@ -326,7 +326,7 @@
             {
                 return false;
             }
-            
+
             var success = true;
             var command = new PrepareStepperCurves();
 
@@ -484,7 +484,7 @@
                 return Task.FromResult(false);
             }
 
-            _relmCommunicator?.SendCommandAsync(new SetBrightness { Brightness = (byte)brightness});
+            _relmCommunicator?.SendCommandAsync(new SetBrightness { Brightness = (byte)brightness });
             return Task.FromResult(true);
         }
 
@@ -527,8 +527,8 @@
             // TODO: Use proper home positions and number of reels
             var defaultHomeStep = 0;
             var homeData = new List<short>();
-            
-            for (int i=0; i < ReelCount; i++)
+
+            for (int i = 0; i < ReelCount; i++)
             {
                 homeData.Add((short)defaultHomeStep);
             }
@@ -545,7 +545,7 @@
                 return Task.FromResult(false);
             }
 
-            _relmCommunicator?.SendCommandAsync(new HomeReels(new List<ReelStepInfo> { new ((byte)(reelId - 1), (short)stop) }));
+            _relmCommunicator?.SendCommandAsync(new HomeReels(new List<ReelStepInfo> { new((byte)(reelId - 1), (short)stop) }));
             return Task.FromResult(true);
         }
 

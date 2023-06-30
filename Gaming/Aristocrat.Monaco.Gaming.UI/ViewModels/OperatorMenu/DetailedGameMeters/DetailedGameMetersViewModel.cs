@@ -240,6 +240,11 @@
                 // but "must be displayed".
                 {"EFTOut",(0,0,0)},
 
+                {"HardMeterOut",
+                    (before.TotalHardMeterOutAmount,
+                    after.TotalHardMeterOutAmount,
+                    next.TotalHardMeterOutAmount)},
+
                 {"TransferOut",
                     (before.WatOffTotalAmount,
                      after.WatOffTotalAmount,
@@ -385,6 +390,7 @@
         {
             return meters.Snapshot.HandpaidCancelAmount +
                    meters.Snapshot.TrueCoinOut +
+                   meters.Snapshot.HardMeterOutAmount +
                    meters.TotalVouchersOut +
                    meters.WatOffTotalAmount;
         }

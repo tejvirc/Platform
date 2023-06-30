@@ -247,6 +247,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.Hardware.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.Hardware.Usb.Tests", "Test\Aristocrat.Monaco.Hardware.Usb.Tests\Aristocrat.Monaco.Hardware.Usb.Tests.csproj", "{10831BDA-5445-449E-A7A4-3CC79F3AFECF}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aristocrat.Monaco.Gaming.Class3Coam", "Gaming\Aristocrat.Monaco.Gaming.Class3Coam\Aristocrat.Monaco.Gaming.Class3Coam.csproj", "{28B60EAC-8974-4C5C-A079-3577EB1FC06F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1800,6 +1802,24 @@ Global
 		{10831BDA-5445-449E-A7A4-3CC79F3AFECF}.Retail|Any CPU.ActiveCfg = Retail|Any CPU
 		{10831BDA-5445-449E-A7A4-3CC79F3AFECF}.Retail|x64.ActiveCfg = Retail|Any CPU
 		{10831BDA-5445-449E-A7A4-3CC79F3AFECF}.Retail|x86.ActiveCfg = Retail|Any CPU
+		{28B60EAC-8974-4C5C-A079-3577EB1FC06F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28B60EAC-8974-4C5C-A079-3577EB1FC06F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28B60EAC-8974-4C5C-A079-3577EB1FC06F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{28B60EAC-8974-4C5C-A079-3577EB1FC06F}.Debug|x64.Build.0 = Debug|Any CPU
+		{28B60EAC-8974-4C5C-A079-3577EB1FC06F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{28B60EAC-8974-4C5C-A079-3577EB1FC06F}.Debug|x86.Build.0 = Debug|Any CPU
+		{28B60EAC-8974-4C5C-A079-3577EB1FC06F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28B60EAC-8974-4C5C-A079-3577EB1FC06F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28B60EAC-8974-4C5C-A079-3577EB1FC06F}.Release|x64.ActiveCfg = Release|Any CPU
+		{28B60EAC-8974-4C5C-A079-3577EB1FC06F}.Release|x64.Build.0 = Release|Any CPU
+		{28B60EAC-8974-4C5C-A079-3577EB1FC06F}.Release|x86.ActiveCfg = Release|Any CPU
+		{28B60EAC-8974-4C5C-A079-3577EB1FC06F}.Release|x86.Build.0 = Release|Any CPU
+		{28B60EAC-8974-4C5C-A079-3577EB1FC06F}.Retail|Any CPU.ActiveCfg = Retail|Any CPU
+		{28B60EAC-8974-4C5C-A079-3577EB1FC06F}.Retail|Any CPU.Build.0 = Retail|Any CPU
+		{28B60EAC-8974-4C5C-A079-3577EB1FC06F}.Retail|x64.ActiveCfg = Retail|Any CPU
+		{28B60EAC-8974-4C5C-A079-3577EB1FC06F}.Retail|x64.Build.0 = Retail|Any CPU
+		{28B60EAC-8974-4C5C-A079-3577EB1FC06F}.Retail|x86.ActiveCfg = Retail|Any CPU
+		{28B60EAC-8974-4C5C-A079-3577EB1FC06F}.Retail|x86.Build.0 = Retail|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1913,6 +1933,7 @@ Global
 		{D6A438DF-687F-4685-A665-957FB7744DAA} = {CD21F4D7-E6D5-462F-9F9F-22FE9618496C}
 		{67DCCDF1-A40F-4DB6-A343-ADFF3F9DCFF0} = {CD21F4D7-E6D5-462F-9F9F-22FE9618496C}
 		{10831BDA-5445-449E-A7A4-3CC79F3AFECF} = {CD21F4D7-E6D5-462F-9F9F-22FE9618496C}
+		{28B60EAC-8974-4C5C-A079-3577EB1FC06F} = {7FDC33CF-35D7-4C55-AFF8-8CFB1D5793FA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5A170623-08DF-4BB8-8565-F39C24A4ACA7}

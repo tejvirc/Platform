@@ -30,8 +30,6 @@
             _presentationService = presentationService ?? throw new ArgumentNullException(nameof(presentationService));
 
             Snapp.Logger.ExternalLogger = new SnappLogger(_eventBus);
-
-            _eventBus.Subscribe<GameProcessExitedEvent>(this, _ => Shutdown());
         }
 
         public void Dispose()

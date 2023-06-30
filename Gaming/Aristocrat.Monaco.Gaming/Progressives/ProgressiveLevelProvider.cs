@@ -177,7 +177,16 @@ namespace Aristocrat.Monaco.Gaming.Progressives
             long wagerCredits)
         {
             var denominationList = denominations.ToList();
-            var resetValueInMillicents = level.ResetValue(denominationList, betOption).CentsToMillicents();
+
+            var hasAssociatedBetLinePreset =
+                !string.IsNullOrEmpty(progressive.BetLinePreset) &&
+                !string.IsNullOrEmpty(betOption?.BetLinePreset) &&
+                progressive.BetLinePreset == betOption.BetLinePreset;
+
+            var resetValueInMillicents =
+                level.ResetValue(denominationList, hasAssociatedBetLinePreset ? null : betOption)
+                    .CentsToMillicents();
+
             var levelType = (ProgressiveLevelType)level.ProgressiveType;
 
             var progressiveLevel = new ProgressiveLevel
@@ -188,6 +197,7 @@ namespace Aristocrat.Monaco.Gaming.Progressives
                 GameId = gameId,
                 Denomination = denominationList,
                 BetOption = betOption?.Name,
+                HasAssociatedBetLinePreset = hasAssociatedBetLinePreset,
                 AllowTruncation = level.AllowTruncation,
                 LevelId = level.LevelId,
                 IncrementRate = level.IncrementRate.ToPercentage(),
@@ -248,6 +258,7 @@ namespace Aristocrat.Monaco.Gaming.Progressives
         private IEnumerable<ProgressiveLevel> GenerateProgressiveLevelsPerGame(
             int gameId,
             IReadOnlyCollection<long> denominations,
+            BetOptionList betOptions,
             ProgressiveDetail progressive,
             LevelDetail levelDetail,
             IReadOnlyCollection<ProgressiveLevel> persistedLevels)
@@ -255,7 +266,10 @@ namespace Aristocrat.Monaco.Gaming.Progressives
             var currentLevel = persistedLevels.FirstOrDefault(
                 l => l.LevelId == levelDetail.LevelId);
 
-            yield return ToProgressiveLevel(gameId, denominations, null, progressive, levelDetail, currentLevel, 0);
+            var betOption = betOptions?.FirstOrDefault(
+                b => !string.IsNullOrEmpty(b.BetLinePreset) && b.BetLinePreset == progressive?.BetLinePreset);
+
+            yield return ToProgressiveLevel(gameId, denominations, betOption, progressive, levelDetail, currentLevel, 0);
         }
 
         private IEnumerable<ProgressiveLevel> GenerateProgressiveLevelsPerGamePerDenomPerBetOption(
@@ -403,6 +417,7 @@ namespace Aristocrat.Monaco.Gaming.Progressives
                         GenerateProgressiveLevelsPerGame(
                             gameId,
                             denominations,
+                            betOptions,
                             progressive,
                             level,
                             currentValues));
