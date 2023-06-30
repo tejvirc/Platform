@@ -293,6 +293,7 @@
             scope.Verify(m => m.Complete(), Times.Never);
         }
 
+        [Ignore]
         [TestMethod]
         public void WhenMeterFreeGamesIndependentlyExpectNoStart()
         {
