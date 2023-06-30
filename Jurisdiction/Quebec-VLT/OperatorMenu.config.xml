@@ -100,7 +100,6 @@ as follows:
     <Page Type="TimeConfigPageViewModel" Access="TechnicianZeroCredits"/>
     <Page Type="LimitsPageViewModel" Access="TechnicianZeroCredits">
       <Setting Name="HandpayLimitVisible" Value="false" />
-      <Setting Name="MaxBetLimitVisible" Value="false" />
       <Setting Name="AllowRemoteHandpayResetVisible" Value="false" />
       <Setting Name="LargeWinHandpayResetMethodVisible" Value="false" />
     </Page>
