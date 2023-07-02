@@ -214,6 +214,8 @@
 
             container.Register<RngCyclingService>(Lifestyle.Singleton);
 
+            container.Register<IGamePackConfigurationProvider, GamePackConfigurationProvider>(Lifestyle.Singleton);
+
             //#if !(RETAIL)
             //            PerformanceCounters.RegisterFromAttribute(typeof(ICommandHandler<>).Assembly);
 

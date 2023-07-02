@@ -15,7 +15,7 @@
     using Kernel.Contracts;
     using Localization.Properties;
     using log4net;
-    using Newtonsoft.Json;
+	using Newtonsoft.Json;
     using Runtime;
 
     /// <summary>
@@ -32,7 +32,7 @@
         private readonly IPropertiesManager _propertiesManager;
         private readonly IGameConfigurationProvider _gameConfiguration;
         private readonly IGameProvider _gameProvider;
-
+        private readonly IGamePackConfigurationProvider _gamePackConfigProvider;
         private bool _disposed;
         private int _processId;
         private bool _running;
@@ -45,7 +45,8 @@
             IPropertiesManager propertiesManager,
             IAudio audio,
             IGameConfigurationProvider gameConfiguration,
-            IGameProvider gameProvider)
+            IGameProvider gameProvider,
+            IGamePackConfigurationProvider gamePackConfigProvider)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _process = process ?? throw new ArgumentNullException(nameof(process));
@@ -54,6 +55,8 @@
             _audio = audio ?? throw new ArgumentNullException(nameof(audio));
             _gameConfiguration = gameConfiguration ?? throw new ArgumentNullException(nameof(gameConfiguration));
             _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
+            _gamePackConfigProvider =
+                gamePackConfigProvider ?? throw new ArgumentNullException(nameof(gamePackConfigProvider));
         }
 
         public bool Running
@@ -238,42 +241,25 @@
             _propertiesManager.SetActiveGame(request.GameId, request.Denomination);
             _propertiesManager.SetProperty(GamingConstants.SelectedBetOption, request.BetOption);
 
-            if (!request.IsReplay)
+            if (request.IsReplay)
             {
-                var currentGame = _gameProvider.GetGame(_propertiesManager.GetValue(GamingConstants.SelectedGameId, 0));
-
-                var restrictions = _gameConfiguration.GetActive(currentGame.ThemeId);
-                if (restrictions?.RestrictionDetails?.Mapping?.Any() ?? false)
-                {
-                    var activeDenominations = _gameProvider.GetEnabledGames().Where(g => g.ThemeId == currentGame.ThemeId)
-                        .SelectMany(g => g.Denominations.Where(d => d.Active)).ToList();
-
-                    _propertiesManager.SetProperty(GamingConstants.GameConfiguration, GetRestrictions(restrictions, activeDenominations));
-                }
+                return;
             }
-        }
 
-        private static string GetRestrictions(IConfigurationRestriction restrictions, IEnumerable<IDenomination> activeDenominations)
-        {
-            return JsonConvert.SerializeObject(
-                new
-                {
-                    PackName = restrictions.Name,
-                    Denominations = activeDenominations.Select(
-                        d => new
-                        {
-                            Denomination = d.Value.MillicentsToCents(),
-                            Gamble = d.SecondaryAllowed,
-                            LetItRide = d.LetItRideAllowed,
-                            d.MinimumWagerCredits,
-                            d.MaximumWagerCredits,
-                            d.MaximumWagerOutsideCredits,
-                            d.BetOption,
-                            d.LineOption,
-                            d.BonusBet
-                        })
-                },
-                Formatting.None);
+            var currentGame = _gameProvider.GetGame(_propertiesManager.GetValue(GamingConstants.SelectedGameId, 0));
+                
+            var restrictions = _gameConfiguration.GetActive(currentGame.ThemeId);
+            if (restrictions is null)
+            {
+                return;
+            }
+
+            var gameConfigPropValue =
+                _gamePackConfigProvider.GetDenomRestrictionsByGameId(currentGame.Id);
+
+            var json = JsonConvert.SerializeObject(gameConfigPropValue, Formatting.None);
+
+            _propertiesManager.SetProperty(GamingConstants.GameConfiguration, json);
         }
     }
 }
