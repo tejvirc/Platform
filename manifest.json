@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "gpBrXJ/ArDcfnC71MLhFOBhi/fDfx7qz1sK69rDQpXI="
+          "hash": "bM1aN4+laB3W66Hwb4gRXETCp1wV8+gIWaTg1PuNt8g="
         }
       },
       "is_incremental": false,
@@ -15631,6 +15631,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -24787,9 +24790,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -44606,6 +44606,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/gaming/Aristocrat.Monaco.Gaming.Configuration.GamePackConfigurationProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Configuration.GamePackConfigurationProvider.html",
+          "hash": "++BT/Uosxa8hfAsRq7kAkne78YWP9Udx7eih56nKoo0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Gaming.Configuration.GameProfileEqualityComparer.yml",
       "output": {
         ".html": {
@@ -44634,7 +44646,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Configuration.html",
-          "hash": "D5WvBaQP/xLedQIjfqvo+jWGv+fiIElesrrdd6E+ai4="
+          "hash": "ZbcHHJmXcazG52vnx/wiDAfo3p7PX16xtiH9XlkezpE="
         }
       },
       "is_incremental": false,
@@ -46550,6 +46562,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/gaming/Aristocrat.Monaco.Gaming.Contracts.Configuration.IGamePackConfigurationProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.Configuration.IGamePackConfigurationProvider.html",
+          "hash": "ip3sJBkxeA1mGXbsAWMNcEsNKwr4qqCHFDgOAQRSrY8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Gaming.Contracts.Configuration.IRestrictionDetails.yml",
       "output": {
         ".html": {
@@ -46566,7 +46590,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.Configuration.html",
-          "hash": "DM+r+vYaK01wDhwi6iNn/6kphwdoqjdDGGlj7N4ZqMo="
+          "hash": "Vvw+ofGsiaM3niP01PXXh2uTaSC1Cy9MoR7q9e7cJ9I="
         }
       },
       "is_incremental": false,
@@ -53106,7 +53130,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Diagnostics.CombinationTestContext.html",
-          "hash": "q359iRoB9fIQPeCzYf5i1GvWf0Hyz4RuhcKnlPHZ0c4="
+          "hash": "qP8Nn65OICzMGJrS5cxuYtJbMK6iy5X5Vr9J9w83jx0="
         }
       },
       "is_incremental": false,
@@ -53430,7 +53454,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.GameService.html",
-          "hash": "URKAHro5QQ5UIfim/p1jB3w2OiA6TVZYN/VaUqiXYj0="
+          "hash": "tcXJkU5XwoLTiF79UJzaluwIrkCaqgmkEazGSlBSsxI="
         }
       },
       "is_incremental": false,
@@ -55974,7 +55998,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.UI.Models.GameComboInfo.html",
-          "hash": "k9MoK2NaOCjyYNWaMyPLhhYx/uDeZai6+gMvGmbc/TQ="
+          "hash": "tUS8oiyttRuo+hBId45PqRgHqqHY5lwRmagjs14u63o="
         }
       },
       "is_incremental": false,
@@ -56886,7 +56910,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.CombinationTestViewModel.html",
-          "hash": "7CgVrojkKfBVC2sACZqQN0D9JN7HmqzIfHAoqPrx4mI="
+          "hash": "PxssNAMoCEI9Z+CLFTjERLCD6WALF3UO4btCbNriQ2c="
         }
       },
       "is_incremental": false,
@@ -84033,7 +84057,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 6969,
+          "total_file_count": 6971,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
