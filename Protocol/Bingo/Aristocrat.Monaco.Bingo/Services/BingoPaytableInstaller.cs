@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Reflection;
     using Application.Contracts.Extensions;
+    using Application.Contracts.Protocol;
     using Common;
     using Common.Exceptions;
     using Common.Extensions;
@@ -23,17 +24,21 @@
         private readonly IServerPaytableInstaller _serverPaytableInstaller;
         private readonly IGameProvider _gameProvider;
         private readonly IConfigurationProvider _restrictionProvider;
+        private readonly IMultiProtocolConfigurationProvider _protocolConfiguration;
 
         public BingoPaytableInstaller(
             IEventBus eventBus,
             IServerPaytableInstaller serverPaytableInstaller,
             IGameProvider gameProvider,
-            IConfigurationProvider restrictionProvider)
+            IConfigurationProvider restrictionProvider,
+            IMultiProtocolConfigurationProvider protocolConfiguration)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _serverPaytableInstaller = serverPaytableInstaller ?? throw new ArgumentNullException(nameof(serverPaytableInstaller));
             _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _restrictionProvider = restrictionProvider ?? throw new ArgumentNullException(nameof(restrictionProvider));
+            _protocolConfiguration =
+                protocolConfiguration ?? throw new ArgumentNullException(nameof(protocolConfiguration));
         }
 
         public IEnumerable<BingoGameConfiguration> ConfigureGames(IEnumerable<ServerGameConfiguration> gameConfigurations)
@@ -135,6 +140,15 @@
                         TheoPaybackPercentRtp = maxBetInformation.Rtp * rtpScale
                     }
                 };
+            }
+
+            var bingoProtocol =
+                _protocolConfiguration.MultiProtocolConfiguration.Single(x => x.Protocol == CommsProtocol.Bingo);
+            if (settings.CrossGameProgressiveEnabled && !bingoProtocol.IsProgressiveHandled)
+            {
+                throw new ConfigurationException(
+                    "Progressive Protocol not enabled for progressive game",
+                    ConfigurationFailureReason.InvalidGameConfiguration);
             }
 
             var gameDetail = _serverPaytableInstaller.InstallGame(gameConfiguration.Key.Id, gameOptionConfigValues);
