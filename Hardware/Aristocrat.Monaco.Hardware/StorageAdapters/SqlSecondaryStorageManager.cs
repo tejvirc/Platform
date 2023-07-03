@@ -8,6 +8,7 @@
     using System.Management;
     using System.Reflection;
     using System.Text.RegularExpressions;
+    using Aristocrat.Monaco.Common;
     using Cabinet.Contracts;
     using Contracts.Persistence;
     using Kernel;
@@ -222,6 +223,7 @@
             try
             {
                 using var connection = CreateConnection(filePath, password);
+                using var benchmarck = new Benchmark(nameof(IsValidSqlFile));
                 connection.Open();
 
                 // This command is used to verify that the SQL lite file is valid and does not have errors

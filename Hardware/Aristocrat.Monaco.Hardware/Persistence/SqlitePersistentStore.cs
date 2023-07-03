@@ -7,6 +7,7 @@
     using System.Linq;
     using System.Reflection;
     using System.Text;
+    using Aristocrat.Monaco.Common;
     using Contracts.Persistence;
     using Kernel;
     using log4net;
@@ -69,6 +70,7 @@
             try
             {
                 using var connection = CreateConnection();
+                using var benchmarck = new Benchmark(nameof(SqlitePersistentStore));
                 connection.Open();
                 using var command = new SqliteCommand(CreateTablesCommand, connection);
                 command.ExecuteNonQuery();
@@ -97,6 +99,7 @@
             try
             {
                 using var connection = CreateConnection();
+                using var benchmarck = new Benchmark(nameof(AddOrUpdateLevel));
                 connection.Open();
                 using var transaction = connection.BeginTransaction(IsolationLevel.Serializable);
                 using (var command = connection.CreateCommand())
@@ -159,6 +162,8 @@
             {
                 using (var connection = CreateConnection())
                 {
+                    using var benchmarck = new Benchmark(nameof(LevelData));
+
                     connection.Open();
                     using var command = connection.CreateCommand();
                     command.CommandText = GetAllKeyLevelsCommand;
@@ -193,6 +198,7 @@
             try
             {
                 using var connection = CreateConnection();
+                using var benchmarck = new Benchmark(nameof(AddOrUpdateValue));
                 connection.Open();
                 using var transaction = connection.BeginTransaction(IsolationLevel.Serializable);
                 using (var command = connection.CreateCommand())
@@ -229,6 +235,7 @@
             {
                 using (var connection = CreateConnection())
                 {
+                    using var benchmarck = new Benchmark(nameof(AddOrUpdateValue));
                     connection.Open();
                     using (var transaction = connection.BeginTransaction(IsolationLevel.Serializable))
                     {
@@ -284,6 +291,7 @@
             try
             {
                 using var connection = CreateConnection();
+                using var benchmarck = new Benchmark(nameof(TryRemoveValue));
                 connection.Open();
                 using var transaction = connection.BeginTransaction(IsolationLevel.Serializable);
                 using (var command = connection.CreateCommand())
@@ -329,6 +337,8 @@
             {
                 using (var connection = CreateConnection())
                 {
+                    using var benchmarck = new Benchmark(nameof(ValueKeys));
+
                     connection.Open();
                     using (var command = connection.CreateCommand())
                     {
@@ -357,6 +367,7 @@
             try
             {
                 using var connection = CreateConnection();
+                using var benchmarck = new Benchmark(nameof(Verify));
                 connection.Open();
                 using var command = connection.CreateCommand();
                 command.CommandText = full ? FullIntegrityCheckCommand : QuickIntegrityCheckCommand;
@@ -397,6 +408,7 @@
             try
             {
                 using var connection = CreateConnection();
+                using var benchmarck = new Benchmark(nameof(InternalTryGetValue));
                 connection.Open();
                 using var command = connection.CreateCommand();
                 command.CommandText = GetKeyValueCommand;
@@ -426,6 +438,7 @@
             try
             {
                 using var connection = CreateConnection();
+                using var benchmarck = new Benchmark(nameof(GetLevel));
                 connection.Open();
                 using var command = connection.CreateCommand();
                 command.CommandText = GetKeyLevelCommand;
@@ -451,6 +464,7 @@
             try
             {
                 using var connection = CreateConnection();
+                using var benchmarck = new Benchmark(nameof(KeyLevelExists));
                 connection.Open();
                 using var command = connection.CreateCommand();
                 command.CommandText = IfKeyLevelExistsCommand;

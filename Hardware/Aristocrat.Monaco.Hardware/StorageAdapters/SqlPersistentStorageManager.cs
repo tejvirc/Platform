@@ -8,6 +8,8 @@
     using System.Reflection;
     using System.Text;
     using System.Threading;
+    using Aristocrat.Monaco.Common;
+    using Aristocrat.Monaco.Hardware.Persistence;
     using Contracts;
     using Contracts.Persistence;
     using Kernel;
@@ -15,14 +17,14 @@
     using Microsoft.Data.Sqlite;
     using SQLitePCL;
     using StorageSystem;
+    using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+    using ScopedTransaction = StorageSystem.ScopedTransaction;
 
     /// <summary>
     ///     Implementation of <c>IPersistentStorageManager</c> that uses Block repository to store and manage Blocks.
     /// </summary>
     public class SqlPersistentStorageManager : IService, IPersistentStorageManager, IDisposable
     {
-        private const string journalModeConfig = "PRAGMA journal_mode = WAL";
-
         private const string StorageBlockTableCreate =
             "CREATE TABLE StorageBlock (Name TEXT PRIMARY KEY NOT NULL, Version INTEGER, Level TEXT, Count INTEGER) WITHOUT ROWID";
 
@@ -167,6 +169,7 @@
                 try
                 {
                     using var connection = CreateConnection();
+                    using var benchmarck = new Benchmark(nameof(CreateDynamicBlock));
                     connection.Open();
                     using var transaction = connection.BeginTransaction(IsolationLevel.Serializable);
                     CreateStorageBlockEntities(transaction, level, name, 0, arraySize);
@@ -317,6 +320,7 @@
         private void SqlExecuteNonQuery(string commandText)
         {
             using var connection = CreateConnection();
+            using var benchmarck = new Benchmark(nameof(SqlExecuteNonQuery));
             connection.Open();
             using var command = new SqliteCommand(commandText, connection);
             command.ExecuteNonQuery();
@@ -326,6 +330,7 @@
         private object SqlExecuteScalar(string commandText)
         {
             using var connection = CreateConnection();
+            using var benchmarck = new Benchmark(nameof(SqlExecuteScalar));
             connection.Open();
             using var command = new SqliteCommand(commandText, connection);
             return command.ExecuteScalar();
@@ -352,6 +357,7 @@
             command.Parameters.Add("@StorageBlockCount", SqliteType.Integer).Value = arraySize;
             try
             {
+                using var benchmarck = new Benchmark(nameof(CreateStorageBlockEntities));
                 command.ExecuteNonQuery();
             }
             catch (SqliteException e)
@@ -456,10 +462,10 @@
                 }
 
                 using var connection = CreateConnection();
+                using var benchmarck = new Benchmark(nameof(InitializeDatabaseFile));
 
                 connection.Open();
-
-                using var command = new SqliteCommand(journalModeConfig, connection);
+                using var command = new SqliteCommand("PRAGMA journal_mode = WAL;", connection);
 
                 try
                 {
@@ -498,6 +504,8 @@
 
                 using (var connection = CreateConnection())
                 {
+                    using var benchmarck = new Benchmark(nameof(UpdateRepository));
+
                     connection.Open();
                     using var command = new SqliteCommand(StorageBlockNamesSelect, connection);
                     try

@@ -5,6 +5,7 @@
     using System.Data;
     using System.Globalization;
     using System.Reflection;
+    using Aristocrat.Monaco.Common;
     using Contracts.Persistence;
     using log4net;
     using Microsoft.Data.Sqlite;
@@ -151,6 +152,8 @@
                     //connection.SetPassword(StorageConstants.DatabasePassword);
                     connection.Open();
 
+                    using var benchmarck = new Benchmark(nameof(Commit));
+
                     using (var update = connection.CreateCommand())
                     using (var transaction = connection.BeginTransaction(IsolationLevel.Serializable))
                     {
@@ -158,7 +161,7 @@
 
                         foreach (var block in _blocks)
                         {
-                            update.CommandText =
+                            update.CommandText = 
                                 "UPDATE StorageBlockField SET Data = @Data WHERE BlockName = @BlockName AND FieldName = @FieldName";
 
 
@@ -169,6 +172,9 @@
                                     update.Parameters.Clear();
 
                                     var fieldName = field.Key;
+                                    benchmarck[$"{block.Name}:{fieldName}"] =
+                                        field.Value is string ? $"STRING[{((string)field.Value).Length}]" :
+                                        (field.Value is Array ? $"ARRAY[{((Array)field.Value).Length}]" : field.Value);
                                     update.Parameters.Add(new SqliteParameter("@BlockName", block.Name));
                                     update.Parameters.Add(new SqliteParameter("@FieldName", fieldName));
                                     update.Parameters.Add(new SqliteParameter("@Data", block.Format.ConvertTo(fieldName, field.Value)));
@@ -194,6 +200,11 @@
                                     {
                                         fieldName = field.Key.Item2 + "@" + field.Key.Item1;
                                     }
+
+                                    benchmarck[$"{block.Name}:{fieldName}"] =
+                                        field.Value is string ? $"STRING[{((string)field.Value).Length}]" :
+                                        (field.Value is Array ? $"ARRAY[{((Array)field.Value).Length}]" : field.Value);
+
                                     update.Parameters.Add(new SqliteParameter("@BlockName", block.Name));
                                     update.Parameters.Add(new SqliteParameter("@FieldName", fieldName));
                                     update.Parameters.Add(new SqliteParameter("@Data", block.Format.ConvertTo(field.Key.Item2, field.Value)));

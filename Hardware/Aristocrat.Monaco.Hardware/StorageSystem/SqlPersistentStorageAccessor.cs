@@ -13,6 +13,7 @@
     using Contracts.Persistence;
     using log4net;
     using Microsoft.Data.Sqlite;
+    using Aristocrat.Monaco.Common;
 
     /// <summary>
     ///     Sql persistent storage accessor
@@ -158,6 +159,8 @@
 
             using (var connection = CreateConnection())
             {
+                using var benchmarck = new Benchmark(nameof(GetAll));
+
                 try
                 {
                     connection.Open();
@@ -305,6 +308,8 @@
 
             using (var connection = CreateConnection())
             {
+                using var benchmarck = new Benchmark(nameof(Resize));
+
                 try
                 {
                     connection.Open();
@@ -407,7 +412,7 @@
                     Array.ForEach(blockFormatArray, x => x.UpdateDictionary());
                     blockFormats = blockFormatArray;
                 }
-                else if(serializerSingle.CanDeserialize(xmlReader))
+                else if (serializerSingle.CanDeserialize(xmlReader))
                 {
                     var blockFormatSingle = (BlockFormat)serializerSingle.Deserialize(xmlReader);
                     blockFormatSingle.UpdateDictionary();
@@ -457,6 +462,8 @@
         {
             using (var connection = CreateConnection())
             {
+                using var benchmarck = new Benchmark(nameof(Initialize));
+
                 try
                 {
                     connection.Open();
@@ -464,6 +471,8 @@
                     using (var command = new SqliteCommand("SELECT * FROM StorageBlock WHERE Name = @Name", connection))
                     {
                         command.Parameters.Add(new SqliteParameter("@Name", name));
+
+                        using var benchmarck1 = new Benchmark(nameof(Initialize) + "_1");
 
                         using (var result = command.ExecuteReader(CommandBehavior.SingleRow))
                         {
@@ -508,6 +517,8 @@
 
                 using (var connection = CreateConnection())
                 {
+                    using var benchmarck = new Benchmark(nameof(LoadBlockFormat));
+
                     try
                     {
                         connection.Open();
@@ -565,6 +576,8 @@
 
             using (var connection = CreateConnection())
             {
+                using var benchmarck = new Benchmark(nameof(UpgradeToVersion));
+
                 try
                 {
                     connection.Open();
@@ -607,6 +620,8 @@
         {
             using (var connection = CreateConnection())
             {
+                using var benchmarck = new Benchmark(nameof(AddFields));
+
                 try
                 {
                     connection.Open();
@@ -627,6 +642,8 @@
 
         private void AddFields(SqliteTransaction transaction, BlockFormat format, IEnumerable<FieldDescription> fields, int version = -1)
         {
+            using var benchmarck = new Benchmark(nameof(AddFields) + "_1");
+
             using (var command = new SqliteCommand(
                 "INSERT INTO StorageBlockField (BlockName, FieldName, DataType, Data, Count) VALUES (@BlockName, @FieldName, @DataType, @Data, @Count)",
                 transaction.Connection,
@@ -673,6 +690,8 @@
                     transaction.Connection,
                     transaction))
                 {
+                    using var benchmarck2 = new Benchmark(nameof(AddFields) + "_2");
+
                     command.Parameters.Add(new SqliteParameter("@Name", Name));
                     command.Parameters.Add(new SqliteParameter("@Version", version));
 
@@ -696,8 +715,14 @@
                         command.Parameters.Add(new SqliteParameter("@BlockName", Name));
                         command.Parameters.Add(new SqliteParameter("@FieldName", fieldName));
 
-                        //var fieldData = (byte[])command.ExecuteScalar(CommandBehavior.SingleRow);
-                        var fieldData = (byte[])command.ExecuteScalar();
+                        object res;
+                        using (var benchmarck = new Benchmark(nameof(GetField)))
+                        {
+                            //var fieldData = (byte[])command.ExecuteScalar(CommandBehavior.SingleRow);
+                            res = command.ExecuteScalar();
+                            benchmarck[$"{Name}:{fieldName}"] = $"ARRAY[{((byte[])res).Length}]";
+                        }
+                        var fieldData = (byte[])res;
 
                         var fd = Format.GetFieldDescription(blockFieldName);
 
@@ -729,6 +754,8 @@
             {
                 using (var connection = CreateConnection())
                 {
+                    using var benchmarck = new Benchmark(nameof(BlockExists));
+
                     connection.Open();
 
                     using (var command = new SqliteCommand(
