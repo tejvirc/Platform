@@ -61,7 +61,7 @@
         private decimal _lowestAllowedMinimumRtp;
         private decimal _highestAllowedMinimumRtp;
         private long _topAwardValue;
-        private long? _maxWinAmount;
+        private decimal? _maxWinAmount;
         private bool _progressivesEditable;
         private bool _gameOptionsEnabled;
         private bool _showGameRtpAsRange;
@@ -134,7 +134,7 @@
             private set => SetProperty(ref _topAwardValue, value);
         }
 
-        public long? MaxWinAmount
+        public decimal? MaxWinAmount
         {
             get => _maxWinAmount;
             private set => SetProperty(ref _maxWinAmount, value);
@@ -186,7 +186,7 @@
                 ConfigurationMinBet();
                 SetProgressivesConfigured();
                 TopAwardValue = RecalculateTopAward();
-                MaxWinAmount = _selectedBetOption.MaxWin != null ? ResolveDenomination().Value * _selectedBetOption.MaxWin : null;
+                MaxWinAmount = (ResolveDenomination().Value * _selectedBetOption.MaxWin)?.MillicentsToDollars();
             }
         }
 
