@@ -11,8 +11,8 @@
     <Addin id="AccountingRunnable" version="1.0" />
   </Dependencies>
 
-  <Extension path="/Protocol/Demonstration/Runnables">
-    <Demonstration type="Aristocrat.Monaco.Demonstration.DemonstrationRunnable" protocolId="DemonstrationMode" serverProtocolId="126"/>
+  <Extension path="/Protocol/Runnables">
+    <ProtocolInterface type="Aristocrat.Monaco.Demonstration.DemonstrationRunnable" protocolId="DemonstrationMode" serverProtocolId="126"/>
   </Extension>
 
 </Addin>
