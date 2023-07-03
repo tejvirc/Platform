@@ -148,7 +148,7 @@
                 { GamingConstants.ServiceUseKey, (InitFromStorage(GamingConstants.ServiceUseKey), true) },
                 { GamingConstants.ClockUseHInDisplayKey, (InitFromStorage(GamingConstants.ClockUseHInDisplayKey), true) },
                 { GamingConstants.KenoFreeGamesSelectionChangeKey, (InitFromStorage(GamingConstants.KenoFreeGamesSelectionChangeKey), true) },
-                { GamingConstants.KenoFreeGamesAutoPlayKey, (InitFromStorage(GamingConstants.KenoFreeGamesSelectionChangeKey), true) },
+                { GamingConstants.KenoFreeGamesAutoPlayKey, (InitFromStorage(GamingConstants.KenoFreeGamesAutoPlayKey), true) },
                 { GamingConstants.InitialZeroWagerUseKey, (InitFromStorage(GamingConstants.InitialZeroWagerUseKey), true) },
                 { GamingConstants.ChangeLineSelectionAtZeroCreditUseKey, (InitFromStorage(GamingConstants.ChangeLineSelectionAtZeroCreditUseKey), true) },
                 { GamingConstants.GameDurationUseMarketGameTimeKey, (InitFromStorage(GamingConstants.GameDurationUseMarketGameTimeKey), true) },
