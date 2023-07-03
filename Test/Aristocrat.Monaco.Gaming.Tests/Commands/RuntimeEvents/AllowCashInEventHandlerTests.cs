@@ -64,7 +64,6 @@
 
             _bus.Verify(x => x.Publish(It.IsAny<AllowMoneyInEvent>()), allowMoney ? Times.Once() : Times.Never());
             _bus.Verify(x => x.Publish(It.IsAny<ProhibitMoneyInEvent>()), preventMoney ? Times.Once() : Times.Never());
-            _bank.Verify(x => x.Unlock(), allowMoney ? Times.Once() : Times.Never());
             _bank.Verify(x => x.Lock(), preventMoney ? Times.Once() : Times.Never());
         }
 

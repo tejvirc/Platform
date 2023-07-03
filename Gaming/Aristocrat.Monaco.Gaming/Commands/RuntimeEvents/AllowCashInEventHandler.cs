@@ -27,6 +27,10 @@
             // Ignoring game input here as Jurisdiction already allows money in during game play.
             if (_properties.GetValue(GamingConstants.AllowCashInDuringPlay, false))
             {
+                if (gameRoundEvent.Action == GameRoundEventAction.Begin)
+                {
+                    _bank.Unlock();
+                }
                 return;
             }
 
