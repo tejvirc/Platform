@@ -14,11 +14,11 @@
     </ResourceDictionary.MergedDictionaries>
     <!-- Converters -->
     <converters:StringFormatConverter x:Key="UneditedStringConverter"
-                                      StringFormat="{lex:Loc Key={x:Static loc:ResourceKeys.LiveSettingStatusUnedited}}" />
+                                      StringFormat="{lex:Loc LiveSettingStatusUnedited}" />
     <converters:StringFormatConverter x:Key="EditedStringConverter"
-                                      StringFormat="{lex:Loc Key={x:Static loc:ResourceKeys.LiveSettingStatusEdited}}" />
+                                      StringFormat="{lex:Loc LiveSettingStatusEdited}" />
     <converters:StringFormatConverter x:Key="ConflictedStringConverter"
-                                      StringFormat="{lex:Loc Key={x:Static loc:ResourceKeys.LiveSettingStatusConflicted}}" />
+                                      StringFormat="{lex:Loc LiveSettingStatusConflicted}" />
     <!-- Styles the little triangle that decorates live settings -->
     <SolidColorBrush x:Key="UneditedColor"
                      Color="#4000bfff"

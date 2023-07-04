@@ -104,12 +104,12 @@
                     Margin="0 10 0 0"
                     AutomationProperties.AutomationId="StackPanel13_73D1C618">
             <Button HorizontalAlignment="Left"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.ViewMemory}}"
+                    Content="{lex:Loc ViewMemory}"
                     Command="{Binding ViewMemoryCommand}"
                     Visibility="{Binding InDiagnosticViewChartMode, Converter={StaticResource TrueCollapsedFalseVisible}}"
                     AutomationProperties.AutomationId="Button14_73D1C618" />
             <Button Name="EnterDiagnosticChartModeButton"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.ViewPerformanceDetails}}" 
+                    Content="{lex:Loc ViewPerformanceDetails}" 
                     HorizontalAlignment="Center"
                     Visibility="{Binding InDiagnosticViewChartMode, Converter={StaticResource TrueCollapsedFalseVisible}}"
                     Command="{Binding ToggleDiagnosticChartViewModeCommand}"
@@ -117,7 +117,7 @@
             <Button Name="ExitDiagnosticChartModeButton"
                     Visibility="{Binding InDiagnosticViewChartMode, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     Command="{Binding ToggleDiagnosticChartViewModeCommand}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.EndPerformanceDetails}}"
+                    Content="{lex:Loc EndPerformanceDetails}"
                     HorizontalAlignment="Center"
                     AutomationProperties.AutomationId="Button16_73D1C618" />
         </StackPanel>

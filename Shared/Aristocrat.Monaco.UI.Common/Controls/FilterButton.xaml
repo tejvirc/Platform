@@ -37,7 +37,7 @@
                 <StackPanel Orientation="Vertical" AutomationProperties.AutomationId="StackPanel6_A993AC6C">
                     <CheckBox x:Name="SelectAllCheckbox"
                               Margin="5"
-                              Content="{lex:Loc Key={x:Static loc:ResourceKeys.SelectAll}}"
+                              Content="{lex:Loc SelectAll}"
                               IsChecked="{Binding SelectAllIsChecked}"
                               AutomationProperties.AutomationId="CheckBox7_A993AC6C" />
                     <Separator Foreground="{DynamicResource Brush3}" AutomationProperties.AutomationId="Separator8_A993AC6C" />

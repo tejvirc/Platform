@@ -43,7 +43,7 @@
         <Label Grid.Column="0"
                Grid.Row="0"
                VerticalAlignment="Center"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.CentralServerIpAddressLabel}}"
+               Content="{lex:Loc CentralServerIpAddressLabel}"
                AutomationProperties.AutomationId="Label9_3E20046D" />
         <TextBox Grid.Column="1"
                  Grid.Row="0"
@@ -57,7 +57,7 @@
                Grid.Row="1"
                Margin="0 20 0 0"
                VerticalAlignment="Center"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.CentralServerTcpPortNumberLabel}}"
+               Content="{lex:Loc CentralServerTcpPortNumberLabel}"
                AutomationProperties.AutomationId="Label11_3E20046D" />
         <helpers:AlphaNumericTextBox Grid.Column="1"
                                      Grid.Row="1"
@@ -72,7 +72,7 @@
                Grid.Row="2"
                Margin="0 20 0 0"
                VerticalAlignment="Center"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.CentralServerEncryptionKeyLabel}}"
+               Content="{lex:Loc CentralServerEncryptionKeyLabel}"
                AutomationProperties.AutomationId="Label12_3E20046D" />
         <TextBox Grid.Column="1"
                  Grid.Row="2"
@@ -86,7 +86,7 @@
                Grid.Row="3"
                Margin="0 20 0 0"
                VerticalAlignment="Center"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.CentralServerUdpPortNumberLabel}}"
+               Content="{lex:Loc CentralServerUdpPortNumberLabel}"
                AutomationProperties.AutomationId="Label14_3E20046D" />
         <helpers:AlphaNumericTextBox Grid.Column="1"
                                      Grid.Row="3"
@@ -101,7 +101,7 @@
                Grid.Row="4"
                Margin="0 20 0 0"
                VerticalAlignment="Center"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.ManualHandicapModeLabel}}"
+               Content="{lex:Loc ManualHandicapModeLabel}"
                AutomationProperties.AutomationId="Label15_3E20046D" />
         <ComboBox Grid.Column="1"
                   Grid.Row="4"
@@ -119,7 +119,7 @@
                     Orientation="Horizontal"
                     Visibility="{Binding IsWizardPage, Converter={StaticResource TrueCollapsedFalseVisible}}"
                     AutomationProperties.AutomationId="StackPanel17_3E20046D">
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ApplyLabel}}"
+            <Button Content="{lex:Loc ApplyLabel}"
                     IsEnabled="{Binding IsConfigChanged}"
                     Command="{Binding ApplyServerConfigurationCommand}"
                     AutomationProperties.AutomationId="Button18_3E20046D" />

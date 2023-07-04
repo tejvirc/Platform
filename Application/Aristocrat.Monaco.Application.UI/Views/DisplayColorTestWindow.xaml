@@ -67,7 +67,7 @@
             <Button Padding="10 0 10 0"
                     Margin="10"
                     Name="ExitButton"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExitText}}"
+                    Content="{lex:Loc ExitText}"
                     Click="OnExitButtonPressed"
                     AutomationProperties.AutomationId="Button9_E1990149" />
         </StackPanel>

@@ -371,13 +371,13 @@
                 </helpers:ExpirationTextBox.IsEnabled>
             </helpers:ExpirationTextBox>
 
-            <Label Grid.Row="8" Grid.Column="2" Margin="0 15 0 4" Content="{lex:Loc Key={x:Static loc:ResourceKeys.VoucherNonCashExpiration}}" 
+            <Label Grid.Row="8" Grid.Column="2" Margin="0 15 0 4" Content="{lex:Loc VoucherNonCashExpiration}" 
                    Visibility="{Binding IsNonCashableVoucherOutVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
                    AutomationProperties.AutomationId="Label55_468E4704" />
             <helpers:ExpirationTextBox Grid.Row="9" Grid.Column="2"
                                    IsReadOnly="False"
-                                   NeverExpires="{lex:Loc Key={x:Static loc:ResourceKeys.NeverExpires}}"
-                                   DaysFormatter="{lex:Loc Key={x:Static loc:ResourceKeys.DaysFormatter}}"
+                                   NeverExpires="{lex:Loc NeverExpires}"
+                                   DaysFormatter="{lex:Loc DaysFormatter}"
                                    MaxExpirationDays="365"
                                    Number="{Binding NonCashVoucherExpirationDays, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                                    Visibility="{Binding IsNonCashableVoucherOutVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">

@@ -155,7 +155,7 @@
                                     AutomationProperties.AutomationId="DataGridTextColumn16_22F59A65">
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
-                            <common:FilterButton HeaderText="{lex:Loc Key={x:Static loc:ResourceKeys.GameName}}"
+                            <common:FilterButton HeaderText="{lex:Loc GameName}"
                                                  FilterObjectList="{Binding Path=DataContext.FilterGameNames, ElementName=MainGrid, Mode=TwoWay}"
                                                  IsEnabled="{Binding Path=DataContext.DataEmpty, ElementName=MainGrid, Converter={StaticResource InverseBoolConverter}}"
                                                  SelectAllIsChecked="{Binding Path=DataContext.SelectAllGameNamesIsChecked, ElementName=MainGrid, Mode=TwoWay}" />
@@ -192,7 +192,7 @@
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.EndTimeText}}"
+                <DataGridTextColumn Header="{lex:Loc EndTimeText}"
                                     loc:Localizer.For="Operator"
                                     Binding="{Binding EndTime, Converter={StaticResource DateTimeConverter}, ConverterParameter=MinDateBlank}"
                                     HeaderStyle="{StaticResource HeaderStyle}"
@@ -244,7 +244,7 @@
                                     AutomationProperties.AutomationId="DataGridTextColumn25_22F59A65">
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
-                            <common:FilterButton HeaderText="{lex:Loc Key={x:Static loc:ResourceKeys.StatusHeader}}"
+                            <common:FilterButton HeaderText="{lex:Loc StatusHeader}"
                                                  FilterObjectList="{Binding Path=DataContext.FilterStatuses, ElementName=MainGrid, Mode=TwoWay}"
                                                  IsEnabled="{Binding Path=DataContext.DataEmpty, ElementName=MainGrid, Converter={StaticResource InverseBoolConverter}}"
                                                  SelectAllIsChecked="{Binding Path=DataContext.SelectAllStatusesIsChecked, ElementName=MainGrid, Mode=TwoWay}" />
@@ -356,7 +356,7 @@
                     Command="{Binding ShowGameDetailsCommand}"
                     Visibility="{Binding ShowGameDetailsButton, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     AutomationProperties.AutomationId="Button48_22F59A65" />
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveDetails}}"
+            <Button Content="{lex:Loc ProgressiveDetails}"
                     IsEnabled="{Binding SelectedGameHasProgressiveDetails}"
                     Command="{Binding ShowProgressiveDetailsCommand}"
                     Visibility="{Binding ShowProgressiveDetails, Converter={StaticResource TrueVisibleFalseCollapsed}}"

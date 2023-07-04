@@ -84,11 +84,11 @@
                    Height="30"
                    AutomationProperties.AutomationId="Image6_9170C024" />
             <!--   <TextBlock Style="{StaticResource BoldWhiteTextBlock}" FontSize="26" Margin="30,0,0,0"
-                       Text="{Binding CurrentWinningPattern.Wager, StringFormat='{lex:Loc Key={x:Static loc:ResourceKeys.WagerStringFormat}}', Converter={StaticResource CurrencyConverter}}" /> -->
+                       Text="{Binding CurrentWinningPattern.Wager, StringFormat='{lex:Loc WagerStringFormat}', Converter={StaticResource CurrencyConverter}}" /> -->
             <TextBlock Style="{StaticResource BoldWhiteTextBlock}"
                        FontSize="26"
                        Margin="30,0,0,0"
-                       Text="{lex:Loc Key={x:Static loc:ResourceKeys.WagerStringFormat}}"
+                       Text="{lex:Loc WagerStringFormat}"
                        AutomationProperties.AutomationId="TextBlock7_9170C024" />
             <TextBlock Style="{StaticResource BoldWhiteTextBlock}"
                        FontSize="26"
@@ -271,16 +271,16 @@
                 <TextBlock Style="{StaticResource CombinationPrizeTextBlock}"
                            DockPanel.Dock="Bottom"
                            VerticalAlignment="Bottom"
-                           Text="{lex:Loc Key={x:Static loc:ResourceKeys.IncludesProgressiveResetValues}}"
+                           Text="{lex:Loc IncludesProgressiveResetValues}"
                            Visibility="{Binding CurrentWinningPattern.IncludesProgressiveResetValues, Converter={StaticResource TrueVisibleFalseHidden}}"
                            AutomationProperties.AutomationId="TextBlock53_9170C024" />
                 <TextBlock Style="{StaticResource CombinationPrizeTextBlock}"
                            DockPanel.Dock="Left"
-                           Text="{Binding CurrentWinningPattern.GuaranteedCredits, StringFormat='{lex:Loc Key={x:Static loc:ResourceKeys.GuaranteedCreditsStringFormat}}'}"
+                           Text="{Binding CurrentWinningPattern.GuaranteedCredits, StringFormat='{lex:Loc GuaranteedCreditsStringFormat}'}"
                            AutomationProperties.AutomationId="TextBlock54_9170C024" />
                 <TextBlock Style="{StaticResource CombinationPrizeTextBlock}"
                            DockPanel.Dock="Right"
-                           Text="{Binding CurrentWinningPattern.ExtraWinnings, StringFormat='{lex:Loc Key={x:Static loc:ResourceKeys.ExtraWinningsStringFormat}}', Converter={StaticResource CurrencyConverter}}"
+                           Text="{Binding CurrentWinningPattern.ExtraWinnings, StringFormat='{lex:Loc ExtraWinningsStringFormat}', Converter={StaticResource CurrencyConverter}}"
                            Visibility="{Binding CurrentWinningPattern.ExtraWinnings, Converter={StaticResource NumberToVisible}, ConverterParameter=0.0}"
                            AutomationProperties.AutomationId="TextBlock55_9170C024" />
             </DockPanel>

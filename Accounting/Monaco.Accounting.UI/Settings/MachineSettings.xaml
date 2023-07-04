@@ -780,7 +780,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="63"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.PayoutLimit}}"
+                           Text="{lex:Loc PayoutLimit}"
                            AutomationProperties.AutomationId="TextBlock193_D57C8E38" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"

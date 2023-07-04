@@ -44,7 +44,7 @@
                         AutomationProperties.AutomationId="ContentControl0_282D57AA" />
 
         <Label Grid.Row="1"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.OrderNumberLabel}}"
+               Content="{lex:Loc OrderNumberLabel}"
                AutomationProperties.AutomationId="Label0_282D57AA"
                Visibility="{Binding IsInspection, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
         <TextBox Grid.Row="2"
@@ -56,7 +56,7 @@
                  Visibility="{Binding IsInspection, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
 
         <Label Grid.Row="3"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.InspectorLabel}}"
+               Content="{lex:Loc InspectorLabel}"
                AutomationProperties.AutomationId="Label1_282D57AA"
                Visibility="{Binding IsInspection, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
         <TextBox Grid.Row="4"
