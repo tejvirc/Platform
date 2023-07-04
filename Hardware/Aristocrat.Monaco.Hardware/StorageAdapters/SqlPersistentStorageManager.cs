@@ -21,6 +21,8 @@
     /// </summary>
     public class SqlPersistentStorageManager : IService, IPersistentStorageManager, IDisposable
     {
+        private const string journalModeConfig = "PRAGMA journal_mode = WAL";
+
         private const string StorageBlockTableCreate =
             "CREATE TABLE StorageBlock (Name TEXT PRIMARY KEY NOT NULL, Version INTEGER, Level TEXT, Count INTEGER) WITHOUT ROWID";
 
@@ -454,11 +456,18 @@
                 }
 
                 using var connection = CreateConnection();
+
                 connection.Open();
-                using var command = new SqliteCommand(StorageBlockTableCreate, connection);
+
+                using var command = new SqliteCommand(journalModeConfig, connection);
+
                 try
                 {
                     command.ExecuteNonQuery();
+
+                    command.CommandText = StorageBlockTableCreate;
+                    command.ExecuteNonQuery();
+
                     command.CommandText = StorageBlockFieldTableCreate;
                     command.ExecuteNonQuery();
                 }
