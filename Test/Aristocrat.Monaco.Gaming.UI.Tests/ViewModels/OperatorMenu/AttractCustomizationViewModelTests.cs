@@ -417,7 +417,7 @@
                     break;
             }
             var game = _target.ConfiguredAttractInfo.FirstOrDefault(g => g.GameType == type);
-            game.IsSelected = false;
+            game!.IsSelected = false;
 
             Assert.IsTrue(_accessor.HasChanges());
 

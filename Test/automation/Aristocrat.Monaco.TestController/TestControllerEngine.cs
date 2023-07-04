@@ -60,7 +60,7 @@
         /// <summary>
         ///     Amazing comment
         /// </summary>
-        private readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary>
         ///     Handles mouse inputs
@@ -1883,7 +1883,7 @@
 
         public int GetHashCode(DisplayableMessage obj)
         {
-            return obj.Message.GetHashCode();
+            return obj.Message.GetHashCode(StringComparison.InvariantCulture);
         }
     }
 }

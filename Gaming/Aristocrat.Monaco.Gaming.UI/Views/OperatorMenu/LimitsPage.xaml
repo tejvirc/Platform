@@ -372,14 +372,11 @@
                         <Button.CommandParameter>
                             <MultiBinding Converter="{StaticResource MultiValueConverter}">
                                 <Binding ElementName="HandCountInfoButton" />
-                                <Binding ElementName="CreditInHelpText"
-                                     Path="Result" />
+                                <Binding Source="{x:Static loc:ResourceKeys.BillAcceptanceInHelpText}"/>
                             </MultiBinding>
                         </Button.CommandParameter>
                     </Button>
                 </Grid>
-                <lex:LocProxy x:Name="CreditInHelpText"
-                              Source="{x:Static loc:ResourceKeys.BillAcceptanceInHelpText}" />
                 <CheckBox IsChecked="{Binding BillAcceptanceLimitIsChecked, Mode=TwoWay}"
                           IsEnabled="{Binding BillAcceptanceLimitCheckboxEnabled, Mode=OneWay}"
                           AutomationProperties.AutomationId="CheckBox58_EF05BF33"/>
@@ -410,14 +407,11 @@
                     <Button.CommandParameter>
                         <MultiBinding Converter="{StaticResource MultiValueConverter}">
                             <Binding ElementName="PayoutLimitInfoButton" />
-                                <Binding ElementName="PayoutLimitHelpText"
-                                     Path="Result" />
+                                <Binding Source="{x:Static loc:ResourceKeys.PayoutLimitHelpText}" />
                         </MultiBinding>
                     </Button.CommandParameter>
                 </Button>
                 </Grid>
-                <lex:LocProxy x:Name="PayoutLimitHelpText"
-                              Source="{x:Static loc:ResourceKeys.PayoutLimitHelpText}" />
                 <CheckBox IsChecked="{Binding HandCountPayoutLimitIsChecked, Mode=TwoWay}"
                           IsEnabled="{Binding HandCountPayoutLimitCheckboxEnabled, Mode=OneWay}"
                           AutomationProperties.AutomationId="CheckBox59_EF05BF33"/>

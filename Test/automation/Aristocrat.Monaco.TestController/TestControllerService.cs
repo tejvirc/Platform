@@ -22,7 +22,7 @@
         /// <summary>
         ///     Logger instance
         /// </summary>
-        private readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         public void Dispose()
         {

@@ -27,7 +27,7 @@
         }
 
         public static readonly DependencyProperty ScreenTypeProperty = DependencyProperty.Register("ScreenType", typeof(ScreenType?), typeof(LayoutTemplateDockPanelBase), new PropertyMetadata(OnScreenTypeChanged));
-        protected static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        protected static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly Duration _duration = new Duration(new TimeSpan(0, 0, 0, 0, 750));
         private bool _disposed;
 

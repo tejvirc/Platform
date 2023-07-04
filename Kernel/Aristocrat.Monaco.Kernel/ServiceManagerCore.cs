@@ -14,10 +14,10 @@
     /// </summary>
     public sealed class ServiceManagerCore : IServiceManager, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
-        private readonly Dictionary<Type, IService> _serviceDirectory = new Dictionary<Type, IService>();
-        private readonly Dictionary<IService, Thread> _threadDirectory = new Dictionary<IService, Thread>();
+        private readonly Dictionary<Type, IService> _serviceDirectory = new ();
+        private readonly Dictionary<IService, Thread> _threadDirectory = new ();
 
         private bool _disposed;
 

@@ -207,10 +207,8 @@
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <Grid AutomationProperties.AutomationId="Grid29_361E7832">
-                                <TextBlock Text="{Binding Result, ElementName=GameTypeProxy}"
+                                <TextBlock Text="{Binding }"
                                            AutomationProperties.AutomationId="TextBlock30_361E7832" />
-                                <lex:LocProxy x:Name="GameTypeProxy"
-                                              Source="{Binding}" />
                             </Grid>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>

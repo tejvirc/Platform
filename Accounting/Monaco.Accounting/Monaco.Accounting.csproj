@@ -26,9 +26,6 @@
     <None Remove="Aristocrat.Monaco.Accounting.Contracts.KeyedOnCreditsTransaction.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.configuration" />
-  </ItemGroup>
-  <ItemGroup>
     <CodeAnalysisDictionary Include="..\..\CustomDictionary.xml">
       <Link>CustomDictionary.xml</Link>
     </CodeAnalysisDictionary>

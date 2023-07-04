@@ -27,9 +27,9 @@
         private const string GdsName = "GDS";
         private const string EbdsName = "EBDS";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly ConcurrentDictionary<int, Note> _noteTable = new ConcurrentDictionary<int, Note>();
-        private readonly object _stackerStatusLock = new object();
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private readonly ConcurrentDictionary<int, Note> _noteTable = new ();
+        private readonly object _stackerStatusLock = new ();
         private bool _utf;
         private Validator _validator;
 

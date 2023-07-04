@@ -1550,7 +1550,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
 
             _target.Initialize();
 
-            callback.Invoke(new OperatorMenuEnteredEvent());
+            callback!.Invoke(new OperatorMenuEnteredEvent());
             _towerLight.Verify(
                 m => m.SetFlashState(
                     It.Is<LightTier>(x => x == LightTier.Tier1),
@@ -1595,7 +1595,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
                     (object subscriber, Action<HandpayStartedEvent> eventCallback) => { callback = eventCallback; });
 
             _target.Initialize();
-            callback.Invoke(new HandpayStartedEvent(HandpayType.GameWin, 0, 0, 0, 0, false));
+            callback!.Invoke(new HandpayStartedEvent(HandpayType.GameWin, 0, 0, 0, 0, false));
 
             _towerLight.Verify(
                 m => m.SetFlashState(
@@ -1883,8 +1883,8 @@ namespace Aristocrat.Monaco.Gaming.Tests
             _target.Initialize();
 
             _doorService.Setup(d => d.GetDoorClosed((int)DoorLogicalId.Main)).Returns(true);
-            disableCallback.Invoke(new SystemDisableAddedEvent(SystemDisablePriority.Immediate, Guid.Empty, string.Empty, false));
-            doorCallback.Invoke(new ClosedEvent());
+            disableCallback!.Invoke(new SystemDisableAddedEvent(SystemDisablePriority.Immediate, Guid.Empty, string.Empty, false));
+            doorCallback!.Invoke(new ClosedEvent());
 
             _towerLight.Verify(
                 m => m.SetFlashState(
