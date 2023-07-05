@@ -116,8 +116,6 @@
         private readonly ISystemDisableManager _systemDisableManager;
         private readonly ITransferOutHandler _transferOutHandler;
         private readonly IRuntimeFlagHandler _runtime;
-        private readonly IRuntime _runtimeService;
-        private readonly IGameCategoryService _gameCategoryService;
         private readonly IGameService _gameService;
         private readonly ISessionInfoService _sessionInfoService;
         private readonly IAttendantService _attendant;
@@ -354,8 +352,6 @@
             _gameHistory = containerService.Container.GetInstance<IGameHistory>();
             _buttonLamps = containerService.Container.GetInstance<IButtonLamps>();
             _runtime = containerService.Container.GetInstance<IRuntimeFlagHandler>();
-            _runtimeService = containerService.Container.GetInstance<IRuntime>();
-            _gameCategoryService = containerService.Container.GetInstance<IGameCategoryService>();
             _gameStorage = containerService.Container.GetInstance<IGameStorage>();
             _gameState = containerService.Container.GetInstance<IGamePlayState>();
             _gameOrderSettings = containerService.Container.GetInstance<IGameOrderSettings>();
