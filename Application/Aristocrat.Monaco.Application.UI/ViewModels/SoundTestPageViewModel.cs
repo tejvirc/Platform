@@ -21,6 +21,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using Monaco.UI.Common.Extensions;
     using CommunityToolkit.Mvvm.Input;
     using Aristocrat.Extensions.CommunityToolkit;
+    using Aristocrat.Extensions.CommunityToolkit.Markup;
 
     [CLSCompliant(false)]
     public class SoundTestPageViewModel : INotifyPropertyChanged
