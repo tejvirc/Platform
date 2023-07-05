@@ -564,6 +564,26 @@
             return text;
         }
 
+        private static IList<Denomination> GetMappedDenominations(
+            int gameId,
+            IEnumerable<EditableGameConfiguration> configurations)
+        {
+            return (from configuration in configurations
+                let denomination = configuration.ResolveDenomination()
+                where denomination != null
+                select new Denomination(denomination.Id, denomination.Value, configuration.Enabled)
+                {
+                    BetOption = configuration.SelectedBetOption?.Name,
+                    LineOption = configuration.SelectedLineOption?.Name,
+                    BonusBet = configuration.SelectedBonusBet,
+                    SecondaryAllowed = configuration.Gamble,
+                    LetItRideAllowed = configuration.LetItRide,
+                    MinimumWagerCredits = configuration.MinimumWagerCredits,
+                    MaximumWagerCredits = configuration.MaximumWagerCredits,
+                    MaximumWagerOutsideCredits = configuration.MaximumWagerOutsideCredits
+                }).ToList();
+        }
+
         private void LoadGames()
         {
             _maxBetLimit = ((long)PropertiesManager.GetProperty(
@@ -1046,48 +1066,53 @@
         private void SaveChanges()
         {
             var hasChanges = HasChanges();
+
             var progressiveLevels = _progressiveConfiguration.ViewProgressiveLevels()
                 .Where(x => x.CanEdit && x.LevelType == ProgressiveLevelType.Sap).ToList();
 
             var updatedLevels = new List<IViewableProgressiveLevel>();
-            foreach (var game in _editableGames.Where(e => e.Value.HasChanges()))
+
+            var editableGames = new List<EditableGameProfile>();
+
+            var sharedSapGames = new List<EditableGameProfile>();
+
+            foreach (var gameProfile in _editableGames.Values)
             {
-                if (game.Value.HasRestrictionChanges())
+                var configs = gameProfile.GameConfigurations;
+
+                if (configs.All(c => c.Game?.Category == GameCategory.LightningLink))
                 {
-                    foreach (var mapping in game.Value.OriginalRestriction.RestrictionDetails.Mapping)
-                    {
-                        var gameDetail = _gameProvider.GetGames().FirstOrDefault(g => g.VariationId == mapping.VariationId);
-
-                        if (gameDetail is not null)
-
-                        {
-                            ClearGameData(gameDetail, null);
-                        }
-                    }
+                    sharedSapGames.Add(gameProfile);
                 }
-
-                ResetGameStorage(game.Value);
-
-                foreach (var id in game.Value.GameConfigurations
-                    .SelectMany(c => c.AvailableGames.Select(g => g.Id))
-                    .Distinct())
+                else if (gameProfile.HasChanges())
                 {
-                    // We are already grouped by themeId so just remove all the games we have for this themeId
-                    _gameProvider.SetActiveDenominations(id, Enumerable.Empty<IDenomination>());
+                    editableGames.Add(gameProfile);
                 }
+            }
 
-                var updates = game.Value.GameConfigurations
+            var hasSharedSapChanges = SaveSharedSapChanges(sharedSapGames);
+
+            hasChanges = hasChanges || hasSharedSapChanges;
+
+            foreach (var game in editableGames)
+            {
+                ResetGameStorage(game);
+
+                ClearAllGameProfileDenominations(game);
+
+                var updates = game.GameConfigurations
                     .Where(c => c.Game != null)
                     .Select(gameConfig => (gameId: gameConfig.Game.Id, config: gameConfig))
                     .GroupBy(x => x.gameId, (id, group) => (id, group.Select(x => x.config)));
+
                 foreach (var (gameId, configurations) in updates)
                 {
                     updatedLevels.AddRange(SaveGameConfiguration(gameId, configurations, progressiveLevels));
                 }
 
-                if (game.Value.SelectedRestriction != null)
+                if (game.SelectedRestriction != null)
                 {
-                    _gameConfiguration.Apply(game.Value.ThemeId, game.Value.SelectedRestriction);
+                    _gameConfiguration.Apply(game.ThemeId, game.SelectedRestriction);
                 }
             }
 
@@ -1119,9 +1144,79 @@
             }
         }
 
-        private void ResetGameStorage(EditableGameProfile value)
+        private bool SaveSharedSapChanges(IEnumerable<EditableGameProfile> gameProfiles)
         {
-            var configList = value.GameConfigurations.ToList();
+            var hasSharedSapChanges = false;
+
+            foreach (var gameProfile in gameProfiles)
+            {
+                ResetGameStorage(gameProfile);
+
+                if (gameProfile.SelectedRestriction != null)
+                {
+                    _gameConfiguration.Apply(gameProfile.ThemeId, gameProfile.SelectedRestriction);
+                }
+
+                ClearAllGameProfileDenominations(gameProfile);
+
+                var configs = gameProfile.GameConfigurations.Where(c => c.Game is not null);
+
+                foreach (var config in configs)
+                {
+                    var gameId = config.Game.Id;
+
+                    var levelsToUpdate = _progressiveConfiguration
+                        .ViewProgressiveLevels(gameId, config.BaseDenom)
+                        .Where(l => l.CanEdit &&
+                                    l.CurrentState == ProgressiveLevelState.Init)
+                        .ToArray();
+
+                    if (levelsToUpdate.Any())
+                    {
+                        hasSharedSapChanges = true;
+
+                        _progressiveConfiguration.LockProgressiveLevels(levelsToUpdate);
+                    }
+
+                    config.SetProgressivesAsConfigured();
+
+                    var denominations = GetMappedDenominations(config.Game.Id, new[] { config });
+
+                    _gameProvider.SetActiveDenominations(gameId, denominations.Where(d => d.Active));
+                }
+            }
+
+            return hasSharedSapChanges;
+        }
+
+        private void ClearAllGameProfileDenominations(EditableGameProfile profile)
+        {
+            foreach (var id in profile.GameConfigurations
+                         .SelectMany(c => c.AvailableGames.Select(g => g.Id))
+                         .Distinct())
+            {
+                // We are already grouped by themeId so just remove all the games we have for this themeId
+                _gameProvider.SetActiveDenominations(id, Enumerable.Empty<IDenomination>());
+            }
+        }
+
+        private void ResetGameStorage(EditableGameProfile game)
+        {
+            if (game.HasRestrictionChanges())
+            {
+                foreach (var mapping in game.OriginalRestriction.RestrictionDetails.Mapping)
+                {
+                    var gameDetail = _gameProvider.GetGames().FirstOrDefault(g => g.VariationId == mapping.VariationId);
+
+                    if (gameDetail is not null)
+                    {
+                        ClearGameData(gameDetail, null);
+                    }
+                }
+            }
+
+            var configList = game.GameConfigurations.ToList();
+
             configList.ForEach(
                 configuration =>
                 {
@@ -1133,7 +1228,7 @@
                     }
                 });
         }
-
+        
         private void ClearGameData(IGameDetail game, long? denom)
         {
             Logger.Debug($"ClearGameData for {game.ThemeId} -- variation {game.VariationId}");
@@ -1147,23 +1242,10 @@
             IEnumerable<EditableGameConfiguration> configurations,
             IEnumerable<IViewableProgressiveLevel> progressiveLevels)
         {
-            var denominations = (
-                from configuration in configurations
-                let denomination = configuration.ResolveDenomination()
-                where denomination != null
-                select new Denomination(denomination.Id, denomination.Value, configuration.Enabled)
-                {
-                    BetOption = configuration.SelectedBetOption?.Name,
-                    LineOption = configuration.SelectedLineOption?.Name,
-                    BonusBet = configuration.SelectedBonusBet,
-                    SecondaryAllowed = configuration.Gamble,
-                    LetItRideAllowed = configuration.LetItRide,
-                    MinimumWagerCredits = configuration.MinimumWagerCredits,
-                    MaximumWagerCredits = configuration.MaximumWagerCredits,
-                    MaximumWagerOutsideCredits = configuration.MaximumWagerOutsideCredits
-                }).ToList();
+            var denominations = GetMappedDenominations(gameId, configurations);
 
             _gameProvider.SetActiveDenominations(gameId, denominations.Where(d => d.Active));
+
             return progressiveLevels.Where(
                 x => x.GameId == gameId && denominations.Any(
                     d => x.Denomination.Contains(d.Value) && d.Active &&

@@ -661,6 +661,13 @@
                 + $" (Allowed Range: {_lowestAllowedMinimumRtp} - {_highestAllowedMinimumRtp})");
         }
 
+        public void SetProgressivesAsConfigured()
+        {
+            GameOptionsEnabled = false;
+            ProgressiveSetupConfigured = true;
+            ProgressivesEnabled = true;
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (_disposed)
