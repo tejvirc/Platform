@@ -17,8 +17,7 @@
     public class ProtocolLauncher : BaseRunnable
     {
         private const string ProtocolExtensionPath = "/Protocol/Runnables";
-        private const string DemonstrationExtPath = "/Protocol/Demonstration/Runnables";
-
+        
         private static readonly TimeSpan ProtocolTimeout = TimeSpan.FromSeconds(90);
 
         private readonly Dictionary<string, IRunnable> _runningProtocols = new();
@@ -44,25 +43,18 @@
             _protocols.ForEach(
                 protocol =>
                 {
-                    if (protocol == CommsProtocol.DemonstrationMode)
-                    {
-                        _protocolTypeExtensionNodes.Add(MonoAddinsHelper.GetSingleSelectedExtensionNode<ProtocolTypeExtensionNode>(DemonstrationExtPath));
-                    }
-                    else
-                    {
-                        var extentionNodes =
-                            AddinManager.GetExtensionNodes<ProtocolTypeExtensionNode>(ProtocolExtensionPath);
+                    var extentionNodes =
+                        AddinManager.GetExtensionNodes<ProtocolTypeExtensionNode>(ProtocolExtensionPath);
 
-                        var extensionNode = extentionNodes.SingleOrDefault(
-                            node => string.Equals(
-                                node.ProtocolId,
-                                Enum.GetName(typeof(CommsProtocol), protocol),
-                                StringComparison.InvariantCultureIgnoreCase));
+                    var extensionNode = extentionNodes.SingleOrDefault(
+                        node => string.Equals(
+                            node.ProtocolId,
+                            Enum.GetName(typeof(CommsProtocol), protocol),
+                            StringComparison.InvariantCultureIgnoreCase));
 
-                        if (extensionNode != null)
-                        {
-                            _protocolTypeExtensionNodes.Add(extensionNode);
-                        }
+                    if (extensionNode != null)
+                    {
+                        _protocolTypeExtensionNodes.Add(extensionNode);
                     }
                 }
             );
