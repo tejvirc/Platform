@@ -69,6 +69,7 @@
             Ready = true;
             Suspended = false;
             Count = 0;
+            IsAvailable = isAvailable;
         }
         /// <summary> Gets or sets Logical Meter Id </summary>
         public int LogicalId { get; set; }
