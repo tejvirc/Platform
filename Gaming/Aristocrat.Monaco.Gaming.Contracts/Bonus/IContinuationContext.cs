@@ -5,6 +5,10 @@
     /// </summary>
     public interface IContinuationContext
     {
+        /// <summary>
+        ///     Determines whether or not we should continue to use this instance after a single commit
+        /// </summary>
+        bool ShouldPersistPostCommit { get; }
     }
 
     /// <summary>
