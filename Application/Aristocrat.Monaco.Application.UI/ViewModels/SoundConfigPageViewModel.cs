@@ -34,7 +34,6 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         private readonly IAudio _audio;
         private readonly ISystemDisableManager _disableManager;
-        private readonly IPropertiesManager _propertiesManager;
 
         private byte _alertVolume;
         private byte _alertMinimumVolume;
@@ -52,7 +51,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             ToggleTestModeCommand = new RelayCommand<object>(_ => InTestMode = !InTestMode);
             VolumeViewModel = new VolumeViewModel();
             //SoundTestCommand = new ActionCommand<object>(SoundTestClicked);
-            SoundLevelConfigurationParser(_audio.SoundLevelCollection);
+            //SoundLevelConfigurationParser(_audio.SoundLevelCollection);
         }
 
         private void LoadVolumeSettings()
@@ -81,7 +80,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             IsAlertConfigurable = showMode || PropertiesManager.GetValue(ApplicationConstants.SoundConfigurationAlertVolumeConfigurable, IsAlertConfigurableDefault);
             OnPropertyChanged(nameof(IsAlertConfigurable));
 
-            SelectedVolumeLevel = _propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
+            SelectedVolumeLevel = PropertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
             OnPropertyChanged(nameof(SelectedVolumeLevel));
             //// Load default volume level
             //_soundLevel = PropertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
@@ -194,7 +193,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             {
                 if (SetProperty(ref _selectedVolumeLevel, value))
                 {
-                    _propertiesManager.SetProperty(PropertyKey.DefaultVolumeLevel, (byte)value);
+                    PropertiesManager.SetProperty(PropertyKey.DefaultVolumeLevel, (byte)value);
                 }
             }
         }
