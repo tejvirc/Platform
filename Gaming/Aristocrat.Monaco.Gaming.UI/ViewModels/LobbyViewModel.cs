@@ -2957,6 +2957,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 ShowVbdServiceConfirmationDialog(false);
             }
 
+            if (CurrentState == LobbyState.Chooser && !_gameHistory.IsRecoveryNeeded)
+            {
+                _recoveryOnStartup = false;
+            }
+
             SetLobbyFlags();
 
             if (IsSingleGameMode)
