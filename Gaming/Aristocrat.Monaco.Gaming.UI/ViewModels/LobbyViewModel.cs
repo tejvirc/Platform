@@ -50,13 +50,11 @@
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.Button;
-    using Kernel.Contracts;
     using Timers;
     using Utils;
     using Vgt.Client12.Application.OperatorMenu;
     using Views.Lobby;
     using Size = System.Windows.Size;
-    using Runtime;
 #if !(RETAIL)
     using Vgt.Client12.Testing.Tools;
     using Events;
