@@ -32,7 +32,7 @@
         </Grid.ColumnDefinitions>
         <Label Grid.Row="1"
                Grid.Column="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.CrcErrors}}"
+               Content="{lex:Loc CrcErrors}"
                AutomationProperties.AutomationId="Label9_D03EEC3F" />
         <Label Grid.Row="1"
                Grid.Column="1"
@@ -40,7 +40,7 @@
                AutomationProperties.AutomationId="Label10_D03EEC3F" />
         <Label Grid.Row="2"
                Grid.Column="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.InterByteDelay}}"
+               Content="{lex:Loc InterByteDelay}"
                AutomationProperties.AutomationId="Label11_D03EEC3F" />
         <Label Grid.Row="2"
                Grid.Column="1"
@@ -48,7 +48,7 @@
                AutomationProperties.AutomationId="Label12_D03EEC3F" />
         <Label Grid.Row="3"
                Grid.Column="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.Chirp}}"
+               Content="{lex:Loc Chirp}"
                AutomationProperties.AutomationId="Label13_D03EEC3F" />
         <Label Grid.Row="3"
                Grid.Column="1"

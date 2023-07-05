@@ -54,7 +54,7 @@
                                     Binding="{Binding Amount}"
                                     MinWidth="160"
                                     AutomationProperties.AutomationId="DataGridTextColumn8_FB95605C" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TypeOfAccountHeader}}"
+                <DataGridTextColumn Header="{lex:Loc TypeOfAccountHeader}"
                                     IsReadOnly="True"
                                     Binding="{Binding TypeOfAccount}"
                                     MinWidth="240"

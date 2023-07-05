@@ -88,7 +88,7 @@
                         </TextBox.IsEnabled>
                     </common:TouchTextBox>
                     <Label Grid.Column="2" Grid.Row="4" 
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.SubnetMask}}" 
+                           Content="{lex:Loc SubnetMask}" 
                            Margin="0 20 0 0" 
                            AutomationProperties.AutomationId="Label24_BDFFF18C"/>
                     <common:TouchTextBox Grid.Column="2" Grid.Row="5" 
@@ -106,7 +106,7 @@
                             </MultiBinding>
                         </TextBox.IsEnabled>
                     </common:TouchTextBox>
-                    <Label Grid.Column="0" Grid.Row="6" Content="{lex:Loc Key={x:Static loc:ResourceKeys.DefaultGateway}}" 
+                    <Label Grid.Column="0" Grid.Row="6" Content="{lex:Loc DefaultGateway}" 
                            Margin="0 20 0 0" 
                            AutomationProperties.AutomationId="Label25_BDFFF18C" />
                     <common:TouchTextBox Grid.Column="0" Grid.Row="7" 

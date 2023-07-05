@@ -51,7 +51,7 @@
         </Grid.ColumnDefinitions>
         <!-- Aft Section -->
         <GroupBox x:Name="AftGroupBox"
-                  Header="{lex:Loc Key={x:Static loc:ResourceKeys.AFTTitleLabel}}"
+                  Header="{lex:Loc AFTTitleLabel}"
                   IsEnabled="{Binding InputEnabled}"
                   Visibility="{Binding SasProtocolConfiguration.IsFundTransferHandled, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                   AutomationProperties.AutomationId="GroupBox4_B5E5742A">
@@ -84,7 +84,7 @@
                        Grid.Row="0"
                        Grid.Column="0"
                        Margin="0 0 0 5"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.AftInLabel}}"
+                       Content="{lex:Loc AftInLabel}"
                        AutomationProperties.AutomationId="Label14_B5E5742A" />
                 <CheckBox x:Name="AftInCheckBox"
                           Grid.Row="0"
@@ -97,7 +97,7 @@
                 <Label x:Name="AftOutLabel"
                        Grid.Row="1"
                        Grid.Column="0"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.AftOutLabel}}"
+                       Content="{lex:Loc AftOutLabel}"
                        AutomationProperties.AutomationId="Label16_B5E5742A" />
                 <CheckBox x:Name="AftOutCheckBox"
                           Grid.Row="1"
@@ -109,7 +109,7 @@
                 <Label x:Name="AftPartialTransfersAllowedLabel"
                        Grid.Row="2"
                        Grid.Column="0"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.AftPartialTransfersAllowedLabel}}"
+                       Content="{lex:Loc AftPartialTransfersAllowedLabel}"
                        AutomationProperties.AutomationId="Label18_B5E5742A" />
                 <CheckBox x:Name="AftPartialTransfersAllowedCheckbox"
                           Grid.Row="2"
@@ -121,7 +121,7 @@
                 <Label x:Name="AftBonusingEnabledLabel"
                        Grid.Row="3"
                        Grid.Column="0"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.AftBonusingEnabledLabel}}"
+                       Content="{lex:Loc AftBonusingEnabledLabel}"
                        AutomationProperties.AutomationId="Label20_B5E5742A" />
                 <CheckBox x:Name="AftBonusingEnabledCheckBox"
                           Grid.Row="3"
@@ -133,7 +133,7 @@
                 <Label x:Name="AftWinAmountToHostTransfersEnabledLabel"
                        Grid.Row="4"
                        Grid.Column="0"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.AftWinAmountToHostTransfersEnabledLabel}}"
+                       Content="{lex:Loc AftWinAmountToHostTransfersEnabledLabel}"
                        AutomationProperties.AutomationId="Label22_B5E5742A" />
                 <CheckBox x:Name="AftWinAmountToHostTransfersEnabledCheckBox"
                           Grid.Row="4"
@@ -146,7 +146,7 @@
                        Grid.Row="5"
                        Grid.Column="0"
                        Margin="0 5 0 0"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.AftTransferLimitLabel}}"
+                       Content="{lex:Loc AftTransferLimitLabel}"
                        AutomationProperties.AutomationId="Label24_B5E5742A" />
                 <StackPanel x:Name="AftTransferLimitStackPanel"
                             Grid.Row="5"
@@ -186,7 +186,7 @@
                                    Grid.Row="0"
                                    Grid.Column="1"
                                    Margin="20 14 0 0"
-                                   Text="{lex:BLoc Key={x:Static loc:ResourceKeys.NoLimit}}"
+                                   Text="{lex:BLoc NoLimit}"
                                    Visibility="{Binding AftTransferLimitEnabled, Converter={StaticResource TrueHiddenFalseVisible}, UpdateSourceTrigger=PropertyChanged}"
                                    AutomationProperties.AutomationId="TextBlock31_B5E5742A" />
                     </Grid>
@@ -195,7 +195,7 @@
         </GroupBox>
         <!-- Miscellaneous Section -->
         <GroupBox x:Name="MiscellaneousGroupBox"
-                  Header="{lex:Loc Key={x:Static loc:ResourceKeys.MiscellaneousGroupHeader}}"
+                  Header="{lex:Loc MiscellaneousGroupHeader}"
                   Margin="15 0 0 0"
                   Grid.Column="1"
                   IsEnabled="{Binding InputEnabled}"
@@ -248,7 +248,7 @@
                        Grid.Row="0"
                        Grid.Column="0"
                        Margin="0 0 0 5"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.ValidationFeatureLabel}}"
+                       Content="{lex:Loc ValidationFeatureLabel}"
                        AutomationProperties.AutomationId="Label45_B5E5742A" />
                 <ComboBox x:Name="SelectedValidationItemComboBox"
                           Grid.Row="0"
@@ -261,7 +261,7 @@
                 <Label x:Name="SelectedHandpayModeLabel"
                        Grid.Row="1"
                        Grid.Column="0"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.HandpayModeLabel}}"
+                       Content="{lex:Loc HandpayModeLabel}"
                        AutomationProperties.AutomationId="Label47_B5E5742A" />
                 <ComboBox x:Name="SelectedHandpayModeComboBox"
                           Grid.Row="1"
@@ -273,7 +273,7 @@
                 <Label x:Name="HostDisableCashoutActionLabel"
                        Grid.Row="2"
                        Grid.Column="0"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostDisableCashoutActionLabel}}"
+                       Content="{lex:Loc HostDisableCashoutActionLabel}"
                        Visibility="{Binding IsWizardPage, Converter={StaticResource TrueCollapsedFalseVisible}}"
                        AutomationProperties.AutomationId="Label49_B5E5742A" />
                 <ComboBox x:Name="HostDisableCashoutActionComboBox"
@@ -287,7 +287,7 @@
                 <Label x:Name="NotifySasConfigChange"
                        Grid.Row="3"
                        Grid.Column="0"
-                       Content="{lex:BLoc Key={x:Static loc:ResourceKeys.ConfigChangeNotification}}"
+                       Content="{lex:BLoc ConfigChangeNotification}"
                        HorizontalAlignment="Left"
                        AutomationProperties.AutomationId="Label51_B5E5742A" />
                 <ComboBox Grid.Row="3"
@@ -303,7 +303,7 @@
                        Grid.Row="4"
                        Grid.Column="0"
                        Margin="0 5 0 0"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.LegacyBonusAllowed}}"
+                       Content="{lex:Loc LegacyBonusAllowed}"
                        AutomationProperties.AutomationId="Label53_B5E5742A" />
                 <CheckBox x:Name="LegacyBonusAllowedCheckBox"
                           Grid.Row="4"
@@ -317,7 +317,7 @@
                        Grid.Row="5"
                        Grid.Column="0"
                        Margin="0 10 0 0"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.RequireLP02OnPowerUp}}"
+                       Content="{lex:Loc RequireLP02OnPowerUp}"
                        AutomationProperties.AutomationId="Label55_B5E5742A" />
                 <CheckBox x:Name="RequireLp02OnPowerUpCheckBox"
                           Grid.Row="5"
@@ -331,7 +331,7 @@
                        Grid.Row="6"
                        Grid.Column="0"
                        Margin="0 10"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.EGMDisabledOnHostOfflineLabel}}"
+                       Content="{lex:Loc EGMDisabledOnHostOfflineLabel}"
                        AutomationProperties.AutomationId="Label57_B5E5742A" />
                 <CheckBox x:Name="EgmDisabledOnHostOfflineIdCheckBox"
                           Grid.Row="6"

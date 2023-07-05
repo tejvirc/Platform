@@ -404,7 +404,7 @@
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
 
-                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.BetOptionMaxWin}}"
+                        <DataGridTextColumn Header="{lex:Loc BetOptionMaxWin}"
                                             loc:Localizer.For="Operator"
                                             HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmall}"
                                             Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.MaxWinColumnVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
@@ -418,7 +418,7 @@
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
 
-                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Gamble}}" 
+                        <DataGridTemplateColumn Header="{lex:Loc Gamble}" 
                                                 loc:Localizer.For="Operator"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.GambleOptionVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"

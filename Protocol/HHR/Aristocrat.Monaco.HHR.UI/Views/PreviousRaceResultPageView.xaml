@@ -67,7 +67,7 @@
                            HorizontalAlignment="Left"
                            Style="{StaticResource HeaderTextStyle}"
                            AutomationProperties.AutomationId="TextBlock8_D2E9EB52">
-                    <Run Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrRaceSet}}"
+                    <Run Text="{lex:Loc HhrRaceSet}"
                          AutomationProperties.AutomationId="Run9_D2E9EB52" />
                     <Run FontWeight="UltraBold"
                          Text=" 1"
@@ -76,13 +76,13 @@
                 <TextBlock Grid.Column="1"
                            HorizontalAlignment="Center"
                            Style="{StaticResource HeaderTextStyle}"
-                           Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrPreviousRaceResults}}"
+                           Text="{lex:Loc HhrPreviousRaceResults}"
                            AutomationProperties.AutomationId="TextBlock11_D2E9EB52" />
                 <TextBlock Grid.Column="2"
                            HorizontalAlignment="Right"
                            Style="{StaticResource HeaderTextStyle}"
                            AutomationProperties.AutomationId="TextBlock12_D2E9EB52">
-                    <Run Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrRaceSet}}"
+                    <Run Text="{lex:Loc HhrRaceSet}"
                          AutomationProperties.AutomationId="Run13_D2E9EB52" />
                     <Run FontWeight="UltraBold"
                          Text=" 2"
@@ -158,12 +158,12 @@
                        Margin="0 20 0 0"
                        Foreground="GreenYellow"
                        AutomationProperties.AutomationId="TextBlock24_D2E9EB52">
-                <Run Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrPreviousRaceResultsTextPart1}}"
+                <Run Text="{lex:Loc HhrPreviousRaceResultsTextPart1}"
                      AutomationProperties.AutomationId="Run25_D2E9EB52" />
                 <Run Foreground="Red"
-                     Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrPreviousRaceResultsTextPart2}}"
+                     Text="{lex:Loc HhrPreviousRaceResultsTextPart2}"
                      AutomationProperties.AutomationId="Run26_D2E9EB52" />:
-                <Run Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrPreviousRaceResultsTextPart3}}"
+                <Run Text="{lex:Loc HhrPreviousRaceResultsTextPart3}"
                      AutomationProperties.AutomationId="Run27_D2E9EB52" /></TextBlock>
             <TextBlock HorizontalAlignment="Center"
                        FontWeight="Bold"
@@ -171,7 +171,7 @@
                        Foreground="Red"
                        FontSize="13"
                        FontStyle="Italic"
-                       Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrPreviousRaceResultsTextPart4}}"
+                       Text="{lex:Loc HhrPreviousRaceResultsTextPart4}"
                        AutomationProperties.AutomationId="TextBlock28_D2E9EB52" />
         </StackPanel>
     </Grid>

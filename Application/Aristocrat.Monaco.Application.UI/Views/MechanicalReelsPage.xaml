@@ -401,7 +401,7 @@
                             Height="50"
                             Width="150"
                             AutomationProperties.AutomationId="Button55_EA876383" />
-                    <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.SelfTestLabel}}"
+                    <Button Content="{lex:Loc SelfTestLabel}"
                             Command="{Binding SelfTestCommand}"
                             Name="SelfTestButton"
                             Visibility="{Binding SettingsScreenHidden, Converter={StaticResource TrueCollapsedFalseVisible}}"

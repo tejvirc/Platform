@@ -210,7 +210,7 @@
                         </TextBlock>
                         <Label Grid.Row="6"
                                Grid.Column="0"
-                               Content="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareRevisionLabel}}"
+                               Content="{lex:Loc FirmwareRevisionLabel}"
                                AutomationProperties.AutomationId="Label43_BE4D994" />
                         <TextBlock Grid.Row="6"
                                    Grid.Column="1"
@@ -549,7 +549,7 @@
                         AutomationProperties.AutomationId="Button104_BE4D994" />
                 <Button Grid.Row="0"
                         Grid.Column="1"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.SelfTestClearNVM}}"
+                        Content="{lex:Loc SelfTestClearNVM}"
                         Visibility="{Binding SelfTestClearNvmButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         IsEnabled="{Binding SelfTestButtonEnabled}"
                         Command="{Binding SelfTestClearButtonCommand}"

@@ -138,7 +138,7 @@
             <StackPanel Orientation="Horizontal"
                         AutomationProperties.AutomationId="StackPanel22_86EADED7">
                 <Button Name="EnterTouchScreenPixelBtn"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.TestTouchScreen}}"
+                        Content="{lex:Loc TestTouchScreen}"
                         Height="50"
                         Width="240"
                         IsEnabled="{Binding TouchScreenButtonsEnabled, Mode=OneWay}"

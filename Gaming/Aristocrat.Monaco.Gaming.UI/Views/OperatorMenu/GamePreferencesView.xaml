@@ -525,7 +525,7 @@
                     <Label x:Name="KenoDefaultPlayerSpeedLabel"
                            Margin="5 5 0 0"
                            VerticalAlignment="Center"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.DefaultPlayerSpeed}}"
+                           Content="{lex:Loc DefaultPlayerSpeed}"
                            AutomationProperties.AutomationId="Label64_2AB589A7" />
                 </StackPanel>
                 <!-- Keno Volume Section -->

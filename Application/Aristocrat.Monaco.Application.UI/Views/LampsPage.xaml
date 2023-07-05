@@ -250,7 +250,7 @@
                           AutomationProperties.AutomationId="ComboBox34_CE65367A" />
                 <Button Grid.Column="2"
                         Name="SetTowerLightFlashStateButton"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.Set}}"
+                        Content="{lex:Loc Set}"
                         Command="{Binding SetTowerLightFlashStateCommand}"
                         MaxHeight="45"
                         Margin="15 0 0 0"

@@ -361,7 +361,7 @@
                         <ColumnDefinition Width="220" AutomationProperties.AutomationId="ColumnDefinition3_EF05BF33"/>
                         <ColumnDefinition Width="180" AutomationProperties.AutomationId="ColumnDefinition4_EF05BF33"/>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.BillAcceptanceLimit}}"
+                    <Label Grid.Column="0" Content="{lex:Loc BillAcceptanceLimit}"
                        AutomationProperties.AutomationId="Label57_EF05BF33"/>
                     <Button Grid.Column="1" x:Name="HandCountInfoButton"
                             HorizontalAlignment="Left"
@@ -383,7 +383,7 @@
                 <helpers:CurrencyTextBox IsEnabled="{Binding PageEnabled}"
                                          Number="{Binding Path=BillAcceptanceLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                                          Visibility="{Binding BillAcceptanceLimitIsChecked, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.NoLimit}}"
+                <TextBlock Text="{lex:Loc NoLimit}"
                            Visibility="{Binding BillAcceptanceLimitIsChecked, Converter={StaticResource TrueHiddenFalseVisible}, UpdateSourceTrigger=PropertyChanged}"
                            AutomationProperties.AutomationId="TextBlock59_EF05BF33"/>
             </StackPanel>
@@ -397,7 +397,7 @@
                         <ColumnDefinition Width="130" AutomationProperties.AutomationId="ColumnDefinition5_EF05BF33"/>
                         <ColumnDefinition Width="270" AutomationProperties.AutomationId="ColumnDefinition6_EF05BF33"/>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.PayoutLimit}}"
+                    <Label Grid.Column="0" Content="{lex:Loc PayoutLimit}"
                            AutomationProperties.AutomationId="Label58_EF05BF33"/>
                 <Button Grid.Column="1" HorizontalAlignment="Left" x:Name="PayoutLimitInfoButton"
                              Style="{StaticResource MonacoInfoButton}"
@@ -418,7 +418,7 @@
                 <helpers:CurrencyTextBox Number="{Binding Path=HandCountPayoutLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                                          IsEnabled="{Binding PageEnabled}"
                                          Visibility="{Binding HandCountPayoutLimitIsChecked, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.NoLimit}}"
+                <TextBlock Text="{lex:Loc NoLimit}"
                            Visibility="{Binding HandCountPayoutLimitIsChecked, Converter={StaticResource TrueHiddenFalseVisible}, UpdateSourceTrigger=PropertyChanged}"
                            AutomationProperties.AutomationId="TextBlock60_EF05BF33"/>
                 <Popup Margin="10"
