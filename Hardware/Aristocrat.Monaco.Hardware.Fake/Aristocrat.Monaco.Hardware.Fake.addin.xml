@@ -10,7 +10,7 @@
   </Dependencies>
 
   <Extension path="/Hardware/CommunicatorDrivers">
-    <DeviceImplementation ProtocolName="Fake" type="Aristocrat.Monaco.Hardware.Fake.FakeCommunicator" />
+    <DeviceImplementation ProtocolName="Fake" type="Aristocrat.Monaco.Hardware.Fake.FakeHarkeyCommunicator" />
     <DeviceImplementation ProtocolName="RelmSim" type="Aristocrat.Monaco.Hardware.Fake.FakeRelmCommunicator" />
   </Extension>
 
@@ -24,5 +24,9 @@
    
   <Extension path="/Hardware/NoteAcceptor/NoteAcceptorImplementations">
     <DeviceImplementation ProtocolName="Fake" type="Aristocrat.Monaco.Hardware.Fake.FakeNoteAcceptorAdapter" />
+  </Extension>
+
+  <Extension path="/Hardware/ReelController/ReelControllerImplementations">
+    <DeviceImplementation ProtocolName="Fake" type="Aristocrat.Monaco.Hardware.Fake.FakeHarkeyReelController"/>
   </Extension>
 </Addin>

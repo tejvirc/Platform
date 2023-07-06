@@ -42,8 +42,7 @@
   </Extension>
 
   <Extension path="/Hardware/ReelController/ReelControllerImplementations">
-    <DeviceImplementation ProtocolName="Harkey" type="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds"/>
-    <DeviceImplementation ProtocolName="Fake" type="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds"/>
+    <DeviceImplementation ProtocolName="Harkey" type="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds" />
   </Extension>
 
 </Addin>
