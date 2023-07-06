@@ -34,7 +34,7 @@
                 return;
             }
 
-            _eventLift.Report(device, theEvent.On ? EventCode.G2S_MDE115 : EventCode.G2S_MDE116);
+            _eventLift.Report(device, theEvent.On ? EventCode.G2S_MDE115 : EventCode.G2S_MDE116, theEvent);
         }
     }
 }

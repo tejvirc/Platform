@@ -20,5 +20,7 @@
         public long TotalHandPaidAmount { get; set; }
 
         public long TotalPaidAmount { get; set; }
+
+        public long TotalHardMeterOutAmount { get; set; }
     }
 }

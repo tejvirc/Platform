@@ -1,44 +1,104 @@
 ﻿<UserControl x:Class="Aristocrat.Monaco.Sas.UI.ConfigurationScreen.SasGeneralStatistics"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:lex="http://wpflocalizeextension.codeplex.com"
              xmlns:loc="http://monaco.aristocrat.com/localization"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Margin="10 10">
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             AutomationProperties.AutomationId="UserControl0_4049CEFE">
+    <Grid Margin="10 10"
+          AutomationProperties.AutomationId="Grid1_4049CEFE">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_4049CEFE" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition3_4049CEFE" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition4_4049CEFE" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition5_4049CEFE" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition6_4049CEFE" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition7_4049CEFE" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition8_4049CEFE" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition9_4049CEFE" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition10_4049CEFE" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition AutomationProperties.AutomationId="ColumnDefinition11_4049CEFE" />
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition12_4049CEFE" />
         </Grid.ColumnDefinitions>
-
-        <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.Ack}}" />
-        <Label Grid.Row="0" Grid.Column="1" Content="{Binding Ack}" />
-        <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ImpliedNack}}" />
-        <Label Grid.Row="1" Grid.Column="1" Content="{Binding ImpliedNack}" />
-        <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.GeneralPoll}}" />
-        <Label Grid.Row="2" Grid.Column="1" Content="{Binding GeneralPoll}" />
-        <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.LongPoll}}" />
-        <Label Grid.Row="3" Grid.Column="1" Content="{Binding LongPoll}" />
-        <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.SynchronizePoll}}" />
-        <Label Grid.Row="4" Grid.Column="1" Content="{Binding SynchronizePoll}" />
-        <Label Grid.Row="5" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.AddressedPoll}}" />
-        <Label Grid.Row="5" Grid.Column="1" Content="{Binding AddressedPoll}" />
-        <Label Grid.Row="6" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.OtherAddressedPoll}}" />
-        <Label Grid.Row="6" Grid.Column="1" Content="{Binding OtherAddressedPoll}" />
-        <Label Grid.Row="7" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.UnknownLongPoll}}" />
-        <Label Grid.Row="7" Grid.Column="1" Content="{Binding UnknownCommand}" />
+        <Label Grid.Row="0"
+               Grid.Column="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.Ack}}"
+               AutomationProperties.AutomationId="Label13_4049CEFE" />
+        <Label Grid.Row="0"
+               Grid.Column="1"
+               Content="{Binding Ack}"
+               AutomationProperties.AutomationId="Label14_4049CEFE" />
+        <Label Grid.Row="1"
+               Grid.Column="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.ImpliedNack}}"
+               AutomationProperties.AutomationId="Label15_4049CEFE" />
+        <Label Grid.Row="1"
+               Grid.Column="1"
+               Content="{Binding ImpliedNack}"
+               AutomationProperties.AutomationId="Label16_4049CEFE" />
+        <Label Grid.Row="2"
+               Grid.Column="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.GeneralPoll}}"
+               AutomationProperties.AutomationId="Label17_4049CEFE" />
+        <Label Grid.Row="2"
+               Grid.Column="1"
+               Content="{Binding GeneralPoll}"
+               AutomationProperties.AutomationId="Label18_4049CEFE" />
+        <Label Grid.Row="3"
+               Grid.Column="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.LongPoll}}"
+               AutomationProperties.AutomationId="Label19_4049CEFE" />
+        <Label Grid.Row="3"
+               Grid.Column="1"
+               Content="{Binding LongPoll}"
+               AutomationProperties.AutomationId="Label20_4049CEFE" />
+        <Label Grid.Row="4"
+               Grid.Column="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.SynchronizePoll}}"
+               AutomationProperties.AutomationId="Label21_4049CEFE" />
+        <Label Grid.Row="4"
+               Grid.Column="1"
+               Content="{Binding SynchronizePoll}"
+               AutomationProperties.AutomationId="Label22_4049CEFE" />
+        <Label Grid.Row="5"
+               Grid.Column="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.AddressedPoll}}"
+               AutomationProperties.AutomationId="Label23_4049CEFE" />
+        <Label Grid.Row="5"
+               Grid.Column="1"
+               Content="{Binding AddressedPoll}"
+               AutomationProperties.AutomationId="Label24_4049CEFE" />
+        <Label Grid.Row="6"
+               Grid.Column="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.OtherAddressedPoll}}"
+               AutomationProperties.AutomationId="Label25_4049CEFE" />
+        <Label Grid.Row="6"
+               Grid.Column="1"
+               Content="{Binding OtherAddressedPoll}"
+               AutomationProperties.AutomationId="Label26_4049CEFE" />
+        <Label Grid.Row="7"
+               Grid.Column="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.UnknownLongPoll}}"
+               AutomationProperties.AutomationId="Label27_4049CEFE" />
+        <Label Grid.Row="7"
+               Grid.Column="1"
+               Content="{Binding UnknownCommand}"
+               AutomationProperties.AutomationId="Label28_4049CEFE" />
     </Grid>
 </UserControl>

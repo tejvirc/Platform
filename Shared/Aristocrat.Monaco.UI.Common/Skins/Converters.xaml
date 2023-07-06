@@ -10,14 +10,20 @@
     <converters:LogicalAndBoolToVisibilityConverter x:Key="LogicalAndTrueVisibleFalseCollapsed" TrueValue="Visible" FalseValue="Collapsed"/>
     <converters:LogicalAndBoolToVisibilityConverter x:Key="LogicalAndTrueCollapsedFalseVisible" TrueValue="Collapsed" FalseValue="Visible"/>
 
+    <converters:LogicalOrBoolToVisibilityConverter x:Key="LogicalOrTrueVisibleFalseCollapsed" TrueValue="Visible" FalseValue="Collapsed"/>
+    <converters:LogicalOrBoolToVisibilityConverter x:Key="LogicalOrTrueCollapsedFalseVisible" TrueValue="Collapsed" FalseValue="Visible"/>
+
     <converters:StringToVisibilityConverter x:Key="EmptyStringIsCollapsedConverter"/>
     <converters:StringToVisibilityConverter x:Key="EmptyStringIsVisibleConverter" EmptyValue="Visible" NotEmptyValue="Collapsed"/>
 
     <converters:CurrencyConverter x:Key="CurrencyConverter"/>
+    <converters:OperatorFormattedCurrencyConverter x:Key="FormattedCurrencyConverter"/>
     <converters:DateTimeFormatConverter x:Key="DateTimeConverter"/>
     <converters:DefaultValueConverter x:Key="EmptyToDefaultValue"/>
     <converters:InverseBooleanConverter x:Key="InverseBoolConverter"/>
     <converters:LogicalAndConverter x:Key="BoolAndConverter"/>
     <converters:LogicalOrConverter x:Key="BoolOrConverter"/>
     <converters:MultiValueConverter x:Key="MultiValueConverter"/>
+    <converters:BoolToStringConverter x:Key="BoolToStringConverter" />
+    <converters:EnumDescriptionConverter x:Key="EnumDescriptionToStringConverter" />
 </ResourceDictionary>

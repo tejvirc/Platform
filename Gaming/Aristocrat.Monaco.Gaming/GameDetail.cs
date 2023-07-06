@@ -204,6 +204,15 @@
         public IEnumerable<Feature> Features { get; set; }
 
         /// <inheritdoc />>
+        public int MaximumWagerInsideCredits { get; set; }
+
+        /// <inheritdoc />>
+        public int MaximumWagerOutsideCredits { get; set; }
+
+        /// <inheritdoc />>
+        public bool NextToMaxBetTopAwardMultiplier { get; set; }
+
+        /// <inheritdoc />>
         public IEnumerable<ISubGameDetails> SupportedSubGames { get; set; }
 
         /// <inheritdoc />>

@@ -12,6 +12,7 @@
     using Commands;
     using Contracts;
     using Contracts.Central;
+    using Contracts.Events;
     using Contracts.Process;
     using GdkRuntime.V1;
     using Kernel;
@@ -190,6 +191,15 @@
                     break;
                 case EventTypes.RequestAllowGameRound:
                     // Not used
+                    break;
+                case EventTypes.MaxWinReached:
+                    if (!_gameDiagnostics.IsActive)
+                    {
+                        _bus.Publish(new MaxWinReachedEvent());
+                    }
+                    break;
+                case EventTypes.GameIdleActivity:
+                    _bus.Publish(new UserInteractionEvent());
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -715,6 +725,12 @@
             return EmptyResult;
         }
 
+        /// <inheritdoc />>
+        public override Empty UpdateLanguage(LanguageRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <inheritdoc/>>
         public override Empty UpdateBetOptions(UpdateBetOptionsRequest request)
         {
@@ -741,6 +757,19 @@
             _handlerFactory.Create<UpdateBetOptions>().Handle(betOptions);
 
             return EmptyResult;
+        }
+
+        public override CheckMysteryJackpotResponse CheckMysteryJackpot(CheckMysteryJackpotRequest request)
+        {
+            var command = new CheckMysteryJackpot();
+
+            _handlerFactory.Create<CheckMysteryJackpot>()
+                .Handle(command);
+            var response = new CheckMysteryJackpotResponse();
+
+            response.Levels.Add(command.Results);
+
+            return response;
         }
     }
 }

@@ -45,6 +45,8 @@
         private readonly ITransportStateObserver _transportStateObserver;
         private int _commsDisabledInterval = DefaultCommunicationsInterval;
 
+        private readonly IEventLift _eventLift;
+
         private Timer _commsOnlineTimer;
         private Timer _commsTimer;
 
@@ -65,18 +67,21 @@
         /// <param name="requiredForPlay">Is the device required to play.</param>
         /// <param name="transportStateObserver">An <see cref="ITransportStateObserver" /> instance.</param>
         /// <param name="communicationsStateObserver">An <see cref="ICommunicationsStateObserver" /> instance.</param>
+        /// <param name="eventLift">An <see cref="IEventLift" /> instance.</param>
         public CommunicationsDevice(
             int deviceId,
             IDeviceObserver deviceObserver,
             Uri address,
             bool requiredForPlay,
             ITransportStateObserver transportStateObserver,
-            ICommunicationsStateObserver communicationsStateObserver)
+            ICommunicationsStateObserver communicationsStateObserver,
+            IEventLift eventLift)
             : base(deviceId, deviceObserver)
         {
             _transportStateObserver = transportStateObserver;
             _communicationsStateObserver = communicationsStateObserver;
             _address = address;
+            _eventLift = eventLift;
             RequiredForPlay = requiredForPlay;
 
             SetDefaults();
@@ -795,9 +800,8 @@
                     new[] { new statusInfo { deviceClass = this.PrefixedDeviceClass(), deviceId = Id, Item = status } }
             };
 
-            EventHandlerDevice.EventReport(
-                this.PrefixedDeviceClass(),
-                Id,
+            _eventLift.Report(
+                this,
                 eventCode,
                 deviceList);
         }

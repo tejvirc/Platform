@@ -2,12 +2,12 @@
 {
     using System;
     using System.Windows.Input;
-    using Aristocrat.Monaco.Localization.Properties;
     using ConfigWizard;
     using Contracts;
     using Contracts.Extensions;
     using Hardware.Contracts.Bell;
     using Kernel;
+    using Monaco.Localization.Properties;
     using MVVM.Command;
 
     [CLSCompliant(false)]
@@ -23,7 +23,7 @@
         private decimal _intervalBellValue;
 
         public BellPageViewModel(bool isWizard)
-            :this(ServiceManager.GetInstance().TryGetService<IBell>(), isWizard)
+            : this(ServiceManager.GetInstance().TryGetService<IBell>(), isWizard)
         {
         }
 
@@ -206,13 +206,13 @@
 
         private void StartBell()
         {
-            Inspection.SetTestName("On");
+            Inspection?.SetTestName("On");
             _bell?.RingBell();
         }
 
         private void StopBell()
         {
-            Inspection.SetTestName("Off");
+            Inspection?.SetTestName("Off");
             _bell?.StopBell();
         }
 
@@ -247,7 +247,7 @@
             StopBell();
             EventBus.UnsubscribeAll(this);
 
-            if(InitialBellValue.Validate(maximum: _maxBellValue) is null)
+            if (InitialBellValue.Validate(maximum: _maxBellValue) is null)
             {
                 if (_previousInitialBellValue != InitialBellValue)
                 {
@@ -259,9 +259,9 @@
                 InitialBellValue = _previousInitialBellValue;
             }
 
-            if(IntervalBellValue.Validate(maximum: _maxBellValue) is null)
+            if (IntervalBellValue.Validate(maximum: _maxBellValue) is null)
             {
-                if(_previousIntervalBellValue != IntervalBellValue)
+                if (_previousIntervalBellValue != IntervalBellValue)
                 {
                     PropertiesManager.SetProperty(ApplicationConstants.IntervalBellRing, IntervalBellValue.DollarsToMillicents());
                 }

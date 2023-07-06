@@ -3,6 +3,8 @@
     using System;
     using System.Globalization;
     using System.Windows.Data;
+    using Application.Contracts.Localization;
+    using Monaco.Localization.Properties;
 
     public class KeyNameActionConverter : IValueConverter
     {
@@ -12,17 +14,20 @@
             var r = str;
             switch (str)
             {
+                case "Operator":
                 case "Operator Switch":
-                    r = "Operator";
+                    r = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OperatorRoleName);
                     break;
                 case "Jackpot SW":
-                    r = "Technician";
+                    r = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TechnicianRoleName);
                     break;
+                case "Off":
                 case "Up":
-                    r = "Off";
+                    r = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Off);
                     break;
+                case "On":
                 case "Down":
-                    r = "On";
+                    r = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.On);
                     break;
                 default:
                     break;

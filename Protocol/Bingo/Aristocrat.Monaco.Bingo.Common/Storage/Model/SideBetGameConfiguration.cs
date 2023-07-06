@@ -20,10 +20,6 @@
         [JsonProperty("BetInformation")]
         public IReadOnlyCollection<BetInformationDetail> BetInformation { get; set; } = Array.Empty<BetInformationDetail>();
 
-        [JsonProperty("EvaluationTypePaytable")]
-        [JsonConverter(typeof(StringEnumConverter))]
-        public PaytableEvaluation EvaluationTypePaytable { get; set; }
-
         [JsonProperty("CrossGameProgressiveEnabled")]
         public bool CrossGameProgressiveEnabled { get; set; }
 

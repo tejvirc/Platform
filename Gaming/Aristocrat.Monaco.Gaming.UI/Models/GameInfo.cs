@@ -6,9 +6,9 @@
     using System.Collections.ObjectModel;
     using System.Drawing;
     using System.Linq;
-    using Kernel;
     using Contracts;
     using Contracts.Models;
+    using Kernel;
     using ManagedBink;
     using Monaco.UI.Common.Extensions;
     using MVVM.Model;
@@ -24,6 +24,7 @@
         private string _attractHighlightVideoPath = string.Empty;
         private string _bottomAttractVideoPath = string.Empty;
         private long _denom = 1;
+        private DenominationInfoViewModel _selectedDenomination;
         private string _betOption = string.Empty;
         private long _filteredDenom = 1;
         private string _dllPath;
@@ -33,7 +34,6 @@
         private GameCategory _category;
         private GameSubCategory _subCategory;
         private bool _isSelected;
-        private bool _hasProgressiveOrBonusValue;
         private string _imagePath;
 
         // Used to determine if "new" game.  For example, a requirement is that
@@ -45,7 +45,7 @@
         private string _loadingScreenPath = string.Empty;
 
         private string _name;
-
+        private Size _gameIconSize = Size.Empty;
         private bool _platinumSeries;
 
         private string _progressiveOrBonusValue;
@@ -66,15 +66,7 @@
         public string DllPath
         {
             get => _dllPath;
-
-            set
-            {
-                if (_dllPath != value)
-                {
-                    _dllPath = value;
-                    RaisePropertyChanged(nameof(DllPath));
-                }
-            }
+            set => SetProperty(ref _dllPath, value);
         }
 
         /// <summary>
@@ -83,19 +75,12 @@
         public string Name
         {
             get => _name;
-
-            set
-            {
-                if (_name != value)
-                {
-                    _name = value;
-                    RaisePropertyChanged(nameof(Name));
-                }
-            }
+            set => SetProperty(ref _name, value);
         }
 
-        private Size _gameIconSize = Size.Empty;
-
+        /// <summary>
+        ///     Gets the default game icon size from the image or bink video
+        /// </summary>
         public Size GameIconSize
         {
             get
@@ -123,7 +108,10 @@
             }
         }
 
-        public bool ImageIsBink => ImagePath.EndsWith(".bk2");
+        /// <summary>
+        ///     Gets whether the image for this game is a bink video
+        /// </summary>
+        public bool ImageIsBink => ImagePath?.EndsWith(".bk2") ?? false;
 
         /// <summary>
         ///     Gets or sets the game image path
@@ -134,7 +122,7 @@
             {
                 var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
 
-                if(!string.IsNullOrEmpty(TopPickImagePath) && propertiesManager.GetValue(GamingConstants.ShowTopPickBanners, true))
+                if (!string.IsNullOrEmpty(TopPickImagePath) && propertiesManager.GetValue(GamingConstants.ShowTopPickBanners, true))
                 {
                     return TopPickImagePath;
                 }
@@ -155,15 +143,7 @@
         public string TopAttractVideoPath
         {
             get => _topAttractVideoPath;
-
-            set
-            {
-                if (_topAttractVideoPath != value)
-                {
-                    _topAttractVideoPath = value;
-                    RaisePropertyChanged(nameof(TopAttractVideoPath));
-                }
-            }
+            set => SetProperty(ref _topAttractVideoPath, value);
         }
 
         /// <summary>
@@ -172,15 +152,7 @@
         public string TopperAttractVideoPath
         {
             get => _topperAttractVideoPath;
-
-            set
-            {
-                if (_topperAttractVideoPath != value)
-                {
-                    _topperAttractVideoPath = value;
-                    RaisePropertyChanged(nameof(TopperAttractVideoPath));
-                }
-            }
+            set => SetProperty(ref _topperAttractVideoPath, value);
         }
 
         /// <summary>
@@ -189,15 +161,7 @@
         public string BottomAttractVideoPath
         {
             get => _bottomAttractVideoPath;
-
-            set
-            {
-                if (_bottomAttractVideoPath != value)
-                {
-                    _bottomAttractVideoPath = value;
-                    RaisePropertyChanged(nameof(BottomAttractVideoPath));
-                }
-            }
+            set => SetProperty(ref _bottomAttractVideoPath, value);
         }
 
         /// <summary>
@@ -206,33 +170,17 @@
         public string LoadingScreenPath
         {
             get => _loadingScreenPath;
-
-            set
-            {
-                if (_loadingScreenPath != value)
-                {
-                    _loadingScreenPath = value;
-                    RaisePropertyChanged(nameof(LoadingScreenPath));
-                }
-            }
+            set => SetProperty(ref _loadingScreenPath, value);
         }
 
         /// <summary>
-        ///     Gets or sets the attract higlight video path.  This can be data driven
+        ///     Gets or sets the attract highlight video path.  This can be data driven
         ///     and vary per game; however, right now the lobby sets it based on a global setting.
         /// </summary>
         public string AttractHighlightVideoPath
         {
             get => _attractHighlightVideoPath;
-
-            set
-            {
-                if (_attractHighlightVideoPath != value)
-                {
-                    _attractHighlightVideoPath = value;
-                    RaisePropertyChanged(nameof(AttractHighlightVideoPath));
-                }
-            }
+            set => SetProperty(ref _attractHighlightVideoPath, value);
         }
 
         /// <summary>
@@ -241,15 +189,7 @@
         public string ProgressiveOrBonusValue
         {
             get => _progressiveOrBonusValue;
-
-            set
-            {
-                if (_progressiveOrBonusValue != value)
-                {
-                    _progressiveOrBonusValue = value;
-                    RaisePropertyChanged(nameof(ProgressiveOrBonusValue));
-                }
-            }
+            set => SetProperty(ref _progressiveOrBonusValue, value);
         }
 
         public bool HasProgressiveLabelDisplay => ProgressiveIndicator != ProgressiveLobbyIndicator.Disabled;
@@ -269,32 +209,19 @@
         public bool ProgressiveErrorVisible
         {
             get => _progressiveErrorVisible;
-            set => SetProperty(ref _progressiveErrorVisible, value, nameof(ProgressiveErrorVisible));
+            set => SetProperty(ref _progressiveErrorVisible, value);
         }
 
         public string ProgressiveIndicatorText
         {
             get => _progressiveIndicatorText;
-            set => SetProperty(ref _progressiveIndicatorText, value, nameof(ProgressiveIndicatorText));
+            set => SetProperty(ref _progressiveIndicatorText, value);
         }
 
         /// <summary>
         ///     Gets or sets a value indicating whether the game has a progressive bonus
         /// </summary>
-        public bool HasProgressiveOrBonusValue
-        {
-            get => _hasProgressiveOrBonusValue;
-
-            set
-            {
-                if (_hasProgressiveOrBonusValue != value)
-                {
-                    _hasProgressiveOrBonusValue = value;
-                    RaisePropertyChanged(nameof(ProgressiveOrBonusValue));
-                    RaisePropertyChanged(nameof(HasProgressiveOrBonusValue));
-                }
-            }
-        }
+        public bool HasProgressiveOrBonusValue => !string.IsNullOrWhiteSpace(ProgressiveOrBonusValue);
 
         /// <summary>
         ///     Gets or sets the denomination
@@ -302,13 +229,26 @@
         public long Denomination
         {
             get => _denom;
+            set => SetProperty(ref _denom, value);
+        }
 
-            set
+        /// <summary>
+        ///     Gets or sets the selected denomination
+        /// </summary>
+        public DenominationInfoViewModel SelectedDenomination
+        {
+            get => _selectedDenomination;
+            private set
             {
-                if (_denom != value)
+                SetProperty(ref _selectedDenomination, value);
+                foreach (var denom in Denominations)
                 {
-                    _denom = value;
-                    RaisePropertyChanged(nameof(Denomination));
+                    denom.IsSelected = false;
+                }
+
+                if (value != null)
+                {
+                    value.IsSelected = true;
                 }
             }
         }
@@ -319,27 +259,26 @@
         public ObservableCollection<DenominationInfoViewModel> Denominations { get; } =
             new ObservableCollection<DenominationInfoViewModel>();
 
+        /// <summary>
+        ///     Set denominations to display for the premium game
+        /// </summary>
+        /// <param name="denominations">A list of denomination values to set</param>
         public void SetDenominations(IEnumerable<long> denominations)
         {
             Denominations.Clear();
-            Denominations.AddRange(denominations.OrderBy(x => x).Select(x => new DenominationInfoViewModel(x) { IsVisible = true }));
+            Denominations.AddRange(denominations.OrderBy(x => x).Select(x => new DenominationInfoViewModel(x)));
+
+            // Start with all denoms unselected so it doesn't look weird on machines without the VBD denom switching
+            SelectedDenomination = null;
         }
 
         /// <summary>
         ///     Gets the bet option
         /// </summary>
-        public string BetOption 
+        public string BetOption
         {
             get => _betOption;
-
-            set
-            {
-                if (_betOption != value)
-                {
-                    _betOption = value;
-                    RaisePropertyChanged(nameof(BetOption));
-                }
-            }
+            set => SetProperty(ref _betOption, value);
         }
 
         /// <summary>
@@ -348,15 +287,7 @@
         public long FilteredDenomination
         {
             get => _filteredDenom;
-
-            set
-            {
-                if (_filteredDenom != value)
-                {
-                    _filteredDenom = value;
-                    RaisePropertyChanged(nameof(FilteredDenomination));
-                }
-            }
+            set => SetProperty(ref _filteredDenom, value);
         }
 
         /// <summary>
@@ -365,15 +296,7 @@
         public GameType GameType
         {
             get => _gameType;
-
-            set
-            {
-                if (_gameType != value)
-                {
-                    _gameType = value;
-                    RaisePropertyChanged(nameof(GameType));
-                }
-            }
+            set => SetProperty(ref _gameType, value);
         }
 
         /// <summary>
@@ -382,27 +305,21 @@
         public string GameSubtype
         {
             get => _gameSubtype;
-
-            set
-            {
-                if (_gameSubtype != value)
-                {
-                    _gameSubtype = value;
-                    RaisePropertyChanged(nameof(GameSubtype));
-                }
-            }
+            set => SetProperty(ref _gameSubtype, value);
         }
 
+        /// <summary>
+        ///     Gets or sets whether the game is currently selected in the lobby (visualized with a green border)
+        /// </summary>
         public bool IsSelected
         {
             get => _isSelected;
 
             set
             {
-                if (_isSelected != value)
+                if (SetProperty(ref _isSelected, value, nameof(IsSelected), nameof(IsSelectedWithProgressiveLabel)))
                 {
-                    _isSelected = value;
-                    RaisePropertyChanged(nameof(IsSelected), nameof(IsSelectedWithProgressiveLabel));
+                    SelectedDenomination = null;
                 }
             }
         }
@@ -415,15 +332,7 @@
         public bool PlatinumSeries
         {
             get => _platinumSeries;
-
-            set
-            {
-                if (_platinumSeries != value)
-                {
-                    _platinumSeries = value;
-                    RaisePropertyChanged(nameof(PlatinumSeries));
-                }
-            }
+            set => SetProperty(ref _platinumSeries, value);
         }
 
         /// <summary>
@@ -432,15 +341,7 @@
         public DateTime InstallDateTime
         {
             get => _installDateTime;
-
-            set
-            {
-                if (_installDateTime != value)
-                {
-                    _installDateTime = value;
-                    RaisePropertyChanged(nameof(InstallDateTime));
-                }
-            }
+            set => SetProperty(ref _installDateTime, value);
         }
 
         /// <summary>
@@ -449,15 +350,7 @@
         public bool IsNew
         {
             get => _isNew;
-
-            set
-            {
-                if (_isNew != value)
-                {
-                    _isNew = value;
-                    RaisePropertyChanged(nameof(IsNew));
-                }
-            }
+            set => SetProperty(ref _isNew, value);
         }
 
         /// <summary>
@@ -466,15 +359,7 @@
         public bool Enabled
         {
             get => _enabled;
-
-            set
-            {
-                if (_enabled != value)
-                {
-                    _enabled = value;
-                    RaisePropertyChanged(nameof(Enabled));
-                }
-            }
+            set => SetProperty(ref _enabled, value);
         }
 
         /// <summary>
@@ -493,9 +378,40 @@
         public string ThemeId { get; set; }
 
         /// <summary>
-        ///     Theme position priority key of the game
+        ///     Holds the game category
         /// </summary>
-        public string PositionPriorityKey { get; set; }
+        public GameCategory Category
+        {
+            get => _category;
+            set => SetProperty(ref _category, value);
+        }
+
+        /// <summary>
+        ///     Holds the game subcategory
+        /// </summary>
+        public GameSubCategory SubCategory
+        {
+            get => _subCategory;
+            set => SetProperty(ref _subCategory, value);
+        }
+
+        /// <summary>
+        ///     Select the next denomination available for this game
+        /// </summary>
+        public void IncrementSelectedDenomination()
+        {
+            var selectedDenomination = Denominations.FirstOrDefault(o => o.IsSelected);
+            if (selectedDenomination != null)
+            {
+                var currentIndex = Denominations.IndexOf(selectedDenomination);
+                currentIndex = (currentIndex + 1) % Denominations.Count;
+                SelectedDenomination = Denominations[currentIndex];
+            }
+            else
+            {
+                SelectedDenomination = Denominations.FirstOrDefault();
+            }
+        }
 
         /// <summary>
         ///     Gets or sets a property stating whether or not this game requires mechanical reels
@@ -503,7 +419,7 @@
         public bool RequiresMechanicalReels { get; set; }
 
         /// <summary>
-        ///     Select the approriate for the Locale Graphics
+        ///     Select the appropriate image for the Locale Graphics
         /// </summary>
         /// <param name="activeLocaleCode">locale code to use</param>
         public void SelectLocaleGraphics(string activeLocaleCode)
@@ -516,7 +432,7 @@
 
             if (localeGraphics.ContainsKey(activeLocaleCode))
             {
-                if(UseSmallIcons)
+                if (UseSmallIcons)
                 {
                     ImagePath = localeGraphics[activeLocaleCode].SmallIcon;
                     TopPickImagePath = localeGraphics[activeLocaleCode].SmallTopPickIcon;
@@ -592,40 +508,6 @@
             }
 
             return null;
-        }
-
-        /// <summary>
-        ///     Holds the game category
-        /// </summary>
-        public GameCategory Category
-        {
-            get => _category;
-
-            set
-            {
-                if (_category != value)
-                {
-                    _category = value;
-                    RaisePropertyChanged(nameof(Category));
-                }
-            }
-        }
-
-        /// <summary>
-        ///     Holds the game subcategory
-        /// </summary>
-        public GameSubCategory SubCategory
-        {
-            get => _subCategory;
-
-            set
-            {
-                if (_subCategory != value)
-                {
-                    _subCategory = value;
-                    RaisePropertyChanged(nameof(SubCategory));
-                }
-            }
         }
     }
 }

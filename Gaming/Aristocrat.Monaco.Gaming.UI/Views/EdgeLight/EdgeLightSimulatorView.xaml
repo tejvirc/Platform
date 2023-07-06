@@ -16,300 +16,518 @@
                    ShowCloseButton="False">
     <metro:MetroWindow.Resources>
         <ResourceDictionary>
-
-            <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#888" />
-            <SolidColorBrush x:Key="GlyphBrush" Color="#444" />
-            <SolidColorBrush x:Key="NormalBrush" Color="#888" />
-            <SolidColorBrush x:Key="NormalBorderBrush" Color="#888" />
-            <SolidColorBrush x:Key="HorizontalNormalBrush" Color="#FF686868" />
-            <SolidColorBrush x:Key="HorizontalNormalBorderBrush" Color="#888" />
-
-            <LinearGradientBrush x:Key="PressedBrush" StartPoint="0,0" EndPoint="0,1">
+            <SolidColorBrush x:Key="DisabledForegroundBrush"
+                             Color="#888"
+                             AutomationProperties.AutomationId="SolidColorBrush0_23D05C47" />
+            <SolidColorBrush x:Key="GlyphBrush"
+                             Color="#444"
+                             AutomationProperties.AutomationId="SolidColorBrush1_23D05C47" />
+            <SolidColorBrush x:Key="NormalBrush"
+                             Color="#888"
+                             AutomationProperties.AutomationId="SolidColorBrush2_23D05C47" />
+            <SolidColorBrush x:Key="NormalBorderBrush"
+                             Color="#888"
+                             AutomationProperties.AutomationId="SolidColorBrush3_23D05C47" />
+            <SolidColorBrush x:Key="HorizontalNormalBrush"
+                             Color="#FF686868"
+                             AutomationProperties.AutomationId="SolidColorBrush4_23D05C47" />
+            <SolidColorBrush x:Key="HorizontalNormalBorderBrush"
+                             Color="#888"
+                             AutomationProperties.AutomationId="SolidColorBrush5_23D05C47" />
+            <LinearGradientBrush x:Key="PressedBrush"
+                                 StartPoint="0,0"
+                                 EndPoint="0,1"
+                                 AutomationProperties.AutomationId="LinearGradientBrush6_23D05C47">
                 <GradientBrush.GradientStops>
-                    <GradientStopCollection>
-                        <GradientStop Color="#BBB" Offset="0.0"/>
-                        <GradientStop Color="#EEE" Offset="0.1"/>
-                        <GradientStop Color="#EEE" Offset="0.9"/>
-                        <GradientStop Color="#FFF" Offset="1.0"/>
+                    <GradientStopCollection AutomationProperties.AutomationId="GradientStopCollection7_23D05C47">
+                        <GradientStop Color="#BBB"
+                                      Offset="0.0"
+                                      AutomationProperties.AutomationId="GradientStop8_23D05C47" />
+                        <GradientStop Color="#EEE"
+                                      Offset="0.1"
+                                      AutomationProperties.AutomationId="GradientStop9_23D05C47" />
+                        <GradientStop Color="#EEE"
+                                      Offset="0.9"
+                                      AutomationProperties.AutomationId="GradientStop10_23D05C47" />
+                        <GradientStop Color="#FFF"
+                                      Offset="1.0"
+                                      AutomationProperties.AutomationId="GradientStop11_23D05C47" />
                     </GradientStopCollection>
                 </GradientBrush.GradientStops>
             </LinearGradientBrush>
-
-            <Style x:Key="ScrollBarLineButton" TargetType="{x:Type RepeatButton}">
-                <Setter Property="Visibility" Value="Hidden"/>
-                <Setter Property="SnapsToDevicePixels" Value="True"/>
-                <Setter Property="OverridesDefaultStyle" Value="true"/>
-                <Setter Property="Focusable" Value="false"/>
+            <Style x:Key="ScrollBarLineButton"
+                   TargetType="{x:Type RepeatButton}">
+                <Setter Property="Visibility"
+                        Value="Hidden" />
+                <Setter Property="SnapsToDevicePixels"
+                        Value="True" />
+                <Setter Property="OverridesDefaultStyle"
+                        Value="true" />
+                <Setter Property="Focusable"
+                        Value="false" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type RepeatButton}">
-                            <Border Name="Border" Margin="1" CornerRadius="2" Background="{StaticResource NormalBrush}" BorderBrush="{StaticResource NormalBorderBrush}" BorderThickness="1">
-                                <Path HorizontalAlignment="Center" VerticalAlignment="Center" Fill="{StaticResource GlyphBrush}" Data="{Binding Path=Content, RelativeSource={RelativeSource TemplatedParent}}" />
+                            <Border Name="Border"
+                                    Margin="1"
+                                    CornerRadius="2"
+                                    Background="{StaticResource NormalBrush}"
+                                    BorderBrush="{StaticResource NormalBorderBrush}"
+                                    BorderThickness="1"
+                                    AutomationProperties.AutomationId="Border12_23D05C47">
+                                <Path HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Fill="{StaticResource GlyphBrush}"
+                                      Data="{Binding Path=Content, RelativeSource={RelativeSource TemplatedParent}}"
+                                      AutomationProperties.AutomationId="Path13_23D05C47" />
                             </Border>
                             <ControlTemplate.Triggers>
-                                <Trigger Property="IsPressed" Value="true">
-                                    <Setter TargetName="Border" Property="Background" Value="{StaticResource PressedBrush}" />
+                                <Trigger Property="IsPressed"
+                                         Value="true"
+                                         AutomationProperties.AutomationId="Trigger14_23D05C47">
+                                    <Setter TargetName="Border"
+                                            Property="Background"
+                                            Value="{StaticResource PressedBrush}" />
                                 </Trigger>
-                                <Trigger Property="IsEnabled" Value="false">
-                                    <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}"/>
+                                <Trigger Property="IsEnabled"
+                                         Value="false"
+                                         AutomationProperties.AutomationId="Trigger15_23D05C47">
+                                    <Setter Property="Foreground"
+                                            Value="{StaticResource DisabledForegroundBrush}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
-            <Style x:Key="ScrollBarPageButton" TargetType="{x:Type RepeatButton}">
-                <Setter Property="Visibility" Value="Hidden"/>
-                <Setter Property="SnapsToDevicePixels" Value="True"/>
-                <Setter Property="OverridesDefaultStyle" Value="true"/>
-                <Setter Property="IsTabStop" Value="false"/>
-                <Setter Property="Focusable" Value="false"/>
+            <Style x:Key="ScrollBarPageButton"
+                   TargetType="{x:Type RepeatButton}">
+                <Setter Property="Visibility"
+                        Value="Hidden" />
+                <Setter Property="SnapsToDevicePixels"
+                        Value="True" />
+                <Setter Property="OverridesDefaultStyle"
+                        Value="true" />
+                <Setter Property="IsTabStop"
+                        Value="false" />
+                <Setter Property="Focusable"
+                        Value="false" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type RepeatButton}">
-                            <Border Background="Black" />
+                            <Border Background="Black"
+                                    AutomationProperties.AutomationId="Border16_23D05C47" />
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
-
-            <Style x:Key="ScrollBarThumb" TargetType="{x:Type Thumb}">
-                <Setter Property="SnapsToDevicePixels" Value="True"/>
-                <Setter Property="OverridesDefaultStyle" Value="true"/>
-                <Setter Property="IsTabStop" Value="false"/>
-                <Setter Property="Focusable" Value="false"/>
+            <Style x:Key="ScrollBarThumb"
+                   TargetType="{x:Type Thumb}">
+                <Setter Property="SnapsToDevicePixels"
+                        Value="True" />
+                <Setter Property="OverridesDefaultStyle"
+                        Value="true" />
+                <Setter Property="IsTabStop"
+                        Value="false" />
+                <Setter Property="Focusable"
+                        Value="false" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Thumb}">
-                            <Border CornerRadius="4" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0"  Width="8" Margin="8,0,-2,0"/>
+                            <Border CornerRadius="4"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="0"
+                                    Width="8"
+                                    Margin="8,0,-2,0"
+                                    AutomationProperties.AutomationId="Border17_23D05C47" />
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
-
-            <ControlTemplate x:Key="VerticalScrollBar" TargetType="{x:Type ScrollBar}">
-                <Grid>
+            <ControlTemplate x:Key="VerticalScrollBar"
+                             TargetType="{x:Type ScrollBar}">
+                <Grid AutomationProperties.AutomationId="Grid18_23D05C47">
                     <Grid.RowDefinitions>
-                        <RowDefinition MaxHeight="0"/>
-                        <RowDefinition Height="0.00001*"/>
-                        <RowDefinition MaxHeight="0"/>
+                        <RowDefinition MaxHeight="0"
+                                       AutomationProperties.AutomationId="RowDefinition19_23D05C47" />
+                        <RowDefinition Height="0.00001*"
+                                       AutomationProperties.AutomationId="RowDefinition20_23D05C47" />
+                        <RowDefinition MaxHeight="0"
+                                       AutomationProperties.AutomationId="RowDefinition21_23D05C47" />
                     </Grid.RowDefinitions>
-                    <Border Grid.RowSpan="3" CornerRadius="2" Background="Transparent" />
-                    <RepeatButton Grid.Row="0" Style="{StaticResource ScrollBarLineButton}" Height="18" Command="ScrollBar.LineUpCommand" Content="M 0 4 L 8 4 L 4 0 Z" />
-                    <Track Name="PART_Track" Grid.Row="1" IsDirectionReversed="true">
+                    <Border Grid.RowSpan="3"
+                            CornerRadius="2"
+                            Background="Transparent"
+                            AutomationProperties.AutomationId="Border22_23D05C47" />
+                    <RepeatButton Grid.Row="0"
+                                  Style="{StaticResource ScrollBarLineButton}"
+                                  Height="18"
+                                  Command="ScrollBar.LineUpCommand"
+                                  Content="M 0 4 L 8 4 L 4 0 Z"
+                                  AutomationProperties.AutomationId="RepeatButton23_23D05C47" />
+                    <Track Name="PART_Track"
+                           Grid.Row="1"
+                           IsDirectionReversed="true"
+                           AutomationProperties.AutomationId="Track24_23D05C47">
                         <Track.DecreaseRepeatButton>
-                            <RepeatButton Style="{StaticResource ScrollBarPageButton}" Command="ScrollBar.PageUpCommand" />
+                            <RepeatButton Style="{StaticResource ScrollBarPageButton}"
+                                          Command="ScrollBar.PageUpCommand"
+                                          AutomationProperties.AutomationId="RepeatButton25_23D05C47" />
                         </Track.DecreaseRepeatButton>
                         <Track.Thumb>
-                            <Thumb Style="{StaticResource ScrollBarThumb}" Margin="1,0,1,0" Background="{StaticResource HorizontalNormalBrush}" BorderBrush="{StaticResource HorizontalNormalBorderBrush}" />
+                            <Thumb Style="{StaticResource ScrollBarThumb}"
+                                   Margin="1,0,1,0"
+                                   Background="{StaticResource HorizontalNormalBrush}"
+                                   BorderBrush="{StaticResource HorizontalNormalBorderBrush}"
+                                   AutomationProperties.AutomationId="Thumb26_23D05C47" />
                         </Track.Thumb>
                         <Track.IncreaseRepeatButton>
-                            <RepeatButton Style="{StaticResource ScrollBarPageButton}" Command="ScrollBar.PageDownCommand" />
+                            <RepeatButton Style="{StaticResource ScrollBarPageButton}"
+                                          Command="ScrollBar.PageDownCommand"
+                                          AutomationProperties.AutomationId="RepeatButton27_23D05C47" />
                         </Track.IncreaseRepeatButton>
                     </Track>
-                    <RepeatButton Grid.Row="3" Style="{StaticResource ScrollBarLineButton}" Height="18" Command="ScrollBar.LineDownCommand" Content="M 0 0 L 4 4 L 8 0 Z"/>
+                    <RepeatButton Grid.Row="3"
+                                  Style="{StaticResource ScrollBarLineButton}"
+                                  Height="18"
+                                  Command="ScrollBar.LineDownCommand"
+                                  Content="M 0 0 L 4 4 L 8 0 Z"
+                                  AutomationProperties.AutomationId="RepeatButton28_23D05C47" />
                 </Grid>
             </ControlTemplate>
-            <ControlTemplate x:Key="HorizontalScrollBar" TargetType="{x:Type ScrollBar}">
-                <Grid>
+            <ControlTemplate x:Key="HorizontalScrollBar"
+                             TargetType="{x:Type ScrollBar}">
+                <Grid AutomationProperties.AutomationId="Grid29_23D05C47">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition MaxWidth="18"/>
-                        <ColumnDefinition Width="0.00001*"/>
-                        <ColumnDefinition MaxWidth="18"/>
+                        <ColumnDefinition MaxWidth="18"
+                                          AutomationProperties.AutomationId="ColumnDefinition30_23D05C47" />
+                        <ColumnDefinition Width="0.00001*"
+                                          AutomationProperties.AutomationId="ColumnDefinition31_23D05C47" />
+                        <ColumnDefinition MaxWidth="18"
+                                          AutomationProperties.AutomationId="ColumnDefinition32_23D05C47" />
                     </Grid.ColumnDefinitions>
-                    <Border Grid.ColumnSpan="3" CornerRadius="2" Background="Transparent"/>
-                    <RepeatButton Grid.Column="0"  Style="{StaticResource ScrollBarLineButton}" Width="18" Command="ScrollBar.LineLeftCommand" Content="M 4 0 L 4 8 L 0 4 Z" />
-                    <Track Name="PART_Track" Grid.Column="1" IsDirectionReversed="False">
+                    <Border Grid.ColumnSpan="3"
+                            CornerRadius="2"
+                            Background="Transparent"
+                            AutomationProperties.AutomationId="Border33_23D05C47" />
+                    <RepeatButton Grid.Column="0"
+                                  Style="{StaticResource ScrollBarLineButton}"
+                                  Width="18"
+                                  Command="ScrollBar.LineLeftCommand"
+                                  Content="M 4 0 L 4 8 L 0 4 Z"
+                                  AutomationProperties.AutomationId="RepeatButton34_23D05C47" />
+                    <Track Name="PART_Track"
+                           Grid.Column="1"
+                           IsDirectionReversed="False"
+                           AutomationProperties.AutomationId="Track35_23D05C47">
                         <Track.DecreaseRepeatButton>
-                            <RepeatButton Style="{StaticResource ScrollBarPageButton}" Command="ScrollBar.PageLeftCommand" />
+                            <RepeatButton Style="{StaticResource ScrollBarPageButton}"
+                                          Command="ScrollBar.PageLeftCommand"
+                                          AutomationProperties.AutomationId="RepeatButton36_23D05C47" />
                         </Track.DecreaseRepeatButton>
                         <Track.Thumb>
-                            <Thumb Style="{StaticResource ScrollBarThumb}" Margin="0,1,0,1" Background="{StaticResource NormalBrush}" BorderBrush="{StaticResource NormalBorderBrush}" />
+                            <Thumb Style="{StaticResource ScrollBarThumb}"
+                                   Margin="0,1,0,1"
+                                   Background="{StaticResource NormalBrush}"
+                                   BorderBrush="{StaticResource NormalBorderBrush}"
+                                   AutomationProperties.AutomationId="Thumb37_23D05C47" />
                         </Track.Thumb>
                         <Track.IncreaseRepeatButton>
-                            <RepeatButton Style="{StaticResource ScrollBarPageButton}" Command="ScrollBar.PageRightCommand" />
+                            <RepeatButton Style="{StaticResource ScrollBarPageButton}"
+                                          Command="ScrollBar.PageRightCommand"
+                                          AutomationProperties.AutomationId="RepeatButton38_23D05C47" />
                         </Track.IncreaseRepeatButton>
                     </Track>
-                    <RepeatButton Grid.Column="3" Style="{StaticResource ScrollBarLineButton}" Width="18" Command="ScrollBar.LineRightCommand" Content="M 0 0 L 4 4 L 0 8 Z"/>
+                    <RepeatButton Grid.Column="3"
+                                  Style="{StaticResource ScrollBarLineButton}"
+                                  Width="18"
+                                  Command="ScrollBar.LineRightCommand"
+                                  Content="M 0 0 L 4 4 L 0 8 Z"
+                                  AutomationProperties.AutomationId="RepeatButton39_23D05C47" />
                 </Grid>
             </ControlTemplate>
-            <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
-                <Setter Property="SnapsToDevicePixels" Value="True"/>
-                <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Style x:Key="{x:Type ScrollBar}"
+                   TargetType="{x:Type ScrollBar}">
+                <Setter Property="SnapsToDevicePixels"
+                        Value="True" />
+                <Setter Property="OverridesDefaultStyle"
+                        Value="true" />
                 <Style.Triggers>
-                    <Trigger Property="Orientation" Value="Horizontal">
-                        <Setter Property="Width" Value="Auto"/>
-                        <Setter Property="Height" Value="18" />
-                        <Setter Property="Template" Value="{StaticResource HorizontalScrollBar}" />
+                    <Trigger Property="Orientation"
+                             Value="Horizontal"
+                             AutomationProperties.AutomationId="Trigger40_23D05C47">
+                        <Setter Property="Width"
+                                Value="Auto" />
+                        <Setter Property="Height"
+                                Value="18" />
+                        <Setter Property="Template"
+                                Value="{StaticResource HorizontalScrollBar}" />
                     </Trigger>
-                    <Trigger Property="Orientation" Value="Vertical">
-                        <Setter Property="Width" Value="18"/>
-                        <Setter Property="Height" Value="Auto" />
-                        <Setter Property="Template" Value="{StaticResource VerticalScrollBar}" />
+                    <Trigger Property="Orientation"
+                             Value="Vertical"
+                             AutomationProperties.AutomationId="Trigger41_23D05C47">
+                        <Setter Property="Width"
+                                Value="18" />
+                        <Setter Property="Height"
+                                Value="Auto" />
+                        <Setter Property="Template"
+                                Value="{StaticResource VerticalScrollBar}" />
                     </Trigger>
                 </Style.Triggers>
             </Style>
-
-            <Style x:Key="FavsScrollViewer" TargetType="{x:Type ScrollViewer}">
-                <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Style x:Key="FavsScrollViewer"
+                   TargetType="{x:Type ScrollViewer}">
+                <Setter Property="OverridesDefaultStyle"
+                        Value="True" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ScrollViewer}">
-                            <Grid>
+                            <Grid AutomationProperties.AutomationId="Grid42_23D05C47">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="Auto"
+                                                      AutomationProperties.AutomationId="ColumnDefinition43_23D05C47" />
+                                    <ColumnDefinition AutomationProperties.AutomationId="ColumnDefinition44_23D05C47" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition AutomationProperties.AutomationId="RowDefinition45_23D05C47" />
+                                    <RowDefinition Height="Auto"
+                                                   AutomationProperties.AutomationId="RowDefinition46_23D05C47" />
                                 </Grid.RowDefinitions>
-                                <ScrollContentPresenter Grid.Column="1"/>
-                                <ScrollBar Name="PART_VerticalScrollBar" Value="{TemplateBinding VerticalOffset}" Maximum="{TemplateBinding ScrollableHeight}" ViewportSize="{TemplateBinding ViewportHeight}" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"/>
-                                <ScrollBar Name="PART_HorizontalScrollBar" Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Value="{TemplateBinding HorizontalOffset}" Maximum="{TemplateBinding ScrollableWidth}" ViewportSize="{TemplateBinding ViewportWidth}" Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"/>
+                                <ScrollContentPresenter Grid.Column="1"
+                                                        AutomationProperties.AutomationId="ScrollContentPresenter47_23D05C47" />
+                                <ScrollBar Name="PART_VerticalScrollBar"
+                                           Value="{TemplateBinding VerticalOffset}"
+                                           Maximum="{TemplateBinding ScrollableHeight}"
+                                           ViewportSize="{TemplateBinding ViewportHeight}"
+                                           Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
+                                           AutomationProperties.AutomationId="ScrollBar48_23D05C47" />
+                                <ScrollBar Name="PART_HorizontalScrollBar"
+                                           Orientation="Horizontal"
+                                           Grid.Row="1"
+                                           Grid.Column="1"
+                                           Value="{TemplateBinding HorizontalOffset}"
+                                           Maximum="{TemplateBinding ScrollableWidth}"
+                                           ViewportSize="{TemplateBinding ViewportWidth}"
+                                           Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
+                                           AutomationProperties.AutomationId="ScrollBar49_23D05C47" />
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
-
-            <DataTemplate x:Key="LedDataTemplate" DataType="{x:Type viewModels:EdgeLightSimulatorViewModel+Led}">
-                <Grid Height="22" Width="22">
+            <DataTemplate x:Key="LedDataTemplate"
+                          DataType="{x:Type viewModels:EdgeLightSimulatorViewModel+Led}">
+                <Grid Height="22"
+                      Width="22"
+                      AutomationProperties.AutomationId="Grid50_23D05C47">
                     <Ellipse Width="20"
                              Height="20"
                              Stroke="White"
-                             MouseDown="Control_MouseDown">
+                             MouseDown="Control_MouseDown"
+                             AutomationProperties.AutomationId="Ellipse51_23D05C47">
                         <Ellipse.Fill>
-                            <SolidColorBrush Color="{Binding Color}"/>
+                            <SolidColorBrush Color="{Binding Color}"
+                                             AutomationProperties.AutomationId="SolidColorBrush52_23D05C47" />
                         </Ellipse.Fill>
                     </Ellipse>
                 </Grid>
             </DataTemplate>
-
-            <DataTemplate x:Key="VerticalStripDataTemplate" DataType="{x:Type viewModels:EdgeLightSimulatorViewModel+DisplayStrip}">
+            <DataTemplate x:Key="VerticalStripDataTemplate"
+                          DataType="{x:Type viewModels:EdgeLightSimulatorViewModel+DisplayStrip}">
                 <ListView Background="Transparent"
                           ItemsSource="{Binding Leds}"
-                          ItemTemplate="{StaticResource LedDataTemplate}">
+                          ItemTemplate="{StaticResource LedDataTemplate}"
+                          AutomationProperties.AutomationId="ListView53_23D05C47">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <StackPanel Orientation="Vertical" VerticalAlignment="Center"/>
+                            <StackPanel Orientation="Vertical"
+                                        VerticalAlignment="Center"
+                                        AutomationProperties.AutomationId="StackPanel54_23D05C47" />
                         </ItemsPanelTemplate>
                     </ListView.ItemsPanel>
                 </ListView>
             </DataTemplate>
-
-            <DataTemplate x:Key="HorizontalStripDataTemplate" DataType="{x:Type viewModels:EdgeLightSimulatorViewModel+DisplayStrip}">
+            <DataTemplate x:Key="HorizontalStripDataTemplate"
+                          DataType="{x:Type viewModels:EdgeLightSimulatorViewModel+DisplayStrip}">
                 <ListView Background="Transparent"
                           ItemsSource="{Binding Leds}"
-                          ItemTemplate="{StaticResource LedDataTemplate}">
+                          ItemTemplate="{StaticResource LedDataTemplate}"
+                          AutomationProperties.AutomationId="ListView55_23D05C47">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Center"
+                                        AutomationProperties.AutomationId="StackPanel56_23D05C47" />
                         </ItemsPanelTemplate>
                     </ListView.ItemsPanel>
                 </ListView>
             </DataTemplate>
         </ResourceDictionary>
     </metro:MetroWindow.Resources>
-    
     <metro:MetroWindow.CommandBindings>
-        <CommandBinding Command="{x:Static SystemCommands.MaximizeWindowCommand}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_MaxExecuted" />
-        <CommandBinding Command="{x:Static SystemCommands.MinimizeWindowCommand}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_MinExecuted" />
+        <CommandBinding Command="{x:Static SystemCommands.MaximizeWindowCommand}"
+                        CanExecute="CommandBinding_CanExecute"
+                        Executed="CommandBinding_MaxExecuted" />
+        <CommandBinding Command="{x:Static SystemCommands.MinimizeWindowCommand}"
+                        CanExecute="CommandBinding_CanExecute"
+                        Executed="CommandBinding_MinExecuted" />
     </metro:MetroWindow.CommandBindings>
-
-    <Grid MouseDown="Control_MouseDown">
+    <Grid MouseDown="Control_MouseDown"
+          AutomationProperties.AutomationId="Grid57_23D05C47">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="10"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition58_23D05C47" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition59_23D05C47" />
+            <RowDefinition Height="10"
+                           AutomationProperties.AutomationId="RowDefinition60_23D05C47" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition61_23D05C47" />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0"
+              AutomationProperties.AutomationId="Grid62_23D05C47">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"
+                                  AutomationProperties.AutomationId="ColumnDefinition63_23D05C47" />
+                <ColumnDefinition Width="*"
+                                  AutomationProperties.AutomationId="ColumnDefinition64_23D05C47" />
+                <ColumnDefinition Width="Auto"
+                                  AutomationProperties.AutomationId="ColumnDefinition65_23D05C47" />
+                <ColumnDefinition Width="Auto"
+                                  AutomationProperties.AutomationId="ColumnDefinition66_23D05C47" />
             </Grid.ColumnDefinitions>
             <ComboBox Width="200"
                       Grid.Column="0"
                       ItemsSource="{Binding Mappings}"
-                      SelectedItem="{Binding SelectedMapping}">
+                      SelectedItem="{Binding SelectedMapping}"
+                      AutomationProperties.AutomationId="ComboBox67_23D05C47">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Name}"/>
+                        <TextBlock Text="{Binding Name}"
+                                   AutomationProperties.AutomationId="TextBlock68_23D05C47" />
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <Button Grid.Column="3" 
-                    Command="{x:Static SystemCommands.MaximizeWindowCommand}">
-                <Grid Width="22" Height="22">
-                    <Path Data="M0,1 L9,1 L9,8 L0,8 Z" Width="9" Height="8" VerticalAlignment="Center" HorizontalAlignment="Center"
-                          Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}, Mode=FindAncestor}}" StrokeThickness="2"  />
+            <Button Grid.Column="3"
+                    Command="{x:Static SystemCommands.MaximizeWindowCommand}"
+                    AutomationProperties.AutomationId="Button69_23D05C47">
+                <Grid Width="22"
+                      Height="22"
+                      AutomationProperties.AutomationId="Grid70_23D05C47">
+                    <Path Data="M0,1 L9,1 L9,8 L0,8 Z"
+                          Width="9"
+                          Height="8"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Center"
+                          Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}, Mode=FindAncestor}}"
+                          StrokeThickness="2"
+                          AutomationProperties.AutomationId="Path71_23D05C47" />
                 </Grid>
             </Button>
             <Button Grid.Column="2"
-                        Command="{x:Static SystemCommands.MinimizeWindowCommand}">
-                <Grid Width="22" Height="22" UseLayoutRounding="True" RenderTransform="1,0,0,1,.5,.5">
-                    <Path Data="M2,0 L8,0 L8,6 M0,3 L6,3 M0,2 L6,2 L6,8 L0,8 Z" Width="8" Height="8" VerticalAlignment="Center" HorizontalAlignment="Center"
-                          Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}, Mode=FindAncestor}}" StrokeThickness="1"  />
+                    Command="{x:Static SystemCommands.MinimizeWindowCommand}"
+                    AutomationProperties.AutomationId="Button72_23D05C47">
+                <Grid Width="22"
+                      Height="22"
+                      UseLayoutRounding="True"
+                      RenderTransform="1,0,0,1,.5,.5"
+                      AutomationProperties.AutomationId="Grid73_23D05C47">
+                    <Path Data="M2,0 L8,0 L8,6 M0,3 L6,3 M0,2 L6,2 L6,8 L0,8 Z"
+                          Width="8"
+                          Height="8"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Center"
+                          Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}, Mode=FindAncestor}}"
+                          StrokeThickness="1"
+                          AutomationProperties.AutomationId="Path74_23D05C47" />
                 </Grid>
             </Button>
-            <Canvas Grid.Column="1" Background="AliceBlue"/>
+            <Canvas Grid.Column="1"
+                    Background="AliceBlue"
+                    AutomationProperties.AutomationId="Canvas75_23D05C47" />
         </Grid>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1"
+              AutomationProperties.AutomationId="Grid76_23D05C47">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="10"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="10"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="10"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition77_23D05C47" />
+                <RowDefinition Height="10"
+                               AutomationProperties.AutomationId="RowDefinition78_23D05C47" />
+                <RowDefinition Height="*"
+                               AutomationProperties.AutomationId="RowDefinition79_23D05C47" />
+                <RowDefinition Height="10"
+                               AutomationProperties.AutomationId="RowDefinition80_23D05C47" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition81_23D05C47" />
+                <RowDefinition Height="10"
+                               AutomationProperties.AutomationId="RowDefinition82_23D05C47" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition83_23D05C47" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"
+                                  AutomationProperties.AutomationId="ColumnDefinition84_23D05C47" />
+                <ColumnDefinition Width="10"
+                                  AutomationProperties.AutomationId="ColumnDefinition85_23D05C47" />
+                <ColumnDefinition Width="*"
+                                  AutomationProperties.AutomationId="ColumnDefinition86_23D05C47" />
+                <ColumnDefinition Width="10"
+                                  AutomationProperties.AutomationId="ColumnDefinition87_23D05C47" />
+                <ColumnDefinition Width="Auto"
+                                  AutomationProperties.AutomationId="ColumnDefinition88_23D05C47" />
             </Grid.ColumnDefinitions>
             <ContentControl Grid.Row="2"
                             Grid.Column="0"
                             Content="{Binding LeftStrip}"
-                            ContentTemplate="{StaticResource VerticalStripDataTemplate}"/>
+                            ContentTemplate="{StaticResource VerticalStripDataTemplate}"
+                            AutomationProperties.AutomationId="ContentControl89_23D05C47" />
             <ContentControl Grid.Row="2"
                             Grid.Column="4"
                             Content="{Binding RightStrip}"
-                            ContentTemplate="{StaticResource VerticalStripDataTemplate}"/>
+                            ContentTemplate="{StaticResource VerticalStripDataTemplate}"
+                            AutomationProperties.AutomationId="ContentControl90_23D05C47" />
             <ContentControl Grid.Row="0"
                             Grid.Column="0"
                             Grid.ColumnSpan="5"
                             Content="{Binding TopStrip}"
-                            ContentTemplate="{StaticResource HorizontalStripDataTemplate}"/>
+                            ContentTemplate="{StaticResource HorizontalStripDataTemplate}"
+                            AutomationProperties.AutomationId="ContentControl91_23D05C47" />
             <ContentControl Grid.Row="4"
                             Grid.Column="0"
                             Grid.ColumnSpan="5"
                             Content="{Binding BottomStrip}"
-                            ContentTemplate="{StaticResource HorizontalStripDataTemplate}"/>
+                            ContentTemplate="{StaticResource HorizontalStripDataTemplate}"
+                            AutomationProperties.AutomationId="ContentControl92_23D05C47" />
             <ContentControl Grid.Row="6"
                             Grid.Column="0"
                             Grid.ColumnSpan="5"
                             Content="{Binding VbdStrip}"
-                            ContentTemplate="{StaticResource HorizontalStripDataTemplate}"/>
+                            ContentTemplate="{StaticResource HorizontalStripDataTemplate}"
+                            AutomationProperties.AutomationId="ContentControl93_23D05C47" />
         </Grid>
-        <Grid Name="View" Grid.Row="3">
-            <ListView ItemsSource="{Binding Strips.Values}" Background="Transparent">
+        <Grid Name="View"
+              Grid.Row="3"
+              AutomationProperties.AutomationId="Grid94_23D05C47">
+            <ListView ItemsSource="{Binding Strips.Values}"
+                      Background="Transparent"
+                      AutomationProperties.AutomationId="ListView95_23D05C47">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding HexId}" Background="LightYellow" MouseDown="Control_MouseDown"/>
-                            <ListView ItemsSource="{Binding Leds}" 
-                                  Background="Transparent"
-                                  ItemTemplate="{StaticResource LedDataTemplate}">
+                        <StackPanel Orientation="Horizontal"
+                                    AutomationProperties.AutomationId="StackPanel96_23D05C47">
+                            <TextBlock Text="{Binding HexId}"
+                                       Background="LightYellow"
+                                       MouseDown="Control_MouseDown"
+                                       AutomationProperties.AutomationId="TextBlock97_23D05C47" />
+                            <ListView ItemsSource="{Binding Leds}"
+                                      Background="Transparent"
+                                      ItemTemplate="{StaticResource LedDataTemplate}"
+                                      AutomationProperties.AutomationId="ListView98_23D05C47">
                                 <ListView.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <StackPanel Orientation="Horizontal"/>
+                                        <StackPanel Orientation="Horizontal"
+                                                    AutomationProperties.AutomationId="StackPanel99_23D05C47" />
                                     </ItemsPanelTemplate>
                                 </ListView.ItemsPanel>
                             </ListView>
@@ -320,4 +538,3 @@
         </Grid>
     </Grid>
 </metro:MetroWindow>
-

@@ -414,17 +414,12 @@
 
         private void ReportVersions()
         {
-            var list = new List<string>();
-
-            list.Add($"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ModelLabel)}: {ModelText}");
-            list.Add($"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MacAddressLabel)}: {PhysicalAddress}");
-            list.Add($"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Electronics)}: {Electronics}");
-            list.Add($"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GraphicsCard)}: {GraphicsCard}");
-            list.Add($"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BiosVersion)}: {BiosVersion}");
-            list.Add($"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.FpgaVersion)}: {FpgaVersion}");
-
-            var versions = string.Join(Environment.NewLine, list);
-            Inspection?.SetFirmwareVersion(versions);
+            Inspection?.SetFirmwareVersion($"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ModelLabel)}: {ModelText}");
+            Inspection?.SetFirmwareVersion($"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MacAddressLabel)}: {PhysicalAddress}");
+            Inspection?.SetFirmwareVersion($"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Electronics)}: {Electronics}");
+            Inspection?.SetFirmwareVersion($"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GraphicsCard)}: {GraphicsCard}");
+            Inspection?.SetFirmwareVersion($"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BiosVersion)}: {BiosVersion}");
+            Inspection?.SetFirmwareVersion($"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.FpgaVersion)}: {FpgaVersion}");
         }
 
         private bool PropertyHasChanges(string propertyValue, string settingName, bool blankOk = false) =>

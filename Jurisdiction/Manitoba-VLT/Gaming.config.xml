@@ -23,6 +23,11 @@ as follows:
 	<AutoHold Enable="true" Configurable="false" />
 	<Gamble Allowed="false" />
 	<LetItRide Allowed="false" />
+	<PhysicalButtons>
+		<GameStartButtons Method="BetOrMaxBet">
+			<GameConfigurableButtons />
+		</GameStartButtons>
+  </PhysicalButtons>
 	<AttractModeOptions KenoAttractSelected="true" PokerAttractSelected="true" BlackjackAttractSelected="true" />
 	<ProgressiveLobbyIndicator Indicator="Disabled" />
 </GamingConfiguration>

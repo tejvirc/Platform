@@ -108,6 +108,7 @@
                             if (sharedLevel is SharedSapLevel update && sharedLevel.CanEdit)
                             {
                                 update.CurrentValue = update.InitialValue = level.InitialValue;
+                                update.Overflow = level.Overflow;
 
                                 sharedSapLevels.Add(sharedLevel);
                             }
@@ -123,6 +124,7 @@
                         foreach (var associatedLevel in updateAssociatedLevels)
                         {
                             associatedLevel.CurrentValue = associatedLevel.InitialValue = level.InitialValue;
+                            associatedLevel.Overflow = level.Overflow;
 
                             var updatePackLevels = updatedLevels.FirstOrDefault(
                                 u => u.packName == associatedLevel.ProgressivePackName &&
@@ -358,6 +360,7 @@
                 if (progressiveLevel.LevelType == ProgressiveLevelType.Sap && progressiveLevel.CanEdit)
                 {
                     progressiveLevel.CurrentValue = progressiveLevel.InitialValue = assignment.InitialValue;
+                    progressiveLevel.Overflow = assignment.OverflowValue;
                 }
 
                 yield return progressiveLevel;

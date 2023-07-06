@@ -4,19 +4,23 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using System.Windows.Markup;
     using ConfigWizard;
     using Contracts;
+    using Contracts.Localization;
     using Contracts.OperatorMenu;
     using Contracts.Protocol;
     using Kernel;
+    using Kernel.Contracts;
     using Monaco.Common;
+    using MVVM;
     using MVVM.Command;
 
     /// <summary>
     ///     The view model for time and time zone configuration
     /// </summary>
     [CLSCompliant(false)]
-    public class TimeConfigPageViewModel : ConfigWizardViewModelBase
+    public class TimeConfigPageViewModel : InspectionWizardViewModelBase
     {
         private readonly ITime _time;
         private bool _timeZoneChanged;
@@ -36,8 +40,16 @@
         private string _timeZoneId;
         private string _timeZoneOffset = string.Empty;
 
+        private bool _isInspection;
+        private string _orderNumber;
+        private string _inspectorInitials;
+        private ItemPick _ItemsPicked = ItemPick.None;
+        private XmlLanguage _datePickerLanguage = XmlLanguage.GetLanguage("en-US");
+
         public TimeConfigPageViewModel(bool isWizardPage) : base(isWizardPage)
         {
+            IsInspection = PropertiesManager.GetValue(KernelConstants.IsInspectionOnly, false);
+
             _time = ServiceManager.GetInstance().GetService<ITime>();
 
             TimeZones = TimeZoneInfo.GetSystemTimeZones();
@@ -49,6 +61,7 @@
             Seconds = Enumerable.Range(0, 60).ToList();
 
             _timeZoneChanged = false;
+
             ApplyCommand = new ActionCommand<object>(Apply, _ => CanApply);
         }
 
@@ -83,6 +96,7 @@
                     OnTimeZoneChanged(value);
                     RaisePropertyChanged(nameof(TimeZoneId));
                     ApplyCommand.RaiseCanExecuteChanged();
+                    SetItemPickFlag(ItemPick.Timezone);
                 }
             }
         }
@@ -112,6 +126,7 @@
                     _hour = value;
                     RaisePropertyChanged(nameof(Hour));
                     ApplyCommand.RaiseCanExecuteChanged();
+                    SetItemPickFlag(ItemPick.Hours);
                 }
             }
         }
@@ -127,6 +142,7 @@
                     _minute = value;
                     RaisePropertyChanged(nameof(Minute));
                     ApplyCommand.RaiseCanExecuteChanged();
+                    SetItemPickFlag(ItemPick.Minutes);
                 }
             }
         }
@@ -142,6 +158,7 @@
                     _second = value;
                     RaisePropertyChanged(nameof(Second));
                     ApplyCommand.RaiseCanExecuteChanged();
+                    SetItemPickFlag(ItemPick.Seconds);
                 }
             }
         }
@@ -157,6 +174,21 @@
                     _pickerDate = value;
                     RaisePropertyChanged(nameof(PickerDate));
                     ApplyCommand.RaiseCanExecuteChanged();
+                    SetItemPickFlag(ItemPick.Date);
+                }
+            }
+        }
+
+        public XmlLanguage DatePickerLanguage
+        {
+            get => _datePickerLanguage;
+
+            set
+            {
+                if (_datePickerLanguage != value)
+                {
+                    _datePickerLanguage = value;
+                    RaisePropertyChanged(nameof(DatePickerLanguage));
                 }
             }
         }
@@ -167,10 +199,39 @@
 
         public List<int> Seconds { get; }
 
+        public bool IsInspection
+        {
+            get => _isInspection;
+            set => SetProperty(ref _isInspection, value, nameof(IsInputEnabled));
+        }
+
+        public string OrderNumber
+        {
+            get => _orderNumber;
+            set
+            {
+                SetProperty(ref _orderNumber, value, nameof(OrderNumber));
+                SetItemPickFlag(ItemPick.Order);
+            }
+
+        }
+
+        public string InspectorInitials
+        {
+            get => _inspectorInitials;
+            set
+            {
+                SetProperty(ref _inspectorInitials, value, nameof(InspectorInitials));
+                SetItemPickFlag(ItemPick.Initials);
+            }
+        }
+
         protected override void SaveChanges()
         {
             if (_timeZoneChanged)
+            {
                 EventBus.Publish(new TimeZoneUpdatedEvent());  // VLT-4526
+            }
 
             if (string.IsNullOrEmpty(TimeZoneId))
             {
@@ -191,6 +252,7 @@
                 _second,
                 DateTimeKind.Unspecified);
             var dtUtcSelected = TimeZoneInfo.ConvertTimeToUtc(dtUserSelected, _time.TimeZoneInformation);
+            Logger.Debug($"{dtUserSelected}");
             _time.Update(dtUtcSelected);
 
             EventBus.Publish(new OperatorMenuSettingsChangedEvent());
@@ -204,7 +266,23 @@
             ApplyCommand.RaiseCanExecuteChanged();
 
             _timeZoneChanged = false;
+
+            if (IsInspection)
+            {
+                PropertiesManager.SetProperty(ApplicationConstants.OrderNumber, OrderNumber);
+                PropertiesManager.SetProperty(ApplicationConstants.InspectorInitials, InspectorInitials);
+            }
         }
+
+        protected override void SetupNavigation()
+        {
+            if (WizardNavigator != null)
+            {
+                WizardNavigator.CanNavigateBackward = !IsInspection;
+                WizardNavigator.CanNavigateForward = !IsInspection || (_ItemsPicked == ItemPick.All);
+            }
+        }
+
 
         // VLT-9804 : save moving of the page in config sequence (we still allow Apply button in AuditMenu)
         protected override void OnUnloaded()
@@ -218,8 +296,13 @@
         protected override void Loaded()
         {
             EventBus.Subscribe<TimeZoneOffsetUpdatedEvent>(this, OnOffsetUpdated);
-            TimeZoneId = _time.TimeZoneInformation?.Id;
-            UpdateTimeZoneOffset();
+            if (!IsInspection)
+            {
+                TimeZoneId = _time.TimeZoneInformation?.Id;
+                UpdateTimeZoneOffset();
+            }
+
+            UpdateDatePickerLanguage();
 
             _previousHour = Hour;
             _previousMinute = Minute;
@@ -272,6 +355,48 @@
         {
             TimeZoneOffset = PropertiesManager.GetValue(ApplicationConstants.TimeZoneOffsetKey, TimeSpan.Zero)
                 .GetFormattedOffset();
+        }
+
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            UpdateDatePickerLanguage();
+            base.OnOperatorCultureChanged(evt);
+        }
+
+        private void UpdateDatePickerLanguage()
+        {
+            MvvmHelper.ExecuteOnUI(() =>
+            {
+                var oldLanguage = DatePickerLanguage;
+                var newLanguage = XmlLanguage.GetLanguage(Localizer.For(CultureFor.Operator).CurrentCulture.Name);
+
+                if (newLanguage?.Equals(oldLanguage) ?? true)
+                {
+                    return;
+                }
+
+                DatePickerLanguage = newLanguage;
+            });
+        }
+
+        private void SetItemPickFlag(ItemPick pickFlag)
+        {
+            _ItemsPicked |= pickFlag;
+            SetupNavigation();
+        }
+
+        [Flags]
+        private enum ItemPick
+        {
+            None = 0,
+            Seconds = 1,
+            Minutes = 2,
+            Hours = 4,
+            Date = 8,
+            Timezone = 16,
+            Order = 32,
+            Initials = 64,
+            All = 127,
         }
     }
 }

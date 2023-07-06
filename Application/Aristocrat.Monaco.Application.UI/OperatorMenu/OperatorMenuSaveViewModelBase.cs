@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.Windows.Input;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
@@ -20,6 +19,8 @@
 
         private bool? _dialogResult;
         private bool _preventOperatorMenuExit;
+        private string _saveButtonText;
+        private string _cancelButtonText;
 
         public OperatorMenuSaveViewModelBase(
             DialogButton buttons = DialogButton.Save | DialogButton.Cancel,
@@ -51,7 +52,7 @@
                             break;
                     }
                 }
-            } 
+            }
         }
 
         public ICommand SaveCommand { get; }
@@ -76,9 +77,17 @@
 
         public bool ShowCancelButton { get; set; }
 
-        public string SaveButtonText { get; set; }
+        public string SaveButtonText
+        {
+            get => _saveButtonText;
+            set => SetProperty(ref _saveButtonText, value);
+        }
 
-        public string CancelButtonText { get; set; }
+        public string CancelButtonText
+        {
+            get => _cancelButtonText;
+            set => SetProperty(ref _cancelButtonText, value);
+        }
 
         public virtual bool CanSave => InputEnabled && HasChanges() && !HasErrors;
 
@@ -150,7 +159,9 @@
 
         protected virtual void HandleEvent(SystemDownEvent theEvent)
         {
-            if (theEvent.LogicalId == (int)ButtonLogicalId.Play && theEvent.Enabled == false)
+            if ((theEvent.LogicalId == (int)ButtonLogicalId.Play ||
+                 theEvent.LogicalId == (int)ButtonLogicalId.DualPlay) &&
+                theEvent.Enabled == false)
             {
                 MvvmHelper.ExecuteOnUI(Cancel);
             }

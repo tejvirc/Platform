@@ -136,10 +136,10 @@
     <value>Total - Bill In</value>
   </data>
   <data name="CoinInFormat" xml:space="preserve">
-    <value>Coin In {0:c0}</value>
+    <value>Coin In</value>
   </data>
   <data name="BillInFormat" xml:space="preserve">
-    <value>Bill In {0:c0}</value>
+    <value>Bill In</value>
   </data>
   <data name="MainDoorOpenCount" xml:space="preserve">
     <value>Main Door Open Count</value>
@@ -194,5 +194,17 @@
   </data>
   <data name="EnabledDenominationsLabel" xml:space="preserve">
     <value>Enabled Denominations:</value>
+  </data>
+  <data name="LicenseText" xml:space="preserve">
+    <value>Licence</value>
+  </data>
+  <data name="License" xml:space="preserve">
+    <value>Licence</value>
+  </data>
+  <data name="LicenseId" xml:space="preserve">
+    <value>Licence ID</value>
+  </data>
+  <data name="SoftwareLicense" xml:space="preserve">
+    <value>Software Licence</value>
   </data>
 </root>

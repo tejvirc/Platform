@@ -93,7 +93,8 @@ as follows:
     <string>GPU</string>
     <string>SoftwareChange</string>
     <string>Progressive</string>
-    <string>KeyedCredit</string>
+    <string>KeyedOnCredits</string>
+    <string>KeyedOffCredits</string>
   </LogTypesAllowedForDisplay>
   <SecondaryStorageMedia Required="true" />
 </ApplicationConfiguration>

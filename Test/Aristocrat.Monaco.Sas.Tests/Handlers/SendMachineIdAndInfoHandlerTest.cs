@@ -278,7 +278,7 @@
         {
             var newGame = new Mock<IGameDetail>(MockBehavior.Default);
             newGame.Setup(c => c.MaximumWagerCredits).Returns(maxWager);
-            newGame.Setup(c => c.BetOptionList).Returns(new BetOptionList(new List<c_betOption>()));
+            newGame.Setup(c => c.BetOptionList).Returns(new BetOptionList(new List<c_betOption>(), new c_betLinePreset[0]));
             newGame.Setup(c => c.LineOptionList).Returns(new LineOptionList(new List<c_lineOption>()));
             newGame.Setup(c => c.MaximumPaybackPercent).Returns(basePercent / 100M);
             newGame.Setup(c => c.PaytableId).Returns(paytableId);

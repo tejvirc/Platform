@@ -69,7 +69,8 @@
                 _eventLift.Report(
                     printer,
                     eventCode,
-                    printer.DeviceList(status));
+                    printer.DeviceList(status),
+                    theEvent);
             }
         }
     }

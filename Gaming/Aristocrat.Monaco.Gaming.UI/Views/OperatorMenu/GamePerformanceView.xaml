@@ -1,172 +1,245 @@
 ﻿<operatorMenu:OperatorMenuPage xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
                                xmlns:dialog="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                                xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
-                               xmlns:commonConverters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
                                xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.Contracts.Models;assembly=Aristocrat.Monaco.Gaming.Contracts"
                                x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.GamePerformanceView"
                                dialog:DialogParticipation.Register="{Binding}"
-                               mc:Ignorable="d" 
-                               Background="Transparent" 
+                               mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:GamePerformanceViewModel}, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <commonConverters:CurrencyConverter x:Key="CurrencyConverter"/>
-            <converters:ReturnToPlayerConverter x:Key="ReturnToPlayerConverter"/>
-            <converters:RtpToHoldConverter x:Key="RtpToHoldConverter"/>
-
-            <Style x:Key="HeaderStyle" TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MonacoDataGridColumnHeader}">
-                <Setter Property="MinWidth" Value="50" />
-                <Setter Property="MinHeight" Value="65" />
-                <Setter Property="FontSize" Value="14"/>
+            <converters:ReturnToPlayerConverter x:Key="ReturnToPlayerConverter" />
+            <converters:RtpToHoldConverter x:Key="RtpToHoldConverter" />
+            <Style x:Key="HeaderStyle"
+                   TargetType="{x:Type DataGridColumnHeader}"
+                   BasedOn="{StaticResource MonacoDataGridColumnHeader}">
+                <Setter Property="MinWidth"
+                        Value="50" />
+                <Setter Property="MinHeight"
+                        Value="65" />
+                <Setter Property="FontSize"
+                        Value="14" />
             </Style>
-
-            <Style x:Key="WrappedHeaderStyle" TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MonacoDataGridWrappedColumnHeader}">
-                <Setter Property="MinWidth" Value="50" />
-                <Setter Property="MinHeight" Value="65" />
-                <Setter Property="FontSize" Value="14"/>
+            <Style x:Key="WrappedHeaderStyle"
+                   TargetType="{x:Type DataGridColumnHeader}"
+                   BasedOn="{StaticResource MonacoDataGridWrappedColumnHeader}">
+                <Setter Property="MinWidth"
+                        Value="50" />
+                <Setter Property="MinHeight"
+                        Value="65" />
+                <Setter Property="FontSize"
+                        Value="14" />
             </Style>
-
-            <Style x:Key="GamePerformanceDataGridRow" TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource MonacoDataGridRow}"
+            <Style x:Key="GamePerformanceDataGridRow"
+                   TargetType="{x:Type DataGridRow}"
+                   BasedOn="{StaticResource MonacoDataGridRow}"
                    d:DataContext="{d:DesignInstance models:GamePerformanceData}">
-                <Setter Property="Foreground" Value="{StaticResource LightBrush4}"/>
+                <Setter Property="Foreground"
+                        Value="{StaticResource LightBrush4}" />
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding ActiveState, UpdateSourceTrigger=PropertyChanged}" Value="0">
-                        <Setter Property="Background" Value="#FF538234"/>
+                    <DataTrigger Binding="{Binding ActiveState, UpdateSourceTrigger=PropertyChanged}"
+                                 Value="0"
+                                 AutomationProperties.AutomationId="DataTrigger0_361E7832">
+                        <Setter Property="Background"
+                                Value="#FF538234" />
                     </DataTrigger>
-                    <DataTrigger Binding="{Binding ActiveState, UpdateSourceTrigger=PropertyChanged}" Value="1">
-                        <Setter Property="Background" Value="#FF7E6000"/>
+                    <DataTrigger Binding="{Binding ActiveState, UpdateSourceTrigger=PropertyChanged}"
+                                 Value="1"
+                                 AutomationProperties.AutomationId="DataTrigger1_361E7832">
+                        <Setter Property="Background"
+                                Value="#FF7E6000" />
                     </DataTrigger>
-                    <DataTrigger Binding="{Binding ActiveState, UpdateSourceTrigger=PropertyChanged}" Value="2">
-                        <Setter Property="Background" Value="#FF455467"/>
+                    <DataTrigger Binding="{Binding ActiveState, UpdateSourceTrigger=PropertyChanged}"
+                                 Value="2"
+                                 AutomationProperties.AutomationId="DataTrigger2_361E7832">
+                        <Setter Property="Background"
+                                Value="#FF455467" />
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
-
-            <Style x:Key="GameListStyle" TargetType="{x:Type ListBox}" BasedOn="{StaticResource MonacoScrollButtonsListBox}">
-                <Setter Property="FontSize" Value="15" />
+            <Style x:Key="GameListStyle"
+                   TargetType="{x:Type ListBox}"
+                   BasedOn="{StaticResource MonacoScrollButtonsListBox}">
+                <Setter Property="FontSize"
+                        Value="15" />
             </Style>
-
-            <CollectionViewSource Source="{Binding Path=GameTypes}" x:Key="SortedGameTypes">
+            <CollectionViewSource Source="{Binding Path=GameTypes}"
+                                  x:Key="SortedGameTypes"
+                                  AutomationProperties.AutomationId="CollectionViewSource3_361E7832">
                 <CollectionViewSource.SortDescriptions>
                     <componentModel:SortDescription />
                 </CollectionViewSource.SortDescriptions>
             </CollectionViewSource>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid>
+    <Grid AutomationProperties.AutomationId="Grid4_361E7832">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition5_361E7832" />
+            <ColumnDefinition Width="*"
+                              AutomationProperties.AutomationId="ColumnDefinition6_361E7832" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition7_361E7832" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition8_361E7832" />
         </Grid.RowDefinitions>
-
-        <Grid Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Margin="0 0 0 10">
+        <Grid Grid.Row="0"
+              Grid.Column="0"
+              HorizontalAlignment="Left"
+              Margin="0 0 0 10"
+              AutomationProperties.AutomationId="Grid9_361E7832">
             <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"
+                               AutomationProperties.AutomationId="RowDefinition10_361E7832" />
+                <RowDefinition Height="30"
+                               AutomationProperties.AutomationId="RowDefinition11_361E7832" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300"/>
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="300"
+                                  AutomationProperties.AutomationId="ColumnDefinition12_361E7832" />
+                <ColumnDefinition Width="*"
+                                  AutomationProperties.AutomationId="ColumnDefinition13_361E7832" />
             </Grid.ColumnDefinitions>
-
-            <Label Grid.Row="0" Grid.Column="0" 
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.MachineWeightedPayback}}" 
+            <Label Grid.Row="0"
+                   Grid.Column="0"
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.MachineWeightedPayback}}"
                    FontSize="16"
-                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <TextBlock Grid.Row="0" Grid.Column="1" 
-                       Margin="10 0 0 0" 
-                       Text="{Binding MachineWeightedPayback, Converter={StaticResource ReturnToPlayerConverter}}" 
-                       VerticalAlignment="Center" HorizontalAlignment="Right"/>
-            <Label Grid.Row="1" Grid.Column="0" 
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.MachineActualPayback}}" 
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   AutomationProperties.AutomationId="Label14_361E7832" />
+            <TextBlock Grid.Row="0"
+                       Grid.Column="1"
+                       Margin="10 0 0 0"
+                       Text="{Binding MachineWeightedPayback, Converter={StaticResource ReturnToPlayerConverter}}"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Right"
+                       AutomationProperties.AutomationId="TextBlock15_361E7832" />
+            <Label Grid.Row="1"
+                   Grid.Column="0"
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.MachineActualPayback}}"
                    FontSize="16"
-                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <TextBlock Grid.Row="1" Grid.Column="1" 
-                       Margin="10 0 0 0" 
-                       Text="{Binding MachineActualPayback, Converter={StaticResource ReturnToPlayerConverter}}" 
-                       VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   AutomationProperties.AutomationId="Label16_361E7832" />
+            <TextBlock Grid.Row="1"
+                       Grid.Column="1"
+                       Margin="10 0 0 0"
+                       Text="{Binding MachineActualPayback, Converter={StaticResource ReturnToPlayerConverter}}"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Right"
+                       AutomationProperties.AutomationId="TextBlock17_361E7832" />
         </Grid>
-
-        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 10">
-            <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.ActiveGame}}" 
-                       TextWrapping="Wrap" Width="86" Background="#FF538234" Margin="0 0 2 0" 
-                       TextAlignment="Center" VerticalAlignment="Center"
-                       Padding="2"/>
-            <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.PreviouslyActive}}" 
-                       TextWrapping="Wrap" Width="86"  Background="#FF7E6000" Margin="0 0 2 0" 
-                       TextAlignment="Center" VerticalAlignment="Center"
-                       Padding="2"/>
-            <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.NeverActive}}" 
-                       TextWrapping="Wrap" Width="86" Background="#FF455467" Margin="0 0 0 0" 
-                       TextAlignment="Center" VerticalAlignment="Center"
-                       Padding="2"/>
+        <StackPanel Grid.Row="0"
+                    Grid.Column="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="0 0 0 10"
+                    AutomationProperties.AutomationId="StackPanel18_361E7832">
+            <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.ActiveGame}}"
+                       TextWrapping="Wrap"
+                       Width="86"
+                       Background="#FF538234"
+                       Margin="0 0 2 0"
+                       TextAlignment="Center"
+                       VerticalAlignment="Center"
+                       Padding="2"
+                       AutomationProperties.AutomationId="TextBlock19_361E7832" />
+            <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.PreviouslyActive}}"
+                       TextWrapping="Wrap"
+                       Width="86"
+                       Background="#FF7E6000"
+                       Margin="0 0 2 0"
+                       TextAlignment="Center"
+                       VerticalAlignment="Center"
+                       Padding="2"
+                       AutomationProperties.AutomationId="TextBlock20_361E7832" />
+            <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.NeverActive}}"
+                       TextWrapping="Wrap"
+                       Width="86"
+                       Background="#FF455467"
+                       Margin="0 0 0 0"
+                       TextAlignment="Center"
+                       VerticalAlignment="Center"
+                       Padding="2"
+                       AutomationProperties.AutomationId="TextBlock21_361E7832" />
         </StackPanel>
-
-        <GroupBox Grid.Column="0" Grid.Row="1"
+        <GroupBox Grid.Column="0"
+                  Grid.Row="1"
                   Margin="0 0 10 0"
-                  Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameViewFilter}}" 
+                  Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameViewFilter}}"
                   FontSize="18"
                   BorderThickness="2"
-                  HorizontalAlignment="Stretch">
-            <Grid>
+                  HorizontalAlignment="Stretch"
+                  AutomationProperties.AutomationId="GroupBox22_361E7832">
+            <Grid AutomationProperties.AutomationId="Grid23_361E7832">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition24_361E7832" />
+                    <RowDefinition Height="*"
+                                   AutomationProperties.AutomationId="RowDefinition25_361E7832" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition26_361E7832" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition27_361E7832" />
                 </Grid.RowDefinitions>
-
-                <ComboBox Grid.Row="0" SelectedItem="{Binding SelectedGameType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                          ItemsSource="{Binding Source={StaticResource SortedGameTypes}}" >
+                <ComboBox Grid.Row="0"
+                          SelectedItem="{Binding SelectedGameType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          ItemsSource="{Binding Source={StaticResource SortedGameTypes}}"
+                          AutomationProperties.AutomationId="ComboBox28_361E7832">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <Grid>
-                                <TextBlock Text="{Binding Result, ElementName=GameTypeProxy}" />
-                                <lex:LocProxy x:Name="GameTypeProxy" Source="{Binding}" />
+                            <Grid AutomationProperties.AutomationId="Grid29_361E7832">
+                                <TextBlock Text="{Binding Result, ElementName=GameTypeProxy}"
+                                           AutomationProperties.AutomationId="TextBlock30_361E7832" />
+                                <lex:LocProxy x:Name="GameTypeProxy"
+                                              Source="{Binding}" />
                             </Grid>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-
-                <ListBox Grid.Row="1" Margin="0 20 20 0"
+                <ListBox Grid.Row="1"
+                         Margin="0 20 20 0"
                          Style="{StaticResource GameListStyle}"
-                         ItemsSource="{Binding GameThemes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                         ItemsSource="{Binding GameThemes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                         AutomationProperties.AutomationId="ListBox31_361E7832">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <CheckBox IsChecked="{Binding Checked}"
-                                      Content="{Binding Name}"/>
+                                      Content="{Binding Name}"
+                                      AutomationProperties.AutomationId="CheckBox32_361E7832" />
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-
-                <CheckBox Grid.Row="2" Content="{lex:Loc Key={x:Static loc:ResourceKeys.HideNeverActive}}" 
+                <CheckBox Grid.Row="2"
+                          Content="{lex:Loc Key={x:Static loc:ResourceKeys.HideNeverActive}}"
                           IsChecked="{Binding HideNeverActive}"
-                          Margin="0 10 0 0"/>
-                <CheckBox Grid.Row="3" Content="{lex:Loc Key={x:Static loc:ResourceKeys.HidePreviouslyActive}}" 
+                          Margin="0 10 0 0"
+                          AutomationProperties.AutomationId="CheckBox33_361E7832" />
+                <CheckBox Grid.Row="3"
+                          Content="{lex:Loc Key={x:Static loc:ResourceKeys.HidePreviouslyActive}}"
                           IsChecked="{Binding HidePreviouslyActive}"
-                          Margin="0 10 0 0"/>
+                          Margin="0 10 0 0"
+                          AutomationProperties.AutomationId="CheckBox34_361E7832" />
             </Grid>
         </GroupBox>
-
-        <DataGrid Name="GameComboDataGrid" Grid.Column="1" Grid.Row="1"
+        <DataGrid Name="GameComboDataGrid"
+                  Grid.Column="1"
+                  Grid.Row="1"
                   ItemsSource="{Binding GamePerformanceItems, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}"
                   RowStyle="{StaticResource GamePerformanceDataGridRow}"
                   ScrollViewer.CanContentScroll="True"
@@ -175,84 +248,117 @@
                   HorizontalAlignment="Left"
                   VerticalAlignment="Stretch"
                   CanUserSortColumns="True"
-                  Padding="2 0 0 0">
+                  Padding="2 0 0 0"
+                  AutomationProperties.AutomationId="DataGrid35_361E7832">
             <DataGrid.Resources>
-                <dialog:BindingProxy x:Key="Proxy" Data="{Binding}"/>
+                <dialog:BindingProxy x:Key="Proxy"
+                                     Data="{Binding}" />
             </DataGrid.Resources>
             <i:Interaction.Triggers>
                 <events:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
-                    <events:EventToCommandAction Command="{Binding EventViewerScrolledCommand}"/>
+                    <events:EventToCommandAction Command="{Binding EventViewerScrolledCommand}" />
                 </events:RoutedEventTrigger>
-                <i:EventTrigger EventName="Sorting">
-                    <events:EventToCommandAction Command="{Binding SortingCommand}"/>
+                <i:EventTrigger EventName="Sorting"
+                                AutomationProperties.AutomationId="EventTrigger36_361E7832">
+                    <events:EventToCommandAction Command="{Binding SortingCommand}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameNameText}}" 
-                                    Width="160" 
-                                    Binding="{Binding ThemeId}" 
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameName}}"
+                                    loc:Localizer.For="Operator"
+                                    Width="160"
+                                    Binding="{Binding ThemeId}"
                                     SortMemberPath="SortableGameName"
-                                    HeaderStyle="{StaticResource WrappedHeaderStyle}">
+                                    HeaderStyle="{StaticResource WrappedHeaderStyle}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn37_361E7832">
                     <DataGridTextColumn.ElementStyle>
                         <Style>
-                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                            <Setter Property="TextBlock.TextWrapping"
+                                    Value="Wrap" />
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.PaytableId}}" 
-                                    MinWidth="80" 
-                                    Binding="{Binding PaytableId}" 
-                                    HeaderStyle="{StaticResource WrappedHeaderStyle}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Denom}}" 
-                                    Binding="{Binding Denomination, Converter={StaticResource CurrencyConverter}}" 
-                                    HeaderStyle="{StaticResource HeaderStyle}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.AverageBet}}" 
-                                    Binding="{Binding AverageBet, Converter={StaticResource CurrencyConverter}}" 
-                                    HeaderStyle="{StaticResource WrappedHeaderStyle}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TheoreticalHold}}" 
-                                    Binding="{Binding TheoreticalRtp, Converter={StaticResource RtpToHoldConverter}}" 
-                                    SortMemberPath="TheoreticalRtp.Item1" 
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.PaytableId}}"
+                                    loc:Localizer.For="Operator"
+                                    MinWidth="80"
+                                    Binding="{Binding PaytableId}"
                                     HeaderStyle="{StaticResource WrappedHeaderStyle}"
-                                    Visibility="{Binding Path=Data.(viewModels:GamePerformanceViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}, Mode=OneWay}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TheoreticalHoldMin}}" 
-                                    Binding="{Binding TheoreticalRtp.Item2, Converter={StaticResource RtpToHoldConverter}}" 
-                                    SortMemberPath="TheoreticalRtp.Item2" 
+                                    AutomationProperties.AutomationId="DataGridTextColumn38_361E7832" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Denom}}"
+                                    loc:Localizer.For="Operator"
+                                    Binding="{Binding Denomination, Converter={StaticResource FormattedCurrencyConverter}}"
+                                    HeaderStyle="{StaticResource HeaderStyle}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn39_361E7832" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.AverageBet}}"
+                                    loc:Localizer.For="Operator"
+                                    Binding="{Binding AverageBet, Converter={StaticResource FormattedCurrencyConverter}}"
                                     HeaderStyle="{StaticResource WrappedHeaderStyle}"
-                                    Visibility="{Binding Path=Data.(viewModels:GamePerformanceViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}, Mode=OneWay}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TheoreticalHoldMax}}" 
-                                    Binding="{Binding TheoreticalRtp.Item1, Converter={StaticResource RtpToHoldConverter}}" 
-                                    SortMemberPath="TheoreticalRtp.Item1" 
+                                    AutomationProperties.AutomationId="DataGridTextColumn40_361E7832" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TheoreticalHold}}"
+                                    loc:Localizer.For="Operator"
+                                    Binding="{Binding TheoreticalRtp, Converter={StaticResource RtpToHoldConverter}}"
+                                    SortMemberPath="TheoreticalRtp.Item1"
                                     HeaderStyle="{StaticResource WrappedHeaderStyle}"
-                                    Visibility="{Binding Path=Data.(viewModels:GamePerformanceViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}, Mode=OneWay}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ActualHold}}" 
-                                    Binding="{Binding ActualRtp, Converter={StaticResource RtpToHoldConverter}}" 
-                                    SortMemberPath="ActualHold" 
-                                    HeaderStyle="{StaticResource WrappedHeaderStyle}" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CoinInText}}" 
-                                    MinWidth="80" 
-                                    Binding="{Binding AmountIn, Converter={StaticResource CurrencyConverter}}" 
-                                    HeaderStyle="{StaticResource WrappedHeaderStyle}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CoinOutText}}" 
-                                    MinWidth="80" 
-                                    Binding="{Binding AmountOut, Converter={StaticResource CurrencyConverter}}" 
-                                    HeaderStyle="{StaticResource WrappedHeaderStyle}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.GamesPlayed}}" 
-                                    Binding="{Binding GamesPlayed}" 
-                                    HeaderStyle="{StaticResource WrappedHeaderStyle}"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DaysActive}}" 
-                                    Binding="{Binding DaysActive}" 
-                                    HeaderStyle="{StaticResource WrappedHeaderStyle}"/>
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.MoreMeters}}" 
-                                        HeaderStyle="{StaticResource WrappedHeaderStyle}" 
-                                        CanUserSort="False">
+                                    Visibility="{Binding Path=Data.(viewModels:GamePerformanceViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}, Mode=OneWay}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn41_361E7832" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TheoreticalHoldMin}}"
+                                    loc:Localizer.For="Operator"
+                                    Binding="{Binding TheoreticalRtp.Item2, Converter={StaticResource RtpToHoldConverter}}"
+                                    SortMemberPath="TheoreticalRtp.Item2"
+                                    HeaderStyle="{StaticResource WrappedHeaderStyle}"
+                                    Visibility="{Binding Path=Data.(viewModels:GamePerformanceViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}, Mode=OneWay}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn42_361E7832" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TheoreticalHoldMax}}"
+                                    loc:Localizer.For="Operator"
+                                    Binding="{Binding TheoreticalRtp.Item1, Converter={StaticResource RtpToHoldConverter}}"
+                                    SortMemberPath="TheoreticalRtp.Item1"
+                                    HeaderStyle="{StaticResource WrappedHeaderStyle}"
+                                    Visibility="{Binding Path=Data.(viewModels:GamePerformanceViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}, Mode=OneWay}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn43_361E7832" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ActualHold}}"
+                                    loc:Localizer.For="Operator"
+                                    Binding="{Binding ActualRtp, Converter={StaticResource RtpToHoldConverter}}"
+                                    SortMemberPath="ActualHold"
+                                    HeaderStyle="{StaticResource WrappedHeaderStyle}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn44_361E7832" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CoinInText}}"
+                                    loc:Localizer.For="Operator"
+                                    MinWidth="80"
+                                    Binding="{Binding AmountIn, Converter={StaticResource FormattedCurrencyConverter}}"
+                                    HeaderStyle="{StaticResource WrappedHeaderStyle}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn45_361E7832" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CoinOutText}}"
+                                    loc:Localizer.For="Operator"
+                                    MinWidth="80"
+                                    Binding="{Binding AmountOut, Converter={StaticResource FormattedCurrencyConverter}}"
+                                    HeaderStyle="{StaticResource WrappedHeaderStyle}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn46_361E7832" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.GamesPlayed}}"
+                                    loc:Localizer.For="Operator"
+                                    Binding="{Binding GamesPlayed}"
+                                    HeaderStyle="{StaticResource WrappedHeaderStyle}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn47_361E7832" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DaysActive}}"
+                                    loc:Localizer.For="Operator"
+                                    Binding="{Binding DaysActive}"
+                                    HeaderStyle="{StaticResource WrappedHeaderStyle}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn48_361E7832" />
+                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.MoreMeters}}"
+                                        loc:Localizer.For="Operator"
+                                        HeaderStyle="{StaticResource WrappedHeaderStyle}"
+                                        CanUserSort="False"
+                                        AutomationProperties.AutomationId="DataGridTemplateColumn49_361E7832">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button MaxHeight="38" MaxWidth="40"
+                            <Button MaxHeight="38"
+                                    MaxWidth="40"
                                     HorizontalContentAlignment="Center"
                                     VerticalContentAlignment="Center"
                                     Command="{Binding Data.ShowMoreMetersCommand, Source={StaticResource Proxy}}"
                                     CommandParameter="{Binding}"
-                                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.More}}" FontSize="14"/>
+                                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.More}}"
+                                    FontSize="14"
+                                    AutomationProperties.AutomationId="Button50_361E7832" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

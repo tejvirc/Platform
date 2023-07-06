@@ -1,39 +1,51 @@
 ﻿<common:BaseWindow x:Class="Aristocrat.Monaco.UI.Common.Controls.ScrollableMessageBox"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common"
-        mc:Ignorable="d" 
-        WindowStyle="ToolWindow"
-        Height="500" Width="1000">
-    <Grid>
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common"
+                   mc:Ignorable="d"
+                   WindowStyle="ToolWindow"
+                   Height="500"
+                   Width="1000">
+    <Grid AutomationProperties.AutomationId="Grid0_75C13AD3">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition1_75C13AD3" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_75C13AD3" />
         </Grid.RowDefinitions>
-        <ItemsControl Grid.Column="0" Grid.Row="0" Name="ScrollBoxes">
+        <ItemsControl Grid.Column="0"
+                      Grid.Row="0"
+                      Name="ScrollBoxes"
+                      AutomationProperties.AutomationId="ItemsControl3_75C13AD3">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel IsItemsHost="True" Orientation="Horizontal"/>
+                    <WrapPanel IsItemsHost="True"
+                               Orientation="Horizontal"
+                               AutomationProperties.AutomationId="WrapPanel4_75C13AD3" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <ScrollViewer Margin="10">
+                    <ScrollViewer Margin="10"
+                                  AutomationProperties.AutomationId="ScrollViewer5_75C13AD3">
                         <TextBlock Margin="5"
                                    Text="{Binding}"
-                                   ScrollViewer.CanContentScroll="True" 
-                                   TextWrapping="Wrap"/>
+                                   ScrollViewer.CanContentScroll="True"
+                                   TextWrapping="Wrap"
+                                   AutomationProperties.AutomationId="TextBlock6_75C13AD3" />
                     </ScrollViewer>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <Button Grid.Row="1" 
-                Height="30" Width="150" 
-                Margin="10 0 10 10" 
-                HorizontalAlignment="Right" 
+        <Button Grid.Row="1"
+                Height="30"
+                Width="150"
+                Margin="10 0 10 10"
+                HorizontalAlignment="Right"
                 Content="OK"
-                Click="OK_OnClick"/>
+                Click="OK_OnClick"
+                AutomationProperties.AutomationId="Button7_75C13AD3" />
     </Grid>
 </common:BaseWindow>

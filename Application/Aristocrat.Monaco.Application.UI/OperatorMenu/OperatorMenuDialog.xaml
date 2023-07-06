@@ -1,67 +1,86 @@
 ﻿<ContentControl x:Class="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuDialog"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
-        mc:Ignorable="d" 
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        d:DataContext="{d:DesignInstance {x:Type viewModels:OperatorMenuDialogViewModel}, IsDesignTimeCreatable=False}"
-        BorderThickness="2"
-        Background="{DynamicResource DarkBrush1}" 
-        BorderBrush="{DynamicResource Brush3}">
-
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                mc:Ignorable="d"
+                xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                d:DataContext="{d:DesignInstance {x:Type viewModels:OperatorMenuDialogViewModel}, IsDesignTimeCreatable=False}"
+                BorderThickness="2"
+                Background="{DynamicResource DarkBrush1}"
+                BorderBrush="{DynamicResource Brush3}"
+                AutomationProperties.AutomationId="ContentControl0_DE0E6DE1">
     <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
+        <i:EventTrigger EventName="Loaded"
+                        AutomationProperties.AutomationId="EventTrigger1_DE0E6DE1">
             <i:InvokeCommandAction Command="{Binding HandleLoadedCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-
     <ContentControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <Style TargetType="Button" BasedOn="{StaticResource MonacoButton}">
-                <Setter Property="Width" Value="120"/>
-                <Setter Property="Margin" Value="10"/>
+            <Style TargetType="Button"
+                   BasedOn="{StaticResource MonacoButton}">
+                <Setter Property="Width"
+                        Value="120" />
+                <Setter Property="Margin"
+                        Value="10" />
             </Style>
         </ResourceDictionary>
     </ContentControl.Resources>
-
-    <Grid Margin="20">
+    <Grid Margin="20"
+          AutomationProperties.AutomationId="Grid2_DE0E6DE1">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition3_DE0E6DE1" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition4_DE0E6DE1" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition5_DE0E6DE1" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition6_DE0E6DE1" />
         </Grid.RowDefinitions>
-
         <TextBlock Grid.Row="0"
                    Style="{StaticResource MonacoWindowTitle}"
-                   Text="{Binding WindowTitle}"/>
-
-        <ContentControl Grid.Row="1" x:Name="DialogContent" Height="Auto" VerticalAlignment="Top"
-                        Visibility="{Binding ShowTextOnly, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
-
-        <Label Grid.Row="1" Content="{Binding WindowText}" 
+                   Text="{Binding WindowTitle}"
+                   AutomationProperties.AutomationId="TextBlock7_DE0E6DE1" />
+        <ContentControl Grid.Row="1"
+                        x:Name="DialogContent"
+                        Height="Auto"
+                        VerticalAlignment="Top"
+                        Visibility="{Binding ShowTextOnly, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                        AutomationProperties.AutomationId="ContentControl8_DE0E6DE1" />
+        <Label Grid.Row="1"
+               Content="{Binding WindowText}"
                MinHeight="100"
-               HorizontalAlignment="Center" VerticalAlignment="Center"
-               Visibility="{Binding ShowTextOnly, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
-
-        <TextBlock Grid.Row="2" Text="{Binding WindowInfoText}" TextAlignment="Center" Margin="0 10 0 0"
-                   Style="{StaticResource MonacoWarningTextBlock}" />
-
-        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 0 0">
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               Visibility="{Binding ShowTextOnly, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+               AutomationProperties.AutomationId="Label9_DE0E6DE1" />
+        <TextBlock Grid.Row="2"
+                   Text="{Binding WindowInfoText}"
+                   TextAlignment="Center"
+                   Margin="0 10 0 0"
+                   Style="{StaticResource MonacoWarningTextBlock}"
+                   AutomationProperties.AutomationId="TextBlock10_DE0E6DE1" />
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Margin="0 10 0 0"
+                    AutomationProperties.AutomationId="StackPanel11_DE0E6DE1">
             <Button Content="{Binding SaveButtonText}"
                     Command="{Binding SaveCommand, Mode=OneWay}"
                     IsEnabled="{Binding CanSave, UpdateSourceTrigger=PropertyChanged}"
-                    Visibility="{Binding ShowSaveButton, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
+                    Visibility="{Binding ShowSaveButton, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                    AutomationProperties.AutomationId="Button12_DE0E6DE1" />
             <Button Content="{Binding CancelButtonText}"
                     Command="{Binding CancelCommand, Mode=OneWay}"
                     IsEnabled="{Binding CanCancel, UpdateSourceTrigger=PropertyChanged}"
-                    Visibility="{Binding ShowCancelButton, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
+                    Visibility="{Binding ShowCancelButton, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                    AutomationProperties.AutomationId="Button13_DE0E6DE1" />
         </StackPanel>
     </Grid>
 </ContentControl>

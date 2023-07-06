@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.MacauJurisdiction" filterid="MacauLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.MacauJurisdiction" filterid="MacauLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.MacauJurisdiction" filterid="MacauLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -74,9 +71,9 @@
       <ExtensionPointConfiguration extensionPath="/Application/OperatorMenu/DisplayMeters">
         <NodeSpecification addinId="Client12Addins.MacauJurisdiction" filterid="MacauDisplayMetersConfig" />
       </ExtensionPointConfiguration>
-	  <ExtensionPointConfiguration extensionPath="/Gaming/OperatorMenu/GameHistoryMeters">
-		<NodeSpecification addinId="Client12Addins.MacauJurisdiction" filterid="MacauGameHistoryMetersConfig" />
-	  </ExtensionPointConfiguration>
+      <ExtensionPointConfiguration extensionPath="/Gaming/OperatorMenu/GameHistoryMeters">
+        <NodeSpecification addinId="Client12Addins.MacauJurisdiction" filterid="MacauGameHistoryMetersConfig" />
+      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Accounting/TransferOutProviders">
         <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Wat.WatOffProvider" order="0" filterid="MacauAccountingTransferProviders" />
         <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Vouchers.VoucherOutProvider" order="1" filterid="MacauAccountingTransferProviders" />
@@ -137,10 +134,6 @@
   <Extension path="/Locale/Configuration" filterid="MacauLocaleConfig">
     <FilePath FilePath="..\jurisdiction\Macau\Locale.config.xml" />
   </Extension>
-  <Extension path="/Locale/Overrides" filterid="MacauLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
-    <FilePath FilePath="..\jurisdiction\Macau\resources\" />
-  </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\Macau\Lobby.config.xml" filterid="MacauLobbyConfig" />
   </Extension>
@@ -175,7 +168,7 @@
     <FilePath FilePath="..\jurisdiction\Macau\DisplayMeters.config.xml" filterid="MacauDisplayMetersConfig" />
   </Extension>
   <Extension path="/Gaming/OperatorMenu/GameHistoryMeters">
-	  <FilePath FilePath="..\jurisdiction\Macau\GameHistoryMeters.config.xml" filterid="MacauGameHistoryMetersConfig" />
+    <FilePath FilePath="..\jurisdiction\Macau\GameHistoryMeters.config.xml" filterid="MacauGameHistoryMetersConfig" />
   </Extension>
   <Extension path="/Accounting/TransactionHistories" filterid="MacauTransactionConfiguration">
     <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.BillTransaction" maxTransactions="50" persistenceLevel="Critical" />

@@ -15,19 +15,22 @@
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private const string DefaultLobbyPortraitTemplate = "LobbyViewPortraitTemplate";
         private const string DefaultLobbyLandscapeTemplate = "LobbyViewLandscapeTemplate";
+        private const string DefaultLobbyMidKnightTemplate = "LobbyViewMidKnightTemplate";
         /// <inheritdoc />
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
-            if (item is not LobbyViewModel)
+            if (item is not LobbyViewModel lobby)
             {
                 return null;
             }
-            
+
             var element = container as FrameworkElement;
 
-            var dataTemplateKey = Screen.PrimaryScreen.WorkingArea.Width < Screen.PrimaryScreen.WorkingArea.Height
-                ? DefaultLobbyPortraitTemplate
-                : DefaultLobbyLandscapeTemplate;
+            var dataTemplateKey = lobby.Config.MidKnightLobbyEnabled
+                ? DefaultLobbyMidKnightTemplate
+                : Screen.PrimaryScreen.WorkingArea.Width < Screen.PrimaryScreen.WorkingArea.Height
+                    ? DefaultLobbyPortraitTemplate
+                    : DefaultLobbyLandscapeTemplate;
 
             Logger.Debug($"Lobby Template Selector: {dataTemplateKey}");
 

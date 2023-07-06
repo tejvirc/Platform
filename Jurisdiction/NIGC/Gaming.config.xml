@@ -58,4 +58,7 @@ as follows:
 		</ReturnToPlayerLimits>
 		<ServerControlledPaytables>true</ServerControlledPaytables>
 	</GameRestrictions>
+	<PhysicalButtons>
+		<GameStartButtons Method="BetOrMaxBet" />
+	</PhysicalButtons>
 </GamingConfiguration>

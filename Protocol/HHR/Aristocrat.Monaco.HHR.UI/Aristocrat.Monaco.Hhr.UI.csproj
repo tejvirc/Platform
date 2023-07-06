@@ -96,7 +96,7 @@
     <ProjectReference Include="..\Aristocrat.Monaco.HHR\Aristocrat.Monaco.HHR.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.15" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.22" />
     <PackageReference Include="Aristocrat.MVVM" Version="2.0.16" />
     <PackageReference Include="BinkWpf" Version="1.1.13" />
     <PackageReference Include="log4net" Version="2.0.8" />

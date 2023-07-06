@@ -12,7 +12,7 @@ as follows:
 <ApplicationConfiguration>
   <Currency Id="CAD"/>
   <HardMeterMonitor DisableOnError="true"/>
-  <NoteAcceptorMonitor DisableOnError="Queue"/>
+  <NoteAcceptorMonitor DisableOnError="Immediate" LockupOnStackerFull="true" SoftErrorOnStackerFull="true" />
   <PrinterMonitor FormFeedAfterKeyOff="true"/>
   <GeneralMessages>
     <DisabledByOperator Message=""/>
@@ -51,31 +51,28 @@ as follows:
   </MeterRollover>
   <StackerRemoveBehavior AutoClearPeriodMeters="false" />
   <AutoClearPeriodMetersBehavior>
-	<AutoClearPeriodMeters>false</AutoClearPeriodMeters>
-	<ClearClearPeriodOffsetHours>0</ClearClearPeriodOffsetHours>
+  <AutoClearPeriodMeters>false</AutoClearPeriodMeters>
+  <ClearClearPeriodOffsetHours>0</ClearClearPeriodOffsetHours>
   </AutoClearPeriodMetersBehavior>
   <SoundConfiguration>
-	<UseGameTypeVolume>false</UseGameTypeVolume>
+    <AlertVolume Value="20" Configurable="false"/>
+    <UseGameTypeVolume>false</UseGameTypeVolume>
   </SoundConfiguration>
   <ReadOnlyMedia Required="false" />
   <LogTypesAllowedForDisplay>
-    <string>BillIn</string>
-    <string>Handpay</string>
-    <string>VoucherIn</string>
-    <string>VoucherOut</string>
-    <string>BonusAward</string>
-    <string>TransferIn</string>
-    <string>TransferOut</string>
-    <string>Gameplay</string>
-    <string>Comms</string>
-    <string>Error</string>
     <string>General</string>
-    <string>Hash</string>
+    <string>Error</string>
+    <string>Gameplay</string>
     <string>Power</string>
     <string>GameConfigurationChange</string>
-    <string>GPU</string>
+    <string>Comms</string>
     <string>SoftwareChange</string>
     <string>Progressive</string>
+    <string>BillIn</string>
+    <string>VoucherIn</string>
+    <string>VoucherOut</string>
+    <string>Door</string>
+    <string>Protocol</string>
   </LogTypesAllowedForDisplay>
   <Cashout ClearWins="false" />
   <MultiGame RestoreRebootStateAfterSwitch="false" StateStorageLocation="game" />

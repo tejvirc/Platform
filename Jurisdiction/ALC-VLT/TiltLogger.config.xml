@@ -81,7 +81,6 @@ as follows:
     <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Printer.ResolverErrorEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Audio.EnabledEvent, Aristocrat.Monaco.Hardware.Contracts" Level="info" Type="General" />
     <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Audio.DisabledEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="General" />
-    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Printer.TransferStatusEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Printer.LoadingRegionsAndTemplatesEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Kernel.PlatformBootedEvent, Aristocrat.Monaco.Kernel.Contracts" Level="tilt" Type="Power" />
     <EventDescription Name="Aristocrat.Monaco.Kernel.SystemDisabledEvent, Aristocrat.Monaco.Kernel.Contracts" Level="tilt" Type="General" />

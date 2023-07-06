@@ -258,7 +258,8 @@
                     It.Is<IDevice>(d => d == device.Object),
                     It.Is<string>(e => e == EventCode.G2S_NAE112),
                     It.IsAny<deviceList1>(),
-                    It.IsAny<meterList>()));
+                    It.IsAny<meterList>(),
+                    It.IsAny<IEvent>()));
         }
 
         private static void TestCabinetEventConsumer(DoorLogicalId id, string eventCode)
@@ -293,7 +294,8 @@
                     It.Is<IDevice>(d => d == device.Object),
                     It.Is<string>(e => e == eventCode),
                     It.IsAny<deviceList1>(),
-                    It.IsAny<meterList>()));
+                    It.IsAny<meterList>(),
+                    It.IsAny<IEvent>()));
         }
     }
 }

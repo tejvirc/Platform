@@ -2,12 +2,12 @@
 {
     using System;
     using System.Threading.Tasks;
-    using Aristocrat.Monaco.UI.Common;
     using ConfigWizard;
     using Contracts;
     using Contracts.Localization;
     using Kernel;
     using Monaco.Localization.Properties;
+    using Monaco.UI.Common;
     using MVVM;
 
     /// <summary>

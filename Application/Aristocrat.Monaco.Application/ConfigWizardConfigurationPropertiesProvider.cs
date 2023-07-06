@@ -38,7 +38,7 @@ namespace Aristocrat.Monaco.Application
 
             _persistentStorageAccessor = _blockExists
                 ? storageManager.GetBlock(blockName)
-                : storageManager.CreateBlock(PersistenceLevel.Transient, blockName, 1);
+                : storageManager.CreateBlock(PersistenceLevel.Static, blockName, 1);
 
             var configWizardConfiguration = ConfigurationUtilities.GetConfiguration(
                 ConfigWizardConfigurationExtensionPath,
@@ -50,7 +50,7 @@ namespace Aristocrat.Monaco.Application
             var hardMeterTickValue = DefaultHardMeterTickValue;
             var enterOutOfServiceWithCreditsEnabled =
                 configWizardConfiguration.MachineSetupConfig?.EnterOutOfServiceWithCredits?.Enabled ?? true;
-            var hardMetersEnabled = configWizardConfiguration.HardMetersConfig?.Enable ?? true;
+            var hardMetersEnabled = configWizardConfiguration.HardMetersConfig?.Enable ?? false;
 
             var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
             var machineSettingsImported = propertiesManager.GetValue(ApplicationConstants.MachineSettingsImported, ImportMachineSettings.None);
@@ -60,7 +60,7 @@ namespace Aristocrat.Monaco.Application
                 configWizardBellEnabled = propertiesManager.GetValue(HardwareConstants.BellEnabledKey, false);
                 hardMeterTickValue = propertiesManager.GetValue(ApplicationConstants.HardMeterTickValue, DefaultHardMeterTickValue);
                 enterOutOfServiceWithCreditsEnabled = propertiesManager.GetValue(ApplicationConstants.MachineSetupConfigEnterOutOfServiceWithCreditsEnabled, true);
-                hardMetersEnabled = propertiesManager.GetValue(HardwareConstants.HardMetersEnabledKey, true);
+                hardMetersEnabled = propertiesManager.GetValue(HardwareConstants.HardMetersEnabledKey, false);
             }
 
             // The Tuple is structured as value (Item1) and Key (Item2)
@@ -137,6 +137,12 @@ namespace Aristocrat.Monaco.Application
                     Tuple.Create(
                         (object)(configWizardConfiguration.LimitsPage?.CreditLimit?.CheckboxEditable ?? true),
                         ApplicationConstants.ConfigWizardCreditLimitCheckboxEditable)
+                },
+                {
+                    ApplicationConstants.ConfigWizardHandpayLimitVisible,
+                    Tuple.Create(
+                        (object)(configWizardConfiguration.LimitsPage?.HandpayLimit?.Visible ?? true),
+                        ApplicationConstants.ConfigWizardHandpayLimitVisible)
                 },
                 {
                     ApplicationConstants.ConfigWizardHandpayLimitCheckboxEditable,

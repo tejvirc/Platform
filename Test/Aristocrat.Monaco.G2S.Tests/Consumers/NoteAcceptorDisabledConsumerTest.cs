@@ -93,7 +93,7 @@
             _commandBuilderMock
                 .Verify(m => m.Build(It.IsAny<INoteAcceptorDevice>(), It.IsAny<noteAcceptorStatus>()), Times.Never);
             _eventLiftMock
-                .Verify(m => m.Report(It.IsAny<IDevice>(), It.IsAny<string>(), It.IsAny<deviceList1>()), Times.Never);
+                .Verify(m => m.Report(It.IsAny<IDevice>(), It.IsAny<string>(), It.IsAny<deviceList1>(), It.IsAny<IEvent>()), Times.Never);
         }
 
         [TestMethod]
@@ -110,7 +110,7 @@
                 .Verify(m => m.Build(_noteAcceptorDevice.Object, It.IsAny<noteAcceptorStatus>()), Times.Once);
             _eventLiftMock
                 .Verify(
-                    m => m.Report(_noteAcceptorDevice.Object, EventCode.G2S_NAE001, It.IsAny<deviceList1>()),
+                    m => m.Report(_noteAcceptorDevice.Object, EventCode.G2S_NAE001, It.IsAny<deviceList1>(), It.IsAny<IEvent>()),
                     Times.Once);
         }
 

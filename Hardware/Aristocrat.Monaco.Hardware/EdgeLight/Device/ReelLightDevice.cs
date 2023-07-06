@@ -129,7 +129,6 @@
             IList<int> lightIdentifiers = null;
             try
             {
-
                 if (_lightingCapabilities is not null)
                 {
                     lightIdentifiers = await _lightingCapabilities.GetReelLightIdentifiers();
@@ -140,9 +139,10 @@
                 Logger.Error($"GetReelLightIdentifiers failed : {ex.Message}");
             }
 
-            if (lightIdentifiers != null)
+            var reels = Controller.ConnectedReels;
+
+            if (lightIdentifiers != null && reels != null)
             {
-                var reels = Controller.ConnectedReels;
                 if (reels.Count > 0 && lightIdentifiers.Count > 0)
                 {
                     lock (_lock)
@@ -238,14 +238,13 @@
                 }
 
                 if ((!lampStateMatch || !colorsMatch) &&
-                    (_lightingCapabilities is null || !_lightingCapabilities.SetLights(reelLampData.ToArray()).WaitForCompletion()))
+                    !(_lightingCapabilities?.SetLights(reelLampData.ToArray()).WaitForCompletion() ?? false))
                 {
                     return;
                 }
 
                 if (!brightnessMatch &&
-                    _brightnessCapabilities is not null &&
-                    _brightnessCapabilities.SetBrightness(reelLampBrightness).WaitForCompletion())
+                    !(_brightnessCapabilities?.SetBrightness(reelLampBrightness).WaitForCompletion() ?? false))
                 {
                     return;
                 }
@@ -283,8 +282,7 @@
                 return;
             }
 
-            if (_brightnessCapabilities is not null &&
-                _brightnessCapabilities.SetBrightness(ReelControllerDefaultBrightness).WaitForCompletion())
+            if (_brightnessCapabilities?.SetBrightness(ReelControllerDefaultBrightness).WaitForCompletion() ?? false)
             {
                 _lastReelBrightness = ReelControllerDefaultBrightness;
                 _lastLightData = new List<LightData>();

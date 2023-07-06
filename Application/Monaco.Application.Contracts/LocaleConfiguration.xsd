@@ -7,6 +7,7 @@
       <xs:element minOccurs="1" name="OperatorTicket" type="OperatorTicket" />
       <xs:element minOccurs="0" name="Operator" type="Operator" />
       <xs:element minOccurs="0" name="Player" type="Player" />
+      <xs:element minOccurs="0" name="Overrides" type="ArrayOfString" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="PlayerTicket">
@@ -19,13 +20,18 @@
           <xs:attribute default="false" name="ShowCheckBox" type="xs:boolean" use="optional"/>
         </xs:complexType>
       </xs:element>
-    </xs:sequence>  
+    </xs:sequence>
     <xs:attribute name="Locale" type="xs:string" use="optional"/>
     <xs:attribute name="DateFormat" type="xs:string" use="optional" />
   </xs:complexType>
   <xs:complexType name="OperatorTicket">
     <xs:sequence>
       <xs:element minOccurs="0" name="Selectable" type="ArrayOfString" />
+      <xs:element minOccurs="0" maxOccurs="1" name ="LanguageSetting">
+        <xs:complexType>
+          <xs:attribute default="false" name="OperatorOverride" use="optional" type="xs:boolean"/>
+        </xs:complexType>
+      </xs:element>
     </xs:sequence> 
     <xs:attribute name="Locale" type="xs:string" use="optional"/>
     <xs:attribute default ="yyyy-MM-dd" name="DateFormat" type="xs:string" use="optional" />
@@ -47,16 +53,16 @@
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string" />
     </xs:sequence>
-  </xs:complexType> 
+  </xs:complexType>
   <xs:complexType name="PlayerTicketSelectionArray">
     <xs:sequence>
-	  <xs:element minOccurs="0" maxOccurs="unbounded" name="Entry">
-		<xs:complexType>
-		  <xs:attribute name="Locale" type="xs:string" use="required" />
-		  <xs:attribute name="CurrencyValueLocale" type="xs:string" use="optional" />
-		  <xs:attribute name="CurrencyWordsLocale" type="xs:string" use="optional" />
-		</xs:complexType>
-	  </xs:element>    
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Entry">
+        <xs:complexType>
+          <xs:attribute name="Locale" type="xs:string" use="required" />
+          <xs:attribute name="CurrencyValueLocale" type="xs:string" use="optional" />
+          <xs:attribute name="CurrencyWordsLocale" type="xs:string" use="optional" />
+        </xs:complexType>
+      </xs:element>
     </xs:sequence>
   </xs:complexType>
 </xs:schema>

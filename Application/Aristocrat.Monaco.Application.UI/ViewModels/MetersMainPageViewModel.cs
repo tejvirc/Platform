@@ -12,6 +12,7 @@
     using Contracts;
     using Contracts.Localization;
     using Contracts.MeterPage;
+    using Contracts.OperatorMenu;
     using Kernel;
     using Monaco.Localization.Properties;
     using MVVM.Command;
@@ -36,8 +37,8 @@
         private readonly ConcurrentDictionary<string, DateTime> _pageNameToPersonalizedPeriodClearDateTimeMap =
             new ConcurrentDictionary<string, DateTime>();
 
-        public MetersMainPageViewModel(string displayPageTitle)
-            : base(displayPageTitle, PagesExtensionPath)
+        public MetersMainPageViewModel(IOperatorMenuPageLoader mainPage)
+            : base(mainPage, PagesExtensionPath)
         {
             IsVisibleChangedCommand = new ActionCommand<Page>(OnIsVisibleChanged);
             PeriodMasterButtonClickedCommand = new ActionCommand<object>(PeriodOrMasterButtonClicked);
@@ -245,6 +246,13 @@
                 evt.PeriodicClearDateTime,
                 (_, _) => evt.PeriodicClearDateTime);
             RefreshPage();
+        }
+
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            SetPageTitle();
+            RefreshPage();
+            base.OnOperatorCultureChanged(evt);
         }
 
         private void OnIsVisibleChanged(Page page)

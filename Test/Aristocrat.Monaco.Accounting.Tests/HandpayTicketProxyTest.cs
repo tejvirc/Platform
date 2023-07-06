@@ -4,6 +4,7 @@
     using System.Globalization;
     using Application.Contracts;
     using Application.Contracts.Extensions;
+    using Application.Contracts.Currency;
     using Contracts;
     using Contracts.Handpay;
     using Handpay;
@@ -41,20 +42,28 @@
             _time = MoqServiceManager.CreateAndAddService<ITime>(MockBehavior.Strict, true);
             _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Strict, true);
             _printer = MoqServiceManager.CreateAndAddService<IPrinter>(MockBehavior.Strict, true);
-            CurrencyExtensions.SetCultureInfo(CultureInfo.CurrentCulture, null, null, true, true, "c");
             _target = new HandpayTicketProxy();
 
-            TicketCurrencyExtensions.PlayerTicketLocale = "en-US";
+            string minorUnitSymbol = "c";
+            string cultureName = "en-US";
+            CultureInfo culture = new CultureInfo(cultureName);
+
+            RegionInfo region = new RegionInfo(cultureName);
+            CurrencyExtensions.Currency = new Currency(region.ISOCurrencySymbol, region, culture, minorUnitSymbol);
+            CurrencyExtensions.SetCultureInfo(region.ISOCurrencySymbol, culture, null, null, true, true, minorUnitSymbol);
+
+            _target = new HandpayTicketProxy();
+
+            TicketCurrencyExtensions.PlayerTicketLocale = cultureName;
             TicketCurrencyExtensions.SetCultureInfo(
-                "en-US",
-                new CultureInfo("en-US"),
-                new CultureInfo("en-US"),
+                cultureName,
+                new CultureInfo(cultureName),
+                new CultureInfo(cultureName),
                 "Cent",
                 "Cents",
                 true,
                 true,
-                "c"
-            );
+                minorUnitSymbol);
         }
 
         /// <summary>

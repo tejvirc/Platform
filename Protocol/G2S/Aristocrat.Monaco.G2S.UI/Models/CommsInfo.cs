@@ -3,6 +3,8 @@
     using Aristocrat.G2S.Protocol.v21;
     using System;
     using MVVM.Model;
+    using Monaco.Application.Contracts.Localization;
+    using Monaco.Localization.Properties;
 
     /// <summary>
     ///     Comms info model
@@ -79,7 +81,13 @@
                     _outboundOverflow = value;
                     RaisePropertyChanged(nameof(OutboundOverflow));
                 }
+                RaisePropertyChanged(nameof(OutboundOverflowText));
             }
+        }
+
+        public string OutboundOverflowText
+        {
+            get => Localizer.For(CultureFor.Operator).GetString(OutboundOverflow ? ResourceKeys.TrueText : ResourceKeys.FalseText);
         }
 
         /// <summary> Gets or sets a value indicating whether the InboundOverflow is set.</summary>
@@ -94,7 +102,13 @@
                     _inboundOverflow = value;
                     RaisePropertyChanged(nameof(InboundOverflow));
                 }
+                RaisePropertyChanged(nameof(InboundOverflowText));
             }
+        }
+
+        public string InboundOverflowText
+        {
+            get => Localizer.For(CultureFor.Operator).GetString(InboundOverflow ? ResourceKeys.TrueText : ResourceKeys.FalseText);
         }
 
         /// <summary> Gets or sets the TransportState </summary>

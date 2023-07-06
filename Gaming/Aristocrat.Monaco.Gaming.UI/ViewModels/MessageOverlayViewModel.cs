@@ -12,6 +12,7 @@
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
+    using Accounting.Contracts.HandCount;
     using Contracts;
     using Contracts.Events;
     using Contracts.Lobby;
@@ -95,6 +96,12 @@
             MessageOverlayData = containerService.Container.GetInstance<IMessageOverlayData>();
             _gameDiagnostics = containerService.Container.GetInstance<IGameDiagnostics>();
             _gameRecovery = containerService.Container.GetInstance<IGameRecovery>();
+            _eventBus.Subscribe<PayoutAmountUpdatedEvent>(this, Handle);
+        }
+       
+        private void Handle(PayoutAmountUpdatedEvent evt)
+        {
+            _overlayMessageStrategyController.SetCashableAmount(evt.CashableAmount);
         }
 
         public IMessageOverlayData MessageOverlayData { get; set; }
@@ -191,8 +198,8 @@
 
         public bool ShowPaidMeterForAutoCashout { get; set; }
 
-        public readonly ConcurrentDictionary<string, DisplayableMessage> HardErrorMessages =
-            new ConcurrentDictionary<string, DisplayableMessage>();
+        public readonly ConcurrentDictionary<Guid, DisplayableMessage> HardErrorMessages =
+            new ConcurrentDictionary<Guid, DisplayableMessage>();
 
         private bool _isSelectPayModeVisible;
 
@@ -207,12 +214,12 @@
             MvvmHelper.ExecuteOnUI(
                 () =>
                 {
-                    if (HardErrorMessages.ContainsKey(displayableMessage.Message))
+                    if (HardErrorMessages.ContainsKey(displayableMessage.Id))
                     {
                         return;
                     }
 
-                    HardErrorMessages.TryAdd(displayableMessage.Message, displayableMessage);
+                    HardErrorMessages.TryAdd(displayableMessage.Id, displayableMessage);
                     ForceBuildLockupText = HardErrorMessages.Count > 1 && !_systemDisableManager.CurrentDisableKeys.Contains(ApplicationConstants.OperatorMenuLauncherDisableGuid);
                     MessageOverlayData.IsDialogFadingOut = false;
                     HandleMessageOverlayText(displayableMessage.Message);
@@ -224,7 +231,7 @@
             MvvmHelper.ExecuteOnUI(
                 () =>
                 {
-                    if (!HardErrorMessages.TryRemove(displayableMessage.Message, out _))
+                    if (!HardErrorMessages.TryRemove(displayableMessage.Id, out _))
                     {
                         Logger.Warn($"RemoveMessage failed to remove message {displayableMessage.Message}");
                     }
@@ -296,6 +303,10 @@
                         messageSent = true;
                     }
                     break;
+                case MessageOverlayState.PayOutLimitReached:
+                    MessageOverlayData = _overlayMessageStrategyController.OverlayStrategy.HandleMessageOverlayPayOut(MessageOverlayData);
+                    messageSent = true;
+                    break;
                 case MessageOverlayState.Disabled:
                     if (_lobbyStateManager.ContainsAnyState(LobbyState.CashIn))
                     {
@@ -344,11 +355,7 @@
                     break;
             }
 
-            if (!messageSent && _overlayMessageStrategyController.GameRegistered)
-            {
-                Logger.Debug("Sending PresentOverriddenPresentation Clear");
-                _overlayMessageStrategyController.ClearGameDrivenPresentation();
-            }
+            ClearPresentationIfComplete(messageSent);
 
             Logger.Debug(MessageOverlayData.GenerateLogText());
 
@@ -415,7 +422,7 @@
                                      IsAgeWarningDlgVisible ||
                                      IsSelectPayModeVisible ||
                                      IsResponsibleGamingInfoOverlayDlgVisible ||
-                                     MessageOverlayData.IsDialogVisible ||
+                                     MessageOverlayData.IsDialogVisible||
                                      ReserveOverlayViewModel.IsDialogVisible ||
                                      _playerMenuPopup.IsMenuVisible ||
                                      _playerInfoDisplayManager.IsActive() ||
@@ -508,6 +515,11 @@
                 {
                     state = MessageOverlayState.CashOut;
                 }
+                else if (_systemDisableManager.CurrentDisableKeys.Contains(ApplicationConstants.LargePayoutDisableKey) &&
+                        HardErrorMessages.Count == 1 && !_overlayMessageStrategyController.OverlayStrategy.IsBasic)
+                {
+                    state = MessageOverlayState.PayOutLimitReached;
+                }
                 else if (ShowVoucherNotification)
                 {
                     state = MessageOverlayState.VoucherNotification;
@@ -591,7 +603,7 @@
                     isCashInOverridden ||
                     IsCashingOutDlgVisible && _lobbyStateManager.CashOutState == LobbyCashOutState.Undefined);
         }
-        
+
         public void HandpayCancelled()
         {
             _overlayMessageStrategyController.SetLastCashOutAmount(0);
@@ -681,6 +693,20 @@
                          $"CashOutState: {_lobbyStateManager.CashOutState}");
 
             HandleMessageOverlayText(string.Empty);
+        }
+
+        private void ClearPresentationIfComplete(bool messageSentToOverlay)
+        {
+            var shouldClearPresentation = !messageSentToOverlay && _overlayMessageStrategyController.GameRegistered ||
+                                          !MessageOverlayData.GameHandlesHandPayPresentation;
+
+            if (!shouldClearPresentation)
+            {
+                return;
+            }
+
+            Logger.Debug("Sending PresentOverriddenPresentation Clear");
+            _overlayMessageStrategyController.ClearGameDrivenPresentation();
         }
     }
 }

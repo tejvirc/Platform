@@ -4,7 +4,9 @@
     using System.Collections.Generic;
     using System.Globalization;
     using Application.Contracts.Extensions;
-    using Aristocrat.Monaco.Gaming.Contracts.Configuration;
+    using Aristocrat.Monaco.Accounting.Contracts.HandCount;
+    using Application.Contracts.Currency;
+    using Contracts.Configuration;
     using Contracts;
     using Contracts.Lobby;
     using Gaming.Commands;
@@ -21,6 +23,7 @@
     {
         private Mock<IPlayerBank> _playerBank;
         private Mock<IRuntime> _runtime;
+        private Mock<IHandCountService> _handCount;
         private Mock<IGameHistory> _gameHistory;
         private Mock<IPropertiesManager> _propertiesManager;
         private Mock<ILobbyStateManager> _lobbyStateManager;
@@ -30,7 +33,6 @@
         private Mock<IGameProvider> _gameProvider;
         private Mock<IGameCategoryService> _gameCategoryService;
         private Mock<ICabinetDetectionService> _cabinetDetectionService;
-        private Mock<IGameHelpTextProvider> _helpTextProvider;
         private Mock<IHardwareHelper> _hardwareHelper;
         private Mock<IAttendantService> _attendantService;
         private Mock<IGameConfigurationProvider> _gameConfiguration;
@@ -48,14 +50,14 @@
             _gameProvider = new Mock<IGameProvider>();
             _gameCategoryService = new Mock<IGameCategoryService>();
             _cabinetDetectionService = new Mock<ICabinetDetectionService>();
-            _helpTextProvider = new Mock<IGameHelpTextProvider>();
             _hardwareHelper = new Mock<IHardwareHelper>();
             _runtime = new Mock<IRuntime>();
+            _handCount = new Mock<IHandCountService>();
             _attendantService = new Mock<IAttendantService>();
             _gameConfiguration = new Mock<IGameConfigurationProvider>();
             _attendantService.Setup(attendant => attendant.IsServiceRequested).Returns(true);
             _propertiesManager.Setup(manager => manager.GetProperty(It.IsAny<string>(), It.IsAny<object>()))
-                .Returns<string, object>((s, o) => o);
+                .Returns<string, object>((_, o) => o);
             var currentGame = new Mock<IGameDetail>();
             currentGame.Setup(m => m.Denominations)
                 .Returns(new List<IDenomination> { new Mock<IDenomination>().Object });
@@ -64,375 +66,137 @@
 
             _hardwareHelper.Setup(h => h.CheckForVirtualButtonDeckHardware()).Returns(true);
             _hardwareHelper.Setup(h => h.CheckForUsbButtonDeckHardware()).Returns(true);
-            _helpTextProvider.Setup(m => m.AllHelpTexts).Returns(new Dictionary<string, Func<string>>());
             _gameCategoryService.Setup(m => m.SelectedGameCategorySetting).Returns(new GameCategorySetting());
             _lobbyStateManager.Setup(m => m.AllowSingleGameAutoLaunch).Returns(false);
             _cabinetDetectionService.Setup(m => m.ButtonDeckType).Returns(It.IsAny<string>());
+            _propertiesManager
+                .Setup(m => m.GetProperty(GamingConstants.GameConfigurableStartMethods, It.IsAny<object>()))
+                .Returns(Array.Empty<GameStartConfigurableMethod>());
 
-            CurrencyExtensions.SetCultureInfo(CultureInfo.CurrentCulture, null, null, true, true, "c");
+            // set up currency
+            string minorUnitSymbol = "c";
+            string cultureName = "en-US";
+            CultureInfo culture = new CultureInfo(cultureName);
+
+            RegionInfo region = new RegionInfo(cultureName);
+            CurrencyExtensions.Currency = new Currency(region.ISOCurrencySymbol, region, culture, minorUnitSymbol);
+            CurrencyExtensions.SetCultureInfo(region.ISOCurrencySymbol, culture, null, null, true, true, minorUnitSymbol);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void WhenRuntimeServiceIsNullExpectException()
+        [DataTestMethod]
+        [DataRow(true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, DisplayName = "null Runtime")]
+        [DataRow(false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, true, DisplayName = "null HandCount")]
+        [DataRow(false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, true, DisplayName = "null GameHistory")]
+        [DataRow(false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, true, DisplayName = "null GameRecovery")]
+        [DataRow(false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, true, DisplayName = "null GameDiagnostics")]
+        [DataRow(false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, true, DisplayName = "null LobbyStateManager")]
+        [DataRow(false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, true, DisplayName = "null PropertiesManager")]
+        [DataRow(false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, true, DisplayName = "null PlayerBank")]
+        [DataRow(false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, true, DisplayName = "null Audio")]
+        [DataRow(false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, true, DisplayName = "null GameProvider")]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, true, DisplayName = "null GameCategoryServicer")]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, true, DisplayName = "null CabinetDetectionService")]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, true, DisplayName = "null HardwareHelper")]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, true, DisplayName = "null AttendantService")]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, DisplayName = "null GameConfigurationProvider")]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, DisplayName = "all non-null services, expect success.")]
+        public void ConfigureClientCommandHandlerTestExpectException(
+            bool nullRuntime,
+            bool nullHandCount,
+            bool nullGameHistory,
+            bool nullGameRecovery,
+            bool nullGameDiagnostics,
+            bool nullLobbyStateManager,
+            bool nullPropertiesManager,
+            bool nullPlayerBank,
+            bool nullAudio,
+            bool nullGameProvider,
+            bool nullGameCategoryService,
+            bool nullCabinetDetectionService,
+            bool nullHardwareHelper,
+            bool nullAttendantService,
+            bool nullGameConfigurationProvider,
+            bool throwException)
         {
-            var handler = new ConfigureClientCommandHandler(
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
-
-            Assert.IsNull(handler);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void WhenGameHistoryIsNullExpectException()
+            if (throwException)
         {
-            var handler = new ConfigureClientCommandHandler(
-                _runtime.Object,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
-
-            Assert.IsNull(handler);
+                Assert.ThrowsException<ArgumentNullException>(() => GetGameRecoveryService(
+                    nullRuntime,
+                    nullHandCount,
+                    nullGameHistory,
+                    nullGameRecovery,
+                    nullGameDiagnostics,
+                    nullLobbyStateManager,
+                    nullPropertiesManager,
+                    nullPlayerBank,
+                    nullAudio,
+                    nullGameProvider,
+                    nullGameCategoryService,
+                    nullCabinetDetectionService,
+                    nullHardwareHelper,
+                    nullAttendantService,
+                    nullGameConfigurationProvider));
+        }
+            else
+            {
+                Assert.IsNotNull(GetGameRecoveryService(
+                    nullRuntime,
+                    nullHandCount,
+                    nullGameHistory,
+                    nullGameRecovery,
+                    nullGameDiagnostics,
+                    nullLobbyStateManager,
+                    nullPropertiesManager,
+                    nullPlayerBank,
+                    nullAudio,
+                    nullGameProvider,
+                    nullGameCategoryService,
+                    nullCabinetDetectionService,
+                    nullHardwareHelper,
+                    nullAttendantService,
+                    nullGameConfigurationProvider));
+            }
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void WhenGameRecoveryIsNullExpectException()
+        private ConfigureClientCommandHandler GetGameRecoveryService(
+                bool nullRuntime,
+                bool nullHandCount,
+                bool nullGameHistory,
+                bool nullGameRecovery,
+                bool nullGameDiagnostics,
+                bool nullLobbyStateManager,
+                bool nullPropertiesManager,
+                bool nullPlayerBank,
+                bool nullAudio,
+                bool nullGameProvider,
+                bool nullGameCategoryService,
+                bool nullCabinetDetectionService,
+                bool nullHardwareHelper,
+                bool nullAttendantService,
+                bool nullGameConfigurationProvider)
         {
-            var handler = new ConfigureClientCommandHandler(
-                _runtime.Object,
-                _gameHistory.Object,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
-
-            Assert.IsNull(handler);
+            return new ConfigureClientCommandHandler(
+                nullRuntime ? null : _runtime.Object,
+                nullHandCount ? null: _handCount.Object,
+                nullGameHistory ? null : _gameHistory.Object,
+                nullGameRecovery ? null : _gameRecovery.Object,
+                nullGameDiagnostics ? null : _gameDiagnostic.Object,
+                nullLobbyStateManager ? null : _lobbyStateManager.Object,
+                nullPropertiesManager ? null : _propertiesManager.Object,
+                nullPlayerBank ? null : _playerBank.Object,
+                nullAudio ? null : _audio.Object,
+                nullGameProvider ? null : _gameProvider.Object,
+                nullGameCategoryService ? null : _gameCategoryService.Object,
+                nullCabinetDetectionService ? null : _cabinetDetectionService.Object,
+                nullHardwareHelper ? null : _hardwareHelper.Object,
+                nullAttendantService ? null : _attendantService.Object,
+                nullGameConfigurationProvider ? null : _gameConfiguration.Object);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void WhenGameReplayIsNullExpectException()
-        {
-            var handler = new ConfigureClientCommandHandler(
-                _runtime.Object,
-                _gameHistory.Object,
-                _gameRecovery.Object,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
-
-            Assert.IsNull(handler);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void WhenLobbyStateManagerIsNullExpectException()
-        {
-            var handler = new ConfigureClientCommandHandler(
-                _runtime.Object,
-                _gameHistory.Object,
-                _gameRecovery.Object,
-                _gameDiagnostic.Object,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
-
-            Assert.IsNull(handler);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void WhenPropertiesManagerIsNullExpectException()
-        {
-            var handler = new ConfigureClientCommandHandler(
-                _runtime.Object,
-                _gameHistory.Object,
-                _gameRecovery.Object,
-                _gameDiagnostic.Object,
-                _lobbyStateManager.Object,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
-
-            Assert.IsNull(handler);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void WhenPlayerBankIsNullExpectException()
-        {
-            var handler = new ConfigureClientCommandHandler(
-                _runtime.Object,
-                _gameHistory.Object,
-                _gameRecovery.Object,
-                _gameDiagnostic.Object,
-                _lobbyStateManager.Object,
-                _propertiesManager.Object,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
-
-            Assert.IsNull(handler);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void WhenAudioIsNullExpectException()
-        {
-            var handler = new ConfigureClientCommandHandler(
-                _runtime.Object,
-                _gameHistory.Object,
-                _gameRecovery.Object,
-                _gameDiagnostic.Object,
-                _lobbyStateManager.Object,
-                _propertiesManager.Object,
-                _playerBank.Object,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
-
-            Assert.IsNull(handler);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void WhenGameProviderIsNullExpectException()
-        {
-            var handler = new ConfigureClientCommandHandler(
-                _runtime.Object,
-                _gameHistory.Object,
-                _gameRecovery.Object,
-                _gameDiagnostic.Object,
-                _lobbyStateManager.Object,
-                _propertiesManager.Object,
-                _playerBank.Object,
-                _audio.Object,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
-
-            Assert.IsNull(handler);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void WhenGameCategoryServiceIsNullExpectException()
-        {
-            var handler = new ConfigureClientCommandHandler(
-                _runtime.Object,
-                _gameHistory.Object,
-                _gameRecovery.Object,
-                _gameDiagnostic.Object,
-                _lobbyStateManager.Object,
-                _propertiesManager.Object,
-                _playerBank.Object,
-                _audio.Object,
-                _gameProvider.Object,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
-
-            Assert.IsNull(handler);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void WhenCabinetServiceIsNullExpectException()
-        {
-            var handler = new ConfigureClientCommandHandler(
-                _runtime.Object,
-                _gameHistory.Object,
-                _gameRecovery.Object,
-                _gameDiagnostic.Object,
-                _lobbyStateManager.Object,
-                _propertiesManager.Object,
-                _playerBank.Object,
-                _audio.Object,
-                _gameProvider.Object,
-                _gameCategoryService.Object,
-                null,
-                null,
-                null,
-                null,
-                null);
-
-            Assert.IsNull(handler);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void WhenGameHelpTextServiceIsNullExpectException()
-        {
-            var handler = new ConfigureClientCommandHandler(
-                _runtime.Object,
-                _gameHistory.Object,
-                _gameRecovery.Object,
-                _gameDiagnostic.Object,
-                _lobbyStateManager.Object,
-                _propertiesManager.Object,
-                _playerBank.Object,
-                _audio.Object,
-                _gameProvider.Object,
-                _gameCategoryService.Object,
-                _cabinetDetectionService.Object,
-                null,
-                null,
-                null,
-                null);
-
-            Assert.IsNull(handler);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void WhenHardwareHelperIsNullExpectException()
-        {
-            var handler = new ConfigureClientCommandHandler(
-                _runtime.Object,
-                _gameHistory.Object,
-                _gameRecovery.Object,
-                _gameDiagnostic.Object,
-                _lobbyStateManager.Object,
-                _propertiesManager.Object,
-                _playerBank.Object,
-                _audio.Object,
-                _gameProvider.Object,
-                _gameCategoryService.Object,
-                _cabinetDetectionService.Object,
-                _helpTextProvider.Object,
-                null,
-                null,
-                null);
-
-            Assert.IsNull(handler);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void WhenAttendantServiceIsNullExpectException()
-        {
-            var handler = new ConfigureClientCommandHandler(
-                _runtime.Object,
-                _gameHistory.Object,
-                _gameRecovery.Object,
-                _gameDiagnostic.Object,
-                _lobbyStateManager.Object,
-                _propertiesManager.Object,
-                _playerBank.Object,
-                _audio.Object,
-                _gameProvider.Object,
-                _gameCategoryService.Object,
-                _cabinetDetectionService.Object,
-                _helpTextProvider.Object,
-                _hardwareHelper.Object,
-                null,
-                null);
-
-            Assert.IsNull(handler);
-        }
-
-        [TestMethod]
-        public void WhenParamsAreValidExpectSuccess()
-        {
-            var handler = new ConfigureClientCommandHandler(
-                _runtime.Object,
-                _gameHistory.Object,
-                _gameRecovery.Object,
-                _gameDiagnostic.Object,
-                _lobbyStateManager.Object,
-                _propertiesManager.Object,
-                _playerBank.Object,
-                _audio.Object,
-                _gameProvider.Object,
-                _gameCategoryService.Object,
-                _cabinetDetectionService.Object,
-                _helpTextProvider.Object,
-                _hardwareHelper.Object,
-                _attendantService.Object,
-                _gameConfiguration.Object);
-
-            Assert.IsNotNull(handler);
-        }
-
-        [DataRow(GameStartMethodOption.Bet, "Bet, MaxBet")]
-        [DataRow(GameStartMethodOption.LineOrReel, "Line, MaxBet")]
+        [DataRow(GameStartMethodOption.BetOrMaxBet, "Bet, MaxBet")]
+        [DataRow(GameStartMethodOption.LineReelOrMaxBet, "Line, MaxBet")]
+        [DataRow(GameStartMethodOption.Bet, "Bet")]
+        [DataRow(GameStartMethodOption.LineOrReel, "Line")]
         [DataRow(GameStartMethodOption.None, "")]
         [DataTestMethod]
         public void CheckGameStartMethod(GameStartMethodOption param, string expectedResult)
@@ -443,10 +207,11 @@
                         It.IsAny<IDictionary<string, string>>(),
                         ConfigurationTarget.GameConfiguration))
                 .Callback<IDictionary<string, string>, ConfigurationTarget>(
-                    (dictionary, target) => localDict = dictionary);
+                    (dictionary, _) => localDict = dictionary);
 
             var handler = new ConfigureClientCommandHandler(
                 _runtime.Object,
+                _handCount.Object,
                 _gameHistory.Object,
                 _gameRecovery.Object,
                 _gameDiagnostic.Object,
@@ -457,7 +222,6 @@
                 _gameProvider.Object,
                 _gameCategoryService.Object,
                 _cabinetDetectionService.Object,
-                _helpTextProvider.Object,
                 _hardwareHelper.Object,
                 _attendantService.Object,
                 _gameConfiguration.Object);
@@ -484,10 +248,11 @@
                         It.IsAny<IDictionary<string, string>>(),
                         ConfigurationTarget.GameConfiguration))
                 .Callback<IDictionary<string, string>, ConfigurationTarget>(
-                    (dictionary, target) => localDict = dictionary);
+                    (dictionary, _) => localDict = dictionary);
 
             var handler = new ConfigureClientCommandHandler(
                 _runtime.Object,
+                _handCount.Object,
                 _gameHistory.Object,
                 _gameRecovery.Object,
                 _gameDiagnostic.Object,
@@ -498,7 +263,6 @@
                 _gameProvider.Object,
                 _gameCategoryService.Object,
                 _cabinetDetectionService.Object,
-                _helpTextProvider.Object,
                 _hardwareHelper.Object,
                 _attendantService.Object,
                 _gameConfiguration.Object);
@@ -529,10 +293,11 @@
                         It.IsAny<IDictionary<string, string>>(),
                         ConfigurationTarget.GameConfiguration))
                 .Callback<IDictionary<string, string>, ConfigurationTarget>(
-                    (dictionary, target) => localDict = dictionary);
+                    (dictionary, _) => localDict = dictionary);
 
             var handler = new ConfigureClientCommandHandler(
                 _runtime.Object,
+                _handCount.Object,
                 _gameHistory.Object,
                 _gameRecovery.Object,
                 _gameDiagnostic.Object,
@@ -543,7 +308,6 @@
                 _gameProvider.Object,
                 _gameCategoryService.Object,
                 _cabinetDetectionService.Object,
-                _helpTextProvider.Object,
                 _hardwareHelper.Object,
                 _attendantService.Object,
                 _gameConfiguration.Object);
@@ -571,10 +335,11 @@
                         It.IsAny<IDictionary<string, string>>(),
                         ConfigurationTarget.GameConfiguration))
                 .Callback<IDictionary<string, string>, ConfigurationTarget>(
-                    (dictionary, target) => localDict = dictionary);
+                    (dictionary, _) => localDict = dictionary);
 
             var handler = new ConfigureClientCommandHandler(
                 _runtime.Object,
+                _handCount.Object,
                 _gameHistory.Object,
                 _gameRecovery.Object,
                 _gameDiagnostic.Object,
@@ -585,7 +350,6 @@
                 _gameProvider.Object,
                 _gameCategoryService.Object,
                 _cabinetDetectionService.Object,
-                _helpTextProvider.Object,
                 _hardwareHelper.Object,
                 _attendantService.Object,
                 _gameConfiguration.Object);

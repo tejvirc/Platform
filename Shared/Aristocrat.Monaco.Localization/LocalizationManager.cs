@@ -21,8 +21,7 @@
         private readonly ILocalizationClient _client;
         private readonly CustomResxLocalizationProvider _provider;
 
-        private readonly List<(string Assembly, string Dictionary)> _resources =
-            new List<(string Assembly, string Dictionary)>();
+        private readonly List<(string Assembly, string Dictionary)> _resources = new();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="LocalizationManager"/> class.
@@ -69,6 +68,12 @@
             LocalizationEventManager.Start();
 
             _provider.UpdateCultureList(resourceAssembly, resourceDictionary, assemblyName.Name);
+        }
+
+        /// <inheritdoc />
+        public void LoadResources(string resourceDictionary)
+        {
+            LoadResources(Assembly.GetExecutingAssembly(), resourceDictionary);
         }
 
         /// <inheritdoc />

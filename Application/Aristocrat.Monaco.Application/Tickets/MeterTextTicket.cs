@@ -2,24 +2,33 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Text.RegularExpressions;
     using Contracts;
     using Contracts.Extensions;
     using Contracts.Localization;
+    using Contracts.OperatorMenu;
     using Contracts.Tickets;
     using Hardware.Contracts.NoteAcceptor;
+    using Kernel;
     using Monaco.Localization.Properties;
 
     public class MeterTextTicket : TextTicket
     {
         public const int Master = 0;
         public const int Period = 1;
+
         private const decimal MillicentDivisor = 100000L;
         private const string VoucherIn = "System.VoucherIn";
         private const string Count = "Count";
         private const string Value = "Value";
+        private IOperatorMenuConfiguration _operatorMenuConfig;
+        private IMeterManager _meterManager;
+        private readonly bool _voucherInEnabled;
+
+        protected const string CoinDenominationsPropertyKey = "CoinDenominations";
+        protected static Collection<int> CoinDenominations = new Collection<int>();
 
         protected static readonly string[] MeterInNames =
         {
@@ -32,16 +41,26 @@
             : base(Localizer.For(CultureFor.OperatorTicket))
         {
             Title = string.Empty;
-
-            if (!CoinInMeterNames.Any())
+            if (!CoinDenominations.Any())
             {
-                CoinInMeterNames.Add(
-                    TicketLocalizer.FormatString(ResourceKeys.CoinInFormat) + " " + 1.FormattedCurrencyString("C0"),
-                    "CoinCount1s");
-                CoinInMeterNames.Add(
-                    TicketLocalizer.FormatString(ResourceKeys.CoinInFormat) + " " + 2.FormattedCurrencyString("C0"),
-                    "CoinCount2s");
+                CoinDenominations = PropertiesManager.GetValue(CoinDenominationsPropertyKey, new Collection<int> { 1, 2 });
             }
+
+
+            // Need to reset these meter names if the language changed
+            if (!CoinInMeterNames.Any(pair => pair.Key.Contains(TicketLocalizer.GetString(ResourceKeys.CoinInFormat))))
+            {
+                CoinInMeterNames.Clear();
+                foreach (var denomination in CoinDenominations)
+                {
+                    CoinInMeterNames.Add(
+                        $"{TicketLocalizer.FormatString(ResourceKeys.CoinInFormat)} {denomination.FormattedCurrencyString("C0")}",
+                        $"CoinCount{denomination}s"
+                        );
+                }
+            }
+
+            _voucherInEnabled = PropertiesManager?.GetValue(VoucherIn, false) ?? false;
         }
 
         /// <summary>
@@ -52,10 +71,20 @@
             get
             {
                 var noteAcceptor = Kernel.ServiceManager.GetInstance().TryGetService<INoteAcceptor>();
+                var properties = Kernel.ServiceManager.GetInstance().TryGetService<Kernel.IPropertiesManager>();
+
+                // Can't use TicketLocalizer here due to static property
+                var localizer =
+                    properties?.GetValue(
+                        ApplicationConstants.LocalizationOperatorTicketLanguageSettingOperatorOverride,
+                        false) ?? false
+                        ? Localizer.For(CultureFor.Operator)
+                        : Localizer.For(CultureFor.OperatorTicket) ?? Localizer.For(CultureFor.OperatorTicket);
+
                 if (noteAcceptor != null)
                 {
                     return noteAcceptor.Denominations.ToDictionary(
-                        denom => Localizer.For(CultureFor.OperatorTicket).FormatString(ResourceKeys.BillInFormat) +
+                        denom => localizer.FormatString(ResourceKeys.BillInFormat) +
                                  " " + denom.FormattedCurrencyString("C0"),
                         denom => "BillCount" + denom + "s");
                 }
@@ -63,6 +92,10 @@
                 return new Dictionary<string, string>();
             }
         }
+
+        protected IOperatorMenuConfiguration OperatorMenuConfig => _operatorMenuConfig ??= ServiceManager.TryGetService<IOperatorMenuConfiguration>();
+
+        protected IMeterManager MeterManager => _meterManager ??= ServiceManager.TryGetService<IMeterManager>();
 
         /// <summary>
         ///     Gets the interface this service implements and exposes as a service
@@ -84,54 +117,7 @@
             return value / MillicentDivisor;
         }
 
-        public Tuple<string, long[]> FillInCurrencyInfo(
-            int denomination,
-            CurrencyType currencyType,
-            long[] counts,
-            long[] totals)
-        {
-            // add the denominations to the denominations stack panel as a currency type
-            var label = string.Format(
-                TicketLocalizer.CurrentCulture,
-                "{0} {1:C0}",
-                currencyType == CurrencyType.Bill
-                    ? TicketLocalizer.GetString(ResourceKeys.BillEventsLogsWindowTitle)
-                    : TicketLocalizer.GetString(ResourceKeys.CoinInText),
-                denomination);
-
-            // get the bill count for this denomination from the meter
-            var meterManager = ServiceManager.GetService<IMeterManager>();
-
-            // This is the assumption asserted above - that "BillCount" for counting bills in will have
-            // a corresponding "CoinCount" meter to track inserted coins.
-            var meterPrefix = currencyType == CurrencyType.Bill ? "BillCount" : "CoinCount";
-
-            IMeter currencyMeter = null;
-            var meterName = meterPrefix + denomination.ToString(CultureInfo.InvariantCulture) + "s";
-
-            if (meterManager.IsMeterProvided(meterName))
-            {
-                currencyMeter = meterManager.GetMeter(meterName);
-            }
-
-            var periodCount = currencyMeter?.Period ?? 0L;
-            var masterCount = currencyMeter?.Lifetime ?? 0L;
-
-            var returnValue = new Tuple<string, long[]>(
-                label,
-                new[] { masterCount * denomination, periodCount * denomination });
-
-            counts[Master] += masterCount;
-            totals[Master] += returnValue.Item2[Master];
-
-            counts[Period] += periodCount;
-            totals[Period] += returnValue.Item2[Period];
-
-            return returnValue;
-        }
-
-        protected static void PopulateValidMeters(
-            IMeterManager meterManager,
+        protected void PopulateValidMeters(
             ref long masterCount,
             Dictionary<string, string> meterNames,
             IDictionary<string, long> lifetimeCountDictionary,
@@ -143,9 +129,9 @@
                 long l = 0;
                 long p = 0;
 
-                if (meterManager.IsMeterProvided(nameDict.Value))
+                if (MeterManager.IsMeterProvided(nameDict.Value))
                 {
-                    var meter = meterManager.GetMeter(nameDict.Value);
+                    var meter = MeterManager.GetMeter(nameDict.Value);
                     l = meter.Lifetime;
                     p = meter.Period;
                     masterCount += meter.Lifetime;
@@ -221,134 +207,206 @@
                 if (countLine)
                 {
                     AddLine(
-                        string.Format(NumberFormatInfo.CurrentInfo, "{0}", masterCount),
+                        string.Format(TicketLocalizer.CurrentCulture.NumberFormat, "{0}", masterCount),
                         dict.Key,
-                        string.Format(NumberFormatInfo.CurrentInfo, "{0}", periodCount));
+                        string.Format(TicketLocalizer.CurrentCulture.NumberFormat, "{0}", periodCount));
                 }
                 else
                 {
-                    AddLine(masterV.FormattedCurrencyString(), dict.Key, periodV.FormattedCurrencyString());
+                    AddLine(
+                        masterV.FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture),
+                        dict.Key,
+                        periodV.FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture));
                 }
             }
         }
 
-        protected void TicketPageContent(bool showCountLines)
-        {
-            long countMaster = 0;
-            long countPeriod = 0;
-            long totalBillInMaster = 0;
-            long totalBillInPeriod = 0;
 
-            var meterManager = ServiceManager.GetService<IMeterManager>();
+        protected void TicketPageContent(bool useCountLines, bool showGameData, bool showCoinData = false)
+        {
+            var countMaster = 0L;
+            var countPeriod = 0L;
+            var totalCoinInMaster = 0L;
+            var totalCoinInPeriod = 0L;
+            var totalBillInMaster = 0L;
+            var totalBillInPeriod = 0L;
             var moneyInLifetimeCountDictionary = new Dictionary<string, long>();
             var moneyInCountPeriodDictionary = new Dictionary<string, long>();
 
-            PopulateValidMeters(
-                meterManager,
-                ref countMaster,
-                CoinInMeterNames,
-                moneyInLifetimeCountDictionary,
-                moneyInCountPeriodDictionary,
-                ref countPeriod);
+            if (showCoinData)
+            {
+                TicketPageCoinContent();
+            }
 
             moneyInLifetimeCountDictionary.Clear();
             moneyInCountPeriodDictionary.Clear();
             countMaster = 0;
             countPeriod = 0;
 
-            PopulateValidMeters(
-                meterManager,
-                ref countMaster,
-                BillInMeterNames,
-                moneyInLifetimeCountDictionary,
-                moneyInCountPeriodDictionary,
-                ref countPeriod);
+            TicketPageBillContent();
 
-            AddLine(
-                string.Format(NumberFormatInfo.CurrentInfo, "{0:N0}", countMaster),
-                TicketLocalizer.GetString(ResourceKeys.NumberOfBillsInserted),
-                string.Format(NumberFormatInfo.CurrentInfo, "{0:N0}", countPeriod));
-
-            /*Add txt to the left string which will be displayed on the left side of the ticket*/
-            AddTicketText(
-                moneyInLifetimeCountDictionary,
-                moneyInCountPeriodDictionary,
-                ref totalBillInMaster,
-                ref totalBillInPeriod,
-                showCountLines);
-
-            AddLine(
-                totalBillInMaster.FormattedCurrencyString(),
-                TicketLocalizer.GetString(ResourceKeys.TotalDashBillIn),
-                totalBillInPeriod.FormattedCurrencyString());
-
-            AddDashesLine();
-
-            VoucherData(meterManager);
-
-            GameData(meterManager);
-        }
-
-        protected void VoucherData(IMeterManager meterManager)
-        {
-            var voucherInEnabled = (bool)PropertiesManager.GetProperty(VoucherIn, false);
-
-            if (voucherInEnabled)
+            if (showCoinData)
             {
-                //voucher in 
-                long totalVoucherInCountM = 0;
-                long totalVoucherInCountP = 0;
-                double totalVoucherInValueM = 0;
-                double totalVoucherInValueP = 0;
 
-                foreach (var name in MeterInNames)
-                {
-                    var meter = meterManager.GetMeter(name + Count);
-                    totalVoucherInCountM += meter.Lifetime;
-                    totalVoucherInCountP += meter.Period;
-
-                    var value = meterManager.GetMeter(name + Value);
-                    totalVoucherInValueM += value.Lifetime;
-                    totalVoucherInValueP += value.Period;
-                }
+                var sumCoinsAndBillsMaster = totalBillInMaster + totalCoinInMaster;
+                var sumCoinsAndBillsPeriod = totalBillInPeriod + totalCoinInPeriod;
 
                 AddLine(
-                    string.Format(NumberFormatInfo.CurrentInfo, "{0:N0}", totalVoucherInCountM),
-                    TicketLocalizer.GetString(ResourceKeys.VoucherInTickets),
-                    string.Format(NumberFormatInfo.CurrentInfo, "{0:N0}", totalVoucherInCountP));
+                    sumCoinsAndBillsMaster.FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture),
+                    TicketLocalizer.GetString(ResourceKeys.TotalDashCoinsAndBills),
+                    sumCoinsAndBillsPeriod.FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture));
+            }
 
-                var multiplier = 1.0 / (double)PropertiesManager.GetProperty(
-                    ApplicationConstants.CurrencyMultiplierKey,
-                    null);
+            if (_voucherInEnabled)
+            {
+                VoucherData();
+
+                var (_, _, ValueMaster, ValuePeriod) = GetVoucherInMeterData();
+                var valueSumMaster = ValueMaster + totalBillInMaster + totalCoinInMaster;
+                var valueSumPeriod = ValuePeriod + totalBillInPeriod + totalCoinInPeriod;
+
+                var localizedFieldName = TicketLocalizer.GetString(
+                    showCoinData ?
+                    ResourceKeys.TotalDashCoinsBillsAndVouchers :
+                    ResourceKeys.TotalDashBillsAndVouchers);
+
                 AddLine(
-                    (totalVoucherInValueM * multiplier).FormattedCurrencyString(),
-                    TicketLocalizer.GetString(ResourceKeys.VoucherInAmount),
-                    (totalVoucherInValueP * multiplier).FormattedCurrencyString());
+                    valueSumMaster.FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture),
+                    localizedFieldName,
+                    valueSumPeriod.FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture));
+            }
 
-                AddDashesLine();
+            AddDashesLine(); // Add dashes here to group money-in fields together
+
+            if (showGameData)
+            {
+                GameData();
+            }
+
+            void TicketPageCoinContent()
+            {    
+
+
+                PopulateValidMeters(
+                    ref countMaster,
+                    CoinInMeterNames,
+                    moneyInLifetimeCountDictionary,
+                    moneyInCountPeriodDictionary,
+                    ref countPeriod);
+
+                AddLine(
+                    string.Format(TicketLocalizer.CurrentCulture.NumberFormat, "{0:N0}", countMaster),
+                    TicketLocalizer.GetString(ResourceKeys.NumCoinsInText),
+                    string.Format(TicketLocalizer.CurrentCulture.NumberFormat, "{0:N0}", countPeriod));
+
+                AddTicketText(
+                    moneyInLifetimeCountDictionary,
+                    moneyInCountPeriodDictionary,
+                    ref totalCoinInMaster,
+                    ref totalCoinInPeriod,
+                    useCountLines);
+
+                AddLine(
+                    totalCoinInMaster.FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture),
+                    TicketLocalizer.GetString(ResourceKeys.TotalDashCoinIn),
+                    totalCoinInPeriod.FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture));
+            }
+
+            void TicketPageBillContent()
+            {
+
+                PopulateValidMeters(
+                    ref countMaster,
+                    BillInMeterNames,
+                    moneyInLifetimeCountDictionary,
+                    moneyInCountPeriodDictionary,
+                    ref countPeriod);
+
+                AddLine(
+                    string.Format(TicketLocalizer.CurrentCulture.NumberFormat, "{0:N0}", countMaster),
+                    TicketLocalizer.GetString(ResourceKeys.NumberOfBillsInserted),
+                    string.Format(TicketLocalizer.CurrentCulture.NumberFormat, "{0:N0}", countPeriod));
+
+                /*Add txt to the left string which will be displayed on the left side of the ticket*/
+                AddTicketText(
+                    moneyInLifetimeCountDictionary,
+                    moneyInCountPeriodDictionary,
+                    ref totalBillInMaster,
+                    ref totalBillInPeriod,
+                    useCountLines);
+
+                AddLine(
+                    totalBillInMaster.FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture),
+                    TicketLocalizer.GetString(ResourceKeys.TotalDashBillIn),
+                    totalBillInPeriod.FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture));
             }
         }
 
-        protected void GameData(IMeterManager meterManager)
+        protected void VoucherData()
+        {
+            //voucher in
+            if (_voucherInEnabled)
+            {
+                var (CountMaster, CountPeriod, ValueMaster, ValuePeriod) = GetVoucherInMeterData();
+
+                AddLine(
+                    string.Format(TicketLocalizer.CurrentCulture.NumberFormat, "{0:N0}", CountMaster),
+                    TicketLocalizer.GetString(ResourceKeys.VoucherInTickets),
+                    string.Format(TicketLocalizer.CurrentCulture.NumberFormat, "{0:N0}", CountPeriod));
+
+                AddLine(
+                    ValueMaster.FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture),
+                    TicketLocalizer.GetString(ResourceKeys.VoucherInAmount),
+                    ValuePeriod.FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture));
+            }
+
+        }
+
+        protected void GameData()
         {
             //games played/won
-            var playedCount = meterManager.IsMeterProvided("PlayedCount") ? meterManager.GetMeter("PlayedCount") : null;
-            var masterPowerOffPlayedCount = GetAssociatedPowerOffMeterValue(meterManager, "PlayedCount", false);
-            var periodPowerOffPlayedCount = GetAssociatedPowerOffMeterValue(meterManager, "PlayedCount", true);
+            var playedCount = MeterManager.IsMeterProvided("PlayedCount") ? MeterManager.GetMeter("PlayedCount") : null;
+            var masterPowerOffPlayedCount = GetAssociatedPowerOffMeterValue(MeterManager, "PlayedCount", false);
+            var periodPowerOffPlayedCount = GetAssociatedPowerOffMeterValue(MeterManager, "PlayedCount", true);
             AddLine(
                 playedCount?.Classification.CreateValueString(playedCount.Lifetime + masterPowerOffPlayedCount) ?? "0",
                 TicketLocalizer.GetString(ResourceKeys.GamesPlayed),
                 playedCount?.Classification.CreateValueString(playedCount.Period + periodPowerOffPlayedCount) ?? "0");
 
-            var wonCount = meterManager.IsMeterProvided("WonCount") ? meterManager.GetMeter("WonCount") : null;
-            var masterPowerOffWonCount = GetAssociatedPowerOffMeterValue(meterManager, "WonCount", false);
-            var periodPowerOffWonCount = GetAssociatedPowerOffMeterValue(meterManager, "WonCount", true);
+            var wonCount = MeterManager.IsMeterProvided("WonCount") ? MeterManager.GetMeter("WonCount") : null;
+            var masterPowerOffWonCount = GetAssociatedPowerOffMeterValue(MeterManager, "WonCount", false);
+            var periodPowerOffWonCount = GetAssociatedPowerOffMeterValue(MeterManager, "WonCount", true);
             AddLine(
                 wonCount?.Classification.CreateValueString(wonCount.Lifetime + masterPowerOffWonCount) ?? "0",
                 TicketLocalizer.GetString(ResourceKeys.GamesWon),
                 wonCount?.Classification.CreateValueString(wonCount.Period + periodPowerOffWonCount) ?? "0");
+        }
 
-            AddDashesLine();
+        protected (long CountMaster, long CountPeriod, double ValueMaster, double ValuePeriod) GetVoucherInMeterData()
+        {
+            long totalVoucherInCountM = 0;
+            long totalVoucherInCountP = 0;
+            double totalVoucherInValueM = 0;
+            double totalVoucherInValueP = 0;
+            var multiplier = 1.0 / (double)PropertiesManager.GetProperty(
+                ApplicationConstants.CurrencyMultiplierKey,
+                ApplicationConstants.DefaultCurrencyMultiplier);
+
+            foreach (var name in MeterInNames)
+            {
+                var meter = MeterManager.GetMeter(name + Count);
+                totalVoucherInCountM += meter.Lifetime;
+                totalVoucherInCountP += meter.Period;
+
+                var value = MeterManager.GetMeter(name + Value);
+                totalVoucherInValueM += value.Lifetime;
+                totalVoucherInValueP += value.Period;
+            }
+
+            totalVoucherInValueM *= multiplier;
+            totalVoucherInValueP *= multiplier;
+
+            return (totalVoucherInCountM, totalVoucherInCountP, totalVoucherInValueM, totalVoucherInValueP);
         }
     }
 }

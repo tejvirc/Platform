@@ -156,6 +156,15 @@
             _eventBus?.UnsubscribeAll(this);
             _eventBus?.Subscribe<FakeDeviceConnectedEvent>(this, HandleEvent);
 
+            if (DeviceType == DeviceType.ReelController)
+            {
+                MvvmHelper.ExecuteOnUI(() =>
+                    {
+                        _simWindow?.Close();
+                    }
+                );
+            }
+
             return base.Close();
         }
 
@@ -322,7 +331,7 @@
                         Logger.Debug($"{DeviceType}/{BaseName} sim has {_reelCount} reels");
                         for (var reelNum = 0; reelNum < _reelCount; reelNum++)
                         {
-                            OnMessageReceived(new ReelStatus { ReelId = reelNum + 1, Connected = true });
+                            OnMessageReceived(new GdsReelStatus { ReelId = reelNum + 1, Connected = true });
                             OnMessageReceived(new ReelSpinningStatus { ReelId = reelNum + 1, IdleAtStop = true });
                         }
 

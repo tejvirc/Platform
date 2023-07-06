@@ -24,6 +24,9 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Skins\DSEG7Modern-Regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Aristocrat.Monaco.Gaming.UI.Config.addin.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -61,7 +64,7 @@
     <ProjectReference Include="..\..\Test\integration\DebugCurrencyHandler\DebugCurrencyHandler\DebugCurrencyHandler.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.15" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.22" />
     <PackageReference Include="Aristocrat.MVVM" Version="2.0.16" />
     <PackageReference Include="BinkWpf" Version="1.1.13" />
     <PackageReference Include="CefSharp.Wpf" Version="93.1.140" />
@@ -81,5 +84,8 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Windows.Presentation" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Skins\DSEG7Modern-Regular.ttf" />
   </ItemGroup>
 </Project>

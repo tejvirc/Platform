@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using Accounting.Contracts;
     using Application.Contracts.Extensions;
@@ -50,10 +50,10 @@
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.Button;
+    using Progressives;
     using Timers;
     using Utils;
     using Vgt.Client12.Application.OperatorMenu;
-    using Views.Controls;
     using Views.Lobby;
     using Size = System.Windows.Size;
 #if !(RETAIL)
@@ -124,6 +124,7 @@
         private readonly IAudio _audio;
         private readonly ICashoutController _cashoutController;
         private readonly IAttractConfigurationProvider _attractInfoProvider;
+        private readonly IProgressiveConfigurationProvider _progressiveProvider;
         private readonly IPlayerInfoDisplayManager _playerInfoDisplayManager;
         private readonly IReserveService _reserveService;
         // Broadcasting platform messages to a game
@@ -196,19 +197,21 @@
         private bool _gameLaunchOnStartup;
         private bool _isDebugCurrencyButtonVisible;
         private bool _disableDebugCurrency;
-        private bool _nextAttractModeLanguageIsPrimary = true;
-        private bool _lastInitialAttractModeLanguageIsPrimary = true;
+        private bool _nextAttractModeLanguageIsPrimary = true; // Whether the next played attract video is in the primary language
+        private bool _lastInitialAttractModeLanguageIsPrimary = true; // This keeps track of alternating the starting language for the attract video list
         private bool _initialLanguageEventSent;
         private bool _vbdServiceButtonDisabled;
         private bool _isDemonstrationMode;
         private bool _serviceButtonVisible;
         private bool _volumeButtonVisible;
+        private bool _overlimitCashoutProcessed;
         private string _bottomAttractVideoPath;
         private double _chooseGameOffsetY;
         private double _cashoutDialogOpacity;
         private bool _cashoutDialogHidden;
         private GameInfo _selectedGame;
         private bool _isInitialStartup = true;
+        private bool _isHandCountResetDialogOpen = false;
 
         private double _credits;
         private int _currentAttractIndex;
@@ -268,6 +271,8 @@
         private MenuSelectionPayOption _selectedMenuSelectionPayOption;
         private bool _vbdInfoBarOpenRequested;
         private bool _isGambleFeatureActive;
+        private int _handCount;
+        private readonly bool _handCountServiceEnabled;
 
         /****** UPI ******/
         /* TODO: Make UpiViewModel to break up this class */
@@ -292,7 +297,8 @@
                 ServiceManager.GetInstance().TryGetService<ICabinetDetectionService>(),
                 ServiceManager.GetInstance().TryGetService<IAudio>(),
                 ServiceManager.GetInstance().TryGetService<ICashoutController>(),
-                ServiceManager.GetInstance().TryGetService<IAttractConfigurationProvider>())
+                ServiceManager.GetInstance().TryGetService<IAttractConfigurationProvider>(),
+                ServiceManager.GetInstance().TryGetService<IProgressiveConfigurationProvider>())
         {
         }
 
@@ -316,7 +322,8 @@
             ICabinetDetectionService cabinetDetectionService,
             IAudio audio,
             ICashoutController cashoutController,
-            IAttractConfigurationProvider attractInfoProvider)
+            IAttractConfigurationProvider attractInfoProvider,
+            IProgressiveConfigurationProvider progressiveProvider)
         {
             if (buttonDeckDisplay == null)
             {
@@ -343,6 +350,7 @@
             _audio = audio ?? throw new ArgumentNullException(nameof(audio));
             _cashoutController = cashoutController ?? throw new ArgumentNullException(nameof(cashoutController));
             _attractInfoProvider = attractInfoProvider ?? throw new ArgumentNullException(nameof(attractInfoProvider));
+            _progressiveProvider = progressiveProvider ?? throw new ArgumentNullException(nameof(progressiveProvider));
             ProgressiveLabelDisplay = new ProgressiveLobbyIndicatorViewModel(this);
 
             _operatorMenu = containerService.Container.GetInstance<IOperatorMenuLauncher>();
@@ -431,6 +439,12 @@
             GameSelectCommand = new ActionCommand<object>(LaunchGameFromUi);
             PreviousPageCommand = new ActionCommand<object>(PrevPage);
             NextPageCommand = new ActionCommand<object>(NextPage);
+            PreviousTabCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.PreviousTab));
+            NextTabCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.NextTab));
+            PreviousGameCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.PreviousGame));
+            NextGameCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.NextGame));
+            ChangeDenomCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.ChangeDenom));
+            SelectGameCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.LaunchGame));
             AddCreditsCommand = new ActionCommand<object>(BankPressed);
             CashOutCommand = new ActionCommand<object>(CashOutPressed);
             ServiceCommand = new ActionCommand<object>(ServicePressed);
@@ -542,8 +556,13 @@
             _ageWarningTimer.AgeWarningNeeded = Config.DisplayAgeWarning && !_gameHistory.IsRecoveryNeeded && HasZeroCredits;
 
             SendLanguageChangedEvent(true);
-
+            _handCountServiceEnabled = _properties.GetValue(AccountingConstants.HandCountServiceEnabled, false);
             IsDemonstrationMode = _properties.GetValue(ApplicationConstants.DemonstrationMode, false);
+
+            if (_bank.QueryBalance() == 0 && _gameState.Idle && !_gameHistory.IsRecoveryNeeded)
+            {
+                IsPrimaryLanguageSelected = true;
+            }
 
             Volume = new LobbyVolumeViewModel(OnUserInteraction);
 
@@ -564,12 +583,12 @@
 
         public string VbdTitle => GamingConstants.VbdWindowTitle;
 
-        public bool IsTabView => _lobbyStateManager?.IsTabView ?? false;
+        public bool IsTabView => (_lobbyStateManager?.IsTabView ?? false) && !Config.MidKnightLobbyEnabled;
 
         /// <summary>
         ///     Is the current tab hosting extra large game icons
         /// </summary>
-        public bool IsExtraLargeGameIconTabActive => GameTabInfo.SelectedCategory == GameCategory.LightningLink;
+        public bool IsExtraLargeGameIconTabActive => IsTabView && GameTabInfo.SelectedCategory == GameCategory.LightningLink;
 
         /// <summary>
         ///     Gets the game selected command
@@ -585,6 +604,36 @@
         ///     Gets the next page command
         /// </summary>
         public ICommand NextPageCommand { get; }
+
+        /// <summary>
+        ///     Gets the Previous Tab command
+        /// </summary>
+        public ICommand PreviousTabCommand { get; set; }
+
+        /// <summary>
+        ///     Gets the Next Tab command
+        /// </summary>
+        public ICommand NextTabCommand { get; set; }
+
+        /// <summary>
+        ///     Gets the Previous Game command
+        /// </summary>
+        public ICommand PreviousGameCommand { get; set; }
+
+        /// <summary>
+        ///     Gets the Next Game command
+        /// </summary>
+        public ICommand NextGameCommand { get; set; }
+
+        /// <summary>
+        ///     Gets the Change Denom command
+        /// </summary>
+        public ICommand ChangeDenomCommand { get; set; }
+
+        /// <summary>
+        ///     Gets the Select Game command
+        /// </summary>
+        public ICommand SelectGameCommand { get; set; }
 
         /// <summary>
         ///     Gets the command to insert credits
@@ -722,6 +771,7 @@
                     RaisePropertyChanged(nameof(IsSingleTabView));
                     RaisePropertyChanged(nameof(IsSingleDenomDisplayed));
                     RaisePropertyChanged(nameof(IsSingleGameDisplayed));
+                    RaisePropertyChanged(nameof(NoGamesForThisLanguageErrorIsVisible));
                 }
             }
         }
@@ -753,6 +803,8 @@
             get => _multiLanguageEnabled;
             set => SetProperty(ref _multiLanguageEnabled, value);
         }
+
+        public bool NoGamesForThisLanguageErrorIsVisible => MultiLanguageEnabled && DisplayedGameList.Any() && DisplayedGameList.All(g => g.ImagePath == null);
 
         /// <summary>
         ///     Gets or sets a value indicating whether VBD rendering is disabled (as it is in system lockup).
@@ -891,7 +943,7 @@
         /// <summary>
         ///     Gets a value indicating whether the EGM has zero credits.
         /// </summary>
-        public bool HasZeroCredits => _credits.Equals(0.0);
+        public bool HasZeroCredits => _bank.QueryBalance() == 0;
 
         /// <summary>
         ///     Gets or sets the paid meter
@@ -1303,6 +1355,7 @@
 
                     OnLanguageChanged();
 
+                    CurrencyExtensions.UpdateCurrencyCulture();
                     RaisePropertyChanged(nameof(IsPrimaryLanguageSelected));
                     RaisePropertyChanged(nameof(ActiveLocaleCode));
                     RaisePropertyChanged(nameof(FormattedCredits));
@@ -1325,6 +1378,7 @@
         ///     Gets a value indicating whether the cash out button is enabled.
         /// </summary>
         public bool CashOutEnabled =>
+            !IsDisabledByHandCount() &&
             RedeemableCredits > 0.0 && !IsBottomLoadingScreenVisible &&
             !ContainsAnyState(LobbyState.CashOut, LobbyState.CashOutFailure, LobbyState.AgeWarningDialog) &&
             !MessageOverlayDisplay.ShowVoucherNotification;
@@ -1358,7 +1412,7 @@
         ///     True if the return to lobby button is enabled, false otherwise
         /// </summary>
         public bool ReturnToLobbyAllowed => (!_gameHistory.IsRecoveryNeeded && _gameState.Idle || _isGambleFeatureActive) && !_transferOutHandler.InProgress &&
-                                            !_gameHistory.HasPendingCashOut && !ContainsAnyState(LobbyState.Chooser);
+                                            !_gameHistory.HasPendingCashOut && !ContainsAnyState(LobbyState.Chooser) && !_lobbyStateManager.AllowSingleGameAutoLaunch;
 
         /// <summary>
         ///     Controls whether the machine can be put into reserve
@@ -1381,7 +1435,7 @@
             set
             {
                 _gameCount = value;
-                _lobbyStateManager.IsSingleGame = _lobbyStateManager.AllowGameInCharge || UniqueThemeIds <= 1;
+                _lobbyStateManager.IsSingleGame = UniqueThemeIds <= 1;
                 RaisePropertyChanged(nameof(GameCount));
                 RaisePropertyChanged(nameof(MarginInputs));
             }
@@ -1447,20 +1501,19 @@
             get
             {
                 var gameCount = DisplayedGameList?.Count ?? 0;
-                var (rows, cols) = IsExtraLargeGameIconTabActive
-                    ? GameRowColumnCalculator.ExtraLargeIconRowColCount
-                    : GameRowColumnCalculator.CalculateRowColCount(gameCount);
+                var gameControlHeight = GameControlHeight;
+                var gameIconSize = DisplayedGameList?.FirstOrDefault()?.GameIconSize ?? Size.Empty;
+                var anyVisibleGameHasProgressiveLabel = DisplayedGameList?.Any(x => x.HasProgressiveLabelDisplay) ?? false;
+                Logger.Debug($"MarginInputs: GameWindowHeight={gameControlHeight}, GameIconSize={gameIconSize}");
                 return new GameGridMarginInputs(
                     gameCount,
                     IsTabView,
                     GameTabInfo.SelectedSubTab?.IsVisible ?? false,
-                    DisplayedGameList?.Reverse().Take(rows <= 0 ? 0 : gameCount - ((rows - 1) * cols))
-                        .Any(x => x.HasProgressiveLabelDisplay) ?? false,
-                    GameControlHeight,
+                    anyVisibleGameHasProgressiveLabel,
+                    gameControlHeight,
                     IsExtraLargeGameIconTabActive,
-                    DisplayedGameList?.FirstOrDefault()?.GameIconSize ?? Size.Empty,
-                    ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelTwoEnabled,
-                    DisplayedGameList?.Any(g => g.HasProgressiveLabelDisplay) ?? false);
+                    gameIconSize,
+                    ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelTwoEnabled);
             }
         }
 
@@ -1500,10 +1553,11 @@
         }
 
         private bool ShowAttractMode => IsAttractEnabled()
-                                        && HasZeroCredits
+                                        && _lobbyStateManager.CanAttractModeStart
                                         && !IsIdleTextScrolling
                                         && !MessageOverlayDisplay.ShowVoucherNotification
                                         && !MessageOverlayDisplay.ShowProgressiveGameDisabledNotification
+                                        && !MessageOverlayDisplay.CustomMainViewElementVisible
                                         && !(_playerInfoDisplayManager?.IsActive()).GetValueOrDefault();
 
         public LobbyState CurrentState => _lobbyStateManager.CurrentState;
@@ -1589,7 +1643,7 @@
             set => SetProperty(ref _disableCountdownTimeRemaining, value);
         }
 
-        public string DisableCountdownMessage => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisableCountdownMessage);
+        public string DisableCountdownMessage => Localizer.For(CultureFor.Player).GetString(ResourceKeys.DisableCountdownMessage);
 
         public bool IsPaidMeterVisible => PaidMeterValue != string.Empty;
 
@@ -1612,9 +1666,9 @@
 
         private bool IsIdleTextScrolling => LobbyBannerDisplayMode == BannerDisplayMode.Scrolling;
 
-        public bool IsBlinkingIdleTextVisible => !IsIdleTextScrolling && (!Config.HideIdleTextOnCashIn || HasZeroCredits) && !IsTabView;
+        public bool IsBlinkingIdleTextVisible => !IsIdleTextScrolling && (!Config.HideIdleTextOnCashIn || HasZeroCredits) && !IsTabView && !Config.MidKnightLobbyEnabled;
 
-        public bool IsScrollingIdleTextEnabled => IsIdleTextScrolling && (!Config.HideIdleTextOnCashIn || HasZeroCredits) && !IsTabView;
+        public bool IsScrollingIdleTextEnabled => IsIdleTextScrolling && (!Config.HideIdleTextOnCashIn || HasZeroCredits) && !IsTabView && !Config.MidKnightLobbyEnabled;
 
         public bool IsIdleTextBlinking => IsInLobby && !IsInState(LobbyState.Disabled);
 
@@ -1628,7 +1682,7 @@
             set => SetProperty(ref _isDisabledCountdownMessageSuppressed, value);
         }
 
-        public string PaidMeterLabel => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PaidMeterLabel);
+        public string PaidMeterLabel => Localizer.For(CultureFor.Player).GetString(ResourceKeys.PaidMeterLabel);
 
         public ClockTimer ClockTimer { get; }
 
@@ -1721,6 +1775,24 @@
         public bool IsSingleGameMode => (_lobbyStateManager?.AllowGameInCharge ?? false) && UniqueThemeIds <= 1;
 
         private int UniqueThemeIds => (GameList?.Where(g => g.Enabled).Select(o => o.ThemeId).Distinct().Count() ?? 0);
+
+        /// <summary>
+        /// Display Hand count for Georgia COAM jurisdiction
+        /// </summary>
+        public int HandCount
+        {
+            get => _handCount;
+            set
+            {
+                if (_handCount.Equals(value))
+                {
+                    return;
+                }
+                _handCount = value;
+                RaisePropertyChanged(nameof(HandCount));
+                RaisePropertyChanged(nameof(CashOutEnabled));
+            }
+        }
 
         /// <summary>
         ///     Dispose
@@ -1829,7 +1901,7 @@
             var idleText = (string)_properties.GetProperty(GamingConstants.IdleText, string.Empty);
             if (string.IsNullOrWhiteSpace(IdleText))
             {
-                idleText = (string)LobbyView.TryFindResource(LobbyIdleTextDefaultResourceKey) ?? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.IdleTextDefault);
+                idleText = (string)LobbyView.TryFindResource(LobbyIdleTextDefaultResourceKey) ?? Localizer.For(CultureFor.Player).GetString(ResourceKeys.IdleTextDefault);
                 _properties.SetProperty(GamingConstants.IdleText, idleText);
             }
 
@@ -1933,7 +2005,9 @@
 
             _operatorMenu.EnableKey(ApplicationConstants.OperatorMenuInitializationKey);
 
-            if ((bool)_properties.GetProperty(ApplicationConstants.ShowMode, false))
+            var showMode = (bool)_properties.GetProperty(ApplicationConstants.ShowMode, false);
+
+            if (showMode)
             {
                 SetShowModeLobbyLabel();
 #if !(RETAIL)
@@ -1942,7 +2016,7 @@
             }
 
             var drm = ServiceManager.GetInstance().TryGetService<IDigitalRights>();
-            if (drm?.IsDeveloper ?? false)
+            if (!showMode && (drm?.IsDeveloper ?? false))
             {
                 SetShowDeveloperLabel();
             }
@@ -1976,9 +2050,9 @@
             var gameList = GetOrderedGames(games);
 
             GameTabInfo.SetupGameTypeTabs(gameList);
-            ProgressiveLabelDisplay.UpdateProgressiveIndicator(gameList);
-
             GameList = gameList;
+            ProgressiveLabelDisplay.UpdateProgressiveIndicator(gameList);
+            EvaluateGamesForNew();
         }
 
         private void DisplayNotificationMessage(DisplayableMessage displayableMessage)
@@ -2038,8 +2112,7 @@
                                   TopperAttractVideoPath = game.LocaleGraphics[ActiveLocaleCode].TopperAttractVideo,
                                   BottomAttractVideoPath = game.LocaleGraphics[ActiveLocaleCode].BottomAttractVideo,
                                   LoadingScreenPath = game.LocaleGraphics[ActiveLocaleCode].LoadingScreen,
-                                  HasProgressiveOrBonusValue = !string.IsNullOrEmpty(game.DisplayMeterName),
-                                  ProgressiveOrBonusValue = GetProgressiveOrBonusValue(game.Id, denom),
+                                  ProgressiveOrBonusValue = GetProgressiveOrBonusValue(game.Id, denom, game.Denominations.Single(d => d.Value == denom).BetOption),
                                   ProgressiveIndicator = ProgressiveLobbyIndicator.Disabled,
                                   Denomination = denom,
                                   BetOption = game.Denominations.Single(d => d.Value == denom).BetOption,
@@ -2059,7 +2132,7 @@
                               }).ToList();
 
             return new ObservableCollection<GameInfo>(
-                gameCombos.OrderBy(game => _gameOrderSettings.GetPositionPriority(game.ThemeId))
+                gameCombos.OrderBy(game => _gameOrderSettings.GetIconPositionPriority(game.ThemeId))
                     .ThenBy(g => g.Denomination));
         }
 
@@ -2067,8 +2140,19 @@
         {
             var distinctThemeGames = games.GroupBy(p => p.ThemeId).Select(g => g.FirstOrDefault(e => e.Active)).ToList();
 
-            _gameOrderSettings.SetGameOrderFromConfig(distinctThemeGames.Select(g => (new GameInfo { InstallDateTime = g.InstallDate, ThemeId = g.ThemeId }) as IGameInfo).ToList(),
-                Config.DefaultGameDisplayOrderByThemeId.ToList());
+            var lightningLinkEnabled = distinctThemeGames.Any(g => g.EgmEnabled && g.Enabled && g.Category == GameCategory.LightningLink);
+
+            var lightningLinkOrder = lightningLinkEnabled
+                                         ? Config.DefaultGameOrderLightningLinkEnabled
+                                         : Config.DefaultGameOrderLightningLinkDisabled;
+
+            var defaultList = lightningLinkOrder ?? Config.DefaultGameDisplayOrderByThemeId;
+
+
+            _gameOrderSettings.SetAttractOrderFromConfig(distinctThemeGames.Select(g => new GameInfo { InstallDateTime = g.InstallDate, ThemeId = g.ThemeId } as IGameInfo).ToList(),
+                                                      defaultList);
+            _gameOrderSettings.SetIconOrderFromConfig(distinctThemeGames.Select(g => new GameInfo { InstallDateTime = g.InstallDate, ThemeId = g.ThemeId } as IGameInfo).ToList(),
+                Config.DefaultGameDisplayOrderByThemeId);
         }
 
         /// <summary>
@@ -2079,37 +2163,44 @@
         {
             OnUserInteraction();
             PlayAudioFile(Sound.Touch);
-            if (info is GameInfo game)
+            if (info is not GameInfo game)
             {
-                if (IsTabView)
-                {
-                    SetSelectedGame(game);
-                }
+                game = _selectedGame;
+            }
 
-                if (CurrentState == LobbyState.AgeWarningDialog)
+            if (game == null)
+            {
+                return;
+            }
+
+            if (IsTabView)
+            {
+                SetSelectedGame(game);
+            }
+
+            if (CurrentState == LobbyState.AgeWarningDialog)
+            {
+                _launchGameAfterAgeWarning = game;
+            }
+            else
+            {
+                if (_systemDisableManager.IsDisabled && CurrentState != LobbyState.Disabled && !_gameRecovery.IsRecovering)
                 {
-                    _launchGameAfterAgeWarning = game;
+                    Logger.Debug("LaunchGameFromUi triggering disable instead of game launch");
+                    SendTrigger(LobbyTrigger.Disable);
                 }
                 else
                 {
-                    if (_systemDisableManager.IsDisabled && CurrentState != LobbyState.Disabled && !_gameRecovery.IsRecovering)
+                    _lobbyStateManager.AllowGameAutoLaunch = !_systemDisableManager.DisableImmediately;
+
+                    Logger.Debug($"LaunchGameFromUI. GameReady={GameReady}. CurrentState={CurrentState}.");
+                    if (!GameReady && !IsInState(LobbyState.GameLoading)) // GameReady will be true if game process has not exited
                     {
-                        Logger.Debug("LaunchGameFromUi triggering disable instead of game launch");
-                        SendTrigger(LobbyTrigger.Disable);
+                        SendTrigger(LobbyTrigger.LaunchGame, game);
                     }
                     else
                     {
-                        _lobbyStateManager.AllowGameAutoLaunch = !_systemDisableManager.DisableImmediately;
-
-                        Logger.Debug($"LaunchGameFromUI. GameReady={GameReady}. CurrentState={CurrentState}.");
-                        if (!GameReady && !IsInState(LobbyState.GameLoading)) // GameReady will be true if game process has not exited
-                        {
-                            SendTrigger(LobbyTrigger.LaunchGame, game);
-                        }
-                        else
-                        {
-                            Logger.Debug("Rejecting Game Launch because runtime process has not yet exited.");
-                        }
+                        Logger.Debug("Rejecting Game Launch because runtime process has not yet exited.");
                     }
                 }
             }
@@ -2341,12 +2432,13 @@
             // Update any progressive values displayed the lobby each time we enter the lobby
             foreach (var game in GameList)
             {
-                game.ProgressiveOrBonusValue = GetProgressiveOrBonusValue(game.GameId, game.Denomination);
+                game.ProgressiveOrBonusValue = GetProgressiveOrBonusValue(game.GameId, game.Denomination, game.BetOption);
                 ProgressiveLabelDisplay.UpdateGameProgressiveText(game);
                 ProgressiveLabelDisplay.UpdateGameAssociativeSapText(game);
             }
 
             ProgressiveLabelDisplay.UpdateMultipleGameAssociativeSapText();
+            RaisePropertyChanged(nameof(MarginInputs));
 
             UpdateLamps();
             UpdateLcdButtonDeckRenderSetting(true);
@@ -2450,21 +2542,21 @@
             StopAndUnloadAttractVideo();
 
             // Increment to next attract mode video.
-            bool wrap = AdvanceAttractIndex();
+            var wrap = AdvanceAttractIndex();
             if (Config.AlternateAttractModeLanguage)
             {
-                _nextAttractModeLanguageIsPrimary = !_nextAttractModeLanguageIsPrimary;
+                if (wrap)
+                {
+                    _nextAttractModeLanguageIsPrimary = !_lastInitialAttractModeLanguageIsPrimary;
+                    _lastInitialAttractModeLanguageIsPrimary = _nextAttractModeLanguageIsPrimary;
+                }
+                else
+                {
+                    _nextAttractModeLanguageIsPrimary = !_nextAttractModeLanguageIsPrimary;
+                }
             }
 
             SetEdgeLighting();
-
-            if (wrap && Config.AlternateAttractModeLanguage)
-            {
-                _nextAttractModeLanguageIsPrimary = !_lastInitialAttractModeLanguageIsPrimary;
-                _lastInitialAttractModeLanguageIsPrimary = _nextAttractModeLanguageIsPrimary;
-            }
-
-            SetAttractVideos();
 
             _consecutiveAttractCount = 0;
 
@@ -2865,6 +2957,11 @@
                 ShowVbdServiceConfirmationDialog(false);
             }
 
+            if (CurrentState == LobbyState.Chooser && !_gameHistory.IsRecoveryNeeded)
+            {
+                _recoveryOnStartup = false;
+            }
+
             SetLobbyFlags();
 
             if (IsSingleGameMode)
@@ -2945,7 +3042,20 @@
             {
                 // VLT-4326: Do not include all Disabled states here because we handle Replay stuff in the above code block
                 ReplayRecovery.BackgroundOpacity = OpacityFifth;
-                MessageOverlayDisplay.MessageOverlayData.Opacity = _gameHistory.IsGameFatalError || _cashoutDialogHidden ? OpacityFull : OpacityHalf;
+
+                // TXM-11348: Some times it will show black background when cashout for COAM
+                double opacity;
+                if (_systemDisableManager.CurrentImmediateDisableKeys.Contains(ApplicationConstants.PrintingTicketDisableKey))
+                {
+                    opacity = OpacityHalf;
+                }
+                else
+                {
+                    opacity = _gameHistory.IsGameFatalError || _cashoutDialogHidden ? OpacityFull : OpacityHalf;
+                }
+
+                MessageOverlayDisplay.MessageOverlayData.Opacity = opacity;
+
                 _rotateTopImageTimer?.Stop();
                 _rotateTopperImageTimer?.Stop();
                 IsVbdCashOutDialogVisible = false;
@@ -2968,15 +3078,16 @@
             }
 
             var disableButtons = !IsInState(LobbyState.GameDiagnostics) &&
-                                (IsInState(LobbyState.Disabled) ||
-                                 MessageOverlayDisplay.ShowProgressiveGameDisabledNotification ||
-                                 MessageOverlayDisplay.ShowVoucherNotification ||
-                                 ContainsAnyState(
-                                     LobbyState.CashOut,
-                                     LobbyState.CashIn,
-                                     LobbyState.CashOutFailure,
-                                     LobbyState.PrintHelpline,
-                                     LobbyState.MediaPlayerOverlay));
+                                 (IsInState(LobbyState.Disabled) ||
+                                  MessageOverlayDisplay.ShowProgressiveGameDisabledNotification ||
+                                  MessageOverlayDisplay.ShowVoucherNotification ||
+                                  _isHandCountResetDialogOpen ||
+                                  ContainsAnyState(
+                                      LobbyState.CashOut,
+                                      LobbyState.CashIn,
+                                      LobbyState.CashOutFailure,
+                                      LobbyState.PrintHelpline,
+                                      LobbyState.MediaPlayerOverlay));
 
             EnableButtons(!disableButtons);
 
@@ -3223,6 +3334,8 @@
         {
             Logger.Debug($"OnUserInteraction, state: {CurrentState}");
 
+            _eventBus.Publish(new UserInteractionEvent());
+
             // Reset idle timer when user interacted with lobby.
             if (_idleTimer != null && _idleTimer.IsEnabled)
             {
@@ -3230,6 +3343,14 @@
                 _idleTimer.Start();
             }
 
+            ExitAndResetAttractMode();
+
+            _lobbyStateManager.OnUserInteraction();
+            SetEdgeLighting();
+        }
+
+        private void ExitAndResetAttractMode()
+        {
             _attractMode = false;
             if (_attractTimer != null && _attractTimer.IsEnabled)
             {
@@ -3237,12 +3358,9 @@
             }
 
             // Don't display Age Warning while the inserting cash dialog is up.
-            if (_ageWarningTimer.CheckForAgeWarning() == AgeWarningCheckResult.False)
+            if (_ageWarningTimer.CheckForAgeWarning() == AgeWarningCheckResult.False && CurrentState == LobbyState.Attract)
             {
-                if (CurrentState == LobbyState.Attract)
-                {
-                    SendTrigger(LobbyTrigger.AttractModeExit);
-                }
+                SendTrigger(LobbyTrigger.AttractModeExit);
             }
 
             if (_lobbyStateManager.ResetAttractOnInterruption && CurrentAttractIndex != 0)
@@ -3250,9 +3368,6 @@
                 ResetAttractIndex();
                 SetAttractVideos();
             }
-
-            _lobbyStateManager.OnUserInteraction();
-            SetEdgeLighting();
         }
 
         /// <summary>
@@ -3486,6 +3601,14 @@
             RefreshDisplayedGameList();
         }
 
+        private void VbdButtonClick(LcdButtonDeckLobby lobbyAction)
+        {
+#if DEBUG
+            OnUserInteraction();
+            HandleLcdButtonDeckButtonPress(lobbyAction);
+#endif
+        }
+
         private void LaunchGameOrRecovery()
         {
             Logger.Debug("LaunchGameOrRecovery Method");
@@ -3540,6 +3663,11 @@
 
         private void CashOutPressed(object obj)
         {
+            if (IsDisabledByHandCount())
+            {
+                return;
+            }
+
             // TODO:  Not sure about time limit dialog here
             if (!(IsTimeLimitDlgVisible && (_responsibleGaming?.IsSessionLimitHit ?? false)) &&
                 obj != null && obj.ToString().ToUpperInvariant() == "VBD" && _cabinetDetectionService.IsTouchVbd())
@@ -3733,7 +3861,7 @@
                 GameCount = DisplayedGameList.Count;
             }
 
-            if (IsTabView)
+            if (_lobbyStateManager?.IsTabView ?? false)
             {
                 var gameToSelect = DisplayedGameList.FirstOrDefault(game => game.GameId == _selectedGame?.GameId);
                 if (gameToSelect is null)
@@ -3808,8 +3936,7 @@
 
         }
 
-
-        private void SetSelectedGame(GameInfo gameInfo)
+        private void SetSelectedGame(GameInfo gameInfo, bool selectFirstDenom = false)
         {
             // Unselect the previous selected game
             if (_selectedGame != null)
@@ -3823,8 +3950,11 @@
             if (_selectedGame != null)
             {
                 _selectedGame.IsSelected = true;
+                if (selectFirstDenom)
+                {
+                    _selectedGame.IncrementSelectedDenomination();
+                }
             }
-
         }
 
         private void NavigateSelectionTo(SelectionNavigation navigationOption)
@@ -3857,7 +3987,7 @@
 
                     var gameToSelect = DisplayedGameList[selectedGameIndex];
 
-                    SetSelectedGame(gameToSelect);
+                    SetSelectedGame(gameToSelect, true);
                     break;
 
                 default:
@@ -3879,7 +4009,7 @@
             // We just need to change what is needed the currency format and the icon.  This way it will be fast.
             foreach (var game in GameList)
             {
-                game.ProgressiveOrBonusValue = GetProgressiveOrBonusValue(game.GameId, game.Denomination);
+                game.ProgressiveOrBonusValue = GetProgressiveOrBonusValue(game.GameId, game.Denomination, game.BetOption);
                 ProgressiveLabelDisplay.UpdateGameProgressiveText(game);
                 if (IsExtraLargeGameIconTabActive)
                 {
@@ -3896,6 +4026,11 @@
 
             ClockTimer.UpdateTime();
             SendLanguageChangedEvent();
+
+            var idleText = (string)LobbyView?.TryFindResource(LobbyIdleTextDefaultResourceKey) ?? Localizer.For(CultureFor.Player).GetString(ResourceKeys.IdleTextDefault);
+            IdleText = idleText;
+
+            RaisePropertyChanged(nameof(NoGamesForThisLanguageErrorIsVisible));
         }
 
         private void GameList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -4021,25 +4156,41 @@
             return null;
         }
 
-        private string GetProgressiveOrBonusValue(int gameId, long denomId)
+        private string GetProgressiveOrBonusValue(int gameId, long denomId, string betOption = null)
         {
+            Logger.Debug($"GetProgressiveOrBonusValue(gameId={gameId}, denomId={denomId}, betOption={betOption}");
             var game = _properties.GetValues<IGameDetail>(GamingConstants.Games).SingleOrDefault(g => g.Id == gameId);
-            if (string.IsNullOrEmpty(game?.DisplayMeterName))
+            if (!string.IsNullOrEmpty(game?.DisplayMeterName))
             {
-                return string.Empty;
+                var currentValue = game.InitialValue;
+
+                var meter =
+                    _gameStorage.GetValues<InGameMeter>(gameId, denomId, GamingConstants.InGameMeters)
+                        .FirstOrDefault(m => m.MeterName == game.DisplayMeterName);
+                if (meter != null)
+                {
+                    currentValue = meter.Value;
+                }
+
+                Logger.Debug($"DisplayMeterName={game.DisplayMeterName}, JackpotValue={currentValue}");
+                return (currentValue / CurrencyExtensions.CurrencyMinorUnitsPerMajorUnit).FormattedCurrencyString();
             }
 
-            var currentValue = game.InitialValue;
-
-            var meter =
-                _gameStorage.GetValues<InGameMeter>(gameId, denomId, GamingConstants.InGameMeters)
-                    .FirstOrDefault(m => m.MeterName == game.DisplayMeterName);
-            if (meter != null)
+            var levels = _progressiveProvider.ViewProgressiveLevels(gameId, denomId).ToList();
+            if (levels.Any() && !string.IsNullOrWhiteSpace(betOption))
             {
-                currentValue = meter.Value;
+                var match = levels.FirstOrDefault(
+                    p => string.IsNullOrEmpty(p.BetOption) || p.BetOption == betOption);
+
+                if (match != null)
+                {
+                    Logger.Debug($"Found {levels.Count} levels, returning first JackpotValue={match.CurrentValue}");
+                    return match.CurrentValue.MillicentsToDollarsNoFraction().FormattedCurrencyString();
+                }
             }
 
-            return (currentValue / CurrencyExtensions.CurrencyMinorUnitsPerMajorUnit).FormattedCurrencyString();
+            Logger.Debug("Returning empty progressive value");
+            return string.Empty;
         }
 
         private void DismissResponsibleGamingDialog(int choiceIndex)
@@ -4121,6 +4272,10 @@
             if (AttractList.Count > 0)
             {
                 attract = AttractList[CurrentAttractIndex];
+                if (attract is IGameInfo game)
+                {
+                    Logger.Debug($"CurrentAttractIndex = {CurrentAttractIndex}, AttractDetails = {game.ThemeId}");
+                }
             }
 
             if (Config.AlternateAttractModeLanguage)
@@ -4157,6 +4312,8 @@
                         attract?.BottomAttractVideoPath.NullIfEmpty() ?? Config.DefaultTopAttractVideoFilename;
                 }
             }
+
+            Logger.Debug($"BottomAttractVideoPath = {BottomAttractVideoPath}");
         }
 
         private bool ResetResponsibleGamingDialog(bool resetDueToOperatorMenu = false)
@@ -4414,6 +4571,11 @@
             var gameName = (string)obj[0];
             var denom = (long)obj[1];
 
+            LaunchGameWithSpecificDenomination(gameName, denom);
+        }
+
+        private void LaunchGameWithSpecificDenomination(string gameName, long denom)
+        {
             var selectedGame = _gameList.FirstOrDefault(g => g.Name == gameName && g.Denomination == denom);
 
             Logger.Debug($"gameId: {selectedGame?.GameId}, gameName: {gameName}, denom: {denom}");
@@ -4469,9 +4631,11 @@
             bool disabledOnlyWithLiveAuthentication = (systemDisableCount == 1) &&
                                                       _systemDisableManager.CurrentDisableKeys.Contains(
                                                           ApplicationConstants.LiveAuthenticationDisableKey);
+            bool disabledByPrintingTicket = _systemDisableManager.CurrentDisableKeys.Contains(ApplicationConstants.PrintingTicketDisableKey);
+
             if (HasZeroCredits && CurrentState == LobbyState.Disabled &&
                 GameReady && _gameState.Idle && !_lobbyStateManager.AllowSingleGameAutoLaunch
-                && (systemDisableCount > 0 && !disabledOnlyWithLiveAuthentication))
+                && (systemDisableCount > 0 && !disabledOnlyWithLiveAuthentication) && !disabledByPrintingTicket)
             {
                 _gameService?.ShutdownBegin();
             }
@@ -4540,6 +4704,56 @@
             }
         }
 
+        private bool IsDisabledByHandCount()
+        {
+
+            if (!_handCountServiceEnabled)
+            {
+                return false;
+            }
+
+            if (!IsCreditAboveAcceptableResidual() || HandCount == 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool IsCreditAboveAcceptableResidual()
+        {
+
+            if (!_handCountServiceEnabled)
+            {
+                return false;
+            }
+
+            var minimumRequiredCredits = (long)_properties.GetProperty(
+                AccountingConstants.HandCountMinimumRequiredCredits,
+                AccountingConstants.HandCountDefaultRequiredCredits);
+
+            var minimumRequiredCreditsInDollars = (double)minimumRequiredCredits.MillicentsToDollars();
+
+            if (RedeemableCredits < minimumRequiredCreditsInDollars)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool ResidualCreditsInMachine()
+        {
+            if (!_handCountServiceEnabled || (BaseState != LobbyState.Game))
+            {
+                return false;
+            }
+
+            var redeemableCreditsInMillicents = _bank.QueryBalance();
+
+            return redeemableCreditsInMillicents > 0;
+        }
+
         private void UpdatePaidMeterValue(double paidCashAmount)
         {
             if (Config.DisplayPaidMeter)
@@ -4576,6 +4790,7 @@
             }
 
             buttonsLampState.Add(SetLampState(LampName.Bash, state));
+            buttonsLampState.Add(SetLampState(LampName.DualBashLeft, state));
         }
 
         private void DetermineCollectLampState(ref IList<ButtonLampState> buttonsLampState)
@@ -4644,6 +4859,22 @@
         private void UpdateLamps()
         {
             IList<ButtonLampState> buttonsLampState = new List<ButtonLampState>();
+
+            // After cashout if there are still residual credit in the machine, do not turn off all buttons.
+            // Only turn off the cashout button
+            if (ResidualCreditsInMachine())
+            {
+                if (IsCreditAboveAcceptableResidual())
+                {
+                    return;
+                }
+
+                DetermineCollectLampState(ref buttonsLampState);
+                _buttonLamps?.SetLampState(buttonsLampState);
+
+                return;
+            }
+
             DetermineUnusedLampStates(ref buttonsLampState);
             DetermineNavLampStates(ref buttonsLampState);
             DetermineBashLampState(ref buttonsLampState);
@@ -4876,7 +5107,7 @@
                     return;
                 }
 
-                if (!IsIdleTextScrolling && HasZeroCredits)
+                if (!IsIdleTextScrolling && _lobbyStateManager.CanAttractModeStart)
                 {
                     var interval = _attractMode
                         ? Config.AttractSecondaryTimerIntervalInSeconds
@@ -4947,7 +5178,8 @@
                 }
             }
         }
-        // returns true if we wrap around to index 0
+
+        // Returns true if we wrap around to index 0
         private bool AdvanceAttractIndex()
         {
             lock (_attractLock)
@@ -5090,7 +5322,7 @@
 
         private void HandleLcdButtonDeckButtonPress(LcdButtonDeckLobby lobbyAction)
         {
-            if (!IsTabView)
+            if (!(_lobbyStateManager?.IsTabView ?? false))
             {
                 return;
             }
@@ -5106,7 +5338,14 @@
                     PlayAudioFile(Sound.Touch);
                     break;
                 case LcdButtonDeckLobby.ChangeDenom:
-                    GameTabInfo.IncrementSelectedDenomination();
+                    if (_selectedGame.Category == GameCategory.LightningLink)
+                    {
+                        _selectedGame.IncrementSelectedDenomination();
+                    }
+                    else
+                    {
+                        GameTabInfo.IncrementSelectedDenomination();
+                    }
                     PlayAudioFile(Sound.Touch);
                     break;
                 case LcdButtonDeckLobby.NextTab:
@@ -5121,9 +5360,17 @@
                     CashOutPressed(new object());
                     break;
                 case LcdButtonDeckLobby.LaunchGame:
+                case LcdButtonDeckLobby.DualLaunchGame:
                     if (_selectedGame != null)
                     {
-                        LaunchGameFromUi(_selectedGame);
+                        if (_selectedGame.Category == GameCategory.LightningLink && _selectedGame.SelectedDenomination != null)
+                        {
+                            LaunchGameWithSpecificDenomination(_selectedGame.Name, _selectedGame.SelectedDenomination.Denomination);
+                        }
+                        else
+                        {
+                            LaunchGameFromUi(_selectedGame);
+                        }
                     }
                     break;
             }
@@ -5143,8 +5390,7 @@
                 TopAttractVideoPath = game.LocaleGraphics[ActiveLocaleCode].TopAttractVideo,
                 BottomAttractVideoPath = game.LocaleGraphics[ActiveLocaleCode].BottomAttractVideo,
                 LoadingScreenPath = game.LocaleGraphics[ActiveLocaleCode].LoadingScreen,
-                HasProgressiveOrBonusValue = !string.IsNullOrEmpty(game.DisplayMeterName),
-                ProgressiveOrBonusValue = GetProgressiveOrBonusValue(game.Id, denomId),
+                ProgressiveOrBonusValue = GetProgressiveOrBonusValue(game.Id, denomId, game.Denominations.Single(d => d.Value == denomId).BetOption),
                 Denomination = denomId,
                 BetOption = game.Denominations.Single(d => d.Value == denomId).BetOption,
                 FilteredDenomination = Config.MinimumWagerCreditsAsFilter ? game.MinimumWagerCredits * denomId : denomId,

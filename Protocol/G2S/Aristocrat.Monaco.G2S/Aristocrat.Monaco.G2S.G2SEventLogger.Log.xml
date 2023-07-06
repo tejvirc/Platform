@@ -1,0 +1,11 @@
+﻿<?xml version="1.0"?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Aristocrat.Monaco.G2S.G2SEventLogger.Log">
+    <Fields>
+      <Field DataType="DateTime" FieldName="TimeStamp" />
+      <Field DataType="String" Size="16" FieldName="EventCode" />
+      <Field DataType="String" Size="256" FieldName="InternalEventType" />
+      <Field DataType="Int64" FieldName="TransactionId" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

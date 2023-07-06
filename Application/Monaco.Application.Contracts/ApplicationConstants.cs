@@ -130,6 +130,9 @@
         /// <summary> Test or blank </summary>
         public const string ActiveProtocol = "Active.Protocol";
 
+        /// <summary> Protocol Host URI Addresses </summary>
+        public const string HostAddresses = "Protocol.HostAddresses";
+
         /// <summary> Property Manager key for IsInitialConfigurationComplete. </summary>
         public const string IsInitialConfigurationComplete = "IsInitialConfigurationComplete";
 
@@ -502,6 +505,16 @@
         public static readonly Guid HandpayPendingDisableKey = new Guid("{9F4A85A2-F478-4AA2-A5FF-D387D74894F2}");
 
         /// <summary>
+        ///     Key used to disable the system when a payout limit reached
+        /// </summary>
+        public static readonly Guid LargePayoutDisableKey = new Guid("{49FB79B0-2FFB-4982-81EA-F4CE36F51C00}");
+
+        /// <summary>
+        ///     Key used to disable the system while waiting for ticket to be printed
+        /// </summary>
+        public static readonly Guid PrintingTicketDisableKey = new Guid("D8C7D0FA-CE9E-4E5D-B3CD-EBB00FBB84FD");
+        
+        /// <summary>
         ///     Key used to disable the system when a cashout failed
         /// </summary>
         public static readonly Guid HostCashOutFailedDisableKey = new Guid("{AD40EFCE-63C0-42E9-8FE4-68B222D2DC8D}");
@@ -563,6 +576,16 @@
         public const string TimeZoneBias = "Cabinet.TimeZoneBias";
 
         /// <summary>
+        ///     Order number
+        /// </summary>
+        public const string OrderNumber = "OrderNumber";
+
+        /// <summary>
+        ///     Inspector initials
+        /// </summary>
+        public const string InspectorInitials = "InspectorInitials";
+
+        /// <summary>
         ///     Visible status
         /// </summary>
         public const string Visible = "Visible";
@@ -576,6 +599,11 @@
         ///     Property manager key for DisabledByOperatorText.
         /// </summary>
         public const string DisabledByOperatorText = "Application.GeneralMessages.DisabledByOperatorText";
+
+        /// <summary>
+        ///     Property manager key for DisabledByOperatorText.
+        /// </summary>
+        public const string LockupCulture = "Application.GeneralMessages.LockupCulture";
 
         /// <summary>
         ///     Property manager key for NoteAcceptorErrorBillJam.
@@ -743,6 +771,11 @@
         ///     Property manager key for LocalizationOperatorTicketSelectable
         /// </summary>
         public const string LocalizationOperatorTicketSelectable = "Localization.OperatorTicket.Selectable";
+
+        /// <summary>
+        ///     Property manager key for LocalizationOperatorTicketLanguageSettingOperatorOverride
+        /// </summary>
+        public const string LocalizationOperatorTicketLanguageSettingOperatorOverride = "Localization.OperatorTicket.LanguageSetting.OperatorOverride";
 
         /// <summary>
         ///     Property manager key for LocalizationPlayerTicketCurrentCulture.
@@ -924,6 +957,9 @@
         public const string ConfigWizardCreditLimitCheckboxEditable = "ConfigWizard.LimitsPage.CreditLimit.CheckboxEditable";
 
         /// <summary> Property manager key for ConfigWizardLimitsPageEnabled. </summary>
+        public const string ConfigWizardHandpayLimitVisible = "ConfigWizard.LimitsPage.HandpayLimit.Visible";
+
+        /// <summary> Property manager key for ConfigWizardLimitsPageEnabled. </summary>
         public const string ConfigWizardHandpayLimitCheckboxEditable = "ConfigWizard.LimitsPage.HandpayLimit.CheckboxEditable";
 
         /// <summary> Property manager key for ConfigWizardHardwarePageRequirePrinter. </summary>
@@ -949,6 +985,9 @@
 
         /// <summary> Fake </summary>
         public const string Fake = "Fake";
+
+        /// <summary> Relm Sim </summary>
+        public const string RelmSim = "RelmSim";
 
         /// <summary> GDS </summary>
         public const string GDS = "GDS";
@@ -1154,6 +1193,11 @@
         ///     PrinterDisconnectedGuid GUID
         /// </summary>
         public static readonly Guid PrinterDisconnectedGuid = new Guid("{91B975FC-1EC9-4C24-9700-B3749FEF73C3}");
+
+        /// <summary>
+        ///     PrinterDisconnectedGuid GUID
+        /// </summary>
+        public static readonly Guid IdReaderDisconnectedGuid = new Guid("{3E94D25D-5146-45A9-BD95-25215153CD97}");
 
         /// <summary>
         ///     Battery 1 GUID

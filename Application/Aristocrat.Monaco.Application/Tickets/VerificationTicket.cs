@@ -9,6 +9,7 @@
     using Contracts.Extensions;
     using Contracts.MeterPage;
     using Contracts.OperatorMenu;
+    using Hardware.Contracts.Ticket;
     using Kernel;
     using Kernel.Contracts;
     using Monaco.Localization.Properties;
@@ -36,15 +37,20 @@
             _pageNumber = pageNumber;
             _lastCashoutSequence = lastCashoutSequence;
             _title = string.IsNullOrEmpty(titleOverride) ? TicketLocalizer.GetString(ResourceKeys.VerificationTicketTitle) : titleOverride;
-            Title = $"{_title} - PAGE {_pageNumber + 1}";
+            Title = $"{_title} - {TicketLocalizer.GetString(ResourceKeys.PageText).ToUpper(TicketLocalizer.CurrentCulture)} {_pageNumber + 1}";
 
             var configMeters = ConfigurationUtilities.GetConfiguration(MetersExtensionPath, () => new DisplayMetersConfiguration
             {
                 MeterNodes = new MeterNode[0]
             });
 
-            if (!VTicketPage2MeterNames.Any())
+            if (pageNumber is 1) // No need to remake this dictionary for every page, only used on page 2 (index 1)
             {
+                if (VTicketPage2MeterNames.Any())
+                {
+                    VTicketPage2MeterNames.Clear(); // Need to clear this to account for possible language change
+                }
+
                 VTicketPage2MeterNames.Add(TicketLocalizer.GetString(ResourceKeys.MainDoorOpenCount), ApplicationMeters.MainDoorOpenCount);
                 VTicketPage2MeterNames.Add(TicketLocalizer.GetString(ResourceKeys.MainDoorOpenPowerOffCount), ApplicationMeters.MainDoorOpenPowerOffCount);
                 VTicketPage2MeterNames.Add(TicketLocalizer.GetString(ResourceKeys.CashDoorOpenCount), ApplicationMeters.CashDoorOpenCount);
@@ -86,43 +92,48 @@
 
                 VTicketPage2MeterNames.Add(TicketLocalizer.GetString(ResourceKeys.RetailerAccess), ApplicationMeters.AdministratorAccessCount);
                 VTicketPage2MeterNames.Add(TicketLocalizer.GetString(ResourceKeys.TechnicianAccess), ApplicationMeters.TechnicianAccessCount);
-                VTicketPage2MeterNames.Add(TicketLocalizer.GetString(ResourceKeys.AmountIn), ApplicationMeters.TotalIn);
-                VTicketPage2MeterNames.Add(TicketLocalizer.GetString(ResourceKeys.AmountOut), ApplicationMeters.TotalOut);
+                VTicketPage2MeterNames.Add(TicketLocalizer.GetString(ResourceKeys.AmountInText), ApplicationMeters.TotalIn);
+                VTicketPage2MeterNames.Add(TicketLocalizer.GetString(ResourceKeys.AmountOutText), ApplicationMeters.TotalOut);
                 VTicketPage2MeterNames.Add(TicketLocalizer.GetString(ResourceKeys.AmountPlayed), "WageredAmount");
                 VTicketPage2MeterNames.Add(TicketLocalizer.GetString(ResourceKeys.AmountWon), EgmPaidGameWonAmt);
                 VTicketPage2MeterNames.Add(TicketLocalizer.GetString(ResourceKeys.PowerResets), ApplicationMeters.PowerResetCount);
             }
         }
 
+        public override Ticket CreateSecondPageTextTicket()
+        {
+            Title = $"{Title} (2)";
+            AddCasinoInfo();
+            AddTicketHeader();
+            AddLine(TicketLocalizer.GetString(ResourceKeys.MasterText), " ", TicketLocalizer.GetString(ResourceKeys.PeriodText));
+            AddDashesLine();
+            AddLine(
+                Time.GetLocationTime(MeterManager.LastMasterClear).ToString(DateTimeFormat),
+                null,
+                Time.GetLocationTime(MeterManager.LastPeriodClear).ToString(DateTimeFormat));
+
+            return CreateTicket(Title);
+        }
+
         public override void AddTicketContent()
         {
-            var meterManager = ServiceManager.GetService<IMeterManager>();
 
             using (var scope = TicketLocalizer.NewScope())
             {
                 AddLine(scope.GetString(ResourceKeys.MasterText), " ", scope.GetString(ResourceKeys.PeriodText));
                 AddDashesLine();
                 AddLine(
-                    Time.GetLocationTime(meterManager.LastMasterClear).ToString(DateTimeFormat),
+                    Time.GetLocationTime(MeterManager.LastMasterClear).ToString(DateTimeFormat),
                     null,
-                    Time.GetLocationTime(meterManager.LastPeriodClear).ToString(DateTimeFormat));
+                    Time.GetLocationTime(MeterManager.LastPeriodClear).ToString(DateTimeFormat));
 
                 if (_pageNumber == 0)
                 {
                     //page 1
-                    var config = ServiceManager.GetService<IOperatorMenuConfiguration>();
-                    var showCoinData = config.GetSetting(
-                        OperatorMenuSetting.MainMetersPageViewModel,
-                        OperatorMenuSetting.CoinsDataVisibility,
-                        false);
-                    if (!showCoinData)
-                    {
-                        TicketPageContent(false);
-                    }
-                    else
-                    {
-                        TicketPage1Content();
-                    }
+                    var showCoinData = OperatorMenuConfig?.GetSetting(OperatorMenuSetting.MainMetersPageViewModel, OperatorMenuSetting.CoinsDataVisibility, false) ?? false;
+                    var useCountLines = OperatorMenuConfig?.GetSetting(OperatorMenuSetting.MainMetersPageViewModel, OperatorMenuSetting.BillDataInCountState, true) ?? true;
+
+                    TicketPageContent(useCountLines, true, showCoinData);
                 }
                 else if (_pageNumber == 1)
                 {
@@ -132,14 +143,14 @@
 
                     foreach (var name in MeterOutNames)
                     {
-                        var meter = meterManager.GetMeter(name + "Count");
+                        var meter = MeterManager.GetMeter(name + "Count");
                         totalVoucherOutCountM += meter.Lifetime;
                         totalVoucherOutCountP += meter.Period;
                     }
 
                     AddLine(
                         string.Format(NumberFormatInfo.CurrentInfo, "{0:N0}", totalVoucherOutCountM),
-                        "Cashout Tickets",
+                        TicketLocalizer.GetString(ResourceKeys.CashoutTickets),
                         string.Format(NumberFormatInfo.CurrentInfo, "{0:N0}", totalVoucherOutCountP));
 
                     var access = ServiceManager.GetService<IOperatorMenuAccess>();
@@ -148,26 +159,26 @@
                     {
                         // VLT-10481 : ignore technician access meter
 
-                        if (!technicianMode && dict.Key == "Technician Access")
+                        if (!technicianMode && dict.Key == TicketLocalizer.GetString(ResourceKeys.TechnicianAccess))
                         {
                             continue;
                         }
 
-                        if (dict.Key == "Retailer Access")
+                        if (dict.Key == TicketLocalizer.GetString(ResourceKeys.RetailerAccess))
                         {
                             AddDashesLine();
                         }
 
-                        if (meterManager.IsMeterProvided(dict.Value))
+                        if (MeterManager.IsMeterProvided(dict.Value))
                         {
-                            var meter = meterManager.GetMeter(dict.Value);
+                            var meter = MeterManager.GetMeter(dict.Value);
 
                             AddLine(
-                                meter.Classification.CreateValueString(meter.Lifetime),
+                                meter.Classification.CreateValueString(meter.Lifetime, TicketLocalizer.CurrentCulture),
                                 dict.Key.Replace(
                                     "Count",
                                     string.Empty), // VLT-11715 : dropped "Count" to give more space
-                                meter.Classification.CreateValueString(meter.Period));
+                                meter.Classification.CreateValueString(meter.Period, TicketLocalizer.CurrentCulture));
                         }
                     }
 
@@ -177,16 +188,16 @@
                 {
                     /* Page 3*/
 
-                    if (meterManager.IsMeterProvided(ApplicationMeters.TotalIn) &&
-                        meterManager.IsMeterProvided(ApplicationMeters.TotalOut))
+                    if (MeterManager.IsMeterProvided(ApplicationMeters.TotalIn) &&
+                        MeterManager.IsMeterProvided(ApplicationMeters.TotalOut))
                     {
-                        var meter = meterManager.GetMeter(ApplicationMeters.TotalIn);
+                        var meter = MeterManager.GetMeter(ApplicationMeters.TotalIn);
                         var meterMasterNet = meter.Lifetime;
 
-                        meter = meterManager.GetMeter(ApplicationMeters.TotalOut);
+                        meter = MeterManager.GetMeter(ApplicationMeters.TotalOut);
                         meterMasterNet -= meter.Lifetime;
 
-                        var valueString = meter.Classification.CreateValueString(meterMasterNet);
+                        var valueString = meter.Classification.CreateValueString(meterMasterNet, TicketLocalizer.CurrentCulture);
                         valueString = Regex.Replace(valueString, @"[^\u0000-\u007F]+", " ");
 
                         AddLine(
@@ -203,7 +214,7 @@
                     AddLine(
                         scope.GetString(ResourceKeys.CreditBalanceText),
                         null,
-                        creditBalance.FormattedCurrencyString());
+                        creditBalance.FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture));
 
                     AddLine(
                         scope.GetString(ResourceKeys.LastCashoutTicketSequenceText),
@@ -215,75 +226,6 @@
                     AddTicketFooter();
                 }
             }
-        }
-
-        private void TicketPage1Content()
-        {
-            long countMaster = 0;
-            long countPeriod = 0;
-            long totalCoinInMaster = 0;
-            long totalCoinInPeriod = 0;
-            long totalBillInMaster = 0;
-            long totalBillInPeriod = 0;
-
-            var meterManager = ServiceManager.GetService<IMeterManager>();
-            var moneyInLifetimeCountDictionary = new Dictionary<string, long>();
-            var moneyInCountPeriodDictionary = new Dictionary<string, long>();
-            PopulateValidMeters(
-                meterManager,
-                ref countMaster,
-                CoinInMeterNames,
-                moneyInLifetimeCountDictionary,
-                moneyInCountPeriodDictionary,
-                ref countPeriod);
-
-            AddLine(string.Format(NumberFormatInfo.CurrentInfo, "{0:N0}", countMaster),
-                "Number of Coins Inserted",
-                string.Format(NumberFormatInfo.CurrentInfo, "{0:N0}", countPeriod));
-
-            /*Add txt to the left string which will be displayed on the left side of the ticket*/
-            AddTicketText(moneyInLifetimeCountDictionary, moneyInCountPeriodDictionary, ref totalCoinInMaster, ref totalCoinInPeriod, false);
-
-            AddLine(totalCoinInMaster.FormattedCurrencyString(),
-                "Total - Coin In",
-                totalCoinInPeriod.FormattedCurrencyString());
-
-
-            moneyInLifetimeCountDictionary.Clear();
-            moneyInCountPeriodDictionary.Clear();
-            countMaster = 0;
-            countPeriod = 0;
-
-            PopulateValidMeters(
-                meterManager,
-                ref countMaster,
-                BillInMeterNames,
-                moneyInLifetimeCountDictionary,
-                moneyInCountPeriodDictionary,
-                ref countPeriod);
-
-            AddLine(string.Format(NumberFormatInfo.CurrentInfo, "{0:N0}", countMaster),
-                "Number of Bills Inserted",
-                string.Format(NumberFormatInfo.CurrentInfo, "{0:N0}", countPeriod));
-
-            /*Add txt to the left string which will be displayed on the left side of the ticket*/
-            AddTicketText(moneyInLifetimeCountDictionary, moneyInCountPeriodDictionary, ref totalBillInMaster, ref totalBillInPeriod, false);
-
-            AddLine(totalBillInMaster.FormattedCurrencyString(),
-                "Total - Bill In",
-                totalBillInPeriod.FormattedCurrencyString());
-
-            var sumMaster = totalBillInMaster + totalCoinInMaster;
-            var sumPeriod = totalBillInPeriod + totalCoinInPeriod;
-            AddLine(sumMaster.FormattedCurrencyString(),
-                "Total - Coins and Bills",
-                sumPeriod.FormattedCurrencyString());
-
-            AddDashesLine();
-
-            VoucherData(meterManager);
-
-            GameData(meterManager);
         }
     }
 }

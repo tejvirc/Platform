@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Xml.Serialization;
     using Application.Contracts;
+    using Application.Contracts.Localization;
     using Application.UI.OperatorMenu;
     using Aristocrat.G2S;
     using Aristocrat.G2S.Client;
@@ -348,18 +349,18 @@
             CommsConnected = _egm.Running;
 
             var currentInfos = (from host in _egm.Hosts.Where(host => !host.IsEgm())
-                let commDevice = _egm.GetDevice<ICommunicationsDevice>(host.Id)
-                where commDevice != null
-                select new CommsInfo
-                {
-                    Index = host.Index,
-                    HostId = host.Id,
-                    Address = host.Address,
-                    OutboundOverflow = commDevice.OutboundOverflow,
-                    InboundOverflow = commDevice.InboundOverflow,
-                    TransportState = commDevice.TransportState,
-                    State = commDevice.State
-                }).ToList();
+                                let commDevice = _egm.GetDevice<ICommunicationsDevice>(host.Id)
+                                where commDevice != null
+                                select new CommsInfo
+                                {
+                                    Index = host.Index,
+                                    HostId = host.Id,
+                                    Address = host.Address,
+                                    OutboundOverflow = commDevice.OutboundOverflow,
+                                    InboundOverflow = commDevice.InboundOverflow,
+                                    TransportState = commDevice.TransportState,
+                                    State = commDevice.State
+                                }).ToList();
 
             if (CommsInfoData.Any(i => currentInfos.All(l => l.Index != i.Index))
                 || currentInfos.Any(i => CommsInfoData.All(l => l.Index != i.Index)))
@@ -391,6 +392,15 @@
                 data.TransportState = commDevice.TransportState;
                 data.State = commDevice.State;
             }
+        }
+
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            MvvmHelper.ExecuteOnUI(() =>
+            {
+                RaisePropertyChanged(nameof(CommsInfoData));
+            });
+            base.OnOperatorCultureChanged(evt);
         }
     }
 }

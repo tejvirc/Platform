@@ -38,22 +38,21 @@
             Cancelling
         }
 
-        private readonly Dictionary<string, string> _errorEventText = new Dictionary<string, string>
+        private readonly Dictionary<string, Func<string>> _errorEventText = new Dictionary<string, Func<string>>
         {
-            { PrinterFaultTypes.PaperJam.ToString(), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PaperJamText) },
-            { PrinterFaultTypes.PrintHeadDamaged.ToString(), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HeadErrorText) },
-            { PrinterFaultTypes.PaperEmpty.ToString(), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PaperOutText) },
-            { PrinterFaultTypes.ChassisOpen.ToString(), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DrawerOpenText) },
-            { PrinterFaultTypes.OtherFault.ToString(), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SystemErrorText) },
-            { PrinterFaultTypes.NvmFault.ToString(), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NVRamFailureText) },
-            { PrinterFaultTypes.TemperatureFault.ToString(), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TemperatureErrorText) },
-            { PrinterFaultTypes.PaperNotTopOfForm.ToString(), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MissingSupplyIndexText) },
-            { PrinterFaultTypes.FirmwareFault.ToString(), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.FlashProgErrorText) },
-            { PrinterFaultTypes.PrintHeadOpen.ToString(), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PrinterOpenText) },
-            { typeof(InspectionFailedEvent).ToString(), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InspectionFailedText) },
-            { typeof(ResolverErrorEvent).ToString(), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ResolverErrorText) },
-            { typeof(DisconnectedEvent).ToString(), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OfflineText) },
-            { typeof(TransferStatusEvent).ToString(), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TransferStatusErrorText) }
+            { PrinterFaultTypes.PaperJam.ToString(), () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PaperJamText) },
+            { PrinterFaultTypes.PrintHeadDamaged.ToString(), () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HeadErrorText) },
+            { PrinterFaultTypes.PaperEmpty.ToString(), () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PaperOutText) },
+            { PrinterFaultTypes.ChassisOpen.ToString(), () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DrawerOpenText) },
+            { PrinterFaultTypes.OtherFault.ToString(), () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SystemErrorText) },
+            { PrinterFaultTypes.NvmFault.ToString(), () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NVRamFailureText) },
+            { PrinterFaultTypes.TemperatureFault.ToString(), () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TemperatureErrorText) },
+            { PrinterFaultTypes.PaperNotTopOfForm.ToString(), () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MissingSupplyIndexText) },
+            { PrinterFaultTypes.FirmwareFault.ToString(), () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.FlashProgErrorText) },
+            { PrinterFaultTypes.PrintHeadOpen.ToString(), () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PrinterOpenText) },
+            { typeof(InspectionFailedEvent).ToString(), () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InspectionFailedText) },
+            { typeof(ResolverErrorEvent).ToString(), () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ResolverErrorText) },
+            { typeof(DisconnectedEvent).ToString(), () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OfflineText) }
         };
 
         private const int PrintDelay = 1000;
@@ -97,15 +96,7 @@
             _printer = printer;
 
             SubscribeToEvents();
-            if (_printer?.LogicalState == PrinterLogicalState.Printing)
-            {
-                PrintJobProcessMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Printing);
-                UpdatePrinterStatus(PrinterStatus.PrintingNotCancellable);
-            }
-            else
-            {
-                UpdatePrinterStatus();
-            }
+            PerformInitialSetup();
 
             _initialized = true;
         }
@@ -306,7 +297,7 @@
                             result.Append(Seperators);
                         }
 
-                        result.Append(entry.Value);
+                        result.Append(entry.Value());
                         separator = true;
                     }
                 }
@@ -435,6 +426,7 @@
             _eventBus.Subscribe<PrintStartedEvent>(this, _ => OnExternalPrintJobStarted());
             _eventBus.Subscribe<PrintCompletedEvent>(this, _ => OnExternalPrintJobCompleted());
             _eventBus.Subscribe<ServiceAddedEvent>(this, UpdatePrinter);
+            _eventBus.Subscribe<OperatorCultureChangedEvent>(this, _ => PerformInitialSetup());
         }
 
         private bool IsPrintingState(PrinterStatus? status)
@@ -482,6 +474,19 @@
 
             _cancelPrint = true;
             _disposed = true;
+        }
+
+        private void PerformInitialSetup()
+        {
+            if (_printer?.LogicalState == PrinterLogicalState.Printing)
+            {
+                PrintJobProcessMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Printing);
+                UpdatePrinterStatus(PrinterStatus.PrintingNotCancellable);
+            }
+            else
+            {
+                UpdatePrinterStatus();
+            }
         }
 
         private static T GetAttribute<T>(Enum en) where T : Attribute

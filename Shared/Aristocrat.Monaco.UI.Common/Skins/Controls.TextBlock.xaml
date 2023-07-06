@@ -1,52 +1,65 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    
     <Style x:Key="MonacoTextBlock"
            TargetType="{x:Type TextBlock}">
-        <Setter Property="Foreground" Value="{DynamicResource LightBrush4}" />
-        <Setter Property="FontFamily" Value="{DynamicResource MonacoFontFamily}" />
-        <Setter Property="FontSize" Value="{DynamicResource NormalFontSize}" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource LightBrush4}" />
+        <Setter Property="FontFamily"
+                Value="{DynamicResource MonacoFontFamily}" />
+        <Setter Property="FontSize"
+                Value="{DynamicResource NormalFontSize}" />
     </Style>
-
     <Style x:Key="MonacoWatermarkTextBlock"
            BasedOn="{StaticResource MonacoTextBlock}"
            TargetType="{x:Type TextBlock}">
-        <Setter Property="IsHitTestVisible" Value="False" />
-        <Setter Property="Opacity" Value="0.6" />
+        <Setter Property="IsHitTestVisible"
+                Value="False" />
+        <Setter Property="Opacity"
+                Value="0.6" />
     </Style>
-
     <Style x:Key="MonacoAutoCollapsingTextBlock"
            BasedOn="{StaticResource MonacoTextBlock}"
            TargetType="{x:Type TextBlock}">
-        <Setter Property="FontSize" Value="{DynamicResource FloatingWatermarkFontSize}" />
-        <Setter Property="Opacity" Value="0.6" />
+        <Setter Property="FontSize"
+                Value="{DynamicResource FloatingWatermarkFontSize}" />
+        <Setter Property="Opacity"
+                Value="0.6" />
         <Style.Triggers>
-            <Trigger Property="Text" Value="">
-                <Setter Property="Visibility" Value="Collapsed" />
+            <Trigger Property="Text"
+                     Value=""
+                     AutomationProperties.AutomationId="Trigger0_8AB152B">
+                <Setter Property="Visibility"
+                        Value="Collapsed" />
             </Trigger>
         </Style.Triggers>
     </Style>
-
     <Style x:Key="MonacoWarningTextBlock"
            TargetType="{x:Type TextBlock}"
            BasedOn="{StaticResource MonacoTextBlock}">
-        <Setter Property="Foreground" Value="{DynamicResource YellowBrush}" />
-        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="Foreground"
+                Value="{DynamicResource YellowBrush}" />
+        <Setter Property="FontWeight"
+                Value="Normal" />
     </Style>
-
     <Style x:Key="MonacoWindowTitle"
-           TargetType="{x:Type TextBlock}" 
+           TargetType="{x:Type TextBlock}"
            BasedOn="{StaticResource MonacoTextBlock}">
-        <Setter Property="FontSize" Value="{DynamicResource LabelFontSize}" />
-        <Setter Property="FontWeight" Value="Bold" />
-        <Setter Property="HorizontalAlignment" Value="Center" />
-        <Setter Property="Margin" Value="0 0 0 10" />
+        <Setter Property="FontSize"
+                Value="{DynamicResource LabelFontSize}" />
+        <Setter Property="FontWeight"
+                Value="Bold" />
+        <Setter Property="HorizontalAlignment"
+                Value="Center" />
+        <Setter Property="Margin"
+                Value="0 0 0 10" />
     </Style>
-
     <Style x:Key="MonacoWarningLabelBlock"
            TargetType="Label">
-        <Setter Property="Foreground" Value="{DynamicResource YellowBrush}" />
-        <Setter Property="FontWeight" Value="Normal"/>
-        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource YellowBrush}" />
+        <Setter Property="FontWeight"
+                Value="Normal" />
+        <Setter Property="HorizontalAlignment"
+                Value="Center" />
     </Style>
 </ResourceDictionary>

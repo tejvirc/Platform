@@ -186,7 +186,7 @@
 
         public bool Upgraded { get; set; }
 
-        public GameCategory Category => GameCategory.Table;
+        public GameCategory Category { get; set; } = GameCategory.Table;
 
         public GameSubCategory SubCategory => GameSubCategory.FiveHand;
 
@@ -200,6 +200,19 @@
 
         public IEnumerable<ISubGameDetails> ActiveSubGames { get; set; }
 
+        public bool NextToMaxBetTopAwardMultiplier { get; set; }
+        
+        public int MaximumWagerInsideCredits
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
+
+        public int MaximumWagerOutsideCredits
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
         public static IEnumerable<IGameDetail> GetMockGameDetailInfo()
         {
             var gameDetail = new List<IGameDetail>();
@@ -263,6 +276,7 @@
 
             return gameGraphics;
         }
+
     }
 
     public class MockLocalGameGraphics : ILocaleGameGraphics

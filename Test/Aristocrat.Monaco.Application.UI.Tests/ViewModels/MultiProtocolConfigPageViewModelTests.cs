@@ -61,6 +61,7 @@
             _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Strict);
             _propertiesManager.Setup(mock => mock.GetProperty("Mono.SelectedAddinConfigurationHashCode", It.IsAny<object>())).Returns(new Dictionary<string, string>());
             _propertiesManager.Setup(mock => mock.SetProperty(ApplicationConstants.SelectedConfigurationKey, It.IsAny<object>()));
+            _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.ShowMode, It.IsAny<object>())).Returns(false);
 
             _multiProtocolConfigurationProvider = MoqServiceManager.CreateAndAddService<IMultiProtocolConfigurationProvider>(MockBehavior.Strict);
             _multiProtocolConfigurationProvider.SetupSet(x => x.MultiProtocolConfiguration = It.IsAny<List<ProtocolConfiguration>>());

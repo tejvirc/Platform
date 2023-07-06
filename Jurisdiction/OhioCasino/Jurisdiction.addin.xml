@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.OhioCasinoJurisdiction" filterid="OhioCasinoLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.OhioCasinoJurisdiction" filterid="OhioCasinoLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.OhioCasinoJurisdiction" filterid="OhioCasinoLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -133,9 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="OhioCasinoLocaleConfig">
     <FilePath FilePath="..\jurisdiction\OhioCasino\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="OhioCasinoLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\OhioCasino\Lobby.config.xml" filterid="OhioCasinoLobbyConfig" />

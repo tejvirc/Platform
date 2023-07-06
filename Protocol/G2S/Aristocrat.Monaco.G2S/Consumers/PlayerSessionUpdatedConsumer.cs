@@ -43,7 +43,8 @@
                 device.DeviceList(status),
                 theEvent.Log.TransactionId,
                 device.TransactionList(theEvent.Log.ToPlayerLog(device)),
-                null);
+                null,
+                theEvent);
         }
     }
 }

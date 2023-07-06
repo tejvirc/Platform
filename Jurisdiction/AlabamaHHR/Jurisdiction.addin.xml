@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.AlabamaHHRJurisdiction" filterid="AlabamaHHRLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.AlabamaHHRJurisdiction" filterid="AlabamaHHRLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.AlabamaHHRJurisdiction" filterid="AlabamaHHRLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -133,10 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="AlabamaHHRLocaleConfig">
     <FilePath FilePath="..\jurisdiction\AlabamaHHR\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="AlabamaHHRLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
-    <FilePath FilePath="..\jurisdiction\AlabamaHHR\resources\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\AlabamaHHR\Lobby.config.xml" filterid="AlabamaHHRLobbyConfig" />

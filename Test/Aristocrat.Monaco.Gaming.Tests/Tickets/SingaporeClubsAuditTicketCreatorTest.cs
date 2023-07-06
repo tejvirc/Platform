@@ -2,13 +2,15 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Globalization;
     using System.Linq;
     using Accounting.Contracts;
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Tickets;
-    using Aristocrat.Monaco.Hardware.Contracts.Printer;
+    using Application.Contracts.Currency;
+    using Hardware.Contracts.Printer;
     using Contracts;
     using Contracts.Models;
     using Contracts.Progressives;
@@ -142,6 +144,12 @@
         public int MechanicalReels { get; set; }
 
         public int[] MechanicalReelHomeSteps { get; set; }
+
+        public int MaximumWagerInsideCredits { get; set; }
+
+        public int MaximumWagerOutsideCredits { get; set; }
+
+        public bool NextToMaxBetTopAwardMultiplier { get; set; }
 
         public IEnumerable<ISubGameDetails> SupportedSubGames { get; }
 
@@ -363,7 +371,13 @@
         [TestMethod]
         public void TicketCreationAndContentTest()
         {
-            CurrencyExtensions.SetCultureInfo(CultureInfo.CurrentCulture);
+            string minorUnitSymbol = "c";
+            string cultureName = "en-US";
+            CultureInfo culture = new CultureInfo(cultureName);
+
+            RegionInfo region = new RegionInfo(cultureName);
+            CurrencyExtensions.Currency = new Currency(region.ISOCurrencySymbol, region, culture, minorUnitSymbol);
+            CurrencyExtensions.SetCultureInfo(region.ISOCurrencySymbol, culture);
 
             // Mock properties
             var serialNumber = "123";
@@ -380,6 +394,15 @@
             _propertiesManager
                 .Setup(m => m.GetProperty(ApplicationConstants.CurrencyMeterRolloverText, It.IsAny<object>()))
                 .Returns(10000000000000);
+            _propertiesManager
+                .Setup(m => m.GetProperty(ApplicationConstants.LocalizationOperatorTicketLanguageSettingOperatorOverride, It.IsAny<object>()))
+                .Returns(false);
+            _propertiesManager
+                .Setup(m => m.GetProperty("CoinDenominations", It.IsAny<object>()))
+                .Returns(new Collection<int> { 1, 2 });
+            _propertiesManager
+                .Setup(m => m.GetProperty("System.VoucherIn", It.IsAny<object>()))
+                .Returns(false);
 
             _gameProvider.Setup(m => m.GetEnabledGames()).Returns(_mockGames);
 

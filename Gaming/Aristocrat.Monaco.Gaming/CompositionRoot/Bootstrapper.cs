@@ -83,9 +83,9 @@
             container.Register<IManifest<Image>, ImageManifest>(Lifestyle.Singleton);
             container.Register<IGameProvider, GameProvider>(Lifestyle.Singleton);
             container.Register<IGameCategoryService, GameCategoryService>(Lifestyle.Singleton);
-            container.Register<IGameHelpTextProvider, GameHelpTextProvider>(Lifestyle.Singleton);
             container.Register<ICabinetState, CabinetState>(Lifestyle.Singleton);
             container.Register<ICabinetService, CabinetService>(Lifestyle.Singleton);
+            container.Register<IHandCountResetService, HandCountResetService>(Lifestyle.Singleton);
             container.Register<IGamePlayState, GamePlayState>(Lifestyle.Singleton);
             container.Register<IGameRecovery, GameRecovery>(Lifestyle.Singleton);
             container.Register<IGameDiagnostics, GameDiagnostics>(Lifestyle.Singleton);
@@ -96,6 +96,7 @@
             container.Register<IPlayerBank, PlayerBank>(Lifestyle.Singleton);
             container.Register<IGameStorage, GameStorageManager>(Lifestyle.Singleton);
             container.Register<IRuntimeFlagHandler, RuntimeFlagHandler>(Lifestyle.Singleton);
+            container.Register<HandCountChangedHandler>(Lifestyle.Singleton);
             container.Register<IButtonLamps, ButtonLamps>(Lifestyle.Singleton);
             container.Register<IGameOrderSettings, GameOrderSettings>(Lifestyle.Singleton);
             container.Register<IOperatorMenuGamePlayMonitor, OperatorMenuGamePlayMonitor>(Lifestyle.Singleton);
@@ -106,6 +107,7 @@
             container.Register<IPlayerSessionHistory, PlayerSessionHistory>(Lifestyle.Singleton);
             container.Register<IMessageDisplayHandler, GameMessageDisplayHandler>(Lifestyle.Singleton);
             container.Register<IAttendantService, AttendantService>(Lifestyle.Singleton);
+            container.Register<IBalanceUpdateService, BalanceUpdateService>(Lifestyle.Singleton);
             container.Register<IReserveService, ReserveService>(Lifestyle.Singleton);
             container.Register<IUserActivityService, UserActivityService>(Lifestyle.Singleton);
             container.Register<IHardwareHelper, HardwareHelper>(Lifestyle.Singleton);
@@ -130,6 +132,7 @@
             container.Register<IProgressiveBroadcastTimer, ProgressiveBroadcastTimer>(Lifestyle.Singleton);
             container.Register<ISapProvider, StandaloneProgressiveProvider>(Lifestyle.Singleton);
             container.Register<IProtocolLinkedProgressiveAdapter, ProtocolLinkedProgressiveAdapter>(Lifestyle.Singleton);
+            container.Register<IMysteryProgressiveProvider, MysteryProgressiveProvider>(Lifestyle.Singleton);
             container.Register<IHandpayRuntimeFlagsHelper, HandpayRuntimeFlagsHelper>(Lifestyle.Singleton);
             container.Register<IReplayRuntimeEventHandler, ReplayRuntimeEventHandler>(Lifestyle.Singleton);
             container.Register<ReelControllerMonitor>(Lifestyle.Singleton);
@@ -210,6 +213,8 @@
             container.Register<ExcessiveMeterIncrementMonitor>(Lifestyle.Singleton);
 
             container.Register<RngCyclingService>(Lifestyle.Singleton);
+
+            container.Register<IGamePackConfigurationProvider, GamePackConfigurationProvider>(Lifestyle.Singleton);
 
             //#if !(RETAIL)
             //            PerformanceCounters.RegisterFromAttribute(typeof(ICommandHandler<>).Assembly);

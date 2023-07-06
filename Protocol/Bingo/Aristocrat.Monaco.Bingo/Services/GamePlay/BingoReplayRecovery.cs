@@ -231,8 +231,6 @@
                     _gamePlayState.SetGameEndHold(false);
                 }
             }
-
-            await _commandFactory.Execute(new BingoGameEndedCommand(machineSerial, transaction, log), token);
         }
 
         private void RecoverGameEndWinMessage(ITransactionConnector transaction)

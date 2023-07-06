@@ -146,7 +146,7 @@
                     _ => _disableManager.Disable(
                         ApplicationConstants.DisplayDisconnectedLockupKey,
                         SystemDisablePriority.Immediate,
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisplayDisconnected))
+                        () => Localizer.ForLockup().GetString(ResourceKeys.DisplayDisconnected))
                 );
 
                 CheckDevicesCount();
@@ -224,9 +224,9 @@
                     continue;
                 }
 
-                if (device.Id == 0 && device.DeviceType == DeviceType.Touch)
+                if (device is ITouchDevice touch && touch.CommunicationType == Cabinet.CommunicationTypes.Serial)
                 {
-                     var serialTouchDeviceStatusHandler = new SerialTouchDeviceStatusHandler()
+                    var serialTouchDeviceStatusHandler = new SerialTouchDeviceStatusHandler()
                     {
                         Device = device,
                         Meter = meters[role],
@@ -309,10 +309,10 @@
             }
         }
 
-        private void OnDeviceStatusChanged<TEvent>(string meter, bool connected, bool isSerialDeviceHandler) where TEvent : IEvent, new()
+        private void OnDeviceStatusChanged<TEvent>(string meter, bool connected) where TEvent : IEvent, new()
         {
             Logger.Error($"{meter} connected = {connected}");
-            var oldStatus = isSerialDeviceHandler || PersistDeviceStatus(meter, connected);
+            var oldStatus = PersistDeviceStatus(meter, connected);
             if (oldStatus != connected && connected == false)
             {
                 _meterManager.GetMeter(meter).Increment(1);
@@ -342,7 +342,7 @@
                     _disableManager.Disable(
                         ApplicationConstants.TouchDisplayReconnectedLockupKey,
                         SystemDisablePriority.Immediate,
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TouchDisplayReconnected));
+                        () => Localizer.ForLockup().GetString(ResourceKeys.TouchDisplayReconnected));
                 }
                 // TouchDisplayDisconnected lockup is enabled when any touch displays are disconnected.
                 else if (_disableManager.CurrentDisableKeys.Contains(ApplicationConstants.TouchDisplayReconnectedLockupKey) && !allConnected)
@@ -351,20 +351,19 @@
                 }
             }
 
-            var isSerialDeviceHandler = sender is SerialTouchDeviceStatusHandler;
             // Update meter for device
-            OnDeviceStatusChanged<TEvent>(sender.Meter, connected, isSerialDeviceHandler);
+            OnDeviceStatusChanged<TEvent>(sender.Meter, connected);
         }
 
         private void OnButtonDeckStatusChanged(bool connected)
         {
             if (connected)
             {
-                OnDeviceStatusChanged<ButtonDeckConnectedEvent>(ApplicationMeters.PlayerButtonErrorCount, true, false);
+                OnDeviceStatusChanged<ButtonDeckConnectedEvent>(ApplicationMeters.PlayerButtonErrorCount, true);
             }
             else
             {
-                OnDeviceStatusChanged<ButtonDeckDisconnectedEvent>(ApplicationMeters.PlayerButtonErrorCount, false, false);
+                OnDeviceStatusChanged<ButtonDeckDisconnectedEvent>(ApplicationMeters.PlayerButtonErrorCount, false);
             }
 
             HandleStatusChange(
@@ -444,7 +443,7 @@
                 _disableManager.Disable(
                     disableKey,
                     SystemDisablePriority.Immediate,
-                    () => Localizer.For(CultureFor.Operator).GetString(resource));
+                    () => Localizer.ForLockup().GetString(resource));
             }
         }
 

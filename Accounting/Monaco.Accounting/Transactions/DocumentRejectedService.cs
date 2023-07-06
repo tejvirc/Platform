@@ -168,7 +168,7 @@
         {
             HandleDocumentReject();
         }
-        
+
         private void HandleDocumentReject()
         {
             var consecutiveRejectsBeforeLockup = _properties.GetValue(ApplicationConstants.ExcessiveDocumentRejectCount, -1);
@@ -195,7 +195,7 @@
 
         private void ClearDocumentReject()
         {
-            if (_noteAcceptor == null )
+            if (_noteAcceptor == null)
             {
                 return;
             }
@@ -229,7 +229,7 @@
             _systemDisableManager.Disable(
                 ApplicationConstants.ExcessiveDocumentRejectGuid,
                     SystemDisablePriority.Immediate,
-                    () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExcessiveDocumentRejectMessage));
+                    () => Localizer.ForLockup().GetString(ResourceKeys.ExcessiveDocumentRejectMessage));
             _properties.SetProperty(AccountingConstants.ExcessiveDocumentRejectLockupEnabled, true);
         }
 

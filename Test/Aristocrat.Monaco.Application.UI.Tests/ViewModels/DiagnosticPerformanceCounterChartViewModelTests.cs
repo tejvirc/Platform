@@ -177,50 +177,50 @@
                 Task.FromResult<IList<PerformanceCounters>>(
                     new List<PerformanceCounters>
                     {
-                        new PerformanceCounters
+                        new PerformanceCounters // is used for average value calculation
                         {
                             DateTime = DateTime.Today.AddDays(-2).AddMinutes(10),
-                            Values = new[] { 1.0, 2, 3, 4, 5, 6, 7, 8, 9, 10 }
+                            Values = new[] { 1.0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18}
                         },
-                        new PerformanceCounters
+                        new PerformanceCounters // is used for average value calculation
                         {
                             DateTime = DateTime.Today.AddDays(-2).AddMinutes(20),
-                            Values = new[] { 1.0, 1, 3.1, 4, 5, 1.5, 7, 8, 8, 10.5 }
+                            Values = new[] { 1.0, 1, 3.1, 4, 5, 1.5, 7, 8, 8, 10.5, 12, 13.5, 15, 18, 13, 16.5, 24, 20 }
                         },
-                        new PerformanceCounters
+                        new PerformanceCounters // is used for average value calculation
                         {
                             DateTime = DateTime.Today.AddDays(-2).AddMinutes(30),
-                            Values = new[] { 1.0, 3, 2.9, 4, 5, 10.5, 7, 8, 10, 9.5 }
+                            Values = new[] { 1.0, 3, 2.9, 4, 5, 10.5, 7, 8, 10, 9.5, 10, 10.5, 11, 10, 17, 15.5, 10, 16 }
                         },
                         new PerformanceCounters
                         {
                             DateTime = DateTime.Today.AddDays(-1).AddMinutes(1),
-                            Values = new[] { 1.0, 2, 3, 4, 5, 6, 6, 5, 4, 3 }
+                            Values = new[] { 1.0, 2, 3, 4, 5, 6, 6, 5, 4, 3, 10.1, 20.1, 100.1, 200.1, 200, 100, 50, 100 }
                         },
                         new PerformanceCounters
                         {
                             DateTime = DateTime.Today.AddDays(-1).AddMinutes(2),
-                            Values = new[] { 2.0, 4, 2, 4, 12, 6, 2, 8, 10, 6 }
+                            Values = new[] { 2.0, 4, 2, 4, 12, 6, 2, 8, 10, 6, 20, 40, 200, 404, 999, 666, 100, 999 }
                         },
                         new PerformanceCounters
                         {
                             DateTime = DateTime.Today.AddDays(-1).AddMinutes(3),
-                            Values = new[] { 3.0, 6, 1, 4, 1, 6, 10, 7, 3, 5 }
+                            Values = new[] { 3.0, 6, 1, 4, 1, 6, 10, 7, 3, 5, 3.0, 6, 1, 4, 1, 6, 10, 4 }
                         },
                         new PerformanceCounters
                         {
                             DateTime = DateTime.Today.AddMinutes(10),
-                            Values = new[] { 10.123, 23, 1234.5678, 3456.789, 123.456, 5, 3.12, 0.1, 0.3, 0.79 }
+                            Values = new[] { 10.123, 23, 1234.5678, 3456.789, 123.456, 5, 3.12, 0.1, 0.3, 0.79, 20.345, 40, 1234.567, 3456.789, 123.456, 50, 30.1, 50}
                         },
                         new PerformanceCounters
                         {
                             DateTime = DateTime.Today.AddMinutes(15),
-                            Values = new[] { 11.23, 32, 102.678, 3456.789, 123.456, 5, 3.12, 0.2, 0.6, 0.34 }
+                            Values = new[] { 11.23, 32, 102.678, 3456.789, 123.456, 5, 3.12, 0.2, 0.6, 0.34, 11.23, 32, 300, 888.88, 77.7, 55, 33.3, 44.4 }
                         },
                         new PerformanceCounters
                         {
                             DateTime = DateTime.Today.AddMinutes(30),
-                            Values = new[] { 10.123, 23, 1234.5678, 3456.789, 123.456, 5, 3.12, 0.9, 0.8, 0.7 }
+                            Values = new[] { 10.123, 23, 1234.5678, 3456.789, 123.456, 5, 3.12, 0.9, 0.8, 0.7, 10.123, 23.23, 1111.11, 3333.33, 222.22, 0.5, 0.1, 0.2 }
                         }
                     }));
 

@@ -5,7 +5,7 @@
   <LargeGameIconsEnabled>true</LargeGameIconsEnabled>
   <HasIdleAttractVideo>false</HasIdleAttractVideo>
   <BottomAttractVideoEnabled>true</BottomAttractVideoEnabled>
-  <DaysAsNew>90.0</DaysAsNew>
+  <DaysAsNew>30.0</DaysAsNew>
   <ResponsibleGamingTimeLimits>
     <double>15</double>
 	<double>30</double>
@@ -13,7 +13,7 @@
 	<double>60</double>
   </ResponsibleGamingTimeLimits>
   <ResponsibleGamingSessionLimit>0</ResponsibleGamingSessionLimit>
-  <ResponsibleGamingInfo Pages="5" ExitStrategy="PressBash" ButtonPlacement="Header" PrintHelpline="false" FullScreen="false" Timeout="120" />
+  <ResponsibleGamingInfo Pages="5" ExitStrategy="TouchScreen" ButtonPlacement="Header" PrintHelpline="false" FullScreen="false" Timeout="120" />
   <LobbyUiDirectoryPath>../jurisdiction/Quebec-VLT/ui/</LobbyUiDirectoryPath>
   <SkinFilenames>
 	<string>QuebecUI.fr.ca.xaml</string>
@@ -23,6 +23,10 @@
 	<string>fr-ca</string>
 	<string>en-us</string>
   </LocaleCodes>
+  <LanguageButtonResourceKeys>
+    <string>FrenchOff</string>
+	<string>EnglishOff</string>
+  </LanguageButtonResourceKeys>
   <DefaultLoadingScreenFilename>../jurisdiction/Quebec-VLT/ui/Images/BS_LoadingScreen.png</DefaultLoadingScreenFilename>
   <DefaultTopAttractVideoFilename>../jurisdiction/Quebec-VLT/ui/Videos/LobbyAttract.bk2</DefaultTopAttractVideoFilename>
   <DefaultTopperAttractVideoFilename>../jurisdiction/Quebec-VLT/ui/Videos/LobbyAttract.bk2</DefaultTopperAttractVideoFilename>
@@ -32,7 +36,8 @@
   <LcdChooseVideoLanguage2>../jurisdiction/Quebec-VLT/ui/Videos/LCD_ChooseGame_EN.bk2</LcdChooseVideoLanguage2>
   <AttractVideoNoBonusFilename>../jurisdiction/Quebec-VLT/ui/Videos/Attract_NoBonus.bk2</AttractVideoNoBonusFilename>
   <AttractVideoWithBonusFilename>../jurisdiction/Quebec-VLT/ui/Videos/Attract_Bonus.bk2</AttractVideoWithBonusFilename>
-  <TopperLobbyVideoFilename>../jurisdiction/Quebec-VLT/ui/Videos/LobbyAttract.bk2</TopperLobbyVideoFilename>
+  <AlternateAttractModeLanguage>true</AlternateAttractModeLanguage>
+  <DisplayVoucherNotification>false</DisplayVoucherNotification>
   <ClockMode>Military</ClockMode>
   <DefaultGameDisplayOrderByThemeId>
       <string>ATI_WildYukon</string>
@@ -47,6 +52,7 @@
       <string>ATI_CaptainCoinsKeno_500</string>
       <string>ATI_CaptainCoinsKeno_1000</string>
   </DefaultGameDisplayOrderByThemeId>
+  <TimeLimitDialogTemplate>TimeLimitQuebecDialogTemplate</TimeLimitDialogTemplate>
   <EdgeLightingOverrideUseGen8IdleMode>false</EdgeLightingOverrideUseGen8IdleMode>
   <RemoveIdlePaidMessageOnSessionStart>true</RemoveIdlePaidMessageOnSessionStart>
 </LobbyConfiguration>  

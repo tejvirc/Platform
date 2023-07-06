@@ -15,9 +15,9 @@
         public HardwareDiagnosticDeviceCategory Category { get; set; }
 
         /// <summary>
-        ///     Firmware version
+        ///     List of firmware versions
         /// </summary>
-        public string FirmwareVersion { get; set; }
+        public IList<string> FirmwareVersions { get; set; }
 
         /// <summary>
         ///     Page test status
@@ -30,8 +30,13 @@
         public IList<string> FailureMessages { get; set; }
 
         /// <summary>
+        ///     Get combined firmware versions string.
+        /// </summary>
+        public string CombinedFirmwareVersions(string delimiter) => string.Join(delimiter, FirmwareVersions.Distinct());
+
+        /// <summary>
         ///     Get combined test failures string.
         /// </summary>
-        public string CombinedTestFailures => string.Join("; ", FailureMessages.Distinct());
+        public string CombinedTestFailures(string delimiter) => string.Join(delimiter, FailureMessages.Distinct());
     }
 }

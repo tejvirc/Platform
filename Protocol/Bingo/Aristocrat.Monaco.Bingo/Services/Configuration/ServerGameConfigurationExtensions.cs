@@ -18,7 +18,6 @@
                 BetInformationDetails =
                     configuration.BetInformationDetails.Select(ToBetInformationDetail).ToList().AsReadOnly(),
                 Denomination = configuration.Denomination.CentsToMillicents(),
-                EvaluationTypePaytable = configuration.EvaluationTypePaytable,
                 PlatformGameId = gameDetail.Id,
                 QuickStopMode = configuration.QuickStopMode,
                 ThemeSkinId = configuration.ThemeSkinId,

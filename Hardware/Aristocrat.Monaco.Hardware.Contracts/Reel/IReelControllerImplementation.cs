@@ -4,13 +4,12 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Events;
-    using Gds.Reel;
     using ImplementationCapabilities;
 
     /// <summary>
     ///     The reel controller implementation
     /// </summary>
-    public interface IReelControllerImplementation : IGdsDevice
+    public interface IReelControllerImplementation : IHardwareDevice, IDfuDevice
     {
         /// <summary> The event that occurs when the reel controller has a fault </summary>
         event EventHandler<ReelControllerFaultedEventArgs> ControllerFaultOccurred;
@@ -55,7 +54,7 @@
         IReadOnlyDictionary<int, ReelFaults> Faults { get; }
 
         /// <summary> Gets the status for each of the available reels </summary>
-        IReadOnlyDictionary<int, ReelStatus> ReelsStatus { get; }
+        IReadOnlyDictionary<int, ReelStatus> ReelStatuses { get; }
 
         /// <summary>
         ///     Homes the reels to the requested stop

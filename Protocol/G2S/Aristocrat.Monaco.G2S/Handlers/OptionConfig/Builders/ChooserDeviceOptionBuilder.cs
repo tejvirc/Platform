@@ -138,7 +138,7 @@
                 }
             };
 
-            var currentValues = _gameProvider.GetGames().Select(g => CreateGamePositionComplexValue(g, _gameOrderSettings.GetPositionPriority(g.ThemeId)));
+            var currentValues = _gameProvider.GetGames().Select(g => CreateGamePositionComplexValue(g, _gameOrderSettings.GetIconPositionPriority(g.ThemeId)));
 
             var defaultValues = _gameProvider.GetGames().Select(g => CreateGamePositionComplexValue(g, 1)).ToList();
 

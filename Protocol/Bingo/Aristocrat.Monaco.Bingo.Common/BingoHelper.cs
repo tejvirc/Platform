@@ -58,7 +58,7 @@
 
         private static Uri GetHelpUri(this IUnitOfWorkFactory unitOfWorkFactory, BingoGameConfiguration serverSettings)
         {
-            var helpUrl = serverSettings.HelpUrl;
+            var helpUrl = serverSettings?.HelpUrl;
             return helpUrl.IsValidHelpUri() ? new Uri(helpUrl) : unitOfWorkFactory.GetFallbackUri(serverSettings);
         }
 

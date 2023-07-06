@@ -34,7 +34,6 @@
                    x.PaytableId == y.PaytableId &&
                    x.Denomination == y.Denomination &&
                    x.BetInformationDetails.SequenceEqual(y.BetInformationDetails, BetDetailsComparer) &&
-                   x.EvaluationTypePaytable == y.EvaluationTypePaytable &&
                    x.CrossGameProgressiveEnabled == y.CrossGameProgressiveEnabled;
         }
 
@@ -47,7 +46,6 @@
                 hashCode = (hashCode * 397) ^ obj.PaytableId.GetHashCode();
                 hashCode = (hashCode * 397) ^ obj.Denomination.GetHashCode();
                 hashCode = (hashCode * 397) ^ (obj.BetInformationDetails != null ? obj.BetInformationDetails.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (int)obj.EvaluationTypePaytable;
                 hashCode = (hashCode * 397) ^ obj.CrossGameProgressiveEnabled.GetHashCode();
                 return hashCode;
             }

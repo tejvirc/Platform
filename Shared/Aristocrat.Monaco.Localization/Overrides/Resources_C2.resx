@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CashoutTicket" xml:space="preserve">
+    <value>CASHOUT VOUCHER</value>
+    <comment>Localization.xml - LOC_CASHOUT TICKET</comment>
+  </data>
+  <data name="CashoutTicketReprint" xml:space="preserve">
+    <value>CASHOUT VOUCHER REPRINT</value>
+    <comment>Localization.xml - LOC_CASHOUT TICKET REPRINT</comment>
+  </data>
+  <data name="CashoutTickets" xml:space="preserve">
+    <value>Cashout Vouchers</value>
+    <comment>Localization.xml - LOC_Cashout Tickets</comment>
+  </data>
+  <data name="CashTicket" xml:space="preserve">
+    <value>Cash Voucher</value>
+    <comment>Localization.xml - LOC_Cash Ticket</comment>
+  </data>
+  <data name="CashWinTicket" xml:space="preserve">
+    <value>CASHWIN VOUCHER</value>
+    <comment>Localization.xml - LOC_CASHWIN TICKET</comment>
+  </data>
+  <data name="CashWinTicketReprint" xml:space="preserve">
+    <value>CASHWIN VOUCHER REPRINT</value>
+    <comment>Localization.xml - LOC_CASHWIN TICKET REPRINT</comment>
+  </data>
+  <data name="DebitTicket" xml:space="preserve">
+    <value>Debit Voucher</value>
+    <comment>Localization.xml - LOC_Debit Ticket</comment>
+  </data>
+  <data name="HandpayReceipt" xml:space="preserve">
+    <value>CASHOUT RECEIPT</value>
+    <comment>Localization.xml - LOC_HANDPAY RECEIPT</comment>
+  </data>
+  <data name="HandpayTicket" xml:space="preserve">
+    <value>HANDPAY RECEIPT</value>
+    <comment>Localization.xml - LOC_HANDPAY TICKET</comment>
+  </data>
+  <data name="JackpotHandpayTicket" xml:space="preserve">
+    <value>JACKPOT RECEIPT</value>
+    <comment>Localization.xml - LOC_JACKPOT HANDPAY TICKET</comment>
+  </data>
+  <data name="JackpotHandpayReprintTicket" xml:space="preserve">
+    <value>JACKPOT RECEIPT REPRINT</value>
+    <comment>Localization.xml - LOC_JACKPOT HANDPAY TICKET REPRINT</comment>
+  </data>
+  <data name="Market" xml:space="preserve">
+    <value>Class II</value>
+  </data>
+  <data name="MaximumValueReachedCashOutText2" xml:space="preserve">
+    <value>A cash out voucher is being produced.</value>
+    <comment>Localization.xml - LOC_A cash out ticket is being produced.</comment>
+  </data>
+  <data name="NeverExpires3" xml:space="preserve">
+    <value>Voucher never expires</value>
+    <comment>Localization.xml - LOC_Ticket never expires</comment>
+  </data>
+  <data name="PrintingTicket" xml:space="preserve">
+    <value>Printing Voucher...</value>
+    <comment>Localization.xml - LOC_Printing Ticket...</comment>
+  </data>
+  <data name="PromoTicket" xml:space="preserve">
+    <value>Promo Voucher</value>
+    <comment>Localization.xml - LOC_Promo Ticket</comment>
+  </data>
+  <data name="ReplayTicketPrinted" xml:space="preserve">
+    <value>Printed Voucher for</value>
+    <comment>Localization.xml - LOC_Printed Ticket for {0:C}</comment>
+  </data>
+  <data name="TicketNumber" xml:space="preserve">
+    <value>Voucher #</value>
+    <comment>Localization.xml - LOC_Ticket #</comment>
+  </data>
+  <data name="TicketNumber2" xml:space="preserve">
+    <value>Voucher Number #</value>
+    <comment>Localization.xml - LOC_Ticket Number #</comment>
+  </data>
+  <data name="TicketSequenceNumber" xml:space="preserve">
+    <value>Voucher Sequence #</value>
+    <comment>Localization.xml - LOC_Ticket Sequence #</comment>
+  </data>
+  <data name="TicketVoidAfter" xml:space="preserve">
+    <value>Voucher Void after</value>
+    <comment>Localization.xml - LOC_Ticket Void after</comment>
+  </data>
+  <data name="ValidationLength" xml:space="preserve">
+    <value>Voucher Length</value>
+    <comment>Localization.xml - LOC_Ticket Length</comment>
+  </data>
+  <data name="VoucherInTickets" xml:space="preserve">
+    <value>Number of Vouchers Inserted</value>
+    <comment>Localization.xml - LOC_Voucher In Tickets</comment>
+  </data>
+  <data name="VoucherText" xml:space="preserve">
+    <value>Voucher</value>
+    <comment>Localization.xml - LOC_Ticket</comment>
+  </data>
+  <data name="VoucherTicketsCreatorNeverExpires" xml:space="preserve">
+    <value>VOUCHER NEVER EXPIRES</value>
+    <comment>Localization.xml - LOC_TICKET NEVER EXPIRES</comment>
+  </data>
+  <data name="XXX2" xml:space="preserve">
+    <value>Voucher #:</value>
+    <comment>Localization.xml - LOC_Ticket #:</comment>
+  </data>
+  <data name="XXX6" xml:space="preserve">
+    <value>VOUCHER NO.</value>
+    <comment>Localization.xml - LOC_TICKET NO.</comment>
+  </data>
+</root>

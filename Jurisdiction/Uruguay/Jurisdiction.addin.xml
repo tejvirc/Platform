@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.UruguayJurisdiction" filterid="UruguayLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.UruguayJurisdiction" filterid="UruguayLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.UruguayJurisdiction" filterid="UruguayLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -139,9 +136,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="UruguayLocaleConfig">
     <FilePath FilePath="..\jurisdiction\Uruguay\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="UruguayLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\Uruguay\Lobby.config.xml" filterid="UruguayLobbyConfig" />

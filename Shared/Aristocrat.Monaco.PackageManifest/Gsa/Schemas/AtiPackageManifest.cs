@@ -347,7 +347,7 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         private long maxWinField;
         
         private bool maxWinFieldSpecified;
-        
+
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("bet")]
         public c_bet[] bet {
@@ -5594,3 +5594,4 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
     public partial class uninstallSeqList : c_uninstallSeqList {
     }
 }
+#pragma warning restore 1591

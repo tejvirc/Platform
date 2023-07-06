@@ -4,6 +4,7 @@
     using System.Globalization;
     using System.Reflection;
     using System.Threading;
+    using Accounting.Contracts.HandCount;
     using Application.Contracts;
     using Application.Contracts.Localization;
     using Application.Contracts.Media;
@@ -238,6 +239,7 @@
             serviceManager.AddService(_container.GetInstance<IGamePlayState>());
             serviceManager.AddServiceAndInitialize(_container.GetInstance<ICentralProvider>() as IService);
             serviceManager.AddService(_container.GetInstance<ICabinetService>());
+            serviceManager.AddService(_container.GetInstance<IHandCountResetService>());
             serviceManager.AddService(_container.GetInstance<IButtonDeckFilter>());
             serviceManager.AddService(_container.GetInstance<IGameHistory>() as IService);
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IGameService>() as IService);
@@ -251,7 +253,6 @@
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IPlayerSessionHistory>() as IService);
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IPlayerService>() as IService);
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IGameCategoryService>() as IService);
-            serviceManager.AddServiceAndInitialize(_container.GetInstance<IGameHelpTextProvider>() as IService);
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IBrowserProcessManager>());
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IAttendantService>());
             serviceManager.AddService(_container.GetInstance<IBarkeeperPropertyProvider>() as IService);
@@ -302,7 +303,6 @@
             serviceManager.RemoveService(_container.GetInstance<IGameOrderSettings>());
             serviceManager.RemoveService(_container.GetInstance<IPlayerService>() as IService);
             serviceManager.RemoveService(_container.GetInstance<IPlayerSessionHistory>() as IService);
-            serviceManager.RemoveService(_container.GetInstance<IGameHelpTextProvider>() as IService);
             serviceManager.RemoveService(_container.GetInstance<IBrowserProcessManager>());
             serviceManager.RemoveService(_container.GetInstance<IAttendantService>());
             serviceManager.RemoveService(_container.GetInstance<IUserActivityService>());
@@ -325,6 +325,7 @@
             serviceManager.RemoveService(_container.GetInstance<IPaymentDeterminationProvider>());
             serviceManager.RemoveService(_container.GetInstance<IGameStartConditionProvider>());
             serviceManager.RemoveService(_container.GetInstance<IOutcomeValidatorProvider>());
+            serviceManager.RemoveService(_container.GetInstance<IHandCountResetService>());
         }
 
         private void Unload()

@@ -1,13 +1,13 @@
 ﻿namespace Aristocrat.Monaco.G2S.UI.ViewModels
 {
     using Application.Contracts.OperatorMenu;
+    using Application.Contracts.Localization;
     using Application.UI.OperatorMenu;
     using Aristocrat.G2S.Client;
     using Kernel;
     using MVVM;
     using System.Collections.Generic;
     using System.Linq;
-    using Application.Contracts.Localization;
     using Localization.Properties;
 
     public class EditDeviceViewModel : OperatorMenuSaveViewModelBase

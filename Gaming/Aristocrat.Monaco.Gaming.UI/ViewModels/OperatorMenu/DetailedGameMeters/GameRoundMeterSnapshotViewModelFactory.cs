@@ -53,6 +53,9 @@
                 snapshot.WatOffCashablePromoAmount +
                 snapshot.WatOffNonCashableAmount;
 
+            result.TotalHardMeterOutAmount =
+                snapshot.HardMeterOutAmount;
+
             return result;
         }
     }

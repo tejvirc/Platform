@@ -1,5 +1,8 @@
 ﻿namespace Aristocrat.Monaco.TestController
 {
+    using System;
+    using System.Collections.Generic;
+    using Application.Contracts;
     using DataModel;
     using Hardware.Contracts;
     using Hardware.Contracts.IO;
@@ -8,9 +11,6 @@
     using Hardware.NoteAcceptor;
     using Kernel;
     using Kernel.Contracts;
-    using System;
-    using System.Collections.Generic;
-    using Application.Contracts;
 
     public partial class TestControllerEngine : ITestController
     {
@@ -45,7 +45,8 @@
                 {
                     data = new Dictionary<string, object>
                     {
-                        ["response-to"] = $"/BNA/{id}/Bill/Mask/Get", ["Mask"] = bitMask.ToString(),
+                        ["response-to"] = $"/BNA/{id}/Bill/Mask/Get",
+                        ["Mask"] = bitMask.ToString(),
                         ["error"] = "Note acceptor service unavailable"
                     },
                     Result = false
@@ -53,11 +54,11 @@
             }
 
             var denoms = bna.GetSupportedNotes();
-            
+
 
             if ((bool)_pm.GetProperty(PropertyKey.VoucherIn, false))
             {
-                bitMask |= (int)Math.Pow(2,30);
+                bitMask |= (int)Math.Pow(2, 30);
             }
 
             for (int i = 0; i < denoms.Count; ++i)
@@ -67,12 +68,13 @@
                     bitMask |= i ^ 2;
                 }
             }
-           
+
             return new CommandResult
             {
                 data = new Dictionary<string, object>
                 {
-                    ["response-to"] = $"/BNA/{id}/Bill/Mask/Get", ["Mask"] = bitMask.ToString()
+                    ["response-to"] = $"/BNA/{id}/Bill/Mask/Get",
+                    ["Mask"] = bitMask.ToString()
                 },
                 Result = true
             };
@@ -88,7 +90,8 @@
             {
                 return new CommandResult
                 {
-                    data = new Dictionary<string, object> { ["response-to"] = $"/BNA/{id}/Mask/Set", ["error"] = "Note acceptor service unavailable" }, Result = false
+                    data = new Dictionary<string, object> { ["response-to"] = $"/BNA/{id}/Mask/Set", ["error"] = "Note acceptor service unavailable" },
+                    Result = false
                 };
             }
 
@@ -96,7 +99,7 @@
 
             for (var i = 0; i < denoms.Count; ++i)
             {
-                bna.UpdateDenom(denoms[i], (value & i ^2) > 0);
+                bna.UpdateDenom(denoms[i], (value & i ^ 2) > 0);
             }
 
             //31st bit is for vouchers.
@@ -119,13 +122,14 @@
                 {
                     data = new Dictionary<string, object>
                     {
-                        ["response-to"] = $"/BNA/{id}/Bill/Notes/Get", ["Notes"] = "",
+                        ["response-to"] = $"/BNA/{id}/Bill/Notes/Get",
+                        ["Notes"] = "",
                         ["error"] = "Note acceptor service unavailable"
                     },
                     Result = false
                 };
             }
-            
+
             var currencyCode = _pm.GetValue(ApplicationConstants.CurrencyId, ApplicationConstants.DefaultCurrencyId);
             var supportedNotes = bna.GetSupportedNotes(currencyCode);
             var notes = string.Empty;
@@ -139,7 +143,8 @@
             {
                 data = new Dictionary<string, object>
                 {
-                    ["response-to"] = $"/BNA/{id}/Bill/Notes/Get", ["Notes"] = notes
+                    ["response-to"] = $"/BNA/{id}/Bill/Notes/Get",
+                    ["Notes"] = notes
                 },
                 Result = true
             };
@@ -230,7 +235,8 @@
             {
                 data = new Dictionary<string, object>
                 {
-                    ["response-to"] = $"/BNA/{id}/Firmware/Set", ["error"] = "Method not implemented."
+                    ["response-to"] = $"/BNA/{id}/Firmware/Set",
+                    ["error"] = "Method not implemented."
                 },
                 Command = "NoteAcceptorSetFirmware - Not Implemented."
             };
@@ -239,34 +245,57 @@
         public CommandResult NoteAcceptorAttachStacker(string id)
         {
             _eventBus.Publish(new FakeStackerEvent { Disconnect = false, Full = false });
-            return new CommandResult{
+            return new CommandResult
+            {
                 data = new Dictionary<string, object>
                 {
                     ["response-to"] = $"/BNA/{id}/Stacker/Attach",
                 },
-                Command = "NoteAcceptorAttachStacker", Result = true};
+                Command = "NoteAcceptorAttachStacker",
+                Result = true
+            };
         }
 
         public CommandResult NoteAcceptorStackerFull(string id)
         {
             _eventBus.Publish(new FakeStackerEvent { Full = true });
-            return new CommandResult {
+            return new CommandResult
+            {
                 data = new Dictionary<string, object>
                 {
                     ["response-to"] = $"/BNA/{id}/Stacker/Full",
                 },
-                Command = "NoteAcceptorStackerFull", Result = true };
+                Command = "NoteAcceptorStackerFull",
+                Result = true
+            };
+        }
+
+        public CommandResult NoteAcceptorStackerJam(string id)
+        {
+            _eventBus.Publish(new FakeStackerEvent { Jam = true });
+            return new CommandResult
+            {
+                data = new Dictionary<string, object>
+                {
+                    ["response-to"] = $"/BNA/{id}/Stacker/Jam",
+                },
+                Command = "NoteAcceptorStackerJam",
+                Result = true
+            };
         }
 
         public CommandResult NoteAcceptorStackerRemove(string id)
         {
             _eventBus.Publish(new FakeStackerEvent { Disconnect = true });
-            return new CommandResult {
+            return new CommandResult
+            {
                 data = new Dictionary<string, object>
                 {
                     ["response-to"] = $"/BNA/{id}/Stacker/Remove",
                 },
-                Command = "NoteAcceptorStackerRemove", Result = true };
+                Command = "NoteAcceptorStackerRemove",
+                Result = true
+            };
         }
 
         public CommandResult NoteAcceptorInsertTicket(string validation_id, string id)
@@ -277,7 +306,8 @@
                 _eventBus.Publish(new VoucherEscrowedEvent(noteAcceptor.NoteAcceptorId, validation_id));
             }
 
-            return new CommandResult {
+            return new CommandResult
+            {
                 data = new Dictionary<string, object>
                 {
                     ["response-to"] = $"/BNA/{id}/Ticket/Insert",

@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.AfricanNationsJurisdiction" filterid="AfricanNationsLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.AfricanNationsJurisdiction" filterid="AfricanNationsLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.AfricanNationsJurisdiction" filterid="AfricanNationsLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -140,10 +137,6 @@
   <Extension path="/Locale/Configuration" filterid="AfricanNationsLocaleConfig">
     <FilePath FilePath="..\jurisdiction\AfricanNations\Locale.config.xml" />
   </Extension>
-  <Extension path="/Locale/Overrides" filterid="AfricanNationsLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
-    <FilePath FilePath="..\jurisdiction\AfricanNations\resources\" />
-  </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\AfricanNations\Lobby.config.xml" filterid="AfricanNationsLobbyConfig" />
   </Extension>
@@ -186,7 +179,8 @@
     <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.WatOnTransaction" maxTransactions="100" persistenceLevel="Critical" />
     <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Progressives.JackpotTransaction" maxTransactions="50" persistenceLevel="Critical" isPrintable="true" />
     <TransactionHistoryProvider type="Aristocrat.Monaco.Gaming.Contracts.Bonus.BonusTransaction" maxTransactions="100" persistenceLevel="Critical" isPrintable="true" />
-    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.KeyedCreditsTransaction" maxTransactions="50" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.KeyedOnCreditsTransaction" maxTransactions="50" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Contracts.KeyedOffCreditsTransaction" maxTransactions="50" persistenceLevel="Critical" />
   </Extension>
   <Extension path="/Accounting/BootExtender" filterid="AfricanNationsAccountingRunnable">
     <BootExtender type="Aristocrat.Monaco.Gaming.Class3.Class3Runnable" />

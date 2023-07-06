@@ -12,7 +12,7 @@
   </Dependencies>
 
   <Extension path="/Protocol/Demonstration/Runnables">
-    <Demonstration type="Aristocrat.Monaco.Demonstration.DemonstrationRunnable" protocolId="Demonstration" serverProtocolId="126"/>
+    <Demonstration type="Aristocrat.Monaco.Demonstration.DemonstrationRunnable" protocolId="DemonstrationMode" serverProtocolId="126"/>
   </Extension>
 
 </Addin>

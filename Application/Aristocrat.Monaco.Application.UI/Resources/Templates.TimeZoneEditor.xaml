@@ -3,113 +3,153 @@
                     xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                     xmlns:lex="http://wpflocalizeextension.codeplex.com"
                     xmlns:loc="http://monaco.aristocrat.com/localization">
-
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+        <ResourceDictionary
+                Source="pack://application:,,,/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
     </ResourceDictionary.MergedDictionaries>
-
-    <DataTemplate x:Key="TimeZoneEditorTemplate" DataType="{x:Type viewModels:TimeConfigPageViewModel}">
-        <Grid>
+    <DataTemplate x:Key="TimeZoneEditorTemplate"
+                  DataType="{x:Type viewModels:TimeConfigPageViewModel}">
+        <Grid AutomationProperties.AutomationId="Grid0_7030A184">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto"
+                                  AutomationProperties.AutomationId="ColumnDefinition1_7030A184" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition2_7030A184" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition3_7030A184" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition4_7030A184" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition5_7030A184" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition6_7030A184" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition7_7030A184" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition8_7030A184" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition9_7030A184" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition10_7030A184" />
             </Grid.RowDefinitions>
-
             <!-- Time Zone -->
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.TimeZoneLabel}}" Grid.Row="0" />
-
-            <Grid Grid.Row="1">
+            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.TimeZoneLabel}}"
+                   Grid.Row="0"
+                   AutomationProperties.AutomationId="Label11_7030A184" />
+            <Grid Grid.Row="1"
+                  AutomationProperties.AutomationId="Grid12_7030A184">
                 <!-- Hack Alert: This ItemsControl is only used to expand the width of the combobox to the width of the largest item -->
-                <ItemsControl ItemsSource="{Binding TimeZones}" Height="0" Margin="30,0">
+                <ItemsControl ItemsSource="{Binding TimeZones}"
+                              Height="0"
+                              Margin="30,0"
+                              AutomationProperties.AutomationId="ItemsControl13_7030A184">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Label Content="{Binding}" />
+                            <Label Content="{Binding}"
+                                   AutomationProperties.AutomationId="Label14_7030A184" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-
-                <ComboBox ItemsSource="{Binding Path=TimeZones}" Style="{StaticResource MonacoTimeZoneComboBox}"
-                            SelectedValue="{Binding TimeZoneId}"
-                            SelectedValuePath="Id"
-                            DisplayMemberPath="DisplayName"
-                            IsEnabled="{Binding InputEnabled}"
-                            ItemContainerStyle="{StaticResource MonacoUnselectableComboBoxItem}"/>
+                <ComboBox ItemsSource="{Binding Path=TimeZones}"
+                          Style="{StaticResource MonacoTimeZoneComboBox}"
+                          SelectedValue="{Binding TimeZoneId}"
+                          SelectedValuePath="Id"
+                          DisplayMemberPath="DisplayName"
+                          IsEnabled="{Binding InputEnabled}"
+                          ItemContainerStyle="{StaticResource MonacoUnselectableComboBoxItem}"
+                          AutomationProperties.AutomationId="ComboBox15_7030A184" />
             </Grid>
-
-            <Label Grid.Row="2" Margin="0 20 0 0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.TimeZoneOffsetLabel}}"
-                   Visibility="{Binding OffsetIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
-            <TextBlock Grid.Row="3" Style="{StaticResource MonacoTextBlock}"
+            <Label Grid.Row="2"
+                   Margin="0 20 0 0"
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.TimeZoneOffsetLabel}}"
+                   Visibility="{Binding OffsetIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                   AutomationProperties.AutomationId="Label16_7030A184" />
+            <TextBlock Grid.Row="3"
+                       Style="{StaticResource MonacoTextBlock}"
                        Text="{Binding TimeZoneOffset, UpdateSourceTrigger=PropertyChanged}"
-                       Visibility="{Binding OffsetIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
-
+                       Visibility="{Binding OffsetIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                       AutomationProperties.AutomationId="TextBlock17_7030A184" />
             <!-- Date -->
-            <Label Grid.Row="4" Margin="0 20 0 0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.Date}}" />
+            <Label Grid.Row="4"
+                   Margin="0 20 0 0"
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.Date}}"
+                   AutomationProperties.AutomationId="Label18_7030A184" />
             <DatePicker Grid.Row="5"
-                        SelectedDateFormat="Long" SelectedDate="{Binding PickerDate}"
+                        SelectedDateFormat="Long"
+                        Text="{Binding PickerDate, Mode=TwoWay}"
                         DisplayDateStart="1/01/16"
-                        HorizontalAlignment="Left" 
-                        VerticalAlignment="Center" 
-                        IsEnabled="{Binding InputEnabled}" />
-
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        IsEnabled="{Binding InputEnabled}"
+                        Language="{Binding DatePickerLanguage}"
+                        AutomationProperties.AutomationId="DatePicker19_7030A184" />
             <!-- Time -->
-            <Label Grid.Row="6" Margin="0 20 0 0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.TimeLabel}}" />
-            <StackPanel Grid.Row="7" Orientation="Horizontal" >
-                <ComboBox Style="{StaticResource MonacoTimeZoneComboBox}" 
-                          ItemsSource="{Binding Hours}" 
-                          SelectedItem="{Binding Hour, Mode=TwoWay}" 
+            <Label Grid.Row="6"
+                   Margin="0 20 0 0"
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.TimeLabel}}"
+                   AutomationProperties.AutomationId="Label20_7030A184" />
+            <StackPanel Grid.Row="7"
+                        Orientation="Horizontal"
+                        AutomationProperties.AutomationId="StackPanel21_7030A184">
+                <ComboBox Style="{StaticResource MonacoTimeZoneComboBox}"
+                          ItemsSource="{Binding Hours}"
+                          SelectedItem="{Binding Hour, Mode=TwoWay}"
                           IsEnabled="{Binding InputEnabled}"
-                          ItemContainerStyle="{StaticResource MonacoUnselectableComboBoxItem}">
+                          ItemContainerStyle="{StaticResource MonacoUnselectableComboBoxItem}"
+                          AutomationProperties.AutomationId="ComboBox22_7030A184">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding StringFormat={}{0:00}}" Style="{DynamicResource MonacoTextBlock}" />
+                            <TextBlock Text="{Binding StringFormat={}{0:00}}"
+                                       Style="{DynamicResource MonacoTextBlock}"
+                                       AutomationProperties.AutomationId="TextBlock23_7030A184" />
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-
-                <TextBlock Text=":" Margin="10 0" />
-
-                <ComboBox Style="{StaticResource MonacoTimeZoneComboBox}" 
-                          ItemsSource="{Binding Minutes}" 
-                          SelectedItem="{Binding Minute, Mode=TwoWay}" 
+                <TextBlock Text=":"
+                           Margin="10 0"
+                           AutomationProperties.AutomationId="TextBlock24_7030A184" />
+                <ComboBox Style="{StaticResource MonacoTimeZoneComboBox}"
+                          ItemsSource="{Binding Minutes}"
+                          SelectedItem="{Binding Minute, Mode=TwoWay}"
                           IsEnabled="{Binding InputEnabled}"
-                          ItemContainerStyle="{StaticResource MonacoUnselectableComboBoxItem}">
+                          ItemContainerStyle="{StaticResource MonacoUnselectableComboBoxItem}"
+                          AutomationProperties.AutomationId="ComboBox25_7030A184">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding StringFormat={}{0:00}}" Style="{DynamicResource MonacoTextBlock}" />
+                            <TextBlock Text="{Binding StringFormat={}{0:00}}"
+                                       Style="{DynamicResource MonacoTextBlock}"
+                                       AutomationProperties.AutomationId="TextBlock26_7030A184" />
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-
-                <TextBlock Text=":" Margin="10 0" />
-
-                <ComboBox Style="{StaticResource MonacoTimeZoneComboBox}" 
-                          ItemsSource="{Binding Seconds}" 
-                          SelectedItem="{Binding Second, Mode=TwoWay}" 
+                <TextBlock Text=":"
+                           Margin="10 0"
+                           AutomationProperties.AutomationId="TextBlock27_7030A184" />
+                <ComboBox Style="{StaticResource MonacoTimeZoneComboBox}"
+                          ItemsSource="{Binding Seconds}"
+                          SelectedItem="{Binding Second, Mode=TwoWay}"
                           IsEnabled="{Binding InputEnabled}"
-                          ItemContainerStyle="{StaticResource MonacoUnselectableComboBoxItem}">
+                          ItemContainerStyle="{StaticResource MonacoUnselectableComboBoxItem}"
+                          AutomationProperties.AutomationId="ComboBox28_7030A184">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding StringFormat={}{0:00}}" Style="{DynamicResource MonacoTextBlock}" />
+                            <TextBlock Text="{Binding StringFormat={}{0:00}}"
+                                       Style="{DynamicResource MonacoTextBlock}"
+                                       AutomationProperties.AutomationId="TextBlock29_7030A184" />
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
             </StackPanel>
-
-            <Button Grid.Row="8" Margin="0 30 0 0" HorizontalAlignment="Left" 
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.ApplyLabel}}" 
+            <Button Grid.Row="8"
+                    Margin="0 30 0 0"
+                    HorizontalAlignment="Left"
+                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.ApplyLabel}}"
                     IsEnabled="{Binding InputEnabled}"
-                    Command="{Binding ApplyCommand}" 
-                    Visibility="{Binding ApplyButtonIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
+                    Command="{Binding ApplyCommand}"
+                    Visibility="{Binding ApplyButtonIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                    AutomationProperties.AutomationId="Button30_7030A184" />
         </Grid>
     </DataTemplate>
 </ResourceDictionary>

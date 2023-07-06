@@ -144,7 +144,7 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
             _eventBus.Subscribe<NoPlayersFoundEvent>(this, HandleNoPlayersFound);
             _eventBus.Subscribe<PlayersFoundEvent>(this, (_, token) => CancelWaitingForPlayers(token));
             _eventBus.Subscribe<WaitingForPlayersCanceledEvent>(this, (_, token) => CancelWaitingForPlayers(token));
-            _eventBus.Subscribe<GamePlayDisabledEvent>(this, (_, token) => CancelWaitingForPlayers(token));
+            _eventBus.Subscribe<GamePlayDisabledEvent>(this, (_, token) => HandleGamePlayDisabled(token));
             _eventBus.Subscribe<PresentationOverrideDataChangedEvent>(this, Handle);
             _eventBus.Subscribe<ClearBingoDaubsEvent>(this, Handle);
             _eventBus.Subscribe<BingoDisplayConfigurationChangedEvent>(this, (_, _) => HandleBingoDisplayConfigurationChanged());
@@ -357,6 +357,16 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
         private async Task CancelWaitingForPlayers(CancellationToken token)
         {
             await UpdateOverlay(() => new BingoLiveData { CancelWaitingForGame = true }, token);
+        }
+
+        private async Task HandleGamePlayDisabled(CancellationToken token)
+        {
+            await CancelWaitingForPlayers(token);
+
+            if (IsHelpVisible)
+            {
+                ExitHelp();
+            }
         }
 
         private IEnumerable<BingoCardNumber> ConvertBingoCardNumberArrayToList(BingoNumber[,] numbers)
@@ -885,7 +895,12 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
         private async Task Handle(HostConnectedEvent e, CancellationToken token)
         {
             var helpAddress = _unitOfWorkFactory.GetHelpUri(_propertiesManager).ToString();
-            await _dispatcher.ExecuteAndWaitOnUIThread(() => BingoHelpAddress = helpAddress);
+            await _dispatcher.ExecuteAndWaitOnUIThread(
+                () =>
+                {
+                    BingoHelpAddress = helpAddress;
+                    ReloadBrowser(BingoHelpWebBrowser);
+                });
         }
 
         private async Task Handle(BankBalanceChangedEvent e, CancellationToken token)

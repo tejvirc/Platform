@@ -1,79 +1,114 @@
-﻿<operatorMenu:OperatorMenuPage  x:Class="Aristocrat.Monaco.G2S.UI.Views.DeviceManagerView"
-                                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-                                xmlns:vm="clr-namespace:Aristocrat.Monaco.G2S.UI.ViewModels"
-                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
-                                xmlns:loc="http://monaco.aristocrat.com/localization"
-                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
-                                xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
-                                mc:Ignorable="d" 
-                                common:DialogParticipation.Register="{Binding}"
-                                d:DesignHeight="450" d:DesignWidth="800"
-                                d:DataContext="{d:DesignInstance {x:Type vm:DeviceManagerViewModel }, IsDesignTimeCreatable=True}">
-
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.G2S.UI.Views.DeviceManagerView"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:vm="clr-namespace:Aristocrat.Monaco.G2S.UI.ViewModels"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+                               xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
+                               mc:Ignorable="d"
+                               common:DialogParticipation.Register="{Binding}"
+                               d:DesignHeight="450"
+                               d:DesignWidth="800"
+                               d:DataContext="{d:DesignInstance {x:Type vm:DeviceManagerViewModel}, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MonacoDataGridColumnHeader}">
-                <Setter Property="MinWidth" Value="50" />
-                <Setter Property="MinHeight" Value="65" />
+            <Style TargetType="{x:Type DataGridColumnHeader}"
+                   BasedOn="{StaticResource MonacoDataGridColumnHeader}">
+                <Setter Property="MinWidth"
+                        Value="50" />
+                <Setter Property="MinHeight"
+                        Value="65" />
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid x:Name="MainGrid">
+    <Grid x:Name="MainGrid"
+          AutomationProperties.AutomationId="Grid0_C13828E5">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition1_C13828E5" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_C13828E5" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition3_C13828E5" />
         </Grid.RowDefinitions>
-
-        <DataGrid Grid.Row="0" Name="DeviceViewer" RowHeight="32" Width="{Binding ElementName=MainGrid, Path=ActualWidth}" 
-                  ItemsSource="{Binding ActiveDevices}" 
+        <DataGrid Grid.Row="0"
+                  Name="DeviceViewer"
+                  RowHeight="32"
+                  Width="{Binding ElementName=MainGrid, Path=ActualWidth}"
+                  ItemsSource="{Binding ActiveDevices}"
                   SelectedItem="{Binding SelectedDevice}"
-                  ScrollViewer.CanContentScroll="True">
+                  ScrollViewer.CanContentScroll="True"
+                  loc:Localizer.For="Operator"
+                  AutomationProperties.AutomationId="DataGrid4_C13828E5">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerDeviceName}}"
                                     IsReadOnly="True"
                                     Binding="{Binding DeviceClass}"
-                                    Width="240"/>
+                                    Width="Auto"
+                                    loc:Localizer.For="Operator"
+                                    AutomationProperties.AutomationId="DataGridTextColumn5_C13828E5" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceId}}"
                                     IsReadOnly="True"
                                     Binding="{Binding Id}"
-                                    Width="120" />
+                                    Width="Auto"
+                                    loc:Localizer.For="Operator"
+                                    AutomationProperties.AutomationId="DataGridTextColumn6_C13828E5" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerOwner}}"
                                     IsReadOnly="False"
                                     Binding="{Binding Owner}"
-                                    Width="120"/>
+                                    Width="Auto"
+                                    loc:Localizer.For="Operator"
+                                    AutomationProperties.AutomationId="DataGridTextColumn7_C13828E5" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerActive}}"
                                     IsReadOnly="False"
-                                    Binding="{Binding Active}"
-                                    Width="120" />
+                                    Binding="{Binding ActiveDisplayText}"
+                                    Width="Auto"
+                                    loc:Localizer.For="Operator"
+                                    AutomationProperties.AutomationId="DataGridTextColumn8_C13828E5" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerEnabled}}"
                                     IsReadOnly="True"
-                                    Binding="{Binding Enabled}"
-                                    Width="120" />
+                                    Binding="{Binding EnabledDisplayText}"
+                                    Width="Auto"
+                                    loc:Localizer.For="Operator"
+                                    AutomationProperties.AutomationId="DataGridTextColumn9_C13828E5" />
             </DataGrid.Columns>
         </DataGrid>
-
-        <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,20,0,0">
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerMassChangeButton}}" Width="150" IsEnabled="{Binding DeviceChangeEnabled}"
-                    Command="{Binding BulkChangesCommand}" ToolTip="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerMassChangeToolTip}}"/>
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.EditSelected}}" Width="150" HorizontalAlignment="Left" IsEnabled="{Binding DeviceChangeEnabled}"
-                    Command="{Binding EditCommand}" ToolTip="{lex:Loc Key={x:Static loc:ResourceKeys.EditSelected}}"/>
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerSaveButton}}" Width="150" IsEnabled="{Binding DeviceChangeEnabled}"
-                    Command="{Binding SaveChangesCommand}" ToolTip="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerSaveToolTip}}"/>
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerCancelButton}}" Width="150" Margin="0" IsEnabled="{Binding DeviceChangeEnabled}"
-                    Command="{Binding CancelChangesCommand}" ToolTip="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerCancelToolTip}}"/>
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="2"
+                    Margin="0,20,0,0"
+                    AutomationProperties.AutomationId="StackPanel10_C13828E5">
+            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerMassChangeButton}}"
+                    Width="170"
+                    IsEnabled="{Binding DeviceChangeEnabled}"
+                    Command="{Binding BulkChangesCommand}"
+                    ToolTip="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerMassChangeToolTip}}"
+                    AutomationProperties.AutomationId="Button11_C13828E5" />
+            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.EditSelected}}"
+                    Width="170"
+                    HorizontalAlignment="Left"
+                    IsEnabled="{Binding DeviceChangeEnabled}"
+                    Command="{Binding EditCommand}"
+                    ToolTip="{lex:Loc Key={x:Static loc:ResourceKeys.EditSelected}}"
+                    AutomationProperties.AutomationId="Button12_C13828E5" />
+            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerSaveButton}}"
+                    Width="170"
+                    IsEnabled="{Binding DeviceChangeEnabled}"
+                    Command="{Binding SaveChangesCommand}"
+                    ToolTip="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerSaveToolTip}}"
+                    AutomationProperties.AutomationId="Button13_C13828E5" />
+            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerCancelButton}}"
+                    Width="180"
+                    Margin="0"
+                    IsEnabled="{Binding DeviceChangeEnabled}"
+                    Command="{Binding CancelChangesCommand}"
+                    ToolTip="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerCancelToolTip}}"
+                    AutomationProperties.AutomationId="Button14_C13828E5" />
         </StackPanel>
     </Grid>
-
 </operatorMenu:OperatorMenuPage>
-
-
-

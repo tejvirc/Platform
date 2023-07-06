@@ -35,7 +35,8 @@
             _eventLift.Report(
                 device,
                 EventCode.G2S_BNE101,
-                device.DeviceList(bonusStatus));
+                device.DeviceList(bonusStatus),
+                theEvent);
         }
     }
 }

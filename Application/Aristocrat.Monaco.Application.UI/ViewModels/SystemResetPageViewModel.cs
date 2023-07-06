@@ -4,10 +4,8 @@
     using System.Windows.Input;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
-    using Events;
     using Hardware.Contracts.Persistence;
     using Kernel;
-    using Kernel.Contracts;
     using Monaco.Localization.Properties;
     using MVVM.Command;
     using OperatorMenu;
@@ -16,56 +14,10 @@
     [CLSCompliant(false)]
     public class SystemResetPageViewModel : OperatorMenuPageViewModelBase
     {
-        private string _statusText;
-        private bool _partialResetButtonActive;
-
         public SystemResetPageViewModel()
         {
             PartialResetButtonClickCommand = new ActionCommand<object>(OnPartialResetButtonClickCommand);
-
-            // Disable PartialResetButton if in game round or credits are there in machine
-            var gamePlayMonitor = ServiceManager.GetInstance().TryGetService<IOperatorMenuGamePlayMonitor>();
-            var balance = PropertiesManager.GetValue(PropertyKey.CurrentBalance, 0L);
-
-            if ((gamePlayMonitor?.InGameRound ?? false) || balance != 0)
-            {
-                _statusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PartialResetConditionText);
-                _partialResetButtonActive = false;
-            }
-            else
-            {
-                _statusText = string.Empty;
-                _partialResetButtonActive = true;
-            }
-        }
-
-        /// <summary>
-        ///     Gets or sets status text.
-        /// </summary>
-        public string StatusText
-        {
-            get => _statusText;
-
-            set
-            {
-                _statusText = value;
-                RaisePropertyChanged(nameof(StatusText));
-                UpdateStatusText();
-            }
-        }
-
-        /// <summary>
-        ///     Gets or sets a value indicating whether PartialResetButton is Active
-        /// </summary>
-        public bool PartialResetButtonActive
-        {
-            get => _partialResetButtonActive;
-
-            set
-            {
-                _partialResetButtonActive = value;
-                RaisePropertyChanged(nameof(PartialResetButtonActive));
-            }
+            FullResetButtonClickCommand = new ActionCommand<object>(OnFullResetButtonClickCommand);
         }
 
         /// <summary>
@@ -74,9 +26,14 @@
         public ICommand PartialResetButtonClickCommand { get; }
 
         /// <summary>
-        ///     User confirmation required to proceed with Reset
+        ///     Gets the command that fires when Reset button clicked
         /// </summary>
-        public void ConfirmAndExit()
+        public ICommand FullResetButtonClickCommand { get; }
+
+        /// <summary>
+        ///     User confirmation required to proceed with Partial Reset
+        /// </summary>
+        public void ConfirmPartialResetAndExit()
         {
             var dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
             var result = dialogService.ShowYesNoDialog(this, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PartialResetDialogText));
@@ -90,21 +47,31 @@
             }
         }
 
-        protected override void UpdateStatusText()
+        /// <summary>
+        ///     User confirmation required to proceed with Full Reset
+        /// </summary>
+        public void ConfirmFullResetAndExit()
         {
-            if (!string.IsNullOrEmpty(StatusText))
+            var dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
+            var result = dialogService.ShowYesNoDialog(this, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.FullResetDialogText));
+
+            if (result == true)
             {
-                EventBus.Publish(new OperatorMenuWarningMessageEvent(StatusText));
-            }
-            else
-            {
-                base.UpdateStatusText();
+                ServiceManager.GetInstance().GetService<IOperatorMenuLauncher>().Close();
+
+                var persistentStorage = ServiceManager.GetInstance().GetService<IPersistentStorageManager>();
+                persistentStorage.Clear(PersistenceLevel.Static);
             }
         }
 
         private void OnPartialResetButtonClickCommand(object obj)
         {
-            ConfirmAndExit();
+            ConfirmPartialResetAndExit();
+        }
+
+        private void OnFullResetButtonClickCommand(object obj)
+        {
+            ConfirmFullResetAndExit();
         }
     }
 }

@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.VirginIslandsJurisdiction" filterid="VirginIslandsLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.VirginIslandsJurisdiction" filterid="VirginIslandsLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.VirginIslandsJurisdiction" filterid="VirginIslandsLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -133,9 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="VirginIslandsLocaleConfig">
     <FilePath FilePath="..\jurisdiction\VirginIslands\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="VirginIslandsLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\VirginIslands\Lobby.config.xml" filterid="VirginIslandsLobbyConfig" />

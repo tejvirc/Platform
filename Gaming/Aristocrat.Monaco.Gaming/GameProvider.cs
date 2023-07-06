@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming
+namespace Aristocrat.Monaco.Gaming
 {
     using System;
     using System.Collections.Generic;
@@ -506,7 +506,7 @@
             {
                 foreach (var gameDetail in _games)
                 {
-                    if(!string.IsNullOrEmpty(gameDetail.Folder))
+                    if (!string.IsNullOrEmpty(gameDetail.Folder))
                     {
                         var manifest = GetManifest(gameDetail.Folder);
                         if (string.IsNullOrEmpty(manifest))
@@ -1017,6 +1017,8 @@
                 }).ToList();
 
             isComplex = isComplex || game.Denominations.Count() > 1;
+            var shouldAutoEnableGame = !isComplex && _properties.GetValue(GamingConstants.AutoEnableSimpleGames, true);
+
             var gameDetail = FindGame(game.ThemeId, game.PaytableId, gameContent.ReleaseNumber);
             if (gameDetail is null)
             {
@@ -1034,7 +1036,10 @@
                     Version = gameContent.ReleaseNumber,
                     Status = GameStatus.DisabledByBackend,
                     Denominations =
-                        FromValueBasedDenominations(game, validDenoms, isComplex ? 0 : game.Denominations.Single()),
+                        FromValueBasedDenominations(
+                            game,
+                            validDenoms,
+                            shouldAutoEnableGame ? game.Denominations.Single() : 0),
                     WagerCategories = wagerCategories,
                     New = true,
                     InstallDate = installDate,
@@ -1104,6 +1109,11 @@
                 ? (GameSubCategory)game.SubCategory
                 : GameSubCategory.Undefined;
             gameDetail.Features = features;
+
+            gameDetail.MaximumWagerInsideCredits = game.MaxWagerInsideCredits;
+            gameDetail.MaximumWagerOutsideCredits = game.MaxWagerOutsideCredits;
+            gameDetail.NextToMaxBetTopAwardMultiplier = game.NextToMaxBetTopAwardMultiplier;
+
             gameDetail.SupportedSubGames ??= GetSubGames(game.SubGames, gameDetail.Denominations.ToList());
             return (gameDetail, progressiveDetails);
         }
@@ -1508,7 +1518,7 @@
 
             if (!(game.UpgradeActions?.Any() ?? false))
             {
-                _gameOrder.UpdatePositionPriority(game.ThemeId, 1);
+                _gameOrder.UpdateIconPositionPriority(game.ThemeId, 1);
 
                 Logger.Info($"No Upgrade Actions: Game Id {game.Id} moved to position 1");
             }
@@ -1534,7 +1544,7 @@
 
                     if (!action.MaintainPosition)
                     {
-                        _gameOrder.UpdatePositionPriority(game.ThemeId, 1);
+                        _gameOrder.UpdateIconPositionPriority(game.ThemeId, 1);
 
                         Logger.Info($"Upgrade: Game Id {game.Id} moved to position 1");
                     }
@@ -1569,6 +1579,21 @@
                 ? game.WagerCategories.Max(wc => wc.MinWagerCredits)
                 : activeBetOption.Bets.Max(b => b.Multiplier) * activeLineOption.Lines.Max(l => l.Cost);
 
+            var maxWagerOutsideCredits = maxWagerCredits;
+
+            if (game.GameType == t_gameType.Roulette)
+            {
+                if (game.MaxWagerInsideCredits > 0)
+                {
+                    maxWagerCredits = game.MaxWagerInsideCredits;
+                }
+
+                if (game.MaxWagerOutsideCredits > 0)
+                {
+                    maxWagerOutsideCredits = game.MaxWagerOutsideCredits;
+                }
+            }
+
             var denoms = supportedDenoms.Select(
                 denomination => new Denomination
                 {
@@ -1577,7 +1602,7 @@
                     LineOption = activeLineOption?.Name,
                     MinimumWagerCredits = minWagerCredits,
                     MaximumWagerCredits = maxWagerCredits,
-                    MaximumWagerOutsideCredits = maxWagerCredits,
+                    MaximumWagerOutsideCredits = maxWagerOutsideCredits,
                     SecondaryAllowed = game.SecondaryAllowed || game.SecondaryEnabled,
                     SecondaryEnabled = game.SecondaryEnabled, // default value
                     LetItRideAllowed = game.LetItRideAllowed || game.LetItRideEnabled,

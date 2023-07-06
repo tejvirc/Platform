@@ -26,10 +26,6 @@
         [JsonProperty("QuickStopMode")]
         public bool QuickStopMode { get; set; }
 
-        [JsonProperty("EvaluationTypePaytable")]
-        [JsonConverter(typeof(StringEnumConverter))]
-        public PaytableEvaluation EvaluationTypePaytable { get; set; }
-
         [JsonProperty("HelpUrl")]
         public string HelpUrl { get; set; }
 

@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.ObjectModel;
-    using System.Drawing;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
@@ -191,9 +190,11 @@
                 RefreshDisplays();
             }
 
-            var monitorInfo = MachineSettingsUtilities.GetDisplayIdentifications(Localizer.For(CultureFor.Operator));
-            var touchInfo = $"Touch: {MachineSettingsUtilities.GetTouchScreenIdentificationWithoutVbd(Localizer.For(CultureFor.Operator))}";
-            Inspection?.SetFirmwareVersion(string.Join(Environment.NewLine, monitorInfo, touchInfo));
+            MachineSettingsUtilities.GetDisplayIdentificationList(Localizer.For(CultureFor.Operator))
+                .ForEach(m => Inspection?.SetFirmwareVersion(m));
+            MachineSettingsUtilities.GetTouchScreenIdentificationsWithoutVbd(Localizer.For(CultureFor.Operator))
+                .ToList()
+                .ForEach(t => Inspection?.SetFirmwareVersion($"Touch: {t}"));
 
             base.OnLoaded();
         }
@@ -286,6 +287,12 @@
             {
                 OnExitTouchScreenCommand();
             }
+        }
+
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            RefreshDisplays();
+            base.OnOperatorCultureChanged(evt);
         }
 
         private async void OnEnterTouchScreenCommand(object obj)
@@ -425,9 +432,9 @@
                         continue;
                     }
 
-                    Rectangle screenBounds = WindowToScreenMapper.GetScreenBounds(display.DisplayDevice);
+                    var screenBounds = WindowToScreenMapper.GetScreenBounds(display.DisplayDevice);
                     var windowToScreenMapper = new WindowToScreenMapper(display.DisplayDevice.Role, true);
-                    Rectangle visibleArea = windowToScreenMapper.GetVisibleArea();
+                    var visibleArea = windowToScreenMapper.GetVisibleArea();
                     // Translate the origin of the Visible Area for the global Screen coordinate space to
                     // local relative space. This is needed for ScreenIdentifyWindow as it takes a
                     // visible area rectangle that is relative to the origin of the Window. 

@@ -2,6 +2,7 @@
 {
     using System;
     using Accounting.Contracts;
+    using Accounting.Contracts.HandCount;
     using Accounting.Contracts.Handpay;
     using Accounting.Contracts.Wat;
     using Contracts;
@@ -87,6 +88,13 @@
                                 _history,
                                 _meterFreeGames);
                         }
+                        break;
+                    case HardMeterOutTransaction trans:
+                        trans.HandleOutTransaction(trans.Amount,
+                            _currencyHandler,
+                            _gameHistory,
+                            _history,
+                            _meterFreeGames);
                         break;
                 }
 

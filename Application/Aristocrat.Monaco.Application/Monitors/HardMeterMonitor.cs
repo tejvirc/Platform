@@ -71,7 +71,7 @@
                 });
 
             if (!(configuration?.HardMeterMonitor?.DisableOnError ?? false) ||
-                !_properties.GetValue(HardwareConstants.HardMetersEnabledKey, true))
+                !_properties.GetValue(HardwareConstants.HardMetersEnabledKey, false))
             {
                 return;
             }
@@ -115,7 +115,7 @@
             _disableManager.Disable(
                 HardMeterDisabled,
                 SystemDisablePriority.Immediate,
-                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HardMeterDisabled));
+                () => Localizer.ForLockup().GetString(ResourceKeys.HardMeterDisabled));
         }
 
         private void EnableSystem()

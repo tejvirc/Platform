@@ -56,7 +56,8 @@
                         device,
                         device.SubscribedMeters.Expand(_egm.Devices),
                         (id, meterName) => _meters.GetMeterName(id, meterName))),
-                null);
+                null,
+                theEvent);
 
             _ipService.OnPlayerSessionEnded();
         }
