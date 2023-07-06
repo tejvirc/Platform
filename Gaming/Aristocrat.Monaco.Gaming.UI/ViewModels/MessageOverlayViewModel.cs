@@ -266,6 +266,11 @@
                         ShowPaidMeterForAutoCashout = true;
                     }
 
+                    if(_lobbyStateManager.CashOutState == LobbyCashOutState.Undefined)
+                    {
+                        return;
+                    }
+
                     MessageOverlayData = _overlayMessageStrategyController.OverlayStrategy.HandleMessageOverlayCashOut(MessageOverlayData, LastCashOutForcedByMaxBank, _lobbyStateManager.CashOutState);
                     messageSent = true;
                     break;
