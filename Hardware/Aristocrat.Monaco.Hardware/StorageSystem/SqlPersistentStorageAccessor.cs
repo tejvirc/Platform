@@ -716,13 +716,14 @@
                         command.Parameters.Add(new SqliteParameter("@FieldName", fieldName));
 
                         object res;
+                        byte[] fieldData;
                         using (var benchmarck = new Benchmark(nameof(GetField)))
                         {
                             //var fieldData = (byte[])command.ExecuteScalar(CommandBehavior.SingleRow);
                             res = command.ExecuteScalar();
-                            benchmarck[$"{Name}:{fieldName}"] = $"ARRAY[{((byte[])res).Length}]";
+                            fieldData = (byte[])res;
+                            benchmarck[$"{Name}:{fieldName}"] = fieldData;
                         }
-                        var fieldData = (byte[])res;
 
                         var fd = Format.GetFieldDescription(blockFieldName);
 

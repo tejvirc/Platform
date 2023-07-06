@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Hardware.StorageSystem
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Data;
     using System.Globalization;
@@ -22,13 +23,15 @@
 
         private readonly string _connectionString;
 
+        private const string _updateQueryStr = "UPDATE StorageBlockField SET Data = @Data WHERE BlockName = @BlockName AND FieldName = @FieldName";
+
         // Dictionary<Name of Block, Dictionary<Name of Field, Value of Field>>
-        private readonly Dictionary<string, Dictionary<string, object>> _fields =
-            new Dictionary<string, Dictionary<string, object>>();
+        private readonly ConcurrentDictionary<string, ConcurrentDictionary<string, object>> _fields =
+            new ConcurrentDictionary<string, ConcurrentDictionary<string, object>>();
 
         // Dictionary<Name of Block, Dictionary<Tuple<Index of Field, Name of Field>, Value of Field at Index>>
-        private readonly Dictionary<string, Dictionary<Tuple<int, string>, object>> _indexedFields =
-            new Dictionary<string, Dictionary<Tuple<int, string>, object>>();
+        private readonly ConcurrentDictionary<string, ConcurrentDictionary<Tuple<int, string>, object>> _indexedFields =
+            new ConcurrentDictionary<string, ConcurrentDictionary<Tuple<int, string>, object>>();
 
         private int _currentIndex;
 
@@ -91,7 +94,7 @@
             {
                 if (!_fields.ContainsKey(blockName))
                 {
-                    _fields[blockName] = new Dictionary<string, object>();
+                    _fields[blockName] = new ConcurrentDictionary<string, object>();
                 }
 
                 _fields[blockName][blockFieldName] = value;
@@ -117,7 +120,7 @@
             {
                 if (!_indexedFields.ContainsKey(blockName))
                 {
-                    _indexedFields[blockName] = new Dictionary<Tuple<int, string>, object>();
+                    _indexedFields[blockName] = new ConcurrentDictionary<Tuple<int, string>, object>();
                 }
 
                 _indexedFields[blockName][new Tuple<int, string>(arrayIndex, blockFieldName)] = value;
@@ -147,6 +150,36 @@
 
             try
             {
+                var queriesToUpdate = new List<(byte[], string, string)>();
+
+                foreach (var block in _blocks)
+                {
+
+                    if (_fields.ContainsKey(block.Name))
+                    {
+                        foreach (var field in _fields[block.Name])
+                        {
+                            var fieldName = field.Key;
+
+                            queriesToUpdate.Add((block.Format.ConvertTo(field.Key, field.Value), block.Name, field.Key));
+                        }
+                    }
+
+                    if (_indexedFields.ContainsKey(block.Name))
+                    {
+                        foreach (var field in _indexedFields[block.Name])
+                        {
+                            var fieldName = field.Key.Item2;
+                            if (field.Key.Item1 >= 1)
+                            {
+                                fieldName = field.Key.Item2 + "@" + field.Key.Item1;
+                            }
+
+                            queriesToUpdate.Add((block.Format.ConvertTo(field.Key.Item2, field.Value), block.Name, fieldName));
+                        }
+                    }
+                }
+
                 using (var connection = new SqliteConnection(_connectionString))
                 {
                     //connection.SetPassword(StorageConstants.DatabasePassword);
@@ -159,66 +192,85 @@
                     {
                         update.Transaction = transaction;
 
-                        foreach (var block in _blocks)
+                        foreach (var updateQuery in queriesToUpdate)
                         {
-                            update.CommandText = 
-                                "UPDATE StorageBlockField SET Data = @Data WHERE BlockName = @BlockName AND FieldName = @FieldName";
+                            update.CommandText = _updateQueryStr;
 
+                            update.Parameters.Clear();
+                            update.Parameters.AddWithValue("@BlockName", updateQuery.Item2);
+                            update.Parameters.AddWithValue("@FieldName", updateQuery.Item3);
+                            update.Parameters.AddWithValue("@Data", updateQuery.Item1);
 
-                            if (_fields.ContainsKey(block.Name))
+                            benchmarck[$"{updateQuery.Item2}->{updateQuery.Item3}"] = updateQuery.Item1;
+
+                            if (update.ExecuteNonQuery() == 0)
                             {
-                                foreach (var field in _fields[block.Name])
-                                {
-                                    update.Parameters.Clear();
-
-                                    var fieldName = field.Key;
-                                    benchmarck[$"{block.Name}:{fieldName}"] =
-                                        field.Value is string ? $"STRING[{((string)field.Value).Length}]" :
-                                        (field.Value is Array ? $"ARRAY[{((Array)field.Value).Length}]" : field.Value);
-                                    update.Parameters.Add(new SqliteParameter("@BlockName", block.Name));
-                                    update.Parameters.Add(new SqliteParameter("@FieldName", fieldName));
-                                    update.Parameters.Add(new SqliteParameter("@Data", block.Format.ConvertTo(fieldName, field.Value)));
-
-                                    if (update.ExecuteNonQuery() == 0)
-                                    {
-                                        // This shouldn't happen
-                                        Logger.ErrorFormat(CultureInfo.InvariantCulture, $"{block.Name}: Failed to update {fieldName} - Zero rows affected");
-                                        throw new BlockFieldNotFoundException(
-                                            $"StorageBlockField not found in SQLite repository: {block.Name}.{fieldName}");
-                                    }
-                                }
-                            }
-
-                            if (_indexedFields.ContainsKey(block.Name))
-                            {
-                                foreach (var field in _indexedFields[block.Name])
-                                {
-                                    update.Parameters.Clear();
-
-                                    var fieldName = field.Key.Item2;
-                                    if (field.Key.Item1 >= 1)
-                                    {
-                                        fieldName = field.Key.Item2 + "@" + field.Key.Item1;
-                                    }
-
-                                    benchmarck[$"{block.Name}:{fieldName}"] =
-                                        field.Value is string ? $"STRING[{((string)field.Value).Length}]" :
-                                        (field.Value is Array ? $"ARRAY[{((Array)field.Value).Length}]" : field.Value);
-
-                                    update.Parameters.Add(new SqliteParameter("@BlockName", block.Name));
-                                    update.Parameters.Add(new SqliteParameter("@FieldName", fieldName));
-                                    update.Parameters.Add(new SqliteParameter("@Data", block.Format.ConvertTo(field.Key.Item2, field.Value)));
-
-                                    if (update.ExecuteNonQuery() == 0)
-                                    {
-                                        // This shouldn't happen
-                                        Logger.ErrorFormat(CultureInfo.InvariantCulture, $"{block.Name}: Failed to update {fieldName} - Zero rows affected");
-                                        throw new BlockFieldNotFoundException(
-                                            $"StorageBlockField not found in SQLite repository: {block.Name}.{fieldName}");
-                                    }
-                                }
+                                // This shouldn't happen
+                                Logger.ErrorFormat(CultureInfo.InvariantCulture, $"{updateQuery.Item2}: Failed to update {updateQuery.Item3} - Zero rows affected");
+                                throw new BlockFieldNotFoundException(
+                                    $"StorageBlockField not found in SQLite repository: {updateQuery.Item2}.{updateQuery.Item3}");
                             }
                         }
+
+                        //foreach (var block in _blocks)
+                        //{
+                        //    update.CommandText =
+                        //        "UPDATE StorageBlockField SET Data = @Data WHERE BlockName = @BlockName AND FieldName = @FieldName";
+
+
+                        //    if (_fields.ContainsKey(block.Name))
+                        //    {
+                        //        foreach (var field in _fields[block.Name])
+                        //        {
+                        //            update.Parameters.Clear();
+
+                        //            var fieldName = field.Key;
+                        //            var data = block.Format.ConvertTo(fieldName, field.Value);
+                        //            benchmarck[$"{block.Name}:{fieldName}"] = data;
+                        //            update.Parameters.Add(new SqliteParameter("@BlockName", block.Name));
+                        //            update.Parameters.Add(new SqliteParameter("@FieldName", fieldName));
+                        //            update.Parameters.Add(new SqliteParameter("@Data", data));
+
+                        //            if (update.ExecuteNonQuery() == 0)
+                        //            {
+                        //                // This shouldn't happen
+                        //                Logger.ErrorFormat(CultureInfo.InvariantCulture, $"{block.Name}: Failed to update {fieldName} - Zero rows affected");
+                        //                throw new BlockFieldNotFoundException(
+                        //                    $"StorageBlockField not found in SQLite repository: {block.Name}.{fieldName}");
+                        //            }
+                        //        }
+                        //    }
+
+                        //    if (_indexedFields.ContainsKey(block.Name))
+                        //    {
+                        //        foreach (var field in _indexedFields[block.Name])
+                        //        {
+                        //            update.Parameters.Clear();
+
+                        //            var fieldName = field.Key.Item2;
+                        //            if (field.Key.Item1 >= 1)
+                        //            {
+                        //                fieldName = field.Key.Item2 + "@" + field.Key.Item1;
+                        //            }
+
+                        //            var data = block.Format.ConvertTo(field.Key.Item2, field.Value);
+
+                        //            benchmarck[$"{block.Name}:{fieldName}"] = data;
+
+                        //            update.Parameters.Add(new SqliteParameter("@BlockName", block.Name));
+                        //            update.Parameters.Add(new SqliteParameter("@FieldName", fieldName));
+                        //            update.Parameters.Add(new SqliteParameter("@Data", data));
+
+                        //            if (update.ExecuteNonQuery() == 0)
+                        //            {
+                        //                // This shouldn't happen
+                        //                Logger.ErrorFormat(CultureInfo.InvariantCulture, $"{block.Name}: Failed to update {fieldName} - Zero rows affected");
+                        //                throw new BlockFieldNotFoundException(
+                        //                    $"StorageBlockField not found in SQLite repository: {block.Name}.{fieldName}");
+                        //            }
+                        //        }
+                        //    }
+                        //}
 
                         transaction.Commit();
                         NotifyComplete(true);

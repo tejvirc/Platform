@@ -9,7 +9,6 @@
     using System.Text;
     using System.Threading;
     using Aristocrat.Monaco.Common;
-    using Aristocrat.Monaco.Hardware.Persistence;
     using Contracts;
     using Contracts.Persistence;
     using Kernel;
@@ -17,14 +16,14 @@
     using Microsoft.Data.Sqlite;
     using SQLitePCL;
     using StorageSystem;
-    using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
-    using ScopedTransaction = StorageSystem.ScopedTransaction;
 
     /// <summary>
     ///     Implementation of <c>IPersistentStorageManager</c> that uses Block repository to store and manage Blocks.
     /// </summary>
     public class SqlPersistentStorageManager : IService, IPersistentStorageManager, IDisposable
     {
+        private const string journalModeConfig = "PRAGMA journal_mode = WAL";
+
         private const string StorageBlockTableCreate =
             "CREATE TABLE StorageBlock (Name TEXT PRIMARY KEY NOT NULL, Version INTEGER, Level TEXT, Count INTEGER) WITHOUT ROWID";
 
@@ -465,7 +464,8 @@
                 using var benchmarck = new Benchmark(nameof(InitializeDatabaseFile));
 
                 connection.Open();
-                using var command = new SqliteCommand("PRAGMA journal_mode = WAL;", connection);
+
+                using var command = new SqliteCommand(journalModeConfig, connection);
 
                 try
                 {
