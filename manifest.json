@@ -10512,7 +10512,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.PerformanceCounter.PlatformMetric.html",
-          "hash": "GIP+IfWT4LZ23qe0mezq30G2WX8zaRnfZ7A9RzYn+cc="
+          "hash": "wEyfwC/WiMMSSppkc3IZTpoM4Lb74/0HPmUnq6+09QM="
         }
       },
       "is_incremental": false,
@@ -10524,7 +10524,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.PerformanceCounter.SingleCustomPerformanceCounterWrapper.html",
-          "hash": "Q3bpy7KFDQeXVwzT5NTAebcGYU2yRG3+rQxQKf9eaFc="
+          "hash": "dpnPMLja8lxlUSuIi5udydxbyK7ELYuvCyQD+af8zlA="
         }
       },
       "is_incremental": false,
@@ -15631,9 +15631,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -24790,6 +24787,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
