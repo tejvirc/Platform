@@ -2768,14 +2768,18 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 _disabledOnStartup = false;
                 _lobbyStateManager.UnexpectedGameExitWhileDisabled = false; //clear value since we are leaving disabled state.
 
-                // VLT-4742: Check for a max-cash-out when we come out of disabled state
-                if (_gameState.Idle && !_transferOutHandler.InProgress && !_gameHistory.IsRecoveryNeeded && !_gameHistory.HasPendingCashOut)
-                {
-                    Logger.Debug("Checking for Max Balance coming out of lock-up");
-                    _commandFactory.Create<CheckBalance>().Handle(new CheckBalance());
-                }
+                CheckMaxBalance("Checking for Max Balance coming out of lock-up");
 
                 ClockTimer.RestartClockTimer();
+            }
+        }
+
+        private void CheckMaxBalance(string message)
+        {
+            if (_gameState.Idle && !_transferOutHandler.InProgress && !_gameHistory.IsRecoveryNeeded && !_gameHistory.HasPendingCashOut)
+            {
+                Logger.Debug(message);
+                _commandFactory.Create<CheckBalance>().Handle(new CheckBalance());
             }
         }
 
