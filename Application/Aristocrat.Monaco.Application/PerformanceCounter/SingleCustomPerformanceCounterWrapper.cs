@@ -3,7 +3,7 @@
     using System;
     using System.Diagnostics;
 
-    public class SingleCustomPerformanceCounterWrapper : IPerformanceCounterWrapper, IDisposable
+    public sealed class SingleCustomPerformanceCounterWrapper : IPerformanceCounterWrapper, IDisposable
     {
         private readonly PerformanceCounter _counter;
         private bool _disposed;
@@ -12,7 +12,7 @@
         {
             if (!PerformanceCounterCategory.Exists(category))
             {
-                PerformanceCounterCategory.Create(category, "A custom category for Monaco", PerformanceCounterCategoryType.SingleInstance, counter, "CPU Temperature Counter");
+                PerformanceCounterCategory.Create(category, categoryHelp, PerformanceCounterCategoryType.SingleInstance, counter, counterHelp);
             }
 
             _counter = new PerformanceCounter(category, counter, false);
