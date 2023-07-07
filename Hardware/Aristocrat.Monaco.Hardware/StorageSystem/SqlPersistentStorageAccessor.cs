@@ -23,7 +23,7 @@
         private static readonly ILog Logger =
             LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private readonly string _connectionString;
+        private readonly IPersistenceSqlConnectionProvider _connectionProvider;
 
         private readonly object _transactionLock = new object();
 
@@ -32,11 +32,11 @@
         /// <summary>
         ///     Initializes a new instance of the <see cref="SqlPersistentStorageAccessor" /> class.
         /// </summary>
-        /// <param name="connectionString">Connection string to SQLite db</param>
+        /// <param name="connectionProvider">Connection provider to the database</param>
         /// <param name="name">Name of the block</param>
-        public SqlPersistentStorageAccessor(string connectionString, string name)
+        public SqlPersistentStorageAccessor(IPersistenceSqlConnectionProvider connectionProvider, string name)
         {
-            _connectionString = connectionString;
+            _connectionProvider = connectionProvider;
 
             Initialize(name);
 
@@ -50,9 +50,9 @@
             }
         }
 
-        public SqlPersistentStorageAccessor(SQLiteTransaction transaction, string name, int count, BlockFormat format)
+        public SqlPersistentStorageAccessor(IPersistenceSqlConnectionProvider connectionProvider, SQLiteTransaction transaction, string name, int count, BlockFormat format)
         {
-            _connectionString = transaction?.Connection.ConnectionString;
+            _connectionProvider = connectionProvider;
 
             Name = name;
             Version = format?.Version ?? 0;
@@ -143,7 +143,7 @@
                     }
                     else
                     {
-                        using (var transaction = new SqlPersistentStorageTransaction(this, _connectionString))
+                        using (var transaction = new SqlPersistentStorageTransaction(this, _connectionProvider))
                         {
                             transaction[arrayIndex, blockFieldName] = value;
                             transaction.Commit();
@@ -286,12 +286,12 @@
                 return PersistenceTransaction.Current;
             }
 
-            return new SqlPersistentStorageTransaction(this, _connectionString);
+            return new SqlPersistentStorageTransaction(this, _connectionProvider);
         }
 
         public static SqlPersistentStorageAccessor InvalidAccessor(string name, int count, BlockFormat format)
         {
-            return new SqlPersistentStorageAccessor(null, name, count, format);
+            return new SqlPersistentStorageAccessor(null, null, name, count, format);
         }
 
         /// <summary>
@@ -751,11 +751,7 @@
 
         private SQLiteConnection CreateConnection()
         {
-            var connection = new SQLiteConnection(_connectionString);
-
-            connection.SetPassword(StorageConstants.DatabasePassword);
-
-            return connection;
+            return _connectionProvider?.CreateConnection();
         }
     }
 }

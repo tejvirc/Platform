@@ -18,7 +18,7 @@
     /// <summary>
     ///     Implementation of <c>IPersistentStorageManager</c> that uses Block repository to store and manage Blocks.
     /// </summary>
-    public class SqlPersistentStorageManager : IService, IPersistentStorageManager, IDisposable
+    public class SqlPersistentStorageManager : IService, IPersistentStorageManager, IPersistenceSqlConnectionProvider, IDisposable
     {
         private const string StorageBlockTableCreate =
             "CREATE TABLE StorageBlock (Name TEXT PRIMARY KEY NOT NULL, Version INTEGER, Level TEXT, Count INTEGER) WITHOUT ROWID";
@@ -55,12 +55,15 @@
 
         private bool _disposed;
         private string _mirrorRoot;
+        private SQLiteConnection _connection;
+        private readonly bool _keepConnectionOpen;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="SqlPersistentStorageManager" /> class.
         /// </summary>
         public SqlPersistentStorageManager()
-            : this(ServiceManager.GetInstance().GetService<IPathMapper>(), ServiceManager.GetInstance().GetService<IEventBus>())
+            : this(ServiceManager.GetInstance().GetService<IPathMapper>(), ServiceManager.GetInstance().GetService<IEventBus>(),
+                StorageConstants.DatabaseFileName, StorageConstants.DatabasePassword, true)
         {
         }
 
@@ -71,13 +74,15 @@
             IPathMapper pathMapper,
             IEventBus bus,
             string name = StorageConstants.DatabaseFileName,
-            string password = StorageConstants.DatabasePassword)
+            string password = StorageConstants.DatabasePassword,
+            bool keepConnectionOpen = false)
         {
             _pathMapper = pathMapper ?? throw new ArgumentNullException(nameof(pathMapper));
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
 
             _databaseFilename = name;
             _databasePassword = password;
+            _keepConnectionOpen = keepConnectionOpen;
 
             InternalInitialize();
         }
@@ -124,7 +129,7 @@
 
             if (!verified)
             {
-                Logger.Error($"Persistent Storage failure: {MethodBase.GetCurrentMethod().Name}");
+                Logger.Error($"Persistent Storage failure: {MethodBase.GetCurrentMethod()?.Name}");
 
                 _bus.Publish(new PersistentStorageIntegrityCheckFailedEvent());
             }
@@ -171,7 +176,7 @@
                             CreateStorageBlockEntities(transaction, level, name, 0, arraySize);
 
                             var accessor = _accessors[name] =
-                                new SqlPersistentStorageAccessor(transaction, name, arraySize, format);
+                                new SqlPersistentStorageAccessor(this, transaction, name, arraySize, format);
 
                             transaction.Commit();
 
@@ -253,7 +258,7 @@
         /// <inheritdoc />
         public IScopedTransaction ScopedTransaction()
         {
-            return new ScopedTransaction(ConnectionString());
+            return new ScopedTransaction(this);
         }
 
         /// <inheritdoc />
@@ -281,6 +286,7 @@
             if (disposing)
             {
                 _bus.UnsubscribeAll(this);
+                ClosePersistentConnection();
             }
 
             _disposed = true;
@@ -302,17 +308,49 @@
                 SyncMode = SynchronizationModes.Full,
                 DefaultIsolationLevel = IsolationLevel.Serializable,
                 BusyTimeout = timeout,
-                ["Max Pool Size"] = int.MaxValue
+                ["Max Pool Size"] = int.MaxValue,
+                Password = _databasePassword
             };
 
             return $"{sqlBuilder.ConnectionString};";
         }
 
-        private SQLiteConnection CreateConnection()
-        {
-            var connection = new SQLiteConnection(ConnectionString());
 
-            connection.SetPassword(_databasePassword);
+        /// <summary>
+        ///     Closes the persistent connection if any.
+        /// </summary>
+        private void ClosePersistentConnection()
+        {
+            _connection?.Close();
+            _connection?.Dispose();
+            _connection = null;
+        }
+
+        /// <summary>
+        ///     Opens a connection to the database. To benefit from the .NET connection pool  sharing, we need
+        ///     to have at least one connection opened. 
+        /// </summary>
+        public SQLiteConnection CreateConnection()
+        {
+            SQLiteConnection connection;
+            if (_keepConnectionOpen)
+            {
+                if (_connection == null)
+                {
+                    _connection = new SQLiteConnection(ConnectionString());
+                    _connection.Open();
+                }
+                connection = new SQLiteConnection(_connection.ConnectionString);
+            }
+            else
+            {
+                if (_connection != null)
+                {
+                    ClosePersistentConnection();
+                }
+
+                connection = new SQLiteConnection(ConnectionString());
+            }
 
             return connection;
         }
@@ -382,7 +420,7 @@
                 catch (SQLiteException e)
                 {
                     Logger.Error(
-                        $"Persistent Storage failure: {MethodBase.GetCurrentMethod().Name} {e} {e.InnerException} {e.StackTrace}");
+                        $"Persistent Storage failure: {MethodBase.GetCurrentMethod()?.Name} {e} {e.InnerException} {e.StackTrace}");
 
                     SqlPersistentStorageExceptionHandler.Handle(e, StorageError.WriteFailure);
                 }
@@ -451,6 +489,11 @@
                 Logger.Debug("Data mirror is disabled.");
                 return;
             }
+
+            // In case a persistent connection is open, close it.
+            // Note: The wal and shm files which might still be present in the primary space (e.g: crash ) but they will be removed during the integrity
+            // check of the database by the check itself.
+            ClosePersistentConnection();
 
             var secondaryStorageManager = ServiceManager.GetInstance().GetService<ISecondaryStorageManager>();
 
@@ -542,7 +585,7 @@
                                 while (reader.Read())
                                 {
                                     var name = reader.GetString(0);
-                                    _accessors[name] = new SqlPersistentStorageAccessor(ConnectionString(), name);
+                                    _accessors[name] = new SqlPersistentStorageAccessor(this, name);
                                 }
                             }
                         }

@@ -17,11 +17,11 @@
         /// <summary>
         ///     Initializes a new instance of the <see cref="ScopedTransaction" /> class.
         /// </summary>
-        /// <param name="connectionString">Block's connection string.</param>
-        public ScopedTransaction(string connectionString)
+        /// <param name="connectionProvider">Connection provider to the database.</param>
+        public ScopedTransaction(IPersistenceSqlConnectionProvider connectionProvider)
         {
             PersistenceTransaction.Ready = false;
-            PersistenceTransaction.Current = new SqlPersistentStorageTransaction(connectionString);
+            PersistenceTransaction.Current = new SqlPersistentStorageTransaction(connectionProvider);
 
             _active = true;
         }

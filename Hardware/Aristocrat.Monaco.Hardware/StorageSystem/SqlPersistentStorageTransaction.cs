@@ -23,7 +23,7 @@
 
         private readonly List<SqlPersistentStorageAccessor> _blocks = new List<SqlPersistentStorageAccessor>();
 
-        private readonly string _connectionString;
+        private readonly IPersistenceSqlConnectionProvider _connectionProvider;
 
         // Dictionary<Name of Block, Dictionary<Name of Field, Value of Field>>
         private readonly Dictionary<string, Dictionary<string, object>> _fields =
@@ -40,20 +40,20 @@
         /// <summary>
         ///     Initializes a new instance of the <see cref="SqlPersistentStorageTransaction" /> class.
         /// </summary>
-        /// <param name="connectionString">Block's connection string.</param>
-        public SqlPersistentStorageTransaction(string connectionString)
+        /// <param name="connectionProvider">Provides a connection to the database.</param>
+        public SqlPersistentStorageTransaction(IPersistenceSqlConnectionProvider connectionProvider)
         {
-            _connectionString = connectionString;
+            _connectionProvider = connectionProvider;
         }
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="SqlPersistentStorageTransaction" /> class.
         /// </summary>
         /// <param name="block">Accessor to use for transaction.</param>
-        /// <param name="connectionString">Block's connection string.</param>
-        public SqlPersistentStorageTransaction(IPersistentStorageAccessor block, string connectionString)
+        /// <param name="connectionProvider">Provides a connection to the database.</param>
+        public SqlPersistentStorageTransaction(IPersistentStorageAccessor block, IPersistenceSqlConnectionProvider connectionProvider)
         {
-            _connectionString = connectionString;
+            _connectionProvider = connectionProvider;
             AddBlock(block); // This is the first and default block
         }
 
@@ -150,9 +150,8 @@
 
             try
             {
-                using (var connection = new SQLiteConnection(_connectionString))
+                using (var connection = _connectionProvider.CreateConnection())
                 {
-                    connection.SetPassword(StorageConstants.DatabasePassword);
                     connection.Open();
 
                     using (var update = connection.CreateCommand())
