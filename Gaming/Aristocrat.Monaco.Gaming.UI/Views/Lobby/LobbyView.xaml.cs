@@ -131,6 +131,8 @@
 
             Logger.Debug("Creating view model");
             ViewModel = new LobbyViewModel();
+
+            //*** Handling Lobby OverlayWindow
             ViewModel.CustomEventViewChangedEvent += ViewModelOnCustomEventViewChangedEvent;
             ViewModel.PropertyChanged += ViewModel_OnPropertyChanged;
 
@@ -824,7 +826,7 @@
                 _customOverlays[ev.DisplayRole].entryAction(element);
             }
             else
-            {
+            {   //** remove Custom Dialog in Lobby
                 _customOverlays[ev.DisplayRole].exitAction(element);
             }
 
