@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
     using System.Threading.Tasks.Dataflow;
     using Application.Contracts.Extensions;
+    using Common;
     using Client;
     using Commands;
     using Contracts;
@@ -253,7 +254,10 @@
 
         public override BeginGameRoundResponse BeginGameRound(BeginGameRoundRequest request)
         {
-            Logger.Debug($"BeginGameRound({request})");
+            using var _ = new Common.ScopedMethodTimer(
+                Logger.DebugMethodLogger,
+                $"{request}",
+                "SnappTiming", "Handled");
 
             if (_gameDiagnostics.IsActive)
             {
@@ -271,7 +275,10 @@
 
         public override Empty BeginGameRoundAsync(BeginGameRoundAsyncRequest request)
         {
-            Logger.Debug($"BeginGameRoundAsync({request})");
+            using var _ = new Common.ScopedMethodTimer(
+                Logger.DebugMethodLogger,
+                $"{request}",
+                "SnappTiming", "Handled");
 
             IOutcomeRequest outcomeRequest = null;
 
@@ -303,7 +310,10 @@
 
         public override Empty BeginGameRoundResult(BeginGameRoundResultNotification request)
         {
-            Logger.Debug($"BeginGameRoundResult({request})");
+            using var _ = new Common.ScopedMethodTimer(
+                Logger.DebugMethodLogger,
+                $"{request}",
+                "SnappTiming", "Handled");
 
             if (request.Results == null)
             {
@@ -332,8 +342,10 @@
 
         public override Empty GameRoundEvent(GameRoundEventRequest request)
         {
-            Logger.Debug(
-                $"GameRoundEvent type: {request.Type} stage: {request.Stage} mode: {request.PlayMode} bet: {request.BetAmount} stake: {request.Stake} win: {request.WinAmount}");
+            using var _ = new Common.ScopedMethodTimer(
+                Logger.DebugMethodLogger,
+                $"GameRoundEvent type: {request.Type} stage: {request.Stage} mode: {request.PlayMode} bet: {request.BetAmount} stake: {request.Stake} win: {request.WinAmount}",
+                "SnappTiming", "Handled");
             try
             {
                 // Replay gets all data from blob.  Do not record events etc.
@@ -363,18 +375,21 @@
             }
             catch (Exception e)
             {
-                Logger.Error($"Unable to handle GameRoundEvent type: {request.Type} stage: {request.Stage} mode: {request.PlayMode} bet: {request.BetAmount} stake: {request.Stake} win: {request.WinAmount}", e);
+                Logger.Error(
+                    $"Unable to handle GameRoundEvent type: {request.Type} stage: {request.Stage} mode: {request.PlayMode} bet: {request.BetAmount} stake: {request.Stake} win: {request.WinAmount}",
+                    e);
                 throw;
             }
 
-            Logger.Debug(
-                $"Handled GameRoundEvent type: {request.Type} stage: {request.Stage} mode: {request.PlayMode} bet: {request.BetAmount} stake: {request.Stake} win: {request.WinAmount}");
             return EmptyResult;
         }
 
         public override Empty RecoveryPoint(RecoveryPointNotification request)
         {
-            Logger.Debug("Received Recovery Point");
+            using var _ = new Common.ScopedMethodTimer(
+                Logger.DebugMethodLogger,
+                "Received Recovery Point",
+                "SnappTiming", "Handled");
 
             _handlerFactory.Create<AddRecoveryDataPoint>()
                 .Handle(new AddRecoveryDataPoint(request.Data.ToByteArray()));
@@ -385,7 +400,10 @@
         public override GetLocalStorageResponse GetLocalStorage(
             GetLocalStorageRequest request)
         {
-            Logger.Debug("GetLocalStorage called");
+            using var _ = new Common.ScopedMethodTimer(
+                Logger.DebugMethodLogger,
+                "GetLocalStorage called",
+                "SnappTiming", "Handled");
 
             var storage = new GetLocalStorage();
 
@@ -408,7 +426,10 @@
 
         public override Empty UpdateLocalStorage(UpdateLocalStorageRequest request)
         {
-            Logger.Debug("SetLocalStorage called");
+            using var _ = new Common.ScopedMethodTimer(
+                Logger.DebugMethodLogger,
+                "SetLocalStorage called",
+                "SnappTiming", "Handled");
 
             var values = request.StorageData
                 .ToDictionary<LocalStorage, StorageType, IDictionary<string, string>>(
@@ -455,11 +476,13 @@
 
             var meters = new Dictionary<string, ulong>(request.Meters);
 
-            Logger.Debug(
-                $"SetMeters meters: {string.Join(",", meters.Keys)} with values: {string.Join(",", meters.Values)}");
+            using var _ = new Common.ScopedMethodTimer(
+                Logger.DebugMethodLogger,
+                $"SetMeters meters: {string.Join(",", meters.Keys)} with values: {string.Join(",", meters.Values)}",
+                "SnappTiming", "Handled");
 
             _handlerFactory.Create<SetInGameMeters>()
-                .Handle(new SetInGameMeters(meters));
+                    .Handle(new SetInGameMeters(meters));
 
             return EmptyResult;
         }
@@ -511,7 +534,10 @@
 
         public override Empty EndGameRound(EndGameRoundRequest request)
         {
-            Logger.Debug($"EndGameRound: {request.BetAmount} {request.WinAmount}");
+            using var _ = new Common.ScopedMethodTimer(
+                Logger.DebugMethodLogger,
+                $"betAmount: {request.BetAmount} winAmount: {request.WinAmount}",
+                "SnappTiming", "Handled");
 
             // Replay gets all data from blob.  Do not record events etc.
             if (!_gameDiagnostics.IsActive)
@@ -553,8 +579,10 @@
 
         public override Empty UpdateJackpotValues(UpdateJackpotValuesRequest request)
         {
-            Logger.Debug(
-                $"IncrementJackpotValues - mode: {request.PlayMode} name: {request.PoolName} values: {request.PoolValues.Count}");
+            using var _ = new Common.ScopedMethodTimer(
+                Logger.DebugMethodLogger,
+                $"mode: {request.PlayMode} name: {request.PoolName} values: {request.PoolValues.Count}",
+                "SnappTiming", "Handled");
 
             var values = request.PoolValues.ToDictionary(
                 v => v.LevelId,
@@ -573,8 +601,10 @@
 
         public override TriggerJackpotResponse TriggerJackpot(TriggerJackpotRequest request)
         {
-            Logger.Debug(
-                $"TriggerJackpot mode: {request.Mode} poolName: {request.PoolName} levels: {string.Join(",", request.Levels)} transactionIds:{string.Join(",", request.TransactionIds)}");
+            using var _ = new Common.ScopedMethodTimer(
+                Logger.DebugMethodLogger,
+                $"mode: {request.Mode} poolName: {request.PoolName} levels: {string.Join(",", request.Levels)} transactionIds:{string.Join(",", request.TransactionIds)}",
+                "SnappTiming", "Handled");
 
             var trigger = new TriggerJackpot(
                 request.PoolName,

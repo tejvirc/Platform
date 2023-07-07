@@ -50,6 +50,32 @@
             _stopwatch.Start();
         }
 
+        /// <summary>
+        ///     Creates a <see cref="ScopedMethodTimer"/> for capturing timing methods
+        /// </summary>
+        /// <param name="logger">The logger to use to capture the timing metrics</param>
+        /// <param name="preMessage">The message to be printed when the timer starts</param>
+        /// <param name="postMessage">The message to be printed when the timer ends</param>
+        /// <param name="prefix">Optional prefix to be added to the caller</param>
+        /// <param name="caller">The calling method.  By default this will be populated with the calling class and method name</param>
+        /// <exception cref="ArgumentException">Thrown when the caller is null or an empty string</exception>
+        /// <exception cref="ArgumentNullException">Thrown when the logger is null</exception>
+        public ScopedMethodTimer(MethodLogger logger, string preMessage, string prefix, string postMessage, [CallerMemberName] string caller = "")
+        {
+            if (string.IsNullOrEmpty(caller))
+            {
+                throw new ArgumentException(@"Value cannot be null or empty.", nameof(caller));
+            }
+
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _message = "[" + prefix + " " + caller + "] : ";
+
+            _logger("{0} ", _message + preMessage, 0.0);
+            _message += " " + postMessage;
+            _stopwatch = new Stopwatch();
+            _stopwatch.Start();
+        }
+
         /// <inheritdoc />
         public void Dispose()
         {
