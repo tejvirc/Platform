@@ -240,7 +240,7 @@
         }
 
         [HttpGet]
-        [Route("Platform/Platform/State")]
+        [Route("Platform/State")]
         public ActionResult<CommandResult> GetPlatformStatus()
         {
             return new CommandResult()
@@ -315,7 +315,7 @@
             {
                 data = new Dictionary<string, object> { ["response-to"] = "/Platform/ForceGameExit", ["success"] = killProcess.ToString() },
                 Result = killProcess,
-                Info = $"Test Controller killing process: {killProcess.ToString()}"
+                Info = $"Test Controller killing process: {killProcess}"
             };
         }
 

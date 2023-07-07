@@ -5,7 +5,12 @@
     <AssemblyTitle>Aristocrat.Monaco.TestController</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
     <Platform>x64</Platform>
-  </PropertyGroup>
+  </PropertyGroup>	
+  <ItemGroup>
+    <Compile Remove="Models\Response\**" />
+    <EmbeddedResource Remove="Models\Response\**" />
+    <None Remove="Models\Response\**" />
+  </ItemGroup>
   <ItemGroup>
     <None Remove="TestController.addin.xml" />
   </ItemGroup>
@@ -37,8 +42,5 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\Response\" />
   </ItemGroup>
 </Project>

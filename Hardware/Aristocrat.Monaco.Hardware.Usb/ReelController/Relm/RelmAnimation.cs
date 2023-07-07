@@ -109,6 +109,6 @@
         public Task<bool> PrepareNudgeReels(IEnumerable<NudgeReelData> nudgeData, CancellationToken token = default)
         {
             return _communicator.PrepareNudgeReels(nudgeData, token);
+        }
     }
-}
 }

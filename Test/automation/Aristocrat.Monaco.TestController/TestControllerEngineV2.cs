@@ -42,8 +42,8 @@ namespace Aristocrat.Monaco.TestController
     using System.Diagnostics;
     using System.Threading;
     using HardwareFaultEvent = Hardware.Contracts.NoteAcceptor.HardwareFaultEvent;
-    using NoteAcceptorDisconnectedEvent = Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.DisconnectedEvent;
-    using PrinterDisconnectedEvent = Aristocrat.Monaco.Hardware.Contracts.Printer.DisconnectedEvent;
+    using NoteAcceptorDisconnectedEvent = Hardware.Contracts.NoteAcceptor.DisconnectedEvent;
+    using PrinterDisconnectedEvent = Hardware.Contracts.Printer.DisconnectedEvent;
     using VirtualDeviceType = Hardware.Contracts.SharedDevice.DeviceType;
     using Aristocrat.Monaco.Hardware.Contracts.Reel;
     using System.Linq;
