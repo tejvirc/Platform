@@ -12,8 +12,8 @@ public class NewtonsoftJsonAdapter : IJsonSerialization
         _settings = settings;
     }
 
-    public object? Deserialize(string json, Type type) =>
-        JsonConvert.DeserializeObject(json, type, _settings);
+    public object? Deserialize(string? json, Type type) =>
+        JsonConvert.DeserializeObject(json!, type, _settings);
 
     public string Serialize(object source, Type type) =>
         JsonConvert.SerializeObject(source, type, _settings);

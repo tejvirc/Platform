@@ -21,16 +21,6 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Services\Game\**" />
-    <Compile Remove="Themes\**" />
-    <EmbeddedResource Remove="Services\Game\**" />
-    <EmbeddedResource Remove="Themes\**" />
-    <None Remove="Services\Game\**" />
-    <None Remove="Themes\**" />
-    <Page Remove="Services\Game\**" />
-    <Page Remove="Themes\**" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Aristocrat.BinkWpf" Version="2.0.0-beta0019" />
     <PackageReference Include="Aristocrat.Toolkit.Mvvm.Extensions" Version="0.1.6" />
     <PackageReference Include="CefSharp.Common.NETCore" Version="110.0.250" />
@@ -40,13 +30,16 @@
     <PackageReference Include="Fluxor" Version="5.9.0" />
     <PackageReference Include="Fluxor.Blazor.Web.ReduxDevTools" Version="5.7.0" />
     <!--<PackageReference Include="Fluxor.Selectors" Version="1.0.0-preview.1" />-->
-    <PackageReference Include="WpfAnimatedGif" Version="2.0.0" />
+    <PackageReference Include="Log4Net.AspNetCore" Version="1.2.0-beta0004" />
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
-    <PackageReference Include="SimpleInjector" Version="5.4.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Owin" Version="6.0.14" />
+    <!--<PackageReference Include="Microsoft.Extensions.ObjectPool" Version="6.0.14" />-->
+    <PackageReference Include="SimpleInjector.Integration.AspNetCore" Version="5.4.0" />
     <PackageReference Include="SimpleInjector.Packaging" Version="5.0.0" />
     <PackageReference Include="Stateless" Version="4.0.0" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
+    <PackageReference Include="WpfAnimatedGif" Version="2.0.0" />
     <PackageReference Include="WPFLocalizeExtension" Version="3.9.4" />
   </ItemGroup>
   <ItemGroup>
@@ -69,9 +62,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Constraints\" />
-    <Folder Include="Controllers\Cashout\" />
-    <Folder Include="Store\Attract\" />
-    <Folder Include="Store\Chooser\" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
 </Project>

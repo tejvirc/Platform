@@ -1,48 +1,50 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby;
 
 using System;
+using Aristocrat.Monaco.Application;
+using Aristocrat.Monaco.Application.Contracts;
+using Commands;
 using Contracts.Lobby;
-using global::Fluxor;
-using Kernel;
+using Fluxor;
 using Microsoft.Extensions.Logging;
 using Services;
 using Store;
+using Vgt.Client12.Application.OperatorMenu;
 
 internal class LobbyEngine : ILobby
 {
     private readonly ILogger<LobbyEngine> _logger;
     private readonly IStore _store;
     private readonly IDispatcher _dispatcher;
-    private readonly IEventBus _eventBus;
-    private readonly IPropertiesManager _properties;
+    private readonly IOperatorMenuLauncher _operatorMenuLauncher;
     private readonly ILayoutManager _layoutManager;
-    private readonly LobbyConfiguration _configuration;
+    private readonly IApplicationCommands _commands;
 
     public LobbyEngine(
         ILogger<LobbyEngine> logger,
         IStore store,
         IDispatcher dispatcher,
-        IEventBus eventBus,
-        IPropertiesManager properties,
+        IOperatorMenuLauncher operatorMenuLauncher,
         ILayoutManager layoutManager,
-        LobbyConfiguration configuration)
+        IApplicationCommands commands)
     {
         _logger = logger;
         _store = store;
         _dispatcher = dispatcher;
-        _eventBus = eventBus;
-        _properties = properties;
+        _operatorMenuLauncher = operatorMenuLauncher;
         _layoutManager = layoutManager;
-        _configuration = configuration;
+        _commands = commands;
     }
 
     public void CreateWindow()
     {
+        _layoutManager.CreateWindows();
+
+        _operatorMenuLauncher.EnableKey(ApplicationConstants.OperatorMenuInitializationKey);
+
         _store.InitializeAsync().Wait();
 
-        _dispatcher.Dispatch(new StartupAction(_configuration));
-
-        _layoutManager.CreateWindows();
+        _dispatcher.Dispatch(new StartupAction());
     }
 
     public void Show() => throw new NotSupportedException();
@@ -51,8 +53,10 @@ internal class LobbyEngine : ILobby
 
     public void Close()
     {
-        _layoutManager.DestroyWindows();
-
         _dispatcher.Dispatch(new ShutdownAction());
+
+        _commands.ShutdownCommand.Execute(null);
+
+        _layoutManager.DestroyWindows();
     }
 }

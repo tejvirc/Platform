@@ -5,6 +5,7 @@ namespace Aristocrat.Monaco.Gaming.Lobby.Platform.Consumers;
 using System;
 using Common.Container;
 using Kernel;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleInjector;
 
 public static class ConsumerExtensions
@@ -19,7 +20,7 @@ public static class ConsumerExtensions
         // TODO Refactor to use DI container
         ServiceManager.GetInstance().AddService(new SharedConsumerContext());
 
-        container.RegisterManyForOpenGeneric(typeof(IConsumes<>), typeof(Consumes<>).Assembly);
+        container.RegisterManyForOpenGeneric(typeof(IConsumes<>), typeof(IConsumes<>).Assembly);
 
         return container;
     }

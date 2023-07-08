@@ -15,17 +15,17 @@
 
         public void Info(string msg, string className)
         {
-            _logger.Info($"Controller: {_stateChecker._lobbyStateManager.CurrentState} - GamePlayState: {_stateChecker._gamePlayState.CurrentState} -[{className}]: {msg}");
+            _logger.Info($"Controller: {_stateChecker} - GamePlayState: {_stateChecker._gamePlayState.CurrentState} -[{className}]: {msg}");
         }
 
         public void Error(string msg, string className)
         {
-            _logger.Error($"Controller: {_stateChecker._lobbyStateManager.CurrentState} - GamePlayState: {_stateChecker._gamePlayState.CurrentState} -[{className}]: {msg}");
+            _logger.Error($"Controller: {_stateChecker} - GamePlayState: {_stateChecker._gamePlayState.CurrentState} -[{className}]: {msg}");
         }
 
         public void Fatal(string msg, string className)
         {
-            _logger.Fatal($"Controller: {_stateChecker._lobbyStateManager.CurrentState} - GamePlayState: {_stateChecker._gamePlayState.CurrentState} -[{className}]: {msg}");
+            _logger.Fatal($"Controller: {_stateChecker} - GamePlayState: {_stateChecker._gamePlayState.CurrentState} -[{className}]: {msg}");
         }
     }
 }

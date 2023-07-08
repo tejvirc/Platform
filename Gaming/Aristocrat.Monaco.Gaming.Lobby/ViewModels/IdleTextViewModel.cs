@@ -3,8 +3,8 @@
 using System;
 using Common;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Fluxor.Extensions;
-using static Store.Lobby.LobbySelectors;
+using Extensions.Fluxor;
+using static Store.IdleText.IdleTextSelectors;
 
 public class IdleTextViewModel : ObservableObject
 {

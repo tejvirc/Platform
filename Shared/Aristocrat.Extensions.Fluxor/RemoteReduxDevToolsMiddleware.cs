@@ -131,6 +131,11 @@ internal sealed class RemoteReduxDevToolsMiddleware : Middleware
 
     private async Task OnJumpToState(JumpToStateCallback callbackInfo)
     {
+        if (_store == null)
+        {
+            return;
+        }
+
         // Wait for fire+forget state notifications to ReduxDevTools to dequeue
         await _tailTask.ConfigureAwait(false);
 
@@ -138,13 +143,19 @@ internal sealed class RemoteReduxDevToolsMiddleware : Middleware
         using (_store.BeginInternalMiddlewareChange())
         {
             var newFeatureStates = _jsonSerialization.Deserialize<Dictionary<string, object>>(callbackInfo.state);
-            foreach (KeyValuePair<string, object> newFeatureState in newFeatureStates)
+
+            if (newFeatureStates == null)
+            {
+                return;
+            }
+
+            foreach (var newFeatureState in newFeatureStates)
             {
                 // Get the feature with the given name
-                if (!_store.Features.TryGetValue(newFeatureState.Key, out IFeature feature))
+                if (!_store.Features.TryGetValue(newFeatureState.Key, out var feature))
                     continue;
 
-                object stronglyTypedFeatureState = _jsonSerialization
+                var stronglyTypedFeatureState = _jsonSerialization
                     .Deserialize(
                         json: newFeatureState.Value.ToString(),
                         type: feature.GetStateType());

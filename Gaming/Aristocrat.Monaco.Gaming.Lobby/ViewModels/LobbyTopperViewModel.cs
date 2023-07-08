@@ -3,9 +3,9 @@
 using System;
 using Common;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Fluxor.Extensions;
+using Extensions.Fluxor;
 using Microsoft.Extensions.Logging;
-using static Store.Lobby.LobbySelectors;
+using static Store.Attract.AttractSelectors;
 
 public class LobbyTopperViewModel : ObservableObject
 {

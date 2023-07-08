@@ -14,8 +14,8 @@ public class LobbyServiceStub
 
     public Empty SendEvent(SendNotificationRequest request)
     {
-        _commandHandlerFactory.Create<Notification>()
-            .Handle(new Notification { Code = request.EventCode });
+        //_commandHandlerFactory.Create<Notification>()
+        //    .Handle(new Notification { Code = request.EventCode });
 
         return new Empty();
     }

@@ -1,9 +1,9 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby;
 
 using System;
+using System.Linq;
 using System.Threading.Tasks;
-using global::Fluxor;
-using Fluxor.Extensions;
+using Fluxor;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleInjector;
 
@@ -17,15 +17,15 @@ public static class FluxorExtensions
             options =>
             {
                 options
-                    .ScanAssemblies(typeof(FluxorExtensions).Assembly)
-                    .UseRemoteReduxDevTools(
-                        devToolsOptions =>
-                        {
-                            devToolsOptions.RemoteReduxDevToolsUri = new Uri("https://localhost:7232/clientapphub");
-                            devToolsOptions.RemoteReduxDevToolsSessionId = "71637a4c-43b7-4ab0-a658-15b85e3c037f";
-                            devToolsOptions.Name = "Monaco Lobby";
-                            //devToolsOptions.EnableStackTrace();
-                        });
+                    .ScanAssemblies(typeof(FluxorExtensions).Assembly);
+                //.UseRemoteReduxDevTools(
+                //    devToolsOptions =>
+                //    {
+                //        devToolsOptions.RemoteReduxDevToolsUri = new Uri("https://localhost:7232/clientapphub");
+                //        devToolsOptions.RemoteReduxDevToolsSessionId = "71637a4c-43b7-4ab0-a658-15b85e3c037f";
+                //        devToolsOptions.Name = "Monaco Lobby";
+                //        //devToolsOptions.EnableStackTrace();
+                //    });
             }
         );
 
@@ -68,5 +68,11 @@ public static class FluxorExtensions
         dispatcher.Dispatch(action);
 
         return Task.CompletedTask;
+    }
+
+    public static IState<TState> State<TState>(this IStore store)
+    {
+        return new State<TState>(
+            (IFeature<TState>)store.Features.Values.First(x => x.GetStateType() == typeof(TState)));
     }
 }

@@ -17,8 +17,12 @@ using UI.Common.Extensions;
 
 public sealed class AttractService : IAttractService, IDisposable
 {
+    private const double RotateTopImageIntervalInSeconds = 10.0;
+    private const double RotateTopperImageIntervalInSeconds = 10.0;
+
     private readonly ILogger<AttractService> _logger;
     private readonly IState<AttractState> _attractState;
+    private readonly IState<LobbyState> _lobbyState;
     private readonly IDispatcher _dispatcher;
     private readonly LobbyConfiguration _configuration;
     private readonly IEventBus _eventBus;
@@ -26,14 +30,17 @@ public sealed class AttractService : IAttractService, IDisposable
     private readonly IAttractConfigurationProvider _attractConfigurationProvider;
 
     private readonly ITimer _attractTimer;
+    private readonly ITimer _rotateTopImageTimer;
+    private readonly ITimer _rotateTopperImageTimer;
 
-    private int _consecutiveAttractCount;
-    private bool _nextAttractModeLanguageIsPrimary = true;
-    private bool _lastInitialAttractModeLanguageIsPrimary = true;
+    //private int _consecutiveAttractCount;
+    //private bool _nextAttractModeLanguageIsPrimary = true;
+    //private bool _lastInitialAttractModeLanguageIsPrimary = true;
 
     public AttractService(
         ILogger<AttractService> logger,
         IState<AttractState> attractState,
+        IState<LobbyState> lobbyState,
         IDispatcher dispatcher,
         LobbyConfiguration configuration,
         IEventBus eventBus,
@@ -42,6 +49,7 @@ public sealed class AttractService : IAttractService, IDisposable
     {
         _logger = logger;
         _attractState = attractState;
+        _lobbyState = lobbyState;
         _dispatcher = dispatcher;
         _configuration = configuration;
         _eventBus = eventBus;
@@ -50,6 +58,12 @@ public sealed class AttractService : IAttractService, IDisposable
 
         _attractTimer = new DispatcherTimerAdapter { Interval = TimeSpan.FromSeconds(_configuration.AttractTimerIntervalInSeconds) };
         _attractTimer.Tick += AttractTimer_Tick;
+
+        _rotateTopImageTimer = new DispatcherTimerAdapter { Interval = TimeSpan.FromSeconds(RotateTopImageIntervalInSeconds) };
+        _rotateTopImageTimer.Tick += RotateTopImageTimerTick;
+
+        _rotateTopperImageTimer = new DispatcherTimerAdapter { Interval = TimeSpan.FromSeconds(RotateTopperImageIntervalInSeconds) };
+        _rotateTopperImageTimer.Tick += RotateTopperImageTimerTick;
     }
 
     public void NotifyEntered()
@@ -57,30 +71,11 @@ public sealed class AttractService : IAttractService, IDisposable
         _eventBus.Publish(new AttractModeEntered());
     }
 
-    public void ResetConsecutiveAttractCount()
-    {
-        _consecutiveAttractCount = 0;
-    }
-
-    public void SetLanguageFlags()
-    {
-        if (_configuration.AlternateAttractModeLanguage)
-        {
-            _nextAttractModeLanguageIsPrimary = !_nextAttractModeLanguageIsPrimary;
-        }
-
-        if (currAttractIndex == 0 && _configuration.AlternateAttractModeLanguage)
-        {
-            _nextAttractModeLanguageIsPrimary = !_lastInitialAttractModeLanguageIsPrimary;
-            _lastInitialAttractModeLanguageIsPrimary = _nextAttractModeLanguageIsPrimary;
-        }
-    }
-
     public int AdvanceAttractIndex()
     {
         var currentAttractIndex = _attractState.Value.CurrentAttractIndex + 1;
 
-        if (currentAttractIndex >= _attractState.Value.AttractList.Count)
+        if (currentAttractIndex >= _attractState.Value.AttractVideos.Count)
         {
             currentAttractIndex = 0;
         }
@@ -88,18 +83,18 @@ public sealed class AttractService : IAttractService, IDisposable
         return currentAttractIndex;
     }
 
-    public AttractVideoPathsResult SetAttractVideoPaths(int currAttractIndex)
+    public void SetAttractVideoPaths(int currAttractIndex)
     {
         AttractVideoInfo? attract = null;
 
-        if (_attractState.Value.AttractList.Count > 0)
+        if (_attractState.Value.AttractVideos.Count > 0)
         {
-            attract = _attractState.Value.AttractList[currAttractIndex];
+            attract = _attractState.Value.AttractVideos[currAttractIndex];
         }
 
         if (_configuration.AlternateAttractModeLanguage)
         {
-            var languageIndex = _nextAttractModeLanguageIsPrimary ? 0 : 1;
+            var languageIndex = _attractState.Value.NextAttractModeLanguageIsPrimary ? 0 : 1;
 
             var topAttractVideoPath =
                 attract?.GetTopAttractVideoPathByLocaleCode(_configuration.LocaleCodes[languageIndex]).NullIfEmpty() ??
@@ -118,12 +113,13 @@ public sealed class AttractService : IAttractService, IDisposable
                     _configuration.DefaultTopAttractVideoFilename;
             }
 
-            return new AttractVideoPathsResult
-            {
-                TopAttractVideoPath = topAttractVideoPath,
-                TopperAttractVideoPath = topperAttractVideoPath,
-                BottomAttractVideoPath = bottomAttractVideoPath
-            };
+            _dispatcher.Dispatch(
+                new UpdateAttractVideosAction
+                {
+                    TopAttractVideoPath = topAttractVideoPath,
+                    TopperAttractVideoPath = topperAttractVideoPath,
+                    BottomAttractVideoPath = bottomAttractVideoPath
+                });
         }
         else
         {
@@ -141,29 +137,48 @@ public sealed class AttractService : IAttractService, IDisposable
                     attract?.BottomAttractVideoPath.NullIfEmpty() ?? _configuration.DefaultTopAttractVideoFilename;
             }
 
-            return new AttractVideoPathsResult
-            {
-                TopAttractVideoPath = topAttractVideoPath,
-                TopperAttractVideoPath = topperAttractVideoPath,
-                BottomAttractVideoPath = bottomAttractVideoPath
-            };
+            _dispatcher.Dispatch(
+                new UpdateAttractVideosAction
+                {
+                    TopAttractVideoPath = topAttractVideoPath,
+                    TopperAttractVideoPath = topperAttractVideoPath,
+                    BottomAttractVideoPath = bottomAttractVideoPath
+                });
         }
     }
 
-    public bool PlayAdditionalConsecutiveVideo()
+    public void RotateTopImage()
     {
-        if (!_configuration.HasAttractIntroVideo || _attractState.Value.CurrentAttractIndex != 0 || _attractState.Value.AttractList.Count <= 1)
+        if (!(_configuration.RotateTopImageAfterAttractVideo is { Length: > 0 }))
         {
-            _consecutiveAttractCount++;
-
-            if (_consecutiveAttractCount >= _configuration.ConsecutiveAttractVideos ||
-                _consecutiveAttractCount >= _attractState.Value.Games.Count)
-            {
-                return false;
-            }
+            return;
         }
 
-        return true;
+        var newIndex = _attractState.Value.AttractModeTopImageIndex + 1;
+
+        if (newIndex < 0 || newIndex >= (_configuration.RotateTopImageAfterAttractVideo?.Length ?? 0))
+        {
+            newIndex = 0;
+        }
+
+        _dispatcher.Dispatch(new UpdateAttractModeTopImageIndex { Index = newIndex });
+    }
+
+    public void RotateTopperImage()
+    {
+        if (!(_configuration.RotateTopperImageAfterAttractVideo is { Length: > 0 }))
+        {
+            return;
+        }
+
+        var newIndex = _attractState.Value.AttractModeTopperImageIndex + 1;
+
+        if (newIndex < 0 || newIndex >= (_configuration.RotateTopperImageAfterAttractVideo?.Length ?? 0))
+        {
+            newIndex = 0;
+        }
+
+        _dispatcher.Dispatch(new UpdateAttractModeTopperImageIndex { Index = newIndex });
     }
 
     public void Dispose()
@@ -173,16 +188,26 @@ public sealed class AttractService : IAttractService, IDisposable
 
     private void AttractTimer_Tick(object? sender, EventArgs e)
     {
-        if (!_attractConfigurationProvider.IsAttractEnabled ||
-            !_attractState.Value.HasZeroCredits() ||
-            _attractState.Value.IsIdleTextScrolling ||
-            _attractState.Value.IsVoucherNotificationActive ||
-            _attractState.Value.IsProgressiveGameDisabledNotificationActive ||
-            _attractState.Value.IsPlayerInfoRequestActive)
-        {
-            return;
-        }
+        //if (!_attractConfigurationProvider.IsAttractEnabled ||
+        //    !_attractState.Value.HasZeroCredits() ||
+        //    _attractState.Value.IsIdleTextScrolling ||
+        //    _attractState.Value.IsVoucherNotificationActive ||
+        //    _attractState.Value.IsProgressiveGameDisabledNotificationActive ||
+        //    _attractState.Value.IsPlayerInfoRequestActive)
+        //{
+        //    return;
+        //}
 
         _dispatcher.Dispatch(new AttractEnterAction());
+    }
+
+    private void RotateTopImageTimerTick(object? sender, EventArgs e)
+    {
+        _dispatcher.Dispatch(new ToggleTopImageAction());
+    }
+
+    private void RotateTopperImageTimerTick(object? sender, EventArgs e)
+    {
+        _dispatcher.Dispatch(new ToggleTopperImageAction());
     }
 }

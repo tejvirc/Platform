@@ -401,7 +401,7 @@
             var container = new Container();
             container.RegisterInstance(serviceManager.GetService<IEventBus>());
             container.RegisterInstance(serviceManager.GetService<IPropertiesManager>());
-            container.RegisterInstance(serviceManager.GetService<IContainerService>().Container.GetInstance<ILobbyStateManager>());
+            // container.RegisterInstance(serviceManager.GetService<IContainerService>().Container.GetInstance<ILobbyStateManager>());
             container.RegisterInstance(serviceManager.GetService<IContainerService>().Container.GetInstance<IGamePlayState>());
             container.RegisterInstance(serviceManager.GetService<IContainerService>().Container.GetInstance<IGameProvider>());
             container.RegisterInstance(serviceManager.GetService<IContainerService>().Container.GetInstance<IBank>());

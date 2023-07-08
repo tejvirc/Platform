@@ -2,7 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
     using System.Reflection;
+    using System.Runtime.Loader;
     using Application.Contracts;
     using Application.Contracts.OperatorMenu;
     using Aristocrat.CryptoRng;
@@ -53,21 +56,26 @@
         ///     Initialize the container
         /// </summary>
         /// <returns>A container</returns>
-        public static Container InitializeContainer(Action<Container> configureHost)
+        public static Container InitializeContainer()
         {
-            return ConfigureContainer(configureHost);
+            return ConfigureContainer();
         }
 
-        private static Container ConfigureContainer(Action<Container> configureHost)
+        private static Container ConfigureContainer()
         {
             var container = new Container();
 
+            // Integration with MS DI sets the default lifestyle scope to Async
             // container.Options.DefaultScopedLifestyle = ScopedLifestyle.Flowing;
+
+            container.RegisterPackages(
+                Directory.GetFiles(
+                    Path.GetDirectoryName(Assembly.GetEntryAssembly().Location),
+                    "Aristocrat.Monaco.Gaming.*.dll").Select(
+                    file => AssemblyLoadContext.Default.LoadFromAssemblyPath(file)));
 
             container.AddResolveUnregisteredType(typeof(Bootstrapper).FullName, Logger);
 
-            configureHost?.Invoke(container);
-            
             container.Register<SnappService>(Lifestyle.Singleton);
             container.Register<SnappReelService>(Lifestyle.Singleton);
             container.Register<SnappPresentationService>(Lifestyle.Singleton);

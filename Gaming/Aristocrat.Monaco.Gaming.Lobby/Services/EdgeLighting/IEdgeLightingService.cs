@@ -1,10 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Services.EdgeLighting;
 
-using System.Threading.Tasks;
+using Application.Contracts.EdgeLight;
 
 public interface IEdgeLightingService
 {
-    void SetEdgeLighting();
-
-    void SetEdgeLightOverride();
+    void SetEdgeLighting(EdgeLightState? newState);
 }

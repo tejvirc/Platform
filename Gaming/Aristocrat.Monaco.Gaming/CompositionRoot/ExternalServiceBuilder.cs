@@ -5,6 +5,7 @@
     using Application.Contracts;
     using Application.Contracts.Drm;
     using Application.Contracts.EdgeLight;
+    using Application.Contracts.Localization;
     using Application.Contracts.Media;
     using Application.Contracts.Operations;
     using Application.Contracts.Protocol;
@@ -94,6 +95,7 @@
             @this.RegisterInstance(serviceManager.GetService<ICashOutAmountCalculator>());
             @this.RegisterInstance(serviceManager.GetService<IHandCountOverlayService>());
             @this.RegisterInstance(serviceManager.GetService<IMaxWinOverlayService>());
+            @this.RegisterInstance(serviceManager.GetService<ILocalizerFactory>());
         }
     }
 }

@@ -2,20 +2,18 @@
 
 using System;
 using System.Diagnostics;
-using Aristocrat.Monaco.Gaming.Contracts.Process;
-using Aristocrat.Monaco.Gaming.Contracts;
 using LobbyRuntime.V1;
 
 public class LobbyClient
 {
-    private readonly LobbyServiceStub _lobbyStub = new();
+    private readonly LobbyServiceStub? _lobbyStub = null;
 
-    public void SendEvent(PlatformEvent evt, bool state)
+    public void SendEvent(PlatformEvent evt)
     {
-        Invoke(client => client.SendEvent(new SendNotificationRequest { EventCode = (NotificationCode)evt }));
+        Invoke(client => client?.SendEvent(new SendNotificationRequest { EventCode = (NotificationCode)evt }));
     }
 
-    private T? Invoke<T>(Func<LobbyServiceStub, T> callback)
+    private T? Invoke<T>(Func<LobbyServiceStub?, T> callback)
     {
         if (callback == null)
         {

@@ -4,15 +4,11 @@ using System.Threading.Tasks;
 
 public interface IAttractService
 {
-    void SetLanguageFlags(int currAttractIndex);
-
-    int AdvanceAttractIndex();
-
-    AttractVideoPathsResult SetAttractVideoPaths(int currAttractIndex);
-
-    bool PlayAdditionalConsecutiveVideo();
+    void SetAttractVideoPaths(int currAttractIndex);
 
     void NotifyEntered();
 
-    void ResetConsecutiveAttractCount();
+    void RotateTopImage();
+
+    void RotateTopperImage();
 }

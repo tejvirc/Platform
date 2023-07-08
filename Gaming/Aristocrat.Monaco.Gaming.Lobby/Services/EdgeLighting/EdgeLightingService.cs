@@ -1,96 +1,86 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Services.EdgeLighting;
 
-using System.Threading.Tasks;
+using System;
+using Application.Contracts;
 using Application.Contracts.EdgeLight;
-using Aristocrat.Monaco.Application.Contracts.Localization;
-using Aristocrat.Monaco.Application.Contracts;
+using Application.Contracts.Localization;
 using Fluxor;
 using Hardware.Contracts.EdgeLighting;
 using Kernel;
+using Localization.Properties;
 using Store;
-using Store.Application;
-using Store.Attract;
-using Store.Lobby;
-using LobbyCashOutState = Contracts.Models.LobbyCashOutState;
 
-public class EdgeLightingService : IEdgeLightingService
+public sealed class EdgeLightingService : IEdgeLightingService, IDisposable
 {
     private readonly IDispatcher _dispatcher;
-    private readonly IState<CommonState> _applicationState;
-    private readonly IState<AttractState> _attractState;
-    private readonly LobbyConfiguration _configuration;
+    private readonly IEventBus _eventBus;
     private readonly IPropertiesManager _properties;
+    private readonly ILocalizerFactory _localizer;
     private readonly IEdgeLightingStateManager _edgeLightingStateManager;
 
     private IEdgeLightToken? _edgeLightStateToken;
-    private bool _canOverrideEdgeLight;
 
     public EdgeLightingService(
         IDispatcher dispatcher,
-        IState<CommonState> applicationState,
-        IState<AttractState> attractState,
-        LobbyConfiguration configuration,
+        IEventBus eventBus,
         IPropertiesManager properties,
+        ILocalizerFactory localizer,
         IEdgeLightingStateManager edgeLightingStateManager)
     {
         _dispatcher = dispatcher;
-        _applicationState = applicationState;
-        _attractState = attractState;
-        _configuration = configuration;
+        _eventBus = eventBus;
         _properties = properties;
+        _localizer = localizer;
         _edgeLightingStateManager = edgeLightingStateManager;
+
+        SubscribeToEvents();
     }
 
-    public void SetEdgeLighting()
+    public void SetEdgeLighting(EdgeLightState? newState)
     {
-        EdgeLightState? newState;
+        _edgeLightingStateManager.ClearState(_edgeLightStateToken);
 
-        if (_state.Value.IsCashingOut && _state.Value.CurrentCashOutState != LobbyCashOutState.Undefined)
+        if (newState.HasValue)
         {
-            newState = EdgeLightState.Cashout;
+            _edgeLightStateToken = _edgeLightingStateManager.SetState(newState.Value);
         }
-        else if (!_applicationState.Value.IsSystemDisabled &&
-                 (_attractState.Value.IsAttractMode && !_configuration.EdgeLightingOverrideUseGen8IdleMode ||
-                  _canOverrideEdgeLight && _configuration.EdgeLightingOverrideUseGen8IdleMode))
+    }
+
+    public void Dispose()
+    {
+        _eventBus.UnsubscribeAll(this);
+    }
+
+    private void SubscribeToEvents()
+    {
+        _eventBus.Subscribe<PropertyChangedEvent>(this, Handle);
+    }
+
+    private void Handle(PropertyChangedEvent evt)
+    {
+        switch (evt.PropertyName)
         {
-            newState = EdgeLightState.AttractMode;
+            case ApplicationConstants.EdgeLightingAttractModeColorOverrideSelectionKey:
+                SetOverrideEdgeLight();
+                break;
         }
-        else if (_state.Value.IsGameLoaded)
+    }
+
+    private void SetOverrideEdgeLight()
+    {
+        var transparentColorName = _localizer.For(CultureFor.Operator).GetString(ResourceKeys.LightingOverrideTransparent);
+
+        var edgeLightingAttractModeOverrideSelection = _properties.GetValue(
+            ApplicationConstants.EdgeLightingAttractModeColorOverrideSelectionKey,
+            transparentColorName);
+
+        if (edgeLightingAttractModeOverrideSelection != transparentColorName)
         {
-            newState = null;
+            _dispatcher.Dispatch(new UpdateOverrideEdgeLight { CanOverrideEdgeLight  = true });
         }
         else
         {
-            newState = EdgeLightState.Lobby;
+            _dispatcher.Dispatch(new UpdateOverrideEdgeLight { CanOverrideEdgeLight = false });
         }
-
-        if (newState != _state.Value.CurrentEdgeLightState)
-        {
-            _edgeLightingStateManager.ClearState(_edgeLightStateToken);
-
-            if (newState.HasValue)
-            {
-                _edgeLightStateToken = _edgeLightingStateManager.SetState(newState.Value);
-            }
-
-            _dispatcher.Dispatch(new UpdateEdgeLightStateAction { EdgeLightState = newState });
-        }
-    }
-
-    public void SetEdgeLightOverride()
-    {
-        var edgeLightingAttractModeOverrideSelection = _properties.GetValue(
-            ApplicationConstants.EdgeLightingAttractModeColorOverrideSelectionKey,
-            Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LightingOverrideTransparent));
-
-        if (edgeLightingAttractModeOverrideSelection != Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LightingOverrideTransparent))
-        {
-            _canOverrideEdgeLight = true;
-        }
-    }
-
-    public void ResetEdgeLightOverride()
-    {
-        _canOverrideEdgeLight = false;
     }
 }

@@ -22,7 +22,7 @@ public class RegionViewRegistry : IRegionViewRegistry
         {
             RegionName = regionName,
             ViewName = viewName,
-            ViewCreator = () => Application.Current.GetService(viewType)
+            ViewCreator = () => Application.Current.GetObject(viewType)
         };
 
         var index = _registrations[regionName].IndexOf(registration);

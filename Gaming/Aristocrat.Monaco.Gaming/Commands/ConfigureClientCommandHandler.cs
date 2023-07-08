@@ -102,7 +102,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
             var maxVolumeLevel = _audio.GetMaxVolume(_properties, _gameCategoryService, showVolumeControlInLobbyOnly);
 
             var useWinLimit = _properties.GetValue(GamingConstants.UseGambleWinLimit, false);
-            // var singleGameAutoLaunch = _properties.GetValue(GamingConstants.Multi, false);
+            var singleGameAutoLaunch = false;
 
             var parameters = new Dictionary<string, string>
             {

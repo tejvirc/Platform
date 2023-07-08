@@ -162,9 +162,10 @@
             MinimumGameRoundDuration = PropertiesManager.GetValue(GamingConstants.MinimumGameRoundDuration, GamingConstants.DefaultMinimumGameRoundDurationMs);
             MaximumGameRoundDuration = PropertiesManager.GetValue(GamingConstants.MaximumGameRoundDuration, GamingConstants.DefaultMaximumGameRoundDurationMs);
 
-            var lobbyStateManager = ServiceManager.GetInstance().GetService<IContainerService>().Container
-                ?.GetInstance<ILobbyStateManager>();
-            IsShowProgramPinConfigurable = lobbyStateManager?.BaseState != LobbyState.Game;
+            //var lobbyStateManager = ServiceManager.GetInstance().GetService<IContainerService>().Container
+            //    ?.GetInstance<ILobbyStateManager>();
+            //IsShowProgramPinConfigurable = lobbyStateManager?.BaseState != LobbyState.Game;
+            IsShowProgramPinConfigurable = true;
         }
 
         public IEnumerable<GameStartMethodInfo> GameStartMethods { get; } = new[]

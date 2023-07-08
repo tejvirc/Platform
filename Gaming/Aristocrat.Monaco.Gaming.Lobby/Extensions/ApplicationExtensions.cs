@@ -35,16 +35,19 @@ public static class ApplicationExtensions
 
     public static T GetObject<T>(this Application application) where T : class
     {
+        return (T)application.GetObject(typeof(T));
+    }
+
+    public static object GetObject(this Application application, Type objecType)
+    {
         var services = ((MonacoApplication)application).Services ??
                        throw new InvalidOperationException("Services were not set on Application");
 
-        if (typeof(T).IsAbstract || typeof(T).IsInterface)
+        if (objecType.IsAbstract || objecType.IsInterface)
         {
-            throw new InvalidOperationException($"{typeof(T)} is not a concrete type");
+            throw new InvalidOperationException($"{objecType} is not a concrete type");
         }
 
-        var factory = services.GetRequiredService<IObjectFactory>();
-
-        return factory.GetObject<T>();
+        return ActivatorUtilities.CreateInstance(services, objecType);
     }
 }

@@ -1,18 +1,19 @@
 ﻿namespace Aristocrat.Extensions.Fluxor;
 
 using System;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleInjector;
 
 public class StoreSelector : ISelector
 {
-    private readonly Container _container;
+    private readonly IServiceProvider _services;
 
-    public StoreSelector(Container container)
+    public StoreSelector(IServiceProvider services)
     {
-        _container = container;
+        _services = services;
     }
 
     public IObservable<TResult> Select<TState, TResult>(ISelector<TState, TResult> selector) =>
-        _container.GetInstance<IStateSelectors<TState>>()
+        _services.GetRequiredService<IStateSelector<TState>>()
             .Select(selector);
 }

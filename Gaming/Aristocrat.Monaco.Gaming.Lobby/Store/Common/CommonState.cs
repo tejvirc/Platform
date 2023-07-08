@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Lobby.Store.Application;
+﻿namespace Aristocrat.Monaco.Gaming.Lobby.Store.Common;
 
 using System;
 using Fluxor;
@@ -6,14 +6,6 @@ using Fluxor;
 [FeatureState]
 public record CommonState
 {
-    public IntPtr GameMainHandle { get; set; }
-
-    public IntPtr GameTopHandle { get; set; }
-
-    public IntPtr GameTopperHandle { get; set; }
-
-    public IntPtr GameButtonDeckHandle { get; set; }
-
     public bool IsSystemDisabled { get; set; }
 
     public bool IsSystemDisableImmediately { get; set; }

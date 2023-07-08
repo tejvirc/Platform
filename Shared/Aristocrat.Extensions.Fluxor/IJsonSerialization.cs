@@ -4,7 +4,7 @@ using System;
 
 public interface IJsonSerialization
 {
-    object? Deserialize(string json, Type type);
+    object? Deserialize(string? json, Type type);
     string Serialize(object source, Type type);
 }
 

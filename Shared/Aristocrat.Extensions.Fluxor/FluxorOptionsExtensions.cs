@@ -3,6 +3,7 @@
 using System;
 using global::Fluxor.DependencyInjection;
 using global::Fluxor.Extensions;
+using Microsoft.Extensions.DependencyInjection;
 
 public static class FluxorOptionsExtensions
 {
@@ -21,6 +22,16 @@ public static class FluxorOptionsExtensions
 
         options.AddMiddleware<RemoteReduxDevToolsMiddleware>();
         options.Services.Add(_ => reduxOptions, options);
+
+        return options;
+    }
+
+    public static FluxorOptions UseSelectors(this FluxorOptions options)
+    {
+        options.Services
+            .AddSingleton<ISelector, StoreSelector>()
+            .AddSingleton(typeof(IStateSelector<>), typeof(StateSelector<>));
+
         return options;
     }
 }

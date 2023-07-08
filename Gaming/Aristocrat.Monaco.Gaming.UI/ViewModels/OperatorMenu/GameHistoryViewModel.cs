@@ -54,7 +54,7 @@
         private readonly int _eventsPerPage;
         private readonly bool _meterFreeGamesIndependently;
 
-        private readonly ILobbyStateManager _lobbyStateManager;
+        //private readonly ILobbyStateManager _lobbyStateManager;
         private readonly IGameHistory _gameHistoryProvider;
         private readonly IGameRecovery _gameRecovery;
         private readonly IGameDiagnostics _gameDiagnostics;
@@ -110,7 +110,7 @@
             {
                 var container = ServiceManager.GetInstance().GetService<IContainerService>();
 
-                _lobbyStateManager = container.Container.GetInstance<ILobbyStateManager>();
+                //_lobbyStateManager = container.Container.GetInstance<ILobbyStateManager>();
                 _gameHistoryProvider = container.Container.GetInstance<IGameHistory>();
                 _gameDiagnostics = container.Container.GetInstance<IGameDiagnostics>();
                 _gameRecovery = container.Container.GetInstance<IGameRecovery>();
@@ -493,7 +493,10 @@
             }
         }
 
-        private bool AllowReplayDuringGame => _lobbyStateManager.AllowGameInCharge ||
+        //private bool AllowReplayDuringGame => _lobbyStateManager.AllowGameInCharge ||
+        //                                      (!PropertiesManager.GetValue(GamingConstants.IsGameRunning, false) &&
+        //                                       !_gameHistoryProvider.IsRecoveryNeeded);
+        private bool AllowReplayDuringGame => false ||
                                               (!PropertiesManager.GetValue(GamingConstants.IsGameRunning, false) &&
                                                !_gameHistoryProvider.IsRecoveryNeeded);
 

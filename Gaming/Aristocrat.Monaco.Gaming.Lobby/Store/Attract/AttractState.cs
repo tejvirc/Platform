@@ -1,10 +1,14 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Store.Attract;
 
+using System.Collections.Immutable;
 using Fluxor;
+using Models;
 
 [FeatureState]
-public class AttractState
+public record AttractState
 {
+    public IImmutableList<AttractVideoInfo> AttractVideos { get; set; } = ImmutableList<AttractVideoInfo>.Empty;
+
     public int CurrentAttractIndex { get; set; }
 
     public bool IsAttractPlaying { get; set; }
@@ -15,11 +19,17 @@ public class AttractState
 
     public int ConsecutiveAttractCount { get; set; }
 
-    // public IImmutableList<string> RotateTopperImageAfterAttractVideo { get; set; } = ImmutableList<string>.Empty;
-
     public int AttractModeTopperImageIndex { get; set; } = -1;
 
     public int AttractModeTopImageIndex { get; set; } = -1;
+
+    public string? TopImageResourceKey { get; set; }
+
+    public string? TopperImageResourceKey { get; set; }
+
+    public bool IsAlternateTopImageActive { get; set; }
+
+    public bool IsAlternateTopperImageActive { get; set; }
 
     public string? TopAttractVideoPath { get; set; }
 
@@ -30,4 +40,8 @@ public class AttractState
     public bool IsTopAttractFeaturePlaying { get; set; }
 
     public bool IsBottomAttractFeaturePlaying { get; set; }
+
+    public bool NextAttractModeLanguageIsPrimary { get; set; }
+
+    public bool LastInitialAttractModeLanguageIsPrimary { get; set; }
 }

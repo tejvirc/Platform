@@ -1,31 +1,36 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Store.Attract;
 
-using Fluxor;
 using System.Threading.Tasks;
-using Contracts.Lobby;
-using Controllers.Attract;
-using Controllers.EdgeLighting;
-using Aristocrat.Monaco.Gaming.Lobby.Services.EdgeLighting;
-using Aristocrat.Monaco.Gaming.Lobby.Services.Attract;
+using Chooser;
+using Fluxor;
+using Services.Attract;
+using Services.EdgeLighting;
 
 public partial class AttractEffects
 {
+    private readonly IState<AttractState> _attractState;
+    private readonly IState<ChooserState> _chooserState;
     private readonly IAttractService _attractService;
+    private readonly LobbyConfiguration _configuration;
     private readonly IEdgeLightingService _edgeLightingService;
 
     public AttractEffects(
+        IState<AttractState> attractState,
+        IState<ChooserState> chooserState,
         IAttractService attractService,
+        LobbyConfiguration configuration,
         IEdgeLightingService edgeLightingService)
     {
+        _attractState = attractState;
+        _chooserState = chooserState;
         _attractService = attractService;
+        _configuration = configuration;
         _edgeLightingService = edgeLightingService;
     }
 
     [EffectMethod]
     public async Task Effect(AttractEnterAction _, IDispatcher dispatcher)
     {
-        _edgeLightingService.SetEdgeLightOverride();
-
         await dispatcher.DispatchAsync(new AttractEnteredAction());
     }
 
@@ -40,25 +45,43 @@ public partial class AttractEffects
     [EffectMethod]
     public async Task Effect(AttractExitAction _, IDispatcher dispatcher)
     {
-        var currentAttractIndex = _attractService.AdvanceAttractIndex();
+        var currentAttractIndex = _attractState.Value.CurrentAttractIndex + 1;
+
+        if (currentAttractIndex >= _attractState.Value.AttractVideos.Count)
+        {
+            currentAttractIndex = 0;
+        }
 
         await dispatcher.DispatchAsync(new UpdateAttractIndexAction { AttractIndex = currentAttractIndex });
 
-        _attractService.SetLanguageFlags(currentAttractIndex);
+        var nextAttractModeLanguageIsPrimary = _attractState.Value.NextAttractModeLanguageIsPrimary;
+        var lastInitialAttractModeLanguageIsPrimary = _attractState.Value.LastInitialAttractModeLanguageIsPrimary;
 
-        _edgeLightingService.SetEdgeLighting();
+        if (_configuration.AlternateAttractModeLanguage)
+        {
+            nextAttractModeLanguageIsPrimary = !nextAttractModeLanguageIsPrimary;
+        }
 
-        var attractVideoPaths = _attractService.SetAttractVideoPaths(currentAttractIndex);
+        if (currentAttractIndex == 0 && _configuration.AlternateAttractModeLanguage)
+        {
+            nextAttractModeLanguageIsPrimary = !lastInitialAttractModeLanguageIsPrimary;
+            lastInitialAttractModeLanguageIsPrimary = nextAttractModeLanguageIsPrimary;
+        }
 
         await dispatcher.DispatchAsync(
-            new UpdateAttractVideosAction
+            new UpdatePrimaryLanguageIndicators
             {
-                TopAttractVideoPath = attractVideoPaths.TopAttractVideoPath,
-                TopperAttractVideoPath = attractVideoPaths.TopperAttractVideoPath,
-                BottomAttractVideoPath = attractVideoPaths.BottomAttractVideoPath
+                NextAttractModeLanguageIsPrimary = nextAttractModeLanguageIsPrimary,
+                LastInitialAttractModeLanguageIsPrimary = lastInitialAttractModeLanguageIsPrimary
             });
 
-        _attractService.ResetConsecutiveAttractCount();
+        _attractService.SetAttractVideoPaths(currentAttractIndex);
+
+        _attractService.RotateTopImage();
+
+        _attractService.RotateTopperImage();
+
+        await dispatcher.DispatchAsync(new UpdateConsecutiveAttractCount { ConsecutiveAttractCount = 0 });
 
         await dispatcher.DispatchAsync(new AttractExitedAction());
     }
@@ -66,13 +89,38 @@ public partial class AttractEffects
     [EffectMethod]
     public async Task Effect(AttractVideoCompletedAction _, IDispatcher dispatcher)
     {
-        if (_attractService.PlayAdditionalConsecutiveVideo())
+        var consecutiveAttractCount = _attractState.Value.ConsecutiveAttractCount;
+
+        if (!_configuration.HasAttractIntroVideo || _attractState.Value.CurrentAttractIndex != 0 || _attractState.Value.AttractVideos.Count <= 1)
         {
-            await dispatcher.DispatchAsync(new AttractVideoNextAction());
+            consecutiveAttractCount++;
+
+            await dispatcher.DispatchAsync(new UpdateConsecutiveAttractCount { ConsecutiveAttractCount = consecutiveAttractCount });
+
+            if (consecutiveAttractCount >= _configuration.ConsecutiveAttractVideos ||
+                consecutiveAttractCount >= _chooserState.Value.Games.Count)
+            {
+                await dispatcher.DispatchAsync(new AttractExitAction());
+                return;
+            }
         }
-        else
-        {
-            await dispatcher.DispatchAsync(new AttractExitAction());
-        }
+
+        await dispatcher.DispatchAsync(new AttractVideoNextAction());
+    }
+
+    [EffectMethod]
+    public async Task Effect(GameUninstalledAction _, IDispatcher dispatcher)
+    {
+        await dispatcher.DispatchAsync(new UpdateAttractIndexAction { AttractIndex = 0 });
+
+        _attractService.SetAttractVideoPaths(_attractState.Value.CurrentAttractIndex);
+    }
+
+    [EffectMethod]
+    public async Task Effect(GameLoadedAction _, IDispatcher dispatcher)
+    {
+        await dispatcher.DispatchAsync(new UpdateAttractIndexAction { AttractIndex = 0 });
+
+        _attractService.SetAttractVideoPaths(_attractState.Value.CurrentAttractIndex);
     }
 }

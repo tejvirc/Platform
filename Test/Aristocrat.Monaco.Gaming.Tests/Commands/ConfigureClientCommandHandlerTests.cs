@@ -26,7 +26,6 @@
         private Mock<IHandCountService> _handCount;
         private Mock<IGameHistory> _gameHistory;
         private Mock<IPropertiesManager> _propertiesManager;
-        private Mock<ILobbyStateManager> _lobbyStateManager;
         private Mock<IGameRecovery> _gameRecovery;
         private Mock<IGameDiagnostics> _gameDiagnostic;
         private Mock<IAudio> _audio;
@@ -43,7 +42,6 @@
             _playerBank = new Mock<IPlayerBank>();
             _gameHistory = new Mock<IGameHistory>();
             _propertiesManager = new Mock<IPropertiesManager>();
-            _lobbyStateManager = new Mock<ILobbyStateManager>();
             _gameRecovery = new Mock<IGameRecovery>();
             _gameDiagnostic = new Mock<IGameDiagnostics>();
             _audio = new Mock<IAudio>();
@@ -67,7 +65,6 @@
             _hardwareHelper.Setup(h => h.CheckForVirtualButtonDeckHardware()).Returns(true);
             _hardwareHelper.Setup(h => h.CheckForUsbButtonDeckHardware()).Returns(true);
             _gameCategoryService.Setup(m => m.SelectedGameCategorySetting).Returns(new GameCategorySetting());
-            _lobbyStateManager.Setup(m => m.AllowSingleGameAutoLaunch).Returns(false);
             _cabinetDetectionService.Setup(m => m.ButtonDeckType).Returns(It.IsAny<string>());
             _propertiesManager
                 .Setup(m => m.GetProperty(GamingConstants.GameConfigurableStartMethods, It.IsAny<object>()))
@@ -106,7 +103,6 @@
             bool nullGameHistory,
             bool nullGameRecovery,
             bool nullGameDiagnostics,
-            bool nullLobbyStateManager,
             bool nullPropertiesManager,
             bool nullPlayerBank,
             bool nullAudio,
@@ -126,7 +122,6 @@
                     nullGameHistory,
                     nullGameRecovery,
                     nullGameDiagnostics,
-                    nullLobbyStateManager,
                     nullPropertiesManager,
                     nullPlayerBank,
                     nullAudio,
@@ -138,14 +133,13 @@
                     nullGameConfigurationProvider));
         }
             else
-            {
+        {
                 Assert.IsNotNull(GetGameRecoveryService(
                     nullRuntime,
                     nullHandCount,
                     nullGameHistory,
                     nullGameRecovery,
                     nullGameDiagnostics,
-                    nullLobbyStateManager,
                     nullPropertiesManager,
                     nullPlayerBank,
                     nullAudio,
@@ -155,7 +149,7 @@
                     nullHardwareHelper,
                     nullAttendantService,
                     nullGameConfigurationProvider));
-            }
+        }
         }
 
         private ConfigureClientCommandHandler GetGameRecoveryService(
@@ -164,7 +158,6 @@
                 bool nullGameHistory,
                 bool nullGameRecovery,
                 bool nullGameDiagnostics,
-                bool nullLobbyStateManager,
                 bool nullPropertiesManager,
                 bool nullPlayerBank,
                 bool nullAudio,
@@ -181,7 +174,6 @@
                 nullGameHistory ? null : _gameHistory.Object,
                 nullGameRecovery ? null : _gameRecovery.Object,
                 nullGameDiagnostics ? null : _gameDiagnostic.Object,
-                nullLobbyStateManager ? null : _lobbyStateManager.Object,
                 nullPropertiesManager ? null : _propertiesManager.Object,
                 nullPlayerBank ? null : _playerBank.Object,
                 nullAudio ? null : _audio.Object,
@@ -215,7 +207,6 @@
                 _gameHistory.Object,
                 _gameRecovery.Object,
                 _gameDiagnostic.Object,
-                _lobbyStateManager.Object,
                 _propertiesManager.Object,
                 _playerBank.Object,
                 _audio.Object,
@@ -256,7 +247,6 @@
                 _gameHistory.Object,
                 _gameRecovery.Object,
                 _gameDiagnostic.Object,
-                _lobbyStateManager.Object,
                 _propertiesManager.Object,
                 _playerBank.Object,
                 _audio.Object,
@@ -301,7 +291,6 @@
                 _gameHistory.Object,
                 _gameRecovery.Object,
                 _gameDiagnostic.Object,
-                _lobbyStateManager.Object,
                 _propertiesManager.Object,
                 _playerBank.Object,
                 _audio.Object,
@@ -343,7 +332,6 @@
                 _gameHistory.Object,
                 _gameRecovery.Object,
                 _gameDiagnostic.Object,
-                _lobbyStateManager.Object,
                 _propertiesManager.Object,
                 _playerBank.Object,
                 _audio.Object,

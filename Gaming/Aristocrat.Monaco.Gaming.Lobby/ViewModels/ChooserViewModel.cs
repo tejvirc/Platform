@@ -10,8 +10,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Controls;
 using Models;
-using Fluxor.Extensions;
-using static Store.Lobby.LobbySelectors;
+using Extensions.Fluxor;
+using static Store.Chooser.ChooserSelectors;
 
 public class ChooserViewModel : ObservableObject
 {

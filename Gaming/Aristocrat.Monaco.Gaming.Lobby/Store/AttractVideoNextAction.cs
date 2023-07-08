@@ -2,5 +2,5 @@
 
 public record AttractVideoNextAction
 {
-    
+
 }

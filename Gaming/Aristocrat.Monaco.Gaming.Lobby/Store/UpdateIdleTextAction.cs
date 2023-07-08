@@ -2,5 +2,5 @@
 
 public record UpdateIdleTextAction
 {
-    public string? Text { get; init; }
+    public string? IdleText { get; init; }
 }

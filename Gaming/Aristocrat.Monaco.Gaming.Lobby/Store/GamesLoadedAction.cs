@@ -3,12 +3,7 @@
 using System.Collections.Generic;
 using Models;
 
-public class GamesLoadedAction
+public record GamesLoadedAction
 {
-    public GamesLoadedAction(IEnumerable<GameInfo> games)
-    {
-        Games = new List<GameInfo>(games);
-    }
-
-    public IList<GameInfo> Games { get; }
+    public IList<GameInfo> Games { get; init; } = new List<GameInfo>();
 }

@@ -1,18 +1,22 @@
-﻿namespace Aristocrat.Monaco.Gaming.Lobby.Store.Application;
+﻿namespace Aristocrat.Monaco.Gaming.Lobby.Store.Common;
 
-using System;
+using Fluxor;
 
-public class CommonReducers
+public static class CommonReducers
 {
-    public bool IsSystemDisabled { get; set; }
+    [ReducerMethod]
+    public static CommonState Reduce(CommonState state, SystemEnabledAction payload) =>
+        state with
+        {
+            IsSystemDisabled = payload.IsDisabled,
+            IsSystemDisableImmediately = payload.IsDisableImmediately
+        };
 
-    public bool IsSystemDisableImmediately { get; set; }
-
-    public IntPtr GameMainHandle { get; set; }
-
-    public IntPtr GameTopHandle { get; set; }
-
-    public IntPtr GameTopperHandle { get; set; }
-
-    public IntPtr GameButtonDeckHandle { get; set; }
+    [ReducerMethod]
+    public static CommonState Reduce(CommonState state, SystemDisabledAction payload) =>
+        state with
+        {
+            IsSystemDisabled = payload.IsDisabled,
+            IsSystemDisableImmediately = payload.IsDisableImmediately
+        };
 }

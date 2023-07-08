@@ -6,12 +6,10 @@
 
     internal class StateChecker
     {
-        public readonly ILobbyStateManager _lobbyStateManager;
         public readonly IGamePlayState _gamePlayState;
 
-        public StateChecker(ILobbyStateManager lobbyStateManager, IGamePlayState gamePlayState)
+        public StateChecker(IGamePlayState gamePlayState)
         {
-            _lobbyStateManager = lobbyStateManager;
             _gamePlayState = gamePlayState;
         }
         internal bool IsIdle => _gamePlayState.CurrentState == PlayState.Idle;
@@ -36,30 +34,30 @@
                                                 IsPayGameResults ||
                                                 IsGameEnded;
 
-        internal bool IsAllowSingleGameAutoLaunch => _lobbyStateManager.AllowSingleGameAutoLaunch;
-        internal bool IsStartup => _lobbyStateManager.CurrentState == LobbyState.Startup;
-        internal bool IsChooser => _lobbyStateManager.CurrentState == LobbyState.Chooser;
-        internal bool IsChooserScrollingIdleText => _lobbyStateManager.CurrentState == LobbyState.ChooserScrollingIdleText;
-        internal bool IsChooserIdleTextTimer => _lobbyStateManager.CurrentState == LobbyState.ChooserIdleTextTimer;
-        internal bool IsAttract => _lobbyStateManager.CurrentState == LobbyState.Attract;
-        internal bool IsGameLoading => _lobbyStateManager.CurrentState == LobbyState.GameLoading;
-        internal bool IsGameLoadingForDiagnostics => _lobbyStateManager.CurrentState == LobbyState.GameLoadingForDiagnostics;
-        internal bool IsGame => _lobbyStateManager.CurrentState == LobbyState.Game;
-        internal bool IsGameDiagnostics => _lobbyStateManager.CurrentState == LobbyState.GameDiagnostics;
-        internal bool IsResponsibleGamingInfo => _lobbyStateManager.CurrentState == LobbyState.ResponsibleGamingInfo;
-        internal bool IsResponsibleGamingInfoLayeredLobby => _lobbyStateManager.CurrentState == LobbyState.ResponsibleGamingInfoLayeredLobby;
-        internal bool IsResponsibleGamingInfoLayeredGame => _lobbyStateManager.CurrentState == LobbyState.ResponsibleGamingInfoLayeredGame;
-        internal bool IsCashOut => _lobbyStateManager.CurrentState == LobbyState.CashOut;
-        internal bool IsCashOutFailure => _lobbyStateManager.CurrentState == LobbyState.CashOutFailure;
-        internal bool IsDisabled => _lobbyStateManager.CurrentState == LobbyState.Disabled;
-        internal bool IsRecovery => _lobbyStateManager.CurrentState == LobbyState.Recovery;
-        internal bool IsRecoveryFromStartup => _lobbyStateManager.CurrentState == LobbyState.RecoveryFromStartup;
-        internal bool IsResponsibleGamingTimeLimitDialog => _lobbyStateManager.CurrentState == LobbyState.ResponsibleGamingTimeLimitDialog;
-        internal bool IsAgeWarningDialog => _lobbyStateManager.CurrentState == LobbyState.AgeWarningDialog;
-        internal bool IsPrintHelpline => _lobbyStateManager.CurrentState == LobbyState.PrintHelpline;
-        internal bool IsCashIn => _lobbyStateManager.CurrentState == LobbyState.CashIn;
-        internal bool IsMediaPlayerOverlay => _lobbyStateManager.CurrentState == LobbyState.MediaPlayerOverlay;
-        internal bool IsMediaPlayerResizing => _lobbyStateManager.CurrentState == LobbyState.MediaPlayerResizing;
+        internal bool IsAllowSingleGameAutoLaunch { get; set; }
+        internal bool IsStartup { get; set; }
+        internal bool IsChooser { get; set; }
+        internal bool IsChooserScrollingIdleText { get; set; }
+        internal bool IsChooserIdleTextTimer { get; set; }
+        internal bool IsAttract { get; set; }
+        internal bool IsGameLoading { get; set; }
+        internal bool IsGameLoadingForDiagnostics { get; set; }
+        internal bool IsGame { get; set; }
+        internal bool IsGameDiagnostics { get; set; }
+        internal bool IsResponsibleGamingInfo { get; set; }
+        internal bool IsResponsibleGamingInfoLayeredLobby { get; set; }
+        internal bool IsResponsibleGamingInfoLayeredGame { get; set; }
+        internal bool IsCashOut { get; set; }
+        internal bool IsCashOutFailure { get; set; }
+        internal bool IsDisabled { get; set; }
+        internal bool IsRecovery { get; set; }
+        internal bool IsRecoveryFromStartup { get; set; }
+        internal bool IsResponsibleGamingTimeLimitDialog { get; set; }
+        internal bool IsAgeWarningDialog { get; set; }
+        internal bool IsPrintHelpline { get; set; }
+        internal bool IsCashIn { get; set; }
+        internal bool IsMediaPlayerOverlay { get; set; }
+        internal bool IsMediaPlayerResizing { get; set; }
         internal bool IsInRecovery => IsRecovery || IsRecoveryFromStartup;
 
         internal bool AuditMenuOperationValid => IsChooser || (IsGame && !IsGameLoading);

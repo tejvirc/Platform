@@ -1,12 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Gaming
 {
     using System;
-    using System.Diagnostics;
     using System.Globalization;
-    using System.IO;
-    using System.Linq;
     using System.Reflection;
-    using System.Runtime.Loader;
     using System.Threading;
     using Application.Contracts;
     using Application.Contracts.Localization;
@@ -61,7 +57,7 @@
                 new Action(
                     () =>
                     {
-                        _container = Bootstrapper.InitializeContainer(ConfigureHost);
+                        _container = Bootstrapper.InitializeContainer();
 
             _container.Options.AllowOverridingRegistrations = true;
 
@@ -74,23 +70,6 @@
                     })).Wait();
 
             Logger.Info("Initialized");
-        }
-
-        private static void ConfigureHost(Container container)
-        {
-            var assembly = Assembly.GetEntryAssembly();
-            Debug.Assert(assembly != null);
-
-            var binPath = Path.GetDirectoryName(assembly.Location);
-            Debug.Assert(binPath != null);
-
-            var assemblies = Directory.GetFiles(binPath, "Aristocrat.Monaco.Gaming.*.dll")
-                .Select(
-                    file => AssemblyLoadContext.Default
-                        .LoadFromAssemblyPath(file))
-                .ToList();
-
-            container.RegisterPackages(assemblies);
         }
 
         /// <inheritdoc />
