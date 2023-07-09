@@ -43,7 +43,7 @@ public class ChooserEffects
     }
 
     [EffectMethod]
-    public async Task Effect(GameOrderChangedAction _, IDispatcher dispatcher)
+    public async Task Effect(GameIconOrderChangedAction _, IDispatcher dispatcher)
     {
         // OnUserInteraction
 

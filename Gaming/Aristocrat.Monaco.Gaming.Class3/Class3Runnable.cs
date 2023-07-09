@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Class3
+﻿ namespace Aristocrat.Monaco.Gaming.Class3
 {
     using System.Configuration;
     using System.Linq;

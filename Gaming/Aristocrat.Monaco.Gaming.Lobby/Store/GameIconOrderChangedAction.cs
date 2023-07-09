@@ -1,6 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Store;
 
-public record GameOrderChangedAction
+public record GameIconOrderChangedAction
 {
     
 }

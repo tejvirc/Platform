@@ -21,6 +21,6 @@ public class GameAddedConsumer : Consumes<GameAddedEvent>
     {
         _gameOrderSettings.OnGameAdded(theEvent.ThemeId);
 
-        await _dispatcher.DispatchAsync(new GameOrderChangedAction());
+        await _dispatcher.DispatchAsync(new GameIconOrderChangedAction());
     }
 }
