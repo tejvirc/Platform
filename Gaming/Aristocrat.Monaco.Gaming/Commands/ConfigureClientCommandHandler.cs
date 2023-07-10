@@ -175,6 +175,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 { "/Runtime/Cashout&commitStorageAfterCashout", _properties.GetValue(ApplicationConstants.CommitStorageAfterCashout, false).ToString() },
                 { "/Runtime/ChangeBetSelectionAtZeroCredit", GamingConstants.ChangeBetSelectionAtZeroCredit.ToString() },
                 { "/Runtime/Clock", _properties.GetValue(ApplicationConstants.ClockEnabled, false).ToString() },
+                { "/Runtime/Clock&use", _properties.GetValue(ApplicationConstants.ClockEnabled, false) ? "allowed" : "disallowed" },
                 { "/Runtime/Clock&format", _properties.GetValue(ApplicationConstants.ClockFormat, 12).ToString() },
                 { "/Runtime/DefaultBetInAttract", ApplicationConstants.DefaultBetInAttract.ToString() },
                 { "/Runtime/DenomPatch", ApplicationConstants.DefaultAllowDenomPatch.ToString() },
