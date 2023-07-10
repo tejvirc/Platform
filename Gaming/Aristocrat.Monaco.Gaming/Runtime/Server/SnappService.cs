@@ -332,6 +332,7 @@
 
         public override Empty GameRoundEvent(GameRoundEventRequest request)
         {
+
             Logger.Debug(
                 $"GameRoundEvent type: {request.Type} stage: {request.Stage} mode: {request.PlayMode} bet: {request.BetAmount} stake: {request.Stake} win: {request.WinAmount}");
             try
@@ -676,6 +677,24 @@
             var response = new CheckMysteryJackpotResponse();
 
             response.Levels.Add(command.Results);
+
+            return response;
+        }
+
+        public override LevelInfoResponse GetJackpotValuesPerDenom(GetJackpotValuesPerDenomRequest request)
+        {
+            var command = new GetAllEnabledJackpotValues(request.GameName, request.PackName, request.Denomination);
+            // Add Jackpot Values and Extract into LevelInfoResponse
+            _handlerFactory.Create<GetAllEnabledJackpotValues>().Handle(command);
+
+            var response = new LevelInfoResponse();
+
+            response.LevelInfo.Add(
+                command.JackpotValues.Select(
+                    r => new LevelInfo { LevelId = (uint)r.Key, Value = (ulong)r.Value.MillicentsToCents() }));
+
+            Logger.Debug(
+                $"GetJackpotValuesPerDenom Response poolName:{request.PackName} ");
 
             return response;
         }
