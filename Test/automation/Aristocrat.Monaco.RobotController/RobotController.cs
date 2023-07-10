@@ -91,6 +91,11 @@
 
         public Configuration Config { get; private set; }
 
+        public bool IsRegularRobots()
+        {
+            return InProgressRequests.Contains(RobotStateAndOperations.RegularMode);
+        }
+
         protected override void OnInitialize()
         {
             AddWarmups();
@@ -344,7 +349,6 @@
             _logger = _container.GetInstance<RobotLogger>();
         }
 
-
         private void AddWarmups()
         {
             _warmUpActions.Add(nameof(ModeType.Regular),
@@ -414,5 +418,6 @@
                 }
             });
         }
+        
     }
 }

@@ -56,8 +56,10 @@
             container.Register<RebootRequestOperations>(Lifestyle.Transient);
             container.Register<AuditMenuOperations>(Lifestyle.Transient);
             container.Register<ResponsibleGamingOperations>(Lifestyle.Transient);
+            container.Register<LoadGameOperations>(Lifestyle.Transient);
 
             return container;
         }
+
     }
 }

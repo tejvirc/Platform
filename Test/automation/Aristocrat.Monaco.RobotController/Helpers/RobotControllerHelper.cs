@@ -23,7 +23,8 @@
                     container.GetInstance<ServiceRequestOperations>(),
                     //container.GetInstance<GameOperations>(),
                     container.GetInstance<GameHelpOperations>(),
-                    container.GetInstance<ResponsibleGamingOperations>()
+                    container.GetInstance<ResponsibleGamingOperations>(),
+                    container.GetInstance<LoadGameOperations>()
                 },
 
                 [nameof(ModeType.Super)] = new HashSet<IRobotOperations>
@@ -38,7 +39,8 @@
                     container.GetInstance<LockUpOperations>(),
                     container.GetInstance<OperatingHoursOperations>(),
                     container.GetInstance<GameHelpOperations>(),
-                    container.GetInstance<ResponsibleGamingOperations>()
+                    container.GetInstance<ResponsibleGamingOperations>(),
+                    container.GetInstance<LoadGameOperations>()
                 },
 
                 [nameof(ModeType.Uber)] = new HashSet<IRobotOperations>
@@ -54,7 +56,8 @@
                     container.GetInstance<LockUpOperations>(),
                     container.GetInstance<OperatingHoursOperations>(),
                     //container.GetInstance<GameHelpOperations>(),
-                    container.GetInstance<ResponsibleGamingOperations>()
+                    container.GetInstance<ResponsibleGamingOperations>(),
+                    container.GetInstance<LoadGameOperations>()
                 }
             };
             return dict;
