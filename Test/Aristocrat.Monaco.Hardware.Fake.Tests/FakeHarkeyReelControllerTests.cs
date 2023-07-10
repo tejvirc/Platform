@@ -3,14 +3,13 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using Aristocrat.Monaco.Hardware.Fake;
     using Contracts.Communicator;
     using Contracts.Reel;
     using Contracts.Reel.Events;
     using Contracts.Reel.ImplementationCapabilities;
+    using Fake;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
-
 
     [TestClass]
     public class FakeHarkeyReelControllerTests
