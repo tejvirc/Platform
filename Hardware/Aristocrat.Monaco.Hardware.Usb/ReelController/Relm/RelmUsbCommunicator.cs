@@ -569,8 +569,7 @@
                 return Task.FromResult(false);
             }
 
-            // TODO: Add this back in when all of the statuses for enabling/disabling work correctly.
-            //_relmCommunicator.SendCommandAsync(new TiltReelController());
+            _relmCommunicator.SendCommandAsync(new TiltReelController());
             return Task.FromResult(true);
         }
 
