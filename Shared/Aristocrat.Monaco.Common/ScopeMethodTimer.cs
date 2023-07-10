@@ -54,13 +54,14 @@
         ///     Creates a <see cref="ScopedMethodTimer"/> for capturing timing methods
         /// </summary>
         /// <param name="logger">The logger to use to capture the timing metrics</param>
+        /// <param name="traceLogger">The logger to use to write a trace</param>
         /// <param name="startMessage">The message to be printed when the timer starts</param>
         /// <param name="endMessage">The message to be printed when the timer ends</param>
         /// <param name="prefix">Optional prefix to be added to the caller</param>
         /// <param name="caller">The calling method.  By default this will be populated with the calling class and method name</param>
         /// <exception cref="ArgumentException">Thrown when the caller is null or an empty string</exception>
         /// <exception cref="ArgumentNullException">Thrown when the logger is null</exception>
-        public ScopedMethodTimer(MethodLogger logger, string startMessage, string prefix, string endMessage, [CallerMemberName] string caller = "")
+        public ScopedMethodTimer(MethodLogger logger, MethodTraceLogger traceLogger, string startMessage, string prefix, string endMessage, [CallerMemberName] string caller = "")
         {
             if (string.IsNullOrEmpty(caller))
             {
@@ -68,10 +69,12 @@
             }
 
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _message = "[" + prefix + " " + caller + "] : ";
+            traceLogger = traceLogger ?? throw new ArgumentNullException(nameof(traceLogger));
 
-            _logger("{0} ", _message + startMessage, 0.0);
-            _message += " " + endMessage;
+            var prefixMessage= $"[{prefix} {caller}] : ";
+
+            traceLogger($"[{prefix} {caller}]: {{0}}", startMessage);
+            _message =  $"[{prefix} {caller}]: {endMessage}";
             _stopwatch = new Stopwatch();
             _stopwatch.Start();
         }

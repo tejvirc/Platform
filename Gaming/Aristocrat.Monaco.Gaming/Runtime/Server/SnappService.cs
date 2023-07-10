@@ -256,6 +256,7 @@
         {
             using var _ = new Common.ScopedMethodTimer(
                 Logger.DebugMethodLogger,
+                Logger.DebugMethodTraceLogger,
                 $"{request}",
                 "SnappTiming", "Handled");
 
@@ -277,6 +278,7 @@
         {
             using var _ = new Common.ScopedMethodTimer(
                 Logger.DebugMethodLogger,
+                Logger.DebugMethodTraceLogger,
                 $"{request}",
                 "SnappTiming", "Handled");
 
@@ -312,6 +314,7 @@
         {
             using var _ = new Common.ScopedMethodTimer(
                 Logger.DebugMethodLogger,
+                Logger.DebugMethodTraceLogger,
                 $"{request}",
                 "SnappTiming", "Handled");
 
@@ -344,6 +347,7 @@
         {
             using var _ = new Common.ScopedMethodTimer(
                 Logger.DebugMethodLogger,
+                Logger.DebugMethodTraceLogger,
                 $"GameRoundEvent type: {request.Type} stage: {request.Stage} mode: {request.PlayMode} bet: {request.BetAmount} stake: {request.Stake} win: {request.WinAmount}",
                 "SnappTiming", "Handled");
             try
@@ -388,6 +392,7 @@
         {
             using var _ = new Common.ScopedMethodTimer(
                 Logger.DebugMethodLogger,
+                Logger.DebugMethodTraceLogger,
                 "Received Recovery Point",
                 "SnappTiming", "Handled");
 
@@ -402,6 +407,7 @@
         {
             using var _ = new Common.ScopedMethodTimer(
                 Logger.DebugMethodLogger,
+                Logger.DebugMethodTraceLogger,
                 "GetLocalStorage called",
                 "SnappTiming", "Handled");
 
@@ -428,6 +434,7 @@
         {
             using var _ = new Common.ScopedMethodTimer(
                 Logger.DebugMethodLogger,
+                Logger.DebugMethodTraceLogger,
                 "SetLocalStorage called",
                 "SnappTiming", "Handled");
 
@@ -478,6 +485,7 @@
 
             using var _ = new Common.ScopedMethodTimer(
                 Logger.DebugMethodLogger,
+                Logger.DebugMethodTraceLogger,
                 $"SetMeters meters: {string.Join(",", meters.Keys)} with values: {string.Join(",", meters.Values)}",
                 "SnappTiming", "Handled");
 
@@ -536,6 +544,7 @@
         {
             using var _ = new Common.ScopedMethodTimer(
                 Logger.DebugMethodLogger,
+                Logger.DebugMethodTraceLogger,
                 $"betAmount: {request.BetAmount} winAmount: {request.WinAmount}",
                 "SnappTiming", "Handled");
 
@@ -581,6 +590,7 @@
         {
             using var _ = new Common.ScopedMethodTimer(
                 Logger.DebugMethodLogger,
+                Logger.DebugMethodTraceLogger,
                 $"mode: {request.PlayMode} name: {request.PoolName} values: {request.PoolValues.Count}",
                 "SnappTiming", "Handled");
 
@@ -603,6 +613,7 @@
         {
             using var _ = new Common.ScopedMethodTimer(
                 Logger.DebugMethodLogger,
+                Logger.DebugMethodTraceLogger,
                 $"mode: {request.Mode} poolName: {request.PoolName} levels: {string.Join(",", request.Levels)} transactionIds:{string.Join(",", request.TransactionIds)}",
                 "SnappTiming", "Handled");
 
