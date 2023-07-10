@@ -31,6 +31,9 @@
         private const string StorageBlockExistsFormat =
             "SELECT EXISTS (SELECT Name FROM StorageBlock WHERE Name = '{0}')";
 
+        private const string StorageBlockStartWithFormat =
+            "SELECT Name FROM StorageBlock WHERE Name LIKE '{0}%'";
+
         private const string StorageBlockLevelClearFormat =
             "DELETE FROM StorageBlockField WHERE StorageBlockField.BlockName IN (SELECT StorageBlock.Name FROM StorageBlock WHERE StorageBlock.Level IN ({0})); DELETE FROM StorageBlock WHERE Level IN ({0})";
 
@@ -218,6 +221,40 @@
                 return exists == 1;
             }
         }
+
+        /// <inheritdoc />
+        public IEnumerable<IPersistentStorageAccessor> GetBlocksStartWith(string name)
+        {
+            var blocks = new List<IPersistentStorageAccessor>();
+            lock (_sync)
+            {
+                try
+                {
+                    using var connection = CreateConnection();
+                    connection.Open();
+
+                    using (var command = connection.CreateCommand())
+                    {
+                        command.CommandText = string.Format(StorageBlockStartWithFormat, name);
+
+                        using (var reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var key = reader.GetString(0);
+                                blocks.Add(GetPersistentStorageAccessorByName(key));
+                            }
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    SqlPersistentStorageExceptionHandler.Handle(e, StorageError.ReadFailure);
+                }
+            }
+            return blocks;
+        }
+
 
         /// <inheritdoc />
         public IPersistentStorageAccessor GetBlock(string name)
@@ -525,7 +562,7 @@
             var dataRoot = _dataRoot;
             lock (_sync)
             {
-                ValidateAndCheckMirror(dataRoot);
+                    ValidateAndCheckMirror(dataRoot);
 
                 if (File.Exists(GetFileName()))
                 {

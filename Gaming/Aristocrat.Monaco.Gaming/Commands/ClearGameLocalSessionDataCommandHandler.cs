@@ -57,7 +57,7 @@
         private void ClearData(IGameProfile game, long denom)
         {
             Logger.Debug($"Clearing local session data for {game.ThemeName} -- denom {denom} -- variation {game.VariationId}");
-            _gameStorage.SetValue(game.Id, denom, StorageType.GameLocalSession.ToString(), new Dictionary<string, string>());
+            _gameStorage.ClearAllValuesWithKeyName(game.Id, denom, StorageType.GameLocalSession.ToString());
         }
     }
 }

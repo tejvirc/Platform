@@ -75,50 +75,15 @@
             long denomId,
             KeyValuePair<StorageType, IDictionary<string, string>> storageValue)
         {
-            var updated = false;
-
-            var perGame = _gameStorage.GetValue<Dictionary<string, string>>(
-                gameId,
-                denomId,
-                storageValue.Key.ToString()) ?? new Dictionary<string, string>();
-
-            storageValue.Value.ToList().ForEach(
-                x =>
-                {
-                    if (!perGame.ContainsKey(x.Key) || perGame[x.Key] != x.Value)
-                    {
-                        perGame[x.Key] = x.Value;
-                        updated = true;
-                    }
-                });
-
-            if (updated)
-            {
-                _gameStorage.SetValue(gameId, denomId, storageValue.Key.ToString(), perGame);
-            }
+            storageValue.Value.ToList().ForEach( x=>
+                _gameStorage.SetValue(gameId, denomId, storageValue.Key.ToString(), x.Key, x.Value));
         }
 
         private void Update(KeyValuePair<StorageType, IDictionary<string, string>> storageValue)
         {
-            var updated = false;
+            storageValue.Value.ToList().ForEach(x =>
+                _gameStorage.SetValue(storageValue.Key.ToString(), x.Key, x.Value));
 
-            var shared = _gameStorage.GetValue<Dictionary<string, string>>(storageValue.Key.ToString()) ??
-                         new Dictionary<string, string>();
-
-            storageValue.Value.ToList().ForEach(
-                x =>
-                {
-                    if (!shared.ContainsKey(x.Key) || shared[x.Key] != x.Value)
-                    {
-                        shared[x.Key] = x.Value;
-                        updated = true;
-                    }
-                });
-
-            if (updated)
-            {
-                _gameStorage.SetValue(storageValue.Key.ToString(), shared);
-            }
         }
     }
 }

@@ -6,13 +6,17 @@
     using System.IO;
     using System.Linq;
     using System.Runtime.Serialization.Formatters.Binary;
+    using Aristocrat.Monaco.Gaming.Commands;
+    using System.Security.Cryptography.X509Certificates;
     using Hardware.Contracts.Persistence;
+    using System.Windows.Documents;
 
     public abstract class StorageBase
     {
-        private const string StorageSuffix = "Game";
-        private const string GameNameSuffix = "Name";
-        private const string BetLevelNameSuffix = "AtBetLevel";
+        private const string StorageSuffix = "@Game:";
+        private const string GameNameSuffix = "@Name:";
+        private const string BetLevelNameSuffix = "@BetLevel:";
+        private const string ExtraKeySuffix = "@Key:";
 
         private const string Data = "Data";
 
@@ -39,9 +43,23 @@
             return (T)(GetValue(block) ?? default(T));
         }
 
+        public T GetValue<T>(string name, string keyName)
+        {
+            var block = GetBlock(name, keyName);
+
+            return (T)(GetValue(block) ?? default(T));
+        }
+
         public T GetValue<T>(int gameId, long betAmount, string name)
         {
             var block = GetBlock(gameId, betAmount, name);
+
+            return (T)(GetValue(block) ?? default(T));
+        }
+
+        public T GetValue<T>(int gameId, long betAmount, string name, string keyName)
+        {
+            var block = GetBlock(gameId, betAmount, name, keyName);
 
             return (T)(GetValue(block) ?? default(T));
         }
@@ -58,6 +76,15 @@
         public IEnumerable<T> GetValues<T>(int gameId, long betAmount, string name)
         {
             var block = GetBlock(gameId, betAmount, name);
+
+            var list = GetValue(block) as IEnumerable;
+
+            return list?.Cast<T>() ?? Enumerable.Empty<T>();
+        }
+
+        public IEnumerable<T> GetValues<T>(int gameId, long betAmount, string name, string keyName)
+        {
+            var block = GetBlock(gameId, betAmount, name, keyName);
 
             var list = GetValue(block) as IEnumerable;
 
@@ -92,9 +119,30 @@
             return true;
         }
 
+        public bool TryGetValues<T>(int gameId, long betAmount, string name, string keyName, out IEnumerable<T> values)
+        {
+            if (!Exists(gameId, betAmount, name, keyName))
+            {
+                values = Enumerable.Empty<T>();
+
+                return false;
+            }
+
+            values = GetValues<T>(gameId, betAmount, name, keyName);
+
+            return true;
+        }
+
         public void SetValue<T>(string name, T value)
         {
             var block = GetBlock(name);
+
+            SetValue(block, value);
+        }
+
+        public void SetValue<T>(string storageName, string keyName, T value)
+        {
+            var block = GetBlock(storageName, keyName);
 
             SetValue(block, value);
         }
@@ -113,6 +161,59 @@
             SetValue(block, value);
         }
 
+        public void SetValue<T>(int gameId, long betAmount, string name, string keyName, T value)
+        {
+            var block = GetBlock(gameId, betAmount, name, keyName);
+
+            SetValue(block, value);
+        }
+
+        public void ClearAllValuesWithKeyName(int gameId, long betAmount, string storageName)
+        {
+            var name = $"{StorageSuffix}{GetStorageName(gameId, betAmount, storageName)}{ExtraKeySuffix}";
+            var blocks = _persistentStorage.GetBlocksStartWith(name);
+
+            foreach (IPersistentStorageAccessor block in blocks)
+            {
+                SetValue(block, "");
+            }
+        }
+
+        public void ClearAllValuesWithKeyName(string storageName)
+        {
+            var name = $"{StorageSuffix}{storageName}{ExtraKeySuffix}";
+            var blocks = _persistentStorage.GetBlocksStartWith(name);
+
+            foreach (IPersistentStorageAccessor block in blocks)
+            {
+                SetValue(block, "");
+            }
+        }
+
+        public Dictionary<string, string> GetKeyNameAndValues(string storageName)
+        {
+            var name = $"{StorageSuffix}{storageName}{ExtraKeySuffix}";
+            var blocks = _persistentStorage.GetBlocksStartWith(name);
+
+            Dictionary<string, string>  values = blocks.ToDictionary(block => block.Name.Replace(name, ""),
+                block  => (string)(GetValue(block) ?? default(string)));
+
+            return values;
+        }
+
+        public Dictionary<string,string> GetKeyNameAndValues(int gameId, long betAmount, string storageName)
+        {
+            var name = $"{StorageSuffix}{GetStorageName(gameId, betAmount, storageName)}{ExtraKeySuffix}";
+            var blocks = _persistentStorage.GetBlocksStartWith(name);
+
+            Dictionary<string, string> values = blocks.ToDictionary(block => block.Name.Replace(name,""),
+                block => (string)(GetValue(block) ?? default(string)));
+
+            return values;
+        }
+
+
+
         internal IPersistentStorageAccessor GetBlock(int gameId, string storageName)
         {
             var blockName = GetStorageName(gameId, storageName);
@@ -123,6 +224,20 @@
         internal IPersistentStorageAccessor GetBlock(int gameId, long betAmount, string storageName)
         {
             var blockName = GetStorageName(gameId, betAmount, storageName);
+
+            return GetBlock(blockName);
+        }
+
+        internal IPersistentStorageAccessor GetBlock(int gameId, long betAmount, string storageName, string keyName)
+        {
+            var blockName = GetStorageName(gameId, betAmount, storageName, keyName);
+
+            return GetBlock(blockName);
+        }
+
+        internal IPersistentStorageAccessor GetBlock(string storageName, string keyName)
+        {
+            var blockName = GetStorageName(storageName, keyName);
 
             return GetBlock(blockName);
         }
@@ -158,6 +273,16 @@
         internal bool Exists(int gameId, long betAmount, string storageName)
         {
             return Exists($"{StorageSuffix}{GetStorageName(gameId, betAmount, storageName)}");
+        }
+
+        internal bool Exists(int gameId, long betAmount, string storageName, string keyName)
+        {
+            return Exists($"{StorageSuffix}{GetStorageName(gameId, betAmount, storageName, keyName)}");
+        }
+
+        internal bool Exists(string storageName, string keyName)
+        {
+            return Exists($"{StorageSuffix}{GetStorageName(storageName, keyName)}");
         }
 
         internal bool Exists(string blockName)
@@ -207,6 +332,11 @@
             }
         }
 
+        private static string GetStorageName(string storageName, string keyName)
+        {
+            return $"{storageName}{ExtraKeySuffix}{keyName}";
+        }
+
         private static string GetStorageName(int gameId, string storageName)
         {
             return $"{storageName}{GameNameSuffix}{gameId}";
@@ -216,5 +346,13 @@
         {
             return $"{GetStorageName(gameId, storageName)}{storageName}{BetLevelNameSuffix}{betAmount}";
         }
+
+
+        private static string GetStorageName(int gameId, long betAmount, string storageName, string keyName)
+        {
+            return $"{GetStorageName(gameId, betAmount, storageName)}{ExtraKeySuffix}{keyName}";
+        }
+
+
     }
 }

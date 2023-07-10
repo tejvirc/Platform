@@ -37,17 +37,16 @@
             {
                 using (var scope = _storageManager.ScopedTransaction())
                 {
-                    _gameStorage.SetValue(StorageType.PlayerSession.ToString(), new Dictionary<string, string>());
+                    _gameStorage.ClearAllValuesWithKeyName(StorageType.PlayerSession.ToString());
 
                     foreach (var game in games)
                     {
                         foreach (var denom in game.ActiveDenominations)
                         {
-                            _gameStorage.SetValue(
+                            _gameStorage.ClearAllValuesWithKeyName(
                                 game.Id,
                                 denom,
-                                StorageType.GamePlayerSession.ToString(),
-                                new Dictionary<string, string>());
+                                StorageType.GamePlayerSession.ToString());
                         }
                     }
 

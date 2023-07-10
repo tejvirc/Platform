@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts.Persistence
 {
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     ///     Definition of the IPersistentStorageManager interface.
@@ -88,6 +89,13 @@
         ///     Thrown when a block with the name parameter does not exist.
         /// </exception>
         IPersistentStorageAccessor GetBlock(string name);
+
+        /// <summary>
+        ///     Returns whether an enumeration of storage accessors started with the given name.
+        /// </summary>
+        /// <param name="name">The unique prefix of the block.</param>
+        /// <returns>References to blocks of starting with the particular name.</returns>
+        IEnumerable<IPersistentStorageAccessor> GetBlocksStartWith(string name);
 
         /// <summary>
         ///     Changes the size of the specified block to the specified size.

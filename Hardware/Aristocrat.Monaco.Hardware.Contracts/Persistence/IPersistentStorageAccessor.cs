@@ -8,6 +8,11 @@
     public interface IPersistentStorageAccessor
     {
         /// <summary>
+        ///     Gets the name of the block array
+        /// </summary>
+        string Name { get; }
+
+        /// <summary>
         ///     Gets the count of the number of items in the block array
         /// </summary>
         int Count { get; }
