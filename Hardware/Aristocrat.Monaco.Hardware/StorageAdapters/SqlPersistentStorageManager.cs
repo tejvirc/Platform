@@ -65,8 +65,12 @@
         ///     Initializes a new instance of the <see cref="SqlPersistentStorageManager" /> class.
         /// </summary>
         public SqlPersistentStorageManager()
-            : this(ServiceManager.GetInstance().GetService<IPathMapper>(), ServiceManager.GetInstance().GetService<IEventBus>(),
-                StorageConstants.DatabaseFileName, StorageConstants.DatabasePassword, true)
+            : this(
+                ServiceManager.GetInstance().GetService<IPathMapper>(),
+                ServiceManager.GetInstance().GetService<IEventBus>(),
+                StorageConstants.DatabaseFileName,
+                StorageConstants.DatabasePassword,
+                true)
         {
         }
 
@@ -310,6 +314,42 @@
         }
 
         /// <summary>
+        ///     Opens a connection to the database. To benefit from the .NET connection pool  sharing, we need
+        ///     to have at least one connection opened. 
+        /// </summary>
+        public SQLiteConnection CreateConnection()
+        {
+            SQLiteConnection connection;
+            if (_keepConnectionOpen)
+            {
+                if (_connection == null)
+                {
+                    lock (_sync)
+                    {
+                        // Use double check locking pattern to avoid unnecessary locks
+                        if (_connection == null)
+                        {
+                            _connection = new SQLiteConnection(ConnectionString());
+                            _connection.Open();
+                        }
+                    }
+                }
+                connection = new SQLiteConnection(_connection.ConnectionString);
+            }
+            else
+            {
+                if (_connection != null)
+                {
+                    ClosePersistentConnection();
+                }
+
+                connection = new SQLiteConnection(ConnectionString());
+            }
+
+            return connection;
+        }
+
+        /// <summary>
         ///     Handles cleaning up the object instance.
         /// </summary>
         /// <param name="disposing">Indicates whether or not the class is disposing.</param>
@@ -358,38 +398,20 @@
         /// </summary>
         private void ClosePersistentConnection()
         {
-            _connection?.Close();
-            _connection?.Dispose();
-            _connection = null;
-        }
-
-        /// <summary>
-        ///     Opens a connection to the database. To benefit from the .NET connection pool  sharing, we need
-        ///     to have at least one connection opened. 
-        /// </summary>
-        public SQLiteConnection CreateConnection()
-        {
-            SQLiteConnection connection;
-            if (_keepConnectionOpen)
+            if (_connection != null)
             {
-                if (_connection == null)
+                lock (_sync)
                 {
-                    _connection = new SQLiteConnection(ConnectionString());
-                    _connection.Open();
+                    // Use double check locking pattern to avoid unnecessary locks
+                    if (_connection != null)
+                    {
+                        _connection.Close();
+                        _connection.Dispose();
+                        _connection = null;
+                    }
                 }
-                connection = new SQLiteConnection(_connection.ConnectionString);
-            }
-            else
-            {
-                if (_connection != null)
-                {
-                    ClosePersistentConnection();
-                }
-
-                connection = new SQLiteConnection(ConnectionString());
             }
 
-            return connection;
         }
 
         private string GetFileName()
