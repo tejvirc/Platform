@@ -14,6 +14,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
     using Consumers;
     using Contracts;
     using Contracts.Configuration;
+    using Contracts.GameSpecificOptions;
     using Contracts.Lobby;
     using Contracts.Models;
     using Hardware.Contracts;
@@ -47,6 +48,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
         private readonly IHardwareHelper _hardwareHelper;
         private readonly IAttendantService _attendantService;
         private readonly IGameConfigurationProvider _gameConfiguration;
+        private readonly IGameSpecificOptionProvider _gameSpecificOptionProvider;
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigureClientCommandHandler" /> class.
         /// </summary>
@@ -65,7 +67,8 @@ namespace Aristocrat.Monaco.Gaming.Commands
             ICabinetDetectionService cabinetDetectionService,
             IHardwareHelper hardwareHelper,
             IAttendantService attendantService,
-            IGameConfigurationProvider gameConfiguration)
+            IGameConfigurationProvider gameConfiguration,
+            IGameSpecificOptionProvider gameSpecificOptionProvider)
         {
             _runtime = runtime ?? throw new ArgumentNullException(nameof(runtime));
             _handCountProvider = handCountProvider ?? throw new ArgumentNullException(nameof(handCountProvider));
@@ -81,7 +84,8 @@ namespace Aristocrat.Monaco.Gaming.Commands
             _cabinetDetectionService = cabinetDetectionService ?? throw new ArgumentNullException(nameof(cabinetDetectionService));
             _hardwareHelper = hardwareHelper ?? throw new ArgumentNullException(nameof(hardwareHelper));
             _attendantService = attendantService ?? throw new ArgumentNullException(nameof(attendantService));
-            _gameConfiguration = gameConfiguration ?? throw new ArgumentNullException(nameof(gameConfiguration));
+            _gameConfiguration = gameConfiguration ?? throw new ArgumentNullException(nameof(gameConfiguration)); 
+            _gameSpecificOptionProvider = gameSpecificOptionProvider ?? throw new ArgumentNullException(nameof(gameSpecificOptionProvider));
         }
 
         /// <inheritdoc />
@@ -218,7 +222,8 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 { "/Runtime/IKey&restrictedModeUse", _properties.GetValue(GamingConstants.PlayerInformationDisplay.RestrictedModeUse, false) ? "allowed" : "disallowed" },
                 { "/Runtime/Bell&Use", _properties.GetValue(HardwareConstants.BellEnabledKey, false) ? "allowed" : "disallowed" },
                 { "/Runtime/WinTuneCapping", _properties.GetValue(GamingConstants.WinTuneCapping, false).ToString().ToLower() },
-                { "/Runtime/WinIncrementSpeed&scheme", _properties.GetValue(GamingConstants.WinIncrementSpeed, WinIncrementSpeed.WinAmountOnly).ToString() }
+                { "/Runtime/WinIncrementSpeed&scheme", _properties.GetValue(GamingConstants.WinIncrementSpeed, WinIncrementSpeed.WinAmountOnly).ToString() },
+                { "/Runtime/GameSpecificOptions", _properties.GetValue(GamingConstants.GameSpecificOptions, _gameSpecificOptionProvider.GetCurrentOptionsForGDK(currentGame.ThemeId)) }
             };
 
             SetGambleParameters(parameters, currentGame.GameType, denomination);

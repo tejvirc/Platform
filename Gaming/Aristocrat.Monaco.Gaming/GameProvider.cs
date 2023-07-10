@@ -17,6 +17,7 @@ namespace Aristocrat.Monaco.Gaming
     using Common;
     using Contracts;
     using Contracts.Configuration;
+    using Contracts.GameSpecificOptions;
     using Contracts.Meters;
     using Contracts.Models;
     using Contracts.Progressives;
@@ -27,6 +28,7 @@ namespace Aristocrat.Monaco.Gaming
     using log4net;
     using Newtonsoft.Json;
     using PackageManifest;
+    using PackageManifest.Ati;
     using PackageManifest.Models;
     using Runtime;
     using Rectangle = System.Drawing.Rectangle;
@@ -61,6 +63,7 @@ namespace Aristocrat.Monaco.Gaming
         private const string GameMaximumPaybackPercentField = @"Game.MaximumPaybackPercent";
 
         private const string ProgressivesConfigFilename = @"progressives.xml";
+        private const string GameSpecificOptionsConfigFilename = @"gamespecificoptions.xml";
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
@@ -81,7 +84,9 @@ namespace Aristocrat.Monaco.Gaming
         private readonly IDigitalRights _digitalRights;
         private readonly IConfigurationProvider _configurationProvider;
         private readonly ICabinetDetectionService _cabinetDetectionService;
-
+        private readonly IManifest<GameSpecificOptionConfig> _gameSpecificOptionManifest;
+        private readonly IGameSpecificOptionProvider _gameSpecificOptionProvider;
+       
         private readonly double _multiplier;
         private readonly object _sync = new();
 
@@ -99,6 +104,8 @@ namespace Aristocrat.Monaco.Gaming
             IRuntimeProvider runtimeProvider,
             IManifest<IEnumerable<ProgressiveDetail>> progressiveManifest,
             IProgressiveLevelProvider progressiveProvider,
+            IManifest<GameSpecificOptionConfig> gameSpecificOptionManifest,
+            IGameSpecificOptionProvider gameSpecificOptionProvider,
             IIdProvider idProvider,
             IDigitalRights digitalRights,
             IConfigurationProvider configurationProvider,
@@ -120,6 +127,8 @@ namespace Aristocrat.Monaco.Gaming
             _configurationProvider = configurationProvider ?? throw new ArgumentNullException(nameof(configurationProvider));
             _cabinetDetectionService = cabinetDetectionService ?? throw new ArgumentNullException(nameof(cabinetDetectionService));
 
+            _gameSpecificOptionManifest = gameSpecificOptionManifest ?? throw new ArgumentNullException(nameof(gameSpecificOptionManifest));
+            _gameSpecificOptionProvider = gameSpecificOptionProvider ?? throw new ArgumentNullException(nameof(gameSpecificOptionProvider));
             _multiplier = properties.GetValue(ApplicationConstants.CurrencyMultiplierKey, 1d);
 
             _initialized = HasGame();
@@ -888,6 +897,13 @@ namespace Aristocrat.Monaco.Gaming
 
             var definedGames = gameContent.GameAttributes.ToList();
 
+            if (!_gameSpecificOptionProvider.HasThemeId(definedGames[0].ThemeId))
+            {
+                var config = LoadGameSpecificOptions(Path.Combine(gameFolder, binFolder));
+
+                _gameSpecificOptionProvider.InitGameSpecificOptionsCache(definedGames[0].ThemeId, GetGameSpecificOptionsFromConfig(config).ToList());
+            }
+
             var progressives = LoadProgressiveDetails(Path.Combine(gameFolder, binFolder)).ToList();
 
             var isComplex = definedGames.Count > 1;
@@ -1435,6 +1451,56 @@ namespace Aristocrat.Monaco.Gaming
                 Logger.Error($"Failed to parse the game's progressive.xml file. {exception.Message}");
                 return Enumerable.Empty<ProgressiveDetail>();
             }
+        }
+
+        private GameSpecificOptionConfig LoadGameSpecificOptions(string path)
+        {
+            try
+            {
+                return _gameSpecificOptionManifest.Read(Path.Combine(path, GameSpecificOptionsConfigFilename));
+            }
+            catch (Exception exception)
+            {
+                Logger.Error($"Failed to parse the game's gamespecificoptions.xml file. {exception.Message}");
+                return null;
+            }
+        }
+
+        private IEnumerable<GameSpecificOption> GetGameSpecificOptionsFromConfig(GameSpecificOptionConfig config)
+        {
+            if (config == null)
+                return Enumerable.Empty<GameSpecificOption>();
+
+            var gameSpecificOptions = config.GameToggleOptions.GameToggleOption.
+                Select(x => new GameSpecificOption()
+            {
+                Name = x.name,
+                Value = x.value,
+                OptionType = OptionType.Toggle,
+                ValueSet = new List<string> { ToggleOptions.On.ToString(), ToggleOptions.Off.ToString() }
+            });
+
+            gameSpecificOptions = gameSpecificOptions.Concat(config.GameListOptions.GameListOption.
+                Select(x => new GameSpecificOption()
+                    {
+                        Name = x.name,
+                        Value = x.value,
+                        OptionType = OptionType.List,
+                        ValueSet = new List<string>(x.List.Select(z => z.name))
+                    }));
+
+            gameSpecificOptions = gameSpecificOptions.Concat(config.GameNumberOptions.GameNumberOption.
+                Select(x => new GameSpecificOption()
+                    {
+                        Name = x.name,
+                        Value = x.value.ToString(),
+                        OptionType = OptionType.Number,
+                        ValueSet = new List<string>(),
+                        MinValue = x.minValue,
+                        MaxValue = x.maxValue
+                    }));
+
+            return gameSpecificOptions.DistinctBy(x => x.Name);
         }
 
         private DateTime GetInstallDate()

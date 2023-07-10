@@ -12272,4 +12272,12 @@ Do you really want to do full reset?</value>
   <data name="PayoutLimitHelpText" xml:space="preserve">
     <value>Note: After first COAM game is played, RAM clear is required to change payout limit.</value>
   </data>
+  <data name="ExtraSettingsButtonText" xml:space="preserve">
+    <value>Extra Settings</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="GameSpecificOptionLabel" xml:space="preserve">
+    <value>Game Specific Options</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
 </root>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+*NOTE* When adding or removing elements to this file, you will need to
+       generate a new class definition as follows:
+
+1.  Open a VS2022 command prompt and change to the directory: Shared\Aristocrat.Monaco.PackageManifest\Ati\Schemas
+2.  Enter "xsd GameSpecificOptionConfig.xsd /c /n:Aristocrat.Monaco.PackageManifest.Ati".
+    This will generate the corresponding class definition in csharp (GameSpecificOptionConfig.cs).
+-->
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="GameSpecificOptionConfig">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="GameToggleOptions">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="99" name="GameToggleOption">
+                <xs:complexType>
+                  <xs:attribute name="name" type="xs:string" />
+                  <xs:attribute name="value" type="xs:string" />
+                 </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="gameWritable" type="xs:boolean" />
+            <xs:attribute name="serverOnly" type="xs:boolean" />
+            <xs:attribute name="editable" type="xs:boolean" />
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="GameListOptions">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="99" name="GameListOption">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="99" name="List">
+                      <xs:complexType>
+                        <xs:attribute name="name" type="xs:string" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="name" type="xs:string" />
+                  <xs:attribute name="value" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="gameWritable" type="xs:boolean" />
+            <xs:attribute name="serverOnly" type="xs:boolean" />
+            <xs:attribute name="editable" type="xs:boolean" />
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="GameNumberOptions">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="99" name="GameNumberOption">
+                <xs:complexType>
+                  <xs:attribute name="name" type="xs:string" />
+                  <xs:attribute name="value" type="xs:int" />
+                  <xs:attribute name="minValue" type="xs:int" />
+                  <xs:attribute name="maxValue" type="xs:int" />            
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="gameWritable" type="xs:boolean" />
+            <xs:attribute name="serverOnly" type="xs:boolean" />
+            <xs:attribute name="editable" type="xs:boolean" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="version" type="xs:decimal" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
