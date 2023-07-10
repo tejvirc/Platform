@@ -20,7 +20,7 @@
 
         public override bool GetVisible()
         {
-            return Configuration.GetSetting(typeof(StatusPageViewModel), OperatorMenuSetting.OperatorCanOverrideMaxCreditsIn, false);
+            return Configuration.GetSetting(typeof(OptionsPageLoader), OperatorMenuSetting.OperatorCanOverrideMaxCreditsIn, false);
         }
     }
 }

@@ -37,6 +37,7 @@
                             </xs:element>
                             <xs:element minOccurs="0" maxOccurs="1" name="HandpayLimit">
                                 <xs:complexType>
+                                    <xs:attribute name="Visible" type="xs:boolean" />
                                     <xs:attribute name="CheckboxEditable" type="xs:boolean" />
                                 </xs:complexType>
                             </xs:element>
@@ -148,7 +149,7 @@
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
-			  <xs:element maxOccurs="1" minOccurs="0" name="BellyPanelDoor">
+        <xs:element maxOccurs="1" minOccurs="0" name="BellyPanelDoor">
                 <xs:complexType>
                   <xs:attribute name="Visible" type="xs:boolean" use="optional" default="false" />
                   <xs:attribute name="Configurable" type="xs:boolean" use="optional" default="false" />

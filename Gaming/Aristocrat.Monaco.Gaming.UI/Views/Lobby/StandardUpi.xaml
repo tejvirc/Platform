@@ -13,22 +13,21 @@
             <!-- Apply MahApps.Metro styles to all controls -->
             <ResourceDictionary.MergedDictionaries>
                 <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml"/>
                 <!-- Accent and AppTheme setting -->
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary
-                        Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-                <ResourceDictionary Source="../../Skins/Styles.xaml" />
-                <ResourceDictionary Source="StandardUpiTemplate.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml"/>
+                <ResourceDictionary Source="../../Skins/Styles.xaml"/>
+                <ResourceDictionary Source="StandardUpiTemplate.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <lobby:StandardUpiTemplateSelector x:Key="StandardUpiTemplateSelector" />
+            <lobby:StandardUpiTemplateSelector x:Key="StandardUpiTemplateSelector"/>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid AutomationProperties.AutomationId="Grid1_F9D326A1">
         <ContentControl Content="{Binding}"
                         ContentTemplateSelector="{StaticResource StandardUpiTemplateSelector}"
-                        AutomationProperties.AutomationId="ContentControl2_F9D326A1" />
+                        AutomationProperties.AutomationId="ContentControl2_F9D326A1"/>
     </Grid>
 </UserControl>

@@ -8,7 +8,9 @@
 
     public class SystemMainPageLoader : OperatorMenuPageLoader
     {
-        public override string PageName => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.System);
+        private readonly string _pageNameResourceKey = ResourceKeys.System;
+
+        public override string PageName => Localizer.For(CultureFor.Operator).GetString(_pageNameResourceKey);
 
         protected override IOperatorMenuPage CreatePage()
         {
@@ -17,7 +19,7 @@
 
         protected override IOperatorMenuPageViewModel CreateViewModel()
         {
-            return new SystemMainPageViewModel(PageName);
+            return new SystemMainPageViewModel(_pageNameResourceKey);
         }
     }
 }

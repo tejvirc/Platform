@@ -36,7 +36,8 @@
                 device,
                 EventCode.G2S_GPE106,
                 theEvent.Log.TransactionId,
-                device.TransactionList(theEvent.Log.ToRecallLog()));
+                device.TransactionList(theEvent.Log.ToRecallLog()),
+                theEvent);
         }
     }
 }

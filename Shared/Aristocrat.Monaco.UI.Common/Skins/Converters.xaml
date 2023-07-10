@@ -17,10 +17,13 @@
     <converters:StringToVisibilityConverter x:Key="EmptyStringIsVisibleConverter" EmptyValue="Visible" NotEmptyValue="Collapsed"/>
 
     <converters:CurrencyConverter x:Key="CurrencyConverter"/>
+    <converters:OperatorFormattedCurrencyConverter x:Key="FormattedCurrencyConverter"/>
     <converters:DateTimeFormatConverter x:Key="DateTimeConverter"/>
     <converters:DefaultValueConverter x:Key="EmptyToDefaultValue"/>
     <converters:InverseBooleanConverter x:Key="InverseBoolConverter"/>
     <converters:LogicalAndConverter x:Key="BoolAndConverter"/>
     <converters:LogicalOrConverter x:Key="BoolOrConverter"/>
     <converters:MultiValueConverter x:Key="MultiValueConverter"/>
+    <converters:BoolToStringConverter x:Key="BoolToStringConverter" />
+    <converters:EnumDescriptionConverter x:Key="EnumDescriptionToStringConverter" />
 </ResourceDictionary>

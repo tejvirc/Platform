@@ -58,6 +58,7 @@
         /// </summary>
         public const int DefaultSessionStartLimit = 0;
 
+        private readonly IEventLift _eventLift;
         private long _sessionLimit;
 
         /// <summary>
@@ -65,9 +66,11 @@
         /// </summary>
         /// <param name="deviceStateObserver">An <see cref="IDeviceObserver" /> instance.</param>
         /// <param name="deviceId">The device identifier.</param>
-        public InformedPlayerDevice(int deviceId, IDeviceObserver deviceStateObserver)
+        /// <param name="eventLift">The event lift.</param>
+        public InformedPlayerDevice(int deviceId, IDeviceObserver deviceStateObserver, IEventLift eventLift)
             : base(deviceId, deviceStateObserver, false)
         {
+            _eventLift = eventLift;
             SetDefaults();
         }
 
@@ -278,10 +281,8 @@
             };
 
             var deviceList = this.DeviceList(status);
-
-            EventHandlerDevice.EventReport(
-                this.PrefixedDeviceClass(),
-                Id,
+            _eventLift.Report(
+                this,
                 eventStr,
                 noStatus ? null : deviceList);
         }

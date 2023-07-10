@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Progressives
+namespace Aristocrat.Monaco.Gaming.Progressives
 {
     using System;
     using System.Collections.Generic;
@@ -25,6 +25,7 @@
         private readonly IProgressiveMeterManager _meters;
         private readonly IPropertiesManager _properties;
         private readonly ISharedSapProvider _sharedSapProvider;
+        private readonly IMysteryProgressiveProvider _mysteryProgressiveProvider;
 
         private readonly List<ProgressiveLevel> _levels = new List<ProgressiveLevel>();
         private readonly object _sync = new object();
@@ -35,13 +36,15 @@
             IIdProvider idProvider,
             IProgressiveMeterManager meters,
             IPropertiesManager properties,
-            ISharedSapProvider sharedSapProvider)
+            ISharedSapProvider sharedSapProvider,
+            IMysteryProgressiveProvider mysteryProgressiveProvider)
         {
             _gameStorage = gameStorage ?? throw new ArgumentNullException(nameof(gameStorage));
             _idProvider = idProvider ?? throw new ArgumentNullException(nameof(idProvider));
             _meters = meters ?? throw new ArgumentNullException(nameof(meters));
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _sharedSapProvider = sharedSapProvider ?? throw new ArgumentNullException(nameof(sharedSapProvider));
+            _mysteryProgressiveProvider = mysteryProgressiveProvider ?? throw new ArgumentNullException(nameof(mysteryProgressiveProvider));
         }
 
         public void LoadProgressiveLevels(IGameDetail gameDetails, IEnumerable<ProgressiveDetail> progressiveDetails)
@@ -171,10 +174,19 @@
             long wagerCredits)
         {
             var denominationList = denominations.ToList();
-            var resetValueInMillicents = level.ResetValue(denominationList, betOption).CentsToMillicents();
+
+            var hasAssociatedBetLinePreset =
+                !string.IsNullOrEmpty(progressive.BetLinePreset) &&
+                !string.IsNullOrEmpty(betOption?.BetLinePreset) &&
+                progressive.BetLinePreset == betOption.BetLinePreset;
+
+            var resetValueInMillicents =
+                level.ResetValue(denominationList, hasAssociatedBetLinePreset ? null : betOption)
+                    .CentsToMillicents();
+
             var levelType = (ProgressiveLevelType)level.ProgressiveType;
 
-            return new ProgressiveLevel
+            var progressiveLevel = new ProgressiveLevel
             {
                 ProgressiveId = progressive.Id,
                 ProgressivePackName = progressive.Name,
@@ -182,6 +194,7 @@
                 GameId = gameId,
                 Denomination = denominationList,
                 BetOption = betOption?.Name,
+                HasAssociatedBetLinePreset = hasAssociatedBetLinePreset,
                 AllowTruncation = level.AllowTruncation,
                 LevelId = level.LevelId,
                 IncrementRate = level.IncrementRate.ToPercentage(),
@@ -230,11 +243,19 @@
                 CreationType = (LevelCreationType)progressive.CreationType,
                 WagerCredits = wagerCredits
             };
+
+            if (ShouldGenerateMagicNumber(progressiveLevel))
+            {
+                _mysteryProgressiveProvider.GenerateMagicNumber(progressiveLevel);
+            }
+
+            return progressiveLevel;
         }
 
         private IEnumerable<ProgressiveLevel> GenerateProgressiveLevelsPerGame(
             int gameId,
             IReadOnlyCollection<long> denominations,
+            BetOptionList betOptions,
             ProgressiveDetail progressive,
             LevelDetail levelDetail,
             IReadOnlyCollection<ProgressiveLevel> persistedLevels)
@@ -242,7 +263,10 @@
             var currentLevel = persistedLevels.FirstOrDefault(
                 l => l.LevelId == levelDetail.LevelId);
 
-            yield return ToProgressiveLevel(gameId, denominations, null, progressive, levelDetail, currentLevel, 0);
+            var betOption = betOptions?.FirstOrDefault(
+                b => !string.IsNullOrEmpty(b.BetLinePreset) && b.BetLinePreset == progressive?.BetLinePreset);
+
+            yield return ToProgressiveLevel(gameId, denominations, betOption, progressive, levelDetail, currentLevel, 0);
         }
 
         private IEnumerable<ProgressiveLevel> GenerateProgressiveLevelsPerGamePerDenomPerBetOption(
@@ -390,6 +414,7 @@
                         GenerateProgressiveLevelsPerGame(
                             gameId,
                             denominations,
+                            betOptions,
                             progressive,
                             level,
                             currentValues));
@@ -577,6 +602,12 @@
             public string Id { get; }
 
             public int? MaxWagerCredits { get; }
+        }
+
+        private bool ShouldGenerateMagicNumber(ProgressiveLevel progressiveLevel)
+        {
+            return progressiveLevel.TriggerControl == TriggerType.Mystery &&
+                   !_mysteryProgressiveProvider.TryGetMagicNumber(progressiveLevel, out _);
         }
     }
 }

@@ -4,13 +4,16 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using System.Windows.Markup;
     using ConfigWizard;
     using Contracts;
+    using Contracts.Localization;
     using Contracts.OperatorMenu;
     using Contracts.Protocol;
     using Kernel;
     using Kernel.Contracts;
     using Monaco.Common;
+    using MVVM;
     using MVVM.Command;
 
     /// <summary>
@@ -41,6 +44,7 @@
         private string _orderNumber;
         private string _inspectorInitials;
         private ItemPick _ItemsPicked = ItemPick.None;
+        private XmlLanguage _datePickerLanguage = XmlLanguage.GetLanguage("en-US");
 
         public TimeConfigPageViewModel(bool isWizardPage) : base(isWizardPage)
         {
@@ -57,6 +61,7 @@
             Seconds = Enumerable.Range(0, 60).ToList();
 
             _timeZoneChanged = false;
+
             ApplyCommand = new ActionCommand<object>(Apply, _ => CanApply);
         }
 
@@ -174,6 +179,20 @@
             }
         }
 
+        public XmlLanguage DatePickerLanguage
+        {
+            get => _datePickerLanguage;
+
+            set
+            {
+                if (_datePickerLanguage != value)
+                {
+                    _datePickerLanguage = value;
+                    RaisePropertyChanged(nameof(DatePickerLanguage));
+                }
+            }
+        }
+
         public List<int> Hours { get; }
 
         public List<int> Minutes { get; }
@@ -283,6 +302,8 @@
                 UpdateTimeZoneOffset();
             }
 
+            UpdateDatePickerLanguage();
+
             _previousHour = Hour;
             _previousMinute = Minute;
             _previousSecond = Second;
@@ -334,6 +355,28 @@
         {
             TimeZoneOffset = PropertiesManager.GetValue(ApplicationConstants.TimeZoneOffsetKey, TimeSpan.Zero)
                 .GetFormattedOffset();
+        }
+
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            UpdateDatePickerLanguage();
+            base.OnOperatorCultureChanged(evt);
+        }
+
+        private void UpdateDatePickerLanguage()
+        {
+            MvvmHelper.ExecuteOnUI(() =>
+            {
+                var oldLanguage = DatePickerLanguage;
+                var newLanguage = XmlLanguage.GetLanguage(Localizer.For(CultureFor.Operator).CurrentCulture.Name);
+
+                if (newLanguage?.Equals(oldLanguage) ?? true)
+                {
+                    return;
+                }
+
+                DatePickerLanguage = newLanguage;
+            });
         }
 
         private void SetItemPickFlag(ItemPick pickFlag)

@@ -39,7 +39,8 @@
             IMessageDisplay messages,
             IPlayerService players,
             IPersistentStorageManager storage,
-            IPaymentDeterminationProvider bonusPayDetermination)
+            IPaymentDeterminationProvider bonusPayDetermination,
+            IBalanceUpdateService balanceUpdateService)
             : base(
                 properties,
                 bank,
@@ -52,7 +53,8 @@
                 messages,
                 players,
                 storage,
-                bonusPayDetermination)
+                bonusPayDetermination,
+                balanceUpdateService)
         {
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _gamePlay = gamePlay ?? throw new ArgumentNullException(nameof(gamePlay));

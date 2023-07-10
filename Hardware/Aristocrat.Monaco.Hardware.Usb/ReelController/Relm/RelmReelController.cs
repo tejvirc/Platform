@@ -1,31 +1,47 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Usb.ReelController.Relm
 {
-    using Contracts.Communicator;
-    using Contracts.Reel;
-    using Contracts.Reel.Events;
-    using Contracts.Reel.ImplementationCapabilities;
-    using Contracts.SharedDevice;
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.IO;
+    using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
+    using Contracts.Communicator;
+    using Contracts.Reel;
     using Contracts.Reel.ControlData;
+    using Contracts.Reel.Events;
+    using Contracts.Reel.ImplementationCapabilities;
+    using Contracts.SharedDevice;
     using log4net;
+    using ReelStatus = Contracts.Reel.ReelStatus;
+    using MonacoLightStatus = Contracts.Reel.LightStatus;
 
     /// <summary>
     ///     The Relm Reel Controller control class
     /// </summary>
     public class RelmReelController : IReelControllerImplementation
     {
-        private const string SampleLightShowPath = @"ReelController\Relm\SampleShows\AllWhite5Reels.lightshow";
-        private const string SampleLightShowName = "SampleLightShow";
+        private const string SampleAnimationsPath = @"ReelController\Relm\SampleAnimations";
+        private const string LightShowExtenstion = ".lightshow";
+        private const string StepperCurveExtenstion = ".stepper";
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
+        private static readonly (Func<ReelStatus, bool> Condition, ReelFaults Fault)[] ReelFaultPredicates =
+        {
+            (static x => x.ReelTampered, ReelFaults.ReelTamper),
+            (static x => x.IdleUnknown, ReelFaults.IdleUnknown),
+            (static x => x.ReelStall, ReelFaults.ReelStall),
+            (static x => x.UnknownStop, ReelFaults.UnknownStop),
+            (static x => x.OpticSequenceError, ReelFaults.ReelOpticSequenceError),
+            (static x => x.LowVoltage, ReelFaults.LowVoltage)
+        };
+
         private readonly Dictionary<Type, IReelImplementationCapability> _supportedCapabilities = new();
         private readonly ConcurrentDictionary<int, ReelStatus> _reelStatuses = new();
+        private readonly ConcurrentDictionary<int, MonacoLightStatus> _lightStatuses = new();
 
         private bool _disposed;
         private IRelmCommunicator _communicator;
@@ -61,10 +77,10 @@
 
         /// <inheritdoc />
         public event EventHandler<EventArgs> ResetFailed;
-        
+
         /// <inheritdoc />
         public event EventHandler<ReelControllerFaultedEventArgs> ControllerFaultOccurred;
-        
+
         /// <inheritdoc />
         public event EventHandler<ReelControllerFaultedEventArgs> ControllerFaultCleared;
 
@@ -132,13 +148,14 @@
         public int Crc => _communicator?.FirmwareCrc ?? 0;
 
         /// <inheritdoc />
-        public IReadOnlyCollection<int> ReelIds { get; }
+        public IReadOnlyCollection<int> ReelIds => Faults.Keys.ToList().AsReadOnly();
 
         /// <inheritdoc />
-        public ReelControllerFaults ReelControllerFaults { get; }
+        public ReelControllerFaults ReelControllerFaults { get; private set; }
 
         /// <inheritdoc />
-        public IReadOnlyDictionary<int, ReelFaults> Faults { get; }
+        public IReadOnlyDictionary<int, ReelFaults> Faults =>
+            _reelStatuses.ToDictionary(x => x.Key, x => x.Value.GetFaults());
 
         /// <inheritdoc />
         public IReadOnlyDictionary<int, ReelStatus> ReelStatuses => _reelStatuses;
@@ -154,13 +171,13 @@
         public async Task<bool> Initialize(ICommunicator communicator)
         {
             IsInitialized = false;
+            if (communicator is not IRelmCommunicator relmCommunicator)
+            {
+                return false;
+            }
+
             try
             {
-                if (communicator is not IRelmCommunicator relmCommunicator)
-                {
-                    return false;
-                }
-
                 _communicator = relmCommunicator;
                 RegisterEventListeners();
                 await _communicator.Initialize();
@@ -170,11 +187,11 @@
                     _supportedCapabilities.Add(typeof(IAnimationImplementation), new RelmAnimation(_communicator));
                     _supportedCapabilities.Add(typeof(IReelBrightnessImplementation), new RelmBrightness(_communicator));
                     _supportedCapabilities.Add(typeof(ISynchronizationImplementation), new RelmSynchronization(_communicator));
-                    await LoadPlatformSampleShows();
+                    await LoadPlatformSampleShowsAndCurves();
 
                     IsInitialized = true;
                 }
-
+                
                 return IsInitialized;
             }
             finally
@@ -302,27 +319,76 @@
         public bool HasCapability<T>() where T : class, IReelImplementationCapability =>
             _supportedCapabilities.ContainsKey(typeof(T));
 
-        /// <summary>
-        ///     Called when a reel is connected
-        /// </summary>
-        /// <param name="e">The event arguments</param>
-        protected virtual void OnReelConnected(ReelEventArgs e)
-        {
-            // TODO: We need to keep track of the status and handle disconnects.
-            // Right now the reel controller firmware does not support reel disconnects
-            var reelsStatus = new ReelStatus { ReelId = e.ReelId, Connected = true };
-            _reelStatuses.AddOrUpdate(e.ReelId, reelsStatus, (_, _) => reelsStatus);
-            ReelConnected?.Invoke(this, e);
-        }
-
         private void OnReelStatusesReceived(object sender, ReelStatusReceivedEventArgs args)
         {
             foreach (var status in args.Statuses)
             {
-                if (status.Connected)
-                {
-                    OnReelConnected(new ReelEventArgs(status.ReelId));
-                }
+                _reelStatuses.AddOrUpdate(
+                    status.ReelId,
+                    addValueFactory: _ =>
+                    {
+                        ReelConnected?.Invoke(this, new ReelEventArgs(status.ReelId));
+                        return status;
+                    },
+                    updateValueFactory: (_, old) =>
+                    {
+                        if (old.Connected && !status.Connected)
+                        {
+                            ReelDisconnected?.Invoke(this, new ReelEventArgs(status.ReelId));
+                        }
+                        else if (!old.Connected && status.Connected)
+                        {
+                            ReelConnected?.Invoke(this, new ReelEventArgs(status.ReelId));
+                        }
+
+                        var faultsToClear = ReelFaults.None;
+                        var newFaults = ReelFaults.None;
+
+                        foreach (var (condition, fault) in ReelFaultPredicates)
+                        {
+                            var oldFaulted = condition(old);
+                            var newFaulted = condition(status);
+
+                            if (oldFaulted && !newFaulted)
+                            {
+                                faultsToClear |= fault;
+                            }
+                            else if (!oldFaulted && newFaulted)
+                            {
+                                newFaults |= fault;
+                            }
+                        }
+
+                        if (faultsToClear != ReelFaults.None)
+                        {
+                            FaultCleared?.Invoke(this, new ReelFaultedEventArgs(faultsToClear, status.ReelId));
+                        }
+
+                        if (newFaults != ReelFaults.None)
+                        {
+                            FaultOccurred?.Invoke(this, new ReelFaultedEventArgs(newFaults, status.ReelId));
+                        }
+
+                        return status;
+                    });
+            }
+        }
+
+        private void OnLightStatusReceived(object sender, LightEventArgs args)
+        {
+            foreach (var status in args.Statuses)
+            {
+                _lightStatuses.AddOrUpdate(status.LightId, status, (_, _) => status);
+            }
+
+            var faultArgs = new ReelControllerFaultedEventArgs(ReelControllerFaults.LightError);
+            if (_lightStatuses.Values.Any(x => x.Faulted))
+            {
+                OnControllerFaultOccurred(this, faultArgs);
+            }
+            else
+            {
+                OnControllerFaultCleared(this, faultArgs);
             }
         }
 
@@ -366,8 +432,12 @@
             {
                 return;
             }
-            
-            _communicator.StatusesReceived += OnReelStatusesReceived;
+
+            _communicator.ReelStatusReceived += OnReelStatusesReceived;
+            _communicator.LightStatusReceived += OnLightStatusReceived;
+            _communicator.ControllerFaultOccurred += OnControllerFaultOccurred;
+            _communicator.ControllerFaultCleared += OnControllerFaultCleared;
+            _communicator.ReelIdleInterruptReceived += OnReelStopped;
         }
 
         private void UnregisterEventListeners()
@@ -377,22 +447,89 @@
                 return;
             }
 
-            _communicator.StatusesReceived -= OnReelStatusesReceived;
+            _communicator.ReelStatusReceived -= OnReelStatusesReceived;
+            _communicator.LightStatusReceived -= OnLightStatusReceived;
+            _communicator.ControllerFaultOccurred -= OnControllerFaultOccurred;
+            _communicator.ControllerFaultCleared -= OnControllerFaultCleared;
+            _communicator.ReelIdleInterruptReceived -= OnReelStopped;
         }
 
-        private async Task LoadPlatformSampleShows()
+        private async Task LoadPlatformSampleShowsAndCurves()
         {
-            if (_communicator is null || !File.Exists(SampleLightShowPath))
+            if (_communicator is null || !Directory.Exists(SampleAnimationsPath))
             {
                 return;
             }
 
-            Logger.Debug("Loading platform sample shows");
+            var animationFiles = (from file in GetSampleAnimationFilePaths()
+                let extension = Path.GetExtension(file)
+                let type = extension == LightShowExtenstion
+                    ? AnimationType.PlatformLightShow
+                    : AnimationType.PlatformStepperCurve
+                select new AnimationFile(file, type)).ToList();
+
             await _communicator.RemoveAllControllerAnimations();
+            
+            Logger.Debug($"Loading {animationFiles.Count} platform sample animations");
+            if (animationFiles.Count > 0)
+            {
+                Logger.Debug($"Loading {animationFiles.Select(x => x.FriendlyName)} platform sample animations");
+                await _communicator.LoadAnimationFiles(animationFiles);
+            }
+        }
 
-            var animationFile = new AnimationFile(SampleLightShowPath, AnimationType.PlatformLightShow, SampleLightShowName);
+        private IEnumerable<string> GetSampleAnimationFilePaths()
+        {
+            return Directory.EnumerateFiles(SampleAnimationsPath).Where(x =>
+                x.EndsWith(LightShowExtenstion, true, CultureInfo.InvariantCulture) ||
+                x.EndsWith(StepperCurveExtenstion, true, CultureInfo.InvariantCulture));
+        }
 
-            await _communicator.LoadAnimationFile(animationFile);
+        private void OnReelStopped(object sender, ReelStopData stopData)
+        {
+            Logger.Debug($"Reel stopped [index: {stopData.ReelIndex + 1}, step:{stopData.Step}]");
+            ReelEventArgs args = new(stopData.ReelIndex + 1, stopData.Step);
+            ReelStopped.Invoke(sender, args);
+        }
+
+        private void OnControllerFaultOccurred(object sender, ReelControllerFaultedEventArgs e)
+        {
+            if ((e.Faults & ReelControllerFaults.CommunicationError) != 0)
+            {
+                ReelControllerFaults |= ReelControllerFaults.CommunicationError;
+            }
+
+            if ((e.Faults & ReelControllerFaults.HardwareError) != 0)
+            {
+                ReelControllerFaults |= ReelControllerFaults.HardwareError;
+            }
+
+            if ((e.Faults & ReelControllerFaults.LightError) != 0)
+            {
+                ReelControllerFaults |= ReelControllerFaults.LightError;
+            }
+
+            ControllerFaultOccurred?.Invoke(this, e);
+        }
+
+        private void OnControllerFaultCleared(object sender, ReelControllerFaultedEventArgs e)
+        {
+            if ((e.Faults & ReelControllerFaults.CommunicationError) != 0)
+            {
+                ReelControllerFaults &= ~ReelControllerFaults.CommunicationError;
+            }
+
+            if ((e.Faults & ReelControllerFaults.HardwareError) != 0)
+            {
+                ReelControllerFaults &= ~ReelControllerFaults.HardwareError;
+            }
+
+            if ((e.Faults & ReelControllerFaults.LightError) != 0)
+            {
+                ReelControllerFaults &= ~ReelControllerFaults.LightError;
+            }
+
+            ControllerFaultCleared?.Invoke(this, e);
         }
     }
 }

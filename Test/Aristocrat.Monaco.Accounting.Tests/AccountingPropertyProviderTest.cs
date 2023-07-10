@@ -110,6 +110,7 @@
             _block.SetupGet(m => m[AccountingConstants.IncrementThreshold]).Returns(100000L);
             _block.SetupGet(m => m[AccountingConstants.IncrementThresholdIsChecked]).Returns(true);
             _block.SetupGet(m => m[AccountingConstants.ExcessiveDocumentRejectLockupEnabled]).Returns(false);
+            _block.SetupGet(m => m[AccountingConstants.HandCountPayoutLimit]).Returns(1_199_00_000L);
 
             _storageManager = MoqServiceManager.CreateAndAddService<IPersistentStorageManager>(MockBehavior.Strict);
             _storageManager.Setup(m => m.BlockExists(It.IsAny<string>())).Returns(true);

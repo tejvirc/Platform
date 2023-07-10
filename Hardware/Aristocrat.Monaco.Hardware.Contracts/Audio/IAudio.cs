@@ -7,34 +7,56 @@
     public enum VolumeLevel : byte
     {
         /// <summary>Extra Low</summary>
-        [Description("Extra Low")] ExtraLow = 1,
+        [Description("Extra-Low")]
+        ExtraLow = 1,
+
         /// <summary>Low</summary>
-        [Description("Low")] Low = 2,
+        [Description("Low")]
+        Low = 2,
+
         /// <summary>Medium-Low</summary>
-        [Description("Medium-Low")] MediumLow = 3,
+        [Description("Medium-Low")]
+        MediumLow = 3,
+
         /// <summary>Medium</summary>
-        [Description("Medium")] Medium = 4,
+        [Description("Medium")]
+        Medium = 4,
+
         /// <summary>Medium-High</summary>
-        [Description("Medium-High")] MediumHigh = 5,
+        [Description("Medium-High")]
+        MediumHigh = 5,
+
         /// <summary>High</summary>
-        [Description("High")] High = 6,
+        [Description("High")]
+        High = 6,
+
         /// <summary>Extra High</summary>
-        [Description("Extra High")] ExtraHigh = 7
+        [Description("Extra-High")]
+        ExtraHigh = 7
     }
 
     /// <summary>Volume Scalars</summary>
     public enum VolumeScalar : byte
     {
         /// <summary>Low</summary>
-        [Description("20%")] Scale20 = 1,
+        [Description("20%")]
+        Scale20 = 1,
+
         /// <summary>Medium-Low</summary>
-        [Description("40%")] Scale40 = 2,
+        [Description("40%")]
+        Scale40 = 2,
+
         /// <summary>Medium</summary>
-        [Description("60%")] Scale60 = 3,
+        [Description("60%")]
+        Scale60 = 3,
+
         /// <summary>Medium-High</summary>
-        [Description("80%")] Scale80 = 4,
+        [Description("80%")]
+        Scale80 = 4,
+
         /// <summary>High</summary>
-        [Description("100%")] Scale100 = 5
+        [Description("100%")]
+        Scale100 = 5
     }
 
     /// <summary>

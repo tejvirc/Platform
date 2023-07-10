@@ -59,6 +59,7 @@
         </Grid>
         <Grid x:Name="LobbyTopScreenRoot"
               Visibility="{Binding IsLobbyTopScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+              MouseDown="LobbyTopScreenRoot_OnMouseDown"
               AutomationProperties.AutomationId="Grid2_173C8AA0">
             <Image Stretch="Uniform"
                    uicommon:ImageHelper.SourceResourceKey="{Binding TopImageResourceKey}"

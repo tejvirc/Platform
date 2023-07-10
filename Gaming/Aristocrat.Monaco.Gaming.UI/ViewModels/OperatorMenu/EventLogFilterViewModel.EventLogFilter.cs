@@ -15,10 +15,24 @@
         public class EventFilterInfo : INotifyPropertyChanged
         {
             private bool _isSelected;
+            private string _displayText;
 
             public string EventType { get; set; }
 
-            public string DisplayText { get; set; }
+            public string DisplayText
+            {
+                get => _displayText;
+                set
+                {
+                    if (value == _displayText)
+                    {
+                        return;
+                    }
+
+                    _displayText = value;
+                    OnPropertyChanged(nameof(DisplayText));
+                }
+            }
 
             public bool IsSelected
             {

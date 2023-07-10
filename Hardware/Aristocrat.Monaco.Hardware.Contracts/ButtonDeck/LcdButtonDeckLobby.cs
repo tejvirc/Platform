@@ -26,6 +26,9 @@
         ChangeDenom = ButtonLogicalId.Bet5,
 
         /// <summary>LaunchGame</summary>
-        LaunchGame = ButtonLogicalId.Play
+        LaunchGame = ButtonLogicalId.Play,
+
+        /// <summary>DualLaunchGame</summary>
+        DualLaunchGame = ButtonLogicalId.DualPlay
     }
 }

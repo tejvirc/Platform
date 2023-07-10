@@ -56,4 +56,12 @@ Please update the confluence page when new elements and attributes are added.
       <Mapping Description="handpay receipt no barcode" PlatformTemplateId="107" PrinterTemplateId="0" Regions="0 121 123 106 0 0 0 1 2 128 3 129 118 0 125 0" />
     </PrinterTemplateMappings>
   </Override>
+  <Override Protocol="JCM GDS" FirmwareBase="5HQUE" UsePrinterDefinedTemplates="false" >
+
+    <FontOverrides>
+      <FontOverride RegionIds="107 108 109 110 111 112 134" OriginalFontNumber="8" NewFontNumber="9"/>
+      <FontOverride RegionIds="113 116" OriginalFontNumber="7" NewFontNumber="9" />
+    </FontOverrides>
+    
+  </Override>
 </Overrides>

@@ -124,6 +124,7 @@
         {
             _meterNode.Name = meterNodeName;
             _meterNode.DisplayName = meterNodeDisplayName;
+            _meterNode.DisplayNameKey = meterNodeDisplayName;
         }
 
         private void SetupProgressiveIMeter(long meterValue, bool meterShouldExist, bool currencyClassNeeded)

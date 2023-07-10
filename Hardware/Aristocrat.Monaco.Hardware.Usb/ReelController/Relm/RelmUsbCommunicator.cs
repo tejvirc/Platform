@@ -1,16 +1,5 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Usb.ReelController.Relm
 {
-    using Common;
-    using Contracts.Communicator;
-    using Contracts.Reel.ControlData;
-    using Contracts.Reel.Events;
-    using Contracts.SharedDevice;
-    using log4net;
-    using RelmReels;
-    using RelmReels.Communicator;
-    using RelmReels.Messages;
-    using RelmReels.Messages.Commands;
-    using RelmReels.Messages.Queries;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -18,16 +7,34 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
+    using Common;
+    using Contracts.Communicator;
+    using Contracts.Reel;
+    using Contracts.Reel.ControlData;
+    using Contracts.Reel.Events;
+    using Contracts.SharedDevice;
+    using log4net;
+    using RelmReels;
+    using RelmReels.Communicator;
+    using RelmReels.Communicator.InterruptHandling;
+    using RelmReels.Messages;
+    using RelmReels.Messages.Commands;
+    using RelmReels.Messages.Queries;
+    using RelmReels.Messages.Interrupts;
     using AnimationFile = Contracts.Reel.ControlData.AnimationFile;
     using DeviceConfiguration = RelmReels.Messages.Queries.DeviceConfiguration;
     using IRelmCommunicator = Contracts.Communicator.IRelmCommunicator;
-    using ReelStatus = Contracts.Reel.ReelStatus;
-    using RelmAnimationData = RelmReels.Messages.Commands.AnimationData;
+    using MonacoReelStatus = Contracts.Reel.ReelStatus;
+    using MonacoLightStatus = Contracts.Reel.LightStatus;
     using RelmReelStatus = RelmReels.Messages.ReelStatus;
+    using RelmLightStatus = RelmReels.Messages.LightStatus;
 
     internal class RelmUsbCommunicator : IRelmCommunicator
     {
+        private const ReelControllerFaults PingTimeoutFault = ReelControllerFaults.CommunicationError;
+
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+
         private readonly HashSet<AnimationFile> _animationFiles = new();
 
         private RelmReels.Communicator.IRelmCommunicator _relmCommunicator;
@@ -50,7 +57,7 @@
         {
             _relmCommunicator = communicator;
         }
-        
+
 #pragma warning disable 67
         /// <inheritdoc />
         public event EventHandler<EventArgs> DeviceAttached;
@@ -62,8 +69,19 @@
         public event EventHandler<ProgressEventArgs> DownloadProgressed;
 #pragma warning restore 67
 
+        public event EventHandler<LightEventArgs> LightStatusReceived;
+
         /// <inheritdoc />
-        public event EventHandler<ReelStatusReceivedEventArgs> StatusesReceived;
+        public event EventHandler<ReelStatusReceivedEventArgs> ReelStatusReceived;
+
+        /// <inheritdoc />
+        public event EventHandler<ReelControllerFaultedEventArgs> ControllerFaultOccurred;
+
+        /// <inheritdoc />
+        public event EventHandler<ReelControllerFaultedEventArgs> ControllerFaultCleared;
+
+        /// <inheritdoc />
+        public event EventHandler<ReelStopData> ReelIdleInterruptReceived;
 
         /// <inheritdoc />
         public IReadOnlyCollection<AnimationFile> AnimationFiles => _animationFiles.ToList();
@@ -145,11 +163,12 @@
 
             await _relmCommunicator?.SendCommandAsync(new Reset())!;
             _relmCommunicator!.KeepAliveEnabled = true;
+            _relmCommunicator.InterruptReceived += OnInterruptReceived;
+            _relmCommunicator.PingTimeoutCleared += OnPingTimeoutCleared;
 
             await _relmCommunicator?.SendQueryAsync<RelmVersionInfo>()!;
-            await _relmCommunicator?.SendQueryAsync<DeviceConfiguration>()!;
+            var configuration = await _relmCommunicator?.SendQueryAsync<DeviceConfiguration>()!;
 
-            var configuration = _relmCommunicator?.Configuration ?? new DeviceConfiguration();
             Logger.Debug($"Reel controller connected with {configuration.NumReels} reel and {configuration.NumLights} lights. {configuration}");
 
             var firmwareSize = await _relmCommunicator?.SendQueryAsync<FirmwareSize>()!;
@@ -167,7 +186,7 @@
             {
                 return false;
             }
-            
+
             _relmCommunicator.Close();
             return !_relmCommunicator.IsOpen;
         }
@@ -179,7 +198,7 @@
             {
                 return false;
             }
-            
+
             _relmCommunicator.Open(RelmConstants.ReelsAddress);
             return _relmCommunicator.IsOpen;
         }
@@ -216,6 +235,7 @@
             var animationFiles = files as AnimationFile[] ?? files.ToArray();
             Logger.Debug($"Downloading {animationFiles.Length} Animation files");
 
+            var success = true;
             foreach (var file in animationFiles)
             {
                 if (_animationFiles.Contains(file))
@@ -224,17 +244,24 @@
                     continue;
                 }
 
-                Logger.Debug($"Downloading Animation file: {file.Path}");
+                try
+                {
+                    Logger.Debug($"Downloading Animation file: {file.Path}");
+                    var storedFile = await _relmCommunicator.Download(file.Path, BitmapVerification.CRC32, token);
 
-                var storedFile = await _relmCommunicator.Download(file.Path, BitmapVerification.CRC32, token);
-
-                file.AnimationId = storedFile.FileId;
-                _animationFiles.Add(file);
+                    file.AnimationId = storedFile.FileId;
+                    _animationFiles.Add(file);
+                }
+                catch (Exception e)
+                {
+                    success = false;
+                    Logger.Debug($"Error downloading {file}: {e}");
+                }
 
                 Logger.Debug($"Finished downloading animation file: [{file.Path}], Name: {file.FriendlyName}, AnimationId: {file.AnimationId}");
             }
 
-            return true;
+            return success;
         }
 
         /// <inheritdoc />
@@ -251,39 +278,81 @@
                 return false;
             }
 
-            foreach (var data in showData)
+            var success = true;
+            var command = new PrepareLightShowAnimations();
+
+            foreach (var show in showData)
             {
-                var animationData = new RelmAnimationData
+                var animationId = GetAnimationId(show.AnimationName);
+                if (animationId == 0)
                 {
-                    AnimationId = data.Id,
-                    LoopCount = data.LoopCount,
-                    ReelIndex = data.ReelIndex,
-                    Tag = data.Tag.HashDjb2(),
-                    Step = data.Step
-                };
+                    Logger.Debug($"Can not find animation file with name {show.AnimationName}");
+                    success = false;
+                    continue;
+                }
 
-                var prepareCommand = new PrepareLightShowAnimations();
-                prepareCommand.Animations.Add(animationData);
-
-                Logger.Debug($"Preparing animation with id: {animationData.AnimationId}");
-                await _relmCommunicator.SendCommandAsync(prepareCommand, token);
+                command.Animations.Add(new PrepareLightShowAnimationData
+                {
+                    AnimationId = animationId,
+                    LoopCount = show.LoopCount,
+                    ReelIndex = show.ReelIndex,
+                    Tag = show.Tag.HashDjb2(),
+                    Step = show.Step
+                });
             }
 
-            return true;
+            if (command.Animations.Count == 0)
+            {
+                return success;
+            }
+
+            Logger.Debug($"Preparing {command.Animations.Count} light shows");
+            var result = await _relmCommunicator.SendCommandAsync(command, token);
+            return result && success;
         }
 
         /// <inheritdoc />
-        public Task<bool> PrepareControllerAnimation(ReelCurveData curveData, CancellationToken token = default)
+        public async Task<bool> PrepareAnimation(ReelCurveData curveData, CancellationToken token = default)
         {
-            // TODO: Implement prepare reel curve animation in driver and wire up here
-            throw new NotImplementedException();
+            return await PrepareAnimations(new[] { curveData }, token);
         }
 
         /// <inheritdoc />
-        public Task<bool> PrepareControllerAnimations(IEnumerable<ReelCurveData> curveData, CancellationToken token = default)
+        public async Task<bool> PrepareAnimations(IEnumerable<ReelCurveData> curveData, CancellationToken token = default)
         {
-            // TODO: Implement prepare reel curve animations in driver and wire up here
-            throw new NotImplementedException();
+            if (_relmCommunicator is null)
+            {
+                return false;
+            }
+
+            var success = true;
+            var command = new PrepareStepperCurves();
+
+            foreach (var curve in curveData)
+            {
+                var animationId = GetAnimationId(curve.AnimationName);
+                if (animationId == 0)
+                {
+                    Logger.Debug($"Can not find animation file with name {curve.AnimationName}");
+                    success = false;
+                    continue;
+                }
+
+                command.Animations.Add(new PrepareStepperCurveData
+                {
+                    AnimationId = animationId,
+                    ReelIndex = curve.ReelIndex
+                });
+            }
+
+            if (command.Animations.Count == 0)
+            {
+                return success;
+            }
+
+            Logger.Debug($"Preparing {command.Animations.Count} curves");
+            var result = await _relmCommunicator.SendCommandAsync(command, token);
+            return success && result;
         }
 
         /// <inheritdoc />
@@ -294,12 +363,8 @@
                 return false;
             }
 
-            StartAnimations startCommand = new StartAnimations();
-
-            Logger.Debug($"Playing prepared animations");
-            await _relmCommunicator.SendCommandAsync(startCommand, token);
-
-            return true;
+            Logger.Debug("Playing prepared animations");
+            return await _relmCommunicator.SendCommandAsync(new StartAnimations(), token);
         }
 
         /// <inheritdoc />
@@ -316,7 +381,29 @@
         }
 
         /// <inheritdoc />
-        public Task<bool> StopControllerLightShowAnimations(IEnumerable<LightShowData> showData, CancellationToken token = default)
+        public async Task<bool> StopAllAnimationTags(string animationName, CancellationToken token = default)
+        {
+            if (_relmCommunicator is null)
+            {
+                return false;
+            }
+
+            var animationId = GetAnimationId(animationName);
+            if (animationId == 0)
+            {
+                Logger.Debug($"Can not find animation file with name {animationName}");
+                return false;
+            }
+
+            Logger.Debug($"Stopping all animations for {animationName} ({animationId})");
+            return await _relmCommunicator.SendCommandAsync(new StopAllAnimationTags
+            {
+                AnimationId = animationId,
+            }, token);
+        }
+
+        /// <inheritdoc />
+        public Task<bool> StopLightShowAnimations(IEnumerable<LightShowData> showData, CancellationToken token = default)
         {
             // TODO: Implement stop light show animations in driver and wire up here
             throw new NotImplementedException();
@@ -330,17 +417,48 @@
         }
 
         /// <inheritdoc />
-        public Task<bool> PrepareControllerStopReels(IEnumerable<ReelStopData> stopData, CancellationToken token = default)
+        public Task<bool> PrepareStopReels(IEnumerable<ReelStopData> stopData, CancellationToken token = default)
         {
-            // TODO: Implement prepare stop reels in driver and wire up here
-            throw new NotImplementedException();
+            foreach (var data in stopData)
+            {
+                if (token.IsCancellationRequested)
+                {
+                    break;
+                }
+
+                var command = new PrepareStopReel
+                {
+                    ReelIndex = data.ReelIndex,
+                    Duration = data.Duration,
+                    Step = data.Step
+                };
+
+                _relmCommunicator.SendCommandAsync(command, token);
+            }
+
+            return Task.FromResult(true);
         }
 
         /// <inheritdoc />
-        public Task<bool> PrepareControllerNudgeReels(IEnumerable<NudgeReelData> nudgeData, CancellationToken token = default)
+        public async Task<bool> PrepareNudgeReels(IEnumerable<NudgeReelData> nudgeData, CancellationToken token = default)
         {
-            // TODO: Implement prepare nudge reels in driver and wire up here
-            throw new NotImplementedException();
+            if (_relmCommunicator is null)
+            {
+                return false;
+            }
+
+            Logger.Debug("Nudging reels");
+            foreach (var nudge in nudgeData)
+            {
+                await _relmCommunicator.SendCommandAsync(new PrepareNudgeReel
+                {
+                    ReelIndex = (byte)nudge.ReelId,
+                    Speed = (short)(nudge.Rpm * (nudge.Direction == SpinDirection.Forward ? 1 : -1)),
+                    StepCount = (short)nudge.Step
+                }, token);
+            }
+
+            return true;
         }
 
         /// <inheritdoc />
@@ -364,7 +482,7 @@
                 return Task.FromResult(false);
             }
 
-            _relmCommunicator?.SendCommandAsync(new SetBrightness { Brightness = (byte)brightness});
+            _relmCommunicator?.SendCommandAsync(new SetBrightness { Brightness = (byte)brightness });
             return Task.FromResult(true);
         }
 
@@ -407,8 +525,8 @@
             // TODO: Use proper home positions and number of reels
             var defaultHomeStep = 0;
             var homeData = new List<short>();
-            
-            for (int i=0; i < ReelCount; i++)
+
+            for (int i = 0; i < ReelCount; i++)
             {
                 homeData.Add((short)defaultHomeStep);
             }
@@ -424,8 +542,7 @@
             {
                 return Task.FromResult(false);
             }
-
-            _relmCommunicator?.SendCommandAsync(new HomeReels(new List<ReelStepInfo> { new ((byte)reelId, (short)stop) }));
+            _relmCommunicator?.SendCommandAsync(new HomeReels(new List<ReelStepInfo> { new((byte)(reelId - 1), (short)stop) }));
             return Task.FromResult(true);
         }
 
@@ -458,21 +575,99 @@
             }
 
             var deviceStatuses = await _relmCommunicator.SendQueryAsync<DeviceStatuses>();
-            var statuses = deviceStatuses.ReelStatuses.Select(ConvertToReelStatus).ToList();
+            var reelStatuses = deviceStatuses.ReelStatuses.Select(ConvertToReelStatus);
+            var lightStatuses = deviceStatuses.LightStatuses.Select(ConvertToLightStatus);
 
-            StatusesReceived?.Invoke(this, new ReelStatusReceivedEventArgs(statuses));
+            LightStatusReceived?.Invoke(this, new LightEventArgs(lightStatuses));
+            ReelStatusReceived?.Invoke(this, new ReelStatusReceivedEventArgs(reelStatuses));
+        }
+
+        private void OnInterruptReceived(object sender, RelmInterruptEventArgs e)
+        {
+            switch (e.Interrupt)
+            {
+                case IReelInterrupt reelInterrupt:
+                    HandleReelInterrupt(reelInterrupt);
+                    break;
+
+                case ILightInterrupt lightInterrupt:
+                    var lightStatus = new MonacoLightStatus((int)lightInterrupt.LightId, lightInterrupt is LightMalfunction);
+                    var args = new LightEventArgs(lightStatus);
+                    LightStatusReceived?.Invoke(this, args);
+                    break;
+
+                case PingTimeout:
+                    ControllerFaultOccurred?.Invoke(
+                        this,
+                        new ReelControllerFaultedEventArgs(PingTimeoutFault));
+                    break;
+            }
+        }
+
+        private void HandleReelInterrupt(IReelInterrupt interrupt)
+        {
+            switch (interrupt)
+            {
+                case ReelIdle idle:
+                    ReelIdleInterruptReceived.Invoke(this, new ReelStopData(idle.ReelIndex, 0, idle.Step));
+                    break;
+
+                case ReelTamperingDetected:
+                    RaiseStatus(x => x.ReelTampered = true);
+                    break;
+
+                case ReelStalled:
+                    RaiseStatus(x => x.ReelStall = true);
+                    break;
+
+                case ReelOpticSequenceError:
+                    RaiseStatus(x => x.OpticSequenceError = true);
+                    break;
+
+                case ReelDisconnected:
+                    RaiseStatus(x => x.Connected = false);
+                    break;
+
+                case ReelIdleUnknown:
+                    RaiseStatus(x => x.IdleUnknown = true);
+                    break;
+
+                case ReelUnknownStopReceived:
+                    RaiseStatus(x => x.UnknownStop = true);
+                    break;
+            }
+
+            void RaiseStatus(Action<MonacoReelStatus> configure)
+            {
+                var status = new MonacoReelStatus
+                {
+                    ReelId = interrupt.ReelIndex + 1,
+                    Connected = interrupt is not ReelDisconnected
+                };
+
+                configure(status);
+                ReelStatusReceived?.Invoke(this, new ReelStatusReceivedEventArgs(status));
+            }
+        }
+
+        private void OnPingTimeoutCleared(object sender, EventArgs e)
+        {
+            ControllerFaultCleared?.Invoke(this, new ReelControllerFaultedEventArgs(PingTimeoutFault));
         }
 
         private void Dispose(bool disposing)
         {
-            if (_disposed)
+            if (_disposed || !disposing)
             {
                 return;
             }
 
-            if (disposing)
+            var communicator = _relmCommunicator;
+            if (communicator is not null)
             {
-                var communicator = _relmCommunicator;
+                communicator.InterruptReceived -= OnInterruptReceived;
+                communicator.PingTimeoutCleared -= OnPingTimeoutCleared;
+
                 _relmCommunicator = null;
                 communicator.Close();
                 communicator.Dispose();
@@ -481,13 +676,29 @@
             _disposed = true;
         }
 
-        private ReelStatus ConvertToReelStatus(DeviceStatus<RelmReelStatus> deviceReelStatus)
+        private MonacoReelStatus ConvertToReelStatus(DeviceStatus<RelmReelStatus> deviceStatus)
         {
-            return new ReelStatus
+            var status = deviceStatus.Status;
+            return new MonacoReelStatus
             {
-                ReelId = deviceReelStatus.Id + 1,
-                Connected = deviceReelStatus.Status != RelmReelStatus.Disconnected
+                ReelId = deviceStatus.Id + 1, // Monaco reel indexes are 1-based, whereas RELM uses 0-based indexing.
+                Connected = status != RelmReelStatus.Disconnected,
+                ReelTampered = status == RelmReelStatus.TamperingDetected,
+                ReelStall = status == RelmReelStatus.Stalled,
+                OpticSequenceError = status == RelmReelStatus.OpticSequenceError,
+                IdleUnknown = status == RelmReelStatus.IdleUnknown,
+                UnknownStop = status == RelmReelStatus.UnknownStopReceived,
             };
+        }
+
+        private MonacoLightStatus ConvertToLightStatus(DeviceStatus<RelmLightStatus> deviceStatus)
+        {
+            return new MonacoLightStatus(deviceStatus.Id, deviceStatus.Status == RelmLightStatus.Failure);
+        }
+
+        private uint GetAnimationId(string animationName)
+        {
+            return AnimationFiles.FirstOrDefault(x => x.FriendlyName == animationName)?.AnimationId ?? 0;
         }
     }
 }

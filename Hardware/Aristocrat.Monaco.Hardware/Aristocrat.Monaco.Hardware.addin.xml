@@ -34,6 +34,11 @@
     </IOConfiguration>
   </Extension>
   <Extension path="/IO/Configuration">
+    <IOConfiguration Cabinet="HelixPlus" Protocol="Gen9">
+      <FilePath FilePath=".\IO.Gen8.config.xml" />
+    </IOConfiguration>
+  </Extension>
+  <Extension path="/IO/Configuration">
     <IOConfiguration Cabinet="LSWith1600MainScreen">
       <FilePath FilePath=".\IO.Gen8.config.xml" />
     </IOConfiguration>

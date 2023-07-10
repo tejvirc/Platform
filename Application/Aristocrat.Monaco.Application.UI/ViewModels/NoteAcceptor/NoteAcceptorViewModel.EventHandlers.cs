@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
+namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
 {
     using System;
     using System.Globalization;
@@ -115,6 +115,12 @@
             }
 
             base.StopEventHandler();
+        }
+
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            UpdateCurrencyFields();
+            base.OnOperatorCultureChanged(evt);
         }
 
         private void HandleHardwareNoteAcceptorDisabledEvent(DisabledEvent @event)

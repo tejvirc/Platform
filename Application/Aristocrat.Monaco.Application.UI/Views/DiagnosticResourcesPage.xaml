@@ -5,7 +5,6 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
-                               xmlns:helpers="http://monaco.aristocrat.com/common"
                                xmlns:local="clr-namespace:Aristocrat.Monaco.Application.UI.Views"
                                common:DialogParticipation.Register="{Binding}"
                                xmlns:lvcwpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
@@ -105,12 +104,12 @@
                     Margin="0 10 0 0"
                     AutomationProperties.AutomationId="StackPanel13_73D1C618">
             <Button HorizontalAlignment="Left"
-                    Content="View Memory"
+                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.ViewMemory}}"
                     Command="{Binding ViewMemoryCommand}"
                     Visibility="{Binding InDiagnosticViewChartMode, Converter={StaticResource TrueCollapsedFalseVisible}}"
                     AutomationProperties.AutomationId="Button14_73D1C618" />
             <Button Name="EnterDiagnosticChartModeButton"
-                    Content="View Performance Details"
+                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.ViewPerformanceDetails}}" 
                     HorizontalAlignment="Center"
                     Visibility="{Binding InDiagnosticViewChartMode, Converter={StaticResource TrueCollapsedFalseVisible}}"
                     Command="{Binding ToggleDiagnosticChartViewModeCommand}"
@@ -118,7 +117,7 @@
             <Button Name="ExitDiagnosticChartModeButton"
                     Visibility="{Binding InDiagnosticViewChartMode, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     Command="{Binding ToggleDiagnosticChartViewModeCommand}"
-                    Content="End Performance Details"
+                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.EndPerformanceDetails}}"
                     HorizontalAlignment="Center"
                     AutomationProperties.AutomationId="Button16_73D1C618" />
         </StackPanel>

@@ -209,6 +209,7 @@
             Container?.GetInstance<ISasDisableProvider>().OnSasReconfigured().Wait();
 
             _serviceWaiter?.Dispose();
+            _shutdownEvent?.Set();
             Logger.Debug("End of OnStop()!");
         }
 

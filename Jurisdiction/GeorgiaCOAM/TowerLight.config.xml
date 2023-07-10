@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+*NOTE* When adding or removing elements to this file, you will need to 
+change the corresponding xsd schema file and generate a new class definition
+as follows:
+
+1.  Open a VS2015 command prompt and change to the directory:
+    Gaming\Aristocrat.Monaco.Gaming.Contracts\TowerLight
+2.  Enter "xsd TowerLightConfiguration.xsd /c /n:Aristocrat.Monaco.Gaming.Contracts.TowerLight".  This will generate
+    the corresponding class definition in csharp (TowerLightConfiguration.cs).
+-->
+<TowerLightConfiguration disableTowerLights="true">
+  <SignalDefinitions>
+    <OperationalCondition condition="Idle">
+      <DoorCondition condition="AllClosed">
+        <Set lightTier="Tier1" flashState="Off"/>
+        <Set lightTier="Tier2" flashState="Off"/>
+      </DoorCondition>
+    </OperationalCondition>
+  </SignalDefinitions>
+</TowerLightConfiguration>

@@ -6,11 +6,12 @@
     using System.Globalization;
     using System.Linq;
     using Application.Tickets;
+    using Contracts;
     using Contracts.Currency;
     using Contracts.Extensions;
-    using Contracts;
     using Contracts.Tickets;
     using Contracts.TiltLogger;
+    using Hardware.Contracts;
     using Hardware.Contracts.IO;
     using Hardware.Contracts.Printer;
     using Hardware.Contracts.SerialPorts;
@@ -41,6 +42,7 @@
         private EventLogTicketCreator _target;
         private Mock<ITime> _time;
         private Mock<IIO> _iio;
+        private Mock<IOSService> _os;
 
         [TestInitialize]
         public void MyTestInitialize()
@@ -95,6 +97,9 @@
                 .Returns(ApplicationConstants.DefaultDateFormat)
                 .Verifiable();
 
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.LocalizationOperatorTicketLanguageSettingOperatorOverride, false))
+                .Returns(false);
+
             _iio = MoqServiceManager.CreateAndAddService<IIO>(MockBehavior.Loose);
             var serialService = new Mock<ISerialPortsService>();
 
@@ -107,6 +112,9 @@
             _printerMock = MoqServiceManager.CreateAndAddService<IPrinter>(MockBehavior.Strict);
             _printerMock.Setup(mock => mock.PaperState).Returns(PaperStates.Full);
             _printerMock.Setup(mock => mock.GetCharactersPerLine(false, 0)).Returns(36);
+
+            _os = MoqServiceManager.CreateAndAddService<IOSService>(MockBehavior.Strict);
+            _os.Setup(mock => mock.OsImageVersion).Returns(new Version());
 
             _target = new EventLogTicketCreator();
 

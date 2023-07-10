@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Utils
+namespace Aristocrat.Monaco.Gaming.UI.Utils
 {
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
@@ -53,7 +53,7 @@
         {
             if (lastCashOutForcedByMaxBank)
             {
-                data.Text = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MaximumValueReachedCashOutText1);
+                data.Text = Localizer.For(CultureFor.Player).GetString(ResourceKeys.MaximumValueReachedCashOutText1);
                 data.IsSubText2Visible = true;
                 data.SubText = cashoutTypeText;
                 data.SubText2 = cashoutAmountText;

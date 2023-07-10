@@ -35,6 +35,8 @@
 
         public bool IsBasic => true;
 
+        public long CashableAmount { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public IMessageOverlayData HandleMessageOverlayCashOut(IMessageOverlayData data, bool lastCashOutForcedByMaxBank, LobbyCashOutState cashOutState)
         {
             Logger.Debug("BasicOverlayMessageStrategy HandleMessageOverlayCashout entered");
@@ -54,10 +56,10 @@
             switch (cashInType)
             {
                 case CashInType.Currency:
-                    data.SubText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InsertingBillText);
+                    data.SubText = Localizer.For(CultureFor.Player).GetString(ResourceKeys.InsertingBillText);
                     break;
                 case CashInType.Voucher:
-                    data.SubText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InsertingVoucherText);
+                    data.SubText = Localizer.For(CultureFor.Player).GetString(ResourceKeys.InsertingVoucherText);
                     break;
                 case CashInType.Wat:
                     if (stateContainsCashOut &&
@@ -80,6 +82,11 @@
             // Nothing to be done here. Basic does not use MessageOverlayState.Handpay
 
             return data;
+        }
+
+        public IMessageOverlayData HandleMessageOverlayPayOut(IMessageOverlayData data)
+        {
+            throw new NotImplementedException();
         }
     }
 }

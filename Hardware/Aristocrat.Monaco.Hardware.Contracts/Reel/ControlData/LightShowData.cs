@@ -9,9 +9,9 @@
     public class LightShowData
     {
         /// <summary>
-        ///     The Animation Id
+        ///     The animation name
         /// </summary>
-        public uint Id { get; set; }
+        public string AnimationName { get; set; }
 
         /// <summary>
         ///     The tag hash

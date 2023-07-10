@@ -121,5 +121,10 @@
             _nextValue = newValue;
             _calculationThread = null;
         }
+
+        public void SetRawValue(uint value)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

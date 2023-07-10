@@ -11,7 +11,7 @@
     public interface IOverlayMessageStrategyController : IDisposable
     {
         /// <summary>
-        ///     returns whether the game has registered 
+        ///     returns whether the game has registered
         /// </summary>
         bool GameRegistered { get; }
 
@@ -56,5 +56,11 @@
         ///     Tells the game to remove any presentation
         /// </summary>
         void ClearGameDrivenPresentation();
+
+        /// <summary>
+        ///     Sets the Current pay out amount
+        /// </summary>
+        /// <param name="cashOutAmount"></param>
+        void SetCashableAmount(long cashOutAmount);
     }
 }

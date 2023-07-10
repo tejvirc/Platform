@@ -12,8 +12,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     {
         private const string MenuExtensionPointPath = "/Application/OperatorMenu/ToolsMenu";
 
-        public ToolsMainPageViewModel(string displayPageTitle)
-            : base(displayPageTitle, MenuExtensionPointPath)
+        public ToolsMainPageViewModel(string pageNameResourceKey) : base(pageNameResourceKey, MenuExtensionPointPath)
         {
         }
     }

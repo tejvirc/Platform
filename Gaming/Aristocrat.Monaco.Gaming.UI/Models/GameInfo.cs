@@ -34,7 +34,6 @@
         private GameCategory _category;
         private GameSubCategory _subCategory;
         private bool _isSelected;
-        private bool _hasProgressiveOrBonusValue;
         private string _imagePath;
 
         // Used to determine if "new" game.  For example, a requirement is that
@@ -112,7 +111,7 @@
         /// <summary>
         ///     Gets whether the image for this game is a bink video
         /// </summary>
-        public bool ImageIsBink => ImagePath.EndsWith(".bk2");
+        public bool ImageIsBink => ImagePath?.EndsWith(".bk2") ?? false;
 
         /// <summary>
         ///     Gets or sets the game image path
@@ -222,11 +221,7 @@
         /// <summary>
         ///     Gets or sets a value indicating whether the game has a progressive bonus
         /// </summary>
-        public bool HasProgressiveOrBonusValue
-        {
-            get => _hasProgressiveOrBonusValue;
-            set => SetProperty(ref _hasProgressiveOrBonusValue, value, nameof(HasProgressiveOrBonusValue), nameof(ProgressiveOrBonusValue));
-        }
+        public bool HasProgressiveOrBonusValue => !string.IsNullOrWhiteSpace(ProgressiveOrBonusValue);
 
         /// <summary>
         ///     Gets or sets the denomination
@@ -424,7 +419,7 @@
         public bool RequiresMechanicalReels { get; set; }
 
         /// <summary>
-        ///     Select the appropriate for the Locale Graphics
+        ///     Select the appropriate image for the Locale Graphics
         /// </summary>
         /// <param name="activeLocaleCode">locale code to use</param>
         public void SelectLocaleGraphics(string activeLocaleCode)

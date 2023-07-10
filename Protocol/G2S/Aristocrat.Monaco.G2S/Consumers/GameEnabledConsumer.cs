@@ -58,7 +58,8 @@
             _eventLift.Report(
                 gamePlay,
                 EventCode.G2S_GPE002,
-                gamePlay.DeviceList(status));
+                gamePlay.DeviceList(status),
+                theEvent);
         }
     }
 }

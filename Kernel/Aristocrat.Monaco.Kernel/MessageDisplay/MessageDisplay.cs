@@ -171,8 +171,13 @@
 
                     foreach (var handler in _handlers)
                     {
-                        Logger.Debug($"Sending message to display handler: {mappedMessage}");
-                        handler?.DisplayMessage(mappedMessage);
+                        if (handler == null)
+                        {
+                            continue;
+                        }
+
+                        Logger.Debug($"Sending message to display handler: {handler.GetType().Name}");
+                        handler.DisplayMessage(mappedMessage);
                     }
 
                     _eventBus.Publish(new MessageAddedEvent(displayableMessage));
@@ -388,7 +393,7 @@
                 else
                 {
                     observedMessagesToRemove = _observedMessages
-                        .Where(o => mappedMessage.IsMessageEquivalent(o.Message)).ToList();
+                        .Where(o => mappedMessage?.IsMessageEquivalent(o.Message) ?? false).ToList();
                 }
 
                 foreach (var message in observedMessagesToRemove)
@@ -398,7 +403,7 @@
 
                 var messagesToRemove = explicitRemove
                     ? new List<DisplayableMessage> { displayableMessage }
-                    : _messages.Where(o => mappedMessage.IsMessageEquivalent(o)).ToList();
+                    : _messages.Where(o => mappedMessage?.IsMessageEquivalent(o) ?? false).ToList();
 
                 foreach (var message in messagesToRemove)
                 {

@@ -530,6 +530,12 @@
 
         private void ReelControllerFaultOccurred(object sender, ReelFaultedEventArgs e)
         {
+            const ReelFaults perReelHardwareFaults = ReelFaults.ReelStall |
+                                                     ReelFaults.ReelTamper |
+                                                     ReelFaults.ReelOpticSequenceError |
+                                                     ReelFaults.UnknownStop |
+                                                     ReelFaults.IdleUnknown;
+
             // Do not process reel fault events for invalid reels
             if (!ConnectedReels.Contains(e.ReelId))
             {
@@ -547,7 +553,7 @@
                 Logger.Info($"ReelControllerFaultOccurred - ADDED {value} to the error list for reel {e.ReelId}");
                 Disable(DisabledReasons.Error);
                 PostEvent(
-                    e.Faults is ReelFaults.ReelStall or ReelFaults.ReelTamper
+                    (perReelHardwareFaults & value) == value
                         ? new HardwareReelFaultEvent(ReelControllerId, value, e.ReelId)
                         : new HardwareReelFaultEvent(ReelControllerId, value));
             }

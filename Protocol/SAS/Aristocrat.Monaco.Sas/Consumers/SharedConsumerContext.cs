@@ -41,7 +41,7 @@
 
             if (disposing)
             {
-                ServiceManager.GetInstance().GetService<IEventBus>().UnsubscribeAll(this);
+                ServiceManager.GetInstance().TryGetService<IEventBus>()?.UnsubscribeAll(this);
             }
 
             _disposed = true;

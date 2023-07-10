@@ -2,13 +2,15 @@
 {
     using Contracts.Localization;
     using Contracts.OperatorMenu;
+    using Monaco.Localization.Properties;
     using ViewModels;
     using Views;
-    using Monaco.Localization.Properties;
 
     public class OptionsPageLoader : OperatorMenuPageLoader
     {
-        public override string PageName => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OptionsScreen);
+        private readonly string _pageNameResourceKey = ResourceKeys.OptionsScreen;
+
+        public override string PageName => Localizer.For(CultureFor.Operator).GetString(_pageNameResourceKey);
 
         protected override IOperatorMenuPage CreatePage()
         {
@@ -17,17 +19,12 @@
 
         protected override IOperatorMenuPageViewModel CreateViewModel()
         {
-            return new OptionsPageViewModel(PageName);
+            return new OptionsPageViewModel(_pageNameResourceKey);
         }
 
         public override bool GetVisible()
         {
-            // If not a subpage, check AccountingConfig visibility to determine if options main page is visible
-            // If it is, do not also include Options page as a non-subpage
-            var optionsPageVisible = Configuration.GetVisible(this);
-            return IsSubPage
-                ? optionsPageVisible
-                : !Configuration.GetVisible(OperatorMenuSetting.AccountingConfigurationLoader) && optionsPageVisible;
+            return Configuration.GetVisible(this);
         }
     }
 }

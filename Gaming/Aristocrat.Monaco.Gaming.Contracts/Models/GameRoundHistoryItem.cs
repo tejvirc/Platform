@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts.Models
 {
     using System;
+    using System.Collections.Generic;
     using Contracts;
 
     /// <summary>
@@ -13,15 +14,18 @@
 
         /// <summary> Gets or sets game Id.</summary>
         public int GameId { get; set; }
-       
+
         /// <summary> Gets or sets game name.</summary>
         public string GameName { get; set; }
+
+        /// <summary> Gets or sets game version.</summary>
+        public string GameVersion { get; set; }
 
         /// <summary> Gets or sets the denom in millicents.</summary>
         public long DenomId { get; set; }
 
-        /// <summary> Gets or sets the denom in cents.</summary>
-        public long Denom { get; set; }
+        /// <summary> Gets or sets the denom in dollars.</summary>
+        public decimal Denom { get; set; }
 
         /// <summary> Gets or sets the start time.</summary>
         public DateTime StartTime { get; set; }
@@ -29,7 +33,7 @@
         /// <summary> Gets or sets the ending time.</summary>
         public DateTime EndTime { get; set; }
 
-        /// <summary> Gets or sets the start credits.</summary>
+        /// <summary> Gets or sets the start credits in dollars.</summary>
         public decimal StartCredits { get; set; }
 
         /// <summary> Gets or sets the credits wagered.</summary>
@@ -44,8 +48,14 @@
         /// <summary> Gets or sets the credits out after the game round.</summary>
         public decimal? AmountOut { get; set; }
 
-        /// <summary> Gets or sets the end credits.</summary>
+        /// <summary> Gets or sets the end credits in dollars.</summary>
         public decimal? EndCredits { get; set; }
+
+        /// <summary> Gets or sets the end jackpot amounts as a formatted string.</summary>
+        public string EndJackpot { get; set; }
+
+        /// <summary> Gets or sets the end jackpot values.</summary>
+        public IEnumerable<Jackpot> EndJackpots { get; set; }
 
         /// <summary> Gets or sets the last play state recorded.</summary>
         public PlayState GameState { get; set; }

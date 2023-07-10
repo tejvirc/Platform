@@ -3,11 +3,12 @@
     using System;
     using System.Globalization;
     using Application.Contracts;
+    using Application.Contracts.Currency;
     using Application.Contracts.Extensions;
     using Contracts;
+    using Hardware.Contracts;
     using Hardware.Contracts.Printer;
     using Kernel;
-    using Application.Contracts.Currency;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using Test.Common;
@@ -24,6 +25,7 @@
         private Mock<IPrinter> _printer;
         private Mock<IPropertiesManager> _propertiesManager;
         private Mock<ITime> _time;
+        private Mock<IOSService> _os;
 
         /// <summary>
         ///     Initializes class members and prepares for execution of a TestMethod.
@@ -98,6 +100,9 @@
                     mock => mock.FormatDateTimeString(It.IsAny<DateTime>(), ApplicationConstants.DefaultDateTimeFormat))
                 .Returns(
                     (DateTime dateTime) => dateTime.ToString("G", CultureInfo.CurrentCulture));
+
+            _os = MoqServiceManager.CreateAndAddService<IOSService>(MockBehavior.Strict, true);
+            _os.Setup(mock => mock.OsImageVersion).Returns(new Version());
 
             CurrencyExtensions.SetCultureInfo(region.ISOCurrencySymbol, culture, null, null, true, true, minorUnitSymbol);
         }

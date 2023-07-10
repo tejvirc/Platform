@@ -47,7 +47,7 @@
                                     BorderBrush="{DynamicResource Brush3}"
                                     Margin="0 4 0 0"
                                     AutomationProperties.AutomationId="Border8_86EADED7">
-                                <StackPanel Width="200"
+                                <StackPanel MinWidth="200"
                                             HorizontalAlignment="Center"
                                             AutomationProperties.AutomationId="StackPanel9_86EADED7">
                                     <TextBlock Name="DisplayName"

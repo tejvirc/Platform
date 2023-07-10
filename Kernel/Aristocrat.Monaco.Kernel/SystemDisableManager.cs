@@ -174,6 +174,7 @@ namespace Aristocrat.Monaco.Kernel
             try
             {
                 var disabling = !IsDisabled || !DisableImmediately && priority == SystemDisablePriority.Immediate;
+                var disableMessage = disableReason?.Invoke();
 
                 if (_systemDisables.TryGetValue(enableKey, out var current))
                 {
@@ -192,7 +193,7 @@ namespace Aristocrat.Monaco.Kernel
                         new SystemDisableUpdatedEvent(
                             priority,
                             enableKey,
-                            disableReason?.Invoke(),
+                            disableMessage,
                             systemIdleStateAffected));
                 }
                 else
@@ -207,7 +208,7 @@ namespace Aristocrat.Monaco.Kernel
                         new SystemDisableAddedEvent(
                             priority,
                             enableKey,
-                            disableReason?.Invoke(),
+                            disableMessage,
                             systemIdleStateAffected));
                 }
 
@@ -217,7 +218,7 @@ namespace Aristocrat.Monaco.Kernel
                 }
 
                 Logger.Debug(
-                    $"Disabled: key={enableKey}, priority={priority}, disabling={disabling}, affectsIdleState={affectsIdleState}, reason={disableReason?.Invoke()}, helpText={helpText?.Invoke()}");
+                    $"Disabled: key={enableKey}, priority={priority}, disabling={disabling}, affectsIdleState={affectsIdleState}, reason={disableMessage}, helpText={helpText?.Invoke()}");
                 LogCurrentLockups();
             }
             finally

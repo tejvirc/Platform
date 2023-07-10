@@ -8,7 +8,9 @@
 
     public class StatusMainPageLoader : OperatorMenuPageLoader
     {
-        public override string PageName => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.StatusLabel);
+        private readonly string _pageNameResourceKey = ResourceKeys.StatusLabel;
+
+        public override string PageName => Localizer.For(CultureFor.Operator).GetString(_pageNameResourceKey);
 
         protected override IOperatorMenuPage CreatePage()
         {
@@ -17,7 +19,7 @@
 
         protected override IOperatorMenuPageViewModel CreateViewModel()
         {
-            return new StatusMainPageViewModel(PageName);
+            return new StatusMainPageViewModel(_pageNameResourceKey);
         }
     }
 }

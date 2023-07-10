@@ -75,9 +75,12 @@
                 return;
             }
 
-            var message = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReadOnlyMediaFault);
+            var message = Localizer.ForLockup().GetString(ResourceKeys.ReadOnlyMediaFault);
 
-            _disableManager.Disable(ApplicationConstants.ReadOnlyMediaDisableKey, SystemDisablePriority.Immediate, () => message);
+            _disableManager.Disable(
+                ApplicationConstants.ReadOnlyMediaDisableKey,
+                SystemDisablePriority.Immediate,
+                () => Localizer.ForLockup().GetString(ResourceKeys.ReadOnlyMediaFault));
 
             _bus.Publish(new ReadOnlyMediaErrorEvent(message));
 

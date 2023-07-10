@@ -8,7 +8,7 @@
     using Contracts.Localization;
     using Kernel;
     using log4net;
-    using Aristocrat.Monaco.Localization.Properties;
+    using Monaco.Localization.Properties;
     using NativeOS.Services.OS;
 
     public sealed class MemoryMonitor : IService, IDisposable
@@ -94,7 +94,7 @@
             Logger.Error($"Computer Memory is full. Locking up system for reboot. Available Memory: {info.PhysicalAvailable}. Total Memory: {info.PhysicalTotal}. Threshold: {_memoryLeftThreshold}.");
             _disabled = true;
             _disableManager.Disable(LockupId, SystemDisablePriority.Immediate,
-                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OutOfMemoryMessage));
+                () => Localizer.ForLockup().GetString(ResourceKeys.OutOfMemoryMessage));
         }
 #endif
     }

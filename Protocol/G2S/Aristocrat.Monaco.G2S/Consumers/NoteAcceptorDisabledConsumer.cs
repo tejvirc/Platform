@@ -75,7 +75,8 @@
                 _eventLift.Report(
                     noteAcceptor,
                     EventCode.G2S_NAE001,
-                    noteAcceptor.DeviceList(status));
+                    noteAcceptor.DeviceList(status),
+                    theEvent);
             }
         }
     }

@@ -22,6 +22,7 @@
     using LampTest;
     using Models;
     using Monaco.Localization.Properties;
+    using MVVM;
     using MVVM.Command;
     using Timer = System.Timers.Timer;
 
@@ -38,8 +39,8 @@
         private readonly ILampTest _lampTest;
         private readonly ITowerLight _towerLight;
         private readonly ITowerLightManager _towerLightManager;
-        private readonly List<FlashState> _allFlashStates = new();
-        private readonly List<FlashState> _strobeFlashStates = new();
+        private readonly List<LocalizableFlashState> _allFlashStates = new();
+        private readonly List<LocalizableFlashState> _strobeFlashStates = new();
 
         /// <summary>
         ///     Creates an instance of <see cref="LampsPageViewModel"/>
@@ -60,24 +61,39 @@
             _towerLightManager = ServiceManager.GetInstance().TryGetService<ITowerLightManager>();
             _towerLight = ServiceManager.GetInstance().TryGetService<ITowerLight>();
 
-            TowerLightsEnabled = !(_towerLightManager?.TowerLightsDisabled ?? true) || (bool)PropertiesManager.GetProperty(KernelConstants.IsInspectionOnly, false);
+            TowerLightsIsVisible = !(_towerLightManager?.TowerLightsDisabled ?? true) || (bool)PropertiesManager.GetProperty(KernelConstants.IsInspectionOnly, false);
             TowerLights = new List<TowerLight>();
-            _allFlashStates.AddRange((FlashState[])Enum.GetValues(typeof(FlashState)));
-            _strobeFlashStates.AddRange(new[] { FlashState.Off, FlashState.On });
+
+            foreach (FlashState state in Enum.GetValues(typeof(FlashState)))
+            {
+                _allFlashStates.Add(new LocalizableFlashState(state));
+            }
+
+            _strobeFlashStates.AddRange(
+                new[] { new LocalizableFlashState(FlashState.Off), new LocalizableFlashState(FlashState.On) });
 
             var towerLightConfig = ServiceManager.GetInstance().GetService<IConfigurationUtility>()
                 .GetConfiguration(TowerLightConfigPath, () => new TowerLightConfiguration());
-            var tiers = towerLightConfig.SignalDefinitions
-                .SelectMany(s => s.OperationalCondition
-                .SelectMany(c => c.DoorCondition
-                .SelectMany(d => d.Set
-                .Select(s => (LightTier)Enum.Parse(typeof(LightTier), s.lightTier)
-                )))).Distinct().ToList();
-            foreach (var tier in tiers)
+
+            if (towerLightConfig.SignalDefinitions != null)
             {
-                var state = _towerLight?.GetFlashState(tier);
-                var lamp = new TowerLight(tier, state.GetValueOrDefault(FlashState.Off));
-                TowerLights.Add(lamp);
+                var tiers = towerLightConfig.SignalDefinitions
+                    .SelectMany(
+                        s => s.OperationalCondition
+                            .SelectMany(
+                                c => c.DoorCondition
+                                    .SelectMany(
+                                        d => d.Set
+                                            .Select(
+                                                set => (LightTier)Enum.Parse(typeof(LightTier), set.lightTier)
+                                            )))).Distinct().ToList();
+
+                foreach (var tier in tiers)
+                {
+                    var state = _towerLight?.GetFlashState(tier);
+                    var lamp = new TowerLight(tier, state.GetValueOrDefault(FlashState.Off));
+                    TowerLights.Add(lamp);
+                }
             }
 
             _selectedTowerLight = TowerLights.FirstOrDefault();
@@ -86,7 +102,9 @@
 
         public bool ButtonLampsAvailable { get; set; }
 
-        public bool TowerLightsEnabled { get; set; }
+        public bool TowerLightsIsVisible { get; set; }
+
+        public bool TowerLightsIsEnabled => TowerLights.Any() && TestModeEnabled;
 
         public ObservableCollection<int> Intervals { get; } = new ObservableCollection<int>();
 
@@ -105,7 +123,8 @@
                 if (_selectedTowerLight != value)
                 {
                     _selectedTowerLight = value;
-                    SelectedFlashState = _selectedTowerLight.FlashState;
+                    SelectedFlashState =
+                        FlashStates.FirstOrDefault(f => f.FlashState == _selectedTowerLight.FlashState);
 
                     RaisePropertyChanged(nameof(SelectedTowerLight));
                     RaisePropertyChanged(nameof(SelectedFlashState));
@@ -114,10 +133,10 @@
             }
         }
 
-        public List<FlashState> FlashStates =>
+        public List<LocalizableFlashState> FlashStates =>
             SelectedTowerLight?.Tier == LightTier.Strobe ? _strobeFlashStates : _allFlashStates;
 
-        public FlashState SelectedFlashState { get; set; }
+        public LocalizableFlashState SelectedFlashState { get; set; }
 
         public string SelectedButtonLamp
         {
@@ -170,18 +189,9 @@
 
             EventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.Lamps));
 
-            // Clean Collections
-            Intervals.Clear();
-            ButtonLamps.Clear();
+            LoadButtonLampsAndIntervals();
 
-            Intervals.Add(125);
-            Intervals.Add(250);
-            Intervals.Add(500);
-
-            ButtonLamps.Add(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BashButtonLamp));
-            ButtonLamps.Add(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TestAllButtonLamps));
-
-            if (TowerLightsEnabled)
+            if (TowerLightsIsVisible)
             {
                 EventBus.Subscribe<TowerLightOffEvent>(
                     this,
@@ -204,6 +214,34 @@
                     }
                 }
             }
+        }
+
+        private void LoadButtonLampsAndIntervals()
+        {
+            // Clean Collections
+            Intervals.Clear();
+            ButtonLamps.Clear();
+
+            Intervals.Add(125);
+            Intervals.Add(250);
+            Intervals.Add(500);
+
+            ButtonLamps.Add(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BashButtonLamp));
+            ButtonLamps.Add(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TestAllButtonLamps));
+        }
+
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            MvvmHelper.ExecuteOnUI(() =>
+            {
+                LoadButtonLampsAndIntervals();
+                foreach (var state in FlashStates)
+                {
+                    state.UpdateString();
+                }
+            });
+
+            base.OnOperatorCultureChanged(evt);
         }
 
         protected override void OnInputEnabledChanged()
@@ -249,6 +287,7 @@
         protected override void OnTestModeEnabledChanged()
         {
             UpdateStatusText();
+            RaisePropertyChanged(nameof(TowerLightsIsEnabled));
 
             if (!TestModeEnabled)
             {
@@ -320,7 +359,7 @@
         private void SetTowerLightFlashState(object parameter)
         {
             var tier = SelectedTowerLight?.Tier ?? LightTier.Tier1;
-            _towerLight?.SetFlashState(tier, SelectedFlashState, Timeout.InfiniteTimeSpan);
+            _towerLight?.SetFlashState(tier, SelectedFlashState.FlashState, Timeout.InfiniteTimeSpan);
             Inspection?.SetTestName($"Tower light {tier} {SelectedFlashState}");
         }
 
@@ -332,11 +371,6 @@
                 towerLight.FlashState = flashState;
                 towerLight.State = lightOn;
             }
-        }
-
-        private bool HasTowerLight(int tier)
-        {
-            return TowerLights.Any(t => t.Tier == (LightTier)tier);
         }
     }
 }

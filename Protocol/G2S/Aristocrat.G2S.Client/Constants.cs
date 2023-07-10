@@ -76,5 +76,10 @@
         ///     Default No Response Timer
         /// </summary>
         public static readonly TimeSpan NoResponseTimer = new TimeSpan(0, 5, 0);
+
+        /// <summary>
+        ///     A collection of configured hosts
+        /// </summary>
+        public const string RegisteredHosts = @"G2S.RegisteredHosts";
     }
 }

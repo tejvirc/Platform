@@ -9,7 +9,7 @@
 
     public class BillsMetersPageLoader : OperatorMenuPageLoader
     {
-        public override string PageName => Localizer.For(CultureFor.Player).GetString(ResourceKeys.MetersBills);
+        public override string PageName => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MetersBills);
 
         protected override IOperatorMenuPage CreatePage()
         {

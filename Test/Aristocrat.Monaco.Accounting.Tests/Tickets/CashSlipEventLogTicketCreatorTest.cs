@@ -6,9 +6,10 @@
     using System.Linq;
     using Accounting.Tickets;
     using Application.Contracts;
-    using Application.Contracts.Extensions;
     using Application.Contracts.Currency;
+    using Application.Contracts.Extensions;
     using Contracts.Tickets;
+    using Hardware.Contracts;
     using Hardware.Contracts.IO;
     using Hardware.Contracts.Printer;
     using Hardware.Contracts.SerialPorts;
@@ -40,6 +41,7 @@
         private CashSlipEventLogTicketCreator _target;
         private Mock<ITime> _time;
         private Mock<IIO> _iio;
+        private Mock<IOSService> _os;
 
         /// <summary>
         ///     Initializes class members and prepares for execution of a TestMethod.
@@ -54,6 +56,8 @@
             _time = MoqServiceManager.CreateAndAddService<ITime>(MockBehavior.Strict, true);
             _time.Setup(mock => mock.GetLocationTime(It.IsAny<DateTime>())).Returns(PrintTimestamp);
             _iio = MoqServiceManager.CreateAndAddService<IIO>(MockBehavior.Loose);
+            _os = MoqServiceManager.CreateAndAddService<IOSService>(MockBehavior.Strict);
+            _os.Setup(mock => mock.OsImageVersion).Returns(new Version());
 
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.AuditTicketEventsPerPage, 6))
                 .Returns(6)
@@ -66,6 +70,9 @@
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.LocalizationOperatorTicketDateFormat, ApplicationConstants.DefaultDateFormat))
                 .Returns(ApplicationConstants.DefaultDateFormat)
                 .Verifiable();
+
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.LocalizationOperatorTicketLanguageSettingOperatorOverride, It.IsAny<object>()))
+                .Returns(false);
 
             _target = new CashSlipEventLogTicketCreator();
 
@@ -155,6 +162,9 @@
 
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.ConfigWizardIdentityPageZoneOverride, It.IsAny<IdentityFieldOverride>()))
                 .Returns((IdentityFieldOverride)null);
+
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.LocalizationOperatorTicketLanguageSettingOperatorOverride, It.IsAny<object>()))
+                .Returns(false);
 
             var serialService = new Mock<ISerialPortsService>();
             _iio.Setup(i => i.DeviceConfiguration).Returns(new Device(serialService.Object) { Manufacturer = "Manufacturer", Model = "Model" });

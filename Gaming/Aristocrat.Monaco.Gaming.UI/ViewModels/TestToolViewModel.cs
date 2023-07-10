@@ -16,11 +16,14 @@
     using Contracts.Lobby;
     using Hardware.Contracts.Bell;
     using Hardware.Contracts.CardReader;
+    using Hardware.Contracts.Communicator;
     using Hardware.Contracts.Gds;
     using Hardware.Contracts.Gds.NoteAcceptor;
     using Hardware.Contracts.IO;
     using Hardware.Contracts.NoteAcceptor;
     using Hardware.Contracts.Persistence;
+    using Hardware.Contracts.Reel;
+    using Hardware.Contracts.Reel.Events;
     using Hardware.Contracts.TowerLight;
     using Kernel;
     using Monaco.UI.Common.Controls;
@@ -38,7 +41,7 @@
     /// </summary>
     public class TestToolViewModel : BaseEntityViewModel
     {
-        // List of supported currencies and their respective eNums can be found here: https://svn.ali.global/WinnersWorldStudio/tools/CSU
+        // List of supported currencies and their respective enums can be found here: https://svn.ali.global/WinnersWorldStudio/tools/CSU
         private enum LocationCode : uint
         {
             Usa = 1,
@@ -205,23 +208,28 @@
         private string _cardStatusText = "Card Removed";
         private bool _noteAcceptorEnabled;
 
+        private bool _relmTabVisible;
+        private SortedSet<int> _relmReelIndexes = new();
+        private int _selectedRelmReel;
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="TestToolViewModel" /> class.
         /// </summary>
         public TestToolViewModel()
         {
-            _properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
-            _eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
+            var serviceMan = ServiceManager.GetInstance();
+            _properties = serviceMan.GetService<IPropertiesManager>();
+            _eventBus = serviceMan.GetService<IEventBus>();
             _config = (LobbyConfiguration)_properties.GetProperty(GamingConstants.LobbyConfig, null);
             _responsibleGamingMode = _config?.ResponsibleGamingMode ?? ResponsibleGamingMode.Segmented;
 
-            var containerService = ServiceManager.GetInstance().TryGetService<IContainerService>();
+            var containerService = serviceMan.TryGetService<IContainerService>();
             if (null != containerService)
             {
                 _platformMessageBroadcaster = containerService.Container.GetInstance<IMessageDisplayHandler>();
             }
 
-            _towerLight = ServiceManager.GetInstance().TryGetService<ITowerLight>();
+            _towerLight = serviceMan.TryGetService<ITowerLight>();
 
             TimeLimit5Visible = _responsibleGamingMode == ResponsibleGamingMode.Continuous;
 
@@ -243,7 +251,6 @@
             AddPlatformMessageCommand = new ActionCommand<object>(AddPlatformMessage, CanUpdatePlatformMessage);
             RemovePlatformMessageCommand = new ActionCommand<object>(RemovePlatformMessage, CanUpdatePlatformMessage);
             ClearAllPlatformMessagesCommand = new ActionCommand<object>(ClearAllPlatformMessages, CanUpdatePlatformMessage);
-
 
             SetLargeWinLimitCommand = new ActionCommand<object>(OverrideLargeWinLimit);
 
@@ -279,14 +286,14 @@
                 DisplayableMessageClassification.SoftError,
                 DisplayableMessagePriority.Immediate);
 
-            NoteAcceptorEnabled = ServiceManager.GetInstance().TryGetService<INoteAcceptor>()?.Enabled ?? false;
+            NoteAcceptorEnabled = serviceMan.TryGetService<INoteAcceptor>()?.Enabled ?? false;
             _eventBus.Subscribe<EnabledEvent>(this, _ => NoteAcceptorEnabled = true);
             _eventBus.Subscribe<DisabledEvent>(this, _ => NoteAcceptorEnabled = false);
             _eventBus.Subscribe<TowerLightOffEvent>(this, evt => HandleTowerLightEvent(evt.LightTier, false, evt.FlashState));
             _eventBus.Subscribe<TowerLightOnEvent>(this, evt => HandleTowerLightEvent(evt.LightTier, true, evt.FlashState));
             _eventBus.Subscribe<PrintFakeTicketEvent>(this, HandlePrintFakeTicketEvent);
 
-            var bell = ServiceManager.GetInstance().TryGetService<IBell>();
+            var bell = serviceMan.TryGetService<IBell>();
             if (bell != null)
             {
                 var animation = new ColorAnimationUsingKeyFrames { RepeatBehavior = RepeatBehavior.Forever };
@@ -296,6 +303,40 @@
 
                 _eventBus.Subscribe<RingStartedEvent>(this, _ => BellColor = _bellBrushRinging);
                 _eventBus.Subscribe<RingStoppedEvent>(this, _ => BellColor = _bellBrushSilent);
+            }
+
+            var controller = serviceMan.TryGetService<IReelController>();
+            RelmTabVisible = controller?.DeviceConfiguration.Protocol == "FakeRelm";
+            if (RelmTabVisible)
+            {
+                foreach (var idx in controller!.ReelStates.Keys)
+                {
+                    RelmReelIndexes.Add(idx);
+                }
+
+                RelmReelTamperCommand = new ActionCommand<object>(_ => HandleRelmReelTest(new ReelStatus { ReelTampered = true, Connected = true }));
+                RelmReelStallCommand = new ActionCommand<object>(_ => HandleRelmReelTest(new ReelStatus { ReelStall = true, Connected = true }));
+                RelmReelIdleUnknownCommand = new ActionCommand<object>(_ => HandleRelmReelTest(new ReelStatus { IdleUnknown = true, Connected = true }));
+                RelmReelUnknownStopCommand = new ActionCommand<object>(_ => HandleRelmReelTest(new ReelStatus { UnknownStop = true, Connected = true }));
+                RelmReelOpticSequenceErrorCommand = new ActionCommand<object>(_ => HandleRelmReelTest(new ReelStatus { OpticSequenceError = true, Connected = true }));
+                RelmReelDisconnectReelCommand = new ActionCommand<object>(_ => HandleRelmReelTest(new ReelStatus { Connected = false }));
+                RelmReelEventQueueFullCommand = new ActionCommand<object>(_ => _eventBus.Publish(new TestToolRelmReelErrorEvent { IsEventQueueFull = true }));
+                RelmReelLightFailureCommand = new ActionCommand<object>(_ => _eventBus.Publish(new TestToolRelmReelErrorEvent { LightStatus = new LightStatus(1, true) }));
+                RelmReelPingTimeoutCommand = new ActionCommand<object>(_ => _eventBus.Publish(new TestToolRelmReelErrorEvent { PingTimeout = true }));
+                RelmReelClearPingTimeoutCommand = new ActionCommand<object>(_ => _eventBus.Publish(new TestToolRelmReelErrorEvent { ClearPingTimeout = true }));
+                RelmReelClearErrorsCommand = new ActionCommand<object>(_ =>
+                {
+                    var evt = new TestToolRelmReelErrorEvent
+                    {
+                        LightStatus = new LightStatus(1, false),
+                        ReelStatus = new ReelStatus()
+                        {
+                            ReelId = SelectedRelmReel,
+                            Connected = true
+                        }
+                    };
+                    _eventBus.Publish(evt);
+                });
             }
         }
 
@@ -457,8 +498,19 @@
         public ICommand SetTowerLightFlashStateCommand { get; }
 
         public ICommand InsertCardCommand { get; }
-
         public ICommand RemoveCardCommand { get; }
+
+        public ICommand RelmReelTamperCommand { get; }
+        public ICommand RelmReelStallCommand { get; set; }
+        public ICommand RelmReelIdleUnknownCommand { get; set; }
+        public ICommand RelmReelUnknownStopCommand { get; set; }
+        public ICommand RelmReelOpticSequenceErrorCommand { get; set; }
+        public ICommand RelmReelDisconnectReelCommand { get; set; }
+        public ICommand RelmReelEventQueueFullCommand { get; set; }
+        public ICommand RelmReelLightFailureCommand { get; set; }
+        public ICommand RelmReelClearErrorsCommand { get; set; }
+        public ICommand RelmReelPingTimeoutCommand { get; set; }
+        public ICommand RelmReelClearPingTimeoutCommand { get; set; }
 
         public string LargeWinLimit
         {
@@ -1211,7 +1263,7 @@
             }
         }
 
-        public Dictionary<string, TrackData> MagneticCards { get; } = new Dictionary<string, TrackData>
+        public Dictionary<string, TrackData> MagneticCards { get; } = new()
         {
             { "NYL Technician Employee 123", new TrackData {Track1 = "EMP123"} },
             { "NYL Operator Employee 321", new TrackData {Track1 = "EMP321"} },
@@ -1261,6 +1313,43 @@
                 RaisePropertyChanged(nameof(CardStatusText));
             }
         }
+
+        public bool RelmTabVisible
+        {
+            get => _relmTabVisible;
+            set
+            {
+                _relmTabVisible = value;
+                RaisePropertyChanged(nameof(RelmTabVisible));
+            }
+        }
+
+        public SortedSet<int> RelmReelIndexes
+        {
+            get => _relmReelIndexes;
+            set
+            {
+                _relmReelIndexes = value;
+                RaisePropertyChanged(nameof(RelmReelIndexes));
+            }
+        }
+
+        public int SelectedRelmReel
+        {
+            get => _selectedRelmReel;
+            set
+            {
+                if (_selectedRelmReel == value)
+                {
+                    return;
+                }
+                _selectedRelmReel = value;
+                RaisePropertyChanged(nameof(SelectedRelmReel));
+                RaisePropertyChanged(nameof(RelmReelControlsEnabled));
+            }
+        }
+
+        public bool RelmReelControlsEnabled => RelmReelIndexes.Contains(SelectedRelmReel);
 
         private void OverrideLargeWinLimit(object parameter)
         {
@@ -1434,7 +1523,7 @@
 
         private bool CanSetSessionCount(object parameter)
         {
-            if (Int32.TryParse(SessionCount, out int sessionCount))
+            if (int.TryParse(SessionCount, out int sessionCount))
             {
                 return sessionCount > 0 && sessionCount <= 2;
             }
@@ -1444,7 +1533,7 @@
 
         private void SetSessionCount(object parameter)
         {
-            if (Int32.TryParse(SessionCount, out int sessionCount))
+            if (int.TryParse(SessionCount, out int sessionCount))
             {
                 _properties.SetProperty(LobbyConstants.LobbyPlayTimeSessionCountOverride, sessionCount);
                 SessionCountSet = SessionCount;
@@ -1523,8 +1612,8 @@
 
         private void ResetDefaults(object parameter)
         {
-            var timeLimits = new double[0];
-            var playBreaks = new double[0];
+            var timeLimits = Array.Empty<double>(); 
+            var playBreaks = Array.Empty<double>();
             if (_config != null)
             {
                 timeLimits = new double[_config.ResponsibleGamingTimeLimits.Length];
@@ -1818,6 +1907,12 @@
                 });
             }
 #endif
+        }
+
+        private void HandleRelmReelTest(ReelStatus status)
+        {
+            status.ReelId = SelectedRelmReel;
+            _eventBus.Publish(new TestToolRelmReelErrorEvent() { ReelStatus = status });
         }
     }
 }

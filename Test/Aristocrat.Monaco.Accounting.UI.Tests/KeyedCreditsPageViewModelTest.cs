@@ -1,13 +1,13 @@
 ﻿namespace Aristocrat.Monaco.Accounting.UI.Tests
 {
     using System;
-    using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
     using Application.Contracts;
     using Application.Contracts.Localization;
-    using Aristocrat.Monaco.Accounting.Contracts.Transactions;
+    using Application.Contracts.OperatorMenu;
     using Contracts;
+    using Contracts.Transactions;
     using Hardware.Contracts.Persistence;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -32,6 +32,7 @@
         private Mock<ITransactionHistory> _transactionHistory;
         private Guid _transactionGuid;
         private Mock<IDisposable> _disposable;
+        private Mock<IOperatorMenuConfiguration> _operatorMenuConfiguration;
 
         [TestInitialize]
         public void TestInitialize()
@@ -69,6 +70,10 @@
             _disposable = new Mock<IDisposable>(MockBehavior.Default);
             _disposable.Setup(d => d.Dispose()).Verifiable();
 
+            _operatorMenuConfiguration = MoqServiceManager.CreateAndAddService<IOperatorMenuConfiguration>(MockBehavior.Strict);
+            _operatorMenuConfiguration.Setup(o => o.GetSetting(OperatorMenuSetting.UseOperatorCultureForCurrencyFormatting, false))
+                .Returns(false);
+
             _meterManager = MoqServiceManager.CreateAndAddService<IMeterManager>(MockBehavior.Loose);
             _meterManager.Setup(m => m.GetMeter(It.IsAny<string>()).Increment(It.IsAny<long>()));
             _persistentStorageManager =
@@ -78,6 +83,7 @@
             _transactionHistory.Setup(m => m.AddTransaction(It.IsAny<KeyedOnCreditsTransaction>()));
             _transactionHistory.Setup(m => m.AddTransaction(It.IsAny<KeyedOffCreditsTransaction>()));
             _target = new KeyedCreditsPageViewModel();
+            _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<OperatorCultureChangedEvent>>()));
             _eventBus.Setup(m => m.Publish(It.IsAny<KeyedCreditOnEvent>())).Verifiable();
             _eventBus.Setup(m => m.Publish(It.IsAny<KeyedCreditOffEvent>())).Verifiable();
         }

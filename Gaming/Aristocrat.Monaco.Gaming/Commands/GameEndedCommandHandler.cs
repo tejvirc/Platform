@@ -42,9 +42,10 @@
         private readonly ITransactionHistory _transactionHistory;
         private readonly IBarkeeperHandler _barkeeperHandler;
         private readonly IProgressiveGameProvider _progressiveGameProvider;
+        private readonly IBalanceUpdateService _balanceUpdateService;
 
         private readonly bool _meterFreeGames;
-        private IProgressiveLevelProvider _progressiveLevelProvider;
+        private readonly IProgressiveLevelProvider _progressiveLevelProvider;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="GameEndedCommandHandler" /> class.
@@ -62,7 +63,8 @@
             ITransactionHistory transactionHistory,
             IBarkeeperHandler barkeeperHandler,
             IProgressiveGameProvider progressiveGameProvider,
-            IProgressiveLevelProvider progressiveLevelProvider)
+            IProgressiveLevelProvider progressiveLevelProvider,
+            IBalanceUpdateService balanceUpdateService)
         {
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
             _persistentStorage = persistentStorage ?? throw new ArgumentNullException(nameof(persistentStorage));
@@ -77,6 +79,7 @@
             _barkeeperHandler = barkeeperHandler ?? throw new ArgumentNullException(nameof(barkeeperHandler));
             _progressiveGameProvider = progressiveGameProvider ?? throw new ArgumentNullException(nameof(progressiveGameProvider));
             _progressiveLevelProvider = progressiveLevelProvider ?? throw new ArgumentNullException(nameof(progressiveGameProvider));
+            _balanceUpdateService = balanceUpdateService ?? throw new ArgumentNullException(nameof(balanceUpdateService));
 
             _meterFreeGames = _properties.GetValue(GamingConstants.MeterFreeGamesIndependently, false);
         }
@@ -102,7 +105,7 @@
             Logger.Debug("PendingHandpay set to false");
             _runtime.UpdateFlag(RuntimeCondition.PendingHandpay, false);
 
-            _runtime.UpdateBalance(_bank.Credits);
+            _balanceUpdateService.UpdateBalance();
         }
 
         private void IncrementMeters()

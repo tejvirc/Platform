@@ -154,7 +154,7 @@
             _disableManager.Disable(
                 ApplicationConstants.MonitorVerifyingDisableKey,
                 SystemDisablePriority.Immediate,
-                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VerifyingCRCSignaturesLockupText));
+                () => Localizer.ForLockup().GetString(ResourceKeys.VerifyingCRCSignaturesLockupText));
             _currentDeviceToCrcMap.Clear();
             foreach (var i in DeviceBlockPosition)
             {
@@ -213,7 +213,7 @@
             _disableManager.Disable(
                 ApplicationConstants.MonitorSignatureMismatchDisableKey,
                 SystemDisablePriority.Immediate,
-                () => Localizer.For(CultureFor.Operator).FormatString(
+                () => Localizer.ForLockup().FormatString(
                     ResourceKeys.DeviceSignatureMismatchText,
                     disableMessageSuffix));
         }
