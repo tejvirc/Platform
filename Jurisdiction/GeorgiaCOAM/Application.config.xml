@@ -92,6 +92,7 @@ as follows:
     <string>SoftwareChange</string>
     <string>Progressive</string>
     <string>HardMeterOut</string>
+    <string>DocumentReject</string>
   </LogTypesAllowedForDisplay>
   <MultiGame DefaultBetAfterSwitch="false" />
   <ReserveService Allowed="false"/>

@@ -100,6 +100,7 @@ as follows:
     <string>GPU</string>
     <string>SoftwareChange</string>
     <string>Progressive</string>
+    <string>DocumentReject</string>
   </LogTypesAllowedForDisplay>
     <!-- Nanoptix for France can print maximum of 25 lines per ticket-->
   <AuditTicket PrinterProtocol="Nanoptix TCL" LineLimit="25" EventsPerPage="4"/>

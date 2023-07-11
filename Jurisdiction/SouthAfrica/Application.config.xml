@@ -93,6 +93,7 @@ as follows:
     <string>GPU</string>
     <string>SoftwareChange</string>
     <string>Progressive</string>
+    <string>DocumentReject</string>
   </LogTypesAllowedForDisplay>
   <SecondaryStorageMedia Required="true" />
 </ApplicationConfiguration>

@@ -17,6 +17,7 @@ as follows:
     <EventType Type="General" Combined="Error" />
     <EventType Type="Power" Combined="Error" />
     <EventType Type="GameConfigurationChange" Combined="Error" />
+    <EventType Type="DocumentReject" Combined="Error" />
     <EventType Type="GPU" Max="20" />
     <EventType Type="SoftwareChange" Max="20" />
     <EventType Type="Hash" Max="100" />
@@ -121,7 +122,7 @@ as follows:
     <EventDescription Name="Aristocrat.Monaco.Sas.Contracts.Events.HostOnlineEvent, Aristocrat.Monaco.Sas.Contracts" Level="error" Type="Comms" />
     <EventDescription Name="Aristocrat.Monaco.Application.Contracts.Authentication.ComponentHashErrorEvent, Monaco.Application.Contracts" Level="error" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Application.Contracts.ReadOnlyMediaErrorEvent, Monaco.Application.Contracts" Level="error" Type="Error" />
-	<EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.DocumentRejectedEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
+	<EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.DocumentRejectedEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="DocumentReject" />
     <EventDescription Name="Aristocrat.Monaco.Accounting.Contracts.ExcessiveDocumentRejectedEvent, Monaco.Accounting.Contracts" Level="tilt" Type="General" />
   </ArrayOfEventDescription>
 </TiltLoggerConfiguration>

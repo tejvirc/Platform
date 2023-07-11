@@ -73,6 +73,7 @@ as follows:
     <string>VoucherOut</string>
     <string>Door</string>
     <string>Protocol</string>
+    <string>DocumentReject</string>
   </LogTypesAllowedForDisplay>
   <Cashout ClearWins="false" />
   <MultiGame RestoreRebootStateAfterSwitch="false" StateStorageLocation="game" />

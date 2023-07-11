@@ -95,6 +95,7 @@ as follows:
     <string>Progressive</string>
     <string>KeyedOnCredits</string>
     <string>KeyedOffCredits</string>
+    <string>DocumentReject</string>
   </LogTypesAllowedForDisplay>
   <SecondaryStorageMedia Required="true" />
 </ApplicationConfiguration>

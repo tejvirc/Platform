@@ -91,6 +91,7 @@ as follows:
     <string>GPU</string>
     <string>SoftwareChange</string>
     <string>Progressive</string>
+    <string>DocumentReject</string>
   </LogTypesAllowedForDisplay>
   <Clock Enabled="true" Format="24" />
 </ApplicationConfiguration>

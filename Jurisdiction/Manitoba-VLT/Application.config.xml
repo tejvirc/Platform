@@ -77,6 +77,7 @@ as follows:
     <string>GPU</string>
     <string>SoftwareChange</string>
     <string>Progressive</string>
+    <string>DocumentReject</string>
   </LogTypesAllowedForDisplay>
   <Cashout ClearWins="false" />
   <MultiGame DefaultBetAfterSwitch="false" RestoreRebootStateAfterSwitch="false" StateStorageLocation="game" />

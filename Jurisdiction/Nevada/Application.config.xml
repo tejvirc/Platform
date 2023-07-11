@@ -91,6 +91,7 @@ as follows:
     <string>GPU</string>
     <string>SoftwareChange</string>
     <string>Progressive</string>
+    <string>DocumentReject</string>
   </LogTypesAllowedForDisplay>
   <MultiGame DefaultBetAfterSwitch="false" />
 </ApplicationConfiguration>

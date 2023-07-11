@@ -8996,6 +8996,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Document Reject.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string DocumentReject {
+			get {
+				return ResourceManager.GetString("DocumentReject", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Bill or Voucher Rejected.
 		/// </summary>
         /// <remarks>

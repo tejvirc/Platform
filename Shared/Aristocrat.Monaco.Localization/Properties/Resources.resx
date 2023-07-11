@@ -12286,4 +12286,8 @@ Do you really want to do full reset?</value>
   <data name="GamesPlayedSinceReboot" xml:space="preserve">
     <value>Games Played since Reboot</value>
   </data>
+  <data name="DocumentReject" xml:space="preserve">
+    <value>Document Reject</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
 </root>
