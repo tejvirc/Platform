@@ -187,6 +187,12 @@
                 case "PKG_BACKGROUNDPREVIEW":
                     gfxType = GraphicType.BackgroundPreview;
                     break;
+                case "PKG_DENOMBUTTON":
+                    gfxType = GraphicType.DenomButton;
+                    break;
+                case "PKG_DENOMPANEL":
+                    gfxType = GraphicType.DenomPanel;
+                    break;
                 default:
                     gfxType = GraphicType.Icon;
                     break;
@@ -210,10 +216,10 @@
         private static ImageEncodingType MapEncodingType(string value)
         {
             return (from ImageEncodingType type in Enum.GetValues(typeof(ImageEncodingType))
-                let converted = type.ToString()
-                where
-                    converted.Equals(value.Replace(@"PKG_", string.Empty), StringComparison.InvariantCultureIgnoreCase)
-                select type).FirstOrDefault();
+                    let converted = type.ToString()
+                    where
+                        converted.Equals(value.Replace(@"PKG_", string.Empty), StringComparison.InvariantCultureIgnoreCase)
+                    select type).FirstOrDefault();
         }
 
         private static WagerCategory Map(c_wagerCategoryItem wagerCategory)
@@ -337,7 +343,7 @@
                 MaxPaybackPercent = gameConfiguration.maxPaybackPct,
                 MinPaybackPercent = gameConfiguration.minPaybackPct,
                 MinDenomsEnabled = gameConfiguration.minDenomsEnabled,
-                MaxDenomsEnabled = gameConfiguration.maxDenomsEnabledSpecified ? gameConfiguration.maxDenomsEnabled : (int?) null,
+                MaxDenomsEnabled = gameConfiguration.maxDenomsEnabledSpecified ? gameConfiguration.maxDenomsEnabled : (int?)null,
                 Editable = gameConfiguration.editable,
                 ConfigurationMapping = gameConfiguration.configurationMapList?.Select(Map).ToList() ?? new List<GameConfigurationMap>()
             };

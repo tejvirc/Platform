@@ -4,16 +4,18 @@
     using System.Globalization;
     using System.Windows;
     using System.Windows.Data;
-    using Contracts.Models;
     using ViewModels;
 
     public class GameTabMarginConverter : IValueConverter
     {
+        private const int GameTabIndex0 = 0;
+        private const int GameTabIndex1 = 1;
         private const int GameTabIndex2 = 2;
         private const int GameTabIndex3 = 3;
         private const int GameTabIndex4 = 4;
-        private const int GameTabIndex2LeftMargin = 4;
-        private const int GameTabIndex3And4LeftMargin = 10;
+        private const int GameTabIndex5 = 5;
+
+        private readonly Thickness _defaultMargin = new Thickness(15, 0, 15, 0);
 
         /// <summary>
         ///     Covert a parameter to form the margin for the game tile
@@ -27,30 +29,31 @@
         {
             if (value == null)
             {
-                return new Thickness();
+                return _defaultMargin;
             }
 
-            var gameTabInfo = (GameTabInfo)value; // Game category
+            var gameTabInfo = (GameTabInfo)value;
 
-            double left = 0;
-            // It looks like only Table Games image is not centered when it appears on tab 3/4/5. It could be 
-            // those tab images have slight difference with others. Adding a small margin (left) to make it appearing
-            // in the center of tab.
-            if (gameTabInfo.Category == GameCategory.Table)
+            // The tabs are not sized exactly the same so we need little margin adjustments for each one
+            switch (gameTabInfo.TabIndex)
             {
-                switch (gameTabInfo.TabIndex)
-                {
-                    case GameTabIndex2:
-                        left = GameTabIndex2LeftMargin;
-                        break;
-                    case GameTabIndex3:
-                    case GameTabIndex4:
-                        left = GameTabIndex3And4LeftMargin;
-                        break;
-                }
+                case GameTabIndex0:
+                case GameTabIndex1:
+                case GameTabIndex4:
+                    return new Thickness(18, 0, 14, 0);
 
+                case GameTabIndex2:
+                    return new Thickness(20, 0, 15, 0);
+
+                case GameTabIndex3:
+                    return new Thickness(19, 0, 14, 0);
+
+                case GameTabIndex5:
+                    return new Thickness(14, 0, 21, 0);
+
+                default:
+                    return _defaultMargin;
             }
-            return new Thickness(left, 0, 0, 0);
         }
 
         /// <summary>
