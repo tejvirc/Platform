@@ -29,7 +29,7 @@
         /// <value>The data.</value>
         [FieldOrder(2)]
         [FieldLength(nameof(Length))]
-        [FieldEncoding("ASCII")]
+        [FieldEncoding("iso-8859-1")]
         public string Data { get; set; }
 
         /// <inheritdoc/>

@@ -59,8 +59,8 @@ Please update the confluence page when new elements and attributes are added.
   <Override Protocol="JCM GDS" FirmwareBase="5HQUE" UsePrinterDefinedTemplates="false" >
 
     <FontOverrides>
-      <FontOverride RegionIds="107 108 109 110 111 112 134" OriginalFontNumber="8" NewFontNumber="9"/>
-      <FontOverride RegionIds="113 116" OriginalFontNumber="7" NewFontNumber="9" />
+      <FontOverride RegionIds="107 108 109 110 111 112 134" OriginalFontNumber="008" NewFontNumber="009"/>
+      <FontOverride RegionIds="113 116" OriginalFontNumber="007" NewFontNumber="009" />
     </FontOverrides>
     
   </Override>

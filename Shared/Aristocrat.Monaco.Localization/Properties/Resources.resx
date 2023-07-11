@@ -4927,7 +4927,7 @@ Max: Should be less than the Large Win Limit</value>
     <comment>Aristocrat.Monaco.Common</comment>
   </data>
   <data name="OneCent" xml:space="preserve">
-    <value>1 ?</value>
+    <value>1 ¢</value>
     <comment>Monaco.Accounting.Contracts</comment>
   </data>
   <data name="Online" xml:space="preserve">

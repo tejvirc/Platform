@@ -502,9 +502,11 @@
 
                 string SetFontOverride()
                 {
-                    var fontOverride = printerOverride?.GetSpecificFont(item.Format.Substring(2), item.Id.ToString()) ?? string.Empty; // Format = F=XXX where "XXX" are numbers 0-9
+                    // Format -> T=XXX   where T is a letter F, G, B, L, or O and XXX is a 3-digit number. See GDS PDL documentation
+                    var originalFontNumber = item.Format.Substring(2);
+                    var fontOverride = printerOverride?.GetSpecificFont(originalFontNumber, item.Id.ToString()) ?? string.Empty;
 
-                    if (!string.IsNullOrEmpty(fontOverride) && int.TryParse(fontOverride, out int newFont))
+                    if (!string.IsNullOrEmpty(fontOverride) && short.TryParse(fontOverride, out var newFont))
                     {
                         return $"F={newFont:000}";
                     }
