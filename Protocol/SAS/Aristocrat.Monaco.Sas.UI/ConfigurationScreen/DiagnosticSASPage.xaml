@@ -169,7 +169,7 @@
                 <TabControl Background="Transparent"
                             TabStripPlacement="Top"
                             AutomationProperties.AutomationId="TabControl34_4873B111">
-                    <TabItem Header="{lex:Loc Key={x:Static loc:Resources.SasComms}}"
+                    <TabItem Header="{lex:Loc SasComms}"
                              AutomationProperties.AutomationId="TabItem35_4873B111">
                         <local:SasCommsStats />
                     </TabItem>
