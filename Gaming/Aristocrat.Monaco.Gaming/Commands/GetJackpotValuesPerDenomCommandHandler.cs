@@ -9,18 +9,18 @@
     using Contracts.Progressives;
     using Progressives;
 
-    public class GetAllEnabledJackpotValuesCommandHandler : ICommandHandler<GetAllEnabledJackpotValues>
+    public class GetJackpotValuesPerDenomCommandHandler : ICommandHandler<GetJackpotValuesPerDenom>
     {
 
         private readonly IProgressiveLevelProvider _progressiveLevelProvider;
         private readonly IGameProvider _gameProvider;
-        public GetAllEnabledJackpotValuesCommandHandler(IProgressiveLevelProvider progressiveLevelProvider, IGameProvider gameProvider)
+        public GetJackpotValuesPerDenomCommandHandler(IProgressiveLevelProvider progressiveLevelProvider, IGameProvider gameProvider)
         {
             _progressiveLevelProvider = progressiveLevelProvider;
             _gameProvider = gameProvider;
         }
 
-        public void Handle(GetAllEnabledJackpotValues command)
+        public void Handle(GetJackpotValuesPerDenom command)
         {
             // Single Call, Single Game and PoolName and Denom
             // Game and PoolName and Denom -- Mandatory
@@ -32,17 +32,14 @@
             var denom = command.Denomination;
 
             var enabledGames = _gameProvider.GetEnabledGames()
-                .Where(game => game.ThemeId == gameName)
+                .Where(game => game.ThemeName == gameName) // Get Game based on Product Name
                 .Where(game => game.BetLinePresetList.Any(betLineOptions => betLineOptions.BetOption.Equals(game.ActiveBetOption) && betLineOptions.LineOption.Equals(game.ActiveLineOption)))
                 .Select(game => (game.Id, game.ActiveBetOption));
-
-            var gameBetLine = enabledGames.Select(games => games.ActiveBetOption.Name);
-            var leelLines = _progressiveLevelProvider.GetProgressiveLevels().Select(x => x.BetOption);
 
             command.JackpotValues = _progressiveLevelProvider.GetProgressiveLevels()
                 .Where(level => enabledGames.Select(games => games.Id).Contains(level.GameId))
                 .Where(level => level.Denomination.Contains((long)denom))
-                .Where(level => level.HasAssociatedBetLinePreset ? enabledGames.Select(games => games.ActiveBetOption.Name).Contains(level.BetOption) : true)
+                .Where(level => !level.HasAssociatedBetLinePreset || enabledGames.Select(games => games.ActiveBetOption.Name).Contains(level.BetOption))
                 .Where(level => level.ProgressivePackName.Equals(poolName))
 
                 .ToDictionary(levels => levels.LevelId, levels => levels.CurrentValue);

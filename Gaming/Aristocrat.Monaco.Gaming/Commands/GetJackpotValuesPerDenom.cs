@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public class GetAllEnabledJackpotValues
+    public class GetJackpotValuesPerDenom
     {
         public string GameName { get; }
         public string PoolName { get; }
@@ -10,7 +10,7 @@
 
         public Dictionary<int, long> JackpotValues { get; set; }
 
-        public GetAllEnabledJackpotValues(string gameName, string poolName, ulong denomination)
+        public GetJackpotValuesPerDenom(string gameName, string poolName, ulong denomination)
         {
             GameName = gameName;
             PoolName = poolName;

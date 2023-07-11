@@ -683,9 +683,9 @@
 
         public override LevelInfoResponse GetJackpotValuesPerDenom(GetJackpotValuesPerDenomRequest request)
         {
-            var command = new GetAllEnabledJackpotValues(request.GameName, request.PackName, request.Denomination);
+            var command = new GetJackpotValuesPerDenom(request.GameName, request.PackName, request.Denomination);
             // Add Jackpot Values and Extract into LevelInfoResponse
-            _handlerFactory.Create<GetAllEnabledJackpotValues>().Handle(command);
+            _handlerFactory.Create<GetJackpotValuesPerDenom>().Handle(command);
 
             var response = new LevelInfoResponse();
 
