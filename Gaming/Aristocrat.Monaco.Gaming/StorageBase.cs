@@ -13,9 +13,9 @@
 
     public abstract class StorageBase
     {
-        private const string StorageSuffix = "@Game:";
-        private const string GameNameSuffix = "@Name:";
-        private const string BetLevelNameSuffix = "@BetLevel:";
+        private const string StorageSuffix = "Game:";
+        private const string GameNameSuffix = "Name:";
+        private const string BetLevelNameSuffix = "AtBetLevel:";
         private const string ExtraKeySuffix = "@Key:";
 
         private const string Data = "Data";
@@ -212,8 +212,6 @@
             return values;
         }
 
-
-
         internal IPersistentStorageAccessor GetBlock(int gameId, string storageName)
         {
             var blockName = GetStorageName(gameId, storageName);
@@ -347,12 +345,9 @@
             return $"{GetStorageName(gameId, storageName)}{storageName}{BetLevelNameSuffix}{betAmount}";
         }
 
-
         private static string GetStorageName(int gameId, long betAmount, string storageName, string keyName)
         {
             return $"{GetStorageName(gameId, betAmount, storageName)}{ExtraKeySuffix}{keyName}";
         }
-
-
     }
 }

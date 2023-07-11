@@ -34,7 +34,6 @@
         /// <returns>The value associated with the provided name</returns>
         T GetValue<T>(int gameId, long betAmount, string name);
 
-
         /// <summary>
         ///     Gets the value stored for the specified game combo (id, denom) and additional keyName identifier
         /// </summary>
@@ -109,7 +108,6 @@
         /// <returns>true if successful</returns>
         bool TryGetValues<T>(int gameId, long betAmount, string name, string keyName, out IEnumerable<T> values);
 
-
         /// <summary>
         ///     Sets the value stored for the specified game combo (id and denom)
         /// </summary>
@@ -157,7 +155,6 @@
         /// <param name="value">The value to save</param>
         void SetValue<T>(int gameId, long betAmount, string name, string keyName, T value);
 
-
         /// <summary>
         ///    Clears all values having a keyName given the particular storageName
         /// </summary>
@@ -184,9 +181,8 @@
         /// <summary>
         ///     Returns the keys which are available for the given combination
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="name">The value name</param>
         /// <returns>Returns a collection of stored key values</returns>
         Dictionary<string, string> GetKeyNameAndValues(string name);
-
     }
 }
