@@ -363,7 +363,20 @@
             if (disposing)
             {
                 _bus.UnsubscribeAll(this);
-                ClosePersistentConnection();
+                //Copy ClosePersistentConnection() here to satisfy SonarQube
+                if (_connection != null)
+                {
+                    lock (_sync)
+                    {
+                        // Use double check locking pattern to avoid unnecessary locks
+                        if (_connection != null)
+                        {
+                            _connection.Close();
+                            _connection.Dispose();
+                            _connection = null;
+                        }
+                    }
+                }
             }
 
             _disposed = true;

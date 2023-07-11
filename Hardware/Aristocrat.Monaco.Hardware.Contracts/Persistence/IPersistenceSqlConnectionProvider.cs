@@ -3,12 +3,12 @@
     using System.Data.SQLite;
 
     /// <summary>
-    /// Sql Connection provider
+    ///     Sql Connection provider
     /// </summary>
     public interface IPersistenceSqlConnectionProvider
     {
         /// <summary>
-        /// Creates the connection to the database.
+        ///     Creates the connection to the database.
         /// </summary>
         /// <returns></returns>
         public SQLiteConnection CreateConnection();
