@@ -1,0 +1,2 @@
+# Don't commit the configurations since they should be sourced from the configuation manager tool
+**/*

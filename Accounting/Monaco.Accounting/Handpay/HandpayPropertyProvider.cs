@@ -9,6 +9,8 @@
     using Contracts.Handpay;
     using Hardware.Contracts.Persistence;
     using Kernel;
+    using Kernel.MarketConfig;
+    using Kernel.MarketConfig.Accounting;
     using log4net;
 
     public class HandpayPropertyProvider : IPropertyProvider
@@ -23,14 +25,31 @@
 
         public HandpayPropertyProvider()
         {
+            var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+
+#if USE_MARKET_CONFIG // Use a compile time flag to allow switching the configuration source from the Jurisdiction addins to the config tool
+            Logger.Debug("Prefer JSON config is enabled, using config export");
+
+            var marketConfigManager = ServiceManager.GetInstance().GetService<IMarketConfigManager>();
+
+            // Get the current jurisdiction installation id that was selected
+            var jurisdictionInstallationId = propertiesManager.GetValue(
+                ApplicationConstants.JurisdictionKey, string.Empty);
+
+            // Use the MarketConfigManager to get the accounting configuration
+            // TODO should this use the same defaultOnError behavior as ConfigManager?
+            var configuration = marketConfigManager.GetMarketConfiguration<AccountingConfigSegment>(
+                jurisdictionInstallationId);
+#else
+            Logger.Debug("Prefer JSON config is disabled, using Addins config");
             var configuration = ConfigurationUtilities.GetConfiguration(
                ConfigurationExtensionPath,
                () => new AccountingConfiguration
                {
                    Handpay = new AccountingConfigurationHandpay()
                }) ;
+#endif
             var storageManager = ServiceManager.GetInstance().GetService<IPersistentStorageManager>();
-
 
             var storageName = GetType().ToString();
 
@@ -43,6 +62,33 @@
             // The Tuple is structured as value (Item1) and storageKey (Item2)
             _properties = new Dictionary<string, Tuple<object, bool>>
             {
+#if USE_MARKET_CONFIG
+                {
+                    AccountingConstants.RemoteHandpayResetConfigurable,
+                    Tuple.Create((object)configuration.Handpay.RemoteHandpayResetConfigurable, false)
+                },
+                {
+                    AccountingConstants.EditableReceipts,
+                    Tuple.Create((object)configuration.Handpay.PrintHandpayReceiptEditable, false)
+                },
+                {
+                    AccountingConstants.LargeWinTransactionName,
+                    Tuple.Create((object)configuration.LargeWinLimit.OverrideTransactionName, false)
+                },
+#else
+                {
+                    AccountingConstants.RemoteHandpayResetConfigurable,
+                    Tuple.Create((object)configuration.Handpay?.RemoteHandpayReset?.Configurable ?? false, false)
+                },
+                {
+                    AccountingConstants.EditableReceipts,
+                    Tuple.Create((object)configuration.Handpay?.PrintHandpayReceipt?.Editable ?? true, false)
+                },
+                {
+                    AccountingConstants.LargeWinTransactionName,
+                    Tuple.Create((object)configuration.WinLimits?.LargeWinLimit?.OverrideTransactionName ?? true, false)
+                },
+#endif
                 {
                     AccountingConstants.EnabledLocalHandpay,
                     Tuple.Create(InitFromStorage(AccountingConstants.EnabledLocalHandpay), true)
@@ -157,20 +203,8 @@
                     Tuple.Create(InitFromStorage(AccountingConstants.RemoteHandpayResetAllowed), true)
                 },
                 {
-                    AccountingConstants.RemoteHandpayResetConfigurable,
-                    Tuple.Create((object)configuration.Handpay?.RemoteHandpayReset?.Configurable ?? false, false)
-                },
-                {
-                    AccountingConstants.EditableReceipts,
-                    Tuple.Create((object)configuration.Handpay?.PrintHandpayReceipt?.Editable ?? true, false)
-                },
-                {
                     AccountingConstants.HandpayPendingExitEnabled,
                     Tuple.Create((object)configuration.Handpay?.HandpayPendingExitEnabled ?? false, false)
-                },
-                {
-                    AccountingConstants.LargeWinTransactionName,
-                    Tuple.Create((object)configuration.WinLimits?.LargeWinLimit?.OverrideTransactionName ?? true, false)
                 },
                 {
                     AccountingConstants.CanKeyOffWhileInLockUp,
@@ -179,33 +213,42 @@
                 {
                     AccountingConstants.HandpayReceiptsRequired,
                     Tuple.Create((object)configuration.Handpay?.HandpayReceiptsRequired ?? false, false)
-
                 }
             };
 
             if (!blockExists)
             {
-                var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
                 var machineSettingsImported = propertiesManager.GetValue(ApplicationConstants.MachineSettingsImported, ImportMachineSettings.None);
 
                 if (machineSettingsImported == ImportMachineSettings.None)
                 {
-                    SetProperty(AccountingConstants.EnabledLocalHandpay, true);
-                    SetProperty(AccountingConstants.EnabledLocalCredit, true);
-                    SetProperty(AccountingConstants.EnabledLocalVoucher, true);
-                    SetProperty(AccountingConstants.EnabledLocalWat, true);
                     var printerEnabled = propertiesManager.GetValue(ApplicationConstants.PrinterEnabled, false);
+#if USE_MARKET_CONFIG
+                    SetProperty(
+                        AccountingConstants.EnableReceipts,
+                        printerEnabled && (configuration.Handpay.PrintHandpayReceiptEnabled));
+                    SetProperty(AccountingConstants.AllowGameWinReceipts, configuration.Handpay.AllowGameWinReceiptEnabled);
+                    SetProperty(AccountingConstants.RemoteHandpayResetAllowed, configuration.Handpay.RemoteHandpayResetAllowed);
+                    SetProperty(AccountingConstants.RemoteHandpayResetConfigurable, configuration.Handpay.RemoteHandpayResetConfigurable);
+                    SetProperty(AccountingConstants.LargeWinTransactionName, configuration.LargeWinLimit.OverrideTransactionName);
+                    SetProperty(AccountingConstants.CanKeyOffWhileInLockUp, configuration.Handpay.CanKeyOffWhileInLockUp);
+#else
                     SetProperty(
                         AccountingConstants.EnableReceipts,
                         printerEnabled && (configuration.Handpay?.PrintHandpayReceipt?.Enabled ?? false));
                     SetProperty(AccountingConstants.AllowGameWinReceipts, configuration.Handpay?.AllowGameWinReceipt?.Enabled ?? true);
-                    SetProperty(AccountingConstants.DisabledLocalHandpay, true);
-                    SetProperty(AccountingConstants.ValidateHandpays, true);
-                    SetProperty(AccountingConstants.LocalKeyOff, LocalKeyOff.AnyKeyOff);
                     SetProperty(AccountingConstants.RemoteHandpayResetAllowed, configuration.Handpay?.RemoteHandpayReset?.Allowed ?? true);
                     SetProperty(AccountingConstants.RemoteHandpayResetConfigurable, configuration.Handpay?.RemoteHandpayReset?.Configurable ?? true);
                     SetProperty(AccountingConstants.LargeWinTransactionName, configuration.WinLimits?.LargeWinLimit?.OverrideTransactionName ?? true);
                     SetProperty(AccountingConstants.CanKeyOffWhileInLockUp, configuration.Handpay?.CanKeyOffWhileInLockUp ?? true);
+#endif
+                    SetProperty(AccountingConstants.EnabledLocalHandpay, true);
+                    SetProperty(AccountingConstants.EnabledLocalCredit, true);
+                    SetProperty(AccountingConstants.EnabledLocalVoucher, true);
+                    SetProperty(AccountingConstants.EnabledLocalWat, true);
+                    SetProperty(AccountingConstants.DisabledLocalHandpay, true);
+                    SetProperty(AccountingConstants.ValidateHandpays, true);
+                    SetProperty(AccountingConstants.LocalKeyOff, LocalKeyOff.AnyKeyOff);
                     // These properties, if later set, will override the values defined in the current PlayerTicket culture when printing the respective ticket
                     SetProperty(AccountingConstants.TitleJackpotReceipt, string.Empty);
                     SetProperty(AccountingConstants.TitleCancelReceipt, string.Empty);
@@ -214,6 +257,13 @@
                 {
                     // The following settings were imported and set to the default property provider since the handpay property provider was not yet loaded
                     // at the time of import, so we set each to their imported values here.
+#if USE_MARKET_CONFIG
+                    SetProperty(AccountingConstants.LargeWinTransactionName, propertiesManager.GetValue(AccountingConstants.LargeWinTransactionName, configuration.LargeWinLimit.OverrideTransactionName));
+                    SetProperty(AccountingConstants.AllowGameWinReceipts, propertiesManager.GetValue(AccountingConstants.AllowGameWinReceipts, configuration.Handpay.AllowGameWinReceiptEnabled));
+#else
+                    SetProperty(AccountingConstants.LargeWinTransactionName, propertiesManager.GetValue(AccountingConstants.LargeWinTransactionName, configuration.WinLimits?.LargeWinLimit?.OverrideTransactionName ?? true));
+                    SetProperty(AccountingConstants.AllowGameWinReceipts, propertiesManager.GetValue(AccountingConstants.AllowGameWinReceipts, configuration.Handpay?.AllowGameWinReceipt?.Enabled ?? true));
+#endif
                     SetProperty(AccountingConstants.CombineCashableOut, propertiesManager.GetValue(AccountingConstants.CombineCashableOut, false));
                     SetProperty(AccountingConstants.DisabledLocalCredit, propertiesManager.GetValue(AccountingConstants.DisabledLocalCredit, false));
                     SetProperty(AccountingConstants.DisabledLocalHandpay, propertiesManager.GetValue(AccountingConstants.DisabledLocalHandpay, false));
@@ -240,11 +290,9 @@
                     SetProperty(AccountingConstants.TitleCancelReceipt, propertiesManager.GetValue(AccountingConstants.TitleCancelReceipt, string.Empty));
                     SetProperty(AccountingConstants.TitleJackpotReceipt, propertiesManager.GetValue(AccountingConstants.TitleJackpotReceipt, string.Empty));
                     SetProperty(AccountingConstants.UsePlayerIdReader, propertiesManager.GetValue(AccountingConstants.UsePlayerIdReader, false));
-                    SetProperty(AccountingConstants.LargeWinTransactionName, propertiesManager.GetValue(AccountingConstants.LargeWinTransactionName, configuration.WinLimits?.LargeWinLimit?.OverrideTransactionName ?? true));
                     SetProperty(AccountingConstants.CanKeyOffWhileInLockUp, propertiesManager.GetValue(AccountingConstants.CanKeyOffWhileInLockUp, configuration.Handpay?.CanKeyOffWhileInLockUp ?? true));
                     SetProperty(AccountingConstants.ValidateHandpays, propertiesManager.GetValue(AccountingConstants.ValidateHandpays, false));
                     SetProperty(AccountingConstants.RemoteHandpayResetAllowed, propertiesManager.GetValue(AccountingConstants.RemoteHandpayResetAllowed, true));
-                    SetProperty(AccountingConstants.AllowGameWinReceipts, propertiesManager.GetValue(AccountingConstants.AllowGameWinReceipts, configuration.Handpay?.AllowGameWinReceipt?.Enabled ?? true));
 
                     machineSettingsImported |= ImportMachineSettings.HandpayPropertiesLoaded;
                     propertiesManager.SetProperty(ApplicationConstants.MachineSettingsImported, machineSettingsImported);

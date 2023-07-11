@@ -74,6 +74,10 @@
     <AssemblyResolver type="Aristocrat.Monaco.Kernel.AssemblyResolver" />
   </Extension>
 
+  <Extension path="/Kernel/MarketConfigManager">
+    <MarketConfigManager type="Aristocrat.Monaco.Kernel.MarketConfigManager" />
+  </Extension>
+
   <Extension path="/Kernel/CommandLineArguments">
     <CommandLineArgument Name="debuggerAttachPoint">
       <ArgumentValue ValidValue="OnInitialConfigurationCheck" Description="Auto-attaches the debugger upon entering the initial configuration check. Useful for debugging the Configuration Wizard." />

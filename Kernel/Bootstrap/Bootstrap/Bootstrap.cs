@@ -23,6 +23,7 @@
         // The paths for addin extensions
         private const string EventBusExtensionPath = "/Kernel/EventBus";
         private const string PropertiesManagerExtensionPath = "/Kernel/PropertiesManager";
+        private const string MarketConfigManagerExtensionPath = "/Kernel/MarketConfigManager";
         private const string LocalizerExtensionPath = "/Kernel/Localizer";
         private const string SystemDisableManagerExtensionPath = "/Kernel/SystemDisableManager";
         private const string ServicesExtensionPath = "/Kernel/Services";
@@ -377,6 +378,7 @@
             LoadRequiredService("Addin Helper", AddinHelperExtensionPath);
             LoadRequiredService("Event Bus", EventBusExtensionPath);
             LoadRequiredService("Properties Manager", PropertiesManagerExtensionPath);
+            LoadRequiredService("Market Config Manager", MarketConfigManagerExtensionPath);
 
             // Set initial properties
             var propertiesManager = serviceManager.GetService<IPropertiesManager>();

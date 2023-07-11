@@ -306,6 +306,11 @@
         public const string JurisdictionsPath = "/Jurisdictions";
 
         /// <summary>
+        ///     Path Mapper path identifier for configuration data
+        /// </summary>
+        public const string MarketConfigsPath = "/MarketConfigs";
+
+        /// <summary>
         ///     Key used to get a value indicating whether e-Key smart card has been inserted and verified
         /// </summary>
         public const string EKeyVerified = "Hardware.EKeyVerified";
@@ -1384,6 +1389,11 @@
         ///     The file prefix for the jurisdiction package
         /// </summary>
         public const string JurisdictionPackagePrefix = @"ATI_Jurisdictions";
+
+        /// <summary>
+        ///     The file prefix for the configuration package
+        /// </summary>
+        public const string MarketConfigPackagePrefix = @"ATI_MarketConfigs";
 
         /// <summary>
         ///     Key to disable via reserve lockup.

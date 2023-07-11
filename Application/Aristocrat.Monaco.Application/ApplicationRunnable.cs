@@ -28,6 +28,7 @@ namespace Aristocrat.Monaco.Application
     using Kernel.Contracts.Components;
     using Kernel.Contracts.Events;
     using Kernel.Debugging;
+    using Kernel.MarketConfig;
     using log4net;
     using Monaco.Localization.Properties;
     using Mono.Addins;
@@ -103,6 +104,8 @@ namespace Aristocrat.Monaco.Application
             SubscribeToEvents();
 
             SetupJurisdiction();
+
+            SetupMarketConfigManager();
 
             Logger.Debug("Initialized");
         }
@@ -225,6 +228,65 @@ namespace Aristocrat.Monaco.Application
                 _extender.Stop();
                 _extender = null;
             }
+        }
+
+        private void SetupMarketConfigManager()
+        {
+            var marketConfigManager = ServiceManager.GetInstance().GetService<IMarketConfigManager>();
+            var configurationLinkPath = _pathMapper.GetDirectory(ApplicationConstants.MarketConfigsPath).FullName;
+
+            if (Directory.Exists(configurationLinkPath))
+            {
+                // It's already valid.
+                if (Directory.GetDirectories(configurationLinkPath).Length > 0)
+                {
+                    marketConfigManager.InitializeFromDirectory(configurationLinkPath);
+
+                    return;
+                }
+
+                // It's just a placeholder created by PathMapper.
+                Directory.Delete(configurationLinkPath);
+            }
+
+            var packagesFolder = _pathMapper.GetDirectory(ApplicationConstants.ManifestPath).FullName;
+            var configIsoPackages = Directory.GetFiles(packagesFolder, ApplicationConstants.MarketConfigPackagePrefix + "*.iso", SearchOption.TopDirectoryOnly).ToList();
+            if (configIsoPackages.Count > 0)
+            {
+                configIsoPackages.Sort(new VersionComparer());
+                configIsoPackages.ForEach(p => Logger.Debug($"found package {p}"));
+                var newestConfigIsoPackagePath = Path.GetFullPath(configIsoPackages.Last());
+
+                // mount the newest version.
+                Directory.CreateDirectory(configurationLinkPath);
+
+                _virtualDisk = ServiceManager.GetInstance().GetService<IVirtualDisk>();
+                var configurationMountHandle = _virtualDisk.AttachImage(newestConfigIsoPackagePath, configurationLinkPath);
+                if (configurationMountHandle.IsInvalid)
+                {
+                    Logger.Warn($"invalid handle; couldn't mount {newestConfigIsoPackagePath} at {configurationLinkPath}");
+                    configurationMountHandle.Close();
+                    return;
+                }
+                Logger.Debug($"Mounted {newestConfigIsoPackagePath} at {configurationLinkPath}");
+            }
+            else
+            {
+                // Default behavior: link to the as-built data folder
+                var configurationSourcePath = Path.Combine(Directory.GetCurrentDirectory(), @"market-config");
+                Logger.Debug($"No configuration ISO packages found; link '{configurationSourcePath}' at '{configurationLinkPath}'");
+
+                // Hard link using "mklink"
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = "cmd.exe",
+                    Arguments = $"/c mklink /j \"{configurationLinkPath}\" \"{configurationSourcePath}\"",
+                    CreateNoWindow = false
+                })?.WaitForExit();
+                Logger.Debug($"Attached {configurationSourcePath} to {configurationLinkPath}");
+            }
+
+            marketConfigManager.InitializeFromDirectory(configurationLinkPath);
         }
 
         private void SetupJurisdiction()
