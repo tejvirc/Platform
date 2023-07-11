@@ -12,7 +12,7 @@
     using Usb.ReelController.Relm;
 
     [TestClass]
-    public class RelmReelControllerTests
+    public class InitializeTests
     {
         [TestMethod]
         public void UninitializedControllerHasNoCapabilities()
@@ -100,7 +100,7 @@
 
             communicator.Setup(x => x.Initialize())
                 .Returns(Task.FromResult(default(object)))
-                .Raises(x => x.StatusesReceived += null, new ReelStatusReceivedEventArgs(reelStatuses));
+                .Raises(x => x.ReelStatusReceived += null, new ReelStatusReceivedEventArgs(reelStatuses));
             communicator.Setup(x => x.IsOpen).Returns(true);
             
             controller.ReelConnected += delegate { connectedEventCount++; };

@@ -213,6 +213,8 @@
             container.Register<BonusEventLogAdapter>(Lifestyle.Singleton);
             //container.Register<DetailedGameMetersViewModel>(Lifestyle.Singleton);
 
+            container.Register<IGamePackConfigurationProvider, GamePackConfigurationProvider>(Lifestyle.Singleton);
+
             //#if !(RETAIL)
             //            PerformanceCounters.RegisterFromAttribute(typeof(ICommandHandler<>).Assembly);
 

@@ -118,6 +118,7 @@
             { ReelControllerFaults.RequestError.GetAttribute<ErrorGuidAttribute>().Id, ResourceKeys.ErrorInfoReelError },
             { ReelFaults.LowVoltage.GetAttribute<ErrorGuidAttribute>().Id, ResourceKeys.ErrorInfoReelError },
             { ReelFaults.ReelStall.GetAttribute<ErrorGuidAttribute>().Id, ResourceKeys.ErrorInfoReelError },
+            { ReelFaults.ReelOpticSequenceError.GetAttribute<ErrorGuidAttribute>().Id, ResourceKeys.ErrorInfoReelError },
             { ReelFaults.ReelTamper.GetAttribute<ErrorGuidAttribute>().Id, ResourceKeys.ErrorInfoReelError },
 
             { ApplicationConstants.ExcessiveDocumentRejectGuid, ResourceKeys.ClearLockupExcessiveDocumentReject },

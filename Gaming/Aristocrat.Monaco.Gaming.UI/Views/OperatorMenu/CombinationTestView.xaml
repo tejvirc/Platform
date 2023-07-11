@@ -71,6 +71,9 @@
                 <DataGridTextColumn Header="{lex:Loc Denom}"
                                     Binding="{Binding Denomination, Converter={StaticResource CurrencyConverter}}"
                                     AutomationProperties.AutomationId="DataGridTextColumn7_DDF15BEB" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.VariationText}}"
+                                    Binding="{Binding Variation}" 
+                                    AutomationProperties.AutomationId="DataGridTextColumn8_DDF15BEB"/>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="1"

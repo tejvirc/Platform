@@ -98,6 +98,20 @@
                     AccountingConstants.TicketTitleWatNonCash,
                     optionConfigValues.StringValue(G2SParametersNames.VoucherDevice.TitleWatNonCashParameterName));
             }
+
+            if (optionConfigValues.HasValue(G2SParametersNames.VoucherDevice.ExpireCashPromoParameterName))
+            {
+                PropertiesManager.SetProperty(
+                    AccountingConstants.VoucherOutExpirationDays,
+                    optionConfigValues.Int32Value(G2SParametersNames.VoucherDevice.ExpireCashPromoParameterName));
+            }
+
+            if (optionConfigValues.HasValue(G2SParametersNames.VoucherDevice.ExpireNonCashParameterName))
+            {
+                PropertiesManager.SetProperty(
+                    AccountingConstants.VoucherOutNonCashExpirationDays,
+                    optionConfigValues.Int32Value(G2SParametersNames.VoucherDevice.ExpireNonCashParameterName));
+            }
         }
 
         private void SetPropertyValues(DeviceOptionConfigValues optionConfigValues)

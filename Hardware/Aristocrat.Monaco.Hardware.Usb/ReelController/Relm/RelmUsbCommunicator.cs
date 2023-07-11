@@ -19,17 +19,22 @@
     using RelmReels.Communicator.InterruptHandling;
     using RelmReels.Messages;
     using RelmReels.Messages.Commands;
-    using RelmReels.Messages.Interrupts;
     using RelmReels.Messages.Queries;
+    using RelmReels.Messages.Interrupts;
     using AnimationFile = Contracts.Reel.ControlData.AnimationFile;
     using DeviceConfiguration = RelmReels.Messages.Queries.DeviceConfiguration;
     using IRelmCommunicator = Contracts.Communicator.IRelmCommunicator;
-    using ReelStatus = Contracts.Reel.ReelStatus;
+    using MonacoReelStatus = Contracts.Reel.ReelStatus;
+    using MonacoLightStatus = Contracts.Reel.LightStatus;
     using RelmReelStatus = RelmReels.Messages.ReelStatus;
+    using RelmLightStatus = RelmReels.Messages.LightStatus;
 
     internal class RelmUsbCommunicator : IRelmCommunicator
     {
+        private const ReelControllerFaults PingTimeoutFault = ReelControllerFaults.CommunicationError;
+
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+
         private readonly HashSet<AnimationFile> _animationFiles = new();
 
         private RelmReels.Communicator.IRelmCommunicator _relmCommunicator;
@@ -52,19 +57,6 @@
         public RelmUsbCommunicator(RelmReels.Communicator.IRelmCommunicator communicator)
         {
             _relmCommunicator = communicator;
-            _relmCommunicator.InterruptReceived += HandleInterrupt;
-        }
-
-        private void HandleInterrupt(object sender, RelmInterruptEventArgs args)
-        {
-            switch (args.Interrupt)
-            {
-                case ReelIdle reelIdle:
-                    var stopData = new ReelStopData(reelIdle.ReelIndex, default, reelIdle.Step);
-
-                    ReelIdleInterruptReceived.Invoke(sender, stopData);
-                    break;
-            }
         }
 
 #pragma warning disable 67
@@ -78,8 +70,16 @@
         public event EventHandler<ProgressEventArgs> DownloadProgressed;
 #pragma warning restore 67
 
+        public event EventHandler<LightEventArgs> LightStatusReceived;
+
         /// <inheritdoc />
-        public event EventHandler<ReelStatusReceivedEventArgs> StatusesReceived;
+        public event EventHandler<ReelStatusReceivedEventArgs> ReelStatusReceived;
+
+        /// <inheritdoc />
+        public event EventHandler<ReelControllerFaultedEventArgs> ControllerFaultOccurred;
+
+        /// <inheritdoc />
+        public event EventHandler<ReelControllerFaultedEventArgs> ControllerFaultCleared;
 
         /// <inheritdoc />
         public event EventHandler<ReelStopData> ReelIdleInterruptReceived;
@@ -164,12 +164,12 @@
 
             await _relmCommunicator?.SendCommandAsync(new Reset())!;
             _relmCommunicator!.KeepAliveEnabled = true;
+            _relmCommunicator.InterruptReceived += OnInterruptReceived;
+            _relmCommunicator.PingTimeoutCleared += OnPingTimeoutCleared;
 
             await _relmCommunicator?.SendQueryAsync<RelmVersionInfo>()!;
-            await _relmCommunicator?.SendQueryAsync<DeviceConfiguration>()!;
-            await HomeReels();
+            var configuration = await _relmCommunicator?.SendQueryAsync<DeviceConfiguration>()!;
 
-            var configuration = _relmCommunicator?.Configuration ?? new DeviceConfiguration();
             Logger.Debug($"Reel controller connected with {configuration.NumReels} reel and {configuration.NumLights} lights. {configuration}");
 
             var firmwareSize = await _relmCommunicator?.SendQueryAsync<FirmwareSize>()!;
@@ -544,7 +544,6 @@
             {
                 return Task.FromResult(false);
             }
-
             _relmCommunicator?.SendCommandAsync(new HomeReels(new List<ReelStepInfo> { new((byte)(reelId - 1), (short)stop) }));
             return Task.FromResult(true);
         }
@@ -578,21 +577,99 @@
             }
 
             var deviceStatuses = await _relmCommunicator.SendQueryAsync<DeviceStatuses>();
-            var statuses = deviceStatuses.ReelStatuses.Select(ConvertToReelStatus).ToList();
+            var reelStatuses = deviceStatuses.ReelStatuses.Select(ConvertToReelStatus);
+            var lightStatuses = deviceStatuses.LightStatuses.Select(ConvertToLightStatus);
 
-            StatusesReceived?.Invoke(this, new ReelStatusReceivedEventArgs(statuses));
+            LightStatusReceived?.Invoke(this, new LightEventArgs(lightStatuses));
+            ReelStatusReceived?.Invoke(this, new ReelStatusReceivedEventArgs(reelStatuses));
+        }
+
+        private void OnInterruptReceived(object sender, RelmInterruptEventArgs e)
+        {
+            switch (e.Interrupt)
+            {
+                case IReelInterrupt reelInterrupt:
+                    HandleReelInterrupt(reelInterrupt);
+                    break;
+
+                case ILightInterrupt lightInterrupt:
+                    var lightStatus = new MonacoLightStatus((int)lightInterrupt.LightId, lightInterrupt is LightMalfunction);
+                    var args = new LightEventArgs(lightStatus);
+                    LightStatusReceived?.Invoke(this, args);
+                    break;
+
+                case PingTimeout:
+                    ControllerFaultOccurred?.Invoke(
+                        this,
+                        new ReelControllerFaultedEventArgs(PingTimeoutFault));
+                    break;
+            }
+        }
+
+        private void HandleReelInterrupt(IReelInterrupt interrupt)
+        {
+            switch (interrupt)
+            {
+                case ReelIdle idle:
+                    ReelIdleInterruptReceived.Invoke(this, new ReelStopData(idle.ReelIndex, 0, idle.Step));
+                    break;
+
+                case ReelTamperingDetected:
+                    RaiseStatus(x => x.ReelTampered = true);
+                    break;
+
+                case ReelStalled:
+                    RaiseStatus(x => x.ReelStall = true);
+                    break;
+
+                case ReelOpticSequenceError:
+                    RaiseStatus(x => x.OpticSequenceError = true);
+                    break;
+
+                case ReelDisconnected:
+                    RaiseStatus(x => x.Connected = false);
+                    break;
+
+                case ReelIdleUnknown:
+                    RaiseStatus(x => x.IdleUnknown = true);
+                    break;
+
+                case ReelUnknownStopReceived:
+                    RaiseStatus(x => x.UnknownStop = true);
+                    break;
+            }
+
+            void RaiseStatus(Action<MonacoReelStatus> configure)
+            {
+                var status = new MonacoReelStatus
+                {
+                    ReelId = interrupt.ReelIndex + 1,
+                    Connected = interrupt is not ReelDisconnected
+                };
+
+                configure(status);
+                ReelStatusReceived?.Invoke(this, new ReelStatusReceivedEventArgs(status));
+            }
+        }
+
+        private void OnPingTimeoutCleared(object sender, EventArgs e)
+        {
+            ControllerFaultCleared?.Invoke(this, new ReelControllerFaultedEventArgs(PingTimeoutFault));
         }
 
         private void Dispose(bool disposing)
         {
-            if (_disposed)
+            if (_disposed || !disposing)
             {
                 return;
             }
 
-            if (disposing)
+            var communicator = _relmCommunicator;
+            if (communicator is not null)
             {
-                var communicator = _relmCommunicator;
+                communicator.InterruptReceived -= OnInterruptReceived;
+                communicator.PingTimeoutCleared -= OnPingTimeoutCleared;
+
                 _relmCommunicator = null;
                 communicator.Close();
                 communicator.Dispose();
@@ -601,13 +678,24 @@
             _disposed = true;
         }
 
-        private ReelStatus ConvertToReelStatus(DeviceStatus<RelmReelStatus> deviceReelStatus)
+        private MonacoReelStatus ConvertToReelStatus(DeviceStatus<RelmReelStatus> deviceStatus)
         {
-            return new ReelStatus
+            var status = deviceStatus.Status;
+            return new MonacoReelStatus
             {
-                ReelId = deviceReelStatus.Id + 1,
-                Connected = deviceReelStatus.Status != RelmReelStatus.Disconnected
+                ReelId = deviceStatus.Id + 1, // Monaco reel indexes are 1-based, whereas RELM uses 0-based indexing.
+                Connected = status != RelmReelStatus.Disconnected,
+                ReelTampered = status == RelmReelStatus.TamperingDetected,
+                ReelStall = status == RelmReelStatus.Stalled,
+                OpticSequenceError = status == RelmReelStatus.OpticSequenceError,
+                IdleUnknown = status == RelmReelStatus.IdleUnknown,
+                UnknownStop = status == RelmReelStatus.UnknownStopReceived,
             };
+        }
+
+        private MonacoLightStatus ConvertToLightStatus(DeviceStatus<RelmLightStatus> deviceStatus)
+        {
+            return new MonacoLightStatus(deviceStatus.Id, deviceStatus.Status == RelmLightStatus.Failure);
         }
 
         private uint GetAnimationId(string animationName)

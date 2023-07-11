@@ -42,7 +42,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.RelmReels" Version="0.1.19" />
+    <PackageReference Include="Aristocrat.RelmReels" Version="0.1.22" />
     <PackageReference Include="HidSharp" Version="2.0.2" />
     <PackageReference Include="log4net" Version="2.0.13" />
   </ItemGroup>

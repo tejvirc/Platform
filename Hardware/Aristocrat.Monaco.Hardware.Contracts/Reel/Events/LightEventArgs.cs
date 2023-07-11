@@ -5,31 +5,31 @@
     using System.Linq;
 
     /// <summary>
-    ///     The reel status received event arguments.
+    ///     Event args for all light events
     /// </summary>
-    public class ReelStatusReceivedEventArgs : EventArgs
+    public class LightEventArgs : EventArgs
     {
         /// <summary>
-        ///     Constructs a new instance of the ReelStatusReceivedEventArgs class.
+        ///     Constructs a new instance of the LightEventArgs class.
         /// </summary>
         /// <param name="statuses">The collection of statuses.</param>
-        public ReelStatusReceivedEventArgs(params ReelStatus[] statuses)
+        public LightEventArgs(params LightStatus[] statuses)
         {
             Statuses = statuses;
         }
 
         /// <summary>
-        ///     Constructs a new instance of the ReelStatusReceivedEventArgs class.
+        ///     Constructs a new instance of the LightEventArgs class.
         /// </summary>
         /// <param name="statuses">The collection of statuses.</param>
-        public ReelStatusReceivedEventArgs(IEnumerable<ReelStatus> statuses)
+        public LightEventArgs(IEnumerable<LightStatus> statuses)
         {
             Statuses = statuses.ToArray();
         }
 
         /// <summary>
-        ///     Get the statuses.
+        ///     The statuses.
         /// </summary>
-        public ICollection<ReelStatus> Statuses { get; }
+        public ICollection<LightStatus> Statuses { get; }
     }
 }
