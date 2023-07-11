@@ -11375,7 +11375,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Escrowed .
+		///   Looks up a localized string similar to Escrowed.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -13670,6 +13670,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string GamesPlayed {
 			get {
 				return ResourceManager.GetString("GamesPlayed", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Games Played since Door Closed.
+		/// </summary>
+		public static string GamesPlayedSinceDoorClosed {
+			get {
+				return ResourceManager.GetString("GamesPlayedSinceDoorClosed", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Games Played since Reboot.
+		/// </summary>
+		public static string GamesPlayedSinceReboot {
+			get {
+				return ResourceManager.GetString("GamesPlayedSinceReboot", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -47695,7 +47713,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Escrowed .
+		///		Looks up a localized string similar to Escrowed.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -49988,6 +50006,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string GamesPlayed {
 			get {
 				return "GamesPlayed";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Games Played since Door Closed.
+		/// </summary>
+		public static string GamesPlayedSinceDoorClosed {
+			get {
+				return "GamesPlayedSinceDoorClosed";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Games Played since Reboot.
+		/// </summary>
+		public static string GamesPlayedSinceReboot {
+			get {
+				return "GamesPlayedSinceReboot";
 			}
 		}
 
@@ -79140,7 +79176,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ErrorWhileFetchingData,
 		/// <summary>
-		///   Looks up a localized string similar to Escrowed .
+		///   Looks up a localized string similar to Escrowed.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -80444,6 +80480,14 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Localization.xml LOC_Games Played
         /// </remarks>
 		GamesPlayed,
+		/// <summary>
+		///   Looks up a localized string similar to Games Played since Door Closed.
+		/// </summary>
+		GamesPlayedSinceDoorClosed,
+		/// <summary>
+		///   Looks up a localized string similar to Games Played since Reboot.
+		/// </summary>
+		GamesPlayedSinceReboot,
 		/// <summary>
 		///   Looks up a localized string similar to Settings cannot be changed after a game round has ....
 		/// </summary>
