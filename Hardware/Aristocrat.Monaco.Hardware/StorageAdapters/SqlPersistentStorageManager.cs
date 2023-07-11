@@ -597,7 +597,7 @@
             var dataRoot = _dataRoot;
             lock (_sync)
             {
-                    ValidateAndCheckMirror(dataRoot);
+                ValidateAndCheckMirror(dataRoot);
 
                 if (File.Exists(GetFileName()))
                 {
