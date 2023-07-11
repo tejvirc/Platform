@@ -406,8 +406,8 @@
                                           SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                           VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
                                           AutomationProperties.AutomationId="ScrollViewer35_FDE84D7">
-                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                                AutomationProperties.AutomationId="ItemsPresenter28_FDE84D7" />
+                                <!-- Empty ItemsPresenter to allow ScrollViewer to capture mouse scroll -->
+                                <ItemsPresenter />
                                 <ScrollViewer.Resources>
                                     <system:Double x:Key="{x:Static SystemParameters.VerticalScrollBarButtonHeightKey}">35</system:Double>
                                     <Style x:Key="ScrollBarThumb" TargetType="{x:Type Thumb}">
