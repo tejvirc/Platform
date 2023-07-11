@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Usb.Tests.RelmUsbCommunicator
 {
     using System;
-    using System.Data.Entity.Core.Metadata.Edm;
     using System.Linq;
     using System.Threading.Tasks;
     using Contracts.Reel;
@@ -148,7 +147,7 @@
             {
                 actualLightStatus = e.Statuses.First();
             };
-            
+
             await usbCommunicator.Initialize();
 
             Assert.IsNotNull(actualLightStatus);
