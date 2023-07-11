@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using Application.Contracts.Extensions;
     using Contracts;
     using Contracts.Progressives;
     using Progressives;
@@ -29,7 +30,7 @@
 
             var gameName = command.GameName;
             var poolName = command.PoolName;
-            var denom = command.Denomination;
+            var denom = ((long)command.Denomination).CentsToMillicents();
 
             var enabledGames = _gameProvider.GetEnabledGames()
                 .Where(game => game.ThemeName == gameName) // Get Game based on Product Name
@@ -38,7 +39,7 @@
 
             command.JackpotValues = _progressiveLevelProvider.GetProgressiveLevels()
                 .Where(level => enabledGames.Select(games => games.Id).Contains(level.GameId))
-                .Where(level => level.Denomination.Contains((long)denom))
+                .Where(level => level.Denomination.Contains(denom))
                 .Where(level => !level.HasAssociatedBetLinePreset || enabledGames.Select(games => games.ActiveBetOption.Name).Contains(level.BetOption))
                 .Where(level => level.ProgressivePackName.Equals(poolName))
 
