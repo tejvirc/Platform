@@ -4,5 +4,6 @@
 
     internal class GameLoadRequestEvent : BaseEvent
     {
+        public bool SelectNextGame { get; set; }
     }
 }

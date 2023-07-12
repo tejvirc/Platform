@@ -57,6 +57,7 @@
             container.Register<AuditMenuOperations>(Lifestyle.Transient);
             container.Register<ResponsibleGamingOperations>(Lifestyle.Transient);
             container.Register<LoadGameOperations>(Lifestyle.Transient);
+            container.Register<JackpotHandlerOperations>(Lifestyle.Transient);
 
             return container;
         }

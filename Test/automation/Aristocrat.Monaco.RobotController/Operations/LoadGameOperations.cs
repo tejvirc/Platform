@@ -68,6 +68,7 @@
                                null,
                                _robotController.Config.Active.IntervalLoadGame,
                                _robotController.Config.Active.IntervalLoadGame);
+            LoadGameWithDelay(Constants.loadGameDelayDuration);
         }
 
         public void Reset()
@@ -140,6 +141,13 @@
 
         private void SubscribeToEvents()
         {
+            _eventBus.Subscribe<GameLoadRequestEvent>(
+                this,
+                _ => {
+                    _logger.Info($"GameLoadRequestEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+                    _goToNextGame = _.SelectNextGame;
+                    RequestGame();
+                });
             _eventBus.Subscribe<GameRequestFailedEvent>(
                 this,
                 _ =>
@@ -162,34 +170,18 @@
                     BalanceCheckWithDelay(Constants.BalanceCheckDelayDuration);
                 });
 
-            _eventBus.Subscribe<GamePlayRequestFailedEvent>(
-                this,
-                _ =>
-                {
-                    _logger.Info($"Keying off GamePlayRequestFailed! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                    ToggleJackpotKey(Constants.ToggleJackpotKeyDuration);
-                });
-
-            _eventBus.Subscribe<UnexpectedOrNoResponseEvent>(
-                this,
-                _ =>
-                {
-                    _logger.Info($"Keying off UnexpectedOrNoResponseEvent Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                    ToggleJackpotKey(Constants.ToggleJackpotKeyLongerDuration);
-                });
-
             _eventBus.Subscribe<GameProcessExitedEvent>(
                  this,
                  evt =>
                  {
-                     _gameIsRunning = false;
-                     _robotController.UnBlockOtherOperations(RobotStateAndOperations.GameExiting);
-                     if (evt.Unexpected && _robotController.IsRegularRobots())
+                     if (_robotController.IsRegularRobots())
                      {
-                         _logger.Error($"GameProcessExitedEvent-Unexpected Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+                         _logger.Error($"GameProcessExitedEvent Got Triggered in Regular mode! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                          _robotController.Enabled = false;
                          return;
                      }
+                     _gameIsRunning = false;
+                     _robotController.UnBlockOtherOperations(RobotStateAndOperations.GameExiting);                     
                  });
 
             _eventBus.Subscribe<GameFatalErrorEvent>(
@@ -209,28 +201,9 @@
                      _sanityCounter = 0;
                  });
 
-            _eventBus.Subscribe<HandpayStartedEvent>(this, evt =>
-            {
-                if (evt.Handpay == HandpayType.GameWin ||
-                     evt.Handpay == HandpayType.CancelCredit)
-                {
-                    _logger.Info($"Keying off large win Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                    ToggleJackpotKey(Constants.ToggleJackpotKeyDuration);
-                }
-                else
-                {
-                    _logger.Info($"Skip toggling jackpot key since evt.Handpay = [{evt.Handpay}] is not valid!", GetType().Name);
-                }
-            });
-
             InitGameProcessHungEvent();
         }
 
-        private void ToggleJackpotKey(int waitDuration)
-        {
-            _logger.Info($"ToggleJackpotKey Request Is Received! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-            Task.Delay(waitDuration).ContinueWith(_ => _automator.JackpotKeyoff()).ContinueWith(_ => _eventBus.Publish(new DownEvent((int)ButtonLogicalId.Button30)));
-        }
 
         private void InitGameProcessHungEvent()
         {

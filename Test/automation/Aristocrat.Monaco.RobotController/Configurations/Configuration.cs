@@ -93,10 +93,10 @@
         public GameType Type { get; set; }
 
         [XmlElement(ElementName = "MinimumBalanceCents")]
-        public int MinimumBalanceCents { get; set; } = 500000;
+        public int MinimumBalanceCents { get; set; } = 10000;
 
         [XmlElement]
-        public int InsertedDollars { get; set; } = 100;
+        public int InsertedDollars { get; set; } = 5;
 
         [XmlArray]
         [XmlArrayItem("Index")]

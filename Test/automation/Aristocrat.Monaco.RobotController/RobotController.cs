@@ -389,11 +389,6 @@
             {
                 () =>
                 {
-                    if(!_stateChecker.IsGame)
-                    {
-                        Enabled = false;
-                        return;
-                    }
                     EventBus.Publish(new BalanceCheckEvent());
                 }
             });
@@ -404,6 +399,7 @@
                 () =>
                 {
                     _automator.ExitLockup();
+                    EventBus.Publish(new BalanceCheckEvent());
                     EventBus.Publish(new GameLoadRequestEvent());
                 }
             });
@@ -414,6 +410,7 @@
                 () =>
                 {
                     _automator.ExitLockup();
+                    EventBus.Publish(new BalanceCheckEvent());
                     EventBus.Publish(new GameLoadRequestEvent());
                 }
             });
