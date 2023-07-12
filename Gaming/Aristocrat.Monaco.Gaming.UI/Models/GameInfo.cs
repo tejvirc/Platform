@@ -235,8 +235,6 @@
         /// </summary>
         public bool HasProgressiveOrBonusValue => !string.IsNullOrWhiteSpace(ProgressiveOrBonusValue);
 
-        private string ThemeKey => $"{ThemeId}_{GameId}";
-
         public string DenomButtonPath
         {
             get => _denomButtonPath;
@@ -247,27 +245,24 @@
                     return;
                 }
 
-                var key = $"{ThemeKey}_Button";
-                if (Application.Current.Resources.Contains(key))
-                {
-                    return;
-                }
-
+                var key = $"{ThemeId}_Button";
+                _denomButtonResourceKey = key;
                 _denomButtonPath = value;
 
                 try
                 {
                     // Add the bitmap to the resource dictionary so it can be accessed by key with ImageHelper
-                    var uri = new Uri(_denomButtonPath, UriKind.Absolute);
-                    Application.Current.Resources.Add(key, new BitmapImage(uri));
-                    _denomButtonResourceKey = key;
+                    if (!Application.Current.Resources.Contains(key))
+                    {
+                        var uri = new Uri(_denomButtonPath, UriKind.Absolute);
+                        Application.Current.Resources.Add(key, new BitmapImage(uri));
+                        Logger.Debug($"{_denomButtonResourceKey} added to resources for custom denom button at path {_denomButtonPath}");
+                    }
 
                     foreach (var denom in Denominations)
                     {
                         denom.DenomButtonSingleOffOverride = _denomButtonResourceKey;
                     }
-
-                    Logger.Debug($"{_denomButtonResourceKey} added to resources for custom denom button at path {_denomButtonPath}");
                 }
                 catch (Exception ex)
                 {
@@ -289,21 +284,19 @@
                     return;
                 }
 
-                var key = $"{ThemeKey}_Panel";
-                if (Application.Current.Resources.Contains(key))
-                {
-                    return;
-                }
-
+                var key = $"{ThemeId}_Panel";
+                DenomPanelKey = key;
                 _denomPanelPath = value;
 
                 try
                 {
                     // Add the bitmap to the resource dictionary so it can be accessed by key with ImageHelper
-                    var uri = new Uri(_denomPanelPath, UriKind.Absolute);
-                    Application.Current.Resources.Add(key, new BitmapImage(uri));
-                    DenomPanelKey = key;
-                    Logger.Debug($"{DenomPanelKey} added to resources for custom denom panel at path {_denomPanelPath}");
+                    if (!Application.Current.Resources.Contains(key))
+                    {
+                        var uri = new Uri(_denomPanelPath, UriKind.Absolute);
+                        Application.Current.Resources.Add(key, new BitmapImage(uri));
+                        Logger.Debug($"{DenomPanelKey} added to resources for custom denom panel at path {_denomPanelPath}");
+                    }
                 }
                 catch (Exception ex)
                 {
