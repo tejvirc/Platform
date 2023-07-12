@@ -65,6 +65,7 @@
             _operatorMenuPrintHandler = new OperatorMenuPrintHandler();
             EventBus.Subscribe<OperatorMenuPrintJobEvent>(this, HandleOperatorMenuPrintJob);
             EventBus.Subscribe<InspectionResultsChangedEvent>(this, Handle);
+            EventBus.Subscribe<PersistentStorageClearedEvent>(this, HandleStorageCleared);
 
             PrintButtonCommand = new ActionCommand<object>(PrintButton_Click);
             ClearConfigButtonClicked = new ActionCommand<object>(ClearConfigButton_Click);
@@ -341,10 +342,9 @@
 
         private void ClearConfigButton_Click(object o)
         {
-            var storage = ServiceManager.GetInstance().GetService<IPersistentStorageManager>();
-            storage.Clear(PersistenceLevel.Static);
-
-            EventBus.Publish(new ExitRequestedEvent(ExitAction.Restart));
+            // Calling PersistentStorageManager.Clear() results in a race condition in which storage is only sometimes cleared before monaco restarts.
+            // Instead, publish this event to prevent the race condition and we handle restart ourselves.
+            EventBus.Publish(new PersistentStorageClearReadyEvent(PersistenceLevel.Static));
         }
 
         private void PrintButton_Click(object obj)
@@ -456,6 +456,11 @@
         private void Finished()
         {
             EventBus.Publish(new ExitRequestedEvent(ExitAction.ShutDown));
+        }
+
+        private void HandleStorageCleared(PersistentStorageClearedEvent exit)
+        {
+            EventBus.Publish(new ExitRequestedEvent(ExitAction.Restart));
         }
     }
 }
