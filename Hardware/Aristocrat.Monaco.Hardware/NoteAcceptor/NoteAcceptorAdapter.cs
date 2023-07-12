@@ -1006,7 +1006,6 @@
                     case NoteAcceptorFaultTypes.NvmFault:
                     case NoteAcceptorFaultTypes.StackerFull:
                     case NoteAcceptorFaultTypes.StackerFault:
-                    case NoteAcceptorFaultTypes.CheatDetected:
                         HandleFault(value);
                         break;
                     case NoteAcceptorFaultTypes.OtherFault:
@@ -1014,6 +1013,7 @@
                     case NoteAcceptorFaultTypes.StackerDisconnected:
                     case NoteAcceptorFaultTypes.StackerJammed:
                     case NoteAcceptorFaultTypes.NoteJammed:
+                    case NoteAcceptorFaultTypes.CheatDetected:
                         HandleFault(value);
 
                         // The device does not always reports a ticket status after clearing one of these faults because
