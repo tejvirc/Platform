@@ -91,7 +91,7 @@
         }
 
         [TestMethod]
-        public void VerifyyInspctorInitialsErrorMessage()
+        public void VerifyInspctorInitialsErrorMessage()
         {
             _target.InspectorInitials = "Anything";
             Assert.IsFalse(_accessor.HasErrors);

@@ -213,9 +213,16 @@
             set
             {
                 SetProperty(ref _orderNumber, value, nameof(OrderNumber));
-                SetItemPickFlag(ItemPick.Order);
-                var errorMessage = _orderNumber.IsEmpty() ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OrderNumberErrorMessage) : string.Empty;
+                var errorMessage = string.IsNullOrWhiteSpace(_orderNumber) ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OrderNumberErrorMessage) : string.Empty;
                 SetError(nameof(OrderNumber), errorMessage);
+                if (errorMessage != string.Empty)
+                {
+                    SetItemUnpicked(ItemPick.Order);
+                }
+                else
+                {
+                    SetItemPickFlag(ItemPick.Order);
+                }
             }
             
                    
@@ -227,14 +234,28 @@
             set
             {
                 SetProperty(ref _inspectorInitials, value, nameof(InspectorInitials));
-                SetItemPickFlag(ItemPick.Initials);
-                var errorMessage = _inspectorInitials.IsEmpty() ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InspectorInitialsErrorMessage) : string.Empty;
+                var errorMessage = string.IsNullOrWhiteSpace(_inspectorInitials) ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InspectorInitialsErrorMessage) : string.Empty;
                 SetError(nameof(InspectorInitials), errorMessage);
+
+                if(errorMessage != string.Empty)
+                {
+                    SetItemUnpicked(ItemPick.Initials);
+                }
+                else
+                {
+                    SetItemPickFlag(ItemPick.Initials);
+                }
             }
         }
 
         protected override void SaveChanges()
         {
+            if (IsInspection)
+            {
+                PropertiesManager.SetProperty(ApplicationConstants.OrderNumber, OrderNumber);
+                PropertiesManager.SetProperty(ApplicationConstants.InspectorInitials, InspectorInitials);
+            }
+
             if (_timeZoneChanged)
             {
                 EventBus.Publish(new TimeZoneUpdatedEvent());  // VLT-4526
@@ -274,11 +295,6 @@
 
             _timeZoneChanged = false;
 
-            if (IsInspection)
-            {
-                PropertiesManager.SetProperty(ApplicationConstants.OrderNumber, OrderNumber);
-                PropertiesManager.SetProperty(ApplicationConstants.InspectorInitials, InspectorInitials);
-            }
         }
 
         protected override void SetupNavigation()
@@ -389,6 +405,12 @@
         private void SetItemPickFlag(ItemPick pickFlag)
         {
             _ItemsPicked |= pickFlag;
+            SetupNavigation();
+        }
+
+        private void SetItemUnpicked(ItemPick pickFlag)
+        {
+            _ItemsPicked &= ~pickFlag;
             SetupNavigation();
         }
 

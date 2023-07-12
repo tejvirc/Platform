@@ -12220,7 +12220,7 @@ Do you really want to do full reset?</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="InspectorInitialsErrorMessage" xml:space="preserve">
-    <value>Inspector initials field is required</value>
+    <value>Inspector initials is a required field</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
 </root>
