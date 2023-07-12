@@ -53,10 +53,10 @@
 
         /// <inheritdoc/>
         public event EventHandler<EventArgs> DeviceAttached;
-        
+
         /// <inheritdoc/>
         public event EventHandler<EventArgs> DeviceDetached;
-        
+
         /// <inheritdoc/>
         public event EventHandler<ProgressEventArgs> DownloadProgressed;
 
@@ -85,61 +85,61 @@
         ///     Get the reel count for the connected device
         /// </summary>
         public int ReelCount => /*ReelSimWindow?.ReelCount ??*/ 0;
-        
+
         /// <inheritdoc/>
         public int DefaultReelBrightness { get; set; }
-        
+
         /// <inheritdoc/>
         public string Manufacturer => _baseName + DeviceType;
-        
+
         /// <inheritdoc/>
         public string Model => _baseName + DeviceType;
-        
+
         /// <inheritdoc/>
         public string Firmware => _baseName;
-        
+
         /// <inheritdoc/>
         public string SerialNumber => _baseName;
-        
+
         /// <inheritdoc/>
         public bool IsOpen { get; set; }
-        
+
         /// <inheritdoc/>
         public int VendorId { get; set; }
-        
+
         /// <inheritdoc/>
         public int ProductId { get; set; }
-        
+
         /// <inheritdoc/>
         public int ProductIdDfu { get; set; }
-        
+
         /// <inheritdoc/>
         public string Protocol => "FakeRelm";
-        
+
         /// <inheritdoc/>
         public DeviceType DeviceType { get; set; }
-        
+
         /// <inheritdoc/>
         public IDevice Device { get; set; }
-        
+
         /// <inheritdoc/>
         public string FirmwareVersion => $"{_baseName}1.0";
-        
+
         /// <inheritdoc/>
         public int FirmwareCrc => -1;
 
         /// <inheritdoc/>
         public bool IsDfuCapable => true;
-        
+
         /// <inheritdoc/>
         public bool InDfuMode { get; private set; }
 
         /// <inheritdoc/>
         public bool CanDownload { get; } = false;
-        
+
         /// <inheritdoc/>
         public bool IsDownloadInProgress { get; } = false;
-        
+
         /// <inheritdoc/>
         public IReadOnlyCollection<AnimationFile> AnimationFiles => new List<AnimationFile>();
 
@@ -293,7 +293,7 @@
         {
             return Task.FromResult(true);
         }
-        
+
         /// <inheritdoc/>
         public Task<bool> LoadAnimationFiles(IEnumerable<AnimationFile> files, CancellationToken token)
         {
@@ -341,14 +341,16 @@
         /// <inheritdoc/>
         public Task<bool> StopLightShowAnimations(IEnumerable<LightShowData> data, CancellationToken token)
         {
-            ReelSimWindow?.StopAllLightshows();
+            // TODO Update once new simulator is in place
+            //ReelSimWindow?.StopAllLightshows();
             return Task.FromResult(true);
         }
 
         /// <inheritdoc/>
         public Task<bool> StopAllLightShows(CancellationToken token)
         {
-            ReelSimWindow?.StopAllLightshows();
+            // TODO Update once new simulator is in place
+            //ReelSimWindow?.StopAllLightshows();
             return Task.FromResult(true);
         }
 
