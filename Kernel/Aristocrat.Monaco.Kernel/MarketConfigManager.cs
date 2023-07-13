@@ -7,7 +7,8 @@ using System.Linq;
 using System.Reflection;
 using log4net;
 using MarketConfig;
-using System.Text.Json;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 /// <inheritdoc />
 public sealed class MarketConfigManager: IMarketConfigManager
@@ -51,9 +52,9 @@ public sealed class MarketConfigManager: IMarketConfigManager
 
         // Parse the manifest.json file
         var manifestJson = File.ReadAllText(Path.Combine(configurationLinkPath, "manifest.json"));
-        _marketConfigManifest = JsonSerializer.Deserialize<MarketConfigManifest>(manifestJson, new JsonSerializerOptions()
+        _marketConfigManifest = JsonConvert.DeserializeObject<MarketConfigManifest>(manifestJson, new JsonSerializerSettings
         {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            ContractResolver = new CamelCasePropertyNamesContractResolver()
         });
 
         _serviceInitialized = true;
@@ -117,10 +118,11 @@ public sealed class MarketConfigManager: IMarketConfigManager
 
         // Parse the json file and create the configuration model object
         var json = File.ReadAllText(Path.Combine(_configurationLinkPath, filename));
-        var config = JsonSerializer.Deserialize<T>(json, new JsonSerializerOptions()
+        var options = new JsonSerializerSettings
         {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-        });
+            ContractResolver = new CamelCasePropertyNamesContractResolver()
+        };
+        var config = JsonConvert.DeserializeObject<T>(json, options);
 
         return config;
     }
