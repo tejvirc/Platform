@@ -1,11 +1,11 @@
 ﻿namespace Aristocrat.Monaco.TestController
 {
+    using Application.Contracts;
+    using Common.Currency;
     using Hardware.Contracts.NoteAcceptor;
     using Kernel;
     using System;
     using System.Collections.Generic;
-    using Application.Contracts;
-    using Aristocrat.Monaco.Common.Currency;
 
     public partial class TestControllerEngine
     {

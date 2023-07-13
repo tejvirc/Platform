@@ -3,13 +3,15 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Aristocrat.Monaco.Hardware.Gds;
-    using Aristocrat.Monaco.Hardware.Printer;
+    using System.Windows.Markup;
     using DataModel;
     using Hardware.Contracts;
     using Hardware.Contracts.IO;
     using Hardware.Contracts.Printer;
     using Hardware.Contracts.SharedDevice;
+    using Hardware.Gds;
+    using Hardware.Printer;
+    using G2S;
     using Kernel;
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
@@ -22,7 +24,7 @@
 
         [HttpPost]
         [Route("Printer/{id}/Connect")]
-        public ActionResult<CommandResult> PrinterConnect([FromRoute] string id)
+        public ActionResult PrinterConnect([FromRoute] string id)
         {
             bool result = false;
             var printer = ServiceManager.GetInstance().GetService<IPrinter>();
@@ -39,17 +41,16 @@
                 }
             }
 
-            return new CommandResult
+            return Ok(new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { [ResponseTo] = $"/Printer/{id}/Connect" },
-                Command = PrinterConnectMessage,
-                Result = result
-            };
+                ["response-to"] = $"/Printer/{id}/Connect",
+                ["Command"] = PrinterConnectMessage
+            });
         }
 
         [HttpPost]
         [Route("Printer/{id}/Disconnect")]
-        public ActionResult<CommandResult> PrinterDisconnect([FromRoute] string id)
+        public ActionResult PrinterDisconnect([FromRoute] string id)
         {
             bool result = false;
             var printer = ServiceManager.GetInstance().GetService<IPrinter>();
@@ -65,59 +66,55 @@
                 }
             }
 
-            return new CommandResult
+            return Ok(new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { [ResponseTo] = $"/Printer/{id}/Disconnect" },
-                Command = PrinterDisconnectMessage,
-                Result = result
-            };
+                ["response-to"] = $"/Printer/{id}/Disconnect",
+                ["Command"] = PrinterDisconnectMessage
+            });
         }
 
         [HttpPost]
         [Route("Printer/{id}/Jam")]
-        public ActionResult<CommandResult> PrinterJam([FromRoute] string id)
+        public ActionResult PrinterJam([FromRoute] string id)
         {
             _eventBus.Publish(new FakePrinterEvent { PaperJam = true });
 
-            return new CommandResult
+            return Ok(new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = $"/Printer/{id}/Jam" },
-                Command = "PrinterJam",
-                Result = true
-            };
+                ["response-to"] = $"/Printer/{id}/Jam",
+                ["Command"] = "PrinterJam"
+            });
         }
 
         [HttpPost]
         [Route("Printer/{id}/Paper/Out")]
-        public ActionResult<CommandResult> PrinterEmpty([FromRoute] string id)
+        public ActionResult PrinterEmpty([FromRoute] string id)
         {
             _eventBus.Publish(new FakePrinterEvent { PaperEmpty = true });
 
-            return new CommandResult
+            return Ok(new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = $"/Printer/{id}/Paper/Out" },
-                Command = "PrinterEmpty",
-                Result = true
-            };
+                ["response-to"] = $"/Printer/{id}/Paper/Out",
+                ["Command"] = "PrinterEmpty"
+            });
         }
 
         [HttpPost]
         [Route("Printer/{id}/Paper/PaperInChute")]
-        public ActionResult<CommandResult> PrinterPaperInChute([FromRoute] string id)
+        public ActionResult PrinterPaperInChute([FromRoute] string id)
         {
             _eventBus.Publish(new FakePrinterEvent { PaperInChute = true });
 
-            return new CommandResult
+            return Ok(new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = $"/Printer/{id}/Paper/PaperInChute" },
-                Command = "PrinterPaperInChute",
-                Result = true
-            };
+                ["response-to"] = $"/Printer/{id}/Paper/PaperInChute",
+                ["Command"] = "PrinterPaperInChute"
+            });
         }
 
         [HttpPost]
         [Route("Printer/{id}/Status")]
-        public ActionResult<CommandResult> PrinterStatus([FromRoute] string id)
+        public ActionResult PrinterStatus([FromRoute] string id)
         {
             var faults = Enum.GetValues(typeof(PrinterFaultTypes)).Cast<PrinterFaultTypes>()
                 .Where(val => (val & _printerFaults) != 0).ToList();
@@ -125,20 +122,17 @@
             var warnings = Enum.GetValues(typeof(PrinterWarningTypes)).Cast<PrinterWarningTypes>()
                 .Where(val => (val & _printerWarnings) != 0).ToList();
 
-            return new CommandResult
+            return Ok(new Dictionary<string, object>
             {
-                data = new Dictionary<string, object>
-                {
-                    ["response-to"] = $"/Printer/{id}/Status",
-                    ["faults"] = string.Join(",", faults),
-                    ["warnings"] = string.Join(",", warnings)
-                }
-            };
+                ["response-to"] = $"/Printer/{id}/Status",
+                ["faults"] = string.Join(",", faults),
+                ["warnings"] = string.Join(",", warnings)
+            });
         }
 
         [HttpPost]
         [Route("Printer/{id}/Paper/Status")]
-        public ActionResult<CommandResult> PrinterPaperStatus([FromRoute] string id)
+        public ActionResult PrinterPaperStatus([FromRoute] string id)
         {
             var faults = Enum.GetValues(typeof(PrinterFaultTypes)).Cast<PrinterFaultTypes>()
                 .Where(val => (val & _printerFaults) != 0).ToList();
@@ -146,61 +140,55 @@
             var warnings = Enum.GetValues(typeof(PrinterWarningTypes)).Cast<PrinterWarningTypes>()
                 .Where(val => (val & _printerWarnings) != 0).ToList();
 
-            return new CommandResult
+            return Ok(new Dictionary<string, object>
             {
-                data = new Dictionary<string, object>
-                {
-                    ["response-to"] = $"/Printer/{id}/Paper/Status",
-                    ["status"] = MapPrinterState(warnings, faults)
-                }
-            };
+                ["response-to"] = $"/Printer/{id}/Paper/Status",
+                ["status"] = MapPrinterState(warnings, faults)
+            });
         }
 
         [HttpPost]
         [Route("Printer/{id}/ChassisOpen")]
-        public ActionResult<CommandResult> PrinterChassisOpen([FromRoute] string id)
+        public ActionResult PrinterChassisOpen([FromRoute] string id)
         {
             _eventBus.Publish(new FakePrinterEvent { ChassisOpen = true });
 
-            return new CommandResult
+            return Ok(new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = $"/Printer/{id}/ChassisOpen" },
-                Command = "PrinterChassisOpen",
-                Result = true
-            };
+                ["response-to"] = $"/Printer/{id}/ChassisOpen",
+                ["Command"] = "PrinterChassisOpen"
+            });
         }
 
         [HttpPost]
         [Route("Printer/{id}/Paper/Low")]
-        public ActionResult<CommandResult> PrinterPaperLow([FromRoute] string id)
+        public ActionResult PrinterPaperLow([FromRoute] string id)
         {
             _eventBus.Publish(new FakePrinterEvent { PaperLow = true });
 
-            return new CommandResult
+            return Ok(new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = $"/Printer/{id}/Paper/Low" },
-                Command = "PrinterLow",
-                Result = true
-            };
+                ["response-to"] = $"/Printer/{id}/Paper/Low",
+                ["Command"] = "PrinterLow"
+            });
         }
 
         [HttpPost]
         [Route("Printer/{id}/Paper/Fill")]
-        public ActionResult<CommandResult> PrinterPaperFill([FromRoute] string id)
+        public ActionResult PrinterPaperFill([FromRoute] string id)
         {
             _eventBus.Publish(new FakePrinterEvent { PaperLow = false, PaperEmpty = false });
 
-            return new CommandResult
+            return Ok(new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = $"/Printer/{id}/Paper/Fill" },
-                Command = "PrinterPaperFill",
-                Result = true
-            };
+                ["response-to"] = $"/Printer/{id}/Paper/Fill",
+                ["Command"] = "PrinterPaperFill"
+            });
         }
 
         [HttpGet]
         [Route("Printer/{id}/Ticket/Read/{count=1}")]
-        public ActionResult<CommandResult> PrinterGetTicketList([FromRoute] string id, [FromRoute] string count = "1")
+        public ActionResult PrinterGetTicketList([FromRoute] string id, [FromRoute] string count = "1")
         {
             if (!int.TryParse(count, out var requestCount))
             {
@@ -238,52 +226,47 @@
                 }
             }
 
-            return new CommandResult
-            {
-                data = responseInfo, Result = true, Info = $"returning last {currentCount} printed tickets"
-            };
+            responseInfo.Add("Info", $"returning last {currentCount} printed tickets");
+            return Ok(responseInfo);
         }
 
         [HttpPost]
         [Route("Printer/{id}/Ticket/Remove")]
-        public ActionResult<CommandResult> PrinterTicketRemove([FromRoute]string id)
+        public ActionResult PrinterTicketRemove([FromRoute]string id)
         {
             _eventBus.Publish(new FakePrinterEvent { PaperInChute = false });
 
-            return new CommandResult
+            return Ok(new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = $"/Printer/{id}/Ticket/Remove" },
-                Command = "PrinterPaperRemove",
-                Result = true
-            };
+                ["response-to"] = $"/Printer/{id}/Ticket/Remove",
+                ["Command"] = "PrinterPaperRemove"
+            });
         }
 
         [HttpPost]
         [Route("Printer/{id}/Head/Lift")]
-        public ActionResult<CommandResult> PrinterHeadLift([FromRoute] string id)
+        public ActionResult PrinterHeadLift([FromRoute] string id)
         {
             _eventBus.Publish(new FakePrinterEvent { PrintHeadOpen = true });
 
-            return new CommandResult
+            return Ok(new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = $"/Printer/{id}/HeadLift" },
-                Command = "PrinterHeadLift",
-                Result = true
-            };
+                ["response-to"] = $"/Printer/{id}/HeadLift",
+                ["Command"] = "PrinterHeadLift"
+            });
         }
 
         [HttpPost]
         [Route("Printer/{id}/Head/Lower")]
-        public ActionResult<CommandResult> PrinterHeadLower([FromRoute] string id)
+        public ActionResult PrinterHeadLower([FromRoute] string id)
         {
             _eventBus.Publish(new FakePrinterEvent { PrintHeadOpen = false });
 
-            return new CommandResult
+            return Ok(new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = $"/Printer/{id}/Head/Lower" },
-                Command = "PrinterHeadLower",
-                Result = true
-            };
+                ["response-to"] = $"/Printer/{id}/Head/Lower",
+                ["Command"] = "PrinterHeadLower"
+            });
         }
 
         private static string MapPrinterState(List<PrinterWarningTypes> warnings, List<PrinterFaultTypes> faults)

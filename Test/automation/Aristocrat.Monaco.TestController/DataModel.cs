@@ -1,9 +1,9 @@
 ﻿namespace Aristocrat.Monaco.TestController.DataModel
 {
     using System;
-    using System.Runtime.Serialization;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Runtime.Serialization;
 
     [Flags]
     [DataContract]
@@ -163,63 +163,6 @@
         [EnumMember] Recovery,
         [EnumMember] Replay,
         [EnumMember] Combination
-    }
-
-    [Serializable]
-    public class CommandResult : ISerializable
-    {
-        public Dictionary<string,object> data = new Dictionary<string, object>();
-
-        public CommandResult()
-        {
-            Command = "boo";
-        }
-
-        protected CommandResult(SerializationInfo info, StreamingContext context)
-        {
-            foreach (var entry in info)
-            {
-                data.Add(entry.Name, entry.Value.ToString());
-            }
-
-            if (Info != null)
-            {
-                data.Add("Info", Info);
-            }
-        }
-
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            foreach (var key in data.Keys)
-            {
-                info.AddValue(key, data[key]);
-            }
-
-            if (Info != null)
-            {
-                info.AddValue("Info", Info);
-            }
-        }
-
-        public void Add(string key, string value)
-        {
-            data.Add(key, value);
-        }
-
-        [DataMember]
-        public Dictionary<string,string> Results = new Dictionary<string, string>();
-
-        [DataMember]
-        public bool Result { get; set; } = false;
-
-        [DataMember]
-        public string Info { get; set; } = null;
-
-        [DataMember]
-        public PlatformStateEnum State { get; set; }
-
-        [DataMember]
-        public string Command { get; set; }
     }
 
     public enum SharedInput
