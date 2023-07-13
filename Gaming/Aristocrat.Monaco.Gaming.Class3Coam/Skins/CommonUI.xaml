@@ -45,7 +45,7 @@
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabKeno.png"
                  AutomationProperties.AutomationId="BitmapImage13_69EFE70C"/>
     <BitmapImage x:Key="TabSlot"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabSlots.png"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabSlot.png"
                  AutomationProperties.AutomationId="BitmapImage14_69EFE70C"/>
     <BitmapImage x:Key="TabPoker"
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabPoker.png"
@@ -69,7 +69,7 @@
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabKenoDisabled.png"
                  AutomationProperties.AutomationId="BitmapImage21_69EFE70C"/>
     <BitmapImage x:Key="TabSlotDisabled"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabSlotsDisabled.png"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabSlotDisabled.png"
                  AutomationProperties.AutomationId="BitmapImage22_69EFE70C"/>
     <BitmapImage x:Key="TabPokerDisabled"
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TabPokerDisabled.png"
