@@ -7,6 +7,7 @@
     using Aristocrat.Monaco.Hhr.Events;
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Test.Automation;
+    using Aristocrat.Monaco.Accounting.Contracts.HandCount;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -33,6 +34,8 @@
         private bool _forceGameExitIsInProgress;
         private bool _requestGameIsInProgress;
         private bool _gameIsRunning;
+        
+        private readonly int CashoutDialogDismiss = TimeSpan.FromSeconds(1).Milliseconds;
 
         public GameOperations(IEventBus eventBus, RobotLogger logger, Automation automator, StateChecker sc, IPropertiesManager pm, RobotController robotController, IGameService gameService)
         {
@@ -348,6 +351,9 @@
                     _logger.Info($"SystemEnabledEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                     LoadGameWithDelay(Constants.loadGameDelayDuration);
                 });
+
+            HandleCashoutRequest();
+
             InitGameProcessHungEvent();
         }
 
@@ -363,6 +369,18 @@
                     _robotController.Enabled = false;
                 });
             };
+        }
+
+        private void HandleCashoutRequest()
+        {
+            _eventBus.Subscribe<CashoutAmountAuthorizationRequestedEvent>(this,
+                evt =>
+                {
+                    Task.Delay(CashoutDialogDismiss).ContinueWith(task =>
+                    {
+                        _eventBus.Publish(new CashoutAmountAuthorizationReceivedEvent(false));
+                    });
+                });
         }
 
         private void SelectNextGame(bool goToNextGame)
