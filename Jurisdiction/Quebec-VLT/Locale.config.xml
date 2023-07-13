@@ -13,7 +13,7 @@ as follows:
     <Selectable>
       <Entry Locale="fr-CA" CurrencyValueLocale="fr-CA" CurrencyWordsLocale="fr-CA" />
     </Selectable>
-    <LanguageSetting Visible="true" OperatorOverride="false" ShowCheckBox="true"/>
+    <LanguageSetting Visible="false" OperatorOverride="false" ShowCheckBox="true"/>
   </PlayerTicket>
   <OperatorTicket Locale="en-US" DateFormat="yyyy-MM-dd">
     <LanguageSetting OperatorOverride="true"/>
