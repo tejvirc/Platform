@@ -114,7 +114,7 @@ as follows:
   <Menu Type="GamesMainPageLoader">
     <Page Type="AdvancedGameSetupViewModel" Access="Technician">
       <Setting Name="AllowImportExport" Value="false" />
-      <Setting Name="ShowGlobalOptions" Value="false" />
+      <Setting Name="ShowGlobalOptions" Value="true" />
       <Setting Name="EnableAdvancedConfig" Value="true" />
       <Setting Name="EnableQuickConfig" Value="false" />
     </Page>
