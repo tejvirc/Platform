@@ -4876,4 +4876,16 @@ Do you really want to do partial reset????</value>
   <data name="OneCent" xml:space="preserve">
     <value>1 ¢</value>
   </data>
+  <data name="GameConfigurationSavePrompt" xml:space="preserve">
+    <value>???Are you done with all game configuration? ???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Non</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Oui</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
 </root>
