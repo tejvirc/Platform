@@ -221,6 +221,11 @@
 
         public void PresentOverriddenPresentation(IList<PresentationOverrideData> presentations)
         {
+            if (!presentations.Any())
+            {
+                return;
+            }
+
             var overriddenPresentationMessage = new OverriddenPresentationMessage();
 
             foreach (var presentation in presentations)
