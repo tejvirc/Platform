@@ -34,4 +34,5 @@
   <Exclude>.\x64\SQLite.Interop.dll</Exclude>
   <Exclude>.\x86\SQLite.Interop.dll</Exclude>
   <Exclude>Aristocrat.Monaco.SAS.SASQuatch.dll</Exclude>
+  <Exclude>CPUTemperatureSensor.dll</Exclude>
 </Addins>
