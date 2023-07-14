@@ -2,6 +2,7 @@
 {
     using System;
     using System.Globalization;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
@@ -14,6 +15,13 @@
     {
         /// <summary>
         ///     Convert DataGrid to calculated height
+        ///     *WARNING*
+        ///     This converter is only intended to be used with a DataGrid with enough space to expand vertically.
+        ///     At least the space should be enough to show all the vertical scroll buttons.
+        ///     If the returned height is greater than the container's allowable height, the DataGrid will be clipped.
+        ///     You can potentially suffer from a bug that the last row is not displayed(due to clipping).
+        ///     To resolve this, make sure enough MinHeight is given to the DataGrid.
+        ///     *WARNING*
         /// </summary>
         /// <param name="values">
         /// values[0] should be a DataGrid
@@ -45,9 +53,8 @@
                     }
                 }
 
-                var verticalScrollButtonsHeight = values.Length > 2 && values[2] is FrameworkElement verticalButtons && verticalButtons.Visibility == Visibility.Visible
-                    ? verticalButtons.DesiredSize.Height
-                    : 0;
+                var verticalButtons = values.ElementAtOrDefault(2) as FrameworkElement;
+                var verticalScrollButtonsHeight = verticalButtons?.Visibility == Visibility.Visible ? verticalButtons!.DesiredSize.Height : 0;
 
                 var header = grid.FindChild<DataGridColumnHeadersPresenter>();
                 var headerHeight = header?.ActualHeight ?? 0;
@@ -62,9 +69,35 @@
                         Math.Floor(rowsHeight / row.ActualHeight) * row.ActualHeight,
                         row.ActualHeight * 2);
 
+                    // FIX TXM-12510: https://jerry.aristocrat.com/browse/TXM-12510
+                    // Store the expanded height which can show all vertical scroll buttons.
+                    // This is important, because when all records can fit within this expanded height, the vertical scroll bar will be hidden.
+                    // Avoid reducing the height of the data grid later to prevent continuous flickering of the window/dialog caused
+                    // by showing/hiding the vertical scroll bar.
+                    var minHeightShowingAllVerticalScrollButtons = verticalScrollButtonsHeight + headerHeight;
+                    if (verticalButtons?.Visibility == Visibility.Visible
+                        && verticalButtons!.Tag == null
+                        && verticalScrollButtonsHeight > height)
+                    {
+                        // Record the minimum height, showing all vertical scroll buttons
+                        verticalButtons.Tag = minHeightShowingAllVerticalScrollButtons;
+                    }
+                    else if (verticalButtons?.Visibility == Visibility.Collapsed
+                        && verticalButtons!.Tag is double heightShowingAllVerticalScrollButtons)
+                    {
+                        // Reducing height will cause flickering of the window/dialog.
+                        // Clear Tag so that future resizing of the window/dialog will work.
+                        verticalButtons.Tag = null;
+                        if (heightShowingAllVerticalScrollButtons >= grid.ActualHeight)
+                        {
+                            return heightShowingAllVerticalScrollButtons;
+                        }
+                    }
+                    // FIX TXM-12510
+
                     // If vertical scroll buttons are visible, make sure at least their full height is visible
                     return verticalScrollButtonsHeight > height
-                        ? verticalScrollButtonsHeight + headerHeight
+                        ? minHeightShowingAllVerticalScrollButtons
                         : height + headerHeight;
                 }
 

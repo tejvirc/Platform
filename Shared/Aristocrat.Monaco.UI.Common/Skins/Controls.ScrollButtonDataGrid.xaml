@@ -58,6 +58,7 @@
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
+                            MinHeight="{TemplateBinding MinHeight}"
                             SnapsToDevicePixels="True"
                             AutomationProperties.AutomationId="Border0_4E7D086F">
                         <Grid AutomationProperties.AutomationId="Grid1_4E7D086F">
@@ -140,6 +141,7 @@
                                        Grid.Row="0"
                                        LastChildFill="False"
                                        AutomationProperties.AutomationId="DockPanel16_4E7D086F">
+                                <!--GridScrollButtons.Tag is used to Store calculated height during layout sizing, please DONOT use it-->
                                 <controls:DataGridScrollButtons DockPanel.Dock="Right"
                                                                 x:Name="GridScrollButtons"
                                                                 HorizontalAlignment="Right"
