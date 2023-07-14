@@ -12,21 +12,20 @@
 
     public class GetJackpotValuesPerDenomCommandHandler : ICommandHandler<GetJackpotValuesPerDenom>
     {
-
         private readonly IProgressiveLevelProvider _progressiveLevelProvider;
         private readonly IGameProvider _gameProvider;
+
         public GetJackpotValuesPerDenomCommandHandler(IProgressiveLevelProvider progressiveLevelProvider, IGameProvider gameProvider)
         {
             _progressiveLevelProvider = progressiveLevelProvider;
             _gameProvider = gameProvider;
         }
 
+        // This command handler finds all enabled games, and filters them given parameters given by GDK
+        // GDK will ask for GameName and PoolName and a specific Denomination
+        // We will return The Levels and Current values for these games
         public void Handle(GetJackpotValuesPerDenom command)
         {
-            // Single Call, Single Game and PoolName and Denom
-            // Game and PoolName and Denom -- Mandatory
-
-            // ThemeId - String Name
 
             var gameName = command.GameName;
             var poolName = command.PoolName;
