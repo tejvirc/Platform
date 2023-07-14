@@ -8,6 +8,7 @@ namespace Aristocrat.Monaco.Gaming.UI
     using Contracts;
     using Contracts.Lobby;
     using Contracts.Models;
+    using Events;
     using Hardware.Contracts.Bell;
     using Kernel;
     using Models;
@@ -23,6 +24,7 @@ namespace Aristocrat.Monaco.Gaming.UI
     {
         private const int AttractModeIdleTimeoutInSeconds = 30;
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly IEventBus _eventBus;
         private readonly IBank _bank;
         private readonly IBell _bell;
         private readonly IGameHistory _gameHistory;
@@ -50,12 +52,14 @@ namespace Aristocrat.Monaco.Gaming.UI
             IGameHistory gameHistory,
             IPropertiesManager properties,
             IBell bell,
-            IBank bank)
+            IBank bank,
+            IEventBus eventBus)
         {
             _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _bell = bell ?? throw new ArgumentNullException(nameof(bell));
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
 
             _stateLock = new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
             _lobbyStateQueue = new LobbyStateQueue();
@@ -598,6 +602,9 @@ namespace Aristocrat.Monaco.Gaming.UI
                     }
 
                     PreviousState = transition.Source;
+
+
+                    _eventBus.Publish(new LobbyStateChangedEvent(transition.Source, transition.Destination));
 
                     Logger.Debug($"Transitioned from state [{transition.Source}] to [{transition.Destination}]. Trigger: {transition.Trigger}");
                 });
