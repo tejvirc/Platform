@@ -81,6 +81,7 @@
         <DataGrid Grid.Column="2"
                   Grid.Row="2"
                   ItemsSource="{Binding WagerCategoryMeters}"
+                  MinHeight="490"
                   ScrollViewer.CanContentScroll="True"
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"

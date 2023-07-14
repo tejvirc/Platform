@@ -58,6 +58,7 @@
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
+                            MinHeight="{TemplateBinding MinHeight}"
                             SnapsToDevicePixels="True"
                             AutomationProperties.AutomationId="Border0_4E7D086F">
                         <Grid AutomationProperties.AutomationId="Grid1_4E7D086F">
