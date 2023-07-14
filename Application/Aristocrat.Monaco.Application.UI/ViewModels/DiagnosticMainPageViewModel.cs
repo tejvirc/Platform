@@ -14,7 +14,7 @@
 
         private const string PagesExtensionPath = @"/Application/OperatorMenu/DiagnosticMenu";
 
-        public DiagnosticMainPageViewModel(IOperatorMenuPageLoader mainPage) : base(mainPage, PagesExtensionPath)
+        public DiagnosticMainPageViewModel(string pageNameResourceKey) : base(pageNameResourceKey, PagesExtensionPath)
         {
         }
     }

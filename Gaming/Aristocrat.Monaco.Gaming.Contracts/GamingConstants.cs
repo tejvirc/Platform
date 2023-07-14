@@ -1464,6 +1464,11 @@
         public const string AutoEnableSimpleGames = @"AutoEnableSimpleGames";
 
         /// <summary>
+        ///     Set GameSpecificOption when launching a game
+        /// </summary>
+        public const string GameSpecificOptions = "GameSpecificOptions";
+
+        /// <summary>
         ///     encapsulate Player Information Display options
         /// </summary>
         public static class PlayerInformationDisplay

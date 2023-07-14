@@ -112,7 +112,7 @@
                                    AutomationProperties.AutomationId="Label18_EA876383" />
                             <TextBlock Grid.Row="0"
                                        Grid.Column="1"
-                                       Foreground="{Binding ManufacturerForeground}"
+                                       Foreground="{Binding InfoForeground}"
                                        Margin="10 0 0 0"
                                        AutomationProperties.AutomationId="TextBlock19_EA876383">
                                 <TextBlock.Style>
@@ -138,7 +138,7 @@
                                    AutomationProperties.AutomationId="Label21_EA876383" />
                             <TextBlock Grid.Row="1"
                                        Grid.Column="1"
-                                       Foreground="{Binding ModelForeground}"
+                                       Foreground="{Binding InfoForeground}"
                                        Margin="10 0 0 0"
                                        AutomationProperties.AutomationId="TextBlock22_EA876383">
                                 <TextBlock.Style>
@@ -163,7 +163,7 @@
                                    AutomationProperties.AutomationId="Label24_EA876383" />
                             <TextBlock Grid.Row="2"
                                        Grid.Column="1"
-                                       Foreground="{Binding FirmwareVersionForeground}"
+                                       Foreground="{Binding InfoForeground}"
                                        Margin="10 0 0 0"
                                        AutomationProperties.AutomationId="TextBlock25_EA876383">
                                 <TextBlock.Style>
@@ -189,7 +189,7 @@
                                    AutomationProperties.AutomationId="Label27_EA876383" />
                             <TextBlock Grid.Row="3"
                                        Grid.Column="1"
-                                       Foreground="{Binding ReelCountForeground}"
+                                       Foreground="{Binding InfoForeground}"
                                        Margin="10 0 0 0"
                                        AutomationProperties.AutomationId="TextBlock28_EA876383">
                                 <TextBlock.Style>
@@ -214,7 +214,7 @@
                                    AutomationProperties.AutomationId="Label30_EA876383" />
                             <TextBlock Grid.Row="4"
                                        Grid.Column="1"
-                                       Foreground="{Binding StateForeground}"
+                                       Foreground="{Binding InfoForeground}"
                                        Margin="10 0 0 0"
                                        AutomationProperties.AutomationId="TextBlock31_EA876383">
                                 <TextBlock.Style>

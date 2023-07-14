@@ -11,10 +11,9 @@
         private const double BankImageTopMarginEn = 10;
         private const double BankImageTopMarginFr = 9;
 
-        private const double GrandBannerOffset = 100;
+        private const double ExtraLargeIconTabTopMargin = 365;
         private const double MajorBannerOffset = 55;
         private const double TopRowAdjust = 60;
-        private const double TopRowToGameIconPanelAdjust = 115;
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -63,16 +62,7 @@
 
                     if (extraLargeIcons)
                     {
-                        // The game icons are centered horizontally, so no need to mess with the left/right margins. The top margin needs to be
-                        // calculated from the point of view of the start of the 2nd row, which is the game icon panel row.
-                        var topMargin = TopRowToGameIconPanelAdjust + GrandBannerOffset + MajorBannerOffset;
-                        if (!sharedMajorVisible)
-                        {
-                            // Move the margin up a bit when the individual major jackpot is shown
-                            topMargin -= 15;
-                        }
-
-                        return new Thickness(0, topMargin, 0, 0);
+                        return new Thickness(0, ExtraLargeIconTabTopMargin, 0, 0);
                     }
 
                     var offset = bottomLabelVisible ? 10 : 0;

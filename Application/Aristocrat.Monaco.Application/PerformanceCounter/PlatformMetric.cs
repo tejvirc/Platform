@@ -22,7 +22,7 @@
         private const int RoundingDecimals = 2;
 
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly object _lock = new();
 
@@ -58,7 +58,15 @@
 
         public void SetMetric(uint value)
         {
-            _counter?.SetRawValue(value);
+            lock (_lock)
+            {
+                if (!ValidateCounter())
+                {
+                    return;
+                }
+                
+                _counter.SetRawValue(value);
+            }
         }
 
         public MetricType MetricName { get; }
@@ -94,7 +102,7 @@
                     case "Memory":
                         // The return value is in MB
                         return Math.Round(_counter.NextValue() / MebiBytes,
-                            RoundingDecimals); 
+                            RoundingDecimals);
 
                     case "TotalMemory":
                         // The return value is in MB
@@ -150,6 +158,16 @@
                     Logger.Debug(
                         $"Created an aggregated performance counter with category = {Category}, " +
                         $"processName = [AGGREGATE], countType = {CounterType}, metricType = {MetricName}");
+
+                    _counter = perfMon;
+                }
+                else if (MetricName == MetricType.CpuTemperature)
+                {
+                    var perfMon = new SingleCustomPerformanceCounterWrapper(Category, Counter, "A custom category for Monaco", "CPU Temperature Counter");
+
+                    Logger.Debug(
+                        $"Created a performance counter with category = {Category}, " +
+                        $"counterType = {CounterType}, metricType = {MetricName}");
 
                     _counter = perfMon;
                 }

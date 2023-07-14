@@ -11387,7 +11387,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Escrowed .
+		///   Looks up a localized string similar to Escrowed.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -11585,12 +11585,12 @@ namespace Aristocrat.Monaco.Localization.Properties {
 			get {
 				return ResourceManager.GetString("ExcessiveThresholdDisableMessage", resourceCulture) ?? string.Empty;
 			}
-		}
+        }
 
-		/// <summary>
-		///   Looks up a localized string similar to Exit Configuration.
-		/// </summary>
-		public static string ExitConfigurationText {
+        /// <summary>
+        ///   Looks up a localized string similar to Exit Configuration.
+        /// </summary>
+        public static string ExitConfigurationText {
 			get {
 				return ResourceManager.GetString("ExitConfigurationText", resourceCulture) ?? string.Empty;
 			}
@@ -11896,11 +11896,11 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
-		public static string ExtraCoinOutRunaway {
-			get {
-				return ResourceManager.GetString("ExtraCoinOutRunaway", resourceCulture) ?? string.Empty;
-			}
-		}
+        public static string ExtraCoinOutRunaway {
+            get {
+                return ResourceManager.GetString("ExtraCoinOutRunaway", resourceCulture) ?? string.Empty;
+            }
+        }
 
 		/// <summary>
 		///   Looks up a localized string similar to Extra-High.
@@ -11925,14 +11925,28 @@ namespace Aristocrat.Monaco.Localization.Properties {
 				return ResourceManager.GetString("ExtraLow", resourceCulture) ?? string.Empty;
 			}
 		}
+		
+        /// <summary>
+        ///   Looks up a localized string similar to Extra Settings.
+        /// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+        public static string ExtraSettingsButtonText
+        {
+            get
+            {
+				return ResourceManager.GetString("ExtraSettingsButtonText", resourceCulture) ?? string.Empty;
+			}
+        }
 
-		/// <summary>
-		///   Looks up a localized string similar to  + {0} Extra Winnings.
-		/// </summary>
+        /// <summary>
+        ///   Looks up a localized string similar to  + {0} Extra Winnings.
+        /// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Hhr.UI
         /// </remarks>
-		public static string ExtraWinningsStringFormat {
+        public static string ExtraWinningsStringFormat {
 			get {
 				return ResourceManager.GetString("ExtraWinningsStringFormat", resourceCulture) ?? string.Empty;
 			}
@@ -13670,6 +13684,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Games Played since Door Closed.
+		/// </summary>
+		public static string GamesPlayedSinceDoorClosed {
+			get {
+				return ResourceManager.GetString("GamesPlayedSinceDoorClosed", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Games Played since Reboot.
+		/// </summary>
+		public static string GamesPlayedSinceReboot {
+			get {
+				return ResourceManager.GetString("GamesPlayedSinceReboot", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Settings cannot be changed after a game round has ....
 		/// </summary>
         /// <remarks>
@@ -13681,13 +13713,27 @@ namespace Aristocrat.Monaco.Localization.Properties {
 			}
 		}
 
-		/// <summary>
-		///   Looks up a localized string similar to Game Start/End Reporting.
-		/// </summary>
+        /// <summary>
+        ///   Looks up a localized string similar to GameSpecificOption
+        /// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+        public static string GameSpecificOptionLabel
+        {
+            get
+            {
+                return ResourceManager.GetString("GameSpecificOptionLabel", resourceCulture) ?? string.Empty;
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Game Start/End Reporting.
+        /// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Sas.UI
         /// </remarks>
-		public static string GameStartEndPortLabel {
+        public static string GameStartEndPortLabel {
 			get {
 				return ResourceManager.GetString("GameStartEndPortLabel", resourceCulture) ?? string.Empty;
 			}
@@ -47737,7 +47783,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Escrowed .
+		///		Looks up a localized string similar to Escrowed.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -48250,7 +48296,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 			get {
 				return "ExtraCoinOutRunaway";
 			}
-		}
+        }
 
 		/// <summary>
 		///		Looks up a localized string similar to Extra-High.
@@ -48276,13 +48322,27 @@ namespace Aristocrat.Monaco.Localization.Properties {
 			}
 		}
 
+        /// <summary>
+        ///		Looks up a localized string similar to Extra Settings.
+        /// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+        public static string ExtraSettingsButtonText
+        {
+            get
+            {
+                return "ExtraSettingsButtonText";
+            }
+        }
+
 		/// <summary>
 		///		Looks up a localized string similar to  + {0} Extra Winnings.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Hhr.UI
         /// </remarks>
-		public static string ExtraWinningsStringFormat {
+        public static string ExtraWinningsStringFormat {
 			get {
 				return "ExtraWinningsStringFormat";
 			}
@@ -48936,7 +48996,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 			}
 		}
 
-		/// <summary>
+        /// <summary>
 		///		Looks up a localized string similar to This operation cannot be reversed.&amp;#13;&amp;#1....
 		/// </summary>
         /// <remarks>
@@ -50020,6 +50080,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Games Played since Door Closed.
+		/// </summary>
+		public static string GamesPlayedSinceDoorClosed {
+			get {
+				return "GamesPlayedSinceDoorClosed";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Games Played since Reboot.
+		/// </summary>
+		public static string GamesPlayedSinceReboot {
+			get {
+				return "GamesPlayedSinceReboot";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Settings cannot be changed after a game round has ....
 		/// </summary>
         /// <remarks>
@@ -50029,15 +50107,29 @@ namespace Aristocrat.Monaco.Localization.Properties {
 			get {
 				return "GamesPlayedWarning";
 			}
-		}
+        }
 
-		/// <summary>
-		///		Looks up a localized string similar to Game Start/End Reporting.
-		/// </summary>
+        /// <summary>
+        ///		Looks up a localized string similar to Game Start/End Reporting.
+        /// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Sas.UI
         /// </remarks>
-		public static string GameStartEndPortLabel {
+        public static string GameSpecificOptionLabel
+        {
+            get
+            {
+                return "GameSpecificOptionLabel";
+            }
+        }
+
+        /// <summary>
+        ///		Looks up a localized string similar to Game Start/End Reporting.
+        /// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Sas.UI
+        /// </remarks>
+        public static string GameStartEndPortLabel {
 			get {
 				return "GameStartEndPortLabel";
 			}
@@ -79209,7 +79301,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ErrorWhileFetchingData,
 		/// <summary>
-		///   Looks up a localized string similar to Escrowed .
+		///   Looks up a localized string similar to Escrowed.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -79504,12 +79596,19 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ExtraLow,
 		/// <summary>
+        ///   Looks up a localized string similar to ExtraSettings.
+        /// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+        ExtraSettingsButtonText,
+		/// <summary>
 		///   Looks up a localized string similar to  + {0} Extra Winnings.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Hhr.UI
         /// </remarks>
-		ExtraWinningsStringFormat,
+        ExtraWinningsStringFormat,
 		/// <summary>
 		///   Looks up a localized string similar to Failed.
 		/// </summary>
@@ -80507,19 +80606,34 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		GamesPlayed,
 		/// <summary>
+		///   Looks up a localized string similar to Games Played since Door Closed.
+		/// </summary>
+		GamesPlayedSinceDoorClosed,
+		/// <summary>
+		///   Looks up a localized string similar to Games Played since Reboot.
+		/// </summary>
+		GamesPlayedSinceReboot,
+		/// <summary>
 		///   Looks up a localized string similar to Settings cannot be changed after a game round has ....
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		GamesPlayedWarning,
-		/// <summary>
-		///   Looks up a localized string similar to Game Start/End Reporting.
-		/// </summary>
+        /// <summary>
+        ///   Looks up a localized string similar to Settings cannot be changed after a game round has ....
+        /// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+        GameSpecificOptionLabel,
+        /// <summary>
+        ///   Looks up a localized string similar to Game Specific Option.
+        /// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Sas.UI
         /// </remarks>
-		GameStartEndPortLabel,
+        GameStartEndPortLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Game Start Method.
 		/// </summary>

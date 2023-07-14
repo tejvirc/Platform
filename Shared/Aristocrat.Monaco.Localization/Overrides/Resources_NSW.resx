@@ -201,9 +201,6 @@
     <value>SHA256</value>
     <comment>NSW Jurisdiction override</comment>
   </data>
-  <data name="ClearLockupExcessiveDocumentReject" xml:space="preserve">
-    <value>Max Notes Rejected - Check if the Note or Voucher being inserted by the player is valid, turn on Jackpot Key to clear this lockup</value>
-  </data>
   <data name="ClearLockupCashDoor" xml:space="preserve">
     <value>Close the Note Acceptor Door to Clear the Lockup</value>
   </data>

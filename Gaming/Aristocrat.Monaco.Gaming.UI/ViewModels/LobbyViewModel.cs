@@ -591,6 +591,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public bool IsExtraLargeGameIconTabActive => IsTabView && GameTabInfo.SelectedCategory == GameCategory.LightningLink;
 
         /// <summary>
+        ///     Is the combined jackpot banner visible
+        /// </summary>
+        public bool IsJackpotBannerVisible => IsExtraLargeGameIconTabActive &&
+                                              ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelOneEnabled &&
+                                              ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelTwoEnabled;
+
+        /// <summary>
         ///     Gets the game selected command
         /// </summary>
         public ICommand GameSelectCommand { get; }
@@ -2128,6 +2135,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                                   IsNew = GameIsNew(game.GameTags),
                                   Category = game.Category,
                                   SubCategory = game.SubCategory,
+                                  DenomButtonPath = game.LocaleGraphics[ActiveLocaleCode].DenomButtonIcon,
+                                  DenomPanelPath = game.LocaleGraphics[ActiveLocaleCode].DenomPanel,
                                   RequiresMechanicalReels = game.MechanicalReels > 0
                               }).ToList();
 
@@ -2768,14 +2777,18 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 _disabledOnStartup = false;
                 _lobbyStateManager.UnexpectedGameExitWhileDisabled = false; //clear value since we are leaving disabled state.
 
-                // VLT-4742: Check for a max-cash-out when we come out of disabled state
-                if (_gameState.Idle && !_transferOutHandler.InProgress && !_gameHistory.IsRecoveryNeeded && !_gameHistory.HasPendingCashOut)
-                {
-                    Logger.Debug("Checking for Max Balance coming out of lock-up");
-                    _commandFactory.Create<CheckBalance>().Handle(new CheckBalance());
-                }
+                CheckMaxBalance("Checking for Max Balance coming out of lock-up");
 
                 ClockTimer.RestartClockTimer();
+            }
+        }
+
+        private void CheckMaxBalance(string message)
+        {
+            if (_gameState.Idle && !_transferOutHandler.InProgress && !_gameHistory.IsRecoveryNeeded && !_gameHistory.HasPendingCashOut)
+            {
+                Logger.Debug(message);
+                _commandFactory.Create<CheckBalance>().Handle(new CheckBalance());
             }
         }
 
@@ -3879,6 +3892,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             RaisePropertyChanged(nameof(IsSingleTabView));
             RaisePropertyChanged(nameof(IsSingleDenomDisplayed));
             RaisePropertyChanged(nameof(IsSingleGameDisplayed));
+            RaisePropertyChanged(nameof(IsJackpotBannerVisible));
         }
 
         private void SelectFirstDisplayedGame()
@@ -5405,6 +5419,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 LocaleGraphics = game.LocaleGraphics,
                 ThemeId = game.ThemeId,
                 IsNew = GameIsNew(game.GameTags),
+                DenomButtonPath = game.LocaleGraphics[ActiveLocaleCode].DenomButtonIcon,
+                DenomPanelPath = game.LocaleGraphics[ActiveLocaleCode].DenomPanel,
                 RequiresMechanicalReels = game.MechanicalReels > 0
             };
         }

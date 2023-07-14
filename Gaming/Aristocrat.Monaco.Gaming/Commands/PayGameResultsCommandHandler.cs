@@ -88,16 +88,12 @@
 
             if (_properties.GetValue(GamingConstants.MeterFreeGamesIndependently, false))
             {
-                if (denomination.SecondaryAllowed)
-                {
-                    // The flow is different for games that support secondary games.
-                    //  The win is not updated as the game progresses when metering free games is enabled
-                    _bank.AddWin(command.Win);
+                //  The win is not updated as the game progresses when metering free games is enabled
+                _bank.AddWin(command.Win);
 
-                    var checkResult = new CheckResult(command.Win);
-                    _commandFactory.Create<CheckResult>().Handle(checkResult);
-                    command.PendingTransaction = checkResult.ForcedCashout;
-                }
+                var checkResult = new CheckResult(command.Win);
+                _commandFactory.Create<CheckResult>().Handle(checkResult);
+                command.PendingTransaction = checkResult.ForcedCashout;
             }
             else
             {

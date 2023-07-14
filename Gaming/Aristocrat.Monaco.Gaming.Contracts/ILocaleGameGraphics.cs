@@ -33,6 +33,16 @@
         string SmallTopPickIcon { get; set; }
 
         /// <summary>
+        ///     Gets the file path for the denom button icon for the game.
+        /// </summary>
+        string DenomButtonIcon { get; set; }
+
+        /// <summary>
+        ///     Gets the file path for the denom button panel image for the game.
+        /// </summary>
+        string DenomPanel { get; set; }
+
+        /// <summary>
         ///     Gets the file path for the topper attract video for the game.
         /// </summary>
         string TopperAttractVideo { get; set; }

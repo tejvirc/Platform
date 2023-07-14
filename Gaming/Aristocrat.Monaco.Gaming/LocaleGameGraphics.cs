@@ -22,6 +22,12 @@
         public string SmallTopPickIcon { get; set; }
 
         /// <inheritdoc />
+        public string DenomButtonIcon { get; set; }
+
+        /// <inheritdoc />
+        public string DenomPanel { get; set; }
+
+        /// <inheritdoc />
         public string TopAttractVideo { get; set; }
 
         /// <inheritdoc />

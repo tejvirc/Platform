@@ -33,7 +33,7 @@
             var lightStatusesReceived = false;
             var reelStatusesReceived = false;
 
-            var usbCommunicator = new RelmUsbCommunicator(_driver.Object);
+            var usbCommunicator = new RelmUsbCommunicator(_driver.Object, null);
             usbCommunicator.LightStatusReceived += delegate { lightStatusesReceived = true; };
             usbCommunicator.ReelStatusReceived += delegate { reelStatusesReceived = true; };
             _driver.Setup(x => x.SendQueryAsync<DeviceStatuses>(default)).ReturnsAsync(new DeviceStatuses());
@@ -63,7 +63,7 @@
                 LightCount = (byte)statusCount
             };
 
-            var usbCommunicator = new RelmUsbCommunicator(_driver.Object);
+            var usbCommunicator = new RelmUsbCommunicator(_driver.Object, null);
             usbCommunicator.LightStatusReceived += delegate (object _, LightEventArgs e) { actualLightStatuses = e.Statuses.ToList(); };
             _driver.Setup(x => x.SendQueryAsync<DeviceStatuses>(default)).ReturnsAsync(expectedDeviceStatuses);
 
@@ -116,7 +116,7 @@
                 UnknownStop = unknownStop
             };
 
-            var usbCommunicator = new RelmUsbCommunicator(_driver.Object);
+            var usbCommunicator = new RelmUsbCommunicator(_driver.Object, null);
             usbCommunicator.ReelStatusReceived += delegate(object _, ReelStatusReceivedEventArgs e) { actualReelStatuses = e.Statuses.ToList(); };
             _driver.Setup(x => x.SendQueryAsync<DeviceStatuses>(default)).ReturnsAsync(expectedDeviceStatuses);
 

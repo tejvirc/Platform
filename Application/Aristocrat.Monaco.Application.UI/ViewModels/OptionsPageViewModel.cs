@@ -25,7 +25,7 @@
         /// <summary>
         ///     Initializes a new instance of the <see cref="OptionsPageViewModel" /> class.
         /// </summary>
-        public OptionsPageViewModel(IOperatorMenuPageLoader mainPage) : base(mainPage, MenuExtensionPointPath)
+        public OptionsPageViewModel(string pageNameResourceKey) : base(pageNameResourceKey, MenuExtensionPointPath)
         {
             VolumeControlIsVisible = GetConfigSetting(OperatorMenuSetting.VolumeControlVisible, false);
             VolumeViewModel = new VolumeViewModel { InputEnabled = true };

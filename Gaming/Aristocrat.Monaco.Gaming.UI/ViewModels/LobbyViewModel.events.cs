@@ -642,6 +642,11 @@
                         _responsibleGaming?.EndResponsibleGamingSession();
                     }
 
+                    if (platformEvent.Total == 0)
+                    {
+                        CheckMaxBalance("Checking for TransferOutCompletedEvent failed with total 0");
+                    }
+
                     switch (CashOutDialogState)
                     {
                         case LobbyCashOutDialogState.Visible:

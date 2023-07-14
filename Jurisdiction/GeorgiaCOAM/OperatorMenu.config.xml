@@ -174,11 +174,13 @@ as follows:
             <Rule Restriction="ZeroCredits" />
         </AccessRuleSet>
     <AccessRuleSet Name="LogicZeroCreditsZeroGamesPlayed">
+      <Rule Restriction="ZeroGamesPlayed" />
       <Rule Restriction="ZeroCredits" />
       <Rule DeviceName="Logic" />
       <Rule Restriction="ZeroGamesPlayed" />
     </AccessRuleSet>
     <AccessRuleSet Name="LogicMainZeroCreditsZeroGamesPlayed">
+      <Rule Restriction="ZeroGamesPlayed" />
       <Rule Restriction="ZeroCredits" />
       <Rule DeviceName="Logic" />
       <Rule DeviceName="Main" />
