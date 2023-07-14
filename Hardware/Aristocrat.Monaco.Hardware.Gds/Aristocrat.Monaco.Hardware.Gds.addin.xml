@@ -14,19 +14,6 @@
     <DeviceImplementation ProtocolName="Virtual" type="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds"/>
     <DeviceImplementation ProtocolName="Virtual2" type="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds"/>
   </Extension>
-
-  <Extension path="/Hardware/NoteAcceptor/NoteAcceptorImplementations">
-    <DeviceImplementation ProtocolName="GDS" type="Aristocrat.Monaco.Hardware.Gds.NoteAcceptor.NoteAcceptorGds" />
-  </Extension>
-
-  <Extension path="/Hardware/NoteAcceptor/NoteAcceptorImplementations">
-    <DeviceImplementation ProtocolName="ID003" type="Aristocrat.Monaco.Hardware.Gds.NoteAcceptor.NoteAcceptorGds" />
-  </Extension>
-
-  <Extension path="/Hardware/NoteAcceptor/NoteAcceptorImplementations">
-    <DeviceImplementation ProtocolName="EBDS" type="Aristocrat.Monaco.Hardware.Gds.NoteAcceptor.NoteAcceptorGds" />
-  </Extension>
-
   <Extension path="/Hardware/Printer/PrinterImplementations">
     <DeviceImplementation ProtocolName="JCM TCL" type="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds" />
   </Extension>

@@ -75,10 +75,6 @@
     <PrinterService type="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter" />
   </Extension>
 
-  <Extension path="/Hardware/NoteAcceptor">
-    <NoteAcceptorService type="Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter" />
-  </Extension>
-
   <Extension path="/Hardware/IdReader">
     <IdReaderProvider type="Aristocrat.Monaco.Hardware.Services.IdReaderProvider" />
   </Extension>
@@ -117,11 +113,6 @@
   </ExtensionPoint>
 
   <ExtensionPoint path="/Hardware/IO/IOImplementations">
-    <ExtensionNode name="DeviceImplementation"
-                   type="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceImplementationExtensionNode" />
-  </ExtensionPoint>
-
-  <ExtensionPoint path="/Hardware/NoteAcceptor/NoteAcceptorImplementations">
     <ExtensionNode name="DeviceImplementation"
                    type="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceImplementationExtensionNode" />
   </ExtensionPoint>

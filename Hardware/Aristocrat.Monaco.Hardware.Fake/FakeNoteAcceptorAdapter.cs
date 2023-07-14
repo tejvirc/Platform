@@ -38,14 +38,6 @@
 
         /// <summary>
         ///     Construct a <see cref="FakeNoteAcceptorAdapter" />
-        /// </summary>
-        public FakeNoteAcceptorAdapter()
-            : this(ServiceManager.GetInstance().GetService<IEventBus>())
-        {
-        }
-
-        /// <summary>
-        ///     Construct a <see cref="FakeNoteAcceptorAdapter" />
         ///     <param name="eventBus">The device option configuration values.</param>
         /// </summary>
         public FakeNoteAcceptorAdapter(IEventBus eventBus)

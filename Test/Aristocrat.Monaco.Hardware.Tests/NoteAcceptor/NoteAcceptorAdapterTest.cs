@@ -40,6 +40,7 @@
             var disableNote = new Mock<IDisabledNotesService>();
             var persistenceProvider = new Mock<IPersistenceProvider>();
             var serialPortService = new Mock<ISerialPortsService>();
+            var noteAcceptorImplementation = new Mock<INoteAcceptorImplementation>();
             _target = new NoteAcceptorAdapter(
                 _eventBus.Object,
                 component.Object,
@@ -47,7 +48,8 @@
                 _persistence.Object,
                 disableNote.Object,
                 persistenceProvider.Object,
-                serialPortService.Object);
+                serialPortService.Object,
+                noteAcceptorImplementation.Object);
         }
 
         [TestMethod]

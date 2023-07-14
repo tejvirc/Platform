@@ -5,6 +5,9 @@ namespace Aristocrat.Monaco.Hardware
     using System.Linq;
     using System.Reflection;
     using System.Threading;
+    using Aristocrat.Monaco.Hardware.Fake;
+    using Aristocrat.Monaco.Hardware.Serial.NoteAcceptor.EBDS;
+    using Aristocrat.Monaco.Hardware.Serial.NoteAcceptor.ID003;
     using Aristocrat.Monaco.NativeDisk;
     using Aristocrat.Monaco.NativeOS.Services.IO;
     using Aristocrat.Monaco.NativeUsb.DeviceWatcher;
@@ -38,6 +41,7 @@ namespace Aristocrat.Monaco.Hardware
     using EdgeLight.SequenceLib;
     using EdgeLight.Services;
     using EdgeLight.Strips;
+    using Gds.NoteAcceptor;
     using Kernel;
     using Kernel.Contracts;
     using Kernel.Contracts.Components;
@@ -47,12 +51,16 @@ namespace Aristocrat.Monaco.Hardware
     using NativeOS.Services.OS;
     using NativeTouch;
     using NativeUsb.Hid;
+    using NoteAcceptor;
     using Properties;
     using SerialTouch;
     using Services;
     using SimpleInjector;
+    using SimpleInjector.Diagnostics;
     using StorageAdapters;
+    using Usb;
     using VHD;
+    using DeviceType = Cabinet.Contracts.DeviceType;
 
     /// <summary>
     ///     <para>
@@ -140,7 +148,6 @@ namespace Aristocrat.Monaco.Hardware
             _container = new Container();
             ConfigureContainer(_container);
             _container.Verify();
-
             Logger.Info("Initialized");
         }
 
@@ -545,6 +552,17 @@ namespace Aristocrat.Monaco.Hardware
             var reelRegistration = Lifestyle.Singleton.CreateRegistration<ReelLightDevice>(container);
             var beagleBoneRegistration = Lifestyle.Singleton.CreateRegistration<BeagleBoneControllerService>(container);
             container.Collection.Register<IEdgeLightDevice>(new[] { reelRegistration, beagleBoneRegistration });
+
+            var deviceFactory = new DeviceFactory<INoteAcceptor, INoteAcceptorImplementation, NoteAcceptorAdapter>(container);
+            deviceFactory.RegisterCommunicator<UsbCommunicator>("GDS");
+            deviceFactory.RegisterCommunicator<Id003Protocol>("ID003");
+            deviceFactory.RegisterCommunicator<EbdsProtocol>("EBDS");
+            deviceFactory.RegisterImplementation<NoteAcceptorGds>("GDS");
+            deviceFactory.RegisterImplementation<NoteAcceptorGds>("ID003");
+            deviceFactory.RegisterImplementation<NoteAcceptorGds>("EBDS");
+            deviceFactory.RegisterImplementation<FakeNoteAcceptorAdapter>("Fake");
+
+            container.RegisterInstance<IDeviceFactory<INoteAcceptor>>(deviceFactory);
 
 #if !(RETAIL)
             var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();

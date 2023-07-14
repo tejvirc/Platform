@@ -118,7 +118,10 @@
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Localization\Aristocrat.Monaco.Localization.csproj" />
     <ProjectReference Include="..\Aristocrat.Monaco.Hardware.Contracts\Aristocrat.Monaco.Hardware.Contracts.csproj" />
+    <ProjectReference Include="..\Aristocrat.Monaco.Hardware.Gds\Aristocrat.Monaco.Hardware.Gds.csproj" />
     <ProjectReference Include="..\Aristocrat.Monaco.Hardware.Serial\Aristocrat.Monaco.Hardware.Serial.csproj" />
+    <ProjectReference Include="..\Aristocrat.Monaco.Hardware.Fake\Aristocrat.Monaco.Hardware.Fake.csproj" />
+    <ProjectReference Include="..\Aristocrat.Monaco.Hardware.Usb\Aristocrat.Monaco.Hardware.Usb.csproj" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">

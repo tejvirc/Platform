@@ -23,10 +23,10 @@
     using Kernel.Contracts;
     using Kernel.Contracts.Components;
     using log4net;
-    using NoteAcceptor;
     using Printer;
     using Properties;
     using Reel;
+    using Services;
 
     public class HardwareConfiguration : IHardwareConfiguration, IDisposable
     {
@@ -49,6 +49,7 @@
         private readonly IEventBus _bus;
         private readonly ISystemDisableManager _disableManager;
         private readonly IPropertiesManager _propertiesManager;
+        private readonly IDeviceFactory<INoteAcceptor> _deviceFactory;
         private readonly object _serviceRegistrationLock = new();
 
         private bool _disposed;
@@ -59,7 +60,8 @@
             IDeviceRegistryService deviceRegistry,
             IEventBus bus,
             ISystemDisableManager disableManager,
-            IPropertiesManager propertiesManager)
+            IPropertiesManager propertiesManager,
+            IDeviceFactory<INoteAcceptor> deviceFactory)
         {
             if (storage == null)
             {
@@ -70,6 +72,7 @@
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
             _disableManager = disableManager ?? throw new ArgumentNullException(nameof(disableManager));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
+            _deviceFactory = deviceFactory ?? throw new ArgumentNullException(nameof(deviceFactory));
 
             _accessor = storage.GetAccessor(Level, Name, Enum.GetValues(typeof(DeviceType)).Length);
 
@@ -389,18 +392,10 @@
                                     }
                                 }
                             }
-
                             break;
                         case DeviceType.NoteAcceptor:
                             adapter = HandleServiceRegistration<INoteAcceptor>(
-                                new NoteAcceptorAdapter(
-                                    _bus,
-                                    serviceManager.GetService<IComponentRegistry>(),
-                                    serviceManager.GetService<IDfuProvider>(),
-                                    serviceManager.GetService<IPersistentStorageManager>(),
-                                    serviceManager.GetService<IDisabledNotesService>(),
-                                    serviceManager.GetService<IPersistenceProvider>(),
-                                    serviceManager.GetService<ISerialPortsService>()),
+                                _deviceFactory.CreateDevice(config),
                                 config,
                                 data,
                                 inspectedDevice);

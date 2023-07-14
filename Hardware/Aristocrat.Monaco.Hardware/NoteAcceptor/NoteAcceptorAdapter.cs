@@ -84,7 +84,8 @@
             IPersistentStorageManager storageManager,
             IDisabledNotesService disabledNotesService,
             IPersistenceProvider persistence,
-            ISerialPortsService serialPortsService)
+            ISerialPortsService serialPortsService,
+            INoteAcceptorImplementation implementation)
             : base(eventBus, componentRegistry, dfuProvider, serialPortsService)
         {
             _state = ConfigureStateMachine();
@@ -94,6 +95,7 @@
             _disabledNotesService =
                 disabledNotesService ?? throw new ArgumentNullException(nameof(disabledNotesService));
             _persistence = persistence ?? throw new ArgumentNullException(nameof(persistence));
+            _noteAcceptor = implementation ?? throw new ArgumentNullException(nameof(implementation));
             Disable(DisabledReasons.Device);
         }
 
@@ -591,10 +593,6 @@
         {
             lock (_instanceLock)
             {
-                // Load an instance of the given protocol implementation.
-                _noteAcceptor = AddinFactory.CreateAddin<INoteAcceptorImplementation>(
-                    DeviceImplementationsExtensionPath,
-                    ServiceProtocol);
                 if (Implementation == null)
                 {
                     var errorMessage = $"Cannot load {Name}";
