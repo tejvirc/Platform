@@ -26,11 +26,6 @@
         /// <param name="buffer">The buffer.</param>
         public ReportEventArgs(ReadOnlySpan<byte> buffer)
         {
-            if (buffer == null)
-            {
-                throw new ArgumentNullException(nameof(buffer));
-            }
-
             ReportId = buffer[0];
             Buffer = buffer[1..].ToArray();
         }
