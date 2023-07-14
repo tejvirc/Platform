@@ -34,7 +34,6 @@
     using Utils;
     using PayMethod = Contracts.Bonus.PayMethod;
 #if !(RETAIL)
-    using RobotController.Contracts;
     using Vgt.Client12.Testing.Tools;
 #endif
 

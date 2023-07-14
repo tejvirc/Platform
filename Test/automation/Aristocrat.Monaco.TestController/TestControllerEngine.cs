@@ -36,12 +36,12 @@
     using Kernel;
     using log4net;
     using Newtonsoft.Json;
-    using RobotController.Contracts;
     using Test.Automation;
     using Wait;
     using HardwareFaultClearEvent = Hardware.Contracts.NoteAcceptor.HardwareFaultClearEvent;
     using HardwareFaultEvent = Hardware.Contracts.NoteAcceptor.HardwareFaultEvent;
     using Aristocrat.Monaco.Gaming.UI.ViewModels;
+    using Aristocrat.Monaco.Gaming.Contracts.Events;
 
     [ServiceBehavior(
         InstanceContextMode = InstanceContextMode.Single,
@@ -213,17 +213,6 @@
                 data = new Dictionary<string, object> { { "response-to", "/Platform/AuditMenu" } },
                 Result = true,
                 Info = "Selecting audit menu tab: {name}."
-            };
-        }
-
-        public CommandResult ToggleRobotMode()
-        {
-            _eventBus.Publish(new RobotControllerEnableEvent());
-            return new CommandResult()
-            {
-                data = new Dictionary<string, object> { { "response-to", "/Platform/ToggleRobotMode" } },
-                Result = true,
-                Info = "Toggle robot mode"
             };
         }
 

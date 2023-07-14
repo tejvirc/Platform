@@ -120,14 +120,6 @@
 
         [OperationContract]
         [WebInvoke(
-            UriTemplate = "/Platform/ToggleRobotMode",
-            BodyStyle = WebMessageBodyStyle.WrappedRequest,
-            ResponseFormat = WebMessageFormat.Json,
-            RequestFormat = WebMessageFormat.Json)]
-        CommandResult ToggleRobotMode();
-
-        [OperationContract]
-        [WebInvoke(
             UriTemplate = "/Platform/OperatorMenu",
             BodyStyle = WebMessageBodyStyle.WrappedRequest,
             ResponseFormat = WebMessageFormat.Json,
