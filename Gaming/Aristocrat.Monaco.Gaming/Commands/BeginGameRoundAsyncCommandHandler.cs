@@ -80,7 +80,13 @@
             }
 
             var (game, denomination) = _properties.GetActiveGame();
-            var wagerCategory = game?.WagerCategories?.FirstOrDefault(x => x.Id == command.WagerCategoryId.ToString());
+            if (game == null || denomination == null)
+            {
+                Failed("game is not running");
+                return;
+            }
+
+            var wagerCategory = game.WagerCategories?.FirstOrDefault(x => x.Id == command.WagerCategoryId.ToString());
             SetWagerCategory(wagerCategory);
 
             if (command.Request is not null)
@@ -128,7 +134,7 @@
                     Logger,
                     _progressiveGameProvider,
                     command.Wager,
-                    game?.Id ?? 0,
+                    game.Id,
                     denomination.Value.MillicentsToCents());
             }
             else
@@ -155,7 +161,7 @@
 
             void SetWagerCategory(IWagerCategory category)
             {
-                category ??= game?.WagerCategories?.FirstOrDefault();
+                category ??= game.WagerCategories?.FirstOrDefault();
                 _properties.SetProperty(GamingConstants.SelectedWagerCategory, category);
             }
         }

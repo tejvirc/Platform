@@ -170,7 +170,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 { "/Runtime/KenoFreeGames&selectionChange", _properties.GetValue(GamingConstants.KenoFreeGamesSelectionChangeKey, GamingConstants.KenoFreeGamesSelectionChange) ? "allowed" : "disallowed"  },
                 { "/Runtime/KenoFreeGames&autoPlay", _properties.GetValue(GamingConstants.KenoFreeGamesAutoPlayKey, GamingConstants.KenoFreeGamesAutoPlay) ? "allowed" : "disallowed"  },
                 { "/Runtime/InitialZeroWager&use", _properties.GetValue(GamingConstants.InitialZeroWagerUseKey, GamingConstants.InitialZeroWagerUse) ? "allowed" : "disallowed"  },
-                { "/Runtime/ChangeLineSelectionAtZeroCredit&use", _properties.GetValue(GamingConstants.ChangeLineSelectionAtZeroCreditUseKey, GamingConstants.ChangeLineSelectionAtZeroCreditUse).ToString()  },
+                { "/Runtime/ChangeLineSelectionAtZeroCredit&use", _properties.GetValue(GamingConstants.ChangeLineSelectionAtZeroCreditUseKey, GamingConstants.ChangeLineSelectionAtZeroCreditUse) ? "allowed" : "disallowed" },
                 { "/Runtime/GameDuration&useMarketGameTime", _properties.GetValue(GamingConstants.GameDurationUseMarketGameTimeKey, GamingConstants.GameDurationUseMarketGameTime).ToString()  },
                 { "/Runtime/GameLog&enabled", _properties.GetValue(GamingConstants.GameLogEnabledKey, GamingConstants.GameLogEnabled).ToString()  },
                 { "/Runtime/GameLog&outcomeDetails", _properties.GetValue(GamingConstants.GameLogOutcomeDetailsKey, GamingConstants.GameLogOutcomeDetails).ToString()  },
