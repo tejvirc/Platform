@@ -69,7 +69,7 @@
         }
 
         /// <inheritdoc />
-        public IHost UnregisterHost(int hostId)
+        public IHost UnregisterHost(int hostId, IEgmStateManager egmStateManager = null)
         {
             if (_hosts.TryRemove(hostId, out var host))
             {

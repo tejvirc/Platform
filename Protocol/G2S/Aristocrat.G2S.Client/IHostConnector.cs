@@ -35,6 +35,8 @@
         /// </summary>
         /// <param name="hostId">The unique host id</param>
         /// <returns>IHost</returns>
-        IHost UnregisterHost(int hostId);
+        /// <param name="egmStateManager">An instance of IEgmStateManager.</param>
+        /// <returns>IHost</returns>
+        IHost UnregisterHost(int hostId, IEgmStateManager egmStateManager = null);
     }
 }

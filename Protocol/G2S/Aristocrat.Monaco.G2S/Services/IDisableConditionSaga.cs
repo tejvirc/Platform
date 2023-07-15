@@ -24,13 +24,15 @@
         /// <param name="message">The message to display while the EGM is disabled</param>
         /// <param name="onDisable">The callback used indicate whether or not the system was disabled. True if disabled.</param>
         /// <param name="state">The state to use when the cabinet is disabled</param>
+        /// <param name="notify">Notify the device when setting it disabled.</param>
         void Enter(
             IDevice device,
             DisableCondition condition,
             TimeSpan timeToLive,
             Func<string> message,
             Action<bool> onDisable,
-            EgmState state = EgmState.HostLocked);
+            EgmState state = EgmState.HostLocked,
+            bool notify = false);
 
         /// <summary>
         ///     Initiates the disable procedures based on the specified condition

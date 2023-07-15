@@ -143,9 +143,10 @@
             TimeSpan timeToLive,
             Func<string> message,
             Action<bool> onDisable,
-            EgmState state = EgmState.HostLocked)
+            EgmState state = EgmState.HostLocked,
+            bool notify = false)
         {
-            InternalEnter(device, condition, timeToLive, message, false, onDisable, state);
+            InternalEnter(device, condition, timeToLive, message, false, onDisable, state, notify);
         }
 
         /// <inheritdoc />
@@ -319,7 +320,8 @@
             Func<string> message,
             bool persist,
             Action<bool> onDisable,
-            EgmState state)
+            EgmState state,
+            bool notify = false)
         {
             if (device == null)
             {
@@ -350,7 +352,7 @@
 
             if (_state.IsInState(State.Locked) || Pending && _device != device)
             {
-                AcquireConcurrentLock(device, condition, timeToLive, message, persist, onDisable, state);
+                AcquireConcurrentLock(device, condition, timeToLive, message, persist, onDisable, state, notify);
                 return;
             }
 
@@ -557,7 +559,8 @@
             Func<string> message,
             bool persist,
             Action<bool> onDisable,
-            EgmState state)
+            EgmState state,
+            bool notify = false)
         {
             var disableKey = Guid.Empty;
             var notified = false;
@@ -585,6 +588,12 @@
                     $"{_device} already has the device locked.  The disable state will be updated to include {message} for device ({device})");
 
                 disableKey = _stateManager.Disable(device, state, false, message);
+
+                // notify the device
+                if (notify)
+                {
+                    _deviceLock.Notified = false;
+                }
 
                 RespondAsync(onDisable, true);
 
@@ -726,7 +735,7 @@
 
             public Action<bool> OnEnable { get; set; }
 
-            public bool Notified { get; }
+            public bool Notified { get; set; }
 
             public EgmState DisableState { get; }
         }
