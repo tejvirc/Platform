@@ -4927,4 +4927,10 @@ Do you really want to do partial reset????</value>
     <value>Oui</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
+  <data name="DateText" xml:space="preserve">
+    <value>??DATE??</value>
+  </data>
+  <data name="TimeText" xml:space="preserve">
+    <value>??TIME??</value>
+  </data>
 </root>

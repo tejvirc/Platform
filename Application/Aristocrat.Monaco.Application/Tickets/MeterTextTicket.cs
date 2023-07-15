@@ -85,7 +85,7 @@
                 {
                     return noteAcceptor.Denominations.ToDictionary(
                         denom => localizer.FormatString(ResourceKeys.BillInFormat) +
-                                 " " + denom.FormattedCurrencyString("C0"),
+                                 " " + denom.FormattedCurrencyString("C0", localizer.CurrentCulture),
                         denom => "BillCount" + denom + "s");
                 }
 
