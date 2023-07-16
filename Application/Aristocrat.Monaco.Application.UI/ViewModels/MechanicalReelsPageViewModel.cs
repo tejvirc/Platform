@@ -222,7 +222,6 @@
             {
                 _reelCount = value;
                 RaisePropertyChanged(nameof(ReelCount));
-                RaisePropertyChanged(nameof(ReelCountForeground));
             }
         }
 
@@ -243,9 +242,9 @@
         }
 
         /// <summary>
-        ///     Gets the reel count foreground color
+        ///     Gets the info foreground color
         /// </summary>
-        public SolidColorBrush ReelCountForeground => Brushes.White;
+        public SolidColorBrush InfoForeground => Brushes.White;
 
         /// <summary>
         ///     Gets the show light test command

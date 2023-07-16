@@ -287,6 +287,10 @@
 
         public string SmallTopPickIcon { get; set; }
 
+        public string DenomButtonIcon { get; set; }
+
+        public string DenomPanel { get; set; }
+
         public string TopAttractVideo { get; set; }
 
         public string BottomAttractVideo { get; set; }

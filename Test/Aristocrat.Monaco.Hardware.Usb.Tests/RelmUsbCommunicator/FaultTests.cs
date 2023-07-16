@@ -40,7 +40,7 @@
                 .Returns(Task.FromResult(true))
                 .Raises(x => x.InterruptReceived += null, new RelmInterruptEventArgs(new PingTimeout()));
 
-            var usbCommunicator = new RelmUsbCommunicator(_driver.Object);
+            var usbCommunicator = new RelmUsbCommunicator(_driver.Object, null);
             usbCommunicator.ControllerFaultOccurred += delegate(object _, ReelControllerFaultedEventArgs e)
             {
                 controllerFaultOccurred = e.Faults == ReelControllerFaults.CommunicationError;
@@ -59,7 +59,7 @@
                 .Returns(Task.FromResult(true))
                 .Raises(x => x.PingTimeoutCleared += null, EventArgs.Empty);
 
-            var usbCommunicator = new RelmUsbCommunicator(_driver.Object);
+            var usbCommunicator = new RelmUsbCommunicator(_driver.Object, null);
             usbCommunicator.ControllerFaultCleared += delegate(object _, ReelControllerFaultedEventArgs e)
             {
                 controllerFaultCleared = e.Faults == ReelControllerFaults.CommunicationError;
@@ -91,7 +91,7 @@
                 .Returns(Task.FromResult(true))
                 .Raises(x => x.InterruptReceived += null, new RelmInterruptEventArgs(Activator.CreateInstance(interruptType)));
 
-            var usbCommunicator = new RelmUsbCommunicator(_driver.Object);
+            var usbCommunicator = new RelmUsbCommunicator(_driver.Object, null);
             usbCommunicator.ReelStatusReceived += delegate(object _, ReelStatusReceivedEventArgs e)
             {
                 actualReelStatus = e.Statuses.First();
@@ -142,7 +142,7 @@
                     .Raises(x => x.InterruptReceived += null, new RelmInterruptEventArgs(interrupt));
             }
 
-            var usbCommunicator = new RelmUsbCommunicator(_driver.Object);
+            var usbCommunicator = new RelmUsbCommunicator(_driver.Object, null);
             usbCommunicator.LightStatusReceived += delegate(object _, LightEventArgs e)
             {
                 actualLightStatus = e.Statuses.First();

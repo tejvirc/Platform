@@ -590,6 +590,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public bool IsExtraLargeGameIconTabActive => IsTabView && GameTabInfo.SelectedCategory == GameCategory.LightningLink;
 
         /// <summary>
+        ///     Is the combined jackpot banner visible
+        /// </summary>
+        public bool IsJackpotBannerVisible => IsExtraLargeGameIconTabActive &&
+                                              ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelOneEnabled &&
+                                              ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelTwoEnabled;
+
+        /// <summary>
         ///     Gets the game selected command
         /// </summary>
         public ICommand GameSelectCommand { get; }
@@ -2127,6 +2134,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                                   IsNew = GameIsNew(game.GameTags),
                                   Category = game.Category,
                                   SubCategory = game.SubCategory,
+                                  DenomButtonPath = game.LocaleGraphics[ActiveLocaleCode].DenomButtonIcon,
+                                  DenomPanelPath = game.LocaleGraphics[ActiveLocaleCode].DenomPanel,
                                   RequiresMechanicalReels = game.MechanicalReels > 0
                               }).ToList();
 
@@ -3882,6 +3891,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             RaisePropertyChanged(nameof(IsSingleTabView));
             RaisePropertyChanged(nameof(IsSingleDenomDisplayed));
             RaisePropertyChanged(nameof(IsSingleGameDisplayed));
+            RaisePropertyChanged(nameof(IsJackpotBannerVisible));
         }
 
         private void SelectFirstDisplayedGame()
@@ -5408,6 +5418,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 LocaleGraphics = game.LocaleGraphics,
                 ThemeId = game.ThemeId,
                 IsNew = GameIsNew(game.GameTags),
+                DenomButtonPath = game.LocaleGraphics[ActiveLocaleCode].DenomButtonIcon,
+                DenomPanelPath = game.LocaleGraphics[ActiveLocaleCode].DenomPanel,
                 RequiresMechanicalReels = game.MechanicalReels > 0
             };
         }

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -12271,5 +12271,19 @@ Do you really want to do full reset?</value>
   </data>
   <data name="PayoutLimitHelpText" xml:space="preserve">
     <value>Note: After first COAM game is played, RAM clear is required to change payout limit.</value>
+  </data>
+  <data name="ExtraSettingsButtonText" xml:space="preserve">
+    <value>Extra Settings</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="GameSpecificOptionLabel" xml:space="preserve">
+    <value>Game Specific Options</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="GamesPlayedSinceDoorClosed" xml:space="preserve">
+    <value>Games Played since Door Closed</value>
+  </data>
+  <data name="GamesPlayedSinceReboot" xml:space="preserve">
+    <value>Games Played since Reboot</value>
   </data>
 </root>

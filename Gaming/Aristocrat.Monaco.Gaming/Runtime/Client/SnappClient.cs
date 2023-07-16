@@ -217,6 +217,11 @@
             Invoke(x => x.UpdateReelState(stateRequest));
         }
 
+        public void AnimationUpdated(AnimationUpdatedNotification animationUpdatedNotification)
+        {
+            Invoke(x => x.AnimationUpdated(animationUpdatedNotification));
+        }
+
         public void PresentOverriddenPresentation(IList<PresentationOverrideData> presentations)
         {
             var overriddenPresentationMessage = new OverriddenPresentationMessage();

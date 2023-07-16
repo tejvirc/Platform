@@ -624,20 +624,26 @@
                     Visibility="{Binding ConfigureVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     Width="Auto"
                     AutomationProperties.AutomationId="Button71_FA38938A" />
+            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExtraSettingsButtonText}}"
+                    Command="{Binding ExtraSettingsSetupCommand, Mode=OneWay}"
+                    IsEnabled="{Binding ExtraSettingsEnabled, UpdateSourceTrigger=PropertyChanged}"
+                    Visibility="{Binding ExtraSettingsVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                    Width="Auto"
+                    AutomationProperties.AutomationId="Button72_FA38938A" />
             <StackPanel Orientation="Horizontal"
                         Visibility="{Binding ImportVisibleOverride, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                        AutomationProperties.AutomationId="StackPanel72_FA38938A">
+                        AutomationProperties.AutomationId="StackPanel73_FA38938A">
                 <Button x:Name="ImportBtn"
                         Content="{lex:Loc ImportGameSettings}"
                         Command="{Binding ImportCommand}"
                         Width="Auto"
-                        AutomationProperties.AutomationId="Button73_FA38938A" />
+                        AutomationProperties.AutomationId="Button74_FA38938A" />
                 <Button Name="ImportInfoButton"
                         Style="{StaticResource MonacoInfoButton}"
                         Margin="0 0 10 10"
                         Command="{Binding ShowInfoPopupCommand}"
                         Visibility="{Binding Path=CanExecuteImportCommand, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TrueCollapsedFalseVisible}}"
-                        AutomationProperties.AutomationId="Button74_FA38938A">
+                        AutomationProperties.AutomationId="Button75_FA38938A">
                     <Button.CommandParameter>
                         <MultiBinding Converter="{StaticResource MultiValueConverter}">
                             <Binding ElementName="ImportInfoButton" />
@@ -648,17 +654,17 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                         Visibility="{Binding ExportVisibleOverride, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                        AutomationProperties.AutomationId="StackPanel75_FA38938A">
+                        AutomationProperties.AutomationId="StackPanel76_FA38938A">
                 <Button Content="{lex:Loc ExportGameSettings}"
                         Command="{Binding ExportCommand}"
                         Width="Auto"
-                        AutomationProperties.AutomationId="Button76_FA38938A" />
+                        AutomationProperties.AutomationId="Button77_FA38938A" />
                 <Button Name="ExportInfoButton"
                         Style="{StaticResource MonacoInfoButton}"
                         Margin="0 0 10 10"
                         Visibility="{Binding Path=CanExecuteExportCommand, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TrueCollapsedFalseVisible}}"
                         Command="{Binding ShowInfoPopupCommand}"
-                        AutomationProperties.AutomationId="Button77_FA38938A">
+                        AutomationProperties.AutomationId="Button78_FA38938A">
                     <Button.CommandParameter>
                         <MultiBinding Converter="{StaticResource MultiValueConverter}">
                             <Binding ElementName="ExportInfoButton" />
@@ -671,12 +677,12 @@
                     Command="{Binding ShowRtpSummaryCommand}"
                     Visibility="{Binding ShowSummaryButtons, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}"
                     Width="Auto"
-                    AutomationProperties.AutomationId="Button78_FA38938A" />
+                    AutomationProperties.AutomationId="Button79_FA38938A" />
             <Button Content="{lex:Loc ViewProgressiveSummary}"
                     Command="{Binding ShowProgressiveSummaryCommand}"
                     Visibility="{Binding ShowSummaryButtons, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}"
                     Width="Auto"
-                    AutomationProperties.AutomationId="Button79_FA38938A" />
+                    AutomationProperties.AutomationId="Button80_FA38938A" />
         </StackPanel>
         <controls:ProgressRing Grid.RowSpan="3"
                                Height="100"

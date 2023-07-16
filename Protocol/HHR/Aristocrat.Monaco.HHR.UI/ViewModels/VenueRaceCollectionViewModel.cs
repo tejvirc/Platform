@@ -284,7 +284,6 @@
             {
                 // Stop and clean up any currently running horses.
                 IsPaused = false;
-                _willRecover = false;
                 RaceStarted = false;
 
                 SetupRaces(raceInfo);

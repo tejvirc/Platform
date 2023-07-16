@@ -27,7 +27,6 @@
         <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
         <!-- Jurisdiction xaml dictionary is loaded dynamically; see SkinLoader -->
     </ResourceDictionary.MergedDictionaries>
-    <converters:AttractActiveToVisibilityConverter x:Key="AttractToVisibilityConv" />
     <converters:ViewFiltersToBoolConverter x:Key="FiltersToBoolConv" />
     <converters:DecoratorIconVisibilityConverter x:Key="AnimatedIconVisibilityConv" />
     <converters:DecoratorIconVisibilityConverter x:Key="StaticIconVisibilityConv"
