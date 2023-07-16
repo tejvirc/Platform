@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
-namespace Aristocrat.Monaco.TestController
+﻿namespace Aristocrat.Monaco.TestController
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
     using Application.Contracts;
     using Aristocrat.Sas.Client;
     using Accounting.Contracts;
-    using Gaming.Contracts.Meters;
-    using Gaming.Contracts;
     using Aristocrat.Sas.Client.Metering;
     using Aristocrat.Monaco.Sas;
+    using Gaming.Contracts.Meters;
+    using Gaming.Contracts;
     using Kernel;
 
     public class MeterManager
@@ -132,7 +130,6 @@ namespace Aristocrat.Monaco.TestController
             response["Bet"] = wager.Session.ToString();
             response["Credit"] = credit.Session.ToString();
             response["Win"] = win.Session.ToString();
-
 
             return response;
         }

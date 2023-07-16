@@ -1,15 +1,15 @@
 ﻿namespace Aristocrat.Monaco.TestController
 {
-    using Aristocrat.Monaco.Hardware.Contracts;
-    using Aristocrat.Monaco.Hardware.Contracts.IdReader;
-    using Aristocrat.Monaco.Kernel;
-    using Aristocrat.Monaco.TestController.Models.Request;
-    using DataModel;
-    using Hardware.Contracts.CardReader;
-    using Hardware.Contracts.IO;
-    using Microsoft.AspNetCore.Mvc;
     using System.Collections.Generic;
     using System.Linq;
+    using DataModel;
+    using Hardware.Contracts;
+    using Hardware.Contracts.IdReader;
+    using Hardware.Contracts.CardReader;
+    using Hardware.Contracts.IO;
+    using Kernel;
+    using Microsoft.AspNetCore.Mvc;
+    using TestController.Models.Request;
 
     public partial class TestControllerEngine
     {
@@ -69,40 +69,31 @@
             }
         }
 
-
         //PMC::private FakeCardReaderEvent _cardReaderEvents = new List<Card
 
         [HttpPost]
         [Route("CardReaders/0/InsertCard")]
-        public ActionResult<CommandResult> InsertCard([FromBody] InsertCardRequest request)
+        public ActionResult InsertCard([FromBody] InsertCardRequest request)
         {
             string idName = request.CardName;
             //check for null or invalid string
             if (idName == null)
             {
-                return new CommandResult
+                return Ok(new Dictionary<string, object>
                 {
-                    data = new Dictionary<string, object>
-                    {
-                        ["response-to"] = $"/CardReaders/0/InsertCard/{idName}"
-                    },
-                    Command = $"Value for Name is invalid",
-                    Result = false
-                };
+                    { "response-to", $"/CardReaders/0/InsertCard/{idName}" },
+                    { "Command", "Value for Name is invalid" }
+                });
             }
 
             //check existence of idCard with idName
             if (!MagneticCards.ContainsKey(idName))
             {
-                return new CommandResult
+                return Ok(new Dictionary<string, object>
                 {
-                    data = new Dictionary<string, object>
-                    {
-                        ["response-to"] = $"/CardReaders/0/InsertCard/{idName}"
-                    },
-                    Command = $"Value for Name is cannot be founc",
-                    Result = false
-                };
+                    { "response-to", $"/CardReaders/0/InsertCard/{idName}" },
+                    { "Command", "Value for Name cannot be found" }
+                });
             }
 
             TrackData tData = new TrackData { };
@@ -115,84 +106,73 @@
 
             CardStatusText = $"{Track1Data} Inserted";
 
-
-            return new CommandResult
+            return Ok(new Dictionary<string, object>
             {
-                data = new Dictionary<string, object>
-                {
-                    ["response-to"] = $"/CardReaders/0/InsertCard/{idName}"
-                },
-                Command = $"{Track1Data} Inserted",
-                Result = true
-
-            };
+                { "response-to", $"/CardReaders/0/InsertCard/{idName}" },
+                { "Command", $"{Track1Data} Inserted" }
+            });
         }
 
         [HttpPost]
         [Route("CardReaders/0/RemoveCard")]
-        public ActionResult<CommandResult> RemoveCard()
+        public ActionResult RemoveCard()
         {
             _eventBus.Publish(new FakeCardReaderEvent(0, string.Empty, false));
             CardStatusText = "Card Removed";
 
-            return new CommandResult {
-                data = new Dictionary<string, object>
-                {
-                    ["response-to"] = $"/CardReaders/0/RemoveCard"
-                },
-                Command = $"{Track1Data} Removed",  Result = true };
+            return Ok(new Dictionary<string, object>
+            {
+                { "response-to", "/CardReaders/0/RemoveCard" },
+                { "Command", $"{Track1Data} Removed" }
+            });
         }
 
         [HttpPost]
         [Route("CardReaders/0/Disconnect")]
-        public ActionResult<CommandResult> CardReaderDisconnect()
+        public ActionResult CardReaderDisconnect()
         {
             var idReader = ServiceManager.GetInstance().TryGetService<IIdReaderProvider>().Adapters.FirstOrDefault();
-            
-            var response = new CommandResult()
+
+            var data = new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = $"/CardReaders/0/Disconnect" },
-                Command = "CardReaderDisconnect"
+                { "response-to", "/CardReaders/0/Disconnect" },
+                { "Command", "CardReaderDisconnect" }
             };
 
             if (idReader != null)
             {
                 _eventBus.Publish(new DisconnectedEvent(idReader.IdReaderId));
-                response.Result = true;
             }
             else
             {
-                response.data.Add("error", "no idReader found");
-                response.Result = false;
+                data.Add("error", "no idReader found");
             }
 
-            return response;
+            return Ok(data);
         }
 
         [HttpPost]
         [Route("CardReaders/0/Connect")]
-        public ActionResult<CommandResult> CardReaderConnect()
+        public ActionResult CardReaderConnect()
         {
             var idReader = ServiceManager.GetInstance().TryGetService<IIdReaderProvider>().Adapters.FirstOrDefault();
 
-            var response = new CommandResult()
+            var data = new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = $"/CardReaders/0/Connect" },
-                Command = "CardReaderConnect"
+                { "response-to", "/CardReaders/0/Connect" },
+                { "Command", "CardReaderConnect" }
             };
 
             if (idReader != null)
             {
                 _eventBus.Publish(new ConnectedEvent(idReader.IdReaderId));
-                response.Result = true;
             }
             else
             {
-                response.data.Add("error", "no idReader found");
-                response.Result = false;
+                data.Add("error", "no idReader found");
             }
 
-            return response;
+            return Ok(data);
         }
     }
 }

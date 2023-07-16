@@ -1,19 +1,19 @@
 ﻿namespace Aristocrat.Monaco.TestController
 {
+    using System;
     using Accounting.Contracts;
-    using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
-    using Aristocrat.Monaco.Hardware.Contracts.TowerLight;
+    using Application.Contracts.OperatorMenu; 
     using DataModel;
     using G2S.Common.Events;
     using Gaming.Contracts;
     using Gaming.Contracts.Lobby;
     using Gaming.Diagnostics;
-    using Hardware.Contracts.IdReader;
-    using Kernel;
-    using System;
     using Gaming.Contracts.Events;
-    using Aristocrat.Monaco.Gaming.UI.Events;
-    using Aristocrat.Monaco.Gaming.UI.ViewModels;
+    using Gaming.UI.Events;
+    using Gaming.UI.ViewModels;
+    using Hardware.Contracts.IdReader;
+    using Hardware.Contracts.TowerLight;
+    using Kernel;
 
     public partial class TestControllerEngine
     {

@@ -12,7 +12,7 @@
     using Kernel;
     using Kernel.Contracts;
     using Microsoft.AspNetCore.Mvc;
-    using Aristocrat.Monaco.TestController.Models.Request;
+    using TestController.Models.Request;
 
     public partial class TestControllerEngine
     {
@@ -22,23 +22,20 @@
 
         [HttpGet]
         [Route("BNA/{id}/Status")]
-        public ActionResult<CommandResult> NoteAcceptorStatus([FromRoute] string id)
+        public ActionResult NoteAcceptorStatus([FromRoute] string id)
         {
             var bna = ServiceManager.GetInstance().TryGetService<INoteAcceptor>();
 
-            return new CommandResult
+            return Ok(new Dictionary<string, object>
             {
-                data = new Dictionary<string, object>
-                {
-                    ["response-to"] = $"/BNA/{id}/Status",
-                    ["status"] = bna.Enabled ? "Enabled" : "Disabled"
-                }
-            };
+                ["response-to"] = $"/BNA/{id}/Status",
+                ["status"] = bna.Enabled ? "Enabled" : "Disabled"
+            });
         }
 
         [HttpGet]
         [Route("BNA/{id}/Bill/Mask/Get")]
-        public ActionResult<CommandResult> NoteAcceptorGetMask([FromRoute] string id)
+        public ActionResult NoteAcceptorGetMask([FromRoute] string id)
         {
             var bna = ServiceManager.GetInstance().TryGetService<INoteAcceptor>();
 
@@ -46,16 +43,12 @@
 
             if (bna == null)
             {
-                return new CommandResult
+                return Ok(new Dictionary<string, object>
                 {
-                    data = new Dictionary<string, object>
-                    {
-                        ["response-to"] = $"/BNA/{id}/Bill/Mask/Get",
-                        ["Mask"] = bitMask.ToString(),
-                        ["error"] = "Note acceptor service unavailable"
-                    },
-                    Result = false
-                };
+                    ["response-to"] = $"/BNA/{id}/Bill/Mask/Get",
+                    ["Mask"] = bitMask.ToString(),
+                    ["error"] = "Note acceptor service unavailable"
+                });
             }
 
             var denoms = bna.GetSupportedNotes();
@@ -74,20 +67,16 @@
                 }
             }
 
-            return new CommandResult
+            return Ok(new Dictionary<string, object>
             {
-                data = new Dictionary<string, object>
-                {
-                    ["response-to"] = $"/BNA/{id}/Bill/Mask/Get",
-                    ["Mask"] = bitMask.ToString()
-                },
-                Result = true
-            };
+                ["response-to"] = $"/BNA/{id}/Bill/Mask/Get",
+                ["Mask"] = bitMask.ToString()
+            });
         }
 
         [HttpPost]
         [Route("BNA/{id}/Bill/Mask/Set")]
-        public ActionResult<CommandResult> NoteAcceptorSetMask([FromRoute] string id, [FromBody] NoteAcceptorSetMaskRequest request)
+        public ActionResult NoteAcceptorSetMask([FromRoute] string id, [FromBody] NoteAcceptorSetMaskRequest request)
         {
             var bna = ServiceManager.GetInstance().TryGetService<INoteAcceptor>();
 
@@ -95,11 +84,11 @@
 
             if (bna == null)
             {
-                return new CommandResult
+                return Ok(new Dictionary<string, object>
                 {
-                    data = new Dictionary<string, object> { ["response-to"] = $"/BNA/{id}/Mask/Set", ["error"] = "Note acceptor service unavailable" },
-                    Result = false
-                };
+                    ["response-to"] = $"/BNA/{id}/Mask/Set",
+                    ["error"] = "Note acceptor service unavailable"
+                });
             }
 
             var denoms = bna.GetSupportedNotes();
@@ -112,31 +101,26 @@
             //31st bit is for vouchers.
             _pm.SetProperty(PropertyKey.VoucherIn, ((2 ^ 31) & value) != 0);
 
-            return new CommandResult
+            return Ok(new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = $"/BNA/{id}/Mask/Set" },
-                Result = true
-            };
+                ["response-to"] = $"/BNA/{id}/Mask/Set"
+            });
         }
 
         [HttpGet]
         [Route("BNA/{id}/Bill/Notes/Get")]
-        public ActionResult<CommandResult> NoteAcceptorGetNotes([FromRoute] string id)
+        public ActionResult NoteAcceptorGetNotes([FromRoute] string id)
         {
             var bna = ServiceManager.GetInstance().TryGetService<INoteAcceptor>();
 
             if (bna == null)
             {
-                return new CommandResult
+                return Ok(new Dictionary<string, object>
                 {
-                    data = new Dictionary<string, object>
-                    {
-                        ["response-to"] = $"/BNA/{id}/Bill/Notes/Get",
-                        ["Notes"] = "",
-                        ["error"] = "Note acceptor service unavailable"
-                    },
-                    Result = false
-                };
+                    ["response-to"] = $"/BNA/{id}/Bill/Notes/Get",
+                    ["Notes"] = "",
+                    ["error"] = "Note acceptor service unavailable"
+                });
             }
 
             var currencyCode = _pm.GetValue(ApplicationConstants.CurrencyId, ApplicationConstants.DefaultCurrencyId);
@@ -148,35 +132,29 @@
                 notes = notes + note.ToString() + " ";
             }
 
-            return new CommandResult
+            return Ok(new Dictionary<string, object>
             {
-                data = new Dictionary<string, object>
-                {
-                    ["response-to"] = $"/BNA/{id}/Bill/Notes/Get",
-                    ["Notes"] = notes
-                },
-                Result = true
-            };
-
+                ["response-to"] = $"/BNA/{id}/Bill/Notes/Get",
+                ["Notes"] = notes
+            });
         }
 
         [HttpPost]
         [Route("BNA/{id}/Cheat")]
-        public ActionResult<CommandResult> NoteAcceptorCheat([FromRoute] string id)
+        public ActionResult NoteAcceptorCheat([FromRoute] string id)
         {
             _eventBus.Publish(new FakeNoteAcceptorEvent { Cheat = true });
 
-            return new CommandResult
+            return Ok(new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = $"/BNA/{id}/Cheat" },
-                Command = "NoteAcceptorCheat",
-                Result = true
-            };
+                ["response-to"] = $"/BNA/{id}/Cheat",
+                ["Command"] = "NoteAcceptorCheat"
+            });
         }
 
         [HttpPost]
         [Route("BNA/{id}/Connect")]
-        public ActionResult<CommandResult> NoteAcceptorConnect([FromRoute] string id)
+        public ActionResult NoteAcceptorConnect([FromRoute] string id)
         {
             bool result = false;
             var noteAcceptor = ServiceManager.GetInstance().GetService<INoteAcceptor>();
@@ -193,17 +171,16 @@
                 }
             }
 
-            return new CommandResult
+            return Ok(new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { [ResponseTo] = $"/BNA/{id}/Connect" },
-                Command = NoteAcceptorConnectMessage,
-                Result = result
-            };
+                [ResponseTo] = $"/BNA/{id}/Connect",
+                ["Command"] = NoteAcceptorConnectMessage
+            });
         }
 
         [HttpPost]
         [Route("BNA/{id}/Disconnect")]
-        public ActionResult<CommandResult> NoteAcceptorDisconnect([FromRoute] string id)
+        public ActionResult NoteAcceptorDisconnect([FromRoute] string id)
         {
             bool result = false;
             var noteAcceptor = ServiceManager.GetInstance().GetService<INoteAcceptor>();
@@ -219,113 +196,89 @@
                 }
             }
 
-            return new CommandResult
+            return Ok(new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { [ResponseTo] = $"/BNA/{id}/Disconnect" },
-                Command = NoteAcceptorDisconnectMessage,
-                Result = result
-            };
+                [ResponseTo] = $"/BNA/{id}/Disconnect",
+                ["Command"] = NoteAcceptorDisconnectMessage
+            });
         }
 
         [HttpPost]
         [Route("BNA/{id}/Firmware/Get")]
-        public ActionResult<CommandResult> NoteAcceptorGetFirmware([FromRoute] string id)
+        public ActionResult NoteAcceptorGetFirmware([FromRoute] string id)
         {
             var bna = ServiceManager.GetInstance().GetService<IDeviceRegistryService>().GetDevice<INoteAcceptor>();
 
             string currencyId = (string)_pm.GetProperty(ApplicationConstants.CurrencyId, "");
-            return new CommandResult
+            return Ok(new Dictionary<string, object>
             {
-                data = new Dictionary<string, object>
-                {
-                    ["response-to"] = $"/BNA/{id}/Firmware/Get",
-                    ["FirmwareId"] = currencyId
-
-                },
-                Command = "NoteAcceptorGetFirmware - Not Implemented."
-            };
+                ["response-to"] = $"/BNA/{id}/Firmware/Get",
+                ["FirmwareId"] = currencyId,
+                ["Command"] = "NoteAcceptorGetFirmware - Not Implemented."
+            });
         }
 
         [HttpPost]
         [Route("BNA/{id}/Firmware/Set")]
-        public ActionResult<CommandResult> NoteAcceptorSetFirmware(
+        public ActionResult NoteAcceptorSetFirmware(
             [FromRoute] string id,
             [FromBody] NoteAcceptorSetFirmwareRequest request)
         {
-            return new CommandResult
+            return Ok(new Dictionary<string, object>
             {
-                data = new Dictionary<string, object>
-                {
-                    ["response-to"] = $"/BNA/{id}/Firmware/Set",
-                    ["error"] = "Method not implemented."
-                },
-                Command = "NoteAcceptorSetFirmware - Not Implemented."
-            };
+                ["response-to"] = $"/BNA/{id}/Firmware/Set",
+                ["error"] = "Method not implemented.",
+                ["Command"] = "NoteAcceptorSetFirmware - Not Implemented."
+            });
         }
 
         [HttpPost]
         [Route("BNA/{id}/Stacker/Attach")]
-        public ActionResult<CommandResult> NoteAcceptorAttachStacker([FromRoute] string id)
+        public ActionResult NoteAcceptorAttachStacker([FromRoute] string id)
         {
             _eventBus.Publish(new FakeStackerEvent { Disconnect = false, Full = false });
-            return new CommandResult
+            return Ok(new Dictionary<string, object>
             {
-                data = new Dictionary<string, object>
-                {
-                    ["response-to"] = $"/BNA/{id}/Stacker/Attach",
-                },
-                Command = "NoteAcceptorAttachStacker",
-                Result = true
-            };
+                ["response-to"] = $"/BNA/{id}/Stacker/Attach",
+                ["Command"] = "NoteAcceptorAttachStacker"
+            });
         }
 
         [HttpPost]
         [Route("BNA/{id}/Stacker/Full")]
-        public ActionResult<CommandResult> NoteAcceptorStackerFull([FromRoute] string id)
+        public ActionResult NoteAcceptorStackerFull([FromRoute] string id)
         {
             _eventBus.Publish(new FakeStackerEvent { Full = true });
-            return new CommandResult
+            return Ok(new Dictionary<string, object>
             {
-                data = new Dictionary<string, object>
-                {
-                    ["response-to"] = $"/BNA/{id}/Stacker/Full",
-                },
-                Command = "NoteAcceptorStackerFull",
-                Result = true
-            };
+                ["response-to"] = $"/BNA/{id}/Stacker/Full",
+                ["Command"] = "NoteAcceptorStackerFull"
+            });
         }
 
-        public CommandResult NoteAcceptorStackerJam(string id)
+        public ActionResult NoteAcceptorStackerJam(string id)
         {
             _eventBus.Publish(new FakeStackerEvent { Jam = true });
-            return new CommandResult
+            return Ok(new Dictionary<string, object>
             {
-                data = new Dictionary<string, object>
-                {
-                    ["response-to"] = $"/BNA/{id}/Stacker/Jam",
-                },
-                Command = "NoteAcceptorStackerJam",
-                Result = true
-            };
+                ["response-to"] = $"/BNA/{id}/Stacker/Jam",
+                ["Command"] = "NoteAcceptorStackerJam"
+            });
         }
 
         [HttpPost]
         [Route("BNA/{id}/Stacker/Remove")]
-        public ActionResult<CommandResult> NoteAcceptorStackerRemove([FromRoute] string id)
+        public ActionResult NoteAcceptorStackerRemove([FromRoute] string id)
         {
             _eventBus.Publish(new FakeStackerEvent { Disconnect = true });
-            return new CommandResult
+            return Ok(new Dictionary<string, object>
             {
-                data = new Dictionary<string, object>
-                {
-                    ["response-to"] = $"/BNA/{id}/Stacker/Remove",
-                },
-                Command = "NoteAcceptorStackerRemove",
-                Result = true
-            };
+                ["response-to"] = $"/BNA/{id}/Stacker/Remove",
+                ["Command"] = "NoteAcceptorStackerRemove"
+            });
         }
 
-        public CommandResult NoteAcceptorInsertTicket(string validation_id, string id)
+        public ActionResult NoteAcceptorInsertTicket(string validation_id, string id)
         {
             var noteAcceptor = ServiceManager.GetInstance().GetService<IDeviceRegistryService>().GetDevice<INoteAcceptor>();
             if (noteAcceptor != null)
@@ -333,31 +286,23 @@
                 _eventBus.Publish(new VoucherEscrowedEvent(noteAcceptor.NoteAcceptorId, validation_id));
             }
 
-            return new CommandResult
+            return Ok(new Dictionary<string, object>
             {
-                data = new Dictionary<string, object>
-                {
-                    ["response-to"] = $"/BNA/{id}/Ticket/Insert",
-                },
-                Command = "NoteAcceptorInsertTicket",
-                Result = noteAcceptor != null
-            };
+                ["response-to"] = $"/BNA/{id}/Ticket/Insert",
+                ["Command"] = "NoteAcceptorInsertTicket"
+            });
         }
 
         [HttpPost]
         [Route("BNA/{id}/Escrow/Status")]
-        public ActionResult<CommandResult> NoteAcceptorEscrowStatus([FromRoute] string id)
+        public ActionResult NoteAcceptorEscrowStatus([FromRoute] string id)
         {
             var bna = ServiceManager.GetInstance().GetService<IDeviceRegistryService>().GetDevice<INoteAcceptor>();
-
-            return new CommandResult
+            return Ok(new Dictionary<string, object>
             {
-                data = new Dictionary<string, object>
-                {
-                    ["response-to"] = $"/BNA/{id}/Escrow/Status",
-                    ["escrowstatus"] = bna.LastDocumentResult.ToString()
-                }
-            };
+                ["response-to"] = $"/BNA/{id}/Escrow/Status",
+                ["escrowstatus"] = bna.LastDocumentResult.ToString()
+            });
         }
     }
 }
