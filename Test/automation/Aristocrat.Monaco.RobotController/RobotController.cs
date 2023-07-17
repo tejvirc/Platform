@@ -5,6 +5,7 @@
     using System.IO;
     using System.Threading.Tasks;
     using Aristocrat.Monaco.Accounting.Contracts;
+    using Aristocrat.Monaco.Application.Contracts.Robot;
     using Aristocrat.Monaco.Gaming.Contracts;
     using Aristocrat.Monaco.Gaming.Contracts.Lobby;
     using Aristocrat.Monaco.Gaming.Contracts.Models;
