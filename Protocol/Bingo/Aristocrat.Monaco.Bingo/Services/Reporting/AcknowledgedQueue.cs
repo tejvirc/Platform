@@ -15,8 +15,8 @@ namespace Aristocrat.Monaco.Bingo.Services.Reporting
         where TQueueItem : class
         where TQueueId : struct
     {
-        private const int DefaultQueueSize = 3000;  // revert back to 30 once server acknowledges
-        private const int AlmostFullThreshold = 2980; // revert back to 24 once server acknowledges // 80% full
+        private const int DefaultQueueSize = 30;
+        private const int AlmostFullThreshold = 24; // 80% full
         private readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private ConcurrentQueue<TQueueItem> _queue;
         private readonly IAcknowledgedQueueHelper<TQueueItem, TQueueId> _helper;

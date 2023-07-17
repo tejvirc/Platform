@@ -13,8 +13,8 @@
     [TestClass]
     public class AcknowledgedQueueTests
     {
-        private const int MaxQueueCount = 3000;  // TODO: revert back to 30 once server acknowledges
-        private const int AlmostFullThreshold = 2980; // TODO: revert back to 24 once server acknowledges // 80% full
+        private const int MaxQueueCount = 30;
+        private const int AlmostFullThreshold = 24; // 80% full
         private const int TestTransactionId = 4;
         private AcknowledgedQueue<TransactionReport, int> _target;
         private readonly Mock<IAcknowledgedQueueHelper<TransactionReport, int>> _helper = new();
