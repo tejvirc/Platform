@@ -56,30 +56,28 @@
             if (error == null && command.IClass.deviceId > 0)
             {
                 var device = _egm.GetDevice<IProgressiveDevice>(command.IClass.deviceId);
-                var levels = _progressiveProvider.GetProgressiveLevels().Where(l => l.ProgressiveId == device.ProgressiveId && (_progressiveDeviceManager.VertexDeviceIds.TryGetValue(l.DeviceId, out var value) ? value : l.DeviceId) == device.Id).ToList();
-                var lvl = levels.FirstOrDefault();
+                var linkedLevels = _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevels().Where(l => l.ProgressiveGroupId == device.ProgressiveId).Cast<LinkedProgressiveLevel>().ToList();
+                var linkedLevelNames = linkedLevels.Select(ll => ll.LevelName).ToList();
+                var levels = _progressiveProvider.GetProgressiveLevels().Where(
+                    l => linkedLevelNames.Contains(l.AssignedProgressiveId.AssignedProgressiveKey)).ToList();
 
-                if (lvl == null || !_protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevels(
-                        levels.Select(
-                            l => l.AssignedProgressiveId.AssignedProgressiveKey),
-                            out var linkedLevels))
+                if (!linkedLevels.Any())
                 {
                     error = new Error(ErrorCode.G2S_PGX003);
                 }
                 else
                 {
-                    foreach (var l in command.Command.setLevelValue)
+                    foreach (var hostLevel in command.Command.setLevelValue)
                     {
-                        var linkedLevel = linkedLevels.FirstOrDefault(
-                            ll => ll.ProtocolLevelId == l.levelId && ll.ProgressiveGroupId == l.progId);
-                        var progLevel = levels.FirstOrDefault(p => p.ProgressiveId == l.progId && p.LevelId == linkedLevel?.LevelId);
-                        if (progLevel == null)
+                        var linkedLevel = linkedLevels.Single(ll => ll.LevelId == hostLevel.levelId && ll.ProgressiveGroupId == hostLevel.progId);
+                        var progLevel = levels.Single(l => l.AssignedProgressiveId.AssignedProgressiveKey == linkedLevel?.LevelName);
+                        if (linkedLevel == null || progLevel == null)
                         {
                             error = new Error(ErrorCode.G2S_PGX003);
                             break;
                         }
 
-                        if (l.progValueAmt > progLevel.MaximumValue || l.progValueAmt < progLevel.ResetValue)
+                        if (hostLevel.progValueAmt > progLevel.MaximumValue || hostLevel.progValueAmt < progLevel.ResetValue)
                         {
                             error = new Error(ErrorCode.G2S_PGX004);
                             break;
@@ -99,31 +97,24 @@
             {
                 return;
             }
+            
+            var linkedLevels = _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevels().Where(l => l.ProgressiveGroupId == device.ProgressiveId).Cast<LinkedProgressiveLevel>().ToList();
+            var linkedLevelNames = linkedLevels.Select(ll => ll.LevelName).ToList();
+            var levels = _progressiveProvider.GetProgressiveLevels().Where(
+                l => linkedLevelNames.Contains(l.AssignedProgressiveId.AssignedProgressiveKey)).ToList();
 
-            var levels = _progressiveProvider.GetProgressiveLevels().Where(l => l.ProgressiveId == device.ProgressiveId && (_progressiveDeviceManager.VertexDeviceIds.TryGetValue(l.DeviceId, out int value) ? value : l.DeviceId) == device.Id).ToList();
-            var lvl = levels.FirstOrDefault();
-            _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevels(
-                levels.Select(
-                    l => l.AssignedProgressiveId.AssignedProgressiveKey),
-                out var linkedLevels);
-
-            foreach (var level in command.Command.setLevelValue)
+            foreach (var hostLevel in command.Command.setLevelValue)
             {
-                var linkedLevel = linkedLevels.FirstOrDefault(
-                    ll => ll.ProtocolLevelId == level.levelId && ll.ProgressiveGroupId == level.progId);
-                var progLevel = levels.FirstOrDefault(p => p.ProgressiveId == level.progId && p.LevelId == linkedLevel.LevelId);
+                var linkedLevel = linkedLevels.Single(ll => ll.LevelId == hostLevel.levelId && ll.ProgressiveGroupId == hostLevel.progId);
 
-                if (progLevel.ProgressiveValueSequence >= level.progValueSeq)
+                //if this update came out of order, just ignore it
+                if (linkedLevel.ProgressiveValueSequence >= hostLevel.progValueSeq)
                     continue;
 
-                progLevel.CurrentValue = level.progValueAmt;
-                progLevel.ProgressiveValueSequence = level.progValueSeq;
-                progLevel.ProgressiveValueText = level.progValueText;
-
-                _progressiveLevelManager.UpdateLinkedProgressiveLevels(progLevel.ProgressiveId, progLevel.LevelId, progLevel.GameId, linkedLevel.ProtocolLevelId, progLevel.CurrentValue.MillicentsToCents());
+                _progressiveLevelManager.UpdateLinkedProgressiveLevels(hostLevel.progId, hostLevel.levelId, hostLevel.progValueAmt.MillicentsToCents(), hostLevel.progValueSeq, hostLevel.progValueText);
             }
 
-            device.ResetProgInfoTimer();
+            device.ResetProgressiveInfoTimer();
 
             var response = command.GenerateResponse<progressiveValueAck>();
             await _progressiveValueAckCommandBuilder.Build(device, response.Command);

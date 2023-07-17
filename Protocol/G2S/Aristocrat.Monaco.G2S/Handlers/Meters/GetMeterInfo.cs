@@ -85,7 +85,7 @@
 
         // This is required because somebody created a ProgressiveMeterManager
         // It's not tied into the same mechanisms
-        private deviceMeters[] GetProgressiveDeviceMeters(int deviceId)
+        private deviceMeters[] GetProgressiveDeviceMeters(int progDeviceId)
         {
             if (_progressiveLevelManager == null) return null;
 
@@ -94,9 +94,9 @@
                             new deviceMeters
                             {
                                 deviceClass = DeviceClass.G2S_progressive,
-                                deviceId = deviceId,
+                                deviceId = progDeviceId,
                                 simpleMeter = _progressiveLevelManager.GetProgressiveLevelMeters(
-                                    _progressiveDeviceManager.VertexDeviceIds.FirstOrDefault(x => x.Value == deviceId).Key,
+                                    _progressiveDeviceManager.VertexDeviceIds.FirstOrDefault(x => x.Value == progDeviceId).Key,
                                     ProgressiveMeters.WageredAmount, ProgressiveMeters.PlayedCount).ToArray()
                             }
                         };

@@ -40,17 +40,10 @@
                 return Task.CompletedTask;
             }
 
-            IViewableLinkedProgressiveLevel linkedLevel = null;
+            _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevel(transaction.AssignedProgressiveKey, out var linkedLevel);
 
-            if (!string.IsNullOrEmpty(transaction.AssignedProgressiveKey))
-            {
-                _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevel(transaction.AssignedProgressiveKey, out linkedLevel);
-            }
-
-            var levelId = linkedLevel?.ProtocolLevelId ?? transaction.LevelId;
-
-            command.progId = transaction.ProgressiveId;
-            command.levelId = levelId;
+            command.progId = linkedLevel.ProgressiveGroupId;
+            command.levelId = linkedLevel.LevelId;
             command.progWinAmt = transaction.WinAmount;
             command.progWinText = transaction.WinText;
             command.progWinSeq = transaction.WinSequence;

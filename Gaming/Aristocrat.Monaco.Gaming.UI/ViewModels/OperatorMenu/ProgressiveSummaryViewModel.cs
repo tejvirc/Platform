@@ -146,11 +146,9 @@
                         .FirstOrDefault(
                             x => x.LevelName == progressiveLevel.AssignedProgressiveId.AssignedProgressiveKey);
 
-                    var levelName = BuildLevelName(gameId, linkedLevel);
-
                     return new ProgressiveLevelInfo
                     {
-                        LevelName = levelName,
+                        LevelName = linkedLevel?.LevelName,
                         AssignableKey = progressiveLevel.AssignedProgressiveId.AssignedProgressiveKey,
                         CurrentValue = linkedLevel?.Amount.CentsToDollars().FormattedCurrencyString(true) ?? defaultCurrent
                     };
@@ -173,20 +171,6 @@
                         CurrentValue = progressiveLevel.CurrentValue.MillicentsToDollars().FormattedCurrencyString(true)
                     };
             }
-        }
-
-        private string BuildLevelName(int gameId, IViewableLinkedProgressiveLevel linkedLevel)
-        {
-            var levelName = linkedLevel?.LevelName;
-
-            if (linkedLevel != null)
-            {
-                levelName = $"{linkedLevel.ProtocolName}, " +
-                            $"Level Id: {linkedLevel.DisplayLevelId}, " +
-                            $"Progressive Group Id: {linkedLevel.ProgressiveGroupId}";
-            }
-
-            return levelName;
         }
 
         private class ProgressiveLevelInfo

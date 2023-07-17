@@ -86,11 +86,12 @@
                     ProtocolName = level.ProtocolName,
                     ProgressiveGroupId = level.ProgressiveGroupId,
                     LevelId = level.LevelId,
-                    ProtocolLevelId = level.ProtocolLevelId,
                     Amount = level.Amount,
                     Expiration = level.Expiration,
                     CurrentErrorStatus = ProgressiveErrors.None,
-                    ClaimStatus = new LinkedProgressiveClaimStatus()
+                    ClaimStatus = new LinkedProgressiveClaimStatus(),
+                    ProgressiveValueSequence = level.ProgressiveValueSequence,
+                    ProgressiveValueText = level.ProgressiveValueText
                 };
 
                 if (_linkedProgressiveIndex.TryAdd(level.LevelName, levelToAdd))
@@ -148,12 +149,13 @@
                         ProtocolName = linkedLevel.ProtocolName,
                         ProgressiveGroupId = linkedLevel.ProgressiveGroupId,
                         LevelId = linkedLevel.LevelId,
-                        ProtocolLevelId = linkedLevel.ProtocolLevelId,
                         Amount = linkedLevel.Amount,
                         Expiration = linkedLevel.Expiration.ToUniversalTime(),
                         CurrentErrorStatus = ProgressiveErrors.None,
                         ClaimStatus = new LinkedProgressiveClaimStatus(),
-                        WagerCredits = linkedLevel.WagerCredits
+                        WagerCredits = linkedLevel.WagerCredits,
+                        ProgressiveValueSequence = linkedLevel.ProgressiveValueSequence,
+                        ProgressiveValueText = linkedLevel.ProgressiveValueText
                     },
                     (linkedKey, level) =>
                     {
@@ -174,6 +176,9 @@
                         level.WagerCredits = linkedLevel.WagerCredits;
 
                         level.Expiration = linkedLevel.Expiration.ToUniversalTime();
+
+                        level.ProgressiveValueSequence = linkedLevel.ProgressiveValueSequence;
+                        level.ProgressiveValueText = linkedLevel.ProgressiveValueText;
 
                         return level;
                     });

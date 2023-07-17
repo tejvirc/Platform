@@ -11746,4 +11746,12 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>Setting this lower than the default 30 seconds can result in excessive EGM lockups. </value>
     <comment>Aristocrat.Monaco.G2S.UI</comment>
   </data>
+  <data name="VertexGameIdLabel" xml:space="preserve">
+    <value>Vertex Game Id</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="VertexIdLabel" xml:space="preserve">
+    <value>VERTEX ID</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
 </root>

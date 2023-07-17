@@ -33620,6 +33620,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Vertex Game Id.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string VertexGameIdLabel {
+			get {
+				return ResourceManager.GetString("VertexGameIdLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to VERTEX ID.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string VertexIdLabel {
+			get {
+				return ResourceManager.GetString("VertexIdLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Video.
 		/// </summary>
         /// <remarks>
@@ -68380,6 +68404,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Vertex Game Id.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string VertexGameIdLabel {
+			get {
+				return "VertexGameIdLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to VERTEX ID.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string VertexIdLabel {
+			get {
+				return "VertexIdLabel";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Video.
 		/// </summary>
         /// <remarks>
@@ -88706,6 +88754,20 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		///   Looks up a localized string similar to Version.
 		/// </summary>
 		VersionText,
+		/// <summary>
+		///   Looks up a localized string similar to Vertex Game Id.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		VertexGameIdLabel,
+		/// <summary>
+		///   Looks up a localized string similar to VERTEX ID.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		VertexIdLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Video.
 		/// </summary>

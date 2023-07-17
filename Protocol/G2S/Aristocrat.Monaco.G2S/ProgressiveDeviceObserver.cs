@@ -65,7 +65,7 @@
             if (device.Enabled)
             {
                 //Only lift the disablement if ALL devices have been updated with good progressive data
-                if (_egm.GetDevices<IProgressiveDevice>().All(d => d.ProgInfoValid))
+                if (_egm.GetDevices<IProgressiveDevice>().All(d => d.ProgressiveInfoValid))
                 {
                     _disableProvider.Enable(G2SDisableStates.ProgressiveValueNotReceived);
                 }

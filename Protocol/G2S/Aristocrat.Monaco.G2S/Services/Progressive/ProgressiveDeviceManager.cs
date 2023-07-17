@@ -11,9 +11,7 @@
     using Aristocrat.G2S.Client.Devices.v21;
     using Aristocrat.G2S.Client;
     using System;
-    using Aristocrat.Cabinet;
-    using Aristocrat.Monaco.Gaming;
-    using log4net.Appender;
+    using Aristocrat.Monaco.Application.Contracts;
 
     public class ProgressiveDeviceManager : IProgressiveDeviceManager
     {
@@ -22,6 +20,7 @@
         private readonly IDeviceFactory _deviceFactory;
         private readonly IPropertiesManager _propertiesManager;
         private readonly IProgressiveLevelProvider _progressiveLevelProvider;
+        private readonly IProtocolLinkedProgressiveAdapter _linkedProgressiveAdapter;
         private readonly IProgressiveDeviceObserver _progressiveDeviceStateObserver;
         private readonly bool _g2sProgressivesEnabled;
 
@@ -31,6 +30,7 @@
             IDeviceFactory deviceFactory,
             IPropertiesManager propertiesManager,
             IProgressiveLevelProvider progressiveLevelProvider,
+            IProtocolLinkedProgressiveAdapter linkedProgressiveAdapter,
             IProgressiveDeviceObserver progressiveDeviceStateObserver
         )
         {
@@ -38,18 +38,14 @@
             _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _deviceFactory = deviceFactory ?? throw new ArgumentNullException(nameof(deviceFactory));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
-            _progressiveLevelProvider = progressiveLevelProvider ??
-                                        throw new ArgumentNullException(nameof(progressiveLevelProvider));
+            _progressiveLevelProvider = progressiveLevelProvider ?? throw new ArgumentNullException(nameof(progressiveLevelProvider));
+            _linkedProgressiveAdapter = linkedProgressiveAdapter ?? throw new ArgumentNullException(nameof(linkedProgressiveAdapter));
             _progressiveDeviceStateObserver = progressiveDeviceStateObserver ?? throw new ArgumentNullException(nameof(progressiveDeviceStateObserver));
             _g2sProgressivesEnabled = (bool)propertiesManager.GetProperty(G2S.Constants.G2SProgressivesEnabled, false);
         }
 
         /// <inheritdoc />
         public Dictionary<int, int> VertexDeviceIds { get; set; } = new Dictionary<int, int>();
-        
-
-        /// <inheritdoc />
-        public Dictionary<int, int> DeviceProgIdMap { get; set; } = new Dictionary<int, int>();
 
         /// <inheritdoc />
         public void OnConfiguredProgressives(bool fromConfig = false, bool fromBase = false)
@@ -69,25 +65,13 @@
                 ServiceManager.GetInstance().TryGetService<IEventBus>().Publish(new RestartProtocolEvent());
                 AddProgressiveDevices();
             }
-            
-            var devices = _egm.GetDevices<IProgressiveDevice>().ToList();
-            var progIds = new List<int>();
 
-            foreach (var device in devices)
-            {
-                var oldId = device.Id;
-                var success = DeviceProgIdMap.TryGetValue(device.Id, out var newId);
-                device.ProgressiveId = success ? newId : oldId;
-                progIds.Add(device.ProgressiveId);
-            }
-
+            var vertexLevelIds = (Dictionary<int, (int linkedGroupId, int linkedLevelId)>)_propertiesManager.GetProperty(GamingConstants.ProgressiveConfiguredLinkedLevelIds,
+                new Dictionary<int, (int linkedGroupId, int linkedLevelId)>());
             VertexDeviceIds.Clear();
-            foreach (var level in _progressiveLevelProvider.GetProgressiveLevels())
+            foreach (var kvp in vertexLevelIds)
             {
-                if (level.DeviceId != 0 && level.ProgressiveId != 0)
-                {
-                    VertexDeviceIds[level.DeviceId] = level.ProgressiveId;
-                }
+                VertexDeviceIds[kvp.Key] = kvp.Value.linkedGroupId;
             }
         }
 
@@ -96,11 +80,19 @@
             var hosts = _propertiesManager.GetValues<IHost>(G2S.Constants.RegisteredHosts).ToList();
             var defaultHost = hosts.OrderBy(h => h.Index).FirstOrDefault(h => !h.IsEgm() && h.Registered);
             var progressiveHost = hosts.FirstOrDefault(h => h.IsProgressiveHost);
-            var defaultNoProgInfo = (int)(progressiveHost?.OfflineTimerInterval.TotalMilliseconds ??
-                                          G2S.Constants.DefaultNoProgInfo);
+            var defaultNoProgInfoTimeout = (int)(progressiveHost?.OfflineTimerInterval.TotalMilliseconds ??
+                                          G2S.Constants.DefaultNoProgInfoTimeout);
+
+            //check which games (and thereby which progressives) are currently active. No need to create devices for disabled games. 
             var enabledGames = _gameProvider.GetEnabledGames().ToDictionary(g => g.Id, g => g.ActiveDenominations.ToList());
+            var linkedProgressives = _linkedProgressiveAdapter.ViewLinkedProgressiveLevels().Where(ll => ll.ProtocolName == ProtocolNames.G2S);
             var enabledProgressives = _progressiveLevelProvider.GetProgressiveLevels().Where(l => enabledGames.ContainsKey(l.GameId) && l.Denomination.Intersect(enabledGames[l.GameId]).Any());
-            var progressiveDeviceIdsToCreate = enabledProgressives.Select(x => x.ProgressiveId).Distinct().ToList();
+
+            //linked progressives levels where at least one of the progressives linked to it is enabled
+            var progressiveDeviceIdsToCreate = linkedProgressives
+                .Where(ll => enabledProgressives.Any(l => l.AssignedProgressiveId.AssignedProgressiveKey == ll.LevelName))
+                .Select(ll => ll.ProgressiveGroupId)
+                .Distinct().ToList();
             
             foreach (var id in progressiveDeviceIdsToCreate)
             {
@@ -109,9 +101,7 @@
                     progressiveHost ??
                     defaultHost ?? _egm.GetHostById(Constants.EgmHostId),
                     hosts.Where(h => !h.IsEgm() && h.Registered),
-                    () => new ProgressiveDevice(id, _progressiveDeviceStateObserver, defaultNoProgInfo));
-
-                DeviceProgIdMap.Add(device.Id, id);
+                    () => new ProgressiveDevice(id, _progressiveDeviceStateObserver, defaultNoProgInfoTimeout));
             }
 
             if (initialCreation && !_egm.GetDevices<IProgressiveDevice>().Any())
@@ -119,7 +109,7 @@
                 _deviceFactory.Create(
                     progressiveHost ?? defaultHost ?? _egm.GetHostById(Constants.EgmHostId),
                     hosts.Where(h => !h.IsEgm() && h.Registered),
-                    () => new ProgressiveDevice(1, _progressiveDeviceStateObserver, defaultNoProgInfo));
+                    () => new ProgressiveDevice(1, _progressiveDeviceStateObserver, defaultNoProgInfoTimeout));
             }
         }
     }

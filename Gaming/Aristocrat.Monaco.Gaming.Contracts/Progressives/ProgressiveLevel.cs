@@ -35,16 +35,6 @@
         public int ProgressiveId { get; set; }
 
         /// <summary>
-        ///     Gets or sets the progressive value sequence.
-        /// </summary>
-        public long ProgressiveValueSequence { get; set; }
-
-        /// <summary>
-        ///     Gets or sets the progressive value text.
-        /// </summary>
-        public string ProgressiveValueText { get; set; }
-
-        /// <summary>
         ///     Gets or sets the denominations associated with this progressive level.
         ///     Should this should be a a collection of longs? Or is should progressive levels map 1-1 with denoms?
         ///     If we use a collection of longs, will an empty collection indicate "ALL" from the config?

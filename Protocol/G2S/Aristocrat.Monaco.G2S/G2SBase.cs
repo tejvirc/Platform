@@ -191,10 +191,7 @@
                 var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
                 propertiesManager.SetProperty(Constants.StartupContext, null);
                 propertiesManager.SetProperty(AccountingConstants.TicketBarcodeLength, AccountingConstants.DefaultTicketBarcodeLength);
-                propertiesManager.SetProperty(GamingConstants.ProgressiveConfigurableId, ServiceManager.GetInstance().
-                    TryGetService<IMultiProtocolConfigurationProvider>().MultiProtocolConfiguration.FirstOrDefault(c => c.Protocol == CommsProtocol.G2S)?.IsProgressiveHandled);
-
-                propertiesManager.SetProperty(GamingConstants.ProgressiveConfigurableId, _g2sProgressivesEnabled);
+                propertiesManager.SetProperty(GamingConstants.ProgressiveConfigurableLinkedLeveId, _g2sProgressivesEnabled);
                 if (_g2sProgressivesEnabled)
                 {
                     //Populate the levelID fields in the ProgressiveService
@@ -202,7 +199,7 @@
 
                     if (progressiveDeviceManager != null)
                     {
-                        var vertexLevelIds = (Dictionary<string, int>)propertiesManager.GetProperty(GamingConstants.ProgressiveConfiguredLinkedLevelIds, new Dictionary<string, int>());
+                        var vertexLevelIds = (Dictionary<int, (int linkedGroupId, int linkedLevelId)>)propertiesManager.GetProperty(GamingConstants.ProgressiveConfiguredLinkedLevelIds, new Dictionary<int, (int linkedGroupId, int linkedLevelId)>());
                         if (vertexLevelIds.Any())
                         {
                             progressiveDeviceManager?.OnConfiguredProgressives(false, true);

@@ -18,7 +18,7 @@
         [ExpectedException(typeof(ArgumentNullException))]
         public void WhenConstructWithNullProgressiveLevelProviderExpectException()
         {
-            var builder = new ProgressiveProfileCommandBuilder(null, null, null, null, null);
+            var builder = new ProgressiveProfileCommandBuilder(null, null, null, null);
 
             Assert.IsNull(builder);
         }
@@ -28,7 +28,7 @@
         public void WhenConstructWithNullTransactionHistoryExpectException()
         {
             var progressive = new Mock<IProgressiveLevelProvider>();
-            var builder = new ProgressiveProfileCommandBuilder(progressive.Object, null, null, null, null);
+            var builder = new ProgressiveProfileCommandBuilder(progressive.Object, null, null, null);
 
             Assert.IsNull(builder);
         }
@@ -40,7 +40,7 @@
             var progressive = new Mock<IProgressiveLevelProvider>();
             var transactions = new Mock<ITransactionHistory>();
 
-            var builder = new ProgressiveProfileCommandBuilder(progressive.Object, transactions.Object, null, null, null);
+            var builder = new ProgressiveProfileCommandBuilder(progressive.Object, transactions.Object, null, null);
 
             Assert.IsNotNull(builder);
         }
@@ -53,21 +53,7 @@
             var transactions = new Mock<ITransactionHistory>();
             var games = new Mock<IGameProvider>();
 
-            var builder = new ProgressiveProfileCommandBuilder(progressive.Object, transactions.Object, games.Object, null, null);
-
-            Assert.IsNotNull(builder);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void WhenConstructWithNullProgressiveDeviceManagerExpectException()
-        {
-            var progressive = new Mock<IProgressiveLevelProvider>();
-            var transactions = new Mock<ITransactionHistory>();
-            var games = new Mock<IGameProvider>();
-            var protocolLinkedProgressiveAdapter = new Mock<IProtocolLinkedProgressiveAdapter>();
-
-            var builder = new ProgressiveProfileCommandBuilder(progressive.Object, transactions.Object, games.Object, protocolLinkedProgressiveAdapter.Object, null);
+            var builder = new ProgressiveProfileCommandBuilder(progressive.Object, transactions.Object, games.Object, null);
 
             Assert.IsNotNull(builder);
         }
@@ -81,7 +67,7 @@
             var protocolLinkedProgressiveAdapter = new Mock<IProtocolLinkedProgressiveAdapter>();
             var progressiveDeviceManager = new Mock<IProgressiveDeviceManager>();
 
-            var builder = new ProgressiveProfileCommandBuilder(progressive.Object, transactions.Object, games.Object, protocolLinkedProgressiveAdapter.Object, progressiveDeviceManager.Object);
+            var builder = new ProgressiveProfileCommandBuilder(progressive.Object, transactions.Object, games.Object, protocolLinkedProgressiveAdapter.Object);
             
             Assert.IsNotNull(builder);
         }
@@ -96,7 +82,7 @@
             var protocolLinkedProgressiveAdapter = new Mock<IProtocolLinkedProgressiveAdapter>();
             var progressiveDeviceManager = new Mock<IProgressiveDeviceManager>();
 
-            var builder = new ProgressiveProfileCommandBuilder(progressive.Object, transactions.Object, games.Object, protocolLinkedProgressiveAdapter.Object, progressiveDeviceManager.Object);
+            var builder = new ProgressiveProfileCommandBuilder(progressive.Object, transactions.Object, games.Object, protocolLinkedProgressiveAdapter.Object);
 
             await builder.Build(null, null);
         }
@@ -109,9 +95,8 @@
             var transactions = new Mock<ITransactionHistory>();
             var games = new Mock<IGameProvider>();
             var protocolLinkedProgressiveAdapter = new Mock<IProtocolLinkedProgressiveAdapter>();
-            var progressiveDeviceManager = new Mock<IProgressiveDeviceManager>();
 
-            var builder = new ProgressiveProfileCommandBuilder(progressive.Object, transactions.Object, games.Object, protocolLinkedProgressiveAdapter.Object, progressiveDeviceManager.Object);
+            var builder = new ProgressiveProfileCommandBuilder(progressive.Object, transactions.Object, games.Object, protocolLinkedProgressiveAdapter.Object);
 
             var device = new Mock<IProgressiveDevice>();
 

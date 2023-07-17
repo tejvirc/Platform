@@ -277,7 +277,7 @@
                 { GamingConstants.BonusTransferPlaySound, ((object)configuration.BonusTransfer?.PlaySound ?? true, false) },
                 { GamingConstants.LaunchGameAfterReboot, (InitFromStorage(GamingConstants.LaunchGameAfterReboot), true) },
                 { GamingConstants.DenomSelectionLobby, (configuration.DenomSelectionLobby?.Mode ?? DenomSelectionLobby.Allowed, false) },
-                { GamingConstants.ProgressiveConfigurableId, (false, false) },
+                { GamingConstants.ProgressiveConfigurableLinkedLeveId, (false, false) },
                 { GamingConstants.ProgressiveConfiguredLinkedLevelIds, (InitLinkedProgressiveConfigFromStorage(), true)}
             };
 
@@ -303,7 +303,7 @@
                 SetProperty(GamingConstants.ShowTopPickBanners,true);
                 SetProperty(GamingConstants.ShowPlayerMenuPopup, true);
                 SetProperty(GamingConstants.LaunchGameAfterReboot, false);
-                SetProperty(GamingConstants.ProgressiveConfiguredLinkedLevelIds, new Dictionary<string, int>());
+                SetProperty(GamingConstants.ProgressiveConfiguredLinkedLevelIds, new Dictionary<int, (int linkedGroupId, int linkedLevelId)>());
                 var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
                 var machineSettingsImported = propertiesManager.GetValue(ApplicationConstants.MachineSettingsImported, ImportMachineSettings.None);
                 if (machineSettingsImported == ImportMachineSettings.None)
@@ -380,15 +380,15 @@
             return _persistentStorageAccessor[propertyName];
         }
 
-        private object InitLinkedProgressiveConfigFromStorage()
+        private Dictionary<int, (int linkedGroupId, int linkedLevelId)> InitLinkedProgressiveConfigFromStorage()
         {
-            var storedValue = InitFromStorage(GamingConstants.ProgressiveConfiguredLinkedLevelIds).ToString();
+            var storedValue = InitFromStorage(GamingConstants.ProgressiveConfiguredLinkedLevelIds)?.ToString();
 
-            var toReturn = new Dictionary<string, int>();
+            var toReturn = new Dictionary<int, (int linkedGroupId, int linkedLevelId)>();
 
             if (!string.IsNullOrEmpty(storedValue))
             {
-                toReturn = JsonConvert.DeserializeObject<Dictionary<string, int>>(storedValue);
+                toReturn = JsonConvert.DeserializeObject<Dictionary<int, (int linkedGroupId, int linkedLevelId)>>(storedValue);
             }
 
             return toReturn;

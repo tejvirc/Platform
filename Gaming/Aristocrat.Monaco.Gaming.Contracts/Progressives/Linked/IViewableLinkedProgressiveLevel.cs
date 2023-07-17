@@ -24,14 +24,14 @@
         int LevelId { get; }
 
         /// <summary>
-        ///     Gets or sets the level id provided by the protocol
+        ///     Gets or sets the progressive value sequence.
         /// </summary>
-        int ProtocolLevelId { get; }
+        public long ProgressiveValueSequence { get; }
 
         /// <summary>
-        ///     Gets level Id to display on UI based on ProtocolName
+        ///     Gets or sets the progressive value text.
         /// </summary>
-        public int DisplayLevelId { get; }
+        public string ProgressiveValueText { get; }
 
         /// <summary>
         ///     Gets or the name of the level. This should always be unique as it is

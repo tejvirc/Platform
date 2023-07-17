@@ -6,7 +6,6 @@
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
-    using System.Timers;
     using Application.Contracts;
     using Aristocrat.G2S;
     using Aristocrat.G2S.Client;
@@ -34,10 +33,8 @@
     using log4net;
     using Newtonsoft.Json;
 
-    public partial class ProgressiveService : IProgressiveService, IDisposable, IProtocolProgressiveEventHandler
+    public class ProgressiveService : IProgressiveService, IDisposable, IProtocolProgressiveEventHandler
     {
-        private const int DefaultNoProgInfoTimeout = 30000;
-
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly IG2SEgm _egm;
@@ -46,12 +43,10 @@
         private readonly IGameProvider _gameProvider;
         private readonly IProtocolLinkedProgressiveAdapter _protocolLinkedProgressiveAdapter;
         private readonly IPersistentStorageManager _storage;
-        private readonly IProgressiveMeterManager _progressiveMeters;
         private readonly IGameHistory _gameHistory;
         private readonly ITransactionHistory _transactionHistory;
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
         private readonly IG2SDisableProvider _disableProvider;
-        private readonly IProgressiveDeviceManager _progressiveDeviceManager;
         private readonly IProgressiveLevelManager _progressiveLevelManager;
         private readonly IProtocolProgressiveEventsRegistry _protocolProgressiveEventsRegistry;
         private readonly ICommandBuilder<IProgressiveDevice, progressiveStatus> _commandBuilder;
@@ -78,13 +73,11 @@
             IProtocolProgressiveEventsRegistry protocolProgressiveEventSubscriber,
             IProtocolLinkedProgressiveAdapter protocolLinkedProgressiveAdapter,
             IPersistentStorageManager storage,
-            IProgressiveMeterManager progressiveMeters,
             IGameHistory gameHistory,
             ITransactionHistory transactionHistory,
             IUnitOfWorkFactory unitOfWorkFactory,
             IG2SDisableProvider disableProvider,
             IPropertiesManager propertiesManager,
-            IProgressiveDeviceManager progressiveDeviceManager,
             IProgressiveLevelManager progressiveLevelManager,
             ICommandBuilder<IProgressiveDevice, progressiveStatus> statusCommandBuilder,
             ICommandBuilder<IProgressiveDevice, progressiveStatus> progressiveStatusBuilder,
@@ -103,12 +96,10 @@
                                                 throw new ArgumentNullException(
                                                     nameof(protocolLinkedProgressiveAdapter));
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
-            _progressiveMeters = progressiveMeters ?? throw new ArgumentNullException(nameof(progressiveMeters));
             _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
             _transactionHistory = transactionHistory ?? throw new ArgumentNullException(nameof(transactionHistory));
             _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
             _disableProvider = disableProvider ?? throw new ArgumentNullException(nameof(disableProvider));
-            _progressiveDeviceManager = progressiveDeviceManager ?? throw new ArgumentNullException(nameof(progressiveDeviceManager));
             _progressiveLevelManager = progressiveLevelManager ?? throw new ArgumentNullException(nameof(progressiveLevelManager));
             _commandBuilder = statusCommandBuilder ?? throw new ArgumentNullException(nameof(statusCommandBuilder));
             _progressiveStatusBuilder = progressiveStatusBuilder ?? throw new ArgumentNullException(nameof(progressiveStatusBuilder));
@@ -213,6 +204,10 @@
                 return;
             }
 
+            var linkedLevels = _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevels()
+                .GroupBy(ll => ll.ProgressiveGroupId)
+                .ToDictionary(ll => ll.Key, ll => ll.ToList());
+
             foreach (var progressiveHostInfo in progressiveHostInfos)
             {
                 var progressiveDevice = devices.FirstOrDefault(d => d.ProgressiveId == progressiveHostInfo.progressiveLevel.FirstOrDefault().progId);
@@ -221,8 +216,8 @@
                     continue;
                 }
 
-                var matchedProgressives = progressiveHostInfo.progressiveLevel.Where(
-                progressiveLevel => progressiveLevel.progId.Equals(progressiveDevice.Id));
+                var matchedProgressives = progressiveHostInfo.progressiveLevel
+                    .Where(progressiveLevel => progressiveLevel.progId.Equals(progressiveDevice.Id)).ToList();
 
                 if (!matchedProgressives.Any())
                 {
@@ -230,24 +225,12 @@
                     return;
                 }
 
-                var levelProvider = ServiceManager.GetInstance().GetService<IProgressiveLevelProvider>();
-                var progLevels = levelProvider.GetProgressiveLevels().Where(l => l.ProgressiveId == progressiveDevice.ProgressiveId && l.DeviceId != 0);
-
+                var progLevels = linkedLevels[progressiveDevice.ProgressiveId];
                 var levelsMatched = true;
                 try
                 {
                     levelsMatched = progLevels.Count() == matchedProgressives.Count() &&
-                        progLevels.Select(l =>
-                            {
-                                IViewableLinkedProgressiveLevel linkedLevel = null;
-
-                                if (!string.IsNullOrEmpty(l?.AssignedProgressiveId?.AssignedProgressiveKey))
-                                {
-                                    _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevel(l?.AssignedProgressiveId?.AssignedProgressiveKey, out linkedLevel);
-                                }
-
-                                return linkedLevel?.ProtocolLevelId ?? l.LevelId;
-                            }).OrderBy(n => n)
+                        progLevels.Select(ll => ll.LevelId).OrderBy(n => n)
                         .SequenceEqual(matchedProgressives.Select(l => l.levelId).OrderBy(n => n));
                 }
                 catch (KeyNotFoundException)
@@ -299,17 +282,16 @@
             return infoToReturn;
         }
 
-        private setProgressiveWin ProgressiveHit(int deviceId, long transactionId)
+        private setProgressiveWin ProgressiveHit(IProgressiveDevice device, long transactionId)
         {
             var timeout = TimeSpan.MaxValue;
             var currentUtcNow = DateTime.UtcNow;
-            var progressiveDevice = _egm.GetDevice<IProgressiveDevice>(deviceId);
             var command = new progressiveHit();
             var progressiveLog = new progressiveLog();
             command.transactionId = transactionId;
-            _progressiveHitBuilder.Build(progressiveDevice, command);
+            _progressiveHitBuilder.Build(device, command);
 
-            var task = progressiveDevice.ProgressiveHit(command, t_progStates.G2S_progHit, progressiveLog, timeout);
+            var task = device.ProgressiveHit(command, t_progStates.G2S_progHit, progressiveLog, timeout);
             task.Wait();
             var setProgWin = task.Result;
             if (setProgWin == null)
@@ -336,16 +318,15 @@
             return setProgWin;
         }
 
-        private progressiveCommitAck ProgressiveCommit(int deviceId, long transactionId)
+        private progressiveCommitAck ProgressiveCommit(IProgressiveDevice device, long transactionId)
         {
-            var progressiveDevice = _egm.GetDevice<IProgressiveDevice>(deviceId);
             var command = new progressiveCommit();
             var progressiveLog = new progressiveLog();
             command.transactionId = transactionId;
 
-            _progressiveCommitBuilder.Build(progressiveDevice, command);
+            _progressiveCommitBuilder.Build(device, command);
 
-            var task = progressiveDevice.ProgressiveCommit(command, progressiveLog, t_progStates.G2S_progCommit);
+            var task = device.ProgressiveCommit(command, progressiveLog, t_progStates.G2S_progCommit);
             task.Wait();
             var progCommitAck = task.Result;
             if (progCommitAck == null)
@@ -365,14 +346,15 @@
 
         private void OnProgressiveWagerCommitted(ProgressiveWagerCommittedEvent theEvent)
         {
-            var level = theEvent.Levels.FirstOrDefault();
+            var level = theEvent.Levels.First();
+            _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevel(level.AssignedProgressiveId.AssignedProgressiveKey, out var linkedLevel);
 
-            if (level == null)
+            if (level == null || linkedLevel == null)
             {
                 throw new InvalidOperationException($"There are no progressive levels");
             }
 
-            var device = _egm.GetDevice<IProgressiveDevice>(_progressiveDeviceManager.VertexDeviceIds[level.DeviceId]);
+            var device = _egm.GetDevice<IProgressiveDevice>(linkedLevel.ProgressiveGroupId);
             var status = new progressiveStatus();
             _progressiveStatusBuilder.Build(device, status);
 
@@ -419,14 +401,17 @@
 
         private void HandleEvent(ProgressiveCommitEvent evt)
         {
-            var device = _egm.GetDevice<IProgressiveDevice>(_progressiveDeviceManager.VertexDeviceIds[evt.Jackpot.DeviceId]);
+            _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevel(
+                evt.Jackpot.AssignedProgressiveKey,
+                out var linkedLevel);
+            var device = _egm.GetDevice<IProgressiveDevice>(linkedLevel.ProgressiveGroupId);
 
             if (evt.Jackpot.State != ProgressiveState.Committed)
             {
                 return;
             }
 
-            var progressiveCommitAck = ProgressiveCommit(_progressiveDeviceManager.VertexDeviceIds[evt.Level.DeviceId], evt.Jackpot.TransactionId);
+            var progressiveCommitAck = ProgressiveCommit(device, evt.Jackpot.TransactionId);
 
             if (progressiveCommitAck == null)
             {
@@ -438,7 +423,10 @@
 
         private void HandleEvent(ProgressiveCommitAckEvent evt)
         {
-            var device = _egm.GetDevice<IProgressiveDevice>(_progressiveDeviceManager.VertexDeviceIds[evt.Jackpot.DeviceId]);
+            _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevel(
+                evt.Jackpot.AssignedProgressiveKey,
+                out var linkedLevel);
+            var device = _egm.GetDevice<IProgressiveDevice>(linkedLevel.ProgressiveGroupId);
 
             if (evt.Jackpot.State != ProgressiveState.Committed)
             {
@@ -450,7 +438,10 @@
 
         private void HandleEvent(ProgressiveHitEvent evt)
         {
-            var device = _egm.GetDevice<IProgressiveDevice>(_progressiveDeviceManager.VertexDeviceIds[evt.Jackpot.DeviceId]);
+            _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevel(
+                evt.Jackpot.AssignedProgressiveKey,
+                out var linkedLevel);
+            var device = _egm.GetDevice<IProgressiveDevice>(linkedLevel.ProgressiveGroupId);
 
             if (evt.Jackpot.State != ProgressiveState.Hit)
             {
@@ -462,11 +453,13 @@
 
         private void HandleEvent(LinkedProgressiveHitEvent evt)
         {
-            var setProgressiveWin = Helpers.RetryForever(() => ProgressiveHit(_progressiveDeviceManager.VertexDeviceIds[evt.Level.DeviceId], evt.TransactionId));
+            var linkedLevel = evt.LinkedProgressiveLevels.First();
+            var device = _egm.GetDevice<IProgressiveDevice>(linkedLevel.ProgressiveGroupId);
+            var setProgressiveWin = Helpers.RetryForever(() => ProgressiveHit(device, evt.TransactionId));
 
             if (setProgressiveWin != null)
             {
-                var progInfo = GetProgInfo(evt.Level.ProgressiveId, evt.Level.LevelId);
+                var progInfo = GetProgInfo(linkedLevel.ProgressiveGroupId, linkedLevel.LevelId);
                 AwardJackpot(progInfo.PoolName, setProgressiveWin.progWinAmt.MillicentsToCents());
             }
 
@@ -491,7 +484,7 @@
                         foreach (var level in _progressives[poolName])
                         {
                             var levelName = LevelName(level);
-                            if (!levelName.Equals(evt.LinkedProgressiveLevels.First().LevelName, StringComparison.Ordinal))
+                            if (!levelName.Equals(linkedLevel.LevelName, StringComparison.Ordinal))
                             {
                                 continue;
                             }
@@ -596,30 +589,31 @@
             _pools.Clear();
 
             var propertiesManager = ServiceManager.GetInstance().TryGetService<IPropertiesManager>();
-            var vertexLevelIds = (Dictionary<string, int>)propertiesManager.GetProperty(GamingConstants.ProgressiveConfiguredLinkedLevelIds,
-                new Dictionary<string, int>());
+            var vertexLevelIds = (Dictionary<int, (int linkedGroupId, int linkedLevelId)>)propertiesManager.GetProperty(GamingConstants.ProgressiveConfiguredLinkedLevelIds,
+                new Dictionary<int, (int linkedGroupId, int linkedLevelId)>());
 
             try
             {
-                var enabledGames = _gameProvider.GetGames().Where(g => g.EgmEnabled);
+                var enabledGames = _gameProvider.GetGames().Where(g => g.EgmEnabled).ToList();
                 var enabledLinkedLevels = _protocolLinkedProgressiveAdapter.ViewProgressiveLevels()
                             .Where(
-                                x => x.LevelType == ProgressiveLevelType.LP &&
-                                     enabledGames.Any(g => (g.VariationId == x.Variation || x.Variation.ToUpper() == "ALL") && x.GameId == g.Id));
+                                l => l.LevelType == ProgressiveLevelType.LP &&
+                                     enabledGames.Any(g => (g.VariationId == l.Variation || l.Variation.ToUpper() == "ALL") && l.GameId == g.Id));
 
                 var pools =
                     (from level in enabledLinkedLevels
-                     group level by new
-                     {
-                         level.GameId,
-                         PackName = level.ProgressivePackName,
-                         ProgId = level.ProgressiveId,
-                         level.LevelId,
-                         level.LevelName
-                     }
+                        join linkConfig in vertexLevelIds on level.DeviceId equals linkConfig.Key
+                        group level by new
+                        {
+                            level.GameId,
+                            PackName = level.ProgressivePackName,
+                            ProgId = linkConfig.Value.linkedGroupId,
+                            LevelId = linkConfig.Value.linkedLevelId,
+                            level.LevelName,
+                        }
                         into pool
-                     orderby pool.Key.GameId, pool.Key.PackName, pool.Key.ProgId, pool.Key.LevelId
-                     select pool).ToArray();
+                        orderby pool.Key.GameId, pool.Key.PackName, pool.Key.ProgId, pool.Key.LevelId
+                        select pool).ToArray();
 
                 foreach (var pool in pools)
                 {
@@ -631,14 +625,12 @@
 
                     var resetValue = pool.First().ResetValue;
 
-                    int protocolLevelId = _progressiveLevelManager.GetVertexProgressiveLevelId(vertexLevelIds, pool.Key.GameId, pool.Key.ProgId, pool.Key.LevelId);
-
                     var linkedLevel = _progressiveLevelManager.UpdateLinkedProgressiveLevels(
                         pool.Key.ProgId,
                         pool.Key.LevelId,
-                        pool.Key.GameId,
-                        protocolLevelId,
                         resetValue.MillicentsToCents(),
+                        0,
+                        string.Empty,
                         true);
 
                     var progressiveLevelAssignment = pool.Select(
@@ -649,7 +641,6 @@
                             new AssignableProgressiveId(
                                 AssignableProgressiveType.Linked,
                                 linkedLevel.LevelName),
-                            //level.AssignedProgressiveId,
                             level.ResetValue)).ToList();
 
                     var poolName = $"{pool.Key.PackName}_{resetValue.MillicentsToDollars()}_{pool.Key.LevelName}";

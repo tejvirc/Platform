@@ -32,20 +32,16 @@
         private readonly Mock<IGameProvider> _gameProviderMock = new Mock<IGameProvider>();
         private readonly Mock<IProtocolLinkedProgressiveAdapter> _protocolLinkedProgressiveAdapterMock = new Mock<IProtocolLinkedProgressiveAdapter>();
         private readonly Mock<IPersistentStorageManager> _storageMock = new Mock<IPersistentStorageManager>();
-        private readonly Mock<IProgressiveMeterManager> _progressiveMetersMock = new Mock<IProgressiveMeterManager>();
         private readonly Mock<ICommandBuilder<IProgressiveDevice, progressiveStatus>> _progressiveStatusBuilderMock = new Mock<ICommandBuilder<IProgressiveDevice, progressiveStatus>>();
         private readonly Mock<IGameHistory> _gameHistoryMock = new Mock<IGameHistory>();
         private readonly Mock<ITransactionHistory> _transactionHistoryMock = new Mock<ITransactionHistory>();
         private readonly Mock<IUnitOfWorkFactory> _unitOfWorkFactoryMock = new Mock<IUnitOfWorkFactory>();
         private readonly Mock<IG2SDisableProvider> _disableProviderMock = new Mock<IG2SDisableProvider>();
         private readonly Mock<IPropertiesManager> _propertiesManager = new Mock<IPropertiesManager>();
-        private readonly Mock<IProgressiveDeviceManager> _progressiveDeviceManager = new Mock<IProgressiveDeviceManager>();
         private readonly Mock<IProgressiveLevelManager> _progressiveLevelManager = new Mock<IProgressiveLevelManager>();
         private readonly Mock<ICommandBuilder<IProgressiveDevice, progressiveHit>> _progressiveHitBuilderMock = new Mock<ICommandBuilder<IProgressiveDevice, progressiveHit>>();
         private readonly Mock<ICommandBuilder<IProgressiveDevice, progressiveCommit>> _progressiveCommitBuilderMock = new Mock<ICommandBuilder<IProgressiveDevice, progressiveCommit>>();
         private readonly Mock<IProtocolProgressiveEventsRegistry> _protocolProgressiveEventsRegistryMock = new Mock<IProtocolProgressiveEventsRegistry>();
-        private readonly Mock<ConcurrentDictionary<string, IList<ProgressiveInfo>>> _progressivesMock = new Mock<ConcurrentDictionary<string, IList<ProgressiveInfo>>>();
-        private readonly object _pendingAwardsLock = new object();
         private readonly Mock<IUnitOfWork> work = new Mock<IUnitOfWork>();
 
         private ProgressiveService CreateProgressiveService()
@@ -65,13 +61,11 @@
                 _protocolProgressiveEventsRegistryMock.Object,
                 _protocolLinkedProgressiveAdapterMock.Object,
                 _storageMock.Object,
-                _progressiveMetersMock.Object,
                 _gameHistoryMock.Object,
                 _transactionHistoryMock.Object,
                 _unitOfWorkFactoryMock.Object,
                 _disableProviderMock.Object,
                 _propertiesManager.Object,
-                _progressiveDeviceManager.Object,
                 _progressiveLevelManager.Object,
                 _commandBuilderMock.Object,
                 _progressiveStatusBuilderMock.Object,

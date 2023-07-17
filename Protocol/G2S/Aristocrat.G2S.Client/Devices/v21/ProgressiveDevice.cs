@@ -23,7 +23,7 @@
         private const int EgmTimeoutException = 1;
         private const int HostRejectedException = 2;
 
-        private readonly int _defaultNoProgInfo;
+        private readonly int _defaultNoProgInfoTimeout;
 
         private bool _deviceCommunicationClosed;
         private bool _hasEverBeenEnabledByHost;
@@ -40,12 +40,12 @@
         /// </summary>
         /// <param name="deviceId">the device id of this progressive instance</param>
         /// <param name="deviceStateObserver">deviceStateObserver instance</param>
-        /// <param name="defaultNoProgInfo">default value for the progressive updates timer length in milliseconds. This can be modified by a configuration server</param>
-        public ProgressiveDevice(int deviceId, IProgressiveDeviceObserver deviceStateObserver, int defaultNoProgInfo)
+        /// <param name="defaultNoProgInfoTimeout">default value for the progressive updates timer length in milliseconds. This can be modified by a configuration server</param>
+        public ProgressiveDevice(int deviceId, IProgressiveDeviceObserver deviceStateObserver, int defaultNoProgInfoTimeout)
             : base(deviceId, deviceStateObserver, false)
         {
             _noProgInfoTimer.Elapsed += NoProgInfoTimerElapsed;
-            _defaultNoProgInfo = defaultNoProgInfo;
+            _defaultNoProgInfoTimeout = defaultNoProgInfoTimeout;
             SetDefaults();
         }
 
@@ -55,15 +55,15 @@
         public int ProgressiveId { get; set; }
 
         /// <summary>
-        ///     NoProgInfo
+        ///     NoProgressiveInfo
         /// </summary>
-        public int NoProgInfo
+        public int NoProgressiveInfo
         {
             get => _noProgInfo;
             set
             {
                 if (_disposed) return;
-                if (value == 0) value = _defaultNoProgInfo;
+                if (value == 0) value = _defaultNoProgInfoTimeout;
                 _noProgInfo = value;
                 _noProgInfoTimer.Interval = value;
             }
@@ -72,7 +72,7 @@
         /// <summary>
         ///     Whether progressive values are valid and updated
         /// </summary>
-        public bool ProgInfoValid { get; private set; }
+        public bool ProgressiveInfoValid { get; private set; }
 
         /// <summary>
         ///     TimeToLive
@@ -128,7 +128,7 @@
             SetDeviceValue(
                 G2SParametersNames.ProgressiveDevice.NoProgInfoParameterName,
                 optionConfigValues,
-                parameterId => { NoProgInfo = optionConfigValues.Int32Value(parameterId); });
+                parameterId => { NoProgressiveInfo = optionConfigValues.Int32Value(parameterId); });
 
             SetDeviceValue(
                 G2SParametersNames.ProgressiveDevice.ProgIdParameterName,
@@ -399,11 +399,11 @@
         /// <summary>
         /// Restarts the timer monitoring for frequent progressive value updates.
         /// </summary>
-        public void ResetProgInfoTimer()
+        public void ResetProgressiveInfoTimer()
         {
             _noProgInfoTimer.Stop();
             _noProgInfoTimer.Start();
-            ProgInfoValid = true;
+            ProgressiveInfoValid = true;
             Enabled = true;
         }
 
@@ -549,7 +549,8 @@
             RequiredForPlay = true;
             RestartStatus = true;
             Enabled = false;
-            NoProgInfo = _defaultNoProgInfo;
+            ProgressiveId = Id;
+            NoProgressiveInfo = _defaultNoProgInfoTimeout;
             TimeToLive = (int)Constants.DefaultTimeout.TotalMilliseconds;
             NoResponseTimer = Constants.NoResponseTimer;
             _hasEverBeenEnabledByHost = false;
@@ -558,7 +559,7 @@
         private void NoProgInfoTimerElapsed(object sender, Timers.ElapsedEventArgs e)
         {
             _noProgInfoTimer.Stop();
-            ProgInfoValid = false;
+            ProgressiveInfoValid = false;
             Enabled = false;
         }
     }

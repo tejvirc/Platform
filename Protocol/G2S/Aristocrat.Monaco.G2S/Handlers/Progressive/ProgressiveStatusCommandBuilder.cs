@@ -6,16 +6,11 @@
     using System.Threading.Tasks;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Protocol.v21;
-    using Aristocrat.Monaco.G2S.Services.Progressive;
-    using Aristocrat.Monaco.Kernel;
     using Gaming.Contracts.Progressives;
-    using Gaming.Contracts.Progressives.Linked;
-    using Gaming.Progressives;
 
     /// <inheritdoc />
     public class ProgressiveStatusCommandBuilder : ICommandBuilder<IProgressiveDevice, progressiveStatus>
     {
-        private readonly IProgressiveLevelProvider _progressiveLevelProvider;
         private readonly IProtocolLinkedProgressiveAdapter _protocolLinkedProgressiveAdapter;
 
         /// <summary>
@@ -24,10 +19,8 @@
         /// <param name="progressiveLevelProvider">This parameter provide the data related to progressive</param>
         /// <param name="protocolLinkedProgressiveAdapter">Adapter to access LinkedProgressiveLevel objects</param>
         public ProgressiveStatusCommandBuilder(
-            IProgressiveLevelProvider progressiveLevelProvider,
             IProtocolLinkedProgressiveAdapter protocolLinkedProgressiveAdapter)
         {
-            _progressiveLevelProvider = progressiveLevelProvider ?? throw new ArgumentNullException(nameof(progressiveLevelProvider));
             _protocolLinkedProgressiveAdapter = protocolLinkedProgressiveAdapter ?? throw new ArgumentNullException(nameof(protocolLinkedProgressiveAdapter));
         }
 
@@ -39,38 +32,24 @@
             command.hostEnabled = device.HostEnabled;
             command.hostLocked = device.HostLocked;
 
-            var levels = _progressiveLevelProvider.GetProgressiveLevels().Where(l => l.ProgressiveId == device.Id && l.DeviceId != 0).ToList();
+            var linkedLevels = _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevels().Where(l => l.ProgressiveGroupId == device.ProgressiveId).ToList();
 
 
             var statuses = new List<levelStatus>();
-            foreach(var level in levels)
+            foreach(var linkedLevel in linkedLevels)
             {
-                IViewableLinkedProgressiveLevel linkedLevel = null;
-
-                if (!string.IsNullOrEmpty(level?.AssignedProgressiveId?.AssignedProgressiveKey))
-                {
-                    _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevel(level?.AssignedProgressiveId?.AssignedProgressiveKey, out linkedLevel);
-                }
-
-                var levelId = linkedLevel?.ProtocolLevelId ?? level.LevelId;
-
-                if (levelId == -1)
-                {
-                    continue;
-                }
-
-                if (statuses.Any(s => s.levelId == levelId))
+                if (statuses.Any(s => s.levelId == linkedLevel.LevelId))
                 {
                     continue;
                 }
 
                 var status = new levelStatus();
 
-                status.progId = level.ProgressiveId;
-                status.levelId = levelId;
-                status.progValueAmt = level.CurrentValue;
-                status.progValueText = level.ProgressiveValueText;
-                status.progValueSeq = level.ProgressiveValueSequence;
+                status.progId = linkedLevel.ProgressiveGroupId;
+                status.levelId = linkedLevel.LevelId;
+                status.progValueAmt = linkedLevel.Amount;
+                status.progValueText = linkedLevel.ProgressiveValueText;
+                status.progValueSeq = linkedLevel.ProgressiveValueSequence;
 
                 statuses.Add(status);
             }

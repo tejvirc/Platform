@@ -7,7 +7,6 @@
     using System.Reflection;
     using Application.Contracts;
     using Application.Contracts.Extensions;
-    using Aristocrat.Monaco.Application.Contracts.Protocol;
     using Contracts;
     using Contracts.Progressives;
     using Contracts.Progressives.Linked;
@@ -351,17 +350,6 @@
                             x => x.LevelId == assignment.ProgressiveLevel.LevelId
                                  && x.LevelName == assignment.ProgressiveLevel.LevelName
                                  && x.WagerCredits == assignment.ProgressiveLevel.WagerCredits);
-                }
-
-                if ((bool)ServiceManager.GetInstance().GetService<IPropertiesManager>().GetProperty(GamingConstants.ProgressiveConfigurableId, false))
-                {
-                    //Check if we are updating the correct level
-                    if (assignment.ProgressiveLevel.LevelId == progressiveLevel.LevelId &&
-                        assignment.ProgressiveLevel.InitialValue == progressiveLevel.IncrementRate &&
-                        assignment.ProgressiveLevel.LevelName == progressiveLevel.LevelName)
-                    {
-                        progressiveLevel.ProgressiveId = assignment.ProgressiveLevel.ProgressiveId;
-                    }
                 }
 
                 progressiveLevel.AssignedProgressiveId = assignment.AssignedProgressiveIdInfo;

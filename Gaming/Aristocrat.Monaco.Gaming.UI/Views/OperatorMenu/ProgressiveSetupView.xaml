@@ -12,6 +12,7 @@
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:helpers="http://monaco.aristocrat.com/common"
                                xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
+                               xmlns:forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
                                mc:Ignorable="d"
                                Background="Transparent"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:ProgressiveSetupViewModel}, IsDesignTimeCreatable=True}">
@@ -43,13 +44,9 @@
             <RowDefinition Height="*"
                            AutomationProperties.AutomationId="RowDefinition4_6FC827A3" />
             <RowDefinition Height="Auto"
-                           AutomationProperties.AutomationId="RowDefinition5_6FC827A3" />
-            <RowDefinition Height="*"
-                           AutomationProperties.AutomationId="RowDefinition6_6FC827A3" />
-            <RowDefinition Height="Auto"
                            AutomationProperties.AutomationId="RowDefinition7_6FC827A3" />
             <RowDefinition Height="*"
-                           AutomationProperties.AutomationId="RowDefinition_6FC827A3" />
+                           AutomationProperties.AutomationId="RowDefinition8_6FC827A3" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"
@@ -70,12 +67,12 @@
                 Command="{Binding GenerateCSAPLevelsCommand}"
                 AutomationProperties.AutomationId="Button8_6FC827A3" />
 
-        <Label Grid.Row="2"  
-               Grid.ColumnSpan="2"  
-               Content="Progressive ID:"  
-               VerticalAlignment="Center" 
-               HorizontalAlignment="Left" 
-               Visibility="{Binding IsConfigurableId, Converter={StaticResource BoolToVisConverter}}"
+        <Label Grid.Row="2"
+               Grid.ColumnSpan="2"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.VertexGameIdLabel}}"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Left"
+               Visibility="{Binding IsConfigurableLinkedLevelId, Converter={StaticResource BoolToVisConverter}}"
                AutomationProperties.AutomationId="Label9_6FC827A3" />
 
         <TextBox Grid.Row="3"  
@@ -83,49 +80,12 @@
                  Width="400" 
                  VerticalAlignment="Center"  
                  HorizontalAlignment="Left" 
-                 IsReadOnly="{Binding IsSummaryView}" 
-                 Text="{Binding ProgressiveId}" 
-                 Visibility="{Binding IsConfigurableId, Converter={StaticResource BoolToVisConverter}}"
+                 IsReadOnly="{Binding IsSummaryView}"
+                 Text="{Binding ProgressiveGroupId}" 
+                 Visibility="{Binding IsConfigurableLinkedLevelId, Converter={StaticResource BoolToVisConverter}}"
                  AutomationProperties.AutomationId="TextBox10_6FC827A3" />
 
-        <Label Grid.Row="4"  
-               Grid.Column="0"  
-               Content="Vertex Level ID:"  
-               VerticalAlignment="Center" 
-               HorizontalAlignment="Left" 
-               Visibility="{Binding IsConfigurableId, Converter={StaticResource BoolToVisConverter}}"
-               AutomationProperties.AutomationId="Label11_6FC827A3" />
-
-        <Label Grid.Row="4"  
-               Grid.Column="1"  
-               Content="Level to Modify:"  
-               VerticalAlignment="Center" 
-               HorizontalAlignment="Right" 
-               Visibility="{Binding IsConfigurableId, Converter={StaticResource BoolToVisConverter}}"
-               AutomationProperties.AutomationId="Label12_6FC827A3" />
-
-        <TextBox Grid.Row="5"  
-                 Grid.Column="0"  
-                 Width="400" 
-                 VerticalAlignment="Center"  
-                 HorizontalAlignment="Left" 
-                 Text="{Binding SelectedLevelId}" 
-                 IsReadOnly="{Binding IsSummaryView}" 
-                 Visibility="{Binding IsConfigurableId, Converter={StaticResource BoolToVisConverter}}"
-                 AutomationProperties.AutomationId="TextBox13_6FC827A3" />
-
-        <ComboBox Grid.Row="5"  
-                  Grid.Column="1"  
-                  Width="400" 
-                  VerticalAlignment="Center"  
-                  HorizontalAlignment="Right" 
-                  IsReadOnly="{Binding IsSummaryView}" 
-                  ItemsSource="{Binding LevelNames}" 
-                  SelectedItem="{Binding SelectedLevelName}" 
-                  Visibility="{Binding IsConfigurableId, Converter={StaticResource BoolToVisConverter}}"
-                  AutomationProperties.AutomationId="ComboBox14_6FC827A3" />
-
-        <DataGrid Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
+        <DataGrid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
                   Margin="0 10"
                   ItemsSource="{Binding ProgressiveLevels}"
                   ScrollViewer.CanContentScroll="True"
@@ -152,6 +112,22 @@
                                     Binding="{Binding LevelId}"
                                     Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSapOrLP), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
                                     AutomationProperties.AutomationId="DataGridTextColumn10_6FC827A3" />
+                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.VertexIdLabel}}"
+                                        Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsConfigurableLinkedLevelId), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
+                                        AutomationProperties.AutomationId="DataGridTemplateColumn33_6FC827A3">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel AutomationProperties.AutomationId="StackPanel34_6FC827A3" >
+                                <TextBox Text ="{Binding ConfigurableLinkedLevelId, UpdateSourceTrigger=PropertyChanged}"
+                                         Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSummaryView), Converter={StaticResource TrueCollapsedFalseVisible}, Source={StaticResource Proxy}}"
+                                         AutomationProperties.AutomationId="TextBox35_6FC827A3"/>
+                                <TextBlock Text ="{Binding ConfigurableLinkedLevelId}"
+                                         Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSummaryView), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}"
+                                         AutomationProperties.AutomationId="TextBlock36_6FC827A3"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.WinLevel}}"
                                     Binding="{Binding LevelName}"
                                     Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSelectable), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
@@ -305,7 +281,7 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Label Grid.Row="7"
+        <Label Grid.Row="5"
                Grid.Column="0"
                VerticalAlignment="Bottom"
                AutomationProperties.AutomationId="Label32_6FC827A3">

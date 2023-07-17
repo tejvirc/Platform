@@ -12,12 +12,6 @@
         Dictionary<int, int> VertexDeviceIds { get; set; }
 
         /// <summary>
-        ///     The Progressive IDs for each respective device.
-        ///     The key is the device ID.
-        /// </summary>
-        Dictionary<int, int> DeviceProgIdMap { get; set; }
-
-        /// <summary>
         ///     Updates the progressive service based on configured settings.
         /// </summary>
         /// <param name="fromConfig">

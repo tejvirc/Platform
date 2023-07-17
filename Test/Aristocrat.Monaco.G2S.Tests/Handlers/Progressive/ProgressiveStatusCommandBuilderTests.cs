@@ -8,6 +8,7 @@
     using Aristocrat.Monaco.Test.Common;
     using G2S.Handlers.Progressive;
     using Gaming.Contracts.Progressives;
+    using Gaming.Contracts.Progressives.Linked;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
 
@@ -19,14 +20,13 @@
         {
             MoqServiceManager.CreateInstance(MockBehavior.Default);
             MoqServiceManager.CreateAndAddService<IProgressiveService>(MockBehavior.Default);
-            var progressiveProvider = new Mock<IProgressiveLevelProvider>();
             var protocolLinkedProgressiveAdapter = new Mock<IProtocolLinkedProgressiveAdapter>();
-            var builder = new ProgressiveStatusCommandBuilder(progressiveProvider.Object, protocolLinkedProgressiveAdapter.Object);
+            var builder = new ProgressiveStatusCommandBuilder(protocolLinkedProgressiveAdapter.Object);
             var device = new Mock<IProgressiveDevice>();
             var status = new progressiveStatus();
 
-            progressiveProvider.Setup(m => m.GetProgressiveLevels())
-                .Returns(Enumerable.Empty<ProgressiveLevel>().ToList());
+            protocolLinkedProgressiveAdapter.Setup(m => m.ViewLinkedProgressiveLevels())
+                .Returns(Enumerable.Empty<LinkedProgressiveLevel>().ToList());
 
             device.SetupAllProperties();
 

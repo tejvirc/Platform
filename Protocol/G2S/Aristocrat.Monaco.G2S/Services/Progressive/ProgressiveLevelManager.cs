@@ -21,18 +21,18 @@
             _progressiveMeters = progressiveMeters ?? throw new ArgumentNullException(nameof(progressiveMeters));
         }
 
-        public IEnumerable<simpleMeter> GetProgressiveLevelMeters(int deviceId, params string[] includedMeters)
+        public IEnumerable<simpleMeter> GetProgressiveLevelMeters(int levelDeviceId, params string[] includedMeters)
         {
             return MeterMap.ProgressiveMeters
-                .Where(m => { return includedMeters != null && includedMeters.Any(i => i == m.Value); })
+                .Where(m => includedMeters != null && includedMeters.Any(i => i == m.Value))
                 .Select(
                     meter => new simpleMeter
                     {
                         meterName = meter.Key.StartsWith("G2S_", StringComparison.InvariantCultureIgnoreCase)
                             ? meter.Key
                             : $"G2S_{meter.Key}",
-                        meterValue = _progressiveMeters.IsMeterProvided(deviceId, meter.Value)
-                            ? _progressiveMeters.GetMeter(deviceId, meter.Value).Lifetime
+                        meterValue = _progressiveMeters.IsMeterProvided(levelDeviceId, meter.Value)
+                            ? _progressiveMeters.GetMeter(levelDeviceId, meter.Value).Lifetime
                             : 0
                     });
         }
@@ -41,12 +41,12 @@
         public LinkedProgressiveLevel UpdateLinkedProgressiveLevels(
         int progId,
         int levelId,
-        int gameId,
-        int protocolLevelId,
         long valueInCents,
+        long progValueSequence,
+        string progValueText,
         bool initialize = false)
         {
-            var linkedLevel = LinkedProgressiveLevel(progId, levelId, protocolLevelId, valueInCents);
+            var linkedLevel = LinkedProgressiveLevel(progId, levelId, valueInCents, progValueSequence, progValueText);
 
             if (!initialize || !_protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevels()
                 .Any(l => l.LevelName.Equals(linkedLevel.LevelName)))
@@ -62,25 +62,21 @@
         private static LinkedProgressiveLevel LinkedProgressiveLevel(
             int progId,
             int levelId,
-            int protocolLevelId,
-            long valueInCents)
+            long valueInCents,
+            long progValueSequence,
+            string progValueText)
         {
             return new LinkedProgressiveLevel
             {
                 ProtocolName = ProtocolNames.G2S,
                 ProgressiveGroupId = progId,
                 LevelId = levelId,
-                ProtocolLevelId = protocolLevelId,
                 Amount = valueInCents,
                 Expiration = DateTime.UtcNow.AddDays(365),
-                CurrentErrorStatus = ProgressiveErrors.None
+                CurrentErrorStatus = ProgressiveErrors.None,
+                ProgressiveValueSequence = progValueSequence,
+                ProgressiveValueText = progValueText
             };
-        }
-
-        public int GetVertexProgressiveLevelId(Dictionary<string, int> vertexLevelIds, int gameId, int progressiveId, int levelId)
-        {
-            string key = $"{gameId}|{progressiveId}|{levelId}";
-            return vertexLevelIds.TryGetValue(key, out int value) ? value : -1;
         }
     }
 }

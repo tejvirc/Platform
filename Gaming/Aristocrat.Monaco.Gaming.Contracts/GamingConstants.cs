@@ -479,7 +479,7 @@
         /// <summary> 
         ///     Property manager for the configurable progressive id boolean 
         /// </summary> 
-        public const string ProgressiveConfigurableId = @"Progressive.ConfigurableId";
+        public const string ProgressiveConfigurableLinkedLeveId = @"Progressive.ConfigurableId";
 
         /// <summary> 
         ///     Property Manager for the collection of configured level ids 

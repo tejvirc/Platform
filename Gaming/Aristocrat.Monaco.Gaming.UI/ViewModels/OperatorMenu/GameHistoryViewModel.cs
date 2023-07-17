@@ -1041,7 +1041,7 @@
                         out linkedLevel);
                 }
 
-                var levelId = linkedLevel?.DisplayLevelId ?? jackpot.LevelId;
+                var levelId = linkedLevel?.LevelId ?? jackpot.LevelId;
 
                 progressiveWins.Add(
                     new ProgressiveWinModel

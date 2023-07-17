@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts.Progressives.Linked
 {
     using System;
-    using Application.Contracts;
 
     /// <summary>
     ///     Defines data associated with linked progressive levels defined by an external host
@@ -26,25 +25,14 @@
         public int LevelId { get; set; }
 
         /// <summary>
-        ///     Gets or sets the level id provided by the protocol
+        ///     Gets or sets the progressive value sequence.
         /// </summary>
-        public int ProtocolLevelId { get; set; }
+        public long ProgressiveValueSequence { get; set; }
 
         /// <summary>
-        ///     Gets level Id to display on UI based on ProtocolName
+        ///     Gets or sets the progressive value text.
         /// </summary>
-        public int DisplayLevelId
-        {
-            get
-            {
-                if (ProtocolName == ProtocolNames.G2S)
-                {
-                    return ProtocolLevelId;
-                }
-
-                return LevelId;
-            }
-        }
+        public string ProgressiveValueText { get; set; }
 
         /// <summary>
         ///     Gets or the name of the level. This should always be unique as it is

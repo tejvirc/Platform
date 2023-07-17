@@ -88,7 +88,7 @@
         private string _saveWarningText = string.Empty;
         private bool _saveWarningEnabled;
 
-        private bool _isConfigurableId = false;
+        private bool _isConfigurableLinkedLevelIds = false;
         private bool _progressiveLevelChanged;
 
         public AdvancedGameSetupViewModel()
@@ -142,7 +142,8 @@
 
             CancelButtonText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExitConfigurationText);
 
-            _isConfigurableId = (bool)ServiceManager.GetInstance().GetService<IPropertiesManager>().GetProperty(GamingConstants.ProgressiveConfigurableId, false);
+            _isConfigurableLinkedLevelIds = (bool)ServiceManager.GetInstance().GetService<IPropertiesManager>()
+                .GetProperty(GamingConstants.ProgressiveConfigurableLinkedLeveId, false);
 
             EventBus.Subscribe<PropertyChangedEvent>(
                 this,
@@ -293,7 +294,7 @@
         {
             get
             {
-                if (_isConfigurableId)
+                if (_isConfigurableLinkedLevelIds)
                 {
                     return GameConfigurations.Any(g => g.Enabled) && GameConfigurations.Where(g => g.Enabled).All(g => g.ProgressiveSetupConfigured);
                 }
@@ -310,7 +311,7 @@
         {
             get
             {
-                if (_isConfigurableId)
+                if (_isConfigurableLinkedLevelIds)
                 {
                     return _progressiveLevelChanged;
                 }
@@ -1881,13 +1882,9 @@
                 viewModel,
                 Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveSetupDialogCaption));
 
-            if (viewModel.SetupCompleted && _isConfigurableId)
+            if (viewModel.SetupCompleted && _isConfigurableLinkedLevelIds)
             {
-                if (!_progressiveLevelChanged)
-                {
-                    _progressiveLevelChanged = viewModel.ProgressiveLevelsChanged;
-                }
-
+                _progressiveLevelChanged |= viewModel.ConfigurableProgressiveLevelsChanged;
 
                 gameConfig.ProgressiveSetupConfigured = true;
             }

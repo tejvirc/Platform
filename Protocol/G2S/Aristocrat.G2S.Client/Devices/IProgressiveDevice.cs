@@ -13,17 +13,17 @@
         /// <summary>
         ///     Get Progressive Identifier value
         /// </summary>
-        int ProgressiveId { get; set; }
+        int ProgressiveId { get; }
 
         /// <summary>
         ///     Get No Progressive Info
         /// </summary>
-        int NoProgInfo { get; }
+        int NoProgressiveInfo { get; }
 
         /// <summary>
         ///     Get whether valid progressive info has been received.
         /// </summary>
-        bool ProgInfoValid { get; }
+        bool ProgressiveInfoValid { get; }
 
         /// <summary>
         ///     Gets the time-to-live value for requests originated by the device.
@@ -69,7 +69,7 @@
         /// Inform the device that new progressive values were received
         /// and the monitoring timer should be restarted. 
         /// </summary>
-        void ResetProgInfoTimer();
+        void ResetProgressiveInfoTimer();
 
         /// <summary>
         /// Update the progressive device with new state information from the host
