@@ -1,10 +1,10 @@
 ﻿namespace Aristocrat.Monaco.UI.Common.Tests
 {
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Controls;
     using System.Windows;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
+    using Controls;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Test.Common;
     using Test.Common.UnitTesting;
 

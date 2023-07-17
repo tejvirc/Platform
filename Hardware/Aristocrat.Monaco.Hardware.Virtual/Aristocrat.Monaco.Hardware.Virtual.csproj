@@ -4,7 +4,6 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>Aristocrat.Monaco.Hardware.Virtual</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
-    <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

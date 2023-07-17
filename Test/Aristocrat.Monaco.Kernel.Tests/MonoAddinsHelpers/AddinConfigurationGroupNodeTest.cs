@@ -2,11 +2,11 @@
 {
     #region Using
     using System;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Mono.Addins;
     using System.Collections.Generic;
     using System.IO;
     using System.Reflection;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Mono.Addins;
     using Test.Common.UnitTesting;
     #endregion
 

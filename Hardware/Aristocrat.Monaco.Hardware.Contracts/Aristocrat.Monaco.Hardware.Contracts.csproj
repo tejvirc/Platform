@@ -4,7 +4,6 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>Aristocrat.Hardware.Contracts</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
-    <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
 	<UseWPF>true</UseWPF>
 	<UseWindowsForms>true</UseWindowsForms>
     <Platform>x64</Platform>

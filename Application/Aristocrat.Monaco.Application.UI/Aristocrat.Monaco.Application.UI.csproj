@@ -4,7 +4,6 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>Aristocrat.Monaco.Application.UI</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
-    <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>

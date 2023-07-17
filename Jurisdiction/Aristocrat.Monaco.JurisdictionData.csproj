@@ -3,7 +3,6 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-    <OutputPath>..\bin\$(Configuration)\Platform\bin\jurisdiction\</OutputPath>
     <Configurations>Debug;Release;Retail</Configurations>
     <EnableDefaultItems>true</EnableDefaultItems>
     <EnableDefaultCompileItems>true</EnableDefaultCompileItems>

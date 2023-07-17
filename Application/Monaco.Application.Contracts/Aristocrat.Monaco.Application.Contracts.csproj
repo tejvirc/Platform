@@ -5,7 +5,6 @@
     <AssemblyName>Monaco.Application.Contracts</AssemblyName>
     <AssemblyTitle>Monaco.Application.Contracts</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
-    <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
     <Platform>x64</Platform>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>

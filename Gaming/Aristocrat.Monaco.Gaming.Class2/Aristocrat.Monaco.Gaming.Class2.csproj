@@ -4,7 +4,6 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>Aristocrat.Monaco.Gaming.Class2</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
-    <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
     <Platform>x64</Platform>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

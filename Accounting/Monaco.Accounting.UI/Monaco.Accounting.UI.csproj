@@ -5,7 +5,6 @@
     <RootNamespace>Aristocrat.Monaco.Accounting.UI</RootNamespace>
     <AssemblyTitle>Monaco.Accounting.UI</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
-    <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
     <UseWPF>true</UseWPF>
     <Platform>x64</Platform>
   </PropertyGroup>
