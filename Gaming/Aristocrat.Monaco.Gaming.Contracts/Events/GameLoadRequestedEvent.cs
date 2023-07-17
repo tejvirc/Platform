@@ -10,11 +10,11 @@
     public class GameLoadRequestedEvent : BaseEvent
     {
         /// <summary>
-        /// 
+        /// The GameID to load
         /// </summary>
         public int GameId;
         /// <summary>
-        /// 
+        /// The Denomination for the requested game
         /// </summary>
         public long Denomination;
     }
