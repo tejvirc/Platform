@@ -152,6 +152,11 @@
         public const string DisableBankNoteAcceptorWhenCreditLimitReached = "Cabinet.MaxCreditMeter.DisableBankNoteAcceptorWhenCreditLimitReached";
 
         /// <summary>
+        ///     Indicates whether the Coin Acceptor should be disabled on reaching Max Credit Limit or not
+        /// </summary>
+        public const string DisableCoinAcceptorWhenCreditLimitReached = "Cabinet.MaxCreditMeter.DisableCoinAcceptorWhenCreditLimitReached";
+
+        /// <summary>
         ///     The maximum bet amount permitted
         /// </summary>
         public const string MaxBetLimit = "Cabinet.MaxBetLimit";

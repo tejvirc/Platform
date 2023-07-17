@@ -494,6 +494,13 @@
                         false)
                 },
                 {
+                    ApplicationConstants.DefaultAlarmSoundKey,
+                    Tuple.Create(
+                        (object)configuration.DefaultAlarmSound?.FilePath,
+                        ApplicationConstants.DefaultAlarmSoundKey,
+                        false)
+                },
+                {
                     ApplicationConstants.FirmwareCrcErrorSoundKey,
                     Tuple.Create(
                         (object)configuration.FirmwareCrcErrorSound?.FilePath,

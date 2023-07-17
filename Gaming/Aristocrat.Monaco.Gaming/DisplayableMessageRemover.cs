@@ -7,6 +7,7 @@
     using System.Reflection;
     using Accounting.Contracts;
     using Accounting.Contracts.HandCount;
+    using Accounting.Contracts.CoinAcceptor;
     using Accounting.Contracts.Handpay;
     using Accounting.Contracts.Wat;
     using Contracts;
@@ -26,6 +27,7 @@
             typeof(PlatformBootedEvent),
             typeof(VoucherRejectedEvent),
             typeof(CurrencyInCompletedEvent),
+            typeof(CoinInCompletedEvent),
             typeof(DocumentRejectedEvent),
             typeof(VoucherRedeemedEvent),
             typeof(VoucherIssuedEvent),

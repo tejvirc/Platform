@@ -20,5 +20,6 @@ as follows:
   </Included>
 
   <Excluded>
+    <Device Type="CoinAcceptor" />
   </Excluded>
 </ConfiguredDevices>

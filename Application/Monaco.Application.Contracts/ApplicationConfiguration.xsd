@@ -397,6 +397,11 @@
             <xs:attribute default="" name="FilePath" type="xs:string" />
           </xs:complexType>
         </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="DefaultAlarmSound">
+          <xs:complexType>
+            <xs:attribute default="" name="FilePath" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="CriticalMemoryIntegrityCheck">
           <xs:complexType>
             <xs:attribute default="false" name="Enabled" type="xs:boolean" />

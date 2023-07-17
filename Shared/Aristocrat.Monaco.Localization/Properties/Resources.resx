@@ -12331,5 +12331,84 @@ Do you really want to do full reset?</value>
   <data name="VertexIdLabel" xml:space="preserve">
     <value>VERTEX ID</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  <data name="CoinToCashBox" xml:space="preserve">
+    <value>Coin In To CashBox</value>
+    <comment>Monaco.Accounting.Contracts</comment>
+  </data>
+  <data name="CoinToCashBoxInsteadHopper" xml:space="preserve">
+    <value>Coin In To CashBox Instead Hopper</value>
+    <comment>Monaco.Accounting.Contracts</comment>
+  </data>
+  <data name="CoinToHopper" xml:space="preserve">
+    <value>Coin In To Hopper</value>
+    <comment>Monaco.Accounting.Contracts</comment>
+  </data>
+  <data name="CoinToHopperInsteadCashBox" xml:space="preserve">
+    <value>Coin In To Hopper Instead CashBox</value>
+    <comment>Monaco.Accounting.Contracts</comment>
+  </data>
+  <data name="CoinTransactionName" xml:space="preserve">
+    <value>Cash In</value>
+    <comment>Monaco.Accounting</comment>
+  </data>
+  <data name="CoinWarningDivert" xml:space="preserve">
+    <value>Coin-In error: Diverter fault</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="CoinWarningInvalid" xml:space="preserve">
+    <value>Coin-In error: Invalid coin</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="CoinWarningOptic" xml:space="preserve">
+    <value>Coin-In error: Optic fault</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="CoinWarningYoYo" xml:space="preserve">
+    <value>Coin-In error: YoYo fault</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="CoinIn" xml:space="preserve">
+    <value>Coin In</value>
+    <comment>Monaco.Accounting.UI</comment>
+  </data>
+  <data name="CoinAccepted" xml:space="preserve">
+    <value>Coin Accepted -</value>
+    <comment>Monaco.Accounting</comment>
+  </data>
+  <data name="CoinAcceptorFailure" xml:space="preserve">
+    <value>Coin Acceptor Failure</value>
+    <comment>Monaco.Accounting</comment>
+  </data>
+  <data name="CoinAcceptorLabel" xml:space="preserve">
+    <value>Coin Acceptor</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="CoinEntryFault" xml:space="preserve">
+    <value>Coin Entry Fault - </value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="CoinEntryLabel" xml:space="preserve">
+    <value>Coin Entry</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="CoinAcceptorTestLabel" xml:space="preserve">
+    <value>Coin Acceptor Test</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="CoinInStatus" xml:space="preserve">
+    <value>Coin In Status</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="DiverterDirectionLabel" xml:space="preserve">
+    <value>Diverter Direction</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="TotalCoinToCashbox" xml:space="preserve">
+    <value>Total Coin In to Cashbox</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="TotalCoinToHopper" xml:space="preserve">
+    <value>Total Coin In to Hopper</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
 </root>

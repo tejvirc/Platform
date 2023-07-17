@@ -6,6 +6,7 @@ namespace Aristocrat.Monaco.Accounting
     using System.Threading;
     using Application.Contracts.Localization;
     using Application.Contracts.TiltLogger;
+    using CoinAcceptor;
     using Common;
     using Kernel;
     using log4net;
@@ -174,6 +175,7 @@ namespace Aristocrat.Monaco.Accounting
         {
             var logAdapterService = ServiceManager.GetInstance().GetService<ILogAdaptersService>();
             logAdapterService.RegisterLogAdapter(new BillEventLogAdapter());
+            logAdapterService.RegisterLogAdapter(new CoinEventLogAdapter());
             logAdapterService.RegisterLogAdapter(new HandpayEventLogAdapter());
             logAdapterService.RegisterLogAdapter(new TransferInEventLogAdapter());
             logAdapterService.RegisterLogAdapter(new TransferOutEventLogAdapter());
@@ -188,6 +190,7 @@ namespace Aristocrat.Monaco.Accounting
         {
             var logAdapterService = ServiceManager.GetInstance().GetService<ILogAdaptersService>();
             logAdapterService.UnRegisterLogAdapter(EventLogType.BillIn.GetDescription(typeof(EventLogType)));
+            logAdapterService.UnRegisterLogAdapter(EventLogType.CoinIn.GetDescription(typeof(EventLogType)));
             logAdapterService.UnRegisterLogAdapter(EventLogType.Handpay.GetDescription(typeof(EventLogType)));
             logAdapterService.UnRegisterLogAdapter(EventLogType.TransferIn.GetDescription(typeof(EventLogType)));
             logAdapterService.UnRegisterLogAdapter(EventLogType.TransferOut.GetDescription(typeof(EventLogType)));

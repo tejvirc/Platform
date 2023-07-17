@@ -8,6 +8,7 @@
     using System.Threading;
     using System.Timers;
     using Accounting.Contracts;
+    using Accounting.Contracts.CoinAcceptor;
     using Accounting.Contracts.Handpay;
     using Application.Contracts;
     using Application.Contracts.Extensions;
@@ -50,6 +51,7 @@
         {
             typeof(BonusAwardedEvent),
             typeof(CurrencyInCompletedEvent),
+            typeof(CoinInCompletedEvent),
             typeof(HandpayCompletedEvent),
             typeof(TransferOutCompletedEvent),
             typeof(VoucherRedeemedEvent),
@@ -308,6 +310,9 @@
                                 break;
                             case CurrencyInCompletedEvent loggedEvent:
                                 LogCurrencyEvent(localEvent, ResourceKeys.BillIn, loggedEvent.Amount);
+                                break;
+                            case CoinInCompletedEvent loggedEvent:
+                                LogCurrencyEvent(localEvent, ResourceKeys.CoinIn, loggedEvent.Coin.Value);
                                 break;
                             case HandpayCompletedEvent loggedEvent:
                                 LogCurrencyEvent(localEvent, ResourceKeys.Handpay, loggedEvent.Transaction.TransactionAmount);

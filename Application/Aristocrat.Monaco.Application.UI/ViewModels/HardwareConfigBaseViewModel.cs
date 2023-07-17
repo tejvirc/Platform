@@ -53,6 +53,7 @@
         private const string IncludedDevicesPath = "/Platform/Discovery/Configuration";
         private const string CommunicatorDriversAddinPath = "/Hardware/CommunicatorDrivers";
         private const string HardMetersDeviceType = @"HardMeters";
+        private const string CoinAcceptorDeviceType = @"CoinAcceptor";
         private const int DiscoveryTimeoutSeconds = 60;
         private const int MilliSecondsPerSecond = 1000;
 
@@ -92,6 +93,7 @@
         private string _validationStatus;
         private bool _isDetecting;
         private bool _hardMetersEnabled;
+        private bool _coinAcceptorEnabled;
         private bool _configurableHardMeters;
         private bool _configurableDoorOpticSensor;
         private bool _bellEnabled;
@@ -259,6 +261,33 @@
                 {
                     _hardMetersEnabled = value;
                     RaisePropertyChanged(nameof(HardMetersEnabled), nameof(TickValueVisible));
+                    UpdateChanges?.Invoke();
+
+                    if (IsWizardPage)
+                    {
+                        Device_OnPropertyChanged(null, null);
+                    }
+                }
+            }
+        }
+
+        // <summary>
+        /// To visible Coin Acceptor on Hardware selection UI.
+        /// </summary>
+        public bool ShowCoinAcceptor { get; private set; }
+
+        /// <summary>
+        /// To Enable Coin Acceptor on Hardware selection UI.
+        /// </summary>
+        public bool CoinAcceptorEnabled
+        {
+            get => _coinAcceptorEnabled;
+            set
+            {
+                if (_coinAcceptorEnabled != value)
+                {
+                    _coinAcceptorEnabled = value;
+                    RaisePropertyChanged(nameof(CoinAcceptorEnabled));
                     UpdateChanges?.Invoke();
 
                     if (IsWizardPage)
@@ -521,6 +550,7 @@
             _propertiesManager.SetProperty(ApplicationConstants.ConfigWizardDoorOpticsEnabled, EnabledDoorOpticSensor);
             _propertiesManager.SetProperty(HardwareConstants.BellEnabledKey, BellEnabled);
             _propertiesManager.SetProperty(ApplicationConstants.ConfigWizardBellyPanelDoorEnabled, BellyPanelDoorEnabled);
+            _propertiesManager.SetProperty(HardwareConstants.CoinAcceptorEnabledKey, CoinAcceptorEnabled);
 
             CheckBellyPanelDoor();
         }
@@ -1229,6 +1259,12 @@
             if (ShowHardMeters)
             {
                 _hardMetersEnabled = _propertiesManager.GetValue(HardwareConstants.HardMetersEnabledKey, false);
+            }
+
+            ShowCoinAcceptor = configuredDevices.Excluded.All(d => d.Type != CoinAcceptorDeviceType);
+            if (ShowCoinAcceptor)
+            {
+                _coinAcceptorEnabled = _propertiesManager.GetValue(HardwareConstants.CoinAcceptorEnabledKey, false);
             }
 
             var configurableHardMeters = _propertiesManager.GetValue(

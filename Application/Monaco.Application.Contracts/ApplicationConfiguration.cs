@@ -105,7 +105,9 @@ namespace Aristocrat.Monaco.Application.Contracts {
         private ApplicationConfigurationHostOfflineSound hostOfflineSoundField;
         
         private ApplicationConfigurationDingSound dingSoundField;
-        
+
+        private ApplicationConfigurationDefaultAlarmSound defaultAlarmSoundField;
+
         private ApplicationConfigurationCriticalMemoryIntegrityCheck criticalMemoryIntegrityCheckField;
         
         private BarcodeTypeOptions barcodeTypeField;
@@ -550,7 +552,20 @@ namespace Aristocrat.Monaco.Application.Contracts {
                 this.dingSoundField = value;
             }
         }
-        
+
+        /// <remarks/>
+        public ApplicationConfigurationDefaultAlarmSound DefaultAlarmSound
+        {
+            get
+            {
+                return this.defaultAlarmSoundField;
+            }
+            set
+            {
+                this.defaultAlarmSoundField = value;
+            }
+        }
+
         /// <remarks/>
         public ApplicationConfigurationCriticalMemoryIntegrityCheck CriticalMemoryIntegrityCheck {
             get {
@@ -3269,6 +3284,38 @@ namespace Aristocrat.Monaco.Application.Contracts {
                 return this.filePathField;
             }
             set {
+                this.filePathField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class ApplicationConfigurationDefaultAlarmSound
+    {
+
+        private string filePathField;
+
+        public ApplicationConfigurationDefaultAlarmSound()
+        {
+            this.filePathField = "";
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute("")]
+        public string FilePath
+        {
+            get
+            {
+                return this.filePathField;
+            }
+            set
+            {
                 this.filePathField = value;
             }
         }

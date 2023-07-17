@@ -20,8 +20,10 @@
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Kernel.Contracts.Events;
     using log4net;
+    using Aristocrat.Monaco.Hardware.Contracts.PWM;
     using DisabledEvent = Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.DisabledEvent;
     using EnabledEvent = Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.EnabledEvent;
+    using HardwareFaultEvent = Aristocrat.Monaco.Hardware.Contracts.PWM.HardwareFaultEvent;
 
     /// <summary>
     ///     Listens for currency-escrowed events and, upon receiving one,
@@ -572,6 +574,8 @@
         {
             if (typeof(DebugNoteEvent) == data.GetType())
             {
+                var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
+                eventBus.Publish(new HardwareFaultEvent(CoinFaultTypes.Optic));
                 var debugNoteEvent = (DebugNoteEvent)data;
 
                 if (debugNoteEvent.Denomination == 0)
