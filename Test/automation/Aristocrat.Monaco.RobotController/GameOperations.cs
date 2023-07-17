@@ -7,6 +7,7 @@
     using Aristocrat.Monaco.Hhr.Events;
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Test.Automation;
+    using Aristocrat.Monaco.Accounting.Contracts.HandCount;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -33,6 +34,8 @@
         private bool _forceGameExitIsInProgress;
         private bool _requestGameIsInProgress;
         private bool _gameIsRunning;
+
+        private readonly int CashoutDialogDismiss = TimeSpan.FromSeconds(1).Milliseconds;
 
         public GameOperations(IEventBus eventBus, RobotLogger logger, Automation automator, StateChecker sc, IPropertiesManager pm, RobotController robotController, IGameService gameService)
         {
@@ -154,7 +157,7 @@
         private bool IsRequestForceExitToLobbyValid(bool skipTestRecovery)
         {
             var isBlocked = _robotController.IsBlockedByOtherOperation( new List<RobotStateAndOperations>());
-            var isGeneralRule = (_gameIsRunning && !_stateChecker.IsGameLoading && !_forceGameExitIsInProgress && !_exitWhenIdle &&(_robotController.Config.Active.TestRecovery || skipTestRecovery));
+            var isGeneralRule = (_gameIsRunning && !_stateChecker.IsGameLoading && !_forceGameExitIsInProgress && !_exitWhenIdle && (_robotController.Config.Active.TestRecovery || skipTestRecovery));
             return !isBlocked && isGeneralRule;
         }
 
@@ -216,7 +219,7 @@
             Task.Delay(milliseconds).ContinueWith(
                 _ =>
                 {
-                     _requestGameIsInProgress = false;
+                    _requestGameIsInProgress = false;
                     RequestGame();
                 });
         }
@@ -247,7 +250,7 @@
                 _ =>
                 {
                     _logger.Error($"GameRequestFailedEvent Got Triggered!  Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                     _requestGameIsInProgress = false;
+                    _requestGameIsInProgress = false;
                     if (!_stateChecker.IsAllowSingleGameAutoLaunch)
                     {
                         RequestGame();
@@ -260,7 +263,7 @@
                     _logger.Info($"GameInitializationCompletedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                     _gameIsRunning = true;
                     _sanityCounter = 0;
-                     _requestGameIsInProgress = false;
+                    _requestGameIsInProgress = false;
                     BalanceCheckWithDelay(Constants.BalanceCheckDelayDuration);
                 });
 
@@ -348,6 +351,9 @@
                     _logger.Info($"SystemEnabledEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                     LoadGameWithDelay(Constants.loadGameDelayDuration);
                 });
+
+            HandleCashoutRequest();
+
             InitGameProcessHungEvent();
         }
 
@@ -363,6 +369,18 @@
                     _robotController.Enabled = false;
                 });
             };
+        }
+
+        private void HandleCashoutRequest()
+        {
+            _eventBus.Subscribe<CashoutAmountAuthorizationRequestedEvent>(this,
+                evt =>
+                {
+                    Task.Delay(CashoutDialogDismiss).ContinueWith(task =>
+                    {
+                        _eventBus.Publish(new CashoutAmountAuthorizationReceivedEvent(false));
+                    });
+                });
         }
 
         private void SelectNextGame(bool goToNextGame)
