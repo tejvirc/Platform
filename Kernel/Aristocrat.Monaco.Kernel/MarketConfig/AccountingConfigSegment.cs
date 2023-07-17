@@ -25,7 +25,7 @@ namespace Aristocrat.Monaco.Kernel.MarketConfig.Accounting
         /// - `Balance` Enable checking the bank balance against max credits in.
         /// - `Session` Enable checking the added note up to the max credits in. This is session based and is reset when the balance hits zero.
         /// </summary>
-        [JsonProperty(PropertyName = "check_credits_in")]
+        [JsonProperty(PropertyName = "check_credits_in", Required = Required.Always)]
         public String CheckCreditsIn { get; set; }
 
         /// <summary>
@@ -33,33 +33,33 @@ namespace Aristocrat.Monaco.Kernel.MarketConfig.Accounting
         /// - `Off/false` Dis-allow the insertion of any credit amount if the bank balance would be over the max credit limit after amount is deposited to the bank.
         /// - `On/true` Allow insertion of any credit amount if the bank balance is below the max credit limit.
         /// </summary>
-        [JsonProperty(PropertyName = "allow_credit_under_limit")]
+        [JsonProperty(PropertyName = "allow_credit_under_limit", Required = Required.Always)]
         public Boolean AllowCreditUnderLimit { get; set; }
 
         /// <summary>
         /// Max credits-in default
         /// The default max credits in value (in millicents) to check against the bank balance if check credits-in is enabled.
         /// </summary>
-        [JsonProperty(PropertyName = "max_credits_in_default")]
+        [JsonProperty(PropertyName = "max_credits_in_default", Required = Required.Always)]
         public Int64 MaxCreditsInDefault { get; set; }
 
         /// <summary>
         /// Max credits-in editable
         /// The max credits-in default value may be overridden by the technician in the audit menu settings if set to true.
         /// </summary>
-        [JsonProperty(PropertyName = "max_credits_in_editable")]
+        [JsonProperty(PropertyName = "max_credits_in_editable", Required = Required.Always)]
         public Boolean MaxCreditsInEditable { get; set; }
 
         /// <summary>
         /// Max tender-in limit
         /// </summary>
-        [JsonProperty(PropertyName = "max_tender_in_limit")]
+        [JsonProperty(PropertyName = "max_tender_in_limit", Required = Required.Always)]
         public Int64 MaxTenderInLimit { get; set; }
 
         /// <summary>
         /// Check laundry limit
         /// </summary>
-        [JsonProperty(PropertyName = "check_laundry_limit")]
+        [JsonProperty(PropertyName = "check_laundry_limit", Required = Required.Always)]
         public Boolean CheckLaundryLimit { get; set; }
     }
 
@@ -72,25 +72,25 @@ namespace Aristocrat.Monaco.Kernel.MarketConfig.Accounting
         /// <summary>
         /// Default
         /// </summary>
-        [JsonProperty(PropertyName = "default")]
+        [JsonProperty(PropertyName = "default", Required = Required.Always)]
         public Int64 Default { get; set; }
 
         /// <summary>
         /// Max allowed
         /// </summary>
-        [JsonProperty(PropertyName = "max_allowed")]
+        [JsonProperty(PropertyName = "max_allowed", Required = Required.Always)]
         public Int64 MaxAllowed { get; set; }
 
         /// <summary>
         /// Show message when credit limit reached
         /// </summary>
-        [JsonProperty(PropertyName = "show_message_when_credit_limit_reached")]
+        [JsonProperty(PropertyName = "show_message_when_credit_limit_reached", Required = Required.Always)]
         public Boolean ShowMessageWhenCreditLimitReached { get; set; }
 
         /// <summary>
         /// Disable bank note acceptor when credit limit reached
         /// </summary>
-        [JsonProperty(PropertyName = "disable_bank_note_acceptor_when_credit_limit_reached")]
+        [JsonProperty(PropertyName = "disable_bank_note_acceptor_when_credit_limit_reached", Required = Required.Always)]
         public Boolean DisableBankNoteAcceptorWhenCreditLimitReached { get; set; }
     }
 
@@ -103,19 +103,19 @@ namespace Aristocrat.Monaco.Kernel.MarketConfig.Accounting
         /// <summary>
         /// Default
         /// </summary>
-        [JsonProperty(PropertyName = "default")]
+        [JsonProperty(PropertyName = "default", Required = Required.Always)]
         public Int64 Default { get; set; }
 
         /// <summary>
         /// Editable
         /// </summary>
-        [JsonProperty(PropertyName = "editable")]
+        [JsonProperty(PropertyName = "editable", Required = Required.Always)]
         public Boolean Editable { get; set; }
 
         /// <summary>
         /// Limit max
         /// </summary>
-        [JsonProperty(PropertyName = "limit_max")]
+        [JsonProperty(PropertyName = "limit_max", Required = Required.Always)]
         public Int64 LimitMax { get; set; }
     }
 
@@ -128,25 +128,25 @@ namespace Aristocrat.Monaco.Kernel.MarketConfig.Accounting
         /// <summary>
         /// Default
         /// </summary>
-        [JsonProperty(PropertyName = "default")]
+        [JsonProperty(PropertyName = "default", Required = Required.Always)]
         public Int64 Default { get; set; }
 
         /// <summary>
         /// Max allowed
         /// </summary>
-        [JsonProperty(PropertyName = "max_allowed")]
+        [JsonProperty(PropertyName = "max_allowed", Required = Required.Always)]
         public Int64 MaxAllowed { get; set; }
 
         /// <summary>
         /// Editable
         /// </summary>
-        [JsonProperty(PropertyName = "editable")]
+        [JsonProperty(PropertyName = "editable", Required = Required.Always)]
         public Boolean Editable { get; set; }
 
         /// <summary>
         /// Override transaction name
         /// </summary>
-        [JsonProperty(PropertyName = "override_transaction_name")]
+        [JsonProperty(PropertyName = "override_transaction_name", Required = Required.Always)]
         public Boolean OverrideTransactionName { get; set; }
     }
 
@@ -159,19 +159,19 @@ namespace Aristocrat.Monaco.Kernel.MarketConfig.Accounting
         /// <summary>
         /// Default
         /// </summary>
-        [JsonProperty(PropertyName = "default")]
+        [JsonProperty(PropertyName = "default", Required = Required.Always)]
         public Int64 Default { get; set; }
 
         /// <summary>
         /// Editable
         /// </summary>
-        [JsonProperty(PropertyName = "editable")]
+        [JsonProperty(PropertyName = "editable", Required = Required.Always)]
         public Boolean Editable { get; set; }
 
         /// <summary>
         /// Visible
         /// </summary>
-        [JsonProperty(PropertyName = "visible")]
+        [JsonProperty(PropertyName = "visible", Required = Required.Always)]
         public Boolean Visible { get; set; }
     }
 
@@ -184,19 +184,19 @@ namespace Aristocrat.Monaco.Kernel.MarketConfig.Accounting
         /// <summary>
         /// Default
         /// </summary>
-        [JsonProperty(PropertyName = "default")]
+        [JsonProperty(PropertyName = "default", Required = Required.Always)]
         public Int64 Default { get; set; }
 
         /// <summary>
         /// Editable
         /// </summary>
-        [JsonProperty(PropertyName = "editable")]
+        [JsonProperty(PropertyName = "editable", Required = Required.Always)]
         public Boolean Editable { get; set; }
 
         /// <summary>
         /// Visible
         /// </summary>
-        [JsonProperty(PropertyName = "visible")]
+        [JsonProperty(PropertyName = "visible", Required = Required.Always)]
         public Boolean Visible { get; set; }
     }
 
@@ -209,31 +209,31 @@ namespace Aristocrat.Monaco.Kernel.MarketConfig.Accounting
         /// <summary>
         /// Enabled
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
+        [JsonProperty(PropertyName = "enabled", Required = Required.Always)]
         public Boolean Enabled { get; set; }
 
         /// <summary>
         /// Enable limit
         /// </summary>
-        [JsonProperty(PropertyName = "enable_limit")]
+        [JsonProperty(PropertyName = "enable_limit", Required = Required.Always)]
         public Boolean EnableLimit { get; set; }
 
         /// <summary>
         /// Limit default
         /// </summary>
-        [JsonProperty(PropertyName = "limit_default")]
+        [JsonProperty(PropertyName = "limit_default", Required = Required.Always)]
         public Int64 LimitDefault { get; set; }
 
         /// <summary>
         /// Limit max
         /// </summary>
-        [JsonProperty(PropertyName = "limit_max")]
+        [JsonProperty(PropertyName = "limit_max", Required = Required.Always)]
         public Int64 LimitMax { get; set; }
 
         /// <summary>
         /// Allow limit edit
         /// </summary>
-        [JsonProperty(PropertyName = "allow_limit_edit")]
+        [JsonProperty(PropertyName = "allow_limit_edit", Required = Required.Always)]
         public Boolean AllowLimitEdit { get; set; }
     }
 
@@ -247,76 +247,76 @@ namespace Aristocrat.Monaco.Kernel.MarketConfig.Accounting
         /// Enabled
         /// Voucher-out is allowed when on/true and disabled if off/false.
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
+        [JsonProperty(PropertyName = "enabled", Required = Required.Always)]
         public Boolean Enabled { get; set; }
 
         /// <summary>
         /// Enable limit
         /// </summary>
-        [JsonProperty(PropertyName = "enable_limit")]
+        [JsonProperty(PropertyName = "enable_limit", Required = Required.Always)]
         public Boolean EnableLimit { get; set; }
 
         /// <summary>
         /// Limit default
         /// Max allowed limit
         /// </summary>
-        [JsonProperty(PropertyName = "limit_default")]
+        [JsonProperty(PropertyName = "limit_default", Required = Required.Always)]
         public Int64 LimitDefault { get; set; }
 
         /// <summary>
         /// Limit max
         /// </summary>
-        [JsonProperty(PropertyName = "limit_max")]
+        [JsonProperty(PropertyName = "limit_max", Required = Required.Always)]
         public Int64 LimitMax { get; set; }
 
         /// <summary>
         /// Allow limit edit
         /// </summary>
-        [JsonProperty(PropertyName = "allow_limit_edit")]
+        [JsonProperty(PropertyName = "allow_limit_edit", Required = Required.Always)]
         public Boolean AllowLimitEdit { get; set; }
 
         /// <summary>
         /// Expiration days
         /// The number of days by which the ticket will expire. "0" means Never Expire.
         /// </summary>
-        [JsonProperty(PropertyName = "expiration_days")]
+        [JsonProperty(PropertyName = "expiration_days", Required = Required.Always)]
         public Int32 ExpirationDays { get; set; }
 
         /// <summary>
         /// Expiration editable
         /// The expiration days value may be overridden by the technician in the audit menu settings if set to on/true.
         /// </summary>
-        [JsonProperty(PropertyName = "expiration_editable")]
+        [JsonProperty(PropertyName = "expiration_editable", Required = Required.Always)]
         public Boolean ExpirationEditable { get; set; }
 
         /// <summary>
         /// Allow cash win ticket
         /// </summary>
-        [JsonProperty(PropertyName = "allow_cash_win_ticket")]
+        [JsonProperty(PropertyName = "allow_cash_win_ticket", Required = Required.Always)]
         public Boolean AllowCashWinTicket { get; set; }
 
         /// <summary>
         /// Allow non-cashable ticket
         /// </summary>
-        [JsonProperty(PropertyName = "allow_non_cashable_ticket")]
+        [JsonProperty(PropertyName = "allow_non_cashable_ticket", Required = Required.Always)]
         public Boolean AllowNonCashableTicket { get; set; }
 
         /// <summary>
         /// Offline
         /// </summary>
-        [JsonProperty(PropertyName = "offline")]
+        [JsonProperty(PropertyName = "offline", Required = Required.Always)]
         public Boolean Offline { get; set; }
 
         /// <summary>
         /// Max sequence
         /// </summary>
-        [JsonProperty(PropertyName = "max_sequence")]
+        [JsonProperty(PropertyName = "max_sequence", Required = Required.Always)]
         public Int32 MaxSequence { get; set; }
 
         /// <summary>
         /// Separate metering cashable and promo amounts
         /// </summary>
-        [JsonProperty(PropertyName = "separate_metering_cashable_and_promo_amounts")]
+        [JsonProperty(PropertyName = "separate_metering_cashable_and_promo_amounts", Required = Required.Always)]
         public Boolean SeparateMeteringCashableAndPromoAmounts { get; set; }
     }
 
@@ -332,7 +332,7 @@ namespace Aristocrat.Monaco.Kernel.MarketConfig.Accounting
         /// - `Any`  Any voucher can be reprinted from the Logs - All screen.
         /// - `Last` Only the last voucher can be reprinted from the Logs - All screen (Reprint button is disabled for all other logged vouchers).
         /// </summary>
-        [JsonProperty(PropertyName = "behavior")]
+        [JsonProperty(PropertyName = "behavior", Required = Required.Always)]
         public String Behavior { get; set; }
 
         /// <summary>
@@ -340,7 +340,7 @@ namespace Aristocrat.Monaco.Kernel.MarketConfig.Accounting
         /// - `Off/false` Use value in property "TicketProperty.TicketTitleCash" as title
         /// - `On/true` Use value in property "TicketProperty.TicketTitleCashReprint" as title
         /// </summary>
-        [JsonProperty(PropertyName = "title_override")]
+        [JsonProperty(PropertyName = "title_override", Required = Required.Always)]
         public Boolean TitleOverride { get; set; }
 
         /// <summary>
@@ -351,7 +351,7 @@ namespace Aristocrat.Monaco.Kernel.MarketConfig.Accounting
         /// - `n` Where n is any logical door id or Aristocrat.Monaco.Hardware.Contracts.Door.DoorLogicalId, door is required for reprint to be enabled
         /// - `|` Requiring multiple doors can be accomplished by combining, for example "Main|Logic" will require both Main and Logic door to be open
         /// </summary>
-        [JsonProperty(PropertyName = "door_open_requirement")]
+        [JsonProperty(PropertyName = "door_open_requirement", Required = Required.Always)]
         public String DoorOpenRequirement { get; set; }
     }
 
@@ -364,67 +364,67 @@ namespace Aristocrat.Monaco.Kernel.MarketConfig.Accounting
         /// <summary>
         /// Note acceptor connected required
         /// </summary>
-        [JsonProperty(PropertyName = "note_acceptor_connected_required")]
+        [JsonProperty(PropertyName = "note_acceptor_connected_required", Required = Required.Always)]
         public Boolean NoteAcceptorConnectedRequired { get; set; }
 
         /// <summary>
         /// Large win forced key-off
         /// </summary>
-        [JsonProperty(PropertyName = "large_win_forced_key_off")]
+        [JsonProperty(PropertyName = "large_win_forced_key_off", Required = Required.Always)]
         public Boolean LargeWinForcedKeyOff { get; set; }
 
         /// <summary>
         /// Large win key-off strategy
         /// </summary>
-        [JsonProperty(PropertyName = "large_win_key_off_strategy")]
+        [JsonProperty(PropertyName = "large_win_key_off_strategy", Required = Required.Always)]
         public String LargeWinKeyOffStrategy { get; set; }
 
         /// <summary>
         /// Handpay pending exit enabled
         /// </summary>
-        [JsonProperty(PropertyName = "handpay_pending_exit_enabled")]
+        [JsonProperty(PropertyName = "handpay_pending_exit_enabled", Required = Required.Always)]
         public Boolean HandpayPendingExitEnabled { get; set; }
 
         /// <summary>
         /// Can key-off while in lock-up
         /// </summary>
-        [JsonProperty(PropertyName = "can_key_off_while_in_lock_up")]
+        [JsonProperty(PropertyName = "can_key_off_while_in_lock_up", Required = Required.Always)]
         public Boolean CanKeyOffWhileInLockUp { get; set; }
 
         /// <summary>
         /// Handpay receipts required
         /// </summary>
-        [JsonProperty(PropertyName = "handpay_receipts_required")]
+        [JsonProperty(PropertyName = "handpay_receipts_required", Required = Required.Always)]
         public Boolean HandpayReceiptsRequired { get; set; }
 
         /// <summary>
         /// Remote handpay reset allowed
         /// </summary>
-        [JsonProperty(PropertyName = "remote_handpay_reset_allowed")]
+        [JsonProperty(PropertyName = "remote_handpay_reset_allowed", Required = Required.Always)]
         public Boolean RemoteHandpayResetAllowed { get; set; }
 
         /// <summary>
         /// Remote handpay reset configurable
         /// </summary>
-        [JsonProperty(PropertyName = "remote_handpay_reset_configurable")]
+        [JsonProperty(PropertyName = "remote_handpay_reset_configurable", Required = Required.Always)]
         public Boolean RemoteHandpayResetConfigurable { get; set; }
 
         /// <summary>
         /// Print handpay receipt enabled
         /// </summary>
-        [JsonProperty(PropertyName = "print_handpay_receipt_enabled")]
+        [JsonProperty(PropertyName = "print_handpay_receipt_enabled", Required = Required.Always)]
         public Boolean PrintHandpayReceiptEnabled { get; set; }
 
         /// <summary>
         /// Print handpay receipt editable
         /// </summary>
-        [JsonProperty(PropertyName = "print_handpay_receipt_editable")]
+        [JsonProperty(PropertyName = "print_handpay_receipt_editable", Required = Required.Always)]
         public Boolean PrintHandpayReceiptEditable { get; set; }
 
         /// <summary>
         /// Allow game win receipt enabled
         /// </summary>
-        [JsonProperty(PropertyName = "allow_game_win_receipt_enabled")]
+        [JsonProperty(PropertyName = "allow_game_win_receipt_enabled", Required = Required.Always)]
         public Boolean AllowGameWinReceiptEnabled { get; set; }
     }
 
@@ -437,7 +437,7 @@ namespace Aristocrat.Monaco.Kernel.MarketConfig.Accounting
         /// <summary>
         /// Win as external bonus
         /// </summary>
-        [JsonProperty(PropertyName = "win_as_external_bonus")]
+        [JsonProperty(PropertyName = "win_as_external_bonus", Required = Required.Always)]
         public Boolean WinAsExternalBonus { get; set; }
     }
 
@@ -450,13 +450,13 @@ namespace Aristocrat.Monaco.Kernel.MarketConfig.Accounting
         /// <summary>
         /// Enabled
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
+        [JsonProperty(PropertyName = "enabled", Required = Required.Always)]
         public Boolean Enabled { get; set; }
 
         /// <summary>
         /// Value
         /// </summary>
-        [JsonProperty(PropertyName = "value")]
+        [JsonProperty(PropertyName = "value", Required = Required.Always)]
         public Int32 Value { get; set; }
     }
 
@@ -469,19 +469,19 @@ namespace Aristocrat.Monaco.Kernel.MarketConfig.Accounting
         /// <summary>
         /// Enabled
         /// </summary>
-        [JsonProperty(PropertyName = "enabled")]
+        [JsonProperty(PropertyName = "enabled", Required = Required.Always)]
         public Boolean Enabled { get; set; }
 
         /// <summary>
         /// Visible
         /// </summary>
-        [JsonProperty(PropertyName = "visible")]
+        [JsonProperty(PropertyName = "visible", Required = Required.Always)]
         public Boolean Visible { get; set; }
 
         /// <summary>
         /// Sound file path
         /// </summary>
-        [JsonProperty(PropertyName = "sound_file_path")]
+        [JsonProperty(PropertyName = "sound_file_path", Required = Required.Always)]
         public String SoundFilePath { get; set; }
     }
 
@@ -494,79 +494,79 @@ namespace Aristocrat.Monaco.Kernel.MarketConfig.Accounting
         /// <summary>
         /// Tender-in
         /// </summary>
-        [JsonProperty(PropertyName = "tender_in")]
+        [JsonProperty(PropertyName = "tender_in", Required = Required.Always)]
         public TenderInFieldset TenderIn { get; set; }
 
         /// <summary>
         /// Max credit meter
         /// </summary>
-        [JsonProperty(PropertyName = "max_credit_meter")]
+        [JsonProperty(PropertyName = "max_credit_meter", Required = Required.Always)]
         public MaxCreditMeterFieldset MaxCreditMeter { get; set; }
 
         /// <summary>
         /// Max bet limit
         /// </summary>
-        [JsonProperty(PropertyName = "max_bet_limit")]
+        [JsonProperty(PropertyName = "max_bet_limit", Required = Required.Always)]
         public MaxBetLimitFieldset MaxBetLimit { get; set; }
 
         /// <summary>
         /// Allow credits-in above max credit
         /// </summary>
-        [JsonProperty(PropertyName = "allow_credits_in_above_max_credit")]
+        [JsonProperty(PropertyName = "allow_credits_in_above_max_credit", Required = Required.Always)]
         public Boolean AllowCreditsInAboveMaxCredit { get; set; }
 
         /// <summary>
         /// Large win limit
         /// </summary>
-        [JsonProperty(PropertyName = "large_win_limit")]
+        [JsonProperty(PropertyName = "large_win_limit", Required = Required.Always)]
         public LargeWinLimitFieldset LargeWinLimit { get; set; }
 
         /// <summary>
         /// Large win ratio
         /// </summary>
-        [JsonProperty(PropertyName = "large_win_ratio")]
+        [JsonProperty(PropertyName = "large_win_ratio", Required = Required.Always)]
         public LargeWinRatioFieldset LargeWinRatio { get; set; }
 
         /// <summary>
         /// Large win ratio threshold
         /// </summary>
-        [JsonProperty(PropertyName = "large_win_ratio_threshold")]
+        [JsonProperty(PropertyName = "large_win_ratio_threshold", Required = Required.Always)]
         public LargeWinRatioThresholdFieldset LargeWinRatioThreshold { get; set; }
 
         /// <summary>
         /// Handpay reset visible
         /// </summary>
-        [JsonProperty(PropertyName = "handpay_reset_visible")]
+        [JsonProperty(PropertyName = "handpay_reset_visible", Required = Required.Always)]
         public Boolean HandpayResetVisible { get; set; }
 
         /// <summary>
         /// Handpay limit
         /// </summary>
-        [JsonProperty(PropertyName = "handpay_limit")]
+        [JsonProperty(PropertyName = "handpay_limit", Required = Required.Always)]
         public Int64 HandpayLimit { get; set; }
 
         /// <summary>
         /// Celebration lockup limit
         /// </summary>
-        [JsonProperty(PropertyName = "celebration_lockup_limit")]
+        [JsonProperty(PropertyName = "celebration_lockup_limit", Required = Required.Always)]
         public Int64 CelebrationLockupLimit { get; set; }
 
         /// <summary>
         /// Note-in Enabled
         /// </summary>
-        [JsonProperty(PropertyName = "note_in_enabled")]
+        [JsonProperty(PropertyName = "note_in_enabled", Required = Required.Always)]
         public Boolean NoteInEnabled { get; set; }
 
         /// <summary>
         /// Voucher-in
         /// </summary>
-        [JsonProperty(PropertyName = "voucher_in")]
+        [JsonProperty(PropertyName = "voucher_in", Required = Required.Always)]
         public VoucherInFieldset VoucherIn { get; set; }
 
         /// <summary>
         /// Voucher-out
         /// </summary>
-        [JsonProperty(PropertyName = "voucher_out")]
+        [JsonProperty(PropertyName = "voucher_out", Required = Required.Always)]
         public VoucherOutFieldset VoucherOut { get; set; }
 
         /// <summary>
@@ -575,56 +575,56 @@ namespace Aristocrat.Monaco.Kernel.MarketConfig.Accounting
         /// - `Clear` After operator key-off of reboot while printing error, will remove remaining credits.
         /// - `Prompt` After operator key-off of reboot while printing error, will prompt with a pop-up selection to reprint the voucher or cancel.  Either option will remove the remaining credits.  If cancel is selected, the voucher will not be allowed for reprint.
         /// </summary>
-        [JsonProperty(PropertyName = "reboot_while_printing_behavior")]
+        [JsonProperty(PropertyName = "reboot_while_printing_behavior", Required = Required.Always)]
         public String RebootWhilePrintingBehavior { get; set; }
 
         /// <summary>
         /// Reprint logged voucher
         /// </summary>
-        [JsonProperty(PropertyName = "reprint_logged_voucher")]
+        [JsonProperty(PropertyName = "reprint_logged_voucher", Required = Required.Always)]
         public ReprintLoggedVoucherFieldset ReprintLoggedVoucher { get; set; }
 
         /// <summary>
         /// Handpay
         /// </summary>
-        [JsonProperty(PropertyName = "handpay")]
+        [JsonProperty(PropertyName = "handpay", Required = Required.Always)]
         public HandpayFieldset Handpay { get; set; }
 
         /// <summary>
         /// Mystery progressive
         /// </summary>
-        [JsonProperty(PropertyName = "mystery_progressive")]
+        [JsonProperty(PropertyName = "mystery_progressive", Required = Required.Always)]
         public MysteryProgressiveFieldset MysteryProgressive { get; set; }
 
         /// <summary>
         /// Cashout on carrier board removal enabled
         /// </summary>
-        [JsonProperty(PropertyName = "cashout_on_carrier_board_removal_enabled")]
+        [JsonProperty(PropertyName = "cashout_on_carrier_board_removal_enabled", Required = Required.Always)]
         public Boolean CashoutOnCarrierBoardRemovalEnabled { get; set; }
 
         /// <summary>
         /// Note acceptor time limit
         /// </summary>
-        [JsonProperty(PropertyName = "note_acceptor_time_limit")]
+        [JsonProperty(PropertyName = "note_acceptor_time_limit", Required = Required.Always)]
         public NoteAcceptorTimeLimitFieldset NoteAcceptorTimeLimit { get; set; }
 
         /// <summary>
         /// Money laundering monitor
         /// </summary>
-        [JsonProperty(PropertyName = "money_laundering_monitor")]
+        [JsonProperty(PropertyName = "money_laundering_monitor", Required = Required.Always)]
         public MoneyLaunderingMonitorFieldset MoneyLaunderingMonitor { get; set; }
 
         /// <summary>
         /// Bill clearance enabled
         /// </summary>
-        [JsonProperty(PropertyName = "bill_clearance_enabled")]
+        [JsonProperty(PropertyName = "bill_clearance_enabled", Required = Required.Always)]
         public Boolean BillClearanceEnabled { get; set; }
 
         /// <summary>
         /// Test ticket type
         /// Name of the test ticket type which maps to the ticket template
         /// </summary>
-        [JsonProperty(PropertyName = "test_ticket_type")]
+        [JsonProperty(PropertyName = "test_ticket_type", Required = Required.Always)]
         public String TestTicketType { get; set; }
     }
 }
