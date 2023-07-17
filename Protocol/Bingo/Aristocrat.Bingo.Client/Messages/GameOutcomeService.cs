@@ -92,20 +92,20 @@
             var joinBallNumber = gamePlayResponse.JoinBallNumber;
             var gameEndWinEligibility = gamePlayResponse.GameEndWinEligibility;
             var reportType = gamePlayResponse.ReportType;
-            var meta = game.GamePlayResponseMeta.Unpack<BingoSingleGamePlayResponseMeta>();
+            var gamePlayResponseMeta = game.GamePlayResponseMeta.Unpack<BingoSingleGamePlayResponseMeta>();
 
-            Logger.Debug($"BingoSingleGamePlayResponseMeta = {meta}");
+            Logger.Debug($"BingoSingleGamePlayResponseMeta = {gamePlayResponseMeta}");
 
-            var cards = meta.Cards.Select(
+            var cards = gamePlayResponseMeta.Cards.Select(
                 cardMeta => new CardPlayed(cardMeta.Serial, cardMeta.DaubBitPattern, cardMeta.GewClaimable, cardMeta.CardType == CardType.Golden)).ToList();
 
-            var wins = meta.WinResults.Select(
+            var wins = gamePlayResponseMeta.WinResults.Select(
                     winMeta => new WinResult(
                         winMeta.PatternId,
                         winMeta.Payout,
                         winMeta.BallQuantity,
                         winMeta.BitPattern,
-                        meta.PaytableId,
+                        gamePlayResponseMeta.PaytableId,
                         winMeta.PatternName,
                         winMeta.CardSerial,
                         winMeta.IsGew,
@@ -132,7 +132,7 @@
                 game.GameTitleId,
                 ThemeId,
                 game.Denomination,
-                meta.PaytableId.ToString(),
+                gamePlayResponseMeta.PaytableId.ToString(),
                 gamePlayResponse.GameSerial);
 
             var winDetails = new GameOutcomeWinDetails(
