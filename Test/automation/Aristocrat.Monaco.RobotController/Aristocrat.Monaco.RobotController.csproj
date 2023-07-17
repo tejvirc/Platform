@@ -14,8 +14,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
@@ -29,7 +27,6 @@
     <ProjectReference Include="..\..\..\Protocol\HHR\Aristocrat.Monaco.HHR\Aristocrat.Monaco.Hhr.csproj" />
     <ProjectReference Include="..\Aristocrat.Monaco.RobotController.Contracts\Aristocrat.Monaco.RobotController.Contracts.csproj" />
     <ProjectReference Include="..\Aristocrat.Monaco.Test.Automation\Aristocrat.Monaco.Test.Automation.csproj" />
-    <ProjectReference Include="..\Aristocrat.Monaco.TestController\Aristocrat.Monaco.TestController.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Aristocrat.Monaco.RobotController.xml">
