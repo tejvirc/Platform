@@ -44,6 +44,8 @@
 
         public void Execute()
         {
+            if (_robotController.Config.Active.IntervalLoadAuditMenu == 0)
+                return;
             _logger.Info("AuditMenuOperations Has Been Initiated!", GetType().Name);
             SubscribeToEvents();
             _loadAuditMenuTimer = new Timer(
@@ -128,7 +130,7 @@
 
         private bool IsValid()
         {
-            var isBlocked = _robotController.IsBlockedByOtherOperation( new List<RobotStateAndOperations>());
+            var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>());
             return !isBlocked && _stateChecker.AuditMenuOperationValid;
         }
     }

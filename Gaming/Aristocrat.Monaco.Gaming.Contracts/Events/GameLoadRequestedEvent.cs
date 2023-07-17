@@ -4,7 +4,7 @@
     using Kernel;
 
     /// <summary>
-    /// 
+    ///     An event to notify Gaming layer to run a specified game using gameId and Denomination.
     /// </summary>
     [Serializable]
     public class GameLoadRequestedEvent : BaseEvent

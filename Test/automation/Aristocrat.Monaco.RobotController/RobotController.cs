@@ -7,6 +7,7 @@
     using Aristocrat.Monaco.Accounting.Contracts;
     using Aristocrat.Monaco.Application.Contracts.Robot;
     using Aristocrat.Monaco.Gaming.Contracts;
+    using Aristocrat.Monaco.Gaming.Contracts.Events;
     using Aristocrat.Monaco.Gaming.Contracts.Lobby;
     using Aristocrat.Monaco.Gaming.Contracts.Models;
     using Aristocrat.Monaco.Hardware.Contracts;
@@ -251,7 +252,7 @@
                         () =>
                         {
                             _automator.ExitLockup();
-                            _eventBus.Publish(new GameLoadRequestEvent());
+                            _eventBus.Publish(new GameLoadRequestedEvent());
                         }
                     }
                 },
@@ -261,7 +262,7 @@
                         () =>
                         {
                             _automator.ExitLockup();
-                            _eventBus.Publish(new GameLoadRequestEvent());
+                            _eventBus.Publish(new GameLoadRequestedEvent());
                         }
                     }
                 }
