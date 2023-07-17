@@ -14,6 +14,8 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
     using Contracts.Gds;
     using Contracts.Gds.Reel;
     using Contracts.Reel;
+    using Contracts.Reel.ControlData;
+    using Contracts.SharedDevice;
     using log4net;
     using Messages;
     using Protocols;
@@ -22,6 +24,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
         System.Collections.Concurrent.ConcurrentQueue<System.Action<Messages.HarkeySerializableMessage>>;
     using Nudge = Messages.Nudge;
 
+    [SearchableSerialProtocol(DeviceType.ReelController, 8000)]
     public class HarkeyProtocol : SerialReelController
     {
         private const int LightResetDelayMs = 100;
@@ -826,22 +829,22 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
         {
             Status = status.GlobalStatus.ToFailureStatus();
 
-            Contracts.Gds.Reel.ReelStatus reel1Status;
-            Contracts.Gds.Reel.ReelStatus reel2Status;
-            Contracts.Gds.Reel.ReelStatus reel3Status;
-            Contracts.Gds.Reel.ReelStatus reel4Status;
-            Contracts.Gds.Reel.ReelStatus reel5Status;
-            Contracts.Gds.Reel.ReelStatus reel6Status;
+            Contracts.Gds.Reel.GdsReelStatus reel1Status;
+            Contracts.Gds.Reel.GdsReelStatus reel2Status;
+            Contracts.Gds.Reel.GdsReelStatus reel3Status;
+            Contracts.Gds.Reel.GdsReelStatus reel4Status;
+            Contracts.Gds.Reel.GdsReelStatus reel5Status;
+            Contracts.Gds.Reel.GdsReelStatus reel6Status;
 
             lock (_sequenceLock)
             {
                 // We need to ignore the connected status when homing after a tilt because the controller reports no status.
-                reel1Status = status.Reel1Status.ToReelStatus(1, _isInitialized, IgnoreConnectedStatus(1));
-                reel2Status = status.Reel2Status.ToReelStatus(2, _isInitialized, IgnoreConnectedStatus(2));
-                reel3Status = status.Reel3Status.ToReelStatus(3, _isInitialized, IgnoreConnectedStatus(3));
-                reel4Status = status.Reel4Status.ToReelStatus(4, _isInitialized, IgnoreConnectedStatus(4));
-                reel5Status = status.Reel5Status.ToReelStatus(5, _isInitialized, IgnoreConnectedStatus(5));
-                reel6Status = status.Reel6Status.ToReelStatus(6, _isInitialized, IgnoreConnectedStatus(6));
+                reel1Status = status.Reel1Status.ToGdsReelStatus(1, _isInitialized, IgnoreConnectedStatus(1));
+                reel2Status = status.Reel2Status.ToGdsReelStatus(2, _isInitialized, IgnoreConnectedStatus(2));
+                reel3Status = status.Reel3Status.ToGdsReelStatus(3, _isInitialized, IgnoreConnectedStatus(3));
+                reel4Status = status.Reel4Status.ToGdsReelStatus(4, _isInitialized, IgnoreConnectedStatus(4));
+                reel5Status = status.Reel5Status.ToGdsReelStatus(5, _isInitialized, IgnoreConnectedStatus(5));
+                reel6Status = status.Reel6Status.ToGdsReelStatus(6, _isInitialized, IgnoreConnectedStatus(6));
 
                 _reelsConnected[0] = reel1Status.Connected;
                 _reelsConnected[1] = reel2Status.Connected;
@@ -1151,6 +1154,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Reel.Harkey
 
             var messageBytes = message.Serialize();
 
+            Logger.Debug($"Send Message {message}");
             if (message.UseCommandInsteadOfProtocol)
             {
                 SendCommand(messageBytes, GetNoProtocolMessageTemplate(messageBytes.Length));

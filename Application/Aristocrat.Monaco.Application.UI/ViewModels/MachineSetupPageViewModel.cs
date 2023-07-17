@@ -6,12 +6,11 @@
     using System.Globalization;
     using System.Linq;
     using Application.Helpers;
+    using Localization;
     using Contracts;
-    using Contracts.Currency;
-    using Contracts.Localization;
     using Hardware.Contracts.NoteAcceptor;
     using Kernel;
-    
+    using Contracts.Currency;
 
     using CurrencyDefaultsCurrencyInfo = Localization.CurrencyDefaultsCurrencyInfo;
 
@@ -19,18 +18,21 @@
     public class MachineSetupPageViewModel : MachineSetupViewModelBase
     {
         private IDictionary<string, CurrencyDefaultsCurrencyInfo> _currencyDefaults = new ConcurrentDictionary<string, CurrencyDefaultsCurrencyInfo>();
-        
+
         private readonly IServiceManager _serviceManager;
+        private readonly CurrencyCultureProvider _currencyCultureProvider;
 
         private INoteAcceptor _noteAcceptor;
         private bool _requireZeroCredit;
         private Currency _selectedCurrency;
         private List<Currency> _currencies;
 
-        public MachineSetupPageViewModel()
+        public MachineSetupPageViewModel(CurrencyCultureProvider currencyCultureProvider, INoteAcceptor noteAcceptor)
             : base(true)
         {
             _serviceManager = ServiceManager.GetInstance();
+            _currencyCultureProvider = currencyCultureProvider ?? throw new ArgumentNullException(nameof(currencyCultureProvider));
+            _noteAcceptor = noteAcceptor ?? throw new ArgumentNullException(nameof(noteAcceptor));
 
             if (SerialNumber.EditedValue == "0")
             {
@@ -97,9 +99,7 @@
         public bool CurrencyChangeAllowed { get; }
 
         protected override void Loaded()
-        {
-            _noteAcceptor = _serviceManager.TryGetService<INoteAcceptor>();
-
+        { 
             _currencies = new List<Currency>();
             var currencyCode = PropertiesManager.GetValue(
                 ApplicationConstants.CurrencyId,
@@ -111,12 +111,11 @@
 
             Logger.Info($"CultureInfo.CurrentCulture.Name {CultureInfo.CurrentCulture.Name} - currencyCode {currencyCode}");
 
-            _currencyDefaults = CurrencyCultureHelper.GetCurrencyDefaults();
-
+            _currencyDefaults = _currencyCultureProvider.CurrencyDefaultFormat;
             var currencyDescription = (string)PropertiesManager.GetProperty(
                 ApplicationConstants.CurrencyDescription,
                 string.Empty);
-            _currencies.AddRange(CurrencyCultureHelper.GetSupportedCurrencies(currencyCode, _currencyDefaults, Logger, _noteAcceptor, CurrencyChangeAllowed).OrderBy(a => a.Description));
+            _currencies = GetSupportedCurrencies(currencyCode).ToList<Currency>();
 
             Currencies = _currencies;
 
@@ -126,11 +125,16 @@
             SelectedCurrency = currency;
         }
 
-        
-
         protected override void SaveChanges()
         {
             base.SaveChanges();
+
+            if (SelectedCurrency == null)
+            {
+                // A change made for inspection tool to Save on Next button click broke auto config on this page
+                // It doesn't get loaded before calling save, so none of the currency info is setup correctly
+                Loaded();
+            }
 
             PropertiesManager.SetProperty(ApplicationConstants.CurrencyDescription, SelectedCurrency.Description);
             PropertiesManager.SetProperty(ApplicationConstants.CurrencyId, SelectedCurrency.IsoCode);
@@ -138,7 +142,7 @@
                 ApplicationConstants.MachineSetupConfigEnterOutOfServiceWithCreditsEnabled,
                 !RequireZeroCredit);
 
-            _serviceManager.GetService<ILocalization>().GetProvider(CultureFor.Currency).Configure();
+            _currencyCultureProvider.Configure();
         }
 
         protected override void LoadAutoConfiguration()
@@ -164,6 +168,20 @@
             }
 
             base.LoadAutoConfiguration();
+        }
+
+        private IEnumerable<Currency> GetSupportedCurrencies(string currencyCode)
+        {
+            var currencies = CurrencyCultureHelper.GetSupportedCurrencies(
+                currencyCode,
+                _currencyDefaults,
+                Logger,
+                _noteAcceptor,
+                CurrencyChangeAllowed);
+
+            var orderedSet = currencies.OrderBy(a => a.DisplayName).ToList();
+            // Append No Currency options
+            return orderedSet.Concat(CurrencyCultureHelper.GetNoCurrencies());
         }
     }
 }

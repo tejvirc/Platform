@@ -43,7 +43,7 @@
 
             var eventCode = GetEventCode(setValidationEvent);
 
-            _eventLift.Report(idDevice, eventCode, idDevice.DeviceList(status));
+            _eventLift.Report(idDevice, eventCode, idDevice.DeviceList(status), setValidationEvent);
         }
 
         private static string GetEventCode(SetValidationEvent setValidationEvent)

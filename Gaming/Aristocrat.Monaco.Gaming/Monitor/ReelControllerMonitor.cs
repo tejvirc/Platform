@@ -18,19 +18,20 @@ namespace Aristocrat.Monaco.Gaming.Monitor
     using Hardware.Contracts.Door;
     using Hardware.Contracts.EdgeLighting;
     using Hardware.Contracts.Reel;
+    using Hardware.Contracts.Reel.Events;
     using Kernel;
     using Localization.Properties;
     using log4net;
     using Vgt.Client12.Application.OperatorMenu;
-    using ConnectedEvent = Hardware.Contracts.Reel.ConnectedEvent;
-    using DisabledEvent = Hardware.Contracts.Reel.DisabledEvent;
-    using DisconnectedEvent = Hardware.Contracts.Reel.DisconnectedEvent;
-    using EnabledEvent = Hardware.Contracts.Reel.EnabledEvent;
-    using HardwareFaultClearEvent = Hardware.Contracts.Reel.HardwareFaultClearEvent;
-    using HardwareFaultEvent = Hardware.Contracts.Reel.HardwareFaultEvent;
-    using HardwareReelFaultEvent = Hardware.Contracts.Reel.HardwareReelFaultEvent;
-    using InspectedEvent = Hardware.Contracts.Reel.InspectedEvent;
-    using InspectionFailedEvent = Hardware.Contracts.Reel.InspectionFailedEvent;
+    using ConnectedEvent = Hardware.Contracts.Reel.Events.ConnectedEvent;
+    using DisabledEvent = Hardware.Contracts.Reel.Events.DisabledEvent;
+    using DisconnectedEvent = Hardware.Contracts.Reel.Events.DisconnectedEvent;
+    using EnabledEvent = Hardware.Contracts.Reel.Events.EnabledEvent;
+    using HardwareFaultClearEvent = Hardware.Contracts.Reel.Events.HardwareFaultClearEvent;
+    using HardwareFaultEvent = Hardware.Contracts.Reel.Events.HardwareFaultEvent;
+    using HardwareReelFaultEvent = Hardware.Contracts.Reel.Events.HardwareReelFaultEvent;
+    using InspectedEvent = Hardware.Contracts.Reel.Events.InspectedEvent;
+    using InspectionFailedEvent = Hardware.Contracts.Reel.Events.InspectionFailedEvent;
     using ReelControllerState = Hardware.Contracts.Reel.ReelControllerState;
 
     public class ReelControllerMonitor : GenericBaseMonitor

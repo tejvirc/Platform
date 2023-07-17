@@ -21,7 +21,8 @@ as follows:
 	<ReelStop Enabled="false" Configurable="false" />
 	<LockupBehavior CashableLockupStrategy="Allowed" Configurable="true" />
 	<GameCategory ApplyGameCategorySettings="true" />
-	<DynamicHelpMenuText DisplayProgressiveCeilingMessage="true" DisplayStopReelMessage="true"/>
+	<Gamble SkipByJackpotHit="true" />
+	<DynamicHelpScreen JackpotCeiling="true" />
 <!--
 	GameRestrictions Settings:
 		ReturnToPlayerLimits:

@@ -42,16 +42,10 @@
         bool IsDisconnected { get; }
 
         /// <summary>
-        ///     Gets whether or not the TabletInputService startup type is Manual.
+        ///     Gets whether or not data has been received from the serial touch device
         /// </summary>
-        /// <remarks>For cabinet configurations without HID/USB based touch controllers (IE. LS), the
-        /// start-up type of the TabletInputService is responsible for the OS opening/closing the on-screen
-        /// keyboard.  If set to Manual by the OS, we need to explicitly open/close the on-screen keyboard
-        /// whenever a TextBox controls gets/loses focus.  If set to Automatic, we can skip explicitly opening
-        /// the on-screen keyboard as the OS should automatically do this.</remarks>
-        bool IsManualTabletInputService { get; }
+        bool HasReceivedData { get; }
 
-        /// <summary>
         ///     Gets the model of the connected serial touch device
         /// </summary>
         string Model { get; }

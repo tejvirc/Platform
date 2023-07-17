@@ -17,7 +17,7 @@ as follows:
 	<OperatorMenu DisableDuringGame="true" />
 	<LockupBehavior CashableLockupStrategy="Allowed" />
 	<GameCategory ApplyGameCategorySettings="true" />
-	<Gamble WagerLimit="2500000" WagerLimitConfigurable="false" />
+	<Gamble WagerLimit="2500000" WagerLimitConfigurable="false" SkipByJackpotHit="true" />
 	<ContinuousPlaySupport Configurable="true" />
 <!--
 	GameRestrictions Settings:
@@ -41,9 +41,7 @@ as follows:
 -->
 	<GameRestrictions>
 		<ReturnToPlayerLimits>
-			<ReturnToPlayer GameType="Any" Minimum="83000" Maximum="100000" />
-			<ReturnToPlayer GameType="Slot" Minimum="80000" Maximum="100000" />
-			<ReturnToPlayer GameType="Keno" Minimum="80000" Maximum="100000" />
+			<ReturnToPlayer GameType="Any" Minimum="75000" Maximum="100000" />
 		</ReturnToPlayerLimits>
 	</GameRestrictions>
 </GamingConfiguration>

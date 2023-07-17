@@ -139,7 +139,8 @@
                 device,
                 doorInfo.Item1(theEvent.WhilePoweredDown),
                 device.DeviceList(status),
-                new meterList { meterInfo = meters.ToArray() });
+                new meterList { meterInfo = meters.ToArray() },
+                theEvent);
 
             if (!theEvent.WhilePoweredDown && (DoorLogicalId)theEvent.LogicalId == DoorLogicalId.Main)
             {
@@ -172,7 +173,8 @@
                 device,
                 doorInfo.Item1(theEvent.WhilePoweredDown),
                 device.DeviceList(status),
-                new meterList { meterInfo = meters.ToArray() });
+                new meterList { meterInfo = meters.ToArray() },
+                theEvent);
         }
     }
 }

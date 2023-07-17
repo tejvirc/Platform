@@ -6,6 +6,7 @@
     using System.Timers;
     using System.Windows.Input;
     using Accounting.Contracts;
+    using Accounting.Contracts.HandCount;
     using Accounting.Contracts.Handpay;
     using Application.Contracts;
     using Application.Contracts.Extensions;
@@ -390,6 +391,7 @@
             _cashOutTexts.Clear();
             AppendGameWinBonuses(context);
             AppendVoucherInfo(context);
+            AppendHardMeterOutInfo(context);
             AppendHandpayInfo(context);
             DisplayCashoutInfo();
         }
@@ -420,6 +422,22 @@
             {
                 _currentCashoutMessageIndex = 0;
                 _cashoutMessageTimer.Start();
+            }
+        }
+
+        private void AppendHardMeterOutInfo(ReplayContext context)
+        {
+            var amountOut = context.GameIndex == -1 || context.GameIndex == 0
+                ? context.Arguments.Transactions
+                    .Where(t => t.TransactionType == typeof(HardMeterOutTransaction))
+                    .Sum(t => t.Amount)
+                : context.Arguments.FreeGames.ElementAt(context.GameIndex - 1)?.AmountOut ?? 0;
+
+            if (amountOut > 0)
+            {
+                _cashOutTexts.Add(
+                    Localizer.For(CultureFor.Player)
+                        .FormatString(ResourceKeys.ReplayTicketPrinted) + " " + amountOut.MillicentsToDollars().FormattedCurrencyString());
             }
         }
 

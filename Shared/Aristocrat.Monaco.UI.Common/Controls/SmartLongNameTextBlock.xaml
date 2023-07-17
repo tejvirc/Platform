@@ -2,42 +2,49 @@
              x:Name="LocalRoot"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:converters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters"
-             mc:Ignorable="d">
-
+             mc:Ignorable="d"
+             AutomationProperties.AutomationId="UserControl0_A7423A97">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converters:MultiValueConverter x:Key="MultiValueConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid DataContext="{Binding ElementName=LocalRoot}">
+    <Grid DataContext="{Binding ElementName=LocalRoot}"
+          AutomationProperties.AutomationId="Grid1_A7423A97">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"
+                              AutomationProperties.AutomationId="ColumnDefinition2_A7423A97" />
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition3_A7423A97" />
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Column="0"  Name="ContentTextBlock"
-                       VerticalAlignment="Bottom"
-                       HorizontalAlignment="Left"
-                       Style="{Binding Style}"
-                       Text="{Binding ContentText}"
-                       MaxWidth="{Binding ContentMaxWidth}"
-                       TextTrimming="CharacterEllipsis"/>
-        <Button Grid.Column="1" Name="InfoButton"
-                    Style="{StaticResource MonacoInfoButton}"
-                    Margin="10,0,0,0"
-                    HorizontalAlignment="Right"
-                    Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.ShowInfoPopupCommand}"
-                    Visibility="{Binding ButtonVisibility}">
+        <TextBlock Grid.Column="0"
+                   Name="ContentTextBlock"
+                   VerticalAlignment="Bottom"
+                   HorizontalAlignment="Left"
+                   Style="{Binding Style}"
+                   Text="{Binding ContentText}"
+                   MaxWidth="{Binding ContentMaxWidth}"
+                   TextTrimming="CharacterEllipsis"
+                   AutomationProperties.AutomationId="TextBlock4_A7423A97" />
+        <Button Grid.Column="1"
+                Name="InfoButton"
+                Style="{StaticResource MonacoInfoButton}"
+                Margin="10,0,0,0"
+                HorizontalAlignment="Right"
+                Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.ShowInfoPopupCommand}"
+                Visibility="{Binding ButtonVisibility}"
+                AutomationProperties.AutomationId="Button5_A7423A97">
             <Button.CommandParameter>
                 <MultiBinding Converter="{StaticResource MultiValueConverter}">
-                    <Binding ElementName="InfoButton"/>
-                    <Binding ElementName="ContentTextBlock" Path="Text"/>
+                    <Binding ElementName="InfoButton" />
+                    <Binding ElementName="ContentTextBlock"
+                             Path="Text" />
                 </MultiBinding>
             </Button.CommandParameter>
         </Button>

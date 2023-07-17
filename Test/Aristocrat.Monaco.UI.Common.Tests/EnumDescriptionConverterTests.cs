@@ -1,7 +1,9 @@
 ﻿namespace Aristocrat.Monaco.UI.Common.Tests
 {
-    using Aristocrat.Monaco.UI.Common.Converters;
+    using Converters;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Moq;
+    using Test.Common;
 
     [TestClass]
     public class EnumDescriptionConverterTests
@@ -13,6 +15,9 @@
         [TestInitialize]
         public void Initialize()
         {
+            MoqServiceManager.CreateInstance(MockBehavior.Strict);
+            MockLocalization.Setup(MockBehavior.Strict);
+
             _target = new EnumDescriptionConverter();
         }
 
@@ -31,7 +36,7 @@
         [DataTestMethod]
         [DataRow("definitely not an enum", DisplayName = "non-empty string test")]
         [DataRow("", DisplayName = "empty string test")]
-        [DataRow(42, DisplayName ="integer test")]
+        [DataRow(42, DisplayName = "integer test")]
         [DataRow(null, DisplayName = "null test")]
         public void WhenValueIsNotAnEnum_ShouldReturnEmptyString(object val)
         {

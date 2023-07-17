@@ -43,12 +43,12 @@
 
         public override void Save()
         {
-            _gameOrderSettings.SetGameOrder(Games.Select(g => g.GameDetail.ThemeId), true);
+            _gameOrderSettings.SetIconOrder(Games.Select(g => g.GameDetail.ThemeId), true);
         }
 
         private int GameOrder(IGameDetail game)
         {
-            return _gameOrderSettings.GetPositionPriority(game.ThemeId);
+            return _gameOrderSettings.GetIconPositionPriority(game.ThemeId);
         }
 
         private void MoveToFirst(IGameDetail game)

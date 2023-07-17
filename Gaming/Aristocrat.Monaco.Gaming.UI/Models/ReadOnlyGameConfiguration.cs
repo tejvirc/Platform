@@ -1,13 +1,13 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.Models
 {
-    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using Application.Contracts.Extensions;
+    using Application.Contracts.Localization;
     using Contracts;
     using Contracts.Models;
     using Contracts.Progressives;
     using Kernel;
+    using Localization.Properties;
     using Progressives;
 
     public class ReadOnlyGameConfiguration
@@ -46,10 +46,7 @@
 
         public long UniqueId => GameDetail.Denominations.Single(d => d.Value == DenominationValue).Id;
 
-        public IEnumerable<string> AvailableDenominations =>
-            GameDetail.SupportedDenominations.Select(d => $"{(d / _denomMultiplier).FormattedCurrencyString()}");
-
-        public string Denomination => $"{(DenominationValue / _denomMultiplier).FormattedCurrencyString()}";
+        public double Denomination => DenominationValue / _denomMultiplier;
 
         public string ThemeId => GameDetail.ThemeId;
 
@@ -63,8 +60,7 @@
 
         public long MaximumWagerCreditsValue { get; }
 
-        public string MaximumWagerCredits =>
-            $"{(MaximumWagerCreditsValue * DenominationValue / _denomMultiplier).FormattedCurrencyString()}";
+        public double MaximumWagerCredits => MaximumWagerCreditsValue * DenominationValue / _denomMultiplier;
 
         public long MaximumWinAmount => GameDetail.MaximumWinAmount;
 
@@ -136,21 +132,50 @@
             BaseGameRTPMin = baseGameRtp.Minimum.GetRtpString();
             BaseGameRTPMax = baseGameRtp.Maximum.GetRtpString();
 
-            ProgressiveResetRTP = GameConfigHelper.GetRtpRangeString(progressiveResetRtp);
-            ProgressiveResetRTPMin = progressiveResetRtp?.Minimum.GetRtpString();
-            ProgressiveResetRTPMax = progressiveResetRtp?.Maximum.GetRtpString();
-
-            ProgressiveIncrementRTP = GameConfigHelper.GetRtpRangeString(progressiveIncrementRtp);
-            ProgressiveIncrementRTPMin = progressiveIncrementRtp?.Minimum.GetRtpString();
-            ProgressiveIncrementRTPMax = progressiveIncrementRtp?.Maximum.GetRtpString();
-
             TotalJurisdictionalRTP = GameConfigHelper.GetRtpRangeString(totalJurisdictionRtp);
             TotalJurisdictionalRTPMin = totalJurisdictionRtp?.Minimum.GetRtpString();
             TotalJurisdictionalRTPMax = totalJurisdictionRtp?.Maximum.GetRtpString();
 
             ProgressiveResetRTPState = rtpState;
+            ProgressiveResetRTP = GetRtpRangeString(progressiveResetRtp, ProgressiveResetRTPState);
+            ProgressiveResetRTPMin = GetRtpString(progressiveResetRtp?.Minimum, ProgressiveResetRTPState);
+            ProgressiveResetRTPMax = GetRtpString(progressiveResetRtp?.Maximum, ProgressiveResetRTPState);
+
             ProgressiveIncrementRTPState = !_propertiesManager.CanIncludeIncrementRtp(GameType) && rtpState == RtpVerifiedState.Verified
                 ? RtpVerifiedState.NotUsed : rtpState;
+            ProgressiveIncrementRTP = GetRtpRangeString(progressiveIncrementRtp, ProgressiveIncrementRTPState);
+            ProgressiveIncrementRTPMin = GetRtpString(progressiveIncrementRtp?.Minimum, ProgressiveIncrementRTPState);
+            ProgressiveIncrementRTPMax = GetRtpString(progressiveIncrementRtp?.Maximum, ProgressiveIncrementRTPState);
+        }
+
+        private static string GetRtpRangeString(RtpRange rtpRange, RtpVerifiedState state)
+        {
+            switch (state)
+            {
+                case RtpVerifiedState.NotAvailable:
+                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable);
+                case RtpVerifiedState.NotUsed:
+                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotUsed);
+                case RtpVerifiedState.NotVerified:
+                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotVerified);
+                default:
+                    return GameConfigHelper.GetRtpRangeString(rtpRange);
+            }
+        }
+
+        private static string GetRtpString(decimal? rtp, RtpVerifiedState state)
+        {
+            switch (state)
+            {
+                case RtpVerifiedState.NotAvailable:
+                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable);
+                case RtpVerifiedState.NotUsed:
+                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotUsed);
+                case RtpVerifiedState.NotVerified:
+                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotVerified);
+                default:
+                    return rtp?.GetRtpString() ?? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable);
+            }
         }
     }
 }

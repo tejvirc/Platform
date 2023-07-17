@@ -12,6 +12,7 @@
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
+    using Accounting.Contracts.HandCount;
     using Contracts;
     using Contracts.Events;
     using Contracts.Lobby;
@@ -28,7 +29,7 @@
 
     public class MessageOverlayViewModel : BaseEntityViewModel
     {
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private const string HandPayDisplayKey = "HandPayImage";
         private const string CashoutDisplayKey = "CashOutImage";
@@ -95,8 +96,12 @@
             MessageOverlayData = containerService.Container.GetInstance<IMessageOverlayData>();
             _gameDiagnostics = containerService.Container.GetInstance<IGameDiagnostics>();
             _gameRecovery = containerService.Container.GetInstance<IGameRecovery>();
-
-            SubscribeToEvents();
+            _eventBus.Subscribe<PayoutAmountUpdatedEvent>(this, Handle);
+        }
+       
+        private void Handle(PayoutAmountUpdatedEvent evt)
+        {
+            _overlayMessageStrategyController.SetCashableAmount(evt.CashableAmount);
         }
 
         public IMessageOverlayData MessageOverlayData { get; set; }
@@ -193,8 +198,8 @@
 
         public bool ShowPaidMeterForAutoCashout { get; set; }
 
-        public readonly ConcurrentDictionary<string, DisplayableMessage> HardErrorMessages =
-            new ConcurrentDictionary<string, DisplayableMessage>();
+        public readonly ConcurrentDictionary<Guid, DisplayableMessage> HardErrorMessages =
+            new ConcurrentDictionary<Guid, DisplayableMessage>();
 
         private bool _isSelectPayModeVisible;
 
@@ -209,12 +214,12 @@
             MvvmHelper.ExecuteOnUI(
                 () =>
                 {
-                    if (HardErrorMessages.ContainsKey(displayableMessage.Message))
+                    if (HardErrorMessages.ContainsKey(displayableMessage.Id))
                     {
                         return;
                     }
 
-                    HardErrorMessages.TryAdd(displayableMessage.Message, displayableMessage);
+                    HardErrorMessages.TryAdd(displayableMessage.Id, displayableMessage);
                     ForceBuildLockupText = HardErrorMessages.Count > 1 && !_systemDisableManager.CurrentDisableKeys.Contains(ApplicationConstants.OperatorMenuLauncherDisableGuid);
                     MessageOverlayData.IsDialogFadingOut = false;
                     HandleMessageOverlayText(displayableMessage.Message);
@@ -226,7 +231,7 @@
             MvvmHelper.ExecuteOnUI(
                 () =>
                 {
-                    if (!HardErrorMessages.TryRemove(displayableMessage.Message, out _))
+                    if (!HardErrorMessages.TryRemove(displayableMessage.Id, out _))
                     {
                         Logger.Warn($"RemoveMessage failed to remove message {displayableMessage.Message}");
                     }
@@ -298,6 +303,10 @@
                         messageSent = true;
                     }
                     break;
+                case MessageOverlayState.PayOutLimitReached:
+                    MessageOverlayData = _overlayMessageStrategyController.OverlayStrategy.HandleMessageOverlayPayOut(MessageOverlayData);
+                    messageSent = true;
+                    break;
                 case MessageOverlayState.Disabled:
                     if (_lobbyStateManager.ContainsAnyState(LobbyState.CashIn))
                     {
@@ -346,11 +355,7 @@
                     break;
             }
 
-            if (!messageSent && _overlayMessageStrategyController.GameRegistered)
-            {
-                Logger.Debug("Sending PresentOverriddenPresentation Clear");
-                _overlayMessageStrategyController.ClearGameDrivenPresentation();
-            }
+            ClearPresentationIfComplete(messageSent);
 
             Logger.Debug(MessageOverlayData.GenerateLogText());
 
@@ -417,7 +422,7 @@
                                      IsAgeWarningDlgVisible ||
                                      IsSelectPayModeVisible ||
                                      IsResponsibleGamingInfoOverlayDlgVisible ||
-                                     MessageOverlayData.IsDialogVisible ||
+                                     MessageOverlayData.IsDialogVisible||
                                      ReserveOverlayViewModel.IsDialogVisible ||
                                      _playerMenuPopup.IsMenuVisible ||
                                      _playerInfoDisplayManager.IsActive() ||
@@ -510,6 +515,11 @@
                 {
                     state = MessageOverlayState.CashOut;
                 }
+                else if (_systemDisableManager.CurrentDisableKeys.Contains(ApplicationConstants.LargePayoutDisableKey) &&
+                        HardErrorMessages.Count == 1 && !_overlayMessageStrategyController.OverlayStrategy.IsBasic)
+                {
+                    state = MessageOverlayState.PayOutLimitReached;
+                }
                 else if (ShowVoucherNotification)
                 {
                     state = MessageOverlayState.VoucherNotification;
@@ -594,23 +604,12 @@
                     IsCashingOutDlgVisible && _lobbyStateManager.CashOutState == LobbyCashOutState.Undefined);
         }
 
-        private void SubscribeToEvents()
-        {
-            _eventBus.Subscribe<MissedStartupEvent>(this, HandleEvent);
-            _eventBus.Subscribe<HandpayCanceledEvent>(this, HandleEvent);
-            _eventBus.Subscribe<HandpayKeyedOffEvent>(this, HandleEvent);
-            _eventBus.Subscribe<HandpayStartedEvent>(this, HandleEvent);
-            _eventBus.Subscribe<TransferOutFailedEvent>(this, HandleEvent);
-            _eventBus.Subscribe<WatTransferInitiatedEvent>(this, HandleEvent);
-            _eventBus.Subscribe<VoucherOutStartedEvent>(this, HandleEvent);
-        }
-
-        private void HandleEvent(HandpayCanceledEvent evt)
+        public void HandpayCancelled()
         {
             _overlayMessageStrategyController.SetLastCashOutAmount(0);
         }
 
-        private void HandleEvent(HandpayKeyedOffEvent evt)
+        public void HandpayKeyedOff(HandpayKeyedOffEvent evt)
         {
             var cashOutState = LobbyCashOutState.Undefined;
 
@@ -640,7 +639,7 @@
                          $"CashOutState: {_lobbyStateManager.CashOutState}");
         }
 
-        private void HandleEvent(HandpayStartedEvent evt)
+        public void HandpayStarted(HandpayStartedEvent evt)
         {
             var forcedKeyOff = _properties.GetValue(AccountingConstants.HandpayLargeWinForcedKeyOff, false);
             var jurisdictionLargeWinKeyOffType = _properties.GetValue(AccountingConstants.HandpayLargeWinKeyOffStrategy, KeyOffType.LocalHandpay);
@@ -659,7 +658,7 @@
                          $"CashOutState: {_lobbyStateManager.CashOutState}");
         }
 
-        private void HandleEvent(TransferOutFailedEvent evt)
+        public void TransferOutFailed(TransferOutFailedEvent evt)
         {
             var config = _properties.GetValue<LobbyConfiguration>(GamingConstants.LobbyConfig, null);
             if (config == null || !config.NonCashCashoutFailureMessageEnabled || evt.NonCashableAmount <= 0)
@@ -670,7 +669,7 @@
             _overlayMessageStrategyController.SetLastCashOutAmount(evt.NonCashableAmount);
         }
 
-        private void HandleEvent(VoucherOutStartedEvent evt)
+        public void VoucherOutStarted(VoucherOutStartedEvent evt)
         {
             _lobbyStateManager.CashOutState = LobbyCashOutState.Voucher;
 
@@ -683,7 +682,7 @@
             HandleMessageOverlayText(string.Empty);
         }
 
-        private void HandleEvent(WatTransferInitiatedEvent evt)
+        public void WatTransferInitiated(WatTransferInitiatedEvent evt)
         {
             _lobbyStateManager.CashOutState = LobbyCashOutState.Wat;
 
@@ -696,22 +695,18 @@
             HandleMessageOverlayText(string.Empty);
         }
 
-        private void HandleEvent(MissedStartupEvent evt)
+        private void ClearPresentationIfComplete(bool messageSentToOverlay)
         {
-            Logger.Debug($"Detected MissedStartupEvent:  {evt.MissedEvent.GetType()}");
-            dynamic param = evt.MissedEvent;
+            var shouldClearPresentation = !messageSentToOverlay && _overlayMessageStrategyController.GameRegistered ||
+                                          !MessageOverlayData.GameHandlesHandPayPresentation;
 
-            HandleEvent(param);
-        }
+            if (!shouldClearPresentation)
+            {
+                return;
+            }
 
-        /// <summary>
-        ///     This is to handle missed events not handled by MessageOverlayViewModel.
-        /// </summary>
-        /// <param name="evt"></param>
-        // ReSharper disable once UnusedParameter.Local
-        private static void HandleEvent(IEvent evt)
-        {
-            // no implementation intentionally
+            Logger.Debug("Sending PresentOverriddenPresentation Clear");
+            _overlayMessageStrategyController.ClearGameDrivenPresentation();
         }
     }
 }

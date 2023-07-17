@@ -11,6 +11,11 @@
         Unknown,
 
         /// <summary>
+        /// The entire Machine is the hardware device
+        /// </summary>
+        	Machine,
+
+        /// <summary>
         /// Hardware device being tested relates to Buttons
         /// </summary>
         Buttons,

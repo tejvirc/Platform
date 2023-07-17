@@ -405,7 +405,7 @@
             {
                 if (lastTransaction is not null)
                 {
-                    // We have a rejected transaction that SAS was not told about. 
+                    // We have a rejected transaction that SAS was not told about.
                     UpdateTransaction(lastTransaction.TransactionId);
                 }
             }

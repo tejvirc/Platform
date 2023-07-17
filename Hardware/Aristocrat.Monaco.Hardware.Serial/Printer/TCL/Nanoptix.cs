@@ -5,8 +5,11 @@
     using System.Drawing;
     using System.Linq;
     using System.Reflection;
+    using Contracts.SharedDevice;
     using log4net;
+    using Protocols;
 
+    [SearchableSerialProtocol(DeviceType.Printer)]
     public class Nanoptix : TclProtocol
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);

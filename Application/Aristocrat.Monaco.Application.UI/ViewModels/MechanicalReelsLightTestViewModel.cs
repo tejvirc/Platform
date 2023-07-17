@@ -10,6 +10,7 @@
     using Contracts.Localization;
     using Hardware.Contracts.EdgeLighting;
     using Hardware.Contracts.Reel;
+    using Hardware.Contracts.Reel.Capabilities;
 
     [CLSCompliant(false)]
     public class MechanicalReelsLightTestViewModel : INotifyPropertyChanged
@@ -33,7 +34,8 @@
             Priority = StripPriority.PlatformTest,
             Strips = AllStripIds
         };
-
+        
+        private readonly IReelLightingCapabilities _lightingCapabilities;
         private readonly IReelController _reelController;
         private readonly IEdgeLightingController _edgeLightingController;
         private readonly IInspectionService _reporter;
@@ -55,6 +57,11 @@
             _edgeLightingController =
                 edgeLightingController ?? throw new ArgumentNullException(nameof(edgeLightingController));
             _reporter = reporter;
+
+            if (_reelController.HasCapability<IReelLightingCapabilities>())
+            {
+                _lightingCapabilities = _reelController.GetCapability<IReelLightingCapabilities>();
+            }
 
             InitializeLightIdList();
         }
@@ -134,15 +141,14 @@
 
         private async void InitializeLightIdList()
         {
-            if (!_reelController.Connected || Initialized)
+            if (!_reelController.Connected || _lightingCapabilities is null || Initialized)
             {
                 return;
             }
 
             var lightText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MechanicalReels_Light);
             var allLightsText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MechanicalReels_AllLights);
-
-            var ids = await _reelController.GetReelLightIdentifiers();
+            var ids = await _lightingCapabilities.GetReelLightIdentifiers();
 
             ReelLightIdNames = new List<string> { allLightsText };
             _reelLightIdentifiers = new List<int>(ids);

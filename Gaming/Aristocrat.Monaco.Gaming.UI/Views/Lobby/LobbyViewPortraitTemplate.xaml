@@ -1,17 +1,16 @@
-﻿<ResourceDictionary 
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:bink="clr-namespace:ManagedBink;assembly=BinkViewerControl"
-    xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
-    xmlns:commonConverters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
-    xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
-    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-    xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
-    xmlns:lobby="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Lobby"
-    xmlns:common="http://monaco.aristocrat.com/common"
-    xmlns:controls="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Controls"
-    xmlns:commonControls="clr-namespace:Aristocrat.Monaco.UI.Common.Controls;assembly=Aristocrat.Monaco.UI.Common"
-    xmlns:system="clr-namespace:System;assembly=mscorlib">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:bink="clr-namespace:ManagedBink;assembly=BinkViewerControl"
+                    xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
+                    xmlns:commonConverters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
+                    xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
+                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                    xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
+                    xmlns:lobby="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Lobby"
+                    xmlns:common="http://monaco.aristocrat.com/common"
+                    xmlns:controls="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Controls"
+                    xmlns:commonControls="clr-namespace:Aristocrat.Monaco.UI.Common.Controls;assembly=Aristocrat.Monaco.UI.Common"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
     <!-- Apply MahApps.Metro styles to all controls -->
     <ResourceDictionary.MergedDictionaries>
         <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
@@ -21,43 +20,55 @@
         <!-- Accent and AppTheme setting -->
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-
         <ResourceDictionary Source="../../Skins/Styles.xaml" />
-
         <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
         <!-- Jurisdiction xaml dictionary is loaded dynamically; see SkinLoader -->
     </ResourceDictionary.MergedDictionaries>
-
-    <converters:AttractActiveToVisibilityConverter x:Key="AttractToVisibilityConv" />
-    <converters:ViewFiltersToBoolConverter x:Key="FiltersToBoolConv"/>
-    <converters:DecoratorIconVisibilityConverter x:Key="AnimatedIconVisibilityConv"/>
-    <converters:DecoratorIconVisibilityConverter x:Key="StaticIconVisibilityConv" InvertEnabledValue="True"/>
-    <converters:MarginConverter x:Key="MarginConverter"/>
-    <converters:GameIconHeightConverter x:Key="GameIconHeightConverter"/>
-    <converters:GridSpacingConverter x:Key="GridSpacingConverter"/>
-    <converters:LobbyColumnWidthConverter x:Key="ColumnWidthConverter"/>
-    <converters:LobbyColumnMinWidthConverter x:Key="ColumnMinWidthConverter"/>
+    <converters:ViewFiltersToBoolConverter x:Key="FiltersToBoolConv" />
+    <converters:DecoratorIconVisibilityConverter x:Key="AnimatedIconVisibilityConv" />
+    <converters:DecoratorIconVisibilityConverter x:Key="StaticIconVisibilityConv"
+                                                 InvertEnabledValue="True" />
+    <converters:MarginConverter x:Key="MarginConverter" />
+    <converters:GameIconHeightConverter x:Key="GameIconHeightConverter" />
+    <converters:GridSpacingConverter x:Key="GridSpacingConverter" />
+    <converters:LobbyColumnWidthConverter x:Key="ColumnWidthConverter" />
+    <converters:LobbyColumnMinWidthConverter x:Key="ColumnMinWidthConverter" />
     <converters:TabIndexToVisibilityConverter x:Key="TabIndexConverter" />
     <commonConverters:CollectionConverter x:Key="CollectionConverter" />
-
     <system:Boolean x:Key="FalseValue">False</system:Boolean>
-
-    <LinearGradientBrush x:Key="JackpotTextGradient" StartPoint=".5,0" EndPoint=".5,1" Opacity="1">
-        <GradientStop Color="#FFF100" Offset=".5"/>
-        <GradientStop Color="#FFB000" Offset=".1"/>
-        <GradientStop Color="#FFFF00" Offset=".45"/>
-        <GradientStop Color="#FFFF00" Offset=".65"/>
-        <GradientStop Color="#FFB300" Offset=".70"/>
-        <GradientStop Color="#FFD600" Offset=".95"/>
-
+    <LinearGradientBrush x:Key="JackpotTextGradient"
+                         StartPoint=".5,0"
+                         EndPoint=".5,1"
+                         Opacity="1"
+                         AutomationProperties.AutomationId="LinearGradientBrush0_D2AA8138">
+        <GradientStop Color="#FFF100"
+                      Offset=".5"
+                      AutomationProperties.AutomationId="GradientStop1_D2AA8138" />
+        <GradientStop Color="#FFB000"
+                      Offset=".1"
+                      AutomationProperties.AutomationId="GradientStop2_D2AA8138" />
+        <GradientStop Color="#FFFF00"
+                      Offset=".45"
+                      AutomationProperties.AutomationId="GradientStop3_D2AA8138" />
+        <GradientStop Color="#FFFF00"
+                      Offset=".65"
+                      AutomationProperties.AutomationId="GradientStop4_D2AA8138" />
+        <GradientStop Color="#FFB300"
+                      Offset=".70"
+                      AutomationProperties.AutomationId="GradientStop5_D2AA8138" />
+        <GradientStop Color="#FFD600"
+                      Offset=".95"
+                      AutomationProperties.AutomationId="GradientStop6_D2AA8138" />
     </LinearGradientBrush>
-    <DataTemplate x:Key="LobbyViewPortraitTemplate" DataType="{x:Type viewModels:LobbyViewModel}">
-
-        <Grid>
-            <Grid>
+    <DataTemplate x:Key="LobbyViewPortraitTemplate"
+                  DataType="{x:Type viewModels:LobbyViewModel}">
+        <Grid AutomationProperties.AutomationId="Grid7_D2AA8138">
+            <Grid AutomationProperties.AutomationId="Grid8_D2AA8138">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.48*"/>
-                    <RowDefinition Height="0.52*"/>
+                    <RowDefinition Height="0.48*"
+                                   AutomationProperties.AutomationId="RowDefinition9_D2AA8138" />
+                    <RowDefinition Height="0.52*"
+                                   AutomationProperties.AutomationId="RowDefinition10_D2AA8138" />
                 </Grid.RowDefinitions>
                 <!--Background Image
               Using a background image here instead of Grid.Background imagebrush because dynamically altering the brush proved
@@ -65,291 +76,430 @@
               landscape backgrounds.
               -->
                 <Grid.Background>
-                    <ImageBrush ImageSource="{DynamicResource BottomBackgroundPortrait}"/>
+                    <ImageBrush ImageSource="{DynamicResource BottomBackgroundPortrait}"
+                                AutomationProperties.AutomationId="ImageBrush11_D2AA8138" />
                 </Grid.Background>
-
-                <Grid Grid.Row="1">
+                <Grid Grid.Row="1"
+                      AutomationProperties.AutomationId="Grid12_D2AA8138">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height=".1*"/>
-                        <RowDefinition Height=".9*"/>
+                        <RowDefinition Height=".1*"
+                                       AutomationProperties.AutomationId="RowDefinition13_D2AA8138" />
+                        <RowDefinition Height=".9*"
+                                       AutomationProperties.AutomationId="RowDefinition14_D2AA8138" />
                     </Grid.RowDefinitions>
-
-                    <Grid Grid.Row="0">
+                    <Grid Grid.Row="0"
+                          AutomationProperties.AutomationId="Grid15_D2AA8138">
                         <!--**** HEADER ****-->
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width=".60*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"
+                                              AutomationProperties.AutomationId="ColumnDefinition16_D2AA8138"></ColumnDefinition>
+                            <ColumnDefinition Width=".60*"
+                                              AutomationProperties.AutomationId="ColumnDefinition17_D2AA8138"></ColumnDefinition>
+                            <ColumnDefinition Width="*"
+                                              AutomationProperties.AutomationId="ColumnDefinition18_D2AA8138"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Viewbox Grid.Row="0" Grid.Column="1">
-                            <Image Stretch="None" Source="{DynamicResource SelectAGame}"
-                      HorizontalAlignment="Center" VerticalAlignment="Top"
-                      RenderTransformOrigin="0.5 0.5">
+                        <Viewbox Grid.Row="0"
+                                 Grid.Column="1"
+                                 AutomationProperties.AutomationId="Viewbox19_D2AA8138">
+                            <Image Stretch="None"
+                                   Source="{DynamicResource SelectAGame}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Top"
+                                   RenderTransformOrigin="0.5 0.5"
+                                   AutomationProperties.AutomationId="Image20_D2AA8138">
                                 <Image.RenderTransform>
-                                    <TransformGroup>
-                                        <TranslateTransform X="0" Y="{Binding ChooseGameOffsetY}" />
+                                    <TransformGroup AutomationProperties.AutomationId="TransformGroup21_D2AA8138">
+                                        <TranslateTransform X="0"
+                                                            Y="{Binding ChooseGameOffsetY}"
+                                                            AutomationProperties.AutomationId="TranslateTransform22_D2AA8138" />
                                     </TransformGroup>
                                 </Image.RenderTransform>
                             </Image>
                         </Viewbox>
                     </Grid>
-                    <Grid Grid.Row="1">
+                    <Grid Grid.Row="1"
+                          AutomationProperties.AutomationId="Grid23_D2AA8138">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height=".04*"/>
-                            <RowDefinition Height=".76*"/>
-                            <RowDefinition Height=".06*"/>
-                            <RowDefinition Height=".13*"/>
+                            <RowDefinition Height=".04*"
+                                           AutomationProperties.AutomationId="RowDefinition24_D2AA8138" />
+                            <RowDefinition Height=".76*"
+                                           AutomationProperties.AutomationId="RowDefinition25_D2AA8138" />
+                            <RowDefinition Height=".06*"
+                                           AutomationProperties.AutomationId="RowDefinition26_D2AA8138" />
+                            <RowDefinition Height=".13*"
+                                           AutomationProperties.AutomationId="RowDefinition27_D2AA8138" />
                         </Grid.RowDefinitions>
-
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*">
+                            <ColumnDefinition Width="*"
+                                              AutomationProperties.AutomationId="ColumnDefinition28_D2AA8138">
                                 <ColumnDefinition.MinWidth>
                                     <MultiBinding Converter="{StaticResource ColumnMinWidthConverter}">
-                                        <Binding Path="GameCount"/>
-                                        <Binding Path="PreserveGameLayoutSideMargins"/>
-                                        <Binding Path="IsExtraLargeGameIconTabActive"/>
+                                        <Binding Path="GameCount" />
+                                        <Binding Path="PreserveGameLayoutSideMargins" />
+                                        <Binding Path="IsExtraLargeGameIconTabActive" />
                                     </MultiBinding>
                                 </ColumnDefinition.MinWidth>
                             </ColumnDefinition>
-                            <ColumnDefinition>
+                            <ColumnDefinition AutomationProperties.AutomationId="ColumnDefinition29_D2AA8138">
                                 <ColumnDefinition.Width>
                                     <MultiBinding Converter="{StaticResource ColumnWidthConverter}">
-                                        <Binding Path="GameCount"/>
-                                        <Binding Path="PreserveGameLayoutSideMargins"/>
-                                        <Binding Path="IsExtraLargeGameIconTabActive"/>
+                                        <Binding Path="GameCount" />
+                                        <Binding Path="PreserveGameLayoutSideMargins" />
+                                        <Binding Path="IsExtraLargeGameIconTabActive" />
                                     </MultiBinding>
                                 </ColumnDefinition.Width>
                             </ColumnDefinition>
-                            <ColumnDefinition Width="*">
+                            <ColumnDefinition Width="*"
+                                              AutomationProperties.AutomationId="ColumnDefinition30_D2AA8138">
                                 <ColumnDefinition.MinWidth>
                                     <MultiBinding Converter="{StaticResource ColumnMinWidthConverter}">
-                                        <Binding Path="GameCount"/>
-                                        <Binding Path="PreserveGameLayoutSideMargins"/>
-                                        <Binding Path="IsExtraLargeGameIconTabActive"/>
+                                        <Binding Path="GameCount" />
+                                        <Binding Path="PreserveGameLayoutSideMargins" />
+                                        <Binding Path="IsExtraLargeGameIconTabActive" />
                                     </MultiBinding>
                                 </ColumnDefinition.MinWidth>
                             </ColumnDefinition>
                         </Grid.ColumnDefinitions>
-
-
-                        <Button Grid.Row="0" Grid.Column="2"
-                    HorizontalAlignment="Right" VerticalAlignment="Top"
-                    Margin="0 40 40 0"
-                    Style="{StaticResource stlFlatButton}"
-                    Command="{Binding Path=ResponsibleGamingDialogOpenCommand}"
-                                Visibility="{Binding IsResponsibleGamingInfoVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
-                            <Image Source="{DynamicResource ResponsibleGaming}" Stretch="None"/>
+                        <Button Grid.Row="0"
+                                Grid.Column="2"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Margin="0 40 40 0"
+                                Style="{StaticResource stlFlatButton}"
+                                Command="{Binding Path=ResponsibleGamingDialogOpenCommand}"
+                                Visibility="{Binding IsResponsibleGamingInfoVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                AutomationProperties.AutomationId="Button31_D2AA8138">
+                            <Image Source="{DynamicResource ResponsibleGaming}"
+                                   Stretch="None"
+                                   AutomationProperties.AutomationId="Image32_D2AA8138" />
                         </Button>
-
                         <!--**** Bartop UI ****-->
-                        <Viewbox Stretch="Uniform" Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="3"
-                        Height="{Binding ElementName=LayoutTemplate, Path=ActualHeight}"
-                        Width="{Binding ElementName=LayoutTemplate, Path=ActualWidth}" >
-                            <Grid Width="1920" Height="1080" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="{Binding IsTabView, Converter={StaticResource TrueVisibleFalseCollapsed}}">
+                        <Viewbox Stretch="Uniform"
+                                 Grid.Row="0"
+                                 Grid.RowSpan="3"
+                                 Grid.Column="0"
+                                 Grid.ColumnSpan="3"
+                                 Height="{Binding ElementName=LayoutTemplate, Path=ActualHeight}"
+                                 Width="{Binding ElementName=LayoutTemplate, Path=ActualWidth}"
+                                 AutomationProperties.AutomationId="Viewbox33_D2AA8138">
+                            <Grid Width="1920"
+                                  Height="1080"
+                                  HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Stretch"
+                                  Visibility="{Binding IsTabView, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                  AutomationProperties.AutomationId="Grid34_D2AA8138">
                                 <commonControls:ImageTransparentPassThrough x:Name="GameTab1"
-                        common:ImageHelper.SourceResourceKey="{Binding GameTabInfo.TabResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=0}"
-                        Panel.ZIndex="{Binding GameTabInfo.ZIndexes, Converter={StaticResource CollectionConverter}, ConverterParameter=0}"
-                        Visibility="{Binding GameTabInfo.TabCount, Converter={StaticResource TabIndexConverter}, ConverterParameter=0}">
+                                                                            common:ImageHelper.SourceResourceKey="{Binding GameTabInfo.TabResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=0}"
+                                                                            Panel.ZIndex="{Binding GameTabInfo.ZIndexes, Converter={StaticResource CollectionConverter}, ConverterParameter=0}"
+                                                                            Visibility="{Binding GameTabInfo.TabCount, Converter={StaticResource TabIndexConverter}, ConverterParameter=0}">
                                     <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="MouseLeftButtonDown" >
-                                            <i:InvokeCommandAction Command="{Binding GameTabPressedCommand}" CommandParameter="0"  />
+                                        <i:EventTrigger EventName="MouseLeftButtonDown"
+                                                        AutomationProperties.AutomationId="EventTrigger35_D2AA8138">
+                                            <i:InvokeCommandAction Command="{Binding GameTabPressedCommand}"
+                                                                   CommandParameter="0" />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </commonControls:ImageTransparentPassThrough>
                                 <commonControls:ImageTransparentPassThrough x:Name="GameTab2"
-                        common:ImageHelper.SourceResourceKey="{Binding GameTabInfo.TabResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=1}"
-                        Panel.ZIndex="{Binding GameTabInfo.ZIndexes, Converter={StaticResource CollectionConverter}, ConverterParameter=1}"
-                        Visibility="{Binding GameTabInfo.TabCount, Converter={StaticResource TabIndexConverter}, ConverterParameter=1}">
+                                                                            common:ImageHelper.SourceResourceKey="{Binding GameTabInfo.TabResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=1}"
+                                                                            Panel.ZIndex="{Binding GameTabInfo.ZIndexes, Converter={StaticResource CollectionConverter}, ConverterParameter=1}"
+                                                                            Visibility="{Binding GameTabInfo.TabCount, Converter={StaticResource TabIndexConverter}, ConverterParameter=1}">
                                     <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="MouseLeftButtonDown" >
-                                            <i:InvokeCommandAction Command="{Binding GameTabPressedCommand}" CommandParameter="1"  />
+                                        <i:EventTrigger EventName="MouseLeftButtonDown"
+                                                        AutomationProperties.AutomationId="EventTrigger36_D2AA8138">
+                                            <i:InvokeCommandAction Command="{Binding GameTabPressedCommand}"
+                                                                   CommandParameter="1" />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </commonControls:ImageTransparentPassThrough>
                                 <commonControls:ImageTransparentPassThrough x:Name="GameTab3"
-                        common:ImageHelper.SourceResourceKey="{Binding GameTabInfo.TabResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=2}"
-                        Panel.ZIndex="{Binding GameTabInfo.ZIndexes, Converter={StaticResource CollectionConverter}, ConverterParameter=2}"
-                        Visibility="{Binding GameTabInfo.TabCount, Converter={StaticResource TabIndexConverter}, ConverterParameter=2}" >
+                                                                            common:ImageHelper.SourceResourceKey="{Binding GameTabInfo.TabResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=2}"
+                                                                            Panel.ZIndex="{Binding GameTabInfo.ZIndexes, Converter={StaticResource CollectionConverter}, ConverterParameter=2}"
+                                                                            Visibility="{Binding GameTabInfo.TabCount, Converter={StaticResource TabIndexConverter}, ConverterParameter=2}">
                                     <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="MouseLeftButtonDown" >
-                                            <i:InvokeCommandAction Command="{Binding GameTabPressedCommand}" CommandParameter="2"  />
+                                        <i:EventTrigger EventName="MouseLeftButtonDown"
+                                                        AutomationProperties.AutomationId="EventTrigger37_D2AA8138">
+                                            <i:InvokeCommandAction Command="{Binding GameTabPressedCommand}"
+                                                                   CommandParameter="2" />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </commonControls:ImageTransparentPassThrough>
                                 <commonControls:ImageTransparentPassThrough x:Name="GameTab4"
-                        common:ImageHelper.SourceResourceKey="{Binding GameTabInfo.TabResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=3}"
-                        Panel.ZIndex="{Binding GameTabInfo.ZIndexes, Converter={StaticResource CollectionConverter}, ConverterParameter=3}"
-                        Visibility="{Binding GameTabInfo.TabCount, Converter={StaticResource TabIndexConverter}, ConverterParameter=3}" >
+                                                                            common:ImageHelper.SourceResourceKey="{Binding GameTabInfo.TabResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=3}"
+                                                                            Panel.ZIndex="{Binding GameTabInfo.ZIndexes, Converter={StaticResource CollectionConverter}, ConverterParameter=3}"
+                                                                            Visibility="{Binding GameTabInfo.TabCount, Converter={StaticResource TabIndexConverter}, ConverterParameter=3}">
                                     <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="MouseLeftButtonDown" >
-                                            <i:InvokeCommandAction Command="{Binding GameTabPressedCommand}" CommandParameter="3"  />
+                                        <i:EventTrigger EventName="MouseLeftButtonDown"
+                                                        AutomationProperties.AutomationId="EventTrigger38_D2AA8138">
+                                            <i:InvokeCommandAction Command="{Binding GameTabPressedCommand}"
+                                                                   CommandParameter="3" />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </commonControls:ImageTransparentPassThrough>
                                 <commonControls:ImageTransparentPassThrough x:Name="GameTab5"
-                        common:ImageHelper.SourceResourceKey="{Binding GameTabInfo.TabResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=4}"
-                        Panel.ZIndex="{Binding GameTabInfo.ZIndexes, Converter={StaticResource CollectionConverter}, ConverterParameter=4}"
-                        Visibility="{Binding GameTabInfo.TabCount, Converter={StaticResource TabIndexConverter}, ConverterParameter=4}" >
+                                                                            common:ImageHelper.SourceResourceKey="{Binding GameTabInfo.TabResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=4}"
+                                                                            Panel.ZIndex="{Binding GameTabInfo.ZIndexes, Converter={StaticResource CollectionConverter}, ConverterParameter=4}"
+                                                                            Visibility="{Binding GameTabInfo.TabCount, Converter={StaticResource TabIndexConverter}, ConverterParameter=4}">
                                     <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="MouseLeftButtonDown" >
-                                            <i:InvokeCommandAction Command="{Binding GameTabPressedCommand}" CommandParameter="4"  />
+                                        <i:EventTrigger EventName="MouseLeftButtonDown"
+                                                        AutomationProperties.AutomationId="EventTrigger39_D2AA8138">
+                                            <i:InvokeCommandAction Command="{Binding GameTabPressedCommand}"
+                                                                   CommandParameter="4" />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </commonControls:ImageTransparentPassThrough>
-                                <Grid Panel.ZIndex="10" Margin="60,40,60,0">
+                                <Grid Panel.ZIndex="10"
+                                      Margin="60,40,60,0"
+                                      AutomationProperties.AutomationId="Grid40_D2AA8138">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*"
+                                                          AutomationProperties.AutomationId="ColumnDefinition41_D2AA8138" />
+                                        <ColumnDefinition Width="*"
+                                                          AutomationProperties.AutomationId="ColumnDefinition42_D2AA8138" />
+                                        <ColumnDefinition Width="*"
+                                                          AutomationProperties.AutomationId="ColumnDefinition43_D2AA8138" />
+                                        <ColumnDefinition Width="*"
+                                                          AutomationProperties.AutomationId="ColumnDefinition44_D2AA8138" />
+                                        <ColumnDefinition Width="*"
+                                                          AutomationProperties.AutomationId="ColumnDefinition45_D2AA8138" />
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="100" />
+                                        <RowDefinition Height="100"
+                                                       AutomationProperties.AutomationId="RowDefinition46_D2AA8138" />
                                     </Grid.RowDefinitions>
-
-                                    <Viewbox Stretch="Uniform" StretchDirection="DownOnly" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" IsHitTestVisible="False" Width="275"
-                              Visibility="{Binding GameTabInfo.TabCount, Converter={StaticResource TabIndexConverter}, ConverterParameter=0}">
-                                        <Image common:ImageHelper.SourceResourceKey="{Binding GameTabInfo.LabelResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=0}"  />
+                                    <Viewbox Stretch="Uniform"
+                                             StretchDirection="DownOnly"
+                                             Grid.Column="0"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Center"
+                                             IsHitTestVisible="False"
+                                             Width="275"
+                                             Visibility="{Binding GameTabInfo.TabCount, Converter={StaticResource TabIndexConverter}, ConverterParameter=0}"
+                                             AutomationProperties.AutomationId="Viewbox47_D2AA8138">
+                                        <Image
+                                                common:ImageHelper.SourceResourceKey="{Binding GameTabInfo.LabelResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=0}"
+                                               AutomationProperties.AutomationId="Image48_D2AA8138" />
                                     </Viewbox>
-                                    <Viewbox Stretch="Uniform" StretchDirection="DownOnly" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" IsHitTestVisible="False" Width="275"
-                              Visibility="{Binding GameTabInfo.TabCount, Converter={StaticResource TabIndexConverter}, ConverterParameter=1}">
-                                        <Image common:ImageHelper.SourceResourceKey="{Binding GameTabInfo.LabelResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=1}"  />
+                                    <Viewbox Stretch="Uniform"
+                                             StretchDirection="DownOnly"
+                                             Grid.Column="1"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Center"
+                                             IsHitTestVisible="False"
+                                             Width="275"
+                                             Visibility="{Binding GameTabInfo.TabCount, Converter={StaticResource TabIndexConverter}, ConverterParameter=1}"
+                                             AutomationProperties.AutomationId="Viewbox49_D2AA8138">
+                                        <Image
+                                                common:ImageHelper.SourceResourceKey="{Binding GameTabInfo.LabelResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=1}"
+                                               AutomationProperties.AutomationId="Image50_D2AA8138" />
                                     </Viewbox>
-                                    <Viewbox Stretch="Uniform" StretchDirection="DownOnly" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" IsHitTestVisible="False" Width="275"
-                              Visibility="{Binding GameTabInfo.TabCount, Converter={StaticResource TabIndexConverter}, ConverterParameter=2}">
-                                        <Image common:ImageHelper.SourceResourceKey="{Binding GameTabInfo.LabelResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=2}"  />
+                                    <Viewbox Stretch="Uniform"
+                                             StretchDirection="DownOnly"
+                                             Grid.Column="2"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Center"
+                                             IsHitTestVisible="False"
+                                             Width="275"
+                                             Visibility="{Binding GameTabInfo.TabCount, Converter={StaticResource TabIndexConverter}, ConverterParameter=2}"
+                                             AutomationProperties.AutomationId="Viewbox51_D2AA8138">
+                                        <Image
+                                                common:ImageHelper.SourceResourceKey="{Binding GameTabInfo.LabelResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=2}"
+                                               AutomationProperties.AutomationId="Image52_D2AA8138" />
                                     </Viewbox>
-                                    <Viewbox Stretch="Uniform" StretchDirection="DownOnly" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" IsHitTestVisible="False" Width="275"
-                              Visibility="{Binding GameTabInfo.TabCount, Converter={StaticResource TabIndexConverter}, ConverterParameter=3}">
-                                        <Image common:ImageHelper.SourceResourceKey="{Binding GameTabInfo.LabelResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=3}"  />
+                                    <Viewbox Stretch="Uniform"
+                                             StretchDirection="DownOnly"
+                                             Grid.Column="3"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Center"
+                                             IsHitTestVisible="False"
+                                             Width="275"
+                                             Visibility="{Binding GameTabInfo.TabCount, Converter={StaticResource TabIndexConverter}, ConverterParameter=3}"
+                                             AutomationProperties.AutomationId="Viewbox53_D2AA8138">
+                                        <Image
+                                                common:ImageHelper.SourceResourceKey="{Binding GameTabInfo.LabelResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=3}"
+                                               AutomationProperties.AutomationId="Image54_D2AA8138" />
                                     </Viewbox>
-                                    <Viewbox Stretch="Uniform" StretchDirection="DownOnly" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" IsHitTestVisible="False" Width="275"
-                              Visibility="{Binding GameTabInfo.TabCount, Converter={StaticResource TabIndexConverter}, ConverterParameter=4}">
-                                        <Image common:ImageHelper.SourceResourceKey="{Binding GameTabInfo.LabelResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=4}"  />
+                                    <Viewbox Stretch="Uniform"
+                                             StretchDirection="DownOnly"
+                                             Grid.Column="4"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Center"
+                                             IsHitTestVisible="False"
+                                             Width="275"
+                                             Visibility="{Binding GameTabInfo.TabCount, Converter={StaticResource TabIndexConverter}, ConverterParameter=4}"
+                                             AutomationProperties.AutomationId="Viewbox55_D2AA8138">
+                                        <Image
+                                                common:ImageHelper.SourceResourceKey="{Binding GameTabInfo.LabelResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=4}"
+                                               AutomationProperties.AutomationId="Image56_D2AA8138" />
                                     </Viewbox>
                                 </Grid>
                             </Grid>
                         </Viewbox>
-
-
                         <!--**** GAME GRID ****-->
                         <!--**** Background ****-->
-                        <Image  Source="{DynamicResource GameIconBackground}" IsHitTestVisible="False" Stretch="Fill" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3"/>
-
+                        <Image Source="{DynamicResource GameIconBackground}"
+                               IsHitTestVisible="False"
+                               Stretch="Fill"
+                               Grid.Row="0"
+                               Grid.RowSpan="2"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="3"
+                               AutomationProperties.AutomationId="Image57_D2AA8138" />
                         <ItemsControl x:Name="GameList"
-                            FocusVisualStyle="{x:Null}"
-                            Margin="{Binding Path=MarginInputs, Converter={StaticResource MarginConverter}, ConverterParameter=GameGrid}"
-                            Grid.Row="1" Grid.Column="1"
-                            ItemsSource="{Binding Path=DisplayedGameList}"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top">
+                                      FocusVisualStyle="{x:Null}"
+                                      Margin="{Binding Path=MarginInputs, Converter={StaticResource MarginConverter}, ConverterParameter=GameGrid}"
+                                      Grid.Row="1"
+                                      Grid.Column="1"
+                                      ItemsSource="{Binding Path=DisplayedGameList}"
+                                      HorizontalAlignment="Left"
+                                      VerticalAlignment="Top"
+                                      AutomationProperties.AutomationId="ItemsControl58_D2AA8138">
                             <ItemsControl.ItemsPanel>
                                 <!-- Swap out the panel that arranges the items -->
                                 <ItemsPanelTemplate>
-                                    <controls:GameLayoutPanel Spacing="{Binding GameCount, Converter={StaticResource GridSpacingConverter}}"/>
+                                    <controls:GameLayoutPanel
+                                            Spacing="{Binding GameCount, Converter={StaticResource GridSpacingConverter}}" />
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                             <!-- Specify the UI to render each item -->
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate DataType="{x:Type models:GameInfo}">
                                     <!--Wrap the game icons in viewboxes to scale correctly-->
-                                    <Viewbox VerticalAlignment="Top">
-                                        <Border Width="340" x:Name="ButtonBorder"
-                            Height="{Binding Path=DataContext.GameCount, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconHeightConverter}}">
+                                    <Viewbox VerticalAlignment="Top"
+                                             AutomationProperties.AutomationId="Viewbox59_D2AA8138">
+                                        <Border Width="340"
+                                                x:Name="ButtonBorder"
+                                                Height="{Binding Path=DataContext.GameCount, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconHeightConverter}}"
+                                                AutomationProperties.AutomationId="Border60_D2AA8138">
                                             <!-- Use DataContext of ItemsControl instead of current GameInfo for SelectCommand -->
                                             <Button Style="{StaticResource stlFlatButton}"
-                          HorizontalAlignment="Left"
-                          VerticalAlignment="Top"
-                          Width="{Binding ElementName=ButtonBorder, Path=ActualWidth}"
-                          Height="{Binding ElementName=ButtonBorder, Path=ActualHeight}"
-                          Command="{Binding Path=DataContext.GameSelectCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                          CommandParameter="{Binding}">
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    Width="{Binding ElementName=ButtonBorder, Path=ActualWidth}"
+                                                    Height="{Binding ElementName=ButtonBorder, Path=ActualHeight}"
+                                                    Command="{Binding Path=DataContext.GameSelectCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                    CommandParameter="{Binding}"
+                                                    AutomationProperties.AutomationId="Button61_D2AA8138">
                                                 <Button.IsEnabled>
                                                     <MultiBinding Converter="{StaticResource FiltersToBoolConv}">
-                                                        <Binding Path="DataContext.DenomFilter" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
+                                                        <Binding Path="DataContext.DenomFilter"
+                                                                 RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
                                                         <Binding Path="FilteredDenomination" />
                                                         <Binding Path="Enabled" />
                                                     </MultiBinding>
                                                 </Button.IsEnabled>
-                                                <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
+                                                <Grid HorizontalAlignment="Left"
+                                                      VerticalAlignment="Top"
+                                                      AutomationProperties.AutomationId="Grid62_D2AA8138">
                                                     <Image x:Name="ButtonImage"
-                              Stretch="None"
-                              HorizontalAlignment="Left"
-                              VerticalAlignment="Top"
-                              Source="{Binding ImagePath}" />
-
-
-
-                                                    <Image Source="{DynamicResource PlatinumIcon}">
+                                                           Stretch="None"
+                                                           HorizontalAlignment="Left"
+                                                           VerticalAlignment="Top"
+                                                           Source="{Binding ImagePath}"
+                                                           AutomationProperties.AutomationId="Image63_D2AA8138" />
+                                                    <Image Source="{DynamicResource PlatinumIcon}"
+                                                           AutomationProperties.AutomationId="Image64_D2AA8138">
                                                         <Image.Visibility>
-                                                            <MultiBinding Converter="{StaticResource StaticIconVisibilityConv}">
+                                                            <MultiBinding
+                                                                    Converter="{StaticResource StaticIconVisibilityConv}">
                                                                 <Binding Path="PlatinumSeries" />
-                                                                <Binding Path="DataContext.IsLobbyVisible" RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
-                                                                <Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=Button}"/>
-                                                                <Binding Source="{StaticResource FalseValue}"/>
+                                                                <Binding Path="DataContext.IsLobbyVisible"
+                                                                         RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
+                                                                <Binding Path="IsEnabled"
+                                                                         RelativeSource="{RelativeSource AncestorType=Button}" />
+                                                                <Binding Source="{StaticResource FalseValue}" />
                                                             </MultiBinding>
                                                         </Image.Visibility>
                                                     </Image>
-
-                                                    <StackPanel Visibility="{Binding HasProgressiveOrBonusValue, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                                  Background="Transparent"
-                                  Orientation="Horizontal"
-                                  Margin="{Binding DataContext.GameCount, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource MarginConverter}, ConverterParameter=Bonus}"
-                                  HorizontalAlignment="Left" VerticalAlignment="Top" >
-
-                                                        <Image Stretch="None" Source="{DynamicResource JackpotText}" Margin="0 1 0 0"
-                                HorizontalAlignment="Left" VerticalAlignment="Top" />
-
-                                                        <TextBlock Text="{Binding ProgressiveOrBonusValue}" Margin="5 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"
-                                    FontFamily="Arial" FontWeight="ExtraBold" FontSize="20" Foreground="{StaticResource JackpotTextGradient}"/>
-
+                                                    <StackPanel
+                                                            Visibility="{Binding HasProgressiveOrBonusValue, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                                                Background="Transparent"
+                                                                Orientation="Horizontal"
+                                                                Margin="{Binding DataContext.GameCount, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource MarginConverter}, ConverterParameter=Bonus}"
+                                                                HorizontalAlignment="Left"
+                                                                VerticalAlignment="Top"
+                                                                AutomationProperties.AutomationId="StackPanel65_D2AA8138">
+                                                        <Image Stretch="None"
+                                                               Source="{DynamicResource JackpotText}"
+                                                               Margin="0 1 0 0"
+                                                               HorizontalAlignment="Left"
+                                                               VerticalAlignment="Top"
+                                                               AutomationProperties.AutomationId="Image66_D2AA8138" />
+                                                        <TextBlock Text="{Binding ProgressiveOrBonusValue}"
+                                                                   Margin="5 0 0 0"
+                                                                   HorizontalAlignment="Left"
+                                                                   VerticalAlignment="Top"
+                                                                   FontFamily="Arial"
+                                                                   FontWeight="ExtraBold"
+                                                                   FontSize="20"
+                                                                   Foreground="{StaticResource JackpotTextGradient}"
+                                                                   AutomationProperties.AutomationId="TextBlock67_D2AA8138" />
                                                     </StackPanel>
-
                                                     <bink:BinkViewerControl HorizontalAlignment="Left"
-                                              VerticalAlignment="Top"
-                                              Margin="{Binding DataContext.GameCount, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource MarginConverter}, ConverterParameter=NewStar}"
-                                              Stretch="None"
-                                              Filename="{DynamicResource NewStarPath}">
+                                                                            VerticalAlignment="Top"
+                                                                            Margin="{Binding DataContext.GameCount, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource MarginConverter}, ConverterParameter=NewStar}"
+                                                                            Stretch="None"
+                                                                            Filename="{DynamicResource NewStarPath}">
                                                         <bink:BinkViewerControl.Visibility>
-                                                            <MultiBinding Converter="{StaticResource AnimatedIconVisibilityConv}">
-                                                                <Binding Path="IsNew" UpdateSourceTrigger="PropertyChanged"/>
-                                                                <Binding Path="DataContext.IsLobbyVisible" RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
-                                                                <Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=Button}"/>
-                                                                <Binding Source="{StaticResource FalseValue}"/>
+                                                            <MultiBinding
+                                                                    Converter="{StaticResource AnimatedIconVisibilityConv}">
+                                                                <Binding Path="IsNew"
+                                                                         UpdateSourceTrigger="PropertyChanged" />
+                                                                <Binding Path="DataContext.IsLobbyVisible"
+                                                                         RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
+                                                                <Binding Path="IsEnabled"
+                                                                         RelativeSource="{RelativeSource AncestorType=Button}" />
+                                                                <Binding Source="{StaticResource FalseValue}" />
                                                             </MultiBinding>
                                                         </bink:BinkViewerControl.Visibility>
                                                     </bink:BinkViewerControl>
-
                                                     <!-- Tint disabled game buttons to make them look disabled. -->
-                                                    <Rectangle Fill="Black" Opacity="0.5"
-                                                               Visibility="{Binding IsEnabled, RelativeSource={RelativeSource AncestorType=Button}, Converter={StaticResource TrueCollapsedFalseVisible}}">
+                                                    <Rectangle Fill="Black"
+                                                               Opacity="0.5"
+                                                               Visibility="{Binding IsEnabled, RelativeSource={RelativeSource AncestorType=Button}, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                                                               AutomationProperties.AutomationId="Rectangle68_D2AA8138">
                                                         <Rectangle.OpacityMask>
-                                                            <ImageBrush ImageSource="{Binding ImagePath}" Stretch="None" AlignmentX="Left" AlignmentY="Top"/>
+                                                            <ImageBrush ImageSource="{Binding ImagePath}"
+                                                                        Stretch="None"
+                                                                        AlignmentX="Left"
+                                                                        AlignmentY="Top"
+                                                                        AutomationProperties.AutomationId="ImageBrush69_D2AA8138" />
                                                         </Rectangle.OpacityMask>
                                                     </Rectangle>
-
                                                     <!-- The following needs to come after to prevent double blending disabled look -->
                                                     <!-- Static star is only visible when it is disabled -->
                                                     <Grid x:Name="StaticStarGroup"
-                              Margin="{Binding DataContext.GameCount, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource MarginConverter}, ConverterParameter=NewStar}"
-                              HorizontalAlignment="Left" VerticalAlignment="Top">
+                                                          Margin="{Binding DataContext.GameCount, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource MarginConverter}, ConverterParameter=NewStar}"
+                                                          HorizontalAlignment="Left"
+                                                          VerticalAlignment="Top"
+                                                          AutomationProperties.AutomationId="Grid70_D2AA8138">
                                                         <Grid.Visibility>
-                                                            <MultiBinding Converter="{StaticResource StaticIconVisibilityConv}">
-                                                                <Binding Path="IsNew" UpdateSourceTrigger="PropertyChanged"/>
-                                                                <Binding Path="DataContext.IsLobbyVisible" RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
-                                                                <Binding Path="IsEnabled" RelativeSource="{RelativeSource AncestorType=Button}"/>
-                                                                <Binding Source="{StaticResource FalseValue}"/>
+                                                            <MultiBinding
+                                                                    Converter="{StaticResource StaticIconVisibilityConv}">
+                                                                <Binding Path="IsNew"
+                                                                         UpdateSourceTrigger="PropertyChanged" />
+                                                                <Binding Path="DataContext.IsLobbyVisible"
+                                                                         RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
+                                                                <Binding Path="IsEnabled"
+                                                                         RelativeSource="{RelativeSource AncestorType=Button}" />
+                                                                <Binding Source="{StaticResource FalseValue}" />
                                                             </MultiBinding>
                                                         </Grid.Visibility>
                                                         <Image x:Name="StaticStarImage"
-                                HorizontalAlignment="Left" VerticalAlignment="Top"
-                                Stretch="None" Source="{DynamicResource StaticStarIcon}"/>
-                                                        <Rectangle Fill="Black" Opacity="0.5"
-                                    Width="{Binding ElementName=StaticStarImage, Path=ActualWidth}"
-                                    Height="{Binding ElementName=StaticStarImage, Path=ActualHeight}">
+                                                               HorizontalAlignment="Left"
+                                                               VerticalAlignment="Top"
+                                                               Stretch="None"
+                                                               Source="{DynamicResource StaticStarIcon}"
+                                                               AutomationProperties.AutomationId="Image71_D2AA8138" />
+                                                        <Rectangle Fill="Black"
+                                                                   Opacity="0.5"
+                                                                   Width="{Binding ElementName=StaticStarImage, Path=ActualWidth}"
+                                                                   Height="{Binding ElementName=StaticStarImage, Path=ActualHeight}"
+                                                                   AutomationProperties.AutomationId="Rectangle72_D2AA8138">
                                                             <Rectangle.OpacityMask>
-                                                                <ImageBrush ImageSource="{DynamicResource StaticStarIcon}"/>
+                                                                <ImageBrush
+                                                                        ImageSource="{DynamicResource StaticStarIcon}"
+                                                                            AutomationProperties.AutomationId="ImageBrush73_D2AA8138" />
                                                             </Rectangle.OpacityMask>
                                                         </Rectangle>
                                                     </Grid>
@@ -360,59 +510,77 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-
-                        <Grid Margin="{Binding GameCount, Converter={StaticResource MarginConverter}, ConverterParameter=Banner}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
-                            <Viewbox HorizontalAlignment="Center">
+                        <Grid
+                                Margin="{Binding GameCount, Converter={StaticResource MarginConverter}, ConverterParameter=Banner}"
+                              Grid.Row="2"
+                              Grid.Column="0"
+                              Grid.ColumnSpan="3"
+                              AutomationProperties.AutomationId="Grid74_D2AA8138">
+                            <Viewbox HorizontalAlignment="Center"
+                                     AutomationProperties.AutomationId="Viewbox75_D2AA8138">
                                 <lobby:LobbyBannerView />
                             </Viewbox>
-                            <Viewbox HorizontalAlignment="Left">
+                            <Viewbox HorizontalAlignment="Left"
+                                     AutomationProperties.AutomationId="Viewbox76_D2AA8138">
                                 <Border Background="#FF000000"
-                        HorizontalAlignment="Left"
-                        BorderThickness="0"
-                        CornerRadius="10"
-                        Padding="8,4,8,4"
-                                        Visibility="{Binding IsPaidMeterVisible, Converter={StaticResource TrueVisibleFalseHidden}}">
-                                    <StackPanel Orientation="Horizontal">
+                                        HorizontalAlignment="Left"
+                                        BorderThickness="0"
+                                        CornerRadius="10"
+                                        Padding="8,4,8,4"
+                                        Visibility="{Binding IsPaidMeterVisible, Converter={StaticResource TrueVisibleFalseHidden}}"
+                                        AutomationProperties.AutomationId="Border77_D2AA8138">
+                                    <StackPanel Orientation="Horizontal"
+                                                AutomationProperties.AutomationId="StackPanel78_D2AA8138">
                                         <Label Content="{Binding PaidMeterLabel}"
-                            FontSize="30"
-                            FontFamily="Impact"
-                            Foreground="White"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"/>
+                                               FontSize="30"
+                                               FontFamily="Impact"
+                                               Foreground="White"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               AutomationProperties.AutomationId="Label79_D2AA8138" />
                                         <Label Content="{Binding PaidMeterValue}"
-                            FontSize="30"
-                            Padding="1,5,5,5"
-                            FontFamily="Impact"
-                            Foreground="White"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"/>
+                                               FontSize="30"
+                                               Padding="1,5,5,5"
+                                               FontFamily="Impact"
+                                               Foreground="White"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               AutomationProperties.AutomationId="Label80_D2AA8138" />
                                     </StackPanel>
                                 </Border>
                             </Viewbox>
-
-                            <Viewbox HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                            <Viewbox HorizontalAlignment="Right"
+                                     VerticalAlignment="Bottom"
+                                     AutomationProperties.AutomationId="Viewbox81_D2AA8138">
                                 <Border Background="#FF000000"
-                        BorderThickness="0"
-                        CornerRadius="6"
-                        Margin="0,4,0,4"
-                        Padding="4,0,4,0"
-                                        Visibility="{Binding IsNotificationTextVisible, Converter={StaticResource TrueVisibleFalseHidden}}">
+                                        BorderThickness="0"
+                                        CornerRadius="6"
+                                        Margin="0,4,0,4"
+                                        Padding="4,0,4,0"
+                                        Visibility="{Binding IsNotificationTextVisible, Converter={StaticResource TrueVisibleFalseHidden}}"
+                                        AutomationProperties.AutomationId="Border82_D2AA8138">
                                     <Label Content="{Binding CurrentNotificationText}"
-                          FontSize="16"
-                          FontFamily="Impact"
-                          Foreground="White"
-                          HorizontalAlignment="Center"
-                          VerticalAlignment="Center"/>
+                                           FontSize="16"
+                                           FontFamily="Impact"
+                                           Foreground="White"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           AutomationProperties.AutomationId="Label83_D2AA8138" />
                                 </Border>
                             </Viewbox>
                         </Grid>
-
                         <!--UPI should be in a viewbox to scale entire user control correctly-->
                         <!--Setting Margin to match old UPI sizing for Responsible Gaming Overlays-->
-                        <Viewbox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Margin="19 2 19 0">
-                            <Grid>
-                                <lobby:StandardUpi Visibility="{Binding MultiLanguageEnabled, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
-                                <lobby:MultiLanguageUpi Visibility="{Binding MultiLanguageEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
+                        <Viewbox Grid.Row="3"
+                                 Grid.Column="0"
+                                 Grid.ColumnSpan="3"
+                                 Margin="19 2 19 0"
+                                 AutomationProperties.AutomationId="Viewbox84_D2AA8138">
+                            <Grid AutomationProperties.AutomationId="Grid85_D2AA8138">
+                                <lobby:StandardUpi
+                                        Visibility="{Binding MultiLanguageEnabled, Converter={StaticResource TrueCollapsedFalseVisible}}" />
+                                <lobby:MultiLanguageUpi
+                                        Visibility="{Binding MultiLanguageEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
                             </Grid>
                         </Viewbox>
                     </Grid>

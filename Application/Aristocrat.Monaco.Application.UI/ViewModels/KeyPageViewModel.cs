@@ -5,10 +5,12 @@
     using System.Linq;
     using ConfigWizard;
     using Contracts.Identification;
+    using Contracts.Localization;
     using Hardware.Contracts.Button;
     using Hardware.Contracts.IO;
     using Hardware.Contracts.KeySwitch;
     using Kernel;
+    using MVVM;
     using MVVM.ViewModel;
 
     [CLSCompliant(false)]
@@ -66,8 +68,8 @@
 
             GetInitialKeyState();
             foreach (var id in from key in _key.LogicalKeySwitches
-                where key.Key == OperatorKeyId
-                select key.Key)
+                               where key.Key == OperatorKeyId
+                               select key.Key)
             {
                 var viewModel = new KeyViewModel(id, Inspection);
 
@@ -78,8 +80,8 @@
             }
 
             foreach (var id in from button in _buttonService.LogicalButtons
-                where button.Key == JackPotId
-                select button.Key)
+                               where button.Key == JackPotId
+                               select button.Key)
             {
                 var viewModel = new ButtonViewModel(id, Inspection);
 
@@ -140,6 +142,27 @@
 
             _jackPotInitialStatus = ((long)currentInputs & ((long)1 << JackPotBitIndex)) != 0;
             _operatorInitialStatus = ((long)currentInputs & ((long)1 << OperatorBitIndex)) != 0;
+        }
+
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            MvvmHelper.ExecuteOnUI(() =>
+            {
+                foreach (var key in Keys)
+                {
+                    if (key is KeyViewModel kvm)
+                    {
+                        kvm.UpdateProps();
+                    }
+                    if (key is ButtonViewModel bvm)
+                    {
+                        bvm.UpdateProps();
+                    }
+                }
+                RaisePropertyChanged(nameof(Keys));
+            });
+
+            base.OnOperatorCultureChanged(evt);
         }
     }
 }

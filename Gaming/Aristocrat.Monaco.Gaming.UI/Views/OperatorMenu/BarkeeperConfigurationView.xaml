@@ -12,61 +12,76 @@
                                xmlns:local="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance viewModels:BarkeeperConfigurationViewModel}">
-
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <Style TargetType="TextBlock" BasedOn="{StaticResource MonacoTextBlock}">
-                <Setter Property="HorizontalAlignment" Value="Left" />
-                <Setter Property="MinWidth" Value="300" />
+            <Style TargetType="TextBlock"
+                   BasedOn="{StaticResource MonacoTextBlock}">
+                <Setter Property="HorizontalAlignment"
+                        Value="Left" />
+                <Setter Property="MinWidth"
+                        Value="300" />
             </Style>
-
-            <Style TargetType="TextBox" BasedOn="{StaticResource MonacoTextBox}">
-                <Setter Property="HorizontalAlignment" Value="Left" />
-                <Setter Property="MinWidth" Value="300" />
+            <Style TargetType="TextBox"
+                   BasedOn="{StaticResource MonacoTextBox}">
+                <Setter Property="HorizontalAlignment"
+                        Value="Left" />
+                <Setter Property="MinWidth"
+                        Value="300" />
             </Style>
-
-            <Style TargetType="ComboBox" BasedOn="{StaticResource MonacoComboBox}">
-                <Setter Property="HorizontalAlignment" Value="Left" />
-                <Setter Property="MinWidth" Value="300" />
+            <Style TargetType="ComboBox"
+                   BasedOn="{StaticResource MonacoComboBox}">
+                <Setter Property="HorizontalAlignment"
+                        Value="Left" />
+                <Setter Property="MinWidth"
+                        Value="300" />
             </Style>
-
-            <Style TargetType="helpers:ExpirationTextBox" BasedOn="{StaticResource MonacoTextBox}">
-                <Setter Property="HorizontalAlignment" Value="Left" />
-                <Setter Property="MinWidth" Value="300" />
+            <Style TargetType="helpers:ExpirationTextBox"
+                   BasedOn="{StaticResource MonacoTextBox}">
+                <Setter Property="HorizontalAlignment"
+                        Value="Left" />
+                <Setter Property="MinWidth"
+                        Value="300" />
             </Style>
-            <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource MonacoTabItem}">
-                <Setter Property="controls:ControlsHelper.ContentCharacterCasing" Value="Normal" />
+            <Style TargetType="{x:Type TabItem}"
+                   BasedOn="{StaticResource MonacoTabItem}">
+                <Setter Property="controls:ControlsHelper.ContentCharacterCasing"
+                        Value="Normal" />
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid>
+    <Grid AutomationProperties.AutomationId="Grid0_6DD7D3CA">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition1_6DD7D3CA" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_6DD7D3CA" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition3_6DD7D3CA" />
         </Grid.RowDefinitions>
-        
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Label
-                Content="{lex:Loc Key={x:Static loc:ResourceKeys.EnableBarkeeperButton}}" />
-                <Button Name="EnabledBarkeeperInfoButton" Margin="2 0 0 0"
-                        Style="{StaticResource MonacoInfoButton}"
-                        Command="{Binding ShowInfoPopupCommand}">
-                    <Button.CommandParameter>
-                        <MultiBinding Converter="{StaticResource MultiValueConverter}">
-                            <Binding ElementName="EnabledBarkeeperInfoButton" />
-                            <Binding ElementName="EnabledBarkeeperInfoButtonProxy" Path="Result" />
-                        </MultiBinding>
-                    </Button.CommandParameter>
-                    <lex:LocProxy Name="EnabledBarkeeperInfoButtonProxy"
-                                  Source="{x:Static loc:ResourceKeys.EnableBarkeeperButtonToolTip}" />
-                </Button>
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
+                    AutomationProperties.AutomationId="StackPanel4_6DD7D3CA">
+            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.EnableBarkeeperButton}}"
+                   AutomationProperties.AutomationId="Label5_6DD7D3CA" />
+            <Button Name="EnabledBarkeeperInfoButton"
+                    Margin="2 0 0 0"
+                    Style="{StaticResource MonacoInfoButton}"
+                    Command="{Binding ShowInfoPopupCommand}"
+                    AutomationProperties.AutomationId="Button6_6DD7D3CA">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource MultiValueConverter}">
+                        <Binding ElementName="EnabledBarkeeperInfoButton" />
+                        <Binding ElementName="EnabledBarkeeperInfoButtonProxy"
+                                 Path="Result" />
+                    </MultiBinding>
+                </Button.CommandParameter>
+                <lex:LocProxy Name="EnabledBarkeeperInfoButtonProxy"
+                              Source="{x:Static loc:ResourceKeys.EnableBarkeeperButtonToolTip}" />
+            </Button>
         </StackPanel>
         <controls:ToggleSwitchButton Grid.Row="1"
                                      IsEnabled="{Binding InputEnabledByRuleOverride}"
@@ -74,16 +89,24 @@
                                      controls:ControlsHelper.ContentCharacterCasing="Upper"
                                      controls:ControlsHelper.CornerRadius="0"
                                      helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.Off}}"
-                                     helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.On}}" Grid.ColumnSpan="2" />
-
-        <TabControl Grid.Row="2" Margin="0 20" Background="Transparent" TabStripPlacement="Top" Visibility="{Binding RewardLevelsEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}">
-            <TabItem Header="Cash-In Reward">
-                <local:BarkeeperCashInReward/>
+                                     helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.On}}"
+                                     Grid.ColumnSpan="2" />
+        <TabControl Grid.Row="2"
+                    Margin="0 20"
+                    Background="Transparent"
+                    TabStripPlacement="Top"
+                    Visibility="{Binding RewardLevelsEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                    AutomationProperties.AutomationId="TabControl7_6DD7D3CA">
+            <TabItem Header="Cash-In Reward"
+                     AutomationProperties.AutomationId="TabItem8_6DD7D3CA">
+                <local:BarkeeperCashInReward />
             </TabItem>
-            <TabItem Header="Coin-In Reward">
-                <local:BarkeeperCoinInReward/>
+            <TabItem Header="Coin-In Reward"
+                     AutomationProperties.AutomationId="TabItem9_6DD7D3CA">
+                <AdornerDecorator AutomationProperties.AutomationId="AdornerDecorator10_6DD7D3CA">
+                    <local:BarkeeperCoinInReward />
+                </AdornerDecorator>
             </TabItem>
         </TabControl>
     </Grid>
-
 </operatorMenu:OperatorMenuPage>

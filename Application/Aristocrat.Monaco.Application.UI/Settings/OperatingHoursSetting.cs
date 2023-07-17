@@ -43,6 +43,13 @@
             set => SetProperty(ref _enabled, value);
         }
 
+        public void RefreshAllSettings()
+        {
+            RaisePropertyChanged(nameof(Enabled));
+            RaisePropertyChanged(nameof(Time));
+            RaisePropertyChanged(nameof(Day));
+        }
+
         /// <summary>
         ///     Performs conversion from <see cref="OperatingHours"/> to <see cref="OperatingHoursSetting"/>.
         /// </summary>

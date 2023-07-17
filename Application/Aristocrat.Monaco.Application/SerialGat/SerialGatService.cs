@@ -86,24 +86,24 @@
         {
             if (_gatApplication == null)
             {
-                return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GatDisconnected);
+                return Localizer.ForLockup().GetString(ResourceKeys.GatDisconnected);
             }
 
             var statusMessage = _gatApplication.Connected ?
-                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GatConnected) :
-                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GatDisconnected);
+                Localizer.ForLockup().GetString(ResourceKeys.GatConnected) :
+                Localizer.ForLockup().GetString(ResourceKeys.GatDisconnected);
 
             switch (_gatApplication.CalculationStatus)
             {
                 case SerialGatCalculationStatus.Idle:
-                    statusMessage += Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GatIdle);
+                    statusMessage += Localizer.ForLockup().GetString(ResourceKeys.GatIdle);
                     break;
                 case SerialGatCalculationStatus.AuthenticatingAll:
-                    statusMessage += Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GatVerifyingAll);
+                    statusMessage += Localizer.ForLockup().GetString(ResourceKeys.GatVerifyingAll);
                     break;
                 case SerialGatCalculationStatus.AuthenticatingComponent:
                     statusMessage += string.Format(
-                        Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GatVerifyingSingleTemplate),
+                        Localizer.ForLockup().GetString(ResourceKeys.GatVerifyingSingleTemplate),
                         _gatApplication.AuthenticatingComponentName);
                     break;
             }
@@ -182,6 +182,7 @@
         {
             if (_gatApplication.Connected)
             {
+                // Get status right now, rather than having disable manager check later when it's too late
                 var status = GetStatus();
                 _systemDisableManager.Disable(_disableGuid, SystemDisablePriority.Immediate, () => status);
             }

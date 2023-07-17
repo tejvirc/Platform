@@ -21,7 +21,7 @@
         private decimal _initialValue;
         private string _currentValue;
         private decimal _resetValue;
-        private string _overflowValue;
+        private decimal _overflowValue;
         private decimal _incrementRate;
         private decimal _minimumRequiredValue;
         private ProgressiveErrors _levelErrors;
@@ -71,8 +71,7 @@
             ResetValue = level.ResetValue.MillicentsToDollars();
             IncrementRate = level.IncrementRate.ToPercentage();
             MaxValue = level.MaximumValue.MillicentsToDollars();
-            OverflowValue = sharedSapLevel?.Overflow.MillicentsToDollars().FormattedCurrencyString(true) ??
-                            level.Overflow.MillicentsToDollars().FormattedCurrencyString(true);
+            OverflowValue = sharedSapLevel?.Overflow.MillicentsToDollars() ?? level.Overflow.MillicentsToDollars();
 
             _sharedSapLevels = customSapLevels;
             _linkedLevels = linkedLevels;
@@ -290,7 +289,7 @@
         /// <summary>
         ///     Gets or sets the overflow value for the level
         /// </summary>
-        public string OverflowValue
+        public decimal OverflowValue
         {
             get => _overflowValue;
             set
@@ -314,6 +313,8 @@
         }
 
         public bool CanSetInitialValue => LevelType == ProgressiveLevelType.Sap && _canEdit;
+
+        public bool CanSetOverflowValue => LevelType == ProgressiveLevelType.Sap && _canEdit;
 
         public bool LevelSelectionEnabled => LevelType != ProgressiveLevelType.Sap &&
                                                 !SelectableLevelType.Equals(
@@ -367,12 +368,18 @@
             if (AssociatedProgressiveLevel.AssignedProgressiveId.AssignedProgressiveType ==
                 AssignableProgressiveType.AssociativeSap)
             {
-                return Resources.SharedStandaloneProgressive;
+                return AssociatedProgressiveLevel.TriggerControl == TriggerType.Mystery
+                           ? Resources.MysterySharedStandalone
+                           : Resources.SharedStandaloneProgressive;
             }
 
             if (LevelType == ProgressiveLevelType.Sap ||
                 AssignedProgressiveInfo.AssignedProgressiveType == AssignableProgressiveType.CustomSap)
-                return Resources.StandaloneProgressive;
+            {
+                return AssociatedProgressiveLevel.TriggerControl == TriggerType.Mystery
+                           ? Resources.MysteryStandalone
+                           : Resources.StandaloneProgressive;
+            }
 
             if (LevelType == ProgressiveLevelType.LP ||
                 AssignedProgressiveInfo.AssignedProgressiveType == AssignableProgressiveType.Linked)

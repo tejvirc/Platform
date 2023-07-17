@@ -4,12 +4,9 @@
     using System.Globalization;
     using System.Windows;
     using System.Windows.Data;
-    using System.Windows.Forms;
 
     internal class DenomPanelHeightConverter : IMultiValueConverter
     {
-        private const double BaseScreenHeight = 1080;
-
         /// <summary>
         ///     Covert multiple parameters to form the element height
         /// </summary>
@@ -22,14 +19,10 @@
         {
             var margin = (Thickness)values[0]; // ExtraLargeGameIconDenomIconMargin
             var iconHeight = (double)values[1]; // ExtraLargeGameIconDenomIconHeight
-            var scale = (bool)values[2]; // scale by resolution
 
             var height = iconHeight + (margin.Top * 2);
 
-            // Scale if required
-            var scaleAmount = Screen.PrimaryScreen.Bounds.Height / BaseScreenHeight;
-            var newHeight = scale ? height * scaleAmount : height;
-            return newHeight;
+            return height;
         }
 
         /// <summary>

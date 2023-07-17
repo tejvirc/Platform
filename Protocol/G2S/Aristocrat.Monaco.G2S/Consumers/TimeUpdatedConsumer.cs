@@ -41,7 +41,7 @@
                 return;
             }
 
-            _eventLift.Report(device, EventCode.G2S_CBE315);
+            _eventLift.Report(device, EventCode.G2S_CBE315, theEvent);
         }
     }
 }

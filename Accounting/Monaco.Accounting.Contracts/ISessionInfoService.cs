@@ -28,13 +28,29 @@ namespace Aristocrat.Monaco.Accounting.Contracts
         /// <summary> The session ended because of handpay</summary>
         Handpay,
 
-        /// <summary> The session ended because of wat</summary>
+        /// <summary> The session ended because of WAT</summary>
         Wat,
 
-        /// <summary> The session started because of wat</summary>
+        /// <summary> The session started because of WAT</summary>
         WatOn,
+
+        /// <summary>
+        /// The session started because of KeyedOn
+        /// </summary>
+        KeyedOn,
+
+        /// <summary>
+        /// The session started because of KeyedOff
+        /// </summary>
+        KeyedOff,
+
+        /// <summary> The session ended by a HardMeterOut</summary>
+        HardMeterOut,
+
+        /// <summary> The session ended by a ResidualCreditsOut</summary>
+        ResidualCreditsOut,
     }
-    
+
     /// <summary>
     ///     Provides information and services around session start and end
     /// </summary>

@@ -70,8 +70,6 @@
 
             AddCultures(locales.Select(CultureInfo.GetCultureInfo).ToArray());
 
-            SetCurrentCulture(PrimaryCulture);
-
             _eventBus.Subscribe<SetValidationEvent>(this, Handle);
         }
 

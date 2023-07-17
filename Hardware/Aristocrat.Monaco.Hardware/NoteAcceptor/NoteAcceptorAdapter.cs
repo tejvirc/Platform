@@ -41,6 +41,7 @@
         private const string NoteAcceptor = "Note Acceptor";
         private const int SelfTestInterval = 5000;
         private const int MaxSelfTestRetries = 5;
+        private const int SelfTestTimeout = 20;
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -56,6 +57,7 @@
 
         private ReaderWriterLockSlim _stateLock =
             new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
+        private AutoResetEvent _selfTestWaitHandle = new AutoResetEvent(true);
 
         private IPersistentBlock _supportedNotesPersistentBlock;
         private bool _validatingDevice;
@@ -304,6 +306,14 @@
         }
 
         /// <inheritdoc />
+        public List<ISOCurrencyCode> GetSupportedCurrencies()
+        {
+            var currencies = Implementation?.SupportedNotes?.Select(n => n.CurrencyCode).Distinct();
+
+            return currencies?.ToList();
+        }
+
+        /// <inheritdoc />
         public void SetIsoCode(string isoCode)
         {
             lock (_noteLock)
@@ -508,6 +518,13 @@
 
                     _stateLock.Dispose();
                     _stateLock = null;
+
+                    if (_selfTestWaitHandle != null)
+                    {
+                        _selfTestWaitHandle.Set();
+                        _selfTestWaitHandle.Dispose();
+                        _selfTestWaitHandle = null;
+                    }
                 }
 
                 _stackingEventWaitHandle = null;
@@ -625,17 +642,38 @@
 
         private async Task<bool> SelfTestInternal(bool clear, bool retryOnFailure = false)
         {
+            if (!_selfTestWaitHandle.WaitOne(SelfTestTimeout))
+            {
+                // there is another self test running
+                Logger.Debug("Another self test is running");
+                return false;
+            }
+
             var result = await base.SelfTest(clear);
             if (result)
             {
-                Logger.Debug("Self test passed");
-                PostEvent(new SelfTestPassedEvent(NoteAcceptorId));
-                ClearSelfTestFailed();
+                try
+                {
+                    Logger.Debug("Self test passed");
+                    PostEvent(new SelfTestPassedEvent(NoteAcceptorId));
+                    ClearSelfTestFailed();
+                }
+                finally
+                {
+                    _selfTestWaitHandle.Set();
+                }
             }
             else
             {
-                SelfTestFailed();
-
+                try
+                {
+                    SelfTestFailed();
+                }
+                finally
+                {
+                    _selfTestWaitHandle.Set();
+                }
+                
                 if (retryOnFailure)
                 {
                     if (++_selfTestRetryCount < MaxSelfTestRetries && (Implementation?.IsConnected ?? false))
@@ -998,7 +1036,6 @@
                     case NoteAcceptorFaultTypes.NvmFault:
                     case NoteAcceptorFaultTypes.StackerFull:
                     case NoteAcceptorFaultTypes.StackerFault:
-                    case NoteAcceptorFaultTypes.CheatDetected:
                         HandleFault(value);
                         break;
                     case NoteAcceptorFaultTypes.OtherFault:
@@ -1006,6 +1043,7 @@
                     case NoteAcceptorFaultTypes.StackerDisconnected:
                     case NoteAcceptorFaultTypes.StackerJammed:
                     case NoteAcceptorFaultTypes.NoteJammed:
+                    case NoteAcceptorFaultTypes.CheatDetected:
                         HandleFault(value);
 
                         // The device does not always reports a ticket status after clearing one of these faults because

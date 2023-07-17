@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="TopBoxOpticDoorOpenPowerOffShort" xml:space="preserve">
+    <value>Top Main Optic Open Power Off</value>
+  </data>
+  <data name="DropDoorName" xml:space="preserve">
+    <value>Cashbox Door</value>
+  </data>
+  <data name="CashDoorName" xml:space="preserve">
+    <value>Note Acceptor Door</value>
+  </data>
+  <data name="TopBoxDoorName" xml:space="preserve">
+    <value>Top Main Door</value>
+  </data>
+  <data name="TopBoxOpticDoorName" xml:space="preserve">
+    <value>Top Main Optic Door</value>
+  </data>
+  <data name="DropDoorClosed" xml:space="preserve">
+    <value>Cashbox Door Closed</value>
+  </data>
+  <data name="DropDoorIsOpen" xml:space="preserve">
+    <value>Cashbox Door is Open</value>
+  </data>
+  <data name="CashDoorClosed" xml:space="preserve">
+    <value>Note Acceptor Door Closed</value>
+  </data>
+  <data name="CashDoorIsOpen" xml:space="preserve">
+    <value>Note Acceptor Door is Open</value>
+  </data>
+  <data name="CashDoorOpenCount" xml:space="preserve">
+    <value>Note Acceptor Door Open Count</value>
+  </data>
+  <data name="CashDoorOpenPowerOffCount" xml:space="preserve">
+    <value>Note Acceptor Door Open Power Off Count</value>
+  </data>
+  <data name="TopBoxDoorClosed" xml:space="preserve">
+    <value>Top Main Door Closed</value>
+  </data>
+  <data name="TopBoxDoorIsOpen" xml:space="preserve">
+    <value>Top Main Door is Open</value>
+  </data>
+  <data name="TopBoxDoorMismatch" xml:space="preserve">
+    <value>Top Main Door Mismatch</value>
+  </data>
+  <data name="TopBoxDoorOpenCount" xml:space="preserve">
+    <value>Top Main Door Open Count</value>
+  </data>
+  <data name="TopBoxDoorOpenPowerOffCount" xml:space="preserve">
+    <value>Top Main Door Open Power Off Count</value>
+  </data>
+  <data name="TopBoxOpticDoorClosed" xml:space="preserve">
+    <value>Top Main Optic Door Closed</value>
+  </data>
+  <data name="TopBoxOpticDoorIsOpen" xml:space="preserve">
+    <value>Top Main Optic Door is Open</value>
+  </data>
+  <data name="TopBoxOpticDoorOpenCount" xml:space="preserve">
+    <value>Top Main Optic Door Open Count</value>
+  </data>
+  <data name="TopBoxOpticDoorOpenPowerOffCount" xml:space="preserve">
+    <value>Top Main Optic Door Open Power Off Count</value>
+  </data>
+  <data name="CreditLimitExceeded" xml:space="preserve">
+    <value>Credit Not Accepted if Equal or Over ${0}</value>
+    <comment>NSW Jurisdiction override</comment>
+  </data>
+  <data name="CashOutHandpayKeyedOff" xml:space="preserve">
+    <value>CANCEL {0}</value>
+    <comment>NSW Jurisdiction override</comment>
+  </data>
+  <data name="CashOutHandpayKeyedOffTotalSuffix" xml:space="preserve">
+    <value> (TOTAL PAID {1})</value>
+    <comment>NSW Jurisdiction override</comment>
+  </data>
+  <data name="AlgorithmSha1DisplayName" xml:space="preserve">
+    <value>SHA1</value>
+    <comment>NSW Jurisdiction override</comment>
+  </data>
+  <data name="AlgorithmHmacSha1DisplayName" xml:space="preserve">
+    <value>HMACSHA1</value>
+    <comment>NSW Jurisdiction override</comment>
+  </data>
+  <data name="AlgorithmSha256DisplayName" xml:space="preserve">
+    <value>SHA256</value>
+    <comment>NSW Jurisdiction override</comment>
+  </data>
+  <data name="ClearLockupCashDoor" xml:space="preserve">
+    <value>Close the Note Acceptor Door to Clear the Lockup</value>
+  </data>
+  <data name="ClearLockupTopBoxDoor" xml:space="preserve">
+    <value>Close the Top Main Door to Clear the Lockup</value>
+  </data>
+  <data name="ClearLockupDropDoor" xml:space="preserve">
+    <value>Close the Cashbox Door to Clear the Lockup</value>
+  </data>
+  <data name="ClearLockupTopBoxOpticDoor" xml:space="preserve">
+    <value>Close the Top Main Door to clear this lockup. If lockup persists, check if the optic door sensor is faulty or poorly aligned.</value>
+  </data>
+  <data name="JackpotPending" xml:space="preserve">
+    <value>Call Attendant - Substantial Win of {0}</value>
+  </data>
+  <data name="ErrorInfoHandpayPending" xml:space="preserve">
+    <value>Substantial Win, turn on Jackpot Key to clear this lockup</value>
+  </data>
+  <data name="JackpotPresentationText" xml:space="preserve">
+    <value>Call Attendant - Substantial Win</value>
+  </data>
+  <data name="CashoutTicket" xml:space="preserve">
+    <value>CASH OUT TICKET</value>
+  </data>
+  <data name="VoidDemoTicket" xml:space="preserve">
+    <value>TEST TICKET</value>
+  </data>
+  <data name="TestText" xml:space="preserve">
+    <value>TEST</value>
+  </data>
+  <data name="NoProgressiveLevelsAdded" xml:space="preserve">
+    <value>No Standalone Progressive Levels Added</value>
+    <comment>NSW Jurisdiction override</comment>
+  </data>
+  <data name="ProgressiveMeters" xml:space="preserve">
+    <value>Standalone Progressive</value>
+    <comment>NSW Jurisdiction override</comment>
+  </data>
+  <data name="ClearLockupExcessiveDocumentReject" xml:space="preserve">
+    <value>Check if the Note or Voucher being inserted by the player is valid. Turn Jackpot key on, then off, to re-enable Note Acceptor device and clear the lockup.</value>
+    <comment>Jurisdiction override</comment>
+  </data>
+</root>

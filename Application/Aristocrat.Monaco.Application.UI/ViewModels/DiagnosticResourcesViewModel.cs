@@ -10,20 +10,21 @@
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Media;
+    using Application.Helpers;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
     using Kernel;
     using LiveCharts;
     using LiveCharts.Configurations;
     using LiveCharts.Wpf;
+    using Monaco.Common;
+    using Monaco.Localization.Properties;
     using MVVM;
     using MVVM.Command;
     using MVVM.ViewModel;
     using OperatorMenu;
-    using Views;
-    using Monaco.Common;
-    using Monaco.Localization.Properties;
     using PerformanceCounter;
+    using Views;
     using Brushes = System.Windows.Media.Brushes;
     using Timer = System.Timers.Timer;
     using UIElement = System.Windows.UIElement;
@@ -58,7 +59,7 @@
             _performanceCounterManager = ServiceManager.GetInstance().GetService<IPerformanceCounterManager>();
 
             LoadAvailableMetrics();
-            
+
             ViewMemoryCommand = new ActionCommand<object>(ViewMemory);
             ToggleDiagnosticChartViewModeCommand = new ActionCommand<object>(_ => InDiagnosticViewChartMode = !InDiagnosticViewChartMode);
         }
@@ -169,6 +170,11 @@
                 {
                     continue;
                 }
+                var metricLabel = Localizer.For(CultureFor.Operator).GetString(metric.GetAttribute<LabelResourceKeyAttribute>().LabelResourceKey);
+                var metricUnitResourceKey = metric.GetAttribute<UnitResourceKeyAttribute>()?.UnitResourceKey;
+                var metricUnit = string.IsNullOrWhiteSpace(metricUnitResourceKey)
+                    ? metric.GetAttribute<UnitAttribute>().Unit
+                    : Localizer.For(CultureFor.Operator).GetString(metricUnitResourceKey);
 
                 var m = new Metric
                 {
@@ -180,11 +186,38 @@
                     Unit = metric.GetAttribute<UnitAttribute>().Unit,
                     CounterType = metric.GetAttribute<CounterTypeAttribute>().CounterType,
                     MaxRange = metric.GetAttribute<MaxRangeAttribute>().MaxRange,
-                    Label = metric.GetAttribute<LabelAttribute>().Label + " " + metric.GetAttribute<UnitAttribute>().Unit
+                    Label = metric.GetMetricLabel()
                 };
 
                 Metrics.Add(m);
             }
+        }
+
+        private void UpdateMetricLabels()
+        {
+            if (Metrics == null)
+            {
+                return;
+            }
+            foreach (var metric in Metrics)
+            {
+                var metricLabel = Localizer.For(CultureFor.Operator).GetString(metric.MetricType.GetAttribute<LabelResourceKeyAttribute>().LabelResourceKey);
+                var metricUnit = metric.MetricType.GetAttribute<UnitAttribute>().Unit;
+                metric.Label = metricLabel + " " + metricUnit;
+            }
+            SetXAxesTitles();
+            SetYAxesTitles();
+            RaisePropertyChanged(nameof(Metrics));
+            RaisePropertyChanged(nameof(YAxes));
+            RaisePropertyChanged(nameof(XAxes));
+            RaisePropertyChanged(nameof(MonacoChart));
+            RaisePropertyChanged(nameof(Charts));
+        }
+
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            MvvmHelper.ExecuteOnUI(UpdateMetricLabels);
+            base.OnOperatorCultureChanged(evt);
         }
 
         private void LoadMetricSources()
@@ -196,7 +229,7 @@
             foreach (var metric in Metrics)
             {
                 metric.Index = seriesNumber;
-                metric.MetricColor = _colors[seriesNumber];
+                metric.MetricColor = _colors.Count > 0 ? _colors[seriesNumber % _colors.Count] : Brushes.White;
                 var source = new ChartValues<MeasureModel>();
 
                 CreateLineSeries(source, metric, axisNumber);
@@ -237,7 +270,7 @@
                 {
                     var axis = new Axis
                     {
-                        Title = "Time",
+                        Title = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Time),
                         LabelFormatter = DateTimeFormatter,
                         Unit = TimeSpan.FromSeconds(1).Ticks
                     };
@@ -307,6 +340,14 @@
             SetXAxisScale(DateTime.Now);
         }
 
+        private void SetXAxesTitles()
+        {
+            foreach (var x in XAxes)
+            {
+                x.Title = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Time);
+            }
+        }
+
         private void SetYAxesTitles()
         {
             for (int index = 0; index < Metrics.Count; index++)
@@ -345,7 +386,7 @@
                             if (yAxis != null)
                             {
                                 // If the value is too big, increase the scale by 50%.
-                                metric.MaxRange = (int) Math.Ceiling(metric.MaxRange * 1.5);
+                                metric.MaxRange = (int)Math.Ceiling(metric.MaxRange * 1.5);
 
                                 var newAxis = CreateYAxisFromMetric(index, metric);
                                 YAxes[index] = newAxis;

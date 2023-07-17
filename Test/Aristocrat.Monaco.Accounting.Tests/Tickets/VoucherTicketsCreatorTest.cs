@@ -3,8 +3,10 @@
     using System;
     using System.Globalization;
     using Application.Contracts;
+    using Application.Contracts.Currency;
     using Application.Contracts.Extensions;
     using Contracts;
+    using Hardware.Contracts;
     using Hardware.Contracts.Printer;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -23,6 +25,7 @@
         private Mock<IPrinter> _printer;
         private Mock<IPropertiesManager> _propertiesManager;
         private Mock<ITime> _time;
+        private Mock<IOSService> _os;
 
         /// <summary>
         ///     Initializes class members and prepares for execution of a TestMethod.
@@ -69,16 +72,24 @@
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.ConfigWizardIdentityPagePositionOverride, It.IsAny<IdentityFieldOverride>()))
                 .Returns((IdentityFieldOverride)null);
 
-            TicketCurrencyExtensions.PlayerTicketLocale = "en-US";
+            // set up currency
+            string minorUnitSymbol = "c";
+            string cultureName = "en-US";
+            CultureInfo culture = new CultureInfo(cultureName);
+
+            RegionInfo region = new RegionInfo(cultureName);
+            CurrencyExtensions.Currency = new Currency(region.ISOCurrencySymbol, region, culture, minorUnitSymbol);
+
+            TicketCurrencyExtensions.PlayerTicketLocale = cultureName;
             TicketCurrencyExtensions.SetCultureInfo(
-                "en-US",
-                new CultureInfo("en-US"),
-                new CultureInfo("en-US"),
+                cultureName,
+                new CultureInfo(cultureName),
+                new CultureInfo(cultureName),
                 "Cent",
                 "Cents",
                 true,
                 true,
-                "c"
+                minorUnitSymbol
             );
 
             _time = MoqServiceManager.CreateAndAddService<ITime>(MockBehavior.Strict, true);
@@ -90,7 +101,10 @@
                 .Returns(
                     (DateTime dateTime) => dateTime.ToString("G", CultureInfo.CurrentCulture));
 
-            CurrencyExtensions.SetCultureInfo(CultureInfo.CurrentCulture, null, null, true, true, "c");
+            _os = MoqServiceManager.CreateAndAddService<IOSService>(MockBehavior.Strict, true);
+            _os.Setup(mock => mock.OsImageVersion).Returns(new Version());
+
+            CurrencyExtensions.SetCultureInfo(region.ISOCurrencySymbol, culture, null, null, true, true, minorUnitSymbol);
         }
 
         /// <summary>

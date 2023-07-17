@@ -22,7 +22,7 @@
         private const int RoundingDecimals = 2;
 
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly object _lock = new();
 
@@ -56,11 +56,24 @@
             }
         }
 
+        public void SetMetric(uint value)
+        {
+            lock (_lock)
+            {
+                if (!ValidateCounter())
+                {
+                    return;
+                }
+                
+                _counter.SetRawValue(value);
+            }
+        }
+
+        public MetricType MetricName { get; }
+
         private string CounterType { get; }
 
         private string Category { get; }
-
-        private MetricType MetricName { get; }
 
         private string Instance { get; }
 
@@ -89,7 +102,7 @@
                     case "Memory":
                         // The return value is in MB
                         return Math.Round(_counter.NextValue() / MebiBytes,
-                            RoundingDecimals); 
+                            RoundingDecimals);
 
                     case "TotalMemory":
                         // The return value is in MB
@@ -148,6 +161,16 @@
 
                     _counter = perfMon;
                 }
+                else if (MetricName == MetricType.CpuTemperature)
+                {
+                    var perfMon = new SingleCustomPerformanceCounterWrapper(Category, Counter, "A custom category for Monaco", "CPU Temperature Counter");
+
+                    Logger.Debug(
+                        $"Created a performance counter with category = {Category}, " +
+                        $"counterType = {CounterType}, metricType = {MetricName}");
+
+                    _counter = perfMon;
+                }
                 else
                 {
                     var perfMon = new SinglePerformanceCounterWrapper(Category, Counter, Instance);
@@ -175,6 +198,7 @@
         private bool InstanceCurrentlyValid()
         {
             return string.IsNullOrEmpty(Instance) ||
+                   (Instance == "0" && PerformanceCounterCategory.InstanceExists(Instance, Category)) ||    // check if GDK Runtime counter instances are available to avoid unneeded failures when calling NextValue
                    Instance == "*" ||
                    Instance == "_Total" ||
                    Process.GetProcessesByName(Instance).Any();

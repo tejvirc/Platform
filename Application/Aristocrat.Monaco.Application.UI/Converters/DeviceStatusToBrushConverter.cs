@@ -25,7 +25,8 @@
             }
 
             var status = value.ToString();
-            if (status.Equals(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Validating)) || status.Equals(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotValidated)))
+            if (status.Equals(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Validating)) || status.Equals(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotValidated)) ||
+                status.Equals(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Searching)))
             {
                 return Brushes.Gray;
             }
@@ -36,12 +37,14 @@
                 return Brushes.Yellow;
             }
 
-            if (status.Contains(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ErrorText)) || status.Contains(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Failed)))
+            if (status.Contains(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ErrorText)) || status.Contains(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Failed)) ||
+                status.Equals(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoDeviceDetected)) || status.Contains(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InvalidDeviceDetectedTemplate)))
             {
                 return Brushes.Red;
             }
 
-            if (status.Contains(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ConnectedText)) || status.Equals(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HardwareDiscoveryCompleteLabel)))
+            if (status.Contains(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ConnectedText)) || status.Equals(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HardwareDiscoveryCompleteLabel)) ||
+                status.Equals(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DeviceDetected)))
             {
                 return Brushes.LimeGreen;
             }

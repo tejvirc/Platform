@@ -1,15 +1,30 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
                     xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters">
-
-	<BitmapImage x:Key="Pid_Menu_BackgroundLandscapeImage" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/PlayerInfoDisplay/Menu_Landscape_BackGround.png" />
-	<BitmapImage x:Key="Pid_Menu_BackgroundPortraitImage" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/PlayerInfoDisplay/Menu_Portrait_BackGround.png" />
-	<BitmapImage x:Key="Pid_Menu_ExitButtonImage" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/PlayerInfoDisplay/Exit_Button.png" />
-	<BitmapImage x:Key="Pid_Menu_ExitButtonPressedImage" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/PlayerInfoDisplay/Exit_Button_Pressed.png" />
-	<BitmapImage x:Key="Pid_Menu_GameInfoButtonImage" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/PlayerInfoDisplay/GameInfo_Button.png" />
-	<BitmapImage x:Key="Pid_Menu_GameInfoButtonPressedImage" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/PlayerInfoDisplay/GameInfo_Button_Pressed.png" />
-	<BitmapImage x:Key="Pid_Menu_GameRulesButtonImage" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/PlayerInfoDisplay/GameRules_Button.png" />
-	<BitmapImage x:Key="Pid_Menu_GameRulesButtonPressedImage" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/PlayerInfoDisplay/GameRules_Button_Pressed.png" />
+    <BitmapImage x:Key="Pid_Menu_BackgroundLandscapeImage"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/PlayerInfoDisplay/Menu_Landscape_BackGround.png"
+                 AutomationProperties.AutomationId="BitmapImage0_BDC9D366" />
+    <BitmapImage x:Key="Pid_Menu_BackgroundPortraitImage"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/PlayerInfoDisplay/Menu_Portrait_BackGround.png"
+                 AutomationProperties.AutomationId="BitmapImage1_BDC9D366" />
+    <BitmapImage x:Key="Pid_Menu_ExitButtonImage"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/PlayerInfoDisplay/Exit_Button.png"
+                 AutomationProperties.AutomationId="BitmapImage2_BDC9D366" />
+    <BitmapImage x:Key="Pid_Menu_ExitButtonPressedImage"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/PlayerInfoDisplay/Exit_Button_Pressed.png"
+                 AutomationProperties.AutomationId="BitmapImage3_BDC9D366" />
+    <BitmapImage x:Key="Pid_Menu_GameInfoButtonImage"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/PlayerInfoDisplay/GameInfo_Button.png"
+                 AutomationProperties.AutomationId="BitmapImage4_BDC9D366" />
+    <BitmapImage x:Key="Pid_Menu_GameInfoButtonPressedImage"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/PlayerInfoDisplay/GameInfo_Button_Pressed.png"
+                 AutomationProperties.AutomationId="BitmapImage5_BDC9D366" />
+    <BitmapImage x:Key="Pid_Menu_GameRulesButtonImage"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/PlayerInfoDisplay/GameRules_Button.png"
+                 AutomationProperties.AutomationId="BitmapImage6_BDC9D366" />
+    <BitmapImage x:Key="Pid_Menu_GameRulesButtonPressedImage"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/PlayerInfoDisplay/GameRules_Button_Pressed.png"
+                 AutomationProperties.AutomationId="BitmapImage7_BDC9D366" />
 </ResourceDictionary>

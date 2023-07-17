@@ -58,7 +58,7 @@
 
                 var device = _deviceRegistry.GetDevice<INoteAcceptor>();
 
-                if (device?.StackerState == NoteAcceptorStackerState.Removed)
+                if (device?.StackerState == NoteAcceptorStackerState.Removed && !noteAcceptor.RequiredForPlay)
                 {
                     _egm.GetDevice<ICabinetDevice>().AddCondition(
                         noteAcceptor,
@@ -75,7 +75,8 @@
                 _eventLift.Report(
                     noteAcceptor,
                     EventCode.G2S_NAE001,
-                    noteAcceptor.DeviceList(status));
+                    noteAcceptor.DeviceList(status),
+                    theEvent);
             }
         }
     }

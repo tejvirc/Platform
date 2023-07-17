@@ -1,17 +1,18 @@
 ﻿
 namespace Aristocrat.Monaco.Application.Tests.Monitors
 {
+    using System;
+    using System.Collections.Generic;
     using Application.Monitors;
-    using Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor;
     using Contracts;
+    using Contracts.Localization;
     using Contracts.OperatorMenu;
     using Hardware.Contracts.Audio;
+    using Hardware.Contracts.NoteAcceptor;
     using Hardware.Contracts.Persistence;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
-    using System;
-    using System.Collections.Generic;
     using Test.Common;
 
     /// <summary>
@@ -77,6 +78,10 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
             _noteAcceptor.Setup(m => m.Enabled).Returns(true);
             _noteAcceptor.Setup(m => m.LogicalState).Returns(NoteAcceptorLogicalState.InEscrow);
             _propertiesManager.Setup(m => m.AddPropertyProvider(It.IsAny<IPropertyProvider>()));
+
+            _propertiesManager
+                .Setup(m => m.GetProperty(ApplicationConstants.LockupCulture, It.IsAny<object>()))
+                .Returns(CultureFor.Operator);
 
             _persistentStorage.Setup(m => m.BlockExists(It.IsAny<string>())).Returns(true);
             _persistentStorage.Setup(m => m.GetBlock(It.IsAny<string>())).Returns(_persistentStorageAccessor.Object);

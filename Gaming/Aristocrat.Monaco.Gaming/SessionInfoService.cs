@@ -6,6 +6,7 @@ namespace Aristocrat.Monaco.Gaming
     using System.Reflection;
     using System.Threading.Tasks;
     using Accounting.Contracts;
+    using Accounting.Contracts.HandCount;
     using Accounting.Contracts.Handpay;
     using Accounting.Contracts.Wat;
     using Application.Contracts.Extensions;
@@ -88,6 +89,15 @@ namespace Aristocrat.Monaco.Gaming
 
             switch (transaction)
             {
+                case KeyedOffCreditsTransaction tran:
+                    HandleCreditOutEvent(
+                        SessionEventType.KeyedOff,
+                        tran.TransactionId,
+                        tran.TransactionAmount);
+                    break;
+                case KeyedOnCreditsTransaction tran:
+                    TraceStartSession(tran.TransactionId);
+                    break;
                 case VoucherInTransaction _:
                 case WatOnTransaction _:
                 case BillTransaction _:
@@ -108,6 +118,12 @@ namespace Aristocrat.Monaco.Gaming
                         transaction.TransactionId,
                         voucher.TransactionAmount);
                     break;
+                case HardMeterOutTransaction hardMeterOut:
+                    HandleCreditOutEvent(
+                        SessionEventType.HardMeterOut,
+                        transaction.TransactionId,
+                        hardMeterOut.TransactionAmount);
+                    break;
             }
         }
 
@@ -123,6 +139,12 @@ namespace Aristocrat.Monaco.Gaming
                     {
                         switch (_endEventType)
                         {
+                            case SessionEventType.KeyedOff:
+                                var keyedOffTransactions = _transactionHistory?.RecallTransactions<KeyedOffCreditsTransaction>();
+                                var lastKeyedOff = keyedOffTransactions?.OrderByDescending(x => x.LogSequence).FirstOrDefault();
+                                amount = lastKeyedOff?.TransactionAmount ?? 0;
+                                lastTransactionId = lastKeyedOff?.TransactionId ?? 0;
+                                break;
                             case SessionEventType.Handpay:
                                 var handpayTransactions = _transactionHistory?.RecallTransactions<HandpayTransaction>();
                                 var lastHandpay = handpayTransactions?.OrderByDescending(x => x.LogSequence)
@@ -143,6 +165,14 @@ namespace Aristocrat.Monaco.Gaming
                                     .FirstOrDefault();
                                 amount = lastVoucherOut?.TransactionAmount ?? 0;
                                 lastTransactionId = lastVoucherOut?.TransactionId ?? 0;
+                                break;
+                            case SessionEventType.HardMeterOut:
+                                var hardMeterOutTransactions =
+                                    _transactionHistory?.RecallTransactions<HardMeterOutTransaction>();
+                                var lastHardmeterOut = hardMeterOutTransactions?.OrderByDescending(x => x.LogSequence)
+                                    .FirstOrDefault();
+                                amount = lastHardmeterOut?.TransactionAmount ?? 0;
+                                lastTransactionId = lastHardmeterOut?.TransactionId ?? 0;
                                 break;
                         }
                     }

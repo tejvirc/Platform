@@ -1,135 +1,290 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
                     xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters">
-
     <!-- Used to customize lobby for different jurisdictions -->
-    
     <!-- **IMAGES TOP SCREEN** -->
-
-    <BitmapImage x:Key="TopBackground" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/TS_Background.png" />
-    <BitmapImage x:Key="TopLoading" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/TS_LoadingScreen.png" />
-    <BitmapImage x:Key="TopDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/TS_Background_Disabled.png" />
-
+    <BitmapImage x:Key="TopBackground"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/TS_Background.png"
+                 AutomationProperties.AutomationId="BitmapImage0_1C9F2A72" />
+    <BitmapImage x:Key="TopLoading"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/TS_LoadingScreen.png"
+                 AutomationProperties.AutomationId="BitmapImage1_1C9F2A72" />
+    <BitmapImage x:Key="TopDisabled"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/TS_Background_Disabled.png"
+                 AutomationProperties.AutomationId="BitmapImage2_1C9F2A72" />
     <!-- **IMAGES TOPPER SCREEN** -->
-
-    <BitmapImage x:Key="TopperBackground" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/TS_Background.png" />
-    <BitmapImage x:Key="TopperLoading" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/TS_LoadingScreen.png" />
-    <BitmapImage x:Key="TopperDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/TS_Background_Disabled.png" />
-    
+    <BitmapImage x:Key="TopperBackground"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/TS_Background.png"
+                 AutomationProperties.AutomationId="BitmapImage3_1C9F2A72" />
+    <BitmapImage x:Key="TopperLoading"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/TS_LoadingScreen.png"
+                 AutomationProperties.AutomationId="BitmapImage4_1C9F2A72" />
+    <BitmapImage x:Key="TopperDisabled"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/TS_Background_Disabled.png"
+                 AutomationProperties.AutomationId="BitmapImage5_1C9F2A72" />
     <!-- **IMAGES BOTTOM SCREEN** -->
-
-    <BitmapImage x:Key="BottomBackground" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/BS_BackGround.png" />
-    <BitmapImage x:Key="BottomBackgroundPortrait" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/BS_BackGround.png" />
-    <BitmapImage x:Key="JurisdictionLogo" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/TS_VL_series.png" />
-    <BitmapImage x:Key="SelectAGame" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/BS_EN_ChooseGame.png" />
-    <BitmapImage x:Key="InsertMoney" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/BS_EN_InsertMoney.png" />
-    <BitmapImage x:Key="ResponsibleGaming" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/BS_RG_Logo.png" />
-    <BitmapImage x:Key="PlatinumIcon" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/12Button_PlatinumSeries_0000.png" />
-    <BitmapImage x:Key="StaticStarIcon" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/StaticNewStar.png" />
-    <BitmapImage x:Key="JackpotText" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Text_Jackpot_EN.png" />
-    
+    <BitmapImage x:Key="BottomBackground"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/BS_BackGround.png"
+                 AutomationProperties.AutomationId="BitmapImage6_1C9F2A72" />
+    <BitmapImage x:Key="BottomBackgroundPortrait"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/BS_BackGround.png"
+                 AutomationProperties.AutomationId="BitmapImage7_1C9F2A72" />
+    <BitmapImage x:Key="JurisdictionLogo"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/TS_VL_series.png"
+                 AutomationProperties.AutomationId="BitmapImage8_1C9F2A72" />
+    <BitmapImage x:Key="SelectAGame"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/BS_EN_ChooseGame.png"
+                 AutomationProperties.AutomationId="BitmapImage9_1C9F2A72" />
+    <BitmapImage x:Key="InsertMoney"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/BS_EN_InsertMoney.png"
+                 AutomationProperties.AutomationId="BitmapImage10_1C9F2A72" />
+    <BitmapImage x:Key="ResponsibleGaming"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/BS_RG_Logo.png"
+                 AutomationProperties.AutomationId="BitmapImage11_1C9F2A72" />
+    <BitmapImage x:Key="PlatinumIcon"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/12Button_PlatinumSeries_0000.png"
+                 AutomationProperties.AutomationId="BitmapImage12_1C9F2A72" />
+    <BitmapImage x:Key="StaticStarIcon"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/StaticNewStar.png"
+                 AutomationProperties.AutomationId="BitmapImage13_1C9F2A72" />
+    <BitmapImage x:Key="JackpotText"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Text_Jackpot_EN.png"
+                 AutomationProperties.AutomationId="BitmapImage14_1C9F2A72" />
     <!-- **RESPONSIBLE GAMING INFO -->
-    
-    <BitmapImage x:Key="RGInfoBackground" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/RG_InfoBackGround.png" />
-    <BitmapImage x:Key="RGInfoPressToReturn" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/RGInfoPressToReturn.png" />
-    <BitmapImage x:Key="RGInfoPressToReturnZeroCredits" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/RGInfoPressToReturn_ZeroCredits.png" />
-    <BitmapImage x:Key="RGInfoPage1" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/RG_InfoPage1.png" />
-    <BitmapImage x:Key="RGInfoPage2" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/RG_InfoPage2.png" />
-    <BitmapImage x:Key="RGInfoPage3" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/RG_InfoPage3.png" />
-    <BitmapImage x:Key="RGInfoPage4" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/RG_InfoPage4.png" />
-    <BitmapImage x:Key="RGInfoPage5" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/RG_InfoPage5.png" />
-    <BitmapImage x:Key="LeftArrowNormal" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Left_Normal.png" />
-    <BitmapImage x:Key="LeftArrowPressed" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Left_Pressed.png" />
-    <BitmapImage x:Key="RightArrowNormal" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Right_Normal.png" />
-    <BitmapImage x:Key="RightArrowPressed" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Right_Pressed.png" />
-    
+    <BitmapImage x:Key="RGInfoBackground"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/RG_InfoBackGround.png"
+                 AutomationProperties.AutomationId="BitmapImage15_1C9F2A72" />
+    <BitmapImage x:Key="RGInfoPressToReturn"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/RGInfoPressToReturn.png"
+                 AutomationProperties.AutomationId="BitmapImage16_1C9F2A72" />
+    <BitmapImage x:Key="RGInfoPressToReturnZeroCredits"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/RGInfoPressToReturn_ZeroCredits.png"
+                 AutomationProperties.AutomationId="BitmapImage17_1C9F2A72" />
+    <BitmapImage x:Key="RGInfoPage1"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/RG_InfoPage1.png"
+                 AutomationProperties.AutomationId="BitmapImage18_1C9F2A72" />
+    <BitmapImage x:Key="RGInfoPage2"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/RG_InfoPage2.png"
+                 AutomationProperties.AutomationId="BitmapImage19_1C9F2A72" />
+    <BitmapImage x:Key="RGInfoPage3"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/RG_InfoPage3.png"
+                 AutomationProperties.AutomationId="BitmapImage20_1C9F2A72" />
+    <BitmapImage x:Key="RGInfoPage4"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/RG_InfoPage4.png"
+                 AutomationProperties.AutomationId="BitmapImage21_1C9F2A72" />
+    <BitmapImage x:Key="RGInfoPage5"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/RG_InfoPage5.png"
+                 AutomationProperties.AutomationId="BitmapImage22_1C9F2A72" />
+    <BitmapImage x:Key="LeftArrowNormal"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Left_Normal.png"
+                 AutomationProperties.AutomationId="BitmapImage23_1C9F2A72" />
+    <BitmapImage x:Key="LeftArrowPressed"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Left_Pressed.png"
+                 AutomationProperties.AutomationId="BitmapImage24_1C9F2A72" />
+    <BitmapImage x:Key="RightArrowNormal"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Right_Normal.png"
+                 AutomationProperties.AutomationId="BitmapImage25_1C9F2A72" />
+    <BitmapImage x:Key="RightArrowPressed"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Right_Pressed.png"
+                 AutomationProperties.AutomationId="BitmapImage26_1C9F2A72" />
     <!-- **VIRTUAL BUTTON DECK -->
-    <BitmapImage x:Key="VBD_CashOutNormal" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_EN_CashOut_Normal.png" />
-    <BitmapImage x:Key="VBD_CashOutPressed" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_EN_CashOut_Selected.png" />
-    <BitmapImage x:Key="VBD_CashOutDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_EN_CashOut_Dark.png" />
-
-    <BitmapImage x:Key="VBD_ServiceDlgBanner" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_ServicePrompt/EN_Banner.png" />
-    <BitmapImage x:Key="VBD_ServiceDlgYes" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_ServicePrompt/EN_YES.png" />
-    <BitmapImage x:Key="VBD_ServiceDlgNo" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_ServicePrompt/EN_NO.png" />
-
-    <BitmapImage x:Key="VBD_MenuCashOutNormal" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_EN_MenuCashOut_Normal.png" />
-    <BitmapImage x:Key="VBD_MenuCashOutPressed" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_EN_MenuCashOut_Selected.png" />
-    <BitmapImage x:Key="VBD_MenuCashOutDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_EN_MenuCashOut_Dark.png" />
-
-    <BitmapImage x:Key="VBD_ServiceNormal" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_EN_Service_Normal.png" />
-    <BitmapImage x:Key="VBD_ServicePressed" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_EN_Service_Selected.png" />
-    <BitmapImage x:Key="VBD_ServiceDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_EN_Service_Dark.png" />
-
-    <BitmapImage x:Key="VBD_MoneyNormal" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_EN_FR_Money_Normal.png" />
-    <BitmapImage x:Key="VBD_MoneyDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_EN_FR_Money_Dark.png" />
-
-    <BitmapImage x:Key="VBD_Disabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_Disabled.png" />
-    <BitmapImage x:Key="VBD_Blank" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_Blank_Background.png" />
-    <BitmapImage x:Key="VBD_Helix_Disabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Vbd/Helix/VBD_Disabled.png" />
-    <BitmapImage x:Key="VBD_Helix_Blank" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Vbd/Helix/VBD_Blank_Background.png" />
-    <BitmapImage x:Key="VBD_Marsx_Disabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Vbd/Marsx/VBD_Disabled.png" />
-    <BitmapImage x:Key="VBD_Marsx_Blank" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Vbd/Marsx/VBD_Blank_Background.png" />
-
-    <BitmapImage x:Key="VBD_CashoutDlgBanner" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_CashoutPrompt/EN_Banner.png" />
-    <BitmapImage x:Key="VBD_CashoutDlgYes" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_CashoutPrompt/EN_YES.png" />
-    <BitmapImage x:Key="VBD_CashoutDlgNo" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_CashoutPrompt/EN_NO.png" />
-
-    <BitmapImage x:Key="VBD_TimeExpired" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_Expired_EN.png" />
-
+    <BitmapImage x:Key="VBD_CashOutNormal"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_EN_CashOut_Normal.png"
+                 AutomationProperties.AutomationId="BitmapImage27_1C9F2A72" />
+    <BitmapImage x:Key="VBD_CashOutPressed"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_EN_CashOut_Selected.png"
+                 AutomationProperties.AutomationId="BitmapImage28_1C9F2A72" />
+    <BitmapImage x:Key="VBD_CashOutDisabled"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_EN_CashOut_Dark.png"
+                 AutomationProperties.AutomationId="BitmapImage29_1C9F2A72" />
+    <BitmapImage x:Key="VBD_ServiceDlgBanner"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_ServicePrompt/EN_Banner.png"
+                 AutomationProperties.AutomationId="BitmapImage30_1C9F2A72" />
+    <BitmapImage x:Key="VBD_ServiceDlgYes"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_ServicePrompt/EN_YES.png"
+                 AutomationProperties.AutomationId="BitmapImage31_1C9F2A72" />
+    <BitmapImage x:Key="VBD_ServiceDlgNo"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_ServicePrompt/EN_NO.png"
+                 AutomationProperties.AutomationId="BitmapImage32_1C9F2A72" />
+    <BitmapImage x:Key="VBD_MenuCashOutNormal"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_EN_MenuCashOut_Normal.png"
+                 AutomationProperties.AutomationId="BitmapImage33_1C9F2A72" />
+    <BitmapImage x:Key="VBD_MenuCashOutPressed"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_EN_MenuCashOut_Selected.png"
+                 AutomationProperties.AutomationId="BitmapImage34_1C9F2A72" />
+    <BitmapImage x:Key="VBD_MenuCashOutDisabled"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_EN_MenuCashOut_Dark.png"
+                 AutomationProperties.AutomationId="BitmapImage35_1C9F2A72" />
+    <BitmapImage x:Key="VBD_ServiceNormal"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_EN_Service_Normal.png"
+                 AutomationProperties.AutomationId="BitmapImage36_1C9F2A72" />
+    <BitmapImage x:Key="VBD_ServicePressed"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_EN_Service_Selected.png"
+                 AutomationProperties.AutomationId="BitmapImage37_1C9F2A72" />
+    <BitmapImage x:Key="VBD_ServiceDisabled"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_EN_Service_Dark.png"
+                 AutomationProperties.AutomationId="BitmapImage38_1C9F2A72" />
+    <BitmapImage x:Key="VBD_MoneyNormal"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_EN_FR_Money_Normal.png"
+                 AutomationProperties.AutomationId="BitmapImage39_1C9F2A72" />
+    <BitmapImage x:Key="VBD_MoneyDisabled"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_EN_FR_Money_Dark.png"
+                 AutomationProperties.AutomationId="BitmapImage40_1C9F2A72" />
+    <BitmapImage x:Key="VBD_Disabled"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_Disabled.png"
+                 AutomationProperties.AutomationId="BitmapImage41_1C9F2A72" />
+    <BitmapImage x:Key="VBD_Blank"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_Blank_Background.png"
+                 AutomationProperties.AutomationId="BitmapImage42_1C9F2A72" />
+    <BitmapImage x:Key="VBD_Helix_Disabled"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Vbd/Helix/VBD_Disabled.png"
+                 AutomationProperties.AutomationId="BitmapImage43_1C9F2A72" />
+    <BitmapImage x:Key="VBD_Helix_Blank"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Vbd/Helix/VBD_Blank_Background.png"
+                 AutomationProperties.AutomationId="BitmapImage44_1C9F2A72" />
+    <BitmapImage x:Key="VBD_Marsx_Disabled"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Vbd/Marsx/VBD_Disabled.png"
+                 AutomationProperties.AutomationId="BitmapImage45_1C9F2A72" />
+    <BitmapImage x:Key="VBD_Marsx_Blank"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Vbd/Marsx/VBD_Blank_Background.png"
+                 AutomationProperties.AutomationId="BitmapImage46_1C9F2A72" />
+    <BitmapImage x:Key="VBD_CashoutDlgBanner"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_CashoutPrompt/EN_Banner.png"
+                 AutomationProperties.AutomationId="BitmapImage47_1C9F2A72" />
+    <BitmapImage x:Key="VBD_CashoutDlgYes"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_CashoutPrompt/EN_YES.png"
+                 AutomationProperties.AutomationId="BitmapImage48_1C9F2A72" />
+    <BitmapImage x:Key="VBD_CashoutDlgNo"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_CashoutPrompt/EN_NO.png"
+                 AutomationProperties.AutomationId="BitmapImage49_1C9F2A72" />
+    <BitmapImage x:Key="VBD_TimeExpired"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/VBD_Expired_EN.png"
+                 AutomationProperties.AutomationId="BitmapImage50_1C9F2A72" />
     <!-- **STANDARD UPI** -->
-
     <!-- **MULTILANGUAGE UPI** -->
-
-    <BitmapImage x:Key="UpiBackground" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Upi/Standard/ConsoleBackground.png" />
-
-    <BitmapImage x:Key="CashOutNormal" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Upi/Standard/CashOut_Normal.png" />
-    <BitmapImage x:Key="CashOutPressed" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Upi/Standard/CashOut_Selected.png" />
-    <BitmapImage x:Key="CashOutDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Upi/Standard/CashOut_Dark.png" />
-    <BitmapImage x:Key="MenuCashOutNormal" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Upi/Standard/Menu_CashOut_RG_Normal_EN.png" />
-    <BitmapImage x:Key="MenuCashOutPressed" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Upi/Standard/Menu_CashOut_RG_Selected_EN.png" />
-    <BitmapImage x:Key="MenuCashOutDisabled" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Upi/Standard/Menu_CashOut_RG_Dark_EN.png" />
-    
-    <BitmapImage x:Key="AllDenomOff" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Upi/Standard/AllDenom_Normal.png" />
-    <BitmapImage x:Key="AllDenomOn" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Upi/Standard/AllDenom_Selected.png" />
-    <BitmapImage x:Key="Denom1CentOff" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Upi/Standard/1c_Normal.png" />
-    <BitmapImage x:Key="Denom1CentOn" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Upi/Standard/1c_Selected.png" />
-    <BitmapImage x:Key="Denom5CentOff" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Upi/Standard/5c_Normal.png" />
-    <BitmapImage x:Key="Denom5CentOn" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Upi/Standard/5c_Selected.png" />
-    <BitmapImage x:Key="Denom25CentOff" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Upi/Standard/25c_Normal.png" />
-    <BitmapImage x:Key="Denom25CentOn" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Upi/Standard/25c_Selected.png" />
-
+    <BitmapImage x:Key="UpiBackground"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Upi/Standard/ConsoleBackground.png"
+                 AutomationProperties.AutomationId="BitmapImage51_1C9F2A72" />
+    <BitmapImage x:Key="CashOutNormal"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Upi/Standard/CashOut_Normal.png"
+                 AutomationProperties.AutomationId="BitmapImage52_1C9F2A72" />
+    <BitmapImage x:Key="CashOutPressed"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Upi/Standard/CashOut_Selected.png"
+                 AutomationProperties.AutomationId="BitmapImage53_1C9F2A72" />
+    <BitmapImage x:Key="CashOutDisabled"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Upi/Standard/CashOut_Dark.png"
+                 AutomationProperties.AutomationId="BitmapImage54_1C9F2A72" />
+    <BitmapImage x:Key="MenuCashOutNormal"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Upi/Standard/Menu_CashOut_RG_Normal_EN.png"
+                 AutomationProperties.AutomationId="BitmapImage55_1C9F2A72" />
+    <BitmapImage x:Key="MenuCashOutPressed"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Upi/Standard/Menu_CashOut_RG_Selected_EN.png"
+                 AutomationProperties.AutomationId="BitmapImage56_1C9F2A72" />
+    <BitmapImage x:Key="MenuCashOutDisabled"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Upi/Standard/Menu_CashOut_RG_Dark_EN.png"
+                 AutomationProperties.AutomationId="BitmapImage57_1C9F2A72" />
+    <BitmapImage x:Key="AllDenomOff"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Upi/Standard/AllDenom_Normal.png"
+                 AutomationProperties.AutomationId="BitmapImage58_1C9F2A72" />
+    <BitmapImage x:Key="AllDenomOn"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Upi/Standard/AllDenom_Selected.png"
+                 AutomationProperties.AutomationId="BitmapImage59_1C9F2A72" />
+    <BitmapImage x:Key="Denom1CentOff"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Upi/Standard/1c_Normal.png"
+                 AutomationProperties.AutomationId="BitmapImage60_1C9F2A72" />
+    <BitmapImage x:Key="Denom1CentOn"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Upi/Standard/1c_Selected.png"
+                 AutomationProperties.AutomationId="BitmapImage61_1C9F2A72" />
+    <BitmapImage x:Key="Denom5CentOff"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Upi/Standard/5c_Normal.png"
+                 AutomationProperties.AutomationId="BitmapImage62_1C9F2A72" />
+    <BitmapImage x:Key="Denom5CentOn"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Upi/Standard/5c_Selected.png"
+                 AutomationProperties.AutomationId="BitmapImage63_1C9F2A72" />
+    <BitmapImage x:Key="Denom25CentOff"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Upi/Standard/25c_Normal.png"
+                 AutomationProperties.AutomationId="BitmapImage64_1C9F2A72" />
+    <BitmapImage x:Key="Denom25CentOn"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/Upi/Standard/25c_Selected.png"
+                 AutomationProperties.AutomationId="BitmapImage65_1C9F2A72" />
     <!-- **TIME LIMIT DIALOG -->
-    <BitmapImage x:Key="TimeLimitLobbyBackground" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/DarkenedBackground_CashOut.png" />
-    <BitmapImage x:Key="TimeLimitGameBackground" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/DarkenedBackground_MenuCashOut.png" />
-    <BitmapImage x:Key="TimeLimitInitialPrompt" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/Banner_EN_Start.png" />
-    <BitmapImage x:Key="TimeLimitExpiredPrompt" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/Banner_EN_Expired.png" />
-    <BitmapImage x:Key="TimeLimitFinalPrompt" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/Banner_EN_Expired_CashoutOnly.png" />
-    <BitmapImage x:Key="TimeLimit15MinNormal" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/15_EN_FR_Button_Neutral.png" />
-    <BitmapImage x:Key="TimeLimit15MinPressed" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/15_EN_FR_Button_Pressed.png" />
-    <BitmapImage x:Key="TimeLimit30MinNormal" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/30_EN_FR_Button_Neutral.png" />
-    <BitmapImage x:Key="TimeLimit30MinPressed" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/30_EN_FR_Button_Pressed.png" />
-    <BitmapImage x:Key="TimeLimit45MinNormal" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/45_EN_FR_Button_Neutral.png" />
-    <BitmapImage x:Key="TimeLimit45MinPressed" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/45_EN_FR_Button_Pressed.png" />
-    <BitmapImage x:Key="TimeLimit60MinNormal" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/60_EN_FR_Button_Neutral.png" />
-    <BitmapImage x:Key="TimeLimit60MinPressed" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/60_EN_FR_Button_Pressed.png" />
-    <BitmapImage x:Key="AlcTimeLimit60Prompt" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/ALC_EN_60.png" />
-    <BitmapImage x:Key="AlcTimeLimit90Prompt" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/ALC_EN_90.png" />
-    <BitmapImage x:Key="AlcTimeLimit120Prompt" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/ALC_EN_120.png" />
-    <BitmapImage x:Key="AlcTimeLimit145Prompt" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/ALC_EN_145.png" />
-    <BitmapImage x:Key="AlcTimeLimit150Prompt" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/ALC_EN_150.png" />
-    <BitmapImage x:Key="TimeLimitYesNormal" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/Yes_EN_Button_Neutral.png" />
-    <BitmapImage x:Key="TimeLimitYesPressed" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/Yes_EN_Button_Pressed.png" />
-    <BitmapImage x:Key="TimeLimitNoNormal" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/No_EN_Button_Neutral.png" />
-    <BitmapImage x:Key="TimeLimitNoPressed" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/No_EN_Button_Pressed.png" />
-    <BitmapImage x:Key="TimeLimitOKNormal" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/OK_EN_FR_Button_Neutral.png" />
-    <BitmapImage x:Key="TimeLimitOKPressed" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/OK_EN_FR_Button_Pressed.png" />
-
+    <BitmapImage x:Key="TimeLimitLobbyBackground"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/DarkenedBackground_CashOut.png"
+                 AutomationProperties.AutomationId="BitmapImage66_1C9F2A72" />
+    <BitmapImage x:Key="TimeLimitGameBackground"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/DarkenedBackground_MenuCashOut.png"
+                 AutomationProperties.AutomationId="BitmapImage67_1C9F2A72" />
+    <BitmapImage x:Key="TimeLimitInitialPrompt"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/Banner_EN_Start.png"
+                 AutomationProperties.AutomationId="BitmapImage68_1C9F2A72" />
+    <BitmapImage x:Key="TimeLimitExpiredPrompt"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/Banner_EN_Expired.png"
+                 AutomationProperties.AutomationId="BitmapImage69_1C9F2A72" />
+    <BitmapImage x:Key="TimeLimitFinalPrompt"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/Banner_EN_Expired_CashoutOnly.png"
+                 AutomationProperties.AutomationId="BitmapImage70_1C9F2A72" />
+    <BitmapImage x:Key="TimeLimit15MinNormal"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/15_EN_FR_Button_Neutral.png"
+                 AutomationProperties.AutomationId="BitmapImage71_1C9F2A72" />
+    <BitmapImage x:Key="TimeLimit15MinPressed"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/15_EN_FR_Button_Pressed.png"
+                 AutomationProperties.AutomationId="BitmapImage72_1C9F2A72" />
+    <BitmapImage x:Key="TimeLimit30MinNormal"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/30_EN_FR_Button_Neutral.png"
+                 AutomationProperties.AutomationId="BitmapImage73_1C9F2A72" />
+    <BitmapImage x:Key="TimeLimit30MinPressed"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/30_EN_FR_Button_Pressed.png"
+                 AutomationProperties.AutomationId="BitmapImage74_1C9F2A72" />
+    <BitmapImage x:Key="TimeLimit45MinNormal"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/45_EN_FR_Button_Neutral.png"
+                 AutomationProperties.AutomationId="BitmapImage75_1C9F2A72" />
+    <BitmapImage x:Key="TimeLimit45MinPressed"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/45_EN_FR_Button_Pressed.png"
+                 AutomationProperties.AutomationId="BitmapImage76_1C9F2A72" />
+    <BitmapImage x:Key="TimeLimit60MinNormal"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/60_EN_FR_Button_Neutral.png"
+                 AutomationProperties.AutomationId="BitmapImage77_1C9F2A72" />
+    <BitmapImage x:Key="TimeLimit60MinPressed"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/60_EN_FR_Button_Pressed.png"
+                 AutomationProperties.AutomationId="BitmapImage78_1C9F2A72" />
+    <BitmapImage x:Key="AlcTimeLimit60Prompt"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/ALC_EN_60.png"
+                 AutomationProperties.AutomationId="BitmapImage79_1C9F2A72" />
+    <BitmapImage x:Key="AlcTimeLimit90Prompt"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/ALC_EN_90.png"
+                 AutomationProperties.AutomationId="BitmapImage80_1C9F2A72" />
+    <BitmapImage x:Key="AlcTimeLimit120Prompt"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/ALC_EN_120.png"
+                 AutomationProperties.AutomationId="BitmapImage81_1C9F2A72" />
+    <BitmapImage x:Key="AlcTimeLimit145Prompt"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/ALC_EN_145.png"
+                 AutomationProperties.AutomationId="BitmapImage82_1C9F2A72" />
+    <BitmapImage x:Key="AlcTimeLimit150Prompt"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/ALC_EN_150.png"
+                 AutomationProperties.AutomationId="BitmapImage83_1C9F2A72" />
+    <BitmapImage x:Key="TimeLimitYesNormal"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/Yes_EN_Button_Neutral.png"
+                 AutomationProperties.AutomationId="BitmapImage84_1C9F2A72" />
+    <BitmapImage x:Key="TimeLimitYesPressed"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/Yes_EN_Button_Pressed.png"
+                 AutomationProperties.AutomationId="BitmapImage85_1C9F2A72" />
+    <BitmapImage x:Key="TimeLimitNoNormal"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/No_EN_Button_Neutral.png"
+                 AutomationProperties.AutomationId="BitmapImage86_1C9F2A72" />
+    <BitmapImage x:Key="TimeLimitNoPressed"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/No_EN_Button_Pressed.png"
+                 AutomationProperties.AutomationId="BitmapImage87_1C9F2A72" />
+    <BitmapImage x:Key="TimeLimitOKNormal"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/OK_EN_FR_Button_Neutral.png"
+                 AutomationProperties.AutomationId="BitmapImage88_1C9F2A72" />
+    <BitmapImage x:Key="TimeLimitOKPressed"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/PlayTime/OK_EN_FR_Button_Pressed.png"
+                 AutomationProperties.AutomationId="BitmapImage89_1C9F2A72" />
     <!-- Filenames, margins, etc -->
     <sys:String x:Key="PlatinumVideoPath">../jurisdiction/NewYork-VLT/ui/Videos/12_PlatinumSeries.bk2</sys:String>
     <sys:String x:Key="NewStarPath">../jurisdiction/NewYork-VLT/ui/Videos/NewStar_EN.bk2</sys:String>
-
     <sys:String x:Key="TopIdleAttractVideoPath">../jurisdiction/NewYork-VLT/ui/Videos/LobbyAttract.bk2</sys:String>
     <sys:String x:Key="VBD_ChooseGame">../jurisdiction/NewYork-VLT/ui/Videos/VBD_ChooseGame_EN.bk2</sys:String>
     <sys:String x:Key="VBD_InsertMoney">../jurisdiction/NewYork-VLT/ui/Videos/VBD_InsertMoney_EN.bk2</sys:String>
@@ -138,10 +293,14 @@
     <sys:String x:Key="VBD_Helix_InsertMoney">../jurisdiction/NewYork-VLT/ui/Videos/VBD_InsertMoney_EN.bk2</sys:String>
     <sys:String x:Key="VBD_Marsx_ChooseGame">../jurisdiction/NewYork-VLT/ui/Videos/VBD_ChooseGame_EN.bk2</sys:String>
     <sys:String x:Key="VBD_Marsx_InsertMoney">../jurisdiction/NewYork-VLT/ui/Videos/VBD_InsertMoney_EN.bk2</sys:String>
-
     <!-- Cashout, Lockup for Jackpot/Handpay Support-->
-    <BitmapImage x:Key="CashOutImage" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/CashOutImage.png" />
-    <BitmapImage x:Key="HandPayImage" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/HandpayImage.png" />
-    <BitmapImage x:Key="CashOutButtonFrame" UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/CashoutButtonFrame.png" />
-
+    <BitmapImage x:Key="CashOutImage"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/CashOutImage.png"
+                 AutomationProperties.AutomationId="BitmapImage90_1C9F2A72" />
+    <BitmapImage x:Key="HandPayImage"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/HandpayImage.png"
+                 AutomationProperties.AutomationId="BitmapImage91_1C9F2A72" />
+    <BitmapImage x:Key="CashOutButtonFrame"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/CashoutButtonFrame.png"
+                 AutomationProperties.AutomationId="BitmapImage92_1C9F2A72" />
 </ResourceDictionary>

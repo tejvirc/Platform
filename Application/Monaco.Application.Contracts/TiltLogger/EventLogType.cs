@@ -42,5 +42,15 @@
             [Description("Progressive")] Progressive = 16,
             /// <summary>KeyedCredit</summary>
             [Description("KeyedCredit")] KeyedCredit = 17,
+            /// <summary>Protocol</summary>
+            [Description("Protocol")] Protocol = 18,
+            /// <summary>Door</summary>
+            [Description("Door")] Door = 19,
+            /// <summary>KeyedOnCredits</summary>
+            [Description("KeyedOnCredits")] KeyedOnCredits = 20,
+            /// <summary>KeyedOffCredits</summary>
+            [Description("KeyedOffCredits")] KeyedOffCredits = 21,
+            /// <summary>HardMeterOut</summary>
+            [Description("HardMeterOut")] HardMeterOut = 22,
     }
 }

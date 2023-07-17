@@ -3,16 +3,16 @@
     using System;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
+    using Application.UI.Settings;
     using Contracts;
     using Contracts.Handpay;
     using Localization.Properties;
-    using MVVM.Model;
     using Newtonsoft.Json;
 
     /// <summary>
     ///     Accounting machine settings.
     /// </summary>
-    internal class MachineSettings : BaseNotify
+    internal class MachineSettings : SettingsBase
     {
         private bool _allowCashWinTicket;
         private bool _allowCreditUnderLimit;
@@ -76,6 +76,8 @@
         private bool _usePlayerIdReader;
         private bool _validateHandpays;
         private long _voucherInLimit;
+        private long _voucherInLimitMaxAllowed;
+        private long _handCountPayoutLimit;
         private bool _voucherOut;
         private bool _voucherOutCheckBoxChecked;
         private bool _voucherInCheckBoxChecked;
@@ -90,6 +92,16 @@
         private bool _largeWinLimitIsChecked;
         private bool _creditLimitIsChecked;
         private bool _maxBetLimitIsChecked;
+
+        public MachineSettings()
+        {
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, RefreshAllDisplayableSettings);
+        }
+
+        ~MachineSettings()
+        {
+            EventBus.UnsubscribeAll(this);
+        }
 
         /// <summary>
         ///     Gets or sets a value that indicates whether to allow cash win ticket.
@@ -131,7 +143,7 @@
         [JsonIgnore]
         public string CelebrationLockupLimitDisplay =>
             _celebrationLockupLimit > 0
-                ? _celebrationLockupLimit.MillicentsToDollars().FormattedCurrencyString()
+                ? _celebrationLockupLimit.MillicentsToDollars().FormattedCurrencyString(culture: OperatorLocalizer.CurrentCulture)
                 : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoLimit);
 
         /// <summary>
@@ -374,7 +386,7 @@
         [JsonIgnore]
         public string LargeWinLimitDisplay =>
             _largeWinLimit < AccountingConstants.DefaultLargeWinLimit
-                ? _largeWinLimit.MillicentsToDollars().FormattedCurrencyString()
+                ? _largeWinLimit.MillicentsToDollars().FormattedCurrencyString(culture: OperatorLocalizer.CurrentCulture)
                 : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoLimit);
 
         /// <summary>
@@ -450,7 +462,7 @@
         [JsonIgnore]
         public string LargeWinRatioThresholdDisplay =>
             _largeWinRatioThreshold > AccountingConstants.DefaultLargeWinRatioThreshold
-                ? _largeWinRatioThreshold.MillicentsToDollars().FormattedCurrencyString()
+                ? _largeWinRatioThreshold.MillicentsToDollars().FormattedCurrencyString(culture: OperatorLocalizer.CurrentCulture)
                 : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoLimit);
 
         /// <summary>
@@ -493,7 +505,7 @@
         [JsonIgnore]
         public string MaxBetLimitDisplay =>
             _maxBetLimit < long.MaxValue
-                ? _maxBetLimit.MillicentsToDollars().FormattedCurrencyString()
+                ? _maxBetLimit.MillicentsToDollars().FormattedCurrencyString(culture: OperatorLocalizer.CurrentCulture)
                 : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoLimit);
 
         /// <summary>
@@ -525,8 +537,8 @@
         /// </summary>
         [JsonIgnore]
         public string MaxCreditMeterDisplay =>
-            _maxCreditMeter < _maxCreditMeterMaxAllowed
-                ? _maxCreditMeter.MillicentsToDollars().FormattedCurrencyString()
+            _maxCreditMeter <= _maxCreditMeterMaxAllowed
+                ? _maxCreditMeter.MillicentsToDollars().FormattedCurrencyString(culture: OperatorLocalizer.CurrentCulture)
                 : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoLimit);
 
         /// <summary>
@@ -557,8 +569,8 @@
         ///     Gets the max tender in limit to display.
         /// </summary>
         [JsonIgnore]
-        public string MaxTenderInLimitDisplay => _maxTenderInLimit.MillicentsToDollars().FormattedCurrencyString();
-                 
+        public string MaxTenderInLimitDisplay => _maxTenderInLimit.MillicentsToDollars().FormattedCurrencyString(culture: OperatorLocalizer.CurrentCulture);
+
         /// <summary>
         ///     Gets or sets the max win amount.
         /// </summary>
@@ -579,7 +591,7 @@
         [JsonIgnore]
         public string MaxWinAmountDisplay =>
             _maxWinAmount > 0
-                ? _maxWinAmount.MillicentsToDollars().FormattedCurrencyString()
+                ? _maxWinAmount.MillicentsToDollars().FormattedCurrencyString(culture: OperatorLocalizer.CurrentCulture)
                 : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoLimit);
 
         /// <summary>
@@ -859,9 +871,19 @@
         /// </summary>
         [JsonIgnore]
         public string VoucherInLimitDisplay =>
-            _voucherInLimit < Math.Min(_maxCreditMeterMaxAllowed, long.MaxValue)
-                ? _voucherInLimit.MillicentsToDollars().FormattedCurrencyString()
-                : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoLimit);
+            _voucherInLimit <= Math.Min(Math.Max(_voucherInLimitMaxAllowed, _maxCreditMeterMaxAllowed), long.MaxValue)
+                ? _voucherInLimit.MillicentsToDollars().FormattedCurrencyString(culture: OperatorLocalizer.CurrentCulture)
+                : OperatorLocalizer.GetString(ResourceKeys.NoLimit);
+
+        /// <summary>
+        ///     Gets or sets the voucher in limit max allowed
+        /// </summary>
+        public long VoucherInLimitMaxAllowed
+        {
+            get => _voucherInLimitMaxAllowed;
+
+            set => SetProperty(ref _voucherInLimitMaxAllowed, value);
+        }
 
         /// <summary>
         ///     Gets or sets a value that indicates whether to allow voucher out.
@@ -936,7 +958,7 @@
         [JsonIgnore]
         public string VoucherOutLimitDisplay =>
             _voucherOutLimit < long.MaxValue
-                ? _voucherOutLimit.MillicentsToDollars().FormattedCurrencyString()
+                ? _voucherOutLimit.MillicentsToDollars().FormattedCurrencyString(culture: OperatorLocalizer.CurrentCulture)
                 : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoLimit);
 
         /// <summary>
@@ -956,7 +978,7 @@
         {
             get => _voucherOutNonCashExpirationDays;
 
-            set 
+            set
             {
                 SetProperty(ref _voucherOutNonCashExpirationDays, value);
                 RaisePropertyChanged(nameof(VoucherOutNonCashExpirationDaysDisplay));
@@ -969,7 +991,7 @@
         [JsonIgnore]
         public string VoucherOutNonCashExpirationDaysDisplay =>
             _voucherOutNonCashExpirationDays == 0
-                ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NeverExpires)
+                ? OperatorLocalizer.GetString(ResourceKeys.NeverExpires)
                 : string.Format(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DaysFormatter), _voucherOutNonCashExpirationDays);
 
         /// <summary>
@@ -992,7 +1014,7 @@
         [JsonIgnore]
         public string HandpayLimitDisplay =>
             _handpayLimit < AccountingConstants.DefaultHandpayLimit
-                ? _handpayLimit.MillicentsToDollars().FormattedCurrencyString()
+                ? _handpayLimit.MillicentsToDollars().FormattedCurrencyString(culture: OperatorLocalizer.CurrentCulture)
                 : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoLimit);
 
         /// <summary>
@@ -1034,6 +1056,24 @@
 
             set => SetProperty(ref _largeWinLimitIsChecked, value);
         }
+
+        /// <summary>
+        ///     Gets or Sets the HandCount payoutLimit
+        /// </summary>
+        public long HandCountPayoutLimit
+        {
+            get => _handCountPayoutLimit;
+            set => SetProperty(ref _handCountPayoutLimit, value);
+        }
+
+        /// <summary>
+        ///     Gets the handCountPayout limit to display.
+        /// </summary>
+        [JsonIgnore]
+        public string HandCountPayoutDisplay =>
+            _handCountPayoutLimit < long.MaxValue
+                ? _handCountPayoutLimit.MillicentsToDollars().FormattedCurrencyString()
+                : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoLimit);
 
         /// <summary>
         ///     Gets or sets the credit limit is checked value.

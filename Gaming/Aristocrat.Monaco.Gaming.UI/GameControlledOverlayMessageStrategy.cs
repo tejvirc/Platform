@@ -32,6 +32,8 @@
 
         public bool IsBasic => false;
 
+        public long CashableAmount { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public GameControlledOverlayMessageStrategy(IOverlayMessageStrategyController overlayMessageStrategyController, IPresentationService presentationService)
         {
             _overlayMessageStrategyController = overlayMessageStrategyController ??
@@ -195,7 +197,7 @@
                 _presentationService.PresentOverriddenPresentation(presentations);
             }
 
-            if(data != null)
+            if(data != null && overriddenPresentations.Any())
             {
                 data.GameHandlesHandPayPresentation = true;
             }
@@ -206,6 +208,11 @@
         private static string GeneratePresentationMessage(string text, string subtext, string subtext2)
         {
             return text + "\n" + subtext + "\n" + subtext2;
+        }
+
+        public IMessageOverlayData HandleMessageOverlayPayOut(IMessageOverlayData data)
+        {
+            throw new NotImplementedException();
         }
     }
 }

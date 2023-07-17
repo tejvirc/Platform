@@ -2,11 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Reflection;
     using System.Text;
     using System.Threading.Tasks;
+    using Accounting.Contracts;
     using Common;
     using Contracts;
     using Contracts.Extensions;
@@ -19,6 +21,7 @@
     using Kernel;
     using Kernel.Contracts;
     using Monaco.Localization.Properties;
+    using MVVM;
     using MVVM.Command;
     using OperatorMenu;
 
@@ -94,6 +97,20 @@
             _allowBillIn = IsAnyDenomsSelected();
         }
 
+        public CultureInfo CurrentCurrencyFormat
+        {
+            get
+            {
+                var useOperatorCulture = Configuration?.GetSetting(
+                    OperatorMenuSetting.UseOperatorCultureForCurrencyFormatting,
+                    false) ?? false;
+
+                return useOperatorCulture
+                    ? Localizer.For(CultureFor.Operator).CurrentCulture
+                    : CurrencyExtensions.CurrencyCultureInfo;
+            }
+        }
+
         protected override void UpdateScreen()
         {
             lock (EventLock)
@@ -117,7 +134,7 @@
 
                 IsVoucherInEnabled = PropertiesManager.GetValue(PropertyKey.VoucherIn, false);
 
-                VoucherInEnabledText = IsVoucherInEnabled && noteAcceptor.Enabled ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EnabledLabel) : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Disabled);
+                VoucherInEnabledText = IsVoucherInEnabled && noteAcceptor.Enabled ? ResourceKeys.EnabledLabel : ResourceKeys.Disabled;
 
                 RaisePropertyChanged(nameof(TestModeEnabled));
 
@@ -127,9 +144,9 @@
 
                 SetStateInformation(false);
 
-                LastDocumentResultText = noteAcceptor.LastDocumentResult.ToString();
+                SetLastDocumentResultText(noteAcceptor.LastDocumentResult);
 
-                StackerStateText = noteAcceptor.StackerState.ToString();
+                SetStackerStateText(noteAcceptor.StackerState);
             }
         }
 
@@ -152,9 +169,63 @@
             }
         }
 
+        private void SetStackerStateText(NoteAcceptorStackerState state)
+        {
+            switch (state)
+            {
+                case NoteAcceptorStackerState.Inserted:
+                    StackerStateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Inserted);
+                    break;
+                case NoteAcceptorStackerState.Removed:
+                    StackerStateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Removed);
+                    break;
+                case NoteAcceptorStackerState.Full:
+                    StackerStateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Full);
+                    break;
+                case NoteAcceptorStackerState.Jammed:
+                    StackerStateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Jammed);
+                    break;
+                case NoteAcceptorStackerState.Fault:
+                    StackerStateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Fault);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void SetLastDocumentResultText(DocumentResult result)
+        {
+            switch (result)
+            {
+                case DocumentResult.None:
+                    LastDocumentResultText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.None);
+                    break;
+                case DocumentResult.Escrowed:
+                    LastDocumentResultText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Escrowed);
+                    break;
+                case DocumentResult.Stacking:
+                    LastDocumentResultText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Stacking);
+                    break;
+                case DocumentResult.Returned:
+                    LastDocumentResultText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReturnedText);
+                    break;
+                case DocumentResult.Stacked:
+                    LastDocumentResultText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.StackedText);
+                    break;
+                case DocumentResult.Error:
+                    LastDocumentResultText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Error);
+                    break;
+                case DocumentResult.Rejected:
+                    LastDocumentResultText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.RejectedText);
+                    break;
+                default:
+                    break;
+            }
+        }
+
         private void ConfigureStackButton()
         {
-            if (_noteAcceptorDiagnosticsEnabled && NoteAcceptor.IsEscrowed)
+            if (_noteAcceptorDiagnosticsEnabled && NoteAcceptor.IsEscrowed && !_inNoteAcceptorTest)
             {
                 ReturnButtonVisible = true;
                 ReturnButtonEnabled = true;
@@ -208,8 +279,10 @@
                 denom.Enabled = enabled;
             }
 
-            VoucherInEnabledText = IsVoucherInEnabled && NoteAcceptor.Enabled ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EnabledLabel) : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Disabled);
+            VoucherInEnabledText = IsVoucherInEnabled && NoteAcceptor.Enabled ? ResourceKeys.EnabledLabel : ResourceKeys.Disabled;
             _enabledDenominationsText = selectedDenoms.ToString();
+
+            UpdateCurrencyFields();
         }
 
         /// <summary>
@@ -280,7 +353,7 @@
             {
                 SetStateInformation(true);
                 StackerStateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable);
-                VoucherInEnabledText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable);
+                VoucherInEnabledText = ResourceKeys.NotAvailable;
                 LastDocumentResultText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable);
                 Logger.Warn("NoteAcceptorService and DfuService unavailable");
             }
@@ -401,11 +474,7 @@
                 var canEnableSelfTest = false;
                 if (!NoteAcceptor.Enabled)
                 {
-                    if ((NoteAcceptor.ReasonDisabled & DisabledReasons.Error) > 0)
-                    {
-                        canEnableSelfTest = SelfTestCurrentState != SelfTestState.Running;
-                    }
-                    else if (IsEnableAllowedForTesting(HasDocumentCheckFault))
+                    if (IsEnableAllowedForTesting(HasDocumentCheckFault))
                     {
                         canEnableSelfTest = true;
                     }
@@ -472,20 +541,31 @@
             {
                 case NoteAcceptorLogicalState.Disabled:
                     StateCurrentMode = StateMode.Error;
+                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Disabled);
                     break;
                 case NoteAcceptorLogicalState.Disconnected:
                     StateCurrentMode = StateMode.Error;
+                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Disconnected);
                     break;
                 case NoteAcceptorLogicalState.Uninitialized:
                     StateCurrentMode = StateMode.Uninitialized;
+                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Uninitialized);
                     break;
                 case NoteAcceptorLogicalState.InEscrow:
                     StateCurrentMode = StateMode.Warning;
+                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InEscrow);
                     break;
                 case NoteAcceptorLogicalState.Inspecting:
+                    StateCurrentMode = StateMode.Processing;
+                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Inspecting);
+                    break;
                 case NoteAcceptorLogicalState.Returning:
+                    StateCurrentMode = StateMode.Processing;
+                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Returning);
+                    break;
                 case NoteAcceptorLogicalState.Stacking:
                     StateCurrentMode = StateMode.Processing;
+                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Stacking);
                     break;
                 default:
                     if (!HasDocumentCheckFault &&
@@ -493,6 +573,11 @@
                     {
                         StateCurrentMode = StateMode.Normal;
                         updateStatus = true;
+                    }
+
+                    if (logicalState == NoteAcceptorLogicalState.Idle)
+                    {
+                        StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Idle);
                     }
                     break;
             }
@@ -549,6 +634,7 @@
             {
                 Logger.Warn("Note acceptor service unavailable");
                 StatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable);
+                StatusTextLocalized = ResourceKeys.NotAvailable;
                 StatusCurrentMode = StatusMode.None;
                 return;
             }
@@ -578,6 +664,7 @@
                 }
 
                 StatusText = status;
+                StatusTextLocalized = status;
                 StatusCurrentMode = highestStatusMode;
 
                 return;
@@ -587,6 +674,7 @@
             {
                 var disconnected = new DisconnectedEvent();
                 StatusText = disconnected.ToString();
+                StatusTextLocalized = Resources.NoteAcceptorText + "|" + Resources.CommunicationFailureText;
                 StatusCurrentMode = StatusMode.Error;
 
                 return;
@@ -595,10 +683,12 @@
             if ((NoteAcceptor.ReasonDisabled & DisabledReasons.Error) > 0)
             {
                 StatusText = NoteAcceptor.LastError;
+                StatusTextLocalized = NoteAcceptor.LastError;
 
                 if (NoteAcceptor.LastError.Contains(typeof(SelfTestFailedEvent).ToString()))
                 {
                     StatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SelfTestFailed);
+                    StatusTextLocalized = ResourceKeys.SelfTestFailed;
                 }
 
                 StatusCurrentMode = StatusMode.Warning;
@@ -609,6 +699,7 @@
             if ((NoteAcceptor.ReasonDisabled & DisabledReasons.GamePlay) > 0 && !GameIdle)
             {
                 StatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Game);
+                StatusTextLocalized = ResourceKeys.Game;
                 StatusCurrentMode = StatusMode.Warning;
 
                 return;
@@ -617,12 +708,14 @@
             if ((NoteAcceptor.ReasonDisabled & DisabledReasons.Backend) > 0)
             {
                 StatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Backend);
+                StatusTextLocalized = ResourceKeys.Backend;
                 StatusCurrentMode = StatusMode.Warning;
 
                 return;
             }
 
             StatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoErrors);
+            StatusTextLocalized = ResourceKeys.NoErrors;
             StatusCurrentMode = StatusMode.None;
         }
 
@@ -631,12 +724,36 @@
             if (!string.IsNullOrEmpty(overrideMessage))
             {
                 StatusText = overrideMessage;
+                StatusTextLocalized = overrideMessage;
                 StatusCurrentMode = overrideStatusMode;
 
                 return;
             }
 
             SetStateInformation(true);
+        }
+
+        private string GetBillAcceptanceRate()
+        {
+            var meters = ServiceManager.GetInstance().TryGetService<IMeterManager>();
+
+            if (meters is null)
+            {
+                return "";
+            }
+
+            var totalAcceptedBills = (double)meters.GetMeter(AccountingMeters.CurrencyInCount).Lifetime;
+            var totalBillInAttempts = totalAcceptedBills + meters.GetMeter(AccountingMeters.BillsRejectedCount).Lifetime;
+            var billAcceptanceRate = 0.00d;
+
+            // Prevent division by 0
+            if (totalBillInAttempts > 0)
+            {
+                billAcceptanceRate = Math.Round(totalAcceptedBills / totalBillInAttempts, 2);
+            }
+
+            var percentageFormatProvider = Localizer.For(CultureFor.Operator).CurrentCulture;
+            return billAcceptanceRate.ToString("P2", percentageFormatProvider);
         }
 
         protected void SetDeviceInformation()
@@ -717,7 +834,7 @@
             tempString.Append("\n" + Localizer.For(CultureFor.Operator).GetString(ResourceKeys.StatusLabel) + ": ");
             tempString.Append(StatusText);
             tempString.Append("\n" + Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VoucherIn) + ": ");
-            tempString.Append(VoucherInEnabledText);
+            tempString.Append(Localizer.For(CultureFor.Operator).GetString(_voucherInEnabledText));
             tempString.Append("\n" + Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BillAcceptanceLimit) + ": ");
             tempString.Append(
                 BillAcceptanceLimit > 0
@@ -846,7 +963,7 @@
                 return false;
             }
 
-            return NoteAcceptor.ReasonDisabled > 0 && (GameIdle || allowDuringGameRound) &&
+            if (NoteAcceptor.ReasonDisabled > 0 && (GameIdle || allowDuringGameRound) &&
                    (NoteAcceptor.ReasonDisabled |
                     DisabledReasons.System |
                     DisabledReasons.Backend |
@@ -857,7 +974,39 @@
                     DisabledReasons.Backend |
                     DisabledReasons.Device |
                     DisabledReasons.Configuration |
-                    DisabledReasons.GamePlay);
+                    DisabledReasons.GamePlay))
+            {
+                return true;
+            }
+
+            if ((NoteAcceptor.ReasonDisabled & DisabledReasons.Error) > 0)
+            {
+                return SelfTestCurrentState != SelfTestState.Running;
+            }
+
+            return false;
+        }
+
+        private void UpdateCurrencyFields()
+        {
+            MvvmHelper.ExecuteOnUI(() =>
+            {
+                CurrencyExtensions.UpdateCurrencyCulture();
+
+                foreach (var denom in Denominations)
+                {
+                    denom.UpdateProps(CurrentCurrencyFormat);
+                }
+
+                RaisePropertyChanged(
+                    nameof(BillAcceptanceLimit),
+                    nameof(BillAcceptanceRate),
+                    nameof(Denominations),
+                    nameof(CurrentCurrencyFormat),
+                    nameof(SelfTestText),
+                    nameof(StatusTextLocalized),
+                    nameof(VoucherInEnabledText));
+            });
         }
     }
 

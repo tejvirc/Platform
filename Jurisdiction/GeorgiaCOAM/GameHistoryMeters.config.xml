@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<GameHistoryMetersConfiguration>
+	<MeterNodes>
+		<!-- Meters here will be displayed in the Game Meters and Game Transaction menus of the Game History page -->
+		<!-- Indent - Whether meter name should be indented or not, defaults to false -->
+		<!-- Occurrence - Whether meter values should be digits (0, 1, 2, ...) or currency ($0.00, $1.00, $2.00, ...), defaults to false (currency) -->
+		<!-- HideFromTransactionsPage - If true, only show in Game Meters and not Game Transactions, defaults to false -->
+		<GameHistoryMeterNode Name="Credit" DisplayName="Credit" />
+		<GameHistoryMeterNode Name="BetTurnover" DisplayName="Coin In (Turnover)" />
+
+		<GameHistoryMeterNode Name="TotalWin" DisplayName="Total Win" />
+		<GameHistoryMeterNode Name="MachinePaid" DisplayName="Coin Out (Machine Paid)" Indent="true" />
+		<GameHistoryMeterNode Name="AttendantPaidJackpot" DisplayName="Attendant Paid (Jackpot)" Indent="true" />
+
+		<GameHistoryMeterNode Name="TotalMoneyIn" DisplayName="Total Money In" />
+		<GameHistoryMeterNode Name="PhysicalCoinIn" DisplayName="Physical Coin In" Indent="true"  />
+		<GameHistoryMeterNode Name="BillIn" DisplayName="Bill In" Indent="true" />
+		<GameHistoryMeterNode Name="VoucherIn" DisplayName="Voucher In" Indent="true" />
+		<GameHistoryMeterNode Name="TransferIn" DisplayName="Total WAT In" Indent="true" />
+
+		<GameHistoryMeterNode Name="TotalMoneyOut" DisplayName="Total Money Out" />
+		<GameHistoryMeterNode Name="HardMeterOut" DisplayName="Payout (Money Out)" Indent="true"/>
+		<GameHistoryMeterNode Name="PhysicalCoinOut" DisplayName="Physical Coin Out" Indent="true" />
+		<GameHistoryMeterNode Name="VoucherOut" DisplayName="Voucher Out" Indent="true" />
+		<GameHistoryMeterNode Name="TransferOut" DisplayName="Total WAT Out" Indent="true" />
+		<GameHistoryMeterNode Name="AttendantPaidCancelledCredit" DisplayName="Attendant Paid (Cancelled Credit)" Indent ="true" />
+		<GameHistoryMeterNode Name="CoinDropCashBox" DisplayName="Coin Drop (Cash Box)" />
+		<GameHistoryMeterNode Name="ExtraCoinOutRunaway" DisplayName="Extra Coin Out (Runaway)" />
+	</MeterNodes>
+</GameHistoryMetersConfiguration>

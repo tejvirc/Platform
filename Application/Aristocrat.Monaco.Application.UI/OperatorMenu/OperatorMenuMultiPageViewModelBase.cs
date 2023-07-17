@@ -4,6 +4,7 @@
     using System.Collections.ObjectModel;
     using System.Linq;
     using Contracts;
+    using Contracts.Localization;
     using Contracts.MeterPage;
     using Contracts.OperatorMenu;
     using Events;
@@ -14,6 +15,7 @@
     public abstract class OperatorMenuMultiPageViewModelBase : OperatorMenuPageViewModelBase
     {
         protected readonly string MenuExtensionPath;
+        protected readonly string PageNameResourceKey;
         private bool _buttonsEnabled = true;
         private IOperatorMenuPageLoader _selectedPage;
         private string _warningMessageText;
@@ -21,12 +23,13 @@
         /// <summary>
         ///     Constructor
         /// </summary>
-        /// <param name="displayPageTitle">The page title to use in the Operator Menu header and window title</param>
-        /// <param name="extensionPath">The path of the extension point to load the sub-pages</param>;
-        protected OperatorMenuMultiPageViewModelBase(string displayPageTitle, string extensionPath)
+        /// <param name="pageNameResourceKey">Resource key for the localized page name</param>
+        /// <param name="extensionPath">The path of the extension point to load the sub-pages</param>
+        protected OperatorMenuMultiPageViewModelBase(string pageNameResourceKey, string extensionPath)
         {
-            DisplayPageTitle = displayPageTitle;
             MenuExtensionPath = extensionPath;
+            PageNameResourceKey = pageNameResourceKey;
+            DisplayPageTitle = Localizer.For(CultureFor.Operator).GetString(PageNameResourceKey, _ => { }) ?? string.Empty;
             Pages = new ObservableCollection<IOperatorMenuPageLoader>();
             LoadPages();
         }
@@ -182,6 +185,12 @@
             EventBus.Subscribe<OperatorMenuWarningMessageEvent>(this, OnUpdateWarningMessage);
         }
 
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            SetPageTitle();
+            base.OnOperatorCultureChanged(evt);
+        }
+
         protected override void OnUnloaded()
         {
             EventBus.UnsubscribeAll(this);
@@ -253,6 +262,8 @@
         {
             if (!ParentIsMultiPage)
             {
+                DisplayPageTitle = Localizer.For(CultureFor.Operator).GetString(PageNameResourceKey, _ => { }) ?? string.Empty;
+
                 if (!string.IsNullOrEmpty(DisplayPageTitle))
                 {
                     var title = !string.IsNullOrEmpty(SelectedPage.PageName)

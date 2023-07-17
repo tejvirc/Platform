@@ -1,117 +1,140 @@
 ﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.LampsPage"
                                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:common="http://monaco.aristocrat.com/common"
                                xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
-                               mc:Ignorable="d" 
+                               mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:LampsPageViewModel}}">
-
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <common:EnumDescriptionConverter x:Key="EnumDescriptionConverter"/>
-
+            <common:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
             <Style x:Key="ToggleSwitchButtonStyle"
                    TargetType="controls:ToggleSwitchButton"
                    BasedOn="{StaticResource MonacoToggleSwitchButton}">
-                <Setter Property="Height" Value="40"/>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="Margin" Value="0"/>
-                <Setter Property="ThumbIndicatorWidth" Value="75"/>
-                <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="Width" Value="150"/>
+                <Setter Property="Height"
+                        Value="40" />
+                <Setter Property="HorizontalAlignment"
+                        Value="Center" />
+                <Setter Property="Margin"
+                        Value="0" />
+                <Setter Property="ThumbIndicatorWidth"
+                        Value="75" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+                <Setter Property="Width"
+                        Value="150" />
             </Style>
-
-            <Style x:Key="LampButtonListBoxItemStyle" 
+            <Style x:Key="LampButtonListBoxItemStyle"
                    TargetType="{x:Type ListBoxItem}"
                    BasedOn="{StaticResource MonacoListBoxItem}">
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                            <Grid>
+                            <Grid AutomationProperties.AutomationId="Grid0_CE65367A">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto"
+                                                      AutomationProperties.AutomationId="ColumnDefinition1_CE65367A" />
+                                    <ColumnDefinition Width="Auto"
+                                                      AutomationProperties.AutomationId="ColumnDefinition2_CE65367A" />
                                 </Grid.ColumnDefinitions>
-
-                                <Border Grid.Column="0">
+                                <Border Grid.Column="0"
+                                        AutomationProperties.AutomationId="Border3_CE65367A">
                                     <controls:ToggleSwitchButton Style="{StaticResource ToggleSwitchButtonStyle}"
-                                                                 IsChecked="{Binding IsSelected, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                                                 IsChecked="{Binding IsSelected, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                                                 common:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.Off}}"
+                                                                 common:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.On}}" />
                                 </Border>
                                 <Border Grid.Column="1"
-                                        Margin="10 0 0 0">
-                                    <TextBlock VerticalAlignment="Center" IsHitTestVisible="False" Style="{StaticResource MonacoTextBlock}">
+                                        Margin="10 0 0 0"
+                                        AutomationProperties.AutomationId="Border4_CE65367A">
+                                    <TextBlock VerticalAlignment="Center"
+                                               IsHitTestVisible="False"
+                                               Style="{StaticResource MonacoTextBlock}"
+                                               AutomationProperties.AutomationId="TextBlock5_CE65367A">
                                         <TextBlock.Text>
                                             <MultiBinding StringFormat="{}{0}">
-                                                <Binding Path="DataContext" 
+                                                <Binding Path="DataContext"
                                                          RelativeSource="{RelativeSource TemplatedParent}" />
                                             </MultiBinding>
                                         </TextBlock.Text>
                                     </TextBlock>
                                 </Border>
-
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
-
-            <Style x:Key="LampButtonListBoxStyle" 
+            <Style x:Key="LampButtonListBoxStyle"
                    TargetType="{x:Type ListBox}"
                    BasedOn="{StaticResource MonacoListBox}">
-                <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="Focusable" Value="False" />
-                <Setter Property="ItemContainerStyle" Value="{StaticResource LampButtonListBoxItemStyle}" />
+                <Setter Property="BorderThickness"
+                        Value="0" />
+                <Setter Property="Focusable"
+                        Value="False" />
+                <Setter Property="ItemContainerStyle"
+                        Value="{StaticResource LampButtonListBoxItemStyle}" />
                 <Setter Property="ItemsPanel">
                     <Setter.Value>
                         <ItemsPanelTemplate>
                             <WrapPanel Orientation="Vertical"
-                                       ItemHeight="60"/>
+                                       ItemHeight="60"
+                                       AutomationProperties.AutomationId="WrapPanel6_CE65367A" />
                         </ItemsPanelTemplate>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="Margin" Value="0" />
-                <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="False"/>
+                <Setter Property="Margin"
+                        Value="0" />
+                <Setter Property="VirtualizingStackPanel.IsVirtualizing"
+                        Value="False" />
             </Style>
-
-            <Style x:Key="IntervalButtonListBoxItemStyle" 
+            <Style x:Key="IntervalButtonListBoxItemStyle"
                    TargetType="{x:Type ListBoxItem}"
                    BasedOn="{StaticResource MonacoListBoxItem}">
-                <Setter Property="Margin" Value="0 0 50 0" />
+                <Setter Property="Margin"
+                        Value="0 0 50 0" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                            <Grid>
+                            <Grid AutomationProperties.AutomationId="Grid7_CE65367A">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto"
+                                                      AutomationProperties.AutomationId="ColumnDefinition8_CE65367A" />
+                                    <ColumnDefinition Width="Auto"
+                                                      AutomationProperties.AutomationId="ColumnDefinition9_CE65367A" />
                                 </Grid.ColumnDefinitions>
-
-                                <Border Grid.Column="0">
+                                <Border Grid.Column="0"
+                                        AutomationProperties.AutomationId="Border10_CE65367A">
                                     <controls:ToggleSwitchButton Style="{StaticResource ToggleSwitchButtonStyle}"
-                                                                 IsChecked="{Binding IsSelected, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                                                 IsChecked="{Binding IsSelected, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                                                 common:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.Off}}"
+                                                                 common:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.On}}"/>
                                 </Border>
-
                                 <Border Grid.Column="1"
-                                        Margin="10 0 0 0">
-                                    <TextBlock VerticalAlignment="Center" IsHitTestVisible="False" Style="{StaticResource MonacoTextBlock}">
+                                        Margin="10 0 0 0"
+                                        AutomationProperties.AutomationId="Border11_CE65367A">
+                                    <TextBlock VerticalAlignment="Center"
+                                               IsHitTestVisible="False"
+                                               Style="{StaticResource MonacoTextBlock}"
+                                               AutomationProperties.AutomationId="TextBlock12_CE65367A">
                                         <TextBlock.Text>
                                             <MultiBinding StringFormat="{}{0} {1}">
-                                                <Binding Path="DataContext" 
+                                                <Binding Path="DataContext"
                                                          RelativeSource="{RelativeSource TemplatedParent}" />
-                                                <Binding ElementName="MillisecondIntervalTextProxy" Path="Result"/>
+                                                <Binding ElementName="MillisecondIntervalTextProxy"
+                                                         Path="Result" />
                                             </MultiBinding>
                                         </TextBlock.Text>
-                                        <lex:LocProxy x:Name="MillisecondIntervalTextProxy" Source="{x:Static loc:ResourceKeys.MillisecondIntervalText}" />
+                                        <lex:LocProxy x:Name="MillisecondIntervalTextProxy"
+                                                      Source="{x:Static loc:ResourceKeys.MillisecondIntervalText}" />
                                     </TextBlock>
                                 </Border>
                             </Grid>
@@ -119,122 +142,152 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
-            <Style x:Key="IntervalButtonListBoxStyle" 
+            <Style x:Key="IntervalButtonListBoxStyle"
                    TargetType="{x:Type ListBox}"
                    BasedOn="{StaticResource MonacoListBox}">
-                <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="Focusable" Value="False" />
+                <Setter Property="BorderThickness"
+                        Value="0" />
+                <Setter Property="Focusable"
+                        Value="False" />
                 <Setter Property="ItemsPanel">
                     <Setter.Value>
                         <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal" />
+                            <WrapPanel Orientation="Horizontal"
+                                       AutomationProperties.AutomationId="WrapPanel13_CE65367A" />
                         </ItemsPanelTemplate>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="ItemContainerStyle" Value="{StaticResource IntervalButtonListBoxItemStyle}" />
-                <Setter Property="Margin" Value="0" />
-                <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="False"/>
+                <Setter Property="ItemContainerStyle"
+                        Value="{StaticResource IntervalButtonListBoxItemStyle}" />
+                <Setter Property="Margin"
+                        Value="0" />
+                <Setter Property="VirtualizingStackPanel.IsVirtualizing"
+                        Value="False" />
             </Style>
-
-            <Style TargetType="GroupBox" BasedOn="{StaticResource MonacoGroupBox}">
-                <Setter Property="Margin" Value="0 10 0 0"/>
-                <Setter Property="Padding" Value="10 0 10 0"/>
+            <Style TargetType="GroupBox"
+                   BasedOn="{StaticResource MonacoGroupBox}">
+                <Setter Property="Margin"
+                        Value="0 10 0 0" />
+                <Setter Property="Padding"
+                        Value="10 0 10 0" />
             </Style>
-
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid>
+    <Grid AutomationProperties.AutomationId="Grid14_CE65367A">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition15_CE65367A" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition16_CE65367A" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition17_CE65367A" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition18_CE65367A" />
         </Grid.RowDefinitions>
-
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"
+                              AutomationProperties.AutomationId="ColumnDefinition19_CE65367A" />
         </Grid.ColumnDefinitions>
-
-        <GroupBox Grid.Row="0" 
+        <GroupBox Grid.Row="0"
                   Grid.Column="0"
                   Margin="0"
                   Header="{lex:Loc Key={x:Static loc:ResourceKeys.TestButtonLamps}}"
                   IsEnabled="{Binding TestModeEnabled}"
-                  Visibility="{Binding ButtonLampsAvailable, Converter={StaticResource TrueVisibleFalseCollapsed}}">
-            <StackPanel>
+                  Visibility="{Binding ButtonLampsAvailable, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                  AutomationProperties.AutomationId="GroupBox20_CE65367A">
+            <StackPanel AutomationProperties.AutomationId="StackPanel21_CE65367A">
                 <ListBox ItemsSource="{Binding ButtonLamps}"
                          SelectedItem="{Binding SelectedButtonLamp}"
+                         Name="ButtonLampsListBox"
                          SelectionMode="Single"
                          Style="{StaticResource LampButtonListBoxStyle}"
-                         Visibility="{Binding ButtonLampsAvailable, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
-                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.FlashIntervals}}" Margin="0 20 0 10" />
+                         Visibility="{Binding ButtonLampsAvailable, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                         AutomationProperties.AutomationId="ListBox22_CE65367A" />
+                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.FlashIntervals}}"
+                       Margin="0 20 0 10"
+                       AutomationProperties.AutomationId="Label23_CE65367A" />
                 <ListBox ItemsSource="{Binding Intervals}"
                          SelectedItem="{Binding SelectedInterval}"
                          SelectionMode="Single"
-                         Style="{StaticResource IntervalButtonListBoxStyle}" />
+                         Style="{StaticResource IntervalButtonListBoxStyle}"
+                         AutomationProperties.AutomationId="ListBox24_CE65367A" />
             </StackPanel>
         </GroupBox>
-
         <GroupBox Grid.Row="2"
                   Grid.Column="0"
-                  IsEnabled="{Binding TestModeEnabled}"
+                  IsEnabled="{Binding TowerLightsIsEnabled}"
                   Header="{lex:Loc Key={x:Static loc:ResourceKeys.TestTowerLights}}"
-                  Visibility="{Binding TowerLightsEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}">
-            <Grid Margin="4" VerticalAlignment="Top">
+                  Visibility="{Binding TowerLightsIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                  AutomationProperties.AutomationId="GroupBox25_CE65367A">
+            <Grid Margin="4"
+                  VerticalAlignment="Top"
+                  AutomationProperties.AutomationId="Grid26_CE65367A">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition27_CE65367A" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"
+                                      AutomationProperties.AutomationId="ColumnDefinition28_CE65367A" />
+                    <ColumnDefinition Width="Auto"
+                                      AutomationProperties.AutomationId="ColumnDefinition29_CE65367A" />
+                    <ColumnDefinition Width="Auto"
+                                      AutomationProperties.AutomationId="ColumnDefinition30_CE65367A" />
+                    <ColumnDefinition Width="100"
+                                      AutomationProperties.AutomationId="ColumnDefinition31_CE65367A" />
+                    <ColumnDefinition Width="Auto"
+                                      AutomationProperties.AutomationId="ColumnDefinition32_CE65367A" />
                 </Grid.ColumnDefinitions>
-                <ComboBox Grid.Column="0" 
-                          ItemsSource="{Binding TowerLights}" 
+                <ComboBox Grid.Column="0"
+                          Name="TowerLightTiersComboBox"
+                          ItemsSource="{Binding TowerLights}"
                           SelectedItem="{Binding SelectedTowerLight}"
                           DisplayMemberPath="Name"
-                          MinWidth="140" 
-                          MaxHeight="45"/>
-                <ComboBox Grid.Column="1" 
-                          ItemsSource="{Binding FlashStates}" 
-                          SelectedItem="{Binding SelectedFlashState}"
-                          MinWidth="240" 
+                          MinWidth="140"
                           MaxHeight="45"
-                          Margin="15 0 0 0">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}"/>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
+                          AutomationProperties.AutomationId="ComboBox33_CE65367A" />
+                <ComboBox Grid.Column="1"
+                          Name="TowerLightFlashStatesComboBox"
+                          ItemsSource="{Binding FlashStates}"
+                          SelectedItem="{Binding SelectedFlashState, UpdateSourceTrigger=PropertyChanged}"
+                          DisplayMemberPath="FlashStateString"
+                          MinWidth="240"
+                          MaxHeight="45"
+                          Margin="15 0 0 0"
+                          AutomationProperties.AutomationId="ComboBox34_CE65367A" />
                 <Button Grid.Column="2"
+                        Name="SetTowerLightFlashStateButton"
                         Content="{lex:Loc Key={x:Static loc:ResourceKeys.Set}}"
                         Command="{Binding SetTowerLightFlashStateCommand}"
                         MaxHeight="45"
-                        Margin="15 0 0 0"/>
-                <ListBox Grid.Column="4" 
-                         ItemsSource="{Binding TowerLights}" 
+                        Margin="15 0 0 0"
+                        AutomationProperties.AutomationId="Button36_CE65367A" />
+                <ListBox Grid.Column="4"
+                         ItemsSource="{Binding TowerLights}"
                          ItemContainerStyle="{StaticResource MonacoUnselectableListBoxItem}"
                          MinWidth="275"
                          BorderBrush="{DynamicResource GrayBrush9}"
-                         Style="{StaticResource MonacoListBox}">
+                         Style="{StaticResource MonacoListBox}"
+                         AutomationProperties.AutomationId="ListBox37_CE65367A">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Grid>
+                            <Grid AutomationProperties.AutomationId="Grid38_CE65367A">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" MinWidth="80"/>
-                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"
+                                                      MinWidth="80"
+                                                      AutomationProperties.AutomationId="ColumnDefinition39_CE65367A" />
+                                    <ColumnDefinition Width="*"
+                                                      AutomationProperties.AutomationId="ColumnDefinition40_CE65367A" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" Text="{Binding Name}"/>
+                                <TextBlock Grid.Column="0"
+                                           Text="{Binding Name}"
+                                           AutomationProperties.AutomationId="TextBlock41_CE65367A" />
                                 <RadioButton Grid.Column="1"
-                                             IsChecked="{Binding State}" 
-                                             Content="{Binding FlashStateName}" 
-                                             IsEnabled="False" 
-                                             Margin="15 0 0 0"/>
+                                             IsChecked="{Binding State}"
+                                             Content="{Binding FlashStateName}"
+                                             IsEnabled="False"
+                                             Margin="15 0 0 0"
+                                             AutomationProperties.AutomationId="RadioButton42_CE65367A" />
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -242,5 +295,4 @@
             </Grid>
         </GroupBox>
     </Grid>
-
 </operatorMenu:OperatorMenuPage>

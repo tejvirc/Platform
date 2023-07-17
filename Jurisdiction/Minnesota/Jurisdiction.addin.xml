@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.MinnesotaJurisdiction" filterid="MinnesotaLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.MinnesotaJurisdiction" filterid="MinnesotaLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.MinnesotaJurisdiction" filterid="MinnesotaLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -133,9 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="MinnesotaLocaleConfig">
     <FilePath FilePath="..\jurisdiction\Minnesota\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="MinnesotaLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\Minnesota\Lobby.config.xml" filterid="MinnesotaLobbyConfig" />

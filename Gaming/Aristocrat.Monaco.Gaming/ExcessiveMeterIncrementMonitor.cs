@@ -10,8 +10,8 @@
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.Button;
     using Kernel;
-    using log4net;
     using Localization.Properties;
+    using log4net;
 
     /// <summary>
     ///     This class monitor banknote in and coin in meter after game end
@@ -74,7 +74,7 @@
                 _disableManager.Disable(
                     ApplicationConstants.ExcessiveMeterIncrementErrorGuid,
                     SystemDisablePriority.Immediate,
-                    () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExcessiveMeterIncrementError));
+                    () => Localizer.ForLockup().GetString(ResourceKeys.ExcessiveMeterIncrementError));
             }
         }
 
@@ -92,7 +92,7 @@
                 _disableManager.Disable(
                     ApplicationConstants.ExcessiveMeterIncrementErrorGuid,
                     SystemDisablePriority.Immediate,
-                    () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExcessiveMeterIncrementError));
+                    () => Localizer.ForLockup().GetString(ResourceKeys.ExcessiveMeterIncrementError));
                 _eventBus.Publish(new ExcessiveMeterIncrementEvent());
                 _propertiesManager.SetProperty(ApplicationConstants.ExcessiveMeterIncrementLockedKey, true);
             }

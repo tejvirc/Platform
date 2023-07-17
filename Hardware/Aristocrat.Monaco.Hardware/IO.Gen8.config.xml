@@ -15,6 +15,7 @@
     <Button PhysicalId="24" LogicalId="111" Enabled="true" Name="Bet D" LampBit="4" />
     <Button PhysicalId="23" LogicalId="112" Enabled="true" Name="Bet E/Bet All" LampBit="5"/>
     <Button PhysicalId="22" LogicalId="113" Enabled="true" Name="Play/Spin/Draw" LampBit="6" />
+    <Button PhysicalId="21" LogicalId="133" Enabled="true" Name="DualBash Left" LampBit="7" />
     <Button PhysicalId="22" LogicalId="114" Enabled="true" Name="Bet Max" />
     <Button PhysicalId="35" LogicalId="124" Enabled="true" Name="Barkeeper" />
     <Button PhysicalId="1" LogicalId="130" Enabled="true" Name="Jackpot SW" />

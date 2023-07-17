@@ -44,12 +44,14 @@
                     GameHistory = new GamingConfigurationGameHistory(),
                     GameEnd = new GamingConfigurationGameEnd(),
                     GameWin = new GamingConfigurationGameWin(),
+                    MaximumGameRoundWin = new GamingConfigurationMaximumGameRoundWin(),
                     FreeGames = new GamingConfigurationFreeGames(),
                     Messages = new GamingConfigurationMessages(),
                     StateChangeOverride = new GamingConfigurationStateChangeOverride(),
                     OperatorMenu = new GamingConfigurationOperatorMenu(),
                     LockupBehavior = new GamingConfigurationLockupBehavior(),
                     ReelStop = new GamingConfigurationReelStop(),
+                    ReelSpeed = new GamingConfigurationReelSpeed(),
                     ReelStopInBaseGame = new GamingConfigurationReelStopInBaseGame(),
                     GameCategory = new GamingConfigurationGameCategory(),
                     DefaultCreditDisplay = new GamingConfigurationDefaultCreditDisplay(),
@@ -60,8 +62,9 @@
                     PlayOnFromGambleAvailable = new GamingConfigurationPlayOnFromGambleAvailable(),
                     PlayOnFromPresentWins = new GamingConfigurationPlayOnFromPresentWins(),
                     Gamble = new GamingConfigurationGamble(),
+                    PlayLines = new GamingConfigurationPlayLines(),
                     ContinuousPlaySupport = new GamingConfigurationContinuousPlaySupport(),
-                    DynamicHelpMenuText = new GamingConfigurationDynamicHelpMenuText(),
+                    DynamicHelpScreen = new GamingConfigurationDynamicHelpScreen(),
                     ResetGamesPlayedSinceDoorClosed = new GamingConfigurationResetGamesPlayedSinceDoorClosed(),
                     GameRoundDurationMs = new GamingConfigurationGameRoundDurationMs(),
                     AttendantServiceTimeoutSupport = new GamingConfigurationAttendantServiceTimeoutSupport(),
@@ -72,6 +75,20 @@
                     GameLoad = new GamingConfigurationGameLoad(),
                     ProgressivePoolCreation = new GamingConfigurationProgressivePoolCreation(),
                     PlayerInformationDisplay = new GamingConfigurationPlayerInformationDisplay(),
+                    FreeSpin = new GamingConfigurationFreeSpin(),
+                    Win = new GamingConfigurationWin(),
+                    DisplayGamePayMessage = new GamingConfigurationDisplayGamePayMessage(),
+                    WagerLimits = new GamingConfigurationWagerLimits(),
+                    VolumeLevel = new GamingConfigurationVolumeLevel(),
+                    Service = new GamingConfigurationService(),
+                    Clock = new GamingConfigurationClock(),
+                    KenoFreeGames = new GamingConfigurationKenoFreeGames(),
+                    InitialZeroWager = new GamingConfigurationInitialZeroWager(),
+                    ChangeLineSelectionAtZeroCredit = new GamingConfigurationChangeLineSelectionAtZeroCredit(),
+                    GameDuration = new GamingConfigurationGameDuration(),
+                    GameLog = new GamingConfigurationGameLog(),
+                    Audio = new GamingConfigurationAudio(),
+                    ButtonAnimation = new GamingConfigurationButtonAnimation()
                 });
 
             var blockExists = storageManager.BlockExists(storageName);
@@ -123,10 +140,27 @@
                 { GamingConstants.AutocompleteExpired, (InitFromStorage(GamingConstants.AutocompleteExpired), true) },
                 { GamingConstants.GameRoundDurationMs, (InitFromStorage(GamingConstants.GameRoundDurationMs), true) },
                 { GamingConstants.ReelStopEnabled, (InitFromStorage(GamingConstants.ReelStopEnabled), true) },
+                { GamingConstants.ReelSpeedKey, (InitFromStorage(GamingConstants.ReelSpeedKey), true) },
+                { GamingConstants.WagerLimitsMaxTotalWagerKey, (InitFromStorage(GamingConstants.WagerLimitsMaxTotalWagerKey), true) },
+                { GamingConstants.WagerLimitsUseKey, (InitFromStorage(GamingConstants.WagerLimitsUseKey), true) },
+                { GamingConstants.MaximumGameRoundWinResetWinAmountKey, (InitFromStorage(GamingConstants.MaximumGameRoundWinResetWinAmountKey), true) },
+                { GamingConstants.VolumeLevelShowInHelpScreenKey, (InitFromStorage(GamingConstants.VolumeLevelShowInHelpScreenKey), true) },
+                { GamingConstants.ServiceUseKey, (InitFromStorage(GamingConstants.ServiceUseKey), true) },
+                { GamingConstants.ClockUseHInDisplayKey, (InitFromStorage(GamingConstants.ClockUseHInDisplayKey), true) },
+                { GamingConstants.KenoFreeGamesSelectionChangeKey, (InitFromStorage(GamingConstants.KenoFreeGamesSelectionChangeKey), true) },
+                { GamingConstants.KenoFreeGamesAutoPlayKey, (InitFromStorage(GamingConstants.KenoFreeGamesAutoPlayKey), true) },
+                { GamingConstants.InitialZeroWagerUseKey, (InitFromStorage(GamingConstants.InitialZeroWagerUseKey), true) },
+                { GamingConstants.ChangeLineSelectionAtZeroCreditUseKey, (InitFromStorage(GamingConstants.ChangeLineSelectionAtZeroCreditUseKey), true) },
+                { GamingConstants.GameDurationUseMarketGameTimeKey, (InitFromStorage(GamingConstants.GameDurationUseMarketGameTimeKey), true) },
+                { GamingConstants.GameLogEnabledKey, (InitFromStorage(GamingConstants.GameLogEnabledKey), true) },
+                { GamingConstants.GameLogOutcomeDetailsKey, (InitFromStorage(GamingConstants.GameLogOutcomeDetailsKey), true) },
+                { GamingConstants.AudioAudioChannelsKey, (InitFromStorage(GamingConstants.AudioAudioChannelsKey), true) },
+                { GamingConstants.FreeSpinClearWinMeterKey, (InitFromStorage(GamingConstants.FreeSpinClearWinMeterKey), true) },
+                { GamingConstants.WinDestinationKey, (InitFromStorage(GamingConstants.WinDestinationKey), true) },
+                { GamingConstants.ButtonAnimationGoodLuckKey, (InitFromStorage(GamingConstants.ButtonAnimationGoodLuckKey), true) },
                 { GamingConstants.ReelStopInBaseGameEnabled, ((object)configuration.ReelStopInBaseGame?.Enabled ?? true, false) },
                 { GamingConstants.ApplyGameCategorySettings, ((object)configuration.GameCategory?.ApplyGameCategorySettings ?? false, false) },
-                { GamingConstants.DisplayProgressiveCeilingMessage, ((object)configuration.DynamicHelpMenuText?.DisplayProgressiveCeilingMessage ?? false, false) },
-                { GamingConstants.DisplayStopReelMessage, ((object)configuration.DynamicHelpMenuText?.DisplayStopReelMessage ?? false, false) },
+                { GamingConstants.JackpotCeilingHelpScreen, ((object)configuration.DynamicHelpScreen?.JackpotCeiling ?? false, false) },
                 { GamingConstants.RetainLastRoundResult, ((object)configuration.RetainLastRoundResult?.Enabled ?? false, false) },
                 {
                     GamingConstants.WinMeterResetOnBetLineDenomChanged, (
@@ -161,6 +195,8 @@
                 { GamingConstants.PlayOnFromPresentWins, ((object)configuration.PlayOnFromPresentWins?.Enabled ?? false, false) },
                 { GamingConstants.GambleAllowed, ((object)configuration.Gamble?.Allowed ?? true, false) },
                 { GamingConstants.GambleEnabled, ((object)configuration.Gamble?.Enabled ?? false, false) },
+                { GamingConstants.GambleSkipByJackpotHit, ((object)configuration.Gamble?.SkipByJackpotHit ?? false, false) },
+                { GamingConstants.MaximumGameRoundWinAmount, ((object)configuration.MaximumGameRoundWin?.Amount ?? 0L, false) },
                 { GamingConstants.GambleWagerLimit, (InitFromStorage(GamingConstants.GambleWagerLimit), true) },
                 { GamingConstants.GambleWagerLimitConfigurable, ((object)configuration.Gamble?.WagerLimitConfigurable ?? true, false) },
                 { GamingConstants.LetItRideAllowed, ((object)configuration.LetItRide?.Allowed ?? true, false) },
@@ -169,6 +205,9 @@
                 { GamingConstants.GambleWinLimitConfigurable, ((object)configuration.Gamble?.WinLimitConfigurable ?? true, false) },
                 { GamingConstants.GambleWinLimit, (InitFromStorage(GamingConstants.GambleWinLimit), true) },
                 { GamingConstants.UseGambleWinLimit, ((object)configuration.Gamble?.UseWinLimit ?? false, false) },
+                { GamingConstants.PlayLinesAllowed, ((object)configuration.PlayLines?.Allowed ?? false, false) },
+                { GamingConstants.PlayLinesShowLinesOnFeatureStart, ((object)configuration.PlayLines?.ShowLinesOnFeatureStart ?? false, false) },
+                { GamingConstants.PlayLinesType, ((object)configuration.PlayLines?.Type ?? string.Empty, false) },
                 { GamingConstants.ContinuousPlayMode, (InitFromStorage(GamingConstants.ContinuousPlayMode), true) },
                 { GamingConstants.ContinuousPlayModeConfigurable, ((object)configuration.ContinuousPlaySupport?.Configurable ?? false, false) },
                 { GamingConstants.ContinuousPlayModeButtonsToUse, ((object)configuration.ContinuousPlaySupport?.AllowedButtons ?? new [] { ContinuousPlayButton.Play }, false) },
@@ -206,6 +245,7 @@
                 { GamingConstants.AutoPlayAllowed, (configuration.AutoPlay?.Allowed ?? true, false) },
                 { GamingConstants.DisplayVoucherIssuedMessage, (configuration.Messages?.VoucherIssued?.Display ?? true, false) },
                 { GamingConstants.GameStartMethod, (InitFromStorage(GamingConstants.GameStartMethod), true) },
+                { GamingConstants.GameConfigurableStartMethods, (configuration.PhysicalButtons?.GameStartButtons?.GameConfigurableButtons ?? new[] { GameStartConfigurableMethod.MaxBet }, false) },
                 { GamingConstants.GameStartMethodConfigurable, (configuration.PhysicalButtons?.GameStartButtons?.Configurable ?? false, false) },
                 { GamingConstants.GameStartMethodSettingVisible, (configuration.PhysicalButtons?.GameStartButtons?.SettingsVisible ?? true, false) },
                 { GamingConstants.ReportCashoutButtonPressWithZeroCredit, (configuration.PhysicalButtons?.CashOutButton?.ReportToHostWithZeroCredit ?? false, false) },
@@ -225,6 +265,11 @@
                 { GamingConstants.AttendantServiceTimeoutInMilliseconds, (configuration.AttendantServiceTimeoutSupport?.TimeoutInMilliseconds ?? 180000, false) },
                 { GamingConstants.OperatorMenuGameConfigurationInitialConfigComplete, (InitFromStorage(GamingConstants.OperatorMenuGameConfigurationInitialConfigComplete), true) },
                 { GamingConstants.ButtonLayoutBetButtonsOnBottom, (configuration?.PhysicalButtons?.BetButtons?.DisplayOnBottom ?? true, false) },
+                { GamingConstants.ButtonLayoutBetButtonsBetDown, (configuration?.PhysicalButtons?.BetButtons?.BetDown ?? "false", false) },
+                { GamingConstants.ButtonLayoutBetButtonsBetUp, (configuration?.PhysicalButtons?.BetButtons?.BetUp ?? "false", false) },
+                { GamingConstants.ButtonLayoutBetButtonsMaxBet, (configuration?.PhysicalButtons?.BetButtons?.MaxBet ?? "false", false) },
+                { GamingConstants.ButtonLayoutPhysicalButtonLeftPlay, (configuration?.PhysicalButtons?.LeftPlayButton?.Required ?? "false", false) },
+                { GamingConstants.ButtonLayoutPhysicalButtonLeftPlayOptional, (configuration?.PhysicalButtons?.LeftPlayButton?.Optional ?? false, false) },
                 { GamingConstants.ButtonLayoutPhysicalButtonCollect, (configuration?.PhysicalButtons?.CollectButton?.Required ?? "true", false) },
                 { GamingConstants.ButtonLayoutPhysicalButtonCollectOptional, (configuration?.PhysicalButtons?.CollectButton?.Optional ?? false, false) },
                 { GamingConstants.ButtonLayoutPhysicalButtonGamble, (configuration?.PhysicalButtons?.GambleButton?.Required ?? "false", false) },
@@ -270,17 +315,52 @@
                 { GamingConstants.PlayerInformationDisplay.PlayerInformationScreenEnabled, (playerInformationDisplayOptions?.PlayerInformationScreen?.Enabled ?? false, false) },
                 { GamingConstants.UseRngCycling, (configuration.RngCycling?.Enabled ?? false, false) },
                 { GamingConstants.ShowPlayerSpeedButtonEnabled, (configuration.ShowPlayerSpeedButton?.Enabled ?? true, false) },
+                { GamingConstants.BonusTransferPlaySound, ((object)configuration.BonusTransfer?.PlaySound ?? true, false) },
                 { GamingConstants.LaunchGameAfterReboot, (InitFromStorage(GamingConstants.LaunchGameAfterReboot), true) },
-                { GamingConstants.DenomSelectionLobby, (configuration.DenomSelectionLobby?.Mode ?? DenomSelectionLobby.Allowed, false) }
+                { GamingConstants.DenomSelectionLobby, (configuration.DenomSelectionLobby?.Mode ?? DenomSelectionLobby.Allowed, false) },
+                { GamingConstants.DisplayGamePayMessageUseKey, (InitFromStorage(GamingConstants.DisplayGamePayMessageUseKey), true)},
+                { GamingConstants.DisplayGamePayMessageFormatKey, (InitFromStorage(GamingConstants.DisplayGamePayMessageFormatKey), true)},
+                { GamingConstants.WinTuneCapping, (configuration.WinIncrement?.WinTuneCapping ?? false, false) },
+                { GamingConstants.WinIncrementSpeed, (configuration.WinIncrement?.WinIncrementSpeed ?? WinIncrementSpeed.WinAmountOnly, false) },
+                { GamingConstants.AutocompleteGameRoundEnabled, (configuration.AutoCompleteGameRound?.Enabled ?? true, false) },
+                { GamingConstants.ProgressiveSetupReadonly, (configuration.ProgressiveView?.InitialSetupView?.Readonly ?? false, false) },
+                { GamingConstants.ActionOnMaxWinReached, (configuration.MaxWin?.OnMaxWinReached ?? "endgame", false) },
+                { GamingConstants.AutoEnableSimpleGames, (configuration.AutoEnableSimpleGames?.Enabled?? true, false) }
             };
 
             if (!blockExists)
             {
+                SetPropertyBlockNotExist(configuration);
+            }
+        }
+
+        private void SetPropertyBlockNotExist(GamingConfiguration configuration)
+        {
                 // This is just weird, but because the storage block accessor is typed it will return the default value vs. a null
                 // It renders the default passed in to GetProperty useless, since it returns the default type.
                 SetProperty(GamingConstants.ShowServiceButton, true);
                 SetProperty(GamingConstants.ProgressiveCommitTimeoutMs, GamingConstants.DefaultProgressiveCommitTimeoutMs);
                 SetProperty(GamingConstants.ReelStopEnabled, configuration.ReelStop?.Enabled ?? true);
+                SetProperty(GamingConstants.ReelSpeedKey, Convert.ToDouble(configuration.ReelSpeed?.Value ?? Convert.ToString(GamingConstants.ReelSpeed)));
+                SetProperty(GamingConstants.WagerLimitsMaxTotalWagerKey, configuration.WagerLimits?.MaxTotalWager ?? GamingConstants.WagerLimitsMaxTotalWager);
+                SetProperty(GamingConstants.WagerLimitsUseKey, configuration.WagerLimits?.Use ?? GamingConstants.WagerLimitsUse);
+                SetProperty(GamingConstants.MaximumGameRoundWinResetWinAmountKey, configuration.MaximumGameRoundWin?.ResetWinAmount ?? GamingConstants.MaximumGameRoundWinResetWinAmount);
+                SetProperty(GamingConstants.VolumeLevelShowInHelpScreenKey, configuration.VolumeLevel?.ShowInHelpScreen ?? GamingConstants.VolumeLevelShowInHelpScreen);
+                SetProperty(GamingConstants.ServiceUseKey, configuration.Service?.Use ?? GamingConstants.ServiceUse);
+                SetProperty(GamingConstants.ClockUseHInDisplayKey, configuration.Clock?.UseHInDisplay ?? GamingConstants.ClockUseHInDisplay);
+                SetProperty(GamingConstants.KenoFreeGamesSelectionChangeKey, configuration.KenoFreeGames?.SelectionChange ?? GamingConstants.KenoFreeGamesSelectionChange);
+                SetProperty(GamingConstants.KenoFreeGamesAutoPlayKey, configuration.KenoFreeGames?.AutoPlay ?? GamingConstants.KenoFreeGamesAutoPlay);
+                SetProperty(GamingConstants.InitialZeroWagerUseKey, configuration.InitialZeroWager?.Use ?? GamingConstants.InitialZeroWagerUse);
+                SetProperty(GamingConstants.ChangeLineSelectionAtZeroCreditUseKey, configuration.ChangeLineSelectionAtZeroCredit?.Use ?? GamingConstants.ChangeLineSelectionAtZeroCreditUse);
+                SetProperty(GamingConstants.GameDurationUseMarketGameTimeKey, configuration.GameDuration?.UseMarketGameTime ?? GamingConstants.GameDurationUseMarketGameTime);
+                SetProperty(GamingConstants.GameLogEnabledKey, configuration.GameLog?.Enabled ?? GamingConstants.GameLogEnabled);
+                SetProperty(GamingConstants.GameLogOutcomeDetailsKey, configuration.GameLog?.OutcomeDetails ?? GamingConstants.GameLogOutcomeDetails);
+                SetProperty(GamingConstants.AudioAudioChannelsKey, configuration.Audio?.AudioChannels ?? GamingConstants.AudioAudioChannels);
+                SetProperty(GamingConstants.FreeSpinClearWinMeterKey, configuration.FreeSpin?.ClearWinMeter ?? GamingConstants.FreeSpinClearWinMeter);
+                SetProperty(GamingConstants.WinDestinationKey, configuration.Win?.Destination ?? GamingConstants.WinDestination);
+                SetProperty(GamingConstants.ButtonAnimationGoodLuckKey, configuration.ButtonAnimation?.GoodLuck ?? GamingConstants.ButtonAnimationGoodLuck);
+                SetProperty(GamingConstants.DisplayGamePayMessageUseKey, configuration.DisplayGamePayMessage?.Use ?? GamingConstants.DisplayGamePayMessageUse);
+                SetProperty(GamingConstants.DisplayGamePayMessageFormatKey, configuration.DisplayGamePayMessage?.Format ?? GamingConstants.DisplayGamePayMessageFormat);
                 SetProperty(GamingConstants.AutoHoldEnable, configuration.AutoHold?.Enable ?? false);
                 SetProperty(GamingConstants.ReplayPauseActive, configuration.ReplayPause?.Active ?? true);
                 SetProperty(GamingConstants.GambleWagerLimit, configuration.Gamble?.WagerLimit ?? GamingConstants.DefaultGambleWagerLimit);
@@ -320,7 +400,6 @@
                     propertiesManager.SetProperty(ApplicationConstants.MachineSettingsImported, machineSettingsImported);
                 }
             }
-        }
 
         /// <inheritdoc />
         public ICollection<KeyValuePair<string, object>> GetCollection

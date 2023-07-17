@@ -37,6 +37,9 @@
     <CodeAnalysisDictionary Include="$(SolutionDir)CustomDictionary.xml">
       <Link>CustomDictionary.xml</Link>
     </CodeAnalysisDictionary>
+    <Content Include="Aristocrat.Monaco.Hardware.Reel.Capabilities.BrightnessCapability.Options.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Aristocrat.Monaco.Hardware.HardwareConfiguration.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -126,7 +129,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.9" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.22" />
     <PackageReference Include="Aristocrat.Fmod" Version="1.1.3" />
     <PackageReference Include="Aristocrat.SmartCard" Version="1.1.2" />
     <PackageReference Include="Aristocrat.System.Data.SQLite.Core" Version="1.0.110" />

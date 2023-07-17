@@ -6,91 +6,102 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
-                               mc:Ignorable="d" >
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
+                               mc:Ignorable="d"
+                               d:DataContext="{d:DesignInstance viewModels:GameStatisticsViewModel, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-        <Grid>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                  VerticalScrollBarVisibility="Auto"
+                  AutomationProperties.AutomationId="ScrollViewer0_2A57DBA">
+        <Grid AutomationProperties.AutomationId="Grid1_2A57DBA">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition2_2A57DBA" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition4_2A57DBA" />
+                <RowDefinition Height="*"
+                               AutomationProperties.AutomationId="RowDefinition6_2A57DBA" />
             </Grid.RowDefinitions>
-
-            <GroupBox Grid.Row="0"  Header="{lex:Loc Key={x:Static loc:ResourceKeys.BaseGameStatisticsTitle}}"
-                  Visibility="{Binding BaseStatsCollapsed, Converter={StaticResource TrueCollapsedFalseVisible}}">
-            </GroupBox>
-
-            <GroupBox Grid.Row="2" Header="Lucky Chance Feature Statistics" Visibility="{Binding FeatureStatsCollapsed, Converter={StaticResource TrueCollapsedFalseVisible}}">
-                <Grid>
+            <GroupBox Grid.Row="0"
+                      Margin="0 0 0 20"
+                      Header="{lex:Loc Key={x:Static loc:ResourceKeys.BaseGameStatisticsTitle}}"
+                      Visibility="{Binding BaseStatsCollapsed, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                      AutomationProperties.AutomationId="GroupBox7_2A57DBA"></GroupBox>
+            <GroupBox Grid.Row="1"
+                      Margin="0 0 0 20"
+                      Header="Lucky Chance Feature Statistics"
+                      Visibility="{Binding FeatureStatsCollapsed, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                      AutomationProperties.AutomationId="GroupBox8_2A57DBA">
+                <Grid AutomationProperties.AutomationId="Grid9_2A57DBA">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition10_2A57DBA" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition11_2A57DBA" />
                     </Grid.RowDefinitions>
-                    <StackPanel Grid.Row ="0" HorizontalAlignment="Left" VerticalAlignment="Top"
-                            Visibility="Visible" Orientation="Horizontal">
-                        <Label  Content="Game" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding Games}"
-                              Margin="10"
-                              SelectedItem="{Binding SelectedGame, Mode=TwoWay}"
-                              MinWidth="250"
-                              IsEnabled="{Binding GameSelectionEnabled}"/>
+                    <StackPanel Grid.Row="0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Visibility="Visible"
+                                Orientation="Horizontal"
+                                AutomationProperties.AutomationId="StackPanel12_2A57DBA">
+                        <Label Content="Game"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               AutomationProperties.AutomationId="Label13_2A57DBA" />
+                        <ComboBox HorizontalAlignment="Left"
+                                  ItemsSource="{Binding Games}"
+                                  Margin="10"
+                                  SelectedItem="{Binding SelectedGame, Mode=TwoWay}"
+                                  MinWidth="250"
+                                  IsEnabled="{Binding GameSelectionEnabled}"
+                                  AutomationProperties.AutomationId="ComboBox14_2A57DBA" />
                     </StackPanel>
-                    <StackPanel Grid.Row="1">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-
-                            <DataGrid ItemsSource="{Binding GameFeatureMeters}" >
-                                <DataGrid.Columns>
+                    <Grid Grid.Row="1"
+                          AutomationProperties.AutomationId="Grid16_2A57DBA">
+                        <DataGrid ItemsSource="{Binding GameFeatureMeters}"
+                                  AutomationProperties.AutomationId="DataGrid19_2A57DBA">
+                            <DataGrid.Columns>
                                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
-                                            Width="400"
-                                            Binding="{Binding MeterName}" />
+                                                    loc:Localizer.For="Operator"
+                                                    Width="400"
+                                                    Binding="{Binding MeterName}"
+                                                    AutomationProperties.AutomationId="DataGridTextColumn20_2A57DBA" />
                                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
-                                            Width="500"
-                                            Binding="{Binding Value}" />
-                                </DataGrid.Columns>
-                            </DataGrid>
-                        </Grid>
-                    </StackPanel>
+                                                    loc:Localizer.For="Operator"
+                                                    Width="500"
+                                                    Binding="{Binding Value}"
+                                                    AutomationProperties.AutomationId="DataGridTextColumn21_2A57DBA" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
                 </Grid>
             </GroupBox>
-
-            <GroupBox x:Name="MeterGroup" 
-                  Grid.Row="4" 
-                  Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameStatisticsGambleFeature}}">
-
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-
-                    <DataGrid ItemsSource="{Binding GameGambleMeters}" >
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
+            <GroupBox x:Name="MeterGroup"
+                      Grid.Row="2"
+                      Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameStatisticsGambleFeature}}"
+                      AutomationProperties.AutomationId="GroupBox22_2A57DBA">
+                <DataGrid ItemsSource="{Binding GameGambleMeters}"
+                          AutomationProperties.AutomationId="DataGrid26_2A57DBA">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
+                                            loc:Localizer.For="Operator"
                                             Width="400"
-                                            Binding="{Binding Name}" />
-                            <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
+                                            Binding="{Binding Name}"
+                                            AutomationProperties.AutomationId="DataGridTextColumn27_2A57DBA" />
+                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
+                                            loc:Localizer.For="Operator"
                                             Width="500"
-                                            Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Grid>
+                                            Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
+                                            AutomationProperties.AutomationId="DataGridTextColumn28_2A57DBA" />
+                    </DataGrid.Columns>
+                </DataGrid>
             </GroupBox>
         </Grid>
     </ScrollViewer>

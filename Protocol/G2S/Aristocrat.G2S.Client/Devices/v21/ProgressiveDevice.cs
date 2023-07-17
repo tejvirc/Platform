@@ -15,6 +15,8 @@
         private const int EgmTimeoutException = 1;
         private const int HostRejectedException = 2;
 
+        private readonly IEventLift _eventLift;
+
         private bool _deviceCommunicationClosed;
         private bool _disposed;
 
@@ -27,9 +29,11 @@
         /// </summary>
         /// <param name="deviceId">that is device id of progressive</param>
         /// <param name="deviceStateObserver">deviceStateObserver instance</param>
-        public ProgressiveDevice(int deviceId, IDeviceObserver deviceStateObserver)
+        /// <param name="eventLift">The event lift</param>
+        public ProgressiveDevice(int deviceId, IDeviceObserver deviceStateObserver, IEventLift eventLift)
             : base(deviceId, deviceStateObserver, false)
         {
+            _eventLift = eventLift;
             SetDefaults();
         }
 
@@ -428,12 +432,11 @@
             progressiveLog.payMethod = t_progPayMethods.G2S_payHandpay;
 
             // Send Event to host
-            EventHandlerDevice.EventReport(
-                this.PrefixedDeviceClass(),
-                Id,
+            _eventLift.Report(
+                this,
                 EventCode.G2S_PGE106,
-                transactionId: command.transactionId,
-                transactionList: new transactionList
+                command.transactionId,
+                new transactionList
                 {
                     transactionInfo = new[]
                     {

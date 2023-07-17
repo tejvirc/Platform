@@ -21,6 +21,7 @@
         private List<CoinInRewardLevel> _coinInRewardLevels;
         private List<CashInRewardLevel> _cashInRewardLevels;
         private long _rewardLevelCoinInAmount;
+        private bool _coinInRateEnabled;
 
         public BarkeeperConfigurationViewModel()
             : this(ServiceManager.GetInstance().GetService<IBarkeeperHandler>())
@@ -30,7 +31,7 @@
                 _ =>
                 {
                     RaisePropertyChanged(nameof(RewardLevels));
-                    RaisePropertyChanged(nameof(RewardLevels.CoinInStrategy.CoinInRate.Enabled));
+                    RaisePropertyChanged(nameof(CoinInRateEnabled));
                 });
 
             CashInEnabledChangedCommand = new ActionCommand<object>(
@@ -71,6 +72,17 @@
                 {
                     ValidateCoinInRate();
                 }
+            }
+        }
+
+        public bool CoinInRateEnabled
+        {
+            get => _coinInRateEnabled;
+            set
+            {
+                SetProperty(ref _coinInRateEnabled, value, nameof(CoinInRateEnabled));
+                ValidateCoinInRate();
+                RaisePropertyChanged(nameof(RewardLevelCoinInAmount));
             }
         }
 
@@ -144,7 +156,9 @@
                 _barkeeperHandler.CreditsInDuringSession.MillicentsToDollars().FormattedCurrencyString();
             CoinInSessionMeter = _barkeeperHandler.CoinInDuringSession.MillicentsToDollars().FormattedCurrencyString();
 
+            UpdateRewardLevels();
             RewardLevelCoinInAmount = _rewardLevels.CoinInStrategy.CoinInRate.Amount;
+            CoinInRateEnabled = ValidateCoinInRate() && _rewardLevels.CoinInStrategy.CoinInRate.Enabled;
         }
 
         protected override void OnUnloaded()
@@ -156,41 +170,16 @@
         protected override void OnCommitted()
         {
             base.OnCommitted();
-            CoinInRewardLevels?.Where(lvl => !lvl.ValidateThresholdInCents() && lvl.Enabled).ToList()
-                .ForEach(lvl => lvl.Enabled = false);
-            CashInRewardLevels?.Where(lvl => !lvl.ValidateThresholdInCents() && lvl.Enabled).ToList()
-                .ForEach(lvl => lvl.Enabled = false);
+            UpdateRewardLevels();
 
-            foreach (var rewardLevel in RewardLevels.RewardLevels.Where(CoinInStrategyPredicate))
+            RewardLevels.CoinInStrategy.CoinInRate.Enabled = CoinInRateEnabled && ValidateCoinInRate();
+
+            if (RewardLevels.CoinInStrategy.CoinInRate.Enabled)
             {
-                var coinInRewardLevel = _coinInRewardLevels.FirstOrDefault(x => x.Name == rewardLevel.Name);
-                if (coinInRewardLevel != null)
-                {
-                    rewardLevel.ThresholdInCents = coinInRewardLevel.ThresholdInCents;
-                    rewardLevel.Enabled = coinInRewardLevel.Enabled;
-                    rewardLevel.Alert = coinInRewardLevel.Alert;
-                    rewardLevel.Color = coinInRewardLevel.Color;
-                }
+                RewardLevels.CoinInStrategy.CoinInRate.Amount = RewardLevelCoinInAmount;
             }
 
-            foreach (var rewardLevel in RewardLevels.RewardLevels.Where(CashInStrategyPredicate))
-            {
-                var cashInRewardLevel = _cashInRewardLevels.FirstOrDefault(x => x.Name == rewardLevel.Name);
-                if (cashInRewardLevel != null)
-                {
-                    rewardLevel.ThresholdInCents = cashInRewardLevel.ThresholdInCents;
-                    rewardLevel.Enabled = cashInRewardLevel.Enabled;
-                    rewardLevel.Alert = cashInRewardLevel.Alert;
-                    rewardLevel.Color = cashInRewardLevel.Color;
-                }
-            }
-
-            RewardLevels.CoinInStrategy.CoinInRate.Enabled = RewardLevels.CoinInStrategy.CoinInRate.Enabled &&
-                                                             RewardLevels.CoinInStrategy.CoinInRate.Amount > 0 &&
-                                                             ValidateCoinInRate();
-            RewardLevels.CoinInStrategy.CoinInRate.Amount = RewardLevelCoinInAmount;
-
-            if (Committed || HasErrors || _barkeeperHandler.RewardLevels.Equals(RewardLevels))
+            if (Committed || _barkeeperHandler.RewardLevels.Equals(RewardLevels))
             {
                 return;
             }
@@ -218,6 +207,44 @@
 
             SetError(nameof(RewardLevelCoinInAmount), coinInRateValidate);
             return string.IsNullOrEmpty(coinInRateValidate);
+        }
+
+        private void UpdateRewardLevels()
+        {
+            CoinInRewardLevels?.Where(lvl => !lvl.ValidateThresholdInCents() && lvl.Enabled).ToList()
+                .ForEach(lvl => lvl.Enabled = false);
+            CashInRewardLevels?.Where(lvl => !lvl.ValidateThresholdInCents() && lvl.Enabled).ToList()
+                .ForEach(lvl => lvl.Enabled = false);
+
+            foreach (var rewardLevel in RewardLevels.RewardLevels.Where(CoinInStrategyPredicate))
+            {
+                var coinInRewardLevel = _coinInRewardLevels.FirstOrDefault(x => x.Name == rewardLevel.Name);
+                if (coinInRewardLevel is not null)
+                {
+                    if (!coinInRewardLevel.ThresholdError)
+                    {
+                        rewardLevel.ThresholdInCents = coinInRewardLevel.ThresholdInCents;
+                    }
+                    rewardLevel.Enabled = coinInRewardLevel.Enabled;
+                    rewardLevel.Alert = coinInRewardLevel.Alert;
+                    rewardLevel.Color = coinInRewardLevel.Color;
+                }
+            }
+
+            foreach (var rewardLevel in RewardLevels.RewardLevels.Where(CashInStrategyPredicate))
+            {
+                var cashInRewardLevel = _cashInRewardLevels.FirstOrDefault(x => x.Name == rewardLevel.Name);
+                if (cashInRewardLevel is not null)
+                {
+                    if (!cashInRewardLevel.ThresholdError)
+                    {
+                        rewardLevel.ThresholdInCents = cashInRewardLevel.ThresholdInCents;
+                    }
+                    rewardLevel.Enabled = cashInRewardLevel.Enabled;
+                    rewardLevel.Alert = cashInRewardLevel.Alert;
+                    rewardLevel.Color = cashInRewardLevel.Color;
+                }
+            }
         }
 
         private bool CoinInStrategyPredicate(RewardLevel rewardLevel)

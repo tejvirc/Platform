@@ -123,7 +123,7 @@
             _commandBuilderMock
                 .Verify(m => m.Build(It.IsAny<INoteAcceptorDevice>(), It.IsAny<noteAcceptorStatus>()), Times.Once);
             _eventLiftMock
-                .Verify(m => m.Report(It.IsAny<IDevice>(), It.IsAny<string>(), It.IsAny<deviceList1>(), It.IsAny<meterList>()), Times.Never);
+                .Verify(m => m.Report(It.IsAny<IDevice>(), It.IsAny<string>(), It.IsAny<deviceList1>(), It.IsAny<meterList>(), It.IsAny<IEvent>()), Times.Never);
         }
 
         [TestMethod]
@@ -137,7 +137,7 @@
             _commandBuilderMock
                 .Verify(m => m.Build(It.IsAny<INoteAcceptorDevice>(), It.IsAny<noteAcceptorStatus>()), Times.Never);
             _eventLiftMock
-                .Verify(m => m.Report(It.IsAny<IDevice>(), It.IsAny<string>(), It.IsAny<deviceList1>(), It.IsAny<meterList>()), Times.Never);
+                .Verify(m => m.Report(It.IsAny<IDevice>(), It.IsAny<string>(), It.IsAny<deviceList1>(), It.IsAny<meterList>(), It.IsAny<IEvent>()), Times.Never);
         }
 
         [TestMethod]
@@ -152,7 +152,7 @@
 
             _eventLiftMock
                 .Verify(
-                    m => m.Report(_noteAcceptorDevice.Object, EventCode.G2S_NAE903, It.IsAny<deviceList1>(), It.IsAny<meterList>()),
+                    m => m.Report(_noteAcceptorDevice.Object, EventCode.G2S_NAE903, It.IsAny<deviceList1>(), It.IsAny<meterList>(), It.IsAny<IEvent>()),
                     Times.Once);
         }
 
@@ -168,7 +168,7 @@
 
             _eventLiftMock
                 .Verify(
-                    m => m.Report(_noteAcceptorDevice.Object, EventCode.G2S_NAE904, It.IsAny<deviceList1>(), It.IsAny<meterList>()),
+                    m => m.Report(_noteAcceptorDevice.Object, EventCode.G2S_NAE904, It.IsAny<deviceList1>(), It.IsAny<meterList>(), It.IsAny<IEvent>()),
                     Times.Once);
         }
 
@@ -184,7 +184,7 @@
 
             _eventLiftMock
                 .Verify(
-                    m => m.Report(_noteAcceptorDevice.Object, EventCode.G2S_NAE905, It.IsAny<deviceList1>(), It.IsAny<meterList>()),
+                    m => m.Report(_noteAcceptorDevice.Object, EventCode.G2S_NAE905, It.IsAny<deviceList1>(), It.IsAny<meterList>(), It.IsAny<IEvent>()),
                     Times.Once);
         }
 
@@ -200,7 +200,7 @@
 
             _eventLiftMock
                 .Verify(
-                    m => m.Report(_noteAcceptorDevice.Object, EventCode.G2S_NAE906, It.IsAny<deviceList1>(), It.IsAny<meterList>()),
+                    m => m.Report(_noteAcceptorDevice.Object, EventCode.G2S_NAE906, It.IsAny<deviceList1>(), It.IsAny<meterList>(), It.IsAny<IEvent>()),
                     Times.Once);
         }
 
@@ -216,7 +216,7 @@
 
             _eventLiftMock
                 .Verify(
-                    m => m.Report(_noteAcceptorDevice.Object, EventCode.G2S_NAE907, It.IsAny<deviceList1>(), It.IsAny<meterList>()),
+                    m => m.Report(_noteAcceptorDevice.Object, EventCode.G2S_NAE907, It.IsAny<deviceList1>(), It.IsAny<meterList>(), It.IsAny<IEvent>()),
                     Times.Once);
         }
 
@@ -232,7 +232,7 @@
 
             _eventLiftMock
                 .Verify(
-                    m => m.Report(_noteAcceptorDevice.Object, EventCode.G2S_NAE101, It.IsAny<deviceList1>(), It.IsAny<meterList>()),
+                    m => m.Report(_noteAcceptorDevice.Object, EventCode.G2S_NAE101, It.IsAny<deviceList1>(), It.IsAny<meterList>(), It.IsAny<IEvent>()),
                     Times.Once);
         }
 
@@ -248,7 +248,7 @@
 
             _eventLiftMock
                 .Verify(
-                    m => m.Report(_noteAcceptorDevice.Object, EventCode.G2S_NAE105, It.IsAny<deviceList1>(), It.IsAny<meterList>()),
+                    m => m.Report(_noteAcceptorDevice.Object, EventCode.G2S_NAE105, It.IsAny<deviceList1>(), It.IsAny<meterList>(), It.IsAny<IEvent>()),
                     Times.Once);
         }
 
@@ -264,7 +264,7 @@
 
             _eventLiftMock
                 .Verify(
-                    m => m.Report(_noteAcceptorDevice.Object, EventCode.G2S_NAE106, It.IsAny<deviceList1>(), It.IsAny<meterList>()),
+                    m => m.Report(_noteAcceptorDevice.Object, EventCode.G2S_NAE106, It.IsAny<deviceList1>(), It.IsAny<meterList>(), It.IsAny<IEvent>()),
                     Times.Once);
         }
 
@@ -280,7 +280,7 @@
 
             _eventLiftMock
                 .Verify(
-                    m => m.Report(_noteAcceptorDevice.Object, EventCode.G2S_NAE107, It.IsAny<deviceList1>(), It.IsAny<meterList>()),
+                    m => m.Report(_noteAcceptorDevice.Object, EventCode.G2S_NAE107, It.IsAny<deviceList1>(), It.IsAny<meterList>(), It.IsAny<IEvent>()),
                     Times.Once);
         }
 
@@ -295,7 +295,7 @@
                 .Verify(m => m.Build(It.IsAny<INoteAcceptorDevice>(), It.IsAny<noteAcceptorStatus>()), Times.Once);
 
             _eventLiftMock
-                .Verify(m => m.Report(It.IsAny<IDevice>(), It.IsAny<string>(), It.IsAny<deviceList1>(), It.IsAny<meterList>()), Times.Never);
+                .Verify(m => m.Report(It.IsAny<IDevice>(), It.IsAny<string>(), It.IsAny<deviceList1>(), It.IsAny<meterList>(), It.IsAny<IEvent>()), Times.Never);
         }
 
         private NoteAcceptorHardwareFaultConsumer CreateConsumer(bool egmWithDevices = false)

@@ -1,14 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
-
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Converters.xaml" />
     </ResourceDictionary.MergedDictionaries>
-
     <FontFamily x:Key="MonacoFontFamily">Helvetica</FontFamily>
     <FontFamily x:Key="ContentFontFamily">Helvetica</FontFamily>
-
     <system:Double x:Key="ContentFontSize">18</system:Double>
     <system:Double x:Key="ClearTextButtonFontSize">16</system:Double>
     <system:Double x:Key="UpperCaseContentFontSize">10</system:Double>
@@ -24,88 +21,140 @@
     <system:Double x:Key="RadioButtonFontSize">16</system:Double>
     <system:Double x:Key="ButtonFontSize">18</system:Double>
     <system:Double x:Key="SmallLabelFontSize">20</system:Double>
-
     <Thickness x:Key="GroupBoxHeaderThemePadding">4</Thickness>
-
+    <Color x:Key="GreenColor">#32CD32</Color>
     <Color x:Key="YellowColor">#FFFFFF00</Color>
     <Color x:Key="RedColor">#FFFF0000</Color>
-    
     <Color x:Key="DarkColor1">#FF262626</Color>
     <Color x:Key="DarkColor2">#FF282828</Color>
     <Color x:Key="DarkColor3">#FF292929</Color>
     <Color x:Key="DarkColor4">#FF353535</Color>
-
     <Color x:Key="Color1">#FF443333</Color>
     <Color x:Key="Color2">#FF665544</Color>
     <Color x:Key="Color3">#FF887755</Color>
     <Color x:Key="Color4">#FFAA9966</Color>
     <Color x:Key="Color5">#FFCCBB77</Color>
     <Color x:Key="Color6">#FFEEDD88</Color>
-
     <Color x:Key="LightColor1">#FFBB9966</Color>
     <Color x:Key="LightColor2">#FFCCAA77</Color>
     <Color x:Key="LightColor3">#FFDDBB88</Color>
     <Color x:Key="LightColor4">#FFEECC99</Color>
     <Color x:Key="LightColor5">#FFFFDDAA</Color>
-
     <Color x:Key="MediumGray">#A9A9A9</Color>
-
     <Color x:Key="HighlightColor1">#FFEEDDCC</Color>
-
-    <SolidColorBrush x:Key="GrayBrush" Color="{StaticResource MediumGray}" />
-
-    <SolidColorBrush x:Key="YellowBrush" Color="{StaticResource YellowColor}" />
-    <SolidColorBrush x:Key="RedBrush" Color="{StaticResource RedColor}" />
-    
-    <SolidColorBrush x:Key="DarkBrush1" Color="{StaticResource DarkColor1}" />
-    <SolidColorBrush x:Key="DarkBrush2" Color="{StaticResource DarkColor2}" />
-    <SolidColorBrush x:Key="DarkBrush3" Color="{StaticResource DarkColor3}" />
-    <SolidColorBrush x:Key="DarkBrush4" Color="{StaticResource DarkColor4}" />
-
-    <SolidColorBrush x:Key="Brush1" Color="{StaticResource Color1}" />
-    <SolidColorBrush x:Key="Brush2" Color="{StaticResource Color2}" />
-    <SolidColorBrush x:Key="Brush3" Color="{StaticResource Color3}" />
-    <SolidColorBrush x:Key="Brush4" Color="{StaticResource Color4}" />
-    <SolidColorBrush x:Key="Brush5" Color="{StaticResource Color5}" />
-    <SolidColorBrush x:Key="Brush6" Color="{StaticResource Color6}" />
-
-    <SolidColorBrush x:Key="LightBrush1" Color="{StaticResource LightColor1}" />
-    <SolidColorBrush x:Key="LightBrush2" Color="{StaticResource LightColor2}" />
-    <SolidColorBrush x:Key="LightBrush3" Color="{StaticResource LightColor3}" />
-    <SolidColorBrush x:Key="LightBrush4" Color="{StaticResource LightColor4}" />
-    <SolidColorBrush x:Key="LightBrush5" Color="{StaticResource LightColor5}" />
-
-    <SolidColorBrush x:Key="HighlightBrush1" Color="{StaticResource HighlightColor1}" />
-
-    <SolidColorBrush x:Key="MonacoDataGrid.HighlightBrush" Color="{StaticResource Color3}" />
-    <SolidColorBrush x:Key="MonacoDataGrid.HighlightTextBrush" Color="{StaticResource LightColor5}" />
-    <SolidColorBrush x:Key="MonacoDataGrid.InactiveSelectionHighlightBrush" Color="#FF444444" />
-    <SolidColorBrush x:Key="MonacoDataGrid.InactiveSelectionHighlightTextBrush" Color="{StaticResource Color5}" />
-    <SolidColorBrush x:Key="MonacoDataGrid.DisabledHighlightBrush" Color="{DynamicResource Gray7}" />
-
-    <SolidColorBrush x:Key="ControlsDisabledBrush" Color="{DynamicResource Color2}" />
-
-    <LinearGradientBrush x:Key="ConfigTitleBarBrush" StartPoint="0,0" EndPoint="0,1">
+    <SolidColorBrush x:Key="GrayBrush"
+                     Color="{StaticResource MediumGray}"
+                     AutomationProperties.AutomationId="SolidColorBrush0_F5061EB1" />
+    <SolidColorBrush x:Key="GreenBrush"
+                     Color="{StaticResource GreenColor}"
+                     AutomationProperties.AutomationId="SolidColorBrush1_F5061EB1" />
+    <SolidColorBrush x:Key="YellowBrush"
+                     Color="{StaticResource YellowColor}"
+                     AutomationProperties.AutomationId="SolidColorBrush2_F5061EB1" />
+    <SolidColorBrush x:Key="RedBrush"
+                     Color="{StaticResource RedColor}"
+                     AutomationProperties.AutomationId="SolidColorBrush3_F5061EB1" />
+    <SolidColorBrush x:Key="DarkBrush1"
+                     Color="{StaticResource DarkColor1}"
+                     AutomationProperties.AutomationId="SolidColorBrush4_F5061EB1" />
+    <SolidColorBrush x:Key="DarkBrush2"
+                     Color="{StaticResource DarkColor2}"
+                     AutomationProperties.AutomationId="SolidColorBrush5_F5061EB1" />
+    <SolidColorBrush x:Key="DarkBrush3"
+                     Color="{StaticResource DarkColor3}"
+                     AutomationProperties.AutomationId="SolidColorBrush6_F5061EB1" />
+    <SolidColorBrush x:Key="DarkBrush4"
+                     Color="{StaticResource DarkColor4}"
+                     AutomationProperties.AutomationId="SolidColorBrush7_F5061EB1" />
+    <SolidColorBrush x:Key="Brush1"
+                     Color="{StaticResource Color1}"
+                     AutomationProperties.AutomationId="SolidColorBrush8_F5061EB1" />
+    <SolidColorBrush x:Key="Brush2"
+                     Color="{StaticResource Color2}"
+                     AutomationProperties.AutomationId="SolidColorBrush9_F5061EB1" />
+    <SolidColorBrush x:Key="Brush3"
+                     Color="{StaticResource Color3}"
+                     AutomationProperties.AutomationId="SolidColorBrush10_F5061EB1" />
+    <SolidColorBrush x:Key="Brush4"
+                     Color="{StaticResource Color4}"
+                     AutomationProperties.AutomationId="SolidColorBrush11_F5061EB1" />
+    <SolidColorBrush x:Key="Brush5"
+                     Color="{StaticResource Color5}"
+                     AutomationProperties.AutomationId="SolidColorBrush12_F5061EB1" />
+    <SolidColorBrush x:Key="Brush6"
+                     Color="{StaticResource Color6}"
+                     AutomationProperties.AutomationId="SolidColorBrush13_F5061EB1" />
+    <SolidColorBrush x:Key="LightBrush1"
+                     Color="{StaticResource LightColor1}"
+                     AutomationProperties.AutomationId="SolidColorBrush14_F5061EB1" />
+    <SolidColorBrush x:Key="LightBrush2"
+                     Color="{StaticResource LightColor2}"
+                     AutomationProperties.AutomationId="SolidColorBrush15_F5061EB1" />
+    <SolidColorBrush x:Key="LightBrush3"
+                     Color="{StaticResource LightColor3}"
+                     AutomationProperties.AutomationId="SolidColorBrush16_F5061EB1" />
+    <SolidColorBrush x:Key="LightBrush4"
+                     Color="{StaticResource LightColor4}"
+                     AutomationProperties.AutomationId="SolidColorBrush17_F5061EB1" />
+    <SolidColorBrush x:Key="LightBrush5"
+                     Color="{StaticResource LightColor5}"
+                     AutomationProperties.AutomationId="SolidColorBrush18_F5061EB1" />
+    <SolidColorBrush x:Key="HighlightBrush1"
+                     Color="{StaticResource HighlightColor1}"
+                     AutomationProperties.AutomationId="SolidColorBrush19_F5061EB1" />
+    <SolidColorBrush x:Key="MonacoDataGrid.HighlightBrush"
+                     Color="{StaticResource Color3}"
+                     AutomationProperties.AutomationId="SolidColorBrush20_F5061EB1" />
+    <SolidColorBrush x:Key="MonacoDataGrid.HighlightTextBrush"
+                     Color="{StaticResource LightColor5}"
+                     AutomationProperties.AutomationId="SolidColorBrush21_F5061EB1" />
+    <SolidColorBrush x:Key="MonacoDataGrid.InactiveSelectionHighlightBrush"
+                     Color="#FF444444"
+                     AutomationProperties.AutomationId="SolidColorBrush22_F5061EB1" />
+    <SolidColorBrush x:Key="MonacoDataGrid.InactiveSelectionHighlightTextBrush"
+                     Color="{StaticResource Color5}"
+                     AutomationProperties.AutomationId="SolidColorBrush23_F5061EB1" />
+    <SolidColorBrush x:Key="MonacoDataGrid.DisabledHighlightBrush"
+                     Color="{DynamicResource Gray7}"
+                     AutomationProperties.AutomationId="SolidColorBrush24_F5061EB1" />
+    <SolidColorBrush x:Key="ControlsDisabledBrush"
+                     Color="{DynamicResource Color2}"
+                     AutomationProperties.AutomationId="SolidColorBrush25_F5061EB1" />
+    <LinearGradientBrush x:Key="ConfigTitleBarBrush"
+                         StartPoint="0,0"
+                         EndPoint="0,1"
+                         AutomationProperties.AutomationId="LinearGradientBrush26_F5061EB1">
         <LinearGradientBrush.GradientStops>
-            <GradientStopCollection>
-                <GradientStop Color="{StaticResource LightColor1}" Offset="0.0" />
-                <GradientStop Color="{StaticResource DarkColor1}" Offset="1.0" />
+            <GradientStopCollection AutomationProperties.AutomationId="GradientStopCollection27_F5061EB1">
+                <GradientStop Color="{StaticResource LightColor1}"
+                              Offset="0.0"
+                              AutomationProperties.AutomationId="GradientStop28_F5061EB1" />
+                <GradientStop Color="{StaticResource DarkColor1}"
+                              Offset="1.0"
+                              AutomationProperties.AutomationId="GradientStop29_F5061EB1" />
             </GradientStopCollection>
         </LinearGradientBrush.GradientStops>
     </LinearGradientBrush>
-
-    <LinearGradientBrush x:Key="FocusBorderBrush" StartPoint="1,1" EndPoint="0,0">
+    <LinearGradientBrush x:Key="FocusBorderBrush"
+                         StartPoint="1,1"
+                         EndPoint="0,0"
+                         AutomationProperties.AutomationId="LinearGradientBrush30_F5061EB1">
         <GradientStop Color="{DynamicResource Color3}"
-                      Offset="0"/>
+                      Offset="0"
+                      AutomationProperties.AutomationId="GradientStop31_F5061EB1" />
         <GradientStop Color="{DynamicResource LightColor5}"
-                      Offset=".8"/>
+                      Offset=".8"
+                      AutomationProperties.AutomationId="GradientStop32_F5061EB1" />
     </LinearGradientBrush>
-
-    <LinearGradientBrush x:Key="MouseOverHighlightBrush" StartPoint="1,1" EndPoint="0,0">
+    <LinearGradientBrush x:Key="MouseOverHighlightBrush"
+                         StartPoint="1,1"
+                         EndPoint="0,0"
+                         AutomationProperties.AutomationId="LinearGradientBrush33_F5061EB1">
         <GradientStop Color="{DynamicResource Color4}"
-                      Offset="0"/>
+                      Offset="0"
+                      AutomationProperties.AutomationId="GradientStop34_F5061EB1" />
         <GradientStop Color="{DynamicResource LightColor5}"
-                      Offset=".8"/>
+                      Offset=".8"
+                      AutomationProperties.AutomationId="GradientStop35_F5061EB1" />
     </LinearGradientBrush>
-
 </ResourceDictionary>

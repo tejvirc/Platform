@@ -23,6 +23,7 @@
         private readonly IPersistentBlock _saveBlock;
         private readonly IProgressiveCalculatorFactory _calculatorFactory;
         private readonly IProgressiveMeterManager _meters;
+        private readonly IMysteryProgressiveProvider _mysteryProgressiveProvider;
         private readonly string _saveKey;
 
         private readonly SharedSapIndexStorage _indexStorage;
@@ -32,9 +33,11 @@
             IPersistenceProvider persistenceProvider,
             IPropertiesManager propertiesManager,
             IProgressiveCalculatorFactory calculatorFactory,
-            IProgressiveMeterManager meters)
+            IProgressiveMeterManager meters,
+            IMysteryProgressiveProvider mysteryProgressiveProvider)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+            _mysteryProgressiveProvider = mysteryProgressiveProvider ?? throw new ArgumentNullException(nameof(mysteryProgressiveProvider));
             _calculatorFactory = calculatorFactory ?? throw new ArgumentNullException(nameof(calculatorFactory));
             _meters = meters ?? throw new ArgumentNullException(nameof(meters));
 
@@ -278,6 +281,11 @@
             var award = calculator.Claim(level, sharedSapLevel.ResetValue);
             UpdateSharedSapLevel(level, sharedSapLevel);
 
+            if (level.TriggerControl == TriggerType.Mystery)
+            {
+                _mysteryProgressiveProvider.GenerateMagicNumber(level);
+            }
+
             Save();
 
             _eventBus.Publish(new SharedSapAwardedEvent(transaction.TransactionId, award, string.Empty, PayMethod.Any));
@@ -288,6 +296,7 @@
             var sharedSapLevel = GetLevelByKey(level.AssignedProgressiveId.AssignedProgressiveKey);
             var calculator = _calculatorFactory.Create(SapFundingType.Standard);
             calculator.Reset(level, sharedSapLevel.ResetValue);
+
             UpdateSharedSapLevel(level, sharedSapLevel);
 
             Save();

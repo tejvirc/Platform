@@ -5,20 +5,14 @@
     using System.Windows.Controls;
     using System.Windows.Data;
     using System.Windows.Input;
-    using Hardware.Contracts.Touch;
-    using Kernel;
     using Converters;
     using Helpers;
 
     /// <inheritdoc />
-    public class ExpirationTextBox : TextBox
+    public class ExpirationTextBox : TouchTextBox
     {
-        private static readonly IEventBus EventBus;
-
         static ExpirationTextBox()
         {
-            EventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-
             DefaultStyleKeyProperty.OverrideMetadata(
                 typeof(ExpirationTextBox),
                 new FrameworkPropertyMetadata(typeof(ExpirationTextBox)));
@@ -153,13 +147,11 @@
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             UpdateTextBinding((TextBox)sender, DaysFormatter, NeverExpires);
-            EventBus?.Publish(new OnscreenKeyboardOpenedEvent(true));
         }
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             UpdateTextBinding((TextBox)sender, DaysFormatter, NeverExpires);
-            EventBus?.Publish(new OnscreenKeyboardClosedEvent(true));
         }
 
         private static void TextBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)

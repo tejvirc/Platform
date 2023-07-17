@@ -11,6 +11,7 @@
           <xs:element name="DataBits" type="xs:string" />
           <xs:element name="StopBits" type="xs:string" />
           <xs:element name="Handshake" type="xs:string" />
+          <xs:element name="FirmwareVersionRegex" type="xs:string" />
         </xs:sequence>
         <xs:sequence>
           <xs:element name="USBClassGUID" type="xs:string" />

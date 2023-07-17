@@ -242,6 +242,10 @@ namespace Aristocrat.Monaco.Application
                 {
                     ApplicationConstants.EKeyDrive,
                     Tuple.Create((object)string.Empty, string.Empty)
+                },
+                {
+                    ApplicationConstants.HostAddresses,
+                    Tuple.Create((object)InitFromStorage<string>(ApplicationConstants.HostAddresses), ApplicationConstants.HostAddresses)
                 }
             };
 

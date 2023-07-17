@@ -31,7 +31,7 @@
             var device = _egm.GetDevice<IDownloadDevice>();
             if (device != null)
             {
-                _eventLift.Report(device, EventCode.G2S_DLE301);
+                _eventLift.Report(device, EventCode.G2S_DLE301, theEvent);
                 _eventLift.Report(device, EventCode.G2S_DLE303);
             }
         }

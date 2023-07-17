@@ -51,7 +51,7 @@
             var status = new cabinetStatus();
             _commandBuilder.Build(cabinet, status);
 
-            _eventLift.Report(cabinet, EventCode.G2S_CBE325, cabinet.DeviceList(status));
+            _eventLift.Report(cabinet, EventCode.G2S_CBE325, cabinet.DeviceList(status), theEvent);
 
             if (cabinet.ProcessorReset)
             {

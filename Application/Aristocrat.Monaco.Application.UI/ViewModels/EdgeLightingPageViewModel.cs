@@ -14,6 +14,7 @@
     using Events;
     using Hardware.Contracts.EdgeLighting;
     using Kernel;
+    using Kernel.Contracts;
     using Monaco.Localization.Properties;
     using MVVM;
     using MVVM.Command;
@@ -24,7 +25,6 @@
         private const int MaxChannelBrightness = 100;
         private readonly IEdgeLightingController _edgeLightingController;
         private bool _isEdgeLightingAvailable;
-        private string _infoText;
         private int _brightnessSliderValue;
         private string _edgeLightingAttractModeOverrideSelection;
         private bool _bottomEdgeLightingOn;
@@ -34,22 +34,14 @@
         {
             _edgeLightingController = ServiceManager.GetInstance().GetService<IEdgeLightingController>();
             TestViewModel.SetTestReporter(Inspection);
-            ToggleTestModeCommand = new ActionCommand<object>(_ => InTestMode = !InTestMode);
+            ToggleTestModeCommand = new ActionCommand<object>(_ => InTestMode = !InTestMode, _ => TestModeEnabled);
         }
 
         public ICommand ToggleTestModeCommand { get; }
 
-        public string InfoText
-        {
-            get => _infoText;
-            set
-            {
-                _infoText = value;
-                RaisePropertyChanged(nameof(InfoText));
-                RaisePropertyChanged(nameof(InfoTextVisible));
-                UpdateStatusText();
-            }
-        }
+        public string InfoText => IsEdgeLightingAvailable
+            ? string.Empty
+            : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EdgeLightingDisconnectionText);
 
         public bool InfoTextVisible => !string.IsNullOrWhiteSpace(InfoText);
 
@@ -99,6 +91,19 @@
                 }
 
                 SetProperty(ref _inTestMode, value, nameof(InTestMode));
+            }
+        }
+
+        public override bool TestModeEnabled
+        {
+            get => base.TestModeEnabled;
+            set
+            {
+                base.TestModeEnabled = value;
+                if (ToggleTestModeCommand is IActionCommand actionCommand)
+                {
+                    MvvmHelper.ExecuteOnUI(() => actionCommand.RaiseCanExecuteChanged());
+                }
             }
         }
 
@@ -187,10 +192,7 @@
 
         protected override void OnLoaded()
         {
-            IsEdgeLightingAvailable = _edgeLightingController.IsDetected;
-            InfoText = IsEdgeLightingAvailable
-                ? string.Empty
-                : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EdgeLightingDisconnectionText);
+            IsEdgeLightingAvailable = _edgeLightingController.IsDetected || (bool)PropertiesManager.GetProperty(KernelConstants.IsInspectionOnly, false);
 
             if (IsEdgeLightingAvailable && IsWizardPage)
             {
@@ -199,6 +201,7 @@
 
             EventBus.Subscribe<EdgeLightingConnectedEvent>(this, HandleEdgeLightConnectedEvent);
             EventBus.Subscribe<EdgeLightingDisconnectedEvent>(this, HandleEdgeLightDisconnectedEvent);
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleOperatorCultureChangedEvent);
 
             if (IsCabinetThatAllowsEdgeLightBrightnessSetting)
             {
@@ -273,7 +276,8 @@
                 () =>
                 {
                     IsEdgeLightingAvailable = true;
-                    InfoText = string.Empty;
+                    RaisePropertyChanged(nameof(InfoText), nameof(InfoTextVisible));
+                    UpdateStatusText();
                 });
         }
 
@@ -283,7 +287,18 @@
                 () =>
                 {
                     IsEdgeLightingAvailable = false;
-                    InfoText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EdgeLightingDisconnectionText);
+                    RaisePropertyChanged(nameof(InfoText), nameof(InfoTextVisible));
+                    UpdateStatusText();
+                });
+        }
+
+        private void HandleOperatorCultureChangedEvent(OperatorCultureChangedEvent evt)
+        {
+            MvvmHelper.ExecuteOnUI(
+                () =>
+                {
+                    RaisePropertyChanged(nameof(InfoText));
+                    UpdateStatusText();
                 });
         }
     }

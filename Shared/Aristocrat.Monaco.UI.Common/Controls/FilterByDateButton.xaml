@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="Aristocrat.Monaco.UI.Common.Controls.FilterByDateButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             xmlns:loc="http://monaco.aristocrat.com/localization"
+             mc:Ignorable="d"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}"
+             loc:Localizer.For="Operator"
+             AutomationProperties.AutomationId="UserControl0_CB1377F0">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <StackPanel Orientation="Vertical" AutomationProperties.AutomationId="StackPanel1_CB1377F0">
+        <ToggleButton x:Name="FilterDateToggleButton"
+                      Style="{StaticResource FilterToggleButton}"
+                      AutomationProperties.AutomationId="ToggleButton2_CB1377F0">
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Bottom"
+                        AutomationProperties.AutomationId="StackPanel3_CB1377F0">
+                <mah:ContentControlEx Style="{StaticResource FilterContent}" Content="{Binding HeaderText}" />
+                <iconPacks:PackIconMaterial Style="{StaticResource FilterIcon}" />
+            </StackPanel>
+        </ToggleButton>
+        <Popup Style="{StaticResource FilterPopup}"
+               PlacementTarget="{Binding ElementName=FilterDateToggleButton}"
+               IsOpen="{Binding ElementName=FilterDateToggleButton, Path=IsChecked}"
+               AutomationProperties.AutomationId="Popup4_CB1377F0">
+            <Border Style="{StaticResource FilterPopupBorder}" AutomationProperties.AutomationId="Border5_CB1377F0">
+                <StackPanel Orientation="Vertical" AutomationProperties.AutomationId="StackPanel6_CB1377F0">
+                    <DatePicker IsTodayHighlighted="False"
+                                DisplayDateStart="{Binding StartDate}"
+                                DisplayDateEnd="{Binding EndDate}"
+                                SelectedDate="{Binding SelectedDate, Mode=TwoWay}"
+                                AutomationProperties.AutomationId="DatePicker7_CB1377F0" />
+                    <Button Click="ClearSelectionButton_OnClick"
+                            HorizontalAlignment="Stretch"
+                            Margin="5"
+                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.ClearSelection}}"
+                            AutomationProperties.AutomationId="Button8_CB1377F0" />
+                </StackPanel>
+            </Border>
+        </Popup>
+    </StackPanel>
+</UserControl>

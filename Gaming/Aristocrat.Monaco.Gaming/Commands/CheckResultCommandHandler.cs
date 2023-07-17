@@ -80,7 +80,7 @@
                 checkMaxWin = false;
             }
 
-            if (checkMaxWin && result >= game.MaximumWinAmount)
+            if (checkMaxWin && game.MaximumWinAmount > 0 && result >= game.MaximumWinAmount)
             {
                 var traceId = Guid.NewGuid();
 

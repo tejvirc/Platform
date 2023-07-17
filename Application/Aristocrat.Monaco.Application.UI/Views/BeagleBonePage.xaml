@@ -1,24 +1,38 @@
 ﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.BeagleBonePage"
                                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
-                               mc:Ignorable="d" 
-                               d:DesignHeight="1080" d:DesignWidth="720"
+                               mc:Ignorable="d"
+                               d:DesignHeight="1080"
+                               d:DesignWidth="720"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:BeagleBonePageViewModel}}">
-    <Grid>
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
-            <Label  Content="{lex:Loc Key={x:Static loc:ResourceKeys.TestBeagleBoneLightShowLabel}}" HorizontalAlignment="Left"/>
-            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" ItemsSource="{Binding LightShowChoices}"
+    <Grid AutomationProperties.AutomationId="Grid0_226E395">
+        <StackPanel HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    AutomationProperties.AutomationId="StackPanel1_226E395">
+            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.TestBeagleBoneLightShowLabel}}"
+                   HorizontalAlignment="Left"
+                   AutomationProperties.AutomationId="Label2_226E395" />
+            <ComboBox HorizontalAlignment="Left"
+                      VerticalAlignment="Top"
+                      ItemsSource="{Binding LightShowChoices}"
                       MinWidth="250"
-                      SelectedValue="{Binding ShowOverrideSelection}" SelectedValuePath="Key" DisplayMemberPath="Value" Margin="10" />
+                      Name="LightShowsComboBox"
+                      SelectedValue="{Binding ShowOverrideSelection}"
+                      Margin="10"
+                      AutomationProperties.AutomationId="ComboBox3_226E395" />
         </StackPanel>
-        <Button VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0 10 0 0"
+        <Button VerticalAlignment="Bottom"
+                HorizontalAlignment="Left"
+                Margin="0 10 0 0"
+                Name="SendShowButton"
                 Content="{lex:Loc Key={x:Static loc:ResourceKeys.SendShowLabel}}"
-                Command="{Binding SendShowCommand}"/>
+                Command="{Binding SendShowCommand}"
+                AutomationProperties.AutomationId="Button4_226E395" />
     </Grid>
 </operatorMenu:OperatorMenuPage>

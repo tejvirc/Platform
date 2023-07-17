@@ -3,23 +3,50 @@
     using Application.Contracts.Extensions;
     using MVVM.Model;
 
+    /// <summary>
+    ///     The View Model used for binding lobby denom buttons
+    /// </summary>
     public class DenominationInfoViewModel : BaseNotify
     {
         private bool _isSelected;
-        private bool _isVisible;
-        private const string DenominationBackOff = "DenominationBackOff";
-        private const string DenominationBackOn = "DenominationBackOn";
-        private const string DenominationBackOff2 = "DenominationBackOff2";
-        private const string DenominationBackOn2 = "DenominationBackOn2";
+
+        // Multiple game denomination buttons (shared between all games on page)
+        private const string DenomButtonMultipleOff = "DenominationBackOff";
+        private const string DenomButtonMultipleOn = "DenominationBackOn";
+
+        // Single game denomination buttons (per individual game)
+        private const string DenomButtonSingleOff = "DenominationBackOff2";
+        private const string DenomButtonSingleOn = "DenominationBackOn2";
+
+        private string _denomButtonSingleOffOverride;
 
         public DenominationInfoViewModel(long denomination)
         {
             Denomination = denomination;
-            DenomText = Denomination.MillicentsToCents().FormattedDenomString();
+            var cents = denomination.MillicentsToCents();
+
+            if (cents >= CurrencyExtensions.CurrencyMinorUnitsPerMajorUnit)
+            {
+                // Use the denom string formatted with major unit symbol included
+                DenomText = cents.FormattedDenomString();
+                DenomSymbol = string.Empty;
+            }
+            else
+            {
+                // Keep the minor unit separate from the cents value to be displayed in a separate TextPath
+                DenomText = cents.ToString();
+                DenomSymbol = CurrencyExtensions.MinorUnitSymbol;
+            }
         }
 
+        /// <summary>
+        ///     Gets the denomination in millicents
+        /// </summary>
         public long Denomination { get; }
 
+        /// <summary>
+        ///     Gets or sets whether the denom button is currently selected
+        /// </summary>
         public bool IsSelected
         {
             get => _isSelected;
@@ -30,28 +57,45 @@
                     _isSelected = value;
                     RaisePropertyChanged(nameof(IsSelected));
                     RaisePropertyChanged(nameof(DenomText));
-                    RaisePropertyChanged(nameof(DenomBackground));
+                    RaisePropertyChanged(nameof(DenomButtonSharedKey));
+                    RaisePropertyChanged(nameof(DenomButtonSingleKey));
                 }
             }
         }
 
-        public bool IsVisible
+        /// <summary>
+        ///     Resource key for shared game denom buttons
+        /// </summary>
+        public string DenomButtonSharedKey => IsSelected ? DenomButtonMultipleOn : DenomButtonMultipleOff;
+
+        /// <summary>
+        ///     Resource key for individual game denom buttons
+        /// </summary>
+        public string DenomButtonSingleKey
         {
-            get => _isVisible;
-            set
+            get
             {
-                if (_isVisible != value)
-                {
-                    _isVisible = value;
-                    RaisePropertyChanged(nameof(IsVisible));
-                }
+                var key = IsSelected
+                    ? DenomButtonSingleOn
+                    : DenomButtonSingleOffOverride ?? DenomButtonSingleOff;
+                return key;
             }
         }
 
-        public string DenomBackground => IsSelected ? DenominationBackOn : DenominationBackOff;
+        /// <summary>
+        ///     Custom denom button resource key assigned per individual game
+        /// </summary>
+        public string DenomButtonSingleOffOverride
+        {
+            get => _denomButtonSingleOffOverride;
+            set => SetProperty(ref _denomButtonSingleOffOverride, value, nameof(DenomButtonSingleKey));
+        }
 
-        public string DenomBackground2 => IsSelected ? DenominationBackOn2 : DenominationBackOff2;
-
+        /// <summary>
+        ///     Text to display on the denom button
+        /// </summary>
         public string DenomText { get; set; }
+
+        public string DenomSymbol { get; }
     }
 }

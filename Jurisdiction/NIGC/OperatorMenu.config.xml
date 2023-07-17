@@ -119,7 +119,7 @@ as follows:
         </Page>
         <Page Type="GameHistoryViewModel" Access="ReadOnly" PrintButtonEnabled="true">
             <Setting Name="ShowGameInfoButtons" Value="true" />
-            <Setting Name="PrintGameRoundInfo" Value="true" />
+            <Setting Name="PrintGameRoundInfo" Value="false" />
         </Page>
         <Page Type="GamePreferencesViewModel" TabType="GamePreferencesViewLoader" Visible="false"/>
         <Page Type="GameInfoViewModel" TabType="GameInfoViewLoader" Visible="false" />
@@ -179,10 +179,10 @@ as follows:
             <Rule DeviceName="Logic" />
         </AccessRuleSet>
         <AccessRuleSet Name="LogicMainZeroCreditsZeroGamesPlayed">
+            <Rule Restriction="ZeroGamesPlayed" />
             <Rule Restriction="ZeroCredits" />
             <Rule DeviceName="Logic" />
             <Rule DeviceName="Main" />
-            <Rule Restriction="ZeroGamesPlayed" />
         </AccessRuleSet>
         <AccessRuleSet Name="MainDoorGameIdle">
             <Rule Restriction="GameIdle" />

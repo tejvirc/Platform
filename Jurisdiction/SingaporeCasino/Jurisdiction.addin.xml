@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.SingaporeCasinoJurisdiction" filterid="SingaporeCasinoLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.SingaporeCasinoJurisdiction" filterid="SingaporeCasinoLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.SingaporeCasinoJurisdiction" filterid="SingaporeCasinoLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -133,10 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="SingaporeCasinoLocaleConfig">
     <FilePath FilePath="..\jurisdiction\SingaporeCasino\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="SingaporeCasinoLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
-    <FilePath FilePath="..\jurisdiction\SingaporeCasino\resources\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\SingaporeCasino\Lobby.config.xml" filterid="SingaporeCasinoLobbyConfig" />

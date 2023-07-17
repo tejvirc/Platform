@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.OregonJurisdiction" filterid="OregonLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.OregonJurisdiction" filterid="OregonLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.OregonJurisdiction" filterid="OregonLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -141,10 +138,6 @@
   </Extension>
   <Extension path="/Locale/Configuration">
     <FilePath FilePath="..\jurisdiction\Oregon-VLT\Locale.config.xml" filterid="OregonLocaleConfig" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="OregonLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\VLT\" />
-    <FilePath FilePath="..\jurisdiction\Oregon-VLT\resources\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\Oregon-VLT\Lobby.config.xml" filterid="OregonLobbyConfig" />

@@ -7,8 +7,11 @@
              xmlns:loc="http://monaco.aristocrat.com/localization"
              xmlns:сontrols="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="800"
-             d:DataContext="{d:DesignInstance {x:Type viewModels:EdgeLightingTestViewModel}}" Height="553.229">
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance {x:Type viewModels:EdgeLightingTestViewModel}}"
+             Height="553.229"
+             AutomationProperties.AutomationId="UserControl0_EC35FDE1">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -16,60 +19,95 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Center" MinWidth="300" Margin="20 0 20 0">
-        <StackPanel>
-            <StackPanel Margin="0 5">
-                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.LightingBrightnessLabel}}" />
-                <Slider Maximum="100" Minimum="0" SmallChange="1" LargeChange="10"
-                        Style="{StaticResource MonacoSlider}" Value="{Binding Brightness}" />
+    <StackPanel HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                MinWidth="300"
+                Margin="20 0 20 0"
+                AutomationProperties.AutomationId="StackPanel1_EC35FDE1">
+        <StackPanel AutomationProperties.AutomationId="StackPanel2_EC35FDE1">
+            <StackPanel Margin="0 5"
+                        AutomationProperties.AutomationId="StackPanel3_EC35FDE1">
+                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.LightingBrightnessLabel}}"
+                       AutomationProperties.AutomationId="Label4_EC35FDE1" />
+                <Slider Maximum="100"
+                        Minimum="0"
+                        SmallChange="1"
+                        LargeChange="10"
+                        Style="{StaticResource MonacoSlider}"
+                        Value="{Binding Brightness}"
+                        AutomationProperties.AutomationId="Slider5_EC35FDE1" />
             </StackPanel>
-            <StackPanel Margin="0 5">
+            <StackPanel Margin="0 5"
+                        AutomationProperties.AutomationId="StackPanel6_EC35FDE1">
                 <StackPanel.Resources>
                     <Style TargetType="{x:Type сontrols:RangeSlider}">
                         <Style.Triggers>
                             <DataTrigger
-                                Binding="{Binding Path=SelectedIndex, 
-                                               ElementName=StripList}"
-                                Value="0">
-                                <Setter Property="IsEnabled" Value="False" />
+                                    Binding="{Binding Path=SelectedIndex,                                                 ElementName=StripsComboBox}"
+                                         Value="0"
+                                         AutomationProperties.AutomationId="DataTrigger7_EC35FDE1">
+                                <Setter Property="IsEnabled"
+                                        Value="False" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </StackPanel.Resources>
-                <StackPanel Orientation="Horizontal">
-                    <StackPanel Margin="0 0 10 0">
-                        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.Strip}}" />
-                        <ComboBox Name="StripList" SelectedIndex="{Binding SelectedStripIndex}"
-                                  ItemsSource="{Binding Strips}" DisplayMemberPath="StripName" Width="300" />
+                <StackPanel Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel8_EC35FDE1">
+                    <StackPanel Margin="0 0 10 0"
+                                AutomationProperties.AutomationId="StackPanel9_EC35FDE1">
+                        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.Strip}}"
+                               AutomationProperties.AutomationId="Label10_EC35FDE1" />
+                        <ComboBox Name="StripsComboBox"
+                                  SelectedIndex="{Binding SelectedStripIndex}"
+                                  ItemsSource="{Binding Strips}"
+                                  DisplayMemberPath="StripName"
+                                  Width="300"
+                                  AutomationProperties.AutomationId="ComboBox11_EC35FDE1" />
                     </StackPanel>
-
-                    <StackPanel Margin="0 0 10 0">
-                        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.Color}}" />
-                        <ComboBox ItemsSource="{Binding StripColors}" SelectedIndex="{Binding SelectedColorIndex}"
-                                  Width="300" />
+                    <StackPanel Margin="0 0 10 0"
+                                AutomationProperties.AutomationId="StackPanel12_EC35FDE1">
+                        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.Color}}"
+                               AutomationProperties.AutomationId="Label13_EC35FDE1" />
+                        <ComboBox ItemsSource="{Binding StripColors}"
+                                  SelectedIndex="{Binding SelectedColorIndex}"
+                                  Name="ColorsComboBox"
+                                  Width="300"
+                                  AutomationProperties.AutomationId="ComboBox14_EC35FDE1" />
                     </StackPanel>
                 </StackPanel>
-                <StackPanel>
-                    <Viewbox Height="60" Stretch="Fill" Margin="0 5 0 5">
-                        <сontrols:RangeSlider x:Name="LedRangeSlider" Minimum="1"
+                <StackPanel AutomationProperties.AutomationId="StackPanel15_EC35FDE1">
+                    <Viewbox Height="60"
+                             Stretch="Fill"
+                             Margin="0 5 0 5"
+                             AutomationProperties.AutomationId="Viewbox16_EC35FDE1">
+                        <сontrols:RangeSlider x:Name="LedRangeSlider"
+                                              Minimum="1"
                                               Maximum="{Binding SelectedStrip.LedCount}"
-                                              LowerValue="{Binding StartLed}" UpperValue="{Binding EndLed}"
-                                              SmallChange="1" LargeChange="5" AutoToolTipPlacement="TopLeft"
+                                              LowerValue="{Binding StartLed}"
+                                              UpperValue="{Binding EndLed}"
+                                              SmallChange="1"
+                                              LargeChange="5"
+                                              AutoToolTipPlacement="TopLeft"
                                               IsSnapToTickEnabled="True"
-                                              MinRange="0" Width="200" />
+                                              MinRange="0"
+                                              Width="200" />
                     </Viewbox>
                     <Label Content="{Binding SelectedLedCount}"
-                           Visibility="{Binding ElementName=LedRangeSlider, Path=IsEnabled, 
-                        Converter={StaticResource TrueVisibleFalseHidden}}" />
+                           Visibility="{Binding ElementName=LedRangeSlider, Path=IsEnabled,                          Converter={StaticResource TrueVisibleFalseHidden}}"
+                           AutomationProperties.AutomationId="Label17_EC35FDE1" />
                 </StackPanel>
             </StackPanel>
-            <StackPanel>
-                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.LightShows}}" />
-                <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding LightShows}"
+            <StackPanel AutomationProperties.AutomationId="StackPanel18_EC35FDE1">
+                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.LightShows}}"
+                       AutomationProperties.AutomationId="Label19_EC35FDE1" />
+                <ComboBox HorizontalAlignment="Left"
+                          ItemsSource="{Binding LightShows}"
+                          Name="LightShowsComboBox"
                           DisplayMemberPath="Name"
                           SelectedItem="{Binding SelectedLightShow}"
-                          Width="300" />
-
+                          Width="300"
+                          AutomationProperties.AutomationId="ComboBox20_EC35FDE1" />
             </StackPanel>
         </StackPanel>
     </StackPanel>

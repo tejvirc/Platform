@@ -7,8 +7,6 @@
 
     public class GridSpacingConverter : IValueConverter
     {
-        private readonly double _scaleBy = ScaleUtility.GetScale();
-
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is GameGridMarginInputs inputs)
@@ -18,17 +16,7 @@
                 {
                     if (inputs.ExtraLargeIconLayout)
                     {
-                        if (inputs.GameCount == 1)
-                        {
-                            return new Size();
-                        }
-
-                        const double borderWidth = 40;
-                        // Calculate spacing for 2 icons - note this is the spacing for the major banner, game icon, and denom panel all together
-                        var midSpacing = ((ScaleUtility.BaseScreenWidth - borderWidth * 2) - (count * inputs.GameIconSize.Width)) / 3.0;
-                        midSpacing = midSpacing >= 0 ? midSpacing : 0;
-
-                        return new Size(midSpacing * _scaleBy, 0);
+                        return new Size(40, 0);
                     }
                     return count == 9 ? new Size(200, 0) : new Size(40, 0);
                 }

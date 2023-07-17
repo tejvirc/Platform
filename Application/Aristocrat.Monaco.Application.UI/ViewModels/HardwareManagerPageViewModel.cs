@@ -4,9 +4,12 @@
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Linq;
+    using Contracts.Localization;
     using Contracts.OperatorMenu;
     using Kernel;
     using Kernel.Contracts;
+    using Localization;
+    using MVVM;
     using MVVM.Command;
     using Vgt.Client12.Application.OperatorMenu;
 
@@ -183,6 +186,7 @@
                             modifiedDevice.PortEnabled && modifiedDevice.Port != device.Port)
                         {
                             modifiedDevice.Status = string.Empty;
+                            modifiedDevice.StatusType = DeviceState.None;
                             return true;
                         }
                     }
@@ -190,6 +194,19 @@
 
                 return false; // falling through means no changes are detected
             }
+        }
+
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            MvvmHelper.ExecuteOnUI(() =>
+            {
+                foreach (var device in Devices)
+                {
+                    device.RefreshProps();
+                }
+            });
+
+            base.OnOperatorCultureChanged(evt);
         }
     }
 }

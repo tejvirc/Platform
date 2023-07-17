@@ -22,7 +22,6 @@
                    Closed="LobbyTopperView_OnClosed"
                    BorderThickness="0"
                    Name="Root">
-
     <metro:MetroWindow.Resources>
         <ResourceDictionary>
             <!-- Apply MahApps.Metro styles to all controls -->
@@ -33,57 +32,81 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <!-- Accent and AppTheme setting -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml"/>
+                <ResourceDictionary
+                        Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </metro:MetroWindow.Resources>
-
     <!--<local:LayoutTemplateDockPanel x:Name="LayoutTemplate" 
                                    ScreenType="Secondary">-->
     <Grid Name="LayoutRoot"
           DataContext="{Binding ElementName=Root, Path=DataContext}"
           Background="Black"
-          SizeChanged="LobbyTopperView_SizeChanged">
+          SizeChanged="LobbyTopperView_SizeChanged"
+          AutomationProperties.AutomationId="Grid0_F5C8B0EC">
         <Grid x:Name="TopperScreenGameRoot"
-              Visibility="{Binding IsGameTopperScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
-            <controls1:ExtendedWindowsFormsHost Loaded="WinHostCtrl_OnLoaded" x:Name="GameTopperScreenRoot">
-                <controls1:NativeFormsControl x:Name="GameTopperWindowCtrl" BackColor="Black" Dock="Fill" />
+              Visibility="{Binding IsGameTopperScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+              AutomationProperties.AutomationId="Grid1_F5C8B0EC">
+            <controls1:ExtendedWindowsFormsHost Loaded="WinHostCtrl_OnLoaded"
+                                                x:Name="GameTopperScreenRoot">
+                <controls1:NativeFormsControl x:Name="GameTopperWindowCtrl"
+                                              BackColor="Black"
+                                              Dock="Fill" />
             </controls1:ExtendedWindowsFormsHost>
         </Grid>
         <Grid x:Name="LobbyTopperScreenRoot"
-              Visibility="{Binding IsLobbyTopperScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}">
-            <bink:BinkGpuControl
-                x:Name="LobbyTopperVideo"
-                LoopVideo="True">
+              Visibility="{Binding IsLobbyTopperScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+              AutomationProperties.AutomationId="Grid2_F5C8B0EC">
+            <bink:BinkGpuControl x:Name="LobbyTopperVideo"
+                                 LoopVideo="True">
                 <bink:BinkGpuControl.Style>
                     <Style TargetType="bink:BinkGpuControl">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsLobbyTopperVideoVisible}" Value="True">
-                                <Setter Property="Filename" Value="{Binding TopperLobbyVideoPath}"></Setter>
-                                <Setter Property="VideoState" Value="Playing"></Setter>
+                            <DataTrigger Binding="{Binding IsLobbyTopperVideoVisible}"
+                                         Value="True"
+                                         AutomationProperties.AutomationId="DataTrigger3_F5C8B0EC">
+                                <Setter Property="Filename"
+                                        Value="{Binding TopperLobbyVideoPath}"></Setter>
+                                <Setter Property="VideoState"
+                                        Value="Playing"></Setter>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding IsTopperAttractFeaturePlaying}" Value="True">
-                                <Setter Property="Filename" Value="{Binding TopperAttractVideoPath}"></Setter>
-                                <Setter Property="VideoState" Value="Playing"></Setter>
+                            <DataTrigger Binding="{Binding IsTopperAttractFeaturePlaying}"
+                                         Value="True"
+                                         AutomationProperties.AutomationId="DataTrigger4_F5C8B0EC">
+                                <Setter Property="Filename"
+                                        Value="{Binding TopperAttractVideoPath}"></Setter>
+                                <Setter Property="VideoState"
+                                        Value="Playing"></Setter>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding IsLobbyTopperScreenVisible}" Value="False">
-                                <Setter Property="VideoState" Value="Stopped"></Setter>
+                            <DataTrigger Binding="{Binding IsLobbyTopperScreenVisible}"
+                                         Value="False"
+                                         AutomationProperties.AutomationId="DataTrigger5_F5C8B0EC">
+                                <Setter Property="VideoState"
+                                        Value="Stopped"></Setter>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding IsGameLoading}" Value="True">
-                                <Setter Property="VideoState" Value="Stopped"></Setter>
+                            <DataTrigger Binding="{Binding IsGameLoading}"
+                                         Value="True"
+                                         AutomationProperties.AutomationId="DataTrigger6_F5C8B0EC">
+                                <Setter Property="VideoState"
+                                        Value="Stopped"></Setter>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </bink:BinkGpuControl.Style>
             </bink:BinkGpuControl>
             <!-- Some jurisdictions do not have a topper loading screen -->
-            <Image Stretch="Uniform" Source="{DynamicResource TopperLoading}"
-                   Visibility="{Binding IsTopperLoadingScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
+            <Image Stretch="Uniform"
+                   Source="{DynamicResource TopperLoading}"
+                   Visibility="{Binding IsTopperLoadingScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                   AutomationProperties.AutomationId="Image7_F5C8B0EC" />
         </Grid>
-        <Grid Visibility="{Binding IsTopperScreenRenderingDisabled, Converter={StaticResource TrueVisibleFalseCollapsed}}">
-            <Image Stretch="Uniform" Source="{DynamicResource TopperDisabled}" />
+        <Grid
+                Visibility="{Binding IsTopperScreenRenderingDisabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+              AutomationProperties.AutomationId="Grid8_F5C8B0EC">
+            <Image Stretch="Uniform"
+                   Source="{DynamicResource TopperDisabled}"
+                   AutomationProperties.AutomationId="Image9_F5C8B0EC" />
         </Grid>
     </Grid>
     <!--</local:LayoutTemplateDockPanel>-->

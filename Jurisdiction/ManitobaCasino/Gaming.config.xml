@@ -20,6 +20,7 @@ as follows:
 	<LockupBehavior CashableLockupStrategy="Allowed" />
 	<GameCategory ApplyGameCategorySettings="true" />
 	<Censorship Enforced="true" Editable="false" />
+    <Gamble SkipByJackpotHit="true" />
 <!--
 	GameRestrictions Settings:
 		ReturnToPlayerLimits:

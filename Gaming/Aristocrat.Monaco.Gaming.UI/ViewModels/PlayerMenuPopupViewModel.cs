@@ -5,11 +5,11 @@
     using System.Timers;
     using System.Windows.Input;
     using Application.Contracts;
+    using Application.Contracts.Input;
     using Aristocrat.Monaco.Hardware.Contracts.Audio;
     using Common;
     using Contracts;
     using Contracts.Events;
-    using Hardware.Contracts;
     using Kernel;
     using log4net;
     using MVVM.Command;
@@ -340,6 +340,8 @@
         /// </summary>
         public void ResetCloseDelay()
         {
+            _eventBus.Publish(new UserInteractionEvent());
+
             CancelCloseDelay();
             SetCloseDelay();
         }

@@ -34,6 +34,8 @@
                            typeName="Aristocrat.Monaco.Application.UI.Loaders.SystemResetPageLoader" order="9" />
         <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.OperatorMenu"
                            typeName="Aristocrat.Monaco.Application.UI.Loaders.ToolsMainPageLoader" order="10" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.OptionsMainPageLoader" order="11" />
         <!-- NOTE: The DemonstrationPageLoader should always be the last PageLoader -->
         <NodeSpecification addinId="Client12Addins.Monaco.Demonstration.UI.OperatorMenu"
                            typeName="Aristocrat.Monaco.Demonstration.UI.Loaders.DemonstrationPageLoader" order="99" />

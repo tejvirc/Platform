@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.ObjectModel;
-    using System.Drawing;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
@@ -33,6 +32,7 @@
     public class DisplaysPageViewModel : InspectionWizardViewModelBase
     {
         private static readonly TimeSpan IdentifyWindowDisplayTime = TimeSpan.FromSeconds(3);
+        private static readonly TimeSpan IdentifyWindowDisplayTimeForInspection = TimeSpan.FromSeconds(1);
 
         private readonly object _lock = new object();
 
@@ -176,23 +176,25 @@
                 EventBus.Subscribe<DeviceConnectedEvent>(this, _ => RefreshDisplays());
                 EventBus.Subscribe<DeviceDisconnectedEvent>(this, _ => RefreshDisplays());
 
+                var isInspection = (bool)ServiceManager.GetInstance().GetService<IPropertiesManager>().GetProperty(KernelConstants.IsInspectionOnly, false);
                 if (CabinetService.ExpectedDisplayDevicesWithSerialTouch != null)
                 {
-                    CalibrateTouchScreenVisible = TestTouchScreenVisible = CabinetService.ExpectedDisplayDevicesWithSerialTouch.Count() > 0;
+                    CalibrateTouchScreenVisible = TestTouchScreenVisible = CabinetService.ExpectedDisplayDevicesWithSerialTouch.Count() > 0 || isInspection;
                 }
                 else
                 {
                     var touchDevicesAvailable = DisplaysDetected.Where(d => d.TouchDevice != null).ToList();
-                    TestTouchScreenVisible = touchDevicesAvailable.Any();
+                    TestTouchScreenVisible = touchDevicesAvailable.Any() || isInspection;
                 }
 
                 RefreshDisplays();
             }
 
-            var monitorInfo = "Monitor: ??"; // TODO
-            var touchInfo = "Touch: " +
-                            MachineSettingsUtilities.GetTouchScreenIdentificationWithoutVbd(Localizer.For(CultureFor.Operator));
-            Inspection?.SetFirmwareVersion(string.Join(Environment.NewLine, monitorInfo, touchInfo));
+            MachineSettingsUtilities.GetDisplayIdentificationList(Localizer.For(CultureFor.Operator))
+                .ForEach(m => Inspection?.SetFirmwareVersion(m));
+            MachineSettingsUtilities.GetTouchScreenIdentificationsWithoutVbd(Localizer.For(CultureFor.Operator))
+                .ToList()
+                .ForEach(t => Inspection?.SetFirmwareVersion($"Touch: {t}"));
 
             base.OnLoaded();
         }
@@ -285,6 +287,12 @@
             {
                 OnExitTouchScreenCommand();
             }
+        }
+
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            RefreshDisplays();
+            base.OnOperatorCultureChanged(evt);
         }
 
         private async void OnEnterTouchScreenCommand(object obj)
@@ -424,9 +432,9 @@
                         continue;
                     }
 
-                    Rectangle screenBounds = WindowToScreenMapper.GetScreenBounds(display.DisplayDevice);
+                    var screenBounds = WindowToScreenMapper.GetScreenBounds(display.DisplayDevice);
                     var windowToScreenMapper = new WindowToScreenMapper(display.DisplayDevice.Role, true);
-                    Rectangle visibleArea = windowToScreenMapper.GetVisibleArea();
+                    var visibleArea = windowToScreenMapper.GetVisibleArea();
                     // Translate the origin of the Visible Area for the global Screen coordinate space to
                     // local relative space. This is needed for ScreenIdentifyWindow as it takes a
                     // visible area rectangle that is relative to the origin of the Window. 
@@ -439,7 +447,8 @@
                     };
 
                     screenIdentifyWindow.Show();
-                    await Task.Delay(IdentifyWindowDisplayTime, _cancellationTokenSource.Token);
+                    var isInspection = (bool)PropertiesManager.GetProperty(KernelConstants.IsInspectionOnly, false);
+                    await Task.Delay(isInspection ? IdentifyWindowDisplayTimeForInspection : IdentifyWindowDisplayTime, _cancellationTokenSource.Token);
                     screenIdentifyWindow.Close();
                     screenIdentifyWindow = null;
                 }

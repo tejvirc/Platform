@@ -93,18 +93,17 @@ as follows:
     <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Printer.HardwareWarningClearEvent, Aristocrat.Monaco.Hardware.Contracts" Level="tilt" Type="General" />
     <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Printer.InspectionFailedEvent, Aristocrat.Monaco.Hardware.Contracts" Level="tilt" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Printer.ResolverErrorEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
-    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Reel.DisconnectedEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
-    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Reel.ConnectedEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="General" />
-    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Reel.DisabledEvent, Aristocrat.Monaco.Hardware.Contracts" Level="tilt" Type="General" />
-    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Reel.EnabledEvent, Aristocrat.Monaco.Hardware.Contracts" Level="tilt" Type="General" />
-    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Reel.HardwareFaultEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
-    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Reel.HardwareFaultClearEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="General" />
-    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Reel.HardwareReelFaultEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
-    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Reel.HardwareReelFaultClearEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="General" />
-    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Reel.InspectionFailedEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
+    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.DisconnectedEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
+    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ConnectedEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="General" />
+    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.DisabledEvent, Aristocrat.Monaco.Hardware.Contracts" Level="tilt" Type="General" />
+    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.EnabledEvent, Aristocrat.Monaco.Hardware.Contracts" Level="tilt" Type="General" />
+    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.HardwareFaultEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
+    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.HardwareFaultClearEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="General" />
+    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.HardwareReelFaultEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
+    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.HardwareReelFaultClearEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="General" />
+    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.InspectionFailedEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Audio.EnabledEvent, Aristocrat.Monaco.Hardware.Contracts" Level="info" Type="General" />
     <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Audio.DisabledEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="General" />
-    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Printer.TransferStatusEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Printer.LoadingRegionsAndTemplatesEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Kernel.Contracts.ExitRequestedEvent, Aristocrat.Monaco.Kernel.Contracts" Level="tilt" Type="Power" />
     <EventDescription Name="Aristocrat.Monaco.Kernel.PlatformBootedEvent, Aristocrat.Monaco.Kernel.Contracts" Level="tilt" Type="Power" />

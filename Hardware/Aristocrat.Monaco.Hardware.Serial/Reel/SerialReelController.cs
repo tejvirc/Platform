@@ -7,15 +7,15 @@
     using System.Threading;
     using Contracts.Gds;
     using Contracts.Gds.Reel;
-    using Contracts.Reel;
+    using Contracts.Reel.ControlData;
     using Protocols;
     using HomeReel = Contracts.Gds.Reel.HomeReel;
     using Nudge = Contracts.Gds.Reel.Nudge;
 
     public abstract class SerialReelController : SerialDeviceProtocol
     {
-        private readonly ConcurrentDictionary<int, ReelStatus>
-            _reelStatus = new ConcurrentDictionary<int, ReelStatus>();
+        private readonly ConcurrentDictionary<int, GdsReelStatus>
+            _reelStatus = new ConcurrentDictionary<int, GdsReelStatus>();
 
         private FailureStatus _status = new FailureStatus();
 
@@ -24,7 +24,7 @@
         {
             for (var i = startingReelId; i <= maxReelId; ++i)
             {
-                _reelStatus.TryAdd(startingReelId, new ReelStatus { ReelId = i });
+                _reelStatus.TryAdd(startingReelId, new GdsReelStatus { ReelId = i });
             }
         }
 
@@ -45,7 +45,7 @@
             }
         }
 
-        protected void SetReelStatus(int reelId, ReelStatus status)
+        protected void SetReelStatus(int reelId, GdsReelStatus status)
         {
             _reelStatus.AddOrUpdate(
                 reelId,
@@ -70,14 +70,14 @@
             OnMessageReceived(response);
         }
 
-        protected void UpdateReelStatus(int reelId, Func<ReelStatus, ReelStatus> statusUpdater)
+        protected void UpdateReelStatus(int reelId, Func<GdsReelStatus, GdsReelStatus> statusUpdater)
         {
             _reelStatus.AddOrUpdate(
                 reelId,
-                _ => statusUpdater.Invoke(new ReelStatus { ReelId = reelId }),
+                _ => statusUpdater.Invoke(new GdsReelStatus { ReelId = reelId }),
                 (_, reelStatus) =>
                 {
-                    var oldStatus = (ReelStatus)reelStatus.Clone();
+                    var oldStatus = (GdsReelStatus)reelStatus.Clone();
                     var status = statusUpdater.Invoke(reelStatus);
                     if (!oldStatus.Equals(status))
                     {

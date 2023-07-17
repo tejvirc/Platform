@@ -73,6 +73,37 @@
             return buttonDeckInfo;
         }
 
+        public static List<string> GetDisplayIdentificationList(ILocalizer localizer)
+        {
+            var cabinetDetectionService = ServiceManager.GetInstance().TryGetService<ICabinetDetectionService>();
+
+            if (cabinetDetectionService == null)
+            {
+                return new List<string>();
+            }
+
+            var identifications = new List<string>();
+            foreach (DisplayRole role in Enum.GetValues(typeof(DisplayRole)))
+            {
+                if (cabinetDetectionService.IsDisplayConnected(role))
+                {
+                    var display = cabinetDetectionService.GetDisplayDeviceByItsRole(role);
+                    identifications.Add($"{role}: " +
+                        (string.IsNullOrEmpty(display.ProductString)
+                        ? localizer.GetString(Resources.Unknown)
+                        : $"{string.Join(" ", new string[]{ display.ProductString, display.FirmwareVersion })}"));
+                }
+            }
+
+            return identifications;
+        }
+
+        public static string GetDisplayIdentifications(ILocalizer localizer)
+        {
+
+            return string.Join(Environment.NewLine, GetDisplayIdentificationList(localizer));
+        }
+
         public static string GetTouchScreenIdentification(ILocalizer localizer)
         {
             var cabinetDetectionService = ServiceManager.GetInstance().TryGetService<ICabinetDetectionService>();

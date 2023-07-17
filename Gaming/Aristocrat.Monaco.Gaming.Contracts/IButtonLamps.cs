@@ -21,6 +21,8 @@ namespace Aristocrat.Monaco.Gaming.Contracts
     {
         /// <summary> Bash (play/hit/etc) </summary>
         Bash = 13,
+        /// <summary> Dual Bash Left (play/hit/etc) </summary>
+        DualBashLeft = 33,
         /// <summary> Collect </summary>
         Collect = 1,
         /// <summary> Bet 1 </summary>

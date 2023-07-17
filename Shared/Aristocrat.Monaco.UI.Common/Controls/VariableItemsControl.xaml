@@ -1,44 +1,51 @@
 ﻿<UserControl x:Class="Aristocrat.Monaco.UI.Common.Controls.VariableItemsControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Aristocrat.Monaco.UI.Common.Controls"
-             mc:Ignorable="d" 
-             d:DataContext="{d:DesignInstance {x:Type local:VariableItemsControl}, IsDesignTimeCreatable=True}">
-
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance {x:Type local:VariableItemsControl}, IsDesignTimeCreatable=True}"
+             AutomationProperties.AutomationId="UserControl0_68839949">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <ContentPresenter>
+    <ContentPresenter AutomationProperties.AutomationId="ContentPresenter1_68839949">
         <ContentPresenter.Resources>
             <DataTemplate x:Key="MultiTemplate">
-                <ComboBox ItemsSource="{Binding Items, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                <ComboBox
+                        ItemsSource="{Binding Items, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=UserControl}}"
                           SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                          IsEnabled="{Binding ComboBoxIsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource InverseBoolConverter}, Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                          IsEnabled="{Binding ComboBoxIsEnabled, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource InverseBoolConverter}, Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                          AutomationProperties.AutomationId="ComboBox2_68839949" />
             </DataTemplate>
             <DataTemplate x:Key="SingleTemplate">
-                <TextBlock Text="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                           FontSize="{StaticResource SmallLabelFontSize}"/>
+                <TextBlock
+                        Text="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged, Mode=OneWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                           FontSize="{StaticResource SmallLabelFontSize}"
+                           AutomationProperties.AutomationId="TextBlock3_68839949" />
             </DataTemplate>
         </ContentPresenter.Resources>
         <ContentPresenter.Style>
             <Style TargetType="ContentPresenter">
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding ItemsHasMoreThanOneItem, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=UserControl}}" 
-                                 Value="true">
-                        <Setter Property="ContentTemplate" 
-                                Value="{StaticResource MultiTemplate}"/>
+                    <DataTrigger
+                            Binding="{Binding ItemsHasMoreThanOneItem, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                 Value="true"
+                                 AutomationProperties.AutomationId="DataTrigger4_68839949">
+                        <Setter Property="ContentTemplate"
+                                Value="{StaticResource MultiTemplate}" />
                     </DataTrigger>
-                    <DataTrigger Binding="{Binding ItemsHasMoreThanOneItem, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=UserControl}}" 
-                                 Value="false">
-                        <Setter Property="ContentTemplate" 
-                                Value="{StaticResource SingleTemplate}"/>
+                    <DataTrigger
+                            Binding="{Binding ItemsHasMoreThanOneItem, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                 Value="false"
+                                 AutomationProperties.AutomationId="DataTrigger5_68839949">
+                        <Setter Property="ContentTemplate"
+                                Value="{StaticResource SingleTemplate}" />
                     </DataTrigger>
                 </Style.Triggers>
             </Style>

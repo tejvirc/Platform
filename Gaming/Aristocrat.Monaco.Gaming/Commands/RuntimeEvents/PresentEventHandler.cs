@@ -115,7 +115,7 @@
                     UpdateBalance();
                 }
             }
-            else
+            else if (_gameHistory.CurrentLog.CashOutInfo.Any(c => !c.Complete))
             {
                 // This is the one chance we get to prevent the game from snapping the credit meter
                 var winInMillicents = _gameHistory.CurrentLog.UncommittedWin * GamingConstants.Millicents;
@@ -149,13 +149,8 @@
             SetAllowSubgameRound(true);
         }
 
-        private void HandleInvoked(GameRoundEvent gameRoundEvent)
+        private void HandleGameEnded()
         {
-            if (gameRoundEvent.PlayMode != PlayMode.Normal && gameRoundEvent.PlayMode != PlayMode.Demo)
-            {
-                return;
-            }
-
             if (!MeterFreeGames && _gameCashOutRecovery.HasPending)
             {
                 if (!CanExitRecovery())
@@ -166,13 +161,29 @@
                 ClearHandpayPendingFlag();
             }
             else if (!MeterFreeGames && !_gameCashOutRecovery.HasPending &&
-                     (_gamePlayState.Idle || _gamePlayState.InPresentationIdle))
+                     _gamePlayState.CurrentState is PlayState.Idle or PlayState.GameEnded or PlayState.PresentationIdle)
             {
                 ClearHandpayPendingFlag();
             }
 
             SetAllowSubgameRound(true);
             _gamePlayState.End(_gameHistory.CurrentLog.FinalWin);
+        }
+
+        private void HandleInvoked(GameRoundEvent gameRoundEvent)
+        {
+            if (gameRoundEvent.PlayMode is PlayMode.Recovery && !_gameCashOutRecovery.HasPending)
+            {
+                ClearHandpayPendingFlag();
+                return;
+            }
+
+            if (gameRoundEvent.PlayMode != PlayMode.Normal && gameRoundEvent.PlayMode != PlayMode.Demo)
+            {
+                return;
+            }
+
+            HandleGameEnded();
         }
 
         private void HandlePending()

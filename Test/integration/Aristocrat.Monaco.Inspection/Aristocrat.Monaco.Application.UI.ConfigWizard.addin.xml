@@ -18,21 +18,22 @@
   </Extension>
 
   <Extension path="/Application/Inspection/Wizards">
-    <Wizard type="Aristocrat.Monaco.Application.UI.Loaders.MachineSettingsPageLoader" order="1" />
-    <Wizard type="Aristocrat.Monaco.Application.UI.Loaders.PrinterPageLoader" order="2"/>
+    <Wizard type="Aristocrat.Monaco.Application.UI.Loaders.TimeConfigPageLoader" order="1" />
+    <Wizard type="Aristocrat.Monaco.Application.UI.Loaders.MachineSettingsPageLoader" order="3" />
+    <Wizard type="Aristocrat.Monaco.Application.UI.Loaders.PrinterPageLoader" order="5"/>
     <Wizard type="Aristocrat.Monaco.Application.UI.Loaders.NoteAcceptorPageLoader" order="10"/>
     <Wizard type="Aristocrat.Monaco.Application.UI.Loaders.IdReaderPageLoader" order="30"/>
+    <Wizard type="Aristocrat.Monaco.Application.UI.Loaders.MechanicalReelsPageLoader" order="35"/>
     <Wizard type="Aristocrat.Monaco.Application.UI.Loaders.DisplaysPageLoader" order="40"/>
-    <Wizard type="Aristocrat.Monaco.Application.UI.Loaders.ButtonPageLoader" order="50"/>
+    <Wizard type="Aristocrat.Monaco.Application.UI.Loaders.BellPageLoader" order="45"/>
+    <Wizard type="Aristocrat.Monaco.Application.UI.Loaders.BeagleBonePageLoader" order="50"/>
     <Wizard type="Aristocrat.Monaco.Application.UI.Loaders.EdgeLightingPageLoader" order="60"/>
     <Wizard type="Aristocrat.Monaco.Application.UI.Loaders.SoundConfigPageLoader" order="70"/>
     <Wizard type="Aristocrat.Monaco.Application.UI.Loaders.LampsPageLoader" order="80"/>
+    <Wizard type="Aristocrat.Monaco.Application.UI.Loaders.ButtonPageLoader" order="85"/>
     <Wizard type="Aristocrat.Monaco.Application.UI.Loaders.KeyPageLoader" order="90"/>
     <Wizard type="Aristocrat.Monaco.Application.UI.Loaders.DoorPageLoader" order="95"/>
     <Wizard type="Aristocrat.Monaco.Application.UI.Loaders.BatteryPageLoader" order="100"/>
-    <Wizard type="Aristocrat.Monaco.Application.UI.Loaders.BellPageLoader" order="110"/>
-    <Wizard type="Aristocrat.Monaco.Application.UI.Loaders.MechanicalReelsPageLoader" order="120"/>
-    <Wizard type="Aristocrat.Monaco.Application.UI.Loaders.BeagleBonePageLoader" order="130"/>
   </Extension>
 
   <Extension path="/Application/Config/Jurisdiction">

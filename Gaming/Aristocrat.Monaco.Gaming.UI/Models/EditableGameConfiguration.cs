@@ -47,6 +47,8 @@
         private decimal _forcedMinBet;
         private decimal _betMinimum;
         private decimal _betMaximum;
+        private decimal _maxInsideBet;
+        private decimal _maxOutsideBet;
         private decimal _forcedMaxBet;
         private decimal _forcedMaxBetOutside;
         private ObservableCollection<int> _bonusBets = new ObservableCollection<int>();
@@ -59,6 +61,7 @@
         private decimal _lowestAllowedMinimumRtp;
         private decimal _highestAllowedMinimumRtp;
         private long _topAwardValue;
+        private decimal? _maxWinAmount;
         private bool _progressivesEditable;
         private bool _gameOptionsEnabled;
         private bool _showGameRtpAsRange;
@@ -81,7 +84,7 @@
             _lowestAllowedMinimumRtp = LowestAvailableMinimumRtp = AvailableGames.Min(g => g.MinimumPaybackPercent);
             _highestAllowedMinimumRtp = HighestAvailableMinimumRtp = AvailableGames.Max(g => g.MinimumPaybackPercent);
 
-            _gamble = _properties.GetValue(GamingConstants.GambleEnabled, false);
+            _gamble = _properties.GetValue(GamingConstants.GambleAllowed, false) && _properties.GetValue(GamingConstants.GambleEnabled, false);
             _letItRide = _properties.GetValue(GamingConstants.LetItRideEnabled, false);
 
             _allowEditHostDisabled = _properties.GetValue(GamingConstants.AllowEditHostDisabled, false);
@@ -131,6 +134,12 @@
             private set => SetProperty(ref _topAwardValue, value);
         }
 
+        public decimal? MaxWinAmount
+        {
+            get => _maxWinAmount;
+            private set => SetProperty(ref _maxWinAmount, value);
+        }
+
         public IReadOnlyList<IGameDetail> AvailableGames { get; }
 
         public IReadOnlyList<PaytableDisplay> AvailablePaytables
@@ -150,8 +159,7 @@
                 ref _warningText,
                 value,
                 nameof(WarningText),
-                nameof(CanEdit),
-                nameof(WarningTextIsVisible));
+                nameof(CanEdit));
         }
 
         public long BaseDenom { get; }
@@ -178,6 +186,7 @@
                 ConfigurationMinBet();
                 SetProgressivesConfigured();
                 TopAwardValue = RecalculateTopAward();
+                MaxWinAmount = (ResolveDenomination().Value * _selectedBetOption.MaxWin)?.MillicentsToDollars();
             }
         }
 
@@ -264,7 +273,6 @@
                 _enabled = value;
                 RaisePropertyChanged(nameof(Enabled));
                 RaisePropertyChanged(nameof(CanEdit));
-                RaisePropertyChanged(nameof(WarningTextIsVisible));
                 RaisePropertyChanged(nameof(CanEditAndEnabled));
                 RaisePropertyChanged(nameof(CanEditAndEnableGamble));
                 RaisePropertyChanged(nameof(CanEditAndEnableLetItRide));
@@ -364,7 +372,6 @@
                     nameof(CanEditAndEnabled),
                     nameof(CanEditAndEnableGamble),
                     nameof(CanEditAndEnableLetItRide),
-                    nameof(WarningTextIsVisible),
                     nameof(CanEdit));
                 SetWarningText();
             }
@@ -379,8 +386,6 @@
                                         GameOptionsEnabled &&
                                         !MaxDenomEntriesReached &&
                                         !RestrictedToReadOnly;
-
-        public bool WarningTextIsVisible => !string.IsNullOrEmpty(WarningText);
 
         public bool CanEdit => GameOptionsEnabled;
 
@@ -418,9 +423,9 @@
 
         public decimal Denom => BaseDenom / _denomMultiplier;
 
-        public string DenomString => $"{Denom.FormattedCurrencyString()}";
+        public string DenomString => Denom.FormattedCurrencyStringForOperator();
 
-        public string MaxBet => $"{BetMaximum.FormattedCurrencyString()}";
+        public string MaxBet => BetMaximum.FormattedCurrencyStringForOperator();
 
         public bool Gamble
         {
@@ -523,6 +528,18 @@
 
         public int MaximumWagerOutsideCredits => (int)(ForcedMaxBetOutside * _denomMultiplier / BaseDenom);
 
+        public decimal MaximumInsideBet
+        {
+            get => _maxInsideBet;
+            set => SetProperty(ref _maxInsideBet, value, nameof(MaximumInsideBet));
+        }
+
+        public decimal MaximumOutsideBet
+        {
+            get => _maxOutsideBet;
+            set => SetProperty(ref _maxOutsideBet, value, nameof(MaximumOutsideBet));
+        }
+
         public string SubGameType => Game?.GameSubtype;
 
         private IEnumerable<IGameDetail> FilteredAvailableGames => AvailableGames.Where(
@@ -585,11 +602,23 @@
 
             MaxDenomEntriesReached = false;
             Enabled = denomination?.Active ?? false;
-            Gamble = denomination?.SecondaryAllowed ?? false;
+            Gamble = _properties.GetValue(GamingConstants.GambleAllowed, false) && (denomination?.SecondaryAllowed ?? false);
             LetItRide = denomination?.LetItRideAllowed ?? false;
             ForcedMinBet = denomination?.MinimumWagerCredits * Denom ?? BetMinimum;
             ForcedMaxBet = denomination?.MaximumWagerCredits * Denom ?? BetMaximum;
             ForcedMaxBetOutside = denomination?.MaximumWagerOutsideCredits * Denom ?? BetMaximum;
+
+            if (Game.GameType == GameType.Roulette)
+            {
+                MaximumInsideBet = Game?.MaximumWagerInsideCredits > 0 ?
+                    Game.MaximumWagerInsideCredits * Denom :
+                    BetMaximum;
+
+                MaximumOutsideBet = Game?.MaximumWagerOutsideCredits > 0 ?
+                    Game.MaximumWagerOutsideCredits * Denom :
+                    BetMaximum;
+            }
+
             SelectedBetOption = string.IsNullOrEmpty(denomination?.BetOption)
                 ? null
                 : BetOptions?.FirstOrDefault(o => o.Name == denomination.BetOption) ?? BetOptions?.FirstOrDefault();
@@ -602,11 +631,15 @@
         public void RaiseEnabledByHostChanged()
         {
             RaisePropertyChanged(nameof(EnabledByHost));
-            RaisePropertyChanged(nameof(WarningTextIsVisible));
             RaisePropertyChanged(nameof(CanEdit));
             RaisePropertyChanged(nameof(CanEditAndEnabled));
             RaisePropertyChanged(nameof(CanEditAndEnableGamble));
             RaisePropertyChanged(nameof(CanEditAndEnableLetItRide));
+        }
+
+        public void UpdateCurrencyCulture()
+        {
+            RaisePropertyChanged(nameof(DenomString), nameof(MaxBet));
         }
 
         public void SetAllowedRtpRange(decimal? lowestAllowed, decimal? highestAllowed)
@@ -677,9 +710,26 @@
                 return;
             }
 
+            var isProgressiveSetupReadonly = _properties.GetValue(GamingConstants.ProgressiveSetupReadonly, false);
             ProgressiveSetupConfigured = ViewProgressiveLevels
-                .Any(p => p.CurrentState != ProgressiveLevelState.Init);
-            ProgressivesEditable = ViewProgressiveLevels.Any(p => p.CanEdit) && (!_assignedLevels?.Any() ?? false);
+                .Any(p => p.CurrentState != ProgressiveLevelState.Init) || isProgressiveSetupReadonly;
+
+            ProgressivesEditable = ViewProgressiveLevels.Any(p => p.CanEdit) && (!_assignedLevels?.Any() ?? false) && !isProgressiveSetupReadonly;
+
+            if (Game?.Category == GameCategory.LightningLink)
+            {
+                var assignedProgressiveIds = ViewProgressiveLevels.Select(p => p.AssignedProgressiveId);
+                foreach (var assignedProgressiveId in assignedProgressiveIds)
+                {
+                    if (_progressives.ViewProgressiveLevels().Where(p => (p.AssignedProgressiveId?.Equals(assignedProgressiveId) ?? false) && !p.CanEdit).Any())
+                    {
+                        ProgressiveSetupConfigured = true;
+                        ProgressivesEditable = false;
+                        return;
+                    }
+                }
+            }
+
             RaisePropertyChanged(nameof(UseImportedLevels));
         }
 
@@ -725,7 +775,7 @@
                 WarningText = string.Format(
                     CultureInfo.CurrentCulture,
                     Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InvalidBetAmountForDenom),
-                    Denom.FormattedCurrencyString());
+                    DenomString);
             }
             else
             {
@@ -738,12 +788,14 @@
             // It turns out that this maths is invalid for other games like poker or slots, as the relationship between the
             // MaximumWagerCredits and MaxBet is not simple. Hence we only perform this check on Roulette for now.
             var game = FilteredAvailableGames.FirstOrDefault();
-            if (game?.GameType == GameType.Roulette)
+
+            if (game is not { GameType: GameType.Roulette })
             {
-                return (ForcedMaxBet < ForcedMinBet || ForcedMaxBetOutside < ForcedMinBet || ForcedMaxBetOutside < ForcedMaxBet);
+                return false;
             }
 
-            return false;
+            return ForcedMinBet > ForcedMaxBet + ForcedMaxBetOutside ||
+                ForcedMaxBet > ForcedMaxBetOutside;
         }
 
         private void LoadBetOptions()

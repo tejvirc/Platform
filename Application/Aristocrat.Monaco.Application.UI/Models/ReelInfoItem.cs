@@ -17,6 +17,8 @@
 
         private const int MaximumReelOffset = 199; // 200 & 0 are considered the same position
 
+        private const int MaximumReelStops = 22;
+
         private readonly IEventBus _eventBus;
 
         private int _id;
@@ -27,6 +29,8 @@
         private int _offsetSteps;
         private int _spinStep;
         private int _nudgeSteps;
+        private short _nudgeStopIndex;
+        private int _stopIndex;
         private SpinDirection _directionToSpin = SpinDirection.Forward;
         private SpinDirection _directionToNudge = SpinDirection.Forward;
 
@@ -49,6 +53,8 @@
             _spinStep = 0;
             _nudgeSteps = 1;
             _offsetSteps = offset;
+            _nudgeStopIndex = 1;
+            _stopIndex = 1;
         }
 
         public int MaxReelOffset => MaximumReelOffset;
@@ -206,6 +212,39 @@
                 RaisePropertyChanged(nameof(NudgeSteps));
             }
         }
+
+        /// <summary>
+        ///     Represents a stop index on a reel to nudge to
+        /// </summary>
+        public short NudgeStopIndex
+        {
+            get => _nudgeStopIndex;
+
+            set
+            {
+                _nudgeStopIndex = value;
+                RaisePropertyChanged(nameof(NudgeStopIndex));
+            }
+        }
+
+        /// <summary>
+        ///     Represents a stop index on a reel to stop at
+        /// </summary>
+        public int StopIndex
+        {
+            get => _stopIndex;
+
+            set
+            {
+                _stopIndex = value;
+                RaisePropertyChanged(nameof(StopIndex));
+            }
+        }
+
+        /// <summary>
+        ///     Maximum number of stops
+        /// </summary>
+        public int MaxReelStop => MaximumReelStops;
 
         /// <summary>
         ///     Gets or sets the direction to nudge the reel

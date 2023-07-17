@@ -101,6 +101,7 @@
             var totalLevel = _levelProvider.GetProgressiveLevels(packName, gameId, denomination);
             _activeLevels = totalLevel.Where(
                 l => (l.BetOption.IsNullOrEmpty() || l.BetOption == betOption) &&
+                     (!l.HasAssociatedBetLinePreset || l.BetOption == betOption) &&
                      (l.LevelType == ProgressiveLevelType.Sap ||
                       !l.AssignedProgressiveId.AssignedProgressiveKey.IsNullOrEmpty() &&
                       l.AssignedProgressiveId.AssignedProgressiveType != AssignableProgressiveType.None)).ToList();
@@ -121,7 +122,6 @@
                     level.HiddenValue = cSapLevel.HiddenValue;
                     level.Overflow = cSapLevel.Overflow;
                     level.OverflowTotal = cSapLevel.OverflowTotal;
-                    level.ResetValue = cSapLevel.ResetValue;
                 }
             }
 
@@ -154,7 +154,7 @@
 
         public IEnumerable<Jackpot> GetJackpotSnapshot(string packName)
         {
-            return GetUniqueLevelIDs().Select(level => new Jackpot(level.DeviceId, level.LevelId, level.CurrentValue));
+            return GetUniqueLevelIDs().Select(level => new Jackpot(level.DeviceId, level.LevelId, level.LevelName, level.CurrentValue));
         }
 
         public IEnumerable<IViewableProgressiveLevel> GetActiveProgressiveLevels()

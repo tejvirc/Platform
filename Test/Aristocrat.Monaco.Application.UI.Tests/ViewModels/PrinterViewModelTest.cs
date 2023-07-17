@@ -7,6 +7,7 @@
     using Contracts.ConfigWizard;
     using Contracts.Extensions;
     using Contracts.OperatorMenu;
+    using Hardware.Contracts;
     using Hardware.Contracts.Printer;
     using Hardware.Contracts.SharedDevice;
     using Kernel;
@@ -25,6 +26,8 @@
         private PrinterViewModel _target;
         private TestPrinterViewModel _target2;
         private Mock<IPropertiesManager> _propertiesManager;
+        private Mock<IOSService> _os;
+        private Mock<IOperatorMenuConfiguration> _operatorMenuConfiguration;
 
         private class TestPrinterViewModel : PrinterViewModel
         {
@@ -72,8 +75,8 @@
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.LocalizationPlayerTicketSelectable, It.IsAny<PlayerTicketSelectionArrayEntry[]>()))
                 .Returns(playerTicketSelectionArrayEntry)
                 .Verifiable();
-            
-                _propertiesManager.Setup(m => m.SetProperty(ApplicationConstants.LocalizationPlayerTicketOverride, true)).Verifiable();
+
+            _propertiesManager.Setup(m => m.SetProperty(ApplicationConstants.LocalizationPlayerTicketOverride, true)).Verifiable();
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.LocalizationPlayerTicketOverride, false))
                 .Returns(false).Verifiable();
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.LocalizationPlayerTicketDefault, String.Empty))
@@ -84,6 +87,13 @@
                 .Returns(false).Verifiable();
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.LocalizationPlayerTicketLanguageSettingShowCheckBox, false))
                 .Returns(false).Verifiable();
+
+            _os = MoqServiceManager.CreateAndAddService<IOSService>(MockBehavior.Strict, true);
+            _os.Setup(mock => mock.OsImageVersion).Returns(new Version());
+
+            _operatorMenuConfiguration = MoqServiceManager.CreateAndAddService<IOperatorMenuConfiguration>(MockBehavior.Strict);
+            _operatorMenuConfiguration.Setup(o => o.GetSetting(OperatorMenuSetting.UseOperatorCultureForCurrencyFormatting, false))
+                .Returns(false);
 
             TicketCurrencyExtensions.PlayerTicketLocale = "en-US";
 

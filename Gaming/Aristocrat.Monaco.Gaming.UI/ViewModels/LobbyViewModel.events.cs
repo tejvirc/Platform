@@ -5,6 +5,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Accounting.Contracts;
+    using Accounting.Contracts.HandCount;
     using Accounting.Contracts.Handpay;
     using Accounting.Contracts.Wat;
     using Application.Contracts;
@@ -19,6 +20,7 @@
     using Contracts.InfoBar;
     using Contracts.Models;
     using Contracts.Progressives;
+    using Contracts.HandCount;
     using Events;
     using Hardware.Contracts.Button;
     using Hardware.Contracts.ButtonDeck;
@@ -90,7 +92,7 @@
             _eventBus.Subscribe<GameDisabledEvent>(this, HandleEvent);
             _eventBus.Subscribe<GameUninstalledEvent>(this, HandleEvent);
             _eventBus.Subscribe<GameUpgradedEvent>(this, HandleEvent);
-            _eventBus.Subscribe<GameOrderChangedEvent>(this, HandleEvent);
+            _eventBus.Subscribe<GameIconOrderChangedEvent>(this, HandleEvent);
             _eventBus.Subscribe<GameTagsChangedEvent>(this, HandleEvent);
             _eventBus.Subscribe<GameRequestedLobbyEvent>(this, HandleEvent);
             _eventBus.Subscribe<PropertyChangedEvent>(this, HandleEvent, evt => evt.PropertyName == GamingConstants.IdleText);
@@ -138,6 +140,12 @@
             _eventBus.Subscribe<PlayerInfoDisplayExitedEvent>(this, HandleEvent);
             _eventBus.Subscribe<PlayerInfoDisplayEnteredEvent>(this, HandleEvent);
             _eventBus.Subscribe<GambleFeatureActiveEvent>(this, HandleEvent);
+            _eventBus.Subscribe<GameInstalledEvent>(this, HandleEvent);
+            _eventBus.Subscribe<OverlayWindowVisibilityChangedEvent>(this, HandleEvent);
+            _eventBus.Subscribe<HandCountChangedEvent>(this, HandCountChangedEvent);
+            _eventBus.Subscribe<HandCountResetTimerStartedEvent>(this, HandCountResetStartedEvent);
+            _eventBus.Subscribe<HandCountResetTimerElapsedEvent>(this, HandCountDialogElapsed);
+            _eventBus.Subscribe<HandCountResetTimerCancelledEvent>(this, HandCountDialogCancelled);
         }
 
         public delegate void CustomViewChangedEventHandler(ViewInjectionEvent ev);
@@ -148,7 +156,7 @@
         {
             Logger.Debug($"ViewInjectionEvent: Role: {evt.DisplayRole}, Action: {evt.Action}, Element: {evt.Element?.GetType().FullName}/{evt.Element?.GetHashCode()}");
 
-            if (evt.DisplayRole == DisplayRole.Main && !MessageOverlayDisplay.CustomMainViewElementVisible)
+            if (evt.DisplayRole == DisplayRole.Main)
             {
                 MessageOverlayDisplay.CustomMainViewElementVisible = evt.Action == ViewInjectionEvent.ViewAction.Add;
             }
@@ -215,7 +223,11 @@
 
         private void HandleEvent(CashoutNotificationEvent evt)
         {
-            MessageOverlayDisplay.ShowVoucherNotification = evt.PaperIsInChute;
+            if (Config?.DisplayVoucherNotification ?? false)
+            {
+                MessageOverlayDisplay.ShowVoucherNotification = evt.PaperIsInChute;
+            }
+
             if (evt.PaperIsInChute && !_systemDisableManager.IsDisabled)
             {
                 PlayLoopingAlert(Sound.PaperInChute, -1);
@@ -248,6 +260,7 @@
                 {
                     CurrentAttractIndex = 0;
                     SetAttractVideos();
+                    LoadGameInfo();
                 });
         }
 
@@ -493,6 +506,10 @@
                         _lobbyStateManager.RemoveFlagState(LobbyState.CashOutFailure);
                     }
 
+                    if (_bank.QueryBalance() == 0 && _gameState.Idle && !_gameState.InGameRound)
+                    {
+                        _overlimitCashoutProcessed = true;
+                    }
                     HandleMessageOverlayText();
                 });
         }
@@ -578,16 +595,22 @@
             }
         }
 
+        private bool BonusTransferPlaySound => (bool)_properties.GetProperty(GamingConstants.BonusTransferPlaySound, true);
+
         private void HandleEvent(PartialBonusPaidEvent bonusEvent)
         {
-            Logger.Debug($"Detected PartialBonusPaidEvent.  Amount: {bonusEvent.Transaction.PaidAmount}");
-            HandleCompletedMoneyIn(bonusEvent.Transaction.PaidAmount, false);
+            var payMethod = bonusEvent.Transaction.PayMethod;
+            var playCoinInSound = BonusTransferPlaySound && (payMethod == PayMethod.Any || payMethod == PayMethod.Credit);
+            Logger.Debug($"Detected PartialBonusPaidEvent.  Amount: {bonusEvent.Transaction.PaidAmount} and PayMethod: {payMethod}");
+            HandleCompletedMoneyIn(bonusEvent.Transaction.PaidAmount, playCoinInSound);
         }
 
         private void HandleEvent(BonusAwardedEvent bonusEvent)
         {
-            Logger.Debug($"Detected BonusAwardedEvent.  Amount: {bonusEvent.Transaction.PaidAmount}");
-            HandleCompletedMoneyIn(bonusEvent.Transaction.PaidAmount, false);
+            var payMethod = bonusEvent.Transaction.PayMethod;
+            var playCoinInSound = BonusTransferPlaySound && (payMethod == PayMethod.Any || payMethod == PayMethod.Credit);
+            Logger.Debug($"Detected BonusAwardedEvent.  Amount: {bonusEvent.Transaction.PaidAmount} and PayMethod: {payMethod}");
+            HandleCompletedMoneyIn(bonusEvent.Transaction.PaidAmount, playCoinInSound);
         }
 
         private void HandleEvent(BonusFailedEvent bonusEvent)
@@ -619,6 +642,11 @@
                         _responsibleGaming?.EndResponsibleGamingSession();
                     }
 
+                    if (platformEvent.Total == 0)
+                    {
+                        CheckMaxBalance("Checking for TransferOutCompletedEvent failed with total 0");
+                    }
+
                     switch (CashOutDialogState)
                     {
                         case LobbyCashOutDialogState.Visible:
@@ -636,6 +664,7 @@
         private void HandleEvent(TransferOutFailedEvent platformEvent)
         {
             Logger.Debug("Detected TransferOutFailedEvent");
+            MessageOverlayDisplay.TransferOutFailed(platformEvent);
             MvvmHelper.ExecuteOnUI(
                 () =>
                 {
@@ -720,6 +749,7 @@
 
         private void HandleEvent(WatTransferInitiatedEvent platformEvent)
         {
+            MessageOverlayDisplay.WatTransferInitiated(platformEvent);
             SetEdgeLighting();
             PlayAudioFile(Sound.CoinOut);
         }
@@ -735,6 +765,7 @@
 
         private void HandleEvent(VoucherOutStartedEvent platformEvent)
         {
+            MessageOverlayDisplay.VoucherOutStarted(platformEvent);
             SetEdgeLighting();
             PlayAudioFile(Sound.CoinOut);
         }
@@ -742,6 +773,8 @@
         private void HandleEvent(HandpayStartedEvent platformEvent)
         {
             Logger.Debug($"Detected HandpayStartedEvent.  HandpayType: {platformEvent.Handpay}");
+
+            MessageOverlayDisplay.HandpayStarted(platformEvent);
 
             SetEdgeLighting();
 
@@ -792,12 +825,14 @@
 
         private async Task HandleEvent(HandpayCanceledEvent platformEvent, CancellationToken token)
         {
+            MessageOverlayDisplay.HandpayCancelled();
             await Task.Run(() => _eventBus.Unsubscribe<DownEvent>(this), token);
             _lobbyStateManager.CashOutState = LobbyCashOutState.Undefined;
         }
 
         private async Task HandleEvent(HandpayKeyedOffEvent platformEvent, CancellationToken token)
         {
+            MessageOverlayDisplay.HandpayKeyedOff(platformEvent);
             await Task.Run(() => _eventBus.Unsubscribe<DownEvent>(this), token);
 
             if (platformEvent.Transaction.HandpayType is HandpayType.GameWin or HandpayType.BonusPay)
@@ -831,16 +866,21 @@
 
         private void HandleEvent(GamePlayEnabledEvent gameEnabledEvent)
         {
-            // Restore the fast-launch capability after tilts.
-            _lobbyStateManager.AllowGameAutoLaunch = true;
-            MvvmHelper.ExecuteOnUI(() => SendTrigger(LobbyTrigger.Enable));
+            MvvmHelper.ExecuteOnUI(
+                () =>
+                {
+                    // Restore the fast-launch capability after tilts.
+                    _lobbyStateManager.AllowGameAutoLaunch = true;
 
-            // If game is ready but not loaded due to disable, load it now
-            if (GameReady)
-            {
-                Logger.Debug("GamePlayEnabledEvent during game load. Assuming we are now loaded.");
-                MvvmHelper.ExecuteOnUI(() => SendTrigger(LobbyTrigger.GameLoaded));
-            }
+                    // If game is ready but not loaded due to disable, load it now
+                    SendTrigger(LobbyTrigger.Enable);
+
+                    if (GameReady && _lobbyStateManager.CurrentState != LobbyState.Disabled)
+                    {
+                        Logger.Debug("GamePlayEnabledEvent during game load. Assuming we are now loaded.");
+                        SendTrigger(LobbyTrigger.GameLoaded);
+                    }
+                });
         }
 
         private void HandleEvent(ViewResizeEvent viewResizeEvent)
@@ -913,7 +953,7 @@
             MvvmHelper.ExecuteOnUI(() => SendTrigger(LobbyTrigger.GameDiagnosticsExit));
         }
 
-        private void HandleEvent(GameOrderChangedEvent evt)
+        private void HandleEvent(GameIconOrderChangedEvent evt)
         {
             // The game info needs to be reloaded, since we can't be certain no other attributes around the game have changed
             MvvmHelper.ExecuteOnUI(
@@ -1488,9 +1528,54 @@
             RaisePropertyChanged(nameof(CashOutEnabledInPlayerMenu));
         }
 
+        private void HandleEvent(GameInstalledEvent evt)
+        {
+            MvvmHelper.ExecuteOnUI(
+                () =>
+                {
+                    OnUserInteraction();
+                    LoadGameInfo();
+                });
+        }
+
+        private void HandleEvent(OverlayWindowVisibilityChangedEvent evt)
+        {
+            if (_overlimitCashoutProcessed && !MessageOverlayDisplay.IsOverlayWindowVisible)
+            {
+                Logger.Debug("Cashed out after going over limit. Returning player to Lobby and changing Language to default.");
+                MvvmHelper.ExecuteOnUI(() =>
+                {
+                    IsPrimaryLanguageSelected = true;
+                    _runtime.SetRequestExitGame(true);
+                });
+                _overlimitCashoutProcessed = false;
+            }
+        }
+
         private void HandleMessageOverlayVisibility()
         {
             MessageOverlayDisplay.HandleOverlayWindowDialogVisibility();
+        }
+
+        private void HandCountChangedEvent(HandCountChangedEvent evt)
+        {
+            HandCount = evt.HandCount;
+        }
+
+        private void HandCountResetStartedEvent(HandCountResetTimerStartedEvent evt)
+        {
+            _isHandCountResetDialogOpen = true;
+            ExitAndResetAttractMode();
+        }
+
+        private void HandCountDialogElapsed(HandCountResetTimerElapsedEvent evt)
+        {
+            _isHandCountResetDialogOpen = false;
+        }
+
+        private void HandCountDialogCancelled(HandCountResetTimerCancelledEvent evt)
+        {
+            _isHandCountResetDialogOpen = false;
         }
     }
 }

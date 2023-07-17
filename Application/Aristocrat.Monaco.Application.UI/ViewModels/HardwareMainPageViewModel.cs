@@ -1,8 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
-    using OperatorMenu;
     using System;
     using System.Diagnostics;
+    using OperatorMenu;
 
     [CLSCompliant(false)]
     public sealed class HardwareMainPageViewModel : OperatorMenuMultiPageViewModelBase
@@ -15,8 +15,7 @@
         /// <summary>
         ///     Initializes a new instance of the <see cref="HardwareMainPageViewModel" /> class.
         /// </summary>
-        public HardwareMainPageViewModel(string displayPageTitle)
-            : base(displayPageTitle, MenuExtensionPointPath)
+        public HardwareMainPageViewModel(string pageNameResourceKey) : base(pageNameResourceKey, MenuExtensionPointPath)
         {
         }
 

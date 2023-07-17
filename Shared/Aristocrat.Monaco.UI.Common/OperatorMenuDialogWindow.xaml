@@ -17,28 +17,31 @@
                    Height="1080"
                    Title="OperatorMenuDialogWindow">
     <Window.Background>
-        <SolidColorBrush Color="Black" Opacity="0.01"/>
+        <SolidColorBrush Color="Black"
+                         Opacity="0.01"
+                         AutomationProperties.AutomationId="SolidColorBrush0_1F1A283A" />
     </Window.Background>
-
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-
     <i:Interaction.Behaviors>
-        <behaviors:HighDpiWindowBehavior/>
+        <behaviors:HighDpiWindowBehavior />
     </i:Interaction.Behaviors>
-
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+    <Grid HorizontalAlignment="Center"
+          VerticalAlignment="Center"
+          AutomationProperties.AutomationId="Grid1_1F1A283A">
         <Border BorderBrush="{DynamicResource Brush3}"
                 BorderThickness="2"
-                Background="{DynamicResource DarkBrush1}">
+                Background="{DynamicResource DarkBrush1}"
+                AutomationProperties.AutomationId="Border2_1F1A283A">
             <ContentControl x:Name="DialogContent"
                             HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Center"/>
+                            VerticalContentAlignment="Center"
+                            AutomationProperties.AutomationId="ContentControl3_1F1A283A" />
         </Border>
     </Grid>
 </common:BaseWindow>

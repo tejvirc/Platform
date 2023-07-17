@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -4555,7 +4555,7 @@ Max: Should be less than the Large Win Limit</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="InvalidBetRangeForDenom" xml:space="preserve">
-    <value>Invalid min/max bet range, min bet must be smaller than inside max, and inside max must be smaller than or equal to outside max.</value>
+    <value>Invalid min/max bet range, min bet must be smaller than or equal to the sum of the inside max and outside max, and the inside max must be smaller than or equal to the outside max.</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="NoKenoGames" xml:space="preserve">
@@ -5106,7 +5106,7 @@ Max: Should be less than the Large Win Limit</value>
     <value>What will be saved?</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
-  <data name="PartialClearSummeryText" xml:space="preserve">
+  <data name="PartialClearSummaryText" xml:space="preserve">
     <value>This will reset the machine back to the state it was in after initial configuration.</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
@@ -7068,6 +7068,10 @@ See manual for details</value>
     <value>TRANSFER TO GAME</value>
     <comment>Aristocrat.Monaco.Sas</comment>
   </data>
+  <data name="HardMeterOut" xml:space="preserve">
+    <value>Payout</value>
+    <comment>Monaco.Accounting.Contracts</comment>
+  </data>
   <data name="TriggerLabel" xml:space="preserve">
     <value>Progressive Trigger</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
@@ -8274,7 +8278,7 @@ See manual for details</value>
     <comment>Monaco.Accounting</comment>
   </data>
   <data name="VerifiedEKeyRequired" xml:space="preserve">
-    <value>EKey device is required to perform game re-configuration</value>
+    <value>EKey device is required to perform configuration</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="EmployeeCardRequired" xml:space="preserve">
@@ -11581,6 +11585,12 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>Please clear reel related faults to allow Replay.</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
+  <data name="MysteryStandalone" xml:space="preserve">
+    <value>Mystery Standalone</value>
+  </data>
+  <data name="MysterySharedStandalone" xml:space="preserve">
+    <value>Mystery Shared Standalone</value>
+  </data>
   <data name="Reconnected" xml:space="preserve">
     <value>Reconnected</value>
   </data>
@@ -11653,15 +11663,627 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
   </data>
   <data name="BellEnabled" xml:space="preserve">
     <value>Bell Enabled</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="ReelControllerEnabled" xml:space="preserve">
     <value>Reel Controller Enabled</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="ReelControllerManufacturer" xml:space="preserve">
     <value>Reel Controller Manufacturer</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Displays" xml:space="preserve">
+    <value>Displays</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="AutoTest" xml:space="preserve">
+    <value>Auto Test</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="DoorRequiresTest" xml:space="preserve">
+    <value>Door requires test: open and close</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="TransactionReportingQueueAlmostFullHelp" xml:space="preserve">
     <value>Too many transaction requests are pending with the Server. This lockup will be removed when the Server acknowledges the requests.</value>
     <comment>Aristocrat.Monaco.Bingo</comment>
+  </data>
+  <data name="AcceptanceRate" xml:space="preserve">
+    <value>Acceptance Rate</value>
+  </data>
+  <data name="FullClearButtonContent" xml:space="preserve">
+    <value>Full Reset</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="FullClearDetailsText1" xml:space="preserve">
+    <value>What will be cleared?</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="FullClearDetailsText2" xml:space="preserve">
+    <value>Static data, history data, meters.</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="FullClearDetailsText3" xml:space="preserve">
+    <value>What will be saved?</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="FullClearDetailsText4" xml:space="preserve">
+    <value>Games?</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="FullClearHeadingText" xml:space="preserve">
+    <value>Full Reset</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="FullClearSummaryText" xml:space="preserve">
+    <value>This will reset the machine back to the state it was in after initial configuration.</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="FullResetDialogText" xml:space="preserve">
+    <value>This operation cannot be reversed.
+Do you really want to do full reset?</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="NoGamesForThisLanguage" xml:space="preserve">
+    <value>No games are available for this language</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="EndJackpot" xml:space="preserve">
+    <value>End Jackpot</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="PrimaryWonAmountLabel" xml:space="preserve">
+    <value>Primary Game Amount Won</value>
+  </data>
+  <data name="Standard" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="Vip" xml:space="preserve">
+    <value>Vip</value>
+  </data>
+  <data name="BadRead" xml:space="preserve">
+    <value>Bad Read</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Escrowed" xml:space="preserve">
+    <value>Escrowed</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Fault" xml:space="preserve">
+    <value>Fault</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Full" xml:space="preserve">
+    <value>Full</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="InEscrow" xml:space="preserve">
+    <value>In Escrow</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Initializing" xml:space="preserve">
+    <value>Initializing</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Inserted" xml:space="preserve">
+    <value>Inserted</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Jammed" xml:space="preserve">
+    <value>Jammed</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Reading" xml:space="preserve">
+    <value>Reading</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Removed" xml:space="preserve">
+    <value>Removed</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Returning" xml:space="preserve">
+    <value>Returning</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Stacking" xml:space="preserve">
+    <value>Stacking</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Validated" xml:space="preserve">
+    <value>Validated</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="ValidatingText" xml:space="preserve">
+    <value>Validating</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="TotalInLabel" xml:space="preserve">
+    <value>Total In</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="TotalOutLabel" xml:space="preserve">
+    <value>Total Out</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="CashPlayed" xml:space="preserve">
+    <value>Cash Played</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MainDoorOpenPowerOff" xml:space="preserve">
+    <value>Main Door Open Power Off</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="CashDoorOpenLabel" xml:space="preserve">
+    <value>Cash Door Open</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="CashDoorOpenPowerOffLabel" xml:space="preserve">
+    <value>Cash Door Open Power Off</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="LogicDoorOpen" xml:space="preserve">
+    <value>Logic Door Open</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="LogicDoorOpenPowerOffLabel" xml:space="preserve">
+    <value>Logic Door Open Power Off</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="TopBoxDoorOpen" xml:space="preserve">
+    <value>Top Box Door Open</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="TopBoxDoorOpenPowerOffLabel" xml:space="preserve">
+    <value>Top Box Door Open Power Off</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="StackerRemoved" xml:space="preserve">
+    <value>Stacker Removed</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="ProgressiveDetails" xml:space="preserve">
+    <value>Progressive Details</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="ViewPerformanceDetails" xml:space="preserve">
+    <value>View Performance Details</value>
+  </data>
+  <data name="EndPerformanceDetails" xml:space="preserve">
+    <value>End Performance Details</value>
+  </data>
+  <data name="ViewMemory" xml:space="preserve">
+    <value>View Memory</value>
+  </data>
+  <data name="CreatingKeyboardService" xml:space="preserve">
+    <value>Creating Keyboard Service</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="PackagesMustMatch" xml:space="preserve">
+    <value>All games of this type must use the same package</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="GeneralInformationPageTitle" xml:space="preserve">
+    <value>General Information</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="ClearSelection" xml:space="preserve">
+    <value>Clear Selection</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Select All</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="VerifiedEKeyRequiredGameConfiguration" xml:space="preserve">
+    <value>EKey device is required to perform game re-configuration</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="TestModeDisabledStatusCredits" xml:space="preserve">
+    <value>Zero credits are required to enter Test Mode</value>
+  </data>
+  <data name="Door" xml:space="preserve">
+    <value>Door</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Protocol" xml:space="preserve">
+    <value>Protocol</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="FilterBy" xml:space="preserve">
+    <value>Filter By</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="G2SEventCode" xml:space="preserve">
+    <value>G2S Event Code</value>
+    <comment>Aristocrat.Monaco.G2S.Common</comment>
+  </data>
+  <data name="G2SEventCodeDescription" xml:space="preserve">
+    <value>G2S Event Code Description</value>
+    <comment>Aristocrat.Monaco.G2S.Common</comment>
+  </data>
+  <data name="Searching" xml:space="preserve">
+    <value>Searching ...</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="DeviceDetected" xml:space="preserve">
+    <value>Device detected!</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="InvalidDeviceDetectedTemplate" xml:space="preserve">
+    <value>detected but is invalid</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="NoDeviceDetected" xml:space="preserve">
+    <value>No device detected</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="InspectorLabel" xml:space="preserve">
+    <value>Inspector</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="OrderNumberLabel" xml:space="preserve">
+    <value>Order #</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="InspectionSetup" xml:space="preserve">
+    <value>Inspection Setup</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="NoSubUnitText" xml:space="preserve">
+    <value>(no sub-unit)</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="GameStartMethodBetOrMaxBetButton" xml:space="preserve">
+    <value>Bet/Max Bet Button</value>
+  </data>
+  <data name="GameStartMethodLineReelorMaxBetButton" xml:space="preserve">
+    <value>Line/Reel/Max Bet Button</value>
+  </data>
+  <data name="ReelFaults_IdleUnknown" xml:space="preserve">
+    <value>Reel Controller Error</value>
+  </data>
+  <data name="ReelFaults_ReelOpticSequenceError" xml:space="preserve">
+    <value>Reel Controller Error</value>
+  </data>
+  <data name="ReelFaults_UnknownStop" xml:space="preserve">
+    <value>Reel Controller Error</value>
+  </data>
+  <data name="ReelControllerFaults_LightError" xml:space="preserve">
+    <value>Reel Controller Error</value>
+  </data>
+  <data name="PlayStepperCurveButton" xml:space="preserve">
+    <value>Animate</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="StopButton" xml:space="preserve">
+    <value>Stop</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="ExtendedLayout" xml:space="preserve">
+    <value>Extended Layout</value>
+    <comment>Aristocrat.Monaco.Accounting.UI</comment>
+  </data>
+  <data name="BarcodeInterleave2Of5" xml:space="preserve">
+    <value>Interleave 2 of 5</value>
+    <comment>Aristocrat.Monaco.Accounting.UI</comment>
+  </data>
+  <data name="EgmPaidGameWonAmtLabel" xml:space="preserve">
+    <value>Cash Won</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="PlayedCountLabel" xml:space="preserve">
+    <value>Games Played</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="WageredAmountLabel" xml:space="preserve">
+    <value>Cash Played</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="WonCountLabel" xml:space="preserve">
+    <value>Games Won</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="ActiveConnections" xml:space="preserve">
+    <value>Active Connections</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Ping" xml:space="preserve">
+    <value>Ping</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="ExtraLow" xml:space="preserve">
+    <value>Extra Low</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MediumLow" xml:space="preserve">
+    <value>Medium-Low</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MediumHigh" xml:space="preserve">
+    <value>Medium-High</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="ExtraHigh" xml:space="preserve">
+    <value>Extra-High</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="ClrMemoryLabel" xml:space="preserve">
+    <value>CLR Memory</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="FreeMemoryLabel" xml:space="preserve">
+    <value>Free Memory</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MegabytesAbbr" xml:space="preserve">
+    <value>MB</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="PlatformMemoryLabel" xml:space="preserve">
+    <value>Platform Memory</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="SelectDate" xml:space="preserve">
+    <value>Select a Date</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="SecondaryWageredAmountLabel" xml:space="preserve">
+    <value>Double Up Amount Wagered</value>
+  </data>
+  <data name="SecondaryWonAmountLabel" xml:space="preserve">
+    <value>Double Up Amount Won</value>
+  </data>
+  <data name="SecondaryPlayedCountLabel" xml:space="preserve">
+    <value>Double Up Games Played</value>
+  </data>
+  <data name="SecondaryTiedAndWonCountLabel" xml:space="preserve">
+    <value>Double Up Games Won</value>
+  </data>
+  <data name="AttendantPaidExternalBonusWinLabel" xml:space="preserve">
+    <value>  Attendant Paid External Bonus Win</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="AttendantPaidPaytableWinLabel" xml:space="preserve">
+    <value>  Attendant Paid Paytable Win</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="AttendantPaidProgressiveWinLabel" xml:space="preserve">
+    <value>  Attendant Paid Progressive Win</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="GamesLost" xml:space="preserve">
+    <value>Games Lost</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MachinePaidExternalBonusWinLabel" xml:space="preserve">
+    <value>  Machine Paid External Bonus Win</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MachinePaidPaytableWinLabel" xml:space="preserve">
+    <value>  Machine Paid Paytable Win</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MachinePaidProgressiveWinLabel" xml:space="preserve">
+    <value>  Machine Paid Progressive Win</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="TotalCoinInTurnoverLabel" xml:space="preserve">
+    <value>Total Coin In (Turnover)</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="TotalCoinOutMachinePaidLabel" xml:space="preserve">
+    <value>Total Coin Out (Machine Paid)</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="TotalJackpotAttendantPaidLabel" xml:space="preserve">
+    <value>Total Jackpot (Attendant Paid)</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MetricClrBytes" xml:space="preserve">
+    <value>CLR Memory</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricCpuTemperature" xml:space="preserve">
+    <value>CPU Temperature</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricCpuTime" xml:space="preserve">
+    <value>Platform CPU</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricFreeMemory" xml:space="preserve">
+    <value>Free Memory</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricGdkPrivateBytes" xml:space="preserve">
+    <value>Game Memory</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricGdkProcessorTime" xml:space="preserve">
+    <value>Game CPU</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricGdkThreadCount" xml:space="preserve">
+    <value>Game Threads</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricGpuUsage" xml:space="preserve">
+    <value>GPU Usage</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricMonacoPrivateBytes" xml:space="preserve">
+    <value>Platform Memory</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricThreadCount" xml:space="preserve">
+    <value>Platform Threads</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="MetricTotalCpu" xml:space="preserve">
+    <value>Total CPU</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="TotalDashBillsAndVouchers" xml:space="preserve">
+    <value>Total - Bills, Vouchers</value>
+  </data>
+  <data name="TotalDashCoinsBillsAndVouchers" xml:space="preserve">
+    <value>Total - Coins, Bills, Vouchers</value>
+  </data>
+  <data name="PlaySpinDraw" xml:space="preserve">
+    <value>Play/Spin/Draw</value>
+  </data>
+  <data name="OperatorRoleName" xml:space="preserve">
+    <value>Operator</value>
+  </data>
+  <data name="TechnicianRoleName" xml:space="preserve">
+    <value>Technician</value>
+  </data>
+  <data name="FastFlash" xml:space="preserve">
+    <value>Fast Flash</value>
+  </data>
+  <data name="MediumFlash" xml:space="preserve">
+    <value>Medium Flash</value>
+  </data>
+  <data name="MediumFlashReversed" xml:space="preserve">
+    <value>Medium Flash Reversed</value>
+  </data>
+  <data name="SlowFlash" xml:space="preserve">
+    <value>Slow Flash</value>
+  </data>
+  <data name="SlowFlashReversed" xml:space="preserve">
+    <value>Slow Flash Reversed</value>
+  </data>
+  <data name="TouchScreenCalibrationInstructions" xml:space="preserve">
+    <value>1. With a single finger, touch the monitor that displays this text
+2. If the touch does not switch to the next monitor, then
+    use the large play button to switch to the next monitor
+3. Repeat for each monitor</value>
+  </data>
+  <data name="TouchScreenCalibrationProcess" xml:space="preserve">
+    <value>Touch Screen Calibration Process</value>
+  </data>
+  <data name="MetricGdkFrameDrops" xml:space="preserve">
+    <value>Frame Drops</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MetricGdkFramerate" xml:space="preserve">
+    <value>Framerate</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MetricGdkGamesUpdateTimeMs" xml:space="preserve">
+    <value>Update Time</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MetricGdkIPCBlockingTimeAccMs" xml:space="preserve">
+    <value>IPC Blocking Time Acc</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MetricGdkRenderTimeMs" xml:space="preserve">
+    <value>Render Time</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MetricGdkRuntimeUpdateTimeMs" xml:space="preserve">
+    <value>Runtime Update Time</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MetricGdkSwapbufferTimeMs" xml:space="preserve">
+    <value>Swapbuffer Time</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="FalseText" xml:space="preserve">
+    <value>False</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="TrueText" xml:space="preserve">
+    <value>True</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="DeviceManagerActiveSelection" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="DeviceManagerOwnerSelection" xml:space="preserve">
+    <value>Owner</value>
+  </data>
+  <data name="Interleave2of5" xml:space="preserve">
+    <value>Interleave 2 of 5</value>
+  </data>
+  <data name="Lobby" xml:space="preserve">
+    <value>Lobby</value>
+  </data>
+  <data name="LobbyAndGame" xml:space="preserve">
+    <value>LobbyAndGame</value>
+  </data>
+  <data name="AnyKeyOff" xml:space="preserve">
+    <value>Any Key-Off</value>
+  </data>
+  <data name="HandpayOnly" xml:space="preserve">
+    <value>Handpay Only</value>
+  </data>
+  <data name="NoKeyOff" xml:space="preserve">
+    <value>No Key-Off</value>
+  </data>
+  <data name="MBLabel" xml:space="preserve">
+    <value>MB</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MillisecondLabel" xml:space="preserve">
+    <value>ms</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="PayoutLimit" xml:space="preserve">
+    <value>Payout Limit</value>
+  </data>
+  <data name="LargePayoutReached" xml:space="preserve">
+    <value>COLLECT LIMIT REACHED. SEE ATTENDANT.</value>
+    <comment>Aristocrat.Account</comment>
+  </data>
+  <data name="HardMeterOutTransactionName" xml:space="preserve">
+    <value>HardMeterOutTransaction</value>
+    <comment>Monaco.Accounting.Contracts</comment>
+  </data>
+  <data name="LargePayoutReachedHelpMessage" xml:space="preserve">
+    <value>Insert and turn Attendant Reset Key to clear the lockup.</value>
+    <comment>Aristocrat.Account</comment>
+  </data>
+  <data name="BetOptionMaxWin" xml:space="preserve">
+    <value>Max Win</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="ResidualCreditsTransactionName" xml:space="preserve">
+    <value>ResidualCreditsTransaction</value>
+    <comment>Monaco.Accounting.Contracts</comment>
+  </data>
+  <data name="InsertCredits" xml:space="preserve">
+    <value>INSERT CREDITS TO CONTINUE.</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="TimeBeforeHandCountReset" xml:space="preserve">
+    <value>TIME BEFORE CREDITS/HANDCOUNT IS RESET.</value>
+    <comment>Monaco.Gaming.UI</comment>
+  </data>
+  <data name="Secs" xml:space="preserve">
+    <value>secs</value>
+    <comment>Monaco.Gaming.UI</comment>
+  </data>
+  <data name="BillAcceptanceInHelpText" xml:space="preserve">
+    <value>Note: After first COAM game is played, Bill Acceptance Limit can be edited on Hardware&gt;Note Acceptor page.</value>
+  </data>
+  <data name="PayoutLimitHelpText" xml:space="preserve">
+    <value>Note: After first COAM game is played, RAM clear is required to change payout limit.</value>
+  </data>
+  <data name="ExtraSettingsButtonText" xml:space="preserve">
+    <value>Extra Settings</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="GameSpecificOptionLabel" xml:space="preserve">
+    <value>Game Specific Options</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="GamesPlayedSinceDoorClosed" xml:space="preserve">
+    <value>Games Played since Door Closed</value>
+  </data>
+  <data name="GamesPlayedSinceReboot" xml:space="preserve">
+    <value>Games Played since Reboot</value>
   </data>
 </root>

@@ -37,8 +37,8 @@
 
         private readonly HHRTimer _placardTimer;
         private readonly HHRTimer _overlayExpiryTimer;
-        private const int PlacardTimerTickIntervalMilli = 1000;
-        private const int OverlayIdleTimerIntervalMilliSeconds = 30000;
+        private const int PlacardTimerTickIntervalMs = 1000;
+        private const int OverlayIdleTimerIntervalMs = 30000;
         private int _tickCount;
         private int _placardTimeOut;
         private Action _placardTimeOutAction;
@@ -50,9 +50,19 @@
         private bool _initializing;
         private bool _commandRunning;
         private readonly IPlayerBank _bank;
-        private ITransactionCoordinator _transactionCoordinator;
+        private readonly ITransactionCoordinator _transactionCoordinator;
         private Guid _raceInfoTransactionId;
         protected new readonly ILog Logger;
+
+        public IHhrMenuPageViewModel SelectedViewModel
+        {
+            get => _selectedViewModel;
+            set
+            {
+                Logger?.Debug("ViewModel " + value?.GetType().Name);
+                _selectedViewModel = value;
+            }
+        }
 
         public HostPageViewModelManager(
             IEventBus eventBus,
@@ -93,18 +103,19 @@
             _betHelpPageViewModel =
                 betHelpPageViewModel ?? throw new ArgumentNullException(nameof(betHelpPageViewModel));
 
-            _selectedViewModel = null;
+            SelectedViewModel = null;
             _hostView = null;
 
-            _placardTimer = new HHRTimer(PlacardTimerTickIntervalMilli);
+            _placardTimer = new HHRTimer(PlacardTimerTickIntervalMs);
             _tickCount = 0;
             _placardTimeOut = 0;
             _placardTimer.Elapsed += (obj, args) => OnTimerElapsed();
             _commandRunning = false;
 
-            _overlayExpiryTimer = new HHRTimer(OverlayIdleTimerIntervalMilliSeconds) { AutoReset = true, Enabled = false };
+            _overlayExpiryTimer = new HHRTimer(OverlayIdleTimerIntervalMs) { AutoReset = true, Enabled = false };
             _overlayExpiryTimer.Elapsed += (obj, args) =>
             {
+                Logger.Debug("ExpireTimer: Fired");
                 MvvmHelper.ExecuteOnUI(
                     CloseMenu);
             };
@@ -126,7 +137,7 @@
             // If the host view is null, we aren't in the race menu, so reset the AwaitingPlayerSelection.
             // This is need primarily for when we are in the race menu and a power-cycle happens. On boot,
             // the VBD buttons will be disabled if we don't clear this
-            if (_selectedViewModel is null)
+            if (SelectedViewModel is null)
             {
                 Logger.Debug("Resetting AwaitingPlayerSelection flag");
                 // Reset this flag in case a power-cycle occurred in the middle of an activity that had set this flag
@@ -145,26 +156,24 @@
             }
         }
 
-        public IHhrMenuPageViewModel SelectedViewModel => _selectedViewModel;
-        private bool IsHandicapActive => _selectedViewModel == _manualHandicapPageViewModel ||
-                                         _selectedViewModel == _raceStatsPageViewModel;
+        private bool IsHandicapActive => SelectedViewModel == _manualHandicapPageViewModel ||
+                                         SelectedViewModel == _raceStatsPageViewModel;
 
         private async Task SetSelectedViewModel(IHhrMenuPageViewModel viewModel, Command command)
         {
-            Logger.Debug($"NewViewModel is {viewModel?.GetType()} and OldViewModel is {_selectedViewModel?.GetType()}");
-
-            if (viewModel == _selectedViewModel)
+            if (viewModel == SelectedViewModel)
+            {
                 return;
+            }
 
-            var oldViewModel = _selectedViewModel;
-
+            var oldViewModel = SelectedViewModel;
 
             if (viewModel != null)
             {
                 await viewModel.Init(command);
             }
 
-            _selectedViewModel = viewModel;
+            SelectedViewModel = viewModel;
 
             RaisePropertyChanged(nameof(SelectedViewModel));
 
@@ -173,9 +182,9 @@
 
         private void CloseViewModel()
         {
-            _selectedViewModel?.Reset();
+            SelectedViewModel?.Reset();
 
-            _selectedViewModel = null;
+            SelectedViewModel = null;
 
             RaisePropertyChanged(nameof(SelectedViewModel));
         }
@@ -194,14 +203,14 @@
             MvvmHelper.ExecuteOnUI(
                 () =>
                 {
-                    if (_hostView != null && _selectedViewModel != null && _hostView is UIElement element)
+                    if (_hostView != null && SelectedViewModel != null && _hostView is UIElement element)
                     {
                         element.Visibility = Visibility.Hidden;
                     }
                 });
         }
 
-        public void Unhide()
+        public void UnHide()
         {
             var isDisabled = ServiceManager.GetInstance().GetService<ISystemDisableManager>().IsDisabled;
             Logger.Debug($"isDisabled {isDisabled} and handicap is {IsHandicapActive}");
@@ -231,7 +240,7 @@
             try
             {
                 // If the race info button is pressed and the menu is on the screen, close it.
-                if (command == Command.PreviousResults && _selectedViewModel != null)
+                if (command == Command.PreviousResults && SelectedViewModel != null)
                 {
                     // If the user is currently in the manual handicap view, we can't close.
                     if (IsHandicapActive)
@@ -249,6 +258,7 @@
                         return;
                     }
 
+                    Logger.Debug("ExpireTimer: Start");
                     _overlayExpiryTimer.Start();
                     _initializing = true;
 
@@ -334,7 +344,7 @@
             finally
             {
                 _commandRunning = false;
-                Logger.Debug($"Set _commandRunning to False");
+                Logger.Debug("Set _commandRunning to False");
             }
         }
 
@@ -351,14 +361,18 @@
 
         private void CloseMenu()
         {
+            Logger.Debug("CloseMenu: Running");
             _transactionCoordinator.ReleaseTransaction(_raceInfoTransactionId);
 
             if (_hostView == null || SelectedViewModel == null)
             {
                 return;
             }
+
+            Logger.Debug("CloseMenu: Removing Overlay");
             _eventBus.Publish(new ViewInjectionEvent(_hostView, DisplayRole.Main, ViewInjectionEvent.ViewAction.Remove));
 
+            Logger.Debug("CloseMenu: Stop");
             _overlayExpiryTimer.Stop();
 
             _eventBus.Publish(new OverlayMenuExitedEvent());
@@ -485,10 +499,10 @@
 
                 _commandsToViewModelMap?.Clear();
 
-                if (_selectedViewModel != null)
+                if (SelectedViewModel != null)
                 {
-                    _selectedViewModel.HhrButtonClicked -= Handle;
-                    _selectedViewModel = null;
+                    SelectedViewModel.HhrButtonClicked -= Handle;
+                    SelectedViewModel = null;
 
                     CloseViewModel();
                 }
@@ -504,13 +518,16 @@
 
         private void RestartOverlayExpiryTimer()
         {
-            if (_selectedViewModel != null && !IsHandicapActive && _overlayExpiryTimer.Enabled)
+            Logger.Debug($"ExpireTimer: Try Restart {SelectedViewModel}:{IsHandicapActive}:{_overlayExpiryTimer.Enabled}");
+            if (SelectedViewModel != null && !IsHandicapActive)
             {
+                Logger.Debug("ExpireTimer: Restart");
                 _overlayExpiryTimer.Stop();
                 _overlayExpiryTimer.Start();
             }
             else
             {
+                Logger.Debug("ExpireTimer: Stop");
                 _overlayExpiryTimer.Stop();
             }
         }
@@ -528,6 +545,7 @@
         {
             /* Hide the menu if manual handicap is active to avoid the player
             leveraging the added time while the terminal is faulted. */
+            Logger.Debug($"IsHandicapActive = {IsHandicapActive},GameLoaded:{UiProperties.GameLoaded},_selectedViewModel={SelectedViewModel} ");
             if (IsHandicapActive)
             {
                 Hide();
@@ -536,12 +554,14 @@
 
         private void OnGamePlayEnabled(GamePlayEnabledEvent evt)
         {
+            Logger.Debug($"IsHandicapActive = {IsHandicapActive},GameLoaded:{UiProperties.GameLoaded},_selectedViewModel={SelectedViewModel} ");
+
             /* GamePlayEnabledEvent is published before 3 sec of GameInitializationCompletedEvent
-            and it is not good to show Manual Handicap screen on Game Loading page, Unhide
+            and it is not good to show Manual Handicap screen on Game Loading page, UnHide
             would be called by consumer of GameInitializationCompletedEvent. */
-            if ((IsHandicapActive && UiProperties.GameLoaded) || _selectedViewModel == null)
+            if ((IsHandicapActive && UiProperties.GameLoaded) || SelectedViewModel == null)
             {
-                Unhide();
+                UnHide();
             }
         }
 
@@ -554,9 +574,10 @@
         {
             return _bank.Balance != 0 &&
                    (evt.DisableId == ApplicationConstants.DisabledByHost0Key ||
-                    evt.DisableId == ApplicationConstants.DisabledByHost1Key) ||
+                   evt.DisableId == ApplicationConstants.DisabledByHost1Key) ||
                    evt.DisableId == ApplicationConstants.Host0CommunicationsOfflineDisableKey ||
-                   evt.DisableId == ApplicationConstants.Host1CommunicationsOfflineDisableKey;
+                   evt.DisableId == ApplicationConstants.Host1CommunicationsOfflineDisableKey ||
+                   evt.DisableId == ApplicationConstants.MaintenanceModeGuid;
         }
 
         /// <inheritdoc />

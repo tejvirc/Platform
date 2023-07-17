@@ -1,21 +1,21 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
-    using Common;
-    using Contracts;
-    using Contracts.Tickets;
-    using Hardware.Contracts.SharedDevice;
-    using Hardware.Contracts.Ticket;
-    using Kernel;
     using System;
     using System.Collections.Generic;
     using System.Timers;
     using System.Windows.Input;
     using System.Windows.Media;
     using System.Windows.Threading;
+    using Common;
     using ConfigWizard;
+    using Contracts;
     using Contracts.Localization;
-    using Monaco.Localization.Properties;
+    using Contracts.Tickets;
     using Hardware.Contracts.SerialPorts;
+    using Hardware.Contracts.SharedDevice;
+    using Hardware.Contracts.Ticket;
+    using Kernel;
+    using Monaco.Localization.Properties;
 
     /// <summary>
     ///     A DeviceViewModel contains the base logic for device config page view models
@@ -66,14 +66,14 @@
             RefreshTimer.Elapsed += OnRefreshTimeout;
 
             _portLabelContent = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Port);
-            
+
             // Set whether the operator can reconfig with credits on the machine.
         }
 
         protected IInformationTicketCreator TicketCreator => ServiceManager.GetInstance().TryGetService<IInformationTicketCreator>();
 
         protected ISerialPortsService SerialPortsService => ServiceManager.GetInstance().TryGetService<ISerialPortsService>();
-        
+
         public ICommand SelfTestButtonCommand { get; set; }
 
         public ICommand SelfTestClearButtonCommand { get; set; }
@@ -85,11 +85,8 @@
             {
                 _activationTime = value;
                 RaisePropertyChanged(nameof(ActivationTime));
-                RaisePropertyChanged(nameof(ActivationForeground));
             }
         }
-
-        public Brush ActivationForeground => ProtocolForeground;
 
         public bool ActivationVisible
         {
@@ -108,11 +105,8 @@
             {
                 _firmwareCrcText = value;
                 RaisePropertyChanged(nameof(FirmwareCrcText));
-                RaisePropertyChanged(nameof(FirmwareCrcForeground));
             }
         }
-
-        public Brush FirmwareCrcForeground => Brushes.White; // FirmwareCrc does not exist in enum
 
         public string FirmwareVersionText
         {
@@ -121,11 +115,8 @@
             {
                 _firmwareVersionText = value;
                 RaisePropertyChanged(nameof(FirmwareVersionText));
-                RaisePropertyChanged(nameof(FirmwareVersionForeground));
             }
         }
-
-        public Brush FirmwareVersionForeground => Brushes.White;
 
         public string FirmwareRevisionText
         {
@@ -134,11 +125,8 @@
             {
                 _firmwareRevisionText = value;
                 RaisePropertyChanged(nameof(FirmwareRevisionText));
-                RaisePropertyChanged(nameof(FirmwareRevisionForeground));
             }
         }
-
-        public Brush FirmwareRevisionForeground => Brushes.White;
 
         public string ManufacturerText
         {
@@ -147,11 +135,8 @@
             {
                 _manufacturerText = value;
                 RaisePropertyChanged(nameof(ManufacturerText));
-                RaisePropertyChanged(nameof(ManufacturerForeground));
             }
         }
-
-        public Brush ManufacturerForeground => Brushes.White;
 
         public string ModelText
         {
@@ -160,11 +145,8 @@
             {
                 _modelText = value;
                 RaisePropertyChanged(nameof(ModelText));
-                RaisePropertyChanged(nameof(ModelForeground));
             }
         }
-
-        public Brush ModelForeground => Brushes.White;
 
         public string PortText
         {
@@ -173,11 +155,8 @@
             {
                 _portText = value;
                 RaisePropertyChanged(nameof(PortText));
-                RaisePropertyChanged(nameof(PortForeground));
             }
         }
-
-        public Brush PortForeground => Brushes.White; // Port does not exist in enum
 
         public bool PortVisible => !string.IsNullOrEmpty(_portLabelContent);
 
@@ -188,11 +167,8 @@
             {
                 _protocolText = value;
                 RaisePropertyChanged(nameof(ProtocolText));
-                RaisePropertyChanged(nameof(ProtocolForeground));
             }
         }
-
-        public Brush ProtocolForeground => Brushes.White;
 
         public string SerialNumberText
         {
@@ -201,11 +177,8 @@
             {
                 _serialNumberText = value;
                 RaisePropertyChanged(nameof(SerialNumberText));
-                RaisePropertyChanged(nameof(SerialNumberForeground));
             }
         }
-
-        public Brush SerialNumberForeground => Brushes.White; // SerialNumber does not exist in enum
 
         public bool ShowDiagnostics
         {
@@ -379,7 +352,7 @@
         {
             RaisePropertyChanged(nameof(SelfTestButtonEnabled));
         }
-        
+
         protected virtual void SetDeviceInformation(IDevice device)
         {
             ManufacturerText = device.Manufacturer;
@@ -391,11 +364,13 @@
             ProtocolText = device.Protocol;
             PortText = SetPortText();
 
-            Inspection?.SetFirmwareVersion($"{FirmwareVersionText} {FirmwareRevisionText}");
+            Inspection?.SetFirmwareVersion($"{ManufacturerText} {ModelText}: {FirmwareVersionText} {FirmwareRevisionText}");
 
             string SetPortText()
             {
-                if (string.IsNullOrEmpty(device.Protocol) || device.Protocol.Contains(ApplicationConstants.Fake))
+                if (string.IsNullOrEmpty(device.Protocol) ||
+                    device.Protocol.Contains(ApplicationConstants.Fake) ||
+                    device.Protocol.Contains(ApplicationConstants.RelmSim))
                 {
                     return ApplicationConstants.Fake;
                 }

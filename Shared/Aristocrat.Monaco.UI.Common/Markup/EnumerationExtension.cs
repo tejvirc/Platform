@@ -1,9 +1,9 @@
 ﻿namespace Aristocrat.Monaco.UI.Common.Markup
 {
-    using Extensions;
     using System;
     using System.Linq;
     using System.Windows.Markup;
+    using Monaco.Common;
 
     /// <summary>
     ///     This class allows items controls to bind ItemsSource property to enumeration values

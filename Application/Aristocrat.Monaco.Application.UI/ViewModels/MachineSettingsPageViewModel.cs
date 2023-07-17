@@ -6,11 +6,13 @@
     using Application.Helpers;
     using Application.Settings;
     using Contracts;
+    using Contracts.ConfigWizard;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
     using Contracts.Tickets;
     using Hardware.Contracts;
     using Hardware.Contracts.Display;
+    using Hardware.Contracts.HardMeter;
     using Hardware.Contracts.IO;
     using Hardware.Contracts.NoteAcceptor;
     using Hardware.Contracts.Printer;
@@ -18,6 +20,7 @@
     using Hardware.Contracts.Ticket;
     using Kernel;
     using Kernel.Contracts;
+    using Monaco.Localization.Properties;
     using MVVM.Command;
     using OperatorMenu;
 
@@ -43,6 +46,7 @@
         private string _electronics;
         private string _graphicsCard;
         private string _buttonDeck;
+        private string _displays;
         private string _touchScreens;
         private string _lighting;
         private string _noteAcceptorModel;
@@ -72,171 +76,96 @@
         public string IpAddress
         {
             get => _ipAddress;
-            set
-            {
-                if (value != _ipAddress)
-                {
-                    _ipAddress = value;
-                    RaisePropertyChanged(nameof(IpAddress));
-                }
-            }
+            set => SetProperty(ref _ipAddress, value, nameof(IpAddress));
         }
 
         public string PhysicalAddress
         {
             get => _physicalAddress;
-            set
-            {
-                if (_physicalAddress == value)
-                {
-                    return;
-                }
-
-                _physicalAddress = value;
-                RaisePropertyChanged(nameof(PhysicalAddress));
-            }
+            set => SetProperty(ref _physicalAddress, value, nameof(PhysicalAddress));
         }
 
         public string ModelText
         {
             get => _modelText;
-            set
-            {
-                _modelText = value;
-                RaisePropertyChanged(nameof(ModelText));
-            }
+            set => SetProperty(ref _modelText, value, nameof(ModelText));
         }
 
         public string Jurisdiction
         {
             get => _jurisdiction;
-            set
-            {
-                _jurisdiction = value;
-                RaisePropertyChanged(nameof(Jurisdiction));
-            }
+            set => SetProperty(ref _jurisdiction, value, nameof(Jurisdiction));
         }
 
         public string CurrencySample
         {
             get => _currencySample;
-            set
-            {
-                _currencySample = value;
-                RaisePropertyChanged(nameof(CurrencySample));
-            }
+            set => SetProperty(ref _currencySample, value, nameof(CurrencySample));
         }
 
         public bool IsVisibleForInspection
         {
             get => _isVisibleForInspection;
-            set
-            {
-                _isVisibleForInspection = value;
-                RaisePropertyChanged(nameof(IsVisibleForInspection));
-            }
+            set => SetProperty(ref _isVisibleForInspection, value, nameof(IsVisibleForInspection));
         }
 
         public string BiosVersion
         {
             get => _biosVersion;
-            private set
-            {
-                if (_biosVersion != value)
-                {
-                    _biosVersion = value;
-                    RaisePropertyChanged(nameof(BiosVersion));
-                }
-            }
+            private set => SetProperty(ref _biosVersion, value, nameof(BiosVersion));
         }
 
         public string FpgaVersion
         {
             get => _fpgaVersion;
-            private set
-            {
-                if (_fpgaVersion != value)
-                {
-                    _fpgaVersion = value;
-                    RaisePropertyChanged(nameof(FpgaVersion));
-                }
-            }
+            private set => SetProperty(ref _fpgaVersion, value, nameof(FpgaVersion));
         }
 
         public string WindowsVersion
         {
             get => _windowsVersion;
-            private set
-            {
-                if (_windowsVersion != value)
-                {
-                    _windowsVersion = value;
-                    RaisePropertyChanged(nameof(WindowsVersion));
-                }
-            }
+            private set => SetProperty(ref _windowsVersion, value, nameof(WindowsVersion));
         }
 
         public string OsImageVersion
         {
             get => _osImageVersion;
-            private set
-            {
-                if (_osImageVersion != value)
-                {
-                    _osImageVersion = value;
-                    RaisePropertyChanged(nameof(OsImageVersion));
-                }
-            }
+            private set => SetProperty(ref _osImageVersion, value, nameof(OsImageVersion));
         }
 
         public string PlatformVersion
         {
             get => _platformVersion;
-            private set
-            {
-                if (_platformVersion != value)
-                {
-                    _platformVersion = value;
-                    RaisePropertyChanged(nameof(PlatformVersion));
-                }
-            }
+            private set => SetProperty(ref _platformVersion, value, nameof(PlatformVersion));
         }
 
         public string Electronics
         {
             get => _electronics;
-            private set
-            {
-                if (_electronics != value)
-                {
-                    _electronics = value;
-                    RaisePropertyChanged(nameof(Electronics));
-                }
-            }
+            private set => SetProperty(ref _electronics, value, nameof(Electronics));
         }
 
         public string GraphicsCard
         {
             get => _graphicsCard;
-            private set
-            {
-                if (_graphicsCard != value)
-                {
-                    _graphicsCard = value;
-                    RaisePropertyChanged(nameof(GraphicsCard));
-                }
-            }
+            private set => SetProperty(ref _graphicsCard, value, nameof(GraphicsCard));
         }
 
         public string ButtonDeck
         {
             get => _buttonDeck;
+            private set => SetProperty(ref _buttonDeck, value, nameof(ButtonDeck));
+        }
+
+        public string Displays
+        {
+            get => _displays;
             private set
             {
-                if (_buttonDeck != value)
+                if (!_displays?.Equals(value) ?? true)
                 {
-                    _buttonDeck = value;
-                    RaisePropertyChanged(nameof(ButtonDeck));
+                    _displays = value;
+                    RaisePropertyChanged(nameof(Displays));
                 }
             }
         }
@@ -244,66 +173,31 @@
         public string TouchScreens
         {
             get => _touchScreens;
-            private set
-            {
-                if (!_touchScreens?.Equals(value) ?? true)
-                {
-                    _touchScreens = value;
-                    RaisePropertyChanged(nameof(TouchScreens));
-                }
-            }
+            private set => SetProperty(ref _touchScreens, value, nameof(TouchScreens));
         }
 
         public string Lighting
         {
             get => _lighting;
-            private set
-            {
-                if (!_lighting?.Equals(value) ?? true)
-                {
-                    _lighting = value;
-                    RaisePropertyChanged(nameof(Lighting));
-                }
-            }
+            private set => SetProperty(ref _lighting, value, nameof(Lighting));
         }
 
         public string NoteAcceptorModel
         {
             get => _noteAcceptorModel;
-            private set
-            {
-                if (_noteAcceptorModel != value)
-                {
-                    _noteAcceptorModel = value;
-                    RaisePropertyChanged(nameof(NoteAcceptorModel));
-                }
-            }
+            private set => SetProperty(ref _noteAcceptorModel, value, nameof(NoteAcceptorModel));
         }
 
         public string PrinterModel
         {
             get => _printerModel;
-            private set
-            {
-                if (_printerModel != value)
-                {
-                    _printerModel = value;
-                    RaisePropertyChanged(nameof(PrinterModel));
-                }
-            }
+            private set => SetProperty(ref _printerModel, value, nameof(PrinterModel));
         }
 
         public string ReelController
         {
             get => _reelController;
-            private set
-            {
-                if (_reelController != value)
-                {
-                    _reelController = value;
-                    RaisePropertyChanged(nameof(ReelController));
-                }
-            }
+            private set => SetProperty(ref _reelController, value, nameof(ReelController));
         }
 
         /// <summary>
@@ -312,14 +206,7 @@
         public string HardBootTime
         {
             get => _hardBootTime;
-            set
-            {
-                if (_hardBootTime != value)
-                {
-                    _hardBootTime = value;
-                    RaisePropertyChanged(nameof(HardBootTime));
-                }
-            }
+            set => SetProperty(ref _hardBootTime, value, nameof(HardBootTime));
         }
 
         /// <summary>
@@ -328,14 +215,7 @@
         public string SoftBootTime
         {
             get => _softBootTime;
-            set
-            {
-                if (_softBootTime != value)
-                {
-                    _softBootTime = value;
-                    RaisePropertyChanged(nameof(SoftBootTime));
-                }
-            }
+            set => SetProperty(ref _softBootTime, value, nameof(SoftBootTime));
         }
 
         protected override void Loaded()
@@ -361,7 +241,7 @@
         {
             if (WizardNavigator != null)
             {
-                WizardNavigator.CanNavigateForward = true;
+                WizardNavigator.CanNavigateForward = !HasErrors;
             }
         }
 
@@ -440,6 +320,8 @@
 
             ButtonDeck = MachineSettingsUtilities.GetButtonDeckIdentification(Localizer.For(CultureFor.Operator));
 
+            Displays = MachineSettingsUtilities.GetDisplayIdentifications(Localizer.For(CultureFor.Operator));
+
             TouchScreens = MachineSettingsUtilities.GetTouchScreenIdentificationWithoutVbd(Localizer.For(CultureFor.Operator));
 
             Lighting = MachineSettingsUtilities.GetLightingIdentification(Localizer.For(CultureFor.Operator));
@@ -460,7 +342,17 @@
                 .GetDeviceStatus(false);
 
             BiosVersion = ioService.GetFirmwareVersion(FirmwareData.Bios);
+            if (string.IsNullOrEmpty(BiosVersion))
+            {
+                BiosVersion = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable);
+            }
+
             FpgaVersion = ioService.GetFirmwareVersion(FirmwareData.Fpga);
+            if (string.IsNullOrEmpty(FpgaVersion))
+            {
+                FpgaVersion = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable);
+            }
+
             ModelText = ioService.DeviceConfiguration.Model;
 
             IsVisibleForInspection = PropertiesManager.GetValue(KernelConstants.IsInspectionOnly, false);
@@ -473,6 +365,25 @@
             OsImageVersion = osService.OsImageVersion.ToString();
 
             PlatformVersion = PropertiesManager.GetValue(KernelConstants.SystemVersion, string.Empty);
+
+            ReportVersions();
+
+            if (IsVisibleForInspection)
+            {
+                EventBus.Publish(new InspectionResultsChangedEvent(null));
+
+                if (PropertiesManager.GetValue(HardwareConstants.HardMetersEnabledKey, false))
+                {
+                    Inspection?.SetTestName(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HardMeterLabel));
+
+                    if (!ServiceManager.GetInstance().GetService<IHardMeter>().IsHardwareOperational)
+                    {
+                        Inspection?.ReportTestFailure();
+                        SetError(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HardMeterLabel),
+                            Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HardMeterError));
+                    }
+                }
+            }
         }
 
         private bool SaveVariableData()
@@ -499,6 +410,16 @@
             {
                 ClearErrors(nameof(AssetNumber));
             }
+        }
+
+        private void ReportVersions()
+        {
+            Inspection?.SetFirmwareVersion($"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ModelLabel)}: {ModelText}");
+            Inspection?.SetFirmwareVersion($"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MacAddressLabel)}: {PhysicalAddress}");
+            Inspection?.SetFirmwareVersion($"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Electronics)}: {Electronics}");
+            Inspection?.SetFirmwareVersion($"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GraphicsCard)}: {GraphicsCard}");
+            Inspection?.SetFirmwareVersion($"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BiosVersion)}: {BiosVersion}");
+            Inspection?.SetFirmwareVersion($"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.FpgaVersion)}: {FpgaVersion}");
         }
 
         private bool PropertyHasChanges(string propertyValue, string settingName, bool blankOk = false) =>

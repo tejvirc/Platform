@@ -186,9 +186,11 @@
 
         public bool Upgraded { get; set; }
 
-        public GameCategory Category => GameCategory.Table;
+        public GameCategory Category { get; set; } = GameCategory.Table;
 
         public GameSubCategory SubCategory => GameSubCategory.FiveHand;
+
+        public bool NextToMaxBetTopAwardMultiplier { get; set; }
 
         public static IEnumerable<IGameDetail> GetMockGameDetailInfo()
         {
@@ -259,6 +261,18 @@
         public int MechanicalReels { get; set; }
 
         public int[] MechanicalReelHomeSteps { get; set; }
+
+        public int MaximumWagerInsideCredits
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
+
+        public int MaximumWagerOutsideCredits
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
     }
 
     public class MockLocalGameGraphics : ILocaleGameGraphics
@@ -272,6 +286,10 @@
         public string LargeTopPickIcon { get; set; }
 
         public string SmallTopPickIcon { get; set; }
+
+        public string DenomButtonIcon { get; set; }
+
+        public string DenomPanel { get; set; }
 
         public string TopAttractVideo { get; set; }
 

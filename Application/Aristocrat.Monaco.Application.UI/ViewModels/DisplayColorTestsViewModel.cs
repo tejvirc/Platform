@@ -7,9 +7,10 @@
     using Contracts.ConfigWizard;
     using Contracts.Localization;
     using Monaco.Localization.Properties;
+    using MVVM.Model;
 
     [CLSCompliant(false)]
-    public class DisplayColorTestsViewModel
+    public class DisplayColorTestsViewModel : BaseNotify
     {
         private static readonly IReadOnlyCollection<Color> GrayScaleColors =
             Enumerable.Range(0, 32).Select(x => (byte)(x * 8)).Select(x => Color.FromArgb(255, x, x, x)).ToList();
@@ -70,8 +71,8 @@
             get => _selectedTest;
             set
             {
-                _selectedTest = value;
-                _reporter?.SetTestName($"Colors Test: {_selectedTest.Name}");
+                SetProperty(ref _selectedTest, value, nameof(SelectedTest));
+                _reporter?.SetTestName($"Colors Test: {_selectedTest?.Name ?? ("?")}");
             }
         }
 

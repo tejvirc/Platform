@@ -2,11 +2,12 @@
 {
     using System;
     using System.Text;
-    using Aristocrat.Monaco.Hardware.Contracts.SerialPorts;
     using Contracts;
     using Contracts.Localization;
+    using Hardware.Contracts.SerialPorts;
     using Hardware.Contracts.SharedDevice;
     using Kernel;
+    using Localization;
     using Monaco.Localization.Properties;
 
     [CLSCompliant(false)]
@@ -81,6 +82,74 @@
             }
 
             return sb.ToString();
+        }
+
+        public static DeviceState GetDeviceStatusType(this IDevice device, bool showPort = true)
+        {
+            return device != null
+                ? GetDeviceStatusType(
+                    device.Manufacturer,
+                    device.Model,
+                    device.Protocol,
+                    showPort ? device.PortName : null,
+                    device.FirmwareId,
+                    device.FirmwareRevision,
+                    device.VariantName,
+                    device.VariantVersion)
+                : DeviceState.None;
+        }
+
+        public static DeviceState GetDeviceStatusType(
+            string manufacturer,
+            string model,
+            string protocol,
+            string port,
+            string firmwareVersion,
+            string firmwareRevision,
+            string variantName,
+            string variantVersion)
+        {
+            return string.IsNullOrEmpty(manufacturer)
+                ? DeviceState.None
+                : manufacturer.Contains(ApplicationConstants.Fake)
+                    ? port == null
+                        ? DeviceState.Manufacturer
+                        : DeviceState.ConnectedText
+                    : DetermineDeviceStatusType(
+                        manufacturer,
+                        model,
+                        protocol,
+                        port,
+                        firmwareVersion,
+                        firmwareRevision,
+                        variantName,
+                        variantVersion);
+        }
+
+        private static DeviceState DetermineDeviceStatusType(
+            string manufacturer,
+            string model,
+            string protocol,
+            string port,
+            string firmwareVersion,
+            string firmwareRevision,
+            string variantName,
+            string variantVersion)
+        {
+            var sb = new StringBuilder()
+                .AppendWithSpace(manufacturer)
+                .AppendWithSpace(model)
+                .AppendWithSpace(protocol)
+                .AppendWithSpace(firmwareVersion)
+                .AppendWithSpace(firmwareRevision)
+                .AppendWithSpace(variantName)
+                .AppendWithSpace(variantVersion);
+
+            if (sb.Length > 0 && !string.IsNullOrWhiteSpace(port))
+            {
+                return DeviceState.ConnectedToPortName;
+            }
+            return DeviceState.FullDeviceSignature;
         }
     }
 }

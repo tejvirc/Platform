@@ -79,7 +79,8 @@
                 _eventCode,
                 theEvent.Log.TransactionId,
                 device.TransactionList(theEvent.Log.ToRecallLog()),
-                GetMeters(device, theEvent.Denomination, theEvent.WagerCategory));
+                GetMeters(device, theEvent.Denomination, theEvent.WagerCategory),
+                theEvent);
         }
 
         /// <summary>

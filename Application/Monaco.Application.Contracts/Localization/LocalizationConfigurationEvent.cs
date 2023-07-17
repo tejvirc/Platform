@@ -1,22 +1,19 @@
 ﻿namespace Aristocrat.Monaco.Application.Contracts.Localization
 {
-    using System.Diagnostics.CodeAnalysis;
-
     /// <summary>
     ///     Notification that localization configuration has been loaded.
     /// </summary>
-    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public class LocalizationConfigurationEvent : LocalizationEvent
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="LocalizationConfigurationEvent"/> class.
         /// </summary>
         /// <param name="configPath">Configuration path.</param>
-        /// <param name="overridePaths">Override paths.</param>
-        public LocalizationConfigurationEvent(string configPath, string[] overridePaths)
+        /// <param name="overrideKeys">Override keys.</param>
+        public LocalizationConfigurationEvent(string configPath, string[] overrideKeys)
         {
             ConfigPath = configPath;
-            OverridePaths = overridePaths;
+            OverrideKeys = overrideKeys;
         }
 
         /// <summary>
@@ -25,8 +22,8 @@
         public string ConfigPath { get; }
 
         /// <summary>
-        ///     Gets the localization override paths.
+        ///     Gets the localization override keys.
         /// </summary>
-        public string[] OverridePaths { get; }
+        public string[] OverrideKeys { get; }
     }
 }

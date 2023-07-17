@@ -1,20 +1,17 @@
 ﻿namespace Aristocrat.Monaco.UI.Common.Controls
 {
+    using System.Globalization;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
     using System.Windows.Input;
     using Application.Contracts.Extensions;
-    using Hardware.Contracts.Touch;
-    using Kernel;
     using Helpers;
 
     /// <summary>
     /// </summary>
-    public class CurrencyTextBox : TextBox
+    public class CurrencyTextBox : TouchTextBox
     {
-        private static readonly IEventBus EventBus;
-
         /// <summary>
         ///     Dependency Property for the Number value of the Currency Text Box
         /// </summary>
@@ -32,6 +29,15 @@
             typeof(decimal),
             typeof(CurrencyTextBox),
             new FrameworkPropertyMetadata(0M, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnNumberChanged));
+
+        /// <summary>
+        ///     Dependency Property for the Culture for the Currency Text Box.
+        /// </summary>
+        public static readonly DependencyProperty CultureProperty = DependencyProperty.Register(
+            nameof(Culture),
+            typeof(CultureInfo),
+            typeof(CurrencyTextBox),
+            new FrameworkPropertyMetadata(CurrencyExtensions.CurrencyCultureInfo, OnCultureChanged));
 
         /// <summary>
         ///     Dependency Property for the Formatted Number value of the Currency Text Box
@@ -62,8 +68,6 @@
 
         static CurrencyTextBox()
         {
-            EventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-
             DefaultStyleKeyProperty.OverrideMetadata(
                 typeof(CurrencyTextBox),
                 new FrameworkPropertyMetadata(typeof(CurrencyTextBox)));
@@ -97,6 +101,15 @@
         {
             get => (bool)GetValue(WholeCurrencyProperty);
             set => SetValue(WholeCurrencyProperty, value);
+        }
+
+        /// <summary>
+        ///    Culture to use for currency display formatting
+        /// </summary>
+        public CultureInfo Culture
+        {
+            get => (CultureInfo)GetValue(CultureProperty);
+            set => SetValue(CultureProperty, value);
         }
 
         /// <summary>
@@ -152,8 +165,6 @@
             PreviewKeyDown += TextBox_PreviewKeyDown;
             PreviewMouseDown += TextBox_PreviewMouseDown;
             PreviewMouseUp += TextBox_PreviewMouseUp;
-            GotFocus += TextBox_GotFocus;
-            LostFocus += TextBox_LostFocus;
             TextChanged += TextBox_TextChanged;
             PreviewTextInput += CurrencyTextBox_PreviewTextInput;
             ContextMenu = null;
@@ -167,7 +178,7 @@
         /// </summary>
         public void UpdateFormattedNumber()
         {
-            FormattedNumber = Number.FormattedCurrencyString();
+            FormattedNumber = Number.FormattedCurrencyString(culture: Culture);
         }
 
         private static bool IsIgnoredKey(Key key)
@@ -194,20 +205,15 @@
             (sender as TextBox)?.Focus();
         }
 
-        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            EventBus?.Publish(new OnscreenKeyboardOpenedEvent(true));
-        }
-
-        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            EventBus?.Publish(new OnscreenKeyboardClosedEvent(true));
-        }
-
         private static void OnNumberChanged(DependencyObject element, DependencyPropertyChangedEventArgs args)
         {
             var ctb = (CurrencyTextBox)element;
             ctb.UpdateFormattedNumber();
+        }
+
+        private static void OnCultureChanged(DependencyObject element, DependencyPropertyChangedEventArgs args)
+        {
+            OnNumberChanged(element, args);
         }
 
         private static void StringFormatPropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)

@@ -1,30 +1,35 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
-    using Contracts;
-    using Hardware.Contracts.SharedDevice;
-    using Helpers;
-    using log4net;
-    using Monaco.UI.Common.Extensions;
-    using MVVM.ViewModel;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
     using System.Linq;
     using System.Reflection;
+    using Contracts;
     using Contracts.Localization;
+    using Hardware.Contracts.SerialPorts;
+    using Hardware.Contracts.SharedDevice;
+    using Helpers;
+    using Kernel;
+    using Localization;
+    using log4net;
     using Monaco.Localization.Properties;
+    using Monaco.UI.Common.Extensions;
+    using MVVM.ViewModel;
     using DeviceConfiguration = Models.DeviceConfiguration;
 
     [CLSCompliant(false)]
     public class DeviceConfigViewModel : BaseViewModel
     {
         private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ISerialPortsService SerialPortsService = ServiceManager.GetInstance().TryGetService<ISerialPortsService>();
 
         private readonly DeviceAddinHelper _addinHelper = new DeviceAddinHelper();
         private readonly List<string> _allPorts;
         private readonly DeviceConfiguration _config; // model
         private readonly List<SupportedDevicesDevice> _platformConfigs;
+        private readonly HashSet<SupportedDevicesDevice> _fakeConfigs;
         private readonly bool _readOnly;
 
         private readonly Dictionary<DeviceType, string> _deviceAddInPaths = new Dictionary<DeviceType, string>
@@ -37,12 +42,15 @@
 
         private string _port;
         private string _status;
+        private bool _isDetectionComplete;
+        private bool _isDetectionFailure;
 
         public DeviceConfigViewModel(DeviceType type, bool readOnly = false)
         {
             _config = new DeviceConfiguration(false, string.Empty, string.Empty, 0);
             _port = string.Empty;
             _platformConfigs = new List<SupportedDevicesDevice>();
+            _fakeConfigs = new HashSet<SupportedDevicesDevice>();
             _status = string.Empty;
 
             // This will only be true when saving originally persisted devices in Hardware Manager audit menu page
@@ -94,6 +102,9 @@
                 _config.Enabled = value;
                 RaisePropertyChanged(nameof(Enabled));
                 Status = string.Empty;
+                StatusType = DeviceState.None;
+                IsDetectionComplete = false;
+                IsDetectionFailure = false;
 
                 var message = DeviceType + (value ? " enabled" : " disabled");
                 Logger.DebugFormat(message);
@@ -119,6 +130,7 @@
                 if (_config.Manufacturer != value)
                 {
                     Status = string.Empty;
+                    StatusType = DeviceState.None;
                 }
 
                 _config.Manufacturer = value ?? string.Empty;
@@ -127,6 +139,7 @@
                 Logger.DebugFormat($"{DeviceType} Manufacturer {value} selected");
                 RaisePropertyChanged(nameof(PortEnabled));
                 RaisePropertyChanged(nameof(ProtocolEnabled));
+                IsDetectionFailure = false;
 
                 ResetProtocols();
                 ResetPortSelections();
@@ -150,6 +163,7 @@
 
                 _config.Protocol = value ?? string.Empty;
                 Status = string.Empty;
+                StatusType = DeviceState.None;
                 RaisePropertyChanged(nameof(Protocol));
                 Logger.DebugFormat($"{DeviceType} Protocol {Protocol} selected");
 
@@ -165,11 +179,6 @@
             get => _port;
             set
             {
-                if (_port == value)
-                {
-                    return;
-                }
-
                 if (Protocol == ApplicationConstants.GDS && value != ApplicationConstants.USB)
                 {
                     _config.Port = 0;
@@ -179,9 +188,9 @@
                     _config.Port = value.ToPortNumber();
                 }
 
-                _port = value;
                 Status = string.Empty;
-                RaisePropertyChanged(nameof(Port));
+                StatusType = DeviceState.None;
+                SetProperty(ref _port, value, nameof(Port));
                 Logger.DebugFormat($"{DeviceType} Port {Port} selected");
             }
         }
@@ -193,15 +202,54 @@
         public string Status
         {
             get => _status;
-            set
-            {
-                if (_status == value)
-                {
-                    return;
-                }
+            set => SetProperty(ref _status, value, nameof(Status));
+        }
 
-                _status = value;
-                RaisePropertyChanged(nameof(Status));
+        public DeviceState StatusType { get; set; }
+
+        public string StatusFromType
+        {
+            get
+            {
+                switch (StatusType)
+                {
+                    case DeviceState.None:
+                        return string.Empty;
+                    case DeviceState.ConnectedText:
+                        return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ConnectedText);
+                    case DeviceState.InvalidPort:
+                        return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InvalidPort);
+                    case DeviceState.InvalidProtocol:
+                        return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InvalidProtocol);
+                    case DeviceState.ConnectedToPortName:
+                        return $" {Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ConnectedToText)} {SerialPortsService.PhysicalToLogicalName(Port)}";
+                    case DeviceState.DeviceDetected:
+                        return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DeviceDetected);
+                    case DeviceState.ErrorText:
+                        return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ErrorText);
+                    case DeviceState.Failed:
+                        return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Failed);
+                    case DeviceState.FullDeviceSignature:
+                        return $"{Manufacturer} {Protocol} {Port}";
+                    case DeviceState.HardwareDiscoveryCompleteLabel:
+                        return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HardwareDiscoveryCompleteLabel);
+                    case DeviceState.InvalidDeviceDetectedTemplate:
+                        return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InvalidDeviceDetectedTemplate);
+                    case DeviceState.Manufacturer:
+                        return Manufacturer;
+                    case DeviceState.NoDeviceDetected:
+                        return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoDeviceDetected);
+                    case DeviceState.NotAvailable:
+                        return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailableText);
+                    case DeviceState.NotValidated:
+                        return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotValidated);
+                    case DeviceState.Searching:
+                        return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Searching);
+                    case DeviceState.Validating:
+                        return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Validating);
+                    default:
+                        return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Error);
+                }
             }
         }
 
@@ -227,6 +275,55 @@
             }
 
             RaisePropertyChanged(nameof(IsVisible));
+        }
+
+        public void AddFakeConfiguration(SupportedDevicesDevice config)
+        {
+            _fakeConfigs.Add(config);
+        }
+
+        public void StartDetection()
+        {
+            IsDetectionComplete = false;
+            Status = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Searching);
+            StatusType = DeviceState.Searching;
+        }
+
+        public bool IsDetectionComplete
+        {
+            get => _isDetectionComplete;
+            set => SetProperty(ref _isDetectionComplete, value, nameof(IsDetectionComplete));
+        }
+
+        public bool IsDetectionFailure
+        {
+            get => _isDetectionFailure;
+            set => SetProperty(ref _isDetectionFailure, value, nameof(IsDetectionFailure));
+        }
+
+        public bool ContainsPlatformConfiguration(SupportedDevicesDevice config) => _platformConfigs.Contains(config);
+
+        public void SetDetectedPlatformConfiguration(SupportedDevicesDevice config)
+        {
+            IsDetectionComplete = true;
+            IsDetectionFailure = false;
+            Manufacturer = config.Name;
+            Protocol = config.Protocol;
+            Port = config.Port;
+            Status = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DeviceDetected);
+            StatusType = DeviceState.DeviceDetected;
+        }
+
+        public void RefreshProps()
+        {
+            RaisePropertyChanged(nameof(Manufacturer));
+            RaisePropertyChanged(nameof(Protocol));
+            RaisePropertyChanged(nameof(Port));
+            RaisePropertyChanged(nameof(Ports));
+            RaisePropertyChanged(nameof(Status));
+            RaisePropertyChanged(nameof(StatusType));
+            RaisePropertyChanged(nameof(DeviceName));
+            RaisePropertyChanged(nameof(StatusFromType));
         }
 
         private void AddManufacturer(string manufacturer)
@@ -265,20 +362,35 @@
         {
             if (Manufacturer.Contains(ApplicationConstants.Fake))
             {
-                Protocol = ApplicationConstants.Fake;
+                var config = _fakeConfigs.FirstOrDefault(c => c.Name == Manufacturer);
+                if (config != null)
+                {
+                    var protocolExists = CheckIfProtocolExists(config.Protocol);
+
+                    Protocol = protocolExists ? config.Protocol : ApplicationConstants.Fake;
+                }
+                else
+                {
+                    Protocol = ApplicationConstants.Fake;
+                }
             }
             else
             {
                 var config = _platformConfigs.FirstOrDefault(c => c.Name == Manufacturer);
                 if (config != null)
                 {
-                    var protocolExists = _deviceAddInPaths.ContainsKey(DeviceType) &&
-                                         _addinHelper.DoesDeviceImplementationExist(
-                                             _deviceAddInPaths[DeviceType],
-                                             config.Protocol);
+                    var protocolExists = CheckIfProtocolExists(config.Protocol);
 
                     Protocol = protocolExists ? config.Protocol : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailableText);
                 }
+            }
+
+            bool CheckIfProtocolExists(string protocol)
+            {
+                return _deviceAddInPaths.ContainsKey(DeviceType) &&
+                       _addinHelper.DoesDeviceImplementationExist(
+                           _deviceAddInPaths[DeviceType],
+                           protocol);
             }
         }
 
@@ -295,9 +407,10 @@
 // In Retail mode only allow port specified in platform configs as a port choice for this make
                 SetPortToConfigOption(true);
 #else
-                if (Protocol.Equals(ApplicationConstants.GDS))
+                var selectedDevice = _platformConfigs.FirstOrDefault(x => x.Name == Manufacturer);
+                if (selectedDevice?.Port == ApplicationConstants.USB)
                 {
-                    // Only USB should be available for GDS protocol
+                    // Only USB should be available for USB devices
                     if (_allPorts.Contains(ApplicationConstants.USB))
                     {
                         Ports.Add(ApplicationConstants.USB);

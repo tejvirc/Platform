@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
+namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
 {
     using System;
     using System.Collections;
@@ -85,7 +85,7 @@
         private double _infoOpacity;
         private double _gameControlledHeight;
         private double _dynamicMessageOpacity;
-        private IGameDetail _lastSelectedGame; 
+        private IGameDetail _lastSelectedGame;
 
         public BingoHtmlHostOverlayViewModel(
             IPropertiesManager propertiesManager,
@@ -145,7 +145,7 @@
             _eventBus.Subscribe<NoPlayersFoundEvent>(this, HandleNoPlayersFound);
             _eventBus.Subscribe<PlayersFoundEvent>(this, (_, token) => CancelWaitingForPlayers(token));
             _eventBus.Subscribe<WaitingForPlayersCanceledEvent>(this, (_, token) => CancelWaitingForPlayers(token));
-            _eventBus.Subscribe<GamePlayDisabledEvent>(this, (_, token) => CancelWaitingForPlayers(token));
+            _eventBus.Subscribe<GamePlayDisabledEvent>(this, (_, token) => HandleGamePlayDisabled(token));
             _eventBus.Subscribe<PresentationOverrideDataChangedEvent>(this, Handle);
             _eventBus.Subscribe<ClearBingoDaubsEvent>(this, Handle);
             _eventBus.Subscribe<BingoDisplayConfigurationChangedEvent>(this, (_, _) => HandleBingoDisplayConfigurationChanged());
@@ -293,14 +293,7 @@
 
             if (disposing)
             {
-                if (_helpTimer != null)
-                {
-                    _helpTimer.Change(Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
-                    var timer = _helpTimer;
-                    _helpTimer = null;
-                    timer.Dispose();
-                }
-
+                _eventBus.UnsubscribeAll(this);
                 _overlayServer.ServerStarted -= HandleServerStarted;
                 _overlayServer.AttractCompleted -= AttractCompleted;
                 _overlayServer.ClientConnected -= OverlayClientConnected;
@@ -311,7 +304,14 @@
                     _bingoInfoWebBrowser.ConsoleMessage -= BingoInfoWebBrowserOnConsoleMessage;
                 }
 
-                _eventBus.UnsubscribeAll(this);
+                var timer = _helpTimer;
+                _helpTimer = null;
+                if (timer != null)
+                {
+                    timer.Change(Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
+                    timer.Dispose();
+                }
+
                 _overlayServer.Dispose();
             }
 
@@ -358,6 +358,16 @@
         private async Task CancelWaitingForPlayers(CancellationToken token)
         {
             await UpdateOverlay(() => new BingoLiveData { CancelWaitingForGame = true }, token);
+        }
+
+        private async Task HandleGamePlayDisabled(CancellationToken token)
+        {
+            await CancelWaitingForPlayers(token);
+
+            if (IsHelpVisible)
+            {
+                ExitHelp();
+            }
         }
 
         private IEnumerable<BingoCardNumber> ConvertBingoCardNumberArrayToList(BingoNumber[,] numbers)
@@ -800,7 +810,12 @@
         private async Task Handle(HostConnectedEvent e, CancellationToken token)
         {
             var helpAddress = _unitOfWorkFactory.GetHelpUri(_propertiesManager).ToString();
-            await _dispatcher.ExecuteAndWaitOnUIThread(() => BingoHelpAddress = helpAddress);
+            await _dispatcher.ExecuteAndWaitOnUIThread(
+                () =>
+                {
+                    BingoHelpAddress = helpAddress;
+                    ReloadBrowser(BingoHelpWebBrowser);
+                });
         }
 
         private async Task Handle(BankBalanceChangedEvent e, CancellationToken token)
@@ -829,10 +844,12 @@
             }
 
             Logger.Debug("Restarting the bingo overlay server as the settings have changed");
+            var previousVisibility = IsInfoVisible;
             await UpdateAppearance();
             await _overlayServer.StopAsync();
             await InitializeOverlay(_lastSelectedGame);
-            await SetInfoVisibility(true);
+            // Restore visibility to the state prior to the overlay restart
+            await SetInfoVisibility(previousVisibility);
         }
 
         private async Task InitializeOverlay(IGameDetail detail)
@@ -993,6 +1010,12 @@
             await _dispatcher.ExecuteAndWaitOnUIThread(
                 () =>
                 {
+                    if (IsHelpVisible == visible &&
+                        string.Equals(helpAddress, BingoHelpAddress, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        return;
+                    }
+
                     IsHelpVisible = visible;
                     BingoHelpAddress = helpAddress;
                     NavigateToOverlay(visible ? OverlayType.CreditMeter : OverlayType.BingoOverlay);

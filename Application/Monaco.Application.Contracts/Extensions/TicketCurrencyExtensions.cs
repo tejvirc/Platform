@@ -118,6 +118,30 @@
             PlayerTicketToCurrencyCultureDataMap[playerTicketLocale] = cultureData;
         }
 
+        /// <summary>
+        /// Set culture information for the currency string.
+        /// </summary>
+        /// <param name="playerTicketLocale">ticket locale</param>
+        /// <param name="cultureInfo">currency culture info</param>
+        /// <param name="currencyName">Currency name</param>
+        public static void SetCultureInfo(
+            string playerTicketLocale,
+            CultureInfo cultureInfo,
+            string currencyName)
+        {
+            var cultureData = new CurrencyCultureData(
+                cultureInfo,
+                cultureInfo,
+                string.Empty,
+                String.Empty,
+                currencyName,
+                false,
+                false,
+                string.Empty,
+                currencyName);
+            PlayerTicketToCurrencyCultureDataMap[playerTicketLocale] = cultureData;
+        }
+
         /// <summary>This function will convert a currency to its word representation.</summary>
         /// <param name="amount">The amount.</param>
         /// <param name="toUpper">Whether or not to convert the words to upper case.</param>

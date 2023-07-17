@@ -124,9 +124,16 @@
         }
 
         /// <inheritdoc />
-        public string GetLocalizedButtonName(int buttonId)
+        public string GetLocalizedButtonName(int buttonId, Func<string, Action<Exception>, string> getStringCallback)
         {
-            return _logicalButtons.TryGetValue(buttonId, out var button) ? button.LocalizedName : string.Empty;
+            string localizedName = string.Empty;
+            if (_logicalButtons.TryGetValue(buttonId, out var button))
+            {
+                var parsedButtonKeyName = button.Name.Replace("/", "").Replace(" ", "");
+                localizedName = getStringCallback(parsedButtonKeyName, _ => { }) ?? button.Name;
+            }
+            
+            return localizedName;
         }
 
         /// <inheritdoc />

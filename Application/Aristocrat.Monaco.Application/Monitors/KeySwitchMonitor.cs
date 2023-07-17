@@ -101,7 +101,7 @@
             {
                 _isLockedUp = true;
                 _disableManager.Disable(ApplicationConstants.OperatorKeyNotRemovedDisableKey, SystemDisablePriority.Normal,
-                    () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.KeyLeftInEgmLockupMessage));
+                    () => Localizer.ForLockup().GetString(ResourceKeys.KeyLeftInEgmLockupMessage));
             }
         }
 

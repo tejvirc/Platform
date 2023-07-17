@@ -29,6 +29,8 @@
             }
         }
 
+        public bool ThresholdError => HasErrors;
+
         protected IPropertiesManager PropertiesManager => _propertiesManager ??= ServiceManager.GetInstance().TryGetService<IPropertiesManager>();
 
         public ColorOptions Color { get; set; }

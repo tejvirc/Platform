@@ -44,9 +44,6 @@
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.QuebecCasinoJurisdiction" filterid="QuebecCasinoLocaleConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Locale/Overrides">
-        <NodeSpecification addinId="Client12Addins.QuebecCasinoJurisdiction" filterid="QuebecCasinoLocaleOverrides" />
-      </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Lobby/Configuration">
         <NodeSpecification addinId="Client12Addins.QuebecCasinoJurisdiction" filterid="QuebecCasinoLobbyConfig" />
       </ExtensionPointConfiguration>
@@ -133,9 +130,6 @@
   </Extension>
   <Extension path="/Locale/Configuration" filterid="QuebecCasinoLocaleConfig">
     <FilePath FilePath="..\jurisdiction\QuebecCasino\Locale.config.xml" />
-  </Extension>
-  <Extension path="/Locale/Overrides" filterid="QuebecCasinoLocaleOverrides">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\resources\C3\" />
   </Extension>
   <Extension path="/Lobby/Configuration">
     <FilePath FilePath="..\jurisdiction\QuebecCasino\Lobby.config.xml" filterid="QuebecCasinoLobbyConfig" />

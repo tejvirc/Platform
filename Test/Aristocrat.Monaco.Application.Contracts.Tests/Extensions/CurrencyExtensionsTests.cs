@@ -7,10 +7,10 @@
     [TestClass]
     public class CurrencyExtensionsTests
     {
-        [DataRow("en-US", 2, 1000, 0.01)]
-        [DataRow("en-US", 0, 1000, 1.0)]
+        [DataRow("USD", "c", "en-US", 2, 1000, 0.01)]
+        [DataRow("USD", "c", "en-US", 0, 1000, 1.0)]
         [DataTestMethod]
-        public void MillicentsToDollarsTest(string cultureName, int numberOfDecimalDigits, long millicents, double expectedResult)
+        public void MillicentsToDollarsTest(string currencyCode, string minorUnitSymbol, string cultureName, int numberOfDecimalDigits, long millicents, double expectedResult)
         {
             var culture = new CultureInfo(cultureName)
             {
@@ -20,14 +20,17 @@
                 }
             };
 
-            CurrencyExtensions.SetCultureInfo(culture);
+            var region = new RegionInfo(cultureName);
+            CurrencyExtensions.Currency = new Currency.Currency(currencyCode, region, culture, minorUnitSymbol);
+
+            CurrencyExtensions.SetCultureInfo(currencyCode, culture);
             Assert.AreEqual(Convert.ToDecimal(expectedResult), millicents.MillicentsToDollars());
         }
 
-        [DataRow("en-US", 2, 1, 0.01)]
-        [DataRow("en-US", 0, 1, 1.0)]
+        [DataRow("USD", "c", "en-US", 2, 1, 0.01)]
+        [DataRow("USD", "c", "en-US", 0, 1, 1.0)]
         [DataTestMethod]
-        public void CentsToDollarsTest(string cultureName, int numberOfDecimalDigits, long millicents, double expectedResult)
+        public void CentsToDollarsTest(string currencyCode, string minorUnitSymbol, string cultureName, int numberOfDecimalDigits, long millicents, double expectedResult)
         {
             var culture = new CultureInfo(cultureName)
             {
@@ -37,14 +40,17 @@
                 }
             };
 
-            CurrencyExtensions.SetCultureInfo(culture);
+            var region = new RegionInfo(cultureName);
+            CurrencyExtensions.Currency = new Currency.Currency(currencyCode, region, culture, minorUnitSymbol);
+
+            CurrencyExtensions.SetCultureInfo(currencyCode, culture);
             Assert.AreEqual(Convert.ToDecimal(expectedResult), millicents.CentsToDollars());
         }
 
-        [DataRow("en-US", 2, 1000, 1)]
-        [DataRow("en-US", 0, 1000, 1)]
+        [DataRow("USD", "c", "en-US", 2, 1000, 1)]
+        [DataRow("USD", "c", "en-US", 0, 1000, 1)]
         [DataTestMethod]
-        public void MillicentsToCents(string cultureName, int numberOfDecimalDigits, long millicents, long expectedResult)
+        public void MillicentsToCents(string currencyCode, string minorUnitSymbol, string cultureName, int numberOfDecimalDigits, long millicents, long expectedResult)
         {
             var culture = new CultureInfo(cultureName)
             {
@@ -54,7 +60,10 @@
                 }
             };
 
-            CurrencyExtensions.SetCultureInfo(culture);
+            var region = new RegionInfo(cultureName);
+            CurrencyExtensions.Currency = new Currency.Currency(currencyCode, region, culture, minorUnitSymbol);
+
+            CurrencyExtensions.SetCultureInfo(currencyCode, culture);
             Assert.AreEqual(expectedResult, millicents.MillicentsToCents());
         }
     }
