@@ -622,6 +622,7 @@
 
             using var scope = _storageManager.ScopedTransaction();
             var result = InstallNewGame(game, paytableConfiguration);
+            _bus.Publish(new GameAddedEvent(result.Id, result.ThemeId));
             _progressiveProvider.LoadProgressiveLevels(result, progressiveDetails);
             scope.Complete();
 
@@ -1173,8 +1174,6 @@
 
                 // This is only used to track whether or not the game was added in GetOrCreateGame. Reset to avoid reentry
                 gameDetail.New = false;
-
-                _bus.Publish(new GameAddedEvent(gameDetail.Id, gameDetail.ThemeId));
             }
 
             return gameDetail;
@@ -1212,6 +1211,7 @@
                     {
                         InstallNewGame(gameDetail);
                         _progressiveProvider.LoadProgressiveLevels(gameDetail, progressiveDetails);
+                        _bus.Publish(new GameAddedEvent(gameDetail.Id, gameDetail.ThemeId));
                     }
                     else
                     {
