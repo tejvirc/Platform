@@ -20,9 +20,6 @@
         internal static void UnBlockOtherOperations(this RobotController robotController, RobotStateAndOperations robotStateAndOperations)
         {
             robotController.InProgressRequests.TryRemove(robotStateAndOperations);
-
-            // This is needed since there are some on-going robot's threads executing operations and state managers that need more time to sync
-            Thread.Sleep(_syncWaitTime);
         }
 
         internal static bool IsBlockedByOtherOperation(this RobotController robotController, IList<RobotStateAndOperations> excluded)
