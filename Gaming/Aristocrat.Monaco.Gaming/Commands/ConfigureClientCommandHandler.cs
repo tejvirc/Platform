@@ -306,6 +306,12 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 }
             }
 
+            var gameRulesInstructions = _properties.GetValue(GamingConstants.GameRulesInstructions, string.Empty);
+            if (!string.IsNullOrEmpty(gameRulesInstructions))
+            {
+                parameters["/Runtime/Instructions/GameRulesInstructions1"] = gameRulesInstructions;
+            }
+
             AddHandCountSettings(parameters);
             HandleGameHistoryData(parameters);
 
