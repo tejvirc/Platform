@@ -5,12 +5,6 @@ namespace Aristocrat.Monaco.Hardware
     using System.Linq;
     using System.Reflection;
     using System.Threading;
-    using Aristocrat.Monaco.Hardware.Fake;
-    using Aristocrat.Monaco.Hardware.Serial.NoteAcceptor.EBDS;
-    using Aristocrat.Monaco.Hardware.Serial.NoteAcceptor.ID003;
-    using Aristocrat.Monaco.NativeDisk;
-    using Aristocrat.Monaco.NativeOS.Services.IO;
-    using Aristocrat.Monaco.NativeUsb.DeviceWatcher;
     using Cabinet.Contracts;
     using Contracts;
     using Contracts.Audio;
@@ -33,7 +27,6 @@ namespace Aristocrat.Monaco.Hardware
     using Contracts.SharedDevice;
     using Contracts.Touch;
     using Contracts.TowerLight;
-    using Contracts.VHD;
     using DFU;
     using EdgeLight.Contracts;
     using EdgeLight.Device;
@@ -41,6 +34,9 @@ namespace Aristocrat.Monaco.Hardware
     using EdgeLight.SequenceLib;
     using EdgeLight.Services;
     using EdgeLight.Strips;
+#if !(RETAIL)
+    using Fake;
+#endif
     using Gds.NoteAcceptor;
     using Kernel;
     using Kernel.Contracts;
@@ -48,19 +44,22 @@ namespace Aristocrat.Monaco.Hardware
     using Kernel.Contracts.Events;
     using log4net;
     using Mono.Addins;
+    using NativeDisk;
+    using NativeOS.Services.IO;
     using NativeOS.Services.OS;
     using NativeTouch;
+    using NativeUsb.DeviceWatcher;
     using NativeUsb.Hid;
     using NoteAcceptor;
     using Properties;
+    using Serial.NoteAcceptor.EBDS;
+    using Serial.NoteAcceptor.ID003;
     using SerialTouch;
     using Services;
     using SimpleInjector;
-    using SimpleInjector.Diagnostics;
     using StorageAdapters;
     using Usb;
     using VHD;
-    using DeviceType = Cabinet.Contracts.DeviceType;
 
     /// <summary>
     ///     <para>
@@ -560,11 +559,10 @@ namespace Aristocrat.Monaco.Hardware
             deviceFactory.RegisterImplementation<NoteAcceptorGds>("GDS");
             deviceFactory.RegisterImplementation<NoteAcceptorGds>("ID003");
             deviceFactory.RegisterImplementation<NoteAcceptorGds>("EBDS");
-            deviceFactory.RegisterImplementation<FakeNoteAcceptorAdapter>("Fake");
-
-            container.RegisterInstance<IDeviceFactory<INoteAcceptor>>(deviceFactory);
 
 #if !(RETAIL)
+            deviceFactory.RegisterImplementation<FakeNoteAcceptorAdapter>("Fake");
+
             var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
             var simulatedEdgeLightCabinet = propertiesManager.GetValue(
                 HardwareConstants.SimulateEdgeLighting,
@@ -582,6 +580,8 @@ namespace Aristocrat.Monaco.Hardware
 #else
             container.RegisterSingleton<IEdgeLightDeviceFactory, EdgeLightDeviceFactory>();
 #endif
+
+            container.RegisterInstance<IDeviceFactory<INoteAcceptor>>(deviceFactory);
 
             var edgeLightRendererRegistration =
                 Lifestyle.Singleton.CreateRegistration<EdgeLightDataRenderer>(container);
