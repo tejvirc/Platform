@@ -174,7 +174,11 @@
 
         private void RequestGame()
         {
-            if (!IsRequestGameValid())
+            if (IsRegularRobots())
+            {
+                return;
+            }
+            else if (!IsRequestGameValid())
             {
                 _logger.Info($"RequestGame was not valid!", GetType().Name);
                 return;
@@ -225,6 +229,7 @@
                  {
                      _logger.Info($"TimeLimitDialogVisibleEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                      _isTimeLimitDialogVisible = true;
+                     DismissTimeLimitDialog();
                      if (evt.IsLastPrompt)
                      {
                          _exitWhenIdle = !IsRegularRobots();

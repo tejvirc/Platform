@@ -76,7 +76,8 @@
                 device.DeviceList(status),
                 voucher.transactionId,
                 device.TransactionList(log),
-                GetMeters(device));
+                GetMeters(device),
+                theEvent);
 
             device.SendIssueVoucher(
                 voucher,

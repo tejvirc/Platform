@@ -527,12 +527,11 @@
 
         private void EventReport(IProgressiveDevice device, JackpotTransaction log, string eventCode)
         {
-            EventHandlerDevice.EventReport(
-                device.PrefixedDeviceClass(),
-                device.Id,
+            _eventLift.Report(
+                device,
                 eventCode,
-                transactionId: log.TransactionId,
-                transactionList: new transactionList
+                log.TransactionId,
+                new transactionList
                 {
                     transactionInfo = new[]
                     {
@@ -592,13 +591,13 @@
             var vertexLevelIds = (Dictionary<int, (int linkedGroupId, int linkedLevelId)>)propertiesManager.GetProperty(GamingConstants.ProgressiveConfiguredLinkedLevelIds,
                 new Dictionary<int, (int linkedGroupId, int linkedLevelId)>());
 
+            
+
             try
             {
                 var enabledGames = _gameProvider.GetGames().Where(g => g.EgmEnabled).ToList();
                 var enabledLinkedLevels = _protocolLinkedProgressiveAdapter.ViewProgressiveLevels()
-                            .Where(
-                                l => l.LevelType == ProgressiveLevelType.LP &&
-                                     enabledGames.Any(g => (g.VariationId == l.Variation || l.Variation.ToUpper() == "ALL") && l.GameId == g.Id));
+                            .Where(l => FilterEnabledLinkedLevels(l, enabledGames));
 
                 var pools =
                     (from level in enabledLinkedLevels
@@ -683,6 +682,17 @@
             }
         }
 
+        private static bool FilterEnabledLinkedLevels(IViewableProgressiveLevel level, IEnumerable<IGameDetail> enabledGames)
+        {
+            if (level.LevelType != ProgressiveLevelType.LP) return false;
+
+            //Check the game is enabled, and the level matches ALL variations, or it matches the enabled game's variation
+            return enabledGames.Any(
+                g => level.GameId == g.Id &&
+                     (level.Variation.ToUpper() == "ALL" ||
+                      level.Variation.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
+                          .Any(c => string.Equals(c.TrimStart('0'), g.VariationId.TrimStart('0')))));
+        }
 
         private static string LevelName(ProgressiveInfo info)
         {

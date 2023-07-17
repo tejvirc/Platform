@@ -40,6 +40,7 @@
                 null,
                 null,
                 null,
+                null,
                 null);
 
             Assert.IsNull(service);
@@ -53,6 +54,7 @@
 
             var service = new G2SEngine(
                 egm.Object,
+                null,
                 null,
                 null,
                 null,
@@ -103,6 +105,7 @@
                 null,
                 null,
                 null,
+                null,
                 null);
 
             Assert.IsNull(service);
@@ -121,6 +124,7 @@
                 properties.Object,
                 hostFactory.Object,
                 deviceFactory.Object,
+                null,
                 null,
                 null,
                 null,
@@ -156,6 +160,7 @@
                 hostFactory.Object,
                 deviceFactory.Object,
                 scriptManager.Object,
+                null,
                 null,
                 null,
                 null,
@@ -206,6 +211,7 @@
                 null,
                 null,
                 null,
+                null,
                 null);
 
             Assert.IsNull(service);
@@ -232,6 +238,7 @@
                 packageDownloadManager.Object,
                 deviceObserver.Object,
                 progressiveDeviceManager.Object,
+                null,
                 null,
                 null,
                 null,
@@ -281,6 +288,7 @@
                 null,
                 null,
                 null,
+                null,
                 null);
 
             Assert.IsNull(service);
@@ -311,6 +319,7 @@
                 progressiveDeviceManager.Object,
                 egmStateObserver.Object,
                 deviceRegistryService.Object,
+                null,
                 null,
                 null,
                 null,
@@ -360,6 +369,7 @@
                 null,
                 null,
                 null,
+                null,
                 null);
 
             Assert.IsNull(service);
@@ -394,6 +404,7 @@
                 deviceRegistryService.Object,
                 gatComponentFactory.Object,
                 meterSubManager.Object,
+                null,
                 null,
                 null,
                 null,
@@ -443,6 +454,7 @@
                 null,
                 null,
                 null,
+                null,
                 null);
 
             Assert.IsNull(service);
@@ -481,6 +493,7 @@
                 meterSubManager.Object,
                 g2sMeterProvider.Object,
                 voucherDataService.Object,
+                null,
                 null,
                 null,
                 null,
@@ -531,6 +544,7 @@
                 null,
                 null,
                 null,
+                null,
                 null);
 
             Assert.IsNull(service);
@@ -574,6 +588,7 @@
                 voucherDataService.Object,
                 masterResetService.Object,
                 clientStatus.Object,
+                null,
                 null,
                 null,
                 null,
@@ -624,6 +639,7 @@
                 certificates.Object,
                 null,
                 null,
+                null,
                 null);
 
             Assert.IsNull(service);
@@ -671,6 +687,7 @@
                 clientStatus.Object,
                 certificates.Object,
                 certificateMonitor.Object,
+                null,
                 null,
                 null);
 
@@ -721,13 +738,15 @@
                 certificates.Object,
                 certificateMonitor.Object,
                 emdi.Object,
+                null,
                 null);
 
             Assert.IsNull(service);
         }
 
         [TestMethod]
-        public void WhenStopExpectEgmStopped()
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void WhenConstructWithEventLiftServiceExpectException()
         {
             var egm = new Mock<IG2SEgm>();
             var properties = new Mock<IPropertiesManager>();
@@ -770,7 +789,59 @@
                 certificates.Object,
                 certificateMonitor.Object,
                 emdi.Object,
-                central.Object);
+                central.Object,
+                null);
+
+            Assert.IsNull(service);
+        }
+
+        [TestMethod]
+        public void WhenStopExpectEgmStopped()
+        {
+            var egm = new Mock<IG2SEgm>();
+            var properties = new Mock<IPropertiesManager>();
+            var hostFactory = new Mock<IHostFactory>();
+            var deviceFactory = new Mock<IDeviceFactory>();
+            var scriptManager = new Mock<IScriptManager>();
+            var packageDownloadManager = new Mock<IPackageDownloadManager>();
+            var deviceObserver = new Mock<IDeviceObserver>();
+            var progressiveDeviceManager = new Mock<IProgressiveDeviceManager>();
+            var egmStateObserver = new Mock<IEgmStateObserver>();
+            var deviceRegistryService = new Mock<IDeviceRegistryService>();
+            var gatComponentFactory = new Mock<IGatComponentFactory>();
+            var meterSubManager = new Mock<IMetersSubscriptionManager>();
+            var g2sMeterProvider = new Mock<IG2SMeterProvider>();
+            var voucherDataService = new Mock<IVoucherDataService>();
+            var masterResetService = new Mock<IMasterResetService>();
+            var clientStatus = new Mock<ISelfTest>();
+            var certificates = new Mock<ICertificateService>();
+            var certificateMonitor = new Mock<ICertificateMonitor>();
+            var emdi = new Mock<IEmdi>();
+            var central = new Mock<ICentralService>();
+            var eventLift = new Mock<IEventLift>();
+
+            var service = new G2SEngine(
+                egm.Object,
+                properties.Object,
+                hostFactory.Object,
+                deviceFactory.Object,
+                scriptManager.Object,
+                packageDownloadManager.Object,
+                deviceObserver.Object,
+                progressiveDeviceManager.Object,
+                egmStateObserver.Object,
+                deviceRegistryService.Object,
+                gatComponentFactory.Object,
+                meterSubManager.Object,
+                g2sMeterProvider.Object,
+                voucherDataService.Object,
+                masterResetService.Object,
+                clientStatus.Object,
+                certificates.Object,
+                certificateMonitor.Object,
+                emdi.Object,
+                central.Object,
+                eventLift.Object);
 
             service.Stop();
 

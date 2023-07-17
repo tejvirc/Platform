@@ -23,6 +23,7 @@
         private const int EgmTimeoutException = 1;
         private const int HostRejectedException = 2;
 
+        private readonly IEventLift _eventLift;
         private readonly int _defaultNoProgInfoTimeout;
 
         private bool _deviceCommunicationClosed;
@@ -40,11 +41,13 @@
         /// </summary>
         /// <param name="deviceId">the device id of this progressive instance</param>
         /// <param name="deviceStateObserver">deviceStateObserver instance</param>
+        /// <param name="eventLift">The event lift</param>
         /// <param name="defaultNoProgInfoTimeout">default value for the progressive updates timer length in milliseconds. This can be modified by a configuration server</param>
-        public ProgressiveDevice(int deviceId, IProgressiveDeviceObserver deviceStateObserver, int defaultNoProgInfoTimeout)
+        public ProgressiveDevice(int deviceId, IProgressiveDeviceObserver deviceStateObserver, IEventLift eventLift, int defaultNoProgInfoTimeout)
             : base(deviceId, deviceStateObserver, false)
         {
             _noProgInfoTimer.Elapsed += NoProgInfoTimerElapsed;
+            _eventLift = eventLift;
             _defaultNoProgInfoTimeout = defaultNoProgInfoTimeout;
             SetDefaults();
         }

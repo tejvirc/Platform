@@ -25,7 +25,6 @@
         private const int MaxChannelBrightness = 100;
         private readonly IEdgeLightingController _edgeLightingController;
         private bool _isEdgeLightingAvailable;
-        private string _infoText;
         private int _brightnessSliderValue;
         private string _edgeLightingAttractModeOverrideSelection;
         private bool _bottomEdgeLightingOn;
@@ -40,17 +39,9 @@
 
         public ICommand ToggleTestModeCommand { get; }
 
-        public string InfoText
-        {
-            get => _infoText;
-            set
-            {
-                _infoText = value;
-                RaisePropertyChanged(nameof(InfoText));
-                RaisePropertyChanged(nameof(InfoTextVisible));
-                UpdateStatusText();
-            }
-        }
+        public string InfoText => IsEdgeLightingAvailable
+            ? string.Empty
+            : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EdgeLightingDisconnectionText);
 
         public bool InfoTextVisible => !string.IsNullOrWhiteSpace(InfoText);
 
@@ -202,9 +193,6 @@
         protected override void OnLoaded()
         {
             IsEdgeLightingAvailable = _edgeLightingController.IsDetected || (bool)PropertiesManager.GetProperty(KernelConstants.IsInspectionOnly, false);
-            InfoText = IsEdgeLightingAvailable
-                ? string.Empty
-                : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EdgeLightingDisconnectionText);
 
             if (IsEdgeLightingAvailable && IsWizardPage)
             {
@@ -213,6 +201,7 @@
 
             EventBus.Subscribe<EdgeLightingConnectedEvent>(this, HandleEdgeLightConnectedEvent);
             EventBus.Subscribe<EdgeLightingDisconnectedEvent>(this, HandleEdgeLightDisconnectedEvent);
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleOperatorCultureChangedEvent);
 
             if (IsCabinetThatAllowsEdgeLightBrightnessSetting)
             {
@@ -287,7 +276,8 @@
                 () =>
                 {
                     IsEdgeLightingAvailable = true;
-                    InfoText = string.Empty;
+                    RaisePropertyChanged(nameof(InfoText), nameof(InfoTextVisible));
+                    UpdateStatusText();
                 });
         }
 
@@ -297,7 +287,18 @@
                 () =>
                 {
                     IsEdgeLightingAvailable = false;
-                    InfoText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EdgeLightingDisconnectionText);
+                    RaisePropertyChanged(nameof(InfoText), nameof(InfoTextVisible));
+                    UpdateStatusText();
+                });
+        }
+
+        private void HandleOperatorCultureChangedEvent(OperatorCultureChangedEvent evt)
+        {
+            MvvmHelper.ExecuteOnUI(
+                () =>
+                {
+                    RaisePropertyChanged(nameof(InfoText));
+                    UpdateStatusText();
                 });
         }
     }

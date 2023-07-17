@@ -414,6 +414,24 @@
             EventBus.Subscribe<OperatorMenuPrintJobCompletedEvent>(this, o => FilterMenuEnabled = true);
         }
 
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            foreach (var eventFilter in EventFilterCollection)
+            {
+                string newDisplayText = Localizer.For(CultureFor.Operator).GetString(eventFilter.EventType);
+                if (!string.IsNullOrEmpty(newDisplayText))
+                {
+                    eventFilter.DisplayText = newDisplayText;
+                }
+            }
+
+            SetupTiltLogAppendedTilt(false);
+            ReloadEventHistory();
+            SetupTiltLogAppendedTilt(true);
+
+            base.OnOperatorCultureChanged(evt);
+        }
+
         protected override void OnUnloaded()
         {
             SetupTiltLogAppendedTilt(false);
@@ -432,10 +450,20 @@
                 if (add)
                 {
                     _tiltLogger.TiltLogAppendedTilt += EventLogAppended;
+
+                    foreach (var logAdapter in _eventLogAdapters.Where(e => e is ISubscribableEventLogAdapter))
+                    {
+                        ((ISubscribableEventLogAdapter)logAdapter).Appended += EventLogAppended;
+                    }
                 }
                 else
                 {
                     _tiltLogger.TiltLogAppendedTilt -= EventLogAppended;
+
+                    foreach (var logAdapter in _eventLogAdapters.Where(e => e is ISubscribableEventLogAdapter))
+                    {
+                        ((ISubscribableEventLogAdapter)logAdapter).Appended -= EventLogAppended;
+                    }
                 }
             }
         }
@@ -524,6 +552,11 @@
 
         private void ShowAdditionalInfo(object obj)
         {
+            if (SelectedItem == null)
+            {
+                return;
+            }
+
             // Show a popup window with additional info
             var dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
 

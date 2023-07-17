@@ -16,6 +16,7 @@
     public class ProgressiveDeviceManager : IProgressiveDeviceManager
     {
         private readonly IG2SEgm _egm;
+        private readonly IEventLift _eventLift;
         private readonly IGameProvider _gameProvider;
         private readonly IDeviceFactory _deviceFactory;
         private readonly IPropertiesManager _propertiesManager;
@@ -26,6 +27,7 @@
 
         public ProgressiveDeviceManager(
             IG2SEgm egm,
+            IEventLift eventLift, 
             IGameProvider gameProvider,
             IDeviceFactory deviceFactory,
             IPropertiesManager propertiesManager,
@@ -35,6 +37,7 @@
         )
         {
             _egm = egm ?? throw new ArgumentNullException(nameof(egm));
+            _eventLift = eventLift ?? throw new ArgumentNullException(nameof(eventLift));
             _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _deviceFactory = deviceFactory ?? throw new ArgumentNullException(nameof(deviceFactory));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
@@ -101,7 +104,7 @@
                     progressiveHost ??
                     defaultHost ?? _egm.GetHostById(Constants.EgmHostId),
                     hosts.Where(h => !h.IsEgm() && h.Registered),
-                    () => new ProgressiveDevice(id, _progressiveDeviceStateObserver, defaultNoProgInfoTimeout));
+                    () => new ProgressiveDevice(id, _progressiveDeviceStateObserver, _eventLift, defaultNoProgInfoTimeout));
             }
 
             if (initialCreation && !_egm.GetDevices<IProgressiveDevice>().Any())
@@ -109,7 +112,7 @@
                 _deviceFactory.Create(
                     progressiveHost ?? defaultHost ?? _egm.GetHostById(Constants.EgmHostId),
                     hosts.Where(h => !h.IsEgm() && h.Registered),
-                    () => new ProgressiveDevice(1, _progressiveDeviceStateObserver, defaultNoProgInfoTimeout));
+                    () => new ProgressiveDevice(1, _progressiveDeviceStateObserver, _eventLift, defaultNoProgInfoTimeout));
             }
         }
     }

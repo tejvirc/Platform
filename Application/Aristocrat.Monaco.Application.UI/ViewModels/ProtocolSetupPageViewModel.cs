@@ -43,59 +43,64 @@
                     }
                 });
 
-            _requiredFunctionality = protocolsConfiguration.ProtocolConfiguration.RequiredFunctionality?.ToList() ?? new List<FunctionalityType>();
-
-            var protocolsAllowed = protocolsConfiguration.ProtocolConfiguration.ProtocolsAllowed ?? Array.Empty<GlobalProtocol>();
-            var requiredProtocols = protocolsAllowed
-                .Where(s => s.IsMandatory)
-                .Select(s => s.Name)
-                .Distinct()
-                .ToList();
-
             ProtocolSelections = new List<ProtocolSelection>();
 
-            var savedProtocols = _protocolConfigurationProvider.MultiProtocolConfiguration.ToList();
-
-            var protocols = MonoAddinsHelper.GetSelectableConfigurationAddins(ApplicationConstants.Protocol);
-            foreach (var protocolName in protocols)
+            if (PropertiesManager.GetValue(ApplicationConstants.ShowMode, false))
             {
-                if (protocolsAllowed.All(x => Enum.GetName(typeof(CommsProtocol), x.Name) != protocolName))
+                var protocolsToMerge = protocolsConfiguration.ProtocolConfiguration.ProtocolsAllowed;
+                protocolsConfiguration.ProtocolConfiguration.ProtocolsAllowed =
+                    new GlobalProtocol[protocolsToMerge.Length + 1];
+                protocolsConfiguration.ProtocolConfiguration.ProtocolsAllowed[0] =
+                    new GlobalProtocol { Name = CommsProtocol.DemonstrationMode, IsMandatory = true };
+                Array.Copy(protocolsToMerge, 0, protocolsConfiguration.ProtocolConfiguration.ProtocolsAllowed, 1, protocolsToMerge.Length);
+
+                var demo = new ProtocolSelection()
+                {
+                    Enabled = true,
+                    ProtocolName = CommsProtocol.DemonstrationMode.ToString(),
+                    Selected = true
+                };
+
+                demo.PropertyChanged += ProtocolSelection_PropertyChanged;
+                ProtocolSelections.Add(demo);
+            }
+
+            _requiredFunctionality = protocolsConfiguration.ProtocolConfiguration.RequiredFunctionality?.ToList() ?? new List<FunctionalityType>();
+
+            var savedProtocols = _protocolConfigurationProvider.MultiProtocolConfiguration.ToList();
+            var protocolsAllowed = protocolsConfiguration.ProtocolConfiguration.ProtocolsAllowed ?? Array.Empty<GlobalProtocol>();
+
+            foreach (var protocolName in protocolsAllowed.OrderBy(x => Enum.GetName(typeof(CommsProtocol), x.Name)))
+            {
+                var enumName = Enum.GetName(typeof(CommsProtocol), protocolName.Name);
+
+                if (ProtocolSelections.Any(p => p.ProtocolName.Equals(enumName)))
                 {
                     continue;
                 }
 
-                var protocolSelection = new ProtocolSelection();
-                protocolSelection.Initialize(protocolName);
-                var protocolType = EnumParser.ParseOrThrow<CommsProtocol>(protocolName);
-                if (requiredProtocols.Contains(protocolType) || protocolType == protocolsAllowed.FirstOrDefault(x => x.IsMandatory)?.Name)
+                if (protocolName.IsMandatory)
                 {
-                    protocolSelection.Selected = true;
-                    if (protocolName != null)
-                    {
-                        protocolSelection.Enabled = false;
-                    }
+                    var selection = new ProtocolSelection();
+                    selection.Initialize(enumName);
+                    selection.Selected = true;
 
-                    //For retail build, make the mandatory protocol un-selectable.
 #if (RETAIL)
-                    protocolSelection.Enabled = false;
+                    selection.Enabled = false;
 #endif
+                    selection.PropertyChanged += ProtocolSelection_PropertyChanged;
+                    ProtocolSelections.Add(selection);
                 }
                 else
                 {
-                    protocolSelection.Selected = savedProtocols.Any(p => p.Protocol == EnumParser.ParseOrThrow<CommsProtocol>(protocolName));
-                }
-
-                protocolSelection.PropertyChanged += ProtocolSelection_PropertyChanged;
-                if (!protocolSelection.Enabled)
-                {
-                    // mandatory one goes first
-                    ProtocolSelections.Insert(0, protocolSelection);
-                }
-                else
-                {
-                    ProtocolSelections.Add(protocolSelection);
+                    var selection = new ProtocolSelection();
+                    selection.Initialize(enumName);
+                    selection.Selected = savedProtocols.Any(x => x.Protocol == protocolName.Name);
+                    selection.PropertyChanged += ProtocolSelection_PropertyChanged;
+                    ProtocolSelections.Add(selection);
                 }
             }
+
         }
 
         protected override void Loaded()

@@ -1,17 +1,19 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
     using Application.Settings;
-    using Aristocrat.Monaco.Hardware.Contracts.ButtonDeck;
     using ButtonTestDeck;
     using ConfigWizard;
     using Contracts.HardwareDiagnostics;
     using Contracts.Localization;
     using Hardware.Contracts.Button;
+    using Hardware.Contracts.ButtonDeck;
     using Kernel;
+    using Models;
+    using Monaco.UI.Common.Extensions;
     using MVVM;
 
     [CLSCompliant(false)]
@@ -42,23 +44,8 @@
 
         public ObservableCollection<ButtonViewModel> Buttons { get; } = new ObservableCollection<ButtonViewModel>();
 
-        /// <summary>
-        ///     A collection of information about the pressed button.
-        ///         <list type="bullet">
-        ///             <item><see cref="Tuple{T1,T2,T3}.Item1"/>:
-        ///                 The value of <see cref="LCDButtonTestDeck.ResourceKey(int)"/>.
-        ///                 If the <see cref="LCDButtonTestDeck"/> is null, then use <see cref="Tuple{T1,T2,T3}.Item2"/>.
-        ///             </item>
-        ///             <item><see cref="Tuple{T1,T2,T3}.Item2"/>:
-        ///                 The physical ID of the button. This is used if <see cref="LCDButtonTestDeck"/> is null.
-        ///             </item>
-        ///             <item><see cref="Tuple{T1,T2,T3}.Item3"/>:
-        ///                 The name of the button.
-        ///             </item>
-        ///         </list>
-        /// </summary>
-        public ObservableCollection<Tuple<string, int, string>> PressedButtonsData { get; }
-            = new ObservableCollection<Tuple<string, int, string>>();
+        public ObservableCollection<PressedButtonData> PressedButtonsData { get; }
+            = new ObservableCollection<PressedButtonData>();
 
         public bool IsLcdPanelEnabled
         {
@@ -205,9 +192,10 @@
 
             _buttonDeck?.Pressed(evt.LogicalId);
 
-            var pressedData = new Tuple<string, int, string>(
+            var pressedData = new PressedButtonData(
                 _buttonDeck?.ResourceKey(evt.LogicalId),
                 _buttonService.GetButtonPhysicalId(evt.LogicalId),
+                _buttonService.GetLocalizedButtonName(evt.LogicalId, Localizer.For(CultureFor.Operator).GetString),
                 _buttonService.GetButtonName(evt.LogicalId));
 
             MvvmHelper.ExecuteOnUI(() => PressedButtonsData.Insert(0, pressedData));
@@ -218,6 +206,24 @@
         private void HandleEvent(UpEvent evt)
         {
             _buttonDeck?.Released(evt.LogicalId);
+        }
+
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            MvvmHelper.ExecuteOnUI(() =>
+            {
+                var coll = new ObservableCollection<PressedButtonData>();
+                foreach (var button in PressedButtonsData)
+                {
+                    button.RefreshFields();
+                    coll.Add(button);
+                }
+                PressedButtonsData.Clear();
+                PressedButtonsData.AddRange(coll);
+                RaisePropertyChanged(nameof(PressedButtonsData));
+            });
+
+            base.OnOperatorCultureChanged(evt);
         }
     }
 }

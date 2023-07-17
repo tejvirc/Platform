@@ -1,5 +1,13 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Fake
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.IO;
+    using System.Linq;
+    using System.Reflection;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Aristocrat.Monaco.Hardware.Contracts.Reel;
     using Contracts.Communicator;
     using Contracts.Reel.ControlData;
@@ -9,14 +17,9 @@
     using Kernel;
     using log4net;
     using MVVM;
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.IO;
-    using System.Linq;
-    using System.Reflection;
-    using System.Threading;
-    using System.Threading.Tasks;
+    using MonacoReelStatus = Contracts.Reel.ReelStatus;
+    using MonacoLightStatus = Contracts.Reel.LightStatus;
+
 
     public class FakeRelmCommunicator : IRelmCommunicator
     {
@@ -40,17 +43,14 @@
                 ServiceManager.GetInstance().GetService<IPathMapper>(),
                 ServiceManager.GetInstance().GetService<IEventBus>())
         {
-            
         }
 
         public FakeRelmCommunicator(IPathMapper pathMapper, IEventBus eventBus)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _pathMapper = pathMapper ?? throw new ArgumentNullException(nameof(pathMapper));
-
-            Logger.Debug("Constructed");
         }
-        
+
         /// <inheritdoc/>
         public event EventHandler<EventArgs> DeviceAttached;
         
@@ -61,7 +61,20 @@
         public event EventHandler<ProgressEventArgs> DownloadProgressed;
 
         /// <inheritdoc/>
-        public event EventHandler<ReelStatusReceivedEventArgs> StatusesReceived;
+        public event EventHandler<ReelStatusReceivedEventArgs> ReelStatusReceived;
+
+#pragma warning disable 67
+        /// <inheritdoc/>
+        public event EventHandler<ReelControllerFaultedEventArgs> ControllerFaultOccurred;
+
+        /// <inheritdoc/>
+        public event EventHandler<ReelControllerFaultedEventArgs> ControllerFaultCleared;
+
+        public event EventHandler<LightEventArgs> LightStatusReceived;
+
+        /// <inheritdoc/>
+        public event EventHandler<ReelStopData> ReelIdleInterruptReceived;
+#pragma warning restore 67
 
         /// <summary>
         ///     Gets or sets the reel sim window
@@ -159,13 +172,13 @@
                 statuses.Add(new ReelStatus{ ReelId = i, Connected = true });
             }
 
-            StatusesReceived?.Invoke(this, new ReelStatusReceivedEventArgs(statuses));
+            ReelStatusReceived?.Invoke(this, new ReelStatusReceivedEventArgs(statuses));
             return Task.CompletedTask;
         }
 
         public Task<bool> RemoveAllControllerAnimations(CancellationToken token = default)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
 
         /// <inheritdoc/>
@@ -278,37 +291,37 @@
         /// <inheritdoc/>
         public Task<bool> LoadAnimationFile(AnimationFile file, CancellationToken token)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
         
         /// <inheritdoc/>
         public Task<bool> LoadAnimationFiles(IEnumerable<AnimationFile> files, CancellationToken token)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
 
         /// <inheritdoc/>
         public Task<bool> PrepareAnimation(LightShowData file, CancellationToken token)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
 
         /// <inheritdoc/>
         public Task<bool> PrepareAnimations(IEnumerable<LightShowData> files, CancellationToken token)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
 
         /// <inheritdoc/>
-        public Task<bool> PrepareControllerAnimation(ReelCurveData file, CancellationToken token)
+        public Task<bool> PrepareAnimation(ReelCurveData file, CancellationToken token)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
 
         /// <inheritdoc/>
-        public Task<bool> PrepareControllerAnimations(IEnumerable<ReelCurveData> files, CancellationToken token)
+        public Task<bool> PrepareAnimations(IEnumerable<ReelCurveData> files, CancellationToken token)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
 
         /// <inheritdoc/>
@@ -326,25 +339,33 @@
         }
 
         /// <inheritdoc/>
-        public Task<bool> StopControllerLightShowAnimations(IEnumerable<LightShowData> data, CancellationToken token)
+        public Task<bool> StopLightShowAnimations(IEnumerable<LightShowData> data, CancellationToken token)
         {
-            throw new NotImplementedException();
+            ReelSimWindow?.StopAllLightshows();
+            return Task.FromResult(true);
         }
 
         /// <inheritdoc/>
         public Task<bool> StopAllLightShows(CancellationToken token)
         {
-            throw new NotImplementedException();
+            ReelSimWindow?.StopAllLightshows();
+            return Task.FromResult(true);
         }
 
         /// <inheritdoc/>
-        public Task<bool> PrepareControllerStopReels(IEnumerable<ReelStopData> stopData, CancellationToken token)
+        public Task<bool> StopAllAnimationTags(string animationName, CancellationToken token)
         {
             throw new NotImplementedException();
         }
 
         /// <inheritdoc/>
-        public Task<bool> PrepareControllerNudgeReels(IEnumerable<NudgeReelData> nudgeData, CancellationToken token)
+        public Task<bool> PrepareStopReels(IEnumerable<ReelStopData> stopData, CancellationToken token)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc/>
+        public Task<bool> PrepareNudgeReels(IEnumerable<NudgeReelData> nudgeData, CancellationToken token)
         {
             if (ReelSimWindow == null)
             {
@@ -404,6 +425,9 @@
         {
             //prevent a double subscription for the FakeDeviceConnectedEvent in the case of Open->Close->Open
             _eventBus?.UnsubscribeAll(this);
+
+            // allow the injection of Relm reel errors from the Test Tool
+            _eventBus?.Subscribe<TestToolRelmReelErrorEvent>(this, InjectTestToolInterrupt);
 
             if (!Open() && !IsOpen)
             {
@@ -507,6 +531,38 @@
             }
 
             _disposed = true;
+        }
+
+        private void InjectTestToolInterrupt(TestToolRelmReelErrorEvent evt)
+        {
+            if (evt.ReelStatus is not null)
+            {
+                ReelStatusReceived?.Invoke(this, new ReelStatusReceivedEventArgs(evt.ReelStatus));
+            }
+
+            if (evt.LightStatus is not null)
+            {
+                LightStatusReceived?.Invoke(this, new LightEventArgs(evt.LightStatus));
+            }
+
+            if (evt.PingTimeout)
+            {
+                ControllerFaultOccurred?.Invoke(
+                    this,
+                    new ReelControllerFaultedEventArgs(ReelControllerFaults.CommunicationError));
+            }
+
+            if (evt.ClearPingTimeout)
+            {
+                ControllerFaultCleared?.Invoke(
+                    this,
+                    new ReelControllerFaultedEventArgs(ReelControllerFaults.CommunicationError));
+            }
+
+            if (evt.IsEventQueueFull)
+            {
+                Logger.Debug("The event queue is almost full");
+            }
         }
     }
 }

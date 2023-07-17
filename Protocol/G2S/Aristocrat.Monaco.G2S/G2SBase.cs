@@ -7,10 +7,12 @@
     using Accounting.Contracts.Handpay;
     using Application.Contracts;
     using Application.Contracts.Localization;
+    using Application.Contracts.TiltLogger;
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Emdi;
     using Common.Events;
+    using Common.G2SEventLogger;
     using Common.PackageManager;
     using CompositionRoot;
     using Consumers;
@@ -22,8 +24,8 @@
     using Hardware.Contracts.IdReader;
     using Hardware.Contracts.SharedDevice;
     using Kernel;
-    using log4net;
     using Localization.Properties;
+    using log4net;
     using Logging;
     using Meters;
     using Monaco.Common;
@@ -38,11 +40,11 @@
     ///     Handle the base level G2S communications including meter managements and system events.
     /// </summary>
     [ProtocolCapability(
-        protocol:CommsProtocol.G2S,
-        isValidationSupported:true,
-        isFundTransferSupported:false,
-        isProgressivesSupported:true,
-        isCentralDeterminationSystemSupported:true)]
+        protocol: CommsProtocol.G2S,
+        isValidationSupported: true,
+        isFundTransferSupported: false,
+        isProgressivesSupported: true,
+        isCentralDeterminationSystemSupported: true)]
     public class G2SBase : BaseRunnable
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
@@ -69,7 +71,7 @@
                     .Disable(
                         Constants.ProtocolDisabledKey,
                         SystemDisablePriority.Immediate,
-                        () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisabledDuringInitialization),
+                        () => Localizer.ForLockup().GetString(ResourceKeys.DisabledDuringInitialization),
                         false);
 
                 CreateVirtualIdReaders();
@@ -82,6 +84,7 @@
 
             // The G2S Lib uses TraceSource...
             Logger.AddAsTraceSource();
+            RegisterLogAdapters();
 
             _serviceWaiter.AddServiceToWaitFor<ITransactionCoordinator>();
             _serviceWaiter.AddServiceToWaitFor<ICabinetService>();
@@ -399,6 +402,26 @@
             if (_sharedConsumerContext != null)
             {
                 ServiceManager.GetInstance().RemoveService(_sharedConsumerContext);
+            }
+
+            UnRegisterLogAdapters();
+        }
+
+        private void RegisterLogAdapters()
+        {
+            if (ServiceManager.GetInstance().IsServiceAvailable<IG2SEventLogger>())
+            {
+                var logAdapterService = ServiceManager.GetInstance().GetService<ILogAdaptersService>();
+                logAdapterService.RegisterLogAdapter(new G2SEventLogAdapter());
+            }
+        }
+
+        private void UnRegisterLogAdapters()
+        {
+            if (ServiceManager.GetInstance().IsServiceAvailable<IG2SEventLogger>())
+            {
+                var logAdapterService = ServiceManager.GetInstance().GetService<ILogAdaptersService>();
+                logAdapterService.UnRegisterLogAdapter(EventLogType.Protocol.GetDescription(typeof(EventLogType)));
             }
         }
     }

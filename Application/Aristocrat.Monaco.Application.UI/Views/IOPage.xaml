@@ -7,7 +7,6 @@
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
-                               Background="Transparent"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:IOPageViewModel}}">
     <UserControl.Resources>
@@ -97,7 +96,7 @@
             <TextBlock Grid.Row="1"
                        Grid.Column="4"
                        Name="Status"
-                       Text="{Binding StatusText}"
+                       Text="{Binding FormattedStatus}"
                        Foreground="{Binding StatusForegroundBrush}"
                        AutomationProperties.AutomationId="TextBlock21_9C8A3C39" />
             <Label Grid.Row="2"

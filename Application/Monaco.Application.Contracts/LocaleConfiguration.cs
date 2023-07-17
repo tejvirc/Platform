@@ -282,6 +282,8 @@ public partial class OperatorTicket {
     
     private string[] selectableField;
     
+    private OperatorTicketLanguageSetting languageSettingField;
+    
     private string localeField;
     
     private string dateFormatField;
@@ -297,6 +299,16 @@ public partial class OperatorTicket {
         }
         set {
             this.selectableField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public OperatorTicketLanguageSetting LanguageSetting {
+        get {
+            return this.languageSettingField;
+        }
+        set {
+            this.languageSettingField = value;
         }
     }
     
@@ -320,6 +332,33 @@ public partial class OperatorTicket {
         }
         set {
             this.dateFormatField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+public partial class OperatorTicketLanguageSetting {
+    
+    private bool operatorOverrideField;
+    
+    public OperatorTicketLanguageSetting() {
+        this.operatorOverrideField = false;
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(false)]
+    public bool OperatorOverride {
+        get {
+            return this.operatorOverrideField;
+        }
+        set {
+            this.operatorOverrideField = value;
         }
     }
 }

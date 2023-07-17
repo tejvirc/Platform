@@ -348,7 +348,11 @@
         /// <summary> Diagnostics </summary>
         Diagnostics,
         /// <summary> Progressive Game Disabled Notification </summary>
-        ProgressiveGameDisabledNotification
+        ProgressiveGameDisabledNotification,
+        /// <summary> Handcount Timer Dialog Window </summary>
+        HandCountTimerDialog,
+        /// <summary> PayOut Limit reached </summary>
+        PayOutLimitReached
     }
 
     /// <summary>

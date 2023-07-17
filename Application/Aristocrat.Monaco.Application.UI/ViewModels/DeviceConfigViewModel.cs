@@ -1,25 +1,29 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
-    using Contracts;
-    using Hardware.Contracts.SharedDevice;
-    using Helpers;
-    using log4net;
-    using Monaco.UI.Common.Extensions;
-    using MVVM.ViewModel;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
     using System.Linq;
     using System.Reflection;
+    using Contracts;
     using Contracts.Localization;
+    using Hardware.Contracts.SerialPorts;
+    using Hardware.Contracts.SharedDevice;
+    using Helpers;
+    using Kernel;
+    using Localization;
+    using log4net;
     using Monaco.Localization.Properties;
+    using Monaco.UI.Common.Extensions;
+    using MVVM.ViewModel;
     using DeviceConfiguration = Models.DeviceConfiguration;
 
     [CLSCompliant(false)]
     public class DeviceConfigViewModel : BaseViewModel
     {
         private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ISerialPortsService SerialPortsService = ServiceManager.GetInstance().TryGetService<ISerialPortsService>();
 
         private readonly DeviceAddinHelper _addinHelper = new DeviceAddinHelper();
         private readonly List<string> _allPorts;
@@ -98,6 +102,7 @@
                 _config.Enabled = value;
                 RaisePropertyChanged(nameof(Enabled));
                 Status = string.Empty;
+                StatusType = DeviceState.None;
                 IsDetectionComplete = false;
                 IsDetectionFailure = false;
 
@@ -125,6 +130,7 @@
                 if (_config.Manufacturer != value)
                 {
                     Status = string.Empty;
+                    StatusType = DeviceState.None;
                 }
 
                 _config.Manufacturer = value ?? string.Empty;
@@ -157,6 +163,7 @@
 
                 _config.Protocol = value ?? string.Empty;
                 Status = string.Empty;
+                StatusType = DeviceState.None;
                 RaisePropertyChanged(nameof(Protocol));
                 Logger.DebugFormat($"{DeviceType} Protocol {Protocol} selected");
 
@@ -182,6 +189,7 @@
                 }
 
                 Status = string.Empty;
+                StatusType = DeviceState.None;
                 SetProperty(ref _port, value, nameof(Port));
                 Logger.DebugFormat($"{DeviceType} Port {Port} selected");
             }
@@ -195,6 +203,54 @@
         {
             get => _status;
             set => SetProperty(ref _status, value, nameof(Status));
+        }
+
+        public DeviceState StatusType { get; set; }
+
+        public string StatusFromType
+        {
+            get
+            {
+                switch (StatusType)
+                {
+                    case DeviceState.None:
+                        return string.Empty;
+                    case DeviceState.ConnectedText:
+                        return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ConnectedText);
+                    case DeviceState.InvalidPort:
+                        return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InvalidPort);
+                    case DeviceState.InvalidProtocol:
+                        return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InvalidProtocol);
+                    case DeviceState.ConnectedToPortName:
+                        return $" {Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ConnectedToText)} {SerialPortsService.PhysicalToLogicalName(Port)}";
+                    case DeviceState.DeviceDetected:
+                        return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DeviceDetected);
+                    case DeviceState.ErrorText:
+                        return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ErrorText);
+                    case DeviceState.Failed:
+                        return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Failed);
+                    case DeviceState.FullDeviceSignature:
+                        return $"{Manufacturer} {Protocol} {Port}";
+                    case DeviceState.HardwareDiscoveryCompleteLabel:
+                        return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HardwareDiscoveryCompleteLabel);
+                    case DeviceState.InvalidDeviceDetectedTemplate:
+                        return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InvalidDeviceDetectedTemplate);
+                    case DeviceState.Manufacturer:
+                        return Manufacturer;
+                    case DeviceState.NoDeviceDetected:
+                        return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoDeviceDetected);
+                    case DeviceState.NotAvailable:
+                        return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailableText);
+                    case DeviceState.NotValidated:
+                        return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotValidated);
+                    case DeviceState.Searching:
+                        return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Searching);
+                    case DeviceState.Validating:
+                        return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Validating);
+                    default:
+                        return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Error);
+                }
+            }
         }
 
         public void AddPlatformConfiguration(SupportedDevicesDevice config, bool defaultConfig, bool enabled = true, bool isRequired = false, bool canChange = true)
@@ -230,6 +286,7 @@
         {
             IsDetectionComplete = false;
             Status = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Searching);
+            StatusType = DeviceState.Searching;
         }
 
         public bool IsDetectionComplete
@@ -254,6 +311,19 @@
             Protocol = config.Protocol;
             Port = config.Port;
             Status = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DeviceDetected);
+            StatusType = DeviceState.DeviceDetected;
+        }
+
+        public void RefreshProps()
+        {
+            RaisePropertyChanged(nameof(Manufacturer));
+            RaisePropertyChanged(nameof(Protocol));
+            RaisePropertyChanged(nameof(Port));
+            RaisePropertyChanged(nameof(Ports));
+            RaisePropertyChanged(nameof(Status));
+            RaisePropertyChanged(nameof(StatusType));
+            RaisePropertyChanged(nameof(DeviceName));
+            RaisePropertyChanged(nameof(StatusFromType));
         }
 
         private void AddManufacturer(string manufacturer)

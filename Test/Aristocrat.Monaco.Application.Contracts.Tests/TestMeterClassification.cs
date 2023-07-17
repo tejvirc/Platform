@@ -20,7 +20,7 @@ namespace Aristocrat.Monaco.Application.Contracts.Tests
         /// </summary>
         /// <param name="meterValue">The value to convert to a string</param>
         /// <returns>A string representation of the value</returns>
-        public override string CreateValueString(long meterValue)
+        public override string CreateValueString(long meterValue, CultureInfo culture = null)
         {
             return meterValue.ToString(CultureInfo.InvariantCulture);
         }

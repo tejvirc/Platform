@@ -39,8 +39,9 @@
             ITransferOutHandler transferHandler,
             IMessageDisplay messages,
             IPlayerService players,
-            IPaymentDeterminationProvider paymentDeterminationProvider)
-            : base(properties, bank, transferHandler, transactions, history, meters, runtime, bus, messages, players, storage, paymentDeterminationProvider)
+            IPaymentDeterminationProvider paymentDeterminationProvider,
+            IBalanceUpdateService balanceUpdateService)
+            : base(properties, bank, transferHandler, transactions, history, meters, runtime, bus, messages, players, storage, paymentDeterminationProvider, balanceUpdateService)
 
         {
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
@@ -288,6 +289,8 @@
             }
 
             public long Context { get; }
+
+            public bool ShouldPersistPostCommit => true;
         }
     }
 }

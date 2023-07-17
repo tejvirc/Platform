@@ -167,10 +167,6 @@
     <ExtensionNode name="ProtocolInterface" type="Aristocrat.Monaco.Application.Protocol.ProtocolTypeExtensionNode" />
   </ExtensionPoint>
 
-  <ExtensionPoint path="/Protocol/Demonstration/Runnables">
-    <ExtensionNode name="Demonstration" type="Aristocrat.Monaco.Application.Protocol.ProtocolTypeExtensionNode" />
-  </ExtensionPoint>
-
   <ExtensionPoint path="/Application/NoteAcceptorDisable">
     <ExtensionNode name="NoteAcceptorDisable" type="Aristocrat.Monaco.Application.NoteAcceptor.NoteAcceptorDisableNode" />
   </ExtensionPoint>

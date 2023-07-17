@@ -14,6 +14,7 @@
     using Hardware.Contracts.Persistence;
     using Test.Common;
     using Aristocrat.Monaco.Gaming.Progressives;
+    using Google.Protobuf.WellKnownTypes;
 
     /// <summary>
     ///     PayGameResultsCommandHandler unit tests
@@ -21,6 +22,9 @@
     [TestClass]
     public class PayGameResultsCommandHandlerTests : IPaymentDeterminationHandler
     {
+        private const int GameId = 1;
+        private const long Denom = 1000;
+        private const long TitleId = 61;
         private const long Jackpot = 120000;
         private const long MaxCredit = 10000000;
         private const long MaxWin = 1000000;
@@ -36,6 +40,9 @@
         private Mock<IGameProvider> _games;
         private PaymentDeterminationProvider _paymentDetermination;
         private Mock<IOutcomeValidatorProvider> _outcomeValidation;
+        private readonly Mock<IGameDetail> _gameDetail = new(MockBehavior.Default);
+        private readonly Mock<IDenomination> _denomination = new(MockBehavior.Default);
+
 
         /// <summary>
         ///     Gets or sets the test context which provides
@@ -298,6 +305,18 @@
         {
             const long win = Jackpot - 1000;
 
+            _denomination.Setup(x => x.Value).Returns(Denom);
+            _gameDetail.Setup(x => x.Id).Returns(GameId);
+            _gameDetail.Setup(x => x.CdsTitleId).Returns(TitleId.ToString());
+            _gameDetail.Setup(x => x.Denominations).Returns(new[] { _denomination.Object });
+            _properties.Setup(x => x.GetProperty(GamingConstants.SelectedGameId, It.IsAny<int>()))
+                .Returns(GameId);
+            _properties.Setup(x => x.GetProperty(GamingConstants.SelectedDenom, It.IsAny<long>()))
+                .Returns(Denom);
+            _properties.Setup(x => x.GetProperty(GamingConstants.IsGameRunning, It.IsAny<bool>())).Returns(true);
+            _properties.Setup(x => x.GetProperty(GamingConstants.Games, It.IsAny<object>()))
+                .Returns(new[] { _gameDetail.Object });
+
             _properties.Setup(h => h.GetProperty(GamingConstants.SelectedGameId, 0)).Returns(1);
             _properties.Setup(h => h.GetProperty(GamingConstants.SelectedDenom, 0L)).Returns(Denomination);
             _properties.Setup(h => h.GetProperty(GamingConstants.MeterFreeGamesIndependently, false))
@@ -313,7 +332,7 @@
             _games.Setup(m => m.GetGame(1, Denomination)).Returns(Factory_CreateGame(Denomination));
             var scope = new Mock<IScopedTransaction>();
             _persistence.Setup(m => m.ScopedTransaction()).Returns(scope.Object);
-
+            _commands.Setup(m => m.Create<CheckResult>()).Returns(new CheckResultCommandHandler(_bank.Object, _properties.Object, _gameHistory.Object, (new Mock<IProgressiveConfigurationProvider>()).Object));
             var log = new Mock<IGameHistoryLog>();
             _gameHistory.SetupGet(m => m.CurrentLog).Returns(log.Object);
 
@@ -324,7 +343,7 @@
             handler.Handle(command);
             _bank.Verify(b => b.ForceHandpay(It.IsAny<Guid>(), It.IsAny<long>(), It.IsAny<TransferOutReason>(), It.IsAny<long>()), Times.Never);
             _gameHistory.Verify(b => b.PayResults(), Times.Once);
-            _bank.Verify(b => b.AddWin(win), Times.Never);
+            _bank.Verify(b => b.AddWin(win), Times.Once);
             scope.Verify(m => m.Complete());
         }
 

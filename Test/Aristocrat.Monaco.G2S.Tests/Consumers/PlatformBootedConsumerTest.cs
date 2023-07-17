@@ -87,7 +87,7 @@
 
             consumer.Consume(new PlatformBootedEvent(DateTime.UtcNow, true));
 
-            lift.Verify(e => e.Report(cabinet.Object, EventCode.G2S_CBE325, It.IsAny<deviceList1>()));
+            lift.Verify(e => e.Report(cabinet.Object, EventCode.G2S_CBE325, It.IsAny<deviceList1>(), It.IsAny<IEvent>()));
             lift.Verify(e => e.Report(cabinet.Object, EventCode.G2S_CBE321));
             lift.Verify(e => e.Report(cabinet.Object, EventCode.G2S_CBE322));
         }
@@ -108,7 +108,7 @@
 
             consumer.Consume(new PlatformBootedEvent(DateTime.UtcNow, false));
 
-            lift.Verify(e => e.Report(cabinet.Object, EventCode.G2S_CBE325, It.IsAny<deviceList1>()));
+            lift.Verify(e => e.Report(cabinet.Object, EventCode.G2S_CBE325, It.IsAny<deviceList1>(), It.IsAny<IEvent>()));
             lift.Verify(e => e.Report(cabinet.Object, EventCode.G2S_CBE321), Times.Never);
             lift.Verify(e => e.Report(cabinet.Object, EventCode.G2S_CBE322), Times.Never);
         }

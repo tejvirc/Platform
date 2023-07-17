@@ -2,6 +2,7 @@
 {
     using System;
     using Accounting.Contracts;
+    using Accounting.Contracts.HandCount;
     using Accounting.Contracts.Handpay;
     using Accounting.Contracts.Transactions;
     using Accounting.Contracts.Wat;
@@ -28,6 +29,8 @@
                     }
                 case WatTransaction wat:
                     return (wat.TransferredCashableAmount, wat.TransferredPromoAmount, wat.TransferredNonCashAmount);
+                case HardMeterOutTransaction hardMeterOutTransaction:
+                    return (hardMeterOutTransaction.Amount, 0, 0);
                 default:
                     throw new ArgumentException();
             }

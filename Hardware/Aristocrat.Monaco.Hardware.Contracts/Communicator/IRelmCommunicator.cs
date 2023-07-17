@@ -4,6 +4,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Reel.Capabilities;
+    using Reel.ControlData;
     using Reel.Events;
 
     /// <summary>
@@ -19,7 +20,28 @@
         /// <summary>
         ///     Event that occurs when component statuses are received.
         /// </summary>
-        public event EventHandler<ReelStatusReceivedEventArgs> StatusesReceived;
+        event EventHandler<ReelStatusReceivedEventArgs> ReelStatusReceived;
+
+        /// <summary>
+        ///     The event that occurs when the reel controller has a fault
+        /// </summary>
+        event EventHandler<ReelControllerFaultedEventArgs> ControllerFaultOccurred;
+
+        /// <summary>
+        ///     The event that occurs when the reel controller fault was cleared
+        /// </summary>
+        event EventHandler<ReelControllerFaultedEventArgs> ControllerFaultCleared;
+
+        /// <summary>
+        ///     The event that occurs when a light status is updated
+        /// </summary>
+        event EventHandler<LightEventArgs> LightStatusReceived;
+
+        /// TODO: Future work will be needed to properly handle interrupts
+        /// <summary>
+        ///     Event occurs when a reel idle interrupt is received
+        /// </summary>
+        public event EventHandler<ReelStopData> ReelIdleInterruptReceived;
 
         /// <summary>
         ///     Initializes the communicator.

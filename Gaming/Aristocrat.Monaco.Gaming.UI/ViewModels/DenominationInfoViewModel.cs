@@ -9,15 +9,34 @@
     public class DenominationInfoViewModel : BaseNotify
     {
         private bool _isSelected;
-        private const string DenominationBackOff = "DenominationBackOff";
-        private const string DenominationBackOn = "DenominationBackOn";
-        private const string DenominationBackOff2 = "DenominationBackOff2";
-        private const string DenominationBackOn2 = "DenominationBackOn2";
+
+        // Multiple game denomination buttons (shared between all games on page)
+        private const string DenomButtonMultipleOff = "DenominationBackOff";
+        private const string DenomButtonMultipleOn = "DenominationBackOn";
+
+        // Single game denomination buttons (per individual game)
+        private const string DenomButtonSingleOff = "DenominationBackOff2";
+        private const string DenomButtonSingleOn = "DenominationBackOn2";
+
+        private string _denomButtonSingleOffOverride;
 
         public DenominationInfoViewModel(long denomination)
         {
             Denomination = denomination;
-            DenomText = Denomination.MillicentsToCents().FormattedDenomString();
+            var cents = denomination.MillicentsToCents();
+
+            if (cents >= CurrencyExtensions.CurrencyMinorUnitsPerMajorUnit)
+            {
+                // Use the denom string formatted with major unit symbol included
+                DenomText = cents.FormattedDenomString();
+                DenomSymbol = string.Empty;
+            }
+            else
+            {
+                // Keep the minor unit separate from the cents value to be displayed in a separate TextPath
+                DenomText = cents.ToString();
+                DenomSymbol = CurrencyExtensions.MinorUnitSymbol;
+            }
         }
 
         /// <summary>
@@ -47,16 +66,36 @@
         /// <summary>
         ///     Resource key for shared game denom buttons
         /// </summary>
-        public string DenomButtonSharedKey => IsSelected ? DenominationBackOn : DenominationBackOff;
+        public string DenomButtonSharedKey => IsSelected ? DenomButtonMultipleOn : DenomButtonMultipleOff;
 
         /// <summary>
-        ///     Resource key for single game denom buttons
+        ///     Resource key for individual game denom buttons
         /// </summary>
-        public string DenomButtonSingleKey => IsSelected ? DenominationBackOn2 : DenominationBackOff2;
+        public string DenomButtonSingleKey
+        {
+            get
+            {
+                var key = IsSelected
+                    ? DenomButtonSingleOn
+                    : DenomButtonSingleOffOverride ?? DenomButtonSingleOff;
+                return key;
+            }
+        }
+
+        /// <summary>
+        ///     Custom denom button resource key assigned per individual game
+        /// </summary>
+        public string DenomButtonSingleOffOverride
+        {
+            get => _denomButtonSingleOffOverride;
+            set => SetProperty(ref _denomButtonSingleOffOverride, value, nameof(DenomButtonSingleKey));
+        }
 
         /// <summary>
         ///     Text to display on the denom button
         /// </summary>
         public string DenomText { get; set; }
+
+        public string DenomSymbol { get; }
     }
 }

@@ -33,6 +33,7 @@
             var details = new List<ProgressiveDetail>();
 
             foreach (var pack in config.ProgressivePack)
+            {
                 foreach (var progressive in pack.Progressive)
                 {
                     var detail = new ProgressiveDetail
@@ -59,12 +60,14 @@
                         UseLevels = !string.IsNullOrEmpty(progressive.useLevels) ?
                             progressive.useLevels.Split(',').Select(l => l.Trim()).ToList() :
                             new[] { All }.ToList(),
-                        CreationType = progressive.progType
+                        CreationType = progressive.progType,
+                        BetLinePreset = progressive.betLinePreset
                     };
 
                     detail.Levels = GetLevelDetails(config, pack, progressive, detail.UseLevels.ToList());
                     details.Add(detail);
                 }
+            }
 
             return details;
         }
@@ -81,6 +84,7 @@
             var levelPacks = config.LevelPacks.Where(l => l.name.Equals(progressive.levelPack));
 
             foreach (var levelPack in levelPacks)
+            {
                 foreach (var level in GetApplicableLevels(levelPack, useLevels))
                 {
                     var detail = new LevelDetail
@@ -107,6 +111,7 @@
 
                     details.Add(detail);
                 }
+            }
 
             return details;
         }

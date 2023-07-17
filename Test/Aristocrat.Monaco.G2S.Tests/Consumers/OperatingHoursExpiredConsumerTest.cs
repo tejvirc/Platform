@@ -94,7 +94,8 @@
                 l => l.Report(
                     It.Is<IDevice>(d => device.Object == d),
                     It.Is<string>(e => e == EventCode.GTK_CBE003),
-                    It.IsAny<deviceList1>()));
+                    It.IsAny<deviceList1>(),
+                    It.IsAny<IEvent>()));
         }
     }
 }

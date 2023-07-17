@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
 {
     using System;
+    using System.Globalization;
     using Contracts.Extensions;
     using MVVM.Command;
     using MVVM.ViewModel;
@@ -11,6 +12,7 @@
         private bool _enabled;
         private bool _selected;
         private bool _visible;
+        private CultureInfo _currentCultureInfo = CurrencyExtensions.CurrencyCultureInfo;
 
         public ConfigurableDenomination(int denom, ActionCommand<bool> command, bool selected)
         {
@@ -25,7 +27,14 @@
 
         public ActionCommand<bool> ChangeCommand { get; }
 
-        public string DisplayValue => Denom.FormattedCurrencyString("C0");
+        public string DisplayValue => Denom.ToString("C0", _currentCultureInfo);
+
+        public void UpdateProps(CultureInfo cultureInfo = null)
+        {
+            _currentCultureInfo = cultureInfo ?? CurrencyExtensions.CurrencyCultureInfo;
+
+            RaisePropertyChanged(nameof(DisplayValue));
+        }
 
         public bool Enabled
         {

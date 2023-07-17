@@ -52,5 +52,10 @@
         ///     Gets or sets the TheoPaybackPct property
         /// </summary>
         public decimal TheoPaybackPct { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the Theoretical Payback Percent display property
+        /// </summary>
+        public string TheoPaybackPctDisplay { get; set; }
     }
 }

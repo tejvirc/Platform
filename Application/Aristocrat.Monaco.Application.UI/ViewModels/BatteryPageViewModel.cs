@@ -41,6 +41,12 @@
             base.OnLoaded();
         }
 
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            RaisePropertyChanged(nameof(Battery1Label), nameof(Battery2Label), nameof(Battery1StatusText), nameof(Battery2StatusText));
+            base.OnOperatorCultureChanged(evt);
+        }
+
         protected override void SetupNavigation()
         {
             if (WizardNavigator != null)

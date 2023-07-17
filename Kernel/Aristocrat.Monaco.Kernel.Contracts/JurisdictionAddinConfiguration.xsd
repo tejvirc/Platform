@@ -60,6 +60,11 @@
                     <xs:attribute name="type" type="xs:string" use="required" />
                   </xs:complexType>
                 </xs:element>
+                <xs:element minOccurs="0" name="Service">
+                  <xs:complexType>
+                    <xs:attribute name="type" type="xs:string" use="required" />
+                  </xs:complexType>
+                </xs:element>
                 <xs:element minOccurs="0" name="DoorMonitorConfiguration">
                   <xs:complexType>
                     <xs:sequence>

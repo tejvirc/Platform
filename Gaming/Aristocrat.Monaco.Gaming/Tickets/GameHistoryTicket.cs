@@ -100,12 +100,12 @@
                         //adjust the starting position for avoiding overlap with Game Name
                         if (entry.GameName.Length > 28 && entry.GameName.Length < 48)
                         {
-                            var availableSpaceForGameName = lineLength - ($"{TicketLocalizer.GetString(ResourceKeys.GameNameText)}".Length + 1);
+                            var availableSpaceForGameName = lineLength - ($"{TicketLocalizer.GetString(ResourceKeys.GameName)}".Length + 1);
                             var words = entry.GameName.ConvertStringToWrappedWords(availableSpaceForGameName);
 
                             if (string.IsNullOrEmpty(words[1]))
                             {
-                                AddLine($"{TicketLocalizer.GetString(ResourceKeys.GameNameText)}", $"{words[0]}", null);
+                                AddLine($"{TicketLocalizer.GetString(ResourceKeys.GameName)}", $"{words[0]}", null);
                             }
                             else
                             {
@@ -113,13 +113,13 @@
 
                                 for (var j = 0; j <= wordsCount - 1; j++)
                                 {
-                                    AddLine(j == 0 ? $"{TicketLocalizer.GetString(ResourceKeys.GameNameText)}" : null, $"{words[j]}", null);
+                                    AddLine(j == 0 ? $"{TicketLocalizer.GetString(ResourceKeys.GameName)}" : null, $"{words[j]}", null);
                                 }
                             }
                         }
                         else
                         {
-                            AddLine(TicketLocalizer.GetString(ResourceKeys.GameNameText), null, entry.GameName);
+                            AddLine(TicketLocalizer.GetString(ResourceKeys.GameName), null, entry.GameName);
                         }
                     }
                 }
@@ -154,27 +154,27 @@
 
                     if (entry.AmountIn.HasValue)
                     {
-                        AddLine(TicketLocalizer.GetString(ResourceKeys.CashInText), null, $"{ entry.AmountIn.Value.FormattedCurrencyString()}");
+                        AddLine(TicketLocalizer.GetString(ResourceKeys.CashInText), null, $"{entry.AmountIn.Value.FormattedCurrencyString()}");
                     }
 
                     if (entry.AmountOut.HasValue)
                     {
-                        AddLine(TicketLocalizer.GetString(ResourceKeys.CashOutText), null, $"{ entry.AmountOut.Value.FormattedCurrencyString()}");
+                        AddLine(TicketLocalizer.GetString(ResourceKeys.CashOutText), null, $"{entry.AmountOut.Value.FormattedCurrencyString()}");
                     }
 
-                    AddLine(TicketLocalizer.GetString(ResourceKeys.StartCashText), null, $"{ entry.StartCredits.FormattedCurrencyString()}");
+                    AddLine(TicketLocalizer.GetString(ResourceKeys.StartCashText), null, $"{entry.StartCredits.FormattedCurrencyString()}");
 
                     if (entry.CreditsWagered.HasValue)
                     {
-                        AddLine(TicketLocalizer.GetString(ResourceKeys.CashWageredText), null, $"{ entry.CreditsWagered.Value.FormattedCurrencyString()}");
+                        AddLine(TicketLocalizer.GetString(ResourceKeys.CashWageredText), null, $"{entry.CreditsWagered.Value.FormattedCurrencyString()}");
                     }
 
                     if (entry.CreditsWon.HasValue)
                     {
-                        AddLine(TicketLocalizer.GetString(ResourceKeys.CashWonText), null, $"{ entry.CreditsWon.Value.FormattedCurrencyString()}");
+                        AddLine(TicketLocalizer.GetString(ResourceKeys.CashWonText), null, $"{entry.CreditsWon.Value.FormattedCurrencyString()}");
                     }
 
-                    AddLine(TicketLocalizer.GetString(ResourceKeys.EndCashText), null, $"{ entry.EndCredits.Value.FormattedCurrencyString()}");
+                    AddLine(TicketLocalizer.GetString(ResourceKeys.EndCashText), null, $"{entry.EndCredits.Value.FormattedCurrencyString()}");
 
                     if (!string.IsNullOrEmpty(entry.Status))
                     {

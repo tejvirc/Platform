@@ -50,6 +50,7 @@
         private readonly IPackageDownloadManager _packageDownloadManager;
         private readonly ISelfTest _selfTest;
         private readonly IVoucherDataService _voucherDataService;
+        private readonly IEventLift _eventLift;
 
         private bool _disposed;
 
@@ -73,7 +74,8 @@
             ICertificateService certificateService,
             ICertificateMonitor certificateMonitor,
             IEmdi emdi,
-            ICentralService central)
+            ICentralService central,
+            IEventLift eventLift)
         {
             _egm = egm ?? throw new ArgumentNullException(nameof(egm));
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
@@ -97,6 +99,7 @@
             _certificateMonitor = certificateMonitor ?? throw new ArgumentNullException(nameof(certificateMonitor));
             _emdi = emdi ?? throw new ArgumentNullException(nameof(emdi));
             _central = central ?? throw new ArgumentNullException(nameof(central));
+            _eventLift = eventLift ?? throw new ArgumentNullException(nameof(eventLift));
         }
 
         /// <inheritdoc />
@@ -217,7 +220,7 @@
                     !_properties.GetValue(ApplicationConstants.ReadOnlyMediaRequired, false)));
             _deviceFactory.Create(
                 defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
-                () => new VoucherDevice(_deviceStateObserver));
+                () => new VoucherDevice(_deviceStateObserver, _eventLift));
             _deviceFactory.Create(
                 defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
                 () => new AuditMetersDevice(_deviceStateObserver));
@@ -258,12 +261,12 @@
             var player = _deviceFactory.Create(
                 defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
                 hosts.Where(h => !h.IsEgm() && h.Registered),
-                () => new PlayerDevice(1, _deviceStateObserver, idReaders));
+                () => new PlayerDevice(1, _deviceStateObserver, idReaders, _eventLift));
 
             _deviceFactory.Create(
                 defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
                 hosts.Where(h => !h.IsEgm() && h.Registered),
-                () => new InformedPlayerDevice(1, _deviceStateObserver) { Player = player as IPlayerDevice });
+                () => new InformedPlayerDevice(1, _deviceStateObserver, _eventLift) { Player = player as IPlayerDevice });
 
             _deviceFactory.Create(
                 defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),

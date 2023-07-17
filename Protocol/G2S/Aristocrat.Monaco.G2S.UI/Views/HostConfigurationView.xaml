@@ -127,23 +127,25 @@
                     <ListView.View>
                         <views:AutoSizedGridView AllowsColumnReorder="False">
                             <GridViewColumn DisplayMemberBinding="{Binding Path=(models:Host.Id)}"
+                                            loc:Localizer.For="Operator"
                                             Header="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationIdHeader}}"
                                             AutomationProperties.AutomationId="GridViewColumn19_303FCCD8" />
-                            <GridViewColumn
-                                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationUrlHeader}}"
+                            <GridViewColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationUrlHeader}}"
                                             Width="400"
+                                            loc:Localizer.For="Operator"
                                             DisplayMemberBinding="{Binding Path=(models:Host.Address), TargetNullValue='localhost'}"
                                             AutomationProperties.AutomationId="GridViewColumn20_303FCCD8" />
-                            <GridViewColumn
-                                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationRegisteredHeader}}"
-                                            DisplayMemberBinding="{Binding Path=(models:Host.Registered)}"
+                            <GridViewColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationRegisteredHeader}}"
+                                            DisplayMemberBinding="{Binding Path=(models:Host.RegisteredDisplayText)}"
+                                            loc:Localizer.For="Operator"
                                             AutomationProperties.AutomationId="GridViewColumn21_303FCCD8" />
                             <GridViewColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.RequiredForPlay}}"
                                             HeaderContainerStyle="{StaticResource LocalColumnHiderStyle}"
+                                            loc:Localizer.For="Operator"
                                             AutomationProperties.AutomationId="GridViewColumn22_303FCCD8">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Path=(models:Host.RequiredForPlay), Mode=OneWay}"
+                                        <TextBlock Text="{Binding Path=(models:Host.RequiredForPlayDisplayText), Mode=OneWay}"
                                                    Visibility="{Binding Path=Data.IsWizardPage,
                                                        Source={StaticResource Proxy},
                                                        Converter={StaticResource TrueCollapsedFalseVisible}}"

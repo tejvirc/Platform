@@ -152,7 +152,10 @@
                                         meterDisplayName ?? meterNode.DisplayName,
                                         meter,
                                         ShowLifetime,
-                                        meterNode.Order));
+                                        meterNode.Order,
+                                        true,
+                                        false,
+                                        UseOperatorCultureForCurrencyFormatting));
                             }
                             catch (MeterNotFoundException)
                             {
@@ -161,7 +164,10 @@
                                         meterDisplayName ?? meterNode.DisplayName,
                                         null,
                                         ShowLifetime,
-                                        meterNode.Order));
+                                        meterNode.Order,
+                                        true,
+                                        false,
+                                        UseOperatorCultureForCurrencyFormatting));
 
                                 Logger.ErrorFormat("Meter not found: {0}", meterNode.Name);
                             }

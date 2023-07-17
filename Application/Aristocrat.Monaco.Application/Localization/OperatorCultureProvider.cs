@@ -44,8 +44,11 @@
             _properties = properties;
         }
 
+        /// <summary>
+        ///   Gets or sets the default culture for the current OperatorCultureProvider.
+        /// </summary>
         [JsonProperty]
-        private CultureInfo DefaultCulture { get; set; }
+        public CultureInfo DefaultCulture { get; set; }
 
         /// <inheritdoc />
         public override string ProviderName => CultureFor.Operator;

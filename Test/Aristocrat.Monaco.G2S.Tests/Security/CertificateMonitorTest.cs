@@ -49,6 +49,7 @@
             var certificateMonitor = new Mock<ICertificateMonitor>();
             var emdi = new Mock<IEmdi>();
             var central = new Mock<ICentralService>();
+            var eventLift = new Mock<IEventLift>();
 
             _g2sEngineMock = new Mock<G2SEngine>(
                 egm.Object,
@@ -70,7 +71,8 @@
                 certificateService.Object,
                 certificateMonitor.Object,
                 emdi.Object,
-                central.Object);
+                central.Object,
+                eventLift.Object);
             MoqServiceManager.AddService(_g2sEngineMock);
         }
 

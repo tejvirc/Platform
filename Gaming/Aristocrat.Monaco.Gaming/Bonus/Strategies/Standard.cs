@@ -34,8 +34,9 @@
             IMessageDisplay messages,
             IPlayerService players,
             ISystemDisableManager systemDisable,
-            IPaymentDeterminationProvider paymentDeterminationProvider)
-            : base(properties, bank, transferHandler, transactions, history, meters, runtime, bus, messages, players, storage, paymentDeterminationProvider)
+            IPaymentDeterminationProvider paymentDeterminationProvider,
+            IBalanceUpdateService balanceUpdateService)
+            : base(properties, bank, transferHandler, transactions, history, meters, runtime, bus, messages, players, storage, paymentDeterminationProvider, balanceUpdateService)
         {
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
             _gamePlay = gamePlay ?? throw new ArgumentNullException(nameof(gamePlay));

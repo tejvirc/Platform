@@ -321,6 +321,15 @@
             EventBus.Subscribe<GameRemovedEvent>(this, evt => UpdateGameStatus(evt.GameId, false));
         }
 
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            foreach (var item in GamePerformanceItems)
+            {
+                item.UpdateCulture();
+            }
+            base.OnOperatorCultureChanged(evt);
+        }
+
         private void UpdateGameStatus(int gameId, bool enable)
         {
             var game = GamePerformanceItems.FirstOrDefault(g => g.GameId == gameId);

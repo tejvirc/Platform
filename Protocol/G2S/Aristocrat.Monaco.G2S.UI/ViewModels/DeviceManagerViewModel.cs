@@ -1,5 +1,9 @@
 ﻿namespace Aristocrat.Monaco.G2S.UI.ViewModels
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
     using Application.Contracts;
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
@@ -15,10 +19,6 @@
     using MVVM;
     using MVVM.Command;
     using MVVM.ViewModel;
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Linq;
     using Views;
 
     [CLSCompliant(false)]
@@ -173,11 +173,13 @@
             Logger.Debug("OnLoaded() Device Manager ViewModel - reloading services and devices");
             _containerService = ServiceManager.GetInstance().TryGetService<IContainerService>();
             _profileService = _containerService?.Container.GetInstance<IProfileService>();
+
             LoadDevices();
             ReloadEditableView();
 
             IsDirty = false;
-            InputStatusText = (GameIdle ? string.Empty : _operatorLocalizer.GetString(ResourceKeys.EndGameRoundBeforeChange));
+            InputStatusText =
+                GameIdle ? string.Empty : _operatorLocalizer.GetString(ResourceKeys.EndGameRoundBeforeChange);
         }
 
         private void LoadDevices()
@@ -206,7 +208,9 @@
                     Enabled = d.Enabled,
                     HostEnabled = d.HostEnabled,
                     Active = d.Active,
-                    IsHostOriented = d.IsHostOriented()
+                    IsHostOriented = d.IsHostOriented(),
+                    ActiveDisplayText = GetBooleanDisplayText(d.Active),
+                    EnabledDisplayText = GetBooleanDisplayText(d.Enabled)
                 };
                 _editableDevices.Add(editableDevice);
             }
@@ -220,7 +224,9 @@
             var device = SelectedDevice;
             if (device.IsHostOriented)
             {
-                Logger.Info("Device Manager - Editing device '" + device.DeviceClass + "' is host-oriented and cannot be edited.");
+                Logger.Info(
+                    "Device Manager - Editing device '" + device.DeviceClass +
+                    "' is host-oriented and cannot be edited.");
                 ShowPopup(_operatorLocalizer.GetString(ResourceKeys.DeviceManagerPopupIsHostOriented), 4);
                 return;
             }
@@ -242,20 +248,26 @@
 
 
             if (result == false)
-                return;  // user canceled out
+                return; // user canceled out
 
-            if (device.Owner == viewModel.OwnerId && device.Enabled == viewModel.Enabled && device.Active == viewModel.Active)
+            if (device.Owner == viewModel.OwnerId && device.Enabled == viewModel.Enabled &&
+                device.Active == viewModel.Active)
                 return; //do nothing if nothing changed
 
             if (device.Owner != viewModel.OwnerId)
             {
-                Logger.Info("Device Manager - Editing device '" + device.DeviceClass + "' set Owner to ->' " + viewModel.OwnerId + "'.");
+                Logger.Info(
+                    "Device Manager - Editing device '" + device.DeviceClass + "' set Owner to ->' " +
+                    viewModel.OwnerId + "'.");
                 device.Owner = viewModel.OwnerId;
                 device.Edited = true;
             }
+
             if (device.Active != viewModel.Active)
             {
-                Logger.Info("Device Manager - Editing device '" + device.DeviceClass + "' set Active to -> '" + viewModel.Active + "'.");
+                Logger.Info(
+                    "Device Manager - Editing device '" + device.DeviceClass + "' set Active to -> '" +
+                    viewModel.Active + "'.");
                 device.Active = viewModel.Active;
                 device.Edited = true;
             }
@@ -263,7 +275,8 @@
             RaisePropertyChanged(nameof(ActiveDevices));
 
             IsDirty = true;
-            InputStatusText = (GameIdle ? string.Empty : _operatorLocalizer.GetString(ResourceKeys.EndGameRoundBeforeChange));
+            InputStatusText =
+                (GameIdle ? string.Empty : _operatorLocalizer.GetString(ResourceKeys.EndGameRoundBeforeChange));
         }
 
         private void SaveChanges(object obj)
@@ -287,19 +300,24 @@
                 if (!editableDevice.Edited) // only edit the devices with actual changes
                     continue;
 
-                restart = true;  // if we catch at least one edit then trigger a protocol restart below
-                var edits = Devices.Where(d => d.DeviceClass == editableDevice.DeviceClass && d.Id == editableDevice.Id);
+                restart = true; // if we catch at least one edit then trigger a protocol restart below
+                var edits = Devices.Where(
+                    d => d.DeviceClass == editableDevice.DeviceClass && d.Id == editableDevice.Id);
 
                 foreach (var device in edits)
                 {
                     if (device.Owner != editableDevice.Owner)
                     {
-                        Logger.Info("Device Manager - Saving changes to device '" + editableDevice.DeviceClass + "' Owner from '" + device.Owner + "' to '" + editableDevice.Owner + "'.");
+                        Logger.Info(
+                            "Device Manager - Saving changes to device '" + editableDevice.DeviceClass +
+                            "' Owner from '" + device.Owner + "' to '" + editableDevice.Owner + "'.");
                     }
 
                     if (device.Active != editableDevice.Active)
                     {
-                        Logger.Info("Device Manager - Saving changes to device '" + editableDevice.DeviceClass + "' Active from '" + device.Owner + "' to '" + editableDevice.Owner + "'.");
+                        Logger.Info(
+                            "Device Manager - Saving changes to device '" + editableDevice.DeviceClass +
+                            "' Active from '" + device.Owner + "' to '" + editableDevice.Owner + "'.");
                     }
 
                     device.HasOwner(editableDevice.Owner, editableDevice.Active);
@@ -326,7 +344,7 @@
             Logger.Info("Device Manager - Canceling changes");
             ShowPopup(_operatorLocalizer.GetString(ResourceKeys.DeviceManagerPopupCancelChanges));
 
-            ReloadEditableView();  // reset the view to initial load state
+            ReloadEditableView(); // reset the view to initial load state
 
             IsDirty = false;
         }
@@ -343,50 +361,58 @@
                 );
 
                 if (result == false)
-                    return;  // user canceled out
+                    return; // user canceled out
 
                 ShowPopup(_operatorLocalizer.GetString(ResourceKeys.DeviceManagerPopupBulkChanges));
 
-                switch (viewModel.SelectedField)
+
+                if (viewModel.SelectedField ==
+                    _operatorLocalizer.GetString(ResourceKeys.DeviceManagerOwnerSelection))
                 {
-                    case "Owner":
-                        Logger.Info("Device Manager - Bulk changes set all Owner Ids to '" + viewModel.SelectedHostId + "'.");
-                        foreach (var d in _editableDevices)
+                    Logger.Info(
+                        "Device Manager - Bulk changes set all Owner Ids to '" + viewModel.SelectedHostId + "'.");
+                    foreach (var d in _editableDevices)
+                    {
+                        if (d.IsHostOriented)
                         {
-                            if (d.IsHostOriented)
-                            {
-                                Logger.Info("Device Manager - Editing device '" + d.DeviceClass + "' under Host '"
-                                            + d.Id + "'is host-oriented and Owner cannot be edited.");
-                                continue;
-                            }
-                            d.Owner = viewModel.SelectedHostId;
-                            d.Edited = true;
+                            Logger.Info(
+                                "Device Manager - Editing device '" + d.DeviceClass + "' under Host '"
+                                + d.Id + "'is host-oriented and Owner cannot be edited.");
+                            continue;
                         }
 
-                        break;
+                        d.Owner = viewModel.SelectedHostId;
+                        d.Edited = true;
+                    }
+                }
 
-                    case "Active":
-                        Logger.Info("Device Manager - Bulk changes set all Active to '" + viewModel.SelectedActive + "'.");
-                        foreach (var d in _editableDevices)
+                if (viewModel.SelectedField ==
+                    _operatorLocalizer.GetString(ResourceKeys.DeviceManagerActiveSelection))
+                {
+                    Logger.Info(
+                        "Device Manager - Bulk changes set all Active to '" + viewModel.SelectedActive + "'.");
+                    foreach (var d in _editableDevices)
+                    {
+                        if (d.IsHostOriented)
                         {
-                            if (d.IsHostOriented)
-                            {
-                                Logger.Info("Device Manager - Editing device '" + d.DeviceClass + "' under Host '"
-                                            + d.Id + "' is host-oriented and Active cannot be edited.");
-                                continue;
-                            }
-                            d.Active = viewModel.SelectedActive;
-                            d.Edited = true;
+                            Logger.Info(
+                                "Device Manager - Editing device '" + d.DeviceClass + "' under Host '"
+                                + d.Id + "' is host-oriented and Active cannot be edited.");
+                            continue;
                         }
 
-                        break;
+                        d.Active = viewModel.SelectedActive;
+                        d.Edited = true;
+                    }
                 }
 
                 RaisePropertyChanged(nameof(ActiveDevices));
 
                 EventBus.Publish(new OperatorMenuSettingsChangedEvent());
                 IsDirty = true;
-                InputStatusText = (GameIdle ? string.Empty : _operatorLocalizer.GetString(ResourceKeys.EndGameRoundBeforeChange));
+                InputStatusText = (GameIdle
+                    ? string.Empty
+                    : _operatorLocalizer.GetString(ResourceKeys.EndGameRoundBeforeChange));
             }
             catch (NullReferenceException)
             {
@@ -397,6 +423,12 @@
         private void HandleEvent(ProtocolsInitializedEvent evt)
         {
             MvvmHelper.ExecuteOnUI(() => SaveInProgress = false);
+        }
+
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            MvvmHelper.ExecuteOnUI(ReloadEditableView);
+            base.OnOperatorCultureChanged(evt);
         }
     }
 
@@ -410,6 +442,8 @@
         private bool _hostEnabled;
         private bool _isHostOriented;
         private bool _edited;
+        private string _activeDisplayText;
+        private string _enabledDisplayText;
 
         internal EditableDevice()
         {
@@ -463,6 +497,7 @@
 
                 _active = value;
                 RaisePropertyChanged(nameof(Active));
+                RaisePropertyChanged(nameof(ActiveDisplayText));
             }
         }
 
@@ -489,6 +524,37 @@
 
                 _hostEnabled = value;
                 RaisePropertyChanged(nameof(HostEnabled));
+            }
+        }
+
+        public string ActiveDisplayText
+        {
+            get => _activeDisplayText;
+            set
+            {
+                if (_activeDisplayText == value)
+                {
+                    return;
+                }
+
+                _activeDisplayText = value;
+                RaisePropertyChanged(nameof(ActiveDisplayText));
+            }
+        }
+
+        public string EnabledDisplayText
+        {
+            get => _enabledDisplayText;
+
+            set
+            {
+                if (_enabledDisplayText == value)
+                {
+                    return;
+                }
+
+                _enabledDisplayText = value;
+                RaisePropertyChanged(nameof(EnabledDisplayText));
             }
         }
 

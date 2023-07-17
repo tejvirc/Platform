@@ -49,7 +49,7 @@
 
             var status = new idReaderStatus();
             _commandBuilder.Build(idReader, status);
-            _eventLift.Report(idReader, EventCode.G2S_IDE099, idReader.DeviceList(status));
+            _eventLift.Report(idReader, EventCode.G2S_IDE099, idReader.DeviceList(status), theEvent);
         }
     }
 }

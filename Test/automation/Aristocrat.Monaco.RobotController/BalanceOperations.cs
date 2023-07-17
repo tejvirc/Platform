@@ -2,6 +2,7 @@
 {
     using Aristocrat.Monaco.Accounting.Contracts;
     using Aristocrat.Monaco.Accounting.Contracts.Handpay;
+    using Aristocrat.Monaco.Accounting.Contracts.HandCount;
     using Aristocrat.Monaco.Accounting.Contracts.Vouchers;
     using Aristocrat.Monaco.Application.Contracts.Extensions;
     using Aristocrat.Monaco.Gaming.Contracts;
@@ -21,10 +22,11 @@
         private readonly Automation _automator;
         private readonly RobotController _robotController;
         private readonly IBank _bank;
+        private readonly IPropertiesManager _properties;
         private Timer _balanceCheckTimer;
         private bool _disposed;
 
-        public BalanceOperations(IEventBus eventBus,IBank bank, RobotLogger logger, Automation automator, StateChecker sc, RobotController robotController)
+        public BalanceOperations(IEventBus eventBus,IBank bank, IPropertiesManager properties, RobotLogger logger, Automation automator, StateChecker sc, RobotController robotController)
         {
             _stateChecker = sc;
             _automator = automator;
@@ -32,6 +34,7 @@
             _eventBus = eventBus;
             _robotController = robotController;
             _bank = bank;
+            _properties = properties;
         }
 
         ~BalanceOperations() => Dispose(false);
@@ -118,6 +121,17 @@
                     Task.Delay(1000).ContinueWith(_ => _automator.JackpotKeyoff()).ContinueWith(_ => _eventBus.Publish(new DownEvent((int)ButtonLogicalId.Button30)));
                 }
             });
+
+            _eventBus.Subscribe<PayoutAmountUpdatedEvent>(this, evt =>
+            {
+                var handCountPayoutLimit = _properties.GetValue<long>(AccountingConstants.HandCountPayoutLimit, 0);
+                if (evt.CashableAmount > handCountPayoutLimit)
+                {
+                    _logger.Info("Keying off Payout Limit Exceeded win", GetType().Name);
+                    Task.Delay(1000).ContinueWith(_ => _automator.JackpotKeyoff()).ContinueWith(_ => _eventBus.Publish(new DownEvent((int)ButtonLogicalId.Button30)));
+                }
+            });
+
             _eventBus.Subscribe<TransferOutCompletedEvent>(this, evt =>
             {
                 _logger.Info("TransferOutCompletedEvent Got Triggered!", GetType().Name);

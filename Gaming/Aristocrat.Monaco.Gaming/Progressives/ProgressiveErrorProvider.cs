@@ -15,25 +15,25 @@
     public class ProgressiveErrorProvider : IProgressiveErrorProvider, IService
     {
         private static readonly DisplayableMessage UpdateTimeoutMessage = new DisplayableMessage(
-            () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveFaultTypes_ProgUpdateTimeout),
+            () => Localizer.ForLockup().GetString(ResourceKeys.ProgressiveFaultTypes_ProgUpdateTimeout),
             DisplayableMessageClassification.SoftError,
             DisplayableMessagePriority.Immediate,
             ApplicationConstants.ProgressiveUpdateTimeoutGuid);
 
         private static readonly DisplayableMessage DisconnectedErrorMessage = new DisplayableMessage(
-            () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveFaultTypes_ProgDisconnected),
+            () => Localizer.ForLockup().GetString(ResourceKeys.ProgressiveFaultTypes_ProgDisconnected),
             DisplayableMessageClassification.SoftError,
             DisplayableMessagePriority.Immediate,
             ApplicationConstants.ProgressiveDisconnectErrorGuid);
 
         private static readonly DisplayableMessage ClaimTimeoutErrorMessage = new DisplayableMessage(
-            () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveFaultTypes_ProgCommitTimeout),
+            () => Localizer.ForLockup().GetString(ResourceKeys.ProgressiveFaultTypes_ProgCommitTimeout),
             DisplayableMessageClassification.SoftError,
             DisplayableMessagePriority.Immediate,
             ApplicationConstants.ProgressiveCommitTimeoutGuid);
 
         private static readonly DisplayableMessage MinimumThresholdErrorMessage = new DisplayableMessage(
-            () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveFaultTypes_MinimumThresholdNotReached),
+            () => Localizer.ForLockup().GetString(ResourceKeys.ProgressiveFaultTypes_MinimumThresholdNotReached),
             DisplayableMessageClassification.SoftError,
             DisplayableMessagePriority.Immediate,
             ApplicationConstants.MinimumThresholdErrorGuid);

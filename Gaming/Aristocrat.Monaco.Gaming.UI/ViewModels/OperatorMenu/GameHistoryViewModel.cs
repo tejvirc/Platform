@@ -3,12 +3,14 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.ComponentModel;
     using System.IO;
     using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
     using Accounting.Contracts;
+    using Accounting.Contracts.HandCount;
     using Accounting.Contracts.Handpay;
     using Accounting.Contracts.Wat;
     using Application.Contracts;
@@ -35,6 +37,7 @@
     using Kernel;
     using Localization.Properties;
     using Models;
+    using Monaco.UI.Common.Models;
     using MVVM;
     using MVVM.Command;
     using Tickets;
@@ -76,6 +79,14 @@
         private bool _replayPauseEnabled;
         private bool _replayPauseActive;
         private ObservableCollection<string> _selectedGameRoundTextList;
+        private ObservableCollection<FilterObject> _filterGameNames = new();
+        private ObservableCollection<FilterObject> _filterStatuses = new();
+        private DateTime? _filterStartDate;
+        private DateTime? _filterEndDate;
+        private DateTime? _filterSelectedDate;
+        private bool? _selectAllGameNamesIsChecked;
+        private bool? _selectAllStatusesIsChecked;
+        private bool _selectingAll;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="GameHistoryViewModel" /> class.
@@ -87,12 +98,14 @@
             ShowGameRoundInfo = GetConfigSetting(OperatorMenuSetting.PrintGameRoundInfo, false);
             _eventsPerPage = ShowGameRoundInfo ? 1 : 2;
             GameHistory = new ObservableCollection<GameRoundHistoryItem>();
+            FilteredGameHistory = new ObservableCollection<GameRoundHistoryItem>();
 
             _meterFreeGamesIndependently = PropertiesManager.GetValue(
                 GamingConstants.MeterFreeGamesIndependently,
                 false);
 
             ShowGameInfoButtons = GetConfigSetting(OperatorMenuSetting.ShowGameInfoButtons, false);
+            ShowProgressiveDetails = GetConfigSetting(OperatorMenuSetting.ShowProgressiveDetails, false);
 
             if (!InDesigner)
             {
@@ -129,6 +142,7 @@
             ShowGameProgressiveWinCommand = new ActionCommand<object>(ShowGameProgressiveWin);
             ShowGameEventLogsCommand = new ActionCommand<object>(ShowGameEventLogs);
             ShowGameDetailsCommand = new ActionCommand<object>(ShowGameDetails);
+            ShowProgressiveDetailsCommand = new ActionCommand<object>(ShowProgressiveDetailsPopup);
 
             ReplayPauseActive = PropertiesManager.GetValue(GamingConstants.ReplayPauseActive, true);
             ReplayPauseEnabled = PropertiesManager.GetValue(GamingConstants.ReplayPauseEnable, true);
@@ -152,6 +166,8 @@
 
         public ICommand ShowGameDetailsCommand { get; }
 
+        public ICommand ShowProgressiveDetailsCommand { get; }
+
         public bool ShowSequenceNumber { get; }
 
         public ObservableCollection<GameRoundHistoryItem> GameHistory
@@ -164,6 +180,74 @@
                 RaisePropertyChanged(nameof(ReplayButtonEnabled));
                 RaisePropertyChanged(nameof(EnablePrintCurrentPageButton));
                 RaisePropertyChanged(nameof(MainPrintButtonEnabled));
+            }
+        }
+
+        public ObservableCollection<GameRoundHistoryItem> FilteredGameHistory { get; }
+
+        public bool? SelectAllGameNamesIsChecked
+        {
+            get => _selectAllGameNamesIsChecked;
+            set
+            {
+                if (SetProperty(ref _selectAllGameNamesIsChecked, value))
+                {
+                    _selectingAll = true;
+                    SelectAllFilters(FilterGameNames, _selectAllGameNamesIsChecked);
+                    _selectingAll = false;
+                }
+            }
+        }
+
+        public ObservableCollection<FilterObject> FilterGameNames
+        {
+            get => _filterGameNames;
+            set => SetProperty(ref _filterGameNames, value);
+        }
+
+        public bool? SelectAllStatusesIsChecked
+        {
+            get => _selectAllStatusesIsChecked;
+            set
+            {
+                if (SetProperty(ref _selectAllStatusesIsChecked, value))
+                {
+                    _selectingAll = true;
+                    SelectAllFilters(FilterStatuses, _selectAllStatusesIsChecked);
+                    _selectingAll = false;
+                }
+            }
+        }
+
+        public ObservableCollection<FilterObject> FilterStatuses
+        {
+            get => _filterStatuses;
+            set => SetProperty(ref _filterStatuses, value);
+        }
+
+        public DateTime? FilterStartDate
+        {
+            get => _filterStartDate;
+            set => SetProperty(ref _filterStartDate, value);
+        }
+
+        public DateTime? FilterEndDate
+        {
+            get => _filterEndDate;
+            set => SetProperty(ref _filterEndDate, value);
+        }
+
+        public DateTime? FilterSelectedDate
+        {
+            get => _filterSelectedDate;
+            set
+            {
+                if (!SetProperty(ref _filterSelectedDate, value))
+                {
+                    return;
+                }
+
+                FilterGameHistory();
             }
         }
 
@@ -203,7 +287,7 @@
         public ObservableCollection<string> SelectedGameRoundTextList
         {
             get => _selectedGameRoundTextList;
-            set => SetProperty(ref _selectedGameRoundTextList, value, nameof(SelectedGameRoundTextList));
+            set => SetProperty(ref _selectedGameRoundTextList, value);
         }
 
         public GameRoundHistoryItem SelectedGameItem
@@ -238,6 +322,7 @@
                     RaisePropertyChanged(nameof(IsHistoryItemSelected));
                     RaisePropertyChanged(nameof(GameProgressiveWinButtonEnabled));
                     RaisePropertyChanged(nameof(IsMeteredGameSelected));
+                    RaisePropertyChanged(nameof(SelectedGameHasProgressiveDetails));
                     UpdateStatusText();
                     ResetScrollToTop = false;
                 }
@@ -313,7 +398,13 @@
 
         public bool ShowGameEventLogsButton { get; }
 
+        public bool ShowProgressiveDetails { get; }
+
+        public bool SelectedGameHasProgressiveDetails => IsGameRoundComplete && (SelectedGameItem?.EndJackpots?.Any() ?? false);
+
         public bool IsHistoryItemSelected => SelectedGameItem != null;
+
+        public override bool DataEmpty => GameHistory == null || !GameHistory.Any();
 
         public override bool MainPrintButtonEnabled =>
             base.MainPrintButtonEnabled && GameHistory.Any(o => !o.EndTime.Equals(DateTime.MinValue));
@@ -351,6 +442,13 @@
             RaisePropertyChanged(nameof(ReplayButtonEnabled));
             RaisePropertyChanged(nameof(PendingCurrencyIn));
             RefreshGameHistory();
+        }
+
+        protected override void OnUnloaded()
+        {
+            ClearFilterList(FilterGameNames);
+            ClearFilterList(FilterStatuses);
+            base.OnUnloaded();
         }
 
         protected override void UpdatePrinterButtons()
@@ -510,7 +608,93 @@
 
             GameHistory = new ObservableCollection<GameRoundHistoryItem>(gameHistory);
 
+            UpdateFilter(FilterGameNames, gameHistory.Select(g => g.GameName).Distinct());
+            UpdateFilter(FilterStatuses, gameHistory.Select(g => g.Status).Distinct());
+            FilterSelectedDate = null;
+            FilterEndDate = gameHistory.FirstOrDefault()?.StartTime;
+            FilterStartDate = gameHistory.LastOrDefault()?.StartTime;
+
+            FilterGameHistory();
+
             UpdatePrinterButtons();
+        }
+
+        private void FilterGameHistory()
+        {
+            if (!_selectingAll)
+            {
+                // Set the states of the Select All checkboxes
+                SelectAllGameNamesIsChecked = GetSelectAllFiltersState(FilterGameNames);
+                SelectAllStatusesIsChecked = GetSelectAllFiltersState(FilterStatuses);
+            }
+
+            FilteredGameHistory.Clear();
+            foreach (var item in GameHistory)
+            {
+                var filterName = FilterGameNames.FirstOrDefault(filter => filter.Name == item.GameName);
+                var filterStatus = FilterStatuses.FirstOrDefault(filter => filter.Name == item.Status);
+                if (filterName is { IsChecked: true } && filterStatus is { IsChecked: true } &&
+                    (FilterSelectedDate == null || item.StartTime.Date == FilterSelectedDate?.Date))
+                {
+                    FilteredGameHistory.Add(item);
+                }
+            }
+        }
+
+        private bool? GetSelectAllFiltersState(ICollection<FilterObject> filterList)
+        {
+            if (filterList.All(f => f.IsChecked))
+            {
+                return true;
+            }
+
+            if (filterList.All(f => !f.IsChecked))
+            {
+                return false;
+            }
+
+            return null;
+        }
+
+        private void Filter_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName is nameof(FilterObject.IsChecked))
+            {
+                FilterGameHistory();
+            }
+        }
+
+        private void ClearFilterList(ICollection<FilterObject> filterList)
+        {
+            foreach (var filter in filterList)
+            {
+                filter.PropertyChanged -= Filter_PropertyChanged;
+            }
+            filterList.Clear();
+        }
+
+        private void UpdateFilter(ICollection<FilterObject> filterList, IEnumerable<string> distinctFilters)
+        {
+            ClearFilterList(filterList);
+
+            foreach (var status in distinctFilters)
+            {
+                var filter = new FilterObject(status);
+                filter.PropertyChanged += Filter_PropertyChanged;
+                filterList.Add(filter);
+            }
+        }
+
+        private void SelectAllFilters(ICollection<FilterObject> filterList, bool? isChecked)
+        {
+            if (isChecked.HasValue)
+            {
+                foreach (var filterObject in filterList)
+                {
+                    filterObject.IsChecked = isChecked.Value;
+                }
+            }
+            FilterGameHistory();
         }
 
         private List<GameRoundHistoryItem> GetHistory()
@@ -536,12 +720,14 @@
                     StartCredits = gameHistory.StartCredits.MillicentsToDollars(),
                     EndTime = gameHistory.EndDateTime,
                     EndCredits = gameHistory.PlayState != PlayState.Idle
-                        ? (decimal?)null
+                        ? null
                         : gameHistory.EndCredits.MillicentsToDollars(),
+                    EndJackpot = BuildJackpotString(gameHistory.JackpotSnapshotEnd?.ToList()),
+                    EndJackpots = gameHistory.JackpotSnapshotEnd,
                     DenomId = gameHistory.DenomId,
-                    Denom = gameHistory.DenomId.MillicentsToCents(),
+                    Denom = gameHistory.DenomId.MillicentsToDollars(),
                     CreditsWon = gameHistory.PlayState != PlayState.Idle
-                        ? (decimal?)null
+                        ? null
                         : gameHistory.TotalWon.CentsToDollars(),
                     CreditsWagered = gameHistory.FinalWager.CentsToDollars(),
                     AmountIn = null,
@@ -558,6 +744,7 @@
                 if (game != null)
                 {
                     round.GameName = $"{game.ThemeName} ({game.VariationId})";
+                    round.GameVersion = game.Version;
                 }
 
                 FillTransactionData(ref round, gameHistory.Transactions);
@@ -628,16 +815,19 @@
                     {
                         GameId = gameHistory.GameId,
                         GameName = game?.ThemeName,
+                        GameVersion = game?.Version,
                         StartTime = freeGame.StartDateTime,
                         StartCredits = freeGame.StartCredits.MillicentsToDollars(),
                         EndTime = endTime,
                         EndCredits = freeGame.Result == GameResult.None
-                            ? (decimal?)null
+                            ? null
                             : freeGame.EndCredits.MillicentsToDollars(),
+                        EndJackpot = BuildJackpotString(gameHistory.JackpotSnapshotEnd?.ToList()),
+                        EndJackpots = gameHistory.JackpotSnapshotEnd,
                         DenomId = gameHistory.DenomId,
-                        Denom = gameHistory.DenomId.MillicentsToCents(),
+                        Denom = gameHistory.DenomId.MillicentsToDollars(),
                         CreditsWon =
-                            freeGame.Result == GameResult.None ? (decimal?)null : freeGame.FinalWin.CentsToDollars(),
+                            freeGame.Result == GameResult.None ? null : freeGame.FinalWin.CentsToDollars(),
                         CreditsWagered = 0,
                         AmountIn = null,
                         AmountOut = null,
@@ -693,8 +883,9 @@
                 {
                     GameId = gameHistory.GameId,
                     GameName = game?.ThemeName,
+                    GameVersion = game?.Version,
                     DenomId = gameHistory.DenomId,
-                    Denom = gameHistory.DenomId / GamingConstants.Millicents,
+                    Denom = gameHistory.DenomId.MillicentsToDollars(),
                     StartTime = gameHistory.StartDateTime,
                     EndTime = endTime,
                     LogSequence = gameHistory.LogSequence,
@@ -710,8 +901,10 @@
                     AmountOut = null,
                     StartCredits = gameHistory.StartCredits.MillicentsToDollars(),
                     EndCredits = gameHistory.PlayState != PlayState.Idle
-                        ? (decimal?)null
+                        ? null
                         : gameHistory.EndCredits.MillicentsToDollars(),
+                    EndJackpot = BuildJackpotString(gameHistory.JackpotSnapshotEnd?.ToList()),
+                    EndJackpots = gameHistory.JackpotSnapshotEnd,
                     GameIndex = 0
                 };
 
@@ -723,7 +916,7 @@
                 {
                     var freeGamesTotalWon = freeGames.Sum(f => f.FinalWin);
                     round.CreditsWon = gameHistory.PlayState != PlayState.Idle
-                        ? (decimal?)null
+                        ? null
                         : (gameHistory.TotalWon - freeGamesTotalWon).CentsToDollars();
                 }
 
@@ -765,7 +958,9 @@
                 }
                 else if (transaction.TransactionType == typeof(VoucherOutTransaction) ||
                          transaction.TransactionType == typeof(WatTransaction) ||
-                         transaction.TransactionType == typeof(KeyedOffCreditsTransaction))
+                         transaction.TransactionType == typeof(KeyedOffCreditsTransaction) ||
+                         transaction.TransactionType == typeof(HardMeterOutTransaction) ||
+                         transaction.TransactionType == typeof(ResidualCreditsTransaction))
                 {
                     if (round.AmountOut == null)
                     {
@@ -805,6 +1000,16 @@
             {
                 round.AmountOut = null;
             }
+        }
+
+        private string BuildJackpotString(IList<Jackpot> jackpots)
+        {
+            if (jackpots == null || !jackpots.Any())
+            {
+                return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable);
+            }
+
+            return string.Join(" ", jackpots.Select(j => j.Value.MillicentsToDollars().FormattedCurrencyStringForOperator()));
         }
 
         private bool IsBaseGameCommitted(IGameHistoryLog gameHistory)
@@ -955,6 +1160,18 @@
             }
         }
 
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            MvvmHelper.ExecuteOnUI(
+                () =>
+                {
+                    RefreshGameHistory();
+                    RaisePropertyChanged(nameof(PendingCurrencyIn));
+                });
+
+            base.OnOperatorCultureChanged(evt);
+        }
+
         protected override IEnumerable<Ticket> GenerateTicketsForPrint(OperatorMenuPrintData dataType)
         {
             IEnumerable<Ticket> tickets = null;
@@ -1098,6 +1315,19 @@
                 transaction.TransactionId);
         }
 
+        private void ShowProgressiveDetailsPopup(object o)
+        {
+            if (SelectedGameItem == null)
+            {
+                return;
+            }
+
+            _dialogService.ShowInfoDialog<ProgressiveSummaryView>(
+                this,
+                new ProgressiveSummaryViewModel(SelectedGameItem),
+                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveSummaryTitle));
+        }
+
         private bool IsReelControllerAvailable()
         {
             // If the cabinet does not have a reel controller then return true
@@ -1119,7 +1349,7 @@
             return true;
         }
 
-    protected override void GameDiagnosticsComplete()
+        protected override void GameDiagnosticsComplete()
         {
             IsReplaying = false;
         }

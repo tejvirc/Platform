@@ -93,7 +93,27 @@
       <Field FieldName="Cabinet.IdleText" DataType="String" Size="256"/>
       <Field FieldName="Cabinet.GameRoundDurationMs" DataType="Int32" />
       <Field FieldName="Cabinet.ReelStop" DataType="Bool"/>
+      <Field FieldName="Cabinet.ReelSpeed" DataType="Double"/>
+      <Field FieldName="GamePlay.AudioAudioChannels" DataType="Bool"/>
+      <Field FieldName="GamePlay.GameLogOutcomeDetails" DataType="Bool"/>
+      <Field FieldName="GamePlay.GameLogEnabled" DataType="Bool"/>
+      <Field FieldName="GamePlay.GameDurationUseMarketGameTime" DataType="Bool"/>
+      <Field FieldName="GamePlay.ChangeLineSelectionAtZeroCreditUse" DataType="Bool"/>
+      <Field FieldName="GamePlay.InitialZeroWagerUse" DataType="Bool"/>
+      <Field FieldName="GamePlay.KenoFreeGamesAutoPlay" DataType="Bool"/>
+      <Field FieldName="GamePlay.KenoFreeGamesSelectionChange" DataType="Bool"/>
+      <Field FieldName="GamePlay.ClockUseHInDisplay" DataType="Bool"/>
+      <Field FieldName="GamePlay.ServiceUse" DataType="Bool"/>
+      <Field FieldName="GamePlay.VolumeLevelShowInHelpScreen" DataType="Bool"/>
+      <Field FieldName="GamePlay.MaximumGameRoundWinResetWinAmount" DataType="String" Size="256"/>
+      <Field FieldName="GamePlay.WagerLimitsUse" DataType="Bool"/>
+      <Field FieldName="GamePlay.WagerLimitsMaxTotalWager" DataType="Int64"/>
+      <Field FieldName="GamePlay.FreeSpinClearWinMeter" DataType="Bool"/>
+      <Field FieldName="GamePlay.WinDestination" DataType="String" Size="256"/>
+      <Field FieldName="GamePlay.DisplayGamePayMessageUse" DataType="Bool"/>
+      <Field FieldName="GamePlay.DisplayGamePayMessageFormat" DataType="String" Size="256"/>
       <Field FieldName="GamePlay.ShowServiceButton" DataType="Bool"/>
+      <Field FieldName="GamePlay.ButtonAnimationGoodLuck" DataType="Bool"/>
       <Field FieldName="AutoHold.Enable" DataType="Bool"/>
       <Field FieldName="CashableLockupStrategy" DataType="Int32"/>
       <Field FieldName="GamePlay.Gamble.WagerLimit" DataType="Int64" />
@@ -127,50 +147,69 @@
       <Field FieldName="GamePlay.LaunchGameAfterReboot" DataType="Bool"/>
     </Fields>
   </BlockFormat>
-	<BlockFormat version="11" Name="Aristocrat.Monaco.Gaming.PropertyProvider">
-		<Fields>
-			<Field FieldName="GamePlay.SelectedDeviceId" DataType="Int32"/>
-			<Field FieldName="GamePlay.SelectedDenom" DataType="Int64"/>
-			<Field FieldName="Cabinet.IdleTimePeriod" DataType="Int32"/>
-			<Field FieldName="Cabinet.SelectedLocaleCode" DataType="String" Size="8"/>
-			<Field FieldName="GamePlay.AutocompleteSet" DataType="Bool"/>
-			<Field FieldName="GamePlay.AutocompleteExpired" DataType="Bool"/>
-			<Field FieldName="Cabinet.IdleText" DataType="String" Size="256"/>
-			<Field FieldName="Cabinet.GameRoundDurationMs" DataType="Int32" />
-			<Field FieldName="Cabinet.ReelStop" DataType="Bool"/>
-			<Field FieldName="GamePlay.ShowServiceButton" DataType="Bool"/>
-			<Field FieldName="AutoHold.Enable" DataType="Bool"/>
-			<Field FieldName="CashableLockupStrategy" DataType="Int32"/>
-			<Field FieldName="GamePlay.Gamble.WagerLimit" DataType="Int64" />
-			<Field FieldName="GamePlay.ContinuousPlaySupport.Mode" DataType="Int32" />
-			<Field FieldName="ReplayPause.Enable" DataType="Bool"/>
-			<Field FieldName="ReplayPause.Active" DataType="Bool"/>
-			<Field FieldName="GameStartMethod" DataType="Int32"/>
-			<Field FieldName="OperatorMenu.PerformancePage.DeselectedGameThemes" DataType="String" Size="8192"/>
-			<Field FieldName="OperatorMenu.PerformancePage.SortDirection" DataType="Bool"/>
-			<Field FieldName="OperatorMenu.PerformancePage.SortMemberPath" DataType="String" Size="256"/>
-			<Field FieldName="OperatorMenu.PerformancePage.SelectedGameType" DataType="String" Size="256"/>
-			<Field FieldName="OperatorMenu.PerformancePage.HideNeverActive" DataType="Bool"/>
-			<Field FieldName="OperatorMenu.PerformancePage.HidePreviouslyActive" DataType="Bool"/>
-			<Field FieldName="OperatorMenu.GameConfiguration.InitialConfigComplete" DataType="Bool"/>
-			<Field FieldName="ShowProgram.PinRequired" DataType="Bool"/>
-			<Field FieldName="ShowProgram.Pin" DataType="String"/>
-			<Field FieldName="ShowProgram.EnableResetCredits" DataType="Bool"/>
-			<Field FieldName="AttractModeOptions.AttractEnabled" DataType="Bool"/>
-			<Field FieldName="Progressive.CommitTimeoutMs" DataType="Int32"/>
-			<Field FieldName="GamePlay.SelectedBetOption" DataType="String" Size="256"/>
-			<Field FieldName="Progressive.LobbyIndicator" DataType="Int32"/>
-			<Field FieldName="AttractModeOptions.DefaultAttractOverriden" DataType="Bool"/>
-			<Field FieldName="Progressive.PoolCreationType" DataType="Int32"/>
-			<Field FieldName="GamePlay.SelectedBetCredits" DataType="Int64"/>
-			<Field FieldName="AwaitingPlayerSelection" DataType="Bool"/>
-			<Field FieldName="GamePlay.SelectedBetMultiplier" DataType="Int32"/>
-			<Field FieldName="GamePlay.SelectedLineCost" DataType="Int32"/>
-			<Field FieldName="GamePlay.ShowTopPickBanners" DataType="Bool"/>
-			<Field FieldName="GamePlay.ShowPlayerMenuPopup" DataType="Bool"/>
-			<Field FieldName="GamePlay.Gamble.WinLimit" DataType="Int64" />
-			<Field FieldName="GamePlay.LaunchGameAfterReboot" DataType="Bool"/>
+  <BlockFormat version="11" Name="Aristocrat.Monaco.Gaming.PropertyProvider">
+    <Fields>
+      <Field FieldName="GamePlay.SelectedDeviceId" DataType="Int32"/>
+      <Field FieldName="GamePlay.SelectedDenom" DataType="Int64"/>
+      <Field FieldName="Cabinet.IdleTimePeriod" DataType="Int32"/>
+      <Field FieldName="Cabinet.SelectedLocaleCode" DataType="String" Size="8"/>
+      <Field FieldName="GamePlay.AutocompleteSet" DataType="Bool"/>
+      <Field FieldName="GamePlay.AutocompleteExpired" DataType="Bool"/>
+      <Field FieldName="Cabinet.IdleText" DataType="String" Size="256"/>
+      <Field FieldName="Cabinet.GameRoundDurationMs" DataType="Int32" />
+      <Field FieldName="Cabinet.ReelStop" DataType="Bool"/>
+      <Field FieldName="Cabinet.ReelSpeed" DataType="Double"/>
+      <Field FieldName="GamePlay.AudioAudioChannels" DataType="Bool"/>
+      <Field FieldName="GamePlay.GameLogOutcomeDetails" DataType="Bool"/>
+      <Field FieldName="GamePlay.GameLogEnabled" DataType="Bool"/>
+      <Field FieldName="GamePlay.GameDurationUseMarketGameTime" DataType="Bool"/>
+      <Field FieldName="GamePlay.ChangeLineSelectionAtZeroCreditUse" DataType="Bool"/>
+      <Field FieldName="GamePlay.InitialZeroWagerUse" DataType="Bool"/>
+      <Field FieldName="GamePlay.KenoFreeGamesAutoPlay" DataType="Bool"/>
+      <Field FieldName="GamePlay.KenoFreeGamesSelectionChange" DataType="Bool"/>
+      <Field FieldName="GamePlay.ClockUseHInDisplay" DataType="Bool"/>
+      <Field FieldName="GamePlay.ServiceUse" DataType="Bool"/>
+      <Field FieldName="GamePlay.VolumeLevelShowInHelpScreen" DataType="Bool"/>
+      <Field FieldName="GamePlay.MaximumGameRoundWinResetWinAmount" DataType="String" Size="256"/>
+      <Field FieldName="GamePlay.WagerLimitsUse" DataType="Bool"/>
+      <Field FieldName="GamePlay.WagerLimitsMaxTotalWager" DataType="Int64"/>
+      <Field FieldName="GamePlay.FreeSpinClearWinMeter" DataType="Bool"/>
+      <Field FieldName="GamePlay.WinDestination" DataType="String" Size="256"/>
+      <Field FieldName="GamePlay.DisplayGamePayMessageUse" DataType="Bool"/>
+      <Field FieldName="GamePlay.DisplayGamePayMessageFormat" DataType="String" Size="256"/>
+      <Field FieldName="GamePlay.ShowServiceButton" DataType="Bool"/>
+      <Field FieldName="GamePlay.ButtonAnimationGoodLuck" DataType="Bool"/>
+      <Field FieldName="AutoHold.Enable" DataType="Bool"/>
+      <Field FieldName="CashableLockupStrategy" DataType="Int32"/>
+      <Field FieldName="GamePlay.Gamble.WagerLimit" DataType="Int64" />
+      <Field FieldName="GamePlay.ContinuousPlaySupport.Mode" DataType="Int32" />
+      <Field FieldName="ReplayPause.Enable" DataType="Bool"/>
+      <Field FieldName="ReplayPause.Active" DataType="Bool"/>
+      <Field FieldName="GameStartMethod" DataType="Int32"/>
+      <Field FieldName="OperatorMenu.PerformancePage.DeselectedGameThemes" DataType="String" Size="8192"/>
+      <Field FieldName="OperatorMenu.PerformancePage.SortDirection" DataType="Bool"/>
+      <Field FieldName="OperatorMenu.PerformancePage.SortMemberPath" DataType="String" Size="256"/>
+      <Field FieldName="OperatorMenu.PerformancePage.SelectedGameType" DataType="String" Size="256"/>
+      <Field FieldName="OperatorMenu.PerformancePage.HideNeverActive" DataType="Bool"/>
+      <Field FieldName="OperatorMenu.PerformancePage.HidePreviouslyActive" DataType="Bool"/>
+      <Field FieldName="OperatorMenu.GameConfiguration.InitialConfigComplete" DataType="Bool"/>
+      <Field FieldName="ShowProgram.PinRequired" DataType="Bool"/>
+      <Field FieldName="ShowProgram.Pin" DataType="String"/>
+      <Field FieldName="ShowProgram.EnableResetCredits" DataType="Bool"/>
+      <Field FieldName="AttractModeOptions.AttractEnabled" DataType="Bool"/>
+      <Field FieldName="Progressive.CommitTimeoutMs" DataType="Int32"/>
+      <Field FieldName="GamePlay.SelectedBetOption" DataType="String" Size="256"/>
+      <Field FieldName="Progressive.LobbyIndicator" DataType="Int32"/>
+      <Field FieldName="AttractModeOptions.DefaultAttractOverriden" DataType="Bool"/>
+      <Field FieldName="Progressive.PoolCreationType" DataType="Int32"/>
+      <Field FieldName="GamePlay.SelectedBetCredits" DataType="Int64"/>
+      <Field FieldName="AwaitingPlayerSelection" DataType="Bool"/>
+      <Field FieldName="GamePlay.SelectedBetMultiplier" DataType="Int32"/>
+      <Field FieldName="GamePlay.SelectedLineCost" DataType="Int32"/>
+      <Field FieldName="GamePlay.ShowTopPickBanners" DataType="Bool"/>
+      <Field FieldName="GamePlay.ShowPlayerMenuPopup" DataType="Bool"/>
+      <Field FieldName="GamePlay.Gamble.WinLimit" DataType="Int64" />
+      <Field FieldName="GamePlay.LaunchGameAfterReboot" DataType="Bool"/>
       <Field FieldName="Progressive.ConfiguredLinkedLevelIds" DataType="String" Size="256"/>
-		</Fields>
-	</BlockFormat>
-</ArrayOfBlockFormat>
+    </Fields>
+  </BlockFormat></ArrayOfBlockFormat>

@@ -6,6 +6,7 @@
     using Application.Contracts.Extensions;
     using Application.UI.OperatorMenu;
     using Contracts;
+    using Contracts.Models;
     using Contracts.Progressives;
     using Contracts.Progressives.Linked;
     using Contracts.Progressives.SharedSap;
@@ -17,14 +18,16 @@
     {
         private readonly IGameProvider _gameProvider;
         private readonly IProgressiveConfigurationProvider _progressiveConfiguration;
+        private readonly GameRoundHistoryItem _gameHistoryItem;
         private ObservableCollection<ProgressiveSummaryModel> _progressiveSummary;
 
-        public ProgressiveSummaryViewModel()
+        public ProgressiveSummaryViewModel(GameRoundHistoryItem gameHistoryItem = null)
         {
             var container = ServiceManager.GetInstance().GetService<IContainerService>().Container;
 
             _gameProvider = container.GetInstance<IGameProvider>();
             _progressiveConfiguration = container.GetInstance<IProgressiveConfigurationProvider>();
+            _gameHistoryItem = gameHistoryItem;
         }
 
         public ObservableCollection<ProgressiveSummaryModel> ProgressiveSummary
@@ -54,11 +57,12 @@
                 var formatLevel = true;
                 foreach (var (gameName, winName) in progressiveLevel.ConfiguredGames)
                 {
+                    var endValue = _gameHistoryItem?.EndJackpots?.FirstOrDefault(j => j.LevelName == progressiveLevel.LevelName);
                     ProgressiveSummary.Add(
                         new ProgressiveSummaryModel
                         {
                             ProgressiveLevel = formatLevel ? progressiveLevel.LevelName : string.Empty,
-                            CurrentValue = formatLevel ? progressiveLevel.CurrentValue : string.Empty,
+                            CurrentValue = formatLevel ? endValue != null ? endValue.Value.MillicentsToDollars().FormattedCurrencyString(true) : progressiveLevel.CurrentValue : string.Empty,
                             ConfiguredGame = gameName,
                             WinLevel = winName
                         }
@@ -83,6 +87,12 @@
             foreach (var (game, denom) in games.SelectMany(
                 g => g.Denominations.Where(d => d.Active).Select(d => (Game: g, Denom: d))))
             {
+                if (_gameHistoryItem != null && _gameHistoryItem.GameName != game.ThemeName)
+                {
+                    // If this is for the game history popup, only show matching game jackpots
+                    continue;
+                }
+
                 var enabledLevels = _progressiveConfiguration.ViewProgressiveLevels(game.Id, denom.Value).Where(
                     p => (string.IsNullOrEmpty(p.BetOption) || p.BetOption.Equals(denom.BetOption)) &&
                          p.CurrentState != ProgressiveLevelState.Init);

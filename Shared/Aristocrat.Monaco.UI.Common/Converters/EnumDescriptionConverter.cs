@@ -3,7 +3,8 @@
     using System;
     using System.Globalization;
     using System.Windows.Data;
-    using Extensions;
+    using Application.Contracts.Localization;
+    using Monaco.Common;
 
     /// <summary>
     ///     Convert an enum value to its corresponding Description attribute string
@@ -15,9 +16,11 @@
         /// </summary>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value != null && value is Enum e)
+            if (value is Enum e)
             {
-                return e.GetDescription(e.GetType()) ?? e.ToString();
+                var nonLocalizedValue = e.GetDescription(e.GetType()) ?? e.ToString();
+                var displayValue = Localizer.For(CultureFor.Operator).GetString(e.ToString(), _ => { }) ?? nonLocalizedValue;
+                return displayValue;
             }
 
             return string.Empty;

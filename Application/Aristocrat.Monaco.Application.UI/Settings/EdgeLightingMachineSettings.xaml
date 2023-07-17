@@ -50,7 +50,7 @@
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="2"
-                           Text="{Binding BottomEdgeLightingEnabled}"
+                           Text="{Binding BottomEdgeLightingEnabled, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock12_F11DA2F9" />
             </Grid>
         </ScrollViewer>

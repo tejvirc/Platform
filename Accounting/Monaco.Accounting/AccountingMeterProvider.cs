@@ -19,6 +19,7 @@
                         var meters = ServiceManager.GetInstance().GetService<IMeterManager>();
 
                         return meters.GetMeter(AccountingMeters.TotalVouchersOut).GetValue(timeFrame) +
+                               meters.GetMeter(AccountingMeters.HardMeterOutAmount).GetValue(timeFrame) +
                                meters.GetMeter(AccountingMeters.HandpaidCashableAmount).GetValue(timeFrame) +
                                meters.GetMeter(AccountingMeters.HandpaidPromoAmount).GetValue(timeFrame) +
                                meters.GetMeter(AccountingMeters.HandpaidNonCashableAmount).GetValue(timeFrame) +
@@ -27,6 +28,7 @@
                     new List<string>
                     {
                         AccountingMeters.TotalVouchersOut,
+                        AccountingMeters.HardMeterOutAmount,
                         AccountingMeters.HandpaidCashableAmount,
                         AccountingMeters.HandpaidPromoAmount,
                         AccountingMeters.HandpaidNonCashableAmount,
@@ -61,6 +63,7 @@
                         var meters = ServiceManager.GetInstance().GetService<IMeterManager>();
 
                         return meters.GetMeter(AccountingMeters.TotalVouchersOut).GetValue(timeFrame) +
+                               meters.GetMeter(AccountingMeters.HardMeterOutAmount).GetValue(timeFrame) +
                                meters.GetMeter(AccountingMeters.WatOffTotalAmount).GetValue(timeFrame) +
                                meters.GetMeter(AccountingMeters.HandpaidCashableAmount).GetValue(timeFrame) +
                                meters.GetMeter(AccountingMeters.HandpaidPromoAmount).GetValue(timeFrame) +
@@ -69,6 +72,7 @@
                     new List<string>
                     {
                         AccountingMeters.TotalVouchersOut,
+                        AccountingMeters.HardMeterOutAmount,
                         AccountingMeters.WatOffTotalAmount,
                         AccountingMeters.HandpaidCashableAmount,
                         AccountingMeters.HandpaidPromoAmount,

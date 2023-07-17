@@ -8,7 +8,9 @@
 
     public class MetersMainPageLoader : OperatorMenuPageLoader
     {
-        public override string PageName => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MetersScreen);
+        private readonly string _pageNameResourceKey = ResourceKeys.MetersScreen;
+
+        public override string PageName => Localizer.For(CultureFor.Operator).GetString(_pageNameResourceKey);
 
         protected override IOperatorMenuPage CreatePage()
         {
@@ -17,7 +19,7 @@
 
         protected override IOperatorMenuPageViewModel CreateViewModel()
         {
-            return new MetersMainPageViewModel(PageName);
+            return new MetersMainPageViewModel(_pageNameResourceKey);
         }
     }
 }

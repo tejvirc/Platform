@@ -29,6 +29,8 @@
 				<NodeSpecification addinId="Client12Addins.Aristocrat.Monaco.Gaming" typeName="Aristocrat.Monaco.Gaming.Contracts.Progressives.JackpotTransaction" order="5"/>
 				<NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Contracts.KeyedOnCreditsTransaction" order="7"/>
 				<NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Contracts.KeyedOffCreditsTransaction" order="8"/>
+				<NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Contracts.HandCount.HardMeterOutTransaction" order="9"/>
+        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Contracts.HandCount.ResidualCreditsTransaction" order="10"/>
 			</ExtensionPointConfiguration>			
 		
 		</AddinConfigurationGroup>

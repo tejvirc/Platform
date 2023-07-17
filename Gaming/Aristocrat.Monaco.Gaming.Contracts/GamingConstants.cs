@@ -9,6 +9,196 @@
     public static class GamingConstants
     {
         /// <summary>
+        /// 
+        /// </summary>
+        public const string ButtonAnimationGoodLuckKey = @"GamePlay.ButtonAnimationGoodLuck";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const bool ButtonAnimationGoodLuck = true;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string AudioAudioChannelsKey = @"GamePlay.AudioAudioChannels";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const bool AudioAudioChannels = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string GameLogOutcomeDetailsKey = @"GamePlay.GameLogOutcomeDetails";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const bool GameLogOutcomeDetails = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string GameLogEnabledKey = @"GamePlay.GameLogEnabled";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const bool GameLogEnabled = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string GameDurationUseMarketGameTimeKey = @"GamePlay.GameDurationUseMarketGameTime";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const bool GameDurationUseMarketGameTime = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string ChangeLineSelectionAtZeroCreditUseKey = @"GamePlay.ChangeLineSelectionAtZeroCreditUse";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const bool ChangeLineSelectionAtZeroCreditUse = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string InitialZeroWagerUseKey = @"GamePlay.InitialZeroWagerUse";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const bool InitialZeroWagerUse = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string KenoFreeGamesAutoPlayKey = @"GamePlay.KenoFreeGamesAutoPlay";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const bool KenoFreeGamesAutoPlay = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string KenoFreeGamesSelectionChangeKey = @"GamePlay.KenoFreeGamesSelectionChange";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const bool KenoFreeGamesSelectionChange = true;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string ClockUseHInDisplayKey = @"GamePlay.ClockUseHInDisplay";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const bool ClockUseHInDisplay = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string ServiceUseKey = @"GamePlay.ServiceUse";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const bool ServiceUse = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string VolumeLevelShowInHelpScreenKey = @"GamePlay.VolumeLevelShowInHelpScreen";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const bool VolumeLevelShowInHelpScreen = true;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string MaximumGameRoundWinResetWinAmountKey = @"GamePlay.MaximumGameRoundWinResetWinAmount";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string MaximumGameRoundWinResetWinAmount = "primary";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string WagerLimitsUseKey = @"GamePlay.WagerLimitsUse";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const bool WagerLimitsUse = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string WagerLimitsMaxTotalWagerKey = @"GamePlay.WagerLimitsMaxTotalWager";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const long WagerLimitsMaxTotalWager = 0;
+
+        /// <summary>
+        ///     Properties key for FreeSpinClearWinMeter
+        /// </summary>
+        public const string FreeSpinClearWinMeterKey = @"GamePlay.FreeSpinClearWinMeter";
+
+        /// <summary>
+        ///     Default value for FreeSpinClearWinMeter
+        /// </summary>
+        public const bool FreeSpinClearWinMeter = false;
+
+        /// <summary>
+        ///     Properties key for WinDestination
+        /// </summary>
+        public const string WinDestinationKey = @"GamePlay.WinDestination";
+
+        /// <summary>
+        ///     Default value for WinDestination
+        /// </summary>
+        public const string WinDestination = "win";
+        
+        /// <summary>
+        ///     Property key for DisplayGamePayMessageUse
+        /// </summary>
+        public const string DisplayGamePayMessageUseKey = "GamePlay.DisplayGamePayMessageUse";
+
+        /// <summary>
+        ///     Default value for DisplayGamePayMessageUse
+        /// </summary>
+        public const bool DisplayGamePayMessageUse = false;
+
+        /// <summary>
+        ///     Property key for DisplayGamePayMessageFormat
+        /// </summary>
+        public const string DisplayGamePayMessageFormatKey = "GamePlay.DisplayGamePayMessageFormat";
+
+        /// <summary>
+        ///     Default value for DisplayGamePayMessageFormat
+        /// </summary>
+        public const string DisplayGamePayMessageFormat = "currency";
+
+        /// <summary>
         ///     Helper definition for handling conversions to/from millicents
         /// </summary>
         public const long Millicents = 1000;
@@ -194,6 +384,11 @@
         ///     The game win large win cash out strategy to use
         /// </summary>
         public const string GameWinLargeWinCashOutStrategy = @"GamePlay.GameWinLargeWinCashOutStrategy";
+
+        /// <summary>
+        ///     The value in millicents of the maximum win amount from a single game round
+        /// </summary>
+        public const string MaximumGameRoundWinAmount = @"GamePlay.MaximumGameRoundWin.Amount";
 
         /// <summary>
         ///     The state change override setting
@@ -412,6 +607,11 @@
         public const string ReelStopEnabled = @"Cabinet.ReelStop";
 
         /// <summary>
+        ///     Determines reel speed
+        /// </summary>
+        public const string ReelSpeedKey = @"Cabinet.ReelSpeed";
+
+        /// <summary>
         ///     Determines if reel stop in base game is enabled
         /// </summary>
         public const string ReelStopInBaseGameEnabled = @"Cabinet.ReelStopInBaseGame";
@@ -470,6 +670,11 @@
         ///     Property manager key for the progressive timeout in milliseconds
         /// </summary>
         public const string ProgressiveCommitTimeoutMs = @"Progressive.CommitTimeoutMs";
+
+        /// <summary>
+        ///     Determines if JackpotCeiling message is enabled
+        /// </summary>
+        public const string JackpotCeilingHelpScreen = @"Cabinet.JackpotCeiling";
 
         /// <summary>
         ///     Property manager key for the progressive lobby indicator type
@@ -572,6 +777,21 @@
         public const string GambleWinLimitConfigurable = @"GamePlay.Gamble.WinLimitConfigurable";
 
         /// <summary>
+        ///     Whether play lines are allowed or not
+        /// </summary>
+        public const string PlayLinesAllowed = @"GamePlay.PlayLines.Allowed";
+
+        /// <summary>
+        ///     Whether play lines are showed when a feature begins or not
+        /// </summary>
+        public const string PlayLinesShowLinesOnFeatureStart = @"GamePlay.PlayLines.ShowLinesOnFeatureStart";
+
+        /// <summary>
+        ///     The type of play lines to use
+        /// </summary>
+        public const string PlayLinesType = @"GamePlay.PlayLines.Type";
+
+        /// <summary>
         ///     Whether let it ride is allowed or not.
         /// </summary>
         public const string LetItRideAllowed = @"GamePlay.LetItRide.Allowed";
@@ -595,17 +815,7 @@
         ///     Buttons that start continuous play mode
         /// </summary>
         public const string ContinuousPlayModeButtonsToUse = @"GamePlay.ContinuousPlaySupport.ButtonsToUse";
-
-        /// <summary>
-        ///     When enabled, for each enabled progressive level, their name and ceiling will be shown to the user in the game rules screen.
-        /// </summary>
-        public const string DisplayProgressiveCeilingMessage = @"GamePlay.DisplayProgressiveCeilingMessage";
-
-        /// <summary>
-        ///     When enabled, it will inform the player that they can press the big button to stop the reel.
-        /// </summary>
-        public const string DisplayStopReelMessage = @"GamePlay.DisplayStopReelMessage";
-
+        
         /// <summary>
         ///     When enabled, it will retain last round result for roulette games.
         /// </summary>
@@ -800,7 +1010,7 @@
         ///     Determines whether EGM will send the cashout button press event to host in case credit is zero
         /// </summary>
         public const string ReportCashoutButtonPressWithZeroCredit = @"CashoutButton.ReportToHostWithZeroCredit";
-
+        
         /// <summary>
         ///     Determines whether or not the Voucher Issued message is displayed in game
         /// </summary>
@@ -897,6 +1107,31 @@
         ///     Property Key for Button layout : Bet buttons on bottom
         /// </summary>
         public const string ButtonLayoutBetButtonsOnBottom = @"ButtonLayoutOptions.PhysicalButtons.BetButtonsOnBottom";
+
+        /// <summary>
+        ///     Property Key for Button layout : Bet Down button
+        /// </summary>
+        public const string ButtonLayoutBetButtonsBetDown = @"ButtonLayoutOptions.PhysicalButtons.BetButtonsBetDown";
+
+        /// <summary>
+        ///     Property Key for Button layout : Bet Up button
+        /// </summary>
+        public const string ButtonLayoutBetButtonsBetUp = @"ButtonLayoutOptions.PhysicalButtons.BetButtonsBetUp";
+
+        /// <summary>
+        ///     Property Key for Button layout : Max Bet button
+        /// </summary>
+        public const string ButtonLayoutBetButtonsMaxBet = @"ButtonLayoutOptions.PhysicalButtons.BetButtonsMaxBet";
+
+        /// <summary>
+        ///     Property Key for Physical button layout for Left Play button
+        /// </summary>
+        public const string ButtonLayoutPhysicalButtonLeftPlay = @"ButtonLayoutOptions.PhysicalButtons.LeftPlay";
+
+        /// <summary>
+        ///     Property Key for Physical button layout for Left Play button optional
+        /// </summary>
+        public const string ButtonLayoutPhysicalButtonLeftPlayOptional = @"ButtonLayoutOptions.PhysicalButtons.LeftPlayOptional";
 
         /// <summary>
         ///     Property Key for Physical button layout for Collect button
@@ -1202,6 +1437,41 @@
         ///     Command Line argument for enabling slow recovery
         /// </summary>
         public const string UseSlowRecovery = "UseSlowRecovery";
+
+        /// <summary>
+        ///     Flag Win tune is played based on win amount when true
+        /// </summary>
+        public const string WinTuneCapping = "WinTuneCapping";
+
+        /// <summary>
+        ///     Whether Win increment duration is based on win amount or with denom
+        /// </summary>
+        public const string WinIncrementSpeed = "WinIncrementSpeed";
+
+        /// <summary>
+        ///     Whether Autocomplete game round is enabled
+        /// </summary>
+        public const string AutocompleteGameRoundEnabled = @"AutocompleteGameRoundEnabled";
+
+        /// <summary>
+        ///     Determines if progressive settings is editable during setup
+        /// </summary>
+        public const string ProgressiveSetupReadonly = @"ProgressiveSetupReadonly";
+
+        /// <summary>
+        ///     Determines action on MaxWin reached
+        /// </summary>
+        public const string ActionOnMaxWinReached = @"ActionOnMaxWinReached";
+
+        /// <summary>
+        ///     If true, platform will try to auto enable games that have a single variation and denomination
+        /// </summary>
+        public const string AutoEnableSimpleGames = @"AutoEnableSimpleGames";
+
+        /// <summary>
+        ///     Set GameSpecificOption when launching a game
+        /// </summary>
+        public const string GameSpecificOptions = "GameSpecificOptions";
 
         /// <summary>
         ///     encapsulate Player Information Display options

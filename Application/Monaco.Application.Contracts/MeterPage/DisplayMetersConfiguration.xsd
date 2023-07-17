@@ -16,6 +16,7 @@
     <xs:attribute name="Page" type="MeterNodePage" use="required" />
     <xs:attribute name="Name" type="xs:string" use="required" />
     <xs:attribute name="DisplayName" type="xs:string" use="required" />
+    <xs:attribute name="DisplayNameKey" type="xs:string"  />
     <xs:attribute name="Order" type="xs:int" use="optional" />
     <xs:attribute name="Period" type="xs:boolean" use="optional" default="true" />
     <xs:attribute name="Lifetime" type="xs:boolean" use="optional" default="true" />

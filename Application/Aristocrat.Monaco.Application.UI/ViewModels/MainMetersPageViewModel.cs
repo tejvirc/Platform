@@ -68,7 +68,7 @@
         public string DropMessageLabelText
         {
             get => _dropMessageLabelText;
-            set => SetProperty(ref _dropMessageLabelText, value, nameof(DropMessageLabelText));
+            set => SetProperty(ref _dropMessageLabelText, value);
         }
 
         public bool ClearButtonEnabled
@@ -109,26 +109,54 @@
             }
         }
 
-        private static IEnumerable<Ticket> GeneratePrintVerificationTickets()
-        {
-            List<Ticket> tickets = null;
-            var ticketCreator = ServiceManager.GetInstance().TryGetService<IVerificationTicketCreator>();
-            if (ticketCreator != null)
-            {
-                tickets = new List<Ticket>();
-                for (int i = 0; i < 3; i++)
-                {
-                    tickets.Add(ticketCreator.Create(i, null));
-                }
-            }
-
-            return tickets;
-        }
-
         private List<Ticket> GeneratePeriodicResetTicket()
         {
             var ticketCreator = ServiceManager.GetInstance().TryGetService<IPeriodicResetTicketCreator>();
-            return SplitTicket(ticketCreator?.Create());
+            var tickets = SplitTicket(ticketCreator?.Create());
+
+            if (tickets.Count > 1)
+            {
+                return GenerateMultiplePages(tickets);
+            }
+
+            return tickets;
+
+            List<Ticket> GenerateMultiplePages(List<Ticket> tickets)
+            {
+                var resultingTickets = new List<Ticket> { tickets[0] }; // first ticket in the list is formatted correctly, can be added immediately
+
+                tickets.RemoveAt(0); // this ticket is accounted for, we don't need to enumerate over it
+
+                foreach (var ticket in tickets)
+                {
+                    var newTickets = SplitTicket(ticket); // this will initially be of size one, we already split the tickets above
+                    var ticketsIndex = 0;
+
+                    while (ticketsIndex < newTickets.Count)  // we need to keep doing this cycle of splitting and adding until SplitTicket stops producing more than 1 ticket and we take care of all the tickets to add
+                    {
+                        var ticketSegment = newTickets[ticketsIndex++];
+                        var blankTicketWithHeader = ticketCreator?.CreateSecondPage();
+
+                        if (blankTicketWithHeader is not null)
+                        {
+                            ticketSegment[TicketConstants.Left] = $"{blankTicketWithHeader[TicketConstants.Left]}{ticketSegment[TicketConstants.Left]}";
+                            ticketSegment[TicketConstants.Center] = $"{blankTicketWithHeader[TicketConstants.Center]}{ticketSegment[TicketConstants.Center]}";
+                            ticketSegment[TicketConstants.Right] = $"{blankTicketWithHeader[TicketConstants.Right]}{ticketSegment[TicketConstants.Right]}";
+                        }
+
+                        var splitTickets = SplitTicket(ticketSegment);
+
+                        if (splitTickets.Count > 1)
+                        {
+                            splitTickets.RemoveAt(0);
+                            newTickets.AddRange(splitTickets);
+                        }
+                    }
+
+                    resultingTickets.AddRange(newTickets);
+                }
+                return resultingTickets;
+            }
         }
 
         private static IEnumerable<Ticket> GenerateSingaporeClubsAuditTickets()

@@ -28,8 +28,14 @@
             _lockupButtons = new Collection<int>();
             _cashOutOnlyButtons = new Collection<int>();
             var buttonBase = (int)ButtonLogicalId.ButtonBase;
-            for (var i = buttonBase + 1; i <= buttonBase + 23; ++i)
+            for (var i = buttonBase + 1; i <= (int)ButtonLogicalId.MaxButtonId; ++i)
             {
+                var button = (ButtonLogicalId)i;
+                if (button is ButtonLogicalId.Barkeeper or ButtonLogicalId.Button30)
+                {
+                    continue;
+                }
+
                 _lockupButtons.Add(i);
 
                 // Cashout active in this state.

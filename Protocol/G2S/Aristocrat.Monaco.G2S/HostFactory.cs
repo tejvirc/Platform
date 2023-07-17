@@ -18,6 +18,7 @@
         private readonly IG2SEgm _egm;
         private readonly IEventPersistenceManager _eventPersistenceManager;
         private readonly ITransportStateObserver _transportStateObserver;
+        private readonly IEventLift _eventLift;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="HostFactory" /> class.
@@ -28,14 +29,15 @@
         /// <param name="commsStateObserver">The communication state observer.</param>
         /// <param name="deviceStateObserver">The device state observer.</param>
         /// <param name="eventPersistenceManager">The event persistence manager.</param>
-        /// <param name="mtpClient">The MTP client.</param>
+        /// <param name="eventLift">The event lift.</param>
         public HostFactory(
             IG2SEgm egm,
             IDeviceFactory deviceFactory,
             ITransportStateObserver transportStateObserver,
             ICommunicationsStateObserver commsStateObserver,
             IDeviceObserver deviceStateObserver,
-            IEventPersistenceManager eventPersistenceManager)
+            IEventPersistenceManager eventPersistenceManager,
+            IEventLift eventLift)
         {
             _egm = egm ?? throw new ArgumentNullException(nameof(egm));
             _transportStateObserver =
@@ -45,6 +47,7 @@
             _deviceFactory = deviceFactory ?? throw new ArgumentNullException(nameof(deviceFactory));
             _eventPersistenceManager =
                 eventPersistenceManager ?? throw new ArgumentNullException(nameof(eventPersistenceManager));
+            _eventLift = eventLift ?? throw new ArgumentNullException(nameof(eventLift));
         }
 
         /// <inheritdoc />
@@ -114,10 +117,11 @@
                     _egm.Address,
                     host.RequiredForPlay,
                     _transportStateObserver,
-                    _commsStateObserver));
+                    _commsStateObserver,
+                    _eventLift));
             _deviceFactory.Create(
                 host,
-                () => new EventHandlerDevice(host.Id, _deviceStateObserver, _eventPersistenceManager));
+                () => new EventHandlerDevice(host.Id, _deviceStateObserver, _eventPersistenceManager, _eventLift));
             _deviceFactory.Create(host, () => new GatDevice(host.Id, _deviceStateObserver));
             _deviceFactory.Create(host, () => new OptionConfigDevice(host.Id, _deviceStateObserver));
             _deviceFactory.Create(host, () => new MetersDevice(host.Id, _deviceStateObserver));

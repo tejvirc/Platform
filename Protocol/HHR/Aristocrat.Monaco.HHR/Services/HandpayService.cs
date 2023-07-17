@@ -92,7 +92,7 @@
             if (handpayEvent.Transaction.HandpayType == HandpayType.GameWin)
             {
                 Logger.Debug($"Handpay Completed for GameWin and handpayId :{handpayEvent.Transaction.TraceId} ");
-                LargeWinCheck(handpayEvent.Transaction.TraceId, 0);
+                LargeWinCheck(handpayEvent.Transaction.TraceId, 0, true, handpayEvent.Transaction.KeyOffType);
             }
         }
 

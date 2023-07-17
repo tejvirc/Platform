@@ -7,17 +7,18 @@
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
-    using Aristocrat.Monaco.Application.Contracts.Authentication;
-    using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
-    using Aristocrat.Monaco.Hardware.Contracts.Button;
-    using Aristocrat.Monaco.Hardware.Contracts.Cabinet;
-    using Aristocrat.Monaco.Hardware.Contracts.IO;
-    using Aristocrat.Monaco.Kernel.Contracts.Components;
-    using Aristocrat.Monaco.UI.Common.Events;
     using Contracts;
+    using Contracts.Authentication;
+    using Contracts.Localization;
+    using Contracts.OperatorMenu;
     using Events;
+    using Hardware.Contracts.Button;
+    using Hardware.Contracts.Cabinet;
+    using Hardware.Contracts.IO;
     using Kernel;
+    using Kernel.Contracts.Components;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Monaco.UI.Common.Events;
     using Moq;
     using Test.Common;
     using UI.ViewModels;
@@ -62,6 +63,7 @@
             _eventBus.Setup(e => e.Subscribe(It.IsAny<SoftwareVerificationPageViewModel>(), It.IsAny<Action<PrintButtonClickedEvent>>()));
             _eventBus.Setup(e => e.Subscribe(It.IsAny<SoftwareVerificationPageViewModel>(), It.IsAny<Action<PrintButtonStatusEvent>>()));
             _eventBus.Setup(e => e.Subscribe(It.IsAny<SoftwareVerificationPageViewModel>(), It.IsAny<Action<DialogClosedEvent>>()));
+            _eventBus.Setup(e => e.Subscribe(It.IsAny<SoftwareVerificationPageViewModel>(), It.IsAny<Action<OperatorCultureChangedEvent>>()));
             _eventBus.Setup(m => m.Publish(It.IsAny<LampTestLampStateEvent>()));
 
             _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Default);

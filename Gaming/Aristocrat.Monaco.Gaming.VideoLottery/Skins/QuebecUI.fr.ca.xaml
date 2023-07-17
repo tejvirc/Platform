@@ -262,8 +262,9 @@
     <sys:String x:Key="VBD_ChooseGame">../jurisdiction/Quebec-VLT/ui/Videos/French/VBD_ChooseGame_FR.bk2</sys:String>
     <sys:String x:Key="VBD_InsertMoney">../jurisdiction/Quebec-VLT/ui/Videos/French/VBD_InsertMoney_FR.bk2</sys:String>
     <sys:String x:Key="VBD_ChooseTime">../jurisdiction/Quebec-VLT/ui/Videos/French/VBD_ChooseTime_FR.bk2</sys:String>
-    <sys:String x:Key="VBD_Helix_ChooseGame">../jurisdiction/Quebec-VLT/ui/Videos/French/VBD_ChooseGame_EN.bk2</sys:String>
-    <sys:String x:Key="VBD_Helix_InsertMoney">../jurisdiction/Quebec-VLT/ui/Videos/French/VBD_InsertMoney_EN.bk2</sys:String>
-    <sys:String x:Key="VBD_Marsx_ChooseGame">../jurisdiction/Quebec-VLT/ui/Videos/French/VBD_ChooseGame_EN.bk2</sys:String>
-    <sys:String x:Key="VBD_Marsx_InsertMoney">../jurisdiction/Quebec-VLT/ui/Videos/French/VBD_InsertMoney_EN.bk2</sys:String>
+    <sys:String x:Key="VBD_Helix_ChooseGame">../jurisdiction/Quebec-VLT/ui/Videos/French/VBD_ChooseGame_FR.bk2</sys:String>
+    <sys:String x:Key="VBD_Helix_InsertMoney">../jurisdiction/Quebec-VLT/ui/Videos/French/VBD_InsertMoney_FR.bk2</sys:String>
+    <sys:String x:Key="VBD_Marsx_ChooseGame">../jurisdiction/Quebec-VLT/ui/Videos/French/VBD_ChooseGame_FR.bk2</sys:String>
+    <sys:String x:Key="VBD_Marsx_InsertMoney">../jurisdiction/Quebec-VLT/ui/Videos/French/VBD_InsertMoney_FR.bk2</sys:String>
+
 </ResourceDictionary>

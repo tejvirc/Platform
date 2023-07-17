@@ -338,6 +338,11 @@
         public const string TotalVoucherOutCashableAndPromoAmount = "TotalVoucherOutCashableAndPromoAmount";
 
         /// <summary>
+        ///     Voucher out cashable
+        /// </summary>
+        public const string VoucherOutCashable = "VoucherOutCashable";
+
+        /// <summary>
         ///     Voucher out cashable amount
         /// </summary>
         public const string VoucherOutCashableAmount = "VoucherOutCashableValue";
@@ -346,6 +351,11 @@
         ///     Voucher out cashable count
         /// </summary>
         public const string VoucherOutCashableCount = "VoucherOutCashableCount";
+
+        /// <summary>
+        ///     Voucher out cashable promotional
+        /// </summary>
+        public const string VoucherOutCashablePromo = "VoucherOutCashablePromotional";
 
         /// <summary>
         ///     Voucher out cashable promotional amount
@@ -368,6 +378,11 @@
         public const string VoucherOutNonCashableCount = "VoucherOutNonCashablePromotionalCount";
 
         /// <summary>
+        ///     Voucher out non-cashable promotional
+        /// </summary>
+        public const string VoucherOutNonCashablePromo = "VoucherOutNonCashablePromotional";
+
+        /// <summary>
         ///     The name of a composite meter that holds the total voucher in amount
         /// </summary>
         public const string TotalVouchersIn = "TotalVouchersIn";
@@ -388,6 +403,11 @@
         public const string TotalVoucherInCashableAndPromoCount = "TotalVoucherInCashableAndPromoCount";
 
         /// <summary>
+        /// Voucher in cashable
+        /// </summary>
+        public const string VoucherInCashable = "VoucherInCashable";
+
+        /// <summary>
         ///     Voucher in cashable amount
         /// </summary>
         public const string VoucherInCashableAmount = "VoucherInCashableValue";
@@ -396,6 +416,11 @@
         ///     Voucher in cashable count
         /// </summary>
         public const string VoucherInCashableCount = "VoucherInCashableCount";
+
+        /// <summary>
+        ///     Voucher in cashable promotional
+        /// </summary>
+        public const string VoucherInCashablePromo = "VoucherInCashablePromotional";
 
         /// <summary>
         ///     Voucher in cashable promotional amount
@@ -416,6 +441,11 @@
         ///     Voucher in non-cashable count
         /// </summary>
         public const string VoucherInNonCashableCount = "VoucherInNonCashablePromotionalCount";
+
+        /// <summary>
+        ///     Voucher in non-cashable promo
+        /// </summary>
+        public const string VoucherInNonCashablePromo = "VoucherInNonCashablePromotional";
 
         /// <summary>
         ///     Voucher in non-transferable amount
@@ -687,7 +717,7 @@
         public const string DocumentsRejectedCount = "RejectCount";
 
         /// <summary>
-        ///     Count of documents (notes and vochers) accepted by the note acceptor
+        ///     Count of documents (notes and vouchers) accepted by the note acceptor
         /// </summary>
         public const string DocumentsAcceptedCount = "AcceptanceCount";
 
@@ -697,7 +727,7 @@
         public const string VouchersRejectedCount = "VouchersRejectedCount";
 
         /// <summary>
-        ///     Count of currencys/notes rejected by the note acceptor
+        ///     Count of currencies/notes rejected by the note acceptor
         /// </summary>
         public const string BillsRejectedCount = "BillsRejectedCount";
 
@@ -713,5 +743,25 @@
         /// </summary>
         public const string TotalCashCoinTicketInAmount = "TotalCashCoinTicketInAmount";
 
+        /// <summary>
+        ///     Count of hand played by the player in this hand count session
+        /// </summary>
+        public const string HandCount = "HandCount";
+
+        /// <summary>
+        ///     Hard meter cash out amount, amount that is cashed out by incrementing a hard meter
+        ///     connected to some external device
+        /// </summary>
+        public const string HardMeterOutAmount = "HardMeterOutAmount";
+
+        /// <summary>
+        ///     Hard meter cash out count, the number of hard meter cash outs that have occurred.
+        /// </summary>
+        public const string HardMeterOutCount = "HardMeterOutCount";
+
+        /// <summary>
+        ///     Cancelled residual credit amount, amount that is cancelled by hand count reset
+        /// </summary>
+        public const string ResidualAmount = "ResidualAmount";
     }
 }

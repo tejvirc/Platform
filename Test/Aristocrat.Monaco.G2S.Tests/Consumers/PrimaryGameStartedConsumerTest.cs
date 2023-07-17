@@ -149,7 +149,8 @@
                 l => l.Report(
                     It.Is<IDevice>(d => device.Object == d),
                     It.Is<string>(e => e == EventCode.G2S_CBE314),
-                    It.IsAny<deviceList1>()));
+                    It.IsAny<deviceList1>(),
+                    It.IsAny<IEvent>()));
         }
 
         private static IGameDetail Factory_CreateMockGameProfile(int gameId, string theme, string paytable)

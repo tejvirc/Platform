@@ -14,13 +14,16 @@
         /// </summary>
         public const int MessageDurationDefault = 30000;
 
+        private readonly IEventLift _eventLift;
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="PlayerDevice" /> class.
         /// </summary>
         /// <param name="deviceStateObserver">An <see cref="IDeviceObserver" /> instance.</param>
         /// <param name="deviceId">The device identifier.</param>
         /// <param name="idReaderDevices">The id reader devices</param>
-        public PlayerDevice(int deviceId, IDeviceObserver deviceStateObserver, IEnumerable<IIdReaderDevice> idReaderDevices)
+        /// <param name="eventLift">The event lift</param>
+        public PlayerDevice(int deviceId, IDeviceObserver deviceStateObserver, IEnumerable<IIdReaderDevice> idReaderDevices, IEventLift eventLift)
             : base(deviceId, deviceStateObserver, false)
         {
             SetDefaults();
@@ -29,6 +32,8 @@
 
             IdReader = devices.FirstOrDefault()?.Id ?? 0;
             IdReaders = devices.Select(i => i.Id).ToList();
+
+            _eventLift = eventLift;
         }
 
         /// <inheritdoc />
@@ -63,7 +68,7 @@
         {
             SubscribedMeters = subscription;
 
-            EventHandlerDevice.EventReport(this.PrefixedDeviceClass(), Id, EventCode.G2S_PRE301);
+            _eventLift.Report(this, EventCode.G2S_PRE301);
         }
 
         /// <inheritdoc />
