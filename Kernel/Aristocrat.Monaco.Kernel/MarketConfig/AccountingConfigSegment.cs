@@ -311,7 +311,7 @@ namespace Aristocrat.Monaco.Kernel.MarketConfig.Accounting
         /// Max sequence
         /// </summary>
         [JsonProperty(PropertyName = "max_sequence", Required = Required.Always)]
-        public Int32 MaxSequence { get; set; }
+        public Int64 MaxSequence { get; set; }
 
         /// <summary>
         /// Separate metering cashable and promo amounts
