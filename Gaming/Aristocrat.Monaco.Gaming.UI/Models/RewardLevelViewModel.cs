@@ -9,7 +9,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public abstract class RewardLevelViewModel : BaseEntityViewModel
+    public abstract class RewardLevelViewModel : ObservableObject
     {
         private bool _enabledField;
         private long _thresholdInCents;

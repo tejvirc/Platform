@@ -12,7 +12,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Kernel;
     using log4net;
 
-    public class LobbyVolumeViewModel : BaseEntityViewModel
+    public class LobbyVolumeViewModel : ObservableObject
     {
         private const string SoundConfigurationExtensionPath = "/OperatorMenu/Sound/Configuration";
         private const string Volume0Key = "Volume0Normal";

@@ -44,7 +44,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     /// <summary>
     ///     Class to store data for the Message Overlay
     /// </summary>
-    public class ReserveOverlayViewModel : BaseEntityViewModel, IDisposable
+    public class ReserveOverlayViewModel : ObservableObject, IDisposable
     {
         private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 

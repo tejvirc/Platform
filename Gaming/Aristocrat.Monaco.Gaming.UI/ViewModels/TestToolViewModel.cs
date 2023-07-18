@@ -36,7 +36,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     /// <summary>
     ///     Defines the TestToolViewModel class
     /// </summary>
-    public class TestToolViewModel : BaseEntityViewModel
+    public class TestToolViewModel : ObservableObject
     {
         // List of supported currencies and their respective enums can be found here: https://svn.ali.global/WinnersWorldStudio/tools/CSU
         private enum LocationCode : uint

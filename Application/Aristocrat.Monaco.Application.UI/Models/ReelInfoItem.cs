@@ -10,7 +10,7 @@ namespace Aristocrat.Monaco.Application.UI.Models
     ///     Definition of the ReelInfoItem class.
     /// </summary>
     [CLSCompliant(false)]
-    public class ReelInfoItem : BaseEntityViewModel
+    public class ReelInfoItem : ObservableObject
     {
         private const int MaximumReelSteps = 199;
 

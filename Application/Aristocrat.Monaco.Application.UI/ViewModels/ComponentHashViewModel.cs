@@ -3,7 +3,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System;
 
     [CLSCompliant(false)]
-    public class ComponentHashViewModel : BaseEntityViewModel
+    public class ComponentHashViewModel : ObservableObject
     {
         public string ComponentId { get; set; }
 

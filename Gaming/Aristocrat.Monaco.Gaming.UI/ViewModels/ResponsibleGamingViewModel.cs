@@ -8,7 +8,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     /// <summary>
     ///     Helper class to handle responsible gaming parts of the lobby ViewModel.
     /// </summary>
-    public class ResponsibleGamingViewModel : BaseEntityViewModel
+    public class ResponsibleGamingViewModel : ObservableObject
     {
         private readonly LobbyViewModel _lobby;
         private readonly int _infoPageCount = 5;

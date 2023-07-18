@@ -38,9 +38,9 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     /// <summary>
     ///     A DiscovererViewModel contains the logic for MenuSelectionWindow.xaml.cs
     /// </summary>
-    /// <seealso cref="BaseEntityViewModel" />
+    /// <seealso cref="ObservableObject" />
     [CLSCompliant(false)]
-    public sealed class MenuSelectionViewModel : BaseEntityViewModel, IOperatorMenuConfigObject, IDisposable
+    public sealed class MenuSelectionViewModel : ObservableObject, IOperatorMenuConfigObject, IDisposable
     {
         private const double DayTimerIntervalSeconds = 1.0;
         private const string DemoModeProperty = "System.DemoMode";

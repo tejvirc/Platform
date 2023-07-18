@@ -10,7 +10,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     /// <summary>
     ///     View Model for InfoWindow
     /// </summary>
-    public class InfoOverlayViewModel : BaseEntityViewModel, IDisposable
+    public class InfoOverlayViewModel : ObservableObject, IDisposable
     {
         /// <summary>
         ///     guid for the cabinet configuration text that we handle directly

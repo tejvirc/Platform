@@ -14,7 +14,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.ButtonDeck
     using Contracts.Lobby;
     using Contracts.Models;
 
-    public class ButtonDeckSimulatorViewModel : BaseEntityViewModel
+    public class ButtonDeckSimulatorViewModel : ObservableObject
     {
         private const int BetButtonWidth = 800;
         private const int BetButtonHeight = 256;

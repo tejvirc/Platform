@@ -15,7 +15,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Models;
     using Progressives;
 
-    public class ProgressiveLobbyIndicatorViewModel : BaseEntityViewModel, IDisposable
+    public class ProgressiveLobbyIndicatorViewModel : ObservableObject, IDisposable
     {
         private readonly LobbyViewModel _lobby;
         private readonly IProgressiveConfigurationProvider _progressiveConfiguration;

@@ -8,7 +8,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using System.Linq;
     using System.Windows;
 
-    public class LayoutTemplateViewModel : BaseEntityViewModel, IDisposable
+    public class LayoutTemplateViewModel : ObservableObject, IDisposable
     {
         private readonly IMediaProvider _provider;
         private readonly DisplayType _displayType;

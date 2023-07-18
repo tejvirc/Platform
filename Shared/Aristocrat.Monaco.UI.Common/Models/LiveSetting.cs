@@ -211,7 +211,7 @@
 
         /// <summary>
         /// The error (if any) for this setting reported by the view
-        /// (legacy support for existing controls and BaseEntityViewModel-derived VMs).
+        /// (legacy support for existing controls and ObservableObject-derived VMs).
         /// </summary>
         public string ErrorFromView
         {

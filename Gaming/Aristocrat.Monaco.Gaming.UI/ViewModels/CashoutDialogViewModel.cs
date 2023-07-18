@@ -8,7 +8,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Runtime;
     using Runtime.Client;
 
-    public class CashoutDialogViewModel : BaseEntityViewModel
+    public class CashoutDialogViewModel : ObservableObject
     {
         private readonly IEventBus _eventBus;
         private long _handCountAmount;

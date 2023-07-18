@@ -9,7 +9,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     /// <summary>
     /// Class to store data for the Message Overlay
     /// </summary>
-    public class MessageOverlayData : BaseEntityViewModel, IMessageOverlayData
+    public class MessageOverlayData : ObservableObject, IMessageOverlayData
     {
         private string _text = string.Empty;
         private string _subText = string.Empty;

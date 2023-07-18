@@ -5,7 +5,7 @@ namespace Aristocrat.Monaco.Application.UI.Models
     using Contracts.HardwareDiagnostics;
 
     [CLSCompliant(false)]
-    public class InspectionCategoryResult : BaseEntityViewModel
+    public class InspectionCategoryResult : ObservableObject
     {
         public const string BadMark = "X";
         public const string CheckMark = "\x221A";

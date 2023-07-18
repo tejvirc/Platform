@@ -22,7 +22,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     /// <summary>
     ///     Helper class to handle replay/recovering screen of the lobby ViewModel.
     /// </summary>
-    public class ReplayRecoveryViewModel : BaseEntityViewModel, IDisposable
+    public class ReplayRecoveryViewModel : ObservableObject, IDisposable
     {
         private static readonly string CompletionText =
             Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReplayCompletedText);

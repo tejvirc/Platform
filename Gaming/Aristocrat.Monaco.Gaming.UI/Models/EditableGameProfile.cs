@@ -10,7 +10,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
     using Localization.Properties;
     using Monaco.UI.Common.Extensions;
 
-    public class EditableGameProfile : BaseEntityViewModel, IDisposable
+    public class EditableGameProfile : ObservableObject, IDisposable
     {
         private readonly bool _enableRtpScaling;
         private IConfigurationRestriction _selectedRestriction;

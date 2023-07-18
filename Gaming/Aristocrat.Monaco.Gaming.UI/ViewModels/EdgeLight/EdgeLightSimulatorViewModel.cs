@@ -11,7 +11,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.EdgeLight
     using Kernel;
     using CommunityToolkit.Mvvm.ComponentModel;
 
-    public class EdgeLightSimulatorViewModel : BaseEntityViewModel
+    public class EdgeLightSimulatorViewModel : ObservableObject
     {
         private readonly SimEdgeLightDevice _device;
 

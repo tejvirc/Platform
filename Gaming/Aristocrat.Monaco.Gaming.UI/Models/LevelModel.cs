@@ -14,7 +14,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
     /// <summary>
     ///     Level model class
     /// </summary>
-    public class LevelModel : BaseEntityViewModel
+    public class LevelModel : ObservableObject
     {
         private decimal _maxValue;
         private decimal _initialValue;

@@ -47,7 +47,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
     ///     All operator menu page ViewModels should inherit from this base class
     /// </summary>
     [CLSCompliant(false)]
-    public abstract class OperatorMenuPageViewModelBase : BaseEntityViewModel, IOperatorMenuPageViewModel, ILiveSettingParent
+    public abstract class OperatorMenuPageViewModelBase : ObservableObject, IOperatorMenuPageViewModel, ILiveSettingParent
     {
         private const string PlayedCount = "PlayedCount";
         private const string TestMode = "TestMode";

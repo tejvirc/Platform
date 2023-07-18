@@ -61,7 +61,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     /// <summary>
     ///     Defines the LobbyViewModel class
     /// </summary>
-    public partial class LobbyViewModel : BaseEntityViewModel, IMessageDisplayHandler, IDisposable, IPlayerInfoDisplayScreensContainer
+    public partial class LobbyViewModel : ObservableObject, IMessageDisplayHandler, IDisposable, IPlayerInfoDisplayScreensContainer
     {
         private const double IdleTimerIntervalSeconds = 15.0;
         private const double IdleTextTimerIntervalSeconds = 30.0;

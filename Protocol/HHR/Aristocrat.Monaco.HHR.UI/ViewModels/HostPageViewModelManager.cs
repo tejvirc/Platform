@@ -14,7 +14,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
     using Views;
     using System.Windows;
 
-    public class HostPageViewModelManager : BaseEntityViewModel, IMenuAccessService, IDisposable
+    public class HostPageViewModelManager : ObservableObject, IMenuAccessService, IDisposable
     {
         private static readonly Guid RaceInfoTransactionRequestorId = new Guid("5297D108-9F34-4174-BE9F-716538519FBA");
 

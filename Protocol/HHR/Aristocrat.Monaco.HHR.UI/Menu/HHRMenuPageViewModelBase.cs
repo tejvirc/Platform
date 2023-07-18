@@ -8,7 +8,7 @@ namespace Aristocrat.Monaco.Hhr.UI.Menu
     /// <summary>
     ///     All Hhr-HHR menu page ViewModels should inherit from this base class
     /// </summary>
-    public abstract class HhrMenuPageViewModelBase : BaseEntityViewModel, IHhrMenuPageViewModel
+    public abstract class HhrMenuPageViewModelBase : ObservableObject, IHhrMenuPageViewModel
     {
         protected new readonly ILog Logger;
 
