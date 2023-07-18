@@ -6,6 +6,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Threading.Tasks;
     using System.Windows.Input;
     using System.Windows.Media;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts.HardwareDiagnostics;
     using Contracts.Localization;
     using Hardware.Contracts.EdgeLighting;

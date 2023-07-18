@@ -3,6 +3,7 @@
     using System;
     using System.Text.RegularExpressions;
     using System.Web.UI;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Contracts;
     using Contracts.Localization;
     using Kernel;
