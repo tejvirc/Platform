@@ -1,9 +1,8 @@
-﻿namespace Aristocrat.Monaco.UI.Common.ViewModels
+﻿// TODO: Migrate this class to https://github.com/Aristocrat-Monaco-Platform/toolkit-mvvm-extensions
+namespace Aristocrat.Monaco.UI.Common.ViewModels
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using CommunityToolkit.Mvvm.ComponentModel;
@@ -29,6 +28,25 @@
         private bool _committed = true;
 
         private readonly List<string> _propertiesToIgnoreForCommitted = new() { nameof(Committed) };
+
+        /// <summary>
+        ///     This value will raise property changed when committed without errors
+        /// </summary>
+        public bool Committed
+        {
+            get => _committed;
+            set
+            {
+                _committed = value;
+                CommitCommand.NotifyCanExecuteChanged();
+                OnPropertyChanged(nameof(Committed));
+            }
+        }
+
+        /// <summary>
+        ///     Commit changes
+        /// </summary>
+        public RelayCommand<object> CommitCommand { get; }
 
         /// <inheritdoc />
         protected CustomObservableValidator()
@@ -57,25 +75,6 @@
                 }
             };
         }
-
-        /// <summary>
-        ///     This value will raise property changed when committed without errors
-        /// </summary>
-        public bool Committed
-        {
-            get => _committed;
-            set
-            {
-                _committed = value;
-                CommitCommand.NotifyCanExecuteChanged();
-                OnPropertyChanged(nameof(Committed));
-            }
-        }
-
-        /// <summary>
-        ///     Commit changes
-        /// </summary>
-        public RelayCommand<object> CommitCommand { get; }
 
         /// <summary>
         ///     Use this to validate any late-bound fields before committing
@@ -133,6 +132,41 @@
             {
                 IgnorePropertyForCommitted(propertyName);
             }
+        }
+
+        /// <summary>
+        ///     Raises this object's PropertyChanged event for each of the properties.
+        /// </summary>
+        /// <param name="propertyNames">The properties that have a new value.</param>
+        protected void OnPropertyChanged(params string[] propertyNames)
+        {
+            foreach (var name in propertyNames)
+            {
+                base.OnPropertyChanged(name);
+            }
+        }
+
+        /// <summary>
+        ///     Sets the backing field value and raises the PropertyChanged 
+        ///     event for each property name listed. 
+        /// </summary>
+        /// <typeparam name="T">The type of the field being changed</typeparam>
+        /// <param name="property">The backing field for the property</param>
+        /// <param name="value">The new value to set</param>
+        /// <param name="propertyNames">Optional list of names to send in PropertyChanged events</param>
+        /// <returns>false if the new and existing values are equal, true if they are not</returns>
+        protected virtual bool SetProperty<T>(ref T property, T value,
+            params string[] propertyNames)
+        {
+            if (EqualityComparer<T>.Default.Equals(property, value))
+            {
+                return false;
+            }
+
+            property = value;
+            OnPropertyChanged(propertyNames);
+
+            return true;
         }
     }
 }

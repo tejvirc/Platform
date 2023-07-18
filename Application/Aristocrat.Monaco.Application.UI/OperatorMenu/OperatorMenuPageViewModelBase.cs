@@ -11,6 +11,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
+    using Aristocrat.Monaco.UI.Common.ViewModels;
     using Aristocrat.Toolkit.Mvvm.Extensions;
     using CommunityToolkit.Mvvm.Input;
     using ConfigWizard;
