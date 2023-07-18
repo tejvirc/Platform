@@ -5,7 +5,7 @@
     using System.Windows;
     using System.Windows.Data;
 
-    internal class LobbyOuterColumnWidthConverter : IValueConverter
+    public class LobbyOuterColumnWidthConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

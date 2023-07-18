@@ -24,4 +24,6 @@ public record ChooserState
     public GameType GameFilter { get; set; }
 
     public DateTime DenomCheckTime { get; set; }
+
+    public double ChooseGameOffsetY { get; set; }
 }

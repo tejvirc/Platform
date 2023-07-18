@@ -40,7 +40,7 @@ public class RehydrateGamesMiddleware : Middleware
 
     private void Rehydrate()
     {
-        var games = _gameLoader.LoadGames().ToList();
+        var games = _gameLoader.LoadGames().Result.ToList();
         _dispatcher?.Dispatch(new GamesLoadedAction { Games = games ?? new List<GameInfo>() });
     }
 }

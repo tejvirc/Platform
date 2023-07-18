@@ -5,7 +5,7 @@
     using System.Windows;
     using System.Windows.Data;
 
-    internal class LobbyProgressiveBannerVisibilityConverter : IMultiValueConverter
+    public class LobbyProgressiveBannerVisibilityConverter : IMultiValueConverter
     {
         /// <summary>
         ///     Covert multiple parameters to form a visibility setting

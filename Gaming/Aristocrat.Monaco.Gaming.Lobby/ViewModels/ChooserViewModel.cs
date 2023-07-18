@@ -30,11 +30,11 @@ public class ChooserViewModel : ObservableObject
         UnloadedCommand = new RelayCommand(OnUnloaded);
         ShutdownCommand = new RelayCommand(OnShutdown);
         GameSelectCommand = new RelayCommand<GameInfo>(OnGameSelected);
-        DenomSelectedCommand = new RelayCommand<DenomInfo>(OnDenomSelected);
+        DenomSelectedCommand = new RelayCommand<DenominationInfoViewModel>(OnDenomSelected);
 
         commands.ShutdownCommand.RegisterCommand(ShutdownCommand);
 
-        _subscriptions += selector.Select(GamesSelector).Subscribe(
+        _subscriptions += selector.Select(SelectGames).Subscribe(
             games =>
             {
                 games.UpdateObservable(Games, g => g.GameId, (g1, g2) => g1.GameId == g2.GameId);
@@ -49,7 +49,7 @@ public class ChooserViewModel : ObservableObject
 
     public RelayCommand<GameInfo> GameSelectCommand { get; }
 
-    public RelayCommand<DenomInfo> DenomSelectedCommand { get; }
+    public RelayCommand<DenominationInfoViewModel> DenomSelectedCommand { get; }
 
     public ObservableCollection<GameInfo> Games { get; } = new();
 
@@ -136,7 +136,7 @@ public class ChooserViewModel : ObservableObject
 
     }
 
-    private void OnDenomSelected(DenomInfo? denom)
+    private void OnDenomSelected(DenominationInfoViewModel? denom)
     {
 
     }

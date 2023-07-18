@@ -7,7 +7,7 @@
     using System.Windows.Data;
     using ViewModels;
 
-    internal class DenomPanelWidthConverter : IMultiValueConverter
+    public class DenomPanelWidthConverter : IMultiValueConverter
     {
         private readonly double _scaleBy = ScaleUtility.GetScale();
 

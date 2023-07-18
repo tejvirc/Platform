@@ -10,7 +10,7 @@
     ///     We need to determine in xaml whether a game in the lobby should have
     ///     the "attract highlight."
     /// </summary>
-    internal class AttractActiveToVisibilityConverter : IMultiValueConverter
+    public class AttractActiveToVisibilityConverter : IMultiValueConverter
     {
         /// <summary>
         ///     Convert to visible

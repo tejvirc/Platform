@@ -22,6 +22,11 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>Aristocrat.Monaco.Gaming.Lobby</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="Skins\DSEG7Modern-Regular.ttf" />
   </ItemGroup>
   <ItemGroup>

@@ -5,7 +5,7 @@
     using System.Windows;
     using System.Windows.Data;
 
-    internal class GameIconJackpotTextVisibilityConverter : IMultiValueConverter
+    public class GameIconJackpotTextVisibilityConverter : IMultiValueConverter
     {
         /// <summary>
         ///     Covert multiple parameters to form a visibility setting

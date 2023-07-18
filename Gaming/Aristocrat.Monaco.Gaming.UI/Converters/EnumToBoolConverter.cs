@@ -14,7 +14,7 @@
     ///     model:GameType x:Key="PokerGameType"PokerModel:GameType
     ///     ///
     /// </summary>
-    internal class EnumToBoolConverter : IValueConverter
+    public class EnumToBoolConverter : IValueConverter
     {
         /// <summary>
         ///     Converts the enumerable to a bool

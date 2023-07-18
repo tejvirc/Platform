@@ -54,7 +54,9 @@
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.UI.Common\Aristocrat.Monaco.UI.Common.csproj" />
     <ProjectReference Include="..\..\Application\Aristocrat.Monaco.Application.UI\Aristocrat.Monaco.Application.UI.csproj" />
     <ProjectReference Include="..\..\Shared\Aristocrat.Extensions.Fluxor\Aristocrat.Extensions.Fluxor.csproj" />
+    <ProjectReference Include="..\Aristocrat.Monaco.Gaming\Aristocrat.Monaco.Gaming.csproj" />
     <ProjectReference Include="..\Aristocrat.Monaco.Gaming.Contracts\Aristocrat.Monaco.Gaming.Contracts.csproj" />
+    <ProjectReference Include="..\Aristocrat.Monaco.Gaming.UI\Aristocrat.Monaco.Gaming.UI.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Page Update="Styles\Default.xaml">
@@ -63,5 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="Store\Audio\" />
+    <Folder Include="Store\Translate\" />
   </ItemGroup>
 </Project>

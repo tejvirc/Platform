@@ -11,7 +11,7 @@
     ///     Takes multiple parameters to determine if a bright border should
     ///     encircle the selected game
     /// </summary>
-    internal class CharacterToResourceImageConverter : IValueConverter
+    public class CharacterToResourceImageConverter : IValueConverter
     {
         private static readonly ResourceDictionary CommonDictionary = SkinLoader.Load("CommonUI.xaml");
         private readonly Image _blankImage = new Image();

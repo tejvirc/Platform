@@ -9,7 +9,7 @@
     /// <summary>
     ///     Converts a list of values to a Visibility enumeration based on the equality of the values.
     /// </summary>
-    internal class EqualityVisibilityConverter : IMultiValueConverter
+    public class EqualityVisibilityConverter : IMultiValueConverter
     {
         /// <summary>
         ///     Gets or sets the return value when all values are equal.

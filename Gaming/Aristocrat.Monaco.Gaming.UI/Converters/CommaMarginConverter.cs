@@ -8,7 +8,7 @@
     /// <summary>
     ///     If the character is a comma, shift it down a bit
     /// </summary>
-    internal class CommaMarginConverter : IValueConverter
+    public class CommaMarginConverter : IValueConverter
     {
         private const string CommaSymbol = ",";
 

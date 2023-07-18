@@ -13,7 +13,7 @@
     ///     Converts to true if DenomFilter == DenomA, where
     ///     sys:Int32 x:Key="DenomA" 1 sys:Int32
     /// </summary>
-    internal class IntToBoolConverter : IValueConverter
+    public class IntToBoolConverter : IValueConverter
     {
         /// <summary>
         ///     Converts an int value to a bool

@@ -71,6 +71,12 @@
 
         public SubTabInfoViewModel SelectedSubTab => SubTabs.FirstOrDefault(o => o.IsSelected);
 
+        public int? ZIndexes { get; set; }
+
+        public string TabResourceKeys { get; set; }
+
+        public string LabelResourceKeys { get; set; }
+
         private int SelectedTabIndex => _tabs.FirstOrDefault(o => o.Enabled)?.TabIndex ?? 0;
 
         /// <summary>

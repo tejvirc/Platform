@@ -5,15 +5,15 @@ using static Extensions.Fluxor.Selectors;
 
 public static class AttractSelectors
 {
-    public static readonly ISelector<AttractState, bool> IsAlternateTopImageActiveSelector = CreateSelector(
+    public static readonly ISelector<AttractState, bool> SelectIsAlternateTopImageActive = CreateSelector(
         (AttractState s) => s.IsAlternateTopImageActive);
 
-    public static readonly ISelector<AttractState, bool> IsAlternateTopperImageActiveSelector = CreateSelector(
+    public static readonly ISelector<AttractState, bool> SelectIsAlternateTopperImageActive = CreateSelector(
         (AttractState s) => s.IsAlternateTopperImageActive);
 
-    public static readonly ISelector<AttractState, int> AttractModeTopImageIndexSelector = CreateSelector(
+    public static readonly ISelector<AttractState, int> SelectAttractModeTopImageIndex = CreateSelector(
         (AttractState s) => s.AttractModeTopImageIndex);
 
-    public static readonly ISelector<AttractState, int> AttractModeTopperImageIndexSelector = CreateSelector(
+    public static readonly ISelector<AttractState, int> SelectAttractModeTopperImageIndex = CreateSelector(
         (AttractState s) => s.AttractModeTopperImageIndex);
 }

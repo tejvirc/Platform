@@ -24,13 +24,13 @@ public class LobbyTopperViewModel : ObservableObject
         _logger = logger;
         _selector = selector;
 
-        _subscriptions += selector.Select(IsAlternateTopImageActiveSelector).Subscribe(
+        _subscriptions += selector.Select(SelectIsAlternateTopImageActive).Subscribe(
             active =>
             {
                 TopperImageResourceKey = active ? TopperImageAlternateResourceKey : TopperImageDefaultResourceKey;
             });
 
-        _subscriptions += selector.Select(AttractModeTopperImageIndexSelector).Subscribe(
+        _subscriptions += selector.Select(SelectAttractModeTopperImageIndex).Subscribe(
             index =>
             {
                 _logger.LogDebug(

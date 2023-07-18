@@ -15,7 +15,14 @@ public static class ChooserReducers
         {
             Games = ImmutableList.CreateRange(payload.Games),
             UniqueThemesCount = themesCount,
-            IsSingleGame = themesCount <= 1 && state.AllowGameInCharge
+            IsSingleGame = themesCount <= 1 && state.AllowGameInCharge,
         };
     }
+
+    [ReducerMethod]
+    public static ChooserState Reduce(ChooserState state, UpdateTabViewAction payload) =>
+        state with
+        {
+            IsTabView = payload.IsTabView
+        };
 }

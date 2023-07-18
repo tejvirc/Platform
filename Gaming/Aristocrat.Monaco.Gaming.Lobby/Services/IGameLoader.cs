@@ -1,9 +1,10 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Services;
 
 using System.Collections.Generic;
-using Models;
+using System.Threading.Tasks;
+using UI.Models;
 
 public interface IGameLoader
 {
-    IEnumerable<GameInfo> LoadGames();
+    Task<IEnumerable<GameInfo>> LoadGames();
 }

@@ -6,7 +6,7 @@
     using System.Windows.Data;
     using System.Windows.Forms;
 
-    internal class DenomPanelHeightConverter : IMultiValueConverter
+    public class DenomPanelHeightConverter : IMultiValueConverter
     {
         private const double BaseScreenHeight = 1080;
 

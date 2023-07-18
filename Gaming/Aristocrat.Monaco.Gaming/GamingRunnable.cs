@@ -51,12 +51,12 @@
         /// <inheritdoc />
         protected override void OnInitialize()
         {
-            var dispatcher = Application.Current.Dispatcher;
+            //var dispatcher = Application.Current.Dispatcher;
 
-            dispatcher.BeginInvoke(
-                new Action(
-                    () =>
-                    {
+            //dispatcher.BeginInvoke(
+            //    new Action(
+            //        () =>
+            //        {
                         _container = Bootstrapper.InitializeContainer();
 
             _container.Options.AllowOverridingRegistrations = true;
@@ -67,7 +67,7 @@
 
                         // This will forcibly resolve all instances, which will create the Consumers
                         _container.Verify();
-                    })).Wait();
+                    //})).Wait();
 
             Logger.Info("Initialized");
         }

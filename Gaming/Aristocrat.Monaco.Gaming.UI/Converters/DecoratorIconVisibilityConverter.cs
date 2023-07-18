@@ -10,7 +10,7 @@
     ///     should be shown.  This is because we collapse an animated decorator icon if the game
     ///     icon is disabled and show a static decorator icon instead.
     /// </summary>
-    internal class DecoratorIconVisibilityConverter : IMultiValueConverter
+    public class DecoratorIconVisibilityConverter : IMultiValueConverter
     {
         /// <summary>
         ///     Gets or sets a value indicating whether to invert the value

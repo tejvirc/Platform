@@ -9,7 +9,7 @@
     ///     We need to determine in xaml whether a game is enabled.  A game is enabled
     ///     if it satisfies the set filters.
     /// </summary>
-    internal class ViewFiltersToBoolConverter : IMultiValueConverter
+    public class ViewFiltersToBoolConverter : IMultiValueConverter
     {
         /// <summary>
         ///     Convert from filters to bool

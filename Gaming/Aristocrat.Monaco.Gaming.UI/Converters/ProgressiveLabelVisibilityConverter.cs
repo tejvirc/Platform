@@ -8,7 +8,7 @@
     /// <summary>
     ///     Takes multiple parameters to determine if the progressive label is visible
     /// </summary>
-    internal class ProgressiveLabelVisibilityConverter : IMultiValueConverter
+    public class ProgressiveLabelVisibilityConverter : IMultiValueConverter
     {
         /// <summary>
         ///     Convert from bool to a visibility state
