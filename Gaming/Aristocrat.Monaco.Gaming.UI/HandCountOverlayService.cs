@@ -60,6 +60,12 @@
 
         public void Initialize()
         {
+            if (!_handCountService.HandCountServiceEnabled)
+            {
+                Logger.Debug("Hand count service is disabled.");
+                return;
+            }
+
             MvvmHelper.ExecuteOnUI(
                 () =>
                 {
