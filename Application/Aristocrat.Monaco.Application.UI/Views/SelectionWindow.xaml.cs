@@ -8,7 +8,6 @@ namespace Aristocrat.Monaco.Application.UI.Views
     using Kernel;
     using Kernel.Contracts;
     using Monaco.UI.Common;
-    using MVVM;
 
     /// <summary>
     ///     Interaction logic for SelectionWindow.xaml

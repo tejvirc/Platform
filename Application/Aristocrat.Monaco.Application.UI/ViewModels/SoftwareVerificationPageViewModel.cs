@@ -1,10 +1,8 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using Contracts.Authentication;
     using Kernel;
     using Kernel.Contracts.Components;
-    using MVVM;
-    using MVVM.Command;
     using OperatorMenu;
     using System;
     using System.Collections;

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -13,8 +13,6 @@
     using Kernel;
     using Localization.Properties;
     using Models;
-    using MVVM;
-    using MVVM.ViewModel;
     using Progressives;
 
     public class ProgressiveLobbyIndicatorViewModel : BaseEntityViewModel, IDisposable

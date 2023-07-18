@@ -3,7 +3,6 @@ namespace Aristocrat.Monaco.Demonstration.UI.ViewModels
     using Application.Contracts.OperatorMenu;
     using Application.UI.OperatorMenu;
     using Kernel;
-    using MVVM.Command;
     using System.Windows.Input;
     using Application.Contracts.Localization;
     using Localization.Properties;

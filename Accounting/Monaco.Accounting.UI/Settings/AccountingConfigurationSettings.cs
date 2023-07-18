@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Accounting.UI.Settings
+namespace Aristocrat.Monaco.Accounting.UI.Settings
 {
     using System;
     using System.Threading.Tasks;
@@ -7,7 +7,6 @@
     using Contracts;
     using Contracts.Handpay;
     using Kernel;
-    using MVVM;
 
     /// <summary>
     ///     Implements <see cref="IConfigurationSettings"/> for Accounting settings.

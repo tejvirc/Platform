@@ -1,9 +1,8 @@
-﻿namespace Aristocrat.Monaco.Hhr.UI.Models
+namespace Aristocrat.Monaco.Hhr.UI.Models
 {
     using System;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
-    using MVVM.ViewModel;
 
     public class VenueRaceTracksModel : BaseViewModel
     {

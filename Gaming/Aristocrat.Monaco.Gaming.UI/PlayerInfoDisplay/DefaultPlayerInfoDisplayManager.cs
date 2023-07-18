@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.PlayerInfoDisplay
+namespace Aristocrat.Monaco.Gaming.UI.PlayerInfoDisplay
 {
     using System;
     using System.Collections.Concurrent;
@@ -12,7 +12,6 @@
     using Contracts.PlayerInfoDisplay;
     using Kernel;
     using log4net;
-    using MVVM;
     using Runtime;
     using Runtime.Client;
 

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Hhr.UI.ViewModels
+namespace Aristocrat.Monaco.Hhr.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -11,7 +11,6 @@
     using Kernel;
     using Menu;
     using Models;
-    using MVVM.Command;
     using Command = Menu.Command;
 
     public class RaceStatsPageViewModel : HhrMenuPageViewModelBase

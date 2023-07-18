@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using System;
     using System.Globalization;
@@ -12,8 +12,6 @@
     using Contracts;
     using Kernel;
     using log4net;
-    using MVVM.Command;
-    using MVVM.ViewModel;
     using Aristocrat.Monaco.Hardware.Contracts.Audio;
 
     /// <summary>

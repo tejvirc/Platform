@@ -1,11 +1,10 @@
-﻿namespace Aristocrat.Monaco.Application.UI.MeterPage
+namespace Aristocrat.Monaco.Application.UI.MeterPage
 {
     using System;
     using Contracts;
     using Contracts.Extensions;
     using Contracts.Localization;
     using Monaco.Localization.Properties;
-    using MVVM.ViewModel;
 
     /// <summary>
     ///     This is the display version of an <see cref="IMeter"/>. 

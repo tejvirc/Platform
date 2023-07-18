@@ -1,9 +1,8 @@
-﻿namespace Aristocrat.Monaco.Application.UI.Models
+namespace Aristocrat.Monaco.Application.UI.Models
 {
     using System;
     using Contracts.Localization;
     using Monaco.Localization.Properties;
-    using MVVM.ViewModel;
 
     /// <summary>
     ///     This is used to display the display status as connected or disconnected./>. 

@@ -1,10 +1,8 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
+namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
 {
     using System;
     using System.Globalization;
     using Contracts.Extensions;
-    using MVVM.Command;
-    using MVVM.ViewModel;
 
     [CLSCompliant(false)]
     public class ConfigurableDenomination : BaseViewModel

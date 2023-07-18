@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.G2S.UI.ViewModels
+namespace Aristocrat.Monaco.G2S.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -24,8 +24,6 @@
     using log4net;
     using Models;
     using Monaco.UI.Common;
-    using MVVM;
-    using MVVM.Command;
     using Security;
 
     /// <summary>

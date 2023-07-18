@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
+namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
 {
     using System;
     using System.Collections.ObjectModel;
@@ -12,7 +12,6 @@
     using Hardware.Contracts.SharedDevice;
     using Kernel;
     using Monaco.Localization.Properties;
-    using MVVM;
     using OperatorMenu;
 #if !RETAIL
     using Vgt.Client12.Testing.Tools;

@@ -1,8 +1,7 @@
-﻿namespace Aristocrat.Monaco.Application.UI.StatusDisplay
+namespace Aristocrat.Monaco.Application.UI.StatusDisplay
 {
     using System;
     using System.Collections.ObjectModel;
-    using MVVM.ViewModel;
 
     [CLSCompliant(false)]
     public class DisplayBoxViewModel : BaseViewModel

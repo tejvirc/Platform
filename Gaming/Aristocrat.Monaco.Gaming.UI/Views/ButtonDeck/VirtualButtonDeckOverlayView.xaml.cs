@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Views.ButtonDeck
+namespace Aristocrat.Monaco.Gaming.UI.Views.ButtonDeck
 {
     using System;
     using System.Windows;
@@ -8,7 +8,6 @@
     using Hardware.Contracts.Cabinet;
     using Kernel;
     using MahApps.Metro.Controls;
-    using MVVM;
     using ViewModels;
 
     /// <summary>

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.G2S.UI.ViewModels
+namespace Aristocrat.Monaco.G2S.UI.ViewModels
 {
     using System;
     using System.Linq;
@@ -10,7 +10,6 @@
     using Aristocrat.G2S.Client.Communications;
     using Kernel;
     using Localization.Properties;
-    using MVVM;
     using Constants = Constants;
 
     /// <summary>

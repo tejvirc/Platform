@@ -1,10 +1,9 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using Contracts.ConfigWizard;
     using Hardware.Contracts.KeySwitch;
     using Kernel;
-    using MVVM.ViewModel;
 
     [CLSCompliant(false)]
     public class KeyViewModel : BaseViewModel

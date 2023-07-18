@@ -1,7 +1,6 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Models
+namespace Aristocrat.Monaco.Gaming.UI.Models
 {
     using Contracts.Models;
-    using MVVM.ViewModel;
     using System.Collections.Generic;
 
     public class HoldPercentage : BaseViewModel

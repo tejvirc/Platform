@@ -1,6 +1,5 @@
-﻿namespace Aristocrat.Monaco.Hhr.UI.Menu
+namespace Aristocrat.Monaco.Hhr.UI.Menu
 {
-    using MVVM.ViewModel;
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;

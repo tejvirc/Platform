@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using System;
     using System.Reflection;
@@ -12,8 +12,6 @@
     using Contracts.Events;
     using Kernel;
     using log4net;
-    using MVVM.Command;
-    using MVVM.ViewModel;
 
     /// <summary>
     ///     Configurable states for the player menu popup display

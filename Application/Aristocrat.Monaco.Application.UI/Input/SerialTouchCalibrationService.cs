@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.Input
+namespace Aristocrat.Monaco.Application.UI.Input
 {
     using System;
     using System.Collections.Generic;
@@ -13,7 +13,6 @@
     using Kernel;
     using Kernel.Contracts;
     using log4net;
-    using MVVM;
 
     public class SerialTouchCalibrationService : ISerialTouchCalibration, IService, IDisposable
     {

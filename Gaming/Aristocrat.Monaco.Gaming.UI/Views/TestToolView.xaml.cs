@@ -1,8 +1,7 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Views
+namespace Aristocrat.Monaco.Gaming.UI.Views
 {
     using Contracts;
     using Kernel;
-    using MVVM;
     using ViewModels;
 
     /// <summary>

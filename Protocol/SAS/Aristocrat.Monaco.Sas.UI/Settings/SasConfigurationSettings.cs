@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Sas.UI.Settings
+namespace Aristocrat.Monaco.Sas.UI.Settings
 {
     using System;
     using System.Collections.ObjectModel;
@@ -9,7 +9,6 @@
     using Application.Contracts.Settings;
     using Contracts.SASProperties;
     using Kernel;
-    using MVVM;
     using Storage.Models;
     using Gaming.Contracts;
 

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Settings
+namespace Aristocrat.Monaco.Gaming.UI.Settings
 {
     using System;
     using System.Collections.ObjectModel;
@@ -10,7 +10,6 @@
     using Contracts;
     using Hardware.Contracts.Audio;
     using Kernel;
-    using MVVM;
 
     /// <summary>
     ///     Gaming configuration settings provider.

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using System;
     using System.Collections.Generic;
@@ -9,7 +9,6 @@
     using Models;
     using Contracts.Barkeeper;
     using Kernel;
-    using MVVM.Command;
     using Aristocrat.Monaco.Gaming.Contracts;
 
     public class BarkeeperConfigurationViewModel : OperatorMenuPageViewModelBase

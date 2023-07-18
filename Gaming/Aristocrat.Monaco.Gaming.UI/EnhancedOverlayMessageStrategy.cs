@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI
+namespace Aristocrat.Monaco.Gaming.UI
 {
     using System;
     using System.Linq;
@@ -14,7 +14,6 @@
     using Kernel;
     using Localization.Properties;
     using log4net;
-    using MVVM.Command;
     using Utils;
 
     public class EnhancedOverlayMessageStrategy : IOverlayMessageStrategy

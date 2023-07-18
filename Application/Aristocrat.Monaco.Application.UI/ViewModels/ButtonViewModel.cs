@@ -1,11 +1,10 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using Contracts.ConfigWizard;
     using Contracts.Localization;
     using Hardware.Contracts.Button;
     using Kernel;
-    using MVVM.ViewModel;
 
     [CLSCompliant(false)]
     public class ButtonViewModel : BaseViewModel

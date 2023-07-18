@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.OperatorMenu
+namespace Aristocrat.Monaco.Application.UI.OperatorMenu
 {
     using System;
     using System.Collections.Generic;
@@ -13,7 +13,6 @@
     using Kernel;
     using MeterPage;
     using Monaco.UI.Common.Extensions;
-    using MVVM;
 
     /// <summary>
     ///     A MetersPageViewModelBase contains the base logic for meters page view models

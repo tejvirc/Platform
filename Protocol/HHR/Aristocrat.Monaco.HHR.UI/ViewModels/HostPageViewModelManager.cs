@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Hhr.UI.ViewModels
+namespace Aristocrat.Monaco.Hhr.UI.ViewModels
 {
     using System;
     using System.Collections.Concurrent;
@@ -10,10 +10,8 @@
     using Kernel;
     using log4net;
     using Menu;
-    using MVVM.ViewModel;
     using Services;
     using Views;
-    using MVVM;
     using System.Windows;
 
     public class HostPageViewModelManager : BaseEntityViewModel, IMenuAccessService, IDisposable

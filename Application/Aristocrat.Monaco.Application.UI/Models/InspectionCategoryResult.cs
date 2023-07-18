@@ -1,9 +1,8 @@
-﻿namespace Aristocrat.Monaco.Application.UI.Models
+namespace Aristocrat.Monaco.Application.UI.Models
 {
     using System;
     using Contracts.ConfigWizard;
     using Contracts.HardwareDiagnostics;
-    using MVVM.ViewModel;
 
     [CLSCompliant(false)]
     public class InspectionCategoryResult : BaseEntityViewModel

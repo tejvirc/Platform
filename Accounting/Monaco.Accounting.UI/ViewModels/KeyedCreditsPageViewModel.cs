@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Accounting.UI.ViewModels
+namespace Aristocrat.Monaco.Accounting.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -13,7 +13,6 @@
     using Hardware.Contracts.Persistence;
     using Kernel;
     using Localization.Properties;
-    using MVVM.Command;
     using CommunityToolkit.Mvvm.ComponentModel;
 
     [CLSCompliant(false)]

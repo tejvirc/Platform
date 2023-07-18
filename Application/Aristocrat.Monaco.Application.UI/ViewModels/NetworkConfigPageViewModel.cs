@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Threading.Tasks;
@@ -8,7 +8,6 @@
     using Kernel;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common;
-    using MVVM;
 
     /// <summary>
     ///     View model for network configuration

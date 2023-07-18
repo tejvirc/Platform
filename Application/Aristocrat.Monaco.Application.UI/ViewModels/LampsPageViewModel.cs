@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -21,8 +21,6 @@
     using LampTest;
     using Models;
     using Monaco.Localization.Properties;
-    using MVVM;
-    using MVVM.Command;
     using Timer = System.Timers.Timer;
 
     [CLSCompliant(false)]

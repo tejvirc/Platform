@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Views.Lobby
+namespace Aristocrat.Monaco.Gaming.UI.Views.Lobby
 {
     using System;
     using System.Collections.Generic;
@@ -30,7 +30,6 @@
     using ManagedBink;
     using MediaDisplay;
     using Monaco.UI.Common;
-    using MVVM;
     using Overlay;
     using Utils;
     using ViewModels;

@@ -1,11 +1,10 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.ButtonDeck
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.ButtonDeck
 {
     using Contracts;
     using Hardware.Contracts.Button;
     using Hardware.Contracts.ButtonDeck;
     using Kernel;
     using Monaco.UI.Common;
-    using MVVM.ViewModel;
     using System;
     using System.Collections.Generic;
     using System.Windows;

@@ -11,7 +11,6 @@ namespace Aristocrat.Monaco.Sas.UI.ViewModels
     using Base;
     using Contracts.Client;
     using Localization.Properties;
-    using MVVM.Command;
 
     /// <summary>
     ///     ViewModel for Sas diagnostics

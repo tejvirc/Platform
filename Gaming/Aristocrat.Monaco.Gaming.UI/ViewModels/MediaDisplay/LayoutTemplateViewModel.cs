@@ -1,9 +1,8 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using Application.Contracts.Media;
     using MediaDisplay;
     using Kernel;
-    using MVVM.ViewModel;
     using System;
     using System.Collections.ObjectModel;
     using System.Linq;

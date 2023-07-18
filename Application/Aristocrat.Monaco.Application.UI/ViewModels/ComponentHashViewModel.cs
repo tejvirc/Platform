@@ -1,7 +1,6 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
-    using MVVM.ViewModel;
 
     [CLSCompliant(false)]
     public class ComponentHashViewModel : BaseEntityViewModel

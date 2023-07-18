@@ -1,8 +1,7 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using Application.UI.OperatorMenu;
     using Contracts;
-    using MVVM.Command;
 
     /// <summary>
     ///     Defines the <see cref="IdleTextViewModel" /> class

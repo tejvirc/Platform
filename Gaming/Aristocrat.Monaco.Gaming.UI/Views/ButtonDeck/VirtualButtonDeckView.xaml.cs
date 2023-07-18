@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Views.ButtonDeck
+namespace Aristocrat.Monaco.Gaming.UI.Views.ButtonDeck
 {
     using System;
     using System.Drawing;
@@ -14,7 +14,6 @@
     using log4net;
     using ManagedBink;
     using Monaco.UI.Common;
-    using MVVM;
     using ViewModels;
     using Cursors = System.Windows.Input.Cursors;
 

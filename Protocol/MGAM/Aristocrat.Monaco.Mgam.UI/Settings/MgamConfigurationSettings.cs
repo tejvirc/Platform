@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Mgam.UI.Settings
+namespace Aristocrat.Monaco.Mgam.UI.Settings
 {
     using System;
     using System.Linq;
@@ -9,7 +9,6 @@
     using Application.Contracts.Settings;
     using Common;
     using Kernel;
-    using MVVM;
 
     /// <summary>
     ///     Manages the import and export of settings.

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Hhr.UI.ViewModels
+namespace Aristocrat.Monaco.Hhr.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -21,7 +21,6 @@
     using Localization.Properties;
     using Menu;
     using Models;
-    using MVVM.Command;
     using Storage.Helpers;
     using Command = Menu.Command;
 

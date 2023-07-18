@@ -1,7 +1,5 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
-    using MVVM.Command;
-    using MVVM.ViewModel;
     using System;
     using System.Collections.Generic;
     using System.Reflection;

@@ -22,8 +22,6 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
     using Localization.Properties;
     using Models;
     using Monaco.Common;
-    using MVVM;
-    using MVVM.Command;
     using Newtonsoft.Json;
     using Views;
     using Constants = Constants;

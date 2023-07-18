@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Models
+namespace Aristocrat.Monaco.Gaming.UI.Models
 {
     using System;
     using System.Collections.Generic;
@@ -10,7 +10,6 @@
     using Contracts.Progressives.SharedSap;
     using Localization.Properties;
     using Monaco.UI.Common.Extensions;
-    using MVVM.ViewModel;
 
     /// <summary>
     ///     Level model class

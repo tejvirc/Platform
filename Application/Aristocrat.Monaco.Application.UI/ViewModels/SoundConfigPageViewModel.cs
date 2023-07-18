@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Linq;
@@ -13,8 +13,6 @@
     using Kernel;
     using Monaco.Kernel.Contracts;
     using Monaco.Localization.Properties;
-    using MVVM;
-    using MVVM.Command;
 
     [CLSCompliant(false)]
     public class SoundConfigPageViewModel : InspectionWizardViewModelBase

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -16,7 +16,6 @@
     using log4net;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common.Extensions;
-    using MVVM.ViewModel;
     using DeviceConfiguration = Models.DeviceConfiguration;
 
     [CLSCompliant(false)]

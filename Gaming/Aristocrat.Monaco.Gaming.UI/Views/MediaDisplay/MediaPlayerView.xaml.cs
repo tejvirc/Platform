@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay
+namespace Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay
 {
     using System.Windows.Input;
     using Application.Contracts.Media;
@@ -7,7 +7,6 @@
     using Handlers;
     using Kernel;
     using Monaco.UI.Common.CefHandlers;
-    using MVVM;
     using ViewModels;
 
     /// <summary>

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.Input
+namespace Aristocrat.Monaco.Application.UI.Input
 {
     using System;
     using System.Collections.Generic;
@@ -15,7 +15,6 @@
     using log4net;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common;
-    using MVVM;
 
     public sealed class TouchCalibrationService : ITouchCalibration, IService
     {

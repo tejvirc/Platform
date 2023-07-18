@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using System.Collections.ObjectModel;
     using System.Linq;
@@ -13,8 +13,6 @@
     using Kernel;
     using Localization.Properties;
     using Monaco.UI.Common.Extensions;
-    using MVVM;
-    using MVVM.Command;
     using Vgt.Client12.Application.OperatorMenu;
 
     public class GamePerformanceMetersViewModel : GameMetersViewModel, IModalDialogSaveViewModel

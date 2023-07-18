@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using Contracts.Input;
@@ -6,7 +6,6 @@
     using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.Touch;
     using Kernel;
-    using MVVM;
     using OperatorMenu;
 
     [CLSCompliant(false)]

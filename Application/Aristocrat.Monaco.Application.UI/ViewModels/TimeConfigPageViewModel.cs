@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -13,8 +13,6 @@
     using Kernel;
     using Kernel.Contracts;
     using Monaco.Common;
-    using MVVM;
-    using MVVM.Command;
 
     /// <summary>
     ///     The view model for time and time zone configuration

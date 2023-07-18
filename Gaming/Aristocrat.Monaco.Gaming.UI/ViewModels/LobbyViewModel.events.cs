@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using System;
     using System.Linq;
@@ -30,7 +30,6 @@
     using Kernel;
     using Localization.Properties;
     using Monaco.UI.Common.Models;
-    using MVVM;
     using Utils;
     using PayMethod = Contracts.Bonus.PayMethod;
 #if !(RETAIL)

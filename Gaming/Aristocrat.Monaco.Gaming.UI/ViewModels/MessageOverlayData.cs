@@ -1,11 +1,10 @@
-﻿using System.Text;
+using System.Text;
 
 namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using System;
     using System.Windows.Input;
     using Contracts;
-    using MVVM.ViewModel;
 
     /// <summary>
     /// Class to store data for the Message Overlay

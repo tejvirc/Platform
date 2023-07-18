@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.ObjectModel;
@@ -13,8 +13,6 @@
     using Kernel;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common;
-    using MVVM;
-    using MVVM.Command;
     using OperatorMenu;
 
     /// <summary>

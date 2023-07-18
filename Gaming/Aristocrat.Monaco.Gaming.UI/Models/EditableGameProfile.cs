@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Models
+namespace Aristocrat.Monaco.Gaming.UI.Models
 {
     using System;
     using System.Collections.Generic;
@@ -9,7 +9,6 @@
     using Contracts.Configuration;
     using Localization.Properties;
     using Monaco.UI.Common.Extensions;
-    using MVVM.ViewModel;
 
     public class EditableGameProfile : BaseEntityViewModel, IDisposable
     {

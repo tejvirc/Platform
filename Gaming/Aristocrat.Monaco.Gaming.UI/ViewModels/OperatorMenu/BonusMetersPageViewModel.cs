@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using System;
     using System.Collections.ObjectModel;
@@ -12,7 +12,6 @@
     using Contracts.Bonus;
     using Kernel;
     using Localization.Properties;
-    using MVVM;
 
     [CLSCompliant(false)]
     public class BonusMetersPageViewModel : MetersPageViewModelBase

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -19,8 +19,6 @@
     using Kernel.Contracts;
     using OperatorMenu;
     using Monaco.Localization.Properties;
-    using MVVM;
-    using MVVM.Command;
 
     [CLSCompliant(false)]
     public class InspectionPageViewModel : InspectionWizardViewModelBase, IConfigWizardNavigator, IInspectionWizard, IService

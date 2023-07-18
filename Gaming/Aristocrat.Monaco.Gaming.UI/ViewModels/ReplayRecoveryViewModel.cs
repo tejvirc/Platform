@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -18,8 +18,6 @@
     using Hardware.Contracts.Button;
     using Kernel;
     using Localization.Properties;
-    using MVVM.Command;
-    using MVVM.ViewModel;
 
     /// <summary>
     ///     Helper class to handle replay/recovering screen of the lobby ViewModel.

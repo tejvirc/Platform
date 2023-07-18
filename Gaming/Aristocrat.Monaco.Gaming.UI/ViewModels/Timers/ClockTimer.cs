@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.Timers
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.Timers
 {
     using System;
     using System.Globalization;
@@ -12,7 +12,6 @@
     using log4net;
     using Monaco.UI.Common;
     using Monaco.UI.Common.Models;
-    using MVVM.ViewModel;
 
     public class ClockTimer : BaseViewModel
     {

@@ -21,9 +21,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Models;
     using Monaco.UI.Common;
     using Monaco.UI.Common.Extensions;
-    using MVVM;
-    using MVVM.Command;
-    using MVVM.ViewModel;
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;

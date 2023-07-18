@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using System;
     using System.Collections.Generic;
@@ -16,8 +16,6 @@
     using Hardware.Contracts.Ticket;
     using Kernel;
     using Monaco.UI.Common.Extensions;
-    using MVVM;
-    using MVVM.Command;
 
     [CLSCompliant(false)]
     public class DenomMetersPageViewModel : MetersPageViewModelBase

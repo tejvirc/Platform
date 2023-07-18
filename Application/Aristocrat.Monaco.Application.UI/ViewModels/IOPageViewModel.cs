@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -23,7 +23,6 @@
     using Kernel;
     using Models;
     using Monaco.Localization.Properties;
-    using MVVM;
     using OperatorMenu;
     using DisabledEvent = Hardware.Contracts.IO.DisabledEvent;
     using EnabledEvent = Hardware.Contracts.IO.EnabledEvent;

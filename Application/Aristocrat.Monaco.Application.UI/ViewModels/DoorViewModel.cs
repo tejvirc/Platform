@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using Contracts;
@@ -7,7 +7,6 @@
     using Hardware.Contracts.Door;
     using Kernel;
     using Monaco.Localization.Properties;
-    using MVVM.ViewModel;
 
     [CLSCompliant(false)]
     public class DoorViewModel : BaseViewModel

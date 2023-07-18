@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Windows.Input;
@@ -7,7 +7,6 @@
     using Hardware.Contracts.Persistence;
     using Kernel;
     using Monaco.Localization.Properties;
-    using MVVM.Command;
     using OperatorMenu;
     using Vgt.Client12.Application.OperatorMenu;
 

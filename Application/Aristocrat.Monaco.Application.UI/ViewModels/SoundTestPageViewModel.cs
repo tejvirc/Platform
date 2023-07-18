@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -19,8 +19,6 @@
     using log4net;
     using Monaco.UI.Common;
     using Monaco.UI.Common.Extensions;
-    using MVVM;
-    using MVVM.Command;
 
     [CLSCompliant(false)]
     public class SoundTestPageViewModel : INotifyPropertyChanged

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.ObjectModel;
@@ -10,8 +10,6 @@
     using Hardware.Contracts.IO;
     using Hardware.Contracts.KeySwitch;
     using Kernel;
-    using MVVM;
-    using MVVM.ViewModel;
 
     [CLSCompliant(false)]
     public class KeyPageViewModel : InspectionWizardViewModelBase

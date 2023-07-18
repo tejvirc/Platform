@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -9,8 +9,6 @@
     using Kernel;
     using Kernel.Contracts;
     using Localization;
-    using MVVM;
-    using MVVM.Command;
     using Vgt.Client12.Application.OperatorMenu;
 
     [CLSCompliant(false)]

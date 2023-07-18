@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -11,8 +11,6 @@
     using Hardware.Contracts.Audio;
     using Kernel;
     using log4net;
-    using MVVM.Command;
-    using MVVM.ViewModel;
 
     public class LobbyVolumeViewModel : BaseEntityViewModel
     {

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.OperatorMenu
+namespace Aristocrat.Monaco.Application.UI.OperatorMenu
 {
     using System;
     using System.Collections.Generic;
@@ -31,9 +31,6 @@
     using Monaco.UI.Common;
     using Monaco.UI.Common.Events;
     using Monaco.UI.Common.Models;
-    using MVVM;
-    using MVVM.Command;
-    using MVVM.ViewModel;
 
     public enum OperatorMenuPrintData
     {

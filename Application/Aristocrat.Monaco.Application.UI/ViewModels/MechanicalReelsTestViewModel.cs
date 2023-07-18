@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -19,7 +19,6 @@
     using log4net;
     using Models;
     using Monaco.Localization.Properties;
-    using MVVM.Command;
     using Simulation.HarkeyReels;
 
     [CLSCompliant(false)]

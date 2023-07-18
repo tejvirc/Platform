@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Accounting.UI.ViewModels
+namespace Aristocrat.Monaco.Accounting.UI.ViewModels
 {
     using System;
     using System.Collections.ObjectModel;
@@ -13,7 +13,6 @@
     using Kernel.Contracts;
     using Localization.Properties;
     using Models;
-    using MVVM;
 
     [CLSCompliant(false)]
     public class VoucherSettingsPageViewModel : OperatorMenuPageViewModelBase

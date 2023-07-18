@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Bingo.UI.ViewModels.OperatorMenu
+namespace Aristocrat.Monaco.Bingo.UI.ViewModels.OperatorMenu
 {
     using System;
     using System.Collections.Generic;
@@ -14,7 +14,6 @@
     using Gaming.Contracts;
     using Localization.Properties;
     using Models;
-    using MVVM.Command;
 
     /// <summary>
     ///     Provides a means of viewing bingo round details.

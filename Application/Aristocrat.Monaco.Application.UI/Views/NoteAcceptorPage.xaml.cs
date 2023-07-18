@@ -1,9 +1,8 @@
-﻿namespace Aristocrat.Monaco.Application.UI.Views
+namespace Aristocrat.Monaco.Application.UI.Views
 {
     using System;
     using System.ComponentModel;
     using System.Windows;
-    using MVVM;
     using ViewModels.NoteAcceptor;
 
     public sealed partial class NoteAcceptorPage

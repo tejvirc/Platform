@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Hhr.UI.Controls
+namespace Aristocrat.Monaco.Hhr.UI.Controls
 {
     using System;
     using System.Collections.Generic;
@@ -8,7 +8,6 @@
     using System.Windows.Media;
     using System.Windows.Media.Animation;
     using System.Windows.Media.Imaging;
-    using MVVM;
     using WpfAnimatedGif;
 
     /// <summary>

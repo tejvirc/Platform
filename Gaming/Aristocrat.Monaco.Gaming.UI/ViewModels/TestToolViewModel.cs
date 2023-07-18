@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -27,9 +27,6 @@
     using Hardware.Contracts.TowerLight;
     using Kernel;
     using Monaco.UI.Common.Controls;
-    using MVVM;
-    using MVVM.Command;
-    using MVVM.ViewModel;
     using DisabledEvent = Hardware.Contracts.NoteAcceptor.DisabledEvent;
     using EnabledEvent = Hardware.Contracts.NoteAcceptor.EnabledEvent;
 #if !(RETAIL)

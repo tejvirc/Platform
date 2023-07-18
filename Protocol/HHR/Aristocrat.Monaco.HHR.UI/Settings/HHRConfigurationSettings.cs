@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Hhr.UI.Settings
+namespace Aristocrat.Monaco.Hhr.UI.Settings
 {
     using System;
     using System.Linq;
@@ -9,7 +9,6 @@
     using Application.Contracts.Settings;
     using Client.Messages;
     using Kernel;
-    using MVVM;
 
     public class HHRConfigurationSettings : IConfigurationSettings
     {

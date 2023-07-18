@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using Application.UI.OperatorMenu;
     using Aristocrat.Monaco.Application.Contracts.Extensions;
@@ -7,7 +7,6 @@
     using Aristocrat.Monaco.Gaming.Contracts.Models;
     using Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu;
     using Kernel;
-    using MVVM.Command;
     using System;
     using System.Collections.ObjectModel;
     using System.Diagnostics.CodeAnalysis;

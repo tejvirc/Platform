@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.EdgeLight
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.EdgeLight
 {
     using System;
     using System.Collections.Generic;
@@ -10,7 +10,6 @@
     using Hardware.EdgeLight.Strips;
     using Kernel;
     using CommunityToolkit.Mvvm.ComponentModel;
-    using MVVM.ViewModel;
 
     public class EdgeLightSimulatorViewModel : BaseEntityViewModel
     {

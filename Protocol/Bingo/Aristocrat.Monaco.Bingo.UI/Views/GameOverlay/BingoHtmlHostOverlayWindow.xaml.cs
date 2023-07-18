@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Bingo.UI.Views.GameOverlay
+namespace Aristocrat.Monaco.Bingo.UI.Views.GameOverlay
 {
     using System;
     using System.ComponentModel;
@@ -6,7 +6,6 @@
     using CefSharp;
     using Models;
     using Monaco.UI.Common.CefHandlers;
-    using MVVM;
     using ViewModels.GameOverlay;
 #if DEBUG
     using System.Windows.Input;

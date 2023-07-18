@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -10,7 +10,6 @@
     using Contracts;
     using Contracts.Meters;
     using Kernel;
-    using MVVM;
 
     public class GameStatisticsViewModel : OperatorMenuDiagnosticPageViewModelBase
     {

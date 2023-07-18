@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Mgam.UI.ViewModels
+namespace Aristocrat.Monaco.Mgam.UI.ViewModels
 {
     using System;
     using System.Collections.ObjectModel;
@@ -8,8 +8,6 @@
     using Aristocrat.Mgam.Client.Routing;
     using Common;
     using Kernel;
-    using MVVM;
-    using MVVM.Command;
     using Services.Communications;
 
     /// <summary>

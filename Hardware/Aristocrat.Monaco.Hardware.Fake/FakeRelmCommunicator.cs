@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Hardware.Fake
+namespace Aristocrat.Monaco.Hardware.Fake
 {
     using System;
     using System.Collections.Generic;
@@ -16,7 +16,6 @@
     using GopherReels.Controls;
     using Kernel;
     using log4net;
-    using MVVM;
     using MonacoReelStatus = Contracts.Reel.ReelStatus;
     using MonacoLightStatus = Contracts.Reel.LightStatus;
 

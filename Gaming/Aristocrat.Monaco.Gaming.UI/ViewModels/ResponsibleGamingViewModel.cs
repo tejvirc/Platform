@@ -1,11 +1,9 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using System;
     using System.Collections.ObjectModel;
-    using MVVM.ViewModel;
     using System.Windows.Input;
     using Models;
-    using MVVM.Command;
 
     /// <summary>
     ///     Helper class to handle responsible gaming parts of the lobby ViewModel.

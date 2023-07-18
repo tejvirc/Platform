@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
+namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
 {
     using System.Threading.Tasks;
     using System.Windows.Input;
@@ -9,8 +9,6 @@
     using Hardware.Contracts.SharedDevice;
     using Monaco.Localization.Properties;
     using Kernel;
-    using MVVM;
-    using MVVM.Command;
     using Views;
 
     public partial class NoteAcceptorViewModel

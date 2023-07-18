@@ -14,7 +14,6 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using Kernel;
     using Models;
     using Monaco.UI.Common.Extensions;
-    using MVVM;
 
     [CLSCompliant(false)]
     public class ButtonPageViewModel : InspectionWizardViewModelBase

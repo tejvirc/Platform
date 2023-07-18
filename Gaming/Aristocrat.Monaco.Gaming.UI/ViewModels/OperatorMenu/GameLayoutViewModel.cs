@@ -1,9 +1,8 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using Application.UI.OperatorMenu;
     using Contracts;
     using Kernel;
-    using MVVM.Command;
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Windows.Input;

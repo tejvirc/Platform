@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -10,7 +10,6 @@
     using Contracts.Models;
     using Models;
     using Monaco.UI.Common.Extensions;
-    using MVVM.ViewModel;
 
     /// <summary>
     ///     The View Model used for binding lobby game tabs

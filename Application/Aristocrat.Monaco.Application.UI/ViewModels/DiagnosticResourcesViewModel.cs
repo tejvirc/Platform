@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -19,9 +19,6 @@
     using LiveCharts.Wpf;
     using Monaco.Common;
     using Monaco.Localization.Properties;
-    using MVVM;
-    using MVVM.Command;
-    using MVVM.ViewModel;
     using OperatorMenu;
     using PerformanceCounter;
     using Views;

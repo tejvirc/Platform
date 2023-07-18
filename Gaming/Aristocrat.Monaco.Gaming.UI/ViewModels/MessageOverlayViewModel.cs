@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using System;
     using System.Collections.Concurrent;
@@ -23,8 +23,6 @@
     using Kernel;
     using Localization.Properties;
     using log4net;
-    using MVVM;
-    using MVVM.ViewModel;
     using Utils;
 
     public class MessageOverlayViewModel : BaseEntityViewModel

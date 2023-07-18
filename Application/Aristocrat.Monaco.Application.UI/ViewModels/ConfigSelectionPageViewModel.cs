@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -25,8 +25,6 @@
     using Kernel.Contracts;
     using Monaco.Localization.Properties;
     using Mono.Addins;
-    using MVVM;
-    using MVVM.Command;
     using OperatorMenu;
     using Views;
 

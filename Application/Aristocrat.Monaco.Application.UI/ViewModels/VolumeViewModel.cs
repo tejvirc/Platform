@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.ObjectModel;
@@ -11,8 +11,6 @@
     using Kernel.Contracts;
     using log4net;
     using Models;
-    using MVVM;
-    using MVVM.ViewModel;
 
     [CLSCompliant(false)]
     public class VolumeViewModel : BaseViewModel

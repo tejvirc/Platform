@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Inspection
+namespace Aristocrat.Monaco.Inspection
 {
     using System;
     using System.Collections.Generic;
@@ -21,7 +21,6 @@
     using Kernel;
     using Kernel.Contracts;
     using log4net;
-    using MVVM;
     using Test.Automation;
     using Timer = System.Timers.Timer;
 

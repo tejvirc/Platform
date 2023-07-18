@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -11,8 +11,6 @@
     using Contracts.InfoBar;
     using log4net;
     using Kernel;
-    using MVVM;
-    using MVVM.ViewModel;
 
     public class InfoBarViewModel : BaseViewModel, IDisposable
     {

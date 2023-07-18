@@ -1,12 +1,10 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using System;
     using System.Windows.Input;
     using Accounting.Contracts.HandCount;
     using Contracts;
     using Kernel;
-    using MVVM.Command;
-    using MVVM.ViewModel;
     using Runtime;
     using Runtime.Client;
 

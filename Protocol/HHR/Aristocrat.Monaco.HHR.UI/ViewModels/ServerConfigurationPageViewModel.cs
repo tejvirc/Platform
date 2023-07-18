@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Hhr.UI.ViewModels
+namespace Aristocrat.Monaco.Hhr.UI.ViewModels
 {
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -10,7 +10,6 @@
     using Kernel.Contracts;
     using Localization.Properties;
     using Monaco.UI.Common;
-    using MVVM.Command;
     using Vgt.Client12.Application.OperatorMenu;
 
     public class ServerConfigurationPageViewModel : ConfigWizardViewModelBase

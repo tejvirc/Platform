@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.G2S.UI.ViewModels
+namespace Aristocrat.Monaco.G2S.UI.ViewModels
 {
     using System;
     using System.Collections.ObjectModel;
@@ -15,8 +15,6 @@
     using Kernel;
     using Models;
     using Monaco.UI.Common;
-    using MVVM;
-    using MVVM.Command;
     using ICommand = System.Windows.Input.ICommand;
 
     /// <summary>

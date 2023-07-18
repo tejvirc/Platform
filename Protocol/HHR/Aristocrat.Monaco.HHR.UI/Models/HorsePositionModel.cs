@@ -1,6 +1,5 @@
-﻿namespace Aristocrat.Monaco.Hhr.UI.Models
+namespace Aristocrat.Monaco.Hhr.UI.Models
 {
-    using MVVM.ViewModel;
 
     public class HorsePositionModel : BaseViewModel
     {

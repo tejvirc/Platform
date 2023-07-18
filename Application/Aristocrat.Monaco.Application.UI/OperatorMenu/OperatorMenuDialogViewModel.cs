@@ -1,12 +1,10 @@
-﻿namespace Aristocrat.Monaco.Application.UI.OperatorMenu
+namespace Aristocrat.Monaco.Application.UI.OperatorMenu
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Windows.Input;
     using Contracts.OperatorMenu;
-    using MVVM;
-    using MVVM.Command;
 
     [CLSCompliant(false)]
     public class OperatorMenuDialogViewModel : OperatorMenuSaveViewModelBase

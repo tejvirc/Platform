@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.Models
+namespace Aristocrat.Monaco.Application.UI.Models
 {
     using System;
     using Cabinet.Contracts;
@@ -6,7 +6,6 @@
     using Hardware.Contracts.Touch;
     using Kernel;
     using Monaco.Localization.Properties;
-    using MVVM.ViewModel;
 
     /// <summary>
     ///     This is used to display the detected video display and/or touch screen./>.

@@ -1,9 +1,8 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using Kernel;
     using Kernel.Contracts;
-    using MVVM.ViewModel;
 
     [CLSCompliant(false)]
     public class InspectionIdViewModel : BaseViewModel

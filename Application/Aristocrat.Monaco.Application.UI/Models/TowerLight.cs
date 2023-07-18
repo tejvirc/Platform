@@ -1,10 +1,9 @@
-﻿namespace Aristocrat.Monaco.Application.UI.Models
+namespace Aristocrat.Monaco.Application.UI.Models
 {
     using System;
     using Contracts.Localization;
     using Hardware.Contracts.TowerLight;
     using Monaco.Common;
-    using MVVM.ViewModel;
 
     [CLSCompliant(false)]
     public class TowerLight : BaseViewModel

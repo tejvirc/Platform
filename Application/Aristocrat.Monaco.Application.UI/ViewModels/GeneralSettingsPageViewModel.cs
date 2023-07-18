@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using Contracts;
     using Contracts.OperatorMenu;
@@ -8,7 +8,6 @@
     using Kernel;
     using Kernel.Contracts;
     using Monaco.Common;
-    using MVVM.Command;
     using OperatorMenu;
     using System;
     using System.Collections.Generic;

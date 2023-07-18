@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -9,7 +9,6 @@
     using Hardware.Contracts.EdgeLighting;
     using Kernel;
     using Monaco.Localization.Properties;
-    using MVVM.Command;
 
     [CLSCompliant(false)]
     public class BeagleBonePageViewModel : InspectionWizardViewModelBase

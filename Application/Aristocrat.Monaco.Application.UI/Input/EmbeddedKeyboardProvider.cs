@@ -1,9 +1,8 @@
-﻿namespace Aristocrat.Monaco.Application.UI.Input
+namespace Aristocrat.Monaco.Application.UI.Input
 {
     using System;
     using System.Windows;
     using System.Windows.Controls;
-    using MVVM;
 
     public class EmbeddedKeyboardProvider: IVirtualKeyboardProvider
     {

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.ObjectModel;
@@ -11,7 +11,6 @@
     using Hardware.Contracts.Door;
     using Kernel;
     using Kernel.Contracts;
-    using MVVM;
 
     [CLSCompliant(false)]
     public class DoorPageViewModel : InspectionWizardViewModelBase

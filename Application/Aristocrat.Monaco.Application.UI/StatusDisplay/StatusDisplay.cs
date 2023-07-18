@@ -1,10 +1,9 @@
-﻿namespace Aristocrat.Monaco.Application.UI.StatusDisplay
+namespace Aristocrat.Monaco.Application.UI.StatusDisplay
 {
     using System;
     using System.Reflection;
     using Kernel;
     using log4net;
-    using MVVM;
 
     /// <summary>
     ///     Handles registration as the IMessageDisplayHandler as well as dispatching of incomming messages to the GUI thread.

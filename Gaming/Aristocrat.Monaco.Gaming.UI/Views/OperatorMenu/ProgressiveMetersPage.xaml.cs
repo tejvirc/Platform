@@ -1,11 +1,10 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu
 {
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
     using Application.Contracts.Localization;
     using Application.Contracts.MeterPage;
-    using MVVM;
     using ViewModels.OperatorMenu;
 
     /// <summary>

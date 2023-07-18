@@ -1,8 +1,7 @@
-﻿namespace Aristocrat.Monaco.Gaming.Contracts.Models
+namespace Aristocrat.Monaco.Gaming.Contracts.Models
 {
     using System;
     using Application.Contracts.Extensions;
-    using MVVM.ViewModel;
 
     /// <summary>
     ///     Model for game performance.

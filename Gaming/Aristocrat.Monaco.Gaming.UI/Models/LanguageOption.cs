@@ -1,6 +1,5 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Models
+namespace Aristocrat.Monaco.Gaming.UI.Models
 {
-    using MVVM.ViewModel;
 
     public class LanguageOption : BaseViewModel
     {

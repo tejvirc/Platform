@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -14,7 +14,6 @@
     using Models;
     using Monaco.Common;
     using Monaco.Localization.Properties;
-    using MVVM.Command;
 
     /// <summary>
     ///     The MechanicalReelsAnimationTestViewModel class

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Hhr.UI.Consumers
+namespace Aristocrat.Monaco.Hhr.UI.Consumers
 {
     using System;
     using System.Linq;
@@ -15,7 +15,6 @@
     using Hardware.Contracts.Cabinet;
     using Kernel;
     using log4net;
-    using MVVM;
     using Storage.Helpers;
     using ViewModels;
     using Views;

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Settings
+namespace Aristocrat.Monaco.Gaming.UI.Settings
 {
     using System;
     using System.Linq;
@@ -10,7 +10,6 @@
     using Contracts;
     using Contracts.Barkeeper;
     using Kernel;
-    using MVVM;
 
     /// <summary>
     ///     Barkeeper configuration settings.

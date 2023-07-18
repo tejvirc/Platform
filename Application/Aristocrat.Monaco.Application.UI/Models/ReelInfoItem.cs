@@ -1,11 +1,10 @@
-﻿namespace Aristocrat.Monaco.Application.UI.Models
+namespace Aristocrat.Monaco.Application.UI.Models
 {
     using System;
     using Contracts.Localization;
     using Hardware.Contracts.Reel;
     using Kernel;
     using Monaco.Localization.Properties;
-    using MVVM.ViewModel;
 
     /// <summary>
     ///     Definition of the ReelInfoItem class.

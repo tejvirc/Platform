@@ -1,6 +1,5 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Models
+namespace Aristocrat.Monaco.Gaming.UI.Models
 {
-    using MVVM.ViewModel;
 
     /// <summary>
     ///     Data for filtered Game Themes.

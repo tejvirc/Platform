@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI
+namespace Aristocrat.Monaco.Gaming.UI
 {
     using Accounting.Contracts;
     using Accounting.Contracts.HandCount;
@@ -8,7 +8,6 @@
     using Contracts.HandCount;
     using Kernel;
     using log4net;
-    using MVVM;
     using System;
     using System.Collections.Generic;
     using System.Reflection;

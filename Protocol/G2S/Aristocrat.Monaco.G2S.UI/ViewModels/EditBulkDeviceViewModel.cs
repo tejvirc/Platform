@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.G2S.UI.ViewModels
+namespace Aristocrat.Monaco.G2S.UI.ViewModels
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -11,7 +11,6 @@
     using G2S;
     using Kernel;
     using Localization.Properties;
-    using MVVM;
 
     public class EditBulkDeviceViewModel : OperatorMenuSaveViewModelBase
     {

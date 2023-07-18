@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Hardware.Fake
+namespace Aristocrat.Monaco.Hardware.Fake
 {
     using System;
     using System.Collections.Generic;
@@ -21,7 +21,6 @@
     using Contracts.SharedDevice;
     using Kernel;
     using log4net;
-    using MVVM;
     using Simulation.HarkeyReels;
     using Simulation.HarkeyReels.Controls;
     using Virtual;

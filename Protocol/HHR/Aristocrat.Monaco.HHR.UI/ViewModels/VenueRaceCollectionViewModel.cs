@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Hhr.UI.ViewModels
+namespace Aristocrat.Monaco.Hhr.UI.ViewModels
 {
     using System;
     using System.Collections;
@@ -18,7 +18,6 @@
     using Kernel;
     using Localization.Properties;
     using Models;
-    using MVVM.ViewModel;
     using Storage.Helpers;
     using log4net;
 

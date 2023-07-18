@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.OperatorMenu
+namespace Aristocrat.Monaco.Application.UI.OperatorMenu
 {
     using System;
     using System.Collections.ObjectModel;
@@ -9,7 +9,6 @@
     using Contracts.OperatorMenu;
     using Events;
     using Kernel;
-    using MVVM;
 
     [CLSCompliant(false)]
     public abstract class OperatorMenuMultiPageViewModelBase : OperatorMenuPageViewModelBase

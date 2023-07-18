@@ -10,7 +10,6 @@ namespace Aristocrat.Monaco.Application.UI.Views
     using Kernel.Contracts;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common;
-    using MVVM;
 
     /// <summary>
     ///     Interaction logic for InspectionWindow.xaml

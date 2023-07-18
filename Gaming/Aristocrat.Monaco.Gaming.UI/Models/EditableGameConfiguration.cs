@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Models
+namespace Aristocrat.Monaco.Gaming.UI.Models
 {
     using System;
     using System.Collections.Generic;
@@ -16,7 +16,6 @@
     using Kernel;
     using Localization.Properties;
     using log4net;
-    using MVVM.ViewModel;
     using PackageManifest.Models;
     using Progressives;
 

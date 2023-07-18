@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.OperatorMenu
+namespace Aristocrat.Monaco.Application.UI.OperatorMenu
 {
     using System;
     using System.Collections.Generic;
@@ -8,8 +8,6 @@
     using Hardware.Contracts.Button;
     using Kernel;
     using Monaco.Localization.Properties;
-    using MVVM;
-    using MVVM.Command;
     using Vgt.Client12.Application.OperatorMenu;
 
     [CLSCompliant(false)]

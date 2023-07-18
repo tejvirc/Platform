@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.Settings
+namespace Aristocrat.Monaco.Application.UI.Settings
 {
     using System;
     using System.Collections.Generic;
@@ -11,7 +11,6 @@
     using Contracts;
     using Hardware.Contracts.EdgeLighting;
     using Kernel;
-    using MVVM;
 
     /// <summary>
     ///     Brightness configuration settings.
