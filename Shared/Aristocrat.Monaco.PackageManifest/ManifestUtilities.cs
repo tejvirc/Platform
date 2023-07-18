@@ -7,6 +7,7 @@
     using System.Security;
     using System.Xml;
     using System.Xml.Serialization;
+    using System.Runtime.Serialization;
 
     /// <summary>
     ///     Basic manifest utilities
@@ -45,7 +46,7 @@
         /// <summary>
         ///     Handler of unknown XML node
         /// </summary>
-        private static void UnknownXmlNodeHandler(object sender, XmlNodeEventArgs e) => throw new XmlSyntaxException();
+        private static void UnknownXmlNodeHandler(object sender, XmlNodeEventArgs e) => throw new SerializationException("Unknown xml node.");
 
         /// <summary>
         ///     Parses the provided file

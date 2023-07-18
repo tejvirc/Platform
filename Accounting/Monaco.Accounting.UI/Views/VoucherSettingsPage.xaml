@@ -110,11 +110,12 @@
                                      controls:ControlsHelper.ContentCharacterCasing="Upper"
                                      controls:ControlsHelper.CornerRadius="0"
                                      helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Off}"
-                                     helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc On}"/>
+                                     helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc On}"
+                                     AutomationProperties.AcceleratorKey="ToggleSwitchDefinition23_468E4704"/>
 
-            <Label Grid.Row="2" Grid.Column="0" Margin="0 15 0 4" Content="{lex:Loc VoucherInLimit}" />
-            <StackPanel Grid.Row="3" Grid.Column ="0" Orientation="Horizontal" IsEnabled="{Binding InputEnabledByRuleOverride}">
-                <Grid>
+            <Label Grid.Row="2" Grid.Column="0" Margin="0 15 0 4" Content="{lex:Loc VoucherInLimit}" AutomationProperties.AcceleratorKey="LabelDefinition24_468E4704"/>
+            <StackPanel Grid.Row="3" Grid.Column ="0" Orientation="Horizontal" IsEnabled="{Binding InputEnabledByRuleOverride}" AutomationProperties.AcceleratorKey="StackDefinition24_468E4704">
+                <Grid AutomationProperties.AcceleratorKey="GridDefinition25_468E4704">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"
                                           AutomationProperties.AutomationId="ColumnDefinition26_468E4704" />

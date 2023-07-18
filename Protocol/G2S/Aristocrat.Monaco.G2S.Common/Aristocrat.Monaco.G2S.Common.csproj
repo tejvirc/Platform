@@ -24,6 +24,11 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="DownloadDirectories.addin.xml" />
     <None Remove="Transfer\Transfer.addin.xml" />
   </ItemGroup>
