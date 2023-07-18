@@ -1067,7 +1067,7 @@
                 </Viewbox>
 
 
-                <Grid Grid.Row="2"
+                <!--<Grid Grid.Row="2"
                           Grid.Column="0"
                           Grid.ColumnSpan="3"
                           Margin="19 0 20 8"
@@ -1122,11 +1122,11 @@
                                        AutomationProperties.AutomationId="Label105_1F333AB0" />
                         </Border>
                     </Viewbox>
-                </Grid>
+                </Grid>-->
 
                 <!-- UPI should be in a viewbox to scale entire user control correctly -->
                 <!-- Setting Margin to match old UPI sizing for Responsible Gaming Overlays -->
-                <Viewbox Grid.Row="3"
+                <!--<Viewbox Grid.Row="3"
                              Grid.Column="0"
                              Grid.ColumnSpan="3"
                              Margin="19 2 19 0"
@@ -1137,7 +1137,7 @@
                         <lobby:MultiLanguageUpi
                                     Visibility="{Binding MultiLanguageEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
                     </Grid>
-                </Viewbox>
+                </Viewbox>-->
             </Grid>
         </Viewbox>
     </Grid>

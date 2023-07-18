@@ -11,7 +11,35 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <Grid>
-        <TextBlock Text="{Binding}" Foreground="White" TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        <Viewbox HorizontalAlignment="Left"
+                                 AutomationProperties.AutomationId="Viewbox98_1F333AB0">
+            <Border Background="#FF000000"
+                                    HorizontalAlignment="Left"
+                                    BorderThickness="0"
+                                    CornerRadius="10"
+                                    Padding="8 4 8 4"
+                                    Visibility="{Binding IsPaidMeterVisible, Converter={StaticResource TrueVisibleFalseHidden}}"
+                                    AutomationProperties.AutomationId="Border99_1F333AB0">
+                <StackPanel Orientation="Horizontal"
+                                            AutomationProperties.AutomationId="StackPanel100_1F333AB0">
+                    <Label Content="{Binding PaidMeterLabel}"
+                                           FontSize="30"
+                                           FontFamily="Impact"
+                                           Foreground="White"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           AutomationProperties.AutomationId="Label101_1F333AB0" />
+                    <Label Content="{Binding PaidMeterValue}"
+                                           FontSize="30"
+                                           Padding="1 5 5 5"
+                                           FontFamily="Impact"
+                                           Foreground="White"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           AutomationProperties.AutomationId="Label102_1F333AB0" />
+                </StackPanel>
+            </Border>
+        </Viewbox>
     </Grid>
 
 </UserControl>

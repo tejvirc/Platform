@@ -23,18 +23,16 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <mah:MetroContentControl Grid.Row="0" regions:RegionManager.Region="{x:Static views:RegionNames.Chooser}" />
                 <mah:MetroContentControl Grid.Row="0" regions:RegionManager.Region="{x:Static views:RegionNames.IdleText}" />
-                <mah:MetroContentControl Grid.Row="1" regions:RegionManager.Region="{x:Static views:RegionNames.Upi}" />
-                <mah:MetroContentControl Grid.Row="2" regions:RegionManager.Region="{x:Static views:RegionNames.PaidMeter}" />
-                <mah:MetroContentControl Grid.Row="3" regions:RegionManager.Region="{x:Static views:RegionNames.Banner}" />
-                <mah:MetroContentControl Grid.Row="4" regions:RegionManager.Region="{x:Static views:RegionNames.Notification}" />
-                <mah:MetroContentControl Grid.Row="5" regions:RegionManager.Region="{x:Static views:RegionNames.InfoBar}" />
-                <mah:MetroContentControl Grid.Row="6" regions:RegionManager.Region="{x:Static views:RegionNames.ReplayNav}" />
+                <mah:MetroContentControl Grid.Row="1" regions:RegionManager.Region="{x:Static views:RegionNames.Banner}" />
+                <mah:MetroContentControl Grid.Row="1" regions:RegionManager.Region="{x:Static views:RegionNames.PaidMeter}" />
+                <mah:MetroContentControl Grid.Row="1" regions:RegionManager.Region="{x:Static views:RegionNames.Notification}" />
+                <mah:MetroContentControl Grid.Row="2" regions:RegionManager.Region="{x:Static views:RegionNames.Upi}" />
+                <mah:MetroContentControl Grid.Row="3" regions:RegionManager.Region="{x:Static views:RegionNames.InfoBar}" />
+                <mah:MetroContentControl Grid.Row="4" regions:RegionManager.Region="{x:Static views:RegionNames.ReplayNav}" />
             </Grid>
         </Viewbox>
 

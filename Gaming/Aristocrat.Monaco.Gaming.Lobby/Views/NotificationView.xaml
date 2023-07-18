@@ -11,7 +11,25 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <Grid>
-        <TextBlock Text="{Binding}" Foreground="White" TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        <Viewbox HorizontalAlignment="Right"
+                                 VerticalAlignment="Bottom"
+                                 AutomationProperties.AutomationId="Viewbox103_1F333AB0">
+            <Border Background="#FF000000"
+                                    BorderThickness="0"
+                                    CornerRadius="6"
+                                    Margin="0 4 0 4"
+                                    Padding="4 0 4 0"
+                                    Visibility="{Binding IsNotificationTextVisible, Converter={StaticResource TrueVisibleFalseHidden}}"
+                                    AutomationProperties.AutomationId="Border104_1F333AB0">
+                <Label Content="{Binding CurrentNotificationText}"
+                                       FontSize="16"
+                                       FontFamily="Impact"
+                                       Foreground="White"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       AutomationProperties.AutomationId="Label105_1F333AB0" />
+            </Border>
+        </Viewbox>
     </Grid>
 
 </UserControl>

@@ -2,9 +2,9 @@
 
 using System;
 using System.Collections.Immutable;
+using UI.Models;
 using Contracts.Models;
 using Fluxor;
-using Models;
 
 [FeatureState]
 public record ChooserState

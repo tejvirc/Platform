@@ -2,7 +2,7 @@
 
 using System.Collections.Immutable;
 using Extensions.Fluxor;
-using Models;
+using UI.Models;
 using static Extensions.Fluxor.Selectors;
 
 public static class ChooserSelectors

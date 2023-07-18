@@ -9,8 +9,9 @@ using Common;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Controls;
-using Models;
 using Extensions.Fluxor;
+using UI.Models;
+using UI.ViewModels;
 using static Store.Chooser.ChooserSelectors;
 
 public class ChooserViewModel : ObservableObject
