@@ -36,14 +36,14 @@
         public void Handle(UpdateBetOptions command)
         {
             var (currentGame, currentDenom) = _properties.GetActiveGame();
-            Logger.Debug($"UpdateBetOptions for GameId {currentGame?.Id.ToString() ?? "null"} and Denom {currentDenom?.Value.ToString() ?? "null"}");
+            Logger.Debug($"UpdateBetOptions for GameId {currentGame?.Id.ToString() ?? "null"}, UPC {currentGame?.ProductCode.ToString() ?? "null"} and Denom {currentDenom?.Value.ToString() ?? "null"}");
             if (currentGame == null || currentDenom == null)
             {
                 return;
             }
 
-            // TODO: Update this to compare GameId with UniqueGameId when we have it in GameDetail, as HHR doesn't always use 0 for main game
-            var mainGame = command.BetDetails.Single(x => x.GameId == 0);
+            // HHR UPC appears to match the UniqueGameId in BetDetails
+            var mainGame = command.BetDetails.Single(x => currentGame.ProductCode.HasValue ? x.GameId == currentGame.ProductCode.Value : x.GameId == 0);
 
             _properties.SetProperty(GamingConstants.SelectedBetMultiplier, mainGame.BetMultiplier);
             _properties.SetProperty(GamingConstants.SelectedLineCost, mainGame.BetPerLine);
