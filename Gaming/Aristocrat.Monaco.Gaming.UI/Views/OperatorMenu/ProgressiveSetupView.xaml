@@ -116,7 +116,8 @@
                                         AutomationProperties.AutomationId="DataGridTemplateColumn33_6FC827A3">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <StackPanel AutomationProperties.AutomationId="StackPanel34_6FC827A3" >
+                            <StackPanel Visibility="{Binding IsLevelLinked, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                        AutomationProperties.AutomationId="StackPanel34_6FC827A3">
                                 <TextBox Text ="{Binding ConfigurableLinkedLevelId, UpdateSourceTrigger=PropertyChanged}"
                                          Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSummaryView), Converter={StaticResource TrueCollapsedFalseVisible}, Source={StaticResource Proxy}}"
                                          AutomationProperties.AutomationId="TextBox35_6FC827A3"/>

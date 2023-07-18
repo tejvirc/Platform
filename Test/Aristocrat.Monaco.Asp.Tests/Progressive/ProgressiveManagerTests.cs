@@ -295,7 +295,7 @@
             levelId = null;
 
             //Inject a hit event that we can claim against
-            _subject.HandleProgressiveEvent(new LinkedProgressiveHitEvent(progressiveLevel, new List<IViewableLinkedProgressiveLevel> { linkedLevel }, 1L));
+            _subject.HandleProgressiveEvent(new LinkedProgressiveHitEvent(progressiveLevel, new List<IViewableLinkedProgressiveLevel> { linkedLevel }, new JackpotTransaction()));
 
             //Make sure datasource is notified
             Assert.IsNotNull(levelId);
@@ -411,7 +411,7 @@
             int? levelId = null;
             //var perLevelMeterCalls = new Dictionary<string, long>();
             levelId = SetupInvalidHandleClaimTimeout(levelId);
-            _subject.HandleProgressiveEvent(new LinkedProgressiveHitEvent(progressiveLevel, null, 1L));
+            _subject.HandleProgressiveEvent(new LinkedProgressiveHitEvent(progressiveLevel, null, new JackpotTransaction()));
             //Signal that the jackpot claim has expired - this will tell system to listen for operator opening jackpot menu
             _linkedProgressiveClaimExpiredEventCallback(new LinkedProgressiveClaimExpiredEvent(new List<LinkedProgressiveLevel> { linkedLevel }));
 
@@ -477,7 +477,7 @@
             _protocolLinkedProgressiveAdapter.Setup(s => s.ViewLinkedProgressiveLevels()).Returns(() => new List<IViewableLinkedProgressiveLevel> { linkedLevel });
 
             //Inject a hit event that we can claim against
-            _subject.HandleProgressiveEvent(new LinkedProgressiveHitEvent(progressiveLevel, new List<IViewableLinkedProgressiveLevel> { linkedLevel }, 1L));
+            _subject.HandleProgressiveEvent(new LinkedProgressiveHitEvent(progressiveLevel, new List<IViewableLinkedProgressiveLevel> { linkedLevel }, new JackpotTransaction()));
             return levelId;
         }
 
@@ -544,14 +544,14 @@
             _protocolLinkedProgressiveAdapter.Setup(s => s.ViewLinkedProgressiveLevels()).Returns(() => new List<IViewableLinkedProgressiveLevel> { linkedLevel });
 
             //Inject a hit event
-            _subject.HandleProgressiveEvent(new LinkedProgressiveHitEvent(progressiveLevel, new List<IViewableLinkedProgressiveLevel> { linkedLevel }, 1L));
+            _subject.HandleProgressiveEvent(new LinkedProgressiveHitEvent(progressiveLevel, new List<IViewableLinkedProgressiveLevel> { linkedLevel }, new JackpotTransaction()));
 
             //Make sure datasource is notified
             Assert.IsNotNull(levelId);
             Assert.IsTrue(levelId == linkedLevel.LevelId);
 
             //Inject a duplicate hit event
-            Assert.ThrowsException<DuplicateJackpotHitForLevelException>(() => _subject.HandleProgressiveEvent(new LinkedProgressiveHitEvent(progressiveLevel, new List<IViewableLinkedProgressiveLevel> { linkedLevel }, 1L)));
+            Assert.ThrowsException<DuplicateJackpotHitForLevelException>(() => _subject.HandleProgressiveEvent(new LinkedProgressiveHitEvent(progressiveLevel, new List<IViewableLinkedProgressiveLevel> { linkedLevel }, new JackpotTransaction())));
         }
 
         private Mock<IMeter> CreateMockMeter(string name, long masterValue, long periodValue)

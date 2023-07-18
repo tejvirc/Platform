@@ -25,7 +25,6 @@
     [TestClass]
     public class ProgressiveServiceTest
     {
-        private readonly Mock<ICommandBuilder<IProgressiveDevice, progressiveStatus>> _commandBuilderMock = new Mock<ICommandBuilder<IProgressiveDevice, progressiveStatus>>();
         private readonly Mock<IG2SEgm> _egmMock = new Mock<IG2SEgm>();
         private readonly Mock<IEventBus> _eventBusMock = new Mock<IEventBus>();
         private readonly Mock<IEventLift> _eventLiftMock = new Mock<IEventLift>();
@@ -67,7 +66,6 @@
                 _disableProviderMock.Object,
                 _propertiesManager.Object,
                 _progressiveLevelManager.Object,
-                _commandBuilderMock.Object,
                 _progressiveStatusBuilderMock.Object,
                 _progressiveHitBuilderMock.Object,
                 _progressiveCommitBuilderMock.Object
