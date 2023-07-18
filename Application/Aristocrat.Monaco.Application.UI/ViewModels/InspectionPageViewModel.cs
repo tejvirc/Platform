@@ -19,6 +19,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using Kernel.Contracts;
     using OperatorMenu;
     using Monaco.Localization.Properties;
+    using CommunityToolkit.Mvvm.Input;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
 
     [CLSCompliant(false)]
     public class InspectionPageViewModel : InspectionWizardViewModelBase, IConfigWizardNavigator, IInspectionWizard, IService
@@ -64,12 +66,12 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             EventBus.Subscribe<OperatorMenuPrintJobEvent>(this, HandleOperatorMenuPrintJob);
             EventBus.Subscribe<InspectionResultsChangedEvent>(this, Handle);
 
-            PrintButtonCommand = new ActionCommand<object>(PrintButton_Click);
-            ClearConfigButtonClicked = new ActionCommand<object>(ClearConfigButton_Click);
-            ReportButtonClicked = new ActionCommand<object>(ReportButton_Click);
-            AutoTestButtonClicked = new ActionCommand<object>(AutoTestButton_Click, _ => CanStartAutoTest);
-            BackButtonClicked = new ActionCommand<object>(BackButton_Click, _ => CanNavigateBackward);
-            NextButtonClicked = new ActionCommand<object>(NextButton_Click, _ => CanNavigateForward);
+            PrintButtonCommand = new RelayCommand<object>(PrintButton_Click);
+            ClearConfigButtonClicked = new RelayCommand<object>(ClearConfigButton_Click);
+            ReportButtonClicked = new RelayCommand<object>(ReportButton_Click);
+            AutoTestButtonClicked = new RelayCommand<object>(AutoTestButton_Click, _ => CanStartAutoTest);
+            BackButtonClicked = new RelayCommand<object>(BackButton_Click, _ => CanNavigateBackward);
+            NextButtonClicked = new RelayCommand<object>(NextButton_Click, _ => CanNavigateForward);
 
             Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(BeginConfigWizardPages));
         }
@@ -140,9 +142,9 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 SetProperty(ref _canNavigateForward, value, nameof(CanNavigateForward));
-                if (NextButtonClicked is IActionCommand actionCommand)
+                if (NextButtonClicked is IRelayCommand RelayCommand)
                 {
-                    MvvmHelper.ExecuteOnUI(() => actionCommand.RaiseCanExecuteChanged());
+                    Execute.OnUIThread(() => RelayCommand.NotifyCanExecuteChanged());
                 }
             }
         }
@@ -154,9 +156,9 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 SetProperty(ref _canNavigateBackward, value, nameof(CanNavigateBackward));
-                if (BackButtonClicked is IActionCommand actionCommand)
+                if (BackButtonClicked is IRelayCommand RelayCommand)
                 {
-                    MvvmHelper.ExecuteOnUI(() => actionCommand.RaiseCanExecuteChanged());
+                    Execute.OnUIThread(() => RelayCommand.NotifyCanExecuteChanged());
                 }
             }
         }
@@ -167,9 +169,9 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 SetProperty(ref _canStartAutoTest, value, nameof(CanStartAutoTest));
-                if (AutoTestButtonClicked is IActionCommand actionCommand)
+                if (AutoTestButtonClicked is IRelayCommand RelayCommand)
                 {
-                    MvvmHelper.ExecuteOnUI(() => actionCommand.RaiseCanExecuteChanged());
+                    Execute.OnUIThread(() => RelayCommand.NotifyCanExecuteChanged());
                 }
 
             }
@@ -240,7 +242,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         private void Handle(InspectionResultsChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 if (evt.InspectionResult is null)
                 {

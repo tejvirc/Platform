@@ -31,7 +31,7 @@ namespace Aristocrat.Monaco.Application.UI.Views
         {
             if (e.PropertyName == nameof(ViewModel.ChangeFocus) && ViewModel.ChangeFocus)
             {
-                MvvmHelper.ExecuteOnUI(MoveFocusAwayFromTextBox);
+                Execute.OnUIThread(MoveFocusAwayFromTextBox);
             }
         }
     }

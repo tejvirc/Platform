@@ -10,7 +10,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     /// <summary>
     ///     Defines the HandCountTimerDialogViewModel class
     /// </summary>
-    public class HandCountTimerDialogViewModel : BaseViewModel, IDisposable
+    public class HandCountTimerDialogViewModel : BaseObservableObject, IDisposable
     {
         private const double InitialTimeSeconds = 45.0;
         private const double ResetTimerIntervalSeconds = 1.0;
@@ -33,7 +33,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             set
             {
                 _timeLeft = value;
-                RaisePropertyChanged(nameof(TimeLeft));
+                OnPropertyChanged(nameof(TimeLeft));
             }
         }
 

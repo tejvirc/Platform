@@ -26,18 +26,18 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             : this(ServiceManager.GetInstance().GetService<IBarkeeperHandler>())
         {
 
-            CoinInRateEnabledChangedCommand = new ActionCommand<object>(
+            CoinInRateEnabledChangedCommand = new RelayCommand<object>(
                 _ =>
                 {
-                    RaisePropertyChanged(nameof(RewardLevels));
-                    RaisePropertyChanged(nameof(CoinInRateEnabled));
+                    OnPropertyChanged(nameof(RewardLevels));
+                    OnPropertyChanged(nameof(CoinInRateEnabled));
                 });
 
-            CashInEnabledChangedCommand = new ActionCommand<object>(
+            CashInEnabledChangedCommand = new RelayCommand<object>(
                 _ =>
                 {
-                    RaisePropertyChanged(nameof(CashInRewardLevel));
-                    RaisePropertyChanged(nameof(CashInRewardLevel.Enabled));
+                    OnPropertyChanged(nameof(CashInRewardLevel));
+                    OnPropertyChanged(nameof(CashInRewardLevel.Enabled));
                 });
         }
 
@@ -81,7 +81,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             {
                 SetProperty(ref _coinInRateEnabled, value, nameof(CoinInRateEnabled));
                 ValidateCoinInRate();
-                RaisePropertyChanged(nameof(RewardLevelCoinInAmount));
+                OnPropertyChanged(nameof(RewardLevelCoinInAmount));
             }
         }
 
@@ -124,7 +124,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             set
             {
                 _rewardLevels.Enabled = value;
-                RaisePropertyChanged(nameof(RewardLevels), nameof(RewardLevelsEnabled), nameof(CoinInRewardLevels),
+                OnPropertyChanged(nameof(RewardLevels), nameof(RewardLevelsEnabled), nameof(CoinInRewardLevels),
                     nameof(CoinInRewardLevelsExist), nameof(CashInRewardLevels), nameof(CashInRewardLevelsExist));
             }
         }

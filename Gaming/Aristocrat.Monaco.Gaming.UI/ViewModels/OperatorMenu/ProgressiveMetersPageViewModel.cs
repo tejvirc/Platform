@@ -54,14 +54,14 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
             _progressiveMeterManager = serviceManager.GetService<IProgressiveMeterManager>();
 
-            PreviousGameCommand = new ActionCommand<object>(PreviousGame);
-            NextGameCommand = new ActionCommand<object>(NextGame);
+            PreviousGameCommand = new RelayCommand<object>(PreviousGame);
+            NextGameCommand = new RelayCommand<object>(NextGame);
 
-            PreviousDenomCommand = new ActionCommand<object>(PreviousDenom);
-            NextDenomCommand = new ActionCommand<object>(NextDenom);
+            PreviousDenomCommand = new RelayCommand<object>(PreviousDenom);
+            NextDenomCommand = new RelayCommand<object>(NextDenom);
 
-            PreviousBetOptionCommand = new ActionCommand<object>(PreviousBetOption);
-            NextBetOptionCommand = new ActionCommand<object>(NextBetOption);
+            PreviousBetOptionCommand = new RelayCommand<object>(PreviousBetOption);
+            NextBetOptionCommand = new RelayCommand<object>(NextBetOption);
 
             BetOptions = new ObservableCollection<string>();
             Denoms = new ObservableCollection<Denomination>();
@@ -91,7 +91,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             private set
             {
                 SetProperty(ref _hasEnabledProgressives, value, nameof(HasEnabledProgressives));
-                RaisePropertyChanged(nameof(HasProgressivesButNoneEnabled));
+                OnPropertyChanged(nameof(HasProgressivesButNoneEnabled));
             }
         }
 
@@ -101,7 +101,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             private set
             {
                 SetProperty(ref _hasProgressives, value, nameof(HasProgressives));
-                RaisePropertyChanged(nameof(HasProgressivesButNoneEnabled));
+                OnPropertyChanged(nameof(HasProgressivesButNoneEnabled));
             }
         }
 
@@ -137,10 +137,10 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
                 UpdateBetOptions();
 
-                RaisePropertyChanged(nameof(Denoms));
+                OnPropertyChanged(nameof(Denoms));
                 SelectedDenomIndex = 0;
 
-                RaisePropertyChanged(nameof(SelectedGame));
+                OnPropertyChanged(nameof(SelectedGame));
                 InitializeMeters();
             }
         }
@@ -201,9 +201,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 SelectedGame = Games[value];
                 _selectedGameIndex = value;
 
-                RaisePropertyChanged(nameof(SelectedGameIndex));
-                RaisePropertyChanged(nameof(PreviousGameIsEnabled));
-                RaisePropertyChanged(nameof(NextGameIsEnabled));
+                OnPropertyChanged(nameof(SelectedGameIndex));
+                OnPropertyChanged(nameof(PreviousGameIsEnabled));
+                OnPropertyChanged(nameof(NextGameIsEnabled));
             }
         }
 
@@ -223,7 +223,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             set
             {
                 _selectedDenom = value;
-                RaisePropertyChanged(nameof(SelectedDenom));
+                OnPropertyChanged(nameof(SelectedDenom));
                 InitializeMeters();
             }
         }
@@ -240,9 +240,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
                 _selectedDenomIndex = value;
                 SelectedDenom = Denoms[value];
-                RaisePropertyChanged(nameof(SelectedDenomIndex));
-                RaisePropertyChanged(nameof(PreviousDenomIsEnabled));
-                RaisePropertyChanged(nameof(NextDenomIsEnabled));
+                OnPropertyChanged(nameof(SelectedDenomIndex));
+                OnPropertyChanged(nameof(PreviousDenomIsEnabled));
+                OnPropertyChanged(nameof(NextDenomIsEnabled));
             }
         }
 
@@ -268,9 +268,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
                 _selectedBetOptionIndex = value;
                 SelectedBetOption = BetOptions[value];
-                RaisePropertyChanged(nameof(SelectedBetOptionIndex));
-                RaisePropertyChanged(nameof(PreviousBetOptionIsEnabled));
-                RaisePropertyChanged(nameof(NextBetOptionIsEnabled));
+                OnPropertyChanged(nameof(SelectedBetOptionIndex));
+                OnPropertyChanged(nameof(PreviousBetOptionIsEnabled));
+                OnPropertyChanged(nameof(NextBetOptionIsEnabled));
             }
         }
 
@@ -280,7 +280,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             set
             {
                 _selectedBetOption = value;
-                RaisePropertyChanged(nameof(SelectedBetOption));
+                OnPropertyChanged(nameof(SelectedBetOption));
                 InitializeMeters();
             }
         }
@@ -293,7 +293,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 if (value != _viewBetOptionFilter)
                 {
                     _viewBetOptionFilter = value;
-                    RaisePropertyChanged(nameof(ViewBetOptionFilter));
+                    OnPropertyChanged(nameof(ViewBetOptionFilter));
                 }
             }
         }
@@ -308,7 +308,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             {
                 return;
             }
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     // Per each progressive level which:
@@ -437,7 +437,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 if (Games.Any())
                 {

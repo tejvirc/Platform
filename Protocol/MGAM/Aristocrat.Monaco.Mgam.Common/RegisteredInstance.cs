@@ -2,12 +2,13 @@
 {
     using System;
     using Aristocrat.Mgam.Client;
-    using CommunityToolkit.Mvvm.ComponentModel;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
 
     /// <summary>
     ///     The instance registration information.
     /// </summary>
-    public class RegisteredInstance : ObservableObject
+    public class RegisteredInstance : BaseObservableObject
     {
         private DateTime _timestamp;
         private string _address;

@@ -2,13 +2,15 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Windows.Input;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Localization;
     using Kernel;
     using Monaco.Localization.Properties;
 
     [CLSCompliant(false)]
-    public class OutOfServiceViewModel : BaseViewModel
+    public class OutOfServiceViewModel : BaseObservableObject
     {
         private readonly IEventBus _eventBus;
         private readonly IDisableByOperatorManager _disableByOperatorManager;
@@ -22,7 +24,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             // Initially it should always be enabled until it's set by the rule access service.
             OutOfServiceModeButtonIsEnabled = true;
 
-            OutOfServiceModeButtonCommand = new ActionCommand<object>(OutOfServiceModeButtonCommandHandler);
+            OutOfServiceModeButtonCommand = new RelayCommand<object>(OutOfServiceModeButtonCommandHandler);
         }
 
         public string OutOfServiceButtonText => _disableByOperatorManager.DisabledByOperator
@@ -46,7 +48,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         public void OnLoaded()
         {
             _eventBus.Subscribe<OperatorCultureChangedEvent>(this, OnOperatorCultureChanged);
-            RaisePropertyChanged(nameof(OutOfServiceButtonText));
+            OnPropertyChanged(nameof(OutOfServiceButtonText));
         }
 
         public void OnUnloaded()
@@ -56,7 +58,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         private void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            RaisePropertyChanged(nameof(OutOfServiceButtonText));
+            OnPropertyChanged(nameof(OutOfServiceButtonText));
         }
 
         private void OutOfServiceModeButtonCommandHandler(object obj)
@@ -70,7 +72,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 _disableByOperatorManager.Disable(() => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OutOfService));
             }
 
-            RaisePropertyChanged(nameof(OutOfServiceButtonText));
+            OnPropertyChanged(nameof(OutOfServiceButtonText));
         }
     }
 }

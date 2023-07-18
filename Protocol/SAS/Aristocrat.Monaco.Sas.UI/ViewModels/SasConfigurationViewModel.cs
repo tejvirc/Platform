@@ -147,7 +147,7 @@
                     GameStartEndOnHost2 = false;
                 }
 
-                RaisePropertyChanged(nameof(DualHostSetup));
+                OnPropertyChanged(nameof(DualHostSetup));
                 CheckNavigation();
             }
         }
@@ -161,7 +161,7 @@
             set
             {
                 _host1AftEnabled = value;
-                RaisePropertyChanged(nameof(AftOnHost1));
+                OnPropertyChanged(nameof(AftOnHost1));
             }
         }
 
@@ -174,7 +174,7 @@
             set
             {
                 _host2AftEnabled = value;
-                RaisePropertyChanged(nameof(AftOnHost2));
+                OnPropertyChanged(nameof(AftOnHost2));
             }
         }
 
@@ -187,7 +187,7 @@
             set
             {
                 _host1LegacyBonusEnabled = value;
-                RaisePropertyChanged(nameof(LegacyBonusOnHost1));
+                OnPropertyChanged(nameof(LegacyBonusOnHost1));
             }
         }
 
@@ -200,7 +200,7 @@
             set
             {
                 _host2LegacyBonusEnabled = value;
-                RaisePropertyChanged(nameof(LegacyBonusOnHost2));
+                OnPropertyChanged(nameof(LegacyBonusOnHost2));
             }
         }
 
@@ -213,7 +213,7 @@
             set
             {
                 _host1ValidationEnabled = value;
-                RaisePropertyChanged(nameof(ValidationOnHost1));
+                OnPropertyChanged(nameof(ValidationOnHost1));
             }
         }
 
@@ -226,7 +226,7 @@
             set
             {
                 _host2ValidationEnabled = value;
-                RaisePropertyChanged(nameof(ValidationOnHost2));
+                OnPropertyChanged(nameof(ValidationOnHost2));
             }
         }
 
@@ -239,7 +239,7 @@
             set
             {
                 _host1ProgressiveEnabled = value;
-                RaisePropertyChanged(nameof(ProgressiveOnHost1));
+                OnPropertyChanged(nameof(ProgressiveOnHost1));
             }
         }
 
@@ -252,7 +252,7 @@
             set
             {
                 _host2ProgressiveEnabled = value;
-                RaisePropertyChanged(nameof(ProgressiveOnHost2));
+                OnPropertyChanged(nameof(ProgressiveOnHost2));
             }
         }
 
@@ -265,7 +265,7 @@
             set
             {
                 _host1GeneralControlEnabled = value;
-                RaisePropertyChanged(nameof(GeneralControlOnHost1));
+                OnPropertyChanged(nameof(GeneralControlOnHost1));
             }
         }
 
@@ -278,7 +278,7 @@
             set
             {
                 _host2GeneralControlEnabled = value;
-                RaisePropertyChanged(nameof(GeneralControlOnHost2));
+                OnPropertyChanged(nameof(GeneralControlOnHost2));
             }
         }
 
@@ -291,7 +291,7 @@
             set
             {
                 _host1GameStartEndEnabled = value;
-                RaisePropertyChanged(nameof(GameStartEndOnHost1));
+                OnPropertyChanged(nameof(GameStartEndOnHost1));
             }
         }
 
@@ -304,7 +304,7 @@
             set
             {
                 _host2GameStartEndEnabled = value;
-                RaisePropertyChanged(nameof(GameStartEndOnHost2));
+                OnPropertyChanged(nameof(GameStartEndOnHost2));
             }
         }
 
@@ -317,7 +317,7 @@
             set
             {
                 _host1NonSasProgressiveHitReporting = value;
-                RaisePropertyChanged(nameof(NonSasProgressiveHitReportingHost1));
+                OnPropertyChanged(nameof(NonSasProgressiveHitReportingHost1));
             }
         }
 
@@ -330,7 +330,7 @@
             set
             {
                 _host2NonSasProgressiveHitReporting = value;
-                RaisePropertyChanged(nameof(NonSasProgressiveHitReportingHost2));
+                OnPropertyChanged(nameof(NonSasProgressiveHitReportingHost2));
             }
         }
 
@@ -439,7 +439,7 @@
             set
             {
                 _accountingDenom1 = value;
-                RaisePropertyChanged(nameof(AccountingDenom1));
+                OnPropertyChanged(nameof(AccountingDenom1));
             }
         }
 
@@ -452,7 +452,7 @@
             set
             {
                 _accountingDenom1Index = value;
-                RaisePropertyChanged(nameof(AccountingDenom1Index));
+                OnPropertyChanged(nameof(AccountingDenom1Index));
             }
         }
 
@@ -465,7 +465,7 @@
             set
             {
                 _accountingDenom2 = value;
-                RaisePropertyChanged(nameof(AccountingDenom2));
+                OnPropertyChanged(nameof(AccountingDenom2));
             }
         }
 
@@ -478,7 +478,7 @@
             set
             {
                 _accountingDenom2Index = value;
-                RaisePropertyChanged(nameof(AccountingDenom2Index));
+                OnPropertyChanged(nameof(AccountingDenom2Index));
             }
         }
 
@@ -743,8 +743,8 @@
             {
                 AddressHost1Editable = string.IsNullOrEmpty(CheckError(CommunicationAddress1, MaxAddress));
                 AddressHost2Editable = string.IsNullOrEmpty(CheckError(CommunicationAddress2, MaxAddress));
-                RaisePropertyChanged(nameof(AddressHost1Editable));
-                RaisePropertyChanged(nameof(AddressHost2Editable));
+                OnPropertyChanged(nameof(AddressHost1Editable));
+                OnPropertyChanged(nameof(AddressHost2Editable));
             }
 
             Committed = true;
@@ -779,7 +779,7 @@
         {
             var portAssignments = PropertiesManager.GetValue(SasProperties.SasPortAssignments, new PortAssignment());
             var hosts = PropertiesManager.GetValue(SasProperties.SasHosts, Enumerable.Empty<Host>()).ToList();
-            RaisePropertyChanged(nameof(AccountingDenoms));
+            OnPropertyChanged(nameof(AccountingDenoms));
 
             AccountingDenom1Index = -1; // Set the index to an invalid one so it can be refreshed
             AccountingDenom2Index = -1; // Set the index to an invalid one so it can be refreshed
@@ -836,8 +836,8 @@
             {
                 AddressHost1Editable = string.IsNullOrEmpty(CheckError(CommunicationAddress1, MaxAddress));
                 AddressHost2Editable = string.IsNullOrEmpty(CheckError(CommunicationAddress2, MaxAddress));
-                RaisePropertyChanged(nameof(AddressHost1Editable));
-                RaisePropertyChanged(nameof(AddressHost2Editable));
+                OnPropertyChanged(nameof(AddressHost1Editable));
+                OnPropertyChanged(nameof(AddressHost2Editable));
             }
         }
 

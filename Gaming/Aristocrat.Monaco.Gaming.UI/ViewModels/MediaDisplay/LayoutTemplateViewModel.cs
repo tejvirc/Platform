@@ -8,7 +8,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using System.Linq;
     using System.Windows;
 
-    public class LayoutTemplateViewModel : ObservableObject, IDisposable
+    public class LayoutTemplateViewModel : BaseObservableObject, IDisposable
     {
         private readonly IMediaProvider _provider;
         private readonly DisplayType _displayType;
@@ -49,7 +49,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 if (!_windowWidth.Equals(value))
                 {
                     _windowWidth = value;
-                    RaisePropertyChanged(nameof(WindowWidth));
+                    OnPropertyChanged(nameof(WindowWidth));
                 }
             }
         }
@@ -63,7 +63,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 if (!_windowHeight.Equals(value))
                 {
                     _windowHeight = value;
-                    RaisePropertyChanged(nameof(WindowHeight));
+                    OnPropertyChanged(nameof(WindowHeight));
                 }
             }
         }
@@ -82,9 +82,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             _eventBus.Subscribe<BrowserProcessTerminatedEvent>(this, e => BrowserProcessTerminated?.Invoke(this, e.MediaPlayerId));
         }
 
-        protected override void RaisePropertyChanged(string propertyName)
+        protected override void OnPropertyChanged(string propertyName)
         {
-            base.RaisePropertyChanged(propertyName);
+            base.OnPropertyChanged(propertyName);
 
             if (propertyName == "WindowWidth" || propertyName == "WindowHeight")
             {

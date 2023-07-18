@@ -48,8 +48,8 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         {
             _time = ServiceManager.GetInstance().GetService<ITime>();
 
-            ViewHostTranscriptsCommand = new ActionCommand<object>(ViewHostTranscript, _ => CanViewDetail());
-            CloseDetailCommand = new ActionCommand<object>(CloseHostTranscriptDetail);
+            ViewHostTranscriptsCommand = new RelayCommand<object>(ViewHostTranscript, _ => CanViewDetail());
+            CloseDetailCommand = new RelayCommand<object>(CloseHostTranscriptDetail);
 
             _enableViewHostTranscripts = false;
 
@@ -68,7 +68,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 if (_messages != value)
                 {
                     _messages = value;
-                    RaisePropertyChanged(nameof(HostTranscriptsData));
+                    OnPropertyChanged(nameof(HostTranscriptsData));
                 }
             }
         }
@@ -76,7 +76,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         /// <summary>
         ///     Gets the command that fires when page unloaded.
         /// </summary>
-        public ActionCommand<object> ViewHostTranscriptsCommand { get; }
+        public RelayCommand<object> ViewHostTranscriptsCommand { get; }
 
         /// <summary>
         ///     Gets the command that fires when page unloaded.
@@ -94,7 +94,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 if (_selectedText != value)
                 {
                     _selectedText = value;
-                    RaisePropertyChanged(nameof(SelectedHostTranscriptText));
+                    OnPropertyChanged(nameof(SelectedHostTranscriptText));
                 }
             }
         }
@@ -122,7 +122,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                     }
 
                     EnableViewHostTranscripts = SelectedHostTranscript != null;
-                    RaisePropertyChanged(nameof(SelectedHostTranscript));
+                    OnPropertyChanged(nameof(SelectedHostTranscript));
                 }
             }
         }
@@ -136,7 +136,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             set
             {
                 _showHostTranscripts = value;
-                RaisePropertyChanged(nameof(ShowHostTranscripts));
+                OnPropertyChanged(nameof(ShowHostTranscripts));
             }
         }
 
@@ -151,8 +151,8 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 if (_enableViewHostTranscripts != value)
                 {
                     _enableViewHostTranscripts = value;
-                    RaisePropertyChanged(nameof(EnableViewHostTranscripts));
-                    ViewHostTranscriptsCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(EnableViewHostTranscripts));
+                    ViewHostTranscriptsCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -165,7 +165,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 if (_commInfoData != value)
                 {
                     _commInfoData = value;
-                    RaisePropertyChanged(nameof(CommsInfoData));
+                    OnPropertyChanged(nameof(CommsInfoData));
                 }
             }
         }
@@ -186,7 +186,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 if (_commsConnected != value)
                 {
                     _commsConnected = value;
-                    RaisePropertyChanged(nameof(CommsConnected));
+                    OnPropertyChanged(nameof(CommsConnected));
                 }
             }
         }
@@ -198,7 +198,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
 
         public void OnNext(ClassCommand value)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     var eventDesc = GetCommandSummary(value);
@@ -336,13 +336,13 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
 
         private void PollConnectionTimerOnTick(object sender, EventArgs eventArgs)
         {
-            MvvmHelper.ExecuteOnUI(RefreshData);
+            Execute.OnUIThread(RefreshData);
         }
 
         private void RefreshData()
         {
-            RaisePropertyChanged(nameof(EgmId));
-            RaisePropertyChanged(nameof(EgmAddress));
+            OnPropertyChanged(nameof(EgmId));
+            OnPropertyChanged(nameof(EgmAddress));
 
             CommsConnected = _egm.Running;
 
@@ -394,9 +394,9 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
-                RaisePropertyChanged(nameof(CommsInfoData));
+                OnPropertyChanged(nameof(CommsInfoData));
             });
             base.OnOperatorCultureChanged(evt);
         }

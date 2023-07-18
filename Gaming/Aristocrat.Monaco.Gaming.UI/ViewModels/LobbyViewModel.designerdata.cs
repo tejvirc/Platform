@@ -14,7 +14,7 @@
         [Conditional("DESIGN")]
         private void WireDesignerData()
         {
-            if (InDesigner)
+            if (Execute.InDesigner)
             {
                 GameList.Add(
                     new GameInfo

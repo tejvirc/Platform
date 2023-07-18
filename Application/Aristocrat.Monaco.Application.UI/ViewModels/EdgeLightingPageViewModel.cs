@@ -32,7 +32,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         {
             _edgeLightingController = ServiceManager.GetInstance().GetService<IEdgeLightingController>();
             TestViewModel.SetTestReporter(Inspection);
-            ToggleTestModeCommand = new ActionCommand<object>(_ => InTestMode = !InTestMode, _ => TestModeEnabled);
+            ToggleTestModeCommand = new RelayCommand<object>(_ => InTestMode = !InTestMode, _ => TestModeEnabled);
         }
 
         public ICommand ToggleTestModeCommand { get; }
@@ -54,7 +54,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                     value,
                     nameof(IsEdgeLightingAvailable),
                     nameof(TestButtonEnabled));
-                RaisePropertyChanged(nameof(EdgeLightingEnabled));
+                OnPropertyChanged(nameof(EdgeLightingEnabled));
                 if (!value)
                 {
                     InTestMode = false;
@@ -98,9 +98,9 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 base.TestModeEnabled = value;
-                if (ToggleTestModeCommand is IActionCommand actionCommand)
+                if (ToggleTestModeCommand is IRelayCommand RelayCommand)
                 {
-                    MvvmHelper.ExecuteOnUI(() => actionCommand.RaiseCanExecuteChanged());
+                    Execute.OnUIThread(() => RelayCommand.NotifyCanExecuteChanged());
                 }
             }
         }
@@ -248,12 +248,12 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         protected override void OnInputEnabledChanged()
         {
-            RaisePropertyChanged(nameof(EdgeLightingEnabled));
+            OnPropertyChanged(nameof(EdgeLightingEnabled));
         }
 
         protected override void OnTestModeEnabledChanged()
         {
-            RaisePropertyChanged(nameof(TestButtonEnabled));
+            OnPropertyChanged(nameof(TestButtonEnabled));
         }
 
         protected override void UpdateStatusText()
@@ -270,32 +270,32 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         private void HandleEdgeLightConnectedEvent(EdgeLightingConnectedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     IsEdgeLightingAvailable = true;
-                    RaisePropertyChanged(nameof(InfoText), nameof(InfoTextVisible));
+                    OnPropertyChanged(nameof(InfoText), nameof(InfoTextVisible));
                     UpdateStatusText();
                 });
         }
 
         private void HandleEdgeLightDisconnectedEvent(EdgeLightingDisconnectedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     IsEdgeLightingAvailable = false;
-                    RaisePropertyChanged(nameof(InfoText), nameof(InfoTextVisible));
+                    OnPropertyChanged(nameof(InfoText), nameof(InfoTextVisible));
                     UpdateStatusText();
                 });
         }
 
         private void HandleOperatorCultureChangedEvent(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
-                    RaisePropertyChanged(nameof(InfoText));
+                    OnPropertyChanged(nameof(InfoText));
                     UpdateStatusText();
                 });
         }

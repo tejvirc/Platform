@@ -23,7 +23,7 @@
 
         public LicenseViewModel()
         {
-            if (InDesigner)
+            if (Execute.InDesigner)
             {
                 return;
             }
@@ -83,7 +83,7 @@
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            RaisePropertyChanged(
+            OnPropertyChanged(
                 nameof(Id),
                 nameof(LicenseConfiguration),
                 nameof(TimeRemaining),

@@ -26,8 +26,8 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
         {
             _operatorMenuLauncher = ServiceManager.GetInstance().TryGetService<IOperatorMenuLauncher>();
             EventBus.Subscribe<OperatorMenuExitingEvent>(this, HandleEvent);
-            SaveCommand = new ActionCommand<object>(_ => Save());
-            CancelCommand = new ActionCommand<object>(_ => Cancel());
+            SaveCommand = new RelayCommand<object>(_ => Save());
+            CancelCommand = new RelayCommand<object>(_ => Cancel());
 
             ShowSaveButton = (buttons & DialogButton.Save) == DialogButton.Save;
             ShowCancelButton = (buttons & DialogButton.Cancel) == DialogButton.Cancel;
@@ -66,7 +66,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
                 if (_dialogResult != value)
                 {
                     _dialogResult = value;
-                    RaisePropertyChanged(nameof(DialogResult));
+                    OnPropertyChanged(nameof(DialogResult));
                 }
             }
         }
@@ -74,7 +74,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
         // To refresh Save button status as CanSave is overrode in ExtraSettingsSetupViewModel
         public bool UpdateCanSave
         {
-            set => RaisePropertyChanged(nameof(CanSave));
+            set => OnPropertyChanged(nameof(CanSave));
         }
 
         public bool ShowSaveButton { get; set; }
@@ -133,7 +133,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
 
         protected override void OnInputEnabledChanged()
         {
-            RaisePropertyChanged(nameof(CanSave));
+            OnPropertyChanged(nameof(CanSave));
         }
 
         protected override void OnLoaded()
@@ -157,7 +157,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
         {
             if (CloseOnRestrictedAccess && AccessRestriction != OperatorMenuAccessRestriction.None)
             {
-                MvvmHelper.ExecuteOnUI(() => DialogResult = false);
+                Execute.OnUIThread(() => DialogResult = false);
             }
         }
 
@@ -167,13 +167,13 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
                  theEvent.LogicalId == (int)ButtonLogicalId.DualPlay) &&
                 theEvent.Enabled == false)
             {
-                MvvmHelper.ExecuteOnUI(Cancel);
+                Execute.OnUIThread(Cancel);
             }
         }
 
         private void HandleEvent(OperatorMenuExitingEvent theEvent)
         {
-            MvvmHelper.ExecuteOnUI(Cancel);
+            Execute.OnUIThread(Cancel);
         }
     }
 }

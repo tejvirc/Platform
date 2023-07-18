@@ -70,7 +70,7 @@ namespace Aristocrat.Monaco.Application.UI.Views
 
         private void CloseWindow()
         {
-            MvvmHelper.ExecuteOnUI(Close);
+            Execute.OnUIThread(Close);
         }
 
         private void Window_Initialized(object sender, EventArgs e)

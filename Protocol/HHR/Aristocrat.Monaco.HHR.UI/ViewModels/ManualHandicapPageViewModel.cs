@@ -63,7 +63,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
             _gameProvider = gameProvider
                 ?? throw new ArgumentNullException(nameof(gameProvider));
 
-            HorseNumberClicked = new ActionCommand<object>(OnHorseNumberClicked);
+            HorseNumberClicked = new RelayCommand<object>(OnHorseNumberClicked);
 
             _tickCount = 0;
             _manualHandicapTimer = new HHRTimer(1000);
@@ -97,7 +97,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
                 if (value != _raceSelectionCompleted)
                 {
                     _raceSelectionCompleted = value;
-                    RaisePropertyChanged(nameof(RaceSelectionCompleted));
+                    OnPropertyChanged(nameof(RaceSelectionCompleted));
                 }
             }
         }
@@ -228,7 +228,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
         {
             TimerInfo = new TimerInfo
             {
-                TimerElapsedCommand = new ActionCommand<object>(OnTimerElapsed),
+                TimerElapsedCommand = new RelayCommand<object>(OnTimerElapsed),
                 Timeout = ManualHandicapRemainingTime,
                 IsVisible = true,
                 IsQuickPickTextVisible = ClientProperties.ManualHandicapMode == HhrConstants.QuickPickMode,
@@ -545,18 +545,18 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
 
         private void UpdateView()
         {
-            RaisePropertyChanged(nameof(TimerInfo));
-            RaisePropertyChanged(nameof(CurrentRaceIndex));
-            RaisePropertyChanged(nameof(CurrentHorsePicks));
-            RaisePropertyChanged(nameof(CurrentHorseNumbers));
-            RaisePropertyChanged(nameof(RemainingRacesToHandicap));
+            OnPropertyChanged(nameof(TimerInfo));
+            OnPropertyChanged(nameof(CurrentRaceIndex));
+            OnPropertyChanged(nameof(CurrentHorsePicks));
+            OnPropertyChanged(nameof(CurrentHorseNumbers));
+            OnPropertyChanged(nameof(RemainingRacesToHandicap));
         }
 
         private void HandlePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e != null)
             {
-                RaisePropertyChanged(e.PropertyName);
+                OnPropertyChanged(e.PropertyName);
             }
         }
 

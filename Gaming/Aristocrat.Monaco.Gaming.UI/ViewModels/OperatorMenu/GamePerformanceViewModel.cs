@@ -58,7 +58,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
         /// </summary>
         public GamePerformanceViewModel()
         {
-            if (!InDesigner)
+            if (!Execute.InDesigner)
             {
                 _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
             }
@@ -69,8 +69,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 _gameProvider = container.Container.GetInstance<IGameProvider>();
             }
 
-            ShowMoreMetersCommand = new ActionCommand<object>(ShowMoreMetersPressed);
-            SortingCommand = new ActionCommand<DataGridSortingEventArgs>(SortDataGrid);
+            ShowMoreMetersCommand = new RelayCommand<object>(ShowMoreMetersPressed);
+            SortingCommand = new RelayCommand<DataGridSortingEventArgs>(SortDataGrid);
 
             _cache = ServiceManager.GetInstance().GetService<ICache>();
         }
@@ -83,7 +83,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             set
             {
                 _showGameRtpAsRange = value;
-                RaisePropertyChanged(nameof(ShowGameRtpAsRange));
+                OnPropertyChanged(nameof(ShowGameRtpAsRange));
             }
         }
 
@@ -148,7 +148,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 if (_gameData != null)
                 {
                     _gameData.MachineWeightedPayback = value;
-                    RaisePropertyChanged(nameof(MachineWeightedPayback));
+                    OnPropertyChanged(nameof(MachineWeightedPayback));
                 }
             }
         }
@@ -164,7 +164,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 if (_gameData != null)
                 {
                     _gameData.MachineActualPayback = value;
-                    RaisePropertyChanged(nameof(MachineActualPayback));
+                    OnPropertyChanged(nameof(MachineActualPayback));
                 }
             }
         }
@@ -180,7 +180,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 if (_gameData != null)
                 {
                     _gameData.GamePerformanceItems = value;
-                    RaisePropertyChanged(nameof(GamePerformanceItems));
+                    OnPropertyChanged(nameof(GamePerformanceItems));
                 }
             }
         }
@@ -197,7 +197,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 PropertiesManager.SetProperty(GamingConstants.OperatorMenuPerformancePageSelectedGameType, value);
                 UpdateGameThemes();
                 UpdateGamePerformanceItems();
-                RaisePropertyChanged(nameof(SelectedGameType));
+                OnPropertyChanged(nameof(SelectedGameType));
             }
         }
 
@@ -212,7 +212,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 if (_gameData != null)
                 {
                     _gameData.GameTypes = value;
-                    RaisePropertyChanged(nameof(GameTypes));
+                    OnPropertyChanged(nameof(GameTypes));
                 }
             }
         }
@@ -245,7 +245,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                             gameTheme.PropertyChanged += OnThemeSelectionChanged;
                         }
 
-                        RaisePropertyChanged(nameof(GameThemes));
+                        OnPropertyChanged(nameof(GameThemes));
                     }
                 }
             }
@@ -455,18 +455,18 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
             }
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
-                    RaisePropertyChanged(nameof(GameTypes));
+                    OnPropertyChanged(nameof(GameTypes));
                     SelectedGameType = savedSelectedGameType;
                     UpdateGameThemes();
                     UpdateGamePerformanceItems();
 
-                    RaisePropertyChanged(nameof(HideNeverActive));
-                    RaisePropertyChanged(nameof(HidePreviouslyActive));
-                    RaisePropertyChanged(nameof(MachineWeightedPayback));
-                    RaisePropertyChanged(nameof(MachineActualPayback));
+                    OnPropertyChanged(nameof(HideNeverActive));
+                    OnPropertyChanged(nameof(HidePreviouslyActive));
+                    OnPropertyChanged(nameof(MachineWeightedPayback));
+                    OnPropertyChanged(nameof(MachineActualPayback));
                 });
         }
 

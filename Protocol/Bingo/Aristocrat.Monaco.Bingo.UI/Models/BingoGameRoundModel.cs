@@ -3,13 +3,14 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using CommunityToolkit.Mvvm.ComponentModel;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
 
     /// <summary>
     ///     Data to display within <see cref="ViewModels.OperatorMenu.BingoGameHistoryDetailsViewModel"/>;
     ///     contains the ball call, played cards, and winning patterns.
     /// </summary>
-    public class BingoGameRoundModel : ObservableObject
+    public class BingoGameRoundModel : BaseObservableObject
     {
         private readonly IList<BingoCardModel> _cards;
         
@@ -84,10 +85,10 @@
                 CurrentPatternIndex = 0;
                 UpdateDaubing();
 
-                RaisePropertyChanged(nameof(CurrentCardIndex));
-                RaisePropertyChanged(nameof(CurrentCard));
-                RaisePropertyChanged(nameof(IsLosingCard));
-                RaisePropertyChanged(nameof(HasMultipleWinningPatterns));
+                OnPropertyChanged(nameof(CurrentCardIndex));
+                OnPropertyChanged(nameof(CurrentCard));
+                OnPropertyChanged(nameof(IsLosingCard));
+                OnPropertyChanged(nameof(HasMultipleWinningPatterns));
             }
         }
 
@@ -108,8 +109,8 @@
                 _currentPatternIndex = value;
                 UpdateDaubing();
 
-                RaisePropertyChanged(nameof(CurrentPatternIndex));
-                RaisePropertyChanged(nameof(CurrentPattern));
+                OnPropertyChanged(nameof(CurrentPatternIndex));
+                OnPropertyChanged(nameof(CurrentPattern));
             }
         }
 

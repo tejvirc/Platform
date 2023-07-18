@@ -131,7 +131,7 @@
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             SetupRtpValuesAndVisibility();
-            RaisePropertyChanged(nameof(MechanicalMeter), nameof(DoorOpticSensor), nameof(ZeroCreditOnOos));
+            OnPropertyChanged(nameof(MechanicalMeter), nameof(DoorOpticSensor), nameof(ZeroCreditOnOos));
             base.OnOperatorCultureChanged(evt);
         }
 

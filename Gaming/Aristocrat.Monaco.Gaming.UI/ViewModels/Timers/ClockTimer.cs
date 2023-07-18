@@ -13,7 +13,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.Timers
     using Monaco.UI.Common;
     using Monaco.UI.Common.Models;
 
-    public class ClockTimer : BaseViewModel
+    public class ClockTimer : BaseObservableObject
     {
         private const int ClockStateTimeoutInSeconds = 30;
         private const double DayTimerIntervalSeconds = 1.0;
@@ -85,7 +85,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.Timers
                     _clockState = value;
                     _lastClockStateSet = DateTime.UtcNow;
                     Logger.Debug($"Setting Lobby Clock State: {_clockState}");
-                    RaisePropertyChanged(nameof(ClockState));
+                    OnPropertyChanged(nameof(ClockState));
                     UpdateTime();
                 }
             }
@@ -107,7 +107,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.Timers
                 if (_currentTime != value)
                 {
                     _currentTime = value;
-                    RaisePropertyChanged(nameof(CurrentTime));
+                    OnPropertyChanged(nameof(CurrentTime));
                 }
             }
         }
@@ -275,7 +275,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.Timers
 
         public void UpdateTime()
         {
-            RaisePropertyChanged(nameof(IsSessionOverLabelVisible));
+            OnPropertyChanged(nameof(IsSessionOverLabelVisible));
             if (_clockState == LobbyClockState.Clock)
             {
                 var culture = new CultureInfo(ActiveLocaleCode);
@@ -307,7 +307,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.Timers
                 CurrentTime = SessionTimeText;
             }
 
-            RaisePropertyChanged(nameof(TimeLabelResourceKey));
+            OnPropertyChanged(nameof(TimeLabelResourceKey));
         }
 
         private void DayTimer_Tick(object sender, EventArgs e)

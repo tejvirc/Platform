@@ -2,13 +2,14 @@
 {
     using Application.Contracts.Extensions;
     using Contracts.Client;
-    using CommunityToolkit.Mvvm.ComponentModel;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using Newtonsoft.Json;
 
     /// <summary>
     ///     Contains the settings for accounting denoms.
     /// </summary>
-    public class AccountingDenomsSetting : ObservableObject
+    public class AccountingDenomsSetting : BaseObservableObject
     {
         private long _host0Denom;
         private long _host1Denom;
@@ -23,7 +24,7 @@
             set
             {
                 SetProperty(ref _host0Denom, value);
-                RaisePropertyChanged(nameof(Host0DenomDisplay));
+                OnPropertyChanged(nameof(Host0DenomDisplay));
             }
         }
 
@@ -43,7 +44,7 @@
             set
             {
                 SetProperty(ref _host1Denom, value);
-                RaisePropertyChanged(nameof(Host1DenomDisplay));
+                OnPropertyChanged(nameof(Host1DenomDisplay));
             }
         }
 

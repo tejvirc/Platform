@@ -2,6 +2,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using Accounting.Contracts;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Extensions;
     using Contracts.Localization;
@@ -23,8 +24,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         public CreditsInPageViewModel()
         {
-            ApplyCommand = new ActionCommand<object>(OnApply, OnCanApply);
-            ClearCommand = new ActionCommand<object>(OnClear, OnCanClear);
+            ApplyCommand = new RelayCommand<object>(OnApply, OnCanApply);
+            ClearCommand = new RelayCommand<object>(OnClear, OnCanClear);
 
             // Set whether the operator can override max credit in.
             _canOverrideMaxCreditsIn = GetConfigSetting(
@@ -36,12 +37,12 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         /// <summary>
         ///     Gets or sets action command that applies the options.
         /// </summary>
-        public ActionCommand<object> ApplyCommand { get; set; }
+        public RelayCommand<object> ApplyCommand { get; set; }
 
         /// <summary>
         ///     Gets or sets action command that clears the Cash In Limit value.
         /// </summary>
-        public ActionCommand<object> ClearCommand { get; set; }
+        public RelayCommand<object> ClearCommand { get; set; }
 
         public bool IsDirty
         {
@@ -50,8 +51,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _isDirty = value;
-                RaisePropertyChanged(nameof(IsDirty));
-                ApplyCommand.RaiseCanExecuteChanged();
+                OnPropertyChanged(nameof(IsDirty));
+                ApplyCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -67,10 +68,10 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (_maxCreditsIn != value)
                 {
                     ValidateMaxCreditsIn(value);
-                    RaisePropertyChanged(nameof(MaxCreditsIn));
+                    OnPropertyChanged(nameof(MaxCreditsIn));
                     IsDirty = true;
-                    ApplyCommand.RaiseCanExecuteChanged();
-                    ClearCommand.RaiseCanExecuteChanged();
+                    ApplyCommand.NotifyCanExecuteChanged();
+                    ClearCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -85,7 +86,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _maxCreditsInEnabled = value;
-                RaisePropertyChanged(nameof(MaxCreditsInEnabled));
+                OnPropertyChanged(nameof(MaxCreditsInEnabled));
             }
         }
 
@@ -93,11 +94,11 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         {
             MaxCreditsIn = PropertiesManager.GetValue(PropertyKey.MaxCreditsIn, AccountingConstants.DefaultMaxTenderInLimit).MillicentsToDollars();
 
-            RaisePropertyChanged(nameof(MaxCreditsIn));
+            OnPropertyChanged(nameof(MaxCreditsIn));
 
             IsDirty = false;
 
-            ClearCommand.RaiseCanExecuteChanged();
+            ClearCommand.NotifyCanExecuteChanged();
 
             // Are we configured to override MaxCreditsIn?
             if (_canOverrideMaxCreditsIn)

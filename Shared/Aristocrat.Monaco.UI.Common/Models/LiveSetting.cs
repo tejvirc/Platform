@@ -5,12 +5,13 @@
     using System.ComponentModel;
     using System.Linq;
     using Monaco.Common;
-    using CommunityToolkit.Mvvm.ComponentModel;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using Quartz.Util;
 
     /// <see cref="LiveSetting{TValue}"/>
     [CLSCompliant(false)]
-    public abstract class LiveSetting : ObservableObject
+    public abstract class LiveSetting : BaseObservableObject
     {
         /// <summary>
         /// Modes for echoing a setting's live value to its edited value.
@@ -192,7 +193,7 @@
             set
             {
                 _isVisible = value;
-                RaisePropertyChanged(nameof(IsVisible));
+                OnPropertyChanged(nameof(IsVisible));
             }
         }
 
@@ -205,13 +206,13 @@
             set
             {
                 _isReadOnly = value;
-                RaisePropertyChanged(nameof(IsReadOnly));
+                OnPropertyChanged(nameof(IsReadOnly));
             }
         }
 
         /// <summary>
         /// The error (if any) for this setting reported by the view
-        /// (legacy support for existing controls and ObservableObject-derived VMs).
+        /// (legacy support for existing controls and BaseObservableObject-derived VMs).
         /// </summary>
         public string ErrorFromView
         {
@@ -221,7 +222,7 @@
                 {
                     _errorFromView = value;
                     _error = null;
-                    RaisePropertyChanged(nameof(EditedValue), nameof(Error));
+                    OnPropertyChanged(nameof(EditedValue), nameof(Error));
                 }
             }
         }
@@ -236,7 +237,7 @@
                 // notify even if errors haven't changed, to workaround validation system
                 _validationErrors = value;
                 _error = null;
-                RaisePropertyChanged(nameof(EditedValue), nameof(Error));
+                OnPropertyChanged(nameof(EditedValue), nameof(Error));
             }
         }
 
@@ -323,7 +324,7 @@
             // notify
             _error = null;
             OnChanged?.Invoke(this);
-            RaisePropertyChanged(nameof(LiveValue), nameof(EditedValue), nameof(Status), nameof(Error));
+            OnPropertyChanged(nameof(LiveValue), nameof(EditedValue), nameof(Status), nameof(Error));
         }
     }
 }

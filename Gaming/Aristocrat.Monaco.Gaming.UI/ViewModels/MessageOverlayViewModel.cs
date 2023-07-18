@@ -25,7 +25,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using log4net;
     using Utils;
 
-    public class MessageOverlayViewModel : ObservableObject
+    public class MessageOverlayViewModel : BaseObservableObject
     {
         private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
@@ -209,7 +209,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         public void AddHardErrorMessage(DisplayableMessage displayableMessage)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (HardErrorMessages.ContainsKey(displayableMessage.Id))
@@ -226,7 +226,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         public void RemoveHardErrorMessage(DisplayableMessage displayableMessage)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (!HardErrorMessages.TryRemove(displayableMessage.Id, out _))
@@ -370,7 +370,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             // Wait until after message data has been re-set instead of updating visibility immediately after clearing it
             // This will prevent message flickering
             HandleOverlayWindowDialogVisibility();
-            RaisePropertyChanged(nameof(MessageOverlayData));
+            OnPropertyChanged(nameof(MessageOverlayData));
         }
 
         public void HandleOverlayWindowDialogVisibility()

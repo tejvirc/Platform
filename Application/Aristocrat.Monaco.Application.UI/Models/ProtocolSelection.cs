@@ -1,10 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.Models
 {
     using System;
-    using CommunityToolkit.Mvvm.ComponentModel;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
 
     [CLSCompliant(false)]
-    public class ProtocolSelection : ObservableObject
+    public class ProtocolSelection : BaseObservableObject
     {
         private bool _selected;
         private bool _enabled;

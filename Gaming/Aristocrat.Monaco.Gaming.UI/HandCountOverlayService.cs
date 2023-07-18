@@ -59,7 +59,7 @@ namespace Aristocrat.Monaco.Gaming.UI
 
         public void Initialize()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     _timerDialogViewModel = new HandCountTimerDialogViewModel();

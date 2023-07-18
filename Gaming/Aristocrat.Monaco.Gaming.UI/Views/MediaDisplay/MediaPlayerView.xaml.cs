@@ -42,7 +42,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay
 
         private void MuteAudioHandler(MediaPlayerSetAudioMutedEvent e)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (Browser.IsBrowserInitialized)

@@ -6,13 +6,14 @@
     using Contracts.SASProperties;
     using Kernel;
     using Localization.Properties;
-    using CommunityToolkit.Mvvm.ComponentModel;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using Newtonsoft.Json;
 
     /// <summary>
     ///     Gets the settings for the sas features
     /// </summary>
-    public class SasFeaturesSettings : ObservableObject
+    public class SasFeaturesSettings : BaseObservableObject
     {
         private SasHandpayReportingType _handpayReportingType;
         private long _transferLimit;

@@ -102,7 +102,7 @@
 
         protected override void OnLoaded()
         {
-            RaisePropertyChanged(nameof(G2SHosts));
+            OnPropertyChanged(nameof(G2SHosts));
         }
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
@@ -113,29 +113,29 @@
 
         private void RaisePropChangedForAll()
         {
-            RaisePropertyChanged(nameof(AcceptedDenominations));
-            RaisePropertyChanged(nameof(MegabytesLabel));
-            RaisePropertyChanged(nameof(FreeMemoryLabel));
-            RaisePropertyChanged(nameof(FreeMemory));
-            RaisePropertyChanged(nameof(MonacoPrivateBytesLabel));
-            RaisePropertyChanged(nameof(MonacoPrivateBytes));
-            RaisePropertyChanged(nameof(ClrBytesLabel));
-            RaisePropertyChanged(nameof(ClrBytes));
-            RaisePropertyChanged(nameof(G2SHosts));
-            RaisePropertyChanged(nameof(PrinterName));
-            RaisePropertyChanged(nameof(PrinterManufacturer));
-            RaisePropertyChanged(nameof(PrinterModel));
-            RaisePropertyChanged(nameof(PrinterState));
-            RaisePropertyChanged(nameof(PrinterFirmwareVersion));
-            RaisePropertyChanged(nameof(PrinterFirmwareRevision));
-            RaisePropertyChanged(nameof(PrinterSerialNumber));
-            RaisePropertyChanged(nameof(NoteAcceptorName));
-            RaisePropertyChanged(nameof(NoteAcceptorManufacturer));
-            RaisePropertyChanged(nameof(NoteAcceptorModel));
-            RaisePropertyChanged(nameof(NoteAcceptorState));
-            RaisePropertyChanged(nameof(NoteAcceptorFirmwareVersion));
-            RaisePropertyChanged(nameof(NoteAcceptorFirmwareRevision));
-            RaisePropertyChanged(nameof(NoteAcceptorSerialNumber));
+            OnPropertyChanged(nameof(AcceptedDenominations));
+            OnPropertyChanged(nameof(MegabytesLabel));
+            OnPropertyChanged(nameof(FreeMemoryLabel));
+            OnPropertyChanged(nameof(FreeMemory));
+            OnPropertyChanged(nameof(MonacoPrivateBytesLabel));
+            OnPropertyChanged(nameof(MonacoPrivateBytes));
+            OnPropertyChanged(nameof(ClrBytesLabel));
+            OnPropertyChanged(nameof(ClrBytes));
+            OnPropertyChanged(nameof(G2SHosts));
+            OnPropertyChanged(nameof(PrinterName));
+            OnPropertyChanged(nameof(PrinterManufacturer));
+            OnPropertyChanged(nameof(PrinterModel));
+            OnPropertyChanged(nameof(PrinterState));
+            OnPropertyChanged(nameof(PrinterFirmwareVersion));
+            OnPropertyChanged(nameof(PrinterFirmwareRevision));
+            OnPropertyChanged(nameof(PrinterSerialNumber));
+            OnPropertyChanged(nameof(NoteAcceptorName));
+            OnPropertyChanged(nameof(NoteAcceptorManufacturer));
+            OnPropertyChanged(nameof(NoteAcceptorModel));
+            OnPropertyChanged(nameof(NoteAcceptorState));
+            OnPropertyChanged(nameof(NoteAcceptorFirmwareVersion));
+            OnPropertyChanged(nameof(NoteAcceptorFirmwareRevision));
+            OnPropertyChanged(nameof(NoteAcceptorSerialNumber));
         }
 
         private void LoadAvailableMetrics()
@@ -178,9 +178,9 @@
                 metric.CurrentValue = newData.Value; // grab current value for the legend
             }
 
-            RaisePropertyChanged(nameof(FreeMemory));
-            RaisePropertyChanged(nameof(ClrBytes));
-            RaisePropertyChanged(nameof(MonacoPrivateBytes));
+            OnPropertyChanged(nameof(FreeMemory));
+            OnPropertyChanged(nameof(ClrBytes));
+            OnPropertyChanged(nameof(MonacoPrivateBytes));
         }
 
         private string GetFormattedSupportedNotes()

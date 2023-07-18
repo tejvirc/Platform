@@ -1,7 +1,7 @@
 namespace Aristocrat.Monaco.Gaming.UI.Models
 {
 
-    public class LanguageOption : BaseViewModel
+    public class LanguageOption : BaseObservableObject
     {
         private bool _isDefault;
         private bool _isEnabled;
@@ -34,7 +34,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
                     // TODO Does there need to be a default at all times?
                 }
 
-                RaisePropertyChanged(nameof(IsEnabled));
+                OnPropertyChanged(nameof(IsEnabled));
             }
         }
 
@@ -51,7 +51,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
                 }
 
                 _isDefault = value;
-                RaisePropertyChanged(nameof(IsDefault));
+                OnPropertyChanged(nameof(IsDefault));
             }
         }
     }

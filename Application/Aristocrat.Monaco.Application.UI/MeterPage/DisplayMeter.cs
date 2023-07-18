@@ -1,6 +1,8 @@
 namespace Aristocrat.Monaco.Application.UI.MeterPage
 {
     using System;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Extensions;
     using Contracts.Localization;
@@ -11,7 +13,7 @@ namespace Aristocrat.Monaco.Application.UI.MeterPage
     ///     This is created by the meters page viewmodel implementation for use in meters page UIs.
     /// </summary>
     [CLSCompliant(false)]
-    public class DisplayMeter : BaseViewModel, IDisposable
+    public class DisplayMeter : BaseObservableObject, IDisposable
     {
         private bool _showLifetime;
         private bool _useOperatorCultureForCurrency;
@@ -102,7 +104,7 @@ namespace Aristocrat.Monaco.Application.UI.MeterPage
                 }
 
                 var meterValue = ShowLifetime ? Meter.Lifetime : Meter.Period;
-                RaisePropertyChanged(nameof(HideRowForPeriod));
+                OnPropertyChanged(nameof(HideRowForPeriod));
 
                 var culture = _useOperatorCultureForCurrency ?
                     Localizer.For(CultureFor.Operator).CurrentCulture : CurrencyExtensions.CurrencyCultureInfo;
@@ -120,7 +122,7 @@ namespace Aristocrat.Monaco.Application.UI.MeterPage
             set
             {
                 SetProperty(ref _showLifetime, value, nameof(Value), nameof(Count));
-                RaisePropertyChanged(nameof(HideRowForPeriod));
+                OnPropertyChanged(nameof(HideRowForPeriod));
             }
         }
 
@@ -134,7 +136,7 @@ namespace Aristocrat.Monaco.Application.UI.MeterPage
         /// </summary>
         protected virtual void OnMeterChangedEvent(object sender, MeterChangedEventArgs e)
         {
-            RaisePropertyChanged(nameof(Value));
+            OnPropertyChanged(nameof(Value));
         }
 
         /// <inheritdoc />

@@ -2,6 +2,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Threading.Tasks;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using ConfigWizard;
     using Contracts;
     using Contracts.Localization;
@@ -62,7 +63,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 {
                     ValidateNetworkAddressAllowEmpty(value, nameof(DnsServer1));
                     _dnsServer1 = value;
-                    RaisePropertyChanged(nameof(DnsServer1), nameof(CanApplyChanges));
+                    OnPropertyChanged(nameof(DnsServer1), nameof(CanApplyChanges));
                 }
             }
         }
@@ -77,7 +78,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 {
                     ValidateNetworkAddressAllowEmpty(value, nameof(DnsServer2));
                     _dnsServer2 = value;
-                    RaisePropertyChanged(nameof(DnsServer2), nameof(CanApplyChanges));
+                    OnPropertyChanged(nameof(DnsServer2), nameof(CanApplyChanges));
                 }
             }
         }
@@ -92,7 +93,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 {
                     ValidateNetworkAddress(value, nameof(IpAddress));
                     _ipAddress = value;
-                    RaisePropertyChanged(nameof(IpAddress), nameof(CanApplyChanges));
+                    OnPropertyChanged(nameof(IpAddress), nameof(CanApplyChanges));
                 }
             }
         }
@@ -107,7 +108,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 {
                     ValidateSubnetAddress(value, nameof(SubnetMask));
                     _subnetMask = value;
-                    RaisePropertyChanged(nameof(SubnetMask), nameof(CanApplyChanges));
+                    OnPropertyChanged(nameof(SubnetMask), nameof(CanApplyChanges));
                 }
             }
         }
@@ -129,7 +130,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                         ValidateNetworkAddress(value, nameof(Gateway));
                     }
                     _gateway = value;
-                    RaisePropertyChanged(nameof(Gateway), nameof(CanApplyChanges));
+                    OnPropertyChanged(nameof(Gateway), nameof(CanApplyChanges));
                 }
             }
         }
@@ -143,7 +144,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (_staticIp != value)
                 {
                     _staticIp = value;
-                    RaisePropertyChanged(nameof(StaticIp), nameof(CanApplyChanges));
+                    OnPropertyChanged(nameof(StaticIp), nameof(CanApplyChanges));
                 }
             }
         }
@@ -160,7 +161,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
 
                 _dhcpEnabled = value;
-                RaisePropertyChanged(nameof(DhcpEnabled), nameof(CanApplyChanges));
+                OnPropertyChanged(nameof(DhcpEnabled), nameof(CanApplyChanges));
 
                 if (_dhcpEnabled)
                 {
@@ -175,11 +176,11 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 {
                     ValidateAll();
 
-                    RaisePropertyChanged(nameof(IpAddress));
-                    RaisePropertyChanged(nameof(SubnetMask));
-                    RaisePropertyChanged(nameof(Gateway));
-                    RaisePropertyChanged(nameof(DnsServer1));
-                    RaisePropertyChanged(nameof(DnsServer2));
+                    OnPropertyChanged(nameof(IpAddress));
+                    OnPropertyChanged(nameof(SubnetMask));
+                    OnPropertyChanged(nameof(Gateway));
+                    OnPropertyChanged(nameof(DnsServer1));
+                    OnPropertyChanged(nameof(DnsServer2));
                 }
 
             }
@@ -194,7 +195,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (_showStatus != value)
                 {
                     _showStatus = value;
-                    RaisePropertyChanged(nameof(ShowStatus));
+                    OnPropertyChanged(nameof(ShowStatus));
                 }
             }
         }
@@ -224,7 +225,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 () =>
                 {
                     _network.SetNetworkInfo(networkInfo);
-                    MvvmHelper.ExecuteOnUI(
+                    Execute.OnUIThread(
                         () =>
                         {
                             RefreshScreen();
@@ -279,7 +280,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         protected override void OnInputEnabledChanged()
         {
-            RaisePropertyChanged(nameof(CanApplyChanges));
+            OnPropertyChanged(nameof(CanApplyChanges));
         }
 
         private void RefreshScreen()

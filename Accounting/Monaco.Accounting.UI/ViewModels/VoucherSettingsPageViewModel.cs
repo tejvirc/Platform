@@ -57,7 +57,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             set
             {
                 _allowVoucherIn = value;
-                RaisePropertyChanged(nameof(AllowVoucherIn));
+                OnPropertyChanged(nameof(AllowVoucherIn));
             }
         }
 
@@ -86,7 +86,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             set
             {
                 _voucherInLimitCheckboxEnabled = value;
-                RaisePropertyChanged(nameof(VoucherInLimitCheckboxEnabled));
+                OnPropertyChanged(nameof(VoucherInLimitCheckboxEnabled));
             }
         }
 
@@ -108,7 +108,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
                     ? voucherInLimit
                     : MaxVoucherInAllowed.MillicentsToDollars();
 
-                RaisePropertyChanged(nameof(VoucherInLimitEnabledChecked));
+                OnPropertyChanged(nameof(VoucherInLimitEnabledChecked));
                 PropertiesManager.SetProperty(AccountingConstants.VoucherInLimitEnabled, value);
             }
         }
@@ -132,7 +132,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
                     AllowNonCashVoucherOut = false;
                 }
 
-                RaisePropertyChanged(nameof(AllowVoucherOut));
+                OnPropertyChanged(nameof(AllowVoucherOut));
             }
         }
 
@@ -148,7 +148,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
                     PrintHandpayReceipt = false;
                 }
 
-                RaisePropertyChanged(nameof(PrinterEnabled));
+                OnPropertyChanged(nameof(PrinterEnabled));
             }
         }
 
@@ -160,7 +160,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             set
             {
                 _isCashableVoucherExpirationVisible = value;
-                RaisePropertyChanged(nameof(IsCashableVoucherExpirationVisible));
+                OnPropertyChanged(nameof(IsCashableVoucherExpirationVisible));
             }
         }
 
@@ -170,7 +170,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             set
             {
                 _isNonCashableVoucherOutVisible = value;
-                RaisePropertyChanged(nameof(IsNonCashableVoucherOutVisible));
+                OnPropertyChanged(nameof(IsNonCashableVoucherOutVisible));
             }
         }
 
@@ -180,7 +180,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             set
             {
                 _arePropertyFieldsEnabled = value;
-                RaisePropertyChanged(nameof(ArePropertyFieldsEnabled));
+                OnPropertyChanged(nameof(ArePropertyFieldsEnabled));
             }
         }
 
@@ -211,7 +211,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             set
             {
                 _voucherOutLimitCheckboxEnabled = value;
-                RaisePropertyChanged(nameof(VoucherOutLimitCheckboxEnabled));
+                OnPropertyChanged(nameof(VoucherOutLimitCheckboxEnabled));
             }
         }
 
@@ -234,7 +234,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
                     ? voucherOutLimit
                     : MaxVoucherOutAllowed.MillicentsToDollars();
 
-                RaisePropertyChanged(nameof(VoucherOutLimitEnabledChecked));
+                OnPropertyChanged(nameof(VoucherOutLimitEnabledChecked));
                 PropertiesManager.SetProperty(AccountingConstants.VoucherOutLimitEnabled, value);
             }
         }
@@ -247,7 +247,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             set
             {
                 _allowNonCashVoucherOut = value;
-                RaisePropertyChanged(nameof(AllowNonCashVoucherOut));
+                OnPropertyChanged(nameof(AllowNonCashVoucherOut));
             }
         }
 
@@ -257,7 +257,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             set
             {
                 _handpayReceiptEditable = value;
-                RaisePropertyChanged(nameof(HandpayReceiptEditable));
+                OnPropertyChanged(nameof(HandpayReceiptEditable));
             }
         }
 
@@ -267,7 +267,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             set
             {
                 _printHandpayReceipt = value;
-                RaisePropertyChanged(nameof(PrintHandpayReceipt));
+                OnPropertyChanged(nameof(PrintHandpayReceipt));
             }
         }
 
@@ -294,7 +294,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             set
             {
                 _selectedValidationLength = value;
-                RaisePropertyChanged(nameof(SelectedValidationLength));
+                OnPropertyChanged(nameof(SelectedValidationLength));
             }
         }
 
@@ -306,7 +306,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             set
             {
                 _selectedLayoutType = value;
-                RaisePropertyChanged(nameof(SelectedLayoutType));
+                OnPropertyChanged(nameof(SelectedLayoutType));
             }
         }
 
@@ -316,7 +316,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             set
             {
                 _voucherExpirationDays = value;
-                RaisePropertyChanged(nameof(VoucherExpirationDays));
+                OnPropertyChanged(nameof(VoucherExpirationDays));
             }
         }
 
@@ -326,7 +326,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             set
             {
                 _nonCashVoucherExpirationDays = value;
-                RaisePropertyChanged(nameof(NonCashVoucherExpirationDays));
+                OnPropertyChanged(nameof(NonCashVoucherExpirationDays));
             }
         }
 
@@ -336,7 +336,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             set
             {
                 _propertyName = value;
-                RaisePropertyChanged(nameof(PropertyName));
+                OnPropertyChanged(nameof(PropertyName));
             }
         }
 
@@ -346,7 +346,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             set
             {
                 _propertyAddress1 = value;
-                RaisePropertyChanged(nameof(PropertyAddress1));
+                OnPropertyChanged(nameof(PropertyAddress1));
             }
         }
 
@@ -356,7 +356,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             set
             {
                 _propertyAddress2 = value;
-                RaisePropertyChanged(nameof(PropertyAddress2));
+                OnPropertyChanged(nameof(PropertyAddress2));
             }
         }
 
@@ -366,7 +366,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             set
             {
                 _voucherExpirationEditable = value;
-                RaisePropertyChanged(nameof(VoucherExpirationEditable));
+                OnPropertyChanged(nameof(VoucherExpirationEditable));
             }
         }
 
@@ -532,19 +532,19 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 LoadLocalizedLists();
-                RaisePropertyChanged(nameof(SelectedBarcodeType), nameof(SelectedValidationLength), nameof(SelectedLayoutType), nameof(PrinterDisabledWarningText));
+                OnPropertyChanged(nameof(SelectedBarcodeType), nameof(SelectedValidationLength), nameof(SelectedLayoutType), nameof(PrinterDisabledWarningText));
             });
 
             if (UseOperatorCultureForCurrencyFormatting)
             {
-                RaisePropertyChanged(nameof(CurrencyDisplayCulture));
+                OnPropertyChanged(nameof(CurrencyDisplayCulture));
             }
 
-            RaisePropertyChanged(nameof(VoucherInLimit));
-            RaisePropertyChanged(nameof(VoucherOutLimit));
+            OnPropertyChanged(nameof(VoucherInLimit));
+            OnPropertyChanged(nameof(VoucherOutLimit));
 
             base.OnOperatorCultureChanged(evt);
         }

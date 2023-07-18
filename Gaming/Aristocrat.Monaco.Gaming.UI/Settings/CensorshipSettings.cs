@@ -1,11 +1,12 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.Settings
 {
-    using CommunityToolkit.Mvvm.ComponentModel;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
 
     /// <summary>
     ///     Censorship settings.
     /// </summary>
-    internal class CensorshipSettings : ObservableObject
+    internal class CensorshipSettings : BaseObservableObject
     {
         private bool _censorshipEnforced;
         private bool _censorshipEditable;

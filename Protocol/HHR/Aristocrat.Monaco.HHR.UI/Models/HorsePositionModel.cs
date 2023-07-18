@@ -1,7 +1,7 @@
 namespace Aristocrat.Monaco.Hhr.UI.Models
 {
 
-    public class HorsePositionModel : BaseViewModel
+    public class HorsePositionModel : BaseObservableObject
     {
         private HorseModel _horseInfo;
 
@@ -19,8 +19,8 @@ namespace Aristocrat.Monaco.Hhr.UI.Models
             set
             {
                 SetProperty(ref _horseInfo, value, nameof(HorseInfo));
-                RaisePropertyChanged(nameof(PositionSelected));
-                RaisePropertyChanged(nameof(HorseNumber));
+                OnPropertyChanged(nameof(PositionSelected));
+                OnPropertyChanged(nameof(HorseNumber));
             }
         }
 

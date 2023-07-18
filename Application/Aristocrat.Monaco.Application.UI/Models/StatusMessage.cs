@@ -3,10 +3,11 @@
     using System;
     using Contracts.Localization;
     using Kernel;
-    using CommunityToolkit.Mvvm.ComponentModel;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
 
     [CLSCompliant(false)]
-    public class StatusMessage : ObservableObject
+    public class StatusMessage : BaseObservableObject
     {
         private readonly DisplayableMessage _displayableMessage;
         private readonly string _resourceKey;
@@ -44,7 +45,7 @@
 
         public void UpdateAdditionalInfo()
         {
-            RaisePropertyChanged(nameof(AdditionalInfo));
+            OnPropertyChanged(nameof(AdditionalInfo));
         }
     }
 }

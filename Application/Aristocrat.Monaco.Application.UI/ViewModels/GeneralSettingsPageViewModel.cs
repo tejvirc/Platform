@@ -39,7 +39,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         /// </summary>
         public GeneralSettingsPageViewModel() : base(true)
         {
-            VisibilityChangedCommand = new ActionCommand<object>(OnVisibilityChanged);
+            VisibilityChangedCommand = new RelayCommand<object>(OnVisibilityChanged);
 
             Version = PropertiesManager.GetValue(KernelConstants.SystemVersion, string.Empty);
 
@@ -65,7 +65,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (_timeZone != value)
                 {
                     _timeZone = value;
-                    RaisePropertyChanged(nameof(TimeZone));
+                    OnPropertyChanged(nameof(TimeZone));
                 }
             }
         }
@@ -82,7 +82,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (_timeZoneOffset != value)
                 {
                     _timeZoneOffset = value;
-                    RaisePropertyChanged(nameof(TimeZoneOffset));
+                    OnPropertyChanged(nameof(TimeZoneOffset));
                 }
             }
         }
@@ -99,7 +99,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (_ipAddress != value)
                 {
                     _ipAddress = value;
-                    RaisePropertyChanged(nameof(IPAddress));
+                    OnPropertyChanged(nameof(IPAddress));
                 }
             }
         }
@@ -116,7 +116,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (_macAddress != value)
                 {
                     _macAddress = value;
-                    RaisePropertyChanged(nameof(MacAddress));
+                    OnPropertyChanged(nameof(MacAddress));
                 }
             }
         }
@@ -133,7 +133,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (_hardBootTime != value)
                 {
                     _hardBootTime = value;
-                    RaisePropertyChanged(nameof(HardBootTime));
+                    OnPropertyChanged(nameof(HardBootTime));
                 }
             }
         }
@@ -150,7 +150,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (_softBootTime != value)
                 {
                     _softBootTime = value;
-                    RaisePropertyChanged(nameof(SoftBootTime));
+                    OnPropertyChanged(nameof(SoftBootTime));
                 }
             }
         }

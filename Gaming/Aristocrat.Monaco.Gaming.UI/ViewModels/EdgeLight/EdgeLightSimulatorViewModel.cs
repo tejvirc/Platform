@@ -9,9 +9,10 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.EdgeLight
     using Hardware.EdgeLight.Device;
     using Hardware.EdgeLight.Strips;
     using Kernel;
-    using CommunityToolkit.Mvvm.ComponentModel;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
 
-    public class EdgeLightSimulatorViewModel : ObservableObject
+    public class EdgeLightSimulatorViewModel : BaseObservableObject
     {
         private readonly SimEdgeLightDevice _device;
 
@@ -45,7 +46,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.EdgeLight
                 _selectedMapping = value;
                 _device.LoadEdgeLightStrips(value.Name);
                 MapStrips();
-                RaisePropertyChanged(nameof(SelectedMapping));
+                OnPropertyChanged(nameof(SelectedMapping));
             }
         }
 
@@ -56,7 +57,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.EdgeLight
             set
             {
                 _strips = value;
-                RaisePropertyChanged(nameof(Strips));
+                OnPropertyChanged(nameof(Strips));
             }
         }
 
@@ -66,7 +67,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.EdgeLight
             set
             {
                 _leftStrip = value;
-                RaisePropertyChanged(nameof(LeftStrip));
+                OnPropertyChanged(nameof(LeftStrip));
             }
         }
 
@@ -76,7 +77,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.EdgeLight
             set
             {
                 _rightStrip = value;
-                RaisePropertyChanged(nameof(RightStrip));
+                OnPropertyChanged(nameof(RightStrip));
             }
         }
         public DisplayStrip BottomStrip
@@ -85,7 +86,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.EdgeLight
             set
             {
                 _bottomStrip = value;
-                RaisePropertyChanged(nameof(BottomStrip));
+                OnPropertyChanged(nameof(BottomStrip));
             }
         }
 
@@ -95,7 +96,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.EdgeLight
             set
             {
                 _topStrip = value;
-                RaisePropertyChanged(nameof(TopStrip));
+                OnPropertyChanged(nameof(TopStrip));
             }
         }
 
@@ -105,7 +106,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.EdgeLight
             set
             {
                 _vbdStrip = value;
-                RaisePropertyChanged(nameof(VbdStrip));
+                OnPropertyChanged(nameof(VbdStrip));
             }
         }
 
@@ -219,7 +220,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.EdgeLight
             public List<Led> Leds { get; }
         }
 
-        public class Led : ObservableObject
+        public class Led : BaseObservableObject
         {
             private Color _color;
             internal Led(Color color)
@@ -233,7 +234,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.EdgeLight
                 set
                 {
                     _color = value;
-                    RaisePropertyChanged(nameof(Color));
+                    OnPropertyChanged(nameof(Color));
                 }
             }
         }

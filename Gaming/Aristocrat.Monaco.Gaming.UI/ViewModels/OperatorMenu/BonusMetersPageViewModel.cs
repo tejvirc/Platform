@@ -33,7 +33,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             set
             {
                 _egmPaidBonusAwardsTotalAmountFormatted = value;
-                RaisePropertyChanged(nameof(EgmPaidBonusAwardsTotalAmountFormatted));
+                OnPropertyChanged(nameof(EgmPaidBonusAwardsTotalAmountFormatted));
             }
         }
 
@@ -46,7 +46,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             set
             {
                 _handPaidBonusAwardsTotalAmountFormatted = value;
-                RaisePropertyChanged(nameof(HandPaidBonusAwardsTotalAmountFormatted));
+                OnPropertyChanged(nameof(HandPaidBonusAwardsTotalAmountFormatted));
             }
         }
 
@@ -75,13 +75,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
         protected override void RefreshMeters()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     RemoveMeters();
                     AddMeters();
-                    RaisePropertyChanged(nameof(EgmPaidBonusAwardsMeters));
-                    RaisePropertyChanged(nameof(HandPaidBonusAwardsMeters));
+                    OnPropertyChanged(nameof(EgmPaidBonusAwardsMeters));
+                    OnPropertyChanged(nameof(HandPaidBonusAwardsMeters));
                     UpdateMeterTotals();
                 });
         }

@@ -15,8 +15,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     {
         public SystemResetPageViewModel()
         {
-            PartialResetButtonClickCommand = new ActionCommand<object>(OnPartialResetButtonClickCommand);
-            FullResetButtonClickCommand = new ActionCommand<object>(OnFullResetButtonClickCommand);
+            PartialResetButtonClickCommand = new RelayCommand<object>(OnPartialResetButtonClickCommand);
+            FullResetButtonClickCommand = new RelayCommand<object>(OnFullResetButtonClickCommand);
         }
 
         /// <summary>

@@ -8,7 +8,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     /// <summary>
     ///     Helper class to handle responsible gaming parts of the lobby ViewModel.
     /// </summary>
-    public class ResponsibleGamingViewModel : ObservableObject
+    public class ResponsibleGamingViewModel : BaseObservableObject
     {
         private readonly LobbyViewModel _lobby;
         private readonly int _infoPageCount = 5;
@@ -22,8 +22,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         {
             _lobby = lobby ?? throw new ArgumentNullException(nameof(lobby));
 
-            LeftInfoPageNavigationCommand = new ActionCommand<object>(LeftPageNavigationButtonPressed);
-            RightInfoPageNavigationCommand = new ActionCommand<object>(RightPageNavigationButtonPressed);
+            LeftInfoPageNavigationCommand = new RelayCommand<object>(LeftPageNavigationButtonPressed);
+            RightInfoPageNavigationCommand = new RelayCommand<object>(RightPageNavigationButtonPressed);
 
             ConfigurePages();
         }
@@ -50,10 +50,10 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 if (_infoPageIndex != value)
                 {
                     _infoPageIndex = value;
-                    RaisePropertyChanged(nameof(InfoPageIndex));
-                    RaisePropertyChanged(nameof(IsBackButtonEnabled));
-                    RaisePropertyChanged(nameof(IsBackButtonVisible));
-                    RaisePropertyChanged(nameof(IsForwardButtonVisible));
+                    OnPropertyChanged(nameof(InfoPageIndex));
+                    OnPropertyChanged(nameof(IsBackButtonEnabled));
+                    OnPropertyChanged(nameof(IsBackButtonVisible));
+                    OnPropertyChanged(nameof(IsForwardButtonVisible));
                 }
             }
         }

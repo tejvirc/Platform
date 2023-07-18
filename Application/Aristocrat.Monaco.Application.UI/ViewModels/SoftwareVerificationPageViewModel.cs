@@ -39,8 +39,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         {
             _authenticationService = ServiceManager.GetInstance().GetService<IAuthenticationService>();
 
-            CalculateCommand = new ActionCommand<object>(OnCalculate);
-            ResetCommand = new ActionCommand<object>(OnReset);
+            CalculateCommand = new RelayCommand<object>(OnCalculate);
+            ResetCommand = new RelayCommand<object>(OnReset);
 
             _defaultAlgorithm = AlgorithmTypes.First();
             ShowMasterResult = (bool)PropertiesManager.GetProperty(
@@ -97,7 +97,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (value != _hmacKey)
                 {
                     _hmacKey = value;
-                    RaisePropertyChanged(nameof(FormattedHmacKey));
+                    OnPropertyChanged(nameof(FormattedHmacKey));
                 }
             }
         }
@@ -111,7 +111,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (value != _showMasterResult)
                 {
                     _showMasterResult = value;
-                    RaisePropertyChanged(nameof(ShowMasterResult));
+                    OnPropertyChanged(nameof(ShowMasterResult));
                 }
             }
         }
@@ -125,7 +125,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (value != _isIdle)
                 {
                     _isIdle = value;
-                    RaisePropertyChanged(nameof(IsIdle));
+                    OnPropertyChanged(nameof(IsIdle));
                 }
             }
         }
@@ -139,7 +139,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (value != _isValidResult)
                 {
                     _isValidResult = value;
-                    RaisePropertyChanged(nameof(IsValidResult));
+                    OnPropertyChanged(nameof(IsValidResult));
                 }
             }
         }
@@ -153,7 +153,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (value != _masterResult)
                 {
                     _masterResult = value;
-                    RaisePropertyChanged(nameof(MasterResult));
+                    OnPropertyChanged(nameof(MasterResult));
                 }
             }
         }
@@ -167,8 +167,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (value.Type != _selectedAlgorithmType.Type)
                 {
                     _selectedAlgorithmType = value;
-                    RaisePropertyChanged(nameof(SelectedAlgorithmType));
-                    RaisePropertyChanged(nameof(CanUseHmacKey));
+                    OnPropertyChanged(nameof(SelectedAlgorithmType));
+                    OnPropertyChanged(nameof(CanUseHmacKey));
                     Reset();
                 }
             }
@@ -310,7 +310,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             var compHashObj = ComponentSet.ToList().FirstOrDefault(c => c.ComponentId == evt.ComponentVerification.ComponentId);
             if (compHashObj != null)
             {
-                MvvmHelper.ExecuteOnUI(() =>
+                Execute.OnUIThread(() =>
                 {
                     compHashObj.ChangeHashResult(
                             ConvertExtensions.ToPackedHexString(evt.ComponentVerification.Result));
@@ -331,7 +331,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
             if (evt.Cancelled)
             {
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         var components = ComponentSet.ToList().Where(a => string.IsNullOrEmpty(a.HashResult) ||
@@ -343,7 +343,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             }
             else
             {
-                MvvmHelper.ExecuteOnUI(() =>
+                Execute.OnUIThread(() =>
                 {
                     if (ShowMasterResult)
                     {
@@ -360,7 +360,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
             if (component != default(ComponentHashViewModel))
             {
-                MvvmHelper.ExecuteOnUI(() => ComponentSet.Remove(component));
+                Execute.OnUIThread(() => ComponentSet.Remove(component));
             }
         }
 
@@ -377,7 +377,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 ComponentId = aEvent.Component.ComponentId
             };
 
-            MvvmHelper.ExecuteOnUI(() => ComponentSet.Add(compHash));
+            Execute.OnUIThread(() => ComponentSet.Add(compHash));
         }
 
         private void OnCalculate(object parameter)

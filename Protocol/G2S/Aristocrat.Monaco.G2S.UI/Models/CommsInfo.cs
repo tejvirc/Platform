@@ -2,14 +2,15 @@
 {
     using Aristocrat.G2S.Protocol.v21;
     using System;
-    using CommunityToolkit.Mvvm.ComponentModel;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using Monaco.Application.Contracts.Localization;
     using Monaco.Localization.Properties;
 
     /// <summary>
     ///     Comms info model
     /// </summary>
-    public class CommsInfo : ObservableObject
+    public class CommsInfo : BaseObservableObject
     {
         private Uri _address;
         private int _hostId;
@@ -34,7 +35,7 @@
                 if (_hostId != value)
                 {
                     _hostId = value;
-                    RaisePropertyChanged(nameof(HostId));
+                    OnPropertyChanged(nameof(HostId));
                 }
             }
         }
@@ -49,7 +50,7 @@
                 if (_address != value)
                 {
                     _address = value;
-                    RaisePropertyChanged(nameof(Address));
+                    OnPropertyChanged(nameof(Address));
                 }
             }
         }
@@ -64,7 +65,7 @@
                 if (_registered != value)
                 {
                     _registered = value;
-                    RaisePropertyChanged(nameof(Registered));
+                    OnPropertyChanged(nameof(Registered));
                 }
             }
         }
@@ -79,9 +80,9 @@
                 if (_outboundOverflow != value)
                 {
                     _outboundOverflow = value;
-                    RaisePropertyChanged(nameof(OutboundOverflow));
+                    OnPropertyChanged(nameof(OutboundOverflow));
                 }
-                RaisePropertyChanged(nameof(OutboundOverflowText));
+                OnPropertyChanged(nameof(OutboundOverflowText));
             }
         }
 
@@ -100,9 +101,9 @@
                 if (_inboundOverflow != value)
                 {
                     _inboundOverflow = value;
-                    RaisePropertyChanged(nameof(InboundOverflow));
+                    OnPropertyChanged(nameof(InboundOverflow));
                 }
-                RaisePropertyChanged(nameof(InboundOverflowText));
+                OnPropertyChanged(nameof(InboundOverflowText));
             }
         }
 
@@ -121,7 +122,7 @@
                 if (_transportState != value)
                 {
                     _transportState = value;
-                    RaisePropertyChanged(nameof(TransportState));
+                    OnPropertyChanged(nameof(TransportState));
                 }
             }
         }
@@ -136,7 +137,7 @@
                 if (_state != value)
                 {
                     _state = value;
-                    RaisePropertyChanged(nameof(State));
+                    OnPropertyChanged(nameof(State));
                 }
             }
         }

@@ -36,7 +36,7 @@
             set
             {
                 _progressiveSummary = value;
-                RaisePropertyChanged(nameof(ProgressiveSummary));
+                OnPropertyChanged(nameof(ProgressiveSummary));
             }
         }
 
@@ -72,8 +72,8 @@
                 }
             }
 
-            RaisePropertyChanged(nameof(ProgressiveSummary));
-            RaisePropertyChanged(nameof(HasGames));
+            OnPropertyChanged(nameof(ProgressiveSummary));
+            OnPropertyChanged(nameof(HasGames));
         }
 
         private IEnumerable<ProgressiveLevelInfo> LoadProgressiveSummary()

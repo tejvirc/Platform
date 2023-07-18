@@ -40,7 +40,7 @@ namespace Aristocrat.Monaco.Hhr.UI.Settings
         /// <inheritdoc />
         public async Task Initialize()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     var resourceDictionary = new ResourceDictionary

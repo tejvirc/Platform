@@ -3,6 +3,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using CommunityToolkit.Mvvm.Input;
     using ConfigWizard;
     using Contracts;
     using Contracts.Localization;
@@ -39,10 +40,10 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 ApplicationConstants.ShowOverrideSelectionKey,
                 Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DefaultBeagleBoneLightShowText));
 
-            SendShowCommand = new ActionCommand<object>(_ => SendShow());
+            SendShowCommand = new RelayCommand<object>(_ => SendShow());
         }
 
-        public IActionCommand SendShowCommand { get; }
+        public IRelayCommand SendShowCommand { get; }
 
         public string ShowOverrideSelection
         {

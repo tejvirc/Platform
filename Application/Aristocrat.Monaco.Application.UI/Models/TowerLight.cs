@@ -1,12 +1,14 @@
 namespace Aristocrat.Monaco.Application.UI.Models
 {
     using System;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts.Localization;
     using Hardware.Contracts.TowerLight;
     using Monaco.Common;
 
     [CLSCompliant(false)]
-    public class TowerLight : BaseViewModel
+    public class TowerLight : BaseObservableObject
     {
         private FlashState _flashState;
         private bool _state;
@@ -33,7 +35,7 @@ namespace Aristocrat.Monaco.Application.UI.Models
                 }
 
                 _state = value;
-                RaisePropertyChanged(nameof(State));
+                OnPropertyChanged(nameof(State));
             }
         }
 
@@ -50,8 +52,8 @@ namespace Aristocrat.Monaco.Application.UI.Models
                 }
 
                 _flashState = value;
-                RaisePropertyChanged(nameof(FlashState));
-                RaisePropertyChanged(nameof(FlashStateName));
+                OnPropertyChanged(nameof(FlashState));
+                OnPropertyChanged(nameof(FlashStateName));
             }
         }
     }

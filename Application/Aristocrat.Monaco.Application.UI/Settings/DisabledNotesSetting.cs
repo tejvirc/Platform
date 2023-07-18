@@ -2,13 +2,14 @@
 {
     using Contracts.Extensions;
     using Hardware.Contracts.NoteAcceptor;
-    using CommunityToolkit.Mvvm.ComponentModel;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using Newtonsoft.Json;
 
     /// <summary>
     ///     Contains the settings for disabled notes.
     /// </summary>
-    internal class DisabledNotesSetting : ObservableObject
+    internal class DisabledNotesSetting : BaseObservableObject
     {
         private int _denom;
         private string _isoCode;
@@ -23,7 +24,7 @@
             set
             {
                 SetProperty(ref _denom, value);
-                RaisePropertyChanged(nameof(DenomDisplay));
+                OnPropertyChanged(nameof(DenomDisplay));
             }
         }
 

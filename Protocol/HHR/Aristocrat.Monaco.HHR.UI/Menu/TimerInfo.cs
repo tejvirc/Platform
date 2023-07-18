@@ -34,12 +34,12 @@ namespace Aristocrat.Monaco.Hhr.UI.Menu
         /// <summary>
         ///     TimerElapsedCommand --Command to execute after timer expires
         /// </summary>
-        public IActionCommand TimerElapsedCommand { get; set; }
+        public IRelayCommand TimerElapsedCommand { get; set; }
 
         /// <summary>
         ///     UnitTimeElapsedCommand --Command to execute after unit time elapsed to track the timer in view model.
         /// </summary>
 
-        public IActionCommand TimerTickCommand { get; set; }
+        public IRelayCommand TimerTickCommand { get; set; }
     }
 }

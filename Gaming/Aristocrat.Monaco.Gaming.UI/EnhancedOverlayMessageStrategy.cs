@@ -36,7 +36,7 @@ namespace Aristocrat.Monaco.Gaming.UI
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _disableManager = disableManager ?? throw new ArgumentNullException(nameof(disableManager));
 
-            ExitHandpayPendingCommand = new ActionCommand<object>(OnExitHandpayPendingPressed);
+            ExitHandpayPendingCommand = new RelayCommand<object>(OnExitHandpayPendingPressed);
         }
 
         public long LastCashOutAmount { get; set; }

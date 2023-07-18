@@ -10,7 +10,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
     using Localization.Properties;
     using Monaco.UI.Common.Extensions;
 
-    public class EditableGameProfile : ObservableObject, IDisposable
+    public class EditableGameProfile : BaseObservableObject, IDisposable
     {
         private readonly bool _enableRtpScaling;
         private IConfigurationRestriction _selectedRestriction;
@@ -106,7 +106,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
 
         public void Refresh()
         {
-            RaisePropertyChanged(nameof(GameConfigurations));
+            OnPropertyChanged(nameof(GameConfigurations));
         }
 
         public void Reset()
@@ -175,8 +175,8 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
                 return;
             }
 
-            RaisePropertyChanged(nameof(Enabled));
-            RaisePropertyChanged(nameof(EnabledGameConfigurationsCount));
+            OnPropertyChanged(nameof(Enabled));
+            OnPropertyChanged(nameof(EnabledGameConfigurationsCount));
         }
     }
 }

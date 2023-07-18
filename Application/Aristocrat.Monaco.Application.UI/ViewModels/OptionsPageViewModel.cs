@@ -32,7 +32,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             OutOfServiceViewModel = new OutOfServiceViewModel();
 
             PrintVerificationButtonIsVisible = GetConfigSetting(OperatorMenuSetting.MainButtonPrintVerificationVisible, true);
-            PrintVerificationButtonClickedCommand = new ActionCommand<object>(_ => Print(OperatorMenuPrintData.Custom1));
+            PrintVerificationButtonClickedCommand = new RelayCommand<object>(_ => Print(OperatorMenuPrintData.Custom1));
         }
 
         // This needs to be false to allow printing from this page
@@ -104,7 +104,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
             if (!active && PopupOpen)
             {
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         EventBus.Publish(new OperatorMenuPopupEvent(false, string.Empty));

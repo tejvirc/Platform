@@ -5,6 +5,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
@@ -42,7 +44,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             : this(
                 ServiceManager.GetInstance().GetService<IConfigurationSettingsManager>())
         {
-            if (!InDesigner)
+            if (!Execute.InDesigner)
             {
                 _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
             }
@@ -60,13 +62,13 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             _settingsManager = settingsManager;
             _exportSettingsNoteText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExportSettingsNoteText);
 
-            ExportCommand = new ActionCommand<object>(_ => Export(), _ => IsEKeyVerified && IsEKeyDriveFound && !IsInProgress);
+            ExportCommand = new RelayCommand<object>(_ => Export(), _ => IsEKeyVerified && IsEKeyDriveFound && !IsInProgress);
         }
 
         /// <summary>
         ///     Gets the export command.
         /// </summary>
-        public ActionCommand<object> ExportCommand { get; }
+        public RelayCommand<object> ExportCommand { get; }
 
         /// <summary>
         ///     Gets a collection of configuration settings.
@@ -83,7 +85,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 SetProperty(ref _isInProgress, value);
-                ExportCommand.RaiseCanExecuteChanged();
+                ExportCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -117,7 +119,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 SetProperty(ref _isEKeyVerified, value);
-                ExportCommand.RaiseCanExecuteChanged();
+                ExportCommand.NotifyCanExecuteChanged();
                 UpdateStatusText();
             }
         }
@@ -132,7 +134,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 SetProperty(ref _isEKeyDriveFound, value);
-                ExportCommand.RaiseCanExecuteChanged();
+                ExportCommand.NotifyCanExecuteChanged();
                 UpdateStatusText();
             }
         }
@@ -145,7 +147,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (_exportSettingsNoteText != value)
                 {
                     _exportSettingsNoteText = value;
-                    RaisePropertyChanged(nameof(ExportSettingsNoteText));
+                    OnPropertyChanged(nameof(ExportSettingsNoteText));
                 }
             }
         }
@@ -213,7 +215,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         private void Handle(PropertyChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     IsEKeyVerified = PropertiesManager.GetValue(ApplicationConstants.EKeyVerified, false);
@@ -228,7 +230,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         private void Handle(ConfigurationSettingsExportedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     ConfigurationSettings.AddRange(
@@ -331,13 +333,13 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         private void Handle(ConfigurationSettingsSummaryEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                  () =>
                  {
                      ConfigurationSettings.AddRange(
                          evt.Settings.Select(x => new ConfigurationSetting { Name = x.Key, Settings = x.Value }));
                  });
-            RaisePropertyChanged(nameof(ConfigurationSettings));
+            OnPropertyChanged(nameof(ConfigurationSettings));
         }
     }
 }

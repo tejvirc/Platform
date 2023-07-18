@@ -83,7 +83,7 @@ namespace Aristocrat.Monaco.Bingo.UI.Views.GameOverlay
                 return;
             }
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (Owner != null)

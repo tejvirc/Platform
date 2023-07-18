@@ -52,7 +52,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _isLcdButtonDeckEnabled = value;
-                RaisePropertyChanged(nameof(IsLcdPanelEnabled));
+                OnPropertyChanged(nameof(IsLcdPanelEnabled));
             }
         }
 
@@ -67,7 +67,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
 
                 _firmwareCrc = value;
-                RaisePropertyChanged(nameof(FirmwareCrc));
+                OnPropertyChanged(nameof(FirmwareCrc));
             }
         }
 
@@ -82,7 +82,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
 
                 _crcSeed = value;
-                RaisePropertyChanged(nameof(CrcSeed));
+                OnPropertyChanged(nameof(CrcSeed));
             }
         }
 
@@ -197,7 +197,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 _buttonService.GetLocalizedButtonName(evt.LogicalId, Localizer.For(CultureFor.Operator).GetString),
                 _buttonService.GetButtonName(evt.LogicalId));
 
-            MvvmHelper.ExecuteOnUI(() => PressedButtonsData.Insert(0, pressedData));
+            Execute.OnUIThread(() => PressedButtonsData.Insert(0, pressedData));
 
             Inspection?.SetTestName(_buttonService.GetButtonName(evt.LogicalId));
         }
@@ -209,7 +209,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 var coll = new ObservableCollection<PressedButtonData>();
                 foreach (var button in PressedButtonsData)
@@ -219,7 +219,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
                 PressedButtonsData.Clear();
                 PressedButtonsData.AddRange(coll);
-                RaisePropertyChanged(nameof(PressedButtonsData));
+                OnPropertyChanged(nameof(PressedButtonsData));
             });
 
             base.OnOperatorCultureChanged(evt);

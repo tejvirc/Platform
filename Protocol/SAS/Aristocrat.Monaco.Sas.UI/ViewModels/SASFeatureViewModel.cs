@@ -286,7 +286,7 @@
                         _aftTransferLimit.Validate(true, MaxTransferLimit.DollarsToMillicents()));
                 }
 
-                RaisePropertyChanged(nameof(AftTransferLimit));
+                OnPropertyChanged(nameof(AftTransferLimit));
             }
         }
 
@@ -304,7 +304,7 @@
             set
             {
                 _aftTransferLimitCheckboxEnabled = IsAftSettingsConfigurable && value;
-                RaisePropertyChanged(nameof(AftTransferLimitCheckboxEnabled));
+                OnPropertyChanged(nameof(AftTransferLimitCheckboxEnabled));
             }
         }
 
@@ -326,7 +326,7 @@
 
                 AftTransferLimit = _aftTransferLimitEnabled ? aftTransferLimit : MaxTransferLimit;
 
-                RaisePropertyChanged(nameof(AftTransferLimitEnabled));
+                OnPropertyChanged(nameof(AftTransferLimitEnabled));
             }
         }
 
@@ -433,7 +433,7 @@
 
             set
             {
-                RaisePropertyChanged(nameof(ConfigChangeNotification));
+                OnPropertyChanged(nameof(ConfigChangeNotification));
                 SetProperty(ref _configChangeNotification, value, nameof(ConfigChangeNotification));
             }
         }
@@ -447,7 +447,7 @@
             set
             {
                 _configChangeNotificationIndex = value;
-                RaisePropertyChanged(nameof(ConfigChangeNotificationIndex));
+                OnPropertyChanged(nameof(ConfigChangeNotificationIndex));
             }
         }
 
@@ -541,7 +541,7 @@
 
                 // allow the server to override SAS setting
                 _isLegacyBonusEnabled = settings.LegacyBonusAllowed;
-                RaisePropertyChanged(nameof(IsLegacyBonusEnabled));
+                OnPropertyChanged(nameof(IsLegacyBonusEnabled));
             }
 
             CheckNavigation();

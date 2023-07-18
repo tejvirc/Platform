@@ -194,7 +194,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Views.Lobby
 
         private void HandleOverlayWindowVisibilityChanged(OverlayWindowVisibilityChangedEvent e)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 try
                 {

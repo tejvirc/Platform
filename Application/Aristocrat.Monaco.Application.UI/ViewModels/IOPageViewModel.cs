@@ -89,7 +89,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _manufacturerText = value;
-                RaisePropertyChanged(nameof(ManufacturerText));
+                OnPropertyChanged(nameof(ManufacturerText));
             }
         }
 
@@ -99,7 +99,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _modelText = value;
-                RaisePropertyChanged(nameof(ModelText));
+                OnPropertyChanged(nameof(ModelText));
             }
         }
 
@@ -109,7 +109,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _stateText = value;
-                RaisePropertyChanged(nameof(StateText));
+                OnPropertyChanged(nameof(StateText));
             }
         }
 
@@ -119,7 +119,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _stateForegroundBrush = value;
-                RaisePropertyChanged(nameof(StateForegroundBrush));
+                OnPropertyChanged(nameof(StateForegroundBrush));
             }
         }
 
@@ -129,8 +129,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _statusText = value;
-                RaisePropertyChanged(nameof(StatusText));
-                RaisePropertyChanged(nameof(FormattedStatus));
+                OnPropertyChanged(nameof(StatusText));
+                OnPropertyChanged(nameof(FormattedStatus));
             }
         }
 
@@ -141,8 +141,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _status = value;
-                RaisePropertyChanged(nameof(Status));
-                RaisePropertyChanged(nameof(FormattedStatus));
+                OnPropertyChanged(nameof(Status));
+                OnPropertyChanged(nameof(FormattedStatus));
             }
         }
 
@@ -154,7 +154,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _statusForegroundBrush = value;
-                RaisePropertyChanged(nameof(StatusForegroundBrush));
+                OnPropertyChanged(nameof(StatusForegroundBrush));
             }
         }
 
@@ -165,7 +165,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             {
                 _inputsText = value;
                 IntrusionText = _inputsText.Substring(_inputsText.Length - IntrusionBitsLength);
-                RaisePropertyChanged(nameof(InputsText));
+                OnPropertyChanged(nameof(InputsText));
             }
         }
 
@@ -175,7 +175,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _intrusionText = value;
-                RaisePropertyChanged(nameof(IntrusionText));
+                OnPropertyChanged(nameof(IntrusionText));
             }
         }
 
@@ -186,7 +186,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _outputsText = value;
-                RaisePropertyChanged(nameof(OutputsText));
+                OnPropertyChanged(nameof(OutputsText));
             }
         }
 
@@ -295,7 +295,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         private void HandleEvent(IEvent theEvent)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () => { HandleEvents(theEvent); });
         }
 
@@ -588,11 +588,11 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
-                RaisePropertyChanged(nameof(StatusText));
-                RaisePropertyChanged(nameof(StateText));
-                RaisePropertyChanged(nameof(FormattedStatus));
+                OnPropertyChanged(nameof(StatusText));
+                OnPropertyChanged(nameof(StateText));
+                OnPropertyChanged(nameof(FormattedStatus));
             });
 
             base.OnOperatorCultureChanged(evt);

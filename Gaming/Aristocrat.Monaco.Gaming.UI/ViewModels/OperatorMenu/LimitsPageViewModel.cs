@@ -147,7 +147,7 @@
             set
             {
                 _placementTarget = value;
-                RaisePropertyChanged(nameof(PlacementTarget));
+                OnPropertyChanged(nameof(PlacementTarget));
             }
         }
 
@@ -158,8 +158,8 @@
             {
                 _popupOpen = value;
 
-                RaisePropertyChanged(nameof(PlacementTarget));
-                RaisePropertyChanged(nameof(ConfigPopupOpen));
+                OnPropertyChanged(nameof(PlacementTarget));
+                OnPropertyChanged(nameof(ConfigPopupOpen));
             }
         }
 
@@ -169,7 +169,7 @@
             set
             {
                 _limitsPopUpInfoText = value;
-                RaisePropertyChanged(nameof(LimitsPopUpInfoText));
+                OnPropertyChanged(nameof(LimitsPopUpInfoText));
             }
         }
 
@@ -184,7 +184,7 @@
                 }
                 
                 _pageEnabled = value;
-                RaisePropertyChanged(nameof(PageEnabled));
+                OnPropertyChanged(nameof(PageEnabled));
             }
         }
 
@@ -194,7 +194,7 @@
             set
             {
                 _creditLimitEditable = value;
-                RaisePropertyChanged(nameof(CreditLimitEditable));
+                OnPropertyChanged(nameof(CreditLimitEditable));
             }
         }
 
@@ -555,7 +555,7 @@
             set
             {
                 _selectedLargeWinHandpayResetMethod = value;
-                RaisePropertyChanged(nameof(SelectedLargeWinHandpayResetMethod));
+                OnPropertyChanged(nameof(SelectedLargeWinHandpayResetMethod));
             }
         }
 
@@ -565,7 +565,7 @@
             set
             {
                 _allowRemoteHandpayReset = value;
-                RaisePropertyChanged(nameof(AllowRemoteHandpayReset));
+                OnPropertyChanged(nameof(AllowRemoteHandpayReset));
             }
         }
 
@@ -577,8 +577,8 @@
             set
             {
                 _gambleWagerLimitVisible = value;
-                RaisePropertyChanged(nameof(GambleWagerLimitVisible));
-                RaisePropertyChanged(nameof(ShowGambleWagerLimit));
+                OnPropertyChanged(nameof(GambleWagerLimitVisible));
+                OnPropertyChanged(nameof(ShowGambleWagerLimit));
             }
         }
 
@@ -588,8 +588,8 @@
             set
             {
                 _gambleWinLimitVisible = value;
-                RaisePropertyChanged(nameof(GambleWinLimitVisible));
-                RaisePropertyChanged(nameof(ShowGambleWinLimit));
+                OnPropertyChanged(nameof(GambleWinLimitVisible));
+                OnPropertyChanged(nameof(ShowGambleWinLimit));
             }
         }
 
@@ -635,7 +635,7 @@
             set
             {
                 _overwriteAllowRemoteHandpayReset = value;
-                RaisePropertyChanged(nameof(AllowRemoteHandpayResetIsEnabled));
+                OnPropertyChanged(nameof(AllowRemoteHandpayResetIsEnabled));
             }
         }
 
@@ -734,7 +734,7 @@
         {
             if (UseOperatorCultureForCurrencyFormatting)
             {
-                RaisePropertyChanged(nameof(CurrencyDisplayCulture));
+                OnPropertyChanged(nameof(CurrencyDisplayCulture));
             }
 
             UpdateLimits();
@@ -1083,12 +1083,12 @@
             }
 
             UpdateLimits();
-            RaisePropertyChanged(nameof(LargeWinLimitCheckboxIsEnabled));
-            RaisePropertyChanged(nameof(LargeWinLimitEditable));
-            RaisePropertyChanged(nameof(LargeWinRatioCheckboxIsEnabled));
-            RaisePropertyChanged(nameof(LargeWinRatioThresholdCheckboxIsEnabled));
-            RaisePropertyChanged(nameof(MaxBetLimitCheckboxIsEnabled));
-            RaisePropertyChanged(nameof(CelebrationLockupLimitCheckboxIsEnabled));
+            OnPropertyChanged(nameof(LargeWinLimitCheckboxIsEnabled));
+            OnPropertyChanged(nameof(LargeWinLimitEditable));
+            OnPropertyChanged(nameof(LargeWinRatioCheckboxIsEnabled));
+            OnPropertyChanged(nameof(LargeWinRatioThresholdCheckboxIsEnabled));
+            OnPropertyChanged(nameof(MaxBetLimitCheckboxIsEnabled));
+            OnPropertyChanged(nameof(CelebrationLockupLimitCheckboxIsEnabled));
         }
 
         private bool ValidateCreditLimit()
@@ -1187,17 +1187,17 @@
 
         private void UpdateLimits()
         {
-            RaisePropertyChanged(nameof(MaxBetLimit));
-            RaisePropertyChanged(nameof(CreditLimit));
-            RaisePropertyChanged(nameof(HandpayLimit));
-            RaisePropertyChanged(nameof(HandCountPayoutLimit));
-            RaisePropertyChanged(nameof(BillAcceptanceLimit));
-            RaisePropertyChanged(nameof(LargeWinLimit));
-            RaisePropertyChanged(nameof(LargeWinRatio));
-            RaisePropertyChanged(nameof(LargeWinRatioThreshold));
-            RaisePropertyChanged(nameof(CelebrationLockupLimit));
-            RaisePropertyChanged(nameof(GambleWagerLimit));
-            RaisePropertyChanged(nameof(GambleWinLimit));
+            OnPropertyChanged(nameof(MaxBetLimit));
+            OnPropertyChanged(nameof(CreditLimit));
+            OnPropertyChanged(nameof(HandpayLimit));
+            OnPropertyChanged(nameof(HandCountPayoutLimit));
+            OnPropertyChanged(nameof(BillAcceptanceLimit));
+            OnPropertyChanged(nameof(LargeWinLimit));
+            OnPropertyChanged(nameof(LargeWinRatio));
+            OnPropertyChanged(nameof(LargeWinRatioThreshold));
+            OnPropertyChanged(nameof(CelebrationLockupLimit));
+            OnPropertyChanged(nameof(GambleWagerLimit));
+            OnPropertyChanged(nameof(GambleWinLimit));
         }
 
         protected override void SetError(string propertyName, string error)
@@ -1221,18 +1221,18 @@
                 CloseTouchScreenKeyboard();
             }
 
-            RaisePropertyChanged(nameof(PageEnabled));
-            RaisePropertyChanged(nameof(LargeWinLimitEditable));
-            RaisePropertyChanged(nameof(LargeWinLimitCheckboxIsEnabled));
-            RaisePropertyChanged(nameof(LargeWinRatioCheckboxIsEnabled));
-            RaisePropertyChanged(nameof(LargeWinRatioThresholdCheckboxIsEnabled));
-            RaisePropertyChanged(nameof(MaxBetLimitCheckboxIsEnabled));
-            RaisePropertyChanged(nameof(CelebrationLockupLimitCheckboxIsEnabled));
-            RaisePropertyChanged(nameof(AllowRemoteHandpayResetIsEnabled));
-            RaisePropertyChanged(nameof(CreditLimitCheckboxEnabled));
-            RaisePropertyChanged(nameof(HandpayLimitCheckboxEnabled));
-            RaisePropertyChanged(nameof(GambleWagerLimit));
-            RaisePropertyChanged(nameof(GambleWinLimit));
+            OnPropertyChanged(nameof(PageEnabled));
+            OnPropertyChanged(nameof(LargeWinLimitEditable));
+            OnPropertyChanged(nameof(LargeWinLimitCheckboxIsEnabled));
+            OnPropertyChanged(nameof(LargeWinRatioCheckboxIsEnabled));
+            OnPropertyChanged(nameof(LargeWinRatioThresholdCheckboxIsEnabled));
+            OnPropertyChanged(nameof(MaxBetLimitCheckboxIsEnabled));
+            OnPropertyChanged(nameof(CelebrationLockupLimitCheckboxIsEnabled));
+            OnPropertyChanged(nameof(AllowRemoteHandpayResetIsEnabled));
+            OnPropertyChanged(nameof(CreditLimitCheckboxEnabled));
+            OnPropertyChanged(nameof(HandpayLimitCheckboxEnabled));
+            OnPropertyChanged(nameof(GambleWagerLimit));
+            OnPropertyChanged(nameof(GambleWinLimit));
         }
 
         protected override void OnInputEnabledChanged()

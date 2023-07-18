@@ -46,8 +46,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         public IdReaderPageViewModel(bool isWizard) : base(DeviceType.IdReader, isWizard)
         {
-            SelfTestButtonCommand = new ActionCommand<object>(OnSelfTestCmd);
-            SelfTestClearButtonCommand = new ActionCommand<object>(OnSelfTestClearNvmCmd);
+            SelfTestButtonCommand = new RelayCommand<object>(OnSelfTestCmd);
+            SelfTestClearButtonCommand = new RelayCommand<object>(OnSelfTestClearNvmCmd);
 
             SelfTestCurrentState = SelfTestState.None;
         }
@@ -70,8 +70,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (_idCardReadData != value)
                 {
                     _idCardReadData = value;
-                    RaisePropertyChanged(nameof(IdCardReadData));
-                    RaisePropertyChanged(nameof(IdCardReadDataForeground));
+                    OnPropertyChanged(nameof(IdCardReadData));
+                    OnPropertyChanged(nameof(IdCardReadDataForeground));
                 }
             }
         }
@@ -97,7 +97,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (_stateLocalized != value)
                 {
                     _stateLocalized = value;
-                    RaisePropertyChanged(nameof(StateTextLocalized));
+                    OnPropertyChanged(nameof(StateTextLocalized));
                 }
             }
         }
@@ -241,7 +241,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
                 SetStateInformation(idReader);
 
-                RaisePropertyChanged("UninitializedVisibility");
+                OnPropertyChanged("UninitializedVisibility");
 
                 SelfTestButtonEnabled = IdReader.Enabled && SelfTestCurrentState != SelfTestState.Running;
             }
@@ -430,13 +430,13 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 SetIdCardReadData();
-                RaisePropertyChanged(nameof(IdCardReadData));
-                RaisePropertyChanged(nameof(StateTextLocalized));
-                RaisePropertyChanged(nameof(SelfTestText));
-                RaisePropertyChanged(nameof(StatusText));
+                OnPropertyChanged(nameof(IdCardReadData));
+                OnPropertyChanged(nameof(StateTextLocalized));
+                OnPropertyChanged(nameof(SelfTestText));
+                OnPropertyChanged(nameof(StatusText));
             });
 
             base.OnOperatorCultureChanged(evt);

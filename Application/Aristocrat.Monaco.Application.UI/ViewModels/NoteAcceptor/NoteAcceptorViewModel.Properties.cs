@@ -56,7 +56,7 @@
             set
             {
                 _changeFocus = value;
-                RaisePropertyChanged(nameof(ChangeFocus));
+                OnPropertyChanged(nameof(ChangeFocus));
             }
         }
 
@@ -68,8 +68,8 @@
                 if (_isDenomEditable != value)
                 {
                     _isDenomEditable = value;
-                    RaisePropertyChanged(nameof(IsDenomEditable));
-                    RaisePropertyChanged(nameof(CanEgmModifyDenominations));
+                    OnPropertyChanged(nameof(IsDenomEditable));
+                    OnPropertyChanged(nameof(CanEgmModifyDenominations));
                 }
             }
         }
@@ -92,7 +92,7 @@
                         PropertiesManager.SetProperty(ApplicationConstants.ExcessiveDocumentRejectCount, excessiveDocumentRejectCountDefault);
                     }
 
-                    RaisePropertyChanged(nameof(ExcessiveRejectDisable));
+                    OnPropertyChanged(nameof(ExcessiveRejectDisable));
                 }
             }
         }
@@ -105,7 +105,7 @@
                 if (_excessiveRejectDisableIsVisible != value)
                 {
                     _excessiveRejectDisableIsVisible = value;
-                    RaisePropertyChanged(nameof(ExcessiveRejectDisableIsVisible));
+                    OnPropertyChanged(nameof(ExcessiveRejectDisableIsVisible));
                 }
             }
         }
@@ -118,7 +118,7 @@
                 if (_voucherInEnabledText != value)
                 {
                     _voucherInEnabledText = value;
-                    RaisePropertyChanged(nameof(VoucherInEnabledText));
+                    OnPropertyChanged(nameof(VoucherInEnabledText));
                 }
             }
         }
@@ -153,7 +153,7 @@
                 {
                     _stateTextLocalized = value;
                 }
-                RaisePropertyChanged(nameof(StatusTextLocalized));
+                OnPropertyChanged(nameof(StatusTextLocalized));
             }
         }
 
@@ -176,7 +176,7 @@
                     denom.Selected = _allowBillIn;
                 }
 
-                RaisePropertyChanged(nameof(AllowBillIn));
+                OnPropertyChanged(nameof(AllowBillIn));
             }
         }
 
@@ -191,7 +191,7 @@
                 }
 
                 _allowBillInEnabled = value;
-                RaisePropertyChanged(nameof(AllowBillInEnabled));
+                OnPropertyChanged(nameof(AllowBillInEnabled));
             }
         }
 
@@ -260,7 +260,7 @@
             set
             {
                 _stackerStateText = value;
-                RaisePropertyChanged(nameof(StackerStateText));
+                OnPropertyChanged(nameof(StackerStateText));
             }
         }
 
@@ -271,7 +271,7 @@
             set
             {
                 _enabledDenominationsText = value;
-                RaisePropertyChanged(nameof(EnabledDenominationsText));
+                OnPropertyChanged(nameof(EnabledDenominationsText));
             }
         }
 
@@ -282,7 +282,7 @@
             set
             {
                 _lastDocumentResultText = value;
-                RaisePropertyChanged(nameof(LastDocumentResultText));
+                OnPropertyChanged(nameof(LastDocumentResultText));
             }
         }
 
@@ -296,7 +296,7 @@
             set
             {
                 _returnButtonEnabled = value;
-                RaisePropertyChanged(nameof(ReturnButtonEnabled));
+                OnPropertyChanged(nameof(ReturnButtonEnabled));
             }
         }
 
@@ -307,7 +307,7 @@
             set
             {
                 _stackButtonEnabled = value;
-                RaisePropertyChanged(nameof(StackButtonEnabled));
+                OnPropertyChanged(nameof(StackButtonEnabled));
             }
         }
 
@@ -318,7 +318,7 @@
             set
             {
                 _stackButtonVisible = value;
-                RaisePropertyChanged(nameof(StackButtonVisible));
+                OnPropertyChanged(nameof(StackButtonVisible));
             }
         }
 
@@ -329,7 +329,7 @@
             set
             {
                 _variantNameText = value;
-                RaisePropertyChanged(nameof(VariantNameText));
+                OnPropertyChanged(nameof(VariantNameText));
             }
         }
 
@@ -340,7 +340,7 @@
             set
             {
                 _variantVersionText = value;
-                RaisePropertyChanged(nameof(VariantVersionText));
+                OnPropertyChanged(nameof(VariantVersionText));
             }
         }
 
@@ -351,7 +351,7 @@
             set
             {
                 _selfTestButtonVisible = value;
-                RaisePropertyChanged(nameof(SelfTestButtonVisible));
+                OnPropertyChanged(nameof(SelfTestButtonVisible));
             }
         }
 
@@ -362,7 +362,7 @@
             set
             {
                 _selfTestClearNvmButtonVisible = value;
-                RaisePropertyChanged(nameof(SelfTestClearNvmButtonVisible));
+                OnPropertyChanged(nameof(SelfTestClearNvmButtonVisible));
             }
         }
 
@@ -373,7 +373,7 @@
             set
             {
                 _selfTestStatusVisible = value;
-                RaisePropertyChanged(nameof(SelfTestStatusVisible));
+                OnPropertyChanged(nameof(SelfTestStatusVisible));
             }
         }
 
@@ -384,7 +384,7 @@
             set
             {
                 _inspectButtonVisible = value;
-                RaisePropertyChanged(nameof(InspectButtonVisible));
+                OnPropertyChanged(nameof(InspectButtonVisible));
             }
         }
 
@@ -395,7 +395,7 @@
             set
             {
                 _returnButtonVisible = value;
-                RaisePropertyChanged(nameof(ReturnButtonVisible));
+                OnPropertyChanged(nameof(ReturnButtonVisible));
             }
         }
 
@@ -406,7 +406,7 @@
             set
             {
                 _setDenominationsButtonVisible = value;
-                RaisePropertyChanged(nameof(SetDenominationsButtonVisible));
+                OnPropertyChanged(nameof(SetDenominationsButtonVisible));
             }
         }
 
@@ -417,7 +417,7 @@
             set
             {
                 _inspectButtonFocused = value;
-                RaisePropertyChanged(nameof(InspectButtonFocused));
+                OnPropertyChanged(nameof(InspectButtonFocused));
             }
         }
 

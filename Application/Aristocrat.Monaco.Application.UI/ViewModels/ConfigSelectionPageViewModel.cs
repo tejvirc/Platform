@@ -7,6 +7,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Threading;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using ConfigWizard;
     using Contracts;
     using Contracts.ConfigWizard;
@@ -133,7 +135,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 {
                     if (_calibrationPending)
                     {
-                        MvvmHelper.ExecuteOnUI(InvokeCalibration);
+                        Execute.OnUIThread(InvokeCalibration);
                     }
                 });
 
@@ -142,8 +144,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             // We're forcing touch screen mapping.  After doing so, we're going to force a restart
             _restartWhenFinished = !_isInspection && !_cabinetDetectionService.TouchscreensMapped;
 
-            BackButtonClicked = new ActionCommand<object>(BackButton_Click, _ => CanNavigateBackward);
-            NextButtonClicked = new ActionCommand<object>(NextButton_Click, _ => CanNavigateForward);
+            BackButtonClicked = new RelayCommand<object>(BackButton_Click, _ => CanNavigateBackward);
+            NextButtonClicked = new RelayCommand<object>(NextButton_Click, _ => CanNavigateForward);
         }
 
         public ICommand BackButtonClicked { get; }
@@ -201,9 +203,9 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 SetProperty(ref _canNavigateForward, value, nameof(CanNavigateForward));
-                if (NextButtonClicked is IActionCommand actionCommand)
+                if (NextButtonClicked is IRelayCommand RelayCommand)
                 {
-                    MvvmHelper.ExecuteOnUI(() => actionCommand.RaiseCanExecuteChanged());
+                    Execute.OnUIThread(() => RelayCommand.NotifyCanExecuteChanged());
                 }
             }
         }
@@ -215,9 +217,9 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 SetProperty(ref _canNavigateBackward, value, nameof(CanNavigateBackward));
-                if (BackButtonClicked is IActionCommand actionCommand)
+                if (BackButtonClicked is IRelayCommand RelayCommand)
                 {
-                    MvvmHelper.ExecuteOnUI(() => actionCommand.RaiseCanExecuteChanged());
+                    Execute.OnUIThread(() => RelayCommand.NotifyCanExecuteChanged());
                 }
             }
         }
@@ -550,7 +552,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             {
                 if (_errorViewModel != null)
                 {
-                    MvvmHelper.ExecuteOnUI(() => _errorViewModel?.Close());
+                    Execute.OnUIThread(() => _errorViewModel?.Close());
                 }
                 else
                 {
@@ -561,7 +563,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                     }
 
                     _serialTouchCalibrated = false;
-                    MvvmHelper.ExecuteOnUI(InvokeCalibration);
+                    Execute.OnUIThread(InvokeCalibration);
                 }
             }
             else
@@ -647,7 +649,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 var dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
                 _errorViewModel = new TouchCalibrationErrorViewModel { IsInWizard = true };
 
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         dialogService.ShowDialog<TouchCalibrationErrorView>(
@@ -671,6 +673,10 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
             var ticketCreator = ServiceManager.GetInstance().TryGetService<IIdentityTicketCreator>();
             return TicketToList(ticketCreator?.CreateIdentityTicket());
+        }
+
+        public void Initialize()
+        {
         }
     }
 }

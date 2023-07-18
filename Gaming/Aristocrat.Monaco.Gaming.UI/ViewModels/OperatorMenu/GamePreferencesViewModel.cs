@@ -79,7 +79,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
         public GamePreferencesViewModel()
         {
-            if (!InDesigner)
+            if (!Execute.InDesigner)
             {
                 _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
             }
@@ -138,10 +138,10 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
             AutoHoldConfigurable = PokerOptionsEnabled &&
                                    PropertiesManager.GetValue(GamingConstants.AutoHoldConfigurable, true);
-            ChangeGameLobbyLayoutCommand = new ActionCommand<object>(ChangeGameLobbyLayout_Clicked);
-            AttractModeCustomizeCommand = new ActionCommand<object>(AttractModeCustomizeButton_Clicked);
-            AttractModePreviewCommand = new ActionCommand<object>(AttractModePreviewButton_Clicked);
-            PreviewBackgroundCommand = new ActionCommand<object>(BackgroundPreviewButton_Clicked);
+            ChangeGameLobbyLayoutCommand = new RelayCommand<object>(ChangeGameLobbyLayout_Clicked);
+            AttractModeCustomizeCommand = new RelayCommand<object>(AttractModeCustomizeButton_Clicked);
+            AttractModePreviewCommand = new RelayCommand<object>(AttractModePreviewButton_Clicked);
+            PreviewBackgroundCommand = new RelayCommand<object>(BackgroundPreviewButton_Clicked);
 
             IsGameStartMethodSettingVisible = PropertiesManager.GetValue(
                 GamingConstants.GameStartMethodSettingVisible,
@@ -249,7 +249,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _enableVideo = value;
-                RaisePropertyChanged(nameof(EnableVideo));
+                OnPropertyChanged(nameof(EnableVideo));
             }
         }
 
@@ -264,7 +264,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _enableAudio = value;
-                RaisePropertyChanged(nameof(EnableAudio));
+                OnPropertyChanged(nameof(EnableAudio));
             }
         }
 
@@ -279,7 +279,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _enableLighting = value;
-                RaisePropertyChanged(nameof(EnableLighting));
+                OnPropertyChanged(nameof(EnableLighting));
             }
         }
 
@@ -294,7 +294,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _attractOptionsEnabled = value;
-                RaisePropertyChanged(nameof(AttractOptionsEnabled));
+                OnPropertyChanged(nameof(AttractOptionsEnabled));
             }
         }
 
@@ -309,7 +309,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _attractEnabled = value;
-                RaisePropertyChanged(nameof(AttractEnabled));
+                OnPropertyChanged(nameof(AttractEnabled));
                 Save(GamingConstants.AttractModeEnabled, _attractEnabled);
                 EventBus.Publish(new AttractConfigurationChangedEvent());
             }
@@ -326,7 +326,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _showProgramPinRequired = value;
-                RaisePropertyChanged(nameof(ShowProgramPinRequired));
+                OnPropertyChanged(nameof(ShowProgramPinRequired));
                 Save(GamingConstants.ShowProgramPinRequired, _showProgramPinRequired);
             }
         }
@@ -342,7 +342,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _showProgramPin = value;
-                RaisePropertyChanged(nameof(ShowProgramPin));
+                OnPropertyChanged(nameof(ShowProgramPin));
                 ValidateShowProgramPin();
             }
         }
@@ -358,7 +358,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _showProgramEnableResetCredits = value;
-                RaisePropertyChanged(nameof(ShowProgramEnableResetCredits));
+                OnPropertyChanged(nameof(ShowProgramEnableResetCredits));
                 Save(GamingConstants.ShowProgramEnableResetCredits, _showProgramEnableResetCredits);
             }
         }
@@ -374,7 +374,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _showServiceButton = value;
-                RaisePropertyChanged(nameof(ShowServiceButton));
+                OnPropertyChanged(nameof(ShowServiceButton));
 
                 Save(GamingConstants.ShowServiceButton, _showServiceButton);
                 EventBus.Publish(new LobbySettingsChangedEvent(LobbySettingType.ServiceButtonVisible));
@@ -392,7 +392,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _showTopPickBanners = value;
-                RaisePropertyChanged(nameof(ShowTopPickBanners));
+                OnPropertyChanged(nameof(ShowTopPickBanners));
 
                 Save(GamingConstants.ShowTopPickBanners, _showTopPickBanners);
                 EventBus.Publish(new LobbySettingsChangedEvent(LobbySettingType.ShowTopPickBanners));
@@ -410,7 +410,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _showTopPickBannersVisible = value;
-                RaisePropertyChanged(nameof(ShowTopPickBannersVisible));
+                OnPropertyChanged(nameof(ShowTopPickBannersVisible));
             }
         }
 
@@ -425,7 +425,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _lobbyVolumeScalar = value;
-                RaisePropertyChanged(nameof(LobbyVolumeScalar));
+                OnPropertyChanged(nameof(LobbyVolumeScalar));
 
                 Save(ApplicationConstants.LobbyVolumeScalarKey, _lobbyVolumeScalar);
                 PlayVolumeChangeSound(_dingSoundFilePath, _audio.GetVolumeScalar(value));
@@ -443,7 +443,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _slotEnableAutoPlay = value;
-                RaisePropertyChanged(nameof(SlotEnableAutoPlay));
+                OnPropertyChanged(nameof(SlotEnableAutoPlay));
 
                 Save(
                     GameType.Slot,
@@ -466,7 +466,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _slotVolumeScalar = value;
-                RaisePropertyChanged(nameof(SlotVolumeScalar));
+                OnPropertyChanged(nameof(SlotVolumeScalar));
 
                 Save(
                     GameType.Slot,
@@ -490,7 +490,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _isButtonContinuousPlayChecked = value;
-                RaisePropertyChanged(nameof(IsButtonContinuousPlayChecked));
+                OnPropertyChanged(nameof(IsButtonContinuousPlayChecked));
 
                 var mode = _isButtonContinuousPlayChecked
                     ? PlayMode.Continuous
@@ -513,7 +513,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _isDoubleTapForceReelStopChecked = value;
-                RaisePropertyChanged(nameof(IsDoubleTapForceReelStopChecked));
+                OnPropertyChanged(nameof(IsDoubleTapForceReelStopChecked));
 
                 Save(GamingConstants.ReelStopEnabled, _isDoubleTapForceReelStopChecked);
             }
@@ -530,7 +530,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _kenoEnableAutoPlay = value;
-                RaisePropertyChanged(nameof(KenoEnableAutoPlay));
+                OnPropertyChanged(nameof(KenoEnableAutoPlay));
 
                 Save(
                     GameType.Keno,
@@ -553,7 +553,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _kenoShowPlayerSpeedButton = value;
-                RaisePropertyChanged(nameof(KenoShowPlayerSpeedButton));
+                OnPropertyChanged(nameof(KenoShowPlayerSpeedButton));
 
                 Save(
                     GameType.Keno,
@@ -576,7 +576,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _kenoSpeedLevel = value;
-                RaisePropertyChanged(nameof(KenoSpeedLevel));
+                OnPropertyChanged(nameof(KenoSpeedLevel));
 
                 Save(
                     GameType.Keno,
@@ -599,7 +599,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _kenoDefaultSpeedLevel = value;
-                RaisePropertyChanged(nameof(KenoDefaultSpeedLevel));
+                OnPropertyChanged(nameof(KenoDefaultSpeedLevel));
 
                 Save(
                     GameType.Keno,
@@ -622,7 +622,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _kenoVolumeScalar = value;
-                RaisePropertyChanged(nameof(KenoVolumeScalar));
+                OnPropertyChanged(nameof(KenoVolumeScalar));
 
                 Save(
                     GameType.Keno,
@@ -646,7 +646,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _pokerEnableAutoHold = value;
-                RaisePropertyChanged(nameof(PokerEnableAutoHold));
+                OnPropertyChanged(nameof(PokerEnableAutoHold));
 
                 Save(
                     GameType.Poker,
@@ -669,7 +669,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _pokerShowPlayerSpeedButton = value;
-                RaisePropertyChanged(nameof(PokerShowPlayerSpeedButton));
+                OnPropertyChanged(nameof(PokerShowPlayerSpeedButton));
 
                 Save(
                     GameType.Poker,
@@ -692,7 +692,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _pokerSpeedLevel = value;
-                RaisePropertyChanged(nameof(PokerSpeedLevel));
+                OnPropertyChanged(nameof(PokerSpeedLevel));
 
                 Save(
                     GameType.Poker,
@@ -715,7 +715,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _pokerDefaultSpeedLevel = value;
-                RaisePropertyChanged(nameof(PokerDefaultSpeedLevel));
+                OnPropertyChanged(nameof(PokerDefaultSpeedLevel));
 
                 Save(
                     GameType.Poker,
@@ -738,7 +738,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _pokerVolumeScalar = value;
-                RaisePropertyChanged(nameof(PokerVolumeScalar));
+                OnPropertyChanged(nameof(PokerVolumeScalar));
 
                 Save(
                     GameType.Poker,
@@ -762,7 +762,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _pokerBackgroundColor = value;
-                RaisePropertyChanged(nameof(PokerBackgroundColor), nameof(BackgroundPreviewAvailable));
+                OnPropertyChanged(nameof(PokerBackgroundColor), nameof(BackgroundPreviewAvailable));
 
                 Save(GameType.Poker, UpdateBackgroundColor);
                 Save(GameType.Slot, UpdateBackgroundColor);
@@ -786,7 +786,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _blackjackVolumeScalar = value;
-                RaisePropertyChanged(nameof(BlackjackVolumeScalar));
+                OnPropertyChanged(nameof(BlackjackVolumeScalar));
 
                 Save(
                     GameType.Blackjack,
@@ -810,7 +810,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _rouletteVolumeScalar = value;
-                RaisePropertyChanged(nameof(RouletteVolumeScalar));
+                OnPropertyChanged(nameof(RouletteVolumeScalar));
 
                 Save(
                     GameType.Roulette,
@@ -834,7 +834,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _censorViolentContent = value;
-                RaisePropertyChanged(nameof(CensorViolentContent));
+                OnPropertyChanged(nameof(CensorViolentContent));
 
                 // TODO save update this in the PropertiesManager
             }
@@ -851,7 +851,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _censorDrugUseContent = value;
-                RaisePropertyChanged(nameof(CensorDrugUseContent));
+                OnPropertyChanged(nameof(CensorDrugUseContent));
 
                 // TODO save update this in the PropertiesManager
             }
@@ -868,7 +868,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _censorSexualContent = value;
-                RaisePropertyChanged(nameof(CensorSexualContent));
+                OnPropertyChanged(nameof(CensorSexualContent));
 
                 // TODO save update this in the PropertiesManager
             }
@@ -885,7 +885,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _censorOffensiveContent = value;
-                RaisePropertyChanged(nameof(CensorOffensiveContent));
+                OnPropertyChanged(nameof(CensorOffensiveContent));
 
                 // TODO save update this in the PropertiesManager
             }
@@ -904,7 +904,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 _gameStartMethod = value;
-                RaisePropertyChanged(nameof(GameStartMethod));
+                OnPropertyChanged(nameof(GameStartMethod));
                 Save(GamingConstants.GameStartMethod, value);
             }
         }
@@ -937,7 +937,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 if (_logicDoorEnabled != value)
                 {
                     _logicDoorEnabled = value;
-                    RaisePropertyChanged(nameof(LogicDoorEnabled));
+                    OnPropertyChanged(nameof(LogicDoorEnabled));
                 }
             }
         }
@@ -950,7 +950,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 if (_logicDoorAccessRestriction != value)
                 {
                     _logicDoorAccessRestriction = value;
-                    RaisePropertyChanged(nameof(LogicDoorAccessRestriction));
+                    OnPropertyChanged(nameof(LogicDoorAccessRestriction));
                     OnFieldAccessRestrictionChange();
                 }
             }

@@ -23,7 +23,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
         private string _statusText;
         private bool _isMostRecentRowSelected;
 
-        public ActionCommand<object> ReprintButtonCommand { get; set; }
+        public RelayCommand<object> ReprintButtonCommand { get; set; }
 
         private readonly IEventLogAdapter _eventLogAdapter;
         private static long _transactionId;
@@ -38,10 +38,10 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             set
             {
                 _canReprint = value;
-                RaisePropertyChanged(nameof(CanReprint));
+                OnPropertyChanged(nameof(CanReprint));
                 if (ReprintButtonCommand != null)
                 {
-                    MvvmHelper.ExecuteOnUI(() => ReprintButtonCommand.RaiseCanExecuteChanged());
+                    Execute.OnUIThread(() => ReprintButtonCommand.NotifyCanExecuteChanged());
                 }
             }
         }
@@ -54,7 +54,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 if (_isReprintButtonVisible != value)
                 {
                     _isReprintButtonVisible = value;
-                    RaisePropertyChanged(nameof(IsReprintButtonVisible));
+                    OnPropertyChanged(nameof(IsReprintButtonVisible));
                 }
             }
         }
@@ -125,7 +125,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             }
 
             GetReprintButtonEnabled();
-            ReprintButtonCommand = new ActionCommand<object>(
+            ReprintButtonCommand = new RelayCommand<object>(
                 _ => Print(OperatorMenuPrintData.SelectedItem),
                 _ => CanReprint);
         }
@@ -154,7 +154,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 if (_statusText != value)
                 {
                     _statusText = value;
-                    RaisePropertyChanged(nameof(DoorStatusText));
+                    OnPropertyChanged(nameof(DoorStatusText));
                 }
             }
         }
@@ -171,7 +171,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 if (_reprintDisabledDueToDoor != value)
                 {
                     _reprintDisabledDueToDoor = value;
-                    RaisePropertyChanged(nameof(ReprintDisabledDueToDoor));
+                    OnPropertyChanged(nameof(ReprintDisabledDueToDoor));
                 }
             }
         }
@@ -221,7 +221,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 if (_isMostRecentRowSelected != value)
                 {
                     _isMostRecentRowSelected = value;
-                    RaisePropertyChanged(nameof(IsMostRecentRowSelected));
+                    OnPropertyChanged(nameof(IsMostRecentRowSelected));
                     GetReprintButtonEnabled();
                 }
             }

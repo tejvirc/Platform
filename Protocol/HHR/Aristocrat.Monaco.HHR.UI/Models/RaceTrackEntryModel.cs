@@ -2,7 +2,7 @@ namespace Aristocrat.Monaco.Hhr.UI.Models
 {
     using System.Windows;
 
-    public class RaceTrackEntryModel : BaseViewModel
+    public class RaceTrackEntryModel : BaseObservableObject
     {
         private bool _raceStarted;
 

@@ -13,7 +13,8 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
     using Hardware.Contracts.Persistence;
     using Kernel;
     using Localization.Properties;
-    using CommunityToolkit.Mvvm.ComponentModel;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
 
     [CLSCompliant(false)]
     public class KeyedCreditsPageViewModel : OperatorMenuPageViewModelBase
@@ -64,8 +65,8 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
                                         throw new ArgumentNullException(nameof(persistentStorageManager));
             _transactionHistory = transactionHistory ?? throw new ArgumentNullException(nameof(transactionHistory));
 
-            ConfirmKeyOnCreditsCommand = new ActionCommand<object>(ConfirmKeyOnCreditsPressed);
-            ConfirmKeyOffCreditsCommand = new ActionCommand<object>(ConfirmKeyOffCreditsPressed);
+            ConfirmKeyOnCreditsCommand = new RelayCommand<object>(ConfirmKeyOnCreditsPressed);
+            ConfirmKeyOffCreditsCommand = new RelayCommand<object>(ConfirmKeyOffCreditsPressed);
         }
 
         public ICommand ConfirmKeyOnCreditsCommand { get; }
@@ -91,7 +92,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
                 if (SetProperty(ref _keyedOnCreditAmount, value, nameof(KeyedOnCreditAmount)))
                 {
                     ValidateKeyedOnCredits();
-                    RaisePropertyChanged(nameof(KeyedOnCreditsAllowed));
+                    OnPropertyChanged(nameof(KeyedOnCreditsAllowed));
                 }
             }
         }
@@ -144,9 +145,9 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
 
         protected override void OnInputEnabledChanged()
         {
-            RaisePropertyChanged(nameof(KeyedOnInputEnabled));
-            RaisePropertyChanged(nameof(KeyedOnCreditsAllowed));
-            RaisePropertyChanged(nameof(KeyOffCreditsButtonEnabled));
+            OnPropertyChanged(nameof(KeyedOnInputEnabled));
+            OnPropertyChanged(nameof(KeyedOnCreditsAllowed));
+            OnPropertyChanged(nameof(KeyOffCreditsButtonEnabled));
         }
 
         private void UpdateCreditData()
@@ -164,8 +165,8 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
         private void UpdateCurrentCredits()
         {
             _currentCredits = Credits.Sum(x => x.Value);
-            RaisePropertyChanged(nameof(KeyedOnInputEnabled));
-            RaisePropertyChanged(nameof(KeyOffCreditsButtonEnabled));
+            OnPropertyChanged(nameof(KeyedOnInputEnabled));
+            OnPropertyChanged(nameof(KeyOffCreditsButtonEnabled));
         }
 
         private void ConfirmKeyOnCreditsPressed(object obj)
@@ -309,7 +310,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             }
         }
 
-        public class Credit : ObservableObject
+        public class Credit : BaseObservableObject
         {
             private long _value;
             private string _formattedValue;

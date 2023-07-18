@@ -77,7 +77,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
                 {
                     Denominations.Add(new ConfigurableDenomination(
                         denom,
-                        new ActionCommand<bool>(b => HandleDenominationChangeCommand(b, denom)),
+                        new RelayCommand<bool>(b => HandleDenominationChangeCommand(b, denom)),
                         DenominationIsSelected(denom)));
                 }
             }
@@ -134,7 +134,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
 
                 VoucherInEnabledText = IsVoucherInEnabled && noteAcceptor.Enabled ? ResourceKeys.EnabledLabel : ResourceKeys.Disabled;
 
-                RaisePropertyChanged(nameof(TestModeEnabled));
+                OnPropertyChanged(nameof(TestModeEnabled));
 
                 ConfigureStackButton();
 
@@ -494,7 +494,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
 
             ReturnButtonEnabled = enable;
             SetDenominationsEnabled(enable);
-            RaisePropertyChanged(nameof(TestModeEnabled));
+            OnPropertyChanged(nameof(TestModeEnabled));
         }
 
         private void SetDenominationsEnabled(bool enable)
@@ -944,7 +944,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
 
         protected override void OnInputEnabledChanged()
         {
-            RaisePropertyChanged(nameof(CanEgmModifyDenominations));
+            OnPropertyChanged(nameof(CanEgmModifyDenominations));
         }
 
         /// <summary>This method will check whether any of the enabled denominations are currently selected or not</summary>
@@ -987,7 +987,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
 
         private void UpdateCurrencyFields()
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 CurrencyExtensions.UpdateCurrencyCulture();
 
@@ -996,7 +996,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
                     denom.UpdateProps(CurrentCurrencyFormat);
                 }
 
-                RaisePropertyChanged(
+                OnPropertyChanged(
                     nameof(BillAcceptanceLimit),
                     nameof(BillAcceptanceRate),
                     nameof(Denominations),

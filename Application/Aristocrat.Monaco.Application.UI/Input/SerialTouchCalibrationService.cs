@@ -109,7 +109,7 @@ namespace Aristocrat.Monaco.Application.UI.Input
             }
 
             Logger.Debug("CalibrateNextDevice - Progressing on to calibrate next serial touch device...");
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 _activeCalibration?.Value.ViewModel.CompleteCalibrationTest();
                 _activeCalibration = _activeCalibration?.Next;
@@ -139,7 +139,7 @@ namespace Aristocrat.Monaco.Application.UI.Input
 
         private void InitializeCalibration()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 { // Create SerialTouchCalibration control for each expected display with serial touch
                     foreach (var display in _cabinetDetection.ExpectedDisplayDevicesWithSerialTouch)
@@ -176,7 +176,7 @@ namespace Aristocrat.Monaco.Application.UI.Input
 
         private void FinalizeCalibration(bool aborted, string message = "")
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     Logger.Debug($"FinalizeCalibration - Aborted {aborted} - IsCalibrating {IsCalibrating} - CalibrationError {CalibrationError}");
@@ -215,7 +215,7 @@ namespace Aristocrat.Monaco.Application.UI.Input
 
         private void OnCalibrationErrorTimeout(object sender, ElapsedEventArgs e)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     _timerElapsedSeconds++;
@@ -274,7 +274,7 @@ namespace Aristocrat.Monaco.Application.UI.Input
         {
             if (IsCalibrating)
             {
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         _activeCalibration?.Value.ViewModel.UpdateCalibration(e);

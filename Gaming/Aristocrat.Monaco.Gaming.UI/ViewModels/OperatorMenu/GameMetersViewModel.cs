@@ -44,7 +44,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
         public GameMetersViewModel()
             : base(MeterNodePage.Game, true)
         {
-            if (!InDesigner)
+            if (!Execute.InDesigner)
             {
                 _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
             }
@@ -54,11 +54,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             SelectByGameNameAndDenomination = GetConfigSetting(
                 OperatorMenuSetting.GameNameAndDenominationSelections,
                 false);
-            PreviousGameCommand = new ActionCommand<object>(PreviousGame);
-            NextGameCommand = new ActionCommand<object>(NextGame);
-            PreviousDenomCommand = new ActionCommand<object>(PreviousDenom);
-            NextDenomCommand = new ActionCommand<object>(NextDenom);
-            DisplayCategoriesCommand = new ActionCommand<object>(ShowWagerCategoryMeters);
+            PreviousGameCommand = new RelayCommand<object>(PreviousGame);
+            NextGameCommand = new RelayCommand<object>(NextGame);
+            PreviousDenomCommand = new RelayCommand<object>(PreviousDenom);
+            NextDenomCommand = new RelayCommand<object>(NextDenom);
+            DisplayCategoriesCommand = new RelayCommand<object>(ShowWagerCategoryMeters);
         }
 
         public ICommand PreviousGameCommand { get; }
@@ -89,9 +89,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             set
             {
                 _gameButtonsEnabled = value;
-                RaisePropertyChanged(nameof(GameButtonsEnabled));
-                RaisePropertyChanged(nameof(PreviousGameIsEnabled));
-                RaisePropertyChanged(nameof(NextGameIsEnabled));
+                OnPropertyChanged(nameof(GameButtonsEnabled));
+                OnPropertyChanged(nameof(PreviousGameIsEnabled));
+                OnPropertyChanged(nameof(NextGameIsEnabled));
             }
         }
 
@@ -103,10 +103,10 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             set
             {
                 _printSelectedButtonEnabled = value;
-                RaisePropertyChanged(nameof(PrintSelectedButtonEnabled));
-                RaisePropertyChanged(nameof(GameButtonsEnabled));
-                RaisePropertyChanged(nameof(PreviousGameIsEnabled));
-                RaisePropertyChanged(nameof(NextGameIsEnabled));
+                OnPropertyChanged(nameof(PrintSelectedButtonEnabled));
+                OnPropertyChanged(nameof(GameButtonsEnabled));
+                OnPropertyChanged(nameof(PreviousGameIsEnabled));
+                OnPropertyChanged(nameof(NextGameIsEnabled));
             }
         }
 
@@ -118,8 +118,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             set
             {
                 _selectedGame = value;
-                RaisePropertyChanged(nameof(SelectedGame));
-                RaisePropertyChanged(nameof(DisplayCategoriesButtonEnabled));
+                OnPropertyChanged(nameof(SelectedGame));
+                OnPropertyChanged(nameof(DisplayCategoriesButtonEnabled));
                 InitializeMeters();
                 LoadDenoms();
             }
@@ -131,7 +131,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             set
             {
                 _selectedDenom = value;
-                RaisePropertyChanged(nameof(SelectedDenom));
+                OnPropertyChanged(nameof(SelectedDenom));
                 InitializeMeters();
             }
         }
@@ -148,9 +148,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
                 _selectedDenomIndex = value;
                 SelectedDenom = Denoms[value];
-                RaisePropertyChanged(nameof(SelectedDenomIndex));
-                RaisePropertyChanged(nameof(PreviousDenomIsEnabled));
-                RaisePropertyChanged(nameof(NextDenomIsEnabled));
+                OnPropertyChanged(nameof(SelectedDenomIndex));
+                OnPropertyChanged(nameof(PreviousDenomIsEnabled));
+                OnPropertyChanged(nameof(NextDenomIsEnabled));
             }
         }
 
@@ -166,8 +166,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
                 _selectedGameIndex = value;
                 SelectedGame = Games[value];
-                RaisePropertyChanged(nameof(PreviousGameIsEnabled));
-                RaisePropertyChanged(nameof(NextGameIsEnabled));
+                OnPropertyChanged(nameof(PreviousGameIsEnabled));
+                OnPropertyChanged(nameof(NextGameIsEnabled));
             }
         }
 
@@ -185,7 +185,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             // This will occur each time a different game is selected
             var meterManager = ServiceManager.GetInstance().GetService<IGameMeterManager>();
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     foreach (var meter in Meters)
@@ -273,10 +273,10 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
         protected override void UpdatePrinterButtons()
         {
-            RaisePropertyChanged(nameof(PrintSelectedButtonEnabled));
-            RaisePropertyChanged(nameof(GameButtonsEnabled));
-            RaisePropertyChanged(nameof(PreviousGameIsEnabled));
-            RaisePropertyChanged(nameof(NextGameIsEnabled));
+            OnPropertyChanged(nameof(PrintSelectedButtonEnabled));
+            OnPropertyChanged(nameof(GameButtonsEnabled));
+            OnPropertyChanged(nameof(PreviousGameIsEnabled));
+            OnPropertyChanged(nameof(NextGameIsEnabled));
         }
 
         protected override IEnumerable<Ticket> GenerateTicketsForPrint(OperatorMenuPrintData dataType)
@@ -395,7 +395,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                     PropertiesManager.GetValues<IGameDetail>(GamingConstants.AllGames)
                         .DistinctBy(game => game.ThemeName).OrderBy(game => game.Id))
                 : _allGames;
-            RaisePropertyChanged(nameof(Games));
+            OnPropertyChanged(nameof(Games));
             SelectedGameIndex = 0;
         }
     }

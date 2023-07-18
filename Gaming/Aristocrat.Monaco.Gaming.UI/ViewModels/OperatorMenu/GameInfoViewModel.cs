@@ -56,7 +56,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
             _allowPrintGamingMachineInfo = true;
 
-            SetGameOrderCommand = new ActionCommand<object>(SetGameOrder);
+            SetGameOrderCommand = new RelayCommand<object>(SetGameOrder);
             _setGameOrderOnlyInShowMode = GetConfigSetting(OperatorMenuSetting.SetGameOrderOnlyInShowMode, false);
         }
 
@@ -78,7 +78,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 if (_gameList != value)
                 {
                     _gameList = value;
-                    RaisePropertyChanged(nameof(GameList));
+                    OnPropertyChanged(nameof(GameList));
                 }
             }
         }
@@ -95,7 +95,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 if (_selectedItem != value)
                 {
                     _selectedItem = value;
-                    RaisePropertyChanged(nameof(SelectedItem));
+                    OnPropertyChanged(nameof(SelectedItem));
                 }
             }
         }
@@ -112,7 +112,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 if (_selectedIndex != value)
                 {
                     _selectedIndex = value;
-                    RaisePropertyChanged(nameof(SelectedIndex));
+                    OnPropertyChanged(nameof(SelectedIndex));
                 }
             }
         }
@@ -129,7 +129,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 if (_upButtonEnabled != value)
                 {
                     _upButtonEnabled = value;
-                    RaisePropertyChanged(nameof(UpButtonEnabled));
+                    OnPropertyChanged(nameof(UpButtonEnabled));
                 }
             }
         }
@@ -146,7 +146,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 if (_downButtonEnabled != value)
                 {
                     _downButtonEnabled = value;
-                    RaisePropertyChanged(nameof(DownButtonEnabled));
+                    OnPropertyChanged(nameof(DownButtonEnabled));
                 }
             }
         }
@@ -161,7 +161,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 if (_selectedTag != value)
                 {
                     _selectedTag = value;
-                    RaisePropertyChanged(nameof(SelectedTag));
+                    OnPropertyChanged(nameof(SelectedTag));
                 }
             }
         }
@@ -175,7 +175,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 if (_allowPrintGamingMachineInfo != value)
                 {
                     _allowPrintGamingMachineInfo = value;
-                    RaisePropertyChanged(nameof(AllowPrintGamingMachineInfo));
+                    OnPropertyChanged(nameof(AllowPrintGamingMachineInfo));
                 }
             }
         }
@@ -245,7 +245,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     GameList.Clear();

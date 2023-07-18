@@ -50,7 +50,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         /// </summary>
         public HostConfigurationViewModel(bool isWizardPage) : base(isWizardPage)
         {
-            if (!InDesigner)
+            if (!Execute.InDesigner)
             {
                 _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
             }
@@ -66,9 +66,9 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
 
             ResetEditState();
 
-            NewCommand = new ActionCommand<object>(_ => NewHost());
-            EditCommand = new ActionCommand<Host>(EditHost);
-            DeleteCommand = new ActionCommand<Host>(DeleteHost);
+            NewCommand = new RelayCommand<object>(_ => NewHost());
+            EditCommand = new RelayCommand<Host>(EditHost);
+            DeleteCommand = new RelayCommand<Host>(DeleteHost);
 
             _port = PropertiesManager.GetValue(Constants.Port, Constants.DefaultPort);
 
@@ -103,8 +103,8 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             set
             {
                 _registeredHostsEnabled = value;
-                RaisePropertyChanged(nameof(RegisteredHostsEnabled));
-                RaisePropertyChanged(nameof(ProgressRingIsActive));
+                OnPropertyChanged(nameof(RegisteredHostsEnabled));
+                OnPropertyChanged(nameof(ProgressRingIsActive));
                 if (_registeredHostsEnabled && WizardNavigator != null)
                 {
                     SetupNavigation();
@@ -125,7 +125,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 if (_macAddress != value)
                 {
                     _macAddress = value;
-                    RaisePropertyChanged(nameof(MacAddress));
+                    OnPropertyChanged(nameof(MacAddress));
                 }
             }
         }
@@ -139,7 +139,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 {
                     ValidatePort(value);
                     _port = value;
-                    RaisePropertyChanged(nameof(Port));
+                    OnPropertyChanged(nameof(Port));
                 }
             }
         }
@@ -152,7 +152,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         protected override void Loaded()
         {
             _egm = GetEgm();
-            RaisePropertyChanged(nameof(EgmId));
+            OnPropertyChanged(nameof(EgmId));
 
             MacAddress = NetworkInterfaceInfo.DefaultPhysicalAddress;
 
@@ -168,7 +168,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(ResetOriginalHosts);
+            Execute.OnUIThread(ResetOriginalHosts);
             base.OnOperatorCultureChanged(evt);
         }
 
@@ -266,7 +266,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
 
         private void LoadHosts()
         {
-            if (InDesigner)
+            if (Execute.InDesigner)
             {
                 return;
             }
@@ -529,7 +529,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
 
         private void RefreshHosts()
         {
-            RaisePropertyChanged(nameof(Hosts));
+            OnPropertyChanged(nameof(Hosts));
             RegisteredHosts.View.Refresh();
 
             // VLT-9577 : enable Next button on wizard if enter a url in retail (default is empty in retail)
@@ -674,7 +674,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 }
             }
 
-            MvvmHelper.ExecuteOnUI(EnableRegisteredHosts);
+            Execute.OnUIThread(EnableRegisteredHosts);
         }
 
         private static IG2SEgm GetEgm()

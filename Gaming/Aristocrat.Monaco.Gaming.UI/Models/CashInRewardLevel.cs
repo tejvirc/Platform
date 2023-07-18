@@ -6,7 +6,8 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.MVVM.ViewModel;
     using Contracts.Barkeeper;
-    using CommunityToolkit.Mvvm.ComponentModel;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
 
     /// <summary>
     /// CashInRewardLevel which binds to BarkeeperConfigurationViewModel for RewardsLevels.

@@ -61,7 +61,7 @@
             set
             {
                 _range = value;
-                RaisePropertyChanged(nameof(Range));
+                OnPropertyChanged(nameof(Range));
             }
         }
 
@@ -71,7 +71,7 @@
             set
             {
                 _hashesComponentId = value;
-                RaisePropertyChanged(nameof(HashesComponentId));
+                OnPropertyChanged(nameof(HashesComponentId));
             }
         }
 
@@ -83,7 +83,7 @@
             set
             {
                 _enabledGamesCount = value;
-                RaisePropertyChanged(nameof(EnabledGamesCount));
+                OnPropertyChanged(nameof(EnabledGamesCount));
             }
         }
 
@@ -93,7 +93,7 @@
             set
             {
                 _enabledGames = value;
-                RaisePropertyChanged(nameof(EnabledGames));
+                OnPropertyChanged(nameof(EnabledGames));
                 EnabledGamesCount = _enabledGames.Count;
             }
         }
@@ -104,7 +104,7 @@
             set
             {
                 _maxBetLimit = value;
-                RaisePropertyChanged(nameof(MaxBetLimit));
+                OnPropertyChanged(nameof(MaxBetLimit));
             }
         }
 

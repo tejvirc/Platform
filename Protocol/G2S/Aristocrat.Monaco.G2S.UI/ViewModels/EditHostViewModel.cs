@@ -65,7 +65,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 if (SetProperty(ref _hostId, value, nameof(HostId)))
                 {
                     ValidateHostId(_hostId);
-                    RaisePropertyChanged(nameof(CanSave));
+                    OnPropertyChanged(nameof(CanSave));
                 }
             }
         }
@@ -81,7 +81,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 if (SetProperty(ref _address, value, nameof(Address)))
                 {
                     ValidateAddress(_address);
-                    RaisePropertyChanged(nameof(CanSave));
+                    OnPropertyChanged(nameof(CanSave));
                 }
             }
         }
@@ -120,7 +120,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         {
             if (!operatorMenuEvent.IsTechnicianRole)
             {
-                MvvmHelper.ExecuteOnUI(Cancel);
+                Execute.OnUIThread(Cancel);
             }
         }
 

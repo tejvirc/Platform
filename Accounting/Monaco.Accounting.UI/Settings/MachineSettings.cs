@@ -133,7 +133,7 @@
             set
             {
                 SetProperty(ref _celebrationLockupLimit, value);
-                RaisePropertyChanged(nameof(CelebrationLockupLimitDisplay));
+                OnPropertyChanged(nameof(CelebrationLockupLimitDisplay));
             }
         }
 
@@ -376,7 +376,7 @@
             set
             {
                 SetProperty(ref _largeWinLimit, value);
-                RaisePropertyChanged(nameof(LargeWinLimitDisplay));
+                OnPropertyChanged(nameof(LargeWinLimitDisplay));
             }
         }
 
@@ -409,7 +409,7 @@
             set
             {
                 SetProperty(ref _largeWinRatio, value);
-                RaisePropertyChanged(nameof(LargeWinRatioDisplay));
+                OnPropertyChanged(nameof(LargeWinRatioDisplay));
             }
         }
 
@@ -452,7 +452,7 @@
             set
             {
                 SetProperty(ref _largeWinRatioThreshold, value);
-                RaisePropertyChanged(nameof(LargeWinRatioThresholdDisplay));
+                OnPropertyChanged(nameof(LargeWinRatioThresholdDisplay));
             }
         }
 
@@ -495,7 +495,7 @@
             set
             {
                 SetProperty(ref _maxBetLimit, value);
-                RaisePropertyChanged(nameof(MaxBetLimitDisplay));
+                OnPropertyChanged(nameof(MaxBetLimitDisplay));
             }
         }
 
@@ -528,7 +528,7 @@
             set
             {
                 SetProperty(ref _maxCreditMeter, value);
-                RaisePropertyChanged(nameof(MaxCreditMeterDisplay));
+                OnPropertyChanged(nameof(MaxCreditMeterDisplay));
             }
         }
 
@@ -561,7 +561,7 @@
             set
             {
                 SetProperty(ref _maxTenderInLimit, value);
-                RaisePropertyChanged(nameof(MaxTenderInLimitDisplay));
+                OnPropertyChanged(nameof(MaxTenderInLimitDisplay));
             }
         }
 
@@ -581,7 +581,7 @@
             set
             {
                 SetProperty(ref _maxWinAmount, value);
-                RaisePropertyChanged(nameof(MaxWinAmountDisplay));
+                OnPropertyChanged(nameof(MaxWinAmountDisplay));
             }
         }
 
@@ -744,7 +744,7 @@
             set
             {
                 SetProperty(ref _ticketTitleNonCash, value);
-                RaisePropertyChanged(nameof(TicketTitleNonCashDisplay));
+                OnPropertyChanged(nameof(TicketTitleNonCashDisplay));
             }
         }
 
@@ -797,7 +797,7 @@
             set
             {
                 SetProperty(ref _titleCancelReceipt, value);
-                RaisePropertyChanged(nameof(TitleCancelReceiptDisplay));
+                OnPropertyChanged(nameof(TitleCancelReceiptDisplay));
             }
         }
 
@@ -820,7 +820,7 @@
             set
             {
                 SetProperty(ref _titleJackpotReceipt, value);
-                RaisePropertyChanged(nameof(TitleJackpotReceiptDisplay));
+                OnPropertyChanged(nameof(TitleJackpotReceiptDisplay));
             }
         }
 
@@ -862,7 +862,7 @@
             set
             {
                 SetProperty(ref _voucherInLimit, value);
-                RaisePropertyChanged(nameof(VoucherInLimitDisplay));
+                OnPropertyChanged(nameof(VoucherInLimitDisplay));
             }
         }
 
@@ -925,7 +925,7 @@
             set
             {
                 SetProperty(ref _voucherOutExpirationDays, value);
-                RaisePropertyChanged(nameof(VoucherOutExpirationDaysDisplay));
+                OnPropertyChanged(nameof(VoucherOutExpirationDaysDisplay));
             }
         }
 
@@ -948,7 +948,7 @@
             set
             {
                 SetProperty(ref _voucherOutLimit, value);
-                RaisePropertyChanged(nameof(VoucherOutLimitDisplay));
+                OnPropertyChanged(nameof(VoucherOutLimitDisplay));
             }
         }
 
@@ -981,7 +981,7 @@
             set
             {
                 SetProperty(ref _voucherOutNonCashExpirationDays, value);
-                RaisePropertyChanged(nameof(VoucherOutNonCashExpirationDaysDisplay));
+                OnPropertyChanged(nameof(VoucherOutNonCashExpirationDaysDisplay));
             }
         }
 
@@ -1004,7 +1004,7 @@
             set
             {
                 SetProperty(ref _handpayLimit, value);
-                RaisePropertyChanged(nameof(HandpayLimitDisplay));
+                OnPropertyChanged(nameof(HandpayLimitDisplay));
             }
         }
 

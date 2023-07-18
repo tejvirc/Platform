@@ -92,22 +92,22 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
         public AdvancedGameSetupViewModel()
         {
-            if (!InDesigner)
+            if (!Execute.InDesigner)
             {
                 _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
             }
 
-            ImportCommand = new ActionCommand<object>(
+            ImportCommand = new RelayCommand<object>(
                 _ => Import(),
                 _ => CanExecuteImportCommand);
-            ExportCommand = new ActionCommand<object>(_ => Export(), _ => CanExecuteExportCommand);
-            ConfigCommand = new ActionCommand(EnterConfig);
+            ExportCommand = new RelayCommand<object>(_ => Export(), _ => CanExecuteExportCommand);
+            ConfigCommand = new RelayCommand(EnterConfig);
 
-            ProgressiveSetupCommand = new ActionCommand<object>(ProgressiveSetup);
-            ProgressiveViewCommand = new ActionCommand<object>(ProgressiveView);
-            ExtraSettingsSetupCommand = new ActionCommand(GameSpecificOptionSetup);
-            ShowRtpSummaryCommand = new ActionCommand(ShowRtpSummary);
-            ShowProgressiveSummaryCommand = new ActionCommand(ShowProgressiveSummary);
+            ProgressiveSetupCommand = new RelayCommand<object>(ProgressiveSetup);
+            ProgressiveViewCommand = new RelayCommand<object>(ProgressiveView);
+            ExtraSettingsSetupCommand = new RelayCommand(GameSpecificOptionSetup);
+            ShowRtpSummaryCommand = new RelayCommand(ShowRtpSummary);
+            ShowProgressiveSummaryCommand = new RelayCommand(ShowProgressiveSummary);
 
             ImportExportVisible = GetConfigSetting(OperatorMenuSetting.AllowImportExport, false);
             GlobalOptionsVisible = GetConfigSetting(OperatorMenuSetting.ShowGlobalOptions, false);
@@ -150,9 +150,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
         public ICommand ConfigCommand { get; }
 
-        public ActionCommand<object> ImportCommand { get; }
+        public RelayCommand<object> ImportCommand { get; }
 
-        public ActionCommand<object> ExportCommand { get; }
+        public RelayCommand<object> ExportCommand { get; }
 
         public ICommand ProgressiveSetupCommand { get; }
 
@@ -174,14 +174,14 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             set
             {
                 SetProperty(ref _isInProgress, value);
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
-                        ExportCommand.RaiseCanExecuteChanged();
-                        ImportCommand.RaiseCanExecuteChanged();
+                        ExportCommand.NotifyCanExecuteChanged();
+                        ImportCommand.NotifyCanExecuteChanged();
 
-                        RaisePropertyChanged(nameof(CanExecuteImportCommand));
-                        RaisePropertyChanged(nameof(CanExecuteExportCommand));
+                        OnPropertyChanged(nameof(CanExecuteImportCommand));
+                        OnPropertyChanged(nameof(CanExecuteExportCommand));
                     });
             }
         }
@@ -300,7 +300,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
                 _selectedGame = value;
                 UpdateInputStatusText();
-                RaisePropertyChanged(nameof(SelectedGame), nameof(GameConfigurations), nameof(ThemePlusOptions), nameof(SelectedDenoms), nameof(MaxWinColumnVisible));
+                OnPropertyChanged(nameof(SelectedGame), nameof(GameConfigurations), nameof(ThemePlusOptions), nameof(SelectedDenoms), nameof(MaxWinColumnVisible));
                 if (_selectedGame == null)
                 {
                     return;
@@ -358,12 +358,12 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 SelectedGame.SelectedRestriction = value;
-                RaisePropertyChanged(nameof(SelectedRestriction));
+                OnPropertyChanged(nameof(SelectedRestriction));
 
                 SetRestriction(value);
 
-                RaisePropertyChanged(nameof(GameConfigurations));
-                RaisePropertyChanged(nameof(CanSave));
+                OnPropertyChanged(nameof(GameConfigurations));
+                OnPropertyChanged(nameof(CanSave));
             }
         }
 
@@ -403,14 +403,14 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
         }
         public void HandlePropertyChangedEvent(PropertyChangedEvent eventObject)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
             () =>
             {
-                ImportCommand.RaiseCanExecuteChanged();
-                ExportCommand.RaiseCanExecuteChanged();
+                ImportCommand.NotifyCanExecuteChanged();
+                ExportCommand.NotifyCanExecuteChanged();
 
-                RaisePropertyChanged(nameof(CanExecuteImportCommand));
-                RaisePropertyChanged(nameof(CanExecuteExportCommand));
+                OnPropertyChanged(nameof(CanExecuteImportCommand));
+                OnPropertyChanged(nameof(CanExecuteExportCommand));
             });
         }
 
@@ -445,8 +445,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 return;
             }
 
-            RaisePropertyChanged(nameof(ExtraSettingsVisibility));
-            RaisePropertyChanged(nameof(ExtraSettingsEnabled));
+            OnPropertyChanged(nameof(ExtraSettingsVisibility));
+            OnPropertyChanged(nameof(ExtraSettingsEnabled));
         }
 
         public override void Save()
@@ -499,8 +499,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
         protected override void OnInputEnabledChanged()
         {
-            RaisePropertyChanged(nameof(GameOptionsEnabled));
-            RaisePropertyChanged(nameof(ExtraSettingsEnabled));
+            OnPropertyChanged(nameof(GameOptionsEnabled));
+            OnPropertyChanged(nameof(ExtraSettingsEnabled));
             base.OnInputEnabledChanged();
         }
 
@@ -511,8 +511,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
             _cancellation = new CancellationTokenSource();
 
-            EventBus.Subscribe<ConfigurationSettingsImportedEvent>(this, _ => MvvmHelper.ExecuteOnUI(HandleImported));
-            EventBus.Subscribe<ConfigurationSettingsExportedEvent>(this, _ => MvvmHelper.ExecuteOnUI(HandleExported));
+            EventBus.Subscribe<ConfigurationSettingsImportedEvent>(this, _ => Execute.OnUIThread(HandleImported));
+            EventBus.Subscribe<ConfigurationSettingsExportedEvent>(this, _ => Execute.OnUIThread(HandleExported));
             EventBus.Subscribe<PropertyChangedEvent>(
                 this,
                 HandlePropertyChangedEvent,
@@ -554,14 +554,14 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
         protected override void OnFieldAccessEnabledChanged()
         {
             base.OnFieldAccessEnabledChanged();
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
-                    ImportCommand.RaiseCanExecuteChanged();
-                    ExportCommand.RaiseCanExecuteChanged();
+                    ImportCommand.NotifyCanExecuteChanged();
+                    ExportCommand.NotifyCanExecuteChanged();
 
-                    RaisePropertyChanged(nameof(CanExecuteImportCommand));
-                    RaisePropertyChanged(nameof(CanExecuteExportCommand));
+                    OnPropertyChanged(nameof(CanExecuteImportCommand));
+                    OnPropertyChanged(nameof(CanExecuteExportCommand));
                 });
         }
 
@@ -638,8 +638,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 ? string.Empty
                 : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReadOnlyModeText);
 
-            RaisePropertyChanged(nameof(ThemePlusOptions));
-            RaisePropertyChanged(nameof(SelectedDenoms));
+            OnPropertyChanged(nameof(ThemePlusOptions));
+            OnPropertyChanged(nameof(SelectedDenoms));
 
             foreach (var config in GameConfigurations)
             {
@@ -765,7 +765,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             GameOptionsGridEnabled = IsInEditMode;
 
             ApplyGameOptionsEnabled();
-            RaisePropertyChanged(
+            OnPropertyChanged(
                 nameof(GameOptionsEnabled),
                 nameof(ExtraSettingsEnabled),
                 nameof(ShowSaveButtonOverride),
@@ -811,7 +811,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                     }
                 }
 
-                RaisePropertyChanged(nameof(InputStatusText), nameof(CanSave), nameof(HasErrors));
+                OnPropertyChanged(nameof(InputStatusText), nameof(CanSave), nameof(HasErrors));
             }
         }
 
@@ -833,11 +833,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
         private void UpdateRestrictions()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     SelectedGame?.UpdateValidRestrictions();
-                    RaisePropertyChanged(
+                    OnPropertyChanged(
                         nameof(SelectedRestriction),
                         nameof(ValidRestrictions),
                         nameof(ShowRestrictionChooser),
@@ -1137,7 +1137,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             }
 
             editableConfig.PropertyChanged += OnSubPropertyChanged;
-            RaisePropertyChanged(nameof(editableConfig.DenomString));
+            OnPropertyChanged(nameof(editableConfig.DenomString));
         }
 
         private void SaveChanges(bool forceSave)
@@ -1306,7 +1306,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 game.OnSave();
             }
 
-            RaisePropertyChanged(nameof(CanSave));
+            OnPropertyChanged(nameof(CanSave));
         }
 
         private void ResetChanges()
@@ -1398,7 +1398,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
         private void OnSubPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            RaisePropertyChanged(nameof(CanSave));
+            OnPropertyChanged(nameof(CanSave));
 
             if (sender is not EditableGameConfiguration editableConfig)
             {
@@ -1463,7 +1463,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
             UpdateInputStatusText();
             UpdateSaveWarning();
-            RaisePropertyChanged(nameof(CanSave));
+            OnPropertyChanged(nameof(CanSave));
         }
 
         private void ScaleEnabledRtpValues()
@@ -1519,7 +1519,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
             ApplyGameOptionsEnabled();
 
-            RaisePropertyChanged(nameof(LetItRideOptionVisible), nameof(GambleOptionVisible),
+            OnPropertyChanged(nameof(LetItRideOptionVisible), nameof(GambleOptionVisible),
                 nameof(OptionColumnVisible), nameof(IsRouletteGameSelected),
                 nameof(IsPokerGameSelected), nameof(MaxBetIsVisible));
         }
@@ -1582,7 +1582,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                     return;
                 }
 
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         IsInProgress = true;
@@ -1771,7 +1771,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
                 if (result == true && FieldAccessEnabled)
                 {
-                    MvvmHelper.ExecuteOnUI(
+                    Execute.OnUIThread(
                         () =>
                         {
                             IsInProgress = true;
@@ -1798,7 +1798,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                             TaskContinuationOptions.OnlyOnFaulted,
                             TaskScheduler.FromCurrentSynchronizationContext());
 
-                    MvvmHelper.ExecuteOnUI(() => IsInProgress = true);
+                    Execute.OnUIThread(() => IsInProgress = true);
                 }
             }
         }

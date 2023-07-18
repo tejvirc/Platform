@@ -5,6 +5,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Windows.Markup;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using ConfigWizard;
     using Contracts;
     using Contracts.Localization;
@@ -60,10 +62,10 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
             _timeZoneChanged = false;
 
-            ApplyCommand = new ActionCommand<object>(Apply, _ => CanApply);
+            ApplyCommand = new RelayCommand<object>(Apply, _ => CanApply);
         }
 
-        public ActionCommand<object> ApplyCommand { get; }
+        public RelayCommand<object> ApplyCommand { get; }
 
         public ReadOnlyCollection<TimeZoneInfo> TimeZones { get; }
 
@@ -92,8 +94,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (!string.IsNullOrEmpty(value))
                 {
                     OnTimeZoneChanged(value);
-                    RaisePropertyChanged(nameof(TimeZoneId));
-                    ApplyCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(TimeZoneId));
+                    ApplyCommand.NotifyCanExecuteChanged();
                     SetItemPickFlag(ItemPick.Timezone);
                 }
             }
@@ -108,7 +110,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (_timeZoneOffset != value)
                 {
                     _timeZoneOffset = value;
-                    RaisePropertyChanged(nameof(TimeZoneOffset));
+                    OnPropertyChanged(nameof(TimeZoneOffset));
                 }
             }
         }
@@ -122,8 +124,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (_hour != value)
                 {
                     _hour = value;
-                    RaisePropertyChanged(nameof(Hour));
-                    ApplyCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(Hour));
+                    ApplyCommand.NotifyCanExecuteChanged();
                     SetItemPickFlag(ItemPick.Hours);
                 }
             }
@@ -138,8 +140,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (_minute != value)
                 {
                     _minute = value;
-                    RaisePropertyChanged(nameof(Minute));
-                    ApplyCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(Minute));
+                    ApplyCommand.NotifyCanExecuteChanged();
                     SetItemPickFlag(ItemPick.Minutes);
                 }
             }
@@ -154,8 +156,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (_second != value)
                 {
                     _second = value;
-                    RaisePropertyChanged(nameof(Second));
-                    ApplyCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(Second));
+                    ApplyCommand.NotifyCanExecuteChanged();
                     SetItemPickFlag(ItemPick.Seconds);
                 }
             }
@@ -170,8 +172,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (_pickerDate != value)
                 {
                     _pickerDate = value;
-                    RaisePropertyChanged(nameof(PickerDate));
-                    ApplyCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(PickerDate));
+                    ApplyCommand.NotifyCanExecuteChanged();
                     SetItemPickFlag(ItemPick.Date);
                 }
             }
@@ -186,7 +188,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (_datePickerLanguage != value)
                 {
                     _datePickerLanguage = value;
-                    RaisePropertyChanged(nameof(DatePickerLanguage));
+                    OnPropertyChanged(nameof(DatePickerLanguage));
                 }
             }
         }
@@ -261,7 +263,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             _previousDay = _pickerDate.Day;
             _previousMonth = _pickerDate.Month;
             _previousYear = _pickerDate.Year;
-            ApplyCommand.RaiseCanExecuteChanged();
+            ApplyCommand.NotifyCanExecuteChanged();
 
             _timeZoneChanged = false;
 
@@ -309,12 +311,12 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             _previousMonth = _pickerDate.Month;
             _previousYear = _pickerDate.Year;
 
-            ApplyCommand.RaiseCanExecuteChanged();
+            ApplyCommand.NotifyCanExecuteChanged();
         }
 
         protected override void OnInputEnabledChanged()
         {
-            ApplyCommand.RaiseCanExecuteChanged();
+            ApplyCommand.NotifyCanExecuteChanged();
         }
 
         private void OnOffsetUpdated(TimeZoneOffsetUpdatedEvent evt)
@@ -346,7 +348,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             Logger.Debug($"Time Zone Selected: {timeZone.Id} Local Time Zone: {TimeZoneInfo.Local.Id}");
 
             UpdateTimeZoneOffset();
-            ApplyCommand.RaiseCanExecuteChanged();
+            ApplyCommand.NotifyCanExecuteChanged();
         }
 
         private void UpdateTimeZoneOffset()
@@ -363,7 +365,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         private void UpdateDatePickerLanguage()
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 var oldLanguage = DatePickerLanguage;
                 var newLanguage = XmlLanguage.GetLanguage(Localizer.For(CultureFor.Operator).CurrentCulture.Name);

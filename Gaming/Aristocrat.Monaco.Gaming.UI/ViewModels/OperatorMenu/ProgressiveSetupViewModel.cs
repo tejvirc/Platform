@@ -69,7 +69,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
             IsSummaryView = isSummaryView;
             SelectedGameInfo = $"{_selectedGame.ThemeName} | {selectedGame.PaytableId} | {_selectedGame.Denomination}";
-            GenerateCSAPLevelsCommand = new ActionCommand<object>(GenerateCSAPLevelsPressed);
+            GenerateCSAPLevelsCommand = new RelayCommand<object>(GenerateCSAPLevelsPressed);
 
             var progressiveLevels = configProgressiveLevels.Any()
                 ? configProgressiveLevels
@@ -117,16 +117,16 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             set
             {
                 _isSummaryView = value;
-                RaisePropertyChanged(nameof(IsSummaryView));
-                RaisePropertyChanged(nameof(ProgressiveTypeEditable));
-                RaisePropertyChanged(nameof(ProgressiveTypeReadOnly));
-                RaisePropertyChanged(nameof(ProgressiveLevelEditable));
-                RaisePropertyChanged(nameof(ProgressiveLevelReadOnly));
-                RaisePropertyChanged(nameof(InitialValueEditable));
-                RaisePropertyChanged(nameof(InitialValueReadOnly));
-                RaisePropertyChanged(nameof(ShowAssociatedSap));
-                RaisePropertyChanged(nameof(OverflowValueEditable));
-                RaisePropertyChanged(nameof(OverflowValueReadOnly));
+                OnPropertyChanged(nameof(IsSummaryView));
+                OnPropertyChanged(nameof(ProgressiveTypeEditable));
+                OnPropertyChanged(nameof(ProgressiveTypeReadOnly));
+                OnPropertyChanged(nameof(ProgressiveLevelEditable));
+                OnPropertyChanged(nameof(ProgressiveLevelReadOnly));
+                OnPropertyChanged(nameof(InitialValueEditable));
+                OnPropertyChanged(nameof(InitialValueReadOnly));
+                OnPropertyChanged(nameof(ShowAssociatedSap));
+                OnPropertyChanged(nameof(OverflowValueEditable));
+                OnPropertyChanged(nameof(OverflowValueReadOnly));
             }
         }
 
@@ -136,13 +136,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             set
             {
                 _isSelectable = value;
-                RaisePropertyChanged(nameof(IsSelectable));
-                RaisePropertyChanged(nameof(IsSelectableOrLP));
-                RaisePropertyChanged(nameof(ProgressiveTypeEditable));
-                RaisePropertyChanged(nameof(ProgressiveTypeReadOnly));
-                RaisePropertyChanged(nameof(ProgressiveLevelEditable));
-                RaisePropertyChanged(nameof(ProgressiveLevelReadOnly));
-                RaisePropertyChanged(nameof(ShowAssociatedSap));
+                OnPropertyChanged(nameof(IsSelectable));
+                OnPropertyChanged(nameof(IsSelectableOrLP));
+                OnPropertyChanged(nameof(ProgressiveTypeEditable));
+                OnPropertyChanged(nameof(ProgressiveTypeReadOnly));
+                OnPropertyChanged(nameof(ProgressiveLevelEditable));
+                OnPropertyChanged(nameof(ProgressiveLevelReadOnly));
+                OnPropertyChanged(nameof(ShowAssociatedSap));
             }
         }
 
@@ -152,16 +152,16 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             set
             {
                 _isSap = value;
-                RaisePropertyChanged(nameof(IsSap));
-                RaisePropertyChanged(nameof(ProgressiveTypeEditable));
-                RaisePropertyChanged(nameof(ProgressiveTypeReadOnly));
-                RaisePropertyChanged(nameof(ProgressiveLevelEditable));
-                RaisePropertyChanged(nameof(ProgressiveLevelReadOnly));
-                RaisePropertyChanged(nameof(InitialValueEditable));
-                RaisePropertyChanged(nameof(InitialValueReadOnly));
-                RaisePropertyChanged(nameof(ShowAssociatedSap));
-                RaisePropertyChanged(nameof(OverflowValueEditable));
-                RaisePropertyChanged(nameof(OverflowValueReadOnly));
+                OnPropertyChanged(nameof(IsSap));
+                OnPropertyChanged(nameof(ProgressiveTypeEditable));
+                OnPropertyChanged(nameof(ProgressiveTypeReadOnly));
+                OnPropertyChanged(nameof(ProgressiveLevelEditable));
+                OnPropertyChanged(nameof(ProgressiveLevelReadOnly));
+                OnPropertyChanged(nameof(InitialValueEditable));
+                OnPropertyChanged(nameof(InitialValueReadOnly));
+                OnPropertyChanged(nameof(ShowAssociatedSap));
+                OnPropertyChanged(nameof(OverflowValueEditable));
+                OnPropertyChanged(nameof(OverflowValueReadOnly));
             }
         }
 
@@ -171,11 +171,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             set
             {
                 _isLP = value;
-                RaisePropertyChanged(nameof(IsLP));
-                RaisePropertyChanged(nameof(IsSapOrLP));
-                RaisePropertyChanged(nameof(IsSelectableOrLP));
-                RaisePropertyChanged(nameof(ProgressiveTypeReadOnly));
-                RaisePropertyChanged(nameof(ShowAssociatedSap));
+                OnPropertyChanged(nameof(IsLP));
+                OnPropertyChanged(nameof(IsSapOrLP));
+                OnPropertyChanged(nameof(IsSelectableOrLP));
+                OnPropertyChanged(nameof(ProgressiveTypeReadOnly));
+                OnPropertyChanged(nameof(ShowAssociatedSap));
             }
         }
 
@@ -207,7 +207,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             set
             {
                 _selectedGameInfo = value;
-                RaisePropertyChanged(nameof(SelectedGameInfo));
+                OnPropertyChanged(nameof(SelectedGameInfo));
             }
         }
 
@@ -217,7 +217,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             set
             {
                 _levelModels = value;
-                RaisePropertyChanged(nameof(_levelModels));
+                OnPropertyChanged(nameof(_levelModels));
             }
         }
 
@@ -336,8 +336,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
  
             UpdateValidSelectableLevels();
 
-            RaisePropertyChanged(nameof(ProgressiveLevels)); // required so the grid will update
-            RaisePropertyChanged(nameof(GenerateCSAPLevelsAllowed));
+            OnPropertyChanged(nameof(ProgressiveLevels)); // required so the grid will update
+            OnPropertyChanged(nameof(GenerateCSAPLevelsAllowed));
         }
 
         private LevelModel CreateProgressiveLevelModel(IViewableProgressiveLevel level)
@@ -459,13 +459,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                     UpdateValidSelectableLevels();
                     break;
                 case nameof(LevelModel.SelectableLevelType):
-                    RaisePropertyChanged(nameof(GenerateCSAPLevelsAllowed));
+                    OnPropertyChanged(nameof(GenerateCSAPLevelsAllowed));
                     break;
                 case nameof(LevelModel.CanSave):
-                    RaisePropertyChanged(nameof(CanSave));
+                    OnPropertyChanged(nameof(CanSave));
                     break;
             }
-            RaisePropertyChanged(nameof(InputStatusText));
+            OnPropertyChanged(nameof(InputStatusText));
         }
 
         private int NumberOfEnabledProgressives => ProgressiveLevels?.Where(

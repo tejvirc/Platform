@@ -158,7 +158,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         {
             InputStatusText = string.Empty;
 
-            ExitReserveCommand = new ActionCommand<object>(ExitReserve);
+            ExitReserveCommand = new RelayCommand<object>(ExitReserve);
 
             OutOfServiceViewModel = new OutOfServiceViewModel();
         }
@@ -191,7 +191,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             {
                 Logger.Debug("Displaying messages");
 
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         if (_guidInfosToIgnore.Contains(displayableMessage.Id))
@@ -217,7 +217,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             {
                 Logger.Debug("Removing messages");
 
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         var reason = DisableReasons.LastOrDefault(d => d.MessageId == displayableMessage.Id);
@@ -237,7 +237,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         public void ClearMessages()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     Logger.Debug("Clearing messages");
@@ -308,7 +308,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
             if (!active && PopupOpen)
             {
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         EventBus.Publish(new OperatorMenuPopupEvent(false, string.Empty));

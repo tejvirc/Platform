@@ -1,12 +1,13 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.Settings
 {
     using System.Collections.ObjectModel;
-    using CommunityToolkit.Mvvm.ComponentModel;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
 
     /// <summary>
     ///     Game settings.
     /// </summary>
-    internal class GameSettings : ObservableObject
+    internal class GameSettings : BaseObservableObject
     {
         private string _themeId;
         private string _paytableId;

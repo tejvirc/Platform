@@ -13,10 +13,10 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
         public GameLayoutViewModel()
         {
-            MoveToFirstCommand = new ActionCommand<IGameDetail>(MoveToFirst);
-            MoveLeftCommand = new ActionCommand<IGameDetail>(MoveLeft);
-            MoveRightCommand = new ActionCommand<IGameDetail>(MoveRight);
-            MoveToLastCommand = new ActionCommand<IGameDetail>(MoveToLast);
+            MoveToFirstCommand = new RelayCommand<IGameDetail>(MoveToFirst);
+            MoveLeftCommand = new RelayCommand<IGameDetail>(MoveLeft);
+            MoveRightCommand = new RelayCommand<IGameDetail>(MoveRight);
+            MoveToLastCommand = new RelayCommand<IGameDetail>(MoveToLast);
 
             _gameOrderSettings = ServiceManager.GetInstance().GetService<IGameOrderSettings>();
 
@@ -58,7 +58,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 Games.Remove(layoutItem);
                 Games.Insert(0, layoutItem);
             }
-            RaisePropertyChanged(nameof(Games));
+            OnPropertyChanged(nameof(Games));
         }
 
         private void MoveLeft(IGameDetail game)
@@ -70,7 +70,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 Games.Remove(layoutItem);
                 Games.Insert(index - 1, layoutItem);
             }
-            RaisePropertyChanged(nameof(Games));
+            OnPropertyChanged(nameof(Games));
         }
 
         private void MoveRight(IGameDetail game)
@@ -82,7 +82,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 Games.Remove(layoutItem);
                 Games.Insert(index + 1, layoutItem);
             }
-            RaisePropertyChanged(nameof(Games));
+            OnPropertyChanged(nameof(Games));
         }
 
         private void MoveToLast(IGameDetail game)
@@ -94,7 +94,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 Games.Remove(layoutItem);
                 Games.Add(layoutItem);
             }
-            RaisePropertyChanged(nameof(Games));
+            OnPropertyChanged(nameof(Games));
         }
 
         public class GameLayoutItem

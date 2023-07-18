@@ -3,13 +3,14 @@
     using System;
     using Contracts.Localization;
     using Hardware.Contracts.Audio;
-    using CommunityToolkit.Mvvm.ComponentModel;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
 
     /// <summary>
     ///     Volume Option that relates a <see cref="VolumeLevel"/> to a localized display string
     /// </summary>
     [CLSCompliant(false)]
-    public class VolumeOption : ObservableObject
+    public class VolumeOption : BaseObservableObject
     {
         public VolumeOption(VolumeLevel level)
         {
@@ -22,7 +23,7 @@
 
         public void UpdateDisplay()
         {
-            RaisePropertyChanged(nameof(DisplayString));
+            OnPropertyChanged(nameof(DisplayString));
         }
     }
 }

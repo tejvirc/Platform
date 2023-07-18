@@ -211,12 +211,12 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
                 }
             }
 
-            RaisePropertyChanged(nameof(ShowRightColumn));
+            OnPropertyChanged(nameof(ShowRightColumn));
         }
 
         protected virtual void RefreshMeters()
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 foreach (var meter in Meters)
                 {
@@ -228,9 +228,9 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
                 MetersRightColumn.Clear();
                 InitializeMeters();
                 SplitMeters();
-                RaisePropertyChanged(nameof(Meters));
-                RaisePropertyChanged(nameof(MetersLeftColumn));
-                RaisePropertyChanged(nameof(MetersRightColumn));
+                OnPropertyChanged(nameof(Meters));
+                OnPropertyChanged(nameof(MetersLeftColumn));
+                OnPropertyChanged(nameof(MetersRightColumn));
             });
         }
 

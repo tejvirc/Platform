@@ -21,7 +21,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Views
             ServiceManager.GetInstance().GetService<IEventBus>()
                 .Subscribe<TestToolPluginEvent>(this, evt =>
                 {
-                    MvvmHelper.ExecuteOnUI(
+                    Execute.OnUIThread(
                         () => TabControl.Items.Insert(TabControl.Items.Count, evt.Tab));
                 });
         }

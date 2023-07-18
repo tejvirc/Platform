@@ -11,7 +11,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     /// <summary>
     /// View model class to support the <see cref="IMediaPlayer"/>.
     /// </summary>
-    public abstract class MediaPlayerViewModelBase : ObservableObject, IDisposable, IMediaPlayerViewModel
+    public abstract class MediaPlayerViewModelBase : BaseObservableObject, IDisposable, IMediaPlayerViewModel
     {
         public event PropertyChangedEventHandler WidthChanged;
         public event PropertyChangedEventHandler HeightChanged;
@@ -43,7 +43,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 {
                     _isVisible = value;
                     Logger.Debug($"MediaPlayer {Id} IsVisible={value}");
-                    RaisePropertyChanged(nameof(IsVisible)); 
+                    OnPropertyChanged(nameof(IsVisible)); 
                 }
             }
         }
@@ -93,7 +93,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     _actualWidth = value;
 
                     RaiseWidthChanged(oldValue, _actualWidth);
-                    RaisePropertyChanged(nameof(ActualWidth));
+                    OnPropertyChanged(nameof(ActualWidth));
                 }
             }
         }
@@ -118,7 +118,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     _actualHeight = value;
 
                     RaiseHeightChanged(oldValue, _actualHeight);
-                    RaisePropertyChanged(nameof(ActualHeight));
+                    OnPropertyChanged(nameof(ActualHeight));
                 }
             }
         }
@@ -158,7 +158,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             set
             {
                 _actualX = value;
-                RaisePropertyChanged(nameof(ActualX));
+                OnPropertyChanged(nameof(ActualX));
             }
         }
 
@@ -177,7 +177,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             set
             {
                 _actualY = value;
-                RaisePropertyChanged(nameof(ActualY));
+                OnPropertyChanged(nameof(ActualY));
             }
         }
 

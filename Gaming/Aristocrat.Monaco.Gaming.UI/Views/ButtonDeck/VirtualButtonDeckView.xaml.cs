@@ -40,7 +40,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Views.ButtonDeck
             _layoutRootWidth = _vbdDisplayDevice?.Resolution.X ?? 1920;
 
             ServiceManager.GetInstance().GetService<IEventBus>()
-                .Subscribe<DisplayConnectedEvent>(this, evt => MvvmHelper.ExecuteOnUI(() => HandleEvent(evt)));
+                .Subscribe<DisplayConnectedEvent>(this, evt => Execute.OnUIThread(() => HandleEvent(evt)));
         }
 
         /// <summary>

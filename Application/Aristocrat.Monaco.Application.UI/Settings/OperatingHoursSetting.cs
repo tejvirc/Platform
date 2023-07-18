@@ -2,12 +2,13 @@
 {
     using System;
     using Contracts.Operations;
-    using CommunityToolkit.Mvvm.ComponentModel;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
 
     /// <summary>
     ///     Contains the settings for operating hours for a particular day.
     /// </summary>
-    internal class OperatingHoursSetting : ObservableObject
+    internal class OperatingHoursSetting : BaseObservableObject
     {
         private DayOfWeek _day;
         private int _time;
@@ -45,9 +46,9 @@
 
         public void RefreshAllSettings()
         {
-            RaisePropertyChanged(nameof(Enabled));
-            RaisePropertyChanged(nameof(Time));
-            RaisePropertyChanged(nameof(Day));
+            OnPropertyChanged(nameof(Enabled));
+            OnPropertyChanged(nameof(Time));
+            OnPropertyChanged(nameof(Day));
         }
 
         /// <summary>

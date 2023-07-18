@@ -1,9 +1,10 @@
 namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using System;
 
     [CLSCompliant(false)]
-    public class SoundFileViewModel : BaseViewModel
+    public class SoundFileViewModel : BaseObservableObject
     {
         private string _name;
         private string _path;
@@ -26,7 +27,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
 
                 _name = value;
-                RaisePropertyChanged(nameof(Name));
+                OnPropertyChanged(nameof(Name));
             }
         }
 
@@ -42,7 +43,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
 
                 _path = value;
-                RaisePropertyChanged(nameof(Path));
+                OnPropertyChanged(nameof(Path));
             }
         }
     }

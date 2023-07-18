@@ -7,13 +7,14 @@
     using System.Linq;
     using Common;
     using Common.GameOverlay;
-    using CommunityToolkit.Mvvm.ComponentModel;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
 
     /// <summary>
     ///     Data to display within <see cref="ViewModels.OperatorMenu.BingoGameHistoryDetailsViewModel"/>;
     ///     contains the data for a single card and its winning patterns, if any.
     /// </summary>
-    public class BingoCardModel : ObservableObject
+    public class BingoCardModel : BaseObservableObject
     {
         private const int ExpectedNumberCount = BingoConstants.BingoCardDimension * BingoConstants.BingoCardDimension;
 
@@ -76,7 +77,7 @@
                 number.Daubed = patternDaubs.Contains(number.Number);
             }
 
-            RaisePropertyChanged(nameof(Numbers));
+            OnPropertyChanged(nameof(Numbers));
         }
 
         /// <summary>

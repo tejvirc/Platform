@@ -4,7 +4,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
     /// <summary>
     ///     Data for filtered Game Themes.
     /// </summary>
-    public class GamePerformanceGameTheme : BaseViewModel
+    public class GamePerformanceGameTheme : BaseObservableObject
     {
         private bool _checked;
 

@@ -12,7 +12,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Kernel;
     using log4net;
 
-    public class LobbyVolumeViewModel : ObservableObject
+    public class LobbyVolumeViewModel : BaseObservableObject
     {
         private const string SoundConfigurationExtensionPath = "/OperatorMenu/Sound/Configuration";
         private const string Volume0Key = "Volume0Normal";
@@ -38,7 +38,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 ApplicationConstants.PlayerVolumeScalarKey,
                 ApplicationConstants.PlayerVolumeScalar);
             Logger.DebugFormat("Initializing default volume setting with value: {0}", PlayerVolumeScalar);
-            VolumeCommand = new ActionCommand<object>(o => OnVolumeChange());
+            VolumeCommand = new RelayCommand<object>(o => OnVolumeChange());
             LoadSoundFile();
         }
 
@@ -53,8 +53,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 {
                     _playerVolumeScalar = value;
                     SetVolumeAndPlaySound();
-                    RaisePropertyChanged(nameof(PlayerVolumeScalar));
-                    RaisePropertyChanged(nameof(VolumeValue));
+                    OnPropertyChanged(nameof(PlayerVolumeScalar));
+                    OnPropertyChanged(nameof(VolumeValue));
                 }
             }
         }

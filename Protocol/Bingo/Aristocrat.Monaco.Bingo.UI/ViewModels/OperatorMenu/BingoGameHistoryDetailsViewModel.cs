@@ -44,10 +44,10 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.OperatorMenu
                 .GetString(ResourceKeys.BingoCardDisplayIndexOfMaxIndex);
 
             // Set up button actions
-            DisplayNextPatternCommand = new ActionCommand<object>(DisplayNextPattern);
-            DisplayPreviousPatternCommand = new ActionCommand<object>(DisplayPreviousPattern);
-            DisplayNextCardCommand = new ActionCommand<object>(DisplayNextCard);
-            DisplayPreviousCardCommand = new ActionCommand<object>(DisplayPreviousCard);
+            DisplayNextPatternCommand = new RelayCommand<object>(DisplayNextPattern);
+            DisplayPreviousPatternCommand = new RelayCommand<object>(DisplayPreviousPattern);
+            DisplayNextCardCommand = new RelayCommand<object>(DisplayNextCard);
+            DisplayPreviousCardCommand = new RelayCommand<object>(DisplayPreviousCard);
             BingoRoundData = GetRoundData(bingoGame ?? throw new ArgumentNullException(nameof(bingoGame)));
 
             BingoRoundData.UpdateDaubing();
@@ -204,14 +204,14 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.OperatorMenu
 
         private void CardChanged()
         {
-            RaisePropertyChanged(nameof(CardNote));
+            OnPropertyChanged(nameof(CardNote));
 
             PatternChanged();
         }
 
         private void PatternChanged()
         {
-            RaisePropertyChanged(nameof(PatternNote));
+            OnPropertyChanged(nameof(PatternNote));
         }
     }
 }

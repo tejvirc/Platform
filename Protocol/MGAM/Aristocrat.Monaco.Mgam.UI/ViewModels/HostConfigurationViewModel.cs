@@ -60,7 +60,7 @@
                         SetError(nameof(DirectoryPort), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Port_MustBeInRange));
                     }
                     _directoryPort = value;
-                    RaisePropertyChanged(nameof(DirectoryPort));
+                    OnPropertyChanged(nameof(DirectoryPort));
                     SetupNavigation();
                 }
             }
@@ -87,7 +87,7 @@
                     {
                         DirectoryIpAddress = _previousIpAddress;
                     }
-                    RaisePropertyChanged(nameof(UseUdpBroadcasting));
+                    OnPropertyChanged(nameof(UseUdpBroadcasting));
                 }
             }
         }
@@ -105,7 +105,7 @@
                 if (trimmed != _directoryIpAddress)
                 {
                     _directoryIpAddress = trimmed;
-                    RaisePropertyChanged(nameof(DirectoryIpAddress));
+                    OnPropertyChanged(nameof(DirectoryIpAddress));
                 }
                 ValidateNetworkAddress(trimmed);
                 SetupNavigation();
@@ -129,7 +129,7 @@
                         SetError(nameof(ServiceName), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EmptyStringNotAllowErrorMessage));
                     }
                     _serviceName = value;
-                    RaisePropertyChanged(nameof(ServiceName));
+                    OnPropertyChanged(nameof(ServiceName));
                     SetupNavigation();
                 }
             }

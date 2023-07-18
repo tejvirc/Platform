@@ -14,7 +14,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
     using Views;
     using System.Windows;
 
-    public class HostPageViewModelManager : ObservableObject, IMenuAccessService, IDisposable
+    public class HostPageViewModelManager : BaseObservableObject, IMenuAccessService, IDisposable
     {
         private static readonly Guid RaceInfoTransactionRequestorId = new Guid("5297D108-9F34-4174-BE9F-716538519FBA");
 
@@ -114,7 +114,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
             _overlayExpiryTimer.Elapsed += (obj, args) =>
             {
                 Logger.Debug("ExpireTimer: Fired");
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     CloseMenu);
             };
 
@@ -173,7 +173,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
 
             SelectedViewModel = viewModel;
 
-            RaisePropertyChanged(nameof(SelectedViewModel));
+            OnPropertyChanged(nameof(SelectedViewModel));
 
             oldViewModel?.Reset();
         }
@@ -184,7 +184,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
 
             SelectedViewModel = null;
 
-            RaisePropertyChanged(nameof(SelectedViewModel));
+            OnPropertyChanged(nameof(SelectedViewModel));
         }
 
         /// <summary>
@@ -198,7 +198,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
 
         public void Hide()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (_hostView != null && SelectedViewModel != null && _hostView is UIElement element)
@@ -218,7 +218,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
                 return;
             }
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (_hostView != null && _hostView is UIElement element)
@@ -420,7 +420,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
                 return;
             }
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     _placardView = new PlacardView(args.Placard);
@@ -565,7 +565,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
 
         private void HandleEvent(GameDiagnosticsStartedEvent replayStartedEvent)
         {
-            MvvmHelper.ExecuteOnUI(CloseMenu);
+            Execute.OnUIThread(CloseMenu);
         }
 
         private bool EnableCashout(SystemDisableAddedEvent evt)

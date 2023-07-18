@@ -31,9 +31,9 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 if (_selectedField != value)
                 {
                     _selectedField = value;
-                    RaisePropertyChanged(nameof(SelectedField));
-                    RaisePropertyChanged(nameof(OwnerVisibility));
-                    RaisePropertyChanged(nameof(ActiveVisibility));
+                    OnPropertyChanged(nameof(SelectedField));
+                    OnPropertyChanged(nameof(OwnerVisibility));
+                    OnPropertyChanged(nameof(ActiveVisibility));
                 }
             }
         }
@@ -47,7 +47,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 if (_selectedHostId != value)
                 {
                     _selectedHostId = value;
-                    RaisePropertyChanged(nameof(SelectedHostId));
+                    OnPropertyChanged(nameof(SelectedHostId));
                 }
             }
         }
@@ -61,7 +61,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 if (_selectedActive != value)
                 {
                     _selectedActive = value;
-                    RaisePropertyChanged(nameof(SelectedActive));
+                    OnPropertyChanged(nameof(SelectedActive));
                 }
             }
         }
@@ -124,7 +124,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             var operatorMenuEvent = (OperatorMenuEnteredEvent)theEvent;
             if (!operatorMenuEvent.IsTechnicianRole)
             {
-                MvvmHelper.ExecuteOnUI(Cancel);
+                Execute.OnUIThread(Cancel);
             }
         }
     }

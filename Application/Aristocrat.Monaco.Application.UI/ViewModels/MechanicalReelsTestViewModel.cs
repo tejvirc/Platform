@@ -66,9 +66,9 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 _spinSpeed = _spinCapabilities.DefaultSpinSpeed;
             }
 
-            HomeCommand = new ActionCommand<object>(_ => HomeReels());
-            SpinCommand = new ActionCommand<object>(_ => SpinReels());
-            NudgeCommand = new ActionCommand<object>(_ => NudgeReels());
+            HomeCommand = new RelayCommand<object>(_ => HomeReels());
+            SpinCommand = new RelayCommand<object>(_ => SpinReels());
+            NudgeCommand = new RelayCommand<object>(_ => NudgeReels());
         }
 
         public IReelDisplayControl ReelsSimulation { get; set; }
@@ -93,7 +93,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
 
                 _homeEnabled = value;
-                RaisePropertyChanged(nameof(HomeEnabled));
+                OnPropertyChanged(nameof(HomeEnabled));
             }
         }
 
@@ -111,7 +111,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
 
                 _nudgeEnabled = value;
-                RaisePropertyChanged(nameof(NudgeEnabled));
+                OnPropertyChanged(nameof(NudgeEnabled));
             }
         }
 
@@ -122,7 +122,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _reelInfo = value;
-                RaisePropertyChanged(nameof(ReelInfo));
+                OnPropertyChanged(nameof(ReelInfo));
             }
         }
 
@@ -140,7 +140,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
 
                 _spinEnabled = value;
-                RaisePropertyChanged(nameof(SpinEnabled));
+                OnPropertyChanged(nameof(SpinEnabled));
             }
         }
 
@@ -150,15 +150,15 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         public void UpdateScreen()
         {
-            RaisePropertyChanged(nameof(ReelInfo));
+            OnPropertyChanged(nameof(ReelInfo));
 
             AllReelsIdle = ReelInfo.All(x => x.State == Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Idle));
             AllReelsIdleUnknown = ReelInfo.All(x => x.State == Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReelController_IdleUnknown));
             AnyReelEnabled = ReelInfo.Any(x => x.Enabled);
 
-            RaisePropertyChanged(nameof(HomeEnabled));
-            RaisePropertyChanged(nameof(NudgeEnabled));
-            RaisePropertyChanged(nameof(SpinEnabled));
+            OnPropertyChanged(nameof(HomeEnabled));
+            OnPropertyChanged(nameof(NudgeEnabled));
+            OnPropertyChanged(nameof(SpinEnabled));
         }
 
         private async void ExecuteSpinCommand(IEnumerable<ISpinData> spinData)
@@ -236,9 +236,9 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
 
                 _allReelsIdle = value;
-                RaisePropertyChanged(nameof(NudgeEnabled));
-                RaisePropertyChanged(nameof(SpinEnabled));
-                RaisePropertyChanged(nameof(HomeEnabled));
+                OnPropertyChanged(nameof(NudgeEnabled));
+                OnPropertyChanged(nameof(SpinEnabled));
+                OnPropertyChanged(nameof(HomeEnabled));
             }
         }
 
@@ -253,7 +253,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
 
                 _allReelsIdleUnknown = value;
-                RaisePropertyChanged(nameof(HomeEnabled));
+                OnPropertyChanged(nameof(HomeEnabled));
             }
         }
 
@@ -267,7 +267,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             _reporter?.SetTestName("Home reels");
             _eventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.MechanicalReels));
             ReelsVisible = true;
-            RaisePropertyChanged(nameof(ReelsVisible));
+            OnPropertyChanged(nameof(ReelsVisible));
 
             for (var i = 1; i <= _maxSupportedReels; ++i)
             {
@@ -364,7 +364,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void RaisePropertyChanged(params string[] propertyNames)
+        private void OnPropertyChanged(params string[] propertyNames)
         {
             foreach (var propertyName in propertyNames)
             {
@@ -420,7 +420,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
             }
 
-            RaisePropertyChanged(nameof(ReelInfo));
+            OnPropertyChanged(nameof(ReelInfo));
         }
     }
 }

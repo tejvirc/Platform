@@ -94,7 +94,7 @@
                     ClearErrors(nameof(LevelName));
                 }
 
-                RaisePropertyChanged(nameof(LevelName), nameof(CanSave));
+                OnPropertyChanged(nameof(LevelName), nameof(CanSave));
             }
         }
 
@@ -218,7 +218,7 @@
             SetError(nameof(MaxValue), MaxValue == 0M ? string.Empty : MaxValue.Validate(false, 0, ResetValue.DollarsToMillicents()));
             SetError(nameof(InitialValue), InitialValue.Validate(false, MaxValue.DollarsToMillicents(), ResetValue.DollarsToMillicents()));
 
-            RaisePropertyChanged(nameof(ResetValue), nameof(MaxValue), nameof(InitialValue), nameof(CanSave));
+            OnPropertyChanged(nameof(ResetValue), nameof(MaxValue), nameof(InitialValue), nameof(CanSave));
         }
     }
 }

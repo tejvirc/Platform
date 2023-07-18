@@ -86,7 +86,7 @@ namespace Aristocrat.Monaco.Application.UI.Input
 
             Logger.Debug("Progressing on to calibrate next touch Device.");
 
-            MvvmHelper.ExecuteOnUI(() => _activeWindow = _activeWindow?.NextCalibrationTest());
+            Execute.OnUIThread(() => _activeWindow = _activeWindow?.NextCalibrationTest());
         }
 
         public void AbortCalibration(string displayMessage = "")
@@ -103,7 +103,7 @@ namespace Aristocrat.Monaco.Application.UI.Input
 
         private void InitializeCalibration()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     TouchCalibrationWindow prevControl = null;
@@ -176,7 +176,7 @@ namespace Aristocrat.Monaco.Application.UI.Input
 
         private void FinalizeCalibration(bool aborted, string message = "", string displayMessage = "")
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     Logger.Debug($"FinalizeCalibration - Finalizing calibration session - aborted {aborted}");
@@ -213,7 +213,7 @@ namespace Aristocrat.Monaco.Application.UI.Input
 
         private void RemoveOverlay()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (_overlay == null)
@@ -277,7 +277,7 @@ namespace Aristocrat.Monaco.Application.UI.Input
 
         private void OnPreviewTouchDown(object sender, TouchEventArgs args)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (_activeWindow != null)
@@ -304,7 +304,7 @@ namespace Aristocrat.Monaco.Application.UI.Input
         {
             Logger.Debug($"TouchCalibration Key Down({args.Key}) for monitor {_activeWindow?.Monitor.DeviceName}");
 
-            MvvmHelper.ExecuteOnUI(CalibrateNextDevice);
+            Execute.OnUIThread(CalibrateNextDevice);
         }
 
         private void OnCalibrationComplete(object o, EventArgs args)

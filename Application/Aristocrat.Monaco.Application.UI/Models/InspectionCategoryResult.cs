@@ -1,11 +1,13 @@
 namespace Aristocrat.Monaco.Application.UI.Models
 {
     using System;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts.ConfigWizard;
     using Contracts.HardwareDiagnostics;
 
     [CLSCompliant(false)]
-    public class InspectionCategoryResult : ObservableObject
+    public class InspectionCategoryResult : BaseObservableObject
     {
         public const string BadMark = "X";
         public const string CheckMark = "\x221A";
@@ -32,7 +34,7 @@ namespace Aristocrat.Monaco.Application.UI.Models
             FirmwareMessage = data.CombinedFirmwareVersions(Environment.NewLine);
             FailureMessage = data.CombinedTestFailures(Environment.NewLine);
 
-            RaisePropertyChanged(
+            OnPropertyChanged(
                 nameof(Category),
                 nameof(StatusText),
                 nameof(Status),

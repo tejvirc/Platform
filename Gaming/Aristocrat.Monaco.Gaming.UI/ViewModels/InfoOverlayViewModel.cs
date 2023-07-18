@@ -10,7 +10,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     /// <summary>
     ///     View Model for InfoWindow
     /// </summary>
-    public class InfoOverlayViewModel : ObservableObject, IDisposable
+    public class InfoOverlayViewModel : BaseObservableObject, IDisposable
     {
         /// <summary>
         ///     guid for the cabinet configuration text that we handle directly
@@ -119,7 +119,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     break;
             }
 
-            RaisePropertyChanged(nameof(TextsTopLeft));
+            OnPropertyChanged(nameof(TextsTopLeft));
         }
     }
 }

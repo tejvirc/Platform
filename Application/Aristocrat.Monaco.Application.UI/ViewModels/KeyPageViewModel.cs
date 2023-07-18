@@ -3,6 +3,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using ConfigWizard;
     using Contracts.Identification;
     using Contracts.Localization;
@@ -34,7 +36,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             _identificationValidator = ServiceManager.GetInstance().TryGetService<IIdentificationValidator>();
         }
 
-        public ObservableCollection<BaseViewModel> Keys { get; } = new ObservableCollection<BaseViewModel>();
+        public ObservableCollection<BaseObservableObject> Keys { get; } = new ObservableCollection<BaseObservableObject>();
 
         public KeyViewModel PlayKey
         {
@@ -48,7 +50,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
 
                 _playKey = value;
-                RaisePropertyChanged(nameof(PlayKey));
+                OnPropertyChanged(nameof(PlayKey));
             }
         }
 
@@ -144,7 +146,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 foreach (var key in Keys)
                 {
@@ -157,7 +159,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                         bvm.UpdateProps();
                     }
                 }
-                RaisePropertyChanged(nameof(Keys));
+                OnPropertyChanged(nameof(Keys));
             });
 
             base.OnOperatorCultureChanged(evt);

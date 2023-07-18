@@ -78,7 +78,7 @@ namespace Aristocrat.Monaco.Hhr.UI.Controls
             lock (_lock)
             {
                 _clock?.Controller?.Pause();
-                MvvmHelper.ExecuteOnUI(() =>
+                Execute.OnUIThread(() =>
                 {
                     ImageBehavior.GetAnimationController(Horse)?.Pause();
                 });
@@ -96,7 +96,7 @@ namespace Aristocrat.Monaco.Hhr.UI.Controls
 
                 if (_initialized)
                 {
-                    MvvmHelper.ExecuteOnUI(() =>
+                    Execute.OnUIThread(() =>
                     {
                         ImageBehavior.GetAnimationController(Horse)?.Play();
                     });

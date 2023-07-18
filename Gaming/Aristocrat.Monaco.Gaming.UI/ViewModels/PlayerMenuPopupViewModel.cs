@@ -36,7 +36,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         ButtonsOnly
     }
 
-    public class PlayerMenuPopupViewModel : BaseViewModel, IDisposable
+    public class PlayerMenuPopupViewModel : BaseObservableObject, IDisposable
     {
         private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -102,10 +102,10 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             _closeDelayTimer.Elapsed += (sender, args) => SendButtonPressToExit();
             _touchSoundFile = _properties.GetValue(ApplicationConstants.TouchSoundKey, string.Empty);
 
-            ReserveDigitClickedCommand = new ActionCommand<string>(ConcatenateReservePin);
-            ReserveClickedCommand = new ActionCommand<object>(StartMachineReservation);
-            ReserveBackspaceClickedCommand = new ActionCommand<object>(BackspaceOnReservePin);
-            StartNewSessionClickedCommand = new ActionCommand<object>(StartNewTrackingSession);
+            ReserveDigitClickedCommand = new RelayCommand<string>(ConcatenateReservePin);
+            ReserveClickedCommand = new RelayCommand<object>(StartMachineReservation);
+            ReserveBackspaceClickedCommand = new RelayCommand<object>(BackspaceOnReservePin);
+            StartNewSessionClickedCommand = new RelayCommand<object>(StartNewTrackingSession);
 
             IsMenuVisible = false;
 

@@ -1,7 +1,7 @@
 namespace Aristocrat.Monaco.Hhr.UI.Models
 {
 
-    public class HorseModel : BaseViewModel
+    public class HorseModel : BaseObservableObject
     {
         private int _racePosition;
 

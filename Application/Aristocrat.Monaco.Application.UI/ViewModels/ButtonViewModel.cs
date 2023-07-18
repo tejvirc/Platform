@@ -1,13 +1,15 @@
 namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts.ConfigWizard;
     using Contracts.Localization;
     using Hardware.Contracts.Button;
     using Kernel;
 
     [CLSCompliant(false)]
-    public class ButtonViewModel : BaseViewModel
+    public class ButtonViewModel : BaseObservableObject
     {
         private readonly IButtonService _button;
         private readonly object _context = new object();
@@ -49,7 +51,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
 
                 _name = value;
-                RaisePropertyChanged(nameof(Name));
+                OnPropertyChanged(nameof(Name));
             }
         }
 
@@ -65,8 +67,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
 
                 _action = value;
-                RaisePropertyChanged(nameof(Action));
-                RaisePropertyChanged(nameof(IsPressed));
+                OnPropertyChanged(nameof(Action));
+                OnPropertyChanged(nameof(IsPressed));
             }
         }
 
@@ -82,7 +84,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
 
                 _state = value;
-                RaisePropertyChanged(nameof(State));
+                OnPropertyChanged(nameof(State));
             }
         }
 
@@ -103,8 +105,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         public void UpdateProps()
         {
-            RaisePropertyChanged(nameof(Name));
-            RaisePropertyChanged(nameof(Action));
+            OnPropertyChanged(nameof(Name));
+            OnPropertyChanged(nameof(Action));
         }
 
         private void HandleEvent(UpEvent evt)

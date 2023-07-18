@@ -8,6 +8,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Text.RegularExpressions;
     using System.Threading;
     using System.Threading.Tasks;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Localization;
     using Kernel;
@@ -48,7 +50,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         {
             _network = ServiceManager.GetInstance().GetService<INetworkService>();
 
-            PingCommand = new ActionCommand<object>(OnPing, _ => CanOnPing);
+            PingCommand = new RelayCommand<object>(OnPing, _ => CanOnPing);
 
             _monitorNetworkStatusTimer = new DispatcherTimerAdapter { Interval = TimeSpan.FromSeconds(1) };
             _monitorNetworkStatusTimer.Tick += OnMonitorNetworkStatus;
@@ -56,7 +58,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             _netStatTimer = new Timer(OnNetStatUpdate);
         }
 
-        public ActionCommand<object> PingCommand { get; set; }
+        public RelayCommand<object> PingCommand { get; set; }
 
         public string PingIpAddress
         {
@@ -73,7 +75,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
                     ValidateIpAddress(value);
                     _pingIpAddress = value;
-                    RaisePropertyChanged(nameof(PingIpAddress));
+                    OnPropertyChanged(nameof(PingIpAddress));
                 }
             }
         }
@@ -87,7 +89,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (value != _receivedBytes)
                 {
                     _receivedBytes = value;
-                    RaisePropertyChanged(nameof(ReceivedBytes));
+                    OnPropertyChanged(nameof(ReceivedBytes));
                 }
             }
         }
@@ -101,7 +103,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (value != _sentBytes)
                 {
                     _sentBytes = value;
-                    RaisePropertyChanged(nameof(SentBytes));
+                    OnPropertyChanged(nameof(SentBytes));
                 }
             }
         }
@@ -117,7 +119,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (value != _pingResult)
                 {
                     _pingResult = value;
-                    RaisePropertyChanged(nameof(PingResult));
+                    OnPropertyChanged(nameof(PingResult));
                 }
             }
         }
@@ -131,7 +133,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (value != _ipAddress)
                 {
                     _ipAddress = value;
-                    RaisePropertyChanged(nameof(IpAddress));
+                    OnPropertyChanged(nameof(IpAddress));
                 }
             }
         }
@@ -145,7 +147,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (value != _operationalStatus)
                 {
                     _operationalStatus = value;
-                    RaisePropertyChanged(nameof(OperationalStatus));
+                    OnPropertyChanged(nameof(OperationalStatus));
                 }
             }
         }
@@ -159,7 +161,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (value != _interfaceType)
                 {
                     _interfaceType = value;
-                    RaisePropertyChanged(nameof(InterfaceType));
+                    OnPropertyChanged(nameof(InterfaceType));
                 }
             }
         }
@@ -173,7 +175,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (_staticIp != value)
                 {
                     _staticIp = value;
-                    RaisePropertyChanged(nameof(StaticIp));
+                    OnPropertyChanged(nameof(StaticIp));
                 }
             }
         }
@@ -190,7 +192,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
 
                 _physicalAddress = value;
-                RaisePropertyChanged(nameof(PhysicalAddress));
+                OnPropertyChanged(nameof(PhysicalAddress));
             }
         }
 
@@ -203,7 +205,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (_showStatus != value)
                 {
                     _showStatus = value;
-                    RaisePropertyChanged(nameof(ShowStatus));
+                    OnPropertyChanged(nameof(ShowStatus));
                 }
             }
         }
@@ -217,10 +219,10 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (_canOnPing != value)
                 {
                     _canOnPing = value;
-                    RaisePropertyChanged("CanOnPing");
+                    OnPropertyChanged("CanOnPing");
                 }
 
-                MvvmHelper.ExecuteOnUI(() => PingCommand?.RaiseCanExecuteChanged());
+                Execute.OnUIThread(() => PingCommand?.NotifyCanExecuteChanged());
             }
         }
 
@@ -407,14 +409,14 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                     IsLoadingData = false;
                 });
 
-            RaisePropertyChanged(nameof(DataEmpty));
+            OnPropertyChanged(nameof(DataEmpty));
         }
 
         private void GetNetStat()
         {
             _process?.Dispose();
 
-            MvvmHelper.ExecuteOnUI(() => NetstatResultSet.Clear());
+            Execute.OnUIThread(() => NetstatResultSet.Clear());
 
             _process = new Process
             {
@@ -433,7 +435,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
                 if (networkState != null)
                 {
-                    MvvmHelper.ExecuteOnUI(() => NetstatResultSet.Add(networkState));
+                    Execute.OnUIThread(() => NetstatResultSet.Add(networkState));
                 }
             };
 

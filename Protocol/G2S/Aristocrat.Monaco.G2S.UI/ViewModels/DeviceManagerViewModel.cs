@@ -43,7 +43,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             set
             {
                 _selectedDevice = value;
-                EditCommand.RaiseCanExecuteChanged();
+                EditCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -53,7 +53,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             set
             {
                 _devices = value;
-                RaisePropertyChanged(nameof(Devices));
+                OnPropertyChanged(nameof(Devices));
             }
         }
 
@@ -66,7 +66,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 if (_deviceName != value)
                 {
                     _deviceName = value;
-                    RaisePropertyChanged(nameof(DeviceName));
+                    OnPropertyChanged(nameof(DeviceName));
                 }
 
             }
@@ -81,7 +81,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 if (_deviceOwner != value)
                 {
                     _deviceOwner = value;
-                    RaisePropertyChanged(nameof(DeviceOwner));
+                    OnPropertyChanged(nameof(DeviceOwner));
                 }
             }
         }
@@ -95,7 +95,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 if (_deviceChangeEnabled != value)
                 {
                     _deviceChangeEnabled = value;
-                    RaisePropertyChanged(nameof(DeviceChangeEnabled));
+                    OnPropertyChanged(nameof(DeviceChangeEnabled));
                 }
             }
         }
@@ -109,8 +109,8 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 if (_isDirty != value)
                 {
                     _isDirty = value;
-                    SaveChangesCommand.RaiseCanExecuteChanged();
-                    CancelChangesCommand.RaiseCanExecuteChanged();
+                    SaveChangesCommand.NotifyCanExecuteChanged();
+                    CancelChangesCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -124,10 +124,10 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 if (_saveInProgress != value)
                 {
                     _saveInProgress = value;
-                    SaveChangesCommand.RaiseCanExecuteChanged();
-                    CancelChangesCommand.RaiseCanExecuteChanged();
-                    BulkChangesCommand.RaiseCanExecuteChanged();
-                    EditCommand.RaiseCanExecuteChanged();
+                    SaveChangesCommand.NotifyCanExecuteChanged();
+                    CancelChangesCommand.NotifyCanExecuteChanged();
+                    BulkChangesCommand.NotifyCanExecuteChanged();
+                    EditCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -140,13 +140,13 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
 
         private bool CanBulkChanges => GameIdle && !SaveInProgress;
 
-        public ActionCommand<object> EditCommand { get; }
+        public RelayCommand<object> EditCommand { get; }
 
-        public ActionCommand<object> CancelChangesCommand { get; }
+        public RelayCommand<object> CancelChangesCommand { get; }
 
-        public ActionCommand<object> SaveChangesCommand { get; }
+        public RelayCommand<object> SaveChangesCommand { get; }
 
-        public ActionCommand<object> BulkChangesCommand { get; }
+        public RelayCommand<object> BulkChangesCommand { get; }
 
 
         public DeviceManagerViewModel()
@@ -158,10 +158,10 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             _operatorLocalizer = Localizer.For(CultureFor.Operator);
             ActiveDevices = new ObservableCollection<EditableDevice>();
 
-            EditCommand = new ActionCommand<object>(EditDevice, _ => CanEditSelected);
-            CancelChangesCommand = new ActionCommand<object>(CancelChanges, _ => CanCancelChanges);
-            SaveChangesCommand = new ActionCommand<object>(SaveChanges, _ => CanSaveChanges);
-            BulkChangesCommand = new ActionCommand<object>(BulkChanges, _ => CanBulkChanges);
+            EditCommand = new RelayCommand<object>(EditDevice, _ => CanEditSelected);
+            CancelChangesCommand = new RelayCommand<object>(CancelChanges, _ => CanCancelChanges);
+            SaveChangesCommand = new RelayCommand<object>(SaveChanges, _ => CanSaveChanges);
+            BulkChangesCommand = new RelayCommand<object>(BulkChanges, _ => CanBulkChanges);
             EventBus.Subscribe<ProtocolsInitializedEvent>(this, HandleEvent);
         }
 
@@ -267,7 +267,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 device.Edited = true;
             }
 
-            RaisePropertyChanged(nameof(ActiveDevices));
+            OnPropertyChanged(nameof(ActiveDevices));
 
             IsDirty = true;
             InputStatusText =
@@ -401,7 +401,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                     }
                 }
 
-                RaisePropertyChanged(nameof(ActiveDevices));
+                OnPropertyChanged(nameof(ActiveDevices));
 
                 EventBus.Publish(new OperatorMenuSettingsChangedEvent());
                 IsDirty = true;
@@ -417,17 +417,17 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
 
         private void HandleEvent(ProtocolsInitializedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() => SaveInProgress = false);
+            Execute.OnUIThread(() => SaveInProgress = false);
         }
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(ReloadEditableView);
+            Execute.OnUIThread(ReloadEditableView);
             base.OnOperatorCultureChanged(evt);
         }
     }
 
-    public class EditableDevice : BaseViewModel
+    public class EditableDevice : BaseObservableObject
     {
         private string _deviceClass;
         private int _id;
@@ -477,7 +477,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                     return;
 
                 _owner = value;
-                RaisePropertyChanged(nameof(Owner));
+                OnPropertyChanged(nameof(Owner));
             }
         }
 
@@ -490,8 +490,8 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                     return;
 
                 _active = value;
-                RaisePropertyChanged(nameof(Active));
-                RaisePropertyChanged(nameof(ActiveDisplayText));
+                OnPropertyChanged(nameof(Active));
+                OnPropertyChanged(nameof(ActiveDisplayText));
             }
         }
 
@@ -504,7 +504,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                     return;
 
                 _enabled = value;
-                RaisePropertyChanged(nameof(Enabled));
+                OnPropertyChanged(nameof(Enabled));
             }
         }
 
@@ -519,7 +519,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 }
 
                 _activeDisplayText = value;
-                RaisePropertyChanged(nameof(ActiveDisplayText));
+                OnPropertyChanged(nameof(ActiveDisplayText));
             }
         }
 
@@ -535,7 +535,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 }
 
                 _enabledDisplayText = value;
-                RaisePropertyChanged(nameof(EnabledDisplayText));
+                OnPropertyChanged(nameof(EnabledDisplayText));
             }
         }
 

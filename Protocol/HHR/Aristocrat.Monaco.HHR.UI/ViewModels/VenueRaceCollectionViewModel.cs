@@ -21,7 +21,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
     using Storage.Helpers;
     using log4net;
 
-    public class VenueRaceCollectionViewModel : BaseViewModel, IDisposable
+    public class VenueRaceCollectionViewModel : BaseObservableObject, IDisposable
     {
         private const string RaceFinishedName = "RaceFinished";
 
@@ -389,7 +389,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
                 }
 
                 _raceStarted = value;
-                RaisePropertyChanged(nameof(RaceStarted), nameof(IsAnimationVisible));
+                OnPropertyChanged(nameof(RaceStarted), nameof(IsAnimationVisible));
             }
         }
 
@@ -400,7 +400,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
             {
                 Logger.Debug($"Set IsAnimationVisible: {value}");
                 _isAnimationVisible = value;
-                RaisePropertyChanged(nameof(IsAnimationVisible), nameof(RaceStarted));
+                OnPropertyChanged(nameof(IsAnimationVisible), nameof(RaceStarted));
             }
         }
 

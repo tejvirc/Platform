@@ -7,7 +7,7 @@
     using Hardware.Contracts.SharedDevice;
 
     [CLSCompliant(false)]
-    public class HardwareConfigPageViewModel : HardwareConfigBaseViewModel
+    public class HardwareConfigPageViewModel : HardwareConfigBaseObservableObject
     {
         private bool _autoNavigated;
 

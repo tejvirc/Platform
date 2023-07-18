@@ -3,13 +3,14 @@
     using System;
     using Contracts.Localization;
     using Kernel;
-    using CommunityToolkit.Mvvm.ComponentModel;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
 
     /// <summary>
     ///    Base class for settings models with displayable properties
     /// </summary>
     [CLSCompliant(false)]
-    public abstract class SettingsBase : ObservableObject
+    public abstract class SettingsBase : BaseObservableObject
     {
         protected SettingsBase()
             : this(ServiceManager.GetInstance().TryGetService<IEventBus>())
@@ -31,7 +32,7 @@
 
             foreach (var prop in properties)
             {
-                RaisePropertyChanged(prop.Name);
+                OnPropertyChanged(prop.Name);
             }
         }
     }

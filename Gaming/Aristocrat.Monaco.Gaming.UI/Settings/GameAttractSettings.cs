@@ -2,12 +2,13 @@
 {
     using System.Collections.Generic;
     using Contracts;
-    using CommunityToolkit.Mvvm.ComponentModel;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
 
     /// <summary>
     ///     Attract game settings.
     /// </summary>
-    internal class GameAttractSettings : ObservableObject
+    internal class GameAttractSettings : BaseObservableObject
     {
         private bool _overallAttractEnabled;
         private bool _slotAttractSelected;

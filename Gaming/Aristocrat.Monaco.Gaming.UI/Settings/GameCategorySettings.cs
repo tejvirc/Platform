@@ -3,12 +3,13 @@
     using Contracts;
     using Contracts.Models;
     using Hardware.Contracts.Audio;
-    using CommunityToolkit.Mvvm.ComponentModel;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
 
     /// <summary>
     ///     Base class for game category settings.
     /// </summary>
-    internal abstract class GameCategorySettings : ObservableObject
+    internal abstract class GameCategorySettings : BaseObservableObject
     {
         private bool _autoPlay;
         private bool _autoHold;

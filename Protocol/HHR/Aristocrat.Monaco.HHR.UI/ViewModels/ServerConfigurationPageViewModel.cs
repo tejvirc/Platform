@@ -47,7 +47,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
 
             PropertyChanged += ServerConfigurationPageViewModel_PropertyChanged;
 
-            ApplyServerConfigurationCommand = new ActionCommand<object>(Apply);
+            ApplyServerConfigurationCommand = new RelayCommand<object>(Apply);
         }
 
         protected override void Loaded()
@@ -57,7 +57,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
             ValidateUdpPort(UdpPortNumber);
         }
 
-        public ActionCommand<object> ApplyServerConfigurationCommand { get; set; }
+        public RelayCommand<object> ApplyServerConfigurationCommand { get; set; }
 
         private void ServerConfigurationPageViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {

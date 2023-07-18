@@ -12,6 +12,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Xml.Serialization;
     using Application.Helpers;
     using Application.Localization;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using ConfigWizard;
     using Contracts;
     using Contracts.Detection;
@@ -45,7 +47,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using ReelInspectionFailedEvent = Hardware.Contracts.Reel.Events.InspectionFailedEvent;
 
     [CLSCompliant(false)]
-    public abstract class HardwareConfigBaseViewModel : ConfigWizardViewModelBase
+    public abstract class HardwareConfigBaseObservableObject : ConfigWizardViewModelBase
     {
         private const string RS232 = "RS232";
         private const string IncludedDevicesPath = "/Platform/Discovery/Configuration";
@@ -111,7 +113,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         private TowerLightTierTypes _towerLightTierTypeSelection;
         private readonly ConfigWizardConfiguration _configWizardConfiguration;
 
-        protected HardwareConfigBaseViewModel(bool isWizardPage)
+        protected HardwareConfigBaseObservableObject(bool isWizardPage)
             : base(isWizardPage)
         {
             _serviceManager = ServiceManager.GetInstance();
@@ -124,14 +126,14 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 .GetConfigWizardConfiguration(() => new ConfigWizardConfiguration());
             _deviceDetection = _serviceManager.GetService<IDeviceDetection>();
 
-            ValidateCommand = new ActionCommand<object>(
+            ValidateCommand = new RelayCommand<object>(
                 _ => ValidateConfig(),
                 _ =>
                 {
                     InitialHardMeter = _hardMetersEnabled;
                     if (!CanValidate && IsWizardPage)
                     {
-                        Task.Delay(100).ContinueWith(_ => MvvmHelper.ExecuteOnUI(() => UpdateScreen(true)));
+                        Task.Delay(100).ContinueWith(_ => Execute.OnUIThread(() => UpdateScreen(true)));
                     }
 
                     return CanValidate;
@@ -168,7 +170,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         public ObservableCollection<DeviceConfigViewModel> Devices { get; set; } =
             new ObservableCollection<DeviceConfigViewModel>();
 
-        public ActionCommand<object> ValidateCommand { get; set; }
+        public RelayCommand<object> ValidateCommand { get; set; }
 
         public bool IsValidating
         {
@@ -181,12 +183,12 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
 
                 _isValidating = value;
-                RaisePropertyChanged(nameof(IsValidating));
-                RaisePropertyChanged(nameof(ConfigurableBell));
-                RaisePropertyChanged(nameof(ConfigurableHardMeters));
-                RaisePropertyChanged(nameof(ConfigurableDoorOpticSensor));
-                RaisePropertyChanged(nameof(ConfigurableBellyPanelDoor));
-                MvvmHelper.ExecuteOnUI(() => ValidateCommand.RaiseCanExecuteChanged());
+                OnPropertyChanged(nameof(IsValidating));
+                OnPropertyChanged(nameof(ConfigurableBell));
+                OnPropertyChanged(nameof(ConfigurableHardMeters));
+                OnPropertyChanged(nameof(ConfigurableDoorOpticSensor));
+                OnPropertyChanged(nameof(ConfigurableBellyPanelDoor));
+                Execute.OnUIThread(() => ValidateCommand.NotifyCanExecuteChanged());
 
                 CheckValidatedStatus();
 
@@ -209,7 +211,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _validationStatus = value;
-                RaisePropertyChanged(nameof(ValidationStatus));
+                OnPropertyChanged(nameof(ValidationStatus));
             }
         }
 
@@ -256,7 +258,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (_hardMetersEnabled != value)
                 {
                     _hardMetersEnabled = value;
-                    RaisePropertyChanged(nameof(HardMetersEnabled), nameof(TickValueVisible));
+                    OnPropertyChanged(nameof(HardMetersEnabled), nameof(TickValueVisible));
                     UpdateChanges?.Invoke();
 
                     if (IsWizardPage)
@@ -277,7 +279,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (_bellEnabled != value)
                 {
                     _bellEnabled = value;
-                    RaisePropertyChanged(nameof(BellEnabled));
+                    OnPropertyChanged(nameof(BellEnabled));
                     UpdateChanges?.Invoke();
 
                     if (IsWizardPage)
@@ -358,7 +360,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (_bellyPanelDoorEnabled != value)
                 {
                     _bellyPanelDoorEnabled = value;
-                    RaisePropertyChanged(nameof(BellyPanelDoorEnabled));
+                    OnPropertyChanged(nameof(BellyPanelDoorEnabled));
                     UpdateChanges?.Invoke();
                 }
             }
@@ -384,7 +386,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
             CheckValidatedStatus();
 
-            MvvmHelper.ExecuteOnUI(() => ValidateCommand.RaiseCanExecuteChanged());
+            Execute.OnUIThread(() => ValidateCommand.NotifyCanExecuteChanged());
         }
 
         protected virtual void UndoSavedChanges()
@@ -426,8 +428,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         protected override void OnInputEnabledChanged()
         {
-            ValidateCommand.RaiseCanExecuteChanged();
-            RaisePropertyChanged(nameof(ShowApplyButton));
+            ValidateCommand.NotifyCanExecuteChanged();
+            OnPropertyChanged(nameof(ShowApplyButton));
         }
 
         protected override void DisposeInternal()
@@ -867,7 +869,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                     StopTimer();
                 }
 
-                MvvmHelper.ExecuteOnUI(() => UpdateScreen());
+                Execute.OnUIThread(() => UpdateScreen());
             }
         }
 
@@ -1490,8 +1492,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
                 else
                 {
-                    MvvmHelper.ExecuteOnUI(() => IsValidating = false);
-                    MvvmHelper.ExecuteOnUI(() => UpdateScreen());
+                    Execute.OnUIThread(() => IsValidating = false);
+                    Execute.OnUIThread(() => UpdateScreen());
                 }
             }
         }
@@ -1529,7 +1531,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             }
             else
             {
-                MvvmHelper.ExecuteOnUI(() => UpdateScreen());
+                Execute.OnUIThread(() => UpdateScreen());
             }
 
             TryValidationAfterDetection();
@@ -1544,7 +1546,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         {
             var deviceType = (DeviceType)Enum.Parse(typeof(DeviceType), evt.Device.Type);
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     // Some devices aren't supported at all in Monaco.
@@ -1571,7 +1573,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         private void Handle(DeviceNotDetectedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     var device = EnabledDevices.FirstOrDefault(d => d.DeviceType == evt.DeviceType);
@@ -1699,7 +1701,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 device.StatusType = DeviceState.NotValidated;
             }
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     IsValidating = false;
@@ -1722,7 +1724,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                     }
                 });
 
-            MvvmHelper.ExecuteOnUI(() => UpdateScreen());
+            Execute.OnUIThread(() => UpdateScreen());
         }
 
         private void StopTimer()

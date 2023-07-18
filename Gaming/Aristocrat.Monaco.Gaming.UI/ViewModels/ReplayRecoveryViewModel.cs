@@ -22,7 +22,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     /// <summary>
     ///     Helper class to handle replay/recovering screen of the lobby ViewModel.
     /// </summary>
-    public class ReplayRecoveryViewModel : ObservableObject, IDisposable
+    public class ReplayRecoveryViewModel : BaseObservableObject, IDisposable
     {
         private static readonly string CompletionText =
             Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReplayCompletedText);
@@ -67,8 +67,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             _properties = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _commandHandlerFactory = handlerFactory ?? throw new ArgumentNullException(nameof(handlerFactory));
 
-            ExitCommand = new ActionCommand<object>(ExitButtonPressed);
-            ContinueCommand = new ActionCommand<object>(ContinueButtonPressed);
+            ExitCommand = new RelayCommand<object>(ExitButtonPressed);
+            ContinueCommand = new RelayCommand<object>(ContinueButtonPressed);
             _cashoutMessageTimer = new Timer(TimeSpan.FromSeconds(CashOutMessagesCycleIntervalInSeconds).TotalMilliseconds);
             _cashoutMessageTimer.Elapsed += CashOutMessageCycleTimerTick;
 
@@ -100,7 +100,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 }
 
                 _isReplayNavigationVisible = value;
-                RaisePropertyChanged(nameof(IsReplayNavigationVisible));
+                OnPropertyChanged(nameof(IsReplayNavigationVisible));
             }
         }
 
@@ -119,7 +119,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 }
 
                 _backgroundOpacity = value;
-                RaisePropertyChanged(nameof(BackgroundOpacity));
+                OnPropertyChanged(nameof(BackgroundOpacity));
             }
         }
 
@@ -138,7 +138,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 }
 
                 _messageText = value;
-                RaisePropertyChanged(nameof(MessageText));
+                OnPropertyChanged(nameof(MessageText));
             }
         }
 
@@ -154,7 +154,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 }
 
                 _replaySequence = value;
-                RaisePropertyChanged(nameof(ReplaySequence));
+                OnPropertyChanged(nameof(ReplaySequence));
             }
         }
 
@@ -170,7 +170,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 }
 
                 _replayGameName = value;
-                RaisePropertyChanged(nameof(ReplayGameName));
+                OnPropertyChanged(nameof(ReplayGameName));
             }
         }
 
@@ -186,7 +186,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 }
 
                 _replayStartTime = value;
-                RaisePropertyChanged(nameof(ReplayStartTime));
+                OnPropertyChanged(nameof(ReplayStartTime));
             }
         }
 
@@ -205,7 +205,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 }
 
                 _label = value;
-                RaisePropertyChanged(nameof(Label));
+                OnPropertyChanged(nameof(Label));
             }
         }
 
@@ -221,7 +221,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 }
 
                 _cashoutText = value;
-                RaisePropertyChanged(nameof(CashoutText));
+                OnPropertyChanged(nameof(CashoutText));
             }
         }
 
@@ -237,9 +237,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 }
 
                 _replayPauseMessageText = value;
-                RaisePropertyChanged(nameof(ReplayPauseMessageText));
-                RaisePropertyChanged(nameof(IsReplayPauseMessageVisible));
-                RaisePropertyChanged(nameof(CanReplayContinue));
+                OnPropertyChanged(nameof(ReplayPauseMessageText));
+                OnPropertyChanged(nameof(IsReplayPauseMessageVisible));
+                OnPropertyChanged(nameof(CanReplayContinue));
             }
         }
 

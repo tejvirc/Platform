@@ -65,7 +65,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
 
         private void UpdateView()
         {
-            RaisePropertyChanged(nameof(RaceStatsCharts));
+            OnPropertyChanged(nameof(RaceStatsCharts));
         }
 
         private void BackHandler(object obj)
@@ -125,7 +125,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
             TimerInfo = new TimerInfo
             {
                 Timeout = Math.Min(UiProperties.ManualHandicapRemainingTime, ClientProperties.RaceStatTimeOut),
-                TimerElapsedCommand = new ActionCommand<object>(OnTimerElapsed),
+                TimerElapsedCommand = new RelayCommand<object>(OnTimerElapsed),
                 IsVisible = true,
                 IsQuickPickTextVisible = false,
                 IsAutoPickTextVisible = false,

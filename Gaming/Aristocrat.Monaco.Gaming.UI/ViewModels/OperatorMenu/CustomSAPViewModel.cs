@@ -40,9 +40,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             _sharedSapProvider = ServiceManager.GetInstance().GetService<ISharedSapProvider>();
             _configurationProvider = ServiceManager.GetInstance().GetService<IProgressiveConfigurationProvider>();
 
-            AddSAPLevelCommand = new ActionCommand<object>(AddLevelPressed);
-            DeleteSAPLevelCommand = new ActionCommand<string>(DeleteLevelPressed);
-            EditSAPLevelCommand = new ActionCommand<string>(EditLevelPressed);
+            AddSAPLevelCommand = new RelayCommand<object>(AddLevelPressed);
+            DeleteSAPLevelCommand = new RelayCommand<string>(DeleteLevelPressed);
+            EditSAPLevelCommand = new RelayCommand<string>(EditLevelPressed);
 
             RefreshLevelDetails();
         }
@@ -59,7 +59,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             set
             {
                 _gameType = value ? GameType.Keno : GameType.Poker;
-                RaisePropertyChanged(nameof(_gameType));
+                OnPropertyChanged(nameof(_gameType));
                 RefreshLevelDetails();
             }
         }
@@ -70,7 +70,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             set
             {
                 _localInputStatusText = value;
-                RaisePropertyChanged(nameof(LocalInputStatusText));
+                OnPropertyChanged(nameof(LocalInputStatusText));
             }
         }
 
@@ -161,7 +161,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                             x => x.AssignedProgressiveId.AssignedProgressiveKey == level.LevelAssignmentKey)));
             }
 
-            RaisePropertyChanged(nameof(InputEnabled));
+            OnPropertyChanged(nameof(InputEnabled));
         }
 
         private void SetInputStatusText()

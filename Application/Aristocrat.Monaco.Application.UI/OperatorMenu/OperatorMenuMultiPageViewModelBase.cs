@@ -100,11 +100,11 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
                     _selectedPage.OnEnabledChanged += SelectedPageEnableChanged;
                 }
 
-                RaisePropertyChanged(nameof(SelectedPage));
-                RaisePropertyChanged(nameof(DataEmpty));
-                RaisePropertyChanged(nameof(IsLoadingData));
-                RaisePropertyChanged(nameof(MainPrintButtonEnabled));
-                RaisePropertyChanged(nameof(CanCalibrateTouchScreens));
+                OnPropertyChanged(nameof(SelectedPage));
+                OnPropertyChanged(nameof(DataEmpty));
+                OnPropertyChanged(nameof(IsLoadingData));
+                OnPropertyChanged(nameof(MainPrintButtonEnabled));
+                OnPropertyChanged(nameof(CanCalibrateTouchScreens));
 
                 if (_selectedPage == null)
                 {
@@ -128,7 +128,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
         {
             if (e.PropertyName == nameof(DataEmpty) || e.PropertyName == nameof(IsLoadingData) || e.PropertyName == nameof(MainPrintButtonEnabled))
             {
-                RaisePropertyChanged(e.PropertyName);
+                OnPropertyChanged(e.PropertyName);
             }
         }
 
@@ -142,7 +142,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
                     return;
                 }
                 _buttonsEnabled = value;
-                RaisePropertyChanged(nameof(ButtonsEnabled));
+                OnPropertyChanged(nameof(ButtonsEnabled));
             }
         }
 
@@ -201,14 +201,14 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
 
         private void OnUpdateWarningMessage(OperatorMenuWarningMessageEvent e)
         {
-            MvvmHelper.ExecuteOnUI(() => WarningMessageText = e.Message);
+            Execute.OnUIThread(() => WarningMessageText = e.Message);
         }
 
         /// <summary>Sets the state of the buttons as enabled or disabled.</summary>
         /// <param name="enabled">Indicates whether or not other buttons are enabled.</param>
         public void SetButtonsEnabled(bool enabled)
         {
-            MvvmHelper.ExecuteOnUI(() => ButtonsEnabled = enabled);
+            Execute.OnUIThread(() => ButtonsEnabled = enabled);
         }
 
         private void LoadPages()

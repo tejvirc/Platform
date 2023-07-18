@@ -6,6 +6,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Collections.Specialized;
     using System.Linq;
     using System.Reflection;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Localization;
     using Hardware.Contracts.SerialPorts;
@@ -19,9 +21,9 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using DeviceConfiguration = Models.DeviceConfiguration;
 
     [CLSCompliant(false)]
-    public class DeviceConfigViewModel : BaseViewModel
+    public class DeviceConfigViewModel : BaseObservableObject
     {
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private static readonly ISerialPortsService SerialPortsService = ServiceManager.GetInstance().TryGetService<ISerialPortsService>();
 
         private readonly DeviceAddinHelper _addinHelper = new DeviceAddinHelper();
@@ -66,7 +68,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         private void Ports_OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            RaisePropertyChanged(nameof(Ports));
+            OnPropertyChanged(nameof(Ports));
         }
 
         public DeviceType DeviceType { get; set; }
@@ -99,7 +101,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
 
                 _config.Enabled = value;
-                RaisePropertyChanged(nameof(Enabled));
+                OnPropertyChanged(nameof(Enabled));
                 Status = string.Empty;
                 StatusType = DeviceState.None;
                 IsDetectionComplete = false;
@@ -107,10 +109,10 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
                 var message = DeviceType + (value ? " enabled" : " disabled");
                 Logger.DebugFormat(message);
-                RaisePropertyChanged(nameof(ManufacturerEnabled));
-                RaisePropertyChanged(nameof(PortEnabled));
-                RaisePropertyChanged(nameof(ProtocolEnabled));
-                RaisePropertyChanged(nameof(StatusEnabled));
+                OnPropertyChanged(nameof(ManufacturerEnabled));
+                OnPropertyChanged(nameof(PortEnabled));
+                OnPropertyChanged(nameof(ProtocolEnabled));
+                OnPropertyChanged(nameof(StatusEnabled));
 
                 if (string.IsNullOrEmpty(Manufacturer))
                 {
@@ -133,11 +135,11 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
 
                 _config.Manufacturer = value ?? string.Empty;
-                RaisePropertyChanged(nameof(Manufacturer));
+                OnPropertyChanged(nameof(Manufacturer));
 
                 Logger.DebugFormat($"{DeviceType} Manufacturer {value} selected");
-                RaisePropertyChanged(nameof(PortEnabled));
-                RaisePropertyChanged(nameof(ProtocolEnabled));
+                OnPropertyChanged(nameof(PortEnabled));
+                OnPropertyChanged(nameof(ProtocolEnabled));
                 IsDetectionFailure = false;
 
                 ResetProtocols();
@@ -163,7 +165,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 _config.Protocol = value ?? string.Empty;
                 Status = string.Empty;
                 StatusType = DeviceState.None;
-                RaisePropertyChanged(nameof(Protocol));
+                OnPropertyChanged(nameof(Protocol));
                 Logger.DebugFormat($"{DeviceType} Protocol {Protocol} selected");
 
                 ResetPortSelections();
@@ -273,7 +275,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
             }
 
-            RaisePropertyChanged(nameof(IsVisible));
+            OnPropertyChanged(nameof(IsVisible));
         }
 
         public void AddFakeConfiguration(SupportedDevicesDevice config)
@@ -315,14 +317,14 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         public void RefreshProps()
         {
-            RaisePropertyChanged(nameof(Manufacturer));
-            RaisePropertyChanged(nameof(Protocol));
-            RaisePropertyChanged(nameof(Port));
-            RaisePropertyChanged(nameof(Ports));
-            RaisePropertyChanged(nameof(Status));
-            RaisePropertyChanged(nameof(StatusType));
-            RaisePropertyChanged(nameof(DeviceName));
-            RaisePropertyChanged(nameof(StatusFromType));
+            OnPropertyChanged(nameof(Manufacturer));
+            OnPropertyChanged(nameof(Protocol));
+            OnPropertyChanged(nameof(Port));
+            OnPropertyChanged(nameof(Ports));
+            OnPropertyChanged(nameof(Status));
+            OnPropertyChanged(nameof(StatusType));
+            OnPropertyChanged(nameof(DeviceName));
+            OnPropertyChanged(nameof(StatusFromType));
         }
 
         private void AddManufacturer(string manufacturer)

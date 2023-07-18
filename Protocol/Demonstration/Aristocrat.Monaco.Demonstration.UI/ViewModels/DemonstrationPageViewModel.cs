@@ -12,7 +12,7 @@ namespace Aristocrat.Monaco.Demonstration.UI.ViewModels
     {
         public DemonstrationPageViewModel()
         {
-            DemonstrationExitButtonClickCommand = new ActionCommand<object>(OnExitButtonClickCommand);
+            DemonstrationExitButtonClickCommand = new RelayCommand<object>(OnExitButtonClickCommand);
         }
 
         /// <summary>

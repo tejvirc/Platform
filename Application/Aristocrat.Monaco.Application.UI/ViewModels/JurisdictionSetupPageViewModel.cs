@@ -6,6 +6,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using ConfigWizard;
     using Contracts;
     using Contracts.Drm;
@@ -83,7 +85,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             _isJurisdictionSelectionEnabled = true;
 
             _settingsManager = serviceManager.GetService<IConfigurationSettingsManager>();
-            ImportCommand = new ActionCommand<object>(_ => Import(), _ => IsEKeyVerified && IsEKeyDriveFound && IsMachineConfigFound && !IsImporting);
+            ImportCommand = new RelayCommand<object>(_ => Import(), _ => IsEKeyVerified && IsEKeyDriveFound && IsMachineConfigFound && !IsImporting);
             _importSettingLabel = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ImportMachineSettingsInsertEKey);
 
             _dialogService = serviceManager.GetService<IDialogService>();
@@ -154,7 +156,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _selectedJurisdiction = value;
-                RaisePropertyChanged(nameof(SelectedJurisdiction));
+                OnPropertyChanged(nameof(SelectedJurisdiction));
             }
         }
 
@@ -167,7 +169,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             {
                 _isShowModeChecked = value;
                 GameRulesEditable = _isShowModeChecked;
-                RaisePropertyChanged(nameof(IsShowModeChecked));
+                OnPropertyChanged(nameof(IsShowModeChecked));
 
                 PropertiesManager.SetProperty(ApplicationConstants.ShowMode, _isShowModeChecked);
             }
@@ -183,7 +185,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _gameRulesVisible = value;
-                RaisePropertyChanged(nameof(GameRulesVisible));
+                OnPropertyChanged(nameof(GameRulesVisible));
             }
         }
 
@@ -206,7 +208,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                     _gameRulesEditable = false;
                     IsGameRulesChecked = true;
                 }
-                RaisePropertyChanged(nameof(GameRulesEditable));
+                OnPropertyChanged(nameof(GameRulesEditable));
             }
         }
 
@@ -219,7 +221,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _isGameRulesChecked = value;
-                RaisePropertyChanged(nameof(IsGameRulesChecked));
+                OnPropertyChanged(nameof(IsGameRulesChecked));
 
                 PropertiesManager.SetProperty(ApplicationConstants.GameRules, _isGameRulesChecked);
             }
@@ -231,7 +233,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _isJurisdictionSelectionEnabled = value;
-                RaisePropertyChanged(nameof(IsJurisdictionSelectionEnabled));
+                OnPropertyChanged(nameof(IsJurisdictionSelectionEnabled));
             }
         }
 
@@ -284,13 +286,13 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _importSettingLabel = value;
-                RaisePropertyChanged(nameof(ImportSettingLabel));
+                OnPropertyChanged(nameof(ImportSettingLabel));
             }
         }
 
         public ObservableCollection<ConfigurationSetting> ConfigurationSettings { get; } = new ObservableCollection<ConfigurationSetting>();
 
-        public ActionCommand<object> ImportCommand { get; }
+        public RelayCommand<object> ImportCommand { get; }
 
         /// <summary>
         ///     Gets a value that indicates if the import is in progress.
@@ -302,7 +304,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 SetProperty(ref _isImporting, value);
-                ImportCommand.RaiseCanExecuteChanged();
+                ImportCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -335,7 +337,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 SetProperty(ref _isEKeyVerified, value);
-                ImportCommand.RaiseCanExecuteChanged();
+                ImportCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -349,7 +351,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 SetProperty(ref _isEKeyDriveFound, value);
-                ImportCommand.RaiseCanExecuteChanged();
+                ImportCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -436,7 +438,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         private void Handle(PropertyChangedEvent obj)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     IsEKeyVerified = PropertiesManager.GetValue(ApplicationConstants.EKeyVerified, false);
@@ -449,7 +451,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         private void Handle(ConfigurationSettingsImportedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     IsImporting = false;
@@ -475,10 +477,10 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                         PropertiesManager.SetProperty(ApplicationConstants.MachineSettingsReimported, true);
 
                         _isShowModeChecked = PropertiesManager.GetValue(ApplicationConstants.ShowMode, false);
-                        RaisePropertyChanged(nameof(IsShowModeChecked));
+                        OnPropertyChanged(nameof(IsShowModeChecked));
 
                         _isGameRulesChecked = PropertiesManager.GetValue(ApplicationConstants.GameRules, true);
-                        RaisePropertyChanged(nameof(IsGameRulesChecked));
+                        OnPropertyChanged(nameof(IsGameRulesChecked));
                     }
                 });
         }
@@ -503,7 +505,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         private void Handle(ConfigurationSettingsSummaryEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     ConfigurationSettings.AddRange(
@@ -518,10 +520,10 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                     }
 
                     _isShowModeChecked = PropertiesManager.GetValue(ApplicationConstants.ShowMode, IsShowModeChecked);
-                    RaisePropertyChanged(nameof(IsShowModeChecked));
+                    OnPropertyChanged(nameof(IsShowModeChecked));
 
                     _isGameRulesChecked = PropertiesManager.GetValue(ApplicationConstants.GameRules, IsGameRulesChecked);
-                    RaisePropertyChanged(nameof(IsGameRulesChecked));
+                    OnPropertyChanged(nameof(IsGameRulesChecked));
 
                     var viewModel = new ConfigurationSettingSummaryPopupViewModel(
                         ConfigurationSettings,

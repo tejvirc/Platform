@@ -46,12 +46,12 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         public DisplaysPageViewModel(bool isWizard) : base(isWizard)
         {
-            EnterTouchScreenCommand = new ActionCommand<object>(OnEnterTouchScreenCommand);
-            EnterIdentifyScreenCommand = new ActionCommand<object>(
+            EnterTouchScreenCommand = new RelayCommand<object>(OnEnterTouchScreenCommand);
+            EnterIdentifyScreenCommand = new RelayCommand<object>(
                 OnEnterIdentifyScreenCommand);
-            EnterColorTestCommand = new ActionCommand<object>(
+            EnterColorTestCommand = new RelayCommand<object>(
                 OnEnterColorTestCommand);
-            EnterCalibrateTouchScreenCommand = new ActionCommand<object>(
+            EnterCalibrateTouchScreenCommand = new RelayCommand<object>(
                 OnEnterCalibrateTouchScreenCommand);
             CabinetService = ServiceManager.GetInstance().GetService<ICabinetDetectionService>();
             SerialTouchService = ServiceManager.GetInstance().GetService<ISerialTouchService>();
@@ -103,7 +103,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 SetProperty(ref _minimumBrightness, value, nameof(MinimumBrightness));
-                RaisePropertyChanged(nameof(MinimumBrightness));
+                OnPropertyChanged(nameof(MinimumBrightness));
             }
         }
 
@@ -113,7 +113,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 SetProperty(ref _maximumBrightness, value, nameof(MaximumBrightness));
-                RaisePropertyChanged(nameof(MaximumBrightness));
+                OnPropertyChanged(nameof(MaximumBrightness));
             }
         }
 
@@ -235,8 +235,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         protected override void OnTestModeEnabledChanged()
         {
-            RaisePropertyChanged(nameof(TestsEnabled));
-            RaisePropertyChanged(nameof(TouchScreenButtonsEnabled));
+            OnPropertyChanged(nameof(TestsEnabled));
+            OnPropertyChanged(nameof(TouchScreenButtonsEnabled));
         }
 
         protected override void OnInputStatusChanged()

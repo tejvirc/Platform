@@ -7,6 +7,7 @@ namespace Aristocrat.Monaco.Hardware.Fake
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Common.Currency;
     using Contracts.Communicator;
     using Contracts.Gds;
@@ -157,7 +158,7 @@ namespace Aristocrat.Monaco.Hardware.Fake
 
             if (DeviceType == DeviceType.ReelController)
             {
-                MvvmHelper.ExecuteOnUI(() =>
+                Execute.OnUIThread(() =>
                     {
                         _simWindow?.Close();
                     }
@@ -620,7 +621,7 @@ namespace Aristocrat.Monaco.Hardware.Fake
             usedIds.AddRange(usedTitles.ToList().Select(int.Parse).ToList());
             _id = 1 + usedIds.Max();
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     Simulation.HarkeyReels.Logger.Log += SimulatorLog;

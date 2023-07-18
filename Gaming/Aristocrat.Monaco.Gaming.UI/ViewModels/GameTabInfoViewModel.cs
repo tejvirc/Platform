@@ -14,7 +14,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     /// <summary>
     ///     The View Model used for binding lobby game tabs
     /// </summary>
-    public class GameTabInfoViewModel : BaseViewModel
+    public class GameTabInfoViewModel : BaseObservableObject
     {
         private const double SubTabsTopMargin = 158;
         private readonly double[] _subTabsLeftMargin = { 350, 650, 950, 1250, 855, 1145 };
@@ -356,17 +356,17 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private void UpdateTabInfo()
         {
-            RaisePropertyChanged(nameof(Tabs));
-            RaisePropertyChanged(nameof(TabCount));
-            RaisePropertyChanged(nameof(SelectedTabIndex));
-            RaisePropertyChanged(nameof(SubTabs));
-            RaisePropertyChanged(nameof(SubTabsMargin));
-            RaisePropertyChanged(nameof(SelectedCategory));
-            RaisePropertyChanged(nameof(GameTypes));
+            OnPropertyChanged(nameof(Tabs));
+            OnPropertyChanged(nameof(TabCount));
+            OnPropertyChanged(nameof(SelectedTabIndex));
+            OnPropertyChanged(nameof(SubTabs));
+            OnPropertyChanged(nameof(SubTabsMargin));
+            OnPropertyChanged(nameof(SelectedCategory));
+            OnPropertyChanged(nameof(GameTypes));
         }
     }
 
-    public class GameTabInfo : BaseViewModel
+    public class GameTabInfo : BaseObservableObject
     {
         private const string TabResourceKeyPrefix = "GameTab";
         private const string LabelResourceKeyPrefix = "Tab";
@@ -391,11 +391,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 }
 
                 _enabled = value;
-                RaisePropertyChanged(nameof(Enabled));
-                RaisePropertyChanged(nameof(LabelResourceKey));
-                RaisePropertyChanged(nameof(LabelAnimatedResourcePath));
-                RaisePropertyChanged(nameof(HasAnimatedResource));
-                RaisePropertyChanged(nameof(TabResourceKey));
+                OnPropertyChanged(nameof(Enabled));
+                OnPropertyChanged(nameof(LabelResourceKey));
+                OnPropertyChanged(nameof(LabelAnimatedResourcePath));
+                OnPropertyChanged(nameof(HasAnimatedResource));
+                OnPropertyChanged(nameof(TabResourceKey));
             }
         }
 

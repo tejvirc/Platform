@@ -58,7 +58,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
         public override void Reset()
         {
             base.Reset();
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     ProgressivePools.Clear();

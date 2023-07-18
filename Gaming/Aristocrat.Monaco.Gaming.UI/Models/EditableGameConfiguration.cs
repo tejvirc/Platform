@@ -19,7 +19,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
     using PackageManifest.Models;
     using Progressives;
 
-    public class EditableGameConfiguration : BaseViewModel, IDisposable
+    public class EditableGameConfiguration : BaseObservableObject, IDisposable
     {
         private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
@@ -117,7 +117,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
                     return;
                 }
 
-                RaisePropertyChanged(nameof(Game));
+                OnPropertyChanged(nameof(Game));
                 LoadBetOptions();
                 LoadLineOptions();
                 LoadBonusBets(SelectedBetOption);
@@ -180,7 +180,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
                 }
 
                 _selectedBetOption = value;
-                RaisePropertyChanged(nameof(SelectedBetOption));
+                OnPropertyChanged(nameof(SelectedBetOption));
                 LoadBonusBets(SelectedBetOption);
                 ConfigurationMinBet();
                 SetProgressivesConfigured();
@@ -214,7 +214,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
                 }
 
                 _selectedLineOption = value;
-                RaisePropertyChanged(nameof(SelectedLineOption));
+                OnPropertyChanged(nameof(SelectedLineOption));
                 ConfigurationMinBet();
                 TopAwardValue = RecalculateTopAward();
             }
@@ -270,20 +270,20 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
                 }
 
                 _enabled = value;
-                RaisePropertyChanged(nameof(Enabled));
-                RaisePropertyChanged(nameof(CanEdit));
-                RaisePropertyChanged(nameof(CanEditAndEnabled));
-                RaisePropertyChanged(nameof(CanEditAndEnableGamble));
-                RaisePropertyChanged(nameof(CanEditAndEnableLetItRide));
-                RaisePropertyChanged(nameof(ProgressivesAllowed));
-                RaisePropertyChanged(nameof(ProgressivesEnabled));
-                RaisePropertyChanged(nameof(ProgressiveSetupEnabled));
-                RaisePropertyChanged(nameof(ProgressiveSetupVisibility));
-                RaisePropertyChanged(nameof(ProgressiveViewVisibility));
-                RaisePropertyChanged(nameof(BetOptionEnabled));
-                RaisePropertyChanged(nameof(LineOptionEnabled));
-                RaisePropertyChanged(nameof(BonusBetEnabled));
-                RaisePropertyChanged(nameof(SelectedPaytable));
+                OnPropertyChanged(nameof(Enabled));
+                OnPropertyChanged(nameof(CanEdit));
+                OnPropertyChanged(nameof(CanEditAndEnabled));
+                OnPropertyChanged(nameof(CanEditAndEnableGamble));
+                OnPropertyChanged(nameof(CanEditAndEnableLetItRide));
+                OnPropertyChanged(nameof(ProgressivesAllowed));
+                OnPropertyChanged(nameof(ProgressivesEnabled));
+                OnPropertyChanged(nameof(ProgressiveSetupEnabled));
+                OnPropertyChanged(nameof(ProgressiveSetupVisibility));
+                OnPropertyChanged(nameof(ProgressiveViewVisibility));
+                OnPropertyChanged(nameof(BetOptionEnabled));
+                OnPropertyChanged(nameof(LineOptionEnabled));
+                OnPropertyChanged(nameof(BonusBetEnabled));
+                OnPropertyChanged(nameof(SelectedPaytable));
             }
         }
 
@@ -325,7 +325,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
                     return;
                 }
 
-                RaisePropertyChanged(
+                OnPropertyChanged(
                     nameof(CanEditAndEnabled),
                     nameof(CanEditAndEnableGamble),
                     nameof(CanEditAndEnableLetItRide),
@@ -366,7 +366,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
                 }
 
                 _maxDenomEntriesReached = value;
-                RaisePropertyChanged(
+                OnPropertyChanged(
                     nameof(CanToggleEnabled),
                     nameof(CanEditAndEnabled),
                     nameof(CanEditAndEnableGamble),
@@ -629,16 +629,16 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
 
         public void RaiseEnabledByHostChanged()
         {
-            RaisePropertyChanged(nameof(EnabledByHost));
-            RaisePropertyChanged(nameof(CanEdit));
-            RaisePropertyChanged(nameof(CanEditAndEnabled));
-            RaisePropertyChanged(nameof(CanEditAndEnableGamble));
-            RaisePropertyChanged(nameof(CanEditAndEnableLetItRide));
+            OnPropertyChanged(nameof(EnabledByHost));
+            OnPropertyChanged(nameof(CanEdit));
+            OnPropertyChanged(nameof(CanEditAndEnabled));
+            OnPropertyChanged(nameof(CanEditAndEnableGamble));
+            OnPropertyChanged(nameof(CanEditAndEnableLetItRide));
         }
 
         public void UpdateCurrencyCulture()
         {
-            RaisePropertyChanged(nameof(DenomString), nameof(MaxBet));
+            OnPropertyChanged(nameof(DenomString), nameof(MaxBet));
         }
 
         public void SetAllowedRtpRange(decimal? lowestAllowed, decimal? highestAllowed)
@@ -659,7 +659,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
                 SelectedPaytable = AvailablePaytables.FirstOrDefault();
             }
 
-            RaisePropertyChanged(nameof(CanToggleEnabled));
+            OnPropertyChanged(nameof(CanToggleEnabled));
             Logger.Debug(
                 AvailablePaytables.Aggregate(
                     $"Denom {Denom} available minimum RTPs: ",
@@ -729,7 +729,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
                 }
             }
 
-            RaisePropertyChanged(nameof(UseImportedLevels));
+            OnPropertyChanged(nameof(UseImportedLevels));
         }
 
         public void SetWarningText()
@@ -873,7 +873,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
             // Raise this in case we change variation while editing and we have different bonus bets. Note
             // that if someone actually does want to do this, you need to enforce that the game's various
             // ati:betOption manifest entries have unique names. Otherwise they just get coalesced.
-            RaisePropertyChanged(nameof(SelectedBonusBet), nameof(BonusBets), nameof(BonusBetAvailable));
+            OnPropertyChanged(nameof(SelectedBonusBet), nameof(BonusBets), nameof(BonusBetAvailable));
         }
 
         private long RecalculateTopAward()

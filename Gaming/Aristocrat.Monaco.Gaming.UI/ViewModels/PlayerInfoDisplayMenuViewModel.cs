@@ -13,7 +13,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     /// <summary>
     ///     Player Information Display Main Page (menu)
     /// </summary>
-    public sealed class PlayerInfoDisplayMenuViewModel : BaseViewModel, IPlayerInfoDisplayViewModel, IDisposable
+    public sealed class PlayerInfoDisplayMenuViewModel : BaseObservableObject, IPlayerInfoDisplayViewModel, IDisposable
     {
         private ITimer _closeTimer;
         private readonly IPlayerInfoDisplayFeatureProvider _playerInfoDisplayFeatureProvider;
@@ -44,16 +44,16 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 return;
             }
 
-            ExitClickedCommand = new ActionCommand<object>(_ => ExitRequested());
+            ExitClickedCommand = new RelayCommand<object>(_ => ExitRequested());
 
             if (_playerInfoDisplayFeatureProvider.IsGameInfoSupported)
             {
-                GameInfoClickedCommand = new ActionCommand<object>(GameInfoRequested);
+                GameInfoClickedCommand = new RelayCommand<object>(GameInfoRequested);
             }
 
             if (_playerInfoDisplayFeatureProvider.IsGameRulesSupported)
             {
-                GameRulesClickedCommand = new ActionCommand<object>(GameRulesRequested);
+                GameRulesClickedCommand = new RelayCommand<object>(GameRulesRequested);
             }
 
             _closeTimer = timeoutTimer ?? new DispatcherTimerAdapter();
@@ -196,7 +196,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 ExitButtonPressedPath = ExitButtonPressedDefaultPath;
             }
 
-            RaisePropertyChanged(ObservablePropertyNames.GameAsset);
+            OnPropertyChanged(ObservablePropertyNames.GameAsset);
         }
 
         private string _gameInfoButtonPath;
@@ -206,7 +206,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             set
             {
                 _gameInfoButtonPath = value;
-                RaisePropertyChanged(nameof(GameInfoButtonPath));
+                OnPropertyChanged(nameof(GameInfoButtonPath));
             }
         }
 
@@ -217,7 +217,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             set
             {
                 _gameRulesButtonPath = value;
-                RaisePropertyChanged(nameof(GameRulesButtonPath));
+                OnPropertyChanged(nameof(GameRulesButtonPath));
             }
         }
 
@@ -228,7 +228,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             set
             {
                 _exitButtonPath = value;
-                RaisePropertyChanged(nameof(ExitButtonPath));
+                OnPropertyChanged(nameof(ExitButtonPath));
             }
         }
 
@@ -239,7 +239,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             set
             {
                 _gameInfoButtonPressedPath = value;
-                RaisePropertyChanged(nameof(GameInfoButtonPressedPath));
+                OnPropertyChanged(nameof(GameInfoButtonPressedPath));
             }
         }
 
@@ -250,7 +250,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             set
             {
                 _gameRulesButtonPressedPath = value;
-                RaisePropertyChanged(nameof(GameRulesButtonPressedPath));
+                OnPropertyChanged(nameof(GameRulesButtonPressedPath));
             }
         }
 
@@ -261,7 +261,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             set
             {
                 _exitButtonPressedPath = value;
-                RaisePropertyChanged(nameof(ExitButtonPressedPath));
+                OnPropertyChanged(nameof(ExitButtonPressedPath));
             }
         }
 

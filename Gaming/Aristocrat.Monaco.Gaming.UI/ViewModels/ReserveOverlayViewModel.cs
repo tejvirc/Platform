@@ -44,7 +44,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     /// <summary>
     ///     Class to store data for the Message Overlay
     /// </summary>
-    public class ReserveOverlayViewModel : ObservableObject, IDisposable
+    public class ReserveOverlayViewModel : BaseObservableObject, IDisposable
     {
         private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -128,17 +128,17 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             _audioService = audioService ?? throw new ArgumentNullException(nameof(audioService));
             _touchSoundFile = _propertiesManager.GetValue(ApplicationConstants.TouchSoundKey, string.Empty);
 
-            DigitClickedCommand = new ActionCommand<object>(ConcatenateReservePin);
+            DigitClickedCommand = new RelayCommand<object>(ConcatenateReservePin);
 
-            BackspaceButtonClickedCommand = new ActionCommand<object>(_ => BackspaceButtonPressed());
+            BackspaceButtonClickedCommand = new RelayCommand<object>(_ => BackspaceButtonPressed());
 
-            ReserveButtonClickedCommand = new ActionCommand<object>(_ => ReserveTheMachine());
+            ReserveButtonClickedCommand = new RelayCommand<object>(_ => ReserveTheMachine());
 
-            CancelButtonClickedCommand = new ActionCommand<object>(_ => CancelButtonPressed());
+            CancelButtonClickedCommand = new RelayCommand<object>(_ => CancelButtonPressed());
 
-            UnlockButtonClickedCommand = new ActionCommand<object>(_ => UnlockReserve());
+            UnlockButtonClickedCommand = new RelayCommand<object>(_ => UnlockReserve());
 
-            ExitReserveButtonClickedCommand = new ActionCommand<object>(_ => ExitReserveButtonPressed());
+            ExitReserveButtonClickedCommand = new RelayCommand<object>(_ => ExitReserveButtonPressed());
 
             _incorrectPinWaitTimer = new Timer(
                 IncorrectPinWaitTimerCallback,
@@ -176,7 +176,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 ? TimeSpan.FromSeconds(FullLockupTimeSeconds)
                 : TimeSpan.FromSeconds(remainingSeconds);
 
-            RaisePropertyChanged(nameof(CountdownTimerText));
+            OnPropertyChanged(nameof(CountdownTimerText));
         }
 
         private void ResetFields()
@@ -403,7 +403,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         {
             if (_incorrectPinWaitTimeSpan > TimeSpan.Zero)
             {
-                RaisePropertyChanged(nameof(IncorrectPinWaitTimeLeft));
+                OnPropertyChanged(nameof(IncorrectPinWaitTimeLeft));
                 _incorrectPinWaitTimeSpan = _incorrectPinWaitTimeSpan.Subtract(TimeSpan.FromSeconds(1));
                 _incorrectPinWaitTimer.Change(TimeSpan.FromSeconds(1), Timeout.InfiniteTimeSpan);
             }
@@ -466,7 +466,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     break;
 
                 case ApplicationConstants.ReserveServiceTimeoutInSeconds:
-                    RaisePropertyChanged(nameof(TimeLengthMachineWillBeReserved));
+                    OnPropertyChanged(nameof(TimeLengthMachineWillBeReserved));
                     break;
 
                 case ApplicationConstants.ReserveServiceLockupRemainingSeconds:
@@ -583,7 +583,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     // Start the incorrect PIN attempts timer of 1 minute
                     _incorrectPinWaitTimeSpan = TimeSpan.FromSeconds(GamingConstants.ReserveMachineIncorrectPinWaitTimeSeconds);
                     _incorrectPinWaitTimer.Change(TimeSpan.FromSeconds(1), Timeout.InfiniteTimeSpan);
-                    RaisePropertyChanged(nameof(IncorrectPinWaitTimeLeft));
+                    OnPropertyChanged(nameof(IncorrectPinWaitTimeLeft));
                 }
             }
 

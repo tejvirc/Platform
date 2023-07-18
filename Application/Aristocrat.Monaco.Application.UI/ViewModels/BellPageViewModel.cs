@@ -2,6 +2,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Windows.Input;
+    using CommunityToolkit.Mvvm.Input;
     using ConfigWizard;
     using Contracts;
     using Contracts.Extensions;
@@ -31,7 +32,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             _bell = bell;
             _maxBellValue = PropertiesManager.GetValue(ApplicationConstants.MaxBellRing, 0L);
 
-            RingBellClicked = new ActionCommand<object>(RingBell_Click);
+            RingBellClicked = new RelayCommand<object>(RingBell_Click);
         }
 
         public bool ToggleBell
@@ -80,7 +81,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
 
                 _status = value;
-                RaisePropertyChanged(nameof(Status));
+                OnPropertyChanged(nameof(Status));
             }
         }
 
@@ -172,7 +173,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         protected override void OnTestModeEnabledChanged()
         {
-            RaisePropertyChanged(nameof(TestEnabled));
+            OnPropertyChanged(nameof(TestEnabled));
         }
 
         protected override void SetError(string propertyName, string error)
@@ -225,12 +226,12 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         private void UpdateProperties()
         {
-            RaisePropertyChanged(nameof(Enabled));
-            RaisePropertyChanged(nameof(IsRinging));
-            RaisePropertyChanged(nameof(ToggleBell));
-            RaisePropertyChanged(nameof(ShowToggle));
-            RaisePropertyChanged(nameof(IsToggleEnabled));
-            RaisePropertyChanged(nameof(RingBellEnabled));
+            OnPropertyChanged(nameof(Enabled));
+            OnPropertyChanged(nameof(IsRinging));
+            OnPropertyChanged(nameof(ToggleBell));
+            OnPropertyChanged(nameof(ShowToggle));
+            OnPropertyChanged(nameof(IsToggleEnabled));
+            OnPropertyChanged(nameof(RingBellEnabled));
             UpdateStatus();
         }
 

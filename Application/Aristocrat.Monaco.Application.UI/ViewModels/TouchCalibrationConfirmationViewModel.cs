@@ -88,7 +88,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
 
                 _serialTouchCalibrated = false;
-                MvvmHelper.ExecuteOnUI(InvokeCalibration);
+                Execute.OnUIThread(InvokeCalibration);
             }
         }
     }

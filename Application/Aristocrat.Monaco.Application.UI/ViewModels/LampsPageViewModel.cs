@@ -85,7 +85,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
             _selectedTowerLight = TowerLights.FirstOrDefault();
 
-            SetTowerLightFlashStateCommand = new ActionCommand<object>(SetTowerLightFlashState);
+            SetTowerLightFlashStateCommand = new RelayCommand<object>(SetTowerLightFlashState);
         }
 
         public bool ButtonLampsAvailable { get; set; }
@@ -114,9 +114,9 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                     SelectedFlashState =
                         FlashStates.FirstOrDefault(f => f.FlashState == _selectedTowerLight.FlashState);
 
-                    RaisePropertyChanged(nameof(SelectedTowerLight));
-                    RaisePropertyChanged(nameof(SelectedFlashState));
-                    RaisePropertyChanged(nameof(FlashStates));
+                    OnPropertyChanged(nameof(SelectedTowerLight));
+                    OnPropertyChanged(nameof(SelectedFlashState));
+                    OnPropertyChanged(nameof(FlashStates));
                 }
             }
         }
@@ -138,7 +138,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
 
                 _selectedButtonLamp = value;
-                RaisePropertyChanged(nameof(SelectedButtonLamp));
+                OnPropertyChanged(nameof(SelectedButtonLamp));
                 SetSelectedLamps(value);
             }
         }
@@ -157,7 +157,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 StopFlashTimer();
 
                 _selectedInterval = value;
-                RaisePropertyChanged(nameof(SelectedInterval));
+                OnPropertyChanged(nameof(SelectedInterval));
 
                 if (SelectedInterval != null)
                 {
@@ -220,7 +220,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 LoadButtonLampsAndIntervals();
                 foreach (var state in FlashStates)
@@ -275,7 +275,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         protected override void OnTestModeEnabledChanged()
         {
             UpdateStatusText();
-            RaisePropertyChanged(nameof(TowerLightsIsEnabled));
+            OnPropertyChanged(nameof(TowerLightsIsEnabled));
 
             if (!TestModeEnabled)
             {

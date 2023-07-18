@@ -1,6 +1,8 @@
 namespace Aristocrat.Monaco.Application.UI.Models
 {
     using System;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts.Localization;
     using Hardware.Contracts.Reel;
     using Kernel;
@@ -10,7 +12,7 @@ namespace Aristocrat.Monaco.Application.UI.Models
     ///     Definition of the ReelInfoItem class.
     /// </summary>
     [CLSCompliant(false)]
-    public class ReelInfoItem : ObservableObject
+    public class ReelInfoItem : BaseObservableObject
     {
         private const int MaximumReelSteps = 199;
 
@@ -73,7 +75,7 @@ namespace Aristocrat.Monaco.Application.UI.Models
                 if (_id != value)
                 {
                     _id = value;
-                    RaisePropertyChanged(nameof(Name));
+                    OnPropertyChanged(nameof(Name));
                 }
             }
         }
@@ -94,7 +96,7 @@ namespace Aristocrat.Monaco.Application.UI.Models
                 if (_connected != value)
                 {
                     _connected = value;
-                    RaisePropertyChanged(nameof(Connected));
+                    OnPropertyChanged(nameof(Connected));
                 }
             }
         }
@@ -110,7 +112,7 @@ namespace Aristocrat.Monaco.Application.UI.Models
                 if (_enabled != value)
                 {
                     _enabled = value;
-                    RaisePropertyChanged(nameof(Enabled));
+                    OnPropertyChanged(nameof(Enabled));
                 }
             }
         }
@@ -125,7 +127,7 @@ namespace Aristocrat.Monaco.Application.UI.Models
             set
             {
                 _state = value;
-                RaisePropertyChanged(nameof(State));
+                OnPropertyChanged(nameof(State));
             }
         }
 
@@ -139,7 +141,7 @@ namespace Aristocrat.Monaco.Application.UI.Models
             set
             {
                 _step = value;
-                RaisePropertyChanged(nameof(Step));
+                OnPropertyChanged(nameof(Step));
             }
         }
         
@@ -157,7 +159,7 @@ namespace Aristocrat.Monaco.Application.UI.Models
                 }
 
                 _offsetSteps = value;
-                RaisePropertyChanged(nameof(OffsetSteps));
+                OnPropertyChanged(nameof(OffsetSteps));
                 _eventBus?.Publish(new PropertyChangedEvent(nameof(OffsetSteps)));
             }
         }
@@ -172,7 +174,7 @@ namespace Aristocrat.Monaco.Application.UI.Models
             set
             {
                 _spinStep = value;
-                RaisePropertyChanged(nameof(SpinStep));
+                OnPropertyChanged(nameof(SpinStep));
             }
         }
 
@@ -187,8 +189,8 @@ namespace Aristocrat.Monaco.Application.UI.Models
             {
                 _directionToSpin = value ? SpinDirection.Forward : SpinDirection.Backwards;
 
-                RaisePropertyChanged(nameof(DirectionToSpin));
-                RaisePropertyChanged(nameof(DirectionToSpinText));
+                OnPropertyChanged(nameof(DirectionToSpin));
+                OnPropertyChanged(nameof(DirectionToSpinText));
             }
         }
 
@@ -208,7 +210,7 @@ namespace Aristocrat.Monaco.Application.UI.Models
             set
             {
                 _nudgeSteps = value;
-                RaisePropertyChanged(nameof(NudgeSteps));
+                OnPropertyChanged(nameof(NudgeSteps));
             }
         }
 
@@ -222,7 +224,7 @@ namespace Aristocrat.Monaco.Application.UI.Models
             set
             {
                 _nudgeStopIndex = value;
-                RaisePropertyChanged(nameof(NudgeStopIndex));
+                OnPropertyChanged(nameof(NudgeStopIndex));
             }
         }
 
@@ -236,7 +238,7 @@ namespace Aristocrat.Monaco.Application.UI.Models
             set
             {
                 _stopIndex = value;
-                RaisePropertyChanged(nameof(StopIndex));
+                OnPropertyChanged(nameof(StopIndex));
             }
         }
 
@@ -256,8 +258,8 @@ namespace Aristocrat.Monaco.Application.UI.Models
             {
                 _directionToNudge = value ? SpinDirection.Forward : SpinDirection.Backwards;
 
-                RaisePropertyChanged(nameof(DirectionToNudge));
-                RaisePropertyChanged(nameof(DirectionToNudgeText));
+                OnPropertyChanged(nameof(DirectionToNudge));
+                OnPropertyChanged(nameof(DirectionToNudgeText));
             }
         }
 

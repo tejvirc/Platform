@@ -2,9 +2,10 @@
 {
     using System.Globalization;
     using Aristocrat.Monaco.Gaming.Contracts.Models;
-    using CommunityToolkit.Mvvm.ComponentModel;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
 
-    public class SubTabInfoViewModel : ObservableObject
+    public class SubTabInfoViewModel : BaseObservableObject
     {
         private bool _isSelected;
         private bool _isVisible;
@@ -54,8 +55,8 @@
                 if (_isSelected != value)
                 {
                     _isSelected = value;
-                    RaisePropertyChanged(nameof(IsSelected));
-                    RaisePropertyChanged(nameof(ResourceKey));
+                    OnPropertyChanged(nameof(IsSelected));
+                    OnPropertyChanged(nameof(ResourceKey));
                 }
             }
         }
@@ -68,7 +69,7 @@
                 if (_isVisible != value)
                 {
                     _isVisible = value;
-                    RaisePropertyChanged(nameof(IsVisible));
+                    OnPropertyChanged(nameof(IsVisible));
                 }
             }
         }

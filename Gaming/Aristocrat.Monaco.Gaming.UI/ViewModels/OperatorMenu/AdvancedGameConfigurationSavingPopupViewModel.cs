@@ -21,7 +21,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             _loadedAction.BeginInvoke(
                 ar =>
                 {
-                    MvvmHelper.ExecuteOnUI(() => _dialogService.DismissOpenedDialog());
+                    Execute.OnUIThread(() => _dialogService.DismissOpenedDialog());
                 },
                 this);
         }

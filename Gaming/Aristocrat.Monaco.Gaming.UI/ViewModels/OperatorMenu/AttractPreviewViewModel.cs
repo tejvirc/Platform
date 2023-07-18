@@ -94,7 +94,7 @@
             set
             {
                 _topperAttractVideoPath = value;
-                RaisePropertyChanged(nameof(TopperAttractVideoPath));
+                OnPropertyChanged(nameof(TopperAttractVideoPath));
             }
         }
 
@@ -107,7 +107,7 @@
             set
             {
                 _topAttractVideoPath = value;
-                RaisePropertyChanged(nameof(TopAttractVideoPath));
+                OnPropertyChanged(nameof(TopAttractVideoPath));
             }
         }
 
@@ -120,7 +120,7 @@
             set
             {
                 _bottomAttractVideoPath = value;
-                RaisePropertyChanged(nameof(BottomAttractVideoPath));
+                OnPropertyChanged(nameof(BottomAttractVideoPath));
             }
         }
 

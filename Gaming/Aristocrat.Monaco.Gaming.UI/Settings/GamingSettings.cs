@@ -4,12 +4,13 @@
     using Aristocrat.Monaco.Application.Contracts;
     using Contracts;
     using Hardware.Contracts.Audio;
-    using CommunityToolkit.Mvvm.ComponentModel;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
 
     /// <summary>
     ///     Gaming settings.
     /// </summary>
-    internal class GamingSettings : ObservableObject
+    internal class GamingSettings : BaseObservableObject
     {
         private string _jurisdiction;
         private bool _autoPlayAllowed;

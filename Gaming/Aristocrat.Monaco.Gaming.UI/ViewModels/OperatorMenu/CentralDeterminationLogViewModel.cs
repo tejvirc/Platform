@@ -32,7 +32,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 if (_selectedRow != value)
                 {
                     _selectedRow = value;
-                    RaisePropertyChanged("SelectedRow");
+                    OnPropertyChanged("SelectedRow");
                 }
             }
         }
@@ -48,7 +48,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 if (_transactionData != value)
                 {
                     _transactionData = value;
-                    RaisePropertyChanged(nameof(TransactionData));
+                    OnPropertyChanged(nameof(TransactionData));
                 }
             }
         }
@@ -60,7 +60,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             var provider = ServiceManager.GetInstance().GetService<ICentralProvider>();
             if (provider != null)
             {
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         TransactionData.Clear();

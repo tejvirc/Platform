@@ -2,13 +2,14 @@
 {
     using System.Collections.Generic;
     using Application.Contracts.Extensions;
-    using CommunityToolkit.Mvvm.ComponentModel;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
 
     /// <summary>
     ///     Data to display within <see cref="ViewModels.OperatorMenu.BingoGameHistoryDetailsViewModel"/>;
     ///     contains the data for a single pattern.
     /// </summary>
-    public class BingoPatternModel : ObservableObject
+    public class BingoPatternModel : BaseObservableObject
     {
         /// <summary>
         ///     Constructor for <see cref="BingoPatternModel"/>.

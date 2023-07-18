@@ -12,7 +12,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using log4net;
     using Kernel;
 
-    public class InfoBarViewModel : BaseViewModel, IDisposable
+    public class InfoBarViewModel : BaseObservableObject, IDisposable
     {
         private class InfoBarMessageData
         {
@@ -455,11 +455,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 });
         }
 
-        private void Handler(InfoBarCloseEvent e) => MvvmHelper.ExecuteOnUI(() => IsOpen = false);
+        private void Handler(InfoBarCloseEvent e) => Execute.OnUIThread(() => IsOpen = false);
 
         private void Handler(InfoBarSetHeightEvent e)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 var scaleUp = e.Height / BarHeightMinimum;
 

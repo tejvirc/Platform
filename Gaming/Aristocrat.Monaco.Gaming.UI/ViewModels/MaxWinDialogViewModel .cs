@@ -3,7 +3,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using System;
     using Monaco.Kernel;
     
-    public class MaxWinDialogViewModel : BaseViewModel, IDisposable
+    public class MaxWinDialogViewModel : BaseObservableObject, IDisposable
     {
         private readonly IEventBus _eventBus;
         private string _maxWinAmount;
@@ -21,7 +21,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             set
             {
                 _maxWinAmount = value;
-                RaisePropertyChanged(nameof(MaxWinAmount));
+                OnPropertyChanged(nameof(MaxWinAmount));
             }
         }
 

@@ -35,13 +35,13 @@
         {
             if (d is VariableItemsControl control)
             {
-                control.RaisePropertyChanged(nameof(Items));
-                control.RaisePropertyChanged(nameof(ItemsHasMoreThanOneItem));
+                control.OnPropertyChanged(nameof(Items));
+                control.OnPropertyChanged(nameof(ItemsHasMoreThanOneItem));
 
                 if (e.NewValue is ObservableCollection<string> collection)
                 {
                     collection.CollectionChanged += (o, args) =>
-                        control.RaisePropertyChanged(nameof(ItemsHasMoreThanOneItem));
+                        control.OnPropertyChanged(nameof(ItemsHasMoreThanOneItem));
                 }
             }
         }
@@ -114,12 +114,12 @@
 
         private void RaiseAllPropertyChanged()
         {
-            RaisePropertyChanged(nameof(Items));
-            RaisePropertyChanged(nameof(SelectedItem));
-            RaisePropertyChanged(nameof(ComboBoxIsEnabled));
+            OnPropertyChanged(nameof(Items));
+            OnPropertyChanged(nameof(SelectedItem));
+            OnPropertyChanged(nameof(ComboBoxIsEnabled));
         }
 
-        private void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

@@ -12,7 +12,7 @@
         [Conditional("DESIGN")]
         private void WireDesignerData()
         {
-            if (InDesigner)
+            if (Execute.InDesigner)
             {
                 Hosts.Add(new Host { Index = 0, Id = 0, Registered = true });
                 Hosts.Add(

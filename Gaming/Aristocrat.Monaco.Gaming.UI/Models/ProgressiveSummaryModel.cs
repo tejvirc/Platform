@@ -1,11 +1,12 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.Models
 {
-    using CommunityToolkit.Mvvm.ComponentModel;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
 
     /// <summary>
     ///     Progressive summary model class
     /// </summary>
-    public class ProgressiveSummaryModel : ObservableObject
+    public class ProgressiveSummaryModel : BaseObservableObject
     {
         private string _progressiveLevel;
         private string _currentValue;
@@ -21,7 +22,7 @@
             set
             {
                 _progressiveLevel = value;
-                RaisePropertyChanged(nameof(ProgressiveLevel));
+                OnPropertyChanged(nameof(ProgressiveLevel));
             }
         }
 
@@ -34,7 +35,7 @@
             set
             {
                 _currentValue = value;
-                RaisePropertyChanged(nameof(CurrentValue));
+                OnPropertyChanged(nameof(CurrentValue));
             }
         }
 
@@ -47,7 +48,7 @@
             set
             {
                 _configuredGame = value;
-                RaisePropertyChanged(nameof(ConfiguredGame));
+                OnPropertyChanged(nameof(ConfiguredGame));
             }
         }
 
@@ -60,7 +61,7 @@
             set
             {
                 _winLevel = value;
-                RaisePropertyChanged(nameof(WinLevel));
+                OnPropertyChanged(nameof(WinLevel));
             }
         }
     }

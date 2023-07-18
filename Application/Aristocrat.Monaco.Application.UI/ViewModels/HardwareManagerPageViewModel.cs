@@ -4,6 +4,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Linq;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
     using Kernel;
@@ -12,7 +14,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using Vgt.Client12.Application.OperatorMenu;
 
     [CLSCompliant(false)]
-    public class HardwareManagerPageViewModel : HardwareConfigBaseViewModel
+    public class HardwareManagerPageViewModel : HardwareConfigBaseObservableObject
     {
         private readonly IOperatorMenuLauncher _operatorMenuLauncher;
 
@@ -30,14 +32,14 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         {
             _operatorMenuLauncher = ServiceManager.GetInstance().GetService<IOperatorMenuLauncher>();
 
-            ApplyHardwareSettingsCommand = new ActionCommand<object>(Apply, _ => IsDirty);
+            ApplyHardwareSettingsCommand = new RelayCommand<object>(Apply, _ => IsDirty);
             _initialDoorOpticSensor = DoorOpticSensorEnabled;
             _initialBellyPanelDoor = BellyPanelDoorEnabled;
             _initialBell = BellEnabled;
             UpdateChanges = () => IsDirty = AreChangesMade();
         }
 
-        public ActionCommand<object> ApplyHardwareSettingsCommand { get; set; }
+        public RelayCommand<object> ApplyHardwareSettingsCommand { get; set; }
 
         public bool IsDirty
         {
@@ -50,8 +52,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
 
                 _isDirty = value;
-                RaisePropertyChanged(nameof(IsDirty));
-                ApplyHardwareSettingsCommand.RaiseCanExecuteChanged();
+                OnPropertyChanged(nameof(IsDirty));
+                ApplyHardwareSettingsCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -77,7 +79,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         protected override void OnInputEnabledChanged()
         {
-            ApplyHardwareSettingsCommand.RaiseCanExecuteChanged();
+            ApplyHardwareSettingsCommand.NotifyCanExecuteChanged();
             base.OnInputEnabledChanged();
         }
 
@@ -196,7 +198,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 foreach (var device in Devices)
                 {

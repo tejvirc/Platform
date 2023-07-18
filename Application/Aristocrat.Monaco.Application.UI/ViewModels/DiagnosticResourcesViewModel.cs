@@ -11,6 +11,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Windows.Input;
     using System.Windows.Media;
     using Application.Helpers;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
     using Kernel;
@@ -48,7 +50,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         public DiagnosticResourcesViewModel()
         {
-            if (!InDesigner)
+            if (!Execute.InDesigner)
             {
                 _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
             }
@@ -57,8 +59,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
             LoadAvailableMetrics();
 
-            ViewMemoryCommand = new ActionCommand<object>(ViewMemory);
-            ToggleDiagnosticChartViewModeCommand = new ActionCommand<object>(_ => InDiagnosticViewChartMode = !InDiagnosticViewChartMode);
+            ViewMemoryCommand = new RelayCommand<object>(ViewMemory);
+            ToggleDiagnosticChartViewModeCommand = new RelayCommand<object>(_ => InDiagnosticViewChartMode = !InDiagnosticViewChartMode);
         }
 
         private static Process GdkProcess => Process.GetProcessesByName(RuntimeInstanceName).FirstOrDefault();
@@ -150,9 +152,9 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 AxisX = XAxes
             };
 
-            RaisePropertyChanged(nameof(MonacoChart));
+            OnPropertyChanged(nameof(MonacoChart));
             Charts.Add(MonacoChart);
-            RaisePropertyChanged(nameof(Charts));
+            OnPropertyChanged(nameof(Charts));
         }
 
         private void LoadAvailableMetrics()
@@ -204,16 +206,16 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             }
             SetXAxesTitles();
             SetYAxesTitles();
-            RaisePropertyChanged(nameof(Metrics));
-            RaisePropertyChanged(nameof(YAxes));
-            RaisePropertyChanged(nameof(XAxes));
-            RaisePropertyChanged(nameof(MonacoChart));
-            RaisePropertyChanged(nameof(Charts));
+            OnPropertyChanged(nameof(Metrics));
+            OnPropertyChanged(nameof(YAxes));
+            OnPropertyChanged(nameof(XAxes));
+            OnPropertyChanged(nameof(MonacoChart));
+            OnPropertyChanged(nameof(Charts));
         }
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(UpdateMetricLabels);
+            Execute.OnUIThread(UpdateMetricLabels);
             base.OnOperatorCultureChanged(evt);
         }
 
@@ -235,7 +237,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 axisNumber = seriesNumber;
             }
 
-            RaisePropertyChanged(nameof(YAxes));
+            OnPropertyChanged(nameof(YAxes));
         }
 
         private void CreateLineSeries(ChartValues<MeasureModel> source, Metric metric, int axisNumber)
@@ -262,7 +264,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             //lets set how to display the axis Labels
             DateTimeFormatter = value => new DateTime((long)value).ToString("hh:mm:ss");
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     var axis = new Axis
@@ -278,7 +280,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         private void CreateYAxis(int axisNumber, Metric metric)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     var axis = CreateYAxisFromMetric(axisNumber, metric);
@@ -308,7 +310,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 return;
             }
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (XAxes.Count > 0)
@@ -332,7 +334,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
             //AxisStep forces the distance between each separator in the X axis
             AxisXStep = TimeSpan.FromSeconds(1).Ticks;
-            RaisePropertyChanged(nameof(AxisXStep));
+            OnPropertyChanged(nameof(AxisXStep));
 
             SetXAxisScale(DateTime.Now);
         }
@@ -374,7 +376,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
                 if (metric.CurrentValue > metric.MaxRange && metric.MaxRange > 0)
                 {
-                    MvvmHelper.ExecuteOnUI(
+                    Execute.OnUIThread(
                         () =>
                         {
                             var yAxis = YAxes.FirstOrDefault(y => y.Title.StartsWith(metric.MetricName));
@@ -388,9 +390,9 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                                 var newAxis = CreateYAxisFromMetric(index, metric);
                                 YAxes[index] = newAxis;
 
-                                RaisePropertyChanged(nameof(YAxes));
-                                RaisePropertyChanged(nameof(MonacoChart));
-                                RaisePropertyChanged(nameof(Charts));
+                                OnPropertyChanged(nameof(YAxes));
+                                OnPropertyChanged(nameof(MonacoChart));
+                                OnPropertyChanged(nameof(Charts));
                             }
                         });
                 }
@@ -416,7 +418,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
             }
 
-            RaisePropertyChanged(nameof(Series));
+            OnPropertyChanged(nameof(Series));
         }
 
         protected override void OnUnloaded()
@@ -485,7 +487,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         private void OnMetricEnabledCheckedCommand(ChangeChartSeriesVisibilityEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     var line = (LineSeries)Series[evt
@@ -512,7 +514,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                         axis.Title = Metrics[evt.SeriesIndex].Label + " " + Metrics[evt.SeriesIndex].Unit;
                     }
 
-                    RaisePropertyChanged(nameof(YAxes));
+                    OnPropertyChanged(nameof(YAxes));
 
                     MonacoChart.Update();
                 });
@@ -539,7 +541,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     }
 
     [CLSCompliant(false)]
-    public class Metric : BaseViewModel
+    public class Metric : BaseObservableObject
     {
         private string _metricName;
         private double _currentValue;
@@ -560,7 +562,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _metricName = value;
-                RaisePropertyChanged(nameof(MetricName));
+                OnPropertyChanged(nameof(MetricName));
             }
         }
 
@@ -570,7 +572,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _metricType = value;
-                RaisePropertyChanged(nameof(MetricType));
+                OnPropertyChanged(nameof(MetricType));
             }
         }
 
@@ -580,7 +582,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _instanceName = value;
-                RaisePropertyChanged(nameof(InstanceName));
+                OnPropertyChanged(nameof(InstanceName));
             }
         }
 
@@ -590,7 +592,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _category = value;
-                RaisePropertyChanged(nameof(Category));
+                OnPropertyChanged(nameof(Category));
             }
         }
 
@@ -600,7 +602,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _label = value;
-                RaisePropertyChanged(nameof(Label));
+                OnPropertyChanged(nameof(Label));
             }
         }
 
@@ -610,7 +612,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _unit = value;
-                RaisePropertyChanged(nameof(Unit));
+                OnPropertyChanged(nameof(Unit));
             }
         }
 
@@ -620,7 +622,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _maxRange = value;
-                RaisePropertyChanged(nameof(MaxRange));
+                OnPropertyChanged(nameof(MaxRange));
             }
         }
 
@@ -630,7 +632,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _counterType = value;
-                RaisePropertyChanged(nameof(CounterType));
+                OnPropertyChanged(nameof(CounterType));
             }
         }
 
@@ -640,7 +642,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _currentValue = value;
-                RaisePropertyChanged(nameof(CurrentValue));
+                OnPropertyChanged(nameof(CurrentValue));
             }
         }
 
@@ -650,7 +652,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _metricColor = value;
-                RaisePropertyChanged(nameof(MetricColor));
+                OnPropertyChanged(nameof(MetricColor));
             }
         }
 
@@ -660,7 +662,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _metricEnabled = value;
-                RaisePropertyChanged(nameof(MetricEnabled));
+                OnPropertyChanged(nameof(MetricEnabled));
                 ServiceManager.GetInstance().GetService<IEventBus>().Publish(new ChangeChartSeriesVisibilityEvent(Index));
             }
         }
@@ -672,7 +674,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _index = value;
-                RaisePropertyChanged(nameof(Index));
+                OnPropertyChanged(nameof(Index));
             }
         }
     }

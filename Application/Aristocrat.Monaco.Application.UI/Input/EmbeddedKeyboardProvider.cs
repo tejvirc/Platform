@@ -10,7 +10,7 @@ namespace Aristocrat.Monaco.Application.UI.Input
 
         public void CloseKeyboard()
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 _keyboardWindow?.Close();
             });
@@ -18,7 +18,7 @@ namespace Aristocrat.Monaco.Application.UI.Input
 
         public void OpenKeyboard(object targetControl)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 if (targetControl is not Control target)
                 {
@@ -51,7 +51,7 @@ namespace Aristocrat.Monaco.Application.UI.Input
 
         private void KeyboardWindowOnClosed(object sender, EventArgs e)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 _keyboardWindow.Closed -= KeyboardWindowOnClosed;
                 _keyboardWindow = null;

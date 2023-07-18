@@ -224,7 +224,7 @@
             set
             {
                 SetProperty(ref _hardMeterTickValue, value);
-                RaisePropertyChanged(nameof(HardMeterTickValue));
+                OnPropertyChanged(nameof(HardMeterTickValue));
             }
         }
 
@@ -314,7 +314,7 @@
             set
             {
                 SetProperty(ref _maxCreditsIn, value);
-                RaisePropertyChanged(nameof(MaxCreditsIn));
+                OnPropertyChanged(nameof(MaxCreditsIn));
             }
         }
 
@@ -328,7 +328,7 @@
             set
             {
                 SetProperty(ref _defaultVolumeLevel, value);
-                RaisePropertyChanged(nameof(DefaultVolumeLevelDisplay));
+                OnPropertyChanged(nameof(DefaultVolumeLevelDisplay));
             }
         }
 
@@ -348,7 +348,7 @@
             set
             {
                 SetProperty(ref _volumeControlLocation, value);
-                RaisePropertyChanged(nameof(VolumeControlLocation));
+                OnPropertyChanged(nameof(VolumeControlLocation));
             }
         }
 

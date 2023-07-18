@@ -1,13 +1,14 @@
 ﻿namespace Aristocrat.Monaco.UI.Common.Models
 {
     using System;
-    using CommunityToolkit.Mvvm.ComponentModel;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
 
     /// <summary>
     ///     An string object used to filter a DataGrid column
     /// </summary>
     [CLSCompliant(false)]
-    public class FilterObject : ObservableObject
+    public class FilterObject : BaseObservableObject
     {
         private bool _filterIsChecked;
 

@@ -74,7 +74,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                  downEvent.LogicalId == (int)ButtonLogicalId.DualPlay) &&
                 downEvent.Enabled == false)
             {
-                MvvmHelper.ExecuteOnUI(InvokeCalibration);
+                Execute.OnUIThread(InvokeCalibration);
             }
         }
     }

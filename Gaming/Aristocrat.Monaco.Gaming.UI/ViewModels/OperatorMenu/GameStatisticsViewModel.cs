@@ -39,7 +39,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 if (_baseStatsCollapsed != value)
                 {
                     _baseStatsCollapsed = value;
-                    RaisePropertyChanged(nameof(BaseStatsCollapsed));
+                    OnPropertyChanged(nameof(BaseStatsCollapsed));
                 }
             }
         }
@@ -53,7 +53,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 if (_featureStatsCollapsed != value)
                 {
                     _featureStatsCollapsed = value;
-                    RaisePropertyChanged(nameof(FeatureStatsCollapsed));
+                    OnPropertyChanged(nameof(FeatureStatsCollapsed));
                 }
             }
         }
@@ -95,7 +95,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             // This will occur each time a different game is selected
             var meterManager = ServiceManager.GetInstance().GetService<IGameMeterManager>();
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     foreach (var meter in GameGambleMeters)
@@ -135,7 +135,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             set
             {
                 _selectedGame = value;
-                RaisePropertyChanged(nameof(SelectedGame));
+                OnPropertyChanged(nameof(SelectedGame));
                 InitializeGameFeatureMeters(value);
             }
         }

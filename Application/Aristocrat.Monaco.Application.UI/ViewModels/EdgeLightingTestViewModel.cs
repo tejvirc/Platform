@@ -103,7 +103,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 SetProperty(ref _selectedStripIndex, value, nameof(SelectedStripIndex));
                 SetProperty(ref _startLed, Math.Min(1, SelectedStrip.LedCount), nameof(StartLed));
                 SetProperty(ref _endLed, SelectedStrip.LedCount, nameof(EndLed));
-                RaisePropertyChanged(nameof(SelectedStrip), nameof(SelectedLedCount));
+                OnPropertyChanged(nameof(SelectedStrip), nameof(SelectedLedCount));
                 TestSelectionChanged();
             }
         }
@@ -141,7 +141,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 SetProperty(ref _selectedColorIndex, 0, nameof(SelectedColorIndex));
                 SetProperty(ref _startLed, Math.Min(1, SelectedStrip.LedCount), nameof(StartLed));
                 SetProperty(ref _endLed, SelectedStrip.LedCount, nameof(EndLed));
-                RaisePropertyChanged(nameof(SelectedStrip), nameof(SelectedLedCount));
+                OnPropertyChanged(nameof(SelectedStrip), nameof(SelectedLedCount));
                 TestSelectionChanged();
             }
         }
@@ -163,7 +163,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 SetProperty(ref _startLed, value, nameof(StartLed));
-                RaisePropertyChanged(nameof(SelectedLedCount));
+                OnPropertyChanged(nameof(SelectedLedCount));
                 TestSelectionChanged();
             }
         }
@@ -174,7 +174,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 SetProperty(ref _endLed, value, nameof(EndLed));
-                RaisePropertyChanged(nameof(SelectedLedCount));
+                OnPropertyChanged(nameof(SelectedLedCount));
                 TestSelectionChanged();
             }
         }
@@ -214,7 +214,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             OnPropertyChanged(propertyName);
         }
 
-        private void RaisePropertyChanged(params string[] propertyNames)
+        private void OnPropertyChanged(params string[] propertyNames)
         {
             foreach (var propertyName in propertyNames)
             {
@@ -253,7 +253,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             var stripsData =
                 _edgeLightingController.StripIds.Select(
                     x => new StripData(x, _edgeLightingController.GetStripLedCount(x)));
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     lock (_lock)

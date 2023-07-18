@@ -121,7 +121,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
             var eventName =
                 $"{evt.Note.Value.FormattedCurrencyString("C0")} {Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BillInserted)}";
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () => TestEvents.Insert(
                     0,
                     eventName));
@@ -141,7 +141,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
         {
             var eventName = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InvalidDocInserted);
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () => TestEvents.Insert(
                     0,
                     eventName));
@@ -153,7 +153,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
         {
             var eventName =
                 $"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VoucherInserted)}\r{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ValidationNumber)} {evt.Barcode}";
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () => TestEvents.Insert(
                     0,
                     eventName));
@@ -165,7 +165,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
 #if !RETAIL
         private void HandleEvent(DebugNoteEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () => TestEvents.Insert(
                     0,
                     $"{evt.Denomination.FormattedCurrencyString("C0")} {Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BillInserted)}"));

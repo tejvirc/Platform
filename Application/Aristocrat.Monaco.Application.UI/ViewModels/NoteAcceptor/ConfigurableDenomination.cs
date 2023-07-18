@@ -2,17 +2,19 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
 {
     using System;
     using System.Globalization;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts.Extensions;
 
     [CLSCompliant(false)]
-    public class ConfigurableDenomination : BaseViewModel
+    public class ConfigurableDenomination : BaseObservableObject
     {
         private bool _enabled;
         private bool _selected;
         private bool _visible;
         private CultureInfo _currentCultureInfo = CurrencyExtensions.CurrencyCultureInfo;
 
-        public ConfigurableDenomination(int denom, ActionCommand<bool> command, bool selected)
+        public ConfigurableDenomination(int denom, RelayCommand<bool> command, bool selected)
         {
             Denom = denom;
             ChangeCommand = command;
@@ -23,7 +25,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
 
         public int Denom { get; }
 
-        public ActionCommand<bool> ChangeCommand { get; }
+        public RelayCommand<bool> ChangeCommand { get; }
 
         public string DisplayValue => Denom.ToString("C0", _currentCultureInfo);
 
@@ -31,7 +33,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
         {
             _currentCultureInfo = cultureInfo ?? CurrencyExtensions.CurrencyCultureInfo;
 
-            RaisePropertyChanged(nameof(DisplayValue));
+            OnPropertyChanged(nameof(DisplayValue));
         }
 
         public bool Enabled
@@ -42,7 +44,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
                 if (_enabled != value)
                 {
                     _enabled = value;
-                    RaisePropertyChanged(nameof(Enabled));
+                    OnPropertyChanged(nameof(Enabled));
                 }
             }
         }
@@ -55,7 +57,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
                 if (_selected != value)
                 {
                     _selected = value;
-                    RaisePropertyChanged(nameof(Selected));
+                    OnPropertyChanged(nameof(Selected));
                     ChangeCommand.Execute(Selected);
                 }
             }
@@ -69,7 +71,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
                 if (_visible != value)
                 {
                     _visible = value;
-                    RaisePropertyChanged(nameof(Visible));
+                    OnPropertyChanged(nameof(Visible));
                 }
             }
         }

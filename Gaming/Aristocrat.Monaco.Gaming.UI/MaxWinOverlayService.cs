@@ -67,7 +67,7 @@
 
         public void Initialize()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     _maxWinDialogViewModel = new MaxWinDialogViewModel();

@@ -37,7 +37,7 @@
                     LineSeries.IsVisible = MetricEnabled;
                 }
 
-                RaisePropertyChanged(nameof(MetricEnabled), nameof(LineSeries));
+                OnPropertyChanged(nameof(MetricEnabled), nameof(LineSeries));
             }
         }
 
@@ -52,7 +52,7 @@
                 }
 
                 SetProperty(ref _lineSeries, value, nameof(LineSeries));
-                RaisePropertyChanged(nameof(LineSeries));
+                OnPropertyChanged(nameof(LineSeries));
             }
         }
 

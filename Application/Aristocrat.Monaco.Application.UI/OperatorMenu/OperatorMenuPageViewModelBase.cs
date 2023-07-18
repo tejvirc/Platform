@@ -11,6 +11,8 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using ConfigWizard;
     using Contracts;
     using Contracts.ConfigWizard;
@@ -47,7 +49,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
     ///     All operator menu page ViewModels should inherit from this base class
     /// </summary>
     [CLSCompliant(false)]
-    public abstract class OperatorMenuPageViewModelBase : ObservableObject, IOperatorMenuPageViewModel, ILiveSettingParent
+    public abstract class OperatorMenuPageViewModelBase : BaseObservableObject, IOperatorMenuPageViewModel, ILiveSettingParent
     {
         private const string PlayedCount = "PlayedCount";
         private const string TestMode = "TestMode";
@@ -56,7 +58,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
         private const int WindowManagerSysCommand = 0x0112;
         private const int SysCommandClose = 0xF060;
         private static readonly object TicketGenerationLock = new object();
-        protected new readonly ILog Logger;
+        protected readonly ILog Logger;
         protected bool DefaultPrintButtonEnabled;
 
         private volatile bool _disposed;
@@ -98,13 +100,13 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
         {
             Logger = LogManager.GetLogger(GetType());
 
-            PrintSelectedButtonCommand = new ActionCommand<object>(_ => Print(OperatorMenuPrintData.SelectedItem));
-            PrintCurrentPageButtonCommand = new ActionCommand<object>(_ => Print(OperatorMenuPrintData.CurrentPage));
-            PrintLast15ButtonCommand = new ActionCommand<object>(_ => Print(OperatorMenuPrintData.Last15));
-            LoadedCommand = new ActionCommand<object>(OnLoaded);
-            UnloadedCommand = new ActionCommand<object>(OnUnloaded);
-            EventViewerScrolledCommand = new ActionCommand<ScrollChangedEventArgs>(OnEventViewerScrolledCommand);
-            ShowInfoPopupCommand = new ActionCommand<object>(ShowInfoPopup);
+            PrintSelectedButtonCommand = new RelayCommand<object>(_ => Print(OperatorMenuPrintData.SelectedItem));
+            PrintCurrentPageButtonCommand = new RelayCommand<object>(_ => Print(OperatorMenuPrintData.CurrentPage));
+            PrintLast15ButtonCommand = new RelayCommand<object>(_ => Print(OperatorMenuPrintData.Last15));
+            LoadedCommand = new RelayCommand<object>(OnLoaded);
+            UnloadedCommand = new RelayCommand<object>(OnUnloaded);
+            EventViewerScrolledCommand = new RelayCommand<ScrollChangedEventArgs>(OnEventViewerScrolledCommand);
+            ShowInfoPopupCommand = new RelayCommand<object>(ShowInfoPopup);
             DefaultPrintButtonEnabled = defaultPrintButtonEnabled;
             UseOperatorCultureForCurrencyFormatting = Configuration?.GetSetting(OperatorMenuSetting.UseOperatorCultureForCurrencyFormatting, false) ?? false;
             SetIgnoreProperties();
@@ -156,10 +158,10 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
                 {
                     _inputEnabled = value;
 
-                    MvvmHelper.ExecuteOnUI(() =>
+                    Execute.OnUIThread(() =>
                     {
                         OnInputEnabledChanged();
-                        RaisePropertyChanged(nameof(InputEnabled), nameof(InputEnabledByRuleOverride), nameof(IsInputEnabled));
+                        OnPropertyChanged(nameof(InputEnabled), nameof(InputEnabledByRuleOverride), nameof(IsInputEnabled));
                     });
                 }
             }
@@ -171,7 +173,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             set
             {
                 _inputStatusText = value;
-                RaisePropertyChanged(nameof(InputStatusText));
+                OnPropertyChanged(nameof(InputStatusText));
                 UpdateStatusText();
             }
         }
@@ -182,7 +184,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             protected set
             {
                 _fieldAccessStatusText = value;
-                RaisePropertyChanged(nameof(FieldAccessStatusText));
+                OnPropertyChanged(nameof(FieldAccessStatusText));
                 UpdateStatusText();
             }
         }
@@ -193,7 +195,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             set
             {
                 _printButtonStatusText = value;
-                RaisePropertyChanged(nameof(PrintButtonStatusText));
+                OnPropertyChanged(nameof(PrintButtonStatusText));
                 UpdateStatusText();
             }
         }
@@ -206,7 +208,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
                 if (_testModeEnabled != value)
                 {
                     _testModeEnabled = value;
-                    RaisePropertyChanged(nameof(TestModeEnabled));
+                    OnPropertyChanged(nameof(TestModeEnabled));
                     OnTestModeEnabledChanged();
 
                     if (_testModeEnabled)
@@ -225,7 +227,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
                 if (_testModeRestriction != value)
                 {
                     _testModeRestriction = value;
-                    RaisePropertyChanged(nameof(TestModeRestriction));
+                    OnPropertyChanged(nameof(TestModeRestriction));
                     UpdateWarningMessage();
                 }
             }
@@ -239,7 +241,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
                 if (_fieldAccessEnabled != value)
                 {
                     _fieldAccessEnabled = value;
-                    RaisePropertyChanged(nameof(FieldAccessEnabled), nameof(InputEnabledByRuleOverride));
+                    OnPropertyChanged(nameof(FieldAccessEnabled), nameof(InputEnabledByRuleOverride));
                     OnFieldAccessEnabledChanged();
                 }
             }
@@ -253,7 +255,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
                 if (_fieldAccessRestriction != value)
                 {
                     _fieldAccessRestriction = value;
-                    RaisePropertyChanged(nameof(FieldAccessRestriction));
+                    OnPropertyChanged(nameof(FieldAccessRestriction));
                     SetFieldAccessRestrictionText();
                     OnFieldAccessRestrictionChange();
                 }
@@ -268,7 +270,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
                 if (_printButtonAccessEnabled != value)
                 {
                     _printButtonAccessEnabled = value;
-                    RaisePropertyChanged(nameof(PrintButtonAccessEnabled),
+                    OnPropertyChanged(nameof(PrintButtonAccessEnabled),
                         nameof(PrinterButtonsEnabled),
                         nameof(MainPrintButtonEnabled));
                     UpdatePrinterButtons();
@@ -290,7 +292,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
                 if (value != _noGamesPlayed)
                 {
                     _noGamesPlayed = value;
-                    RaisePropertyChanged(nameof(NoGamesPlayed));
+                    OnPropertyChanged(nameof(NoGamesPlayed));
                 }
             }
         }
@@ -306,7 +308,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
                 if (_printerButtonsEnabledInternal != value)
                 {
                     _printerButtonsEnabledInternal = value;
-                    RaisePropertyChanged(nameof(MainPrintButtonEnabled), nameof(PrinterButtonsEnabled));
+                    OnPropertyChanged(nameof(MainPrintButtonEnabled), nameof(PrinterButtonsEnabled));
                 }
 
                 UpdatePrinterButtons();
@@ -330,7 +332,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             set
             {
                 _firstVisibleElement = value;
-                RaisePropertyChanged(nameof(FirstVisibleElement));
+                OnPropertyChanged(nameof(FirstVisibleElement));
             }
         }
 
@@ -343,7 +345,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             set
             {
                 _recordsToBePrinted = value;
-                RaisePropertyChanged(nameof(RecordsToBePrinted));
+                OnPropertyChanged(nameof(RecordsToBePrinted));
             }
         }
 
@@ -355,7 +357,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
                 if (_testWarningText != value)
                 {
                     _testWarningText = value;
-                    RaisePropertyChanged(nameof(TestWarningText));
+                    OnPropertyChanged(nameof(TestWarningText));
                 }
             }
         }
@@ -369,7 +371,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             set
             {
                 _isLoadingData = value;
-                RaisePropertyChanged(nameof(IsLoadingData));
+                OnPropertyChanged(nameof(IsLoadingData));
             }
         }
 
@@ -389,7 +391,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
                 if (_pageSupportsMainPrintButton != value)
                 {
                     _pageSupportsMainPrintButton = value;
-                    RaisePropertyChanged(nameof(MainPrintButtonEnabled));
+                    OnPropertyChanged(nameof(MainPrintButtonEnabled));
                 }
             }
         }
@@ -557,7 +559,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
         {
             if (IsLoaded)
             {
-                MvvmHelper.ExecuteOnUI(_UpdateStatusText);
+                Execute.OnUIThread(_UpdateStatusText);
             }
         }
 
@@ -612,7 +614,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
                     _initialized = true;
                 });
 
-            RaisePropertyChanged(nameof(DataEmpty));
+            OnPropertyChanged(nameof(DataEmpty));
         }
 
         protected IEnumerable<T> GetItemsToPrint<T>(ICollection<T> itemsToPrint, OperatorMenuPrintData dataType)
@@ -739,7 +741,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
 
                 if (Application.Current != null)
                 {
-                    MvvmHelper.ExecuteOnUI(OnInputStatusChanged);
+                    Execute.OnUIThread(OnInputStatusChanged);
                 }
             }
 
@@ -865,7 +867,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
 
         protected void OnPrintButtonStatusChanged(PrintButtonStatusEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 PrinterButtonsEnabledInternal = evt.Enabled;
                 SetPrintAccessStatus(evt.Enabled, OperatorMenuAccessRestriction.None);
@@ -1040,7 +1042,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             PrintSelectedButtonVisible = GetGlobalConfigSetting(OperatorMenuSetting.PrintSelected, true);
 
             OnLoaded();
-            RaisePropertyChanged(nameof(DataEmpty));
+            OnPropertyChanged(nameof(DataEmpty));
             EventBus.Publish(new OperatorMenuPageLoadedEvent(this));
             EventBus.Publish(new OperatorMenuPopupEvent(false));
 

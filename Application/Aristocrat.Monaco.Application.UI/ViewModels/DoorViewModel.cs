@@ -1,6 +1,8 @@
 namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.ConfigWizard;
     using Contracts.Localization;
@@ -9,7 +11,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using Monaco.Localization.Properties;
 
     [CLSCompliant(false)]
-    public class DoorViewModel : BaseViewModel
+    public class DoorViewModel : BaseObservableObject
     {
         private readonly object _context = new object();
         private readonly IInspectionService _reporter;

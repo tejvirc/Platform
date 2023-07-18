@@ -14,7 +14,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
     /// <summary>
     ///     Level model class
     /// </summary>
-    public class LevelModel : ObservableObject
+    public class LevelModel : BaseObservableObject
     {
         private decimal _maxValue;
         private decimal _initialValue;
@@ -136,7 +136,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
             set
             {
                 _selectableLevelNames = value;
-                RaisePropertyChanged(nameof(SelectableLevels));
+                OnPropertyChanged(nameof(SelectableLevels));
             }
         }
 
@@ -184,7 +184,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
 
                 AssignedProgressiveInfo = new AssignableProgressiveId(assignableType, value?.AssignmentKey);
                 _selectableLevel = value;
-                RaisePropertyChanged(nameof(SelectableLevel), nameof(CanSave));
+                OnPropertyChanged(nameof(SelectableLevel), nameof(CanSave));
             }
         }
 
@@ -197,7 +197,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
             set
             {
                 _selectableLevelNameTooLong = value;
-                RaisePropertyChanged(nameof(SelectableLevelNameTooLong));
+                OnPropertyChanged(nameof(SelectableLevelNameTooLong));
             }
         }
 
@@ -212,7 +212,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
             set
             {
                 _levelErrors = value;
-                RaisePropertyChanged(nameof(LevelErrors));
+                OnPropertyChanged(nameof(LevelErrors));
             }
         }
 
@@ -225,7 +225,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
             set
             {
                 _incrementRate = value;
-                RaisePropertyChanged(nameof(IncrementRate));
+                OnPropertyChanged(nameof(IncrementRate));
             }
         }
 
@@ -238,7 +238,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
             set
             {
                 _maxValue = value;
-                RaisePropertyChanged(nameof(MaxValue));
+                OnPropertyChanged(nameof(MaxValue));
             }
         }
 
@@ -258,7 +258,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
                     ResetValue.DollarsToMillicents());
                 ClearOrSetError(errors, nameof(InitialValue));
 
-                RaisePropertyChanged(nameof(InitialValue));
+                OnPropertyChanged(nameof(InitialValue));
             }
         }
 
@@ -268,7 +268,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
             set
             {
                 _resetValue = value;
-                RaisePropertyChanged(nameof(ResetValue));
+                OnPropertyChanged(nameof(ResetValue));
             }
         }
 
@@ -281,7 +281,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
             set
             {
                 _currentValue = value;
-                RaisePropertyChanged(nameof(CurrentValue));
+                OnPropertyChanged(nameof(CurrentValue));
             }
         }
 
@@ -294,7 +294,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
             set
             {
                 _overflowValue = value;
-                RaisePropertyChanged(nameof(OverflowValue));
+                OnPropertyChanged(nameof(OverflowValue));
             }
         }
 
@@ -307,7 +307,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
             set
             {
                 _minimumRequiredValue = value;
-                RaisePropertyChanged(nameof(MinimumRequiredValue));
+                OnPropertyChanged(nameof(MinimumRequiredValue));
             }
         }
 
@@ -326,7 +326,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
             set
             {
                 _selectableLevelTypes = value;
-                RaisePropertyChanged(nameof(SelectableLevelTypes));
+                OnPropertyChanged(nameof(SelectableLevelTypes));
             }
         }
 
@@ -342,7 +342,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
 
                 _selectableLevelType = value;
                 LoadSelectableNames();
-                RaisePropertyChanged(nameof(SelectableLevelType), nameof(LevelSelectionEnabled), nameof(CanSave));
+                OnPropertyChanged(nameof(SelectableLevelType), nameof(LevelSelectionEnabled), nameof(CanSave));
             }
         }
 
@@ -353,12 +353,12 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
             if (string.IsNullOrEmpty(errors))
             {
                 ClearErrors(propertyName);
-                RaisePropertyChanged(nameof(CanSave));
+                OnPropertyChanged(nameof(CanSave));
             }
             else
             {
                 SetError(propertyName, errors);
-                RaisePropertyChanged(nameof(CanSave));
+                OnPropertyChanged(nameof(CanSave));
             }
         }
 

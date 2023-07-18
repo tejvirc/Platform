@@ -4,7 +4,7 @@ namespace Aristocrat.Monaco.Hhr.UI.Models
     using System.Collections.ObjectModel;
     using System.ComponentModel;
 
-    public class VenueRaceTracksModel : BaseViewModel
+    public class VenueRaceTracksModel : BaseObservableObject
     {
         private bool _raceStarted;
 

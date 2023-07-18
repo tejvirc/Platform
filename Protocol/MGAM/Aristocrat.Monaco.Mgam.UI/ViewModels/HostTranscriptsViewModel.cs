@@ -39,19 +39,19 @@ namespace Aristocrat.Monaco.Mgam.UI.ViewModels
         {
             _transcripts = ServiceManager.GetInstance().GetService<IHostTranscripts>();
 
-            ViewHostTranscriptsCommand = new ActionCommand<object>(ViewHostTranscript, _ => CanViewDetail());
-            CloseDetailCommand = new ActionCommand<object>(CloseHostTranscriptDetail);
+            ViewHostTranscriptsCommand = new RelayCommand<object>(ViewHostTranscript, _ => CanViewDetail());
+            CloseDetailCommand = new RelayCommand<object>(CloseHostTranscriptDetail);
         }
 
         /// <summary>
         ///     Gets the command that fires when page unloaded.
         /// </summary>
-        public ActionCommand<object> ViewHostTranscriptsCommand { get; }
+        public RelayCommand<object> ViewHostTranscriptsCommand { get; }
 
         /// <summary>
         ///     Gets the command that fires when page unloaded.
         /// </summary>
-        public ActionCommand<object> CloseDetailCommand { get; }
+        public RelayCommand<object> CloseDetailCommand { get; }
 
         /// <summary>
         ///     Gets messages sent to and from the server.
@@ -86,7 +86,7 @@ namespace Aristocrat.Monaco.Mgam.UI.ViewModels
                     }
 
                     EnableViewHostTranscripts = SelectedHostTranscript != null;
-                    RaisePropertyChanged(nameof(SelectedHostTranscript));
+                    OnPropertyChanged(nameof(SelectedHostTranscript));
                 }
             }
         }
@@ -122,7 +122,7 @@ namespace Aristocrat.Monaco.Mgam.UI.ViewModels
                 if (_selectedText != value)
                 {
                     _selectedText = value;
-                    RaisePropertyChanged(nameof(SelectedHostTranscriptText));
+                    OnPropertyChanged(nameof(SelectedHostTranscriptText));
                 }
             }
         }
@@ -182,7 +182,7 @@ namespace Aristocrat.Monaco.Mgam.UI.ViewModels
                             Observer.Create<RegisteredInstance>(
                                 instance =>
                                 {
-                                    MvvmHelper.ExecuteOnUI(
+                                    Execute.OnUIThread(
                                         () =>
                                         {
                                             RegisteredInstances.Clear();
@@ -191,7 +191,7 @@ namespace Aristocrat.Monaco.Mgam.UI.ViewModels
                                 },
                                 error =>
                                 {
-                                    MvvmHelper.ExecuteOnUI(
+                                    Execute.OnUIThread(
                                         () => { SetError(nameof(RegisteredInstances), string.Empty); });
                                 })));
 
@@ -203,10 +203,10 @@ namespace Aristocrat.Monaco.Mgam.UI.ViewModels
                     _subscriptions.Add(
                         _transcripts.Subscribe(
                             Observer.Create<RoutedMessage>(
-                                messages => { MvvmHelper.ExecuteOnUI(() => Populate(messages)); },
+                                messages => { Execute.OnUIThread(() => Populate(messages)); },
                                 error =>
                                 {
-                                    MvvmHelper.ExecuteOnUI(
+                                    Execute.OnUIThread(
                                         () => { SetError(nameof(Messages), string.Empty); });
                                 })));
                 }

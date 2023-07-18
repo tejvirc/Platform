@@ -11,13 +11,14 @@
     using Barkeeper;
     using Contracts.Barkeeper;
     using Localization.Properties;
-    using CommunityToolkit.Mvvm.ComponentModel;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using Newtonsoft.Json;
 
     /// <summary>
     ///     Barkeeper settings.
     /// </summary>
-    internal class BarkeeperSettings : ObservableObject, IBarkeeperSettings
+    internal class BarkeeperSettings : BaseObservableObject, IBarkeeperSettings
     {
         private bool _enabled;
         private RewardLevel _cashInRewardLevel;

@@ -84,7 +84,7 @@
                 OnChanged = setting =>
                 {
                     ValidateDeviceName(true);
-                    RaisePropertyChanged(setting.Name);
+                    OnPropertyChanged(setting.Name);
                 }
             };
         }
@@ -113,7 +113,7 @@
                 if (_printIdentityTicket != value)
                 {
                     _printIdentityTicket = value;
-                    RaisePropertyChanged(nameof(PrintIdentityTicket));
+                    OnPropertyChanged(nameof(PrintIdentityTicket));
                 }
             }
         }
@@ -130,7 +130,7 @@
                 if (_printTicketEnabled != value)
                 {
                     _printTicketEnabled = value;
-                    RaisePropertyChanged(nameof(PrintTicketEnabled));
+                    OnPropertyChanged(nameof(PrintTicketEnabled));
                 }
             }
         }
@@ -293,7 +293,7 @@
 
         protected virtual void LoadVariableData()
         {
-            if (!InDesigner)
+            if (!Execute.InDesigner)
             {
                 UpdateLiveSetting(nameof(SerialNumber));
                 UpdateLiveSetting(nameof(AssetNumber));
@@ -442,12 +442,12 @@
             setting.ValidationErrors = markField ? new[] { error } : null;
             ClearErrors(name);
             SetError(name, error);
-            RaisePropertyChanged(name);
+            OnPropertyChanged(name);
         }
 
-        protected override void RaisePropertyChanged(string propertyName)
+        protected override void OnPropertyChanged(string propertyName)
         {
-            base.RaisePropertyChanged(propertyName);
+            base.OnPropertyChanged(propertyName);
 
             if (WizardNavigator != null)
             {

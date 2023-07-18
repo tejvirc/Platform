@@ -1,11 +1,12 @@
 ﻿namespace Aristocrat.Monaco.Hhr.UI.Settings
 {
-    using CommunityToolkit.Mvvm.ComponentModel;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
 
     /// <summary>
     ///     Machine settings.
     /// </summary>
-    public class MachineSettings : ObservableObject
+    public class MachineSettings : BaseObservableObject
     {
         private string _centralServerIpAddress;
         private int _centralServerTcpPortNumber;

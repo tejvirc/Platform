@@ -29,7 +29,7 @@
                 IsAlphaNumeric = true,
                 OnChanged = _ =>
                 {
-                    RaisePropertyChanged(nameof(SerialNumberWarningEnabled));
+                    OnPropertyChanged(nameof(SerialNumberWarningEnabled));
                     SetWarningText();
                     ValidateSerialNumber();
                 },
@@ -46,7 +46,7 @@
                         : value,
                 OnChanged = _ =>
                 {
-                    RaisePropertyChanged(nameof(AssetNumberWarningEnabled));
+                    OnPropertyChanged(nameof(AssetNumberWarningEnabled));
                     SetWarningText();
                     ValidateAssetNumber();
                 },
@@ -103,7 +103,7 @@
             setting.ValidationErrors = new[] { error };
             ClearErrors(name);
             SetError(name, error);
-            RaisePropertyChanged(name);
+            OnPropertyChanged(name);
         }
 
         protected override void SaveChanges()

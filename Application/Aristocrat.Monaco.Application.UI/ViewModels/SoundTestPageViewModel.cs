@@ -19,6 +19,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using log4net;
     using Monaco.UI.Common;
     using Monaco.UI.Common.Extensions;
+    using CommunityToolkit.Mvvm.Input;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
 
     [CLSCompliant(false)]
     public class SoundTestPageViewModel : INotifyPropertyChanged
@@ -73,27 +75,27 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
             bool enablePlay = IsAudioServiceAvailable && !IsPlaying && !IsAudioDisabled;
 
-            StopCommand = new ActionCommand<object>(_ => StopSound(),
+            StopCommand = new RelayCommand<object>(_ => StopSound(),
                 _ => IsAudioServiceAvailable && !IsAudioDisabled && IsPlaying);
 
-            PlayCommand = new ActionCommand<object>(_ => PlaySound(),
+            PlayCommand = new RelayCommand<object>(_ => PlaySound(),
                 _ => IsAudioServiceAvailable && !IsPlaying && !IsAudioDisabled);
 
-            PlayCommandOnFrontLeftSpeaker = new ActionCommand<object>(PlaySoundOnFrontLeftSpeaker, _ => enablePlay);
+            PlayCommandOnFrontLeftSpeaker = new RelayCommand<object>(PlaySoundOnFrontLeftSpeaker, _ => enablePlay);
 
-            PlayCommandOnCenterSpeaker = new ActionCommand<object>(PlaySoundOnCenterSpeaker, _ => enablePlay);
+            PlayCommandOnCenterSpeaker = new RelayCommand<object>(PlaySoundOnCenterSpeaker, _ => enablePlay);
 
-            PlayCommandOnFrontRightSpeaker = new ActionCommand<object>(PlaySoundOnFrontRightSpeaker, _ => enablePlay);
+            PlayCommandOnFrontRightSpeaker = new RelayCommand<object>(PlaySoundOnFrontRightSpeaker, _ => enablePlay);
 
-            PlayCommandOnSideLeftSpeaker = new ActionCommand<object>(PlaySoundOnSideLeftSpeaker, _ => enablePlay);
+            PlayCommandOnSideLeftSpeaker = new RelayCommand<object>(PlaySoundOnSideLeftSpeaker, _ => enablePlay);
 
-            PlayCommandOnSideRightSpeaker = new ActionCommand<object>(PlaySoundOnSideRightSpeaker, _ => enablePlay);
+            PlayCommandOnSideRightSpeaker = new RelayCommand<object>(PlaySoundOnSideRightSpeaker, _ => enablePlay);
 
-            PlayCommandOnLowFrequencySpeaker = new ActionCommand<object>(PlaySoundOnLowFrequencySpeaker, _ => enablePlay);
+            PlayCommandOnLowFrequencySpeaker = new RelayCommand<object>(PlaySoundOnLowFrequencySpeaker, _ => enablePlay);
 
-            PlayCommandOnRearLeftSpeaker = new ActionCommand<object>(PlaySoundOnRearLeftSpeaker, _ => enablePlay);
+            PlayCommandOnRearLeftSpeaker = new RelayCommand<object>(PlaySoundOnRearLeftSpeaker, _ => enablePlay);
 
-            PlayCommandOnRearRightSpeaker = new ActionCommand<object>(PlaySoundOnRearRightSpeaker, _ => enablePlay);
+            PlayCommandOnRearRightSpeaker = new RelayCommand<object>(PlaySoundOnRearRightSpeaker, _ => enablePlay);
         }
 
         public void SetTestReporter(IInspectionService reporter)
@@ -109,25 +111,25 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             OnPropertyChanged(nameof(SoundLevel));
         }
 
-        public IActionCommand PlayCommand { get; }
+        public IRelayCommand PlayCommand { get; }
 
-        public IActionCommand StopCommand { get; }
+        public IRelayCommand StopCommand { get; }
 
-        public IActionCommand PlayCommandOnFrontLeftSpeaker { get; }
+        public IRelayCommand PlayCommandOnFrontLeftSpeaker { get; }
 
-        public IActionCommand PlayCommandOnCenterSpeaker { get; }
+        public IRelayCommand PlayCommandOnCenterSpeaker { get; }
 
-        public IActionCommand PlayCommandOnFrontRightSpeaker { get; }
+        public IRelayCommand PlayCommandOnFrontRightSpeaker { get; }
 
-        public IActionCommand PlayCommandOnSideLeftSpeaker { get; }
+        public IRelayCommand PlayCommandOnSideLeftSpeaker { get; }
 
-        public IActionCommand PlayCommandOnSideRightSpeaker { get; }
+        public IRelayCommand PlayCommandOnSideRightSpeaker { get; }
 
-        public IActionCommand PlayCommandOnLowFrequencySpeaker { get; }
+        public IRelayCommand PlayCommandOnLowFrequencySpeaker { get; }
 
-        public IActionCommand PlayCommandOnRearLeftSpeaker { get; }
+        public IRelayCommand PlayCommandOnRearLeftSpeaker { get; }
 
-        public IActionCommand PlayCommandOnRearRightSpeaker { get; }
+        public IRelayCommand PlayCommandOnRearRightSpeaker { get; }
 
         public bool TestMode
         {
@@ -156,8 +158,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
 
                 SetProperty(ref _isPlaying, value, nameof(IsPlaying));
-                PlayCommand?.RaiseCanExecuteChanged();
-                StopCommand?.RaiseCanExecuteChanged();
+                PlayCommand?.NotifyCanExecuteChanged();
+                StopCommand?.NotifyCanExecuteChanged();
             }
         }
 
@@ -173,8 +175,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
 
                 SetProperty(ref _isAudioDisabled, value, nameof(IsAudioDisabled));
-                PlayCommand?.RaiseCanExecuteChanged();
-                StopCommand?.RaiseCanExecuteChanged();
+                PlayCommand?.NotifyCanExecuteChanged();
+                StopCommand?.NotifyCanExecuteChanged();
             }
         }
 
@@ -466,11 +468,11 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         private void OnPlayEnded(object sender, EventArgs eventArgs)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 _playingTimer.Stop();
                 IsPlaying = false;
-                StopCommand?.RaiseCanExecuteChanged();
+                StopCommand?.NotifyCanExecuteChanged();
             });
         }
 
@@ -515,7 +517,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         private void OnPlayingTimerTick(object sender, EventArgs args)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 if (!IsAudioServiceAvailable)
                 {
@@ -547,7 +549,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         private void OnEnabledEvent(IEvent theEvent)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 IsAudioDisabled = true;
             });
@@ -555,7 +557,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         private void OnDisabledEvent(IEvent theEvent)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 IsPlaying = false;
                 IsAudioDisabled = true;

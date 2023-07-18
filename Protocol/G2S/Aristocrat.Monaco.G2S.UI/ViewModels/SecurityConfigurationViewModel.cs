@@ -84,7 +84,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         /// </summary>
         public SecurityConfigurationViewModel(bool isWizardPage) : base(isWizardPage)
         {
-            GetThumbprintCommand = new ActionCommand<object>(
+            GetThumbprintCommand = new RelayCommand<object>(
                 _ =>
                 {
                     if (!PropertyHasErrors(nameof(CertificateManagerLocation)))
@@ -96,9 +96,9 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 },
                 _ => CanSeeThumbPrint());
 
-            EnrollCertificateCommand = new ActionCommand<object>(Enroll, _ => CanEnroll());
+            EnrollCertificateCommand = new RelayCommand<object>(Enroll, _ => CanEnroll());
 
-            ClosePopupCommand = new ActionCommand<object>(
+            ClosePopupCommand = new RelayCommand<object>(
                 _ =>
                 {
                     ShowThumbprint = false;
@@ -106,7 +106,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                     TabsActive = true;
                     ShowInvalidCertStatusLocation = false;
                 });
-            CancelRequestCommand = new ActionCommand<object>(
+            CancelRequestCommand = new RelayCommand<object>(
                 _ =>
                 {
                     _countDownTimer?.Stop();
@@ -115,7 +115,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 },
                 _ => !Enrolled);
 
-            TestCertificateStatusCommand = new ActionCommand<object>(TestOcsp, _ => CanTestOcsp());
+            TestCertificateStatusCommand = new RelayCommand<object>(TestOcsp, _ => CanTestOcsp());
 
             _countDownTimer = new DispatcherTimerAdapter(DispatcherPriority.Render)
             {
@@ -156,17 +156,17 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         /// <summary>
         ///     Gets or sets action command that displays CA Certificate Thumbprint.
         /// </summary>
-        public ActionCommand<object> GetThumbprintCommand { get; set; }
+        public RelayCommand<object> GetThumbprintCommand { get; set; }
 
         /// <summary>
         ///     Gets or sets action command that start enrollment for new certificate.
         /// </summary>
-        public ActionCommand<object> EnrollCertificateCommand { get; set; }
+        public RelayCommand<object> EnrollCertificateCommand { get; set; }
 
         /// <summary>
         ///     Gets or sets action command that start performing an OCSP status check.
         /// </summary>
-        public ActionCommand<object> TestCertificateStatusCommand { get; set; }
+        public RelayCommand<object> TestCertificateStatusCommand { get; set; }
 
         /// <summary>
         ///     Gets or sets action command that should close popup.
@@ -176,7 +176,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         /// <summary>
         ///     Gets or sets a command that cancels the certificate request
         /// </summary>
-        public ActionCommand<object> CancelRequestCommand { get; set; }
+        public RelayCommand<object> CancelRequestCommand { get; set; }
 
         /// <summary>
         ///     Gets or sets a value indicating whether SCEP is enabled.
@@ -188,8 +188,8 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             set
             {
                 _enrollmentEnabled = value;
-                RaisePropertyChanged(nameof(EnrollmentEnabled));
-                RaisePropertyChanged(nameof(EnrollmentEditEnabled));
+                OnPropertyChanged(nameof(EnrollmentEnabled));
+                OnPropertyChanged(nameof(EnrollmentEditEnabled));
                 if (_enrollmentEnabled)
                 {
                     ValidateAll();
@@ -207,8 +207,8 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                     ScepEnabled = !_certificateService.HasValidCertificate();
                 }
 
-                GetThumbprintCommand.RaiseCanExecuteChanged();
-                EnrollCertificateCommand.RaiseCanExecuteChanged();
+                GetThumbprintCommand.NotifyCanExecuteChanged();
+                EnrollCertificateCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -236,9 +236,9 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             {
                 ValidateCertificateManagerLocation(value);
                 _certificateManagerLocation = value;
-                RaisePropertyChanged(nameof(CertificateManagerLocation));
-                GetThumbprintCommand.RaiseCanExecuteChanged();
-                EnrollCertificateCommand.RaiseCanExecuteChanged();
+                OnPropertyChanged(nameof(CertificateManagerLocation));
+                GetThumbprintCommand.NotifyCanExecuteChanged();
+                EnrollCertificateCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -253,8 +253,8 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             {
                 ValidateTextBoxValue(nameof(PreSharedSecret), value);
                 _preSharedSecret = value;
-                RaisePropertyChanged(nameof(PreSharedSecret));
-                EnrollCertificateCommand.RaiseCanExecuteChanged();
+                OnPropertyChanged(nameof(PreSharedSecret));
+                EnrollCertificateCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -269,8 +269,8 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             {
                 ValidateTextBoxValue(nameof(Identity), value);
                 _identity = value;
-                RaisePropertyChanged(nameof(Identity));
-                EnrollCertificateCommand.RaiseCanExecuteChanged();
+                OnPropertyChanged(nameof(Identity));
+                EnrollCertificateCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -285,8 +285,8 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             {
                 ValidateTextBoxValue(nameof(UserName), value);
                 _userName = value;
-                RaisePropertyChanged(nameof(UserName));
-                EnrollCertificateCommand.RaiseCanExecuteChanged();
+                OnPropertyChanged(nameof(UserName));
+                EnrollCertificateCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -300,8 +300,8 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             set
             {
                 _keySize = value;
-                RaisePropertyChanged(nameof(KeySize));
-                EnrollCertificateCommand.RaiseCanExecuteChanged();
+                OnPropertyChanged(nameof(KeySize));
+                EnrollCertificateCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -316,11 +316,11 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             {
                 ValidateManualPollingInterval(value);
                 _manualPollingInterval = value;
-                RaisePropertyChanged(nameof(ManualPollingInterval));
+                OnPropertyChanged(nameof(ManualPollingInterval));
                 // if we do not have a valid cert enable Enroll command
                 if (!_certificateService.HasValidCertificate())
                 {
-                    EnrollCertificateCommand.RaiseCanExecuteChanged();
+                    EnrollCertificateCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -336,8 +336,8 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             {
                 _renewalEnabled = value;
                 ValidateCertificateStatusLocation(CertificateStatusLocation);
-                RaisePropertyChanged(nameof(RenewalEnabled));
-                TestCertificateStatusCommand.RaiseCanExecuteChanged();
+                OnPropertyChanged(nameof(RenewalEnabled));
+                TestCertificateStatusCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -352,8 +352,8 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             {
                 ValidateCertificateStatusLocation(value);
                 _certificateStatusLocation = value;
-                RaisePropertyChanged(nameof(CertificateStatusLocation));
-                TestCertificateStatusCommand.RaiseCanExecuteChanged();
+                OnPropertyChanged(nameof(CertificateStatusLocation));
+                TestCertificateStatusCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -368,8 +368,8 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             {
                 ValidateOfflinePeriod(value);
                 _offlinePeriod = value;
-                RaisePropertyChanged(nameof(OfflinePeriod));
-                TestCertificateStatusCommand.RaiseCanExecuteChanged();
+                OnPropertyChanged(nameof(OfflinePeriod));
+                TestCertificateStatusCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -384,8 +384,8 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             {
                 ValidateReAuthenticatedPeriod(value);
                 _reAuthenticatedPeriod = value;
-                RaisePropertyChanged(nameof(ReAuthenticatedPeriod));
-                TestCertificateStatusCommand.RaiseCanExecuteChanged();
+                OnPropertyChanged(nameof(ReAuthenticatedPeriod));
+                TestCertificateStatusCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -400,8 +400,8 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             {
                 ValidateAcceptPreviouslyGoodCertificatePeriod(value);
                 _acceptPreviouslyGoodCertificatePeriod = value;
-                RaisePropertyChanged(nameof(AcceptPreviouslyGoodCertificatePeriod));
-                TestCertificateStatusCommand.RaiseCanExecuteChanged();
+                OnPropertyChanged(nameof(AcceptPreviouslyGoodCertificatePeriod));
+                TestCertificateStatusCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -415,7 +415,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             set
             {
                 _showInvalidServerResponse = value;
-                RaisePropertyChanged(nameof(ShowInvalidServerResponse));
+                OnPropertyChanged(nameof(ShowInvalidServerResponse));
             }
         }
 
@@ -429,7 +429,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             set
             {
                 _showThumbprint = value;
-                RaisePropertyChanged(nameof(ShowThumbprint));
+                OnPropertyChanged(nameof(ShowThumbprint));
             }
         }
 
@@ -444,7 +444,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 if (_showInvalidCertStatusLocation != value)
                 {
                     _showInvalidCertStatusLocation = value;
-                    RaisePropertyChanged((nameof(ShowInvalidCertStatusLocation)));
+                    OnPropertyChanged((nameof(ShowInvalidCertStatusLocation)));
                 }
             }
         }
@@ -459,7 +459,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             set
             {
                 _thumbprint = value;
-                RaisePropertyChanged(nameof(Thumbprint));
+                OnPropertyChanged(nameof(Thumbprint));
             }
         }
 
@@ -473,9 +473,9 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             set
             {
                 _enrolled = value;
-                RaisePropertyChanged(nameof(Enrolled));
-                CancelRequestCommand.RaiseCanExecuteChanged();
-                RaisePropertyChanged(nameof(EnrollmentEditEnabled));
+                OnPropertyChanged(nameof(Enrolled));
+                CancelRequestCommand.NotifyCanExecuteChanged();
+                OnPropertyChanged(nameof(EnrollmentEditEnabled));
             }
         }
 
@@ -489,7 +489,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             set
             {
                 _showSCEPRequestStatus = value;
-                RaisePropertyChanged(nameof(ShowSCEPRequestStatus));
+                OnPropertyChanged(nameof(ShowSCEPRequestStatus));
             }
         }
 
@@ -500,7 +500,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             set
             {
                 _showOCSPRequestStatus = value;
-                RaisePropertyChanged(nameof(ShowOSCPRequestStatus));
+                OnPropertyChanged(nameof(ShowOSCPRequestStatus));
             }
         }
 
@@ -514,7 +514,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             set
             {
                 _tabsActive = value;
-                RaisePropertyChanged(nameof(TabsActive));
+                OnPropertyChanged(nameof(TabsActive));
             }
         }
 
@@ -528,7 +528,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             set
             {
                 _requestStatus = value;
-                RaisePropertyChanged(nameof(RequestStatus));
+                OnPropertyChanged(nameof(RequestStatus));
             }
         }
 
@@ -542,7 +542,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             set
             {
                 _noncesEnabled = value;
-                RaisePropertyChanged(nameof(NoncesEnabled));
+                OnPropertyChanged(nameof(NoncesEnabled));
             }
         }
 
@@ -556,7 +556,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             set
             {
                 _validateDomain = value;
-                RaisePropertyChanged(nameof(ValidateDomain));
+                OnPropertyChanged(nameof(ValidateDomain));
             }
         }
 
@@ -569,7 +569,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 if (_requestButtonCaption != value)
                 {
                     _requestButtonCaption = value;
-                    RaisePropertyChanged(nameof(RequestButtonCaption));
+                    OnPropertyChanged(nameof(RequestButtonCaption));
                 }
             }
         }
@@ -583,10 +583,10 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 if (_scepEnabled != value)
                 {
                     _scepEnabled = value;
-                    RaisePropertyChanged(nameof(ScepEnabled));
-                    EnrollCertificateCommand.RaiseCanExecuteChanged();
-                    GetThumbprintCommand.RaiseCanExecuteChanged();
-                    RaisePropertyChanged(nameof(EnrollmentEditEnabled));
+                    OnPropertyChanged(nameof(ScepEnabled));
+                    EnrollCertificateCommand.NotifyCanExecuteChanged();
+                    GetThumbprintCommand.NotifyCanExecuteChanged();
+                    OnPropertyChanged(nameof(EnrollmentEditEnabled));
                 }
             }
         }
@@ -600,7 +600,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 if (_ocspTestPassed != value)
                 {
                     _ocspTestPassed = value;
-                    RaisePropertyChanged(nameof(OcspTestPassed));
+                    OnPropertyChanged(nameof(OcspTestPassed));
                 }
             }
         }
@@ -688,9 +688,9 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         }
 
         /// <inheritdoc />
-        protected override void RaisePropertyChanged(string propertyName)
+        protected override void OnPropertyChanged(string propertyName)
         {
-            base.RaisePropertyChanged(propertyName);
+            base.OnPropertyChanged(propertyName);
 
             if (propertyName != nameof(Committed))
             {
@@ -735,7 +735,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 return;
             }
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     RequestStatus = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SecurityConfiguration_CertificateRequestStatus_Requesting);
@@ -795,7 +795,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
 
         private void TestOcsp(object parameter)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     RequestStatus = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SecurityConfiguration_OcspResponderTest_Contacting);
@@ -923,7 +923,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
 
         private void UpdateNavigation()
         {
-            if (InDesigner)
+            if (Execute.InDesigner)
             {
                 return;
             }
@@ -1050,7 +1050,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
 
             _countDownTimer?.Stop();
 
-            MvvmHelper.ExecuteOnUI(() => RequestStatus = ToRequestStatus(result.Status));
+            Execute.OnUIThread(() => RequestStatus = ToRequestStatus(result.Status));
             //RequestStatus = ToRequestStatus(result.Status);
 
             switch (result.Status)
@@ -1118,7 +1118,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                     break;
             }
 
-            EnrollCertificateCommand.RaiseCanExecuteChanged();
+            EnrollCertificateCommand.NotifyCanExecuteChanged();
 
             EventBus.Publish(new CertificateStatusUpdatedEvent(result.Status));
         }
@@ -1129,7 +1129,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             if (result.Result)
             {
                 Logger.Error("OCSP test successful.");
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         RequestStatus = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SecurityConfiguration_OcspResponderTest_Success);
@@ -1140,7 +1140,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             else
             {
                 Logger.Error("OCSP test failed: " + result.StatusText);
-                MvvmHelper.ExecuteOnUI(() =>
+                Execute.OnUIThread(() =>
                 {
                     RequestStatus = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SecurityConfiguration_OcspResponderTest_Failure);
                     OcspTestPassed = false;
@@ -1181,7 +1181,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         {
             _timeRemaining -= _countDownTimer.Interval;
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () => RequestStatus = Localizer.For(CultureFor.Operator)
                     .FormatString(ResourceKeys.SecurityConfiguration_PendingCountdown, _timeRemaining));
 
@@ -1190,7 +1190,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
 
         private void UpdateStatusButton()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     RequestButtonCaption = Localizer.For(CultureFor.Operator)

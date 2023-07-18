@@ -34,7 +34,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             : base(null)
         {
             _pageName = pageName;
-            BillClearanceButtonClickedCommand = new ActionCommand<object>(BillClearance_Clicked);
+            BillClearanceButtonClickedCommand = new RelayCommand<object>(BillClearance_Clicked);
             BillClearanceEnabled = (bool)PropertiesManager.GetProperty(AccountingConstants.BillClearanceEnabled, false);
             _billClearanceButtonEnabled = GameIdle;
         }
@@ -49,7 +49,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             set
             {
                 _totalCount = value;
-                RaisePropertyChanged(nameof(TotalCount));
+                OnPropertyChanged(nameof(TotalCount));
             }
         }
 
@@ -59,7 +59,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             set
             {
                 _totalValue = value;
-                RaisePropertyChanged(nameof(TotalValue));
+                OnPropertyChanged(nameof(TotalValue));
             }
         }
 
@@ -70,7 +70,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             set
             {
                 _billClearanceButtonEnabled = value;
-                RaisePropertyChanged(nameof(BillClearanceButtonEnabled));
+                OnPropertyChanged(nameof(BillClearanceButtonEnabled));
             }
         }
 
@@ -80,7 +80,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
         protected override void OnFieldAccessEnabledChanged()
         {
             if (BillClearanceEnabled)
-                RaisePropertyChanged(nameof(BillClearanceButtonEnabled));
+                OnPropertyChanged(nameof(BillClearanceButtonEnabled));
         }
 
         protected override void OnLoaded()
@@ -189,7 +189,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             }
 
             ClearBillCountPeriodMeters();
-            MvvmHelper.ExecuteOnUI(UpdateMeters);
+            Execute.OnUIThread(UpdateMeters);
         }
 
         private void ClearBillCountPeriodMeters()

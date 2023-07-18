@@ -3,13 +3,15 @@ namespace Aristocrat.Monaco.Application.UI.Input
     using System;
     using System.Windows;
     using System.Windows.Media;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using Cabinet.Contracts;
     using Contracts.Localization;
     using Hardware.Contracts.Touch;
     using Monaco.Localization.Properties;
 
     [CLSCompliant(false)]
-    public class SerialTouchCalibrationViewModel : BaseViewModel
+    public class SerialTouchCalibrationViewModel : BaseObservableObject
     {
         private readonly string _modelName;
         private const double CursorWidthCenterOffset = 40.0;

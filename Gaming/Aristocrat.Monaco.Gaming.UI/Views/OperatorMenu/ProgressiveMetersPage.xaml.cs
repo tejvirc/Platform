@@ -32,7 +32,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu
 
         private void ViewModel_OnCultureChange(object sender, System.EventArgs e)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 SetupMeters(sender as ProgressiveMetersPageViewModel);
             });

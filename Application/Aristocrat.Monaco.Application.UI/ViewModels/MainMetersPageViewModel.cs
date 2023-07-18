@@ -24,11 +24,11 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         public MainMetersPageViewModel() : base(MeterNodePage.MainPage)
         {
-            ClearPeriodCommand = new ActionCommand<object>(ClearPeriod_Clicked);
+            ClearPeriodCommand = new RelayCommand<object>(ClearPeriod_Clicked);
 
-            PrintVerificationButtonClickedCommand = new ActionCommand<object>(_ => Print(OperatorMenuPrintData.Custom2));
-            PrintPeriodicResetButtonClickedCommand = new ActionCommand<object>(_ => Print(OperatorMenuPrintData.Custom1));
-            PrintAuditTicketButtonClickedCommand = new ActionCommand<object>(_ => Print(OperatorMenuPrintData.Custom3));
+            PrintVerificationButtonClickedCommand = new RelayCommand<object>(_ => Print(OperatorMenuPrintData.Custom2));
+            PrintPeriodicResetButtonClickedCommand = new RelayCommand<object>(_ => Print(OperatorMenuPrintData.Custom1));
+            PrintAuditTicketButtonClickedCommand = new RelayCommand<object>(_ => Print(OperatorMenuPrintData.Custom3));
 
             PrintVerificationButtonIsVisible = GetConfigSetting(OperatorMenuSetting.MainButtonPrintVerificationVisible, true);
             PrintAuditTicketButtonIsVisible = GetConfigSetting(OperatorMenuSetting.MainButtonPrintAuditTicketVisible, false);
@@ -52,7 +52,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _periodWarningText = value;
-                RaisePropertyChanged(nameof(PeriodWarningText));
+                OnPropertyChanged(nameof(PeriodWarningText));
                 UpdateStatusText();
             }
         }
@@ -76,7 +76,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _clearButtonEnabled = value;
-                RaisePropertyChanged(nameof(ClearButtonEnabled));
+                OnPropertyChanged(nameof(ClearButtonEnabled));
                 if (ClearPeriodMetersButtonIsVisible)
                 {
                     // Only show the warning text if the button is not enabled and game is not idle, since the button
@@ -102,7 +102,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 Print(OperatorMenuPrintData.Custom1, () =>
                 {
                     serviceManager.GetService<IMeterManager>().ClearAllPeriodMeters();
-                    MvvmHelper.ExecuteOnUI(UpdateUI);
+                    Execute.OnUIThread(UpdateUI);
                 });
             }
         }
@@ -224,7 +224,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         protected override void OnFieldAccessEnabledChanged()
         {
-            RaisePropertyChanged(nameof(ClearButtonEnabled));
+            OnPropertyChanged(nameof(ClearButtonEnabled));
         }
 
         private void UpdateUI()

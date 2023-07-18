@@ -64,7 +64,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         {
             DefaultPrintButtonEnabled = true;
 
-            VisibilityChangedCommand = new ActionCommand<object>(OnVisibilityChanged);
+            VisibilityChangedCommand = new RelayCommand<object>(OnVisibilityChanged);
         }
 
         /// <summary>
@@ -164,7 +164,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (!_displays?.Equals(value) ?? true)
                 {
                     _displays = value;
-                    RaisePropertyChanged(nameof(Displays));
+                    OnPropertyChanged(nameof(Displays));
                 }
             }
         }
@@ -250,8 +250,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         protected override void OnInputEnabledChanged()
         {
-            RaisePropertyChanged(nameof(SerialNumberWarningEnabled));
-            RaisePropertyChanged(nameof(AssetNumberWarningEnabled));
+            OnPropertyChanged(nameof(SerialNumberWarningEnabled));
+            OnPropertyChanged(nameof(AssetNumberWarningEnabled));
             SetWarningText();
         }
 

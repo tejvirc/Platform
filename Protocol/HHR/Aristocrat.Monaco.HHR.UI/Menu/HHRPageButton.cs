@@ -5,7 +5,7 @@
     using System.Runtime.CompilerServices;
     using Aristocrat.MVVM.Command;
 
-    public class HhrPageCommand : ActionCommand<object>, INotifyPropertyChanged
+    public class HhrPageCommand : RelayCommand<object>, INotifyPropertyChanged
     {
         private bool _visibility;
 

@@ -35,7 +35,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             set
             {
                 _watOnTotalCount = value;
-                RaisePropertyChanged(nameof(WatOnTotalCount));
+                OnPropertyChanged(nameof(WatOnTotalCount));
             }
         }
 
@@ -45,7 +45,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             set
             {
                 _watOnTotalValue = value;
-                RaisePropertyChanged(nameof(WatOnTotalValue));
+                OnPropertyChanged(nameof(WatOnTotalValue));
             }
         }
 
@@ -58,7 +58,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             set
             {
                 _watOffTotalCount = value;
-                RaisePropertyChanged(nameof(WatOffTotalCount));
+                OnPropertyChanged(nameof(WatOffTotalCount));
             }
         }
 
@@ -68,7 +68,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             set
             {
                 _watOffTotalValue = value;
-                RaisePropertyChanged(nameof(WatOffTotalValue));
+                OnPropertyChanged(nameof(WatOffTotalValue));
             }
         }
 
@@ -122,13 +122,13 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
 
         protected override void RefreshMeters()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     RemoveMeters();
                     AddMeters();
-                    RaisePropertyChanged(nameof(WatOnMeters));
-                    RaisePropertyChanged(nameof(WatOffMeters));
+                    OnPropertyChanged(nameof(WatOnMeters));
+                    OnPropertyChanged(nameof(WatOffMeters));
                     UpdateMeterTotals();
                 });
         }

@@ -71,7 +71,7 @@ namespace Aristocrat.Monaco.Hhr.UI.Consumers
 
             _eventBus.Subscribe<DisplayConnectionChangedEvent>(this, HandleEvent);
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     Logger.Debug($"Rendering capability tier: {RenderCapability.Tier >> 16}");
@@ -206,7 +206,7 @@ namespace Aristocrat.Monaco.Hhr.UI.Consumers
                 _gamePlayState,
                 _gamePlayEntity);
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     _venueRaceCollection = new VenueRaceCollection(_venueRaceCollectionViewModel);

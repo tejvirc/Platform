@@ -48,7 +48,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
         public override void Reset()
         {
             base.Reset();
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     PreviousResultCollection1.Clear();
@@ -160,8 +160,8 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
                 HhrUiConstants.NumberOfRacesPerRaceSet,
                 HhrUiConstants.NumberOfRacesPerRaceSet * 2,
                 PreviousResultCollection2);
-            RaisePropertyChanged(nameof(WagerLabel1));
-            RaisePropertyChanged(nameof(WagerLabel2));
+            OnPropertyChanged(nameof(WagerLabel1));
+            OnPropertyChanged(nameof(WagerLabel2));
         }
     }
 }

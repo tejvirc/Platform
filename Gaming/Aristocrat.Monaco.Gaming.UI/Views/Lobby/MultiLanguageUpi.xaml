@@ -222,7 +222,7 @@
                       Style="{StaticResource stlFlatToggleButton}"
                       IsChecked="{Binding IsPrimaryLanguageSelected}"
                       controls1:MouseEvents.PreviewMouseDown="{Binding UpiPreviewMouseDownCommand}"
-                      controls1:MouseEvents.MouseDown="{Binding UserInteractionCommand}"
+                      controls1:MouseEvents.MouseDown="{Binding UserInterRelayCommand}"
                       Grid.Column="4"
                       Margin="24 0 38 0"
                       HorizontalAlignment="Center"

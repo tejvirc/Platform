@@ -14,7 +14,8 @@
     using log4net;
     using ManagedBink;
     using Monaco.UI.Common.Extensions;
-    using CommunityToolkit.Mvvm.ComponentModel;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using ViewModels;
     using BitmapImage = System.Windows.Media.Imaging.BitmapImage;
     using Size = System.Windows.Size;
@@ -23,7 +24,7 @@
     ///     Defines the GameInfo class
     /// </summary>
     [CLSCompliant(false)]
-    public class GameInfo : ObservableObject, IGameInfo, IAttractDetails
+    public class GameInfo : BaseObservableObject, IGameInfo, IAttractDetails
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -463,7 +464,7 @@
         public IEnumerable LocaleGraphics { get; set; }
 
         /// <summary>
-        ///     Theme ID of the game.  Not currently displayed anywhere so doesn't need RaisePropertyChanged
+        ///     Theme ID of the game.  Not currently displayed anywhere so doesn't need OnPropertyChanged
         /// </summary>
         public string ThemeId { get; set; }
 

@@ -18,7 +18,7 @@ namespace Aristocrat.Monaco.Hardware.Fake
     using log4net;
     using MonacoReelStatus = Contracts.Reel.ReelStatus;
     using MonacoLightStatus = Contracts.Reel.LightStatus;
-
+    using Aristocrat.Toolkit.Mvvm.Extensions;
 
     public class FakeRelmCommunicator : IRelmCommunicator
     {
@@ -191,7 +191,7 @@ namespace Aristocrat.Monaco.Hardware.Fake
         public bool Close()
         {
             Logger.Debug($"Closing Simulator.");
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 ReelSimWindow?.Close();
             });
@@ -221,7 +221,7 @@ namespace Aristocrat.Monaco.Hardware.Fake
             usedIds.AddRange(usedTitles.ToList().Select(int.Parse).ToList());
             _id = 1 + usedIds.Max();
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
             () =>
             {
                 ReelSimWindow = new ReelSetWindowGS(_id, GamesPath, $"{knownReels} Reel Layout", PackagesPath, new UtilitiesLib.ExtLogger());

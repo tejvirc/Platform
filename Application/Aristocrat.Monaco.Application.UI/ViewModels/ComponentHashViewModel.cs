@@ -1,9 +1,11 @@
 namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using System;
 
     [CLSCompliant(false)]
-    public class ComponentHashViewModel : ObservableObject
+    public class ComponentHashViewModel : BaseObservableObject
     {
         public string ComponentId { get; set; }
 
@@ -12,7 +14,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         public void ChangeHashResult(string value)
         {
             HashResult = value;
-            RaisePropertyChanged(nameof(HashResult));
+            OnPropertyChanged(nameof(HashResult));
         }
     }
 }
