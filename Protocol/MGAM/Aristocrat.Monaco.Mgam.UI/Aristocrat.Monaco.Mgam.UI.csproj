@@ -40,8 +40,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="7.0.1" />
-    <PackageReference Include="Aristocrat.Toolkit.Mvvm.Extensions" Version="0.1.6" />
+    <PackageReference Include="Aristocrat.MVVM" Version="2.0.16" />
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="WPFLocalizeExtension" Version="3.3.1" />
   </ItemGroup>

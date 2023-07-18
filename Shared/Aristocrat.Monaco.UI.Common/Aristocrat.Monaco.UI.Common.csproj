@@ -82,8 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Aristocrat.Cabinet" Version="1.0.22" />
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="7.0.1" />
-    <PackageReference Include="Aristocrat.Toolkit.Mvvm.Extensions" Version="0.1.6" />
+    <PackageReference Include="Aristocrat.MVVM" Version="2.0.16" />
     <PackageReference Include="CefSharp.Wpf" Version="93.1.140" />
     <PackageReference Include="Expression.Blend.Sdk" Version="1.0.2" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="3.8.1" />

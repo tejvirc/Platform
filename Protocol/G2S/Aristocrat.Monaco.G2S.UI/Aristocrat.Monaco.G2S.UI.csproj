@@ -57,8 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Aristocrat.G2S" Version="4.1.35" />
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="7.0.1" />
-    <PackageReference Include="Aristocrat.Toolkit.Mvvm.Extensions" Version="0.1.6" />
+    <PackageReference Include="Aristocrat.MVVM" Version="2.0.16" />
     <PackageReference Include="Expression.Blend.Sdk" Version="1.0.2" />
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="MahApps.Metro" Version="1.6.5" />
