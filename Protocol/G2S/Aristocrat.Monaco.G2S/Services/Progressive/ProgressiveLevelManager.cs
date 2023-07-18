@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading;
     using Application.Contracts;
     using Aristocrat.G2S.Protocol.v21;
     using Gaming.Contracts.Meters;
@@ -14,11 +15,18 @@
     {
         private readonly IProtocolLinkedProgressiveAdapter _protocolLinkedProgressiveAdapter;
         private readonly IProgressiveMeterManager _progressiveMeters;
+        private readonly Dictionary<string, LinkedProgressiveLevel> _pendingUpdates;
+        private readonly Timer _updateTimer;
+        private bool _isTimerRunning = false;
+        private readonly object _lock = new object();
+        private const int FlushInterval = 5; // seconds
 
         public ProgressiveLevelManager(IProtocolLinkedProgressiveAdapter protocolLinkedProgressiveAdapter, IProgressiveMeterManager progressiveMeters)
         {
             _protocolLinkedProgressiveAdapter = protocolLinkedProgressiveAdapter ?? throw new ArgumentNullException(nameof(protocolLinkedProgressiveAdapter));
             _progressiveMeters = progressiveMeters ?? throw new ArgumentNullException(nameof(progressiveMeters));
+            _pendingUpdates = new Dictionary<string, LinkedProgressiveLevel>();
+            _updateTimer = new Timer(FlushPendingUpdates, null, Timeout.Infinite, Timeout.Infinite);
         }
 
         public IEnumerable<simpleMeter> GetProgressiveLevelMeters(int levelDeviceId, params string[] includedMeters)
@@ -37,29 +45,76 @@
                     });
         }
 
-        /// <inheritdoc />
         public LinkedProgressiveLevel UpdateLinkedProgressiveLevels(
-        int progId,
-        int levelId,
-        long valueInCents,
-        long progValueSequence,
-        string progValueText,
-        bool initialize = false)
+            int progId,
+            int levelId,
+            long valueInCents,
+            long progValueSequence,
+            string progValueText,
+            bool initialize = false)
         {
-            var linkedLevel = LinkedProgressiveLevel(progId, levelId, valueInCents, progValueSequence, progValueText);
+            var linkedLevel = CreateLinkedProgressiveLevel(progId, levelId, valueInCents, progValueSequence, progValueText);
 
-            if (!initialize || !_protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevels()
+            lock (_lock)
+            {
+                if (_pendingUpdates.TryGetValue(linkedLevel.LevelName, out var existingUpdate))
+                {
+                    // If an update is already pending for this level, update its values
+                    existingUpdate.Amount = linkedLevel.Amount;
+                    existingUpdate.WagerCredits = linkedLevel.WagerCredits;
+                    existingUpdate.Expiration = linkedLevel.Expiration;
+                    existingUpdate.ProgressiveValueSequence = linkedLevel.ProgressiveValueSequence;
+                    existingUpdate.ProgressiveValueText = linkedLevel.ProgressiveValueText;
+                }
+                else
+                {
+                    // Add the new update to the dictionary
+                    _pendingUpdates[linkedLevel.LevelName] = linkedLevel;
+                }
+
+                // Start the timer for the first cached update
+                if (_pendingUpdates.Count > 0 && !_isTimerRunning)
+                {
+                    _updateTimer.Change(TimeSpan.FromSeconds(FlushInterval), TimeSpan.FromSeconds(FlushInterval));
+                    _isTimerRunning = true;
+                }
+            }
+
+            if (!initialize)
+            {
+                return linkedLevel;
+            }
+
+            if (!_protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevels()
                 .Any(l => l.LevelName.Equals(linkedLevel.LevelName)))
             {
-                _protocolLinkedProgressiveAdapter.UpdateLinkedProgressiveLevels(
-                    new[] { linkedLevel },
-                    ProtocolNames.G2S);
+                FlushPendingUpdates(null);
             }
 
             return linkedLevel;
         }
 
-        private static LinkedProgressiveLevel LinkedProgressiveLevel(
+        private void FlushPendingUpdates(object state)
+        {
+            List<LinkedProgressiveLevel> pendingUpdates;
+
+            lock (_lock)
+            {
+                pendingUpdates = _pendingUpdates.Values.ToList();
+                _pendingUpdates.Clear();
+                _updateTimer.Change(Timeout.Infinite, Timeout.Infinite); // Stop the timer until the next update
+                _isTimerRunning = false;
+            }
+
+            if (pendingUpdates.Count > 0)
+            {
+                _protocolLinkedProgressiveAdapter.UpdateLinkedProgressiveLevels(
+                    pendingUpdates.ToArray(),
+                    ProtocolNames.G2S);
+            }
+        }
+
+        private LinkedProgressiveLevel CreateLinkedProgressiveLevel(
             int progId,
             int levelId,
             long valueInCents,
