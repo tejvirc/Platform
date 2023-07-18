@@ -1,10 +1,10 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.Models
 {
     using System;
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     [CLSCompliant(false)]
-    public class ProtocolSelection : BaseNotify
+    public class ProtocolSelection : ObservableObject
     {
         private bool _selected;
         private bool _enabled;

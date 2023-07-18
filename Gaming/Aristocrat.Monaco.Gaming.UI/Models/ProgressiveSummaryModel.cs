@@ -1,11 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.Models
 {
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <summary>
     ///     Progressive summary model class
     /// </summary>
-    public class ProgressiveSummaryModel : BaseNotify
+    public class ProgressiveSummaryModel : ObservableObject
     {
         private string _progressiveLevel;
         private string _currentValue;

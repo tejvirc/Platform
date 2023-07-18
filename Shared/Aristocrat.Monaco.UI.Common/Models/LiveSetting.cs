@@ -5,12 +5,12 @@
     using System.ComponentModel;
     using System.Linq;
     using Monaco.Common;
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Quartz.Util;
 
     /// <see cref="LiveSetting{TValue}"/>
     [CLSCompliant(false)]
-    public abstract class LiveSetting : BaseNotify
+    public abstract class LiveSetting : ObservableObject
     {
         /// <summary>
         /// Modes for echoing a setting's live value to its edited value.

@@ -3,10 +3,10 @@
     using System;
     using Contracts.Localization;
     using Kernel;
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     [CLSCompliant(false)]
-    public class StatusMessage : BaseNotify
+    public class StatusMessage : ObservableObject
     {
         private readonly DisplayableMessage _displayableMessage;
         private readonly string _resourceKey;

@@ -2,9 +2,9 @@
 {
     using System.Globalization;
     using Aristocrat.Monaco.Gaming.Contracts.Models;
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
-    public class SubTabInfoViewModel : BaseNotify
+    public class SubTabInfoViewModel : ObservableObject
     {
         private bool _isSelected;
         private bool _isVisible;

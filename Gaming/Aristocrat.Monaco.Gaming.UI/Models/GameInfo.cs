@@ -14,7 +14,7 @@
     using log4net;
     using ManagedBink;
     using Monaco.UI.Common.Extensions;
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using ViewModels;
     using BitmapImage = System.Windows.Media.Imaging.BitmapImage;
     using Size = System.Windows.Size;
@@ -23,7 +23,7 @@
     ///     Defines the GameInfo class
     /// </summary>
     [CLSCompliant(false)]
-    public class GameInfo : BaseNotify, IGameInfo, IAttractDetails
+    public class GameInfo : ObservableObject, IGameInfo, IAttractDetails
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 

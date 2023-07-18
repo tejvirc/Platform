@@ -5,7 +5,7 @@
     using System.Collections.ObjectModel;
     using System.Linq;
     using Monaco.Localization.Properties;
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     public class ButtonData
     {
@@ -24,7 +24,7 @@
     }
 
     [CLSCompliant(false)]
-    public class LCDButtonDeckViewModel : BaseNotify
+    public class LCDButtonDeckViewModel : ObservableObject
     {
         private readonly ObservableCollection<ButtonData> _buttonData = new ObservableCollection<ButtonData>
         {

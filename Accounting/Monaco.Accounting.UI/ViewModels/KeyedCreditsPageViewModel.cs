@@ -14,7 +14,7 @@
     using Kernel;
     using Localization.Properties;
     using MVVM.Command;
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     [CLSCompliant(false)]
     public class KeyedCreditsPageViewModel : OperatorMenuPageViewModelBase
@@ -310,7 +310,7 @@
             }
         }
 
-        public class Credit : BaseNotify
+        public class Credit : ObservableObject
         {
             private long _value;
             private string _formattedValue;

@@ -3,12 +3,12 @@
     using System.Collections.ObjectModel;
     using Contracts.SASProperties;
     using Gaming.Contracts;
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <summary>
     ///     SAS machine settings.
     /// </summary>
-    public class MachineSettings : BaseNotify
+    public class MachineSettings : ObservableObject
     {
         private PortAssignmentSetting _portAssignmentSetting;
         private SasFeaturesSettings _sasFeaturesSettings;

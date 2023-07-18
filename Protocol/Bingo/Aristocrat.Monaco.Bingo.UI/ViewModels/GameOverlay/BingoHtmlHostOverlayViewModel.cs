@@ -28,7 +28,7 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
     using Models;
     using Monaco.Common;
     using Monaco.UI.Common.Extensions;
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using OverlayServer;
     using OverlayServer.Attributes;
     using OverlayServer.Data.Bingo;
@@ -37,7 +37,7 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
     using BingoPattern = Common.GameOverlay.BingoPattern;
     using PresentationOverrideTypes = Gaming.Contracts.PresentationOverrideTypes;
 
-    public class BingoHtmlHostOverlayViewModel : BaseNotify, IDisposable
+    public class BingoHtmlHostOverlayViewModel : ObservableObject, IDisposable
     {
         private const string JavascriptCloseEventMessage = "Close";
         private const string JavascriptClickEventMessage = "Click";

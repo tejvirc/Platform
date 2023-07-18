@@ -2,12 +2,12 @@
 {
     using System;
     using Contracts.Operations;
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <summary>
     ///     Contains the settings for operating hours for a particular day.
     /// </summary>
-    internal class OperatingHoursSetting : BaseNotify
+    internal class OperatingHoursSetting : ObservableObject
     {
         private DayOfWeek _day;
         private int _time;

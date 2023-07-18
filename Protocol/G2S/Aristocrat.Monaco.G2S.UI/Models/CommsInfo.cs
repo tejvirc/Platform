@@ -2,14 +2,14 @@
 {
     using Aristocrat.G2S.Protocol.v21;
     using System;
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Monaco.Application.Contracts.Localization;
     using Monaco.Localization.Properties;
 
     /// <summary>
     ///     Comms info model
     /// </summary>
-    public class CommsInfo : BaseNotify
+    public class CommsInfo : ObservableObject
     {
         private Uri _address;
         private int _hostId;

@@ -9,7 +9,7 @@
     using Hardware.EdgeLight.Device;
     using Hardware.EdgeLight.Strips;
     using Kernel;
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using MVVM.ViewModel;
 
     public class EdgeLightSimulatorViewModel : BaseEntityViewModel
@@ -220,7 +220,7 @@
             public List<Led> Leds { get; }
         }
 
-        public class Led : BaseNotify
+        public class Led : ObservableObject
         {
             private Color _color;
             internal Led(Color color)

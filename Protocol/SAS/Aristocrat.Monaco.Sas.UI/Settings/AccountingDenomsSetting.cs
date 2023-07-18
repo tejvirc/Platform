@@ -2,13 +2,13 @@
 {
     using Application.Contracts.Extensions;
     using Contracts.Client;
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Newtonsoft.Json;
 
     /// <summary>
     ///     Contains the settings for accounting denoms.
     /// </summary>
-    public class AccountingDenomsSetting : BaseNotify
+    public class AccountingDenomsSetting : ObservableObject
     {
         private long _host0Denom;
         private long _host1Denom;

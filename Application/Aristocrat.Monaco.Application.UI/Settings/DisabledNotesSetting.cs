@@ -2,13 +2,13 @@
 {
     using Contracts.Extensions;
     using Hardware.Contracts.NoteAcceptor;
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Newtonsoft.Json;
 
     /// <summary>
     ///     Contains the settings for disabled notes.
     /// </summary>
-    internal class DisabledNotesSetting : BaseNotify
+    internal class DisabledNotesSetting : ObservableObject
     {
         private int _denom;
         private string _isoCode;

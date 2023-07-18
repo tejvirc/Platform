@@ -7,10 +7,10 @@
     using Contracts.ConfigWizard;
     using Contracts.Localization;
     using Monaco.Localization.Properties;
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     [CLSCompliant(false)]
-    public class DisplayColorTestsViewModel : BaseNotify
+    public class DisplayColorTestsViewModel : ObservableObject
     {
         private static readonly IReadOnlyCollection<Color> GrayScaleColors =
             Enumerable.Range(0, 32).Select(x => (byte)(x * 8)).Select(x => Color.FromArgb(255, x, x, x)).ToList();

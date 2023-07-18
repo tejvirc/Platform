@@ -3,10 +3,10 @@
     using System;
     using Aristocrat.Monaco.Application.Contracts.Localization;
     using Hardware.Contracts.TowerLight;
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     [CLSCompliant(false)]
-    public class LocalizableFlashState : BaseNotify
+    public class LocalizableFlashState : ObservableObject
     {
         public LocalizableFlashState(FlashState state)
         {

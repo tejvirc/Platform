@@ -3,13 +3,13 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <summary>
     ///     Data to display within <see cref="ViewModels.OperatorMenu.BingoGameHistoryDetailsViewModel"/>;
     ///     contains the ball call, played cards, and winning patterns.
     /// </summary>
-    public class BingoGameRoundModel : BaseNotify
+    public class BingoGameRoundModel : ObservableObject
     {
         private readonly IList<BingoCardModel> _cards;
         

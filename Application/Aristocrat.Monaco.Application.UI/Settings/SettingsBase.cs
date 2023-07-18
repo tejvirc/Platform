@@ -3,13 +3,13 @@
     using System;
     using Contracts.Localization;
     using Kernel;
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <summary>
     ///    Base class for settings models with displayable properties
     /// </summary>
     [CLSCompliant(false)]
-    public abstract class SettingsBase : BaseNotify
+    public abstract class SettingsBase : ObservableObject
     {
         protected SettingsBase()
             : this(ServiceManager.GetInstance().TryGetService<IEventBus>())

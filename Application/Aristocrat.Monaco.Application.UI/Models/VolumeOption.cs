@@ -3,13 +3,13 @@
     using System;
     using Contracts.Localization;
     using Hardware.Contracts.Audio;
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <summary>
     ///     Volume Option that relates a <see cref="VolumeLevel"/> to a localized display string
     /// </summary>
     [CLSCompliant(false)]
-    public class VolumeOption : BaseNotify
+    public class VolumeOption : ObservableObject
     {
         public VolumeOption(VolumeLevel level)
         {

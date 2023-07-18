@@ -1,9 +1,9 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.Models
 {
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using System;
 
-    public class ProgressiveWinModel : BaseNotify
+    public class ProgressiveWinModel : ObservableObject
     {
         private DateTime _winDateTime;
         private string _levelName;
