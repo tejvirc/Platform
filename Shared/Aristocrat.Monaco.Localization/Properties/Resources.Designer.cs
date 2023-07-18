@@ -11840,7 +11840,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Note: You can only import settings to an EGM that ....
+		///   Looks up a localized string similar to Note: You can only export settings to an EGM that ....
 		/// </summary>
 		public static string ExportSettingsNoteText {
 			get {
@@ -23465,7 +23465,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to 1 ?.
+		///   Looks up a localized string similar to 1 ¢.
 		/// </summary>
         /// <remarks>
         /// Monaco.Accounting.Contracts
@@ -48148,7 +48148,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Note: You can only import settings to an EGM that ....
+		///		Looks up a localized string similar to Note: You can only export settings to an EGM that ....
 		/// </summary>
 		public static string ExportSettingsNoteText {
 			get {
@@ -59773,7 +59773,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to 1 ?.
+		///		Looks up a localized string similar to 1 ¢.
 		/// </summary>
         /// <remarks>
         /// Monaco.Accounting.Contracts
@@ -79373,7 +79373,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// </summary>
 		ExportSettingsLabel,
 		/// <summary>
-		///   Looks up a localized string similar to Note: You can only import settings to an EGM that ....
+		///   Looks up a localized string similar to Note: You can only export settings to an EGM that ....
 		/// </summary>
 		ExportSettingsNoteText,
 		/// <summary>
@@ -86003,7 +86003,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		One,
 		/// <summary>
-		///   Looks up a localized string similar to 1 ?.
+		///   Looks up a localized string similar to 1 ¢.
 		/// </summary>
         /// <remarks>
         /// Monaco.Accounting.Contracts
