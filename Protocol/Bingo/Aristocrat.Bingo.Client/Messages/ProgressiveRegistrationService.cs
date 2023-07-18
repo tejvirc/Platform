@@ -53,23 +53,17 @@
             Google.Protobuf.Collections.RepeatedField<ServerApiGateway.ProgressiveGame> games = new ();
             foreach (var progressiveGame in message.Games)
             {
-                // TODO right now the fake progressive service only supports a denom of $1 so don't register all the sub-games
-                if (progressiveGame.GameTitleId == 3002 && progressiveGame.Denomination == 100)
+                var game = new ServerApiGateway.ProgressiveGame
                 {
-                    var game = new ServerApiGateway.ProgressiveGame
-                    {
-                        GameTitleId = progressiveGame.GameTitleId,
-                        Denomination = progressiveGame.Denomination,
-                        MaxBet = progressiveGame.MaxBet
-                    };
+                    GameTitleId = progressiveGame.GameTitleId,
+                    Denomination = progressiveGame.Denomination,
+                    MaxBet = progressiveGame.MaxBet
+                };
 
-                    games.Add(game);
+                games.Add(game);
 
-                    Logger.Debug(
-                        $"Registering progressive game GameTitleId={game.GameTitleId}, Denomination={game.Denomination}, MaxBet={game.MaxBet}");
-                }
+                Logger.Debug($"Registering progressive game GameTitleId={game.GameTitleId}, Denomination={game.Denomination}, MaxBet={game.MaxBet}");
             }
-
 
             var request = new ProgressiveInfoRequest
             {
