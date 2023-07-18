@@ -24,6 +24,7 @@
             Dictionary<string, CultureInfo> currencyList = new Dictionary<string, CultureInfo>();
             try
             {
+                int total = 0, listed = 0; 
                 // go through each culture and region to get the currency code
                 foreach (var culture in CultureInfo.GetCultures(CultureTypes.AllCultures)
                              .Where(c => !string.IsNullOrEmpty(c.Name) && !c.IsNeutralCulture))
@@ -37,8 +38,13 @@
                     if (!string.IsNullOrEmpty(currencyCode) && !currencyList.ContainsKey(currencyCode))
                     {
                         currencyList[currencyCode] = (CultureInfo) culture.Clone();
+                        Console.WriteLine($"Culture:[{culture.Name}];Currency:[{currencyCode}];Region:[{region.Name}]");
+                        listed++;
                     }
+                    total++;
                 }
+
+                Console.WriteLine($"Total cultures selected:[{total}];Listed currencies:[{listed}]");
             }
             catch (Exception e)
             {
