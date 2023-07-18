@@ -1,37 +1,48 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Services;
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
+using Aristocrat.Mgam.Client.Logging;
+using Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay;
+using Aristocrat.Monaco.UI.Common;
 using Hardware.Contracts.Cabinet;
 using Kernel;
 using log4net;
+using ManagedBink;
 using Regions;
 using Toolkit.Mvvm.Extensions;
-using UI.Common;
 using Views;
 
 public class LayoutManager : ILayoutManager
 {
-    private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
-
     private const string StatusWindowName = "StatusWindow";
     private const string ShellWindowName = "PlatformWindow";
 
+    private readonly ILogger<LayoutManager> _logger;
     private readonly IPropertiesManager _properties;
+    private readonly LobbyConfiguration _configuration;
     private readonly IWpfWindowLauncher _windowLauncher;
     private readonly ICabinetDetectionService _cabinetDetection;
     private readonly IRegionManager _regionManager;
 
     private readonly List<Window> _windows = new();
+    private readonly List<ResourceDictionary> _skins = new();
+
+    private Window? _shellWindow;
 
     public LayoutManager(
+        ILogger<LayoutManager> logger,
         IPropertiesManager properties,
+        LobbyConfiguration configuration,
         IWpfWindowLauncher windowLauncher,
         ICabinetDetectionService cabinetDetection,
         IRegionManager regionManager)
     {
+        _logger = logger;
         _properties = properties;
+        _configuration = configuration;
         _windowLauncher = windowLauncher;
         _cabinetDetection = cabinetDetection;
         _regionManager = regionManager;
@@ -42,6 +53,15 @@ public class LayoutManager : ILayoutManager
         Execute.OnUIThread(
             () =>
             {
+                D3D.Init();
+
+                CefHelper.Initialize();
+
+                foreach (var skinFilename in _configuration.SkinFilenames)
+                {
+                    _skins.Add(SkinLoader.Load(skinFilename));
+                }
+
                 _regionManager.RegisterView<LobbyMainView>(RegionNames.Main, ViewNames.Lobby);
                 _regionManager.RegisterView<AttractMainView>(RegionNames.Main, ViewNames.Attract);
                 _regionManager.RegisterView<LoadingMainView>(RegionNames.Main, ViewNames.Loading);
@@ -65,8 +85,10 @@ public class LayoutManager : ILayoutManager
 
                 _windowLauncher.CreateWindow<Shell>(ShellWindowName);
 
-                Logger.Debug("Creating shell windows");
-                var shellWindow = _windowLauncher.GetWindow(ShellWindowName);
+                _logger.LogDebug("Creating shell windows");
+                _shellWindow = _windowLauncher.GetWindow(ShellWindowName);
+
+                _shellWindow.Loaded += OnLoaded;
 
                 //var mainGameWindow = new GameMain { Owner = shellWindow }
                 //    .ShowWithTouch();
@@ -118,6 +140,24 @@ public class LayoutManager : ILayoutManager
                 _regionManager.NavigateToView(RegionNames.Upi, ViewNames.StandardUpi);
                 _regionManager.NavigateToView(RegionNames.ReplayNav, ViewNames.ReplayNav);
             });
+    }
+
+    private void OnLoaded(object sender, RoutedEventArgs e)
+    {
+        if (sender is not Window window)
+        {
+            return;
+        }
+
+        ChangeLanguageSkin(window);
+    }
+
+    private void ChangeLanguageSkin(Window window)
+    {
+        var tmpResource = new ResourceDictionary();
+        tmpResource.MergedDictionaries.Add(_skins.First());
+
+        window.Resources = tmpResource;
     }
 
     public void DestroyWindows()
