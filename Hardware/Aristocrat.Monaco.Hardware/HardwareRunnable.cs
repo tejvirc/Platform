@@ -34,10 +34,6 @@ namespace Aristocrat.Monaco.Hardware
     using EdgeLight.SequenceLib;
     using EdgeLight.Services;
     using EdgeLight.Strips;
-#if !(RETAIL)
-    using Fake;
-#endif
-    using Gds.NoteAcceptor;
     using Kernel;
     using Kernel.Contracts;
     using Kernel.Contracts.Components;
@@ -50,16 +46,13 @@ namespace Aristocrat.Monaco.Hardware
     using NativeTouch;
     using NativeUsb.DeviceWatcher;
     using NativeUsb.Hid;
-    using NoteAcceptor;
     using Properties;
-    using Serial.NoteAcceptor.EBDS;
-    using Serial.NoteAcceptor.ID003;
     using SerialTouch;
     using Services;
     using SimpleInjector;
     using StorageAdapters;
-    using Usb;
     using VHD;
+    using IVirtualDisk = Contracts.VHD.IVirtualDisk;
 
     /// <summary>
     ///     <para>
@@ -343,7 +336,7 @@ namespace Aristocrat.Monaco.Hardware
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IDisplayService>() as IService);
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IAudio>() as IService);
             serviceManager.AddServiceAndInitialize(_container.GetInstance<ISharedMemoryManager>());
-            serviceManager.AddServiceAndInitialize(_container.GetInstance<Contracts.VHD.IVirtualDisk>());
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<IVirtualDisk>());
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IDfuProvider>());
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IPrinterFirmwareInstaller>());
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IOSInstaller>());
@@ -438,7 +431,7 @@ namespace Aristocrat.Monaco.Hardware
             serviceManager.RemoveService(_container.GetInstance<IOSInstaller>());
             serviceManager.RemoveService(_container.GetInstance<IPrinterFirmwareInstaller>());
             serviceManager.RemoveService(_container.GetInstance<IDfuProvider>());
-            serviceManager.RemoveService(_container.GetInstance<Contracts.VHD.IVirtualDisk>());
+            serviceManager.RemoveService(_container.GetInstance<IVirtualDisk>());
             serviceManager.RemoveService(_container.GetInstance<ISharedMemoryManager>());
             serviceManager.RemoveService(_container.GetInstance<IAudio>() as IService);
             serviceManager.RemoveService(_container.GetInstance<IDisplayService>() as IService);
@@ -479,6 +472,7 @@ namespace Aristocrat.Monaco.Hardware
         {
             AddExternalServices(container);
             AddInternalServices(container);
+            container.AddScannableHardwareDeviceTypes();
         }
 
         private void AddExternalServices(Container container)
@@ -537,7 +531,7 @@ namespace Aristocrat.Monaco.Hardware
             container.RegisterSingleton<IAudio, AudioService>();
             container.RegisterSingleton<ISharedMemoryInformation, SharedMemoryInformation>();
             container.RegisterSingleton<ISharedMemoryManager, SharedMemoryManager>();
-            container.RegisterSingleton<Contracts.VHD.IVirtualDisk, VirtualDisk>();
+            container.RegisterSingleton<IVirtualDisk, VirtualDisk>();
             container.RegisterSingleton<IDfuFactory, DfuFactory>();
             container.RegisterSingleton<IDfuProvider, DfuProvider>();
             container.RegisterSingleton<IPrinterFirmwareInstaller, PrinterFirmwareInstaller>();
@@ -552,17 +546,7 @@ namespace Aristocrat.Monaco.Hardware
             var beagleBoneRegistration = Lifestyle.Singleton.CreateRegistration<BeagleBoneControllerService>(container);
             container.Collection.Register<IEdgeLightDevice>(new[] { reelRegistration, beagleBoneRegistration });
 
-            var deviceFactory = new DeviceFactory<INoteAcceptor, INoteAcceptorImplementation, NoteAcceptorAdapter>(container);
-            deviceFactory.RegisterCommunicator<UsbCommunicator>("GDS");
-            deviceFactory.RegisterCommunicator<Id003Protocol>("ID003");
-            deviceFactory.RegisterCommunicator<EbdsProtocol>("EBDS");
-            deviceFactory.RegisterImplementation<NoteAcceptorGds>("GDS");
-            deviceFactory.RegisterImplementation<NoteAcceptorGds>("ID003");
-            deviceFactory.RegisterImplementation<NoteAcceptorGds>("EBDS");
-
 #if !(RETAIL)
-            deviceFactory.RegisterImplementation<FakeNoteAcceptorAdapter>("Fake");
-
             var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
             var simulatedEdgeLightCabinet = propertiesManager.GetValue(
                 HardwareConstants.SimulateEdgeLighting,
@@ -580,8 +564,6 @@ namespace Aristocrat.Monaco.Hardware
 #else
             container.RegisterSingleton<IEdgeLightDeviceFactory, EdgeLightDeviceFactory>();
 #endif
-
-            container.RegisterInstance<IDeviceFactory<INoteAcceptor>>(deviceFactory);
 
             var edgeLightRendererRegistration =
                 Lifestyle.Singleton.CreateRegistration<EdgeLightDataRenderer>(container);

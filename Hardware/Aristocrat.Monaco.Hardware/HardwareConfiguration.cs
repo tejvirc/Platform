@@ -392,6 +392,7 @@
                                     }
                                 }
                             }
+
                             break;
                         case DeviceType.NoteAcceptor:
                             adapter = HandleServiceRegistration<INoteAcceptor>(

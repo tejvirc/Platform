@@ -22,6 +22,6 @@
     <DeviceImplementation ProtocolName="Fake" type="Aristocrat.Monaco.Hardware.Fake.FakeIdReaderAdapter" />
   </Extension>
   <Extension path="/Hardware/ReelController/ReelControllerImplementations">
-    <DeviceImplementation ProtocolName="Fake" type="Aristocrat.Monaco.Hardware.Fake.FakeHarkeyReelController"/>
+    <DeviceImplementation ProtocolName="Fake" type="Aristocrat.Monaco.Hardware.Fake.FakeHarkeyReelController" />
   </Extension>
 </Addin>

@@ -7,6 +7,7 @@
     using System.Reflection;
     using System.Threading.Tasks;
     using Common.Currency;
+    using Contracts;
     using Contracts.Communicator;
     using Contracts.IO;
     using Contracts.NoteAcceptor;
@@ -14,6 +15,7 @@
     using Kernel;
     using log4net;
 
+    [HardwareDevice("Fake", DeviceType.NoteAcceptor)]
     public class FakeNoteAcceptorAdapter : INoteAcceptorImplementation
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);

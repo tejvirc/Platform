@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Reflection;
     using System.Text;
+    using Contracts;
     using Contracts.Gds.NoteAcceptor;
     using Contracts.NoteAcceptor;
     using Contracts.SharedDevice;
@@ -16,28 +17,29 @@
     ///     commands are pending.  Process responses.
     /// </summary>
     [SearchableSerialProtocol(DeviceType.NoteAcceptor)]
+    [HardwareDevice("EBDS", DeviceType.NoteAcceptor)]
     public class EbdsProtocol : SerialNoteAcceptor
     {
+        private const int PollingIntervalMs = 200;
+        private const int ExpectedResponseTime = 50;
+        private const int MaxRetryCount = 2;
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private static readonly IList<EbdsDeviceState> PendingTransactionStates = new List<EbdsDeviceState>
         {
-            EbdsDeviceState.EscrowedState,
-            EbdsDeviceState.Stacking,
-            EbdsDeviceState.Returning
+            EbdsDeviceState.EscrowedState, EbdsDeviceState.Stacking, EbdsDeviceState.Returning
         };
 
-        private const int PollingIntervalMs = 200;
-        private const int ExpectedResponseTime = 50;
-        private const int MaxRetryCount = 2;
-
-        private readonly object _lock = new object();
+        private readonly object _lock = new();
 
         private bool _selfTestInProgress;
         private bool _openReturnPending;
         private EbdsControl _currentAckStatus = EbdsControl.Nack;
         private EbdsDenomSupport _currentDenomSupport = EbdsDenomSupport.All;
-        private OmnibusConfigurations _currentConfigurations = OmnibusConfigurations.Default | OmnibusConfigurations.BarcodeSupport;
+
+        private OmnibusConfigurations _currentConfigurations =
+            OmnibusConfigurations.Default | OmnibusConfigurations.BarcodeSupport;
+
         private EbdsDeviceState _lastState;
         private EbdsDeviceStatus? _lastStatus;
         private OmnibusExceptionalStatus _lastExceptionalStatus;
@@ -139,7 +141,10 @@
                 return;
             }
 
-            FirmwareCrc = ConvertBcd(EbdsProtocolConstants.CrcDigitStartIndex, EbdsProtocolConstants.CrcDigitCount, result);
+            FirmwareCrc = ConvertBcd(
+                EbdsProtocolConstants.CrcDigitStartIndex,
+                EbdsProtocolConstants.CrcDigitCount,
+                result);
         }
 
         protected override void Enable(bool enable)
@@ -148,7 +153,7 @@
             {
                 _currentDenomSupport = enable ? EbdsDenomSupport.All : EbdsDenomSupport.None;
                 _currentConfigurations = enable
-                    ? (OmnibusConfigurations.Default | OmnibusConfigurations.BarcodeSupport)
+                    ? OmnibusConfigurations.Default | OmnibusConfigurations.BarcodeSupport
                     : OmnibusConfigurations.Default;
 
                 if (!enable && _lastState.HasFlag(EbdsDeviceState.EscrowedState) && !_openReturnPending)
@@ -288,6 +293,85 @@
             ConfigureEscrowTimeout(); // Re-send the escrow timeout
         }
 
+        private static int ConvertBcd(int startIndex, int count, IReadOnlyList<byte> data)
+        {
+            const int mask = 0x0F;
+            const int digitShit = 4;
+
+            var result = 0;
+            var bitShift = 0;
+            for (var i = count + startIndex - 1; i >= startIndex; --i)
+            {
+                result += (data[i] & mask) << bitShift;
+                bitShift += digitShit;
+            }
+
+            return result;
+        }
+
+        private static ReadNoteTable ParseNoteTable(byte[] noteData, int startIndex)
+        {
+            const int noteIdIndex = 0;
+            const int isoCodeLength = 3;
+            const int isoCodeIndex = 1;
+            const int baseValueIndex = 4;
+            const int baseValueLength = 3;
+            const int signIndex = 7;
+            const int exponentIndex = 8;
+            const int exponentLength = 2;
+            const int versionIndex = 14;
+            const byte asciiPlus = 0x2B;
+            const byte asciiMinus = 0x2D;
+
+            var valid = Enum.TryParse(
+                Encoding.ASCII.GetString(noteData, isoCodeIndex + startIndex, isoCodeLength),
+                true,
+                out ISOCurrencyCode isoCode);
+            valid &= ushort.TryParse(
+                Encoding.ASCII.GetString(noteData, baseValueIndex + startIndex, baseValueLength),
+                out var baseValue);
+            var isPositive = noteData[signIndex + startIndex] == asciiPlus;
+            valid &= isPositive || noteData[signIndex + startIndex] == asciiMinus;
+            valid &= byte.TryParse(
+                Encoding.ASCII.GetString(noteData, exponentIndex + startIndex, exponentLength),
+                out var exponent);
+            if (!valid)
+            {
+                return null;
+            }
+
+            return new ReadNoteTable
+            {
+                NoteId = noteData[noteIdIndex + startIndex],
+                Currency = Enum.GetName(typeof(ISOCurrencyCode), isoCode),
+                Value = baseValue,
+                Scalar = exponent,
+                Sign = isPositive,
+                Version = noteData[versionIndex + startIndex]
+            };
+        }
+
+        private static (int majorVersion, int minorVersion) ParseVersionRequest(byte[] versionData)
+        {
+            const int majorVersionIndex = 7;
+            const int majorVersionLength = 1;
+            const int minorVersionIndex = 8;
+            const int minorVersionLength = 2;
+            const int versionResponseLength = 10;
+
+            var majorVersion = 0;
+            var minorVersion = 0;
+            var validVersion = versionData?.Length == versionResponseLength &&
+                               int.TryParse(
+                                   Encoding.ASCII.GetString(versionData, majorVersionIndex, majorVersionLength),
+                                   out majorVersion) &&
+                               int.TryParse(
+                                   Encoding.ASCII.GetString(versionData, minorVersionIndex, minorVersionLength),
+                                   out minorVersion);
+
+            return validVersion ? (majorVersion, minorVersion) : (-1, -1);
+        }
+
         private void CheckEscrowTimeout()
         {
             if (_lastState != EbdsDeviceState.EscrowedState || EscrowWatch.ElapsedMilliseconds < DefaultMsInEscrow)
@@ -312,23 +396,10 @@
              * It should always match when this happens.
              */
             return result?.Count == EbdsProtocolConstants.CrcResponseLength &&
-                   FirmwareCrc == ConvertBcd(EbdsProtocolConstants.CrcDigitStartIndex, EbdsProtocolConstants.CrcDigitCount, result);
-        }
-
-        private static int ConvertBcd(int startIndex, int count, IReadOnlyList<byte> data)
-        {
-            const int mask = 0x0F;
-            const int digitShit = 4;
-
-            var result = 0;
-            var bitShift = 0;
-            for (var i = count + startIndex - 1; i >= startIndex; --i)
-            {
-                result += (data[i] & mask) << bitShift;
-                bitShift += digitShit;
-            }
-
-            return result;
+                   FirmwareCrc == ConvertBcd(
+                       EbdsProtocolConstants.CrcDigitStartIndex,
+                       EbdsProtocolConstants.CrcDigitCount,
+                       result);
         }
 
         private bool ParseSelfTestResults(IReadOnlyList<byte> response)
@@ -344,7 +415,7 @@
             var transportResult = (SelfTestTransportMotorResults)response[transportMotorIndex];
             var stackerResult = (SelfTestStackerMotorResults)response[stackerMotorIndex];
             _selfTestInProgress = transportResult == SelfTestTransportMotorResults.ResultsNotReady ||
-                              stackerResult == SelfTestStackerMotorResults.ResultsNotReady;
+                                  stackerResult == SelfTestStackerMotorResults.ResultsNotReady;
             if (!_selfTestInProgress)
             {
                 OnMessageReceived(
@@ -460,7 +531,8 @@
             var deviceStatus = (EbdsDeviceStatus)result[statusIndex + startIndex];
             var exceptionStatus = (OmnibusExceptionalStatus)result[exceptionStatusIndex + startIndex];
             if ((deviceStatus & EbdsDeviceStatus.Paused) != (_lastStatus & EbdsDeviceStatus.Paused) ||
-                (exceptionStatus & OmnibusExceptionalStatus.Failure) != (_lastExceptionalStatus & OmnibusExceptionalStatus.Failure))
+                (exceptionStatus & OmnibusExceptionalStatus.Failure) !=
+                (_lastExceptionalStatus & OmnibusExceptionalStatus.Failure))
             {
                 OnMessageReceived(
                     new FailureStatus
@@ -520,48 +592,6 @@
             _lastStatus = deviceStatus;
         }
 
-        private static ReadNoteTable ParseNoteTable(byte[] noteData, int startIndex)
-        {
-            const int noteIdIndex = 0;
-            const int isoCodeLength = 3;
-            const int isoCodeIndex = 1;
-            const int baseValueIndex = 4;
-            const int baseValueLength = 3;
-            const int signIndex = 7;
-            const int exponentIndex = 8;
-            const int exponentLength = 2;
-            const int versionIndex = 14;
-            const byte asciiPlus = 0x2B;
-            const byte asciiMinus = 0x2D;
-
-            var valid = Enum.TryParse(
-                Encoding.ASCII.GetString(noteData, isoCodeIndex + startIndex, isoCodeLength),
-                true,
-                out ISOCurrencyCode isoCode);
-            valid &= ushort.TryParse(
-                Encoding.ASCII.GetString(noteData, baseValueIndex + startIndex, baseValueLength),
-                out var baseValue);
-            var isPositive = noteData[signIndex + startIndex] == asciiPlus;
-            valid &= isPositive || noteData[signIndex + startIndex] == asciiMinus;
-            valid &= byte.TryParse(
-                Encoding.ASCII.GetString(noteData, exponentIndex + startIndex, exponentLength),
-                out var exponent);
-            if (!valid)
-            {
-                return null;
-            }
-
-            return new ReadNoteTable
-            {
-                NoteId = noteData[noteIdIndex + startIndex],
-                Currency = Enum.GetName(typeof(ISOCurrencyCode), isoCode),
-                Value = baseValue,
-                Scalar = exponent,
-                Sign = isPositive,
-                Version = noteData[versionIndex + startIndex]
-            };
-        }
-
         private bool GetModelInformation()
         {
             const int minResponseLength = 3;
@@ -577,7 +607,10 @@
                 return false;
             }
 
-            var model = Encoding.ASCII.GetString(result, modelIndex, result.Skip(modelIndex).TakeWhile(x => x != 0).Count());
+            var model = Encoding.ASCII.GetString(
+                result,
+                modelIndex,
+                result.Skip(modelIndex).TakeWhile(x => x != 0).Count());
             Model = model;
             Manufacturer = "MEI";
             Protocol = "EBDS";
@@ -601,7 +634,10 @@
                 return false;
             }
 
-            var variantName = Encoding.ASCII.GetString(result, variantIndex, result.Skip(variantIndex).TakeWhile(x => x != 0).Count());
+            var variantName = Encoding.ASCII.GetString(
+                result,
+                variantIndex,
+                result.Skip(variantIndex).TakeWhile(x => x != 0).Count());
             VariantName = variantName;
 
             Logger.Debug($"Received variant name {variantName}");
@@ -645,23 +681,6 @@
             return true;
         }
 
-        private static (int majorVersion, int minorVersion) ParseVersionRequest(byte[] versionData)
-        {
-            const int majorVersionIndex = 7;
-            const int majorVersionLength = 1;
-            const int minorVersionIndex = 8;
-            const int minorVersionLength = 2;
-            const int versionResponseLength = 10;
-
-            var majorVersion = 0;
-            var minorVersion = 0;
-            var validVersion = versionData?.Length == versionResponseLength &&
-                               int.TryParse(Encoding.ASCII.GetString(versionData, majorVersionIndex, majorVersionLength), out majorVersion) &&
-                               int.TryParse(Encoding.ASCII.GetString(versionData, minorVersionIndex, minorVersionLength), out minorVersion);
-
-            return validVersion ? (majorVersion, minorVersion) : (-1, -1);
-        }
-
         private bool GetBootInformation()
         {
             var result = TrySendCommand(
@@ -695,7 +714,10 @@
                 return false;
             }
 
-            var serialNumber = Encoding.ASCII.GetString(result, serialNumberIndex, result.Skip(serialNumberIndex).TakeWhile(x => x != 0).Count());
+            var serialNumber = Encoding.ASCII.GetString(
+                result,
+                serialNumberIndex,
+                result.Skip(serialNumberIndex).TakeWhile(x => x != 0).Count());
             SerialNumber = serialNumber;
             Logger.Debug($"Received the serial number {serialNumber}");
             return true;
@@ -726,7 +748,8 @@
                 var commandData = command.ToArray();
                 var response = SendCommandAndGetResponse(commandData, -1);
                 if (!(response?.Length > EbdsProtocolConstants.DefaultMessageTemplate.GeneralDataIndex) ||
-                    (response[EbdsProtocolConstants.EbdsControlIndex] & (byte)EbdsControl.Ack) != (byte)_currentAckStatus)
+                    (response[EbdsProtocolConstants.EbdsControlIndex] & (byte)EbdsControl.Ack) !=
+                    (byte)_currentAckStatus)
                 {
                     Logger.Debug("The command was NACKed or Ignored by the BNA");
                     return null;

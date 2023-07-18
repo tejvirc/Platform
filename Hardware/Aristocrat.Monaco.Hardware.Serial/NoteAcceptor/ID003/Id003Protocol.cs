@@ -2,9 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Reflection;
     using System.Text;
+    using Contracts;
     using Contracts.Gds.NoteAcceptor;
     using Contracts.NoteAcceptor;
     using Contracts.SharedDevice;
@@ -16,33 +18,52 @@
     ///     commands are pending.  Process responses.
     /// </summary>
     [SearchableSerialProtocol(DeviceType.NoteAcceptor)]
+    [HardwareDevice("ID003", DeviceType.NoteAcceptor)]
     public class Id003Protocol : SerialNoteAcceptor
     {
+        private const byte Sync = 0xFC;
+        private const byte PolledCommMode = 0;
+        private const byte Inhibited = 1;
+        private const byte Uninhibited = 0;
+        private const byte Interleaved2Of5Code = 1;
+        private const byte EnableNotesAndBarcodes = 0xFC;
+        private const byte TicketEscrowCode = 0x6F;
+        private const int BarcodeLengthMinimum = 6;
+        private const int BarcodeLengthMaximum = 18;
+        private const int MaxRetrieveInfoAttempts = 3;
+        private const int PollingFrequency = 150;
+        private const int ExpectedResponseTime = 50;
+        private const int ResponseTimeInInitialization = 500;
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         /// <summary>
         ///     Format for all ID-003 messages:
         ///     [SYNC][Length][Command/Status]{[Data0][Data1]...}[CrcLo][CrcHi]
-        ///
         ///     Where:
         ///     SYNC is 0xFC
         ///     Length is the total message length
-        ///     Command/Status is defined in <see cref="Id003Command"/> and <see cref="Id003Status"/> enums
+        ///     Command/Status is defined in <see cref="Id003Command" /> and <see cref="Id003Status" /> enums
         ///     Data0, Data1, ... are additional data bytes as required (or not) by the command/status
-        ///     CRC is two bytes, lowest first, using algorithm in <see cref="Crc16Ccitt"/>, of all preceding bytes
+        ///     CRC is two bytes, lowest first, using algorithm in <see cref="Crc16Ccitt" />, of all preceding bytes
         /// </summary>
         private static readonly IMessageTemplate Id003DefaultTemplate = new MessageTemplate<Crc16Ccitt>(
-                new List<MessageTemplateElement>
+            new List<MessageTemplateElement>
+            {
+                new()
                 {
-                    new MessageTemplateElement{ ElementType = MessageTemplateElementType.Constant, Length = 1, IncludedInCrc = true, Value = new [] {Sync} },
-                    new MessageTemplateElement{ ElementType = MessageTemplateElementType.FullLength, IncludedInCrc = true, Length = 1 },
-                    new MessageTemplateElement{ ElementType = MessageTemplateElementType.FixedData, IncludedInCrc = true, Length = 1 },
-                    new MessageTemplateElement{ ElementType = MessageTemplateElementType.VariableData, IncludedInCrc = true,  },
-                    new MessageTemplateElement{ ElementType = MessageTemplateElementType.Crc, Length = 2 }
+                    ElementType = MessageTemplateElementType.Constant,
+                    Length = 1,
+                    IncludedInCrc = true,
+                    Value = new[] { Sync }
                 },
-                0);
+                new() { ElementType = MessageTemplateElementType.FullLength, IncludedInCrc = true, Length = 1 },
+                new() { ElementType = MessageTemplateElementType.FixedData, IncludedInCrc = true, Length = 1 },
+                new() { ElementType = MessageTemplateElementType.VariableData, IncludedInCrc = true },
+                new() { ElementType = MessageTemplateElementType.Crc, Length = 2 }
+            },
+            0);
 
-        private static readonly Dictionary<int, ISOCurrencyCode> CountryToIsoCurrencyCodeTable = new Dictionary<int, ISOCurrencyCode>
+        private static readonly Dictionary<int, ISOCurrencyCode> CountryToIsoCurrencyCodeTable = new()
         {
             // The numbers are the "country number" from spec Appendix E
             { 14, ISOCurrencyCode.ARS }, // Argentina
@@ -137,22 +158,10 @@
         };
 
         // Map the device's "escrow codes" to Note ID values
-        private readonly Dictionary<byte, byte> _escrowNoteMap = new Dictionary<byte, byte>();
-        private readonly Stack<Id003StatusError> _currentFaults = new Stack<Id003StatusError>();
+        private readonly Dictionary<byte, byte> _escrowNoteMap = new();
+        private readonly Stack<Id003StatusError> _currentFaults = new();
 
-        private const byte Sync = 0xFC;
-        private const byte PolledCommMode = 0;
-        private const byte Inhibited = 1;
-        private const byte Uninhibited = 0;
-        private const byte Interleaved2Of5Code = 1;
-        private const byte EnableNotesAndBarcodes = 0xFC;
-        private const byte TicketEscrowCode = 0x6F;
-        private const int BarcodeLengthMinimum = 6;
-        private const int BarcodeLengthMaximum = 18;
-        private const int MaxRetrieveInfoAttempts = 3;
-        private const int PollingFrequency = 150;
-        private const int ExpectedResponseTime = 50;
-        private const int ResponseTimeInInitialization = 500;
+        private readonly object _lock = new();
 
         private Id003StatusState _lastState;
         private bool _allowInsertions;
@@ -165,30 +174,31 @@
         private bool _disconnected;
         private bool? _pendingInhibitRequest;
 
-        private readonly object _lock = new object();
-
         /// <summary>
-        ///     Construct the <see cref="Id003Protocol"/>.
+        ///     Construct the <see cref="Id003Protocol" />.
         /// </summary>
-        public Id003Protocol() : base(Id003DefaultTemplate)
+        public Id003Protocol()
+            : base(Id003DefaultTemplate)
         {
             PollIntervalMs = PollingFrequency;
             UseSyncMode = true;
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         public override bool Open()
         {
             EnablePolling(false);
             if (!base.Open())
+            {
                 return false;
+            }
 
             CommunicationTimeoutMs = ResponseTimeInInitialization;
             MinimumResponseTime = ResponseTimeInInitialization;
 
             _initialized = false;
             _deviceConfigured = false;
-            _initialized =  AssureInitialized();
+            _initialized = AssureInitialized();
             Logger.Debug($"Initialized? {_initialized}");
             CommunicationTimeoutMs = ExpectedResponseTime;
             MinimumResponseTime = ExpectedResponseTime;
@@ -210,25 +220,25 @@
             return _initialized;
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         protected override void SelfTest()
         {
             ClearFailures();
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         protected override bool GetDeviceInformation()
         {
             return GetVersionInfo() && GetBootInfo();
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         protected override void CalculateCrc()
         {
             // Done elsewhere.
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         protected override void Enable(bool enable)
         {
             lock (_lock)
@@ -237,23 +247,7 @@
             }
         }
 
-        /// <summary>
-        ///     Allow document insertion or not.
-        /// </summary>
-        /// <param name="allow">True to allow it.</param>
-        protected void AllowInsertion(bool allow)
-        {
-            if (_handlingPowerUp || !_initialized)
-            {
-                // Cache the requests first. 
-                _pendingInhibitRequest = allow;
-            }
-
-            _allowInsertions = allow;
-            SendSetCommand(Id003SetCommand.InhibitAcceptor, new [] { allow ? Uninhibited : Inhibited });
-        }
-
-        /// <inheritdoc/>
+        /// <inheritdoc />
         protected override void Accept()
         {
             lock (_lock)
@@ -265,7 +259,7 @@
             }
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         protected override void Return()
         {
             lock (_lock)
@@ -284,13 +278,13 @@
             }
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         protected override bool RequestStatus()
         {
             lock (_lock)
             {
                 if ((_lastState == Id003StatusState.Escrow || _lastState == Id003StatusState.Holding) &&
-                     EscrowWatch.ElapsedMilliseconds >= DefaultMsInEscrow)
+                    EscrowWatch.ElapsedMilliseconds >= DefaultMsInEscrow)
                 {
                     // didn't hear from host in time, so return.
                     Logger.Debug("Sending a RETURN command due to escrow timeout.");
@@ -368,7 +362,7 @@
                     // Set or clear stacker errors and note/ticket errors
                     if (error == Id003StatusError.StackerFull ||
                         error == Id003StatusError.StackerOpen ||
-						error == Id003StatusError.JamInStacker ||
+                        error == Id003StatusError.JamInStacker ||
                         error == Id003StatusError.JamInAcceptor ||
                         error == Id003StatusError.Cheated)
                     {
@@ -380,11 +374,13 @@
                         error == Id003StatusError.Pause ||
                         error == Id003StatusError.Failure)
                     {
-                        OnMessageReceived(new FailureStatus
-                        {
-                            DiagnosticCode = error == Id003StatusError.Failure || error == Id003StatusError.Pause,
-                            ComponentError = error == Id003StatusError.CommunicationError
-                        });
+                        OnMessageReceived(
+                            new FailureStatus
+                            {
+                                DiagnosticCode =
+                                    error == Id003StatusError.Failure || error == Id003StatusError.Pause,
+                                ComponentError = error == Id003StatusError.CommunicationError
+                            });
                     }
                     else
                     {
@@ -402,7 +398,7 @@
             }
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc />
         protected override void HoldInEscrow()
         {
             // determine if a HOLD command must be sent to keep the note/ticket in escrow.
@@ -416,261 +412,7 @@
             }
         }
 
-        private void HandleEscrowStatus(byte[] data)
-        {
-            // if we got disabled just as the device was inserting something (edge case), return it
-            if (!_allowInsertions)
-            {
-                SendOperationCommand(Id003OperationCommand.Return);
-                Logger.Debug("Return note/ticket while disabled");
-                return;
-            }
-
-            // restart the stopwatch so that we know when to timeout the escrow.
-            EscrowWatch.Restart();
-
-            // The device is holding a note/ticket in escrow, so get the details
-            // For note: 1 byte with escrow code
-            const int escrowByteOffset = 0;
-            if (data.Length == 1)
-            {
-                var escrowCode = data[escrowByteOffset];
-                if (_escrowNoteMap.ContainsKey(escrowCode))
-                {
-                    OnMessageReceived(new NoteValidated
-                    {
-                        NoteId = _escrowNoteMap[escrowCode]
-                    });
-                    return;
-                }
-            }
-            // For ticket: 1 byte with special escrow code, followed by 6-18 ASCII bytes of barcode
-            else if (data.Length >= BarcodeLengthMinimum + 1 && data.Length <= BarcodeLengthMaximum + 1)
-            {
-                var escrowCode = data[0];
-                if (escrowCode == TicketEscrowCode)
-                {
-                    var barcode = Encoding.ASCII.GetString(data, 1, data.Length - 1);
-                    OnMessageReceived(new TicketValidated
-                    {
-                        Code = barcode,
-                        Length = (byte)barcode.Length
-                    });
-                    return;
-                }
-            }
-
-            Logger.Debug("Missing or invalid escrow code");
-        }
-
-        private void HandleRejectingStatus(byte[] data)
-        {
-            if (data.Length == 1 && Enum.IsDefined(typeof(Id003RejectCode), data[0]))
-            {
-                var rejectCode = (Id003RejectCode)data[0];
-                Logger.Warn($"Document rejected: {rejectCode}");
-                switch (rejectCode)
-                {
-                    // Not sure which of the reject codes should cause which events!
-                    case Id003RejectCode.InsertionError:
-                        NoteOrTicketStatus = new NoteOrTicketStatus
-                        {
-                            Removed = true
-                        };
-                        break;
-                    default:
-                        NoteOrTicketStatus = new NoteOrTicketStatus
-                        {
-                            Rejected = true
-                        };
-                        break;
-                }
-
-                return;
-            }
-
-            Logger.Debug("Missing or invalid reject code");
-        }
-
-        private void HandleReturningStatus()
-        {
-            NoteOrTicketStatus = new NoteOrTicketStatus
-            {
-                Returned = true
-            };
-
-            Logger.Debug("HandleReturningStatus");
-        }
-
-        private void HandleVendValidStatus(bool needAck)
-        {
-            NoteOrTicketStatus = new NoteOrTicketStatus
-            {
-                Accepted = true
-            };
-
-            // VendValid is the only response that requires its own response from us
-            if (needAck)
-            {
-                SendCommand(new [] { (byte)Id003Command.Ack });
-                WaitSendComplete();
-            }
-
-            Logger.Debug("HandleVendValidStatus");
-        }
-
-        private void HandlePowerUp()
-        {
-            // don't handle it before the initialization or the device is disconnected.
-            // in the case of disconnection, the heartbeat handler will initialize the
-            // device again.
-            if (_handlingPowerUp || !_initialized || _disconnected)
-            {
-                Logger.Debug("Can't handle power up right now.");
-                return;
-            }
-
-            EnablePolling(false);
-            Logger.Debug("Handling power up...");
-            _handlingPowerUp = true;
-
-            // according to the spec's flow chart, the version should only be
-            // requested in a normal power up,
-            if (!_powerUpStacking && !_powerUpReturning)
-            {
-                GetVersionInfo();
-            }
-
-            if (!(SendOperationCommand(Id003OperationCommand.Reset) &&
-                RequestStatus() && ConfigureDevice()))
-            {
-                Logger.Fatal("Failed to handle power up.");
-            }
-            
-            _handlingPowerUp = false;
-            if (_pendingInhibitRequest != null)
-            {
-                AllowInsertion(_pendingInhibitRequest.Value);
-            }
-
-            EnablePolling(true);
-        }
-
-        /// <summary>
-        ///     Wrapper function to talk to the "data layer"
-        /// </summary>
-        /// <param name="command">One byte command, per protocol spec</param>
-        /// <param name="data">Optional additional data for the command, per spec</param>
-        /// <returns>Return a tuple of one-byte status and its optional extra data</returns>
-        private (Id003Status status, byte[] data) SendCommand(Id003Command command, byte[] data = null)
-        {
-            // Make a buffer big enough for the command byte, followed by the optional data.
-            var buffer = new byte[(data?.Length ?? 0) + 1];
-            buffer[0] = (byte)command;
-            if (data != null)
-                Buffer.BlockCopy(data, 0, buffer, 1, data.Length);
-
-            var response = SendCommandAndGetResponse(buffer, -1);
-
-            // If things didn't work, return an empty response
-            if (response == null)
-            {
-                return (Id003Status.Unknown, null);
-            }                
-
-            // Buffer to hold the response byte, followed by the optional extra response data
-            buffer = new byte[response.Length - 1];
-            Buffer.BlockCopy(response, 1, buffer, 0, buffer.Length);
-            return ((Id003Status)response[0], buffer);
-        }
-
-        private bool GetVersionInfo()
-        {
-            const int responseWordCount = 4;
-            const int modelWordOffset = 0;
-            const int nameVersionWordOffset = 1;
-            const int crcVersionOffset = 3;
-            const int versionPartCount = 2;
-            const int versionNameWordOffset = 0;
-            const int versionNumberWordOffset = 1;
-            const int versionNumberPartCount = 2;
-            const int versionVersionWordOffset = 0;
-            const int versionRevisionWordOffset = 1;
-
-            // Simple command
-            var (status, data) = TryToGetInfo(Id003Command.VersionRequest, Id003Status.VersionRequest);
-
-            if (status == Id003Status.VersionRequest)
-            {
-                // Expected format is formatted ASCII: "m(mmm)-mm-mm ID003-ppVvvv-rr ddmmyy cccc"
-                // (however, the first hyphen (after the right parenthesis) is optional)
-                //  m(mmm)[-]mm-mm  = Model
-                //  ID003-pp        = Protocol name
-                //  Vvvv            = Version
-                //  rr              = Revision
-                //  ddmmyy          = Date (unused)
-                //  cccc            = CRC
-                //
-                // e.g. "i(USA)100-SS ID003-05V280-42 01AUG17 964D"
-                //
-                // Parse it into the fields we want
-                var versionStr = Encoding.Default.GetString(data).Replace(")-", ")");
-                var parts = versionStr.Split(' ');
-                if (parts.Length == responseWordCount)
-                {
-                    var model = parts[modelWordOffset];
-                    int crc = int.Parse(parts[crcVersionOffset], System.Globalization.NumberStyles.AllowHexSpecifier);
-
-                    parts = parts[nameVersionWordOffset].Split('V');
-                    if (parts.Length == versionPartCount)
-                    {
-                        var protocol = parts[versionVersionWordOffset];
-                        var name = parts[versionNameWordOffset];
-
-                        parts = parts[versionNumberWordOffset].Split('-');
-                        if (parts.Length == versionNumberPartCount)
-                        {
-                            //TODO: differentiate manufacturer by model
-                            Manufacturer = "JCM";
-
-                            Model = model;
-                            Protocol = protocol;
-                            Firmware = name;
-                            FirmwareVersion = "V" + parts[versionVersionWordOffset];
-                            FirmwareRevision = parts[versionRevisionWordOffset];
-                            FirmwareCrc = crc;
-                            return true;
-                        }
-                    }
-                }
-            }
-
-            Logger.Error("Erroneous version response");
-            return false;
-        }
-
-        private bool GetBootInfo()
-        {
-            const int bootVersionResponseLength = 4;
-
-            var (status, data) = TryToGetInfo(Id003Command.BootVersionRequest, Id003Status.BootVersionRequest);
-            if (status == Id003Status.BootVersionRequest)
-            {
-                // Expected format is 4 bytes of ASCII: "B05 "
-                // Parse it into the fields we want
-                var bootStr = Encoding.Default.GetString(data);
-                if (bootStr.Length == bootVersionResponseLength)
-                {
-                    BootVersion = bootStr;
-                    return true;
-                }
-            }
-
-            Logger.Error("Erroneous boot response");
-            return false;
-        }
-
-        /// <inheritdoc/>
+        /// <inheritdoc />
         protected override void GetCurrencyAssignment()
         {
             const int escrowBlockSize = 4;
@@ -679,7 +421,7 @@
             const int denomBaseOffset = 2;
             const int denomPowerOffset = 3;
 
-            (Id003Status status, byte[] data) = (Id003Status.Unknown, null);
+            (var status, byte[] data) = (Id003Status.Unknown, null);
             var attempts = 0;
             try
             {
@@ -747,13 +489,266 @@
             }
         }
 
+        /// <summary>
+        ///     Allow document insertion or not.
+        /// </summary>
+        /// <param name="allow">True to allow it.</param>
+        protected void AllowInsertion(bool allow)
+        {
+            if (_handlingPowerUp || !_initialized)
+            {
+                // Cache the requests first. 
+                _pendingInhibitRequest = allow;
+            }
+
+            _allowInsertions = allow;
+            SendSetCommand(Id003SetCommand.InhibitAcceptor, new[] { allow ? Uninhibited : Inhibited });
+        }
+
+        private void HandleEscrowStatus(byte[] data)
+        {
+            // if we got disabled just as the device was inserting something (edge case), return it
+            if (!_allowInsertions)
+            {
+                SendOperationCommand(Id003OperationCommand.Return);
+                Logger.Debug("Return note/ticket while disabled");
+                return;
+            }
+
+            // restart the stopwatch so that we know when to timeout the escrow.
+            EscrowWatch.Restart();
+
+            // The device is holding a note/ticket in escrow, so get the details
+            // For note: 1 byte with escrow code
+            const int escrowByteOffset = 0;
+            if (data.Length == 1)
+            {
+                var escrowCode = data[escrowByteOffset];
+                if (_escrowNoteMap.ContainsKey(escrowCode))
+                {
+                    OnMessageReceived(new NoteValidated { NoteId = _escrowNoteMap[escrowCode] });
+                    return;
+                }
+            }
+            // For ticket: 1 byte with special escrow code, followed by 6-18 ASCII bytes of barcode
+            else if (data.Length >= BarcodeLengthMinimum + 1 && data.Length <= BarcodeLengthMaximum + 1)
+            {
+                var escrowCode = data[0];
+                if (escrowCode == TicketEscrowCode)
+                {
+                    var barcode = Encoding.ASCII.GetString(data, 1, data.Length - 1);
+                    OnMessageReceived(new TicketValidated { Code = barcode, Length = (byte)barcode.Length });
+                    return;
+                }
+            }
+
+            Logger.Debug("Missing or invalid escrow code");
+        }
+
+        private void HandleRejectingStatus(byte[] data)
+        {
+            if (data.Length == 1 && Enum.IsDefined(typeof(Id003RejectCode), data[0]))
+            {
+                var rejectCode = (Id003RejectCode)data[0];
+                Logger.Warn($"Document rejected: {rejectCode}");
+                switch (rejectCode)
+                {
+                    // Not sure which of the reject codes should cause which events!
+                    case Id003RejectCode.InsertionError:
+                        NoteOrTicketStatus = new NoteOrTicketStatus { Removed = true };
+                        break;
+                    default:
+                        NoteOrTicketStatus = new NoteOrTicketStatus { Rejected = true };
+                        break;
+                }
+
+                return;
+            }
+
+            Logger.Debug("Missing or invalid reject code");
+        }
+
+        private void HandleReturningStatus()
+        {
+            NoteOrTicketStatus = new NoteOrTicketStatus { Returned = true };
+
+            Logger.Debug("HandleReturningStatus");
+        }
+
+        private void HandleVendValidStatus(bool needAck)
+        {
+            NoteOrTicketStatus = new NoteOrTicketStatus { Accepted = true };
+
+            // VendValid is the only response that requires its own response from us
+            if (needAck)
+            {
+                SendCommand(new[] { (byte)Id003Command.Ack });
+                WaitSendComplete();
+            }
+
+            Logger.Debug("HandleVendValidStatus");
+        }
+
+        private void HandlePowerUp()
+        {
+            // don't handle it before the initialization or the device is disconnected.
+            // in the case of disconnection, the heartbeat handler will initialize the
+            // device again.
+            if (_handlingPowerUp || !_initialized || _disconnected)
+            {
+                Logger.Debug("Can't handle power up right now.");
+                return;
+            }
+
+            EnablePolling(false);
+            Logger.Debug("Handling power up...");
+            _handlingPowerUp = true;
+
+            // according to the spec's flow chart, the version should only be
+            // requested in a normal power up,
+            if (!_powerUpStacking && !_powerUpReturning)
+            {
+                GetVersionInfo();
+            }
+
+            if (!(SendOperationCommand(Id003OperationCommand.Reset) &&
+                  RequestStatus() && ConfigureDevice()))
+            {
+                Logger.Fatal("Failed to handle power up.");
+            }
+
+            _handlingPowerUp = false;
+            if (_pendingInhibitRequest != null)
+            {
+                AllowInsertion(_pendingInhibitRequest.Value);
+            }
+
+            EnablePolling(true);
+        }
+
+        /// <summary>
+        ///     Wrapper function to talk to the "data layer"
+        /// </summary>
+        /// <param name="command">One byte command, per protocol spec</param>
+        /// <param name="data">Optional additional data for the command, per spec</param>
+        /// <returns>Return a tuple of one-byte status and its optional extra data</returns>
+        private (Id003Status status, byte[] data) SendCommand(Id003Command command, byte[] data = null)
+        {
+            // Make a buffer big enough for the command byte, followed by the optional data.
+            var buffer = new byte[(data?.Length ?? 0) + 1];
+            buffer[0] = (byte)command;
+            if (data != null)
+            {
+                Buffer.BlockCopy(data, 0, buffer, 1, data.Length);
+            }
+
+            var response = SendCommandAndGetResponse(buffer, -1);
+
+            // If things didn't work, return an empty response
+            if (response == null)
+            {
+                return (Id003Status.Unknown, null);
+            }
+
+            // Buffer to hold the response byte, followed by the optional extra response data
+            buffer = new byte[response.Length - 1];
+            Buffer.BlockCopy(response, 1, buffer, 0, buffer.Length);
+            return ((Id003Status)response[0], buffer);
+        }
+
+        private bool GetVersionInfo()
+        {
+            const int responseWordCount = 4;
+            const int modelWordOffset = 0;
+            const int nameVersionWordOffset = 1;
+            const int crcVersionOffset = 3;
+            const int versionPartCount = 2;
+            const int versionNameWordOffset = 0;
+            const int versionNumberWordOffset = 1;
+            const int versionNumberPartCount = 2;
+            const int versionVersionWordOffset = 0;
+            const int versionRevisionWordOffset = 1;
+
+            // Simple command
+            var (status, data) = TryToGetInfo(Id003Command.VersionRequest, Id003Status.VersionRequest);
+
+            if (status == Id003Status.VersionRequest)
+            {
+                // Expected format is formatted ASCII: "m(mmm)-mm-mm ID003-ppVvvv-rr ddmmyy cccc"
+                // (however, the first hyphen (after the right parenthesis) is optional)
+                //  m(mmm)[-]mm-mm  = Model
+                //  ID003-pp        = Protocol name
+                //  Vvvv            = Version
+                //  rr              = Revision
+                //  ddmmyy          = Date (unused)
+                //  cccc            = CRC
+                //
+                // e.g. "i(USA)100-SS ID003-05V280-42 01AUG17 964D"
+                //
+                // Parse it into the fields we want
+                var versionStr = Encoding.Default.GetString(data).Replace(")-", ")");
+                var parts = versionStr.Split(' ');
+                if (parts.Length == responseWordCount)
+                {
+                    var model = parts[modelWordOffset];
+                    var crc = int.Parse(parts[crcVersionOffset], NumberStyles.AllowHexSpecifier);
+
+                    parts = parts[nameVersionWordOffset].Split('V');
+                    if (parts.Length == versionPartCount)
+                    {
+                        var protocol = parts[versionVersionWordOffset];
+                        var name = parts[versionNameWordOffset];
+
+                        parts = parts[versionNumberWordOffset].Split('-');
+                        if (parts.Length == versionNumberPartCount)
+                        {
+                            //TODO: differentiate manufacturer by model
+                            Manufacturer = "JCM";
+
+                            Model = model;
+                            Protocol = protocol;
+                            Firmware = name;
+                            FirmwareVersion = "V" + parts[versionVersionWordOffset];
+                            FirmwareRevision = parts[versionRevisionWordOffset];
+                            FirmwareCrc = crc;
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            Logger.Error("Erroneous version response");
+            return false;
+        }
+
+        private bool GetBootInfo()
+        {
+            const int bootVersionResponseLength = 4;
+
+            var (status, data) = TryToGetInfo(Id003Command.BootVersionRequest, Id003Status.BootVersionRequest);
+            if (status == Id003Status.BootVersionRequest)
+            {
+                // Expected format is 4 bytes of ASCII: "B05 "
+                // Parse it into the fields we want
+                var bootStr = Encoding.Default.GetString(data);
+                if (bootStr.Length == bootVersionResponseLength)
+                {
+                    BootVersion = bootStr;
+                    return true;
+                }
+            }
+
+            Logger.Error("Erroneous boot response");
+            return false;
+        }
+
         private (Id003Status, byte[]) TryToGetInfo(Id003Command command, Id003Status expectedStatus)
         {
-            (Id003Status status, byte[] data) = (Id003Status.Unknown, null);
+            (var status, byte[] data) = (Id003Status.Unknown, null);
             var attempts = 0;
             do
             {
-                Logger.Info($"Trying to get info for {command} in {attempts+1}");
+                Logger.Info($"Trying to get info for {command} in {attempts + 1}");
                 (status, data) = SendCommand(command);
             } while (status != expectedStatus && attempts++ <= MaxRetrieveInfoAttempts);
 
@@ -783,11 +778,22 @@
             const byte allBits = 0xff;
             const byte noBits = 0;
 
-            _deviceConfigured = SendSetCommand(Id003SetCommand.EnableDisableDenomination, new [] { noBits, noBits }) // Enable all denoms (0 bits == enable denom)
-                && SendSetCommand(Id003SetCommand.SecurityDenomination, new [] { allBits, allBits })          // High security, all denoms (1 bits == enable high security)
-                && SendSetCommand(Id003SetCommand.CommunicationMode, new [] { PolledCommMode })         // Communication mode = polled
-                && SendSetCommand(Id003SetCommand.BarcodeFunction, new [] { Interleaved2Of5Code, (byte)BarcodeLengthMaximum })  // Accept barcode type and length
-                && SendSetCommand(Id003SetCommand.BarInhibit, new [] { EnableNotesAndBarcodes })        // Enable bar-codes along with notes
+            _deviceConfigured =
+                SendSetCommand(
+                    Id003SetCommand.EnableDisableDenomination,
+                    new[] { noBits, noBits }) // Enable all denoms (0 bits == enable denom)
+                && SendSetCommand(
+                    Id003SetCommand.SecurityDenomination,
+                    new[] { allBits, allBits }) // High security, all denoms (1 bits == enable high security)
+                && SendSetCommand(
+                    Id003SetCommand.CommunicationMode,
+                    new[] { PolledCommMode }) // Communication mode = polled
+                && SendSetCommand(
+                    Id003SetCommand.BarcodeFunction,
+                    new[] { Interleaved2Of5Code, (byte)BarcodeLengthMaximum }) // Accept barcode type and length
+                && SendSetCommand(
+                    Id003SetCommand.BarInhibit,
+                    new[] { EnableNotesAndBarcodes }) // Enable bar-codes along with notes
                 ;
 
             return _deviceConfigured;
@@ -801,8 +807,8 @@
             {
                 result = SendOperationCommand(Id003OperationCommand.Reset) &&
                          RequestStatus() &&
-                         (_deviceConfigured || ConfigureDevice() || (!_deviceConfigured && !_initialInspectionDone &&
-                                                                     _currentFaults.Count > 0));
+                         (_deviceConfigured || ConfigureDevice() || !_deviceConfigured && !_initialInspectionDone &&
+                             _currentFaults.Count > 0);
             }
 
             return result;
@@ -818,7 +824,8 @@
                 if ((Id003StatusError.StackerFull == fault || Id003StatusError.JamInStacker == fault) &&
                     _currentFaults.Contains(Id003StatusError.StackerOpen))
                 {
-                    var tempStack = _currentFaults.ToArray().Where(x => !x.Equals(Id003StatusError.StackerOpen)).Reverse();
+                    var tempStack = _currentFaults.ToArray().Where(x => !x.Equals(Id003StatusError.StackerOpen))
+                        .Reverse();
                     _currentFaults.Clear();
                     foreach (var elem in tempStack)
                     {
@@ -876,18 +883,12 @@
             if (_powerUpReturning)
             {
                 Logger.Debug("Returning a note or ticket while powering up ");
-                NoteOrTicketStatus = new NoteOrTicketStatus
-                {
-                    Returned = true
-                };
+                NoteOrTicketStatus = new NoteOrTicketStatus { Returned = true };
             }
             else if (_powerUpStacking)
             {
                 Logger.Debug("Accepting a note or ticket while powering up ");
-                NoteOrTicketStatus = new NoteOrTicketStatus
-                {
-                    Accepted = true
-                };
+                NoteOrTicketStatus = new NoteOrTicketStatus { Accepted = true };
             }
             else
             {

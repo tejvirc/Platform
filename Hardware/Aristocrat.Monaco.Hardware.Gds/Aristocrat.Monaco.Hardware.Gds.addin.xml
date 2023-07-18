@@ -11,8 +11,8 @@
 
   <Extension path="/Hardware/IdReader/IdReaderImplementations">
     <DeviceImplementation ProtocolName="GDS" type="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds" />
-    <DeviceImplementation ProtocolName="Virtual" type="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds"/>
-    <DeviceImplementation ProtocolName="Virtual2" type="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds"/>
+    <DeviceImplementation ProtocolName="Virtual" type="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds" />
+    <DeviceImplementation ProtocolName="Virtual2" type="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds" />
   </Extension>
   <Extension path="/Hardware/Printer/PrinterImplementations">
     <DeviceImplementation ProtocolName="JCM TCL" type="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds" />

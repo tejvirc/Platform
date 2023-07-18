@@ -19,17 +19,20 @@
     /// <summary>A GDS note acceptor.</summary>
     /// <seealso cref="T:Aristocrat.Monaco.Hardware.GdsDeviceBase" />
     /// <seealso cref="T:Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.INoteAcceptorImplementation" />
+    [HardwareDevice("GDS", DeviceType.NoteAcceptor)]
+    [HardwareDevice("EBDS", DeviceType.NoteAcceptor)]
+    [HardwareDevice("ID003", DeviceType.NoteAcceptor)]
     public class NoteAcceptorGds : GdsDeviceBase,
         INoteAcceptorImplementation
     {
-        private const string JcmName= "JCM";
+        private const string JcmName = "JCM";
         private const string MeiName = "MEI";
         private const string GdsName = "GDS";
         private const string EbdsName = "EBDS";
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly ConcurrentDictionary<int, Note> _noteTable = new ConcurrentDictionary<int, Note>();
-        private readonly object _stackerStatusLock = new object();
+        private readonly ConcurrentDictionary<int, Note> _noteTable = new();
+        private readonly object _stackerStatusLock = new();
         private bool _utf;
         private Validator _validator;
 
@@ -107,10 +110,7 @@
         public override async Task<bool> SelfTest(bool nvm)
         {
             SendCommand(
-                new SelfTest
-                {
-                    Nvm = nvm ? 1 : 0
-                });
+                new SelfTest { Nvm = nvm ? 1 : 0 });
             var report = await WaitForReport<FailureStatus>();
             if (report == null)
             {
@@ -133,7 +133,8 @@
             {
                 SetJcmConfigurations(internalConfiguration);
             }
-            else if (internalConfiguration.Manufacturer.Equals(MeiName) && !internalConfiguration.Protocol.Equals(EbdsName))
+            else if (internalConfiguration.Manufacturer.Equals(MeiName) &&
+                     !internalConfiguration.Protocol.Equals(EbdsName))
             {
                 SetMeiConfigurations(internalConfiguration);
             }
@@ -182,15 +183,6 @@
             return await ReturnNoteOrTicket();
         }
 
-        /// <summary>Gets note table entries count.</summary>
-        /// <returns>An asynchronous result that yields the note table entries count.</returns>
-        public virtual async Task<int> GetNoteTableEntriesCount()
-        {
-            SendCommand<NumberOfNoteDataEntries>(new GdsSerializableMessage(GdsConstants.ReportId.NoteAcceptorNumberOfNoteDataEntries));
-            var report = await WaitForReport<NumberOfNoteDataEntries>();
-            return report?.Number ?? 0;
-        }
-
         /// <summary>Reads note table.</summary>
         /// <returns>An asynchronous result that yields true if it succeeds, false if it fails.</returns>
         public virtual async Task<bool> ReadNoteTable()
@@ -221,6 +213,16 @@
             return true;
         }
 
+        /// <summary>Gets note table entries count.</summary>
+        /// <returns>An asynchronous result that yields the note table entries count.</returns>
+        public virtual async Task<int> GetNoteTableEntriesCount()
+        {
+            SendCommand<NumberOfNoteDataEntries>(
+                new GdsSerializableMessage(GdsConstants.ReportId.NoteAcceptorNumberOfNoteDataEntries));
+            var report = await WaitForReport<NumberOfNoteDataEntries>();
+            return report?.Number ?? 0;
+        }
+
         /// <summary>Extend timeout.</summary>
         public virtual void ExtendTimeout()
         {
@@ -232,7 +234,8 @@
         public virtual async Task<bool> AcceptNoteOrTicket()
         {
             NoteOrTicketStacking?.Invoke(this, null);
-            SendCommand<NoteOrTicketStatus>(new GdsSerializableMessage(GdsConstants.ReportId.NoteAcceptorAcceptNoteOrTicket));
+            SendCommand<NoteOrTicketStatus>(
+                new GdsSerializableMessage(GdsConstants.ReportId.NoteAcceptorAcceptNoteOrTicket));
             var report = await WaitForReport<NoteOrTicketStatus>();
             return report?.Accepted ?? false;
         }
@@ -241,50 +244,10 @@
         /// <returns>An asynchronous result that yields true if it succeeds, false if it fails.</returns>
         public virtual async Task<bool> ReturnNoteOrTicket()
         {
-            SendCommand<NoteOrTicketStatus>(new GdsSerializableMessage(GdsConstants.ReportId.NoteAcceptorReturnNoteOrTicket));
+            SendCommand<NoteOrTicketStatus>(
+                new GdsSerializableMessage(GdsConstants.ReportId.NoteAcceptorReturnNoteOrTicket));
             var report = await WaitForReport<NoteOrTicketStatus>();
             return report?.Returned ?? false;
-        }
-
-        /// <inheritdoc />
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (_validator != null)
-                {
-                    _validator.Dispose();
-                    _validator = null;
-                }
-            }
-
-            base.Dispose(disposing);
-        }
-
-        /// <inheritdoc />
-        protected override async Task<bool> Reset()
-        {
-            if (!await Disable())
-            {
-                return false; // first disable the device
-            }
-
-            if (!await ReadNoteTable())
-            {
-                return false;
-            }
-
-            if (await CalculateCrc(GdsConstants.DefaultSeed) == 0)
-            {
-                return false;
-            }
-
-            if (string.IsNullOrEmpty(await RequestGatReport()))
-            {
-                return false;
-            }
-
-            return true;
         }
 
         /// <summary>Executes the note or ticket accepted action.</summary>
@@ -305,20 +268,14 @@
                         if (barcode != null)
                         {
                             OnTicketAccepted(
-                                new TicketEventArgs
-                                {
-                                    Barcode = barcode
-                                });
+                                new TicketEventArgs { Barcode = barcode });
                         }
 
                         Note note = _validator;
                         if (note != null)
                         {
                             OnNoteAccepted(
-                                new NoteEventArgs
-                                {
-                                    Note = note
-                                });
+                                new NoteEventArgs { Note = note });
                         }
                     }
                     finally
@@ -347,20 +304,14 @@
                         if (barcode != null)
                         {
                             OnTicketReturned(
-                                new TicketEventArgs
-                                {
-                                    Barcode = barcode
-                                });
+                                new TicketEventArgs { Barcode = barcode });
                         }
 
                         Note note = _validator;
                         if (note != null)
                         {
                             OnNoteReturned(
-                                new NoteEventArgs
-                                {
-                                    Note = note
-                                });
+                                new NoteEventArgs { Note = note });
                         }
                     }
                     finally
@@ -389,10 +340,7 @@
                 Faults &= ~fault;
                 Logger.Info($"SetFault: fault cleared {cleared}");
                 OnFaultCleared(
-                    new FaultEventArgs
-                    {
-                        Fault = cleared
-                    });
+                    new FaultEventArgs { Fault = cleared });
             }
             else
             {
@@ -406,10 +354,7 @@
                 Faults |= fault;
                 Logger.Warn($"SetFault: fault set {toggle}");
                 OnFaultOccurred(
-                    new FaultEventArgs
-                    {
-                        Fault = toggle
-                    });
+                    new FaultEventArgs { Fault = toggle });
             }
         }
 
@@ -567,10 +512,7 @@
             var denom = report.Value * scale * (!report.Sign ? -1 : 1);
             var note = new Note
             {
-                NoteId = report.NoteId,
-                ISOCurrencySymbol = report.Currency,
-                Value = denom,
-                Version = report.Version
+                NoteId = report.NoteId, ISOCurrencySymbol = report.Currency, Value = denom, Version = report.Version
             };
 
             _noteTable[note.NoteId] = note;
@@ -588,10 +530,7 @@
                 return;
             }
 
-            var e = new NoteEventArgs
-            {
-                Note = note
-            };
+            var e = new NoteEventArgs { Note = note };
             OnNoteValidated(e);
         }
 
@@ -603,10 +542,7 @@
             Ack(report.TransactionId, false);
 
             OnTicketValidated(
-                new TicketEventArgs
-                {
-                    Barcode = report.Code
-                });
+                new TicketEventArgs { Barcode = report.Code });
         }
 
         /// <summary>Note or ticket status reported.</summary>
@@ -616,7 +552,7 @@
             Logger.Debug($"NoteOrTicketStatusReported: {report}");
             Ack(report.TransactionId, false);
             PublishReport(report);
-            
+
             if (report.Accepted)
             {
                 OnNoteOrTicketAccepted().FireAndForget(
@@ -655,7 +591,7 @@
             Logger.Debug($"StackerStatusReported: {report}");
             Ack(report.TransactionId, false);
 
-            lock(_stackerStatusLock)
+            lock (_stackerStatusLock)
             {
                 if (report.Disconnect)
                 {
@@ -703,6 +639,85 @@
             ReadValidationId().FireAndForget(e => { Logger.Error($"ReadValidationId: Exception occurred {e}"); });
         }
 
+        /// <inheritdoc />
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_validator != null)
+                {
+                    _validator.Dispose();
+                    _validator = null;
+                }
+            }
+
+            base.Dispose(disposing);
+        }
+
+        /// <inheritdoc />
+        protected override async Task<bool> Reset()
+        {
+            if (!await Disable())
+            {
+                return false; // first disable the device
+            }
+
+            if (!await ReadNoteTable())
+            {
+                return false;
+            }
+
+            if (await CalculateCrc(GdsConstants.DefaultSeed) == 0)
+            {
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(await RequestGatReport()))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private static bool Exchange(ref bool location1, bool location2)
+        {
+            const int true32 = 1;
+            const int false32 = 0;
+            var state1 = location1 ? true32 : false32;
+            var result = Interlocked.Exchange(ref state1, location2 ? true32 : false32) == true32;
+            location1 = state1 == true32;
+            return result;
+        }
+
+        private static (string major, string minor) GetMeiVersionNumber(string partNumber)
+        {
+            const int versionLength = 3;
+            const int minorVersionLength = 2;
+            if (string.IsNullOrEmpty(partNumber) || partNumber.Length < versionLength)
+            {
+                return (string.Empty, string.Empty);
+            }
+
+            var majorVersion = partNumber.Substring(partNumber.Length - versionLength, 1);
+            var minorVersion = partNumber.Substring(partNumber.Length - minorVersionLength);
+            return (majorVersion, minorVersion);
+        }
+
+        private static void SetFirmwareValues(IDeviceConfiguration internalConfiguration, string firmwareIdAndRevision)
+        {
+            // Parse the fourth item in the interface descriptor string as the firmware Id and
+            // variant version.
+            var firmwareIdAndFirmwareRevisionArray = firmwareIdAndRevision.Split('-');
+            if (firmwareIdAndFirmwareRevisionArray.Length >= 2)
+            {
+                internalConfiguration.FirmwareId = firmwareIdAndFirmwareRevisionArray[0];
+                internalConfiguration.FirmwareRevision = firmwareIdAndFirmwareRevisionArray[1];
+                Logger.DebugFormat(
+                    $"FirmwareId: {internalConfiguration.FirmwareId}, FirmwareRevision: {internalConfiguration.FirmwareRevision}");
+            }
+        }
+
         private void CreateValidator(string barcode)
         {
             KillValidator();
@@ -725,16 +740,6 @@
             _validator = null;
         }
 
-        private static bool Exchange(ref bool location1, bool location2)
-        {
-            const int true32 = 1;
-            const int false32 = 0;
-            var state1 = location1 ? true32 : false32;
-            var result = Interlocked.Exchange(ref state1, location2 ? true32 : false32) == true32;
-            location1 = state1 == true32;
-            return result;
-        }
-
         private async Task ReadValidationId()
         {
             if (Exchange(ref _utf, true))
@@ -746,10 +751,7 @@
             Exchange(ref _utf, false);
 
             OnTicketValidated(
-                new TicketEventArgs
-                {
-                    Barcode = barcode
-                });
+                new TicketEventArgs { Barcode = barcode });
         }
 
         private void SetMeiConfigurations(IDeviceConfiguration internalConfiguration)
@@ -787,20 +789,6 @@
                 $"FirmwareId: {internalConfiguration.FirmwareId}, FirmwareRevision: {internalConfiguration.FirmwareRevision}, VariantVersion: {internalConfiguration.VariantVersion}");
         }
 
-        private static (string major, string minor) GetMeiVersionNumber(string partNumber)
-        {
-            const int versionLength = 3;
-            const int minorVersionLength = 2;
-            if (string.IsNullOrEmpty(partNumber) || partNumber.Length < versionLength)
-            {
-                return (string.Empty, string.Empty);
-            }
-
-            var majorVersion = partNumber.Substring(partNumber.Length - versionLength, 1);
-            var minorVersion = partNumber.Substring(partNumber.Length - minorVersionLength);
-            return (majorVersion, minorVersion);
-        }
-
         private void SetJcmConfigurations(IDeviceConfiguration internalConfiguration)
         {
             // Yes, parse rom Id (model and protocol), firmware id and revision from GAT report.
@@ -834,13 +822,15 @@
             }
             else
             {
-                Logger.Warn($"Malformed JCM GAT data report: {GatReport} using communicator values{internalConfiguration.Model}");
+                Logger.Warn(
+                    $"Malformed JCM GAT data report: {GatReport} using communicator values{internalConfiguration.Model}");
 
                 var communicatorValues = internalConfiguration.Model?.Split(' ', ',');
                 if (communicatorValues?.Length > 3)
                 {
                     internalConfiguration.Model = communicatorValues[2];
-                    Logger.DebugFormat($"Model: {internalConfiguration.Model}, Protocol: {internalConfiguration.Protocol}");
+                    Logger.DebugFormat(
+                        $"Model: {internalConfiguration.Model}, Protocol: {internalConfiguration.Protocol}");
                 }
 
                 if (communicatorValues?.Length > 5)
@@ -872,20 +862,6 @@
             }
 
             SetFirmwareValues(internalConfiguration, firmwareIdAndRevision);
-        }
-
-        private static void SetFirmwareValues(IDeviceConfiguration internalConfiguration, string firmwareIdAndRevision)
-        {
-            // Parse the fourth item in the interface descriptor string as the firmware Id and
-            // variant version.
-            var firmwareIdAndFirmwareRevisionArray = firmwareIdAndRevision.Split('-');
-            if (firmwareIdAndFirmwareRevisionArray.Length >= 2)
-            {
-                internalConfiguration.FirmwareId = firmwareIdAndFirmwareRevisionArray[0];
-                internalConfiguration.FirmwareRevision = firmwareIdAndFirmwareRevisionArray[1];
-                Logger.DebugFormat(
-                    $"FirmwareId: {internalConfiguration.FirmwareId}, FirmwareRevision: {internalConfiguration.FirmwareRevision}");
-            }
         }
     }
 }
