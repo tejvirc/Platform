@@ -5,6 +5,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Windows.Input;
     using Application.Helpers;
     using Application.Settings;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.ConfigWizard;
     using Contracts.Localization;
