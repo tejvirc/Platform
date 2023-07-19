@@ -112,7 +112,7 @@
                 _deviceFactory.Create(
                     progressiveHost ?? defaultHost ?? _egm.GetHostById(Constants.EgmHostId),
                     hosts.Where(h => !h.IsEgm() && h.Registered),
-                    () => new ProgressiveDevice(1, _progressiveDeviceStateObserver, _eventLift, defaultNoProgInfoTimeout));
+                    () => new ProgressiveDevice(0, _progressiveDeviceStateObserver, _eventLift, defaultNoProgInfoTimeout));
             }
         }
     }

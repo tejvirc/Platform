@@ -333,6 +333,8 @@
         /// </summary>
         public int OriginalConfigurableLinkedLevelId { get; }
 
+        public bool IsLevelLinked => LevelType == ProgressiveLevelType.LP;
+
         public bool CanSetInitialValue => LevelType == ProgressiveLevelType.Sap && _canEdit;
 
         public bool CanSetOverflowValue => LevelType == ProgressiveLevelType.Sap && _canEdit;

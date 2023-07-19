@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts.Progressives.Linked
 {
+    using System;
     using System.Collections.Generic;
 
     /// <summary>
@@ -8,21 +9,21 @@
     public class LinkedProgressiveHitEvent : LinkedProgressiveEvent
     {
         /// <summary>
-        ///     Sets the level.
+        ///     Gets the level.
         /// </summary>
         public IViewableProgressiveLevel Level { get; }
 
         /// <summary>
-        ///     Gets the associated transaction id.
+        ///     Gets the associated transaction.
         /// </summary>
-        public long TransactionId { get; }
+        public JackpotTransaction Jackpot { get; }
 
         /// <inheritdoc />
-        public LinkedProgressiveHitEvent(IViewableProgressiveLevel level, IEnumerable<IViewableLinkedProgressiveLevel> linkedLevels, long transactionId)
+        public LinkedProgressiveHitEvent(IViewableProgressiveLevel level, IEnumerable<IViewableLinkedProgressiveLevel> linkedLevels, ICloneable jackpot)
             : base(linkedLevels)
         {
             Level = level;
-            TransactionId = transactionId;
+            Jackpot = (JackpotTransaction)jackpot.Clone();
         }
     }
 }

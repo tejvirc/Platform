@@ -11,9 +11,7 @@
     using Aristocrat.Monaco.Application.Contracts.Extensions;
     using Aristocrat.Monaco.G2S.Services.Progressive;
     using Aristocrat.Monaco.Gaming.Contracts.Progressives;
-    using Aristocrat.Monaco.Kernel;
     using Gaming.Contracts.Progressives.Linked;
-    using Gaming.Progressives;
 
     /// <inheritdoc />
     public class SetProgressiveValue : ICommandHandler<progressive, setProgressiveValue>
@@ -93,13 +91,15 @@
         public async Task Handle(ClassCommand<progressive, setProgressiveValue> command)
         {
             var device = _egm.GetDevice<IProgressiveDevice>(command.IClass.deviceId);
+
             if (device == null)
             {
                 return;
             }
-            
+
             var linkedLevels = _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevels().Where(l => l.ProgressiveGroupId == device.ProgressiveId).Cast<LinkedProgressiveLevel>().ToList();
-            var linkedLevelNames = linkedLevels.Select(ll => ll.LevelName).ToList();
+            var linkedLevelNames = new HashSet<string>(linkedLevels.Select(ll => ll.LevelName));
+
             var levels = _progressiveProvider.GetProgressiveLevels().Where(
                 l => linkedLevelNames.Contains(l.AssignedProgressiveId.AssignedProgressiveKey)).ToList();
 
@@ -107,11 +107,18 @@
             {
                 var linkedLevel = linkedLevels.Single(ll => ll.LevelId == hostLevel.levelId && ll.ProgressiveGroupId == hostLevel.progId);
 
-                //if this update came out of order, just ignore it
+                // if this update came out of order, just ignore it
                 if (linkedLevel.ProgressiveValueSequence >= hostLevel.progValueSeq)
+                {
                     continue;
+                }
 
-                _progressiveLevelManager.UpdateLinkedProgressiveLevels(hostLevel.progId, hostLevel.levelId, hostLevel.progValueAmt.MillicentsToCents(), hostLevel.progValueSeq, hostLevel.progValueText);
+                _progressiveLevelManager.UpdateLinkedProgressiveLevels(
+                    hostLevel.progId,
+                    hostLevel.levelId,
+                    hostLevel.progValueAmt.MillicentsToCents(),
+                    hostLevel.progValueSeq,
+                    hostLevel.progValueText);
             }
 
             device.ResetProgressiveInfoTimer();

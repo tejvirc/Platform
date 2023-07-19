@@ -56,6 +56,7 @@
             _broadcastTimer.Timer.Elapsed += CheckLevelExpiration;
 
             _eventBus.Subscribe<ProgressiveHitEvent>(this, Handle);
+            _eventBus.Subscribe<ProgressiveCommitEvent>(this, Handle);
         }
 
         public void Dispose()
@@ -562,7 +563,32 @@
             Save();
 
             _eventBus.Publish(new LinkedProgressiveHitEvent(
-                progressiveLevel, new List<IViewableLinkedProgressiveLevel> { level }, transaction.TransactionId));
+                progressiveLevel, new List<IViewableLinkedProgressiveLevel> { level }, transaction));
+        }
+
+        private void Handle(ProgressiveCommitEvent theEvent)
+        {
+            var assignedLevelId = theEvent.Level.AssignedProgressiveId;
+
+            if (assignedLevelId.AssignedProgressiveType != AssignableProgressiveType.Linked)
+            {
+                return;
+            }
+
+            ProcessCommit(theEvent.Level, theEvent.Jackpot);
+        }
+
+        private void ProcessCommit(IViewableProgressiveLevel progressiveLevel, JackpotTransaction transaction)
+        {
+            var levelName = progressiveLevel.AssignedProgressiveId.AssignedProgressiveKey;
+
+            if (!_linkedProgressiveIndex.TryGetValue(levelName, out var level))
+            {
+                throw new InvalidOperationException($"Unable to find progressive level to process commit: {levelName}");
+            }
+
+            _eventBus.Publish(new LinkedProgressiveCommitEvent(
+                progressiveLevel, new List<IViewableLinkedProgressiveLevel> { level }, transaction));
         }
     }
 }

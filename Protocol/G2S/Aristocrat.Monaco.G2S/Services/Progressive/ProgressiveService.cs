@@ -49,7 +49,6 @@
         private readonly IG2SDisableProvider _disableProvider;
         private readonly IProgressiveLevelManager _progressiveLevelManager;
         private readonly IProtocolProgressiveEventsRegistry _protocolProgressiveEventsRegistry;
-        private readonly ICommandBuilder<IProgressiveDevice, progressiveStatus> _commandBuilder;
         private readonly ICommandBuilder<IProgressiveDevice, progressiveHit> _progressiveHitBuilder;
         private readonly ICommandBuilder<IProgressiveDevice, progressiveCommit> _progressiveCommitBuilder;
         private readonly ICommandBuilder<IProgressiveDevice, progressiveStatus> _progressiveStatusBuilder;
@@ -79,7 +78,6 @@
             IG2SDisableProvider disableProvider,
             IPropertiesManager propertiesManager,
             IProgressiveLevelManager progressiveLevelManager,
-            ICommandBuilder<IProgressiveDevice, progressiveStatus> statusCommandBuilder,
             ICommandBuilder<IProgressiveDevice, progressiveStatus> progressiveStatusBuilder,
             ICommandBuilder<IProgressiveDevice, progressiveHit> progressiveHitBuilder,
             ICommandBuilder<IProgressiveDevice, progressiveCommit> progressiveCommitBuilder
@@ -101,7 +99,6 @@
             _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
             _disableProvider = disableProvider ?? throw new ArgumentNullException(nameof(disableProvider));
             _progressiveLevelManager = progressiveLevelManager ?? throw new ArgumentNullException(nameof(progressiveLevelManager));
-            _commandBuilder = statusCommandBuilder ?? throw new ArgumentNullException(nameof(statusCommandBuilder));
             _progressiveStatusBuilder = progressiveStatusBuilder ?? throw new ArgumentNullException(nameof(progressiveStatusBuilder));
             _progressiveHitBuilder = progressiveHitBuilder ?? throw new ArgumentNullException(nameof(progressiveHitBuilder));
             _progressiveCommitBuilder = progressiveCommitBuilder ?? throw new ArgumentNullException(nameof(progressiveCommitBuilder));
@@ -156,13 +153,11 @@
                 _eventBus.UnsubscribeAll(this);
                 if (_g2sProgressivesEnabled)
                 {
-                    _protocolProgressiveEventsRegistry.UnSubscribeProgressiveEvent<ProgressiveCommitEvent>(
+                    _protocolProgressiveEventsRegistry.UnSubscribeProgressiveEvent<LinkedProgressiveHitEvent>(
+                        ProtocolNames.G2S, this);
+                    _protocolProgressiveEventsRegistry.UnSubscribeProgressiveEvent<LinkedProgressiveCommitEvent>(
                         ProtocolNames.G2S, this);
                     _protocolProgressiveEventsRegistry.UnSubscribeProgressiveEvent<ProgressiveCommitAckEvent>(
-                        ProtocolNames.G2S, this);
-                    _protocolProgressiveEventsRegistry.UnSubscribeProgressiveEvent<ProgressiveHitEvent>(
-                        ProtocolNames.G2S, this);
-                    _protocolProgressiveEventsRegistry.UnSubscribeProgressiveEvent<LinkedProgressiveHitEvent>(
                         ProtocolNames.G2S, this);
                 }
             }
@@ -173,17 +168,14 @@
         private void SubscribeEvents()
         {
             _eventBus.Subscribe<CommunicationsStateChangedEvent>(this, OnCommunicationsStateChanged);
-            _eventBus.Subscribe<ProgressiveWagerCommittedEvent>(this, OnProgressiveWagerCommitted);
             _eventBus.Subscribe<GameConfigurationSaveCompleteEvent>(this, Configure);
-            _protocolProgressiveEventsRegistry.SubscribeProgressiveEvent<ProgressiveCommitEvent>(
+            _eventBus.Subscribe<ProgressiveWagerCommittedEvent>(this, OnProgressiveWagerCommitted);
+            _protocolProgressiveEventsRegistry.SubscribeProgressiveEvent<LinkedProgressiveHitEvent>(
+                ProtocolNames.G2S, this);
+            _protocolProgressiveEventsRegistry.SubscribeProgressiveEvent<LinkedProgressiveCommitEvent>(
                 ProtocolNames.G2S, this);
             _protocolProgressiveEventsRegistry.SubscribeProgressiveEvent<ProgressiveCommitAckEvent>(
                 ProtocolNames.G2S, this);
-            _protocolProgressiveEventsRegistry.SubscribeProgressiveEvent<ProgressiveHitEvent>(
-                ProtocolNames.G2S, this);
-            _protocolProgressiveEventsRegistry.SubscribeProgressiveEvent<LinkedProgressiveHitEvent>(
-                ProtocolNames.G2S,
-                this);
         }
 
         private void OnCommsOnline()
@@ -346,12 +338,17 @@
 
         private void OnProgressiveWagerCommitted(ProgressiveWagerCommittedEvent theEvent)
         {
-            var level = theEvent.Levels.First();
-            _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevel(level.AssignedProgressiveId.AssignedProgressiveKey, out var linkedLevel);
-
-            if (level == null || linkedLevel == null)
+            var level = theEvent.Levels.FirstOrDefault(l => l.LevelType == ProgressiveLevelType.LP);
+            if (level == null)
             {
-                throw new InvalidOperationException($"There are no progressive levels");
+                //If no levels are linked, this is a SAP only game. No need to report meters
+                return;
+            }
+
+            _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevel(level.AssignedProgressiveId.AssignedProgressiveKey, out var linkedLevel);
+            if (linkedLevel == null)
+            {
+                throw new InvalidOperationException($"Invalid Assigned LinkedProgressiveLevel on level. Level.DeviceId = {level.DeviceId}, AssignedProgressiveKey={level.AssignedProgressiveId.AssignedProgressiveKey}");
             }
 
             var device = _egm.GetDevice<IProgressiveDevice>(linkedLevel.ProgressiveGroupId);
@@ -399,17 +396,17 @@
             
         }
 
-        private void HandleEvent(ProgressiveCommitEvent evt)
+        private void HandleEvent(LinkedProgressiveCommitEvent evt)
         {
-            _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevel(
-                evt.Jackpot.AssignedProgressiveKey,
-                out var linkedLevel);
+            var linkedLevel = evt.LinkedProgressiveLevels.First();
             var device = _egm.GetDevice<IProgressiveDevice>(linkedLevel.ProgressiveGroupId);
 
             if (evt.Jackpot.State != ProgressiveState.Committed)
             {
                 return;
             }
+
+            EventReport(device, evt.Jackpot, EventCode.G2S_PGE104);
 
             var progressiveCommitAck = ProgressiveCommit(device, evt.Jackpot.TransactionId);
 
@@ -418,7 +415,7 @@
                 Logger.Error("progressiveCommit command not ACK'd by progressive host.");
             }
 
-            EventReport(device, evt.Jackpot, EventCode.G2S_PGE104);
+            _eventBus.Publish(new ProgressiveCommitAckEvent(evt.Jackpot));
         }
 
         private void HandleEvent(ProgressiveCommitAckEvent evt)
@@ -436,26 +433,16 @@
             EventReport(device, evt.Jackpot, EventCode.G2S_PGE105);
         }
 
-        private void HandleEvent(ProgressiveHitEvent evt)
-        {
-            _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevel(
-                evt.Jackpot.AssignedProgressiveKey,
-                out var linkedLevel);
-            var device = _egm.GetDevice<IProgressiveDevice>(linkedLevel.ProgressiveGroupId);
-
-            if (evt.Jackpot.State != ProgressiveState.Hit)
-            {
-                return;
-            }
-
-            EventReport(device, evt.Jackpot, EventCode.G2S_PGE102);
-        }
-
         private void HandleEvent(LinkedProgressiveHitEvent evt)
         {
             var linkedLevel = evt.LinkedProgressiveLevels.First();
             var device = _egm.GetDevice<IProgressiveDevice>(linkedLevel.ProgressiveGroupId);
-            var setProgressiveWin = Helpers.RetryForever(() => ProgressiveHit(device, evt.TransactionId));
+
+            EventReport(device, evt.Jackpot, EventCode.G2S_PGE102);
+
+            var setProgressiveWin = Helpers.RetryForever(() => ProgressiveHit(device, evt.Jackpot.TransactionId));
+
+            EventReport(device, evt.Jackpot, EventCode.G2S_PGE103);
 
             if (setProgressiveWin != null)
             {
@@ -549,17 +536,14 @@
         {
             switch (data)
             {
-                case ProgressiveCommitEvent commitEvent:
+                case LinkedProgressiveHitEvent hitEvent:
+                    HandleEvent(hitEvent);
+                    break;
+                case LinkedProgressiveCommitEvent commitEvent:
                     HandleEvent(commitEvent);
                     break;
                 case ProgressiveCommitAckEvent commitAckEvent:
                     HandleEvent(commitAckEvent);
-                    break;
-                case ProgressiveHitEvent hitEvent:
-                    HandleEvent(hitEvent);
-                    break;
-                case LinkedProgressiveHitEvent hitEvent:
-                    HandleEvent(hitEvent);
                     break;
             }
         }
