@@ -52,4 +52,7 @@ as follows:
   <GameLog Enabled="true" OutcomeDetails="true" />
   <Audio AudioChannels="true" />
   <ButtonAnimation GoodLuck="false" />
+  <ProgressiveView>
+    <InitialSetupView Readonly="true" />
+  </ProgressiveView>
 </GamingConfiguration>

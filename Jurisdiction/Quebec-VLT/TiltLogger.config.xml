@@ -13,7 +13,6 @@ as follows:
   <ArrayOfEventTypes>
     <EventType Type="Error" Max="500" />
     <EventType Type="General" Combined="Error" />
-    <EventType Type="Gameplay" Combined="Error" />
     <EventType Type="Power" Combined="Error" />
     <EventType Type="GameConfigurationChange" Combined="Error" AppendSecurityLevel="true" />
     <EventType Type="Comms" Combined="Error" />
@@ -28,7 +27,6 @@ as follows:
     <EventDescription Name="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayStartedEvent, Monaco.Accounting.Contracts" Level="tilt" Type="General" />
     <EventDescription Name="Aristocrat.Monaco.Accounting.Contracts.TransferOutFailedEvent, Monaco.Accounting.Contracts" Level="tilt" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Accounting.Contracts.VoucherRejectedEvent, Monaco.Accounting.Contracts" Level="error" Type="Error" />
-    <EventDescription Name="Aristocrat.Monaco.Accounting.Contracts.VoucherIssuedEvent, Monaco.Accounting.Contracts" Level="info" Type="General" />
     <EventDescription Name="Aristocrat.Monaco.Application.Contracts.LegitimacyLockUpEvent, Monaco.Application.Contracts" Level="error" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Application.Contracts.OperatorMenu.OperatorMenuEnteredEvent, Monaco.Application.Contracts" Level="tilt" Type="General" />
     <EventDescription Name="Aristocrat.Monaco.Application.Contracts.OperatorMenu.OperatorMenuExitingEvent, Monaco.Application.Contracts" Level="tilt" Type="General" />
@@ -36,7 +34,6 @@ as follows:
     <EventDescription Name="Aristocrat.Monaco.Application.Contracts.DiskSpaceClearEvent, Monaco.Application.Contracts" Level="tilt" Type="General" />
     <EventDescription Name="Aristocrat.Monaco.Application.Contracts.NoteAcceptorMonitor.NoteAcceptorDocumentCheckClearedEvent, Monaco.Application.Contracts" Level="tilt" Type="General" />
     <EventDescription Name="Aristocrat.Monaco.Application.Contracts.NoteAcceptorMonitor.NoteAcceptorDocumentCheckOccurredEvent, Monaco.Application.Contracts" Level="tilt" Type="General" />
-    <EventDescription Name="Aristocrat.Monaco.Gaming.Contracts.CashOutButtonPressedEvent, Aristocrat.Monaco.Gaming.Contracts" Level="info" Type="General" />
     <EventDescription Name="Aristocrat.Monaco.Gaming.Contracts.GameDenomChangedEvent, Aristocrat.Monaco.Gaming.Contracts" Level="info" Type="GameConfigurationChange" />
     <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Button.DisabledEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="General" />
     <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Door.DisabledEvent, Aristocrat.Monaco.Hardware.Contracts" Level="tilt" Type="General" />
