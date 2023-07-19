@@ -19,7 +19,7 @@
     ///     will the command invoke <see cref="OnCommitted" /> for you to apply your changes.
     /// </remarks>
     [CLSCompliant(false)]
-    public abstract class CustomObservableValidator : ObservableValidator
+    public abstract class TrackableObservableValidator : ObservableValidator
     {
         private readonly IReadOnlyCollection<string> _propertiesToIgnoreForCommitted;
 
@@ -35,7 +35,7 @@
         public bool Committed
         {
             get => _committed;
-            set
+            protected set
             {
                 _committed = value;
                 CommitCommand.NotifyCanExecuteChanged();
@@ -49,7 +49,7 @@
         public RelayCommand<object> CommitCommand { get; }
 
         /// <inheritdoc />
-        protected CustomObservableValidator()
+        protected TrackableObservableValidator()
         {
             _propertiesToIgnoreForCommitted = GetType().GetProperties()
                 .Where(property => property.IsDefined(typeof(CommitIgnoreAttribute), false))

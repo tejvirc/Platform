@@ -11,7 +11,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
-    using Aristocrat.Monaco.UI.Common.ViewModels;
+    using Aristocrat.Monaco.UI.Common.MVVM;
     using Aristocrat.Toolkit.Mvvm.Extensions;
     using CommunityToolkit.Mvvm.Input;
     using ConfigWizard;
@@ -50,7 +50,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
     ///     All operator menu page ViewModels should inherit from this base class
     /// </summary>
     [CLSCompliant(false)]
-    public abstract class OperatorMenuPageViewModelBase : CustomObservableValidator, IOperatorMenuPageViewModel, ILiveSettingParent
+    public abstract class OperatorMenuPageViewModelBase : TrackableObservableValidator, IOperatorMenuPageViewModel, ILiveSettingParent
     {
         private const string PlayedCount = "PlayedCount";
         private const string TestMode = "TestMode";
@@ -110,7 +110,6 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             ShowInfoPopupCommand = new RelayCommand<object>(ShowInfoPopup);
             DefaultPrintButtonEnabled = defaultPrintButtonEnabled;
             UseOperatorCultureForCurrencyFormatting = Configuration?.GetSetting(OperatorMenuSetting.UseOperatorCultureForCurrencyFormatting, false) ?? false;
-            SetIgnoreProperties();
         }
 
         /// <summary>
@@ -150,6 +149,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
         // If you want the field disabled via rule use this property in the binding instead of InputEnabled (if defined in OperatorMenuConfig)
         public bool InputEnabledByRuleOverride => InputEnabled && FieldAccessEnabled;
 
+        [CommitIgnore]
         public virtual bool InputEnabled
         {
             get => _inputEnabled;
@@ -168,6 +168,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             }
         }
 
+        [CommitIgnore]
         public string InputStatusText
         {
             get => _inputStatusText;
@@ -179,6 +180,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             }
         }
 
+        [CommitIgnore]
         public string FieldAccessStatusText
         {
             get => _fieldAccessStatusText;
@@ -190,6 +192,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             }
         }
 
+        [CommitIgnore]
         public string PrintButtonStatusText
         {
             get => _printButtonStatusText;
@@ -201,6 +204,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             }
         }
 
+        [CommitIgnore]
         public virtual bool TestModeEnabled
         {
             get => _testModeEnabled & TestModeEnabledSupplementary;
@@ -220,6 +224,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             }
         }
 
+        [CommitIgnore]
         public OperatorMenuAccessRestriction TestModeRestriction
         {
             get => _testModeRestriction;
@@ -234,6 +239,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             }
         }
 
+        [CommitIgnore]
         public bool FieldAccessEnabled
         {
             get => _fieldAccessEnabled;
@@ -248,6 +254,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             }
         }
 
+        [CommitIgnore]
         public OperatorMenuAccessRestriction FieldAccessRestriction
         {
             get => _fieldAccessRestriction;
@@ -263,6 +270,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             }
         }
 
+        [CommitIgnore]
         public bool PrintButtonAccessEnabled
         {
             get => _printButtonAccessEnabled;
@@ -279,12 +287,15 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             }
         }
 
+        [CommitIgnore]
         public virtual bool TestModeEnabledSupplementary => true;
 
+        [CommitIgnore]
         public bool GameIdle =>
             (!ServiceManager.GetInstance().TryGetService<IOperatorMenuGamePlayMonitor>()?.InGameRound ?? true) &&
             (!ServiceManager.GetInstance().TryGetService<IOperatorMenuGamePlayMonitor>()?.IsRecoveryNeeded ?? true);
 
+        [CommitIgnore]
         public bool NoGamesPlayed
         {
             get => _noGamesPlayed;
@@ -316,17 +327,22 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             }
         }
 
+        [CommitIgnore]
         public virtual bool PrinterButtonsEnabled => PrinterButtonsEnabledInternal && PrintButtonAccessEnabled;
 
+        [CommitIgnore]
         public bool PrintCurrentPageButtonVisible { get; private set; }
 
+        [CommitIgnore]
         public bool PrintSelectedButtonVisible { get; private set; }
 
+        [CommitIgnore]
         public bool PrintLast15ButtonVisible { get; private set; }
 
         /// <summary>
         ///     Gets or sets the First visible element in the page.
         /// </summary>
+        [CommitIgnore]
         public int FirstVisibleElement
         {
             get => _firstVisibleElement;
@@ -340,6 +356,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
         /// <summary>
         ///     Gets or sets the visible records in the view.
         /// </summary>
+        [CommitIgnore]
         public int RecordsToBePrinted
         {
             get => _recordsToBePrinted;
@@ -350,6 +367,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             }
         }
 
+        [CommitIgnore]
         public string TestWarningText
         {
             get => _testWarningText;
@@ -366,6 +384,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
         /// <summary>
         ///     For data that takes time to load, this can be used to display an indeterminate progress bar
         /// </summary>
+        [CommitIgnore]
         public virtual bool IsLoadingData
         {
             get => _isLoadingData;
@@ -377,13 +396,16 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
         }
 
         /// <inheritdoc />
+        [CommitIgnore]
         public bool IsLoaded { get; private set; }
 
-        // use in classes where needed to indicate there is no data in the view and printing should be disabled
-        public virtual bool DataEmpty => false;
+        [CommitIgnore]
+        public virtual bool DataEmpty => false; // use in classes where needed to indicate there is no data in the view and printing should be disabled
 
+        [CommitIgnore]
         public virtual bool MainPrintButtonEnabled => PageSupportsMainPrintButton && PrinterButtonsEnabled;
 
+        [CommitIgnore]
         public virtual bool PageSupportsMainPrintButton
         {
             get => _pageSupportsMainPrintButton;
@@ -400,6 +422,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
         /// <inheritdoc />
         public virtual bool CanCalibrateTouchScreens => true;
 
+        [CommitIgnore]
         public virtual bool PopupOpen { get; set; }
 
         public CultureInfo CurrencyDisplayCulture => GetCurrencyDisplayCulture();
@@ -418,6 +441,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
 
         protected IPrinter Printer => ServiceManager.GetInstance().TryGetService<IPrinter>();
 
+        [CommitIgnore]
         protected virtual bool IsContainerPage => false;
 
         /// <summary>
@@ -425,8 +449,10 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
         /// </summary>
         protected virtual bool IsModalDialog => false;
 
+        [CommitIgnore]
         protected OperatorMenuAccessRestriction AccessRestriction { get; private set; }
 
+        [CommitIgnore]
         protected bool ClearValidationOnUnload { get; set; }
 
         public void Dispose()
@@ -1176,42 +1202,6 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
 
             PopupOpen = false;
             IsLoaded = false;
-        }
-
-        private void SetIgnoreProperties()
-        {
-            IgnorePropertyForCommitted(
-                new List<string>
-                {
-                    nameof(InputEnabled),
-                    nameof(DataEmpty),
-                    nameof(InputStatusText),
-                    nameof(FieldAccessStatusText),
-                    nameof(PrintButtonStatusText),
-                    nameof(TestModeEnabled),
-                    nameof(TestModeRestriction),
-                    nameof(FieldAccessEnabled),
-                    nameof(FieldAccessRestriction),
-                    nameof(PrintButtonAccessEnabled),
-                    nameof(TestModeEnabledSupplementary),
-                    nameof(GameIdle),
-                    nameof(NoGamesPlayed),
-                    nameof(PrinterButtonsEnabled),
-                    nameof(PrintCurrentPageButtonVisible),
-                    nameof(PrintSelectedButtonVisible),
-                    nameof(PrintLast15ButtonVisible),
-                    nameof(FirstVisibleElement),
-                    nameof(RecordsToBePrinted),
-                    nameof(TestWarningText),
-                    nameof(IsLoadingData),
-                    nameof(IsLoaded),
-                    nameof(MainPrintButtonEnabled),
-                    nameof(PageSupportsMainPrintButton),
-                    nameof(PopupOpen),
-                    nameof(IsContainerPage),
-                    nameof(AccessRestriction),
-                    nameof(ClearValidationOnUnload)
-                });
         }
 
         private void Dispose(bool disposing)
