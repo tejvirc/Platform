@@ -43,8 +43,8 @@ as follows:
   <DisplayGamePayMessage Use="true" Format="currency"/>
   <WagerLimits Use="true" MaxTotalWager="250" />
   <VolumeLevel ShowInHelpScreen="false" />
-  <Service Use="true" />
-  <Clock UseHInDisplay="true" />
+  <Service Use="false" />
+  <Clock UseHInDisplay="false" />
   <KenoFreeGames SelectionChange="false" AutoPlay="true" />
   <InitialZeroWager Use="true" />
   <ChangeLineSelectionAtZeroCredit Use="true" />
@@ -52,4 +52,7 @@ as follows:
   <GameLog Enabled="true" OutcomeDetails="true" />
   <Audio AudioChannels="true" />
   <ButtonAnimation GoodLuck="false" />
+  <ProgressiveView>
+    <InitialSetupView Readonly="true" />
+  </ProgressiveView>
 </GamingConfiguration>

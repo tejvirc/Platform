@@ -4867,4 +4867,10 @@ Do you really want to do partial reset????</value>
   <data name="RebootWarningMessage" xml:space="preserve">
     <value>??Any new changes will restart the machine??</value>
   </data>
+  <data name="GamesPlayedSinceDoorClosed" xml:space="preserve">
+    <value>???Games Played since Door Closed???</value>
+  </data>
+  <data name="GamesPlayedSinceReboot" xml:space="preserve">
+    <value>???Games Played since Reboot???</value>
+  </data>
 </root>

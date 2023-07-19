@@ -162,10 +162,11 @@
         private async Task SetSelectedViewModel(IHhrMenuPageViewModel viewModel, Command command)
         {
             if (viewModel == SelectedViewModel)
+            {
                 return;
+            }
 
             var oldViewModel = SelectedViewModel;
-
 
             if (viewModel != null)
             {

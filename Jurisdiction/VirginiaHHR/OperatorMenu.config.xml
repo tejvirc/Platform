@@ -24,7 +24,7 @@ the corresponding class definition in csharp (OperatorMenuConfiguration.cs).
     </Page>
   </Menu>
   <Menu Type="IdentificationMainPageLoader">
-    <Page Type="MachineSettingsPageViewModel" PrintButtonEnabled="false" Access="ZeroGamesPlayedZeroCreditsLogicMain" />
+    <Page Type="MachineSettingsPageViewModel" PrintButtonEnabled="false" Access="LogicMainZeroCreditsZeroGamesPlayed" />
     <Page Type="JurisdictionSettingsPageViewModel" PrintButtonEnabled="false" />
   </Menu>
   <Menu Type="LogsMainPageLoader">
@@ -176,17 +176,11 @@ the corresponding class definition in csharp (OperatorMenuConfiguration.cs).
       <Rule Restriction="ZeroCredits" />
     </AccessRuleSet>
     <AccessRuleSet Name="LogicZeroCreditsZeroGamesPlayed">
+      <Rule Restriction="ZeroGamesPlayed" />
       <Rule Restriction="ZeroCredits" />
       <Rule DeviceName="Logic" />
-      <Rule Restriction="ZeroGamesPlayed" />
     </AccessRuleSet>
     <AccessRuleSet Name="LogicMainZeroCreditsZeroGamesPlayed">
-      <Rule Restriction="ZeroCredits" />
-      <Rule DeviceName="Logic" />
-      <Rule DeviceName="Main" />
-      <Rule Restriction="ZeroGamesPlayed" />
-    </AccessRuleSet>
-    <AccessRuleSet Name="ZeroGamesPlayedZeroCreditsLogicMain">
       <Rule Restriction="ZeroGamesPlayed" />
       <Rule Restriction="ZeroCredits" />
       <Rule DeviceName="Logic" />

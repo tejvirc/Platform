@@ -45,7 +45,7 @@
                 .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength)));
             driver.Setup(x => x.SendCommandAsync(It.IsAny<RelmCommand>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(true));
-            var usbCommunicator = new RelmUsbCommunicator(driver.Object);
+            var usbCommunicator = new RelmUsbCommunicator(driver.Object, null);
 
             await usbCommunicator.LoadAnimationFile(_namedAnimationFile);
 
@@ -62,7 +62,7 @@
                 .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength)));
             driver.Setup(x => x.SendCommandAsync(It.IsAny<RelmCommand>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(true));
-            var usbCommunicator = new RelmUsbCommunicator(driver.Object);
+            var usbCommunicator = new RelmUsbCommunicator(driver.Object, null);
 
             await usbCommunicator.LoadAnimationFiles(new[] {_namedAnimationFile, _namedAnimationFile});
 
@@ -79,7 +79,7 @@
                 .Returns(Task.FromResult(new StoredFile(string.Empty, AnimationId, FileLength)));
             driver.Setup(x => x.SendCommandAsync(It.IsAny<RelmCommand>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(true));
-            var usbCommunicator = new RelmUsbCommunicator(driver.Object);
+            var usbCommunicator = new RelmUsbCommunicator(driver.Object, null);
 
             await usbCommunicator.LoadAnimationFile(_unnamedAnimationFile);
 
@@ -96,7 +96,7 @@
                 .Returns(Task.FromResult(new StoredFile(string.Empty, AnimationId, FileLength)));
             driver.Setup(x => x.SendCommandAsync(It.IsAny<RelmCommand>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(true));
-            var usbCommunicator = new RelmUsbCommunicator(driver.Object);
+            var usbCommunicator = new RelmUsbCommunicator(driver.Object, null);
 
             await usbCommunicator.LoadAnimationFile(_namedAnimationFile);
             await usbCommunicator.RemoveAllControllerAnimations();
@@ -114,7 +114,7 @@
                 .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength)));
             driver.Setup(x => x.SendCommandAsync(It.IsAny<StopAllAnimationTags>(), default))
                 .Returns(Task.FromResult(controllerResult));
-            var usbCommunicator = new RelmUsbCommunicator(driver.Object);
+            var usbCommunicator = new RelmUsbCommunicator(driver.Object, null);
             
             await usbCommunicator.LoadAnimationFile(_namedAnimationFile);
             var result = await usbCommunicator.StopAllAnimationTags(FriendlyName);
@@ -127,7 +127,7 @@
         public async Task StopAllAnimationTagsReturnsFalseWhenShowNotExist()
         {
             var driver = new Mock<RelmReels.Communicator.IRelmCommunicator>();
-            var usbCommunicator = new RelmUsbCommunicator(driver.Object);
+            var usbCommunicator = new RelmUsbCommunicator(driver.Object, null);
 
             var result = await usbCommunicator.StopAllAnimationTags(FriendlyName);
             Assert.IsFalse(result);
@@ -142,7 +142,7 @@
             driver.Setup(x => x.SendCommandAsync(It.IsAny<PrepareLightShowAnimations>(), default))
                 .Returns(Task.FromResult(true));
 
-            var usbCommunicator = new RelmUsbCommunicator(driver.Object);
+            var usbCommunicator = new RelmUsbCommunicator(driver.Object, null);
             var lightShows = new List<LightShowData> { _lightShow1, _lightShow2 };
 
             await usbCommunicator.LoadAnimationFile(_namedAnimationFile);
@@ -162,7 +162,7 @@
             driver.Setup(x => x.SendCommandAsync(It.IsAny<PrepareLightShowAnimations>(), default))
                 .Returns(Task.FromResult(controllerResult));
 
-            var usbCommunicator = new RelmUsbCommunicator(driver.Object);
+            var usbCommunicator = new RelmUsbCommunicator(driver.Object, null);
 
             await usbCommunicator.LoadAnimationFile(_namedAnimationFile);
             var result = await usbCommunicator.PrepareAnimation(_lightShow1);
@@ -179,7 +179,7 @@
             driver.Setup(x => x.SendCommandAsync(It.IsAny<PrepareStepperCurves>(), default))
                 .Returns(Task.FromResult(true));
 
-            var usbCommunicator = new RelmUsbCommunicator(driver.Object);
+            var usbCommunicator = new RelmUsbCommunicator(driver.Object, null);
             var curves = new List<ReelCurveData> { _curve1, _curve2 };
 
             await usbCommunicator.LoadAnimationFile(_namedAnimationFile);
@@ -199,7 +199,7 @@
             driver.Setup(x => x.SendCommandAsync(It.IsAny<PrepareStepperCurves>(), default))
                 .Returns(Task.FromResult(controllerResult));
 
-            var usbCommunicator = new RelmUsbCommunicator(driver.Object);
+            var usbCommunicator = new RelmUsbCommunicator(driver.Object, null);
 
             await usbCommunicator.LoadAnimationFile(_namedAnimationFile);
             var result = await usbCommunicator.PrepareAnimation(_curve1);

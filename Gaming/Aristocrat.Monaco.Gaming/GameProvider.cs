@@ -661,6 +661,8 @@ namespace Aristocrat.Monaco.Gaming
             {
                 var graphicInfoList = graphic.Value.ToList();
                 var icons = graphicInfoList.FindAll(g => g.GraphicType == GraphicType.Icon);
+                var denomButtonIcons = graphicInfoList.FindAll(g => g.GraphicType == GraphicType.DenomButton);
+                var denomButtonPanels = graphicInfoList.FindAll(g => g.GraphicType == GraphicType.DenomPanel);
                 var attractVideos = graphicInfoList.FindAll(g => g.GraphicType == GraphicType.AttractVideo);
                 var loadingScreens = graphicInfoList.FindAll(g => g.GraphicType == GraphicType.LoadingScreen);
                 var backgroundPreviews = graphicInfoList.FindAll(g => g.GraphicType == GraphicType.BackgroundPreview);
@@ -675,6 +677,9 @@ namespace Aristocrat.Monaco.Gaming
 
                 var largeTopPickIcon = topPickIcons?.Count > 0 ? topPickIcons[0] : null;
                 var smallTopPickIcon = topPickIcons?.Count > 1 ? topPickIcons[1] : null;
+
+                var denomButtonIcon = denomButtonIcons.FirstOrDefault();
+                var denomButtonPanel = denomButtonPanels.FirstOrDefault();
 
                 var mainDisplay = _cabinetDetectionService.GetDisplayDeviceByItsRole(DisplayRole.Main);
                 if (mainDisplay == null)
@@ -734,6 +739,8 @@ namespace Aristocrat.Monaco.Gaming
                     SmallIcon = GetGraphicPath(smallIcon, gameFolder, true),
                     LargeTopPickIcon = largeTopPickIcon != null ? GetGraphicPath(largeTopPickIcon, gameFolder, true) : null,
                     SmallTopPickIcon = smallTopPickIcon != null ? GetGraphicPath(smallTopPickIcon, gameFolder, true) : null,
+                    DenomButtonIcon = GetGraphicPath(denomButtonIcon, gameFolder),
+                    DenomPanel = GetGraphicPath(denomButtonPanel, gameFolder),
                     TopperAttractVideo = GetGraphicPath(topperAttractVideo, gameFolder),
                     TopAttractVideo = GetGraphicPath(topAttractVideo, gameFolder),
                     BottomAttractVideo = GetGraphicPath(bottomAttractVideo, gameFolder),
@@ -987,7 +994,7 @@ namespace Aristocrat.Monaco.Gaming
                 return (null, null);
             }
 
-            var features = game.Features?.Select(
+            var features = game?.Features?.Select(
                 x => new Feature
                 {
                     Name = x.Name,

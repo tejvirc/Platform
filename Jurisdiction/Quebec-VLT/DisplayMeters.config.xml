@@ -10,6 +10,8 @@
     <MeterNode Page="MainPage" Name="EgmPaidGameWonAmt" DisplayName="Cash Won" DisplayNameKey="CashWonText" />
     <MeterNode Page="MainPage" Name="PlayedCount" DisplayName="Games Played" DisplayNameKey="GamesPlayed" />
     <MeterNode Page="MainPage" Name="WonCount" DisplayName="Games Won" DisplayNameKey="GamesWon" />
+    <MeterNode Page="MainPage" Name="GamesPlayedSinceDoorClosed" DisplayName="Games Played since Door Closed"  Period="false" DisplayNameKey="GamesPlayedSinceDoorClosed" />
+    <MeterNode Page="MainPage" Name="GamesPlayedSinceReboot" DisplayName="Games Played since Reboot" Period="false" DisplayNameKey="GamesPlayedSinceReboot" />
   
     <MeterNode Page="Hardware" Name="MainDoorOpen" DisplayName="Main Door Open" DisplayNameKey="MainDoorOpenLabel" />
     <MeterNode Page="Hardware" Name="MainDoorOpenPowerOff" DisplayName="Main Door Open Power Off" DisplayNameKey="MainDoorOpenPowerOff" />
