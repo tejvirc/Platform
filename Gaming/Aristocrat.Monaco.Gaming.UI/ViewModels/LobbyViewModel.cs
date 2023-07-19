@@ -3888,7 +3888,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private void UpdateDisplayedGames()
         {
             DisplayedGameList.Clear();
-            DisplayedGameList.AddRange(_enabledGameList.Where(g => g.ImagePath != null));
+            DisplayedGameList.AddRange(_enabledGameList?.Where(g => g.ImagePath != null));
 
             _lobbyStateManager.IsSingleGame = UniqueThemeIds <= 1;
             RaisePropertyChanged(nameof(GameCount));
