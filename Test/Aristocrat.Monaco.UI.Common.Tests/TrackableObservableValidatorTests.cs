@@ -85,12 +85,22 @@
             }
             public void SetIgnorePrivate() => IgnorePrivate = true;
 
+            public void SetCommitted() => Committed = true;
+
         }
 
         [TestMethod]
         public void NewObjectShouldBeCommitedByDefault()
         {
             var mock = new MockCustomObservableValidator();
+            mock.Committed.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void SettingCommittedToTrueShouldNotSetItBackToFalseDueToChangeTracking()
+        {
+            var mock = new MockCustomObservableValidator();
+            mock.SetCommitted();
             mock.Committed.Should().BeTrue();
         }
 
