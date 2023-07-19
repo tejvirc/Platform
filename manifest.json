@@ -12840,7 +12840,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.Models.ReelInfoItem.html",
-          "hash": "utCqKW6POt5OAF8c5F2/fp59bL7NJwu+rlVjstzJeok="
+          "hash": "XL+sremM4pdE4Hl8KuWGaiiR3IGhZ4NlAdnwkTF56fM="
         }
       },
       "is_incremental": false,
@@ -14112,7 +14112,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.ViewModels.MechanicalReelsPageViewModel.html",
-          "hash": "nDoIUTyk/tQ90D1jJ9uGeYdFTIr+4NxDWk+tjguLCVY="
+          "hash": "tlNxpspMMCN0hVWkUrN3oelrUvSCNH6X8jqeOl3N+xE="
         }
       },
       "is_incremental": false,
@@ -15132,7 +15132,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.Views.MechanicalReelsPage.html",
-          "hash": "nCtt8KTIisZVU4TOHBBj/YvaUizYH8I/kx9VhLASaMo="
+          "hash": "AEC8cNEyDggVCGpml82LEQa/Iq/1Wm9/GJqaFgW03FQ="
         }
       },
       "is_incremental": false,
@@ -15547,6 +15547,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -15631,6 +15634,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -24787,9 +24793,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -42010,9 +42013,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -66978,7 +66978,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Fake.FakeRelmCommunicator.html",
-          "hash": "UISXsDJMC3594jjIbJ6CrG8Mxe5TV9NAlKHLUkVaPNQ="
+          "hash": "N+DGVm8EOK9VPSJ2cru0VGqri9UoykTvx81uX+g/zsI="
         }
       },
       "is_incremental": false,
