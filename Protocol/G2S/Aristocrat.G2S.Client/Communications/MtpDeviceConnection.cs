@@ -28,12 +28,25 @@
         private int _consecutiveHashFailures;
         private int _consecutiveMessageIdFailures;
         private Stopwatch _coordinationStopwatch = new Stopwatch();
-        private const long MIN_MS_BETWEEN_COORDINATIONS = 30000;
+        private const long MinMsBetweenCoordinations = 30000;
+        private const int MaxConsecutiveFailures = 5; // per the G2S spec
 
         /// <summary>
-        ///     Constructor
+        /// Initializes a new instance of the MtpDeviceConnection class.
         /// </summary>
+        /// <param name="multicastId">A string representing the ID of the multicast group.</param>
+        /// <param name="deviceId">An integer representing the unique device ID.</param>
+        /// <param name="communicationId">An integer representing the ID for communication.</param>
+        /// <param name="deviceClass">A string representing the class of the device.</param>
+        /// <param name="messageBuilder">An instance of MessageBuilder that is used to construct and decrypt messages.</param>
+        /// <param name="address">An instance of IPEndPoint representing the network endpoint as an IP address and a port number.</param>
+        /// <param name="currentKey">A byte array representing the current cryptographic key.</param>
+        /// <param name="currentMsgId">A long representing the ID of the current message.</param>
+        /// <param name="newKey">A byte array representing the next cryptographic key.</param>
+        /// <param name="keyChangeId">A long representing the ID for the message upon which we will switch to newKey.</param>
+        /// <param name="lastMessageId">A long representing the largest value that the message ID will reach before it is reset to a minimum value.</param>
         public MtpDeviceConnection(string multicastId, int deviceId, int communicationId, string deviceClass, MessageBuilder messageBuilder, IPEndPoint address, byte[] currentKey, long currentMsgId, byte[] newKey, long keyChangeId, long lastMessageId)
+
         {
             _multicastId = multicastId ?? throw new ArgumentNullException(nameof(multicastId));
             _deviceId = deviceId;
@@ -252,9 +265,9 @@
             {
                 Logger.Error($"MTP datagram decryption failed for MulticastId {_multicastId}.");
 
-                if (_consecutiveHashFailures >= 5 || _consecutiveMessageIdFailures >= 5)
+                if (_consecutiveHashFailures >= MaxConsecutiveFailures || _consecutiveMessageIdFailures >= MaxConsecutiveFailures)
                 {
-                    if (!_coordinationStopwatch.IsRunning || (_coordinationStopwatch.IsRunning && _coordinationStopwatch.ElapsedMilliseconds > MIN_MS_BETWEEN_COORDINATIONS))
+                    if (!_coordinationStopwatch.IsRunning || (_coordinationStopwatch.IsRunning && _coordinationStopwatch.ElapsedMilliseconds > MinMsBetweenCoordinations))
                     {
                         ServiceManager.GetInstance().GetService<IEventBus>().Publish(new MtpKeyCoordinationNeededEvent {HostId = _communicationId, MulticastId = _multicastId });
                         _coordinationStopwatch = Stopwatch.StartNew();
