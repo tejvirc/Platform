@@ -1,5 +1,4 @@
-﻿// TODO: Migrate this class to https://github.com/Aristocrat-Monaco-Platform/toolkit-mvvm-extensions
-namespace Aristocrat.Monaco.UI.Common.ViewModels
+﻿namespace Aristocrat.Monaco.UI.Common.MVVM
 {
     using System;
     using System.Collections.Generic;
@@ -22,16 +21,17 @@ namespace Aristocrat.Monaco.UI.Common.ViewModels
     [CLSCompliant(false)]
     public abstract class CustomObservableValidator : ObservableValidator
     {
+        private readonly IReadOnlyCollection<string> _propertiesToIgnoreForCommitted;
+
         /// <summary>
         ///     True when changes have been committed
         /// </summary>
         private bool _committed = true;
 
-        private readonly List<string> _propertiesToIgnoreForCommitted = new() { nameof(Committed) };
-
         /// <summary>
         ///     This value will raise property changed when committed without errors
         /// </summary>
+        [CommitIgnore]
         public bool Committed
         {
             get => _committed;
@@ -51,6 +51,11 @@ namespace Aristocrat.Monaco.UI.Common.ViewModels
         /// <inheritdoc />
         protected CustomObservableValidator()
         {
+            _propertiesToIgnoreForCommitted = GetType().GetProperties()
+                .Where(property => property.IsDefined(typeof(CommitIgnoreAttribute), false))
+                .Select(property => property.Name)
+                .ToHashSet();
+
             // can only commit if no errors
             CommitCommand = new RelayCommand<object>(
                 obj =>
@@ -108,30 +113,6 @@ namespace Aristocrat.Monaco.UI.Common.ViewModels
         protected bool PropertyHasErrors(string propertyName)
         {
             return GetErrors(propertyName) is IEnumerable<ValidationResult> errors && errors.Any();
-        }
-
-        /// <summary>
-        ///     Use to indicate a viewmodel property is not related to the entity data model and should not affect Committed
-        /// </summary>
-        /// <param name="propertyName"></param>
-        protected void IgnorePropertyForCommitted(string propertyName)
-        {
-            if (!_propertiesToIgnoreForCommitted.Contains(propertyName))
-            {
-                _propertiesToIgnoreForCommitted.Add(propertyName);
-            }
-        }
-
-        /// <summary>
-        ///     Method to call IgnorePropertyForCommitted with a list of properties.
-        /// </summary>
-        /// <param name="propertyNames"></param>
-        protected void IgnorePropertyForCommitted(List<string> propertyNames)
-        {
-            foreach (var propertyName in propertyNames)
-            {
-                IgnorePropertyForCommitted(propertyName);
-            }
         }
 
         /// <summary>
