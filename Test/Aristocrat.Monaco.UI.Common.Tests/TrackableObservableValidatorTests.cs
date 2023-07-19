@@ -1,8 +1,8 @@
 ﻿namespace Aristocrat.Monaco.UI.Common.Tests
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Aristocrat.Monaco.UI.Common.MVVM;
     using FluentAssertions;
+    using Aristocrat.Monaco.UI.Common.MVVM;
 
     [TestClass]
     public class TrackableObservableValidatorTests
