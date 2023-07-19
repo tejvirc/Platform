@@ -11,6 +11,7 @@
     /// </summary>
     public class LobbyLauncher : ILobby, IDisposable
     {
+
         private const string StatusWindowName = "StatusWindow";
         private const string LobbyWindowName = "LobbyWindow";
 
