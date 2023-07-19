@@ -34,7 +34,7 @@
                     w => new Category
                     {
                         WagerCategoryId = w.Id,
-                        Rtp = w.TheoPaybackPercent,
+                        Rtp = w.MinBaseRtpPercent,
                         WageredMillicents = showLifetime
                             ? meterManager.GetMeter(
                                 _selectedGame.Id,
