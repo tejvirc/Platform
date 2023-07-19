@@ -236,6 +236,10 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set => SetProperty(ref _reportStatus, value, nameof(ReportStatus));
         }
 
+        public void Initialize()
+        {
+        }
+
         protected override void SaveChanges()
         {
         }

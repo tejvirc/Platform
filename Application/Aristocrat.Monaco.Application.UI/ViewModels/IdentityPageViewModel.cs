@@ -446,7 +446,7 @@
             OnPropertyChanged(name);
         }
 
-        protected override void OnPropertyChanged(string propertyName)
+        protected new void OnPropertyChanged(string propertyName)
         {
             base.OnPropertyChanged(propertyName);
 
