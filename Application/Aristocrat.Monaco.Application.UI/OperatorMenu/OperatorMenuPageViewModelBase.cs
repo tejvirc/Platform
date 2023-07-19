@@ -149,7 +149,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
         // If you want the field disabled via rule use this property in the binding instead of InputEnabled (if defined in OperatorMenuConfig)
         public bool InputEnabledByRuleOverride => InputEnabled && FieldAccessEnabled;
 
-        [CommitIgnore]
+        [IgnoreTracking]
         public virtual bool InputEnabled
         {
             get => _inputEnabled;
@@ -168,7 +168,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             }
         }
 
-        [CommitIgnore]
+        [IgnoreTracking]
         public string InputStatusText
         {
             get => _inputStatusText;
@@ -180,7 +180,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             }
         }
 
-        [CommitIgnore]
+        [IgnoreTracking]
         public string FieldAccessStatusText
         {
             get => _fieldAccessStatusText;
@@ -192,7 +192,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             }
         }
 
-        [CommitIgnore]
+        [IgnoreTracking]
         public string PrintButtonStatusText
         {
             get => _printButtonStatusText;
@@ -204,7 +204,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             }
         }
 
-        [CommitIgnore]
+        [IgnoreTracking]
         public virtual bool TestModeEnabled
         {
             get => _testModeEnabled & TestModeEnabledSupplementary;
@@ -224,7 +224,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             }
         }
 
-        [CommitIgnore]
+        [IgnoreTracking]
         public OperatorMenuAccessRestriction TestModeRestriction
         {
             get => _testModeRestriction;
@@ -239,7 +239,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             }
         }
 
-        [CommitIgnore]
+        [IgnoreTracking]
         public bool FieldAccessEnabled
         {
             get => _fieldAccessEnabled;
@@ -254,7 +254,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             }
         }
 
-        [CommitIgnore]
+        [IgnoreTracking]
         public OperatorMenuAccessRestriction FieldAccessRestriction
         {
             get => _fieldAccessRestriction;
@@ -270,7 +270,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             }
         }
 
-        [CommitIgnore]
+        [IgnoreTracking]
         public bool PrintButtonAccessEnabled
         {
             get => _printButtonAccessEnabled;
@@ -287,15 +287,15 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             }
         }
 
-        [CommitIgnore]
+        [IgnoreTracking]
         public virtual bool TestModeEnabledSupplementary => true;
 
-        [CommitIgnore]
+        [IgnoreTracking]
         public bool GameIdle =>
             (!ServiceManager.GetInstance().TryGetService<IOperatorMenuGamePlayMonitor>()?.InGameRound ?? true) &&
             (!ServiceManager.GetInstance().TryGetService<IOperatorMenuGamePlayMonitor>()?.IsRecoveryNeeded ?? true);
 
-        [CommitIgnore]
+        [IgnoreTracking]
         public bool NoGamesPlayed
         {
             get => _noGamesPlayed;
@@ -327,22 +327,22 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             }
         }
 
-        [CommitIgnore]
+        [IgnoreTracking]
         public virtual bool PrinterButtonsEnabled => PrinterButtonsEnabledInternal && PrintButtonAccessEnabled;
 
-        [CommitIgnore]
+        [IgnoreTracking]
         public bool PrintCurrentPageButtonVisible { get; private set; }
 
-        [CommitIgnore]
+        [IgnoreTracking]
         public bool PrintSelectedButtonVisible { get; private set; }
 
-        [CommitIgnore]
+        [IgnoreTracking]
         public bool PrintLast15ButtonVisible { get; private set; }
 
         /// <summary>
         ///     Gets or sets the First visible element in the page.
         /// </summary>
-        [CommitIgnore]
+        [IgnoreTracking]
         public int FirstVisibleElement
         {
             get => _firstVisibleElement;
@@ -356,7 +356,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
         /// <summary>
         ///     Gets or sets the visible records in the view.
         /// </summary>
-        [CommitIgnore]
+        [IgnoreTracking]
         public int RecordsToBePrinted
         {
             get => _recordsToBePrinted;
@@ -367,7 +367,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             }
         }
 
-        [CommitIgnore]
+        [IgnoreTracking]
         public string TestWarningText
         {
             get => _testWarningText;
@@ -384,7 +384,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
         /// <summary>
         ///     For data that takes time to load, this can be used to display an indeterminate progress bar
         /// </summary>
-        [CommitIgnore]
+        [IgnoreTracking]
         public virtual bool IsLoadingData
         {
             get => _isLoadingData;
@@ -396,16 +396,16 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
         }
 
         /// <inheritdoc />
-        [CommitIgnore]
+        [IgnoreTracking]
         public bool IsLoaded { get; private set; }
 
-        [CommitIgnore]
+        [IgnoreTracking]
         public virtual bool DataEmpty => false; // use in classes where needed to indicate there is no data in the view and printing should be disabled
 
-        [CommitIgnore]
+        [IgnoreTracking]
         public virtual bool MainPrintButtonEnabled => PageSupportsMainPrintButton && PrinterButtonsEnabled;
 
-        [CommitIgnore]
+        [IgnoreTracking]
         public virtual bool PageSupportsMainPrintButton
         {
             get => _pageSupportsMainPrintButton;
@@ -422,7 +422,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
         /// <inheritdoc />
         public virtual bool CanCalibrateTouchScreens => true;
 
-        [CommitIgnore]
+        [IgnoreTracking]
         public virtual bool PopupOpen { get; set; }
 
         public CultureInfo CurrencyDisplayCulture => GetCurrencyDisplayCulture();
@@ -441,7 +441,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
 
         protected IPrinter Printer => ServiceManager.GetInstance().TryGetService<IPrinter>();
 
-        [CommitIgnore]
+        [IgnoreTracking]
         protected virtual bool IsContainerPage => false;
 
         /// <summary>
@@ -449,10 +449,10 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
         /// </summary>
         protected virtual bool IsModalDialog => false;
 
-        [CommitIgnore]
+        [IgnoreTracking]
         protected OperatorMenuAccessRestriction AccessRestriction { get; private set; }
 
-        [CommitIgnore]
+        [IgnoreTracking]
         protected bool ClearValidationOnUnload { get; set; }
 
         public void Dispose()

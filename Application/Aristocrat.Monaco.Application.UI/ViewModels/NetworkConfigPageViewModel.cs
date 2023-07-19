@@ -2,6 +2,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Threading.Tasks;
+    using Aristocrat.Monaco.UI.Common.MVVM;
     using Aristocrat.Toolkit.Mvvm.Extensions;
     using ConfigWizard;
     using Contracts;
@@ -48,7 +49,6 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             _network = ServiceManager.GetInstance().GetService<INetworkService>();
 
             InputStatusText = string.Empty;
-            IgnorePropertyForCommitted(nameof(ShowStatus));
         }
 
         public bool CanApplyChanges => InputEnabled && HasChanges();
@@ -186,6 +186,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             }
         }
 
+        [IgnoreTracking]
         public bool ShowStatus
         {
             get => _showStatus;

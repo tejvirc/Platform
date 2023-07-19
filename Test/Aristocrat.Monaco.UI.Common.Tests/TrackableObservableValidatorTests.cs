@@ -47,7 +47,7 @@
             public void SetCommitPrivate() => CommitPrivate = true;
 
             private bool _ignorePublic;
-            [CommitIgnore]
+            [IgnoreTracking]
             public bool IgnorePublic
             {
                 get => _ignorePublic;
@@ -59,7 +59,7 @@
             }
 
             private bool _ignoreProtected;
-            [CommitIgnore]
+            [IgnoreTracking]
             public bool IgnoreProtected
             {
                 get => _ignoreProtected;
@@ -73,7 +73,7 @@
             public void SetIgnoreProtected() => IgnoreProtected = true;
 
             private bool _ignorePrivate;
-            [CommitIgnore]
+            [IgnoreTracking]
             public bool IgnorePrivate
             {
                 get => _ignorePrivate;

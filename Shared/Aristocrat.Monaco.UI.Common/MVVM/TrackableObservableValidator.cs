@@ -31,7 +31,7 @@
         /// <summary>
         ///     This value will raise property changed when committed without errors
         /// </summary>
-        [CommitIgnore]
+        [IgnoreTracking]
         public bool Committed
         {
             get => _committed;
@@ -52,7 +52,7 @@
         protected TrackableObservableValidator()
         {
             _propertiesToIgnoreForCommitted = GetType().GetProperties()
-                .Where(property => property.IsDefined(typeof(CommitIgnoreAttribute), false))
+                .Where(property => property.IsDefined(typeof(IgnoreTrackingAttribute), false))
                 .Select(property => property.Name)
                 .ToHashSet();
 
