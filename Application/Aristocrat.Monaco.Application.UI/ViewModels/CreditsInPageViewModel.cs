@@ -1,6 +1,7 @@
 namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
     using Accounting.Contracts;
     using CommunityToolkit.Mvvm.Input;
     using Contracts;
@@ -59,16 +60,14 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         /// <summary>
         ///     Gets or sets the MaxCreditsIn
         /// </summary>
+        [CustomValidation(typeof(CreditsInPageViewModel), nameof(ValidateMaxCreditsIn))]
         public decimal MaxCreditsIn
         {
             get => _maxCreditsIn;
-
             set
             {
-                if (_maxCreditsIn != value)
+                if (SetProperty(ref _maxCreditsIn, value, true))
                 {
-                    ValidateMaxCreditsIn(value);
-                    OnPropertyChanged(nameof(MaxCreditsIn));
                     IsDirty = true;
                     ApplyCommand.NotifyCanExecuteChanged();
                     ClearCommand.NotifyCanExecuteChanged();
@@ -140,21 +139,13 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             MaxCreditsIn = 0;
         }
 
-        private void ValidateMaxCreditsIn(decimal maxCreditsIn)
+        public static ValidationResult ValidateMaxCreditsIn(decimal maxCreditsIn, ValidationContext context)
         {
-            ClearErrors(nameof(MaxCreditsIn));
-
-            if (maxCreditsIn >= ApplicationConstants.MaxCreditsInMax)
-            {
-                return;
-            }
-
             if (maxCreditsIn < ApplicationConstants.MaxCreditsInMin)
             {
-                SetError(nameof(MaxCreditsIn), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MaxCreditsInInvalid));
+                return new(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MaxCreditsInInvalid));
             }
-
-            _maxCreditsIn = maxCreditsIn;
+            return ValidationResult.Success;
         }
     }
 }
