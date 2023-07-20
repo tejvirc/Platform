@@ -2,6 +2,7 @@
 {
     using System;
     using System.Threading;
+    using Application.Contracts.Protocol;
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Emdi;
@@ -50,6 +51,7 @@
             var emdi = new Mock<IEmdi>();
             var central = new Mock<ICentralService>();
             var eventLift = new Mock<IEventLift>();
+            var multiProtocolConfigurationProvider = new Mock<IMultiProtocolConfigurationProvider>();
 
             _g2sEngineMock = new Mock<G2SEngine>(
                 egm.Object,
@@ -72,7 +74,8 @@
                 certificateMonitor.Object,
                 emdi.Object,
                 central.Object,
-                eventLift.Object);
+                eventLift.Object,
+                multiProtocolConfigurationProvider.Object);
             MoqServiceManager.AddService(_g2sEngineMock);
         }
 

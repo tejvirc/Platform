@@ -81,8 +81,9 @@
         public void AddProgressiveDevices(bool initialCreation = false)
         {
             var hosts = _propertiesManager.GetValues<IHost>(G2S.Constants.RegisteredHosts).ToList();
-            var defaultHost = hosts.OrderBy(h => h.Index).FirstOrDefault(h => !h.IsEgm() && h.Registered);
+            var registeredGuests = hosts.Where(h => !h.IsEgm() && h.Registered).ToList();
             var progressiveHost = hosts.FirstOrDefault(h => h.IsProgressiveHost);
+            var egmHost = _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId) as IHost;
             var defaultNoProgInfoTimeout = (int)(progressiveHost?.OfflineTimerInterval.TotalMilliseconds ??
                                           G2S.Constants.DefaultNoProgInfoTimeout);
 
@@ -97,21 +98,16 @@
                 .Select(ll => ll.ProgressiveGroupId)
                 .Distinct().ToList();
             
-            foreach (var id in progressiveDeviceIdsToCreate)
+            foreach (var deviceId in progressiveDeviceIdsToCreate)
             {
-                if (!initialCreation && _egm.GetDevice<IProgressiveDevice>(id) != null) continue;
-                var device = _deviceFactory.Create(
-                    progressiveHost ??
-                    defaultHost ?? _egm.GetHostById(Constants.EgmHostId),
-                    hosts.Where(h => !h.IsEgm() && h.Registered),
-                    () => new ProgressiveDevice(id, _progressiveDeviceStateObserver, _eventLift, defaultNoProgInfoTimeout));
+                if (!initialCreation && _egm.GetDevice<IProgressiveDevice>(deviceId) != null) continue;
+                var device = _deviceFactory.Create(progressiveHost ?? egmHost, registeredGuests,
+                    () => new ProgressiveDevice(deviceId, _progressiveDeviceStateObserver, _eventLift, defaultNoProgInfoTimeout));
             }
 
             if (initialCreation && !_egm.GetDevices<IProgressiveDevice>().Any())
             {
-                _deviceFactory.Create(
-                    progressiveHost ?? defaultHost ?? _egm.GetHostById(Constants.EgmHostId),
-                    hosts.Where(h => !h.IsEgm() && h.Registered),
+                _deviceFactory.Create(progressiveHost ?? egmHost, registeredGuests,
                     () => new ProgressiveDevice(0, _progressiveDeviceStateObserver, _eventLift, defaultNoProgInfoTimeout));
             }
         }

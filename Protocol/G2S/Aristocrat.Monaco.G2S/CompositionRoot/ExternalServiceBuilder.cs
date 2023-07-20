@@ -6,6 +6,7 @@
     using Application.Contracts.Authentication;
     using Application.Contracts.Localization;
     using Application.Contracts.Media;
+    using Application.Contracts.Protocol;
     using Aristocrat.Monaco.Protocol.Common.Installer;
     using Gaming.Contracts;
     using Gaming.Contracts.Bonus;
@@ -91,6 +92,7 @@
             @this.RegisterInstance(serviceManager.GetService<IOSInstaller>());
             @this.RegisterInstance(serviceManager.GetService<IPrinterFirmwareInstaller>());
             @this.RegisterInstance(serviceManager.GetService<INoteAcceptorFirmwareInstaller>());
+            @this.RegisterInstance(serviceManager.GetService<IMultiProtocolConfigurationProvider>());
             @this.RegisterInstance<IInstallerFactory>(
                 new InstallerFactory
                 {

@@ -24,6 +24,7 @@
     using System.IO;
     using System.Linq;
     using Application.Contracts.Localization;
+    using Application.Contracts.Protocol;
     using Gaming.Contracts.Bonus;
     using Gaming.Contracts.Central;
     using Protocol.Common.Installer;
@@ -103,7 +104,7 @@
             MoqServiceManager.CreateAndAddService<IProgressiveMeterManager>(MockBehavior.Default);
             MoqServiceManager.CreateAndAddService<IOSInstaller>(MockBehavior.Default);
             MoqServiceManager.CreateAndAddService<IPrinterFirmwareInstaller>(MockBehavior.Default);
-            MoqServiceManager.CreateAndAddService<INoteAcceptorFirmwareInstaller>(MockBehavior.Default);
+            MoqServiceManager.CreateAndAddService<IMultiProtocolConfigurationProvider>(MockBehavior.Default);
 
             var persistence = MoqServiceManager.CreateAndAddService<IPersistenceProvider>(MockBehavior.Default);
             persistence.Setup(a => a.GetOrCreateBlock(It.IsAny<string>(), It.IsAny<PersistenceLevel>())).Returns(new Mock<IPersistentBlock>().Object);
