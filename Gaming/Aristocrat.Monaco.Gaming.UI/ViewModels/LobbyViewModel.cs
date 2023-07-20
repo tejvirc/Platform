@@ -1442,10 +1442,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
             set
             {
-                if (_idleText != value)
+                if (SetProperty(ref _idleText, value))
                 {
-                    _idleText = value;
-                    RaisePropertyChanged(nameof(IdleText));
                     UpdateIdleTextSettings();
                 }
             }
@@ -1887,14 +1885,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             }
 
             RaisePropertyChanged(nameof(PreserveGameLayoutSideMargins));
-            var idleText = (string)_properties.GetProperty(GamingConstants.IdleText, string.Empty);
-            if (string.IsNullOrWhiteSpace(IdleText))
-            {
-                idleText = (string)LobbyView.TryFindResource(LobbyIdleTextDefaultResourceKey) ?? Localizer.For(CultureFor.Player).GetString(ResourceKeys.IdleTextDefault);
-                _properties.SetProperty(GamingConstants.IdleText, idleText);
-            }
-
-            IdleText = idleText;
+            UpdateIdleText();
 
             var cabinetType = _cabinetDetectionService.Type.ToString();
             Logger.Debug($"Cabinet Type: {cabinetType}");
@@ -2249,6 +2240,30 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             }
         }
 
+        private void UpdateIdleText()
+        {
+            // This may be set in the audit menu when the Idle Text page is available
+            var idleText = (string)_properties.GetProperty(GamingConstants.IdleText, string.Empty);
+
+            if (string.IsNullOrWhiteSpace(idleText))
+            {
+                // This resource is set by the UI.xaml per jurisdiction and should be set in properties as well
+                idleText = (string)LobbyView?.TryFindResource(LobbyIdleTextDefaultResourceKey);
+                if (!string.IsNullOrWhiteSpace(idleText))
+                {
+                    _properties.SetProperty(GamingConstants.IdleText, idleText);
+                }
+            }
+
+            if (string.IsNullOrWhiteSpace(idleText))
+            {
+                // Do not set the localized value to properties or else it can get out of sync with current language
+                idleText = Localizer.For(CultureFor.Player).GetString(ResourceKeys.IdleTextDefault);
+            }
+
+            IdleText = idleText;
+        }
+
         private void OnStateEntry(LobbyState state, object obj)
         {
             Logger.Debug($"OnStateEntry to [{state}]");
@@ -2400,6 +2415,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             MessageOverlayDisplay.ShowProgressiveGameDisabledNotification = false;
 
             UpdateUI();
+            UpdateIdleText();
 
             PlayerMenuPopupViewModel.IsMenuVisible = false;
 
@@ -3872,7 +3888,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private void UpdateDisplayedGames()
         {
-            if(_enabledGameList == null)
+            if (_enabledGameList == null)
             {
                 return;
             }
@@ -4033,8 +4049,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             ClockTimer.UpdateTime();
             SendLanguageChangedEvent();
 
-            var idleText = (string)LobbyView?.TryFindResource(LobbyIdleTextDefaultResourceKey) ?? Localizer.For(CultureFor.Player).GetString(ResourceKeys.IdleTextDefault);
-            IdleText = idleText;
+            UpdateIdleText();
 
             RaisePropertyChanged(nameof(NoGamesForThisLanguageErrorIsVisible));
         }
