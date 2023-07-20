@@ -60,7 +60,8 @@
 
                     break;
                 case CashOutStrategy.Full:
-                    if (!_gamePlayState.InGameRound)
+                    if (!_gamePlayState.InGameRound ||
+                        _properties.GetValue(GamingConstants.MeterFreeGamesIndependently, false))
                     {
                         command.ForcedCashout = _bank.CashOut(true);
                     }
