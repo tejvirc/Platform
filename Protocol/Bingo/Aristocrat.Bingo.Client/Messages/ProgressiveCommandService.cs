@@ -191,10 +191,7 @@
                 return;
             }
 
-            if (_commandHandler is not null)
-            {
-                _commandHandler.Dispose();
-            }
+            _commandHandler?.Dispose();
 
             _commandHandler = null;
         }
