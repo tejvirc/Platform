@@ -385,12 +385,8 @@
             {
                 () =>
                 {
-                    if(!_stateChecker.IsGame)
-                    {
-                        Enabled = false;
-                        return;
-                    }
                     EventBus.Publish(new BalanceCheckEvent());
+                    EventBus.Publish(new GameLoadRequestedEvent());
                 }
             });
 
