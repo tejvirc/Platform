@@ -370,7 +370,7 @@ namespace Aristocrat.Monaco.Gaming
 
             if (!rtpRules.IncludeLinkProgressiveIncrementRtp)
             {
-                breakdown.StandaloneProgressiveReset = RtpRange.Zero;
+                breakdown.LinkedProgressiveIncrement = RtpRange.Zero;
             }
         }
 
