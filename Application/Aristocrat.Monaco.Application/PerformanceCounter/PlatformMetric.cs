@@ -171,16 +171,6 @@
 
                     _counter = perfMon;
                 }
-                else if (MetricName == MetricType.CpuTemperature)
-                {
-                    var perfMon = new SingleCustomPerformanceCounterWrapper(Category, Counter, "A custom category for Monaco", "CPU Temperature Counter");
-
-                    Logger.Debug(
-                        $"Created a performance counter with category = {Category}, " +
-                        $"counterType = {CounterType}, metricType = {MetricName}");
-
-                    _counter = perfMon;
-                }
                 else
                 {
                     var perfMon = new SinglePerformanceCounterWrapper(Category, Counter, Instance);
