@@ -4,6 +4,8 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Windows.Input;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts.OperatorMenu;
 
     [CLSCompliant(false)]
