@@ -94,7 +94,7 @@
             }
             finally
             {
-                CloseCommandHandler();
+                Dispose();
             }
         }
 
@@ -113,7 +113,9 @@
 
             if (disposing)
             {
-                CloseCommandHandler();
+                _commandHandler?.Dispose();
+
+                _commandHandler = null;
                 _authorization.AuthorizationData = null;
             }
 
@@ -183,22 +185,7 @@
                 Logger.Error($"Progressive command service exited.  IsCancelled={cancellationToken.IsCancellationRequested}", e);
             }
         }
-
-        private void CloseCommandHandler()
-        {
-            if (_disposed)
-            {
-                return;
-            }
-
-            if (_commandHandler is not null)
-            {
-                _commandHandler.Dispose();
-            }
-
-            _commandHandler = null;
-        }
-
+        
         private async Task Respond(
             IAsyncStreamWriter<Progressive> output,
             string machineSerial,
