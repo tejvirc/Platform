@@ -175,7 +175,8 @@
                 <DataTemplate>
                     <DataGrid Name="GameInformationViewer"                            
                               ItemsSource="{Binding Path=GameInfo, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                              IsReadOnly="True">
+                              IsReadOnly="True"
+                              AutomationProperties.AutomationId="DataGrid19_2B312E18">
                         <DataGrid.Resources>
                             <Style TargetType="DataGridColumnHeader">
                                 <Setter Property="FontSize" Value="{StaticResource NormalFontSize}"/>
@@ -186,11 +187,14 @@
                         </DataGrid.Resources>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameIdHeader}}"
-                                                Binding="{Binding GameId}" ElementStyle="{StaticResource Centered}"/>
+                                                Binding="{Binding GameId}" ElementStyle="{StaticResource Centered}"
+                                                AutomationProperties.AutomationId="DataGridTextColumn27_2B312E18" />
                             <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DenominationShortHeader}}"
-                                                Binding="{Binding Denomination}" ElementStyle="{StaticResource Centered}"/>
+                                                Binding="{Binding Denomination}" ElementStyle="{StaticResource Centered}"
+                                                AutomationProperties.AutomationId="DataGridTextColumn28_2B312E18" />
                             <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Wager}}"
-                                                Binding="{Binding WagerAmount}" ElementStyle="{StaticResource Centered}"/>
+                                                Binding="{Binding WagerAmount}" ElementStyle="{StaticResource Centered}"
+                                                AutomationProperties.AutomationId="DataGridTextColumn29_2B312E18" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </DataTemplate>
