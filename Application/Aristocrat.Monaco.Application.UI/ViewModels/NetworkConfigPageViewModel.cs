@@ -51,7 +51,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             InputStatusText = string.Empty;
         }
 
-        public bool CanApplyChanges => InputEnabled && HasChanges();
+        public bool CanApplyChanges => !HasErrors && InputEnabled && HasChanges();
 
         public string DnsServer1
         {
