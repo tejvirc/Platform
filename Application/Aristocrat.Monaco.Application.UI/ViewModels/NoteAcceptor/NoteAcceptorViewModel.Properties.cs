@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
 {
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Windows.Media;
     using Common;
@@ -202,21 +203,11 @@
             NoteAcceptor.LogicalState != NoteAcceptorLogicalState.Inspecting &&
             _noteAcceptorDiagnosticsEnabled;
 
+        [CustomValidation(typeof(NoteAcceptorViewModel), nameof(ValidateBillAcceptanceLimit))]
         public decimal BillAcceptanceLimit
         {
             get => _billAcceptanceLimit;
-            set
-            {
-                if (_billAcceptanceLimit == value)
-                {
-                    return;
-                }
-
-                if (SetProperty(ref _billAcceptanceLimit, value, nameof(BillAcceptanceLimit)))
-                {
-                    SetError(nameof(BillAcceptanceLimit), ValidateBillAcceptanceLimit(value));
-                }
-            }
+            set => SetProperty(ref _billAcceptanceLimit, value, true);
         }
 
         // Flag which specifies whether to show the Bill Acceptor Limit Field
@@ -433,32 +424,21 @@
 
         public bool TestModeToolTipDisabled => (NoteAcceptor?.ReasonDisabled.HasFlag(DisabledReasons.GamePlay) ?? false) || TestModeEnabled;
 
-        public string ValidateBillAcceptanceLimit(decimal billAcceptanceLimit)
+        public static ValidationResult ValidateBillAcceptanceLimit(decimal billAcceptanceLimit)
         {
-            string error = string.Empty;
+            var errorMessage = string.Empty;
             if (billAcceptanceLimit > ApplicationConstants.MaxCreditsInMax)
             {
-                error = string.Format(Localizer.For(CultureFor.Player).GetString(ResourceKeys.LessThanOrEqualErrorMessage), ApplicationConstants.MaxCreditsInMax.FormattedCurrencyString());
+                errorMessage = string.Format(
+                    Localizer.For(CultureFor.Player).GetString(ResourceKeys.LessThanOrEqualErrorMessage),
+                    ApplicationConstants.MaxCreditsInMax.FormattedCurrencyString()
+                );
             }
-
             if (billAcceptanceLimit < ApplicationConstants.MaxCreditsInMin)
             {
-                error = Localizer.For(CultureFor.Player).GetString(ResourceKeys.MaxCreditsInInvalid);
+                errorMessage = Localizer.For(CultureFor.Player).GetString(ResourceKeys.MaxCreditsInInvalid);
             }
-
-            return error;
-        }
-
-        protected override void SetError(string propertyName, string error)
-        {
-            if (string.IsNullOrEmpty(error))
-            {
-                ClearErrors(propertyName);
-            }
-            else
-            {
-                base.SetError(propertyName, error);
-            }
+            return string.IsNullOrEmpty(errorMessage) ? ValidationResult.Success : new(errorMessage);
         }
     }
 }
