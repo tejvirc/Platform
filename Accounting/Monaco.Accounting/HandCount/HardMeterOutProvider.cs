@@ -371,6 +371,10 @@
                     throw new TransferOutException("Failed to debit the bank: {transaction}", ex);
                 }
 
+                Logger.Debug("Preparing to publish HardMeterOutCompletedEvent");
+
+                _eventBus.Publish(new HardMeterOutCompletedEvent(transaction));
+
                 Logger.Info($"Hard meter out issued: {transaction}");
 
                 return Task.CompletedTask;

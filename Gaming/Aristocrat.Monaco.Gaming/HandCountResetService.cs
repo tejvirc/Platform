@@ -234,6 +234,11 @@
 
         public void Initialize()
         {
+            if (!_handCountService.HandCountServiceEnabled)
+            {
+                return;
+            }
+
             Logger.Debug($"Hand count reset idle time period is {_currentIdleTimePeriod}");
 
             _eventBus.Subscribe<BankBalanceChangedEvent>(this, _ => HandleActivity());

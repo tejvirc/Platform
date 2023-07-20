@@ -60,6 +60,11 @@
 
         public void Initialize()
         {
+            if (!_handCountService.HandCountServiceEnabled)
+            {
+                return;
+            }
+
             MvvmHelper.ExecuteOnUI(
                 () =>
                 {

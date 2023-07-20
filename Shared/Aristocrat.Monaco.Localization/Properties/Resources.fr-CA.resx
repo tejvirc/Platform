@@ -4873,4 +4873,64 @@ Do you really want to do partial reset????</value>
   <data name="GamesPlayedSinceReboot" xml:space="preserve">
     <value>???Games Played since Reboot???</value>
   </data>
+  <data name="OneCent" xml:space="preserve">
+    <value>1 ¢</value>
+  </data>
+  <data name="AudioDisconnect" xml:space="preserve">
+    <value>???Audio Device Disconnected???</value>
+    <comment>Aristocrat.Monaco.Hardware</comment>
+  </data>
+  <data name="ButtonDeckDisconnected" xml:space="preserve">
+    <value>???Button Deck Disconnected???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="Disconnect" xml:space="preserve">
+    <value>???Disconnect???</value>
+  </data>
+  <data name="DisplayDisconnected" xml:space="preserve">
+    <value>???Display Disconnected???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="GatDisconnected" xml:space="preserve">
+    <value>???GAT is Disconnected???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="ProgressiveDisconnectText" xml:space="preserve">
+    <value>???Progressive Disconnected???</value>
+    <comment>Aristocrat.Monaco.G2S</comment>
+  </data>
+  <data name="TouchDisplayDisconnected" xml:space="preserve">
+    <value>???Touch Display Disconnected - Reconnect the display and Powercycle???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="TouchDisplayReconnected" xml:space="preserve">
+    <value>???Touch Display Connected - Restart Required???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="VbdDisconnectedOnStartupText1" xml:space="preserve">
+    <value>???Button Deck cable not detected on start-up???</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="VbdDisconnectedOnStartupText2" xml:space="preserve">
+    <value>???Check cable and re-start platform???</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="GameConfigurationSavePrompt" xml:space="preserve">
+    <value>???Are you done with all game configuration? ???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Non</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Oui</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="DateText" xml:space="preserve">
+    <value>??DATE??</value>
+  </data>
+  <data name="TimeText" xml:space="preserve">
+    <value>??TIME??</value>
+  </data>
 </root>
