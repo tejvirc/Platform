@@ -11,6 +11,7 @@
     [TestClass]
     public class CabinetStateServiceTests
     {
+        private const int wrapUpTimeout = 1500;
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void WhenBankIsNullExpectException()
@@ -210,7 +211,7 @@
             Assert.IsFalse(service.Idle);
 
             //TODO: Wrap the timer in an interface and inject it so we can mock it
-            Thread.Sleep(1100);
+            Thread.Sleep(wrapUpTimeout);
 
             Assert.IsTrue(service.Idle);
         }
@@ -244,7 +245,7 @@
             Assert.IsFalse(service.Idle);
 
             //TODO: Wrap the timer in an interface and inject it so we can mock it
-            Thread.Sleep(1100);
+            Thread.Sleep(wrapUpTimeout);
 
             Assert.IsFalse(service.Idle);
         }

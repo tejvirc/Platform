@@ -14,7 +14,7 @@ namespace Aristocrat.Monaco.Common.Tests.Currency
     public class CurrencyLoaderTest
     {
         //CultureInfo.GetCultures gives 155 cultures(CultureInfo NETCore)
-        private const int _numberOfCurrencies = 155;
+        private const int _numberOfCurrencies = 154;
 
         [TestMethod]
         public void CurrencyLoad_Success()

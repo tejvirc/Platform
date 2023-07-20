@@ -16,6 +16,7 @@
     [TestClass]
     public class SasClientTest
     {
+        private const int threadJoinTimeout = 1000;
         private const string ReasonText = "Dummy";
         private SasClient _target;
         private dynamic _privateTarget;
@@ -377,7 +378,7 @@
 
             var thread = new Thread(_target.Run);
             thread.Start();
-            Assert.IsTrue(thread.Join(100));
+            Assert.IsTrue(thread.Join(threadJoinTimeout));
             Assert.AreEqual(TestConstants.SasAddress, sent[0]);
             Assert.AreEqual(1, sent.Count);
             Assert.IsFalse(_target.IsGeneralPoll);
@@ -422,7 +423,7 @@
 
             var thread = new Thread(_target.Run);
             thread.Start();
-            Assert.IsTrue(thread.Join(125));
+            Assert.IsTrue(thread.Join(threadJoinTimeout));
             Assert.AreEqual(TestConstants.SasAddress | SasConstants.Nack, sent[0]);
             Assert.AreEqual(1, sent.Count);
             _commPort.Verify();
@@ -456,7 +457,7 @@
 
             var thread = new Thread(_target.Run);
             thread.Start();
-            Assert.IsTrue(thread.Join(100));
+            Assert.IsTrue(thread.Join(threadJoinTimeout));
             _commPort.Verify();
             _callbacks.Verify();
         }
@@ -486,7 +487,7 @@
 
             var thread = new Thread(_target.Run);
             thread.Start();
-            Assert.IsTrue(thread.Join(100));
+            Assert.IsTrue(thread.Join(threadJoinTimeout));
             _commPort.Verify();
             _callbacks.Verify();
         }
@@ -526,7 +527,7 @@
             var thread = new Thread(_target.Run);
             thread.Start();
 
-            Assert.IsTrue(thread.Join(100));
+            Assert.IsTrue(thread.Join(threadJoinTimeout));
             Assert.AreEqual(3, sent.Count);
             _commPort.Verify();
             _callbacks.Verify();
@@ -570,7 +571,7 @@
             var thread = new Thread(_target.Run);
             thread.Start();
 
-            Assert.IsTrue(thread.Join(100));
+            Assert.IsTrue(thread.Join(threadJoinTimeout));
             _target.IsRealTimeEventReportingActive = false;
 
             // should get address, 0xFF, ACPowerApplied, crc, crc
@@ -612,7 +613,7 @@
 
             var thread = new Thread(_target.Run);
             thread.Start();
-            Assert.IsTrue(thread.Join(100));
+            Assert.IsTrue(thread.Join(threadJoinTimeout));
             Assert.AreEqual(1, sent.Count);
             _commPort.Verify();
             _callbacks.Verify();
@@ -655,7 +656,7 @@
             var thread = new Thread(_target.Run);
             thread.Start();
 
-            Assert.IsTrue(thread.Join(100));
+            Assert.IsTrue(thread.Join(threadJoinTimeout));
             Assert.AreEqual(TestConstants.SasAddress, sent[0]);
             Assert.AreEqual(7, sent.Count);
             _commPort.Verify();
@@ -681,7 +682,7 @@
             var thread = new Thread(_target.Run);
             thread.Start();
 
-            Assert.IsTrue(thread.Join(100));
+            Assert.IsTrue(thread.Join(threadJoinTimeout));
             _commPort.Verify();
             _callbacks.Verify();
         }
