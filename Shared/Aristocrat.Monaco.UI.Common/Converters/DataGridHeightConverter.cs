@@ -32,19 +32,7 @@
             {
                 var actualHeight = grid.ActualHeight;
 
-                double horizontalScrollButtonsHeight = 0;
-                if (values.Length > 1 && values[1] is FrameworkElement horizontalButtons && horizontalButtons.Visibility != Visibility.Collapsed)
-                {
-                    if (horizontalButtons.Visibility == Visibility.Visible && horizontalButtons.DesiredSize.Height == 0)
-                    {
-                        horizontalScrollButtonsHeight = 70;
-                    }
-                    else
-                    {
-                        horizontalScrollButtonsHeight = horizontalButtons.DesiredSize.Height;
-                    }
-                }
-
+                var horizontalScrollButtonsHeight = GetHorizontalScrollButtonsHeight(grid);
                 var verticalScrollButtonsHeight = values.Length > 2 && values[2] is FrameworkElement verticalButtons && verticalButtons.Visibility == Visibility.Visible
                     ? verticalButtons.DesiredSize.Height
                     : 0;
@@ -86,6 +74,24 @@
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
+        }
+
+        internal static double GetHorizontalScrollButtonsHeight(DataGrid grid)
+        {
+            double result = 0;
+            if (grid.Template.FindName("PART_GridHorizontalScrollButtons", grid) is FrameworkElement horizontalButtons && horizontalButtons.Visibility != Visibility.Collapsed)
+            {
+                if (horizontalButtons.Visibility == Visibility.Visible && horizontalButtons.DesiredSize.Height == 0)
+                {
+                    result = 70;
+                }
+                else
+                {
+                    result = horizontalButtons.DesiredSize.Height;
+                }
+            }
+
+            return result;
         }
     }
 }
