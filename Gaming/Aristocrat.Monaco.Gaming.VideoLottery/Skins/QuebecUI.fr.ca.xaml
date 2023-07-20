@@ -1,355 +1,262 @@
-<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
-    xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib">
-    <!--  Used to customize lobby for different jurisdictions  -->
-    <!--  **IMAGES TOP SCREEN**  -->
-    <BitmapImage
-        x:Key="TopBackground"
-        AutomationProperties.AutomationId="BitmapImage0_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/TS_Background.png" />
-    <BitmapImage
-        x:Key="TopLoading"
-        AutomationProperties.AutomationId="BitmapImage1_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/TS_LoadingScreen.png" />
-    <BitmapImage
-        x:Key="TopDisabled"
-        AutomationProperties.AutomationId="BitmapImage2_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/TS_Background_Disabled.png" />
-    <!--  **IMAGES TOPPER SCREEN**  -->
-    <BitmapImage
-        x:Key="TopperBackground"
-        AutomationProperties.AutomationId="BitmapImage3_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/TS_Background.png" />
-    <BitmapImage
-        x:Key="TopperLoading"
-        AutomationProperties.AutomationId="BitmapImage4_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/TS_LoadingScreen.png" />
-    <BitmapImage
-        x:Key="TopperDisabled"
-        AutomationProperties.AutomationId="BitmapImage5_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/TS_Background_Disabled.png" />
-    <!--  **IMAGES BOTTOM SCREEN**  -->
-    <BitmapImage
-        x:Key="BottomBackground"
-        AutomationProperties.AutomationId="BitmapImage6_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/BS_BackGround.png" />
-    <BitmapImage
-        x:Key="BottomBackgroundPortrait"
-        AutomationProperties.AutomationId="BitmapImage7_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/BS_BackGround.png" />
-    <BitmapImage
-        x:Key="JurisdictionLogo"
-        AutomationProperties.AutomationId="BitmapImage8_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/TS_VL_series.png" />
-    <BitmapImage
-        x:Key="SelectAGame"
-        AutomationProperties.AutomationId="BitmapImage9_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/BS_FR_ChooseGame.png" />
-    <BitmapImage
-        x:Key="InsertMoney"
-        AutomationProperties.AutomationId="BitmapImage10_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/InsertMoney_FR.png" />
-    <BitmapImage
-        x:Key="ResponsibleGaming"
-        AutomationProperties.AutomationId="BitmapImage11_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/BS_RG_Logo.png" />
-    <BitmapImage
-        x:Key="PlatinumIcon"
-        AutomationProperties.AutomationId="BitmapImage12_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/12Button_PlatinumSeries_0000.png" />
-    <BitmapImage
-        x:Key="StaticStarIcon"
-        AutomationProperties.AutomationId="BitmapImage13_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/StaticNewStar.png" />
-    <!--  **RESPONSIBLE GAMING INFO  -->
-    <BitmapImage
-        x:Key="RGInfoBackground"
-        AutomationProperties.AutomationId="BitmapImage14_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/RG_InfoBackGround.png" />
-    <BitmapImage
-        x:Key="RGInfoPressToReturn"
-        AutomationProperties.AutomationId="BitmapImage15_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/RGInfoPressToReturn.png" />
-    <BitmapImage
-        x:Key="RGInfoPressToReturnZeroCredits"
-        AutomationProperties.AutomationId="BitmapImage16_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/RGInfoPressToReturn_ZeroCredits.png" />
-    <BitmapImage
-        x:Key="RGInfoPage1"
-        AutomationProperties.AutomationId="BitmapImage17_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/RG_InfoPage1.png" />
-    <BitmapImage
-        x:Key="RGInfoPage2"
-        AutomationProperties.AutomationId="BitmapImage18_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/RG_InfoPage2.png" />
-    <BitmapImage
-        x:Key="RGInfoPage3"
-        AutomationProperties.AutomationId="BitmapImage19_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/RG_InfoPage3.png" />
-    <BitmapImage
-        x:Key="RGInfoPage4"
-        AutomationProperties.AutomationId="BitmapImage20_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/RG_InfoPage4.png" />
-    <BitmapImage
-        x:Key="RGInfoPage5"
-        AutomationProperties.AutomationId="BitmapImage21_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/RG_InfoPage5.png" />
-    <BitmapImage
-        x:Key="LeftArrowNormal"
-        AutomationProperties.AutomationId="BitmapImage22_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Left_Normal.png" />
-    <BitmapImage
-        x:Key="LeftArrowPressed"
-        AutomationProperties.AutomationId="BitmapImage23_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Left_Pressed.png" />
-    <BitmapImage
-        x:Key="RightArrowNormal"
-        AutomationProperties.AutomationId="BitmapImage24_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Right_Normal.png" />
-    <BitmapImage
-        x:Key="RightArrowPressed"
-        AutomationProperties.AutomationId="BitmapImage25_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Right_Pressed.png" />
-    <!--  **VIRTUAL BUTTON DECK  -->
-    <BitmapImage
-        x:Key="VBD_CashOutNormal"
-        AutomationProperties.AutomationId="BitmapImage26_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/VBD_FR_CashOut_Normal.png" />
-    <BitmapImage
-        x:Key="VBD_CashOutPressed"
-        AutomationProperties.AutomationId="BitmapImage27_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/VBD_FR_CashOut_Selected.png" />
-    <BitmapImage
-        x:Key="VBD_CashOutDisabled"
-        AutomationProperties.AutomationId="BitmapImage28_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/VBD_FR_CashOut_Dark.png" />
-    <BitmapImage
-        x:Key="VBD_MenuCashOutNormal"
-        AutomationProperties.AutomationId="BitmapImage29_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/VBD_FR_MenuCashOut_Normal.png" />
-    <BitmapImage
-        x:Key="VBD_MenuCashOutPressed"
-        AutomationProperties.AutomationId="BitmapImage30_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/VBD_FR_MenuCashOut_Selected.png" />
-    <BitmapImage
-        x:Key="VBD_MenuCashOutDisabled"
-        AutomationProperties.AutomationId="BitmapImage31_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/VBD_FR_MenuCashOut_Dark.png" />
-    <BitmapImage
-        x:Key="VBD_MoneyNormal"
-        AutomationProperties.AutomationId="BitmapImage32_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/VBD_EN_FR_Money_Normal.png" />
-    <BitmapImage
-        x:Key="VBD_MoneyDisabled"
-        AutomationProperties.AutomationId="BitmapImage33_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/VBD_EN_FR_Money_Dark.png" />
-    <BitmapImage
-        x:Key="VBD_Disabled"
-        AutomationProperties.AutomationId="BitmapImage34_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/VBD_Disabled.png" />
-    <BitmapImage
-        x:Key="VBD_Blank"
-        AutomationProperties.AutomationId="BitmapImage35_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/VBD_Blank_Background.png" />
-    <BitmapImage
-        x:Key="VBD_Helix_Disabled"
-        AutomationProperties.AutomationId="BitmapImage36_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Vbd/Helix/VBD_Disabled.png" />
-    <BitmapImage
-        x:Key="VBD_Helix_Blank"
-        AutomationProperties.AutomationId="BitmapImage37_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Vbd/Helix/VBD_Blank_Background.png" />
-    <BitmapImage
-        x:Key="VBD_Marsx_Disabled"
-        AutomationProperties.AutomationId="BitmapImage38_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Vbd/Marsx/VBD_Disabled.png" />
-    <BitmapImage
-        x:Key="VBD_Marsx_Blank"
-        AutomationProperties.AutomationId="BitmapImage39_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Vbd/Marsx/VBD_Blank_Background.png" />
-    <BitmapImage
-        x:Key="VBD_CashoutDlgBanner"
-        AutomationProperties.AutomationId="BitmapImage40_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/VBD_CashoutPrompt/FR_Banner.png" />
-    <BitmapImage
-        x:Key="VBD_CashoutDlgYes"
-        AutomationProperties.AutomationId="BitmapImage41_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/VBD_CashoutPrompt/FR_YES.png" />
-    <BitmapImage
-        x:Key="VBD_CashoutDlgNo"
-        AutomationProperties.AutomationId="BitmapImage42_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/VBD_CashoutPrompt/FR_NO.png" />
-    <BitmapImage
-        x:Key="VBD_TimeExpired"
-        AutomationProperties.AutomationId="BitmapImage43_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/VBD_Expired_FR.png" />
-    <!--  **STANDARD UPI**  -->
-    <!--  **MULTILANGUAGE UPI**  -->
-    <BitmapImage
-        x:Key="UpiBackground"
-        AutomationProperties.AutomationId="BitmapImage44_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Upi/MultiLanguage/ConsoleBackground.png" />
-    <BitmapImage
-        x:Key="BankImage"
-        AutomationProperties.AutomationId="BitmapImage45_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/FR_Bank.png" />
-    <BitmapImage
-        x:Key="CashOutNormal"
-        AutomationProperties.AutomationId="BitmapImage46_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/CashOut_Normal.png" />
-    <BitmapImage
-        x:Key="CashOutPressed"
-        AutomationProperties.AutomationId="BitmapImage47_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/CashOut_Selected.png" />
-    <BitmapImage
-        x:Key="CashOutDisabled"
-        AutomationProperties.AutomationId="BitmapImage48_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/CashOut_Dark.png" />
-    <BitmapImage
-        x:Key="MenuCashOutNormal"
-        AutomationProperties.AutomationId="BitmapImage49_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/Menu_CashOut_RG_Normal_FR.png" />
-    <BitmapImage
-        x:Key="MenuCashOutPressed"
-        AutomationProperties.AutomationId="BitmapImage50_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/Menu_CashOut_RG_Selected_FR.png" />
-    <BitmapImage
-        x:Key="MenuCashOutDisabled"
-        AutomationProperties.AutomationId="BitmapImage51_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/Menu_CashOut_RG_Dark_FR.png" />
-    <BitmapImage
-        x:Key="AllDenomOff"
-        AutomationProperties.AutomationId="BitmapImage52_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/AllDenom_Normal.png" />
-    <BitmapImage
-        x:Key="AllDenomOn"
-        AutomationProperties.AutomationId="BitmapImage53_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/AllDenom_Selected.png" />
-    <BitmapImage
-        x:Key="Denom1CentOff"
-        AutomationProperties.AutomationId="BitmapImage54_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/1c_Normal_FR.png" />
-    <BitmapImage
-        x:Key="Denom1CentOn"
-        AutomationProperties.AutomationId="BitmapImage55_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/1c_Selected_FR.png" />
-    <BitmapImage
-        x:Key="Denom5CentOff"
-        AutomationProperties.AutomationId="BitmapImage56_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/5c_Normal_FR.png" />
-    <BitmapImage
-        x:Key="Denom5CentOn"
-        AutomationProperties.AutomationId="BitmapImage57_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/5c_Selected_FR.png" />
-    <BitmapImage
-        x:Key="Denom25CentOff"
-        AutomationProperties.AutomationId="BitmapImage58_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/25c_Normal_FR.png" />
-    <BitmapImage
-        x:Key="Denom25CentOn"
-        AutomationProperties.AutomationId="BitmapImage59_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/25c_Selected_FR.png" />
-    <BitmapImage
-        x:Key="EnglishOff"
-        AutomationProperties.AutomationId="BitmapImage60_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Upi/MultiLanguage/EN_Language_Normal.png" />
-    <BitmapImage
-        x:Key="EnglishOn"
-        AutomationProperties.AutomationId="BitmapImage61_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Upi/MultiLanguage/EN_Language_Selected.png" />
-    <BitmapImage
-        x:Key="FrenchOff"
-        AutomationProperties.AutomationId="BitmapImage62_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Upi/MultiLanguage/FR_Language_Normal.png" />
-    <BitmapImage
-        x:Key="FrenchOn"
-        AutomationProperties.AutomationId="BitmapImage63_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Upi/MultiLanguage/FR_Language_Selected.png" />
-    <!--  **TIME LIMIT DIALOG  -->
-    <BitmapImage
-        x:Key="TimeLimitLobbyBackground"
-        AutomationProperties.AutomationId="BitmapImage64_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/PlayTime/DarkenedBackground_CashOut.png" />
-    <BitmapImage
-        x:Key="TimeLimitGameBackground"
-        AutomationProperties.AutomationId="BitmapImage65_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/PlayTime/DarkenedBackground_MenuCashOut.png" />
-    <BitmapImage
-        x:Key="TimeLimitInitialPrompt"
-        AutomationProperties.AutomationId="BitmapImage66_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/PlayTime/Banner_FR_Start.png" />
-    <BitmapImage
-        x:Key="TimeLimitExpiredPrompt"
-        AutomationProperties.AutomationId="BitmapImage67_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/PlayTime/Banner_FR_Expired.png" />
-    <BitmapImage
-        x:Key="TimeLimitExpiredPrompt15"
-        AutomationProperties.AutomationId="BitmapImage68_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/PlayTime/Banner_FR_Expired.png" />
-    <BitmapImage
-        x:Key="TimeLimitExpiredPrompt30"
-        AutomationProperties.AutomationId="BitmapImage69_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/PlayTime/Banner_FR_Expired.png" />
-    <BitmapImage
-        x:Key="TimeLimitExpiredPrompt45"
-        AutomationProperties.AutomationId="BitmapImage70_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/PlayTime/Banner_FR_Expired.png" />
-    <BitmapImage
-        x:Key="TimeLimitExpiredPrompt60"
-        AutomationProperties.AutomationId="BitmapImage71_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/PlayTime/Banner_FR_Expired.png" />
-    <BitmapImage
-        x:Key="TimeLimitFinalPrompt"
-        AutomationProperties.AutomationId="BitmapImage72_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/PlayTime/Banner_FR_Expired_CashoutOnly.png" />
-    <BitmapImage
-        x:Key="TimeLimit15MinNormal"
-        AutomationProperties.AutomationId="BitmapImage73_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/PlayTime/15_EN_FR_Button_Neutral.png" />
-    <BitmapImage
-        x:Key="TimeLimit15MinPressed"
-        AutomationProperties.AutomationId="BitmapImage74_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/PlayTime/15_EN_FR_Button_Pressed.png" />
-    <BitmapImage
-        x:Key="TimeLimit30MinNormal"
-        AutomationProperties.AutomationId="BitmapImage75_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/PlayTime/30_EN_FR_Button_Neutral.png" />
-    <BitmapImage
-        x:Key="TimeLimit30MinPressed"
-        AutomationProperties.AutomationId="BitmapImage76_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/PlayTime/30_EN_FR_Button_Pressed.png" />
-    <BitmapImage
-        x:Key="TimeLimit45MinNormal"
-        AutomationProperties.AutomationId="BitmapImage77_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/PlayTime/45_EN_FR_Button_Neutral.png" />
-    <BitmapImage
-        x:Key="TimeLimit45MinPressed"
-        AutomationProperties.AutomationId="BitmapImage78_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/PlayTime/45_EN_FR_Button_Pressed.png" />
-    <BitmapImage
-        x:Key="TimeLimit60MinNormal"
-        AutomationProperties.AutomationId="BitmapImage79_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/PlayTime/60_EN_FR_Button_Neutral.png" />
-    <BitmapImage
-        x:Key="TimeLimit60MinPressed"
-        AutomationProperties.AutomationId="BitmapImage80_CE5EBD3C"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/PlayTime/60_EN_FR_Button_Pressed.png" />
-    <BitmapImage
-        x:Key="TimeLimitCashOutNormal"
-        AutomationProperties.AutomationId="BitmapImage0_4146A47A"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/CashOut_Normal.png" />
-    <BitmapImage
-        x:Key="TimeLimitCashOutPressed"
-        AutomationProperties.AutomationId="BitmapImage1_4146A47A"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/CashOut_Selected.png" />
-    <BitmapImage
-        x:Key="ButtonBorder"
-        AutomationProperties.AutomationId="BitmapImage0_35E4312D"
-        UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Button_Border.png" />
-    <!--  Filenames, margins, etc  -->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <!-- Used to customize lobby for different jurisdictions -->
+    <!-- **IMAGES TOP SCREEN** -->
+    <BitmapImage x:Key="TopBackground"
+                 AutomationProperties.AutomationId="BitmapImage0_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/TS_Background.png" />
+    <BitmapImage x:Key="TopLoading"
+                 AutomationProperties.AutomationId="BitmapImage1_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/TS_LoadingScreen.png" />
+    <BitmapImage x:Key="TopDisabled"
+                 AutomationProperties.AutomationId="BitmapImage2_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/TS_Background_Disabled.png" />
+    <!-- **IMAGES TOPPER SCREEN** -->
+    <BitmapImage x:Key="TopperBackground"
+                 AutomationProperties.AutomationId="BitmapImage3_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/TS_Background.png" />
+    <BitmapImage x:Key="TopperLoading"
+                 AutomationProperties.AutomationId="BitmapImage4_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/TS_LoadingScreen.png" />
+    <BitmapImage x:Key="TopperDisabled"
+                 AutomationProperties.AutomationId="BitmapImage5_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/TS_Background_Disabled.png" />
+    <!-- **IMAGES BOTTOM SCREEN** -->
+    <BitmapImage x:Key="BottomBackground"
+                 AutomationProperties.AutomationId="BitmapImage6_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/BS_BackGround.png" />
+    <BitmapImage x:Key="BottomBackgroundPortrait"
+                 AutomationProperties.AutomationId="BitmapImage7_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/BS_BackGround.png" />
+    <BitmapImage x:Key="JurisdictionLogo"
+                 AutomationProperties.AutomationId="BitmapImage8_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/TS_VL_series.png" />
+    <BitmapImage x:Key="SelectAGame"
+                 AutomationProperties.AutomationId="BitmapImage9_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/BS_FR_ChooseGame.png" />
+    <BitmapImage x:Key="InsertMoney"
+                 AutomationProperties.AutomationId="BitmapImage10_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/InsertMoney_FR.png" />
+    <BitmapImage x:Key="ResponsibleGaming"
+                 AutomationProperties.AutomationId="BitmapImage11_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/BS_RG_Logo.png" />
+    <BitmapImage x:Key="PlatinumIcon"
+                 AutomationProperties.AutomationId="BitmapImage12_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/12Button_PlatinumSeries_0000.png" />
+    <BitmapImage x:Key="StaticStarIcon"
+                 AutomationProperties.AutomationId="BitmapImage13_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/StaticNewStar.png" />
+    <!-- **RESPONSIBLE GAMING INFO -->
+    <BitmapImage x:Key="RGInfoBackground"
+                 AutomationProperties.AutomationId="BitmapImage14_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/RG_InfoBackGround.png" />
+    <BitmapImage x:Key="RGInfoPressToReturn"
+                 AutomationProperties.AutomationId="BitmapImage15_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/RGInfoPressToReturn.png" />
+    <BitmapImage x:Key="RGInfoPressToReturnZeroCredits"
+                 AutomationProperties.AutomationId="BitmapImage16_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/RGInfoPressToReturn_ZeroCredits.png" />
+    <BitmapImage x:Key="RGInfoPage1"
+                 AutomationProperties.AutomationId="BitmapImage17_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/RG_InfoPage1.png" />
+    <BitmapImage x:Key="RGInfoPage2"
+                 AutomationProperties.AutomationId="BitmapImage18_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/RG_InfoPage2.png" />
+    <BitmapImage x:Key="RGInfoPage3"
+                 AutomationProperties.AutomationId="BitmapImage19_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/RG_InfoPage3.png" />
+    <BitmapImage x:Key="RGInfoPage4"
+                 AutomationProperties.AutomationId="BitmapImage20_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/RG_InfoPage4.png" />
+    <BitmapImage x:Key="RGInfoPage5"
+                 AutomationProperties.AutomationId="BitmapImage21_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/RG_InfoPage5.png" />
+    <BitmapImage x:Key="LeftArrowNormal"
+                 AutomationProperties.AutomationId="BitmapImage22_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Left_Normal.png" />
+    <BitmapImage x:Key="LeftArrowPressed"
+                 AutomationProperties.AutomationId="BitmapImage23_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Left_Pressed.png" />
+    <BitmapImage x:Key="RightArrowNormal"
+                 AutomationProperties.AutomationId="BitmapImage24_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Right_Normal.png" />
+    <BitmapImage x:Key="RightArrowPressed"
+                 AutomationProperties.AutomationId="BitmapImage25_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Right_Pressed.png" />
+    <!-- **VIRTUAL BUTTON DECK -->
+    <BitmapImage x:Key="VBD_CashOutNormal"
+                 AutomationProperties.AutomationId="BitmapImage26_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/VBD_FR_CashOut_Normal.png" />
+    <BitmapImage x:Key="VBD_CashOutPressed"
+                 AutomationProperties.AutomationId="BitmapImage27_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/VBD_FR_CashOut_Selected.png" />
+    <BitmapImage x:Key="VBD_CashOutDisabled"
+                 AutomationProperties.AutomationId="BitmapImage28_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/VBD_FR_CashOut_Dark.png" />
+    <BitmapImage x:Key="VBD_MenuCashOutNormal"
+                 AutomationProperties.AutomationId="BitmapImage29_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/VBD_FR_MenuCashOut_Normal.png" />
+    <BitmapImage x:Key="VBD_MenuCashOutPressed"
+                 AutomationProperties.AutomationId="BitmapImage30_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/VBD_FR_MenuCashOut_Selected.png" />
+    <BitmapImage x:Key="VBD_MenuCashOutDisabled"
+                 AutomationProperties.AutomationId="BitmapImage31_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/VBD_FR_MenuCashOut_Dark.png" />
+    <BitmapImage x:Key="VBD_Disabled"
+                 AutomationProperties.AutomationId="BitmapImage34_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/VBD_Disabled.png" />
+    <BitmapImage x:Key="VBD_Blank"
+                 AutomationProperties.AutomationId="BitmapImage35_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/VBD_Blank_Background.png" />
+    <BitmapImage x:Key="VBD_Helix_Disabled"
+                 AutomationProperties.AutomationId="BitmapImage36_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Vbd/Helix/VBD_Disabled.png" />
+    <BitmapImage x:Key="VBD_Helix_Blank"
+                 AutomationProperties.AutomationId="BitmapImage37_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Vbd/Helix/VBD_Blank_Background.png" />
+    <BitmapImage x:Key="VBD_Marsx_Disabled"
+                 AutomationProperties.AutomationId="BitmapImage38_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Vbd/Marsx/VBD_Disabled.png" />
+    <BitmapImage x:Key="VBD_Marsx_Blank"
+                 AutomationProperties.AutomationId="BitmapImage39_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Vbd/Marsx/VBD_Blank_Background.png" />
+    <BitmapImage x:Key="VBD_CashoutDlgBanner"
+                 AutomationProperties.AutomationId="BitmapImage40_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/VBD_CashoutPrompt/FR_Banner.png" />
+    <BitmapImage x:Key="VBD_CashoutDlgYes"
+                 AutomationProperties.AutomationId="BitmapImage41_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/VBD_CashoutPrompt/FR_YES.png" />
+    <BitmapImage x:Key="VBD_CashoutDlgNo"
+                 AutomationProperties.AutomationId="BitmapImage42_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/VBD_CashoutPrompt/FR_NO.png" />
+    <BitmapImage x:Key="VBD_TimeExpired"
+                 AutomationProperties.AutomationId="BitmapImage43_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/VBD_Expired_FR.png" />
+    <!-- **STANDARD UPI** -->
+    <!-- **MULTILANGUAGE UPI** -->
+    <BitmapImage x:Key="UpiBackground"
+                 AutomationProperties.AutomationId="BitmapImage44_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Upi/MultiLanguage/ConsoleBackground.png" />
+    <BitmapImage x:Key="BankImage"
+                 AutomationProperties.AutomationId="BitmapImage45_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/FR_Bank.png" />
+    <BitmapImage x:Key="CashOutNormal"
+                 AutomationProperties.AutomationId="BitmapImage46_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/CashOut_Normal.png" />
+    <BitmapImage x:Key="CashOutPressed"
+                 AutomationProperties.AutomationId="BitmapImage47_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/CashOut_Selected.png" />
+    <BitmapImage x:Key="CashOutDisabled"
+                 AutomationProperties.AutomationId="BitmapImage48_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/CashOut_Dark.png" />
+    <BitmapImage x:Key="MenuCashOutNormal"
+                 AutomationProperties.AutomationId="BitmapImage49_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/Menu_CashOut_RG_Normal_FR.png" />
+    <BitmapImage x:Key="MenuCashOutPressed"
+                 AutomationProperties.AutomationId="BitmapImage50_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/Menu_CashOut_RG_Selected_FR.png" />
+    <BitmapImage x:Key="MenuCashOutDisabled"
+                 AutomationProperties.AutomationId="BitmapImage51_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/Menu_CashOut_RG_Dark_FR.png" />
+    <BitmapImage x:Key="AllDenomOff"
+                 AutomationProperties.AutomationId="BitmapImage52_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/AllDenom_Normal.png" />
+    <BitmapImage x:Key="AllDenomOn"
+                 AutomationProperties.AutomationId="BitmapImage53_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/AllDenom_Selected.png" />
+    <BitmapImage x:Key="Denom1CentOff"
+                 AutomationProperties.AutomationId="BitmapImage54_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/1c_Normal_FR.png" />
+    <BitmapImage x:Key="Denom1CentOn"
+                 AutomationProperties.AutomationId="BitmapImage55_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/1c_Selected_FR.png" />
+    <BitmapImage x:Key="Denom5CentOff"
+                 AutomationProperties.AutomationId="BitmapImage56_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/5c_Normal_FR.png" />
+    <BitmapImage x:Key="Denom5CentOn"
+                 AutomationProperties.AutomationId="BitmapImage57_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/5c_Selected_FR.png" />
+    <BitmapImage x:Key="Denom25CentOff"
+                 AutomationProperties.AutomationId="BitmapImage58_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/25c_Normal_FR.png" />
+    <BitmapImage x:Key="Denom25CentOn"
+                 AutomationProperties.AutomationId="BitmapImage59_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/25c_Selected_FR.png" />
+    <BitmapImage x:Key="EnglishOff"
+                 AutomationProperties.AutomationId="BitmapImage60_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Upi/MultiLanguage/EN_Language_Normal.png" />
+    <BitmapImage x:Key="EnglishOn"
+                 AutomationProperties.AutomationId="BitmapImage61_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Upi/MultiLanguage/EN_Language_Selected.png" />
+    <BitmapImage x:Key="FrenchOff"
+                 AutomationProperties.AutomationId="BitmapImage62_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Upi/MultiLanguage/FR_Language_Normal.png" />
+    <BitmapImage x:Key="FrenchOn"
+                 AutomationProperties.AutomationId="BitmapImage63_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Upi/MultiLanguage/FR_Language_Selected.png" />
+    <!-- **TIME LIMIT DIALOG -->
+    <BitmapImage x:Key="TimeLimitLobbyBackground"
+                 AutomationProperties.AutomationId="BitmapImage64_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/PlayTime/DarkenedBackground_CashOut.png" />
+    <BitmapImage x:Key="TimeLimitGameBackground"
+                 AutomationProperties.AutomationId="BitmapImage65_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/PlayTime/DarkenedBackground_MenuCashOut.png" />
+    <BitmapImage x:Key="TimeLimitInitialPrompt"
+                 AutomationProperties.AutomationId="BitmapImage66_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/PlayTime/Banner_FR_Start.png" />
+    <BitmapImage x:Key="TimeLimitExpiredPrompt"
+                 AutomationProperties.AutomationId="BitmapImage67_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/PlayTime/Banner_FR_Expired.png" />
+    <BitmapImage x:Key="TimeLimitExpiredPrompt15"
+                 AutomationProperties.AutomationId="BitmapImage68_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/PlayTime/Banner_FR_Expired.png" />
+    <BitmapImage x:Key="TimeLimitExpiredPrompt30"
+                 AutomationProperties.AutomationId="BitmapImage69_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/PlayTime/Banner_FR_Expired.png" />
+    <BitmapImage x:Key="TimeLimitExpiredPrompt45"
+                 AutomationProperties.AutomationId="BitmapImage70_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/PlayTime/Banner_FR_Expired.png" />
+    <BitmapImage x:Key="TimeLimitExpiredPrompt60"
+                 AutomationProperties.AutomationId="BitmapImage71_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/PlayTime/Banner_FR_Expired.png" />
+    <BitmapImage x:Key="TimeLimitFinalPrompt"
+                 AutomationProperties.AutomationId="BitmapImage72_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/PlayTime/Banner_FR_Expired_CashoutOnly.png" />
+    <BitmapImage x:Key="TimeLimit15MinNormal"
+                 AutomationProperties.AutomationId="BitmapImage73_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/PlayTime/15_EN_FR_Button_Neutral.png" />
+    <BitmapImage x:Key="TimeLimit15MinPressed"
+                 AutomationProperties.AutomationId="BitmapImage74_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/PlayTime/15_EN_FR_Button_Pressed.png" />
+    <BitmapImage x:Key="TimeLimit30MinNormal"
+                 AutomationProperties.AutomationId="BitmapImage75_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/PlayTime/30_EN_FR_Button_Neutral.png" />
+    <BitmapImage x:Key="TimeLimit30MinPressed"
+                 AutomationProperties.AutomationId="BitmapImage76_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/PlayTime/30_EN_FR_Button_Pressed.png" />
+    <BitmapImage x:Key="TimeLimit45MinNormal"
+                 AutomationProperties.AutomationId="BitmapImage77_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/PlayTime/45_EN_FR_Button_Neutral.png" />
+    <BitmapImage x:Key="TimeLimit45MinPressed"
+                 AutomationProperties.AutomationId="BitmapImage78_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/PlayTime/45_EN_FR_Button_Pressed.png" />
+    <BitmapImage x:Key="TimeLimit60MinNormal"
+                 AutomationProperties.AutomationId="BitmapImage79_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/PlayTime/60_EN_FR_Button_Neutral.png" />
+    <BitmapImage x:Key="TimeLimit60MinPressed"
+                 AutomationProperties.AutomationId="BitmapImage80_CE5EBD3C"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/PlayTime/60_EN_FR_Button_Pressed.png" />
+    <BitmapImage x:Key="TimeLimitCashOutNormal"
+                 AutomationProperties.AutomationId="BitmapImage0_4146A47A"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/CashOut_Normal.png" />
+    <BitmapImage x:Key="TimeLimitCashOutPressed"
+                 AutomationProperties.AutomationId="BitmapImage1_4146A47A"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/CashOut_Selected.png" />
+    <BitmapImage x:Key="ButtonBorder"
+                 AutomationProperties.AutomationId="BitmapImage0_35E4312D"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Button_Border.png" />
+    <!-- Filenames, margins, etc -->
     <sys:String x:Key="PlatinumVideoPath">../jurisdiction/Quebec-VLT/ui/Videos/12_PlatinumSeries.bk2</sys:String>
     <sys:String x:Key="NewStarPath">../jurisdiction/Quebec-VLT/ui/Videos/French/NewStar_FR.bk2</sys:String>
     <sys:String x:Key="TopIdleAttractVideoPath">../jurisdiction/Quebec-VLT/ui/Videos/LobbyAttract.bk2</sys:String>

@@ -1,8 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
-                    xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
-                    xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters">
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <!-- Used to customize lobby for different jurisdictions -->
     <!-- **IMAGES TOP SCREEN** -->
     <BitmapImage x:Key="TopBackground"
@@ -91,12 +89,6 @@
     <BitmapImage x:Key="VBD_MenuCashOutDisabled"
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Oregon-VLT/ui/Images/VBD_EN_MenuCashOut_Dark.png"
                  AutomationProperties.AutomationId="BitmapImage27_232FA8FD" />
-    <BitmapImage x:Key="VBD_MoneyNormal"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Oregon-VLT/ui/Images/VBD_EN_FR_Money_Normal.png"
-                 AutomationProperties.AutomationId="BitmapImage28_232FA8FD" />
-    <BitmapImage x:Key="VBD_MoneyDisabled"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Oregon-VLT/ui/Images/VBD_EN_FR_Money_Dark.png"
-                 AutomationProperties.AutomationId="BitmapImage29_232FA8FD" />
     <BitmapImage x:Key="VBD_Disabled"
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Oregon-VLT/ui/Images/VBD_Disabled.png"
                  AutomationProperties.AutomationId="BitmapImage30_232FA8FD" />

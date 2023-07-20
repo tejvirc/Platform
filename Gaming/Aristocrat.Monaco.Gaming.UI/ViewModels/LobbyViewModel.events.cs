@@ -550,8 +550,6 @@
         private void HandleEvent(CurrencyInCompletedEvent platformEvent)
         {
             Logger.Debug($"Detected CurrencyInCompletedEvent.  Amount: {platformEvent.Amount}");
-            _disableDebugCurrency = false;
-            _debugCurrencyTimer?.Stop();
             HandleCompletedMoneyIn(platformEvent.Amount, platformEvent.Amount > 0);
         }
 
@@ -567,8 +565,6 @@
         private void HandleEvent(WatOnCompleteEvent watOnEvent)
         {
             Logger.Debug($"Detected WatOnCompleteEvent.  Amount: {watOnEvent.Transaction.TransactionAmount}");
-            _disableDebugCurrency = false;
-            _debugCurrencyTimer?.Stop();
             HandleCompletedMoneyIn(watOnEvent.Transaction.TransactionAmount);
         }
 
