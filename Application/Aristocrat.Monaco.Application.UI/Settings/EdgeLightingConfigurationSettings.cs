@@ -8,6 +8,7 @@ namespace Aristocrat.Monaco.Application.UI.Settings
     using Application.Contracts.Localization;
     using Application.Contracts.Settings;
     using Aristocrat.Monaco.Localization.Properties;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Contracts;
     using Hardware.Contracts.EdgeLighting;
     using Kernel;

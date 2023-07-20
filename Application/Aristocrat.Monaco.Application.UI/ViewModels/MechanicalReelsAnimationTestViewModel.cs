@@ -8,6 +8,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Threading.Tasks;
     using System.Windows.Input;
     using Aristocrat.Monaco.Application.Contracts.Localization;
+    using CommunityToolkit.Mvvm.Input;
     using Hardware.Contracts.Reel;
     using Hardware.Contracts.Reel.Capabilities;
     using Hardware.Contracts.Reel.ControlData;

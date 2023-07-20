@@ -10,6 +10,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Windows.Input;
     using Accounting.Contracts;
     using Common;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Extensions;
     using Contracts.Localization;

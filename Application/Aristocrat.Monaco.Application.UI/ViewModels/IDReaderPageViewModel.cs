@@ -8,7 +8,9 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Text.RegularExpressions;
     using System.Windows;
     using System.Windows.Media;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Common;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Localization;
     using Hardware.Contracts.IdReader;

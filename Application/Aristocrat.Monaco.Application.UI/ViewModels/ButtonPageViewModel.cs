@@ -5,6 +5,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Collections.ObjectModel;
     using System.Linq;
     using Application.Settings;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using ButtonTestDeck;
     using ConfigWizard;
     using Contracts.HardwareDiagnostics;

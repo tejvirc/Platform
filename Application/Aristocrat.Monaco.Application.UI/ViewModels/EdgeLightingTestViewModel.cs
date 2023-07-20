@@ -8,6 +8,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Linq;
     using System.Runtime.CompilerServices;
     using System.Text.RegularExpressions;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Contracts.ConfigWizard;
     using Contracts.Localization;
     using Hardware.Contracts.EdgeLighting;

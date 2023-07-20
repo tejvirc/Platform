@@ -16,6 +16,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using Contracts.Localization;
     using Monaco.Localization.Properties;
     using System.Security.Cryptography;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
 
     [CLSCompliant(false)]
     public sealed class SoftwareVerificationPageViewModel : OperatorMenuPageViewModelBase

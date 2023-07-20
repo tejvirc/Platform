@@ -2,6 +2,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Linq;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using ConfigWizard;
     using Contracts.Input;
     using Contracts.Localization;

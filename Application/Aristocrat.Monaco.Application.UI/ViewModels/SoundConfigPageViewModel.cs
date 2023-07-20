@@ -3,6 +3,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System;
     using System.Linq;
     using System.Windows.Input;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using ConfigWizard;
     using Contracts;
     using Contracts.HardwareDiagnostics;

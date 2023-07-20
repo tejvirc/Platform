@@ -16,6 +16,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Windows.Input;
     using Contracts.Localization;
     using Monaco.Localization.Properties;
+    using CommunityToolkit.Mvvm.Input;
 
     /// <summary>
     ///     Contains logic for GeneralSettingsPageViewModel.

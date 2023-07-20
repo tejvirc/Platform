@@ -9,6 +9,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Windows.Input;
     using System.Windows.Threading;
     using Accounting.Contracts;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Localization;
     using Contracts.MeterPage;

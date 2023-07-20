@@ -7,6 +7,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Threading;
     using System.Timers;
     using System.Windows.Input;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using ConfigWizard;
     using Contracts;
     using Contracts.HardwareDiagnostics;

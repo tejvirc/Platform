@@ -4,6 +4,7 @@ namespace Aristocrat.Monaco.Application.UI.Views
     using System.ComponentModel;
     using System.Globalization;
     using System.Windows;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Cabinet.Contracts;
     using Kernel;
     using Kernel.Contracts;

@@ -391,8 +391,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _maxReelOffset = value;
-                RaisePropertyChanged(nameof(MaxReelOffset));
-                RaisePropertyChanged(nameof(MinReelOffset));
+                OnPropertyChanged(nameof(MaxReelOffset));
+                OnPropertyChanged(nameof(MinReelOffset));
             }
             get => _maxReelOffset;
         }
