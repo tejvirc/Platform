@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Tests
 {
     using System;
+    using Aristocrat.Monaco.Application.Contracts;
     using Contracts;
     using Gaming.Runtime;
     using Gaming.Runtime.Client;
@@ -18,6 +19,7 @@
         private Mock<IGamePlayState> _gamePlayState;
         private Mock<IGameHistory> _gameHistory;
         private Mock<IRuntime> _runtime;
+        private Mock<IPropertiesManager> _properties;
         private Action<HardwareWarningEvent> _hardwareWarningAction;
         private Action<HardwareWarningClearEvent> _hardwareWarningClearedAction;
         private Action<MissedStartupEvent> _missedStartupEventAction;
@@ -36,6 +38,7 @@
             _gamePlayState = new Mock<IGamePlayState>(MockBehavior.Default);
             _gameHistory = new Mock<IGameHistory>(MockBehavior.Default);
             _runtime = new Mock<IRuntime>(MockBehavior.Default);
+            _properties = new Mock<IPropertiesManager>(MockBehavior.Default);
             _target = CreateController();
             InitializeController();
         }
@@ -46,11 +49,12 @@
             _target.Dispose();
         }
 
-        [DataRow(true, false, false, false, false)]
-        [DataRow(false, true, false, false, false)]
-        [DataRow(false, false, true, false, false)]
-        [DataRow(false, false, false, true, false)]
-        [DataRow(false, false, false, false, true)]
+        [DataRow(true, false, false, false, false, false)]
+        [DataRow(false, true, false, false, false, false)]
+        [DataRow(false, false, true, false, false, false)]
+        [DataRow(false, false, false, true, false, false)]
+        [DataRow(false, false, false, false, true, false)]
+        [DataRow(false, false, false, false, false, true)]
         [ExpectedException(typeof(ArgumentNullException))]
         [DataTestMethod]
         public void NullConstructorTest(
@@ -58,9 +62,10 @@
             bool nullEventBus,
             bool nullGamePlay,
             bool nullGameHistory,
-            bool nullRuntime)
+            bool nullRuntime,
+            bool nullProperties)
         {
-            _target = CreateController(nullRg, nullEventBus, nullGamePlay, nullGameHistory, nullRuntime);
+            _target = CreateController(nullRg, nullEventBus, nullGamePlay, nullGameHistory, nullRuntime, nullProperties);
         }
 
         [DataRow(PrinterWarningTypes.PaperInChute, true, false, true)]
@@ -153,21 +158,38 @@
                 eventPosted ? Times.Once() : Times.Never());
         }
 
-        [DataRow(true)]
-        [DataRow(false)]
+        [DataRow(true, true)]
+        [DataRow(true, false)]
+        [DataRow(false, true)]
+        [DataRow(false, false)]
         [DataTestMethod]
-        public void WhenGameRequestCashoutRaisedWithPaperInChuteShouldNotRaiseCashOutButtonEvent(bool paperInChute)
+        public void WhenGameRequestCashoutRaisedWithPaperInChuteShouldNotRaiseCashOutButtonEvent(bool paperInChute, bool blocksCashout)
         {
             _gamePlayState.Setup(x => x.Idle).Returns(true);
             _gameHistory.Setup(x => x.IsRecoveryNeeded).Returns(false);
+            _properties.Setup(p => p.GetProperty(ApplicationConstants.PaperInChuteBlocksCashout, true)).Returns(blocksCashout);
+
             _target.PaperIsInChute = paperInChute;
             _target.GameRequestedCashout();
-            _eventBusMock.Verify(
-                bus => bus.Publish(It.Is<CashOutButtonPressedEvent>(_ => true)),
-                paperInChute ? Times.Never() : Times.Once());
-            _eventBusMock.Verify(
-                bus => bus.Publish(It.Is<CashoutNotificationEvent>(_ => true)),
-                paperInChute ? Times.Once() : Times.Never());
+
+            if (blocksCashout)
+            {
+                _eventBusMock.Verify(
+                    bus => bus.Publish(It.Is<CashOutButtonPressedEvent>(_ => true)),
+                    paperInChute ? Times.Never() : Times.Once());
+                _eventBusMock.Verify(
+                    bus => bus.Publish(It.Is<CashoutNotificationEvent>(_ => true)),
+                    paperInChute ? Times.Once() : Times.Never());
+            }
+            else
+            {
+                _eventBusMock.Verify(
+                    bus => bus.Publish(It.Is<CashOutButtonPressedEvent>(_ => true)),
+                    Times.Once());
+                _eventBusMock.Verify(
+                    bus => bus.Publish(It.Is<CashoutNotificationEvent>(_ => true)),
+                    Times.Never());
+            }
         }
 
         [DataRow(true)]
@@ -232,14 +254,16 @@
             bool nullEventBus = false,
             bool nullGamePlay = false,
             bool nullGameHistory = false,
-            bool nullRuntime = false)
+            bool nullRuntime = false,
+            bool nullProperties = false)
         {
             return new CashoutController(
                 nullRg ? null : _responsibleGaming.Object,
                 nullEventBus ? null : _eventBusMock.Object,
                 nullGamePlay ? null : _gamePlayState.Object,
                 nullGameHistory ? null : _gameHistory.Object,
-                nullRuntime ? null : _runtime.Object);
+                nullRuntime ? null : _runtime.Object,
+                nullProperties ? null : _properties.Object);
         }
 
         private void InitializeController()

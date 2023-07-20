@@ -222,10 +222,7 @@
 
         private void HandleEvent(CashoutNotificationEvent evt)
         {
-            if (Config?.DisplayVoucherNotification ?? false)
-            {
-                MessageOverlayDisplay.ShowVoucherNotification = evt.PaperIsInChute;
-            }
+            MessageOverlayDisplay.ShowVoucherNotification = evt.PaperIsInChute;
 
             if (evt.PaperIsInChute && !_systemDisableManager.IsDisabled)
             {

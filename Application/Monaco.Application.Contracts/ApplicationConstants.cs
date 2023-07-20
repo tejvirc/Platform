@@ -403,6 +403,9 @@
         /// <summary>Property manager key for CommitStorageAfterCashout flag.</summary>
         public const string CommitStorageAfterCashout = "Cashout.CommitStorageAfterCashout";
 
+        /// <summary>Property manager key for PaperInChuteBlocksCashout flag.</summary>
+        public const string PaperInChuteBlocksCashout = "Cashout.PaperInChuteBlocksCashout";
+
         /// <summary>Property manager key multi-game DefaultBetAfterSwitch flag.</summary>
         public const string DefaultBetAfterSwitch = "MultiGame.DefaultBetAfterSwitch";
 
@@ -513,7 +516,7 @@
         ///     Key used to disable the system while waiting for ticket to be printed
         /// </summary>
         public static readonly Guid PrintingTicketDisableKey = new Guid("D8C7D0FA-CE9E-4E5D-B3CD-EBB00FBB84FD");
-        
+
         /// <summary>
         ///     Key used to disable the system when a cashout failed
         /// </summary>
