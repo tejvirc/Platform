@@ -13,7 +13,6 @@ namespace Aristocrat.Monaco.Hardware.Fake
     using Contracts.Reel.ControlData;
     using Contracts.Reel.Events;
     using Contracts.SharedDevice;
-    using GopherReels.Controls;
     using Kernel;
     using log4net;
     using MonacoReelStatus = Contracts.Reel.ReelStatus;
@@ -76,14 +75,9 @@ namespace Aristocrat.Monaco.Hardware.Fake
 #pragma warning restore 67
 
         /// <summary>
-        ///     Gets or sets the reel sim window
-        /// </summary>
-        public ReelSetWindowGS ReelSimWindow { get; private set; }
-
-        /// <summary>
         ///     Get the reel count for the connected device
         /// </summary>
-        public int ReelCount => ReelSimWindow?.ReelCount ?? 0;
+        public int ReelCount => 0;//ReelSimWindow?.ReelCount ?? 0;
         
         /// <inheritdoc/>
         public int DefaultReelBrightness { get; set; }
@@ -193,7 +187,6 @@ namespace Aristocrat.Monaco.Hardware.Fake
             Logger.Debug($"Closing Simulator.");
             Execute.OnUIThread(() =>
             {
-                ReelSimWindow?.Close();
             });
 
             IsOpen = false;
@@ -224,9 +217,6 @@ namespace Aristocrat.Monaco.Hardware.Fake
             Execute.OnUIThread(
             () =>
             {
-                ReelSimWindow = new ReelSetWindowGS(_id, GamesPath, $"{knownReels} Reel Layout", PackagesPath, new UtilitiesLib.ExtLogger());
-                ReelSimWindow.Show();
-
                 Logger.Debug($"Game says: {ReelCount} reels");
             });
 
@@ -258,32 +248,12 @@ namespace Aristocrat.Monaco.Hardware.Fake
         /// <inheritdoc/>
         public Task<bool> HomeReels()
         {
-            if (ReelSimWindow == null)
-            {
-                return Task.FromResult(false);
-            }
-
-            Logger.Debug($"Homing reels");
-
-            for (int i = 1; i <= ReelCount; i++)
-            {
-                ReelSimWindow.HomeReel(i, 0);
-            }
-
             return Task.FromResult(true);
         }
 
         /// <inheritdoc/>
         public Task<bool> HomeReel(int reelId, int stop, bool resetStatus = true)
         {
-            if (ReelSimWindow == null)
-            {
-                return Task.FromResult(false);
-            }
-
-            Logger.Debug($"Homing reel {reelId} to step {stop}");
-            ReelSimWindow.SetReelBrightness(reelId, stop);
-
             return Task.FromResult(true);
         }
 
@@ -326,28 +296,18 @@ namespace Aristocrat.Monaco.Hardware.Fake
         /// <inheritdoc/>
         public Task<bool> PlayAnimations(CancellationToken token)
         {
-            if (ReelSimWindow == null)
-            {
-                return Task.FromResult(false);
-            }
-
-            Logger.Debug($"Playing animations");
-            ReelSimWindow.StartAnimations();
-
             return Task.FromResult(true);
         }
 
         /// <inheritdoc/>
         public Task<bool> StopLightShowAnimations(IEnumerable<LightShowData> data, CancellationToken token)
         {
-            ReelSimWindow?.StopAllLightshows();
             return Task.FromResult(true);
         }
 
         /// <inheritdoc/>
         public Task<bool> StopAllLightShows(CancellationToken token)
         {
-            ReelSimWindow?.StopAllLightshows();
             return Task.FromResult(true);
         }
 
@@ -366,50 +326,18 @@ namespace Aristocrat.Monaco.Hardware.Fake
         /// <inheritdoc/>
         public Task<bool> PrepareNudgeReels(IEnumerable<NudgeReelData> nudgeData, CancellationToken token)
         {
-            if (ReelSimWindow == null)
-            {
-                return Task.FromResult(false);
-            }
-
-            foreach (var nudge in nudgeData)
-            {
-                ReelSimWindow.NudgeReel(nudge.ReelId, nudge.Direction == SpinDirection.Backwards, nudge.Step);
-            }
-
             return Task.FromResult(true);
         }
 
         /// <inheritdoc/>
         public Task<bool> SetBrightness(IReadOnlyDictionary<int, int> brightness)
         {
-            if (ReelSimWindow == null)
-            {
-                return Task.FromResult(false);
-            }
-
-            foreach (var brightnessSetting in brightness)
-            {
-                Logger.Debug($"Set reel brightness {brightnessSetting.Key}/{brightnessSetting.Value}");
-                ReelSimWindow.SetReelBrightness(brightnessSetting.Key, brightnessSetting.Value);
-            }
-
             return Task.FromResult(true);
         }
 
         /// <inheritdoc/>
         public Task<bool> SetBrightness(int brightness)
         {
-            if (ReelSimWindow == null)
-            {
-                return Task.FromResult(false);
-            }
-
-            Logger.Debug($"Setting all reels brightness to brightness");
-            for (int i = 0; i < ReelCount; i++)
-            {
-                ReelSimWindow.SetReelBrightness(i, brightness);
-            }
-
             return Task.FromResult(true);
         }
 
@@ -457,16 +385,6 @@ namespace Aristocrat.Monaco.Hardware.Fake
         /// <inheritdoc/>
         public Task<bool> TiltReels()
         {
-            if (ReelSimWindow == null)
-            {
-                return Task.FromResult(false);
-            }
-
-            for (int i = 1; i <= ReelCount; i++)
-            {
-                ReelSimWindow.TiltReel(i);
-            }
-
             return Task.FromResult(true);
         }
 

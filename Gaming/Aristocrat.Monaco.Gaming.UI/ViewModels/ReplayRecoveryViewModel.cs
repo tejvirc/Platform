@@ -24,8 +24,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     /// </summary>
     public class ReplayRecoveryViewModel : BaseObservableObject, IDisposable
     {
-        private static readonly string CompletionText =
-            Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReplayCompletedText);
         private const double CashOutMessagesCycleIntervalInSeconds = 3.0;
 
         private readonly IEventBus _eventBus;
@@ -284,6 +282,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             _cashoutMessageTimer = null;
             _disposed = true;
         }
+
+        private string CompletionText => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReplayCompletedText);
 
         private void ExitButtonPressed(object parameter)
         {

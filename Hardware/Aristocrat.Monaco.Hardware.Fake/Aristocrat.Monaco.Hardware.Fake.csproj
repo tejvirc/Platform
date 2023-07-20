@@ -27,10 +27,10 @@
     <ProjectReference Include="..\Aristocrat.Monaco.Hardware\Aristocrat.Monaco.Hardware.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Monaco.GopherReels" Version="0.1.46" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="7.0.1" />
     <PackageReference Include="Aristocrat.Toolkit.Mvvm.Extensions" Version="0.1.6" />
     <PackageReference Include="Aristocrat.Simulation.HarkeyReels" Version="1.0.11" />
+    <PackageReference Include="Aristocrat.Simulation.RelmReels" Version="0.1.53" />
     <PackageReference Include="log4net" Version="2.0.8" />
   </ItemGroup>
   <ItemGroup>

@@ -15,9 +15,6 @@ namespace Aristocrat.Monaco.Application.UI.Models
     public class ReelInfoItem : BaseObservableObject
     {
         private const int MaximumReelSteps = 199;
-
-        private const int MaximumReelOffset = 199; // 200 & 0 are considered the same position
-
         private const int MaximumReelStops = 22;
 
         private readonly IEventBus _eventBus;
@@ -57,10 +54,6 @@ namespace Aristocrat.Monaco.Application.UI.Models
             _nudgeStopIndex = 1;
             _stopIndex = 1;
         }
-
-        public int MaxReelOffset => MaximumReelOffset;
-
-        public int MinReelOffset => MaximumReelOffset * -1;
 
         public int MaxReelStep => MaximumReelSteps;
 

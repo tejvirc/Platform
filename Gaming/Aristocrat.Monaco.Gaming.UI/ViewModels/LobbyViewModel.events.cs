@@ -1020,8 +1020,10 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private void HandleEvent(DebugCurrencyAcceptedEvent evt)
         {
-            // need to set this so that debug currency can start Responsible Gaming
-            if (HasZeroCredits)
+            // Debug currency works differently than real currency, so it's possible for the bank to be updated before reaching this point.
+            // Use the event balance that was set before the fake currency was published.
+            Logger.Debug($"Handle DebugCurrencyAcceptedEvent: Event balance = {evt.PreviousBalance}, Bank balance = {_bank.QueryBalance()}");
+            if (evt.PreviousBalance == 0)
             {
                 _responsibleGaming?.OnInitialCurrencyIn();
             }

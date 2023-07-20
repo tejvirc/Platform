@@ -33,7 +33,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         private const int LightTestOnTime = 500;
         private const string SampleLightShowName = "SampleLightShow";
         private const string AllTag = "ALL";
-        
+        private const int RelmReelMaximumOffset = 3;
+
         private readonly IReelBrightnessCapabilities _brightnessCapabilities;
         private readonly IReelAnimationCapabilities _animationCapabilities;
         private readonly IEdgeLightingController _edgeLightController;
@@ -61,6 +62,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         private bool _selfTestEnabled = true;
         private int _initialBrightness;
         private int _brightness;
+        private int _maxReelOffset = 199;
         private bool _brightnessChanging;
         private IEdgeLightToken _offToken;
 
@@ -92,6 +94,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             if (ReelController.HasCapability<IReelAnimationCapabilities>())
             {
                 _animationCapabilities = ReelController.GetCapability<IReelAnimationCapabilities>();
+                MaxReelOffset = RelmReelMaximumOffset;
             }
 
             MinimumBrightness = 1;
@@ -380,6 +383,25 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             }
         }
 
+        /// <summary>
+        ///     The max number of steps to offset by
+        /// </summary>
+        public int MaxReelOffset
+        {
+            set
+            {
+                _maxReelOffset = value;
+                RaisePropertyChanged(nameof(MaxReelOffset));
+                RaisePropertyChanged(nameof(MinReelOffset));
+            }
+            get => _maxReelOffset;
+        }
+
+        /// <summary>
+        ///     The minimum number of steps to offset by
+        /// </summary>
+        public int MinReelOffset => _maxReelOffset * -1;
+
         private int ReelControllerDefaultBrightness
         {
             get => _brightnessCapabilities?.DefaultReelBrightness ?? MaximumBrightness;
@@ -512,13 +534,14 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 {
                     if (IsReelActive(i) == false)
                     {
-                        ReelInfo.Add(
-                            new ReelInfoItem(
-                                i,
-                                true,
-                                true,
-                                ReelLogicalState.Disconnected.ToString(),
-                                offsets.Length >= i ? offsets[i - 1] : 0));
+                        var infoItem = new ReelInfoItem(
+                            i,
+                            true,
+                            true,
+                            ReelLogicalState.Disconnected.ToString(),
+                            offsets.Length >= i ? offsets[i - 1] : 0);
+
+                        ReelInfo.Add(infoItem);
                     }
                     else
                     {

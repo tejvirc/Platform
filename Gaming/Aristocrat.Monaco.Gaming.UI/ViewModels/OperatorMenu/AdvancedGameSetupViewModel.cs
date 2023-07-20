@@ -2003,7 +2003,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
 
                 var configs = GameConfigurations?.ToList();
-                if (HasNoErrors && _editableGameConfigByGameTypeMapping.Keys.Count == 1 && configs != null && configs.Count == 1)
+                if (!InitialConfigComplete && HasNoErrors && _editableGameConfigByGameTypeMapping.Keys.Count == 1 && configs != null && configs.Count == 1)
                 {
                     var game = configs.Single();
                     if (game.Enabled && game.AvailablePaytables?.Count == 1)

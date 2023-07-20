@@ -59,6 +59,11 @@ namespace Aristocrat.Monaco.Gaming.UI
 
         public void Initialize()
         {
+            if (!_handCountService.HandCountServiceEnabled)
+            {
+                return;
+            }
+
             Execute.OnUIThread(
                 () =>
                 {

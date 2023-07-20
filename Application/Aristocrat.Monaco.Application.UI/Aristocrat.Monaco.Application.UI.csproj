@@ -104,7 +104,7 @@
     <ProjectReference Include="..\..\Test\integration\DebugCurrencyHandler\DebugCurrencyHandler\DebugCurrencyHandler.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.22" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.24" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="7.0.1" />
     <PackageReference Include="Aristocrat.Toolkit.Mvvm.Extensions" Version="0.1.6" />
     <PackageReference Include="Aristocrat.Simulation.HarkeyReels" Version="1.0.11" />
