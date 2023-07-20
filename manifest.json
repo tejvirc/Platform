@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "SbahD0VsOsBc6PGABOtFiu5q3ib0EQVxT0UmA+cpaMs="
+          "hash": "Lt9otRGAFI8jckN2ufHx3BzAXtDyJdJKaaIRvNIni1k="
         }
       },
       "is_incremental": false,
@@ -1052,6 +1052,18 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/accounting/Aristocrat.Monaco.Accounting.Contracts.HandCount.HardMeterOutCompletedEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/accounting/Aristocrat.Monaco.Accounting.Contracts.HandCount.HardMeterOutCompletedEvent.html",
+          "hash": "8MDBNuxqMuXTtZKSHpuKQ3unsbK1g/iPPFKoyUWLrA8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/accounting/Aristocrat.Monaco.Accounting.Contracts.HandCount.HardMeterOutState.yml",
       "output": {
         ".html": {
@@ -1140,7 +1152,7 @@
       "output": {
         ".html": {
           "relative_path": "api/accounting/Aristocrat.Monaco.Accounting.Contracts.HandCount.html",
-          "hash": "dKAP6sReHalv5nyqXJFL2GLPHe8rL0yqNeoL3GAbCPI="
+          "hash": "KRlK3CZIWFyUwBcQTvxS+hlFL0hBPixle4f8zzeCymI="
         }
       },
       "is_incremental": false,
@@ -15547,6 +15559,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -15631,6 +15646,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -24492,7 +24510,19 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.UI.Common.Converters.DataGridHeightConverter.html",
-          "hash": "lrzEz3a7TFKO/47ZMG5Lii9/2q+lR9amcbAUIktq/4s="
+          "hash": "yR3By4fM0DDaPgFLLnZyllBMuP2hvxrZ5zIY6vgPjqA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.DataGridVerticalScrollBarVisibilityConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/common/Aristocrat.Monaco.UI.Common.Converters.DataGridVerticalScrollBarVisibilityConverter.html",
+          "hash": "pubD6q+9yJOB1WXav/tHwdvksdHAoLvMIlgoMHRx1TA="
         }
       },
       "is_incremental": false,
@@ -24787,15 +24817,12 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.UI.Common.Converters.html",
-          "hash": "ZWpstQKRpLJuYAVuOK6/jhXbZ9MOT0QHeaSrJHu/KkI="
+          "hash": "mcDZ1sUzR/R7LNkOnfZCavjeRMQkesSFM2cuoxWjTgQ="
         }
       },
       "is_incremental": false,
@@ -42010,9 +42037,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -44766,7 +44790,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Consumers.Consumes-1.html",
-          "hash": "bYKAF8up+p3/RKp1XprPUFv2AFNJF4mYS4nUEtFcqEs="
+          "hash": "YDUjwy/GUNPhy+/Qu7swFnTJwNYaHhvADV30pnrTApw="
         }
       },
       "is_incremental": false,
@@ -45031,6 +45055,18 @@
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Consumers.HandpayKeyedOffConsumer.html",
           "hash": "kcLTwyj5iTZR8T6HIZO9cCBuQGcKS9uCrsoAih716B4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/gaming/Aristocrat.Monaco.Gaming.Consumers.HardMeterOutIssuedConsumer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Consumers.HardMeterOutIssuedConsumer.html",
+          "hash": "v/9c5QLilXB2fb/mlyeH/LD4ozxBR5zbDiZZKxheh8o="
         }
       },
       "is_incremental": false,
@@ -45438,7 +45474,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Consumers.html",
-          "hash": "SMXS87oU0jFDXtDk8jcClwUI1Zfo4eeKA4tGuuT9O2A="
+          "hash": "mpT6VSSDxeRDM+SEdmElrCtM5zST9ilSsEGjvGFa8U0="
         }
       },
       "is_incremental": false,
@@ -53274,7 +53310,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.DisplayableMessageRemover.html",
-          "hash": "dpAFf3mV3upS5b4chPiIsEeXspiZIB4CwnWM44thios="
+          "hash": "GTMR0vGYQbDn0bD+5cKQdD8toBW8sJXSTJhb5jY+arA="
         }
       },
       "is_incremental": false,
@@ -71946,7 +71982,7 @@
       "output": {
         ".html": {
           "relative_path": "api/kernel/Aristocrat.Monaco.Kernel.BaseEvent.html",
-          "hash": "1p9HXHsePRAwr8pEtap+V2utdUwcixNAr9YSztG7P6g="
+          "hash": "jePOdXAJQBdzPHu13o/4lVj6dTqH1iqhfToqAncCaLw="
         }
       },
       "is_incremental": false,
@@ -84261,7 +84297,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 6988,
+          "total_file_count": 6991,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
