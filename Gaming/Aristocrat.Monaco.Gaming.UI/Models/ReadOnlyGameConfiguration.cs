@@ -89,7 +89,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
 
             var rtpDisplay = new GameRtpDisplay 
             { 
-                HasExtendedRtpInformation = true,
+                HasExtendedRtpInformation = GameDetail.HasExtendedRtpInformation,
 
                 // Base RTP
                 BaseGameRtp = rtp.Base.ToString(),

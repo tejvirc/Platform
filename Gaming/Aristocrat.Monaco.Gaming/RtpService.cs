@@ -129,7 +129,8 @@ namespace Aristocrat.Monaco.Gaming
 
             var rtpBreakdown = new RtpBreakdown
             {
-                Base = new RtpRange(wagerCategory.MinBaseRtpPercent, wagerCategory.MaxBaseRtpPercent),
+                Base = game.HasExtendedRtpInformation ? new RtpRange(wagerCategory.MinBaseRtpPercent, wagerCategory.MaxBaseRtpPercent)
+                : new RtpRange(game.MinimumPaybackPercent, game.MaximumPaybackPercent),
                 FailureFlags = RtpValidationFailureFlags.None,
             };
 
