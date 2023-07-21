@@ -81,7 +81,8 @@
             <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Bingo.Services.Reporting.GameHistoryReportAcknowledgeQueueHelper">
   <h1 id="Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper" data-uid="Aristocrat.Monaco.Bingo.Services.Reporting.GameHistoryReportAcknowledgeQueueHelper">Class GameHistoryReportAcknowledgeQueueHelper
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>Queue for reporting multi-game outcomes to the bingo server</p>
+</div>
   <div class="markdown level0 conceptual"></div>
   
   <div class="inheritance">
@@ -121,7 +122,7 @@
   
   <h5 id="Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class GameHistoryReportAcknowledgeQueueHelper : IAcknowledgedQueueHelper&lt;ReportGameOutcomeMessage, long&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public class GameHistoryReportAcknowledgeQueueHelper : IAcknowledgedQueueHelper&lt;ReportMultiGameOutcomeMessage, long&gt;</code></pre>
   </div>
   
   
@@ -136,7 +137,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper__ctor_Aristocrat_Monaco_Gaming_Contracts_Central_ICentralProvider_Aristocrat_Monaco_Gaming_Contracts_IGameHistory_Aristocrat_Monaco_Kernel_IPropertiesManager_Aristocrat_Monaco_Kernel_ISystemDisableManager_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Services.Reporting.GameHistoryReportAcknowledgeQueueHelper.%23ctor(Aristocrat.Monaco.Gaming.Contracts.Central.ICentralProvider%2CAristocrat.Monaco.Gaming.Contracts.IGameHistory%2CAristocrat.Monaco.Kernel.IPropertiesManager%2CAristocrat.Monaco.Kernel.ISystemDisableManager)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo/Services/Reporting/GameHistoryReportAcknowledgeQueueHelper.cs/#L24" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo/Services/Reporting/GameHistoryReportAcknowledgeQueueHelper.cs/#L27" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper__ctor_" data-uid="Aristocrat.Monaco.Bingo.Services.Reporting.GameHistoryReportAcknowledgeQueueHelper.#ctor*"></a>
@@ -203,7 +204,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_AlmostFullClear.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Services.Reporting.GameHistoryReportAcknowledgeQueueHelper.AlmostFullClear%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo/Services/Reporting/GameHistoryReportAcknowledgeQueueHelper.cs/#L75" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo/Services/Reporting/GameHistoryReportAcknowledgeQueueHelper.cs/#L83" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_AlmostFullClear_" data-uid="Aristocrat.Monaco.Bingo.Services.Reporting.GameHistoryReportAcknowledgeQueueHelper.AlmostFullClear*"></a>
@@ -211,7 +212,8 @@
   <h4 id="Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_AlmostFullClear" data-uid="Aristocrat.Monaco.Bingo.Services.Reporting.GameHistoryReportAcknowledgeQueueHelper.AlmostFullClear"><a href="#collapsible-Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_AlmostFullClear" class="expander" data-toggle="collapse">AlmostFullClear()</a></h4>
   
   <div id="collapsible-Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_AlmostFullClear" class="collapse in">
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Clears the queue is almost full tilt</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
@@ -239,7 +241,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_AlmostFullDisable.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Services.Reporting.GameHistoryReportAcknowledgeQueueHelper.AlmostFullDisable%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo/Services/Reporting/GameHistoryReportAcknowledgeQueueHelper.cs/#L65" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo/Services/Reporting/GameHistoryReportAcknowledgeQueueHelper.cs/#L72" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_AlmostFullDisable_" data-uid="Aristocrat.Monaco.Bingo.Services.Reporting.GameHistoryReportAcknowledgeQueueHelper.AlmostFullDisable*"></a>
@@ -247,7 +249,8 @@
   <h4 id="Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_AlmostFullDisable" data-uid="Aristocrat.Monaco.Bingo.Services.Reporting.GameHistoryReportAcknowledgeQueueHelper.AlmostFullDisable"><a href="#collapsible-Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_AlmostFullDisable" class="expander" data-toggle="collapse">AlmostFullDisable()</a></h4>
   
   <div id="collapsible-Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_AlmostFullDisable" class="collapse in">
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Creates a tilt when the queue is almost full</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
@@ -272,30 +275,31 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_GetId_Aristocrat_Bingo_Client_Messages_GamePlay_ReportGameOutcomeMessage_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Services.Reporting.GameHistoryReportAcknowledgeQueueHelper.GetId(Aristocrat.Bingo.Client.Messages.GamePlay.ReportGameOutcomeMessage)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_GetId_Aristocrat_Bingo_Client_Messages_GamePlay_ReportMultiGameOutcomeMessage_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Services.Reporting.GameHistoryReportAcknowledgeQueueHelper.GetId(Aristocrat.Bingo.Client.Messages.GamePlay.ReportMultiGameOutcomeMessage)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo/Services/Reporting/GameHistoryReportAcknowledgeQueueHelper.cs/#L36" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo/Services/Reporting/GameHistoryReportAcknowledgeQueueHelper.cs/#L40" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_GetId_" data-uid="Aristocrat.Monaco.Bingo.Services.Reporting.GameHistoryReportAcknowledgeQueueHelper.GetId*"></a>
   
-  <h4 id="Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_GetId_Aristocrat_Bingo_Client_Messages_GamePlay_ReportGameOutcomeMessage_" data-uid="Aristocrat.Monaco.Bingo.Services.Reporting.GameHistoryReportAcknowledgeQueueHelper.GetId(Aristocrat.Bingo.Client.Messages.GamePlay.ReportGameOutcomeMessage)"><a href="#collapsible-Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_GetId_Aristocrat_Bingo_Client_Messages_GamePlay_ReportGameOutcomeMessage_" class="expander" data-toggle="collapse">GetId(ReportGameOutcomeMessage)</a></h4>
+  <h4 id="Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_GetId_Aristocrat_Bingo_Client_Messages_GamePlay_ReportMultiGameOutcomeMessage_" data-uid="Aristocrat.Monaco.Bingo.Services.Reporting.GameHistoryReportAcknowledgeQueueHelper.GetId(Aristocrat.Bingo.Client.Messages.GamePlay.ReportMultiGameOutcomeMessage)"><a href="#collapsible-Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_GetId_Aristocrat_Bingo_Client_Messages_GamePlay_ReportMultiGameOutcomeMessage_" class="expander" data-toggle="collapse">GetId(ReportMultiGameOutcomeMessage)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_GetId_Aristocrat_Bingo_Client_Messages_GamePlay_ReportGameOutcomeMessage_" class="collapse in">
-  <div class="markdown level1 summary"></div>
+  <div id="collapsible-Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_GetId_Aristocrat_Bingo_Client_Messages_GamePlay_ReportMultiGameOutcomeMessage_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the Id field from the message</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public long GetId(ReportGameOutcomeMessage item)</code></pre>
+    <pre><code class="lang-csharp hljs">public long GetId(ReportMultiGameOutcomeMessage item)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="Aristocrat.Bingo.Client.Messages.GamePlay.ReportGameOutcomeMessage.html">ReportGameOutcomeMessage</a></span>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Bingo.Client.Messages.GamePlay.ReportMultiGameOutcomeMessage.html">ReportMultiGameOutcomeMessage</a></span>
         <span class="parametername">item</span>
         <p>
       </td>
@@ -307,7 +311,8 @@
     <tr>
       <td>
         <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">Int64</a>
-        <p>
+        <p><p>The Id field for the message</p>
+</p>
       </td>
     </tr>
   </table>
@@ -330,7 +335,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_ReadPersistence.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Services.Reporting.GameHistoryReportAcknowledgeQueueHelper.ReadPersistence%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo/Services/Reporting/GameHistoryReportAcknowledgeQueueHelper.cs/#L46" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo/Services/Reporting/GameHistoryReportAcknowledgeQueueHelper.cs/#L52" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_ReadPersistence_" data-uid="Aristocrat.Monaco.Bingo.Services.Reporting.GameHistoryReportAcknowledgeQueueHelper.ReadPersistence*"></a>
@@ -338,12 +343,13 @@
   <h4 id="Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_ReadPersistence" data-uid="Aristocrat.Monaco.Bingo.Services.Reporting.GameHistoryReportAcknowledgeQueueHelper.ReadPersistence"><a href="#collapsible-Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_ReadPersistence" class="expander" data-toggle="collapse">ReadPersistence()</a></h4>
   
   <div id="collapsible-Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_ReadPersistence" class="collapse in">
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Retrieves the list of persisted messages</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public List&lt;ReportGameOutcomeMessage&gt; ReadPersistence()</code></pre>
+    <pre><code class="lang-csharp hljs">public List&lt;ReportMultiGameOutcomeMessage&gt; ReadPersistence()</code></pre>
   </div>
   
   
@@ -351,8 +357,9 @@
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Aristocrat.Bingo.Client.Messages.GamePlay.ReportGameOutcomeMessage.html">ReportGameOutcomeMessage</a>&gt;
-        <p>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Aristocrat.Bingo.Client.Messages.GamePlay.ReportMultiGameOutcomeMessage.html">ReportMultiGameOutcomeMessage</a>&gt;
+        <p><p>A list with the persisted messages</p>
+</p>
       </td>
     </tr>
   </table>
@@ -372,30 +379,31 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_WritePersistence_System_Collections_Generic_List_Aristocrat_Bingo_Client_Messages_GamePlay_ReportGameOutcomeMessage__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Services.Reporting.GameHistoryReportAcknowledgeQueueHelper.WritePersistence(System.Collections.Generic.List%7BAristocrat.Bingo.Client.Messages.GamePlay.ReportGameOutcomeMessage%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_WritePersistence_System_Collections_Generic_List_Aristocrat_Bingo_Client_Messages_GamePlay_ReportMultiGameOutcomeMessage__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Services.Reporting.GameHistoryReportAcknowledgeQueueHelper.WritePersistence(System.Collections.Generic.List%7BAristocrat.Bingo.Client.Messages.GamePlay.ReportMultiGameOutcomeMessage%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo/Services/Reporting/GameHistoryReportAcknowledgeQueueHelper.cs/#L41" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo/Services/Reporting/GameHistoryReportAcknowledgeQueueHelper.cs/#L46" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_WritePersistence_" data-uid="Aristocrat.Monaco.Bingo.Services.Reporting.GameHistoryReportAcknowledgeQueueHelper.WritePersistence*"></a>
   
-  <h4 id="Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_WritePersistence_System_Collections_Generic_List_Aristocrat_Bingo_Client_Messages_GamePlay_ReportGameOutcomeMessage__" data-uid="Aristocrat.Monaco.Bingo.Services.Reporting.GameHistoryReportAcknowledgeQueueHelper.WritePersistence(System.Collections.Generic.List{Aristocrat.Bingo.Client.Messages.GamePlay.ReportGameOutcomeMessage})"><a href="#collapsible-Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_WritePersistence_System_Collections_Generic_List_Aristocrat_Bingo_Client_Messages_GamePlay_ReportGameOutcomeMessage__" class="expander" data-toggle="collapse">WritePersistence(List&lt;ReportGameOutcomeMessage&gt;)</a></h4>
+  <h4 id="Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_WritePersistence_System_Collections_Generic_List_Aristocrat_Bingo_Client_Messages_GamePlay_ReportMultiGameOutcomeMessage__" data-uid="Aristocrat.Monaco.Bingo.Services.Reporting.GameHistoryReportAcknowledgeQueueHelper.WritePersistence(System.Collections.Generic.List{Aristocrat.Bingo.Client.Messages.GamePlay.ReportMultiGameOutcomeMessage})"><a href="#collapsible-Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_WritePersistence_System_Collections_Generic_List_Aristocrat_Bingo_Client_Messages_GamePlay_ReportMultiGameOutcomeMessage__" class="expander" data-toggle="collapse">WritePersistence(List&lt;ReportMultiGameOutcomeMessage&gt;)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_WritePersistence_System_Collections_Generic_List_Aristocrat_Bingo_Client_Messages_GamePlay_ReportGameOutcomeMessage__" class="collapse in">
-  <div class="markdown level1 summary"></div>
+  <div id="collapsible-Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper_WritePersistence_System_Collections_Generic_List_Aristocrat_Bingo_Client_Messages_GamePlay_ReportMultiGameOutcomeMessage__" class="collapse in">
+  <div class="markdown level1 summary"><p>Persists the list of messages</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void WritePersistence(List&lt;ReportGameOutcomeMessage&gt; list)</code></pre>
+    <pre><code class="lang-csharp hljs">public void WritePersistence(List&lt;ReportMultiGameOutcomeMessage&gt; list)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Aristocrat.Bingo.Client.Messages.GamePlay.ReportGameOutcomeMessage.html">ReportGameOutcomeMessage</a>&gt;</span>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Aristocrat.Bingo.Client.Messages.GamePlay.ReportMultiGameOutcomeMessage.html">ReportMultiGameOutcomeMessage</a>&gt;</span>
         <span class="parametername">list</span>
         <p>
       </td>
@@ -421,7 +429,7 @@
           </div>
           <div class="contribution-panel mobile-hide">
               <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Services_Reporting_GameHistoryReportAcknowledgeQueueHelper.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Services.Reporting.GameHistoryReportAcknowledgeQueueHelper%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
-              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo/Services/Reporting/GameHistoryReportAcknowledgeQueueHelper.cs/#L17" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo/Services/Reporting/GameHistoryReportAcknowledgeQueueHelper.cs/#L20" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">

@@ -108,7 +108,7 @@
       </tr>
       <tr>
         <td>
-          <p><a class="xref" href="Aristocrat.Bingo.Client.Messages.BaseClientCommunicationService.html">BaseClientCommunicationService</a></p>
+          <p><a class="xref" href="Aristocrat.Bingo.Client.Messages.BaseClientCommunicationService-1.html">BaseClientCommunicationService&lt;T&gt;</a></p>
           <p>
         </td>
       </tr>
@@ -163,7 +163,8 @@
       <tr>
         <td>
           <p><a class="xref" href="Aristocrat.Bingo.Client.Messages.GameOutcomeService.html">GameOutcomeService</a></p>
-          <p>
+          <p><p>Provides outcomes of bingo games</p>
+</p>
         </td>
       </tr>
       <tr>
@@ -176,6 +177,80 @@
         <td>
           <p><a class="xref" href="Aristocrat.Bingo.Client.Messages.MessageHandlerFactory.html">MessageHandlerFactory</a></p>
           <p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Bingo.Client.Messages.ProgressiveAuthorizationProvider.html">ProgressiveAuthorizationProvider</a></p>
+          <p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Bingo.Client.Messages.ProgressiveAwardRequestMessage.html">ProgressiveAwardRequestMessage</a></p>
+          <p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Bingo.Client.Messages.ProgressiveAwardService.html">ProgressiveAwardService</a></p>
+          <p><p>Calls the bingo server to award a progressive.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Bingo.Client.Messages.ProgressiveClaimRequestMessage.html">ProgressiveClaimRequestMessage</a></p>
+          <p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Bingo.Client.Messages.ProgressiveClaimService.html">ProgressiveClaimService</a></p>
+          <p><p>Calls the bingo server to claim a progressive.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Bingo.Client.Messages.ProgressiveCommandService.html">ProgressiveCommandService</a></p>
+          <p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Bingo.Client.Messages.ProgressiveGameRegistrationData.html">ProgressiveGameRegistrationData</a></p>
+          <p><p>Definition of ProgressiveGameRegistrationData</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Bingo.Client.Messages.ProgressiveLevelInfoProvider.html">ProgressiveLevelInfoProvider</a></p>
+          <p><p>The provider for mapping server supplied progressive level Ids to sequence number.
+This class assumes for side bet implementation that a given progressive level id will only have
+a mapping to one sequence number.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Bingo.Client.Messages.ProgressiveMessageHandlerFactory.html">ProgressiveMessageHandlerFactory</a></p>
+          <p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Bingo.Client.Messages.ProgressiveRegistrationMessage.html">ProgressiveRegistrationMessage</a></p>
+          <p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Bingo.Client.Messages.ProgressiveRegistrationService.html">ProgressiveRegistrationService</a></p>
+          <p><p>Calls the bingo server to request progressive information and sets up the authentication
+for the other progressive calls.</p>
+</p>
         </td>
       </tr>
       <tr>
@@ -275,6 +350,13 @@
       </tr>
       <tr>
         <td>
+          <p><a class="xref" href="Aristocrat.Bingo.Client.Messages.IBingoAuthorizationProvider.html">IBingoAuthorizationProvider</a></p>
+          <p><p>The provider for bingo authorization within the platform</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
           <p><a class="xref" href="Aristocrat.Bingo.Client.Messages.ICommandService.html">ICommandService</a></p>
           <p>
         </td>
@@ -311,6 +393,61 @@
         <td>
           <p><a class="xref" href="Aristocrat.Bingo.Client.Messages.IMessageHandlerFactory.html">IMessageHandlerFactory</a></p>
           <p><p>A factory for handling messages from the bingo server</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Bingo.Client.Messages.IProgressiveAuthorizationProvider.html">IProgressiveAuthorizationProvider</a></p>
+          <p><p>The provider for progressive authorization within the platform</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Bingo.Client.Messages.IProgressiveAwardService.html">IProgressiveAwardService</a></p>
+          <p><p>The progressive award service</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Bingo.Client.Messages.IProgressiveClaimService.html">IProgressiveClaimService</a></p>
+          <p><p>The progressive claim service</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Bingo.Client.Messages.IProgressiveCommandService.html">IProgressiveCommandService</a></p>
+          <p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Bingo.Client.Messages.IProgressiveLevelInfoProvider.html">IProgressiveLevelInfoProvider</a></p>
+          <p><p>The provider for mapping platform progressive level Ids to progressive server progressive level Ids.</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Bingo.Client.Messages.IProgressiveMessageHandler-2.html">IProgressiveMessageHandler&lt;TResponse, TMessage&gt;</a></p>
+          <p><p>The progressive message handler interface</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Bingo.Client.Messages.IProgressiveMessageHandlerFactory.html">IProgressiveMessageHandlerFactory</a></p>
+          <p><p>A factory for handling progressive messages from the bingo server</p>
+</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><a class="xref" href="Aristocrat.Bingo.Client.Messages.IProgressiveRegistrationService.html">IProgressiveRegistrationService</a></p>
+          <p><p>The progressive registration service</p>
 </p>
         </td>
       </tr>

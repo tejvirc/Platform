@@ -132,7 +132,7 @@ public class BingoCard</code></pre>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard__ctor_Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoNumber_0__0___System_UInt32_System_Nullable_System_Int32__System_Int32_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoCard.%23ctor(Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoNumber%5B0%3A%2C0%3A%5D%2CSystem.UInt32%2CSystem.Nullable%7BSystem.Int32%7D%2CSystem.Int32%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard__ctor_Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoNumber_0__0___System_UInt32_System_Nullable_System_Int32__System_Int32_System_Boolean_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoCard.%23ctor(Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoNumber%5B0%3A%2C0%3A%5D%2CSystem.UInt32%2CSystem.Nullable%7BSystem.Int32%7D%2CSystem.Int32%2CSystem.Boolean%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo.Common/GameOverlay/BingoCard.cs/#L13" title="View Source"><i class="fa fa-code"></i></a>
@@ -140,16 +140,16 @@ public class BingoCard</code></pre>
   
   <a id="Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard__ctor_" data-uid="Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoCard.#ctor*"></a>
   
-  <h4 id="Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard__ctor_Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoNumber_0__0___System_UInt32_System_Nullable_System_Int32__System_Int32_System_Boolean_" data-uid="Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoCard.#ctor(Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoNumber[0:,0:],System.UInt32,System.Nullable{System.Int32},System.Int32,System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard__ctor_Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoNumber_0__0___System_UInt32_System_Nullable_System_Int32__System_Int32_System_Boolean_" class="expander" data-toggle="collapse">BingoCard(BingoNumber[,], UInt32, Nullable&lt;Int32&gt;, Int32, Boolean)</a></h4>
+  <h4 id="Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard__ctor_Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoNumber_0__0___System_UInt32_System_Nullable_System_Int32__System_Int32_System_Boolean_System_Boolean_" data-uid="Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoCard.#ctor(Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoNumber[0:,0:],System.UInt32,System.Nullable{System.Int32},System.Int32,System.Boolean,System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard__ctor_Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoNumber_0__0___System_UInt32_System_Nullable_System_Int32__System_Int32_System_Boolean_System_Boolean_" class="expander" data-toggle="collapse">BingoCard(BingoNumber[,], UInt32, Nullable&lt;Int32&gt;, Int32, Boolean, Boolean)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard__ctor_Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoNumber_0__0___System_UInt32_System_Nullable_System_Int32__System_Int32_System_Boolean_" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard__ctor_Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoNumber_0__0___System_UInt32_System_Nullable_System_Int32__System_Int32_System_Boolean_System_Boolean_" class="collapse in">
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[JsonConstructor]
-public BingoCard(BingoNumber[, ] numbers, uint serialNumber, int? initialDaubedBits, int daubedBits, bool isGameEndWin)</code></pre>
+public BingoCard(BingoNumber[, ] numbers, uint serialNumber, int? initialDaubedBits, int daubedBits, bool isGameEndWin, bool isGolden = false)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -189,6 +189,13 @@ public BingoCard(BingoNumber[, ] numbers, uint serialNumber, int? initialDaubedB
         <p>
       </td>
     </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">isGolden</span>
+        <p>
+      </td>
+    </tr>
   </table>
   
   
@@ -208,7 +215,7 @@ public BingoCard(BingoNumber[, ] numbers, uint serialNumber, int? initialDaubedB
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard__ctor_System_UInt32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoCard.%23ctor(System.UInt32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo.Common/GameOverlay/BingoCard.cs/#L23" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo.Common/GameOverlay/BingoCard.cs/#L24" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard__ctor_" data-uid="Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoCard.#ctor*"></a>
@@ -254,7 +261,7 @@ public BingoCard(BingoNumber[, ] numbers, uint serialNumber, int? initialDaubedB
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_DaubedBits.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoCard.DaubedBits%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo.Common/GameOverlay/BingoCard.cs/#L32" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo.Common/GameOverlay/BingoCard.cs/#L42" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_DaubedBits_" data-uid="Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoCard.DaubedBits*"></a>
@@ -262,7 +269,8 @@ public BingoCard(BingoNumber[, ] numbers, uint serialNumber, int? initialDaubedB
   <h4 id="Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_DaubedBits" data-uid="Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoCard.DaubedBits"><a href="#collapsible-Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_DaubedBits" class="expander" data-toggle="collapse">DaubedBits</a></h4>
   
   <div id="collapsible-Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_DaubedBits" class="collapse in">
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Which squares on the card are daubed</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
@@ -297,7 +305,7 @@ public BingoCard(BingoNumber[, ] numbers, uint serialNumber, int? initialDaubedB
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_InitialDaubedBits.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoCard.InitialDaubedBits%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo.Common/GameOverlay/BingoCard.cs/#L34" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo.Common/GameOverlay/BingoCard.cs/#L48" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_InitialDaubedBits_" data-uid="Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoCard.InitialDaubedBits*"></a>
@@ -305,7 +313,9 @@ public BingoCard(BingoNumber[, ] numbers, uint serialNumber, int? initialDaubedB
   <h4 id="Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_InitialDaubedBits" data-uid="Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoCard.InitialDaubedBits"><a href="#collapsible-Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_InitialDaubedBits" class="expander" data-toggle="collapse">InitialDaubedBits</a></h4>
   
   <div id="collapsible-Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_InitialDaubedBits" class="collapse in">
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>The initial squares on the card that
+are daubed at the beginning of the game</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
@@ -340,7 +350,7 @@ public BingoCard(BingoNumber[, ] numbers, uint serialNumber, int? initialDaubedB
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_IsGameEndWin.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoCard.IsGameEndWin%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo.Common/GameOverlay/BingoCard.cs/#L36" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo.Common/GameOverlay/BingoCard.cs/#L53" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_IsGameEndWin_" data-uid="Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoCard.IsGameEndWin*"></a>
@@ -348,7 +358,8 @@ public BingoCard(BingoNumber[, ] numbers, uint serialNumber, int? initialDaubedB
   <h4 id="Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_IsGameEndWin" data-uid="Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoCard.IsGameEndWin"><a href="#collapsible-Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_IsGameEndWin" class="expander" data-toggle="collapse">IsGameEndWin</a></h4>
   
   <div id="collapsible-Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_IsGameEndWin" class="collapse in">
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Whether the card has game end win</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
@@ -380,10 +391,54 @@ public BingoCard(BingoNumber[, ] numbers, uint serialNumber, int? initialDaubedB
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_IsGolden.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoCard.IsGolden%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo.Common/GameOverlay/BingoCard.cs/#L58" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_IsGolden_" data-uid="Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoCard.IsGolden*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_IsGolden" data-uid="Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoCard.IsGolden"><a href="#collapsible-Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_IsGolden" class="expander" data-toggle="collapse">IsGolden</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_IsGolden" class="collapse in">
+  <div class="markdown level1 summary"><p>Whether the card is a golden card</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsGolden { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_Numbers.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoCard.Numbers%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo.Common/GameOverlay/BingoCard.cs/#L28" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo.Common/GameOverlay/BingoCard.cs/#L32" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_Numbers_" data-uid="Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoCard.Numbers*"></a>
@@ -391,7 +446,8 @@ public BingoCard(BingoNumber[, ] numbers, uint serialNumber, int? initialDaubedB
   <h4 id="Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_Numbers" data-uid="Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoCard.Numbers"><a href="#collapsible-Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_Numbers" class="expander" data-toggle="collapse">Numbers</a></h4>
   
   <div id="collapsible-Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_Numbers" class="collapse in">
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>a 5x5 array of the bingo card numbers</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
@@ -426,7 +482,7 @@ public BingoCard(BingoNumber[, ] numbers, uint serialNumber, int? initialDaubedB
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_SerialNumber.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoCard.SerialNumber%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo.Common/GameOverlay/BingoCard.cs/#L30" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo.Common/GameOverlay/BingoCard.cs/#L37" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_SerialNumber_" data-uid="Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoCard.SerialNumber*"></a>
@@ -434,7 +490,8 @@ public BingoCard(BingoNumber[, ] numbers, uint serialNumber, int? initialDaubedB
   <h4 id="Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_SerialNumber" data-uid="Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoCard.SerialNumber"><a href="#collapsible-Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_SerialNumber" class="expander" data-toggle="collapse">SerialNumber</a></h4>
   
   <div id="collapsible-Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_SerialNumber" class="collapse in">
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>The serial number of the card</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
@@ -471,7 +528,7 @@ public BingoCard(BingoNumber[, ] numbers, uint serialNumber, int? initialDaubedB
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_ToString.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoCard.ToString%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo.Common/GameOverlay/BingoCard.cs/#L39" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo.Common/GameOverlay/BingoCard.cs/#L61" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoCard_ToString_" data-uid="Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoCard.ToString*"></a>

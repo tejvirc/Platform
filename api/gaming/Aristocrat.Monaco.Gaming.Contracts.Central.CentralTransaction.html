@@ -176,24 +176,24 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction__ctor_System_Int32_System_DateTime_System_Int32_System_Int64_System_String_System_String_System_Int64_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.%23ctor(System.Int32%2CSystem.DateTime%2CSystem.Int32%2CSystem.Int64%2CSystem.String%2CSystem.String%2CSystem.Int64%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction__ctor_System_Int32_System_DateTime_System_Int32_System_String_System_Int32_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_Central_IAdditionalGamePlayInfo__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.%23ctor(System.Int32%2CSystem.DateTime%2CSystem.Int32%2CSystem.String%2CSystem.Int32%2CSystem.Collections.Generic.IEnumerable%7BAristocrat.Monaco.Gaming.Contracts.Central.IAdditionalGamePlayInfo%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L36" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L34" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction__ctor_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.#ctor*"></a>
   
-  <h4 id="Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction__ctor_System_Int32_System_DateTime_System_Int32_System_Int64_System_String_System_String_System_Int64_System_Int32_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.#ctor(System.Int32,System.DateTime,System.Int32,System.Int64,System.String,System.String,System.Int64,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction__ctor_System_Int32_System_DateTime_System_Int32_System_Int64_System_String_System_String_System_Int64_System_Int32_" class="expander" data-toggle="collapse">CentralTransaction(Int32, DateTime, Int32, Int64, String, String, Int64, Int32)</a></h4>
+  <h4 id="Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction__ctor_System_Int32_System_DateTime_System_Int32_System_String_System_Int32_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_Central_IAdditionalGamePlayInfo__" data-uid="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.#ctor(System.Int32,System.DateTime,System.Int32,System.String,System.Int32,System.Collections.Generic.IEnumerable{Aristocrat.Monaco.Gaming.Contracts.Central.IAdditionalGamePlayInfo})"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction__ctor_System_Int32_System_DateTime_System_Int32_System_String_System_Int32_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_Central_IAdditionalGamePlayInfo__" class="expander" data-toggle="collapse">CentralTransaction(Int32, DateTime, Int32, String, Int32, IEnumerable&lt;IAdditionalGamePlayInfo&gt;)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction__ctor_System_Int32_System_DateTime_System_Int32_System_Int64_System_String_System_String_System_Int64_System_Int32_" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction__ctor_System_Int32_System_DateTime_System_Int32_System_String_System_Int32_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_Central_IAdditionalGamePlayInfo__" class="collapse in">
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.html">CentralTransaction</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public CentralTransaction(int deviceId, DateTime transactionDateTime, int gameId, long denomination, string wagerCategory, string templateId, long wagerAmount, int outcomesRequested)</code></pre>
+    <pre><code class="lang-csharp hljs">public CentralTransaction(int deviceId, DateTime transactionDateTime, int gameId, string wagerCategory, int outcomesRequested, IEnumerable&lt;IAdditionalGamePlayInfo&gt; additionalInfo)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -224,14 +224,6 @@
     </tr>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">Int64</a></span>
-        <span class="parametername">denomination</span>
-        <p><p>The originating denomination</p>
-</p>
-      </td>
-    </tr>
-    <tr>
-      <td>
         <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></span>
         <span class="parametername">wagerCategory</span>
         <p><p>The originating wager category</p>
@@ -240,25 +232,17 @@
     </tr>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></span>
-        <span class="parametername">templateId</span>
-        <p><p>The template identifier that was used</p>
-</p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">Int64</a></span>
-        <span class="parametername">wagerAmount</span>
-        <p><p>The initial wager amount</p>
-</p>
-      </td>
-    </tr>
-    <tr>
-      <td>
         <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a></span>
         <span class="parametername">outcomesRequested</span>
         <p><p>The number of requested outcomes</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Central.IAdditionalGamePlayInfo.html">IAdditionalGamePlayInfo</a>&gt;</span>
+        <span class="parametername">additionalInfo</span>
+        <p><p>additional game info for side bet or wonder 4 games</p>
 </p>
       </td>
     </tr>
@@ -280,10 +264,54 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_AdditionalInfo.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.AdditionalInfo%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L99" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_AdditionalInfo_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.AdditionalInfo*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_AdditionalInfo" data-uid="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.AdditionalInfo"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_AdditionalInfo" class="expander" data-toggle="collapse">AdditionalInfo</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_AdditionalInfo" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets or sets additional game information</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;IAdditionalGamePlayInfo&gt; AdditionalInfo { get; set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Central.IAdditionalGamePlayInfo.html">IAdditionalGamePlayInfo</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_AssociatedTransactions.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.AssociatedTransactions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L110" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L90" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_AssociatedTransactions_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.AssociatedTransactions*"></a>
@@ -325,54 +353,10 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_Denomination.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.Denomination%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L73" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
-  
-  <a id="Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_Denomination_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.Denomination*"></a>
-  
-  <h4 id="Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_Denomination" data-uid="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.Denomination"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_Denomination" class="expander" data-toggle="collapse">Denomination</a></h4>
-  
-  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_Denomination" class="collapse in">
-  <div class="markdown level1 summary"><p>Gets the denomination associated with the outcome</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public long Denomination { get; }</code></pre>
-  </div>
-  
-  
-  
-  
-  
-  <h5 class="propertyValue">Property Value</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">Int64</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
-  
-  
-  </div>
-  
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_Descriptions.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.Descriptions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L114" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L94" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_Descriptions_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.Descriptions*"></a>
@@ -415,7 +399,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_Exception.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.Exception%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L103" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L83" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_Exception_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.Exception*"></a>
@@ -459,7 +443,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_GameId.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.GameId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L68" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L62" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_GameId_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.GameId*"></a>
@@ -467,7 +451,7 @@
   <h4 id="Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_GameId" data-uid="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.GameId"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_GameId" class="expander" data-toggle="collapse">GameId</a></h4>
   
   <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_GameId" class="collapse in">
-  <div class="markdown level1 summary"><p>Gets the game Id associated with the outcome</p>
+  <div class="markdown level1 summary"><p>Gets the game Id associated with the transaction</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -503,7 +487,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_Name.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.Name%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L106" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L86" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_Name_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.Name*"></a>
@@ -548,7 +532,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_Outcomes.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.Outcomes%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L98" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L78" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_Outcomes_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.Outcomes*"></a>
@@ -592,7 +576,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_OutcomesRequested.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.OutcomesRequested%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L93" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L73" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_OutcomesRequested_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.OutcomesRequested*"></a>
@@ -636,7 +620,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_OutcomeState.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.OutcomeState%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L63" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L57" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_OutcomeState_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.OutcomeState*"></a>
@@ -677,98 +661,10 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_TemplateId.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.TemplateId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L83" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
-  
-  <a id="Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_TemplateId_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.TemplateId*"></a>
-  
-  <h4 id="Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_TemplateId" data-uid="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.TemplateId"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_TemplateId" class="expander" data-toggle="collapse">TemplateId</a></h4>
-  
-  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_TemplateId" class="collapse in">
-  <div class="markdown level1 summary"><p>Gets the template identifier used for the outcome</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string TemplateId { get; }</code></pre>
-  </div>
-  
-  
-  
-  
-  
-  <h5 class="propertyValue">Property Value</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
-  
-  
-  </div>
-  
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_WagerAmount.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.WagerAmount%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L88" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
-  
-  <a id="Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_WagerAmount_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.WagerAmount*"></a>
-  
-  <h4 id="Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_WagerAmount" data-uid="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.WagerAmount"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_WagerAmount" class="expander" data-toggle="collapse">WagerAmount</a></h4>
-  
-  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_WagerAmount" class="collapse in">
-  <div class="markdown level1 summary"><p>Gets the wager amount</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public long WagerAmount { get; }</code></pre>
-  </div>
-  
-  
-  
-  
-  
-  <h5 class="propertyValue">Property Value</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">Int64</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
-  
-  
-  </div>
-  
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_WagerCategory.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.WagerCategory%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L78" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L68" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_WagerCategory_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.WagerCategory*"></a>
@@ -814,7 +710,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_Clone.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.Clone%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L153" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L138" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_Clone_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.Clone*"></a>
@@ -859,7 +755,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_Equals_Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.Equals(Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L264" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L253" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_Equals_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.Equals*"></a>
@@ -915,7 +811,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_Equals_System_Object_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.Equals(System.Object)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L248" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L237" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_Equals_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.Equals*"></a>
@@ -970,7 +866,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_GetHashCode.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.GetHashCode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L254" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L243" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_GetHashCode_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.GetHashCode*"></a>
@@ -1015,7 +911,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_SetData_System_Collections_Generic_IDictionary_System_String_System_Object__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.SetData(System.Collections.Generic.IDictionary%7BSystem.String%2CSystem.Object%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L176" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L160" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_SetData_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.SetData*"></a>
@@ -1070,7 +966,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_SetPersistence_Aristocrat_Monaco_Hardware_Contracts_Persistence_IPersistentStorageAccessor_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.SetPersistence(Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStorageAccessor%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L214" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L202" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_SetPersistence_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.SetPersistence*"></a>
@@ -1123,7 +1019,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_ToString.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.ToString%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L241" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L230" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_ToString_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.ToString*"></a>
@@ -1170,7 +1066,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_op_Equality_Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.op_Equality(Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction%2CAristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L122" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L107" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_op_Equality_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.op_Equality*"></a>
@@ -1234,7 +1130,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_op_Inequality_Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.op_Inequality(Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction%2CAristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L145" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Central/CentralTransaction.cs/#L130" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_op_Inequality_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.op_Inequality*"></a>

@@ -141,24 +141,24 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Common_Events_BingoGameBallCallEvent__ctor_Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoBallCall_System_Int32_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Common.Events.BingoGameBallCallEvent.%23ctor(Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoBallCall%2CSystem.Int32%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Common_Events_BingoGameBallCallEvent__ctor_Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoBallCall_System_Int32_System_Boolean_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Common.Events.BingoGameBallCallEvent.%23ctor(Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoBallCall%2CSystem.Int32%2CSystem.Boolean%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo.Common/Events/BingoGameBallCallEvent.cs/#L17" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo.Common/Events/BingoGameBallCallEvent.cs/#L18" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Bingo_Common_Events_BingoGameBallCallEvent__ctor_" data-uid="Aristocrat.Monaco.Bingo.Common.Events.BingoGameBallCallEvent.#ctor*"></a>
   
-  <h4 id="Aristocrat_Monaco_Bingo_Common_Events_BingoGameBallCallEvent__ctor_Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoBallCall_System_Int32_System_Boolean_" data-uid="Aristocrat.Monaco.Bingo.Common.Events.BingoGameBallCallEvent.#ctor(Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoBallCall,System.Int32,System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Bingo_Common_Events_BingoGameBallCallEvent__ctor_Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoBallCall_System_Int32_System_Boolean_" class="expander" data-toggle="collapse">BingoGameBallCallEvent(BingoBallCall, Int32, Boolean)</a></h4>
+  <h4 id="Aristocrat_Monaco_Bingo_Common_Events_BingoGameBallCallEvent__ctor_Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoBallCall_System_Int32_System_Boolean_System_Int32_" data-uid="Aristocrat.Monaco.Bingo.Common.Events.BingoGameBallCallEvent.#ctor(Aristocrat.Monaco.Bingo.Common.GameOverlay.BingoBallCall,System.Int32,System.Boolean,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Bingo_Common_Events_BingoGameBallCallEvent__ctor_Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoBallCall_System_Int32_System_Boolean_System_Int32_" class="expander" data-toggle="collapse">BingoGameBallCallEvent(BingoBallCall, Int32, Boolean, Int32)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Bingo_Common_Events_BingoGameBallCallEvent__ctor_Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoBallCall_System_Int32_System_Boolean_" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Bingo_Common_Events_BingoGameBallCallEvent__ctor_Aristocrat_Monaco_Bingo_Common_GameOverlay_BingoBallCall_System_Int32_System_Boolean_System_Int32_" class="collapse in">
   <div class="markdown level1 summary"><p>Constructor for <a class="xref" href="Aristocrat.Monaco.Bingo.Common.Events.BingoGameBallCallEvent.html">BingoGameBallCallEvent</a></p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public BingoGameBallCallEvent(BingoBallCall ballCall, int daubs, bool isRecovery = false)</code></pre>
+    <pre><code class="lang-csharp hljs">public BingoGameBallCallEvent(BingoBallCall ballCall, int daubs, bool isRecovery = false, int gameIndex = 0)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -187,6 +187,14 @@
 </p>
       </td>
     </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">gameIndex</span>
+        <p><p>The game this ball call event belongs to</p>
+</p>
+      </td>
+    </tr>
   </table>
   
   
@@ -208,7 +216,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Common_Events_BingoGameBallCallEvent_BallCall.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Common.Events.BingoGameBallCallEvent.BallCall%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo.Common/Events/BingoGameBallCallEvent.cs/#L27" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo.Common/Events/BingoGameBallCallEvent.cs/#L29" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Bingo_Common_Events_BingoGameBallCallEvent_BallCall_" data-uid="Aristocrat.Monaco.Bingo.Common.Events.BingoGameBallCallEvent.BallCall*"></a>
@@ -252,7 +260,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Common_Events_BingoGameBallCallEvent_Daubs.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Common.Events.BingoGameBallCallEvent.Daubs%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo.Common/Events/BingoGameBallCallEvent.cs/#L32" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo.Common/Events/BingoGameBallCallEvent.cs/#L34" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Bingo_Common_Events_BingoGameBallCallEvent_Daubs_" data-uid="Aristocrat.Monaco.Bingo.Common.Events.BingoGameBallCallEvent.Daubs*"></a>
@@ -293,10 +301,54 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Common_Events_BingoGameBallCallEvent_GameIndex.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Common.Events.BingoGameBallCallEvent.GameIndex%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo.Common/Events/BingoGameBallCallEvent.cs/#L44" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Bingo_Common_Events_BingoGameBallCallEvent_GameIndex_" data-uid="Aristocrat.Monaco.Bingo.Common.Events.BingoGameBallCallEvent.GameIndex*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Bingo_Common_Events_BingoGameBallCallEvent_GameIndex" data-uid="Aristocrat.Monaco.Bingo.Common.Events.BingoGameBallCallEvent.GameIndex"><a href="#collapsible-Aristocrat_Monaco_Bingo_Common_Events_BingoGameBallCallEvent_GameIndex" class="expander" data-toggle="collapse">GameIndex</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Bingo_Common_Events_BingoGameBallCallEvent_GameIndex" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the game the daubs belong to</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int GameIndex { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Common_Events_BingoGameBallCallEvent_IsRecovery.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Common.Events.BingoGameBallCallEvent.IsRecovery%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo.Common/Events/BingoGameBallCallEvent.cs/#L37" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo.Common/Events/BingoGameBallCallEvent.cs/#L39" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Bingo_Common_Events_BingoGameBallCallEvent_IsRecovery_" data-uid="Aristocrat.Monaco.Bingo.Common.Events.BingoGameBallCallEvent.IsRecovery*"></a>

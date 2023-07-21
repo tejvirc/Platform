@@ -159,24 +159,24 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_BaseGameEvent__ctor_System_Int32_System_Int64_System_String_Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.BaseGameEvent.%23ctor(System.Int32%2CSystem.Int64%2CSystem.String%2CAristocrat.Monaco.Gaming.Contracts.IGameHistoryLog)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_BaseGameEvent__ctor_System_Int32_System_Int64_System_String_Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.BaseGameEvent.%23ctor(System.Int32%2CSystem.Int64%2CSystem.String%2CAristocrat.Monaco.Gaming.Contracts.IGameHistoryLog%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BaseGameEvent.cs/#L17" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BaseGameEvent.cs/#L18" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_BaseGameEvent__ctor_" data-uid="Aristocrat.Monaco.Gaming.Contracts.BaseGameEvent.#ctor*"></a>
   
-  <h4 id="Aristocrat_Monaco_Gaming_Contracts_BaseGameEvent__ctor_System_Int32_System_Int64_System_String_Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_" data-uid="Aristocrat.Monaco.Gaming.Contracts.BaseGameEvent.#ctor(System.Int32,System.Int64,System.String,Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_BaseGameEvent__ctor_System_Int32_System_Int64_System_String_Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_" class="expander" data-toggle="collapse">BaseGameEvent(Int32, Int64, String, IGameHistoryLog)</a></h4>
+  <h4 id="Aristocrat_Monaco_Gaming_Contracts_BaseGameEvent__ctor_System_Int32_System_Int64_System_String_Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_System_Int32_" data-uid="Aristocrat.Monaco.Gaming.Contracts.BaseGameEvent.#ctor(System.Int32,System.Int64,System.String,Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_BaseGameEvent__ctor_System_Int32_System_Int64_System_String_Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_System_Int32_" class="expander" data-toggle="collapse">BaseGameEvent(Int32, Int64, String, IGameHistoryLog, Int32)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_BaseGameEvent__ctor_System_Int32_System_Int64_System_String_Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_BaseGameEvent__ctor_System_Int32_System_Int64_System_String_Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_System_Int32_" class="collapse in">
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.BaseGameEvent.html">BaseGameEvent</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected BaseGameEvent(int gameId, long denomination, string wagerCategory, IGameHistoryLog log)</code></pre>
+    <pre><code class="lang-csharp hljs">protected BaseGameEvent(int gameId, long denomination, string wagerCategory, IGameHistoryLog log, int gameIndex = 0)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -213,6 +213,14 @@
 </p>
       </td>
     </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">gameIndex</span>
+        <p><p>The index of the game being played</p>
+</p>
+      </td>
+    </tr>
   </table>
   
   
@@ -234,7 +242,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_BaseGameEvent_Denomination.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.BaseGameEvent.Denomination%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BaseGameEvent.cs/#L33" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BaseGameEvent.cs/#L35" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_BaseGameEvent_Denomination_" data-uid="Aristocrat.Monaco.Gaming.Contracts.BaseGameEvent.Denomination*"></a>
@@ -278,7 +286,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_BaseGameEvent_GameId.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.BaseGameEvent.GameId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BaseGameEvent.cs/#L28" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BaseGameEvent.cs/#L30" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_BaseGameEvent_GameId_" data-uid="Aristocrat.Monaco.Gaming.Contracts.BaseGameEvent.GameId*"></a>
@@ -319,10 +327,54 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_BaseGameEvent_GameIndex.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.BaseGameEvent.GameIndex%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BaseGameEvent.cs/#L50" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Contracts_BaseGameEvent_GameIndex_" data-uid="Aristocrat.Monaco.Gaming.Contracts.BaseGameEvent.GameIndex*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Contracts_BaseGameEvent_GameIndex" data-uid="Aristocrat.Monaco.Gaming.Contracts.BaseGameEvent.GameIndex"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_BaseGameEvent_GameIndex" class="expander" data-toggle="collapse">GameIndex</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_BaseGameEvent_GameIndex" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the index of the game being played</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int GameIndex { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_BaseGameEvent_Log.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.BaseGameEvent.Log%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BaseGameEvent.cs/#L43" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BaseGameEvent.cs/#L45" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_BaseGameEvent_Log_" data-uid="Aristocrat.Monaco.Gaming.Contracts.BaseGameEvent.Log*"></a>
@@ -366,7 +418,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_BaseGameEvent_WagerCategory.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.BaseGameEvent.WagerCategory%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BaseGameEvent.cs/#L38" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BaseGameEvent.cs/#L40" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_BaseGameEvent_WagerCategory_" data-uid="Aristocrat.Monaco.Gaming.Contracts.BaseGameEvent.WagerCategory*"></a>

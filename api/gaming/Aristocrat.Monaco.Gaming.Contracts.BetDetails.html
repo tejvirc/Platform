@@ -125,17 +125,17 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_BetDetails__ctor_System_Int32_System_Int32_System_Int32_System_Int32_System_Int64_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.BetDetails.%23ctor(System.Int32%2CSystem.Int32%2CSystem.Int32%2CSystem.Int32%2CSystem.Int64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_BetDetails__ctor_System_Int32_System_Int32_System_Int32_System_Int32_System_Int64_System_Int64_System_Int32_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.BetDetails.%23ctor(System.Int32%2CSystem.Int32%2CSystem.Int32%2CSystem.Int32%2CSystem.Int64%2CSystem.Int64%2CSystem.Int32%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BetDetails.cs/#L19" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BetDetails.cs/#L22" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_BetDetails__ctor_" data-uid="Aristocrat.Monaco.Gaming.Contracts.BetDetails.#ctor*"></a>
   
-  <h4 id="Aristocrat_Monaco_Gaming_Contracts_BetDetails__ctor_System_Int32_System_Int32_System_Int32_System_Int32_System_Int64_" data-uid="Aristocrat.Monaco.Gaming.Contracts.BetDetails.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int64)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_BetDetails__ctor_System_Int32_System_Int32_System_Int32_System_Int32_System_Int64_" class="expander" data-toggle="collapse">BetDetails(Int32, Int32, Int32, Int32, Int64)</a></h4>
+  <h4 id="Aristocrat_Monaco_Gaming_Contracts_BetDetails__ctor_System_Int32_System_Int32_System_Int32_System_Int32_System_Int64_System_Int64_System_Int32_System_Int32_" data-uid="Aristocrat.Monaco.Gaming.Contracts.BetDetails.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int64,System.Int64,System.Int32,System.Int32)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_BetDetails__ctor_System_Int32_System_Int32_System_Int32_System_Int32_System_Int64_System_Int64_System_Int32_System_Int32_" class="expander" data-toggle="collapse">BetDetails(Int32, Int32, Int32, Int32, Int64, Int64, Int32, Int32)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_BetDetails__ctor_System_Int32_System_Int32_System_Int32_System_Int32_System_Int64_" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_BetDetails__ctor_System_Int32_System_Int32_System_Int32_System_Int32_System_Int64_System_Int64_System_Int32_System_Int32_" class="collapse in">
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.BetDetails.html">BetDetails</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -143,7 +143,7 @@
   
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[JsonConstructor]
-public BetDetails(int betLinePresetId, int betPerLine, int numberLines, int ante, long stake)</code></pre>
+public BetDetails(int betLinePresetId, int betPerLine, int numberLines, int ante, long stake, long wager, int betMultiplier, int gameId)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -188,6 +188,30 @@ public BetDetails(int betLinePresetId, int betPerLine, int numberLines, int ante
 </p>
       </td>
     </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">wager</span>
+        <p><p>Wager</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">betMultiplier</span>
+        <p><p>Bet Multiplier</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">gameId</span>
+        <p><p>Unique Game ID</p>
+</p>
+      </td>
+    </tr>
   </table>
   
   
@@ -209,7 +233,7 @@ public BetDetails(int betLinePresetId, int betPerLine, int numberLines, int ante
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_BetDetails_Ante.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.BetDetails.Ante%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BetDetails.cs/#L44" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BetDetails.cs/#L53" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_BetDetails_Ante_" data-uid="Aristocrat.Monaco.Gaming.Contracts.BetDetails.Ante*"></a>
@@ -255,7 +279,7 @@ public BetDetails(int betLinePresetId, int betPerLine, int numberLines, int ante
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_BetDetails_BetLinePresetId.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.BetDetails.BetLinePresetId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BetDetails.cs/#L35" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BetDetails.cs/#L44" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_BetDetails_BetLinePresetId_" data-uid="Aristocrat.Monaco.Gaming.Contracts.BetDetails.BetLinePresetId*"></a>
@@ -298,10 +322,56 @@ public BetDetails(int betLinePresetId, int betPerLine, int numberLines, int ante
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_BetDetails_BetMultiplier.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.BetDetails.BetMultiplier%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BetDetails.cs/#L62" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Contracts_BetDetails_BetMultiplier_" data-uid="Aristocrat.Monaco.Gaming.Contracts.BetDetails.BetMultiplier*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Contracts_BetDetails_BetMultiplier" data-uid="Aristocrat.Monaco.Gaming.Contracts.BetDetails.BetMultiplier"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_BetDetails_BetMultiplier" class="expander" data-toggle="collapse">BetMultiplier</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_BetDetails_BetMultiplier" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the bet multiplier</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int BetMultiplier { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IBetDetails.html#Aristocrat_Monaco_Gaming_Contracts_IBetDetails_BetMultiplier">IBetDetails.BetMultiplier</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_BetDetails_BetPerLine.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.BetDetails.BetPerLine%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BetDetails.cs/#L38" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BetDetails.cs/#L47" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_BetDetails_BetPerLine_" data-uid="Aristocrat.Monaco.Gaming.Contracts.BetDetails.BetPerLine*"></a>
@@ -344,10 +414,56 @@ public BetDetails(int betLinePresetId, int betPerLine, int numberLines, int ante
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_BetDetails_GameId.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.BetDetails.GameId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BetDetails.cs/#L65" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Contracts_BetDetails_GameId_" data-uid="Aristocrat.Monaco.Gaming.Contracts.BetDetails.GameId*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Contracts_BetDetails_GameId" data-uid="Aristocrat.Monaco.Gaming.Contracts.BetDetails.GameId"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_BetDetails_GameId" class="expander" data-toggle="collapse">GameId</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_BetDetails_GameId" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the unique game ID</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int GameId { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IBetDetails.html#Aristocrat_Monaco_Gaming_Contracts_IBetDetails_GameId">IBetDetails.GameId</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_BetDetails_NumberLines.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.BetDetails.NumberLines%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BetDetails.cs/#L41" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BetDetails.cs/#L50" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_BetDetails_NumberLines_" data-uid="Aristocrat.Monaco.Gaming.Contracts.BetDetails.NumberLines*"></a>
@@ -393,7 +509,7 @@ public BetDetails(int betLinePresetId, int betPerLine, int numberLines, int ante
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_BetDetails_Stake.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.BetDetails.Stake%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BetDetails.cs/#L47" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BetDetails.cs/#L56" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_BetDetails_Stake_" data-uid="Aristocrat.Monaco.Gaming.Contracts.BetDetails.Stake*"></a>
@@ -433,6 +549,52 @@ public BetDetails(int betLinePresetId, int betPerLine, int numberLines, int ante
   
   
   </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_BetDetails_Wager.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.BetDetails.Wager%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BetDetails.cs/#L59" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Contracts_BetDetails_Wager_" data-uid="Aristocrat.Monaco.Gaming.Contracts.BetDetails.Wager*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Contracts_BetDetails_Wager" data-uid="Aristocrat.Monaco.Gaming.Contracts.BetDetails.Wager"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_BetDetails_Wager" class="expander" data-toggle="collapse">Wager</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_BetDetails_Wager" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the wager</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long Wager { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IBetDetails.html#Aristocrat_Monaco_Gaming_Contracts_IBetDetails_Wager">IBetDetails.Wager</a></div>
+  
+  
+  
+  
+  </div>
   <h3 id="methods">Methods
   </h3>
   
@@ -441,7 +603,7 @@ public BetDetails(int betLinePresetId, int betPerLine, int numberLines, int ante
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_BetDetails_Equals_Aristocrat_Monaco_Gaming_Contracts_BetDetails_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.BetDetails.Equals(Aristocrat.Monaco.Gaming.Contracts.BetDetails)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BetDetails.cs/#L50" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BetDetails.cs/#L68" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_BetDetails_Equals_" data-uid="Aristocrat.Monaco.Gaming.Contracts.BetDetails.Equals*"></a>
@@ -496,7 +658,7 @@ public BetDetails(int betLinePresetId, int betPerLine, int numberLines, int ante
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_BetDetails_Equals_System_Object_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.BetDetails.Equals(System.Object)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BetDetails.cs/#L89" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BetDetails.cs/#L108" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_BetDetails_Equals_" data-uid="Aristocrat.Monaco.Gaming.Contracts.BetDetails.Equals*"></a>
@@ -551,7 +713,7 @@ public BetDetails(int betLinePresetId, int betPerLine, int numberLines, int ante
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_BetDetails_GetHashCode.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.BetDetails.GetHashCode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BetDetails.cs/#L105" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BetDetails.cs/#L124" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_BetDetails_GetHashCode_" data-uid="Aristocrat.Monaco.Gaming.Contracts.BetDetails.GetHashCode*"></a>
@@ -596,7 +758,7 @@ public BetDetails(int betLinePresetId, int betPerLine, int numberLines, int ante
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_BetDetails_ToString.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.BetDetails.ToString%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BetDetails.cs/#L119" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BetDetails.cs/#L141" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_BetDetails_ToString_" data-uid="Aristocrat.Monaco.Gaming.Contracts.BetDetails.ToString*"></a>
@@ -643,7 +805,7 @@ public BetDetails(int betLinePresetId, int betPerLine, int numberLines, int ante
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_BetDetails_op_Equality_Aristocrat_Monaco_Gaming_Contracts_BetDetails_Aristocrat_Monaco_Gaming_Contracts_BetDetails_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.BetDetails.op_Equality(Aristocrat.Monaco.Gaming.Contracts.BetDetails%2CAristocrat.Monaco.Gaming.Contracts.BetDetails)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BetDetails.cs/#L72" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BetDetails.cs/#L91" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_BetDetails_op_Equality_" data-uid="Aristocrat.Monaco.Gaming.Contracts.BetDetails.op_Equality*"></a>
@@ -707,7 +869,7 @@ public BetDetails(int betLinePresetId, int betPerLine, int numberLines, int ante
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_BetDetails_op_Inequality_Aristocrat_Monaco_Gaming_Contracts_BetDetails_Aristocrat_Monaco_Gaming_Contracts_BetDetails_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.BetDetails.op_Inequality(Aristocrat.Monaco.Gaming.Contracts.BetDetails%2CAristocrat.Monaco.Gaming.Contracts.BetDetails)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BetDetails.cs/#L83" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/BetDetails.cs/#L102" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_BetDetails_op_Inequality_" data-uid="Aristocrat.Monaco.Gaming.Contracts.BetDetails.op_Inequality*"></a>

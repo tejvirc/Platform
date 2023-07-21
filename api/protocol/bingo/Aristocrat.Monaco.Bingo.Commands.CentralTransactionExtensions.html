@@ -134,10 +134,97 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Commands_CentralTransactionExtensions_GenerateMultiPlayRequest_Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_System_String_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_IBetDetails__System_Int32_System_Nullable_System_Int32__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Commands.CentralTransactionExtensions.GenerateMultiPlayRequest(Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction%2CSystem.String%2CSystem.Collections.Generic.IEnumerable%7BAristocrat.Monaco.Gaming.Contracts.IBetDetails%7D%2CSystem.Int32%2CSystem.Nullable%7BSystem.Int32%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo/Commands/CentralTransactionExtensions.cs/#L74" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Bingo_Commands_CentralTransactionExtensions_GenerateMultiPlayRequest_" data-uid="Aristocrat.Monaco.Bingo.Commands.CentralTransactionExtensions.GenerateMultiPlayRequest*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Bingo_Commands_CentralTransactionExtensions_GenerateMultiPlayRequest_Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_System_String_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_IBetDetails__System_Int32_System_Nullable_System_Int32__" data-uid="Aristocrat.Monaco.Bingo.Commands.CentralTransactionExtensions.GenerateMultiPlayRequest(Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction,System.String,System.Collections.Generic.IEnumerable{Aristocrat.Monaco.Gaming.Contracts.IBetDetails},System.Int32,System.Nullable{System.Int32})"><a href="#collapsible-Aristocrat_Monaco_Bingo_Commands_CentralTransactionExtensions_GenerateMultiPlayRequest_Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_System_String_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_IBetDetails__System_Int32_System_Nullable_System_Int32__" class="expander" data-toggle="collapse">GenerateMultiPlayRequest(CentralTransaction, String, IEnumerable&lt;IBetDetails&gt;, Int32, Nullable&lt;Int32&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Bingo_Commands_CentralTransactionExtensions_GenerateMultiPlayRequest_Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_System_String_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_IBetDetails__System_Int32_System_Nullable_System_Int32__" class="collapse in">
+  <div class="markdown level1 summary"><p>Converts the transaction into a RequestMultiPlayCommand</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static RequestMultiPlayCommand GenerateMultiPlayRequest(this CentralTransaction transaction, string machineSerial, IEnumerable&lt;IBetDetails&gt; details, int titleId, int? subGameTitleId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../../gaming/Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction.html">CentralTransaction</a></span>
+        <span class="parametername">transaction</span>
+        <p><p>The Central Transaction</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">machineSerial</span>
+        <p><p>The machine serial number</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="../../gaming/Aristocrat.Monaco.Gaming.Contracts.IBetDetails.html">IBetDetails</a>&gt;</span>
+        <span class="parametername">details</span>
+        <p><p>The bet details</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">titleId</span>
+        <p><p>The main game title id</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;</span>
+        <span class="parametername">subGameTitleId</span>
+        <p><p>The sub game title id</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Bingo.Commands.RequestMultiPlayCommand.html">RequestMultiPlayCommand</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Commands_CentralTransactionExtensions_ToReportGameOutcomeMessage_Aristocrat_Monaco_Gaming_Contracts_Central_CentralTransaction_System_String_Aristocrat_Monaco_Gaming_Contracts_IGameHistoryLog_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Commands.CentralTransactionExtensions.ToReportGameOutcomeMessage(Aristocrat.Monaco.Gaming.Contracts.Central.CentralTransaction%2CSystem.String%2CAristocrat.Monaco.Gaming.Contracts.IGameHistoryLog)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo/Commands/CentralTransactionExtensions.cs/#L23" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo/Commands/CentralTransactionExtensions.cs/#L25" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Bingo_Commands_CentralTransactionExtensions_ToReportGameOutcomeMessage_" data-uid="Aristocrat.Monaco.Bingo.Commands.CentralTransactionExtensions.ToReportGameOutcomeMessage*"></a>
@@ -151,7 +238,7 @@
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static ReportGameOutcomeMessage ToReportGameOutcomeMessage(this CentralTransaction transaction, string machineSerial, IGameHistoryLog log)</code></pre>
+    <pre><code class="lang-csharp hljs">public static ReportMultiGameOutcomeMessage ToReportGameOutcomeMessage(this CentralTransaction transaction, string machineSerial, IGameHistoryLog log)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -186,7 +273,7 @@
   <table>
     <tr>
       <td>
-        <a class="xref" href="Aristocrat.Bingo.Client.Messages.GamePlay.ReportGameOutcomeMessage.html">ReportGameOutcomeMessage</a>
+        <a class="xref" href="Aristocrat.Bingo.Client.Messages.GamePlay.ReportMultiGameOutcomeMessage.html">ReportMultiGameOutcomeMessage</a>
         <p><p>The report game outcome message that gets sent to the server</p>
 </p>
       </td>
@@ -209,7 +296,7 @@
           </div>
           <div class="contribution-panel mobile-hide">
               <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Bingo_Commands_CentralTransactionExtensions.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Bingo.Commands.CentralTransactionExtensions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
-              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo/Commands/CentralTransactionExtensions.cs/#L14" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Monaco.Bingo/Commands/CentralTransactionExtensions.cs/#L16" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
