@@ -8,6 +8,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
     using Application.Contracts.TiltLogger;
     using Application.UI.Models;
     using Application.UI.OperatorMenu;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Common;
     using CommunityToolkit.Mvvm.Input;
     using Hardware.Contracts.Door;

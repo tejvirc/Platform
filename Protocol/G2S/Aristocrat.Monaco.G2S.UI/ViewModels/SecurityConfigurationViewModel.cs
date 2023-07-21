@@ -12,6 +12,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
     using Application.Contracts.Localization;
     using Application.UI.ConfigWizard;
     using Aristocrat.G2S.Client.Communications;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Common.CertificateManager;
     using Common.CertificateManager.Models;
     using Common.DHCP;

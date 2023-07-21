@@ -3890,8 +3890,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             DisplayedGameList.AddRange(_enabledGameList?.Where(g => g.ImagePath != null));
 
             _lobbyStateManager.IsSingleGame = UniqueThemeIds <= 1;
-            RaisePropertyChanged(nameof(GameCount));
-            RaisePropertyChanged(nameof(MarginInputs));
+            OnPropertyChanged(nameof(GameCount));
+            OnPropertyChanged(nameof(MarginInputs));
         }
 
         private void SelectFirstDisplayedGame()

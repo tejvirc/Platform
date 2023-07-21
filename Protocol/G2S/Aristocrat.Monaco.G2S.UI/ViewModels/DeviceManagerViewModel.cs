@@ -10,6 +10,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
     using Application.UI.OperatorMenu;
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Common.Events;
     using CommunityToolkit.Mvvm.Input;
     using Data.Profile;
