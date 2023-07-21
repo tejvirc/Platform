@@ -769,5 +769,25 @@
 
             return SasValidationType.None;
         }
+
+        /// <summary>
+        /// Validates the AFT Transfer Limit.
+        /// </summary>
+        /// <param name="aftTransferLimit">The AFT Transfer Limit to validate</param>
+        /// <param name="context">The validation context.</param>
+        /// <returns>ValidationResult</returns>
+        public static ValidationResult ValidateAftTransferLimit(decimal aftTransferLimit, ValidationContext context)
+        {
+            SasFeatureViewModel instance = (SasFeatureViewModel)context.ObjectInstance;
+            var errors = aftTransferLimit.Validate(true, instance.MaxTransferLimit.DollarsToMillicents());
+
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(errors);
+
+        }
     }
 }
