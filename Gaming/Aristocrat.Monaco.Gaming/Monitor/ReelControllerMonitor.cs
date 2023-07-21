@@ -11,6 +11,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
     using Application.Monitors;
+    using Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities;
     using Common;
     using Contracts;
     using Contracts.Events.OperatorMenu;
@@ -76,6 +77,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
         private readonly IGameHistory _gameHistory;
         private readonly IEdgeLightingController _edgeLightingController;
         private readonly IOperatorMenuLauncher _operatorMenuLauncher;
+        private readonly IReelBrightnessCapabilities _brightnessCapability;
         private readonly SemaphoreSlim _tiltLock = new(1, 1);
         private readonly CancellationTokenSource _cancellationTokenSource = new();
 
@@ -107,6 +109,12 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             _reelController = new Lazy<IReelController>(() => ServiceManager.GetInstance().TryGetService<IReelController>());
             Task.Run(async () => await Initialize(_cancellationTokenSource.Token), _cancellationTokenSource.Token)
                 .FireAndForget();
+
+            if (ReelController is not null &&
+                ReelController.HasCapability<IReelBrightnessCapabilities>())
+            {
+                    _brightnessCapability = ReelController.GetCapability<IReelBrightnessCapabilities>();
+            }
         }
 
         public override string DeviceName => ReelDeviceName;
@@ -305,10 +313,11 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             _eventBus.Subscribe<ClosedEvent>(this, HandleDoorClose, e => e.LogicalId is (int)DoorLogicalId.Main);
             _eventBus.Subscribe<ReelStoppedEvent>(this, HandleReelStoppedEvent);
             _eventBus.Subscribe<GameAddedEvent>(this, _ => HandleGameAddedEvent());
-            _eventBus.Subscribe<GameProcessExitedEvent>(this, GameProcessExited, evt => evt.Unexpected);
+            _eventBus.Subscribe<GameProcessExitedEvent>(this, GameProcessExitedUnexpected, evt => evt.Unexpected);
+            _eventBus.Subscribe<GameProcessExitedEvent>(this, GameProcessExited);
         }
 
-        private async Task GameProcessExited(GameProcessExitedEvent evt, CancellationToken token)
+        private async Task GameProcessExitedUnexpected(GameProcessExitedEvent evt, CancellationToken token)
         {
             var homeReels = !ReelsShouldTilt;
             Logger.Debug($"Titling reels because the game process exited.  Will home immediately after: {homeReels}");
@@ -317,6 +326,15 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             if (homeReels)
             {
                 await HomeReels().ConfigureAwait(false);
+            }
+        }
+
+        private async Task GameProcessExited(GameProcessExitedEvent evt, CancellationToken token)
+        {
+            Logger.Debug($"Game exited, resetting brightness to default");
+            if (_brightnessCapability is not null)
+            {
+                await _brightnessCapability.SetBrightness(_brightnessCapability.DefaultReelBrightness);
             }
         }
 

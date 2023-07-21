@@ -2,6 +2,7 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using Aristocrat.Monaco.Hardware.Contracts.Reel;
     using Contracts.Reel.ControlData;
     using Contracts.Reel.Events;
     using Kernel;
@@ -25,13 +26,7 @@
         private readonly RelmReelController _controller = new();
         private readonly AnimationFile _testLightShowFile = new("anim.lightshow", Contracts.Reel.AnimationType.PlatformLightShow, AnimationName);
         private readonly StoredFile _storedFile = new("", 12345, 1);
-        private readonly LightShowData _lightShowData = new() {
-            AnimationName = AnimationName,
-            ReelIndex = 0,
-            LoopCount = 1,
-            Step = -1,
-            Tag = Tag
-        };
+        private readonly LightShowData _lightShowData = new(0, AnimationName, Tag, ReelConstants.RepeatOnce, -1);
         private readonly AnimationFile _testStepperCurveFile = new("anim.stepper", Contracts.Reel.AnimationType.PlatformStepperCurve, AnimationName);
         private readonly ReelCurveData _curveData = new(0, AnimationName);
         private readonly uint _tagId = Tag.HashDjb2();
