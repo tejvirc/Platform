@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
@@ -71,30 +72,13 @@
 
         public string GameTypeLabel => (_gameType == GameType.Poker) ? Poker : Keno;
 
+        [CustomValidation(typeof(AddSAPLevelViewModel), nameof(ValidateLevelName))]
         public string LevelName
         {
             get => _levelName;
-
             set
             {
-                _levelName = value;
-                var trimmedName = value?.Trim();
-                if (string.IsNullOrWhiteSpace(_levelName))
-                {
-                    SetError(
-                        nameof(LevelName),
-                        Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EmptyStringNotAllowErrorMessage));
-                }
-                else if (_sharedSapLevel?.Name != trimmedName && _sharedSapProvider.ViewSharedSapLevels().Any(x => x.Name == trimmedName))
-                {
-                    SetError(nameof(LevelName), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.UniqueLevelNameError));
-                }
-                else
-                {
-                    ClearErrors(nameof(LevelName));
-                }
-
-                OnPropertyChanged(nameof(LevelName), nameof(CanSave));
+                SetProperty(ref _levelName, value, nameof(LevelName), nameof(CanSave));
             }
         }
 
@@ -200,25 +184,33 @@
             IncrementRate = _sharedSapLevel.IncrementRate.ToPercentage();
         }
 
-        protected override void SetError(string propertyName, string error)
-        {
-            if (string.IsNullOrEmpty(error))
-            {
-                ClearErrors(propertyName);
-            }
-            else
-            {
-                base.SetError(propertyName, error);
-            }
-        }
-
         private void ValidValueFields()
         {
-            SetError(nameof(ResetValue), ResetValue.Validate(false, MaxValue.DollarsToMillicents()));
-            SetError(nameof(MaxValue), MaxValue == 0M ? string.Empty : MaxValue.Validate(false, 0, ResetValue.DollarsToMillicents()));
-            SetError(nameof(InitialValue), InitialValue.Validate(false, MaxValue.DollarsToMillicents(), ResetValue.DollarsToMillicents()));
+            ValidateProperty(ResetValue, nameof(ResetValue));
+            ValidateProperty(MaxValue, nameof(MaxValue));
+            ValidateProperty(InitialValue, nameof(InitialValue));
 
-            OnPropertyChanged(nameof(ResetValue), nameof(MaxValue), nameof(InitialValue), nameof(CanSave));
+            OnPropertyChanged(nameof(ResetValue));
+            OnPropertyChanged(nameof(MaxValue));
+            OnPropertyChanged(nameof(InitialValue));
+            OnPropertyChanged(nameof(CanSave));
+        }
+
+        public static ValidationResult ValidateLevelName(string name, ValidationContext context)
+        {
+            var instance = (AddSAPLevelViewModel)context.ObjectInstance;
+            var trimmedName = name?.Trim();
+
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                return new(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EmptyStringNotAllowErrorMessage));
+            }
+            else if (instance._sharedSapLevel?.Name != trimmedName && instance._sharedSapProvider.ViewSharedSapLevels().Any(x => x.Name == trimmedName))
+            {
+                return new(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.UniqueLevelNameError));
+            }
+
+            return ValidationResult.Success;
         }
     }
 }
