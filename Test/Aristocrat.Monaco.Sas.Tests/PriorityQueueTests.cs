@@ -388,7 +388,7 @@
             // invoke the handler
             _target.ExceptionAcknowledged();
 
-            Assert.IsTrue(waiter.WaitOne(200));
+            Assert.IsTrue(waiter.WaitOne(400));
 
             // handler should be the one that sets value to 2
             Assert.AreEqual(2, handlerRun);

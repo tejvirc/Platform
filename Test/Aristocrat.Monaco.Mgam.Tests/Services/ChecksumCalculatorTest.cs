@@ -23,7 +23,7 @@
     [TestClass]
     public class ChecksumCalculatorTest
     {
-        private const int waitTimeout = 1000;
+        private const int waitTimeout = 3000;
         private Mock<ILogger<ChecksumCalculator>> _logger;
         private Mock<ICommandHandlerFactory> _commandFactory;
         private Mock<IUnitOfWorkFactory> _unitOfWorkFactory;

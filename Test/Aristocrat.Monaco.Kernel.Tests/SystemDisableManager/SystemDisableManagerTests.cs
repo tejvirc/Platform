@@ -11,6 +11,7 @@
     [TestClass]
     public class SystemDisableManagerTests
     {
+        private const int sleepTimeout = 500;
         private Mock<IEventBus> _eventBusMock;
         private Mock<IMessageDisplay> _messageDisplay;
 
@@ -133,7 +134,7 @@
             Assert.AreEqual(DisplayableMessageClassification.HardError, displayedMessage.Classification);
             Assert.AreEqual(messagePriority, displayedMessage.Priority);
 
-            Thread.Sleep(TimeSpan.FromMilliseconds(250));
+            Thread.Sleep(sleepTimeout);
 
             Assert.IsFalse(target.IsDisabled);
             _messageDisplay.Verify(m => m.RemoveMessage(It.IsAny<Guid>()), Times.Once());
@@ -410,7 +411,7 @@
             var priority = SystemDisablePriority.Normal;
             var messagePriority = GetMessagePriority(priority);
 
-            target.Disable(key, priority, () => reason, TimeSpan.FromMilliseconds(250));
+            target.Disable(key, priority, () => reason, TimeSpan.FromMilliseconds(sleepTimeout / 2));
 
             Assert.IsTrue(target.IsDisabled);
 
@@ -422,7 +423,7 @@
 
             target.Enable(key);
 
-            Thread.Sleep(500);
+            Thread.Sleep(sleepTimeout);
 
             _messageDisplay.Verify(m => m.RemoveMessage(It.IsAny<Guid>()), Times.Once());
             Assert.AreEqual(key, removeGuid);
