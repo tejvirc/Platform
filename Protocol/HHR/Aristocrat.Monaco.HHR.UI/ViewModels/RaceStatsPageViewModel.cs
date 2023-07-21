@@ -12,6 +12,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
     using Menu;
     using Models;
     using Command = Menu.Command;
+    using CommunityToolkit.Mvvm.Input;
 
     public class RaceStatsPageViewModel : HhrMenuPageViewModelBase
     {
