@@ -11,7 +11,7 @@
     using Gaming.Contracts.Progressives.Linked;
     using Meters;
 
-    public class ProgressiveLevelManager : IProgressiveLevelManager
+    public class ProgressiveLevelManager : IProgressiveLevelManager, IDisposable
     {
         private readonly IProtocolLinkedProgressiveAdapter _protocolLinkedProgressiveAdapter;
         private readonly IProgressiveMeterManager _progressiveMeters;
@@ -132,6 +132,20 @@
                 ProgressiveValueSequence = progValueSequence,
                 ProgressiveValueText = progValueText
             };
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _updateTimer?.Dispose();
+            }
         }
     }
 }
