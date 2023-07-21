@@ -612,7 +612,7 @@
             _waiter.Wait();
 
             // Wait longer than the timeout value so the timer re-sends the exception
-            Thread.Sleep(900);
+            Thread.Sleep(800);
 
             input = new SendAuthenticationInfoCommand
             {
