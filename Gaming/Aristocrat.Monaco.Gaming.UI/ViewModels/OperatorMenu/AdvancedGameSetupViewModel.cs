@@ -1968,7 +1968,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 linkedLevelNames);
         }
 
-        private void GameSpecificOptionSetup(object configObject)
+        private void GameSpecificOptionSetup()
         {
             var viewModel = new ExtraSettingsSetupViewModel(SelectedGame.ThemeId, _gameSpecificOptionProvider);
             _dialogService.ShowDialog<ExtraSettingsSetupView>(
