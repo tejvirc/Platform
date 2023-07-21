@@ -171,7 +171,12 @@
         /// <summary>
         ///     The default time to cycle patterns
         /// </summary>
-        public const int DefaultPatternCycleTime = 3;
+        public const int DefaultPatternCycleTimeMilliseconds = 3000;
+
+        /// <summary>
+        ///     The default number of times to repeat the pattern name/card title cycle for each pattern
+        /// </summary>
+        public const int DefaultPatternCycleRepeats = 1;
 
         /// <summary>
         ///     Property name for the activity time requested for bingo

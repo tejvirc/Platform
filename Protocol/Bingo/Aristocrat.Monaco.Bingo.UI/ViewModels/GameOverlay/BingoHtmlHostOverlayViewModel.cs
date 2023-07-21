@@ -948,6 +948,12 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
                 _currentBingoSettings = _bingoConfigurationProvider.GetSettings(windowName);
                 var attractSettings = _bingoConfigurationProvider.GetAttractSettings();
                 _lastGameScene = _currentBingoSettings.InitialScene;
+                var effectivePatternCycleRepeats = _currentBingoSettings.PatternCycleRepeats;
+                if (effectivePatternCycleRepeats < 1)
+                {
+                    Logger.Warn($"Bingo Overlay Configuration Warning: PatternCycleRepeats cannot be less than 1. Using default of {BingoConstants.DefaultPatternCycleRepeats}.");
+                    effectivePatternCycleRepeats = BingoConstants.DefaultPatternCycleRepeats;
+                }
 
                 var staticData = new BingoStaticData
                 {
@@ -963,7 +969,8 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
                         _bingoInstances is null || _bingoInstances[0].Card is null
                             ? Enumerable.Empty<BingoCardNumber>()
                             : ConvertBingoCardNumberArrayToList(_bingoInstances[0].Card.Numbers).ToList(),
-                    PatternCycleTimeMs = _currentBingoSettings.PatternCyclePeriodMilliseconds
+                    PatternCycleTimeMs = _currentBingoSettings.PatternCyclePeriodMilliseconds,
+                    PatternCycleRepeats = effectivePatternCycleRepeats
                 };
 
                 var i = 0;
