@@ -16,19 +16,28 @@
         /// <param name="numberLines">Number of lines bet</param>
         /// <param name="ante">Ante</param>
         /// <param name="stake">Stake</param>
+        /// <param name="wager">Wager</param>
+        /// <param name="betMultiplier">Bet Multiplier</param>
+        /// <param name="gameId">Unique Game ID</param>
         [JsonConstructor]
         public BetDetails(
             int betLinePresetId,
             int betPerLine,
             int numberLines,
             int ante,
-            long stake)
+            long stake,
+            long wager,
+            int betMultiplier,
+            int gameId)
         {
             BetLinePresetId = betLinePresetId;
             BetPerLine = betPerLine;
             NumberLines = numberLines;
             Ante = ante;
             Stake = stake;
+            Wager = wager;
+            BetMultiplier = betMultiplier;
+            GameId = gameId;
         }
 
         /// <inheritdoc />
@@ -47,6 +56,15 @@
         public long Stake { get; }
 
         /// <inheritdoc />
+        public long Wager { get; }
+
+        /// <inheritdoc />
+        public int BetMultiplier { get; }
+
+        /// <inheritdoc />
+        public int GameId { get; }
+
+        /// <inheritdoc />
         public bool Equals(BetDetails other)
         {
             if (ReferenceEquals(null, other))
@@ -60,7 +78,8 @@
             }
 
             return BetLinePresetId == other.BetLinePresetId && BetPerLine == other.BetPerLine &&
-                   NumberLines == other.NumberLines && Ante == other.Ante && Stake == other.Stake;
+                   NumberLines == other.NumberLines && Ante == other.Ante && Stake == other.Stake &&
+                   Wager == other.Wager && BetMultiplier == other.BetMultiplier && GameId == other.GameId;
         }
 
         /// <summary>
@@ -110,7 +129,10 @@
                 hashCode = (hashCode * 397) ^ BetPerLine;
                 hashCode = (hashCode * 397) ^ NumberLines;
                 hashCode = (hashCode * 397) ^ Ante;
+                hashCode = (hashCode * 397) ^ BetMultiplier;
+                hashCode = (hashCode * 397) ^ Wager.GetHashCode();
                 hashCode = (hashCode * 397) ^ Stake.GetHashCode();
+                hashCode = (hashCode * 397) ^ GameId;
                 return hashCode;
             }
         }
@@ -119,7 +141,7 @@
         public override string ToString()
         {
             return
-                $"{typeof(BetDetails)} [BetLinePresetId={BetLinePresetId}, BetPerLine={BetPerLine}, NumberLines={NumberLines}, Ante={Ante}, Stake={Stake}]";
+                $"{typeof(BetDetails)} [BetLinePresetId={BetLinePresetId}, BetPerLine={BetPerLine}, NumberLines={NumberLines}, Ante={Ante}, Stake={Stake}, Wager={Wager}, BetMultiplier={BetMultiplier}, GameId={GameId}]";
         }
     }
 }

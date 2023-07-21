@@ -27,5 +27,13 @@
         /// <param name="paytableConfiguration">The paytable configuration to install</param>
         /// <returns>The current game details for the provided game ID or null</returns>
         IGameDetail InstallGame(int gameId, ServerPaytableConfiguration paytableConfiguration);
+
+        /// <summary>
+        ///     Installs sub games for the provided game Id
+        /// </summary>
+        /// <param name="gameId">The game Id to install</param>
+        /// <param name="subGameConfiguration">The sub game configuration to install</param>
+        /// <returns></returns>
+        void InstallSubGames(int gameId, IReadOnlyCollection<SubGameConfiguration> subGameConfiguration);
     }
 }

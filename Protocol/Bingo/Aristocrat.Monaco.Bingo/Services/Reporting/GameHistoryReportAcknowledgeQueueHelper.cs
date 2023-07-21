@@ -14,7 +14,10 @@
     using Kernel;
     using Localization.Properties;
 
-    public class GameHistoryReportAcknowledgeQueueHelper : IAcknowledgedQueueHelper<ReportGameOutcomeMessage, long>
+    /// <summary>
+    ///     Queue for reporting multi-game outcomes to the bingo server
+    /// </summary>
+    public class GameHistoryReportAcknowledgeQueueHelper : IAcknowledgedQueueHelper<ReportMultiGameOutcomeMessage, long>
     {
         private readonly ICentralProvider _centralProvider;
         private readonly IGameHistory _gameHistory;
@@ -33,17 +36,20 @@
             _disableManager = disableManager ?? throw new ArgumentNullException(nameof(disableManager));
         }
 
-        public long GetId(ReportGameOutcomeMessage item)
+        /// <inheritdoc/>
+        public long GetId(ReportMultiGameOutcomeMessage item)
         {
             return item.TransactionId;
         }
 
-        public void WritePersistence(List<ReportGameOutcomeMessage> list)
+        /// <inheritdoc/>
+        public void WritePersistence(List<ReportMultiGameOutcomeMessage> list)
         {
             // Do nothing the persistence is the game history log and central transactions
         }
 
-        public List<ReportGameOutcomeMessage> ReadPersistence()
+        /// <inheritdoc/>
+        public List<ReportMultiGameOutcomeMessage> ReadPersistence()
         {
             var serialNumber = _propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty);
             var gameHistoryLogs = _gameHistory.GetGameHistory().ToList();
@@ -62,6 +68,7 @@
                     : null;
         }
 
+        /// <inheritdoc/>
         public void AlmostFullDisable()
         {
             _disableManager.Disable(
@@ -72,6 +79,7 @@
                 () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GameHistoryReportingAlmostFullHelp));
         }
 
+        /// <inheritdoc/>
         public void AlmostFullClear()
         {
             _disableManager.Enable(BingoConstants.GameHistoryQueueDisableKey);

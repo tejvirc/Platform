@@ -211,7 +211,7 @@
                 CssPath = BingoConstants.DefaultOverlayCssPath,
                 FreeSpaceCharacter = BingoConstants.DefaultFreeSpaceCharacter,
                 InitialScene = BingoConstants.DefaultInitialOverlayScene,
-                PatternCyclePeriod = BingoConstants.DefaultPatternCycleTime,
+                PatternCyclePeriodMilliseconds = BingoConstants.DefaultPatternCycleTime,
                 WaitingForGameMessage = Localizer.For(CultureFor.Player).GetString(ResourceKeys.WaitingForPlayersText),
                 WaitingForGameTimeoutMessage = Localizer.For(CultureFor.Player).GetString(ResourceKeys.NoPlayersFoundText),
                 WaitingForGameDelaySeconds = BingoConstants.DefaultDelayStartWaitingForPlayersSeconds,

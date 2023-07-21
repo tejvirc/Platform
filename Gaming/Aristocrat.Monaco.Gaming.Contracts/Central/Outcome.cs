@@ -19,6 +19,8 @@ namespace Aristocrat.Monaco.Gaming.Contracts.Central
         /// <param name="value">The outcome value</param>
         /// <param name="winLevelIndex">The win level index</param>
         /// <param name="lookupData">The host lookup data</param>
+        /// <param name="gameId">The game id</param>
+        /// <param name="gameIndex">The game index</param>
         [JsonConstructor]
         public Outcome(
             long id,
@@ -28,7 +30,9 @@ namespace Aristocrat.Monaco.Gaming.Contracts.Central
             OutcomeType type,
             long value,
             int winLevelIndex,
-            string lookupData)
+            string lookupData,
+            int gameId = 0,
+            int gameIndex = 0)
         {
             Id = id;
             GameSetId = gameSetId;
@@ -38,6 +42,8 @@ namespace Aristocrat.Monaco.Gaming.Contracts.Central
             Value = value;
             WinLevelIndex = winLevelIndex;
             LookupData = lookupData;
+            GameId = gameId;
+            GameIndex = gameIndex;
         }
 
         /// <summary>
@@ -80,5 +86,15 @@ namespace Aristocrat.Monaco.Gaming.Contracts.Central
         ///     display to be presented to the player as a result of the outcome.
         /// </summary>
         public string LookupData { get; private set; }
+
+        /// <summary>
+        ///     Gets the GameId for the outcome.
+        /// </summary>
+        public int GameId { get; private set; }
+
+        /// <summary>
+        ///     Gets the GameIndex for the outcome.
+        /// </summary>
+        public int GameIndex { get; private set; }
     }
 }

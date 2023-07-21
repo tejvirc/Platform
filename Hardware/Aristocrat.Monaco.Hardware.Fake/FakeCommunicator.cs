@@ -409,7 +409,10 @@ namespace Aristocrat.Monaco.Hardware.Fake
                             }
                             else
                             {
-                                _simWindow.SetReelBrightness(brightness.ReelId, brightness.Brightness);
+                                if (brightness.ReelId <= _reelCount)
+                                {
+                                    _simWindow.SetReelBrightness(brightness.ReelId, brightness.Brightness);
+                                }
                             }
                         }
 

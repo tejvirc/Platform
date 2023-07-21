@@ -132,7 +132,8 @@
                             OutcomeType.Standard,
                             value.DollarsToMillicents(),
                             0,
-                            string.Empty));
+                            string.Empty,
+                            _outcomeIndex));
 
                     _outcomeIndex++;
                 }
@@ -149,7 +150,8 @@
                             OutcomeType.Standard,
                             5m.DollarsToMillicents(),
                             0,
-                            string.Empty),
+                            string.Empty,
+                            0),
                         transaction.OutcomesRequested));
             }
 

@@ -11,8 +11,9 @@
     {
         public ComplianceConfiguration(
             IPropertiesManager propertiesManager,
-            ISystemDisableManager systemDisableManager)
-            : base(propertiesManager, systemDisableManager)
+            ISystemDisableManager systemDisableManager,
+            IEventBus eventBus)
+            : base(propertiesManager, systemDisableManager, eventBus)
         {
             ConfigurationConversion =
                 new Dictionary<string, (string, Func<string, object>)>
