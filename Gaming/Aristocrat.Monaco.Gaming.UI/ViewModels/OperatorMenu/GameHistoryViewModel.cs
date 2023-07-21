@@ -20,6 +20,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
     using Application.UI.Events;
     using Application.UI.OperatorMenu;
     using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Central;
     using Contracts.Events.OperatorMenu;

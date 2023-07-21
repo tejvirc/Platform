@@ -14,6 +14,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using log4net;
     using Aristocrat.Monaco.Hardware.Contracts.Audio;
     using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
 
     /// <summary>
     ///     Reserve machine GUI states

@@ -2,15 +2,9 @@
 {
     using Aristocrat.Monaco.Gaming.Contracts.Barkeeper;
     using Aristocrat.Monaco.Kernel;
-    using CommunityToolkit.Mvvm;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
-    public abstract class RewardLevelViewModel : BaseObservableObject
+    public abstract class RewardLevelViewModel : ObservableValidator
     {
         private bool _enabledField;
         private long _thresholdInCents;

@@ -1,5 +1,6 @@
 namespace Aristocrat.Monaco.Gaming.UI.Views
 {
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Contracts;
     using Kernel;
     using ViewModels;

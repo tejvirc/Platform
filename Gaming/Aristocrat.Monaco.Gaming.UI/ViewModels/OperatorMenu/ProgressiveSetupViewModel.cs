@@ -9,6 +9,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Application.UI.OperatorMenu;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Progressives;
     using Contracts.Progressives.Linked;

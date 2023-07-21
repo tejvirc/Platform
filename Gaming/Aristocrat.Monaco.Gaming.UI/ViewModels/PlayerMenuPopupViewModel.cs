@@ -9,6 +9,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Aristocrat.Monaco.Hardware.Contracts.Audio;
     using Aristocrat.Toolkit.Mvvm.Extensions;
     using Common;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Events;
     using Kernel;

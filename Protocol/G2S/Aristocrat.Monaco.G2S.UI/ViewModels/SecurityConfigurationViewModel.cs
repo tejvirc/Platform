@@ -690,7 +690,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         }
 
         /// <inheritdoc />
-        protected override void OnPropertyChanged(string propertyName)
+        protected new void OnPropertyChanged(string propertyName)
         {
             base.OnPropertyChanged(propertyName);
 

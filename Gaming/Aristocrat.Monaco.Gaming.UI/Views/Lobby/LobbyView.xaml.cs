@@ -14,6 +14,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Views.Lobby
     using Application.Contracts;
     using Application.Contracts.Media;
     using Application.UI.Views;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using ButtonDeck;
     using Cabinet.Contracts;
     using Common;

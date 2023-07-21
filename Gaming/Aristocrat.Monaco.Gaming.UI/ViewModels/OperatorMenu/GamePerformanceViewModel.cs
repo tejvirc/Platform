@@ -1,3 +1,4 @@
+using CommunityToolkit.Mvvm.Input;
 namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using System;
@@ -12,6 +13,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
     using Application.UI.OperatorMenu;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Meters;
     using Contracts.Models;

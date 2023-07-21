@@ -22,6 +22,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
     using Views.OperatorMenu;
     using static DenomMetersPageViewModel;
     using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
 
     /// <summary>
     ///     Interaction logic for GamesMetersPage.xaml
