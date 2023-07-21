@@ -68,13 +68,14 @@
             BetOptions = new ObservableCollection<string>();
             Denoms = new ObservableCollection<Denomination>();
             SelectByGameNameAndDenomination = GetConfigSetting(OperatorMenuSetting.GameNameAndDenominationSelections, false);
-            var allGames = new ObservableCollection<IGameDetail>(PropertiesManager.GetValues<IGameDetail>(GamingConstants.AllGames).OrderBy(game => game.Id));
+            var allGames = new ObservableCollection<IGameDetail>(PropertiesManager.GetValues<IGameDetail>(GamingConstants.AllGames)
+                .OrderBy(game => game.ThemeName));
             if (SelectByGameNameAndDenomination)
             {
                 Games = new ObservableCollection<IGameDetail>(
                     PropertiesManager.GetValues<IGameDetail>(GamingConstants.AllGames)
                         .Where(game => game.Enabled)
-                        .DistinctBy(game => game.ThemeName).OrderBy(game => game.Id));
+                        .DistinctBy(game => game.ThemeName).OrderBy(game => game.ThemeName));
             }
             else
             {
