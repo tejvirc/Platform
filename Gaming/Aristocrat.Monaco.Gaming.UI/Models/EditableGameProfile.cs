@@ -4,14 +4,16 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using Aristocrat.Monaco.Application.Contracts.Localization;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.ComponentModel;
+
     using Contracts.Configuration;
     using Localization.Properties;
     using Monaco.UI.Common.Extensions;
 
-    public class EditableGameProfile : BaseObservableObject, IDisposable
+    public class EditableGameProfile : ObservableValidator, IDisposable
     {
         private readonly bool _enableRtpScaling;
         private IConfigurationRestriction _selectedRestriction;
@@ -56,10 +58,11 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
 
         public IReadOnlyList<IConfigurationRestriction> ValidRestrictions { get; private set; }
 
+        [CustomValidation(typeof(EditableGameProfile), nameof(ValidateRestrictionWarningText))]
         public string RestrictionWarningText
         {
             get => _restrictionWarningText;
-            set => SetProperty(ref _restrictionWarningText, value);
+            set => SetProperty(ref _restrictionWarningText, value, true);
         }
 
         public bool Enabled => GameConfigurations.Any(c => c.Enabled);
@@ -176,6 +179,16 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
 
             OnPropertyChanged(nameof(Enabled));
             OnPropertyChanged(nameof(EnabledGameConfigurationsCount));
+        }
+
+        public static ValidationResult ValidateRestrictionWarningText(string restrictionWarningText, ValidationContext context)
+        {
+            if (string.IsNullOrEmpty(restrictionWarningText))
+            {
+                return ValidationResult.Success;
+            }
+
+            return new ValidationResult(restrictionWarningText);
         }
     }
 }
