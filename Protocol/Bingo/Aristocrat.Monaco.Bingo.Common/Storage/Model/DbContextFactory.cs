@@ -24,6 +24,8 @@
         {
             _connectionStringResolver = connectionStringResolver ??
                                         throw new ArgumentNullException(nameof(connectionStringResolver));
+            using var context = new BingoContext(_connectionStringResolver);
+            context.Database.EnsureCreated();
         }
 
         public void Dispose()
@@ -77,7 +79,6 @@
             var context = new BingoContext(_connectionStringResolver);
             try
             {
-                context.Database.EnsureCreated();
                 return context;
             }
             catch

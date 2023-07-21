@@ -25,6 +25,8 @@
         {
             _connectionStringResolver = connectionStringResolver ??
                                         throw new ArgumentNullException(nameof(connectionStringResolver));
+            using var context = new SasContext(_connectionStringResolver);
+            context.Database.EnsureCreated();
         }
 
         /// <inheritdoc />
@@ -92,7 +94,6 @@
             var context = new SasContext(_connectionStringResolver);
             try
             {
-                context.Database.EnsureCreated();
                 return context;
             }
             catch
