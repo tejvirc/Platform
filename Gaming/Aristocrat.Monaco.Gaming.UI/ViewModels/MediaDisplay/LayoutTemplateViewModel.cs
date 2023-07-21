@@ -83,7 +83,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             _eventBus.Subscribe<BrowserProcessTerminatedEvent>(this, e => BrowserProcessTerminated?.Invoke(this, e.MediaPlayerId));
         }
 
-        protected override void OnPropertyChanged(string propertyName)
+        protected new void OnPropertyChanged(string propertyName)
         {
             base.OnPropertyChanged(propertyName);
 
