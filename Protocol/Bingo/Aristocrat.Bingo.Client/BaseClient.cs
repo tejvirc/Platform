@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Bingo.Client
 {
     using System;
+    using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
     using Configuration;
@@ -66,7 +67,15 @@
 
 		public bool IsConnected => StateIsConnected(_channel?.State);
 		
-        public abstract Channel CreateChannel();
+        public virtual Channel CreateChannel()
+        {
+            var configuration = ConfigurationProvider.CreateConfiguration();
+            var credentials = configuration.Certificates.Any()
+                ? new SslCredentials(
+                    string.Join(Environment.NewLine, configuration.Certificates.Select(x => x.ConvertToPem())))
+                : ChannelCredentials.Insecure;
+            return new Channel(configuration.Address.Host, configuration.Address.Port, credentials);
+        }
 
         public abstract TClientApi CreateClient(CallInvoker callInvoker);
 
