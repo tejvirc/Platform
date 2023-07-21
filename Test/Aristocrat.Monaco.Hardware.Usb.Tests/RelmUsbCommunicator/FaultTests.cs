@@ -47,6 +47,7 @@
             };
 
             await usbCommunicator.Initialize();
+            await usbCommunicator.HomeReels();
 
             Assert.IsTrue(controllerFaultOccurred);
         }
@@ -66,6 +67,7 @@
             };
 
             await usbCommunicator.Initialize();
+            await usbCommunicator.HomeReels();
 
             Assert.IsTrue(controllerFaultCleared);
         }
@@ -98,6 +100,7 @@
             };
 
             await usbCommunicator.Initialize();
+            await usbCommunicator.HomeReels();
 
             Assert.AreEqual(connected, actualReelStatus.Connected);
             Assert.AreEqual(tampered, actualReelStatus.ReelTampered);
@@ -149,6 +152,7 @@
             };
 
             await usbCommunicator.Initialize();
+            await usbCommunicator.HomeReels();
 
             Assert.IsNotNull(actualLightStatus);
             Assert.AreEqual((int)lightId, actualLightStatus.LightId);

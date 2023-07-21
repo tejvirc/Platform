@@ -105,5 +105,6 @@
     <PackageReference Include="Mono.Addins.CecilReflector" Version="1.4.1" />
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
     <PackageReference Include="System.IO.Ports" Version="6.0.0" />
+		<PackageReference Include="System.Diagnostics.DiagnosticSource" Version="4.5.1" />
   </ItemGroup>
 </Project>

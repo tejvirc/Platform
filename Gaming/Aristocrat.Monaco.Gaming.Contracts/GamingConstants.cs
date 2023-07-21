@@ -1389,6 +1389,11 @@
         public const string ShowPlayerMenuPopup = @"GamePlay.ShowPlayerMenuPopup";
 
         /// <summary>
+        ///     The Game Rules instructions message to display
+        /// </summary>
+        public const string GameRulesInstructions = @"Instructions.GameRulesInstructions";
+
+        /// <summary>
         ///     Flag will control the background cycling of the RNG by the platform
         /// </summary>
         public const string UseRngCycling = @"RngCycling.Enabled";

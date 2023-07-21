@@ -293,13 +293,13 @@
                                                         Margin="10 0 0 0"
                                                         VerticalAlignment="Center"
                                                         Value="{Binding OffsetSteps}"
-                                                        Minimum="{Binding MinReelOffset}"
-                                                        Maximum="{Binding MaxReelOffset}"
+                                                        Minimum="{Binding DataContext.MinReelOffset, RelativeSource={RelativeSource AncestorType=operatorMenu:OperatorMenuPage}}"
+                                                        Maximum="{Binding DataContext.MaxReelOffset, RelativeSource={RelativeSource AncestorType=operatorMenu:OperatorMenuPage}}"
                                                         Increment="1"
                                                         AllowSpin="True"
                                                         FontSize="18"
                                                         Width="130"
-                                                        Height="45"></xctk:IntegerUpDown>
+                                                        Height="45" ValueChanged="IntegerUpDown_ValueChanged" />
                                 </StackPanel>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

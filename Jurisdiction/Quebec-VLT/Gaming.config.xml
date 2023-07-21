@@ -41,6 +41,7 @@ as follows:
   <FreeSpin ClearWinMeter="true"/>
   <Win Destination="winAndCredit"/>
   <DisplayGamePayMessage Use="true" Format="currency"/>
+  <Instructions GameRulesInstructions="GDK_GameRulesInstructions1.1" />
   <WagerLimits Use="true" MaxTotalWager="250" />
   <VolumeLevel ShowInHelpScreen="false" />
   <Service Use="false" />
@@ -52,4 +53,7 @@ as follows:
   <GameLog Enabled="true" OutcomeDetails="true" />
   <Audio AudioChannels="true" />
   <ButtonAnimation GoodLuck="false" />
+  <ProgressiveView>
+    <InitialSetupView Readonly="true" />
+  </ProgressiveView>
 </GamingConfiguration>

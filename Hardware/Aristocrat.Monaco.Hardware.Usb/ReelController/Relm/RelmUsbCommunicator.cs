@@ -43,6 +43,7 @@
         private RelmReels.Communicator.IRelmCommunicator _relmCommunicator;
         private bool _disposed;
         private uint _firmwareSize;
+        private int[] _reelOffsets;
 
         /// <summary>
         ///     Instantiates a new instance of the RelmUsbCommunicator class
@@ -183,7 +184,6 @@
             Logger.Debug($"Reel controller firmware size is {_firmwareSize}");
 
             RequestDeviceStatuses().FireAndForget();
-            HomeReels().FireAndForget();
         }
 
         /// <inheritdoc />
@@ -436,11 +436,13 @@
                     break;
                 }
 
+                byte reel = data.ReelIndex;
+
                 var command = new PrepareStopReel
                 {
-                    ReelIndex = data.ReelIndex,
+                    ReelIndex = reel,
                     Duration = data.Duration,
-                    Step = data.Step
+                    Step = (short)(data.Step + _reelOffsets[reel])
                 };
 
                 _relmCommunicator.SendCommandAsync(command, token);
@@ -533,12 +535,12 @@
             }
 
             // TODO: Use proper home positions and number of reels
-            var defaultHomeStep = 0;
+            var defaultHomeStep = 5;
             var homeData = new List<short>();
 
             for (int i = 0; i < ReelCount; i++)
             {
-                homeData.Add((short)defaultHomeStep);
+                homeData.Add((short)(defaultHomeStep + _reelOffsets[i]));
             }
 
             _relmCommunicator?.SendCommandAsync(new HomeReels(homeData));
@@ -552,14 +554,24 @@
             {
                 return Task.FromResult(false);
             }
-            _relmCommunicator?.SendCommandAsync(new HomeReels(new List<ReelStepInfo> { new((byte)(reelId - 1), (short)stop) }));
+
+            byte reel = (byte)(reelId - 1);
+            var reelStepInfo = new ReelStepInfo(reel, (short)(stop + _reelOffsets[reel]));
+
+            _relmCommunicator?.SendCommandAsync(new HomeReels(new List<ReelStepInfo>{ reelStepInfo }));
             return Task.FromResult(true);
         }
 
         /// <inheritdoc />
         public Task<bool> SetReelOffsets(params int[] offsets)
         {
-            // TODO: Implement this
+            if (_relmCommunicator is null)
+            {
+                return Task.FromResult(false);
+            }
+
+            _reelOffsets = offsets;
+            
             return Task.FromResult(true);
         }
 
