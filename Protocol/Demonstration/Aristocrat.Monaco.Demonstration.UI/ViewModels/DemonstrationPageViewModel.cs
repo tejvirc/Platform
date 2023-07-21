@@ -7,6 +7,7 @@ namespace Aristocrat.Monaco.Demonstration.UI.ViewModels
     using Application.Contracts.Localization;
     using Localization.Properties;
     using Vgt.Client12.Application.OperatorMenu;
+    using CommunityToolkit.Mvvm.Input;
 
     public sealed class DemonstrationPageViewModel : OperatorMenuPageViewModelBase
     {

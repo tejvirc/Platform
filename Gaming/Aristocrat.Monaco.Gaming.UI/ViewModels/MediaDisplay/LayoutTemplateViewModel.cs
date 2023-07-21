@@ -7,6 +7,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Windows;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
 
     public class LayoutTemplateViewModel : BaseObservableObject, IDisposable
     {

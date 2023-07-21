@@ -3,6 +3,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using System;
     using System.Collections.ObjectModel;
     using System.Windows.Input;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Models;
 
     /// <summary>

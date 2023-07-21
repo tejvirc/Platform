@@ -7,6 +7,7 @@ namespace Aristocrat.Monaco.Mgam.UI.ViewModels
     using Aristocrat.Mgam.Client.Common;
     using Aristocrat.Mgam.Client.Routing;
     using Common;
+    using CommunityToolkit.Mvvm.Input;
     using Kernel;
     using Services.Communications;
 

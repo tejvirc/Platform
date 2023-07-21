@@ -6,6 +6,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
     using System.ComponentModel;
     using System.Linq;
     using Aristocrat.Monaco.Application.Contracts.Localization;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Contracts.Configuration;
     using Localization.Properties;
     using Monaco.UI.Common.Extensions;

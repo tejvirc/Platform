@@ -3,6 +3,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using System;
     using System.Windows.Input;
     using Accounting.Contracts.HandCount;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Contracts;
     using Kernel;
     using Runtime;

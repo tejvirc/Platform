@@ -1,6 +1,7 @@
 namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using System;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Monaco.Kernel;
     
     public class MaxWinDialogViewModel : BaseObservableObject, IDisposable

@@ -4,6 +4,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.Timers
     using System.Globalization;
     using System.Reflection;
     using Application.Contracts;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Common;
     using Contracts;
     using Contracts.Lobby;
@@ -20,7 +21,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.Timers
         private const string TimeResourceKey = "TimeLabel";
         private const string TimeLeftResourceKey = "TimeLeftLabel";
 
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly object _clockStateLock = new object();
 
         private readonly LobbyConfiguration _config;

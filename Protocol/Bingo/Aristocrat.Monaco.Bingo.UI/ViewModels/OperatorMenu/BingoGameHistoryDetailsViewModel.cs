@@ -11,6 +11,7 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.OperatorMenu
     using Common;
     using Common.GameOverlay;
     using Common.Storage;
+    using CommunityToolkit.Mvvm.Input;
     using Gaming.Contracts;
     using Localization.Properties;
     using Models;

@@ -16,6 +16,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
     using Common.CertificateManager.Models;
     using Common.DHCP;
     using Common.Events;
+    using CommunityToolkit.Mvvm.Input;
     using Kernel;
     using Localization.Properties;
     using Monaco.UI.Common;

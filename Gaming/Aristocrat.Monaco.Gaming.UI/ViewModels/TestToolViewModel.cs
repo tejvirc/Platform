@@ -31,6 +31,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using EnabledEvent = Hardware.Contracts.NoteAcceptor.EnabledEvent;
 #if !(RETAIL)
     using Vgt.Client12.Testing.Tools;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
 #endif
 
     /// <summary>

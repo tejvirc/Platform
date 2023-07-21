@@ -24,6 +24,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Localization.Properties;
     using log4net;
     using Utils;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
 
     public class MessageOverlayViewModel : BaseObservableObject
     {

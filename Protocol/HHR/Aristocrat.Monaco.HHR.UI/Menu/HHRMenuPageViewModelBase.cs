@@ -3,6 +3,7 @@ namespace Aristocrat.Monaco.Hhr.UI.Menu
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using log4net;
 
     /// <summary>

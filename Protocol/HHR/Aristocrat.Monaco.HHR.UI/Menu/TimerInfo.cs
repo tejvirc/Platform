@@ -1,5 +1,6 @@
 namespace Aristocrat.Monaco.Hhr.UI.Menu
 {
+    using CommunityToolkit.Mvvm.Input;
 
     /// <summary>
     ///     TimerInfo has the properties related to timer control HHR pages

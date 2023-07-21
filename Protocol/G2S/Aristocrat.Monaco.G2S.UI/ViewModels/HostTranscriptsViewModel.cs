@@ -12,6 +12,8 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices.v21;
     using Aristocrat.G2S.Protocol.v21;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using Kernel;
     using Models;
     using Monaco.UI.Common;

@@ -8,6 +8,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using System.Windows.Input;
     using Application.Contracts;
     using Application.UI.ViewModels;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Hardware.Contracts.Audio;
     using Kernel;
     using log4net;

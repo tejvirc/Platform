@@ -1,6 +1,7 @@
 namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using Application.Contracts.Media;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Kernel;
     using log4net;
     using Monaco.UI.Common;

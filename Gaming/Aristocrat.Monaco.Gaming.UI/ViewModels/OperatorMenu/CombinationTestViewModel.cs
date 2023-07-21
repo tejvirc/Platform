@@ -13,6 +13,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
     using Localization.Properties;
     using Models;
     using Newtonsoft.Json;
+    using CommunityToolkit.Mvvm.Input;
 
     public class CombinationTestViewModel : OperatorMenuDiagnosticPageViewModelBase
     {

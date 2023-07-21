@@ -1,5 +1,6 @@
 namespace Aristocrat.Monaco.Hhr.UI.Models
 {
+    using Aristocrat.Toolkit.Mvvm.Extensions;
 
     public class HorsePositionModel : BaseObservableObject
     {

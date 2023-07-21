@@ -3,7 +3,7 @@
     using System;
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
-    using Aristocrat.MVVM.Command;
+    using CommunityToolkit.Mvvm.Input;
 
     public class HhrPageCommand : RelayCommand<object>, INotifyPropertyChanged
     {

@@ -1,5 +1,6 @@
 namespace Aristocrat.Monaco.Gaming.UI.Models
 {
+    using Aristocrat.Toolkit.Mvvm.Extensions;
 
     /// <summary>
     ///     Data for filtered Game Themes.

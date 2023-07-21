@@ -9,6 +9,7 @@ namespace Aristocrat.Monaco.Bingo.UI.Views.GameOverlay
     using ViewModels.GameOverlay;
 #if DEBUG
     using System.Windows.Input;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
 #endif
 
     /// <summary>

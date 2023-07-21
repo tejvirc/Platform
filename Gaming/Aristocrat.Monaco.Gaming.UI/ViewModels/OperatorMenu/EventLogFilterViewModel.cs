@@ -18,6 +18,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
     using Application.UI.Models;
     using Application.UI.OperatorMenu;
     using Application.UI.Views;
+    using CommunityToolkit.Mvvm.Input;
     using Hardware.Contracts.Ticket;
     using Kernel;
     using Localization.Properties;

@@ -20,6 +20,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
     using Models;
     using Storage.Helpers;
     using log4net;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
 
     public class VenueRaceCollectionViewModel : BaseObservableObject, IDisposable
     {

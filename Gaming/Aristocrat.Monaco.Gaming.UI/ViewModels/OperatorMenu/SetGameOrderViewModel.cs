@@ -5,7 +5,7 @@ using Aristocrat.Monaco.Application.UI.OperatorMenu;
 using Aristocrat.Monaco.Gaming.Contracts;
 using Aristocrat.Monaco.Gaming.Contracts.Models;
 using Aristocrat.Monaco.Kernel;
-using Aristocrat.MVVM.Command;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {

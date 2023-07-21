@@ -4,6 +4,7 @@
     using System.Diagnostics;
     using Aristocrat.Mgam.Client;
     using Aristocrat.Mgam.Client.Routing;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Common;
 
     public partial class HostTranscriptsViewModel

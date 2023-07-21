@@ -1,5 +1,6 @@
 namespace Aristocrat.Monaco.Gaming.UI.Models
 {
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Contracts.Models;
     using System.Collections.Generic;
 

@@ -9,6 +9,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Contracts.PlayerInfoDisplay;
     using Monaco.UI.Common;
     using PlayerInfoDisplay;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
 
     /// <summary>
     ///     Player Information Display Main Page (menu)

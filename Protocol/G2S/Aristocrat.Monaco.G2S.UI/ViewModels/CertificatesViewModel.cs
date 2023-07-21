@@ -17,6 +17,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
     using Common.CertificateManager;
     using Common.CertificateManager.Models;
     using Common.Events;
+    using CommunityToolkit.Mvvm.Input;
     using Hardware.Contracts.Door;
     using Kernel;
     using Linq;

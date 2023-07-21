@@ -4,7 +4,8 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
     using Aristocrat.Monaco.Gaming.Contracts;
     using Aristocrat.Monaco.Application.Contracts.Extensions;
     using Aristocrat.Monaco.Kernel;
-    using Aristocrat.MVVM.ViewModel;
+    using CommunityToolkit.Mvvm;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Contracts.Barkeeper;
 
     /// <summary>

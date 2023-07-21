@@ -2,7 +2,8 @@
 {
     using Aristocrat.Monaco.Gaming.Contracts.Barkeeper;
     using Aristocrat.Monaco.Kernel;
-    using Aristocrat.MVVM.ViewModel;
+    using CommunityToolkit.Mvvm;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using System;
     using System.Collections.Generic;
     using System.Linq;

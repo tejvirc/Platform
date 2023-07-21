@@ -3,6 +3,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using System;
     using System.Collections.Generic;
     using Application.Contracts;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Contracts.Lobby;
     using Contracts.Models;
     using Kernel;

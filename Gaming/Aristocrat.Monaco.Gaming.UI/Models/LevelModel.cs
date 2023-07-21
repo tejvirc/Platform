@@ -5,6 +5,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
     using System.Collections.ObjectModel;
     using System.Linq;
     using Application.Contracts.Extensions;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.Progressives;
     using Contracts.Progressives.Linked;
     using Contracts.Progressives.SharedSap;
@@ -14,7 +15,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
     /// <summary>
     ///     Level model class
     /// </summary>
-    public class LevelModel : BaseObservableObject
+    public class LevelModel : ObservableValidator
     {
         private decimal _maxValue;
         private decimal _initialValue;

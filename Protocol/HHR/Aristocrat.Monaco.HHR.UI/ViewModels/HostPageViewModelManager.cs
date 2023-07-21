@@ -13,6 +13,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
     using Services;
     using Views;
     using System.Windows;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
 
     public class HostPageViewModelManager : BaseObservableObject, IMenuAccessService, IDisposable
     {

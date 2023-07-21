@@ -13,6 +13,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.ButtonDeck
     using System.Windows.Threading;
     using Contracts.Lobby;
     using Contracts.Models;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
 
     public class ButtonDeckSimulatorViewModel : BaseObservableObject
     {

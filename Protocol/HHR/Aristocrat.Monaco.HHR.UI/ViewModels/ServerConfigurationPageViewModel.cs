@@ -11,6 +11,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
     using Localization.Properties;
     using Monaco.UI.Common;
     using Vgt.Client12.Application.OperatorMenu;
+    using CommunityToolkit.Mvvm.Input;
 
     public class ServerConfigurationPageViewModel : ConfigWizardViewModelBase
     {
