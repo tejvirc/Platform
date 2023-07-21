@@ -504,11 +504,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     {
                         _lobbyStateManager.RemoveFlagState(LobbyState.CashOutFailure);
                     }
-
-                    if (_bank.QueryBalance() == 0 && _gameState.Idle && !_gameState.InGameRound)
+                    if (_bank.QueryBalance() == 0 && _gameState.Idle &&
+                        !_gameState.InGameRound &&
+                        platformEvent.OldBalance >= _properties.GetValue(AccountingConstants.MaxCreditMeter, long.MaxValue))
                     {
                         _overlimitCashoutProcessed = true;
                     }
+
                     HandleMessageOverlayText();
                 });
         }
