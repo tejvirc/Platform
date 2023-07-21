@@ -119,6 +119,18 @@
         ///     Raises this object's PropertyChanged event for each of the properties.
         /// </summary>
         /// <param name="propertyNames">The properties that have a new value.</param>
+        protected void OnPropertyChanging(params string[] propertyNames)
+        {
+            foreach (var name in propertyNames)
+            {
+                base.OnPropertyChanging(name);
+            }
+        }
+
+        /// <summary>
+        ///     Raises this object's PropertyChanged event for each of the properties.
+        /// </summary>
+        /// <param name="propertyNames">The properties that have a new value.</param>
         protected void OnPropertyChanged(params string[] propertyNames)
         {
             foreach (var name in propertyNames)
@@ -134,7 +146,7 @@
         /// <typeparam name="T">The type of the field being changed</typeparam>
         /// <param name="property">The backing field for the property</param>
         /// <param name="value">The new value to set</param>
-        /// <param name="propertyNames">Optional list of names to send in PropertyChanged events</param>
+        /// <param name="propertyNames">Optional array of names to send in PropertyChanged events</param>
         /// <returns>false if the new and existing values are equal, true if they are not</returns>
         protected virtual bool SetProperty<T>(ref T property, T value, params string[] propertyNames)
         {
@@ -143,6 +155,7 @@
                 return false;
             }
 
+            OnPropertyChanging(propertyNames);
             property = value;
             OnPropertyChanged(propertyNames);
 
