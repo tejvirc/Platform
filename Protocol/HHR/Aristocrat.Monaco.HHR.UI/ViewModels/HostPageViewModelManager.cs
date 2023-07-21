@@ -51,7 +51,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
         private readonly IPlayerBank _bank;
         private readonly ITransactionCoordinator _transactionCoordinator;
         private Guid _raceInfoTransactionId;
-        protected new readonly ILog Logger;
+        protected readonly ILog Logger;
 
         public IHhrMenuPageViewModel SelectedViewModel
         {

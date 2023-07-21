@@ -47,7 +47,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     /// </summary>
     public class ReserveOverlayViewModel : BaseObservableObject, IDisposable
     {
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly IPropertiesManager _propertiesManager;
         private readonly IReserveService _reserveService;

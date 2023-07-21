@@ -16,7 +16,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     {
         public event PropertyChangedEventHandler WidthChanged;
         public event PropertyChangedEventHandler HeightChanged;
-        protected new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        protected static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private IEventBus _eventBus;
         private readonly object _visStateLock = new object();
         protected readonly object DisplayLock = new object();

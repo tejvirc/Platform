@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using Accounting.Contracts;
     using Application.Contracts;
@@ -269,25 +270,11 @@
         /// <summary>
         ///     Gets or sets the AFT transfer limit amount.
         /// </summary>
+        [CustomValidation(typeof(SasFeatureViewModel), nameof(ValidateAftTransferLimit))]
         public decimal AftTransferLimit
         {
             get => _aftTransferLimit;
-            set
-            {
-                if (_maxAftTransferLimit > value && PreviousAftTransferLimit != value)
-                {
-                    PreviousAftTransferLimit = _aftTransferLimit;
-                }
-
-                if (SetProperty(ref _aftTransferLimit, value, nameof(AftTransferLimit)))
-                {
-                    SetError(
-                        nameof(AftTransferLimit),
-                        _aftTransferLimit.Validate(true, MaxTransferLimit.DollarsToMillicents()));
-                }
-
-                OnPropertyChanged(nameof(AftTransferLimit));
-            }
+            set => SetProperty(ref _aftTransferLimit, value, true);
         }
 
         /// <summary>
@@ -781,21 +768,6 @@
             }
 
             return SasValidationType.None;
-        }
-
-        /// <inheritdoc />
-        protected override void SetError(string propertyName, string error)
-        {
-            if (string.IsNullOrEmpty(error))
-            {
-                ClearErrors(propertyName);
-            }
-            else
-            {
-                base.SetError(propertyName, error);
-            }
-
-            CheckNavigation();
         }
     }
 }

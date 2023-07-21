@@ -68,8 +68,6 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
 
         public ObservableCollection<EditableGameConfiguration> GameConfigurations { get; }
 
-        public new bool HasErrors => base.HasErrors;
-
         public void Dispose()
         {
             foreach (var config in GameConfigurations)

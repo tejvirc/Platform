@@ -10,6 +10,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Monaco.UI.Common;
     using PlayerInfoDisplay;
     using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
 
     /// <summary>
     ///     Player Information Display Main Page (menu)
@@ -18,7 +19,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     {
         private ITimer _closeTimer;
         private readonly IPlayerInfoDisplayFeatureProvider _playerInfoDisplayFeatureProvider;
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private bool _isVisible;
         private bool _disposedValue;

@@ -26,7 +26,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
     {
         private const string RaceFinishedName = "RaceFinished";
 
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly IEventBus _eventBus;
         private readonly IPrizeInformationEntityHelper _prizeEntityHelper;

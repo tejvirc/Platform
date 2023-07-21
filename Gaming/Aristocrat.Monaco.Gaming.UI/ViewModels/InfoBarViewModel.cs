@@ -31,7 +31,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private const double MarginSide = 4;
         private const double MarginTop = 6;
 
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private bool _isOpen;
         private bool _disposed;

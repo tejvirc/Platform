@@ -90,7 +90,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private const string LobbyIdleTextDefaultResourceKey = "LobbyIdleTextDefault";
         private const string TopperImageDefaultResourceKey = "TopperBackground";
         private const string TopperImageAlternateResourceKey = "TopperBackgroundAlternate";
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private const string IdleTextFamilyName = "Segoe UI";
         private const double OpacityNone = 0.0;
         private const double OpacityFifth = 0.2;

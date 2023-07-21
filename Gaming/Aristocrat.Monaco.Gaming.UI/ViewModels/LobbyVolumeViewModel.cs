@@ -9,6 +9,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Application.Contracts;
     using Application.UI.ViewModels;
     using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using Hardware.Contracts.Audio;
     using Kernel;
     using log4net;
@@ -22,7 +23,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private const string Volume3Key = "Volume3Normal";
         private const string Volume4Key = "Volume4Normal";
         private const string Volume5Key = "Volume5Normal";
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly IPropertiesManager _propertiesManager;
         private readonly IAudio _audio;
         private readonly Action _onUserInteraction;
