@@ -108,17 +108,20 @@
 
         private void Handle(CashoutAuthorizationCancelledEvent evt)
         {
+            ButtonDeckFilter.FilterMode = ButtonDeckFilterMode.Normal;
             _eventBus.Publish(new ViewInjectionEvent(_cashoutDialog, DisplayRole.Main, ViewInjectionEvent.ViewAction.Remove));
         }
 
         private void Handle(CashoutAmountAuthorizationReceivedEvent evt)
         {
+            ButtonDeckFilter.FilterMode = ButtonDeckFilterMode.Normal;
             _eventBus.Publish(new ViewInjectionEvent(_cashoutDialog, DisplayRole.Main, ViewInjectionEvent.ViewAction.Remove));
         }
 
         private void Handle(CashoutAmountAuthorizationRequestedEvent evt)
         {
             _cashoutDialogViewModel.HandCountAmount = (long)(_handCountService.HandCount * _cashOutAmountPerHand).MillicentsToDollars();
+            ButtonDeckFilter.FilterMode = ButtonDeckFilterMode.Lockup;
             _eventBus.Publish(new ViewInjectionEvent(_cashoutDialog, DisplayRole.Main, ViewInjectionEvent.ViewAction.Add));
         }
 
