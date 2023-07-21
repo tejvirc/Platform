@@ -8,6 +8,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
     using Application.UI.OperatorMenu;
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Communications;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Kernel;
     using Localization.Properties;
     using Constants = Constants;

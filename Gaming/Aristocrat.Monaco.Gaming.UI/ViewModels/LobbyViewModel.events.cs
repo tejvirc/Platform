@@ -35,6 +35,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 #if !(RETAIL)
     using RobotController.Contracts;
     using Vgt.Client12.Testing.Tools;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
 #endif
 
     /// <summary>

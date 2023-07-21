@@ -13,6 +13,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
     using Application.Contracts.Localization;
     using Application.UI.MeterPage;
     using Monaco.Localization.Properties;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
 
     [CLSCompliant(false)]
     public class WatMetersPageViewModel : MetersPageViewModelBase

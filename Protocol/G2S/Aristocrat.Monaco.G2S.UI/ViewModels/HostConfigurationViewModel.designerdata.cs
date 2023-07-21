@@ -2,6 +2,7 @@
 {
     using System;
     using System.Diagnostics;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Models;
 
     /// <summary>

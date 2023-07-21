@@ -3,6 +3,7 @@ namespace Aristocrat.Monaco.Gaming.UI
     using Accounting.Contracts;
     using Accounting.Contracts.HandCount;
     using Application.Contracts.Extensions;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Cabinet.Contracts;
     using Contracts;
     using Contracts.HandCount;

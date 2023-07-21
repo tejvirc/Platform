@@ -23,6 +23,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
     using Models;
     using Storage.Helpers;
     using Command = Menu.Command;
+    using CommunityToolkit.Mvvm.Input;
 
     public class ManualHandicapPageViewModel : HhrMenuPageViewModelBase
     {

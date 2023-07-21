@@ -10,6 +10,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
     using Contracts.Barkeeper;
     using Kernel;
     using Aristocrat.Monaco.Gaming.Contracts;
+    using CommunityToolkit.Mvvm.Input;
 
     public class BarkeeperConfigurationViewModel : OperatorMenuPageViewModelBase
     {

@@ -7,6 +7,7 @@ namespace Aristocrat.Monaco.Gaming.UI.PlayerInfoDisplay
     using System.Reflection;
     using Accounting.Contracts;
     using Accounting.Contracts.Handpay;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Contracts;
     using Contracts.Events;
     using Contracts.PlayerInfoDisplay;

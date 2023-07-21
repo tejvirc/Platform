@@ -8,6 +8,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
     using System.Collections.Generic;
     using System.Linq;
     using Localization.Properties;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
 
     public class EditDeviceViewModel : OperatorMenuSaveViewModelBase
     {

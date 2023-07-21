@@ -15,8 +15,10 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Client.Devices.v21;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Common.DHCP;
     using Common.Events;
+    using CommunityToolkit.Mvvm.Input;
     using Data.Profile;
     using Kernel;
     using Localization.Properties;

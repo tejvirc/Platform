@@ -9,6 +9,7 @@ namespace Aristocrat.Monaco.Sas.UI.ViewModels
     using Application.UI.OperatorMenu;
     using Aristocrat.Sas.Client;
     using Base;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts.Client;
     using Localization.Properties;
 

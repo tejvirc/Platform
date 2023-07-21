@@ -1,5 +1,6 @@
 namespace Aristocrat.Monaco.Hhr.UI.Controls
 {
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using System;
     using System.Collections.Generic;
     using System.IO;

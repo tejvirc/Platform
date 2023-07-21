@@ -7,6 +7,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Settings
     using System.Windows;
     using Application.Contracts;
     using Application.Contracts.Settings;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Contracts;
     using Hardware.Contracts.Audio;
     using Kernel;

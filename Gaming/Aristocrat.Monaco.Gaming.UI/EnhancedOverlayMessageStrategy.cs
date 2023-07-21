@@ -9,6 +9,7 @@ namespace Aristocrat.Monaco.Gaming.UI
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Models;
     using Kernel;

@@ -3,6 +3,7 @@
     using System.Diagnostics;
     using System.Globalization;
     using Application.Contracts.Extensions;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Contracts.Models;
     using Models;
 

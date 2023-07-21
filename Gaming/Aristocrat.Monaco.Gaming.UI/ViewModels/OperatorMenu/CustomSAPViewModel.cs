@@ -17,6 +17,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
     using Contracts.Progressives.SharedSap;
     using Localization.Properties;
     using Progressives;
+    using CommunityToolkit.Mvvm.Input;
 
     /// <summary>
     ///     Defines the CustomSAPViewModel class
