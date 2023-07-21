@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "TSsU2xXHPxnh2nJhXH3ZQjopr1+eaRUBdTZyNE2mNdc="
+          "hash": "y63GPT0exjaSJjMttSNJi5/5kIw2TdV1Jyd06sQ0NLs="
         }
       },
       "is_incremental": false,
@@ -15559,9 +15559,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -42985,6 +42982,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -44606,6 +44606,30 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/gaming/Aristocrat.Monaco.Gaming.Commands.PrepareLightShowCommandHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Commands.PrepareLightShowCommandHandler.html",
+          "hash": "Vibrb0Lu11yqUaYzy/y2O54XP7M0Wvfelwjf4u/+rf4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/gaming/Aristocrat.Monaco.Gaming.Commands.PrepareLightShows.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Commands.PrepareLightShows.html",
+          "hash": "HPD+QGCCZyPGpBSMuV4e2E15O2eR6aQhmovKJ+SFdf8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Gaming.Commands.PrepareStepperCurves.yml",
       "output": {
         ".html": {
@@ -45230,6 +45254,30 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/gaming/Aristocrat.Monaco.Gaming.Commands.SetBrightness.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Commands.SetBrightness.html",
+          "hash": "jaDD5pJfAhLF5YdsrfZ8/jsR3w/uEwZMfX8OzzcOL6A="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/gaming/Aristocrat.Monaco.Gaming.Commands.SetBrightnessCommandHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Commands.SetBrightnessCommandHandler.html",
+          "hash": "/WhfCSMaCm95X1G1MuS9sZ2uVrsbs9WThx2MfqDzfN8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Gaming.Commands.SetGameResult.yml",
       "output": {
         ".html": {
@@ -45350,6 +45398,30 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/gaming/Aristocrat.Monaco.Gaming.Commands.StartAnimations.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Commands.StartAnimations.html",
+          "hash": "BRzODHoIL1ctMGuvg81S+tpJFMk7bf/0LQ69T2xGJU0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/gaming/Aristocrat.Monaco.Gaming.Commands.StartAnimationsCommandHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Commands.StartAnimationsCommandHandler.html",
+          "hash": "Hwf5n0lHlCCQPJ/ePFW994Ox5CLIa6fUrKVhsgA2Vg4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Gaming.Commands.StopAllAnimationTags.yml",
       "output": {
         ".html": {
@@ -45367,6 +45439,30 @@
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Commands.StopAllAnimationTagsCommandHandler.html",
           "hash": "mqRXraQC0ky4Uj8JRznDKMTAMa+j2Z+crsfRzLbZihI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/gaming/Aristocrat.Monaco.Gaming.Commands.StopAllLightShowAnimations.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Commands.StopAllLightShowAnimations.html",
+          "hash": "te5YFMUsfBM+pJuKxNGyzOFZDORnIO9ZElgN634Q2As="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/gaming/Aristocrat.Monaco.Gaming.Commands.StopAllLightShowsCommandHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Commands.StopAllLightShowsCommandHandler.html",
+          "hash": "6nAoBN5oUeNHr4UypvhzxpNagKDkqivw33pVYu7Q5i4="
         }
       },
       "is_incremental": false,
@@ -45522,7 +45618,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Commands.html",
-          "hash": "ULxuKC2e81whHDPVzjYS/8NzPdnt1t/hR7SaOTLWxWI="
+          "hash": "Jj3dl2NNVvM2Dw+XkgPn1UbPeIcQSF8uFnt4hInJ0Qw="
         }
       },
       "is_incremental": false,
@@ -54882,7 +54978,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Monitor.ReelControllerMonitor.html",
-          "hash": "qwjhV5JNo3nLV812VcrFzN7jYx0sUEFNIg7mBBHyI58="
+          "hash": "8pK9tCjoZv9oBL3u0XCQlClLlhtbURvlgifLz8yHhX0="
         }
       },
       "is_incremental": false,
@@ -55854,7 +55950,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Runtime.Server.SnappReelService.html",
-          "hash": "15xPmNVkJnYwRUK773PvzTOIjckD6tYm+ZDy/JYKuDA="
+          "hash": "MDRwK3cILdZkSH5mwI/xSudZ3X556vc9zJgKdUA3i+8="
         }
       },
       "is_incremental": false,
@@ -65682,7 +65778,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData.LightShowData.html",
-          "hash": "imbwV9SXS4JnW0xk35mxPjMaufovOPkd6MvtYqTJo5Q="
+          "hash": "DiX/aQkcTJ72zuAlXAwM0u3BEtAcYf+ZSUUm1ex32Kw="
         }
       },
       "is_incremental": false,
@@ -66258,7 +66354,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Contracts.Reel.ReelConstants.html",
-          "hash": "QgqlnVeU0pIKu1HezORxqKi5k85ZwbPx7oylNmkWXCw="
+          "hash": "3lZFPbTn4+duL/TqUAOHQyWvXhBWFiMjxOFLTNv7S8w="
         }
       },
       "is_incremental": false,
@@ -85401,7 +85497,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 7083,
+          "total_file_count": 7091,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
