@@ -20,7 +20,7 @@
 
     public class CentralService : ICentralHandler, ICentralService, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly ICentralProvider _centralProvider;
         private readonly IG2SEgm _egm;
@@ -179,18 +179,18 @@
         private async Task GetOutcomesAsync(CentralTransaction transaction)
         {
             var device = _egm.GetDevice<ICentralDevice>(transaction.DeviceId);
-
+            var gameInfo = transaction.AdditionalInfo.Single();
             var game = _games.GetGame(transaction.GameId);
 
             var request = new getCentralOutcome
             {
                 transactionId = transaction.TransactionId,
-                gamePlayId = transaction.GameId,
+                gamePlayId = gameInfo!.GameId,
                 themeId = game.ThemeId,
                 paytableId = game.PaytableId,
-                denomId = transaction.Denomination,
+                denomId = gameInfo.Denomination,
                 wagerCategory = transaction.WagerCategory,
-                wagerAmt = transaction.WagerAmount,
+                wagerAmt = gameInfo.WagerAmount,
                 outcomeQty = transaction.OutcomesRequested
             };
 

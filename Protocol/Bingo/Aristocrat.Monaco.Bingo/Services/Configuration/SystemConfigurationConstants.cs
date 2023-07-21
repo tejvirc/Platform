@@ -130,5 +130,10 @@
         ///     Audible Alarm Setting
         /// </summary>
         public const string AudibleAlarmSetting = "AudibleAlarmSetting";
+
+        /// <summary>
+        ///     Is the cross game progressive enabled
+        /// </summary>
+        public const string CrossGameProgressiveEnabled = "CrossGameProgressiveEnabled";
     }
 }

@@ -5,7 +5,7 @@
     using ServerApiGateway;
 
     public class ConfigurationService :
-        BaseClientCommunicationService,
+        BaseClientCommunicationService<ClientApi.ClientApiClient>,
         IConfigurationService
     {
         public ConfigurationService(

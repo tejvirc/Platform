@@ -181,6 +181,11 @@
         public IEnumerable<Feature> Features { get; set; }
 
         /// <summary>
+        ///     Gets or sets the supported game's sub games like side bet games
+        /// </summary>
+        public IEnumerable<SubGame> SubGames { get; set; }
+
+        /// <summary>
         ///    Gets or sets the maximum wager for higher-odd bets, for example, betting on a specific number in roulette
         /// </summary>
         public int MaxWagerInsideCredits { get; set; }

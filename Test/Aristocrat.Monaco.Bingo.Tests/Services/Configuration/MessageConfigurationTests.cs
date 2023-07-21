@@ -17,25 +17,29 @@
         private readonly BingoServerSettingsModel model = new BingoServerSettingsModel();
         private Mock<IPropertiesManager> _propertiesManager = new Mock<IPropertiesManager>();
         private readonly Mock<ISystemDisableManager> _disableManager = new Mock<ISystemDisableManager>();
+        private readonly Mock<IEventBus> _eventBus = new Mock<IEventBus>();
 
         [TestInitialize]
         public void Initialize()
         {
             MoqServiceManager.CreateInstance(MockBehavior.Default);
-            _target = new MessageConfiguration(_propertiesManager.Object, _disableManager.Object);
+            _target = new MessageConfiguration(_propertiesManager.Object, _disableManager.Object, _eventBus.Object);
         }
 
-        [DataRow(true, false, DisplayName = "PropertiesManager null")]
-        [DataRow(false, true, DisplayName = "DisableManager null")]
+        [DataRow(true, false, false, DisplayName = "PropertiesManager null")]
+        [DataRow(false, true, false, DisplayName = "DisableManager null")]
+        [DataRow(false, false, true, DisplayName = "EventBus null")]
         [DataTestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorTest(
             bool propertiesManagerNull,
-            bool disableManagerNull)
+            bool disableManagerNull,
+            bool eventBusNull)
         {
             _target = new MessageConfiguration(
                 propertiesManagerNull ? null : _propertiesManager.Object,
-                disableManagerNull ? null : _disableManager.Object);
+                disableManagerNull ? null : _disableManager.Object,
+                eventBusNull ? null : _eventBus.Object);
         }
 
         [TestMethod]

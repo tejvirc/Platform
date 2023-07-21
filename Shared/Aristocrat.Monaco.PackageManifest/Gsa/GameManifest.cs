@@ -154,6 +154,8 @@
                 ReferenceId = gameInfo.referenceId ?? string.Empty,
                 Category = gameInfo.categorySpecified ? gameInfo.category : (t_category?)null,
                 SubCategory = gameInfo.subCategorySpecified ? gameInfo.subCategory : (t_subCategory?)null,
+                //BonusGames = gameInfo.bonusGameList,
+                SubGames = GetSubGames(gameInfo.subGameList),
                 Features = gameInfo.FeatureList?.Where(feature => feature.StatInfo != null)
                     .Select(feature => new Feature
                     {
@@ -360,6 +362,24 @@
                 BetLinePresets = configurationMap.betLinePresetIdList.betLinePresetId,
                 DefaultBetLinePreset = configurationMap.betLinePresetIdList.@default
             };
+        }
+
+        private static IEnumerable<SubGame> GetSubGames(c_subGameList subGameList)
+        {
+            if (subGameList is not null)
+            {
+                return (from subGame in subGameList.SubGame
+                    let denominations = subGame.Denominations.Split(',').Select(long.Parse).ToList()
+                    select new SubGame
+                    {
+                        TitleId = long.Parse(subGame.TitleId),
+                        UniqueGameId = long.Parse(subGame.UniqueGameId),
+                        Denominations = denominations,
+                        CentralInfo = subGame.CdsInfoList?.cdsInfo.Select(Map).ToList() ?? Enumerable.Empty<CentralInfo>()
+                    }).ToList();
+            }
+
+            return new List<SubGame>();
         }
 
         private static string GetVariationFromPaytableId(string paytableId)
