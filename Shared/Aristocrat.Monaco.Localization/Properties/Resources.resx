@@ -12266,4 +12266,7 @@ Do you really want to do full reset?</value>
   <data name="GamesPlayedSinceReboot" xml:space="preserve">
     <value>Games Played since Reboot</value>
   </data>
+  <data name="DisplayConnected" xml:space="preserve">
+	  <value>Display Connected - Restart Required</value>
+  </data>
 </root>

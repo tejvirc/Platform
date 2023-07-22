@@ -4933,4 +4933,7 @@ Do you really want to do partial reset????</value>
   <data name="TimeText" xml:space="preserve">
     <value>??TIME??</value>
   </data>
+  <data name="DisplayConnected" xml:space="preserve">
+	  <value>???Display Connected - Restart Required???</value>
+  </data>
 </root>

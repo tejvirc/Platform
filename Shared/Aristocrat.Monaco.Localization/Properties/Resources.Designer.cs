@@ -8948,6 +8948,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Display Connected - Restart Required.
+		/// </summary>
+		public static string DisplayConnected {
+			get {
+				return ResourceManager.GetString("DisplayConnected", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Display Disconnected.
 		/// </summary>
         /// <remarks>
@@ -45256,6 +45265,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Display Connected - Restart Required.
+		/// </summary>
+		public static string DisplayConnected {
+			get {
+				return "DisplayConnected";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Display Disconnected.
 		/// </summary>
         /// <remarks>
@@ -77740,6 +77758,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Bingo.UI
         /// </remarks>
 		DisplayBingoCardLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Display Connected - Restart Required.
+		/// </summary>
+		DisplayConnected,
 		/// <summary>
 		///   Looks up a localized string similar to Display Disconnected.
 		/// </summary>
