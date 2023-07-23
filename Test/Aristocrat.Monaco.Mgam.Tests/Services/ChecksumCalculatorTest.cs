@@ -20,10 +20,11 @@
     using Moq;
     using Test.Common;
 
+    [DoNotParallelize]
     [TestClass]
     public class ChecksumCalculatorTest
     {
-        private const int waitTimeout = 5000;
+        private const int waitTimeout = 1000;
         private Mock<ILogger<ChecksumCalculator>> _logger;
         private Mock<ICommandHandlerFactory> _commandFactory;
         private Mock<IUnitOfWorkFactory> _unitOfWorkFactory;
