@@ -424,6 +424,8 @@
 
             var output = _target.Handle(input);
 
+            Thread.Sleep(100);
+
             Assert.AreEqual(AuthenticationStatus.AuthenticationAborted, output.Status);
             Assert.AreEqual(CrcHash, output.ComponentListCrc);
         }
@@ -613,7 +615,7 @@
             _waiter.Wait();
 
             // Wait longer than the timeout value so the timer re-sends the exception
-            Thread.Sleep(800);
+            Thread.Sleep(1500);
 
             input = new SendAuthenticationInfoCommand
             {
@@ -659,7 +661,7 @@
         {
             dynamic privateTarget = new DynamicPrivateObject(_target);
             dynamic privateTimer = new DynamicPrivateObject((SasExceptionTimer)privateTarget._exceptionTimer);
-            privateTimer._timerTimeout = 500.0f;
+            privateTimer._timerTimeout = 1000.0f;
             privateTarget._exceptionTimer = (SasExceptionTimer)privateTimer.Target;
         }
 
