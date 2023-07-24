@@ -159,6 +159,8 @@
             property = value;
             OnPropertyChanged(propertyNames);
 
+            ValidateProperty(value, propertyNames.FirstOrDefault());
+
             return true;
         }
     }
