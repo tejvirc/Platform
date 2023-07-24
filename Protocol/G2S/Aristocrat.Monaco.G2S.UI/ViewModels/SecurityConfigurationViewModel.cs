@@ -1,7 +1,8 @@
-namespace Aristocrat.Monaco.G2S.UI.ViewModels
+﻿namespace Aristocrat.Monaco.G2S.UI.ViewModels
 {
     using System;
     using System.Collections.ObjectModel;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Security.Cryptography.X509Certificates;
     using System.Threading;
@@ -230,15 +231,14 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         /// <summary>
         ///     Gets or sets gets/sets Certificate Mgr Location
         /// </summary>
+        [CustomValidation(typeof(SecurityConfigurationViewModel), nameof(ValidateCertificateManagerLocation))]
         public string CertificateManagerLocation
         {
             get => _certificateManagerLocation;
 
             set
             {
-                ValidateCertificateManagerLocation(value);
-                _certificateManagerLocation = value;
-                OnPropertyChanged(nameof(CertificateManagerLocation));
+                SetProperty(ref _certificateManagerLocation, value, nameof(CertificateManagerLocation));
                 GetThumbprintCommand.NotifyCanExecuteChanged();
                 EnrollCertificateCommand.NotifyCanExecuteChanged();
             }
@@ -247,15 +247,14 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         /// <summary>
         ///     Gets or sets Pre-Shared Secret for SCEP protocol.
         /// </summary>
+        [CustomValidation(typeof(SecurityConfigurationViewModel), nameof(ValidateTextBoxValue))]
         public string PreSharedSecret
         {
             get => _preSharedSecret;
 
             set
             {
-                ValidateTextBoxValue(nameof(PreSharedSecret), value);
-                _preSharedSecret = value;
-                OnPropertyChanged(nameof(PreSharedSecret));
+                SetProperty(ref _preSharedSecret, value, nameof(PreSharedSecret));
                 EnrollCertificateCommand.NotifyCanExecuteChanged();
             }
         }
@@ -263,15 +262,14 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         /// <summary>
         ///     Gets or sets SCEP CA-IDENT.
         /// </summary>
+        [CustomValidation(typeof(SecurityConfigurationViewModel), nameof(ValidateTextBoxValue))]
         public string Identity
         {
             get => _identity;
 
             set
             {
-                ValidateTextBoxValue(nameof(Identity), value);
-                _identity = value;
-                OnPropertyChanged(nameof(Identity));
+                SetProperty(ref _identity, value, nameof(Identity));
                 EnrollCertificateCommand.NotifyCanExecuteChanged();
             }
         }
@@ -279,15 +277,14 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         /// <summary>
         ///     Gets or sets key size.
         /// </summary>
+        [CustomValidation(typeof(SecurityConfigurationViewModel), nameof(ValidateTextBoxValue))]
         public string UserName
         {
             get => _userName;
 
             set
             {
-                ValidateTextBoxValue(nameof(UserName), value);
-                _userName = value;
-                OnPropertyChanged(nameof(UserName));
+                SetProperty(ref _userName, value, nameof(UserName));
                 EnrollCertificateCommand.NotifyCanExecuteChanged();
             }
         }
@@ -310,20 +307,20 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         /// <summary>
         ///     Gets or sets Manual Polling Interval in seconds for SCEP protocol.
         /// </summary>
+        [CustomValidation(typeof(SecurityConfigurationViewModel), nameof(ValidateManualPollingInterval))]
         public int ManualPollingInterval
         {
             get => _manualPollingInterval;
 
             set
             {
-                ValidateManualPollingInterval(value);
-                _manualPollingInterval = value;
-                OnPropertyChanged(nameof(ManualPollingInterval));
+                SetProperty(ref _manualPollingInterval, value, nameof(ManualPollingInterval));
                 // if we do not have a valid cert enable Enroll command
                 if (!_certificateService.HasValidCertificate())
                 {
                     EnrollCertificateCommand.NotifyCanExecuteChanged();
                 }
+
             }
         }
 
@@ -337,8 +334,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             set
             {
                 _renewalEnabled = value;
-                ValidateCertificateStatusLocation(CertificateStatusLocation);
-                OnPropertyChanged(nameof(RenewalEnabled));
+                ValidateProperty(CertificateStatusLocation, nameof(CertificateStatusLocation));
                 TestCertificateStatusCommand.NotifyCanExecuteChanged();
             }
         }
@@ -346,15 +342,14 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         /// <summary>
         ///     Gets or sets the Certificate Status Location
         /// </summary>
+        [CustomValidation(typeof(SecurityConfigurationViewModel), nameof(ValidateCertificateStatusLocation))]
         public string CertificateStatusLocation
         {
             get => _certificateStatusLocation;
 
             set
             {
-                ValidateCertificateStatusLocation(value);
-                _certificateStatusLocation = value;
-                OnPropertyChanged(nameof(CertificateStatusLocation));
+                SetProperty(ref _certificateStatusLocation, value, nameof(CertificateStatusLocation));
                 TestCertificateStatusCommand.NotifyCanExecuteChanged();
             }
         }
@@ -362,15 +357,14 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         /// <summary>
         ///     Gets or sets Minimum Period For Offline in minutes.
         /// </summary>
+        [CustomValidation(typeof(SecurityConfigurationViewModel), nameof(ValidateOfflinePeriod))]
         public short OfflinePeriod
         {
             get => _offlinePeriod;
 
             set
             {
-                ValidateOfflinePeriod(value);
-                _offlinePeriod = value;
-                OnPropertyChanged(nameof(OfflinePeriod));
+                SetProperty(ref _offlinePeriod, value, nameof(OfflinePeriod));
                 TestCertificateStatusCommand.NotifyCanExecuteChanged();
             }
         }
@@ -378,15 +372,14 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         /// <summary>
         ///     Gets or sets Re-Authenticate Certificate Period in minutes.
         /// </summary>
+        [CustomValidation(typeof(SecurityConfigurationViewModel), nameof(ValidateReAuthenticatedPeriod))]
         public short ReAuthenticatedPeriod
         {
             get => _reAuthenticatedPeriod;
 
             set
             {
-                ValidateReAuthenticatedPeriod(value);
-                _reAuthenticatedPeriod = value;
-                OnPropertyChanged(nameof(ReAuthenticatedPeriod));
+                SetProperty(ref _reAuthenticatedPeriod, value, nameof(ReAuthenticatedPeriod));
                 TestCertificateStatusCommand.NotifyCanExecuteChanged();
             }
         }
@@ -394,15 +387,14 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         /// <summary>
         ///     Gets or sets Accept Previously Good Certificate Period in minutes.
         /// </summary>
+        [CustomValidation(typeof(SecurityConfigurationViewModel), nameof(ValidateAcceptPreviouslyGoodCertificatePeriod))]
         public short AcceptPreviouslyGoodCertificatePeriod
         {
             get => _acceptPreviouslyGoodCertificatePeriod;
 
             set
             {
-                ValidateAcceptPreviouslyGoodCertificatePeriod(value);
-                _acceptPreviouslyGoodCertificatePeriod = value;
-                OnPropertyChanged(nameof(AcceptPreviouslyGoodCertificatePeriod));
+                SetProperty(ref _acceptPreviouslyGoodCertificatePeriod, value, nameof(AcceptPreviouslyGoodCertificatePeriod));
                 TestCertificateStatusCommand.NotifyCanExecuteChanged();
             }
         }
@@ -673,22 +665,6 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             base.OnCommitted();
         }
 
-        /// <summary>
-        ///     Validates current instance.
-        /// </summary>
-        protected override void ValidateAll()
-        {
-            base.ValidateAll();
-
-            ValidateCertificateManagerLocation(CertificateManagerLocation);
-            ValidateCertificateStatusLocation(CertificateStatusLocation);
-
-            ValidateManualPollingInterval(ManualPollingInterval);
-            ValidateOfflinePeriod(OfflinePeriod);
-            ValidateReAuthenticatedPeriod(ReAuthenticatedPeriod);
-            ValidateAcceptPreviouslyGoodCertificatePeriod(AcceptPreviouslyGoodCertificatePeriod);
-        }
-
         /// <inheritdoc />
         protected new void OnPropertyChanged(string propertyName)
         {
@@ -838,89 +814,148 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             return false;
         }
 
-        private void ValidateTextBoxValue(string textbox, string text)
+        public static ValidationResult ValidateTextBoxValue(string text, ValidationContext context)
         {
-            ClearErrors(textbox);
+            SecurityConfigurationViewModel instance =  (SecurityConfigurationViewModel)context.ObjectInstance;
+
+            var errors = "";
+
+            instance.ClearErrors(nameof(text));
 
             if (TooManyCharactersInTextBox(text)) // VLT-9004
             {
-                SetError(textbox, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.StringTooLong));
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.StringTooLong);
             }
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+            return new(errors);
         }
 
-        private void ValidateCertificateManagerLocation(string address)
+        public static ValidationResult ValidateCertificateManagerLocation(string address, ValidationContext context)
         {
-            ClearErrors(nameof(CertificateManagerLocation));
+            SecurityConfigurationViewModel instance = (SecurityConfigurationViewModel)context.ObjectInstance;
+            var errors = "";
+
+            instance.ClearErrors(nameof(CertificateManagerLocation));
 
             if (TooManyCharactersInTextBox(address)) // VLT-9004 & VLT-9092
             {
-                SetError(nameof(CertificateManagerLocation), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ServerAddressTooLong));
-                return;
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ServerAddressTooLong);
             }
 
             if (!Uri.TryCreate(address, UriKind.Absolute, out var uri) || !EndpointUtilities.IsSchemeValid(uri))
             {
-                SetError(nameof(CertificateManagerLocation), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ServerAddressNotValid));
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ServerAddressNotValid);
             }
+
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+            return new(errors);
         }
 
-        private void ValidateCertificateStatusLocation(string address)
+        public static ValidationResult ValidateCertificateStatusLocation(string address, ValidationContext context)
         {
-            ClearErrors(nameof(CertificateStatusLocation));
+            SecurityConfigurationViewModel instance = (SecurityConfigurationViewModel)context.ObjectInstance;
+            var errors = "";
+
+            instance.ClearErrors(nameof(CertificateStatusLocation));
 
             if (TooManyCharactersInTextBox(address)) // VLT-9004
             {
-                SetError(nameof(CertificateStatusLocation), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ServerAddressTooLong));
-                return;
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ServerAddressTooLong);
             }
 
-            if (RenewalEnabled && (!Uri.TryCreate(address, UriKind.Absolute, out var uri) ||
+            if (instance.RenewalEnabled && (!Uri.TryCreate(address, UriKind.Absolute, out var uri) ||
                                    !EndpointUtilities.IsSchemeValid(uri)))
             {
-                SetError(nameof(CertificateStatusLocation), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ServerAddressNotValid));
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ServerAddressNotValid);
             }
+
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+            return new(errors);
         }
 
-        private void ValidateManualPollingInterval(int interval)
+        public static ValidationResult ValidateManualPollingInterval(int interval, ValidationContext context)
         {
-            ClearErrors(nameof(ManualPollingInterval));
+            SecurityConfigurationViewModel instance = (SecurityConfigurationViewModel)context.ObjectInstance;
+            var errors = "";
+
+            instance.ClearErrors(nameof(ManualPollingInterval));
 
             if (interval <= 0)
             {
-                SetError(nameof(ManualPollingInterval), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ScepManualPollingInterval_GreaterThanZero));
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ScepManualPollingInterval_GreaterThanZero);
             }
+
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+            return new(errors);
         }
 
-        private void ValidateOfflinePeriod(int period)
+        public static ValidationResult ValidateOfflinePeriod(int period, ValidationContext context)
         {
-            ClearErrors(nameof(OfflinePeriod));
+            SecurityConfigurationViewModel instance = (SecurityConfigurationViewModel)context.ObjectInstance;
+            var errors = "";
+
+            instance.ClearErrors(nameof(OfflinePeriod));
 
             if (period < 0 || period > short.MaxValue)
             {
-                SetError(nameof(OfflinePeriod), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OfflinePeriod_NonNegative));
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OfflinePeriod_NonNegative);
             }
+
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+            return new(errors);
         }
 
-        private void ValidateReAuthenticatedPeriod(int period)
+        public static ValidationResult ValidateReAuthenticatedPeriod(int period, ValidationContext context)
         {
-            ClearErrors(nameof(ReAuthenticatedPeriod));
+            SecurityConfigurationViewModel instance = (SecurityConfigurationViewModel)context.ObjectInstance;
+            var errors = "";
+
+            instance.ClearErrors(nameof(ReAuthenticatedPeriod));
 
             if (period <= 0 || period > short.MaxValue)
             {
-                SetError(nameof(ReAuthenticatedPeriod), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReAuthenticatedPeriod_GreaterThanZero));
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReAuthenticatedPeriod_GreaterThanZero);
             }
+
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+            return new(errors);
         }
 
-        private void ValidateAcceptPreviouslyGoodCertificatePeriod(int period)
+        public static ValidationResult ValidateAcceptPreviouslyGoodCertificatePeriod(int period, ValidationContext context)
         {
-            ClearErrors(nameof(AcceptPreviouslyGoodCertificatePeriod));
+            SecurityConfigurationViewModel instance = (SecurityConfigurationViewModel)context.ObjectInstance;
+            var errors = "";
+
+            instance.ClearErrors(nameof(AcceptPreviouslyGoodCertificatePeriod));
 
             if (period <= 0 || period > short.MaxValue)
             {
-                SetError(
-                    nameof(AcceptPreviouslyGoodCertificatePeriod),
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AcceptPreviouslyGoodCertificatePeriod_GreaterThanZero));
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AcceptPreviouslyGoodCertificatePeriod_GreaterThanZero);
             }
+
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+            return new(errors);
         }
 
         private void UpdateNavigation()
