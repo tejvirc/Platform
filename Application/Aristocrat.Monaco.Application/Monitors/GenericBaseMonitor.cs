@@ -403,6 +403,7 @@ namespace Aristocrat.Monaco.Application.Monitors
 
                 error.DelayedDisableKey = delayedDisableKey;
                 _pendingFaults.Push(error);
+                _messageDisplay.DisplayMessage(error.DisplayableMessage);
             }
         }
 
