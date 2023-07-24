@@ -63,6 +63,26 @@
         /// <summary>
         ///     The reel stopped trigger
         /// </summary>
-        ReelStopped
+        ReelStopped,
+
+        /// <summary>
+        ///     The accelerate reel in a forward direction trigger
+        /// </summary>
+        SpinForwardAccelerate,
+
+        /// <summary>
+        ///     The decelerate reel in a forward direction trigger
+        /// </summary>
+        SpinForwardDecelerate,
+
+        /// <summary>
+        ///     The accelerate reel in a backwards direction trigger
+        /// </summary>
+        SpinBackwardAccelerate,
+
+        /// <summary>
+        ///     The decelerate reel in a backwards direction trigger
+        /// </summary>
+        SpinBackwardDecelerate
     }
 }

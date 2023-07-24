@@ -37,11 +37,10 @@
         /// </summary>
         event EventHandler<LightEventArgs> LightStatusReceived;
 
-        /// TODO: Future work will be needed to properly handle interrupts
         /// <summary>
         ///     Event occurs when a reel idle interrupt is received
         /// </summary>
-        public event EventHandler<ReelStopData> ReelIdleInterruptReceived;
+        public event EventHandler<ReelSpinningStatusEventArgs> ReelSpinningStatusReceived;
 
         /// <summary>
         ///     Initializes the communicator.

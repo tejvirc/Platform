@@ -46,8 +46,10 @@
 
         public int ControllerId { set; get; }
 
-        public IReadOnlyCollection<int> ConnectedReels =>
-            ReelStates.Where(x => x.Value != ReelLogicalState.Disconnected).Select(x => x.Key).ToList();
+        public IReadOnlyCollection<int> ConnectedReels => ReelStates
+            .Where(x => x.Value != ReelLogicalState.Disconnected)
+            .Select(x => x.Key)
+            .ToList();
 
         public IReadOnlyDictionary<int, ReelLogicalState> ReelStates
         {
@@ -379,6 +381,10 @@
                 .Permit(ReelControllerTrigger.TiltReels, ReelLogicalState.Tilted)
                 .Permit(ReelControllerTrigger.SpinReel, ReelLogicalState.SpinningForward)
                 .Permit(ReelControllerTrigger.SpinReelBackwards, ReelLogicalState.SpinningBackwards)
+                .Permit(ReelControllerTrigger.SpinForwardAccelerate, ReelLogicalState.SpinningForwardAccelerating)
+                .Permit(ReelControllerTrigger.SpinBackwardAccelerate, ReelLogicalState.SpinningBackwardsAccelerating)
+                .Permit(ReelControllerTrigger.SpinForwardDecelerate, ReelLogicalState.SpinningForwardDecelerating)
+                .Permit(ReelControllerTrigger.SpinBackwardDecelerate, ReelLogicalState.SpinningBackwardsDecelerating)
                 .Permit(ReelControllerTrigger.HomeReels, ReelLogicalState.Homing)
                 .OnEntryFrom(reelStoppedTriggerParameters, (logicalState, args) => _eventBus?.Publish(new ReelStoppedEvent(args.ReelId, args.Step, logicalState == ReelLogicalState.Homing)));
 
@@ -390,7 +396,11 @@
             stateMachine.Configure(ReelLogicalState.Spinning)
                 .Permit(ReelControllerTrigger.Disconnected, ReelLogicalState.Disconnected)
                 .Permit(ReelControllerTrigger.ReelStopped, ReelLogicalState.IdleAtStop)
-                .Permit(ReelControllerTrigger.TiltReels, ReelLogicalState.Tilted);
+                .Permit(ReelControllerTrigger.TiltReels, ReelLogicalState.Tilted)
+                .Permit(ReelControllerTrigger.SpinForwardAccelerate, ReelLogicalState.SpinningForwardAccelerating)
+                .Permit(ReelControllerTrigger.SpinForwardDecelerate, ReelLogicalState.SpinningForwardDecelerating)
+                .Permit(ReelControllerTrigger.SpinBackwardAccelerate, ReelLogicalState.SpinningBackwardsAccelerating)
+                .Permit(ReelControllerTrigger.SpinBackwardDecelerate, ReelLogicalState.SpinningBackwardsDecelerating);
 
             stateMachine.Configure(ReelLogicalState.Homing)
                 .SubstateOf(ReelLogicalState.Spinning);
@@ -400,6 +410,10 @@
 
             stateMachine.Configure(ReelLogicalState.SpinningForward).SubstateOf(ReelLogicalState.Spinning);
             stateMachine.Configure(ReelLogicalState.SpinningBackwards).SubstateOf(ReelLogicalState.Spinning);
+            stateMachine.Configure(ReelLogicalState.SpinningForwardAccelerating).SubstateOf(ReelLogicalState.Spinning);
+            stateMachine.Configure(ReelLogicalState.SpinningForwardDecelerating).SubstateOf(ReelLogicalState.Spinning);
+            stateMachine.Configure(ReelLogicalState.SpinningBackwardsAccelerating).SubstateOf(ReelLogicalState.Spinning);
+            stateMachine.Configure(ReelLogicalState.SpinningBackwardsDecelerating).SubstateOf(ReelLogicalState.Spinning);
 
             stateMachine.OnTransitioned(
                 transition =>
@@ -577,8 +591,14 @@
             {
                 return nonIdleReels.FirstOrDefault().Value switch
                 {
-                    ReelLogicalState.Spinning or ReelLogicalState.SpinningBackwards or ReelLogicalState.SpinningForward
-                        or ReelLogicalState.Stopping => ReelControllerState.Spinning,
+                    ReelLogicalState.Spinning or
+                        ReelLogicalState.SpinningBackwards or
+                        ReelLogicalState.SpinningForward or
+                        ReelLogicalState.SpinningForwardAccelerating or
+                        ReelLogicalState.SpinningBackwardsAccelerating or
+                        ReelLogicalState.SpinningForwardDecelerating or
+                        ReelLogicalState.SpinningBackwardsDecelerating or
+                        ReelLogicalState.Stopping => ReelControllerState.Spinning,
                     ReelLogicalState.Homing => ReelControllerState.Homing,
                     ReelLogicalState.Tilted => ReelControllerState.Tilted,
                     _ => ReelStates.All(x => x.Value == ReelLogicalState.IdleAtStop)

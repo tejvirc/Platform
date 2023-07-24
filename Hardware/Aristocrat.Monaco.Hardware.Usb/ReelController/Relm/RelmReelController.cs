@@ -97,7 +97,7 @@
         public event EventHandler<ReelEventArgs> ReelStopped;
 
         /// <inheritdoc />
-        public event EventHandler<ReelEventArgs> ReelSpinning;
+        public event EventHandler<ReelSpinningEventArgs> ReelSpinning;
 
         /// <inheritdoc />
         public event EventHandler<ReelEventArgs> ReelSlowSpinning;
@@ -437,7 +437,7 @@
             _communicator.LightStatusReceived += OnLightStatusReceived;
             _communicator.ControllerFaultOccurred += OnControllerFaultOccurred;
             _communicator.ControllerFaultCleared += OnControllerFaultCleared;
-            _communicator.ReelIdleInterruptReceived += OnReelStopped;
+            _communicator.ReelSpinningStatusReceived += OnReelSpinningStatusReceived;
         }
 
         private void UnregisterEventListeners()
@@ -451,7 +451,7 @@
             _communicator.LightStatusReceived -= OnLightStatusReceived;
             _communicator.ControllerFaultOccurred -= OnControllerFaultOccurred;
             _communicator.ControllerFaultCleared -= OnControllerFaultCleared;
-            _communicator.ReelIdleInterruptReceived -= OnReelStopped;
+            _communicator.ReelSpinningStatusReceived -= OnReelSpinningStatusReceived;
         }
 
         private async Task LoadPlatformSampleShowsAndCurves()
@@ -485,11 +485,28 @@
                 x.EndsWith(StepperCurveExtenstion, true, CultureInfo.InvariantCulture));
         }
 
-        private void OnReelStopped(object sender, ReelStopData stopData)
+        private void OnReelSpinningStatusReceived(object sender, ReelSpinningStatusEventArgs evt)
         {
-            Logger.Debug($"Reel stopped [index: {stopData.ReelIndex + 1}, step:{stopData.Step}]");
-            ReelEventArgs args = new(stopData.ReelIndex + 1, stopData.Step);
-            ReelStopped.Invoke(sender, args);
+            if (evt.IdleAtStep)
+            {
+                ReelStopped?.Invoke(sender, new ReelEventArgs(evt.ReelId, evt.Step));
+            }
+            else if (evt.SlowSpinning)
+            {
+                ReelSlowSpinning?.Invoke(this, new ReelEventArgs(evt.ReelId));
+            }
+            else if (evt.Spinning)
+            {
+                ReelSpinning?.Invoke(this, new ReelSpinningEventArgs(evt.ReelId));
+            }
+            else if (evt.Accelerating)
+            {
+                ReelSpinning?.Invoke(this, new ReelSpinningEventArgs(evt.ReelId));
+            }
+            else if (evt.Decelerating)
+            {
+                ReelSpinning?.Invoke(this, new ReelSpinningEventArgs(evt.ReelId));
+            }
         }
 
         private void OnControllerFaultOccurred(object sender, ReelControllerFaultedEventArgs e)

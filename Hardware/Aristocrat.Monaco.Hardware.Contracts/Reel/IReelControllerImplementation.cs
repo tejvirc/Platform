@@ -30,7 +30,7 @@
         event EventHandler<ReelEventArgs> ReelStopped;
 
         /// <summary> The event that occurs when the reel starts spinning </summary>
-        event EventHandler<ReelEventArgs> ReelSpinning;
+        event EventHandler<ReelSpinningEventArgs> ReelSpinning;
 
         /// <summary> The event that occurs when the reel starts slow spinning </summary>
         event EventHandler<ReelEventArgs> ReelSlowSpinning;

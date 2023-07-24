@@ -88,7 +88,7 @@
         public event EventHandler<ReelControllerFaultedEventArgs> ControllerFaultCleared;
 
         /// <inheritdoc />
-        public event EventHandler<ReelStopData> ReelIdleInterruptReceived;
+        public event EventHandler<ReelSpinningStatusEventArgs> ReelSpinningStatusReceived;
 
         /// <inheritdoc />
         public IReadOnlyCollection<AnimationFile> AnimationFiles => _animationFiles.ToList();
@@ -668,7 +668,28 @@
             switch (interrupt)
             {
                 case ReelIdle idle:
-                    ReelIdleInterruptReceived.Invoke(this, new ReelStopData(idle.ReelIndex, 0, idle.Step));
+                    RaiseSpinningStatus(
+                        x =>
+                        {
+                            x.IdleAtStep = true;
+                            x.Step = idle.Step;
+                        });
+                    break;
+
+                case ReelAccelerating:
+                    RaiseSpinningStatus(x => x.Accelerating = true);
+                    break;
+
+                case ReelDecelerating:
+                    RaiseSpinningStatus(x => x.Decelerating = true);
+                    break;
+
+                case ReelSpinningConstant:
+                    RaiseSpinningStatus(x => x.Spinning = true);
+                    break;
+
+                case ReelSlowSpin:
+                    RaiseSpinningStatus(x => x.SlowSpinning = true);
                     break;
 
                 case ReelTamperingDetected:
@@ -712,8 +733,17 @@
                     Connected = interrupt is not ReelDisconnected
                 };
 
-                configure(status);
+                configure.Invoke(status);
                 ReelStatusReceived?.Invoke(this, new ReelStatusReceivedEventArgs(status));
+            }
+
+            void RaiseSpinningStatus(Action<ReelSpinningStatusEventArgs> configure)
+            {
+                RaiseStatus(x => x.Connected = true);  // if the reel has a spinning status, it's connected and not faulted
+
+                var status = new ReelSpinningStatusEventArgs(interrupt.ReelIndex + 1);
+                configure(status);
+                ReelSpinningStatusReceived?.Invoke(this, status);
             }
         }
 

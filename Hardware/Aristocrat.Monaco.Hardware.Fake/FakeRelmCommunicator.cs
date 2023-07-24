@@ -72,7 +72,7 @@
         public event EventHandler<LightEventArgs> LightStatusReceived;
 
         /// <inheritdoc/>
-        public event EventHandler<ReelStopData> ReelIdleInterruptReceived;
+        public event EventHandler<ReelSpinningStatusEventArgs> ReelSpinningStatusReceived;
 #pragma warning restore 67
 
         /// <summary>
@@ -212,7 +212,7 @@
             var usedTitles = Process.GetProcesses()
                 .Where(process => process.MainWindowTitle.Contains(SimWindowNamePartial))
                 .Select(process => process.MainWindowTitle.Substring(process.MainWindowTitle.IndexOf('_') + 1));
-            usedIds.AddRange(usedTitles.ToList().Select(int.Parse).ToList());
+            usedIds.AddRange(usedTitles.Select(int.Parse));
             _id = 1 + usedIds.Max();
 
             MvvmHelper.ExecuteOnUI(

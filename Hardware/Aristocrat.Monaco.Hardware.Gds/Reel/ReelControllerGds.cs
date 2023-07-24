@@ -71,7 +71,7 @@
         public event EventHandler<ReelEventArgs> ReelStopped;
 
         /// <inheritdoc />
-        public event EventHandler<ReelEventArgs> ReelSpinning;
+        public event EventHandler<ReelSpinningEventArgs> ReelSpinning;
 
         /// <inheritdoc />
         public event EventHandler<ReelEventArgs> ReelSlowSpinning;
@@ -318,7 +318,7 @@
         ///     Called when a reel is spinning
         /// </summary>
         /// <param name="e">The event arguments</param>
-        protected virtual void OnReelSpinning(ReelEventArgs e)
+        protected virtual void OnReelSpinning(ReelSpinningEventArgs e)
         {
             ReelSpinning?.Invoke(this, e);
         }
@@ -624,7 +624,7 @@
 
             if (status.Spinning)
             {
-                OnReelSpinning(new ReelEventArgs(status.ReelId));
+                OnReelSpinning(new ReelSpinningEventArgs(status.ReelId));
             }
         }
 

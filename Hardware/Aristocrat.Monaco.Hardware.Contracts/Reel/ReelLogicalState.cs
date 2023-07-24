@@ -48,6 +48,26 @@
         /// <summary>
         ///     The state used for when the reels are tilted (slow spinning)
         /// </summary>
-        Tilted
+        Tilted,
+
+        /// <summary>
+        ///      The state used for when the reel is accelerating in a forward direction
+        /// </summary>
+        SpinningForwardAccelerating,
+
+        /// <summary>
+        ///     The state used for when the reel is accelerating in a backwards direction
+        /// </summary>
+        SpinningBackwardsAccelerating,
+
+        /// <summary>
+        ///      The state used for when the reel is decelerating in a forward direction
+        /// </summary>
+        SpinningForwardDecelerating,
+
+        /// <summary>
+        ///     The state used for when the reel is decelerating in a backwards direction
+        /// </summary>
+        SpinningBackwardsDecelerating
     }
 }

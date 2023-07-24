@@ -368,7 +368,7 @@
             _stateManager?.HandleReelDisconnected(e);
         }
 
-        private void ReelControllerSpinning(object sender, ReelEventArgs e)
+        private void ReelControllerSpinning(object sender, ReelSpinningEventArgs e)
         {
             Logger.Debug($"ReelControllerSpinning reel {e.ReelId}");
             _stateManager?.Fire(ReelControllerTrigger.SpinReel, e.ReelId);
