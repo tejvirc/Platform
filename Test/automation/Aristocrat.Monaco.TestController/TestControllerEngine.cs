@@ -50,10 +50,7 @@
     using Test.Automation;
     using Wait;
 
-    [ApiController]
-    [Route("PlatformTestController")]
-    [Route("VLTTestController")]
-    public partial class TestControllerEngine : ControllerBase
+    public partial class TestControllerEngine
     {
         private const string ResponseTo = "response-to";
 
@@ -157,21 +154,17 @@
 			InitializeV2();
         }
 
-        [HttpPost]
-        [Route("Platform/Close")]
-        public ActionResult ClosePlatform()
+        public Dictionary<string, object> ClosePlatform()
         {
             _eventBus.Publish(new ExitRequestedEvent(ExitAction.ShutDown));
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Platform/Close" },
                 { "Info", "Closing platform" }
-            });
+            };
         }
 
-        [HttpGet]
-        [Route("Platform/Logs/{eventType}")]
-        public ActionResult GetEventLogs([FromRoute]string eventType = null)
+        public Dictionary<string, object> GetEventLogs(string eventType = null)
         {
             var responseInfo = new Dictionary<string, object> { ["response-to"] = $"/Platform/Logs/{eventType}" };
             var events = new List<EventDescription>(_tiltLogger.GetEvents(eventType));
@@ -184,12 +177,10 @@
             }
 
             responseInfo.Add("Info", $"Log details for event type {eventType}");
-            return Ok(responseInfo);
+            return responseInfo;
         }
 
-        [HttpPost]
-        [Route("Platform/OperatorMenu")]
-        public ActionResult AuditMenu([FromBody]AuditMenuRequest request)
+        public Dictionary<string, object> AuditMenu(AuditMenuRequest request)
         {
             if (request.Open)
             {
@@ -201,53 +192,44 @@
             }
 
             var action = request.Open ? "Entering" : "Exiting";
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Platform/OperatorMenu" },
                 { "Info", $"{action} audit menu." }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("Platform/OperatorMenu/Tab")]
-        public ActionResult SelectMenuTab([FromBody]SelectMenuTabRequest request)
+        public Dictionary<string, object> SelectMenuTab(SelectMenuTabRequest request)
         {
             WindowHelper.GetAuditPage("Views", Constants.OperatorWindowName, request.Name);
 
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Platform/OperatorMenu/Tab" },
                 { "Info", $"Selecting audit menu tab: {request.Name}." }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("Platform/ToggleRobotMode")]
-        public ActionResult ToggleRobotMode()
+        public Dictionary<string, object> ToggleRobotMode()
         {
-            _eventBus.Publish(new RobotControllerEnableEvent());
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Platform/ToggleRobotMode" },
                 { "Info", "Toggle robot mode" }
-            });
+            };
         }
 
-        [HttpGet]
-        [Route("Platform/State")]
-        public ActionResult GetPlatformStatus()
+        public Dictionary<string, object> GetPlatformStatus()
         {
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Platform/State" },
                 { "machine_state", _platformState.ToString() },
                 { "Info", _platformState.ToString()}
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("Platform/LoadGame")]
-        public ActionResult RequestGame([FromBody] RequestGameRequest request)
+        public Dictionary<string, object> RequestGame(RequestGameRequest request)
         {
             var gameFound = false;
 
@@ -263,30 +245,26 @@
                 gameFound = true;
             }
 
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Platform/LoadGame" },
                 { "Info", gameFound
                     ? $"Test Controller requesting game {request.GameName} {request.Denomination}"
                     : $"Test Controller could not find {request.GameName}" }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("Platform/ExitGame")]
-        public ActionResult RequestGameExit()
+        public Dictionary<string, object> RequestGameExit()
         {
             _eventBus.Publish(new GameRequestedLobbyEvent(false));
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Platform/ExitGame" },
                 { "Info", "Test Controller requesting game exit" }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("Platform/ForceGameExit")]
-        public ActionResult ForceGameExit()
+        public Dictionary<string, object> ForceGameExit()
         {
             var killProcess = false;
 
@@ -299,116 +277,98 @@
                 killProcess = true;
             }
 
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Platform/ForceGameExit" },
                 { "success", killProcess.ToString() },
                 { "Info", $"Test Controller killing process: {killProcess}" }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("Platform/EnableCashout")]
-        public ActionResult EnableCashOut([FromBody] EnableCashOutRequest request)
+        public Dictionary<string, object> EnableCashOut(EnableCashOutRequest request)
         {
             _pm.SetProperty("Automation.HandleCashOut", request.Enable);
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Platform/EnableCashout" },
                 { "Info", $"Test Controller allowing cash out: {request.Enable}" }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("Platform/Cashout/Request")]
 
-        public ActionResult RequestCashOut()
+        public Dictionary<string, object> RequestCashOut()
         {
             EnableCashOut(new EnableCashOutRequest { Enable = true });
             _eventBus.Publish(new CashOutButtonPressedEvent());
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Platform/Cashout/Request" },
                 { "Info", "Test Controller requesting cash out." }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("Platform/HandleRg")]
-        public ActionResult HandleRG([FromBody]HandleRGRequest request)
+        public Dictionary<string, object> HandleRG(HandleRGRequest request)
         {
             _handleRg = request.Enable;
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Platform/HandleRg" },
                 { "Info", $"Test Controller will handle Responsible Gaming dialog: {request.Enable}" }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("Platform/ResponsibleGaming/Dialog/Options/Set")]
-        public ActionResult SetRgDialogOptions([FromBody]SetRgDialogOptionsRequest request)
+        public Dictionary<string, object> SetRgDialogOptions(SetRgDialogOptionsRequest request)
         {
             _mouse.TimeLimitButtons = request.ButtonNames.ToList();
-            return Ok(new Dictionary<string, object>());
+            return new Dictionary<string, object>();
         }
 
-        [HttpPost]
-        [Route("Runtime/RequestSpin")]
-        public ActionResult RequestSpin()
+        public Dictionary<string, object> RequestSpin()
         {
             _eventBus.Publish(new InputEvent(22, true));
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Runtime/RequestSpin" },
                 { "Info", "Request spin." }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("Runtime/BetLevel/Set")]
-        public ActionResult SetBetLevel([FromBody] SetBetLevelRequest request)
+        public Dictionary<string, object> SetBetLevel(SetBetLevelRequest request)
         {
             _eventBus.Publish(new InputEvent(22 + request.Index, true));
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Runtime/BetLevel/Set" },
                 { "Info", $"Request line index {request.Index}." }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("Runtime/LineLevel/Set")]
-        public ActionResult SetLineLevel([FromBody] SetLineLevelRequest request)
+        public Dictionary<string, object> SetLineLevel(SetLineLevelRequest request)
         {
             _eventBus.Publish(new InputEvent(29 + request.Index, true));
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Runtime/LineLevel/Set" },
                 { "Info", $"Request line index {request.Index}." }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("Runtime/BetMax/Set")]
-        public ActionResult SetBetMax()
+        public Dictionary<string, object> SetBetMax()
         {
             _eventBus.Publish(new UpEvent((int)ButtonLogicalId.MaxBet));
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Runtime/BetMax/Set" },
                 { "Info", "Request bet max." }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("Platform/Meters/{category}/{name}/{type}/Get/{game}/{denom}")]
-        public ActionResult GetMeter(
-            [FromRoute] string name,
-            [FromRoute] string category,
-            [FromRoute] string type,
-            [FromRoute] string game = "0",
-            [FromRoute] string denom = "0")
+        public Dictionary<string, object> GetMeter(
+            string name,
+            string category,
+            string type,
+            string game = "0",
+            string denom = "0")
         {
             var response = new Dictionary<string, object>();
 
@@ -421,17 +381,15 @@
                 response["error"] = "Meter not found.";
             }
 
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", $"/Platform/Meters/{category}/{name}/{type}/Get" },
                 { "metervalue", response["metervalue"] },
                 { "Info", JsonConvert.SerializeObject(response) }
-            });
+            };
         }
 
-        [HttpGet]
-        [Route("Platform/Meters/Upi/Get")]
-        public ActionResult GetUpiMeters()
+        public Dictionary<string, object> GetUpiMeters()
         {
             var response = new Dictionary<string, object>
             {
@@ -443,94 +401,82 @@
             values.ToList().ForEach(x => response.Add(x.Key, x.Value));
 
             response.Add("Info", JsonConvert.SerializeObject(response));
-            return Ok(response);
+            return response;
         }
 
-        [HttpGet]
-        [Route("Runtime/State")]
-        public ActionResult GetRuntimeState()
+        public Dictionary<string, object> GetRuntimeState()
         {
             var response = new Dictionary<string, object> { { "response-to", "/Runtime/State" } };
             var state = _automata.GetRuntimeState() ?? "Unknown";
             response["game_state"] = state;
 
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Runtime/State" },
                 { "state", state },
                 { "Info", JsonConvert.SerializeObject(response) }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("Runtime/Running")]
-        public ActionResult RuntimeLoaded()
+        public Dictionary<string, object> RuntimeLoaded()
         {
             var response = new Dictionary<string, object> { { "response-to", "/Runtime/Running" } };
             var running = _automata.GetRuntimeState();
             response["running"] = running;
             response.Add("Info", JsonConvert.SerializeObject(response));
-            return Ok(response);
+            return response;
         }
 
-        [HttpGet]
-        [Route("Runtime/Mode")]
-        public ActionResult GetRuntimeMode()
+        public Dictionary<string, object> GetRuntimeMode()
         {
             var response = new Dictionary<string, object> { { "response-to", "/Runtime/Mode" } };
             response["mode"] = Enum.GetName(typeof(RuntimeMode), _runtimeMode);
             response.Add("Info", JsonConvert.SerializeObject(response));
-            return Ok(response);
+            return response;
         }
 
         [HttpPost]
         [Route("Platform/SendInput")]
-        public ActionResult SendInput([FromBody]SendInputRequest request)
+        public Dictionary<string, object> SendInput(SendInputRequest request)
         {
             _eventBus.Publish(new InputEvent(request.Input, false));
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", $"/Platform/SendInput/{request.Input}" },
                 { "Info", $"Sending input {request.Input}" }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("TouchScreen/0/Touch")]
-        public ActionResult SendTouchGame([FromBody]SendTouchGameRequest request)
+        public Dictionary<string, object> SendTouchGame(SendTouchGameRequest request)
         {
             _mouse.ClickGame(request.X, request.Y);
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/TouchScreen/0/Touch" },
                 { "Info", $"Clicking main window at x: {request.X} y: {request.Y} " }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("TouchScreen/2/Touch")]
-        public ActionResult SendTouchVBD([FromBody]SendTouchVBDRequest request)
+        public Dictionary<string, object> SendTouchVBD(SendTouchVBDRequest request)
         {
             _mouse.ClickVirtualButtonDeck(request.X, request.Y);
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/TouchScreen/2/Touch" },
                 { "Info", $"Clicking VBD at x: {request.X} y: {request.Y} " }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("BNA/{id}/Bill/Insert")]
-        public ActionResult InsertCredits([FromRoute] string id, [FromBody] InsertCreditsRequest request)
+        public Dictionary<string, object> InsertCredits([FromRoute] string id, [FromBody] InsertCreditsRequest request)
         {
             if (!int.TryParse(id, out int _))
             {
-                return Ok(new Dictionary<string, object>
+                return new Dictionary<string, object>
                 {
                     { "response-to", $"/BNA/{id}/Bill/Insert" },
                     { "Error", $"Could not cast {id} to a valid id." },
                     { "Info", $"Failed to insert {request.BillValue} for device {id}" }
-                });
+                };
             }
             CreateTable();
 
@@ -553,18 +499,14 @@
                 }
             });
 
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", $"/BNA/{id}/Bill/Insert" },
                 { "Info", $"Inserting {request.BillValue} dollars" }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("BNA/{id}/Ticket/Insert")]
-        public ActionResult InsertTicket(
-            [FromRoute] string id,
-            [FromBody] InsertTicketRequest request)	 	 
+        public Dictionary<string, object> InsertTicket(string id, InsertTicketRequest request)	 	 
 		{	 	 
             try	 	 
 		    {	 	 
@@ -585,42 +527,36 @@
                 }	 	 
 		    });	 	 
 		 
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", $"/BNA/{id}/Ticket/Insert" },
                 { "Info", "Inserting ticket" }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("CardReaders/0/Event")]
-        public ActionResult PlayerCardEvent([FromBody]PlayerCardEventRequest request)
+        public Dictionary<string, object> PlayerCardEvent(PlayerCardEventRequest request)
         {
             _automata.CardEvent(request.Inserted, request.Data);
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/CardReaders/0/Event" },
                 { "Info", $"Card was requested {(request.Inserted ? "inserted" : "removed")} with data: {request.Data}" }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("Platform/Service/Request")]
-        public ActionResult ServiceButton([FromBody]ServiceButtonRequest request)
+        public Dictionary<string, object> ServiceButton(ServiceButtonRequest request)
         {
             var attendantService = ServiceManager.GetInstance().GetService<IAttendantService>();
             attendantService.IsServiceRequested = request.Pressed;
 
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Platform/Service/Request" },
                 { "Info", $"Service button {(request.Pressed ? "pressed" : "cleared")}" }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("Platform/Lockup")]
-        public ActionResult Lockup([FromBody]LockupRequest request)
+        public Dictionary<string, object> Lockup(LockupRequest request)
         {
             try
             {
@@ -655,34 +591,30 @@
             }
             catch (Exception ex)
             {
-                return Ok(new Dictionary<string, object>
+                return new Dictionary<string, object>
                 {
                     { "Info", $"Error: {ex}" }
-                });
+                };
             }
 
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Platform/Lockup" },
                 { "Info", $"Lockup of type {request.Type} was requested {(request.Clear ? "entered" : "cleared")}" }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("Platform/MaxWinLimitOverride")]
-        public ActionResult SetMaxWinLimitOverride([FromBody] SetMaxWinLimitOverrideRequest request)
+        public Dictionary<string, object> SetMaxWinLimitOverride(SetMaxWinLimitOverrideRequest request)
         {
             _automata.SetMaxWinLimit(request.MaxWinLimitOverrideMillicents);
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Platform/MaxWinLimitOverride" },
                 { "Info", $"Max Win Limit overridden to {request.MaxWinLimitOverrideMillicents}" }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("Platform/HandpayRequest")]
-        public ActionResult RequestHandPay([FromBody] RequestHandPayRequest request)
+        public Dictionary<string, object> RequestHandPay(RequestHandPayRequest request)
         {
             var transferOutHandler = ServiceManager.GetInstance().GetService<ITransferOutHandler>();
 
@@ -693,50 +625,42 @@
             var info = $"Transfer out requested. Amount: {request.Amount}, Type: {request.Type}, AccountType: {request.AccountType}";
             Log(info);
 
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Platform/HandpayRequest" },
                 { "Info", info }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("Platform/KeyOff")]
-        public ActionResult RequestKeyOff()
+        public Dictionary<string, object> RequestKeyOff()
         {
             _automata.JackpotKeyoff();
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Platform/KeyOff" },
                 { "Info", "Jackpot key off requested." }
-            });
+            };
         }
 
-        [HttpGet]
-        [Route("Lockups/Get")]
-        public ActionResult GetCurrentLockups()
+        public Dictionary<string, object> GetCurrentLockups()
         {
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Lockups/Get" },
                 { "Lockups", string.Join("\n", _currentLockups.Values) }
-            });
+            };
         }
 
-        [HttpGet]
-        [Route("Game/Messages/Lockup/GetGameScreenMessages")]
-        public ActionResult GetGameMessages()
+        public Dictionary<string, object> GetGameMessages()
         {
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Game/Messages/Lockup/GetGameScreenMessages" },
                 { "Value", string.Join("\n", _currentLockups.Values) }
-            });
+            };
         }
 
-        [HttpGet]
-        [Route("Game/History/NumberOfEntries")]
-        public ActionResult GetNumberOfGameHistoryEntires()
+        public Dictionary<string, object> GetNumberOfGameHistoryEntires()
         {
             var gameHistory = ServiceManager.GetInstance().TryGetService<IGameHistory>();
 
@@ -746,17 +670,14 @@
                 gameHistoryCount = gameHistory.GetGameHistory().Count();
             }
             
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Game/History/NumberOfEntries" },
                 { "Value", gameHistoryCount.ToString() }
-            });
+            };
         }
 
-        [HttpGet]
-        [Route("Game/History/{count}")]
-
-        public ActionResult GetGameHistory([FromRoute]string count = "1")
+        public Dictionary<string, object> GetGameHistory(string count = "1")
         {
             var responseInfo = new Dictionary<string, object> { ["response-to"] = $"/Game/History/{count}" };
 
@@ -796,12 +717,10 @@
             }
 
             responseInfo.Add("Info", $"Test Controller returning {collectedCount} entries in game history log");
-            return Ok(responseInfo);
+            return responseInfo;
         }
 
-        [HttpGet]
-        [Route("Platform/Logs/HandPay/{count}")]
-        public ActionResult GetHandPayLog([FromRoute]string count = "1")
+        public Dictionary<string, object> GetHandPayLog(string count = "1")
         {
             var responseInfo = new Dictionary<string, object> { ["response-to"] = $"Platform/Logs/HandPay/{count}" };
 
@@ -821,12 +740,10 @@
             }
 
             responseInfo.Add("Info", $"Test Controller returning {collectedCount} entries in HandPay log");
-            return Ok(responseInfo);
+            return responseInfo;
         }
 
-        [HttpGet]
-        [Route("Platform/Logs/TransferOut/{count}")]
-        public ActionResult GetTransferOutLog([FromRoute] string count = "1")
+        public Dictionary<string, object> GetTransferOutLog(string count = "1")
         {
             var responseInfo = new Dictionary<string, object> { ["response-to"] = $"Platform/Logs/TransferOut/{count}" };
 
@@ -846,12 +763,10 @@
             }
 
             responseInfo.Add("Info", $"Test Controller returning {collectedCount} entries in TransferOut log");
-            return Ok(responseInfo);
+            return responseInfo;
         }
 
-        [HttpGet]
-        [Route("Platform/Logs/TransferIn/{count}")]
-        public ActionResult GetTransferInLog([FromRoute] string count = "1")
+        public Dictionary<string, object> GetTransferInLog(string count = "1")
         {
             var responseInfo = new Dictionary<string, object> { ["response-to"] = $"Platform/Logs/TransferIn/{count}" };
 
@@ -871,12 +786,10 @@
             }
 
             responseInfo.Add("Info", $"Test Controller returning {collectedCount} entries in TransferIn log");
-            return Ok(responseInfo);
+            return responseInfo;
         }
 
-        [HttpGet]
-        [Route("Game/Messages/Get")]
-        public ActionResult GetGameLineMessages()
+        public Dictionary<string, object> GetGameLineMessages()
         {
             string messages = string.Empty;            
             foreach (DisplayableMessage message in _gameLineMessages)
@@ -884,16 +797,14 @@
                 messages = messages + message.Message + "\n";
             }
 
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Game/Messages/Get" },
                 { "Messages", messages }
-            });
+            };
         }
 
-        [HttpGet]
-        [Route("Game/OverlayMessage/Get")]
-        public ActionResult GetGameOverlayMessage()
+        public Dictionary<string, object> GetGameOverlayMessage()
         {
             string message = string.Empty;
 
@@ -904,16 +815,14 @@
                     $"{(_messageOverlayData.IsSubText2Visible ? _messageOverlayData.SubText2 : string.Empty)}";
             }
 
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { ResponseTo, OverlayMessageUrl },
                 { OverlayMessage, message }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("Platform/Info")]
-        public ActionResult GetInfo([FromBody] GetInfoRequest request)
+        public Dictionary<string, object> GetInfo(GetInfoRequest request)
         {
             var desiredInfo = string.Empty;
             var desiredInfoCollective = string.Empty;
@@ -1108,29 +1017,25 @@
                 _logger.Error(desiredInfo);
             }
 
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Platform/Info" },
                 { "Info", desiredInfoCollective }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("Platform/Progressives/Get")]
-        public ActionResult GetProgressives([FromBody] GetProgressivesRequest request)
+        public Dictionary<string, object> GetProgressives(GetProgressivesRequest request)
         {
             var info = _automata.GetPools(request.GameName);
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Platform/Progressives/Get" },
                 { "progressives", info },
                 { "Info", info }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("Config/Read")]
-        public ActionResult GetConfigOption([FromBody] GetConfigOptionRequest request)
+        public Dictionary<string, object> GetConfigOption(GetConfigOptionRequest request)
         {
             var desiredInfo = "";
 
@@ -1274,16 +1179,14 @@
                 _logger.Error(desiredInfo);
             }
 
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Config/Read" },
                 { "Value", string.Join("\n", desiredInfo) }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("Config/Write")]
-        public ActionResult SetConfigOption([FromBody] SetConfigOptionRequest request)
+        public Dictionary<string, object> SetConfigOption(SetConfigOptionRequest request)
         {
             try
             {
@@ -1404,16 +1307,14 @@
                 _logger.Error(ex.ToString());
             }
 
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Config/Write" },
                 { "Info", $"Set Property {request.Option}" }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("Event/Wait")]
-        public ActionResult Wait([FromBody]WaitRequest request)
+        public Dictionary<string, object> Wait(WaitRequest request)
         {
             ClearWaits();
 
@@ -1423,74 +1324,64 @@
                 _waitStrategy.Start();
             }
 
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Event/Wait" },
                 { "Info", $"Waiting for {request.EventType}" }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("Event/Wait/All")]
-        public ActionResult WaitAll([FromBody] WaitAllRequest request)
+        public Dictionary<string, object> WaitAll(WaitAllRequest request)
         {
             var waits = request.EventType.Select(a => (WaitEventEnum)Enum.Parse(typeof(WaitEventEnum), a)).ToList();
 
             _waitStrategy = new WaitAll(waits, request.Timeout);
             _waitStrategy.Start();
 
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Event/Wait/All" },
                 { "Info", $"Waiting for all of {string.Join(" ", request.EventType)}" }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("Event/Wait/Any")]
-        public ActionResult WaitAny([FromBody] WaitAnyRequest request)
+        public Dictionary<string, object> WaitAny(WaitAnyRequest request)
         {
             var waits = request.EventType.Select(a => (WaitEventEnum)Enum.Parse(typeof(WaitEventEnum), a)).ToList();
 
             _waitStrategy = new WaitAny(waits, request.Timeout);
             _waitStrategy.Start();
 
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Event/Wait/Any" },
                 { "Info", $"Waiting for any of {string.Join(" ", request.EventType)}" }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("Event/Wait/Cancel")]
-        public ActionResult CancelWait([FromBody] CancelWaitRequest request)
+        public Dictionary<string, object> CancelWait(CancelWaitRequest request)
         {
             _ = Enum.TryParse(request.EventType, out WaitEventEnum wait);
             _waitStrategy?.CancelWait(wait);
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Event/Wait/Cancel" },
                 { "Info", $"Canceling wait for {request.EventType}" }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("Event/Wait/Clear")]
-        public ActionResult ClearWaits()
+        public Dictionary<string, object> ClearWaits()
         {
             _waitStrategy?.ClearWaits();
 
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Event/Wait/Clear" },
                 { "Info", "All waits are cleared." }
-            });
+            };
         }
 
-        [HttpGet]
-        [Route("Event/Wait/Status")]
-        public ActionResult CheckWaitStatus()
+        public Dictionary<string, object> CheckWaitStatus()
         {
             var response = new Dictionary<string, object> { ["response-to"] = "/Event/Wait/Status" };
 
@@ -1511,7 +1402,7 @@
             }
 
             response.Add("Info", debugOutput);
-            return Ok(response);
+            return response;
         }
 
         private void CheckForWait(Type eventType)
@@ -1521,47 +1412,39 @@
             _waitStrategy?.EventPublished(foundEnum);
         }
 
-        [HttpPost]
-        [Route("Platform/Property")]
-        public ActionResult GetProperty([FromBody] GetPropertyRequest request)
+        public Dictionary<string, object> GetProperty(GetPropertyRequest request)
         {
             var theResult = _pm.GetProperty(request.Property, null);
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { request.Property, JsonConvert.SerializeObject(theResult, new Newtonsoft.Json.Converters.StringEnumConverter()) }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("Platform/Property/Set")]
-        public ActionResult SetProperty([FromBody] SetPropertyRequest request)
+        public Dictionary<string, object> SetProperty(SetPropertyRequest request)
         {
             _pm.SetProperty(request.Property, request.Value, request.IsConfig);
-            return Ok(new Dictionary<string, object>());
+            return new Dictionary<string, object>();
         }
 
-        [HttpPost]
-        [Route("IO/Set")]
-        public ActionResult SetIo([FromBody] SetIoRequest request)
+        public Dictionary<string, object> SetIo(SetIoRequest request)
         {
             _io.SetInput(request.Index, request.Status);
 
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Io/Set" }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("IO/Get")]
-        public ActionResult GetIo()
+        public Dictionary<string, object> GetIo()
         {
             var inputs = _io.GetInputs();
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", "/Io/Get" },
                 { "Map", JsonConvert.SerializeObject(inputs) }
-            });
+            };
         }
 
         private void HandleTimeLimitDialog()
@@ -1669,26 +1552,22 @@
 
         #region Hardware
 
-        [HttpPost]
-        [Route("TouchScreen/{id}/Connect")]
-        public ActionResult TouchScreenConnect([FromRoute] string id)
+        public Dictionary<string, object> TouchScreenConnect(string id)
         {
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", $"/TouchScreen/{id}/Connect" },
                 { "Command", "TouchScreenConnect" }
-            });
+            };
         }
 
-        [HttpPost]
-        [Route("TouchScreen/{id}/Disconnect")]
-        public ActionResult TouchScreenDisconnect([FromRoute] string id)
+        public Dictionary<string, object> TouchScreenDisconnect(string id)
         {
-            return Ok(new Dictionary<string, object>
+            return new Dictionary<string, object>
             {
                 { "response-to", $"/TouchScreen/{id}/Disconnect" },
                 { "Command", "TouchScreenDisconnect" }
-            });
+            };
         }
         #endregion
 
