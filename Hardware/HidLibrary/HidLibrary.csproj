@@ -5,6 +5,7 @@
     <RootNamespace>Vgt.Client12.Hardware.HidLibrary</RootNamespace>
     <AssemblyTitle>Hid Library</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
+    <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>

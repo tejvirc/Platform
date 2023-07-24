@@ -36,7 +36,6 @@
             using (var reader = XmlReader.Create(file, settings))
             {
                 var serializer = Serializers.GetOrAdd(typeof(T), t => new XmlSerializer(t));
-                serializer.UnknownNode += new XmlNodeEventHandler(UnknownXmlNodeHandler);
 
                 return (T)serializer.Deserialize(reader);
             }
@@ -45,7 +44,6 @@
         /// <summary>
         ///     Handler of unknown XML node
         /// </summary>
-        private static void UnknownXmlNodeHandler(object sender, XmlNodeEventArgs e) => throw new XmlSyntaxException();
 
         /// <summary>
         ///     Parses the provided file

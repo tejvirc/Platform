@@ -49,7 +49,6 @@
                 AnimationState.Prepared => GDKAnimationState.AnimationsPrepared,
                 AnimationState.Stopped => GDKAnimationState.AnimationStopped,
                 AnimationState.Started => GDKAnimationState.AnimationPlaying,
-                AnimationState.Removed => GDKAnimationState.AnimationRemoved,
                 _ => throw new ArgumentOutOfRangeException(nameof(preparedState))
             };
         }

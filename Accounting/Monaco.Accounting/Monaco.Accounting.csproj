@@ -4,6 +4,7 @@
     <RootNamespace>Aristocrat.Monaco.Accounting</RootNamespace>
     <AssemblyTitle>Monaco.Accounting</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
+    <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
     <TargetFramework>net6.0-windows</TargetFramework>
     <Platform>x64</Platform>
   </PropertyGroup>

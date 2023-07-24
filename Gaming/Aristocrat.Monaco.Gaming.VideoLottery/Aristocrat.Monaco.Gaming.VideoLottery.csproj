@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>Monaco.VideoLottery</AssemblyTitle>
+    <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
     <Configurations>Debug;Release;Retail</Configurations>
     <UseWPF>true</UseWPF>
     <Platform>x64</Platform>

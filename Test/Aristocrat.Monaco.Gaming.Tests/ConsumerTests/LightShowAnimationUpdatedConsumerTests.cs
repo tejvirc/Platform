@@ -47,7 +47,6 @@
         [DataRow(AnimationState.Started, GDKAnimationState.AnimationPlaying)]
         [DataRow(AnimationState.Stopped, GDKAnimationState.AnimationStopped)]
         [DataRow(AnimationState.Prepared, GDKAnimationState.AnimationsPrepared)]
-        [DataRow(AnimationState.Removed, GDKAnimationState.AnimationRemoved)]
         public void ConsumeLightShowAnimationUpdatedEvent(AnimationState givenState, GDKAnimationState expectedState)
         {
             var animationUpdatedEvent = new LightShowAnimationUpdatedEvent("animation", "all", givenState);

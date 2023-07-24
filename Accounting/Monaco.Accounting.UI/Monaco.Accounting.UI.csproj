@@ -4,6 +4,7 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <RootNamespace>Aristocrat.Monaco.Accounting.UI</RootNamespace>
     <AssemblyTitle>Monaco.Accounting.UI</AssemblyTitle>
+    <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
     <Configurations>Debug;Release;Retail</Configurations>
     <UseWPF>true</UseWPF>
     <Platform>x64</Platform>

@@ -5,6 +5,7 @@
     <AssemblyTitle>Aristocrat.Monaco.Application</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
     <RunAnalyzersDuringBuild>False</RunAnalyzersDuringBuild>
     <Platform>x64</Platform>
   </PropertyGroup>

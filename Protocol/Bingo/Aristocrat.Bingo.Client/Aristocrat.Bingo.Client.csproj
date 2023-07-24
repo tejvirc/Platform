@@ -3,6 +3,7 @@
   <PropertyGroup>
 		<TargetFramework>net6.0-windows</TargetFramework>
 		<AssemblyTitle>Aristocrat.Bingo.Client</AssemblyTitle>
+    <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
 		<Configurations>Debug;Release;Retail</Configurations>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
