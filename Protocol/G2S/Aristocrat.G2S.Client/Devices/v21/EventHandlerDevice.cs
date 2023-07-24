@@ -6,8 +6,10 @@
     using System.Linq;
     using System.Threading;
     using Diagnostics;
+    using Monaco.Common;
     using Newtonsoft.Json;
     using Protocol.v21;
+    using Constants = Client.Constants;
 
     /// <summary>
     ///     The eventHandler class manages the event subscriptions for an EGM, providing the means to determine the
@@ -573,11 +575,12 @@
                     var list = new List<meterInfo>();
                     foreach (var info in meterList.meterInfo)
                     {
-                        if (info.deviceMeters != null && info.deviceMeters.Length > 0 && config.SendDeviceMeters ||
-                            (info.deviceMeters == null || info.deviceMeters.Length == 0) && config.SendClassMeters)
-                        {
-                            list.Add(info);
-                        }
+                        var infoCopy = info.DeepClone();
+
+                        infoCopy.deviceMeters = info.deviceMeters.Where(
+                            m => (m.deviceId == Constants.ClassLevelDeviceId && config.SendClassMeters)
+                                 || m.deviceId != Constants.ClassLevelDeviceId && config.SendDeviceMeters).ToArray();
+                        list.Add(info);
                     }
 
                     report.meterList = new meterList { meterInfo = list.ToArray() };

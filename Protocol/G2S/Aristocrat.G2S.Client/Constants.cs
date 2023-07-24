@@ -63,19 +63,9 @@
         public const int ExpirationNotSet = -1;
 
         /// <summary>
-        ///     G2S Identifier for linked progressives
+        ///     DeviceId representing all devices within a class
         /// </summary>
-        public const string ProgressiveTypeLinked = Constants.ManufacturerPrefix + "_LP";
-
-        /// <summary>
-        ///     G2S Identifier for standalone progressives
-        /// </summary>
-        public const string ProgressiveTypeSap = Constants.ManufacturerPrefix + "_Sap";
-
-        /// <summary>
-        ///     G2S Identifier for selectable progressives
-        /// </summary>
-        public const string ProgressiveTypeSelectable = Constants.ManufacturerPrefix + "_Selectable";
+        public const int ClassLevelDeviceId = 0;
 
         /// <summary>
         ///     The default time to live behavior
@@ -91,10 +81,5 @@
         ///     Default No Response Timer
         /// </summary>
         public static readonly TimeSpan NoResponseTimer = new TimeSpan(0, 5, 0);
-
-        /// <summary>
-        ///     A collection of configured hosts
-        /// </summary>
-        public const string RegisteredHosts = @"G2S.RegisteredHosts";
     }
 }
