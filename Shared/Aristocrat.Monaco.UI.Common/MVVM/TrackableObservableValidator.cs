@@ -148,7 +148,7 @@
         /// <param name="value">The new value to set</param>
         /// <param name="propertyNames">Optional array of names to send in PropertyChanged events</param>
         /// <returns>false if the new and existing values are equal, true if they are not</returns>
-        protected virtual bool SetProperty<T>(ref T property, T value, params string[] propertyNames)
+        protected bool SetProperty<T>(ref T property, T value, params string[] propertyNames)
         {
             if (EqualityComparer<T>.Default.Equals(property, value))
             {
