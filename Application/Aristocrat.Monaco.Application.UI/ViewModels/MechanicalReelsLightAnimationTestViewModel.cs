@@ -107,14 +107,7 @@
                 return;
             }
 
-            var lightShow = new LightShowData
-            {
-                Tag = AllTag,
-                Step = -1,
-                LoopCount = -1,
-                ReelIndex = -1,
-                AnimationName = lightShowName
-            };
+            var lightShow = new LightShowData(-1, lightShowName, AllTag, ReelConstants.RepeatForever, -1);
 
             await _animationCapabilities.PrepareAnimation(lightShow);
             await _animationCapabilities.PlayAnimations();

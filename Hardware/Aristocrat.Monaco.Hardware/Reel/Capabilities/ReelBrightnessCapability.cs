@@ -28,7 +28,6 @@
         {
             _implementation = implementation;
             _stateManager = stateManager;
-
             ReadOrCreateOptions();
         }
 
