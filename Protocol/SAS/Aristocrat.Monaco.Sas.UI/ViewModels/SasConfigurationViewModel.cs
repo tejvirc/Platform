@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using Application.Contracts;
     using Application.Contracts.Extensions;
@@ -361,15 +362,14 @@
         /// <summary>
         ///     Gets or sets Communication Address Error Text for the first host
         /// </summary>
+        [CustomValidation(typeof(SasConfigurationViewModel), nameof(ValidateErrorText))]
         public string CommunicationAddress1ErrorText
         {
             get => _communicationAddress1ErrorText;
             set
             {
-                if (SetProperty(ref _communicationAddress1ErrorText, value, nameof(CommunicationAddress1ErrorText)))
-                {
-                    SetError(nameof(CommunicationAddress1), _communicationAddress1ErrorText);
-                }
+                SetProperty(ref _communicationAddress1ErrorText, value, nameof(CommunicationAddress1ErrorText));
+                CheckNavigation();
             }
         }
 
@@ -394,15 +394,14 @@
         /// <summary>
         ///     Gets or sets Communication Address Error Text for the second host
         /// </summary>
+        [CustomValidation(typeof(SasConfigurationViewModel), nameof(ValidateErrorText))]
         public string CommunicationAddress2ErrorText
         {
             get => _communicationAddress2ErrorText;
             set
             {
-                if (SetProperty(ref _communicationAddress2ErrorText, value, nameof(CommunicationAddress2ErrorText)))
-                {
-                    SetError(nameof(CommunicationAddress2), _communicationAddress2ErrorText);
-                }
+                SetProperty(ref _communicationAddress2ErrorText, value, true, nameof(CommunicationAddress2ErrorText));
+                CheckNavigation();
             }
         }
 
@@ -494,15 +493,15 @@
         /// <summary>
         ///     Gets or sets Progressive Group Id Error Text
         /// </summary>
+        [CustomValidation(typeof(SasConfigurationViewModel), nameof(ValidateErrorText))]
+
         public string ProgressiveGroupIdErrorText
         {
             get => _progressiveGroupIdErrorText;
             set
             {
-                if (SetProperty(ref _progressiveGroupIdErrorText, value, nameof(ProgressiveGroupIdErrorText)))
-                {
-                    SetError(nameof(ProgressiveGroupId), _progressiveGroupIdErrorText);
-                }
+                SetProperty(ref _progressiveGroupIdErrorText, value, nameof(ProgressiveGroupIdErrorText));
+                CheckNavigation();
             }
         }
 
@@ -877,19 +876,20 @@
             }
         }
 
-        /// <inheritdoc />
-        protected override void SetError(string propertyName, string error)
+        /// <summary>
+        /// Validates a communication address error text.
+        /// </summary>
+        /// <param name="errorText"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static ValidationResult ValidateErrorText(
+            string errorText,
+            ValidationContext context
+        )
         {
-            if (string.IsNullOrEmpty(error))
-            {
-                ClearErrors(propertyName);
-            }
-            else
-            {
-                base.SetError(propertyName, error);
-            }
-
-            CheckNavigation();
+            return string.IsNullOrWhiteSpace(errorText)
+                ? ValidationResult.Success
+                : new ValidationResult(errorText);
         }
     }
 }
