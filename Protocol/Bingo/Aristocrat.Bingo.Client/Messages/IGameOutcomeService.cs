@@ -12,10 +12,10 @@
         /// <summary>
         ///     Requests a game play
         /// </summary>
-        /// <param name="message">The game request message</param>
+        /// <param name="message">The multi-game request message</param>
         /// <param name="token">The cancellation token</param>
         /// <returns>Successfully requested.</returns>
-        Task<bool> RequestGame(RequestGameOutcomeMessage message, CancellationToken token);
+        Task<bool> RequestMultiGame(RequestMultipleGameOutcomeMessage message, CancellationToken token);
 
         /// <summary>
         ///     Requests a claim win
@@ -26,11 +26,11 @@
         Task<ClaimWinResults> ClaimWin(RequestClaimWinMessage message, CancellationToken token);
 
         /// <summary>
-        ///     Reports the game outcome to the server
+        ///     Reports multiple game outcomes to the server
         /// </summary>
-        /// <param name="message">The report game outcome message</param>
+        /// <param name="message">The report game outcomes message</param>
         /// <param name="token">The cancellation token</param>
         /// <returns>The response for the reported outcome</returns>
-        Task<ReportGameOutcomeResponse> ReportGameOutcome(ReportGameOutcomeMessage message, CancellationToken token);
+        Task<ReportMultiGameOutcomeResponse> ReportMultiGameOutcome(ReportMultiGameOutcomeMessage message, CancellationToken token);
     }
 }

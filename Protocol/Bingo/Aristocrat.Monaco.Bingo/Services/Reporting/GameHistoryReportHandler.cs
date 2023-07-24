@@ -10,14 +10,17 @@
     using log4net;
     using Monaco.Common;
 
+    /// <summary>
+    ///     Reports game history to the bingo server
+    /// </summary>
     public class GameHistoryReportHandler : IGameHistoryReportHandler, IDisposable
     {
         private const int RetryDelay = 100;
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly ICentralProvider _centralProvider;
         private readonly IBingoClientConnectionState _clientConnectionState;
-        private readonly IAcknowledgedQueue<ReportGameOutcomeMessage, long> _queue;
+        private readonly IAcknowledgedQueue<ReportMultiGameOutcomeMessage, long> _queue;
         private readonly IGameOutcomeService _gameOutcomeService;
 
         private CancellationTokenSource _tokenSource;
@@ -26,7 +29,7 @@
         public GameHistoryReportHandler(
             ICentralProvider centralProvider,
             IBingoClientConnectionState clientConnectionState,
-            IAcknowledgedQueue<ReportGameOutcomeMessage, long> queue,
+            IAcknowledgedQueue<ReportMultiGameOutcomeMessage, long> queue,
             IGameOutcomeService gameOutcomeService)
         {
             _centralProvider = centralProvider ?? throw new ArgumentNullException(nameof(centralProvider));
@@ -38,7 +41,8 @@
             _clientConnectionState.ClientDisconnected += OnClientDisconnected;
         }
 
-        public void AddReportToQueue(ReportGameOutcomeMessage message)
+        /// <inheritdoc/>
+        public void AddReportToQueue(ReportMultiGameOutcomeMessage message)
         {
             if (message == null)
             {
@@ -48,6 +52,7 @@
             _queue.Enqueue(message);
         }
 
+        /// <inheritdoc/>
         public void Dispose()
         {
             Dispose(true);
@@ -102,10 +107,10 @@
                     continue;
                 }
 
-                ReportGameOutcomeResponse ack = null;
+                ReportMultiGameOutcomeResponse ack = null;
                 try
                 {
-                    ack = await _gameOutcomeService.ReportGameOutcome(item, token);
+                    ack = await _gameOutcomeService.ReportMultiGameOutcome(item, token);
                 }
                 catch (Exception e) when (e is not OperationCanceledException)
                 {

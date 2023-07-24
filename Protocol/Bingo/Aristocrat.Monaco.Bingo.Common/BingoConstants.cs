@@ -171,7 +171,12 @@
         /// <summary>
         ///     The default time to cycle patterns
         /// </summary>
-        public const int DefaultPatternCycleTime = 3;
+        public const int DefaultPatternCycleTimeMilliseconds = 3000;
+
+        /// <summary>
+        ///     The default number of times to repeat the pattern name/card title cycle for each pattern
+        /// </summary>
+        public const int DefaultPatternCycleRepeats = 1;
 
         /// <summary>
         ///     Property name for the activity time requested for bingo
@@ -237,5 +242,25 @@
         ///     The disable key for when game history report queue is almost full
         /// </summary>
         public static readonly Guid GameHistoryQueueDisableKey = new("{E8B1A368-EA55-4C80-8297-852D156ED314}");
+
+        /// <summary>
+        ///     The disable key for when the progressive host is offline
+        /// </summary>
+        public static readonly Guid ProgressiveHostOfflineKey = new("{8298BDB8-C120-4150-A998-4E347A739E39}");
+
+        /// <summary>
+        ///     The disable key for when the progressive host fails registration
+        /// </summary>
+        public static readonly Guid ProgressiveHostRegistrationFailedKey = new("{E28B34A9-03E4-4770-A20D-4A4799DEFB38}");
+
+        /// <summary>
+        ///     Indicates if side bet games are enabled
+        /// </summary>
+        public const string SideBetEnabled = "SideBetEnabled";
+
+        /// <summary>
+        ///     key to use for SideBetEnabled property
+        /// </summary>
+        public const string SideBetEnabledKey = "SideBetEnabled";
     }
 }

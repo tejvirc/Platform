@@ -30,7 +30,7 @@ namespace Aristocrat.Monaco.Application.Contracts
         public static string Asp2000 = EnumParser.ToName(CommsProtocol.ASP2000);
 
         /// <summary>
-        /// Represents the Bingio protocol
+        /// Represents the Bingo protocol
         /// </summary>
         public static string Bingo = EnumParser.ToName(CommsProtocol.Bingo);
 

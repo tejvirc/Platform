@@ -14,9 +14,9 @@
     public class GameHistoryReportHandlerTests
     {
         private const int WaitTime = 1000;
-        private readonly ReportGameOutcomeResponse _ack = new(ResponseCode.Ok);
+        private readonly ReportMultiGameOutcomeResponse _ack = new(ResponseCode.Ok);
         private GameHistoryReportHandler _target;
-        private readonly Mock<IAcknowledgedQueue<ReportGameOutcomeMessage, long>> _queue = new(MockBehavior.Default);
+        private readonly Mock<IAcknowledgedQueue<ReportMultiGameOutcomeMessage, long>> _queue = new(MockBehavior.Default);
         private readonly Mock<ICentralProvider> _centralProvider = new(MockBehavior.Default);
         private readonly Mock<IGameOutcomeService> _gameOutcomeService = new(MockBehavior.Default);
         private readonly Mock<IBingoClientConnectionState> _clientConnection = new(MockBehavior.Default);
@@ -59,7 +59,7 @@
         [TestMethod]
         public void AddNewGameOutcomeTest()
         {
-            var outcomeMessage = new ReportGameOutcomeMessage();
+            var outcomeMessage = new ReportMultiGameOutcomeMessage();
             _target.AddReportToQueue(outcomeMessage);
             _queue.Verify(x => x.Enqueue(outcomeMessage), Times.Once);
         }
@@ -74,13 +74,13 @@
         [TestMethod]
         public void AddNewEventToQueueAndConnectTest()
         {
-            var task = new TaskCompletionSource<ReportGameOutcomeMessage>();
+            var task = new TaskCompletionSource<ReportMultiGameOutcomeMessage>();
             using var wait = new ManualResetEvent(false);
-            var outcomeMessage = new ReportGameOutcomeMessage { TransactionId = 123 };
+            var outcomeMessage = new ReportMultiGameOutcomeMessage { TransactionId = 123 };
             _queue.SetupSequence(x => x.GetNextItem(It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(outcomeMessage))
                 .Returns(task.Task);
-            _gameOutcomeService.Setup(m => m.ReportGameOutcome(It.IsAny<ReportGameOutcomeMessage>(), It.IsAny<CancellationToken>()))
+            _gameOutcomeService.Setup(m => m.ReportMultiGameOutcome(It.IsAny<ReportMultiGameOutcomeMessage>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(_ack));
             _queue.Setup(x => x.Acknowledge(outcomeMessage.TransactionId)).Callback(() => wait.Set());
             _clientConnection.Raise(x => x.ClientConnected += null, this, EventArgs.Empty);

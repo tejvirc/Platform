@@ -295,9 +295,14 @@
         public const string SelectedWagerCategory = @"GamePlay.SelectedWagerCategory";
 
         /// <summary>
-        ///     The currently selected bet details
+        ///     The currently selected bet details for main/single game
         /// </summary>
         public const string SelectedBetDetails = @"GamePlay.SelectedBetDetails";
+
+        /// <summary>
+        ///     The currently selected bet details for multiple games
+        /// </summary>
+        public const string SelectedMultiGameBetDetails = @"GamePlay.SelectedMultiGameBetDetails";
 
         /// <summary>
         ///     The currently Game Configuration

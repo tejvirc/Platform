@@ -9,5 +9,18 @@
     /// </summary>
     public class ClearBingoDaubsEvent : BaseEvent
     {
+        /// <summary>
+        ///     Constructor for ClearBingoDaubsEvent
+        /// </summary>
+        /// <param name="gameIndex">The index for the game associated with this event</param>
+        public ClearBingoDaubsEvent(int gameIndex = 0)
+        {
+            GameIndex = gameIndex;
+        }
+
+        /// <summary>
+        ///     Gets the index of the game associated with this event
+        /// </summary>
+        public int GameIndex { get; }
     }
 }

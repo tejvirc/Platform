@@ -32,8 +32,8 @@
             AnimationPath,
             AnimationType.PlatformLightShow);
 
-        private readonly LightShowData _lightShow1 = new() { AnimationName = FriendlyName, Tag = Tag };
-        private readonly LightShowData _lightShow2 = new() { AnimationName = DefaultFriendlyName, Tag = Tag };
+        private readonly LightShowData _lightShow1 = new(0, FriendlyName, Tag, ReelConstants.RepeatOnce, -1);
+        private readonly LightShowData _lightShow2 = new(0, DefaultFriendlyName, Tag, ReelConstants.RepeatOnce, -1);
         private readonly ReelCurveData _curve1 = new(1, FriendlyName);
         private readonly ReelCurveData _curve2 = new(2, DefaultFriendlyName);
 

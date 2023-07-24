@@ -21,7 +21,7 @@
     /// </summary>
     public class CentralHandler : ICentralHandler, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IBank _bank;
         private readonly ICommandHandlerFactory _commandFactory;
         private readonly ICentralProvider _centralProvider;
@@ -94,15 +94,16 @@
 
             Logger.Info($"Requesting outcomes for {transaction}");
 
+            var gameInfo = transaction.AdditionalInfo.Single();
             var currentGame = _gameProvider.GetGame(transaction.GameId);
 
             await _commandFactory.Execute(
                 new RequestPlay(
                     (int)_bank.QueryBalance(AccountType.Cashable).MillicentsToCents(),
                     (int)_bank.QueryBalance(AccountType.Promo).MillicentsToCents(),
-                    Convert.ToInt32(transaction.TemplateId),
-                    (int)(transaction.WagerAmount / transaction.Denomination),
-                    (int)transaction.Denomination.MillicentsToCents(),
+                    Convert.ToInt32(gameInfo!.TemplateId),
+                    (int)(gameInfo.WagerAmount / gameInfo.Denomination),
+                    (int)gameInfo.Denomination.MillicentsToCents(),
                     Convert.ToInt32(currentGame.ReferenceId),
                     (int)transaction.TransactionId,
                     transaction.OutcomesRequested,
