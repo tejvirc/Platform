@@ -2,6 +2,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
 {
     using System;
     using System.Collections.ObjectModel;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using Application.Contracts;
     using Application.Contracts.Extensions;
@@ -62,6 +63,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             }
         }
 
+        [CustomValidation(typeof(VoucherSettingsPageViewModel), nameof(ValidateVoucherInLimit))]
         public decimal VoucherInLimit
         {
             get => _voucherInLimit;
@@ -72,10 +74,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
                     PreviousVoucherInLimit = _voucherInLimit;
                 }
 
-                if (SetProperty(ref _voucherInLimit, value, nameof(VoucherInLimit)))
-                {
-                    SetError(nameof(VoucherInLimit), _voucherInLimit.Validate(true, MaxVoucherInAllowed));
-                }
+                SetProperty(ref _voucherInLimit, value, nameof(VoucherInLimit));
             }
         }
 
@@ -185,6 +184,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             }
         }
 
+        [CustomValidation(typeof(VoucherSettingsPageViewModel), nameof(ValidateVoucherOutLimit))]
         public decimal VoucherOutLimit
         {
             get => _voucherOutLimit;
@@ -196,11 +196,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
                     PreviousVoucherOutLimit = _voucherOutLimit;
                 }
 
-                if (SetProperty(ref _voucherOutLimit, value, nameof(VoucherOutLimit)))
-                {
-                    SetError(nameof(VoucherOutLimit),
-                        _voucherOutLimit.Validate(maximum: MaxVoucherOutAllowed));
-                }
+                SetProperty(ref _voucherOutLimit, value, nameof(VoucherOutLimit));
             }
         }
 
@@ -500,18 +496,6 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             EventBus?.Unsubscribe<PropertyChangedEvent>(this);
         }
 
-        protected override void SetError(string propertyName, string error)
-        {
-            if (string.IsNullOrEmpty(error))
-            {
-                ClearErrors(propertyName);
-            }
-            else
-            {
-                base.SetError(propertyName, error);
-            }
-        }
-
         private void LoadLocalizedLists()
         {
             BarcodeTypes.Clear();
@@ -678,6 +662,32 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             }
 
             return false;
+        }
+
+        public static ValidationResult ValidateVoucherInLimit(decimal voucherInLimit, ValidationContext context)
+        {
+            VoucherSettingsPageViewModel instance = (VoucherSettingsPageViewModel)context.ObjectInstance;
+            var errors = voucherInLimit.Validate(true, instance.MaxVoucherInAllowed);
+
+            if (errors == null)
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(errors);
+        }
+
+        public static ValidationResult ValidateVoucherOutLimit(decimal voucherOutLimit, ValidationContext context)
+        {
+            VoucherSettingsPageViewModel instance = (VoucherSettingsPageViewModel)context.ObjectInstance;
+            var errors = voucherOutLimit.Validate(maximum: instance.MaxVoucherOutAllowed);
+
+            if (errors == null)
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(errors);
         }
     }
 }
