@@ -12,6 +12,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
     using Moq;
     using Test.Common;
 
+    [DoNotParallelize]
     [TestClass]
     public class ReserveServiceTests
     {
@@ -220,7 +221,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
             await Task.Run(
                 async () =>
                 {
-                    const int deltaTimeInMs = 300;
+                    const int deltaTimeInMs = 100;
 
                     CreateReserveLockupSuccessfully(timeout);
 

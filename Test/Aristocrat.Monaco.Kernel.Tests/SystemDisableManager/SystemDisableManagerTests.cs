@@ -8,10 +8,11 @@
     using Test.Common;
     using SystemDisableManager = Kernel.SystemDisableManager;
 
+    [DoNotParallelize]
     [TestClass]
     public class SystemDisableManagerTests
     {
-        private const int sleepTimeout = 500;
+        private const int sleepTimeout = 1000;
         private Mock<IEventBus> _eventBusMock;
         private Mock<IMessageDisplay> _messageDisplay;
 
