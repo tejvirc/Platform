@@ -8,6 +8,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
 
+    [DoNotParallelize]
     [TestClass]
     public class NoteAcceptorActivityTimeWatcherTests
     {
