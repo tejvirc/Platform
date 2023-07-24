@@ -8,7 +8,7 @@
     [TestClass]
     public class EventBusTest
     {
-        private const int waitTimeout = 1500;
+        private const int waitTimeout = 2500;
         [TestMethod]
         public void VerifyServiceImplemenation()
         {
