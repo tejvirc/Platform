@@ -213,7 +213,7 @@
             var delay = (nextCheck - _time.GetLocationTime()).TotalMilliseconds + Tolerance;
             return delay switch
             {
-                < 0 => TimeSpan.FromMilliseconds(MinimumDelay), 
+                < 0 => TimeSpan.FromMilliseconds(MinimumDelay),
                 > int.MaxValue => TimeSpan.FromMilliseconds(int.MaxValue),
                 _ => TimeSpan.FromMilliseconds(delay)
             };
@@ -241,7 +241,7 @@
                 _systemDisableManager.Disable(
                     ApplicationConstants.OperatingHoursDisableGuid,
                     SystemDisablePriority.Normal,
-                    () => Localizer.For(CultureFor.Player).GetString(ResourceKeys.OutsideOperatingHours),
+                    () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OutsideOperatingHours),
                     false);
                 _eventBus.Publish(new OperatingHoursExpiredEvent());
             }

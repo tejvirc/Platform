@@ -1,17 +1,18 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts
 {
+    using Application.Contracts.Localization;
     using Localization.Properties;
     using Progressives;
 
     /// <summary>
-    /// Utility class for creating RTP strings
+    ///     Utility class for creating RTP strings
     /// </summary>
     public static class GameConfigHelper
     {
         private const decimal Precision = 1000M;
 
         /// <summary>
-        /// Creates the RTP string from RTP min and max values.
+        ///     Creates the RTP string from RTP min and max values.
         /// </summary>
         /// <param name="rtpRange">The rtp range</param>
         /// <returns></returns>
@@ -21,7 +22,7 @@
         }
 
         /// <summary>
-        /// Creates the RTP string from RTP min and max values.
+        ///     Creates the RTP string from RTP min and max values.
         /// </summary>
         /// <param name="min"></param>
         /// <param name="max"></param>
@@ -30,24 +31,24 @@
         {
             if (min == null || max == null)
             {
-                return Resources.NoLimit;
+                return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoLimit);
             }
 
             string rtpString;
 
             min = min == int.MinValue ? min : ConvertToRtp((decimal)min);
             max = max == int.MaxValue ? max : ConvertToRtp((decimal)max);
-            if(max == int.MaxValue && min == int.MinValue)
+            if (max == int.MaxValue && min == int.MinValue)
             {
-                rtpString = Resources.NoLimit;
+                rtpString = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoLimit);
             }
             else if (max == int.MaxValue)
             {
-                rtpString = $"{Resources.AtLeast} {min.Value.GetRtpString()}";
+                rtpString = $"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AtLeast)} {min.Value.GetRtpString()}";
             }
             else if (min == int.MinValue)
             {
-                rtpString = $"{Resources.AtMost} {max.Value.GetRtpString()}";
+                rtpString = $"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AtMost)} {max.Value.GetRtpString()}";
             }
             else
             {
@@ -58,7 +59,7 @@
         }
 
         /// <summary>
-        /// Converts an Rtp value to percentage if not already in the form.
+        ///     Converts an Rtp value to percentage if not already in the form.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -74,7 +75,7 @@
         }
 
         /// <summary>
-        /// Converts the Rtp value to the required format string.
+        ///     Converts the Rtp value to the required format string.
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>

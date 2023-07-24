@@ -24,6 +24,7 @@
         private readonly IPersistentStorageManager _persistentStorage;
         private readonly ICashoutController _cashoutController;
         private readonly IRuntime _runtime;
+        private readonly IMaxWinOverlayService _maxWinOverlayService;
 
         public GameIdleCommandHandler(
             IGameHistory gameHistory,
@@ -34,7 +35,8 @@
             IPersistentStorageManager persistentStorage,
             ICashoutController cashoutController,
             IEventBus bus,
-            IProgressiveGameProvider progressiveGameProvider)
+            IProgressiveGameProvider progressiveGameProvider,
+            IMaxWinOverlayService maxWinOverlayService)
         {
             _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
             _gameRecovery = gameRecovery ?? throw new ArgumentNullException(nameof(gameRecovery));
@@ -45,13 +47,14 @@
             _cashoutController = cashoutController ?? throw new ArgumentNullException(nameof(cashoutController));
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
             _progressiveGameProvider = progressiveGameProvider ?? throw new ArgumentNullException(nameof(progressiveGameProvider));
+            _maxWinOverlayService = maxWinOverlayService ?? throw new ArgumentNullException(nameof(maxWinOverlayService));
         }
 
         public void Handle(GameIdle command)
         {
             using (var scope = _persistentStorage.ScopedTransaction())
             {
-                _gameHistory.End();
+                _gameHistory.End(_progressiveGameProvider.GetJackpotSnapshot(string.Empty));
 
                 _gameRecovery.EndRecovery();
 
@@ -68,7 +71,7 @@
 
             _bus.Publish(new DisableCountdownTimerEvent(false));
 
-            if (!checkBalance.ForcedCashout && !_cashoutController.PaperInChuteNotificationActive)
+            if (!checkBalance.ForcedCashout && !_cashoutController.PaperInChuteNotificationActive && !_maxWinOverlayService.ShowingMaxWinWarning)
             {
                 _runtime.UpdateFlag(RuntimeCondition.AllowGameRound, true);
             }

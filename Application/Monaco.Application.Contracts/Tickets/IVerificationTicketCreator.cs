@@ -23,6 +23,12 @@ namespace Aristocrat.Monaco.Application.Contracts.Tickets
         /// <param name="pageNumber"> The page number to print</param>
         /// <param name="titleOverride">Title override.</param>
         /// <returns>created ticket</returns>
-        Ticket Create(int pageNumber, string titleOverride);
+        Ticket Create(int pageNumber, string titleOverride = null);
+
+        /// <summary>
+        ///    Creates a page for data that overflows the maximum lines limit
+        /// </summary>
+        /// <returns></returns>
+        Ticket CreateOverflowPage(int pageNumber);
     }
 }

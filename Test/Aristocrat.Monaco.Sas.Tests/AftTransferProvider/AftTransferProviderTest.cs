@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Sas.Tests.AftTransferProvider
 {
     using System;
+    using System.Globalization;
     using System.Threading;
     using System.Threading.Tasks;
     using Accounting.Contracts;
@@ -925,7 +926,7 @@
         {
         }
 
-        public override string CreateValueString(long meterValue)
+        public override string CreateValueString(long meterValue, CultureInfo culture = null)
         {
             return string.Empty;
         }

@@ -3,9 +3,10 @@
     using System;
     using System.Globalization;
     using Application.Contracts;
-    using Application.Contracts.Extensions;
     using Application.Contracts.Currency;
+    using Application.Contracts.Extensions;
     using Contracts;
+    using Hardware.Contracts;
     using Hardware.Contracts.Printer;
     using Hardware.Contracts.Ticket;
     using Kernel;
@@ -41,6 +42,7 @@
         private Mock<IPrinter> _printer;
         private Mock<IPropertiesManager> _propertiesManager;
         private Mock<ITime> _time;
+        private Mock<IOSService> _os;
 
         /// <summary>
         ///     Initializes class members and prepares for execution of a TestMethod.
@@ -55,10 +57,13 @@
 
             _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Strict, true);
             _time = MoqServiceManager.CreateAndAddService<ITime>(MockBehavior.Strict, true);
+            _os = MoqServiceManager.CreateAndAddService<IOSService>(MockBehavior.Strict, true);
 
             _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.CurrencyMultiplierKey, It.IsAny<object>()))
                 .Returns(CurrencyMultiplier);
             _time.Setup(mock => mock.GetLocationTime(_ticketTimestamp)).Returns(_ticketTimestamp);
+            _os.Setup(mock => mock.OsImageVersion).Returns(new Version());
+
             string minorUnitSymbol = "c";
             string cultureName = "en-US";
             CultureInfo culture = new CultureInfo(cultureName);
@@ -170,7 +175,8 @@
                 AccountType.Cashable,
                 TicketBarcode,
                 TicketExpiration,
-                "None") { LogSequence = TicketLogSequence };
+                "None")
+            { LogSequence = TicketLogSequence };
             var actual = target.CreateTicket(transaction);
 
             // since the mac address will change on different machines, just copy the actual mac address to the expected.
@@ -241,6 +247,7 @@
                 ["regulator"] = string.Empty,
                 ["ticket type"] = "cashout",
                 ["title"] = "CASHOUT *DUP*",
+                ["title localized"] = "CASHOUT TICKET",
                 ["serial id"] = SerialNumber.ToString(CultureInfo.CurrentCulture),
                 ["terminal number"] = "Terminal Number: " + SerialNumber.ToString(CultureInfo.CurrentCulture),
                 ["machine id 3"] = $"MACHINE # {MachineId}",
@@ -279,8 +286,10 @@
                 ["alternate sequence number 2"] = "Voucher#: 0937",
                 ["ticket number 2"] = "Ticket #: 0937",
                 ["version"] = "Not set",
+                ["os version"] = "0.0",
                 ["mac"] = "64006A9004C8",
                 ["serial version mac"] = "Serial : 4387 Vers : Not set MAC : 64006A9004C8",
+                ["serial osversion mac"] = "Serial : 4387 Vers : 0.0 : 64006A9004C8",
                 ["machine version"] = "Serial : 4387 Vers : Not set",
                 ["vlt credits"] = "1,045 CRÉDITS DE 1 ȼ",
                 ["asset"] = "Machine #: State Asset #:",

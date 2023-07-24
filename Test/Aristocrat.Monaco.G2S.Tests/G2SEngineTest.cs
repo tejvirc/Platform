@@ -38,6 +38,7 @@
                 null,
                 null,
                 null,
+                null,
                 null);
 
             Assert.IsNull(service);
@@ -51,6 +52,7 @@
 
             var service = new G2SEngine(
                 egm.Object,
+                null,
                 null,
                 null,
                 null,
@@ -99,6 +101,7 @@
                 null,
                 null,
                 null,
+                null,
                 null);
 
             Assert.IsNull(service);
@@ -117,6 +120,7 @@
                 properties.Object,
                 hostFactory.Object,
                 deviceFactory.Object,
+                null,
                 null,
                 null,
                 null,
@@ -151,6 +155,7 @@
                 hostFactory.Object,
                 deviceFactory.Object,
                 scriptManager.Object,
+                null,
                 null,
                 null,
                 null,
@@ -199,6 +204,7 @@
                 null,
                 null,
                 null,
+                null,
                 null);
 
             Assert.IsNull(service);
@@ -225,6 +231,7 @@
                 packageDownloadManager.Object,
                 deviceObserver.Object,
                 egmStateObserver.Object,
+                null,
                 null,
                 null,
                 null,
@@ -272,6 +279,7 @@
                 null,
                 null,
                 null,
+                null,
                 null);
 
             Assert.IsNull(service);
@@ -302,6 +310,7 @@
                 egmStateObserver.Object,
                 deviceRegistryService.Object,
                 gatComponentFactory.Object,
+                null,
                 null,
                 null,
                 null,
@@ -349,6 +358,7 @@
                 null,
                 null,
                 null,
+                null,
                 null);
 
             Assert.IsNull(service);
@@ -383,6 +393,7 @@
                 gatComponentFactory.Object,
                 meterSubManager.Object,
                 g2sMeterProvider.Object,
+                null,
                 null,
                 null,
                 null,
@@ -430,6 +441,7 @@
                 null,
                 null,
                 null,
+                null,
                 null);
 
             Assert.IsNull(service);
@@ -457,6 +469,7 @@
             var certificateMonitor = new Mock<ICertificateMonitor>();
             var emdi = new Mock<IEmdi>();
             var central = new Mock<ICentralService>();
+            var eventLift = new Mock<IEventLift>();
 
             var service = new G2SEngine(
                 egm.Object,
@@ -477,7 +490,8 @@
                 certificates.Object,
                 certificateMonitor.Object,
                 emdi.Object,
-                central.Object);
+                central.Object,
+                eventLift.Object);
 
             service.Stop();
 

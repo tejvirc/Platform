@@ -5,6 +5,7 @@
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Windows.Input;
+    using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Application.Contracts.MeterPage;
     using Application.Contracts.OperatorMenu;
@@ -84,16 +85,26 @@
             _displaySapProgressives = GetConfigSetting(OperatorMenuSetting.ShowSAPMeters, true);
         }
 
+        public bool HasProgressivesButNoneEnabled => !HasEnabledProgressives && HasProgressives;
+
         public bool HasEnabledProgressives
         {
             get => _hasEnabledProgressives;
-            private set => SetProperty(ref _hasEnabledProgressives, value, nameof(HasEnabledProgressives));
+            private set
+            {
+                SetProperty(ref _hasEnabledProgressives, value, nameof(HasEnabledProgressives));
+                RaisePropertyChanged(nameof(HasProgressivesButNoneEnabled));
+            }
         }
 
         public bool HasProgressives
         {
             get => _hasProgressives;
-            private set => SetProperty(ref _hasProgressives, value, nameof(HasProgressives));
+            private set
+            {
+                SetProperty(ref _hasProgressives, value, nameof(HasProgressives));
+                RaisePropertyChanged(nameof(HasProgressivesButNoneEnabled));
+            }
         }
 
         public ObservableCollection<ProgressiveDisplayMeter> ProgressiveDetailMeters { get; } =
@@ -123,7 +134,7 @@
                 Denoms.Clear();
                 foreach (var d in _selectedGame.Denominations)
                 {
-                    Denoms.Add(new Denomination(d.Value));
+                    Denoms.Add(new Denomination(d.Value, d.Value.MillicentsToDollars().FormattedCurrencyString(false, GetCurrencyDisplayCulture())));
                 }
 
                 UpdateBetOptions();
@@ -276,18 +287,20 @@
             }
         }
 
-        public bool ViewBetOptionFilter 
+        public bool ViewBetOptionFilter
         {
             get => _viewBetOptionFilter;
             set
             {
-                if(value != _viewBetOptionFilter)
+                if (value != _viewBetOptionFilter)
                 {
                     _viewBetOptionFilter = value;
                     RaisePropertyChanged(nameof(ViewBetOptionFilter));
                 }
             }
         }
+
+        public event EventHandler<EventArgs> OnShouldRegenerateColumns;
 
         protected void LoadProgressiveMeters(ProgressiveLevel[] progressiveLevels)
         {
@@ -413,6 +426,8 @@
             {
                 EventBus.Publish(new OperatorMenuWarningMessageEvent(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoProgressiveLevelsAdded)));
             }
+
+            OnShouldRegenerateColumns?.Invoke(this, new EventArgs());
         }
 
         protected override void DisposeInternal()
@@ -420,6 +435,23 @@
             ClearMeters();
 
             base.DisposeInternal();
+        }
+
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            MvvmHelper.ExecuteOnUI(() =>
+            {
+                if (Games.Any())
+                {
+                    SelectedGame = Games.FirstOrDefault();
+                }
+
+                UpdateStatusText();
+            });
+
+            OnShouldRegenerateColumns?.Invoke(this, EventArgs.Empty); // Used by page code-behind
+
+            base.OnOperatorCultureChanged(evt);
         }
 
         private void NextGame(object sender)

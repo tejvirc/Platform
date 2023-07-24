@@ -3,6 +3,7 @@
     using System;
     using Contracts;
     using Contracts.Extensions;
+    using Contracts.Localization;
     using Kernel;
 
     /// <summary>
@@ -11,16 +12,19 @@
     [CLSCompliant(false)]
     public class CountDisplayMeter : DisplayMeter
     {
-        private readonly double _multiplier;    
-        
+        private readonly double _multiplier;
+        private readonly bool _useOperatorCultureForCurrency;
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="CountDisplayMeter" /> class.
         /// </summary>
-        public CountDisplayMeter(string meterName, IMeter countMeter, IMeter valueMeter, bool showLifetime, int order = 0)
-            : base(meterName, null, showLifetime, order)
+        public CountDisplayMeter(string meterName, IMeter countMeter, IMeter valueMeter, bool showLifetime, int order = 0, bool useOperatorCultureForCurrency = false)
+            : base(meterName, null, showLifetime, order, true, false, useOperatorCultureForCurrency)
         {
             var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
             _multiplier = 1.0 / (double)propertiesManager.GetProperty(ApplicationConstants.CurrencyMultiplierKey, ApplicationConstants.DefaultCurrencyMultiplier);
+
+            _useOperatorCultureForCurrency = useOperatorCultureForCurrency;
 
             CountMeter = countMeter;
             CountMeter.MeterChangedEvent += OnMeterChangedEvent;
@@ -52,7 +56,17 @@
         /// <summary>
         ///     The current formatted meter value
         /// </summary>
-        public new string Value => $"{MeterValue.FormattedCurrencyString()}";
+        public new string Value
+        {
+            get
+            {
+                var culture = _useOperatorCultureForCurrency ?
+                    Localizer.For(CultureFor.Operator).CurrentCulture :
+                    CurrencyExtensions.CurrencyCultureInfo;
+
+                return MeterValue.FormattedCurrencyString(false, culture);
+            }
+        }
 
         /// <inheritdoc />
         protected override void OnMeterChangedEvent(object sender, MeterChangedEventArgs e)

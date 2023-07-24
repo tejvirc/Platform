@@ -61,6 +61,7 @@
         private decimal _lowestAllowedMinimumRtp;
         private decimal _highestAllowedMinimumRtp;
         private long _topAwardValue;
+        private decimal? _maxWinAmount;
         private bool _progressivesEditable;
         private bool _gameOptionsEnabled;
         private bool _showGameRtpAsRange;
@@ -133,6 +134,12 @@
             private set => SetProperty(ref _topAwardValue, value);
         }
 
+        public decimal? MaxWinAmount
+        {
+            get => _maxWinAmount;
+            private set => SetProperty(ref _maxWinAmount, value);
+        }
+
         public IReadOnlyList<IGameDetail> AvailableGames { get; }
 
         public IReadOnlyList<PaytableDisplay> AvailablePaytables
@@ -179,6 +186,7 @@
                 ConfigurationMinBet();
                 SetProgressivesConfigured();
                 TopAwardValue = RecalculateTopAward();
+                MaxWinAmount = (ResolveDenomination().Value * _selectedBetOption.MaxWin)?.MillicentsToDollars();
             }
         }
 
@@ -415,9 +423,9 @@
 
         public decimal Denom => BaseDenom / _denomMultiplier;
 
-        public string DenomString => $"{Denom.FormattedCurrencyString()}";
+        public string DenomString => Denom.FormattedCurrencyStringForOperator();
 
-        public string MaxBet => $"{BetMaximum.FormattedCurrencyString()}";
+        public string MaxBet => BetMaximum.FormattedCurrencyStringForOperator();
 
         public bool Gamble
         {
@@ -629,6 +637,11 @@
             RaisePropertyChanged(nameof(CanEditAndEnableLetItRide));
         }
 
+        public void UpdateCurrencyCulture()
+        {
+            RaisePropertyChanged(nameof(DenomString), nameof(MaxBet));
+        }
+
         public void SetAllowedRtpRange(decimal? lowestAllowed, decimal? highestAllowed)
         {
             var lowest = lowestAllowed ?? LowestAvailableMinimumRtp;
@@ -697,12 +710,14 @@
                 return;
             }
 
-            ProgressiveSetupConfigured = ViewProgressiveLevels.Any(p => p.CurrentState != ProgressiveLevelState.Init);
+            var isProgressiveSetupReadonly = _properties.GetValue(GamingConstants.ProgressiveSetupReadonly, false);
+            ProgressiveSetupConfigured = ViewProgressiveLevels
+                .Any(p => p.CurrentState != ProgressiveLevelState.Init) || isProgressiveSetupReadonly;
+
+            ProgressivesEditable = ViewProgressiveLevels.Any(p => p.CanEdit) && (!_assignedLevels?.Any() ?? false) && !isProgressiveSetupReadonly;
 
             if (Game?.Category == GameCategory.LightningLink)
             {
-                ProgressivesEditable = ViewProgressiveLevels.Any(p => p.CanEdit) && (!_assignedLevels?.Any() ?? false);
-
                 var assignedProgressiveIds = ViewProgressiveLevels.Select(p => p.AssignedProgressiveId);
                 foreach (var assignedProgressiveId in assignedProgressiveIds)
                 {
@@ -715,7 +730,6 @@
                 }
             }
 
-            ProgressivesEditable = ViewProgressiveLevels.Any(p => p.CanEdit) && (!_assignedLevels?.Any() ?? false);
             RaisePropertyChanged(nameof(UseImportedLevels));
         }
 
@@ -761,7 +775,7 @@
                 WarningText = string.Format(
                     CultureInfo.CurrentCulture,
                     Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InvalidBetAmountForDenom),
-                    Denom.FormattedCurrencyString());
+                    DenomString);
             }
             else
             {
@@ -775,7 +789,7 @@
             // MaximumWagerCredits and MaxBet is not simple. Hence we only perform this check on Roulette for now.
             var game = FilteredAvailableGames.FirstOrDefault();
 
-            if (game is not { GameType: GameType.Roulette})
+            if (game is not { GameType: GameType.Roulette })
             {
                 return false;
             }

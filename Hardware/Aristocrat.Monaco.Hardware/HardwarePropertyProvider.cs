@@ -117,7 +117,6 @@
             if (!_blockExists)
             {
                 // Set the defaults
-                SetProperty(HardwareConstants.HardMetersEnabledKey, true);
                 SetProperty(HardwareConstants.DoorAlarmEnabledKey, true);
             }
 

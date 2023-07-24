@@ -4,6 +4,7 @@
     <xs:attribute name="Type" type="xs:string" use="required" />
     <xs:attribute name="Max" type="xs:int" use="optional" />
     <xs:attribute name="Combined" type="xs:string" use="optional" />
+    <xs:attribute name="AppendSecurityLevel" type="xs:boolean" use="optional" />
   </xs:complexType>
 
   <xs:complexType name="ArrayOfEventTypes">

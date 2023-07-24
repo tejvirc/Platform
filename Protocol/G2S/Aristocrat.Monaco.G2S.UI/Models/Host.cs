@@ -22,5 +22,9 @@
 
         /// <inheritdoc />
         public bool RequiredForPlay { get; set; }
+
+        public string RegisteredDisplayText { get; set; }
+
+        public string RequiredForPlayDisplayText { get; set; }
     }
 }

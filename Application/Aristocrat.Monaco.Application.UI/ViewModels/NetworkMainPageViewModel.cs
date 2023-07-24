@@ -1,14 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
-    using OperatorMenu;
     using System;
     using System.Diagnostics;
-
-    public enum NetworkPanelType
-    {
-        Diagnostics,
-        Configuration
-    }
+    using OperatorMenu;
 
     /// <summary>
     ///     Contains logic for NetworkMainPage.
@@ -25,8 +19,7 @@
         /// <summary>
         ///     Initializes a new instance of the <see cref="NetworkMainPageViewModel" /> class.
         /// </summary>
-        public NetworkMainPageViewModel(string displayPageTitle)
-            : base(displayPageTitle, MenuExtensionPointPath)
+        public NetworkMainPageViewModel(string pageNameResourceKey) : base(pageNameResourceKey, MenuExtensionPointPath)
         {
         }
 

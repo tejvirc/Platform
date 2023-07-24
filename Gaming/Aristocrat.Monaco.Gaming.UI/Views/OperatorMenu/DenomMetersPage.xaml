@@ -45,10 +45,12 @@
                           AutomationProperties.AutomationId="DataGrid8_AB8CD06C">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
+                                            loc:Localizer.For="Operator"
                                             Width="360"
                                             Binding="{Binding Name}"
                                             AutomationProperties.AutomationId="DataGridTextColumn9_AB8CD06C" />
                         <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
+                                            loc:Localizer.For="Operator"
                                             Width="200"
                                             Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
                                             HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
@@ -65,10 +67,12 @@
                           AutomationProperties.AutomationId="DataGrid11_AB8CD06C">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
+                                            loc:Localizer.For="Operator"
                                             Width="360"
                                             Binding="{Binding Name}"
                                             AutomationProperties.AutomationId="DataGridTextColumn12_AB8CD06C" />
                         <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
+                                            loc:Localizer.For="Operator"
                                             Width="200"
                                             Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
                                             HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
@@ -83,24 +87,20 @@
                     HorizontalAlignment="Left"
                     Margin="0 30 0 0"
                     AutomationProperties.AutomationId="StackPanel14_AB8CD06C">
-            <Button Margin="0 0 10 0"
-                    Width="65"
+            <Button Style="{StaticResource MonacoPrevNextButton}"
                     Command="{Binding PreviousDenomCommand}"
                     IsEnabled="{Binding PreviousDenomIsEnabled}"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrevButton}}"
                     AutomationProperties.AutomationId="Button15_AB8CD06C" />
-            <ComboBox Margin="0 0 10 0"
-                      VerticalAlignment="Center"
+            <ComboBox Style="{StaticResource MonacoMetersComboBox}"
                       SelectedValuePath="Id"
                       ScrollViewer.CanContentScroll="True"
-                      Width="400"
                       DisplayMemberPath="DisplayValue"
                       ItemsSource="{Binding Denoms}"
                       SelectedIndex="{Binding SelectedDenomIndex, Mode=TwoWay}"
                       SelectedItem="{Binding SelectedDenom, Mode=TwoWay}"
                       AutomationProperties.AutomationId="ComboBox16_AB8CD06C" />
-            <Button Margin="0 0 10 0"
-                    Width="65"
+            <Button Style="{StaticResource MonacoPrevNextButton}"
                     Command="{Binding NextDenomCommand}"
                     IsEnabled="{Binding NextDenomIsEnabled}"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.NextButtonText}}"

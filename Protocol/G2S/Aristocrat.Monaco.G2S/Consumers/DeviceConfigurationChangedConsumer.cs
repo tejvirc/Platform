@@ -2,6 +2,7 @@
 {
     using System;
     using Aristocrat.G2S;
+    using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Client.Devices.v21;
     using Aristocrat.G2S.Protocol.v21;
@@ -192,7 +193,7 @@
 
             var deviceList = status != null ? theEvent.Device.DeviceList(status) : null;
 
-            _eventLift.Report(theEvent.Device, configUpdatedEventCode, deviceList);
+            _eventLift.Report(theEvent.Device, configUpdatedEventCode, deviceList, theEvent);
         }
     }
 }

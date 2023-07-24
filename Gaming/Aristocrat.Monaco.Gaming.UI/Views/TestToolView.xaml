@@ -1297,5 +1297,131 @@
                 </Grid>
             </GroupBox>
         </TabItem>
+        <TabItem
+            Header="Relm"
+            Visibility="{Binding RelmTabVisible, Converter={StaticResource TrueVisibleFalseHidden}}"
+			AutomationProperties.AutomationId="771d34b0-f44b-4a5a-a984-2e72fe4133ef">
+            <StackPanel
+                Orientation="Horizontal"
+                AutomationProperties.AutomationId="747fdd3c-ef39-49d8-ba46-23584381f2ce">
+                <GroupBox
+                    Header="Controller"
+                    AutomationProperties.AutomationId="0d3570ad-985d-4bc5-9453-de7df1906c3b">
+                    <StackPanel
+                        Orientation="Vertical"
+                        HorizontalAlignment="Left"
+                        AutomationProperties.AutomationId="4806e208-c2ad-4de0-bab1-0dd3dc05b26d">
+                        <Button
+                            Content="Light Failure"
+                            Command="{Binding RelmReelLightFailureCommand}"
+                            Margin="0,10,5,0"
+                            AutomationProperties.AutomationId="6ebe26bd-cf5d-436c-a62b-9f3a80e75529" />
+                        <Button
+                            Content="Ping Timeout"
+                            Command="{Binding RelmReelPingTimeoutCommand}"
+                            Margin="0,10,5,0"
+                            AutomationProperties.AutomationId="6ebe26bd-cf5d-436c-a62b-9f3a80e75530" />
+                        <Button
+                            Content="Clear Ping Timeout"
+                            Command="{Binding RelmReelClearPingTimeoutCommand}"
+                            Margin="0,10,5,0"
+                            AutomationProperties.AutomationId="5586fcf7-b0f3-4b86-8002-80ed836e20f5" />
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox
+                    Header="Reel"
+                    AutomationProperties.AutomationId="03d5c97c-b7c9-4a59-9765-370eeecd10cc">
+                    <Grid HorizontalAlignment="Left"
+                        AutomationProperties.AutomationId="87b9c0cf-68ae-40d7-a9df-d9c67b4c0e8f">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" AutomationProperties.AutomationId="5586fcf7-b0f3-4b86-8002-80ed836e20f7"/>
+                            <RowDefinition Height="Auto" AutomationProperties.AutomationId="5586fcf7-b0f3-4b86-8002-80ed836e20f8"/>
+                            <RowDefinition Height="Auto" AutomationProperties.AutomationId="5586fcf7-b0f3-4b86-8002-80ed836e20f9"/>
+                            <RowDefinition Height="Auto" AutomationProperties.AutomationId="5586fcf7-b0f3-4b86-8002-80ed836e20fa"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" AutomationProperties.AutomationId="5586fcf7-b0f3-4b86-8002-80ed836e20fb"/>
+                            <ColumnDefinition Width="Auto" AutomationProperties.AutomationId="5586fcf7-b0f3-4b86-8002-80ed836e20fc"/>
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Content="Select Reel Idx" 
+                            HorizontalAlignment="Right"
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            AutomationProperties.AutomationId="94417a08-a5f5-4ded-bf42-9d929d2c8e0f"></Label>
+                        <ComboBox
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            ItemsSource="{Binding RelmReelIndexes}"
+                            SelectedValue="{Binding SelectedRelmReel}"
+                            AutomationProperties.AutomationId="79bed57b-5e68-4864-a6b2-7f6907b2743e"></ComboBox>
+                        <Button
+                            Content="Tamper"
+                            Command="{Binding RelmReelTamperCommand}"
+                            Margin="0,10,5,0"
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            AutomationProperties.AutomationId="328bad9e-a76c-4904-9e0a-b66928a992ea"
+                            IsEnabled="{Binding RelmReelControlsEnabled}"/>
+                        <Button
+                            Content="Stall"
+                            Command="{Binding RelmReelStallCommand}"
+                            Margin="0,10,5,0"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            AutomationProperties.AutomationId="14c46058-f858-4160-b528-3765012cd913" 
+                            IsEnabled="{Binding RelmReelControlsEnabled}"/>
+                        <Button
+                            Content="Optic Sequence Error"
+                            Command="{Binding RelmReelOpticSequenceErrorCommand}"
+                            Margin="0,10,5,0"
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            AutomationProperties.AutomationId="bc30fd6f-5526-4fa6-83a4-b45f9bf6b97c"
+                            IsEnabled="{Binding RelmReelControlsEnabled}" />
+                        <Button
+                            Content="Disconnect Reel"
+                            Command="{Binding RelmReelDisconnectReelCommand}"
+                            Margin="0,10,5,0"
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            AutomationProperties.AutomationId="481d398b-5146-4674-8985-2729f80ec084"
+                            IsEnabled="{Binding RelmReelControlsEnabled}" />
+                        <Button
+                            Content="Unknown Stop"
+                            Command="{Binding RelmReelUnknownStopCommand}"
+                            Margin="0,10,5,0"
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            AutomationProperties.AutomationId="cbd3e569-89d4-48d4-916a-82e92cd6da28"
+                            IsEnabled="{Binding RelmReelControlsEnabled}" />
+                        <Button
+                            Content="Idle Unknown"
+                            Command="{Binding RelmReelIdleUnknownCommand}"
+                            Margin="0,10,5,0"
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            AutomationProperties.AutomationId="e1dc5e79-9a2e-4ca4-b327-a41267a2005c"
+                            IsEnabled="{Binding RelmReelControlsEnabled}" />
+                    </Grid>
+                </GroupBox>
+                <GroupBox
+                    Header="Commands"
+                    AutomationProperties.AutomationId="0ea9eb2d-aaa2-4aa8-baa4-9d5dac66d286">
+                    <StackPanel
+                        Orientation="Vertical"
+                        HorizontalAlignment="Left"
+                        AutomationProperties.AutomationId="96bd5168-5a2c-485b-a978-87dad490064d">
+                        <Button
+                            Content="Clear Errors"
+                            ToolTip="Clears the errors for the selected reel index. Clears any light error.  Does not clear ping timeout."
+                            Command="{Binding RelmReelClearErrorsCommand}"
+                            Margin="0,10,5,0"
+                            AutomationProperties.AutomationId="5586fcf7-b0f3-4b86-8002-80ed836e20f4"
+                            IsEnabled="{Binding RelmReelControlsEnabled}" />
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        </TabItem>
     </TabControl>
 </controls:MetroWindow>

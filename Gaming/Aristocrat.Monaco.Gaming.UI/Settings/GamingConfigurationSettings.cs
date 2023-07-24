@@ -164,6 +164,26 @@
                         ApplicationConstants.LobbyVolumeScalar),
                 ReelStopEnabled =
                     _properties.GetValue(GamingConstants.ReelStopEnabled, false),
+                ReelSpeed = _properties.GetValue(GamingConstants.ReelSpeedKey, GamingConstants.ReelSpeed),
+                WagerLimitsMaxTotalWager = _properties.GetValue(GamingConstants.WagerLimitsMaxTotalWagerKey, GamingConstants.WagerLimitsMaxTotalWager),
+                WagerLimitsUse = _properties.GetValue(GamingConstants.WagerLimitsUseKey, GamingConstants.WagerLimitsUse),
+                MaximumGameRoundWinResetWinAmount = _properties.GetValue(GamingConstants.MaximumGameRoundWinResetWinAmountKey, GamingConstants.MaximumGameRoundWinResetWinAmount),
+                VolumeLevelShowInHelpScreen = _properties.GetValue(GamingConstants.VolumeLevelShowInHelpScreenKey, GamingConstants.VolumeLevelShowInHelpScreen),
+                ServiceUse = _properties.GetValue(GamingConstants.ServiceUseKey, GamingConstants.ServiceUse),
+                ClockUseHInDisplay = _properties.GetValue(GamingConstants.ClockUseHInDisplayKey, GamingConstants.ClockUseHInDisplay),
+                KenoFreeGamesSelectionChange = _properties.GetValue(GamingConstants.KenoFreeGamesSelectionChangeKey, GamingConstants.KenoFreeGamesSelectionChange),
+                KenoFreeGamesAutoPlay = _properties.GetValue(GamingConstants.KenoFreeGamesAutoPlayKey, GamingConstants.KenoFreeGamesAutoPlay),
+                InitialZeroWagerUse = _properties.GetValue(GamingConstants.InitialZeroWagerUseKey, GamingConstants.InitialZeroWagerUse),
+                ChangeLineSelectionAtZeroCreditUse = _properties.GetValue(GamingConstants.ChangeLineSelectionAtZeroCreditUseKey, GamingConstants.ChangeLineSelectionAtZeroCreditUse),
+                GameDurationUseMarketGameTime = _properties.GetValue(GamingConstants.GameDurationUseMarketGameTimeKey, GamingConstants.GameDurationUseMarketGameTime),
+                GameLogOutcomeDetails = _properties.GetValue(GamingConstants.GameLogOutcomeDetailsKey, GamingConstants.GameLogOutcomeDetails),
+                GameLogEnabled = _properties.GetValue(GamingConstants.GameLogEnabledKey, GamingConstants.GameLogEnabled),
+                AudioAudioChannels = _properties.GetValue(GamingConstants.AudioAudioChannelsKey, GamingConstants.AudioAudioChannels),
+                FreeSpinClearWinMeter = _properties.GetValue(GamingConstants.FreeSpinClearWinMeterKey, GamingConstants.FreeSpinClearWinMeter),
+                WinDestination = _properties.GetValue(GamingConstants.WinDestinationKey, GamingConstants.WinDestination),
+                DisplayGamePayMessageUse = _properties.GetValue(GamingConstants.DisplayGamePayMessageUseKey, GamingConstants.DisplayGamePayMessageUse),
+                DisplayGamePayMessageFormat = _properties.GetValue(GamingConstants.DisplayGamePayMessageFormatKey, GamingConstants.DisplayGamePayMessageFormat),
+                ButtonAnimationGoodLuck = _properties.GetValue(GamingConstants.ButtonAnimationGoodLuckKey, GamingConstants.ButtonAnimationGoodLuck),
                 GameStartMethod =
                     _properties.GetValue(GamingConstants.GameStartMethod, GameStartMethodOption.Bet),
                 Games = new ObservableCollection<GameSettings>(GetGameSettings()),
@@ -273,6 +293,24 @@
             _properties.SetProperty(GamingConstants.ShowServiceButton, settings.ShowServiceButton);
             _properties.SetProperty(ApplicationConstants.LobbyVolumeScalarKey, settings.RelativeVolume);
             _properties.SetProperty(GamingConstants.ReelStopEnabled, settings.ReelStopEnabled);
+            _properties.SetProperty(GamingConstants.ReelSpeedKey, settings.ReelSpeed);
+            _properties.SetProperty(GamingConstants.WagerLimitsMaxTotalWagerKey, settings.WagerLimitsMaxTotalWager);
+            _properties.SetProperty(GamingConstants.WagerLimitsUseKey, settings.WagerLimitsUse);
+            _properties.SetProperty(GamingConstants.MaximumGameRoundWinResetWinAmountKey, settings.MaximumGameRoundWinResetWinAmount);
+            _properties.SetProperty(GamingConstants.VolumeLevelShowInHelpScreenKey, settings.VolumeLevelShowInHelpScreen);
+            _properties.SetProperty(GamingConstants.ServiceUseKey, settings.ServiceUse);
+            _properties.SetProperty(GamingConstants.ClockUseHInDisplayKey, settings.ClockUseHInDisplay);
+            _properties.SetProperty(GamingConstants.KenoFreeGamesSelectionChangeKey, settings.KenoFreeGamesSelectionChange);
+            _properties.SetProperty(GamingConstants.KenoFreeGamesAutoPlayKey, settings.KenoFreeGamesAutoPlay);
+            _properties.SetProperty(GamingConstants.InitialZeroWagerUseKey, settings.InitialZeroWagerUse);
+            _properties.SetProperty(GamingConstants.ChangeLineSelectionAtZeroCreditUseKey, settings.ChangeLineSelectionAtZeroCreditUse);
+            _properties.SetProperty(GamingConstants.GameDurationUseMarketGameTimeKey, settings.GameDurationUseMarketGameTime);
+            _properties.SetProperty(GamingConstants.GameLogEnabledKey, settings.GameLogEnabled);
+            _properties.SetProperty(GamingConstants.GameLogOutcomeDetailsKey, settings.GameLogOutcomeDetails);
+            _properties.SetProperty(GamingConstants.AudioAudioChannelsKey, settings.AudioAudioChannels);
+            _properties.SetProperty(GamingConstants.FreeSpinClearWinMeterKey, settings.FreeSpinClearWinMeter);
+            _properties.SetProperty(GamingConstants.ButtonAnimationGoodLuckKey, settings.ButtonAnimationGoodLuck);
+            _properties.SetProperty(GamingConstants.WinDestinationKey, settings.WinDestination);
 
             if (_properties.GetValue(GamingConstants.GameStartMethodConfigurable, false))
             {

@@ -19,7 +19,7 @@ namespace Aristocrat.Monaco.Sas.Tests
         }
 
         /// <inheritdoc />
-        public override string CreateValueString(long meterValue)
+        public override string CreateValueString(long meterValue, CultureInfo culture = null)
         {
             return meterValue.ToString(CultureInfo.InvariantCulture);
         }

@@ -1,9 +1,10 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.Models
 {
-    using Hardware.Contracts.TowerLight;
-    using Monaco.UI.Common.Extensions;
-    using MVVM.ViewModel;
     using System;
+    using Contracts.Localization;
+    using Hardware.Contracts.TowerLight;
+    using Monaco.Common;
+    using MVVM.ViewModel;
 
     [CLSCompliant(false)]
     public class TowerLight : BaseViewModel
@@ -20,7 +21,7 @@
 
         public LightTier Tier { get; }
 
-        public string Name => Tier.GetDescription(typeof(LightTier));
+        public string Name => Tier.GetDescription();
 
         public bool State
         {
@@ -37,7 +38,7 @@
             }
         }
 
-        public string FlashStateName => FlashState.GetDescription(typeof(FlashState));
+        public string FlashStateName => Localizer.For(CultureFor.Operator).GetString(FlashState.ToString());
 
         public FlashState FlashState
         {

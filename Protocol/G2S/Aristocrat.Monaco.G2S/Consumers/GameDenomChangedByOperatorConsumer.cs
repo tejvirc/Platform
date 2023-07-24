@@ -39,7 +39,7 @@
             var status = new gamePlayStatus();
             _commandBuilder.Build(gamePlay, status);
 
-            _eventLift.Report(gamePlay, EventCode.G2S_GPE201, gamePlay.DeviceList(status));
+            _eventLift.Report(gamePlay, EventCode.G2S_GPE201, gamePlay.DeviceList(status), theEvent);
             _eventLift.Report(gamePlay, EventCode.G2S_GPE006, gamePlay.DeviceList(status));
         }
     }

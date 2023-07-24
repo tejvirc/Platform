@@ -5,13 +5,9 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
-                               xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
                                xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
-                               xmlns:progressive="clr-namespace:Aristocrat.Monaco.Gaming.Contracts.Progressives;assembly=Aristocrat.Monaco.Gaming.Contracts"
-                               xmlns:sharedConverters="http://metro.mahapps.com/winfx/xaml/shared"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
-                               xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:GamesSummaryViewModel}}"
                                common:DialogParticipation.Register="{Binding}">
@@ -20,8 +16,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <sharedConverters:ToUpperConverter x:Key="ToUpperConverter" />
-            <converters:FormattedCurrencyConverter x:Key="CurrencyConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid x:Name="MainGrid"
@@ -29,12 +23,9 @@
           HorizontalAlignment="Stretch"
           AutomationProperties.AutomationId="Grid0_6205C64E">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"
-                           AutomationProperties.AutomationId="RowDefinition1_6205C64E" />
-            <RowDefinition Height="*"
-                           AutomationProperties.AutomationId="RowDefinition2_6205C64E" />
-            <RowDefinition Height="Auto"
-                           AutomationProperties.AutomationId="RowDefinition3_6205C64E" />
+            <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition1_6205C64E" />
+            <RowDefinition Height="*" AutomationProperties.AutomationId="RowDefinition2_6205C64E" />
+            <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition3_6205C64E" />
         </Grid.RowDefinitions>
         <Grid x:Name="InfoGrid"
               Grid.Row="0"
@@ -42,18 +33,13 @@
               HorizontalAlignment="Stretch"
               AutomationProperties.AutomationId="Grid4_6205C64E">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"
-                               AutomationProperties.AutomationId="RowDefinition5_6205C64E" />
-                <RowDefinition Height="Auto"
-                               AutomationProperties.AutomationId="RowDefinition6_6205C64E" />
-                <RowDefinition Height="*"
-                               AutomationProperties.AutomationId="RowDefinition7_6205C64E" />
+                <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition5_6205C64E" />
+                <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition6_6205C64E" />
+                <RowDefinition Height="*" AutomationProperties.AutomationId="RowDefinition7_6205C64E" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"
-                                  AutomationProperties.AutomationId="ColumnDefinition8_6205C64E" />
-                <ColumnDefinition Width="*"
-                                  AutomationProperties.AutomationId="ColumnDefinition9_6205C64E" />
+                <ColumnDefinition Width="Auto" AutomationProperties.AutomationId="ColumnDefinition8_6205C64E" />
+                <ColumnDefinition Width="*" AutomationProperties.AutomationId="ColumnDefinition9_6205C64E" />
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0"
                    Grid.Column="0"
@@ -98,75 +84,16 @@
                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                   AutomationProperties.AutomationId="DataGrid16_6205C64E">
             <DataGrid.Resources>
-                <common:BindingProxy x:Key="Proxy"
-                                     Data="{Binding}" />
-                <Style x:Key="ProgressiveResetRtpState"
-                       TargetType="TextBlock"
-                       BasedOn="{StaticResource MonacoTextBlock}">
-                    <Style.Triggers>
-                        <DataTrigger
-                                Binding="{Binding (models:ReadOnlyGameConfiguration.ProgressiveResetRTPState), Mode=OneWay}"
-                                     Value="{x:Static progressive:RtpVerifiedState.NotVerified}"
-                                     AutomationProperties.AutomationId="DataTrigger17_6205C64E">
-                            <Setter Property="Text"
-                                    Value="{lex:Loc Key={x:Static loc:ResourceKeys.NotVerified}}" />
-                        </DataTrigger>
-                        <DataTrigger
-                                Binding="{Binding (models:ReadOnlyGameConfiguration.ProgressiveResetRTPState), Mode=OneWay}"
-                                     Value="{x:Static progressive:RtpVerifiedState.NotAvailable}"
-                                     AutomationProperties.AutomationId="DataTrigger18_6205C64E">
-                            <Setter Property="Text"
-                                    Value="{lex:Loc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
-                        </DataTrigger>
-                        <DataTrigger
-                                Binding="{Binding (models:ReadOnlyGameConfiguration.ProgressiveResetRTPState), Mode=OneWay}"
-                                     Value="{x:Static progressive:RtpVerifiedState.NotUsed}"
-                                     AutomationProperties.AutomationId="DataTrigger19_6205C64E">
-                            <Setter Property="Text"
-                                    Value="{lex:Loc Key={x:Static loc:ResourceKeys.NotUsed}}" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-                <Style x:Key="ProgressiveIncrementRtpState"
-                       TargetType="TextBlock"
-                       BasedOn="{StaticResource MonacoTextBlock}">
-                    <Style.Triggers>
-                        <DataTrigger
-                                Binding="{Binding (models:ReadOnlyGameConfiguration.ProgressiveIncrementRTPState), Mode=OneWay}"
-                                     Value="{x:Static progressive:RtpVerifiedState.NotVerified}"
-                                     AutomationProperties.AutomationId="DataTrigger20_6205C64E">
-                            <Setter Property="Text"
-                                    Value="{lex:Loc Key={x:Static loc:ResourceKeys.NotVerified}}" />
-                        </DataTrigger>
-                        <DataTrigger
-                                Binding="{Binding (models:ReadOnlyGameConfiguration.ProgressiveIncrementRTPState), Mode=OneWay}"
-                                     Value="{x:Static progressive:RtpVerifiedState.NotAvailable}"
-                                     AutomationProperties.AutomationId="DataTrigger21_6205C64E">
-                            <Setter Property="Text"
-                                    Value="{lex:Loc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
-                        </DataTrigger>
-                        <DataTrigger
-                                Binding="{Binding (models:ReadOnlyGameConfiguration.ProgressiveIncrementRTPState), Mode=OneWay}"
-                                     Value="{x:Static progressive:RtpVerifiedState.NotUsed}"
-                                     AutomationProperties.AutomationId="DataTrigger22_6205C64E">
-                            <Setter Property="Text"
-                                    Value="{lex:Loc Key={x:Static loc:ResourceKeys.NotUsed}}" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
+                <common:BindingProxy x:Key="Proxy" Data="{Binding}" />
             </DataGrid.Resources>
             <DataGrid.ColumnHeaderStyle>
-                <Style TargetType="DataGridColumnHeader"
-                       BasedOn="{StaticResource MonacoDataGridWrappedColumnHeaderSmall}">
-                    <Setter Property="MinHeight"
-                            Value="60" />
+                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MonacoDataGridWrappedColumnHeaderSmall}">
+                    <Setter Property="MinHeight" Value="60" />
                 </Style>
             </DataGrid.ColumnHeaderStyle>
             <DataGrid.CellStyle>
-                <Style TargetType="DataGridCell"
-                       BasedOn="{StaticResource MonacoDataGridCell}">
-                    <Setter Property="FontSize"
-                            Value="14" />
+                <Style TargetType="DataGridCell" BasedOn="{StaticResource MonacoDataGridCell}">
+                    <Setter Property="FontSize" Value="14" />
                 </Style>
             </DataGrid.CellStyle>
             <DataGrid.Columns>
@@ -174,251 +101,134 @@
                                     Binding="{Binding UniqueId}"
                                     AutomationProperties.AutomationId="DataGridTextColumn23_6205C64E" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameName}}"
+                                    loc:Localizer.For="Operator"
                                     Binding="{Binding ThemeName}"
                                     AutomationProperties.AutomationId="DataGridTextColumn24_6205C64E" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.VersionText}}"
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Version}}"
+                                    loc:Localizer.For="Operator"
                                     Binding="{Binding Version}"
                                     AutomationProperties.AutomationId="DataGridTextColumn25_6205C64E" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.PaytableId}}"
+                                    loc:Localizer.For="Operator"
                                     Binding="{Binding PaytableId}"
                                     AutomationProperties.AutomationId="DataGridTextColumn26_6205C64E" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Denom}}"
-                                    Binding="{Binding Denomination}"
+                                    loc:Localizer.For="Operator"
+                                    Binding="{Binding Denomination, Converter={StaticResource FormattedCurrencyConverter}}"
                                     AutomationProperties.AutomationId="DataGridTextColumn27_6205C64E" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.MaxBet}}"
-                                    Binding="{Binding MaximumWagerCredits}"
+                                    loc:Localizer.For="Operator"
+                                    Binding="{Binding MaximumWagerCredits, Converter={StaticResource FormattedCurrencyConverter}}"
                                     AutomationProperties.AutomationId="DataGridTextColumn28_6205C64E" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TopAward}}"
-                                    Binding="{Binding TopAward, Converter={StaticResource CurrencyConverter}, ConverterParameter=ZeroNotAvailable, Mode=OneWay}"
+                                    loc:Localizer.For="Operator"
+                                    Binding="{Binding TopAward, Converter={StaticResource FormattedCurrencyConverter}, ConverterParameter=ZeroNotAvailable, Mode=OneWay}"
                                     AutomationProperties.AutomationId="DataGridTextColumn29_6205C64E" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.BaseGameRTP}}"
+                                    loc:Localizer.For="Operator"
                                     Binding="{Binding BaseGameRTP}"
                                     Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}"
                                     AutomationProperties.AutomationId="DataGridTextColumn30_6205C64E" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.BaseGameRTPMin}}"
+                                    loc:Localizer.For="Operator"
                                     Binding="{Binding BaseGameRTPMin}"
                                     Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}}"
                                     AutomationProperties.AutomationId="DataGridTextColumn31_6205C64E" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.BaseGameRTPMax}}"
+                                    loc:Localizer.For="Operator"
                                     Binding="{Binding BaseGameRTPMax}"
                                     Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}}"
                                     AutomationProperties.AutomationId="DataGridTextColumn32_6205C64E" />
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveResetRTP}}"
-                                        Width="120"
-                                        Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowProgressiveRtpAsRange), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}"
-                                        AutomationProperties.AutomationId="DataGridTemplateColumn33_6205C64E">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate DataType="{x:Type models:ReadOnlyGameConfiguration}">
-                            <Viewbox VerticalAlignment="Center"
-                                     HorizontalAlignment="Left"
-                                     StretchDirection="DownOnly"
-                                     Stretch="Uniform"
-                                     AutomationProperties.AutomationId="Viewbox34_6205C64E">
-                                <TextBlock FontSize="14"
-                                           AutomationProperties.AutomationId="TextBlock35_6205C64E">
-                                    <TextBlock.Style>
-                                        <Style TargetType="TextBlock"
-                                               BasedOn="{StaticResource ProgressiveResetRtpState}">
-                                            <Setter Property="Text"
-                                                    Value="{Binding ProgressiveResetRTP}" />
-                                        </Style>
-                                    </TextBlock.Style>
-                                </TextBlock>
-                            </Viewbox>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveResetRTPMin}}"
-                                        Width="100"
-                                        Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowProgressiveRtpSeparately), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}"
-                                        AutomationProperties.AutomationId="DataGridTemplateColumn36_6205C64E">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate DataType="{x:Type models:ReadOnlyGameConfiguration}">
-                            <Viewbox VerticalAlignment="Center"
-                                     HorizontalAlignment="Left"
-                                     StretchDirection="DownOnly"
-                                     Stretch="Uniform"
-                                     AutomationProperties.AutomationId="Viewbox37_6205C64E">
-                                <TextBlock FontSize="14"
-                                           AutomationProperties.AutomationId="TextBlock38_6205C64E">
-                                    <TextBlock.Style>
-                                        <Style TargetType="TextBlock"
-                                               BasedOn="{StaticResource ProgressiveResetRtpState}">
-                                            <Setter Property="Text"
-                                                    Value="{Binding ProgressiveResetRTPMin}" />
-                                        </Style>
-                                    </TextBlock.Style>
-                                </TextBlock>
-                            </Viewbox>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveResetRTPMax}}"
-                                        Width="100"
-                                        Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowProgressiveRtpSeparately), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}"
-                                        AutomationProperties.AutomationId="DataGridTemplateColumn39_6205C64E">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate DataType="{x:Type models:ReadOnlyGameConfiguration}">
-                            <Viewbox VerticalAlignment="Center"
-                                     HorizontalAlignment="Left"
-                                     StretchDirection="DownOnly"
-                                     Stretch="Uniform"
-                                     AutomationProperties.AutomationId="Viewbox40_6205C64E">
-                                <TextBlock FontSize="14"
-                                           AutomationProperties.AutomationId="TextBlock41_6205C64E">
-                                    <TextBlock.Style>
-                                        <Style TargetType="TextBlock"
-                                               BasedOn="{StaticResource ProgressiveResetRtpState}">
-                                            <Setter Property="Text"
-                                                    Value="{Binding ProgressiveResetRTPMax}" />
-                                        </Style>
-                                    </TextBlock.Style>
-                                </TextBlock>
-                            </Viewbox>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveIncrementRTP}}"
-                                        Width="120"
-                                        Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowProgressiveRtpAsRange), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}"
-                                        AutomationProperties.AutomationId="DataGridTemplateColumn42_6205C64E">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate DataType="{x:Type models:ReadOnlyGameConfiguration}">
-                            <Viewbox VerticalAlignment="Center"
-                                     HorizontalAlignment="Left"
-                                     StretchDirection="DownOnly"
-                                     Stretch="Uniform"
-                                     AutomationProperties.AutomationId="Viewbox43_6205C64E">
-                                <TextBlock FontSize="14"
-                                           AutomationProperties.AutomationId="TextBlock44_6205C64E">
-                                    <TextBlock.Style>
-                                        <Style TargetType="TextBlock"
-                                               BasedOn="{StaticResource ProgressiveIncrementRtpState}">
-                                            <Setter Property="Text"
-                                                    Value="{Binding ProgressiveIncrementRTP}" />
-                                        </Style>
-                                    </TextBlock.Style>
-                                </TextBlock>
-                            </Viewbox>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveIncrementRTPMin}}"
-                                        Width="100"
-                                        Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowProgressiveRtpSeparately), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}"
-                                        AutomationProperties.AutomationId="DataGridTemplateColumn45_6205C64E">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate DataType="{x:Type models:ReadOnlyGameConfiguration}">
-                            <Viewbox VerticalAlignment="Center"
-                                     HorizontalAlignment="Left"
-                                     StretchDirection="DownOnly"
-                                     Stretch="Uniform"
-                                     AutomationProperties.AutomationId="Viewbox46_6205C64E">
-                                <TextBlock FontSize="14"
-                                           AutomationProperties.AutomationId="TextBlock47_6205C64E">
-                                    <TextBlock.Style>
-                                        <Style TargetType="TextBlock"
-                                               BasedOn="{StaticResource ProgressiveIncrementRtpState}">
-                                            <Setter Property="Text"
-                                                    Value="{Binding ProgressiveIncrementRTPMin}" />
-                                        </Style>
-                                    </TextBlock.Style>
-                                </TextBlock>
-                            </Viewbox>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveIncrementRTPMax}}"
-                                        Width="100"
-                                        Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowProgressiveRtpSeparately), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}"
-                                        AutomationProperties.AutomationId="DataGridTemplateColumn48_6205C64E">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate DataType="{x:Type models:ReadOnlyGameConfiguration}">
-                            <Viewbox VerticalAlignment="Center"
-                                     HorizontalAlignment="Left"
-                                     StretchDirection="DownOnly"
-                                     Stretch="Uniform"
-                                     AutomationProperties.AutomationId="Viewbox49_6205C64E">
-                                <TextBlock FontSize="14"
-                                           AutomationProperties.AutomationId="TextBlock50_6205C64E">
-                                    <TextBlock.Style>
-                                        <Style TargetType="TextBlock"
-                                               BasedOn="{StaticResource ProgressiveIncrementRtpState}">
-                                            <Setter Property="Text"
-                                                    Value="{Binding ProgressiveIncrementRTPMax}" />
-                                        </Style>
-                                    </TextBlock.Style>
-                                </TextBlock>
-                            </Viewbox>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveResetRTP}}"
+                                    loc:Localizer.For="Operator"
+                                    Binding="{Binding ProgressiveResetRTP}"
+                                    Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowProgressiveRtpAsRange), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}"
+                                    AutomationProperties.AutomationId="DataGridTemplateColumn33_6205C64E" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveResetRTPMin}}"
+                                    loc:Localizer.For="Operator"
+                                    Binding="{Binding ProgressiveResetRTPMin}"
+                                    Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowProgressiveRtpSeparately), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}"
+                                    AutomationProperties.AutomationId="DataGridTemplateColumn36_6205C64E"/>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveResetRTPMax}}"
+                                    loc:Localizer.For="Operator"
+                                    Binding="{Binding ProgressiveResetRTPMax}"
+                                    Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowProgressiveRtpSeparately), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}"
+                                    AutomationProperties.AutomationId="DataGridTemplateColumn39_6205C64E" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveIncrementRTP}}"
+                                    loc:Localizer.For="Operator"
+                                    Binding="{Binding ProgressiveIncrementRTP}"
+                                    Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowProgressiveRtpAsRange), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}"
+                                    AutomationProperties.AutomationId="DataGridTemplateColumn42_6205C64E"/>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveIncrementRTPMin}}"
+                                    loc:Localizer.For="Operator"
+                                    Binding="{Binding ProgressiveIncrementRTPMin}"
+                                    Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowProgressiveRtpSeparately), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}"
+                                    AutomationProperties.AutomationId="DataGridTemplateColumn45_6205C64E"/>
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveIncrementRTPMax}}"
+                                    loc:Localizer.For="Operator"
+                                    Binding="{Binding ProgressiveIncrementRTPMax}"
+                                    Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowProgressiveRtpSeparately), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}"
+                                    AutomationProperties.AutomationId="DataGridTemplateColumn48_6205C64E"/>
                 <DataGridTextColumn Binding="{Binding TotalJurisdictionalRTP}"
                                     Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}"
                                     AutomationProperties.AutomationId="DataGridTextColumn51_6205C64E">
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal"
-                                        AutomationProperties.AutomationId="StackPanel52_6205C64E">
-                                <TextBlock
-                                        Text="{Binding Source={lex:Loc Key={x:Static loc:ResourceKeys.TotalGameRTP}, Converter={StaticResource ToUpperConverter}}}"
-                                           Width="100"
+                            <StackPanel Orientation="Horizontal" AutomationProperties.AutomationId="StackPanel52_6205C64E">
+                                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.TotalGameRTP}}"
+                                           loc:Localizer.For="Operator"
                                            TextWrapping="Wrap"
                                            AutomationProperties.AutomationId="TextBlock53_6205C64E" />
                                 <Button Name="InfoButton"
                                         Style="{StaticResource MonacoInfoButton}"
-                                        Margin="6,-16,20,0"
+                                        Margin="6 -16 20 0"
                                         Command="{Binding DataContext.ShowInfoPopupCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                         AutomationProperties.AutomationId="Button54_6205C64E">
                                     <Button.CommandParameter>
                                         <MultiBinding Converter="{StaticResource MultiValueConverter}">
                                             <Binding ElementName="InfoButton" />
-                                            <Binding ElementName="TotalJurisdictionRtpProxy"
-                                                     Path="Result" />
+                                            <Binding ElementName="TotalJurisdictionRtpProxy" Path="Result" />
                                         </MultiBinding>
                                     </Button.CommandParameter>
-                                    <lex:LocProxy x:Name="TotalJurisdictionRtpProxy"
-                                                  Source="{x:Static loc:ResourceKeys.TotalJurisdictionalRtpInfoButtonText}" />
+                                    <lex:LocProxy x:Name="TotalJurisdictionRtpProxy" Source="{x:Static loc:ResourceKeys.TotalJurisdictionalRtpInfoButtonText}" />
                                 </Button>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TotalGameRTPMin}}"
+                                    loc:Localizer.For="Operator"
                                     Binding="{Binding TotalJurisdictionalRTPMin}"
                                     Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}}"
                                     AutomationProperties.AutomationId="DataGridTextColumn55_6205C64E" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TotalGameRTPMax}}"
+                                    loc:Localizer.For="Operator"
                                     Binding="{Binding TotalJurisdictionalRTPMax}"
                                     Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}}"
                                     AutomationProperties.AutomationId="DataGridTextColumn56_6205C64E" />
-                <DataGridTextColumn
-                        Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}}"
-                                    AutomationProperties.AutomationId="DataGridTextColumn57_6205C64E">
+                <DataGridTextColumn Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}}" AutomationProperties.AutomationId="DataGridTextColumn57_6205C64E">
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal"
-                                        AutomationProperties.AutomationId="StackPanel58_6205C64E">
+                            <StackPanel Orientation="Horizontal" AutomationProperties.AutomationId="StackPanel58_6205C64E">
                                 <Button Name="InfoButton"
                                         Style="{StaticResource MonacoInfoButton}"
-                                        Margin="-30,-10,10,0"
+                                        Margin="-30 -10 10 0"
                                         Command="{Binding DataContext.ShowInfoPopupCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                         AutomationProperties.AutomationId="Button59_6205C64E">
                                     <Button.CommandParameter>
                                         <MultiBinding Converter="{StaticResource MultiValueConverter}">
                                             <Binding ElementName="InfoButton" />
-                                            <Binding ElementName="TotalJurisdictionRtpProxy"
-                                                     Path="Result" />
+                                            <Binding ElementName="TotalJurisdictionRtpProxy" Path="Result" />
                                         </MultiBinding>
                                     </Button.CommandParameter>
-                                    <lex:LocProxy x:Name="TotalJurisdictionRtpProxy"
-                                                  Source="{x:Static loc:ResourceKeys.TotalJurisdictionalRtpInfoButtonText}" />
+                                    <lex:LocProxy x:Name="TotalJurisdictionRtpProxy" Source="{x:Static loc:ResourceKeys.TotalJurisdictionalRtpInfoButtonText}" />
                                 </Button>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.RuntimeVersion}}"
+                                    loc:Localizer.For="Operator"
                                     Binding="{Binding RuntimeVersion}"
                                     AutomationProperties.AutomationId="DataGridTextColumn60_6205C64E" />
             </DataGrid.Columns>

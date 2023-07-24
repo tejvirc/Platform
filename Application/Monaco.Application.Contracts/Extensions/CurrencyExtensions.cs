@@ -3,10 +3,12 @@
     using System;
     using System.Globalization;
     using Common;
+    using Currency;
+    using Kernel;
     using Localization;
     using log4net;
     using Monaco.Localization.Properties;
-    using Contracts.Currency;
+    using OperatorMenu;
 
     /// <summary>
     ///     CurrencyExtensions
@@ -25,10 +27,19 @@
         private static string _majorUnitsPlural;
         private static string _minorUnitsPlural;
 
+        private static IOperatorMenuConfiguration _configuration;
+
         /// <summary>
         /// The default amount used to generate currency description
         /// </summary>
         public const decimal DefaultDescriptionAmount = 1000.00M;
+
+        private static IOperatorMenuConfiguration Configuration =>
+            _configuration ??= ServiceManager.GetInstance().TryGetService<IOperatorMenuConfiguration>();
+
+        private static bool UseOperatorCultureForCurrencyFormatting => Configuration?.GetSetting(OperatorMenuSetting.UseOperatorCultureForCurrencyFormatting, false) ?? false;
+
+        private static CultureInfo CurrencyDisplayCulture => UseOperatorCultureForCurrencyFormatting ? Localizer.For(CultureFor.Operator).CurrentCulture : CurrencyExtensions.CurrencyCultureInfo;
 
         /// <summary>
         /// The configured currency
@@ -39,6 +50,11 @@
         ///     Gets the currency minor Units per major.
         /// </summary>
         public static decimal CurrencyMinorUnitsPerMajorUnit { get; private set; } = 100M;
+
+        /// <summary>
+        ///     Gets currency minor symbol.
+        /// </summary>
+        public static string MinorUnitSymbol { get; private set; } = string.Empty;
 
         /// <summary>
         ///     Gets the currency culture info.
@@ -243,6 +259,28 @@
         }
 
         /// <summary>
+        ///     Formats currency string using Operator defined culture.
+        /// </summary>
+        /// <param name="amount">Amount</param>
+        /// <param name="withMillicents">Whether to add extra digits for fractional currency (default false)</param>
+        /// <returns></returns>
+        public static string FormattedCurrencyStringForOperator(this decimal amount, bool withMillicents = false)
+        {
+            return FormattedCurrencyString(amount, withMillicents, CurrencyDisplayCulture);
+        }
+
+        /// <summary>
+        ///     Formats currency string using Operator defined culture.
+        /// </summary>
+        /// <param name="amount">Amount</param>
+        /// <param name="withMillicents">Whether to add extra digits for fractional currency (default false)</param>
+        /// <returns></returns>
+        public static string FormattedCurrencyStringForOperator(this double amount, bool withMillicents = false)
+        {
+            return FormattedCurrencyString(amount, withMillicents, CurrencyDisplayCulture);
+        }
+
+        /// <summary>
         ///     Formats currency string.
         /// </summary>
         /// <param name="amount">Amount.</param>
@@ -266,10 +304,12 @@
         /// </summary>
         /// <param name="amount">Amount.</param>
         /// <param name="format">Format override.</param>
+        /// <param name="culture">The optional CultureInfo to use for string formatting</param>
         /// <returns>Formatted currency string.</returns>
-        public static string FormattedCurrencyString(this int amount, string format = null)
+        public static string FormattedCurrencyString(this int amount, string format = null, CultureInfo culture = null)
         {
-            return amount.ToString(format ?? "C", CurrencyCultureInfo);
+            culture ??= CurrencyCultureInfo;
+            return amount.ToString(format ?? "C", culture);
         }
 
         /// <summary>
@@ -288,16 +328,18 @@
         /// </summary>
         /// <param name="amount">Amount.</param>
         /// <param name="withMillicents">Whether to add extra digits for fractional currency (default false)</param>
+        /// <param name="culture">The optional CultureInfo to use for string formatting</param>
         /// <returns>Formatted currency string.</returns>
-        public static string FormattedCurrencyString(this double amount, bool withMillicents = false)
+        public static string FormattedCurrencyString(this double amount, bool withMillicents = false, CultureInfo culture = null)
         {
-            var subUnitDigits = CurrencyCultureInfo.NumberFormat.CurrencyDecimalDigits;
+            culture ??= CurrencyCultureInfo;
+            var subUnitDigits = culture.NumberFormat.CurrencyDecimalDigits;
             if (withMillicents)
             {
                 subUnitDigits += MillicentPerCentsDigits;
             }
 
-            return amount.ToString($"C{subUnitDigits}", CurrencyCultureInfo);
+            return amount.ToString($"C{subUnitDigits}", culture);
         }
 
         /// <summary>
@@ -305,16 +347,19 @@
         /// </summary>
         /// <param name="amount">Amount.</param>
         /// <param name="withMillicents">Whether to add extra digits for fractional currency (default false)</param>
+        /// <param name="culture">The optional culture used for formatting.  If none is provided, defaults to the current Currency culture.</param>
         /// <returns>Formatted currency string.</returns>
-        public static string FormattedCurrencyString(this long amount, bool withMillicents = false)
+        public static string FormattedCurrencyString(this long amount, bool withMillicents = false, CultureInfo culture = null)
         {
-            var subUnitDigits = CurrencyCultureInfo.NumberFormat.CurrencyDecimalDigits;
+            culture ??= CurrencyCultureInfo;
+
+            var subUnitDigits = culture.NumberFormat.CurrencyDecimalDigits;
             if (withMillicents)
             {
                 subUnitDigits += MillicentPerCentsDigits;
             }
 
-            return amount.ToString($"C{subUnitDigits}", CurrencyCultureInfo);
+            return amount.ToString($"C{subUnitDigits}", culture);
         }
 
         /// <summary>
@@ -367,6 +412,7 @@
                 Math.Pow(
                     cultureInfo.NumberFormat.NativeDigits.Length,
                     cultureInfo.NumberFormat.CurrencyDecimalDigits));
+            MinorUnitSymbol = minorUnitSymbol ?? string.Empty;
 
             RegionInfo region = null;
 
@@ -472,6 +518,14 @@
             {
                 currencyCulture.NumberFormat.CurrencyDecimalDigits = 0;
             }
+        }
+
+        /// <summary>
+        /// Update the Currency Culture manually
+        /// </summary>
+        public static void UpdateCurrencyCulture()
+        {
+            CurrencyCultureInfo = CultureInfo.CurrentCulture;
         }
     }
 }

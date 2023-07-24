@@ -37,6 +37,8 @@
         private readonly Dictionary<int, bool> _doors = new Dictionary<int, bool>();
         private readonly IEventBus _eventBus;
         private readonly IDoorMonitor _doorMonitor;
+        private readonly IDoorService _doorService;
+        private readonly IPropertiesManager _propertiesManager;
         private readonly IAuditTicketCreator _auditTicketCreator;
         private readonly IVerificationTicketCreator _verificationTicketCreator;
 
@@ -55,6 +57,7 @@
         public AuditTicketMonitor()
             : this(
                 ServiceManager.GetInstance().GetService<IDoorMonitor>(),
+                ServiceManager.GetInstance().GetService<IDoorService>(),
                 ServiceManager.GetInstance().GetService<IPropertiesManager>(),
                 ServiceManager.GetInstance().GetService<IEventBus>(),
                 ServiceManager.GetInstance().GetService<IAuditTicketCreator>(),
@@ -64,23 +67,21 @@
 
         public AuditTicketMonitor(
             IDoorMonitor doorMonitor,
+            IDoorService doorService,
             IPropertiesManager propertiesManager,
             IEventBus eventBus,
             IAuditTicketCreator auditTicketCreator,
             IVerificationTicketCreator verificationTicketCreator)
         {
             _doorMonitor = doorMonitor ?? throw new ArgumentNullException(nameof(doorMonitor));
+            _doorService = doorService ?? throw new ArgumentNullException(nameof(doorService));
+            _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _auditTicketCreator = auditTicketCreator ?? throw new ArgumentNullException(nameof(auditTicketCreator));
             _verificationTicketCreator = verificationTicketCreator ??
                                          throw new ArgumentNullException(nameof(verificationTicketCreator));
 
-            if (propertiesManager == null)
-            {
-                throw new ArgumentNullException(nameof(propertiesManager));
-            }
-
-            _useAuditTicketCreator = !(bool)propertiesManager
+            _useAuditTicketCreator = !(bool)_propertiesManager
                 .GetProperty(ApplicationConstants.DetailedAuditTickets, false);
         }
 
@@ -226,9 +227,10 @@
         private void Configure()
         {
             var logicDoors = _doorMonitor.GetLogicalDoors();
+            var jurisdiction = _propertiesManager.GetValue(ApplicationConstants.JurisdictionKey, string.Empty);
 
             var triggers = MonoAddinsHelper.GetSelectedNodes<TriggersNode>(ConfigurationExtensionPath)
-                .FirstOrDefault();
+                .FirstOrDefault(node => node.Addin.Id.Contains(jurisdiction));
 
             if (triggers == null)
             {
@@ -237,14 +239,14 @@
 
             foreach (var trigger in MonoAddinsHelper.GetChildNodes<DoorTriggerNode>(triggers))
             {
-                if (_doorMonitor.Doors.All(x => x.Value != trigger.Name))
+                if (_doorService.LogicalDoors.All(doorIdLogicalDoorPairs => doorIdLogicalDoorPairs.Value.Name != trigger.Name))
                 {
                     continue;
                 }
 
-                var logicalId = _doorMonitor.Doors
-                    .Where(x => x.Value == trigger.Name)
-                    .Select(x => x.Key)
+                var logicalId = _doorService.LogicalDoors
+                    .Where(doorIdLogicalDoorPairs => doorIdLogicalDoorPairs.Value.Name == trigger.Name)
+                    .Select(doorIdLogicalDoorPairs => doorIdLogicalDoorPairs.Key)
                     .First();
 
                 if (logicDoors.TryGetValue(logicalId, out var status))
@@ -312,22 +314,16 @@
 
         private void PrintAuditTickets(DoorOpenMeteredEvent data = null)
         {
-            if (_useAuditTicketCreator && data != null)
+            if (_useAuditTicketCreator && data != null && data.LogicalId != ((int)DoorLogicalId.Logic) )
             {
                 _pendingTickets[TicketField] =
                     _auditTicketCreator.CreateAuditTicket(_doorMonitor.Doors[data.LogicalId]);
             }
             else
             {
-                _pendingTickets[TicketField] = _verificationTicketCreator.Create(
-                    0,
-                    Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.AuditTicketTitle));
-                _pendingTickets[Ticket1Field] = _verificationTicketCreator.Create(
-                    1,
-                    Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.AuditTicketTitle));
-                _pendingTickets[Ticket2Field] = _verificationTicketCreator.Create(
-                    2,
-                    Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.AuditTicketTitle));
+                _pendingTickets[TicketField] = _verificationTicketCreator.Create(0);
+                _pendingTickets[Ticket1Field] = _verificationTicketCreator.Create(1);
+                _pendingTickets[Ticket2Field] = _verificationTicketCreator.Create(2);
             }
 
             _block[TicketField] = Serialize(_pendingTickets[TicketField]);

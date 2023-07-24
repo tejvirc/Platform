@@ -49,5 +49,15 @@
         ///     Image that can be used for previewing different background colors.
         /// </summary>
         BackgroundPreview,
+
+        /// <summary>
+        ///     Image used as the background for a lobby denomination button.
+        /// </summary>
+        DenomButton,
+
+        /// <summary>
+        ///     Image used as the background panel for the lobby denomination buttons.
+        /// </summary>
+        DenomPanel
     }
 }

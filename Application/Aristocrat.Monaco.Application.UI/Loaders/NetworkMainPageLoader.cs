@@ -8,7 +8,9 @@
 
     public class NetworkMainPageLoader : OperatorMenuPageLoader
     {
-        public override string PageName => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NetworkInfoConfiguration);
+        private readonly string _pageNameResourceKey = ResourceKeys.NetworkInfoConfiguration;
+
+        public override string PageName => Localizer.For(CultureFor.Operator).GetString(_pageNameResourceKey);
 
         protected override IOperatorMenuPage CreatePage()
         {
@@ -17,7 +19,7 @@
 
         protected override IOperatorMenuPageViewModel CreateViewModel()
         {
-            return new NetworkMainPageViewModel(PageName);
+            return new NetworkMainPageViewModel(_pageNameResourceKey);
         }
     }
 }

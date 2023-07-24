@@ -6,7 +6,13 @@
 
   <Dependencies>
     <Addin id="Monaco.Application" version="1.0" />
+    <Addin id="AccountingRunnable" version="1.0" />
   </Dependencies>
+
+  <Extension path="/Accounting/Services">
+    <Service type="Aristocrat.Monaco.Gaming.UI.HandCountOverlayService" />
+    <Service type="Aristocrat.Monaco.Gaming.UI.MaxWinOverlayService" />
+  </Extension>
 
   <Extension path="/Application/Configuration/Settings">
     <Settings type="Aristocrat.Monaco.Gaming.UI.Settings.GamingConfigurationSettings" />

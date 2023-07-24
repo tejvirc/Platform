@@ -13,7 +13,7 @@
         /// </summary>
         /// <param name="path">The path to the animation file</param>
         /// <param name="animationType">The type of the animation file</param>
-        public AnimationFile(string path, AnimationType animationType) : this(path, animationType, System.IO.Path.GetFileName(path))
+        public AnimationFile(string path, AnimationType animationType) : this(path, animationType, System.IO.Path.GetFileNameWithoutExtension(path))
         {
         }
 

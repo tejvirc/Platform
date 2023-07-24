@@ -2,15 +2,16 @@
 {
     using System;
     using System.Collections.ObjectModel;
-    using System.Collections.Specialized;
     using System.ComponentModel;
     using System.Linq;
     using ConfigWizard;
     using Contracts;
+    using Contracts.Localization;
     using Contracts.OperatorMenu;
     using Hardware.Contracts.Door;
     using Kernel;
     using Kernel.Contracts;
+    using MVVM;
 
     [CLSCompliant(false)]
     public class DoorPageViewModel : InspectionWizardViewModelBase
@@ -39,6 +40,73 @@
         public ObservableCollection<DoorViewModel> Doors { get; } = new ObservableCollection<DoorViewModel>();
 
         protected override void OnLoaded()
+        {
+            LoadDoors();
+
+            base.OnLoaded();
+        }
+
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            MvvmHelper.ExecuteOnUI(() =>
+            {
+                ClearDoors();
+                LoadDoors();
+            });
+
+            base.OnOperatorCultureChanged(evt);
+        }
+
+        protected override void OnUnloaded()
+        {
+            ClearDoors();
+            base.OnUnloaded();
+        }
+
+        protected override void SetupNavigation()
+        {
+            UpdateNavigation();
+        }
+
+        protected override void SaveChanges()
+        {
+        }
+
+        private void UpdateNavigation()
+        {
+            if (WizardNavigator != null)
+            {
+                WizardNavigator.CanNavigateForward = Doors.All(d => d.IsTestPassed);
+            }
+        }
+
+        private void OnDoorPropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName != nameof(DoorViewModel.IsTestPassed))
+            {
+                return;
+            }
+
+            UpdateNavigation();
+        }
+
+        private void ClearDoors()
+        {
+            foreach (var door in Doors)
+            {
+                door.PropertyChanged -= OnDoorPropertyChanged;
+                door.OnUnloaded();
+            }
+
+            Doors.Clear();
+
+            if (!IsWizardPage)
+            {
+                Access.IgnoreDoors = false;
+            }
+        }
+
+        private void LoadDoors()
         {
             Doors.Clear();
             if (!IsWizardPage)
@@ -76,53 +144,6 @@
             {
                 door.PropertyChanged += OnDoorPropertyChanged;
             }
-
-            base.OnLoaded();
-        }
-
-        protected override void OnUnloaded()
-        {
-            foreach (var door in Doors)
-            {
-                door.PropertyChanged -= OnDoorPropertyChanged;
-                door.OnUnloaded();
-            }
-
-            Doors.Clear();
-
-            if (!IsWizardPage)
-            {
-                Access.IgnoreDoors = false;
-            }
-
-            base.OnUnloaded();
-        }
-
-        protected override void SetupNavigation()
-        {
-            UpdateNavigation();
-        }
-
-        protected override void SaveChanges()
-        {
-        }
-
-        private void UpdateNavigation()
-        {
-            if (WizardNavigator != null)
-            {
-                WizardNavigator.CanNavigateForward = Doors.All(d => d.IsTestPassed);
-            }
-        }
-
-        private void OnDoorPropertyChanged(object sender, PropertyChangedEventArgs args)
-        {
-            if (args.PropertyName != nameof(DoorViewModel.IsTestPassed))
-            {
-                return;
-            }
-
-            UpdateNavigation();
         }
     }
 }

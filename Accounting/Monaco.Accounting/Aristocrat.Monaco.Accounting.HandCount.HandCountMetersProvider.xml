@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<BlockFormat version="1" name="Vgt.Client12.Accounting.HandCount.HandCountMetersProvider.xml">
+  <Fields>
+    <Field DataType="Int64" FieldName="HandCountLifetime" />
+    <Field DataType="Int64" FieldName="HandCountPeriod" />
+    <Field DataType="Int64" FieldName="HardMeterOutAmountLifetime" />
+    <Field DataType="Int64" FieldName="HardMeterOutAmountPeriod" />
+    <Field DataType="Int64" FieldName="HardMeterOutCountLifetime" />
+    <Field DataType="Int64" FieldName="HardMeterOutCountPeriod" />
+    <Field DataType="Int64" FieldName="ResidualAmountLifetime" />
+    <Field DataType="Int64" FieldName="ResidualAmountPeriod" />
+  </Fields>
+</BlockFormat>

@@ -78,6 +78,7 @@
             LightTestViewModel = new(ReelController, _edgeLightController, Inspection);
             LightAnimationTestViewModel = new(ReelController);
             ReelTestViewModel = new(ReelController, EventBus, MaxSupportedReels, ReelInfo, UpdateScreen, Inspection);
+            ReelAnimationTestViewModel = new(ReelController, ReelInfo, UpdateScreen);
 
             SelfTestCommand = new ActionCommand<object>(_ => SelfTest(false));
             SelfTestClearCommand = new ActionCommand<object>(_ => SelfTest(true));
@@ -101,6 +102,11 @@
         ///     Gets the light animation test view model
         /// </summary>
         public MechanicalReelsLightAnimationTestViewModel LightAnimationTestViewModel { get; }
+
+        /// <summary>
+        ///     Gets the light animation test view model
+        /// </summary>
+        public MechanicalReelsAnimationTestViewModel ReelAnimationTestViewModel { get; }
 
         /// <summary>
         ///     Gets the light test view model
@@ -161,7 +167,7 @@
                 _reelAnimationTestScreenHidden = value;
                 RaisePropertyChanged(nameof(ReelAnimationTestScreenHidden));
                 RaisePropertyChanged(nameof(ReelTestButtonHidden));
-                CancelLightTests();
+                CancelReelAnimationTests();
             }
         }
         
@@ -216,7 +222,6 @@
             {
                 _reelCount = value;
                 RaisePropertyChanged(nameof(ReelCount));
-                RaisePropertyChanged(nameof(ReelCountForeground));
             }
         }
 
@@ -237,9 +242,9 @@
         }
 
         /// <summary>
-        ///     Gets the reel count foreground color
+        ///     Gets the info foreground color
         /// </summary>
-        public SolidColorBrush ReelCountForeground => Brushes.White;
+        public SolidColorBrush InfoForeground => Brushes.White;
 
         /// <summary>
         ///     Gets the show light test command
@@ -396,6 +401,8 @@
                 return;
             }
 
+            CancelReelAnimationTests();
+
             LightAnimationTestScreenHidden = !IsAnimationController;
             LightTestScreenHidden = IsAnimationController;
 
@@ -426,6 +433,7 @@
         private void ShowSettings()
         {
             CancelLightTests();
+            CancelReelAnimationTests();
 
             SettingsScreenHidden = false;
             
@@ -464,6 +472,7 @@
         {
             ClearPattern(ref _offToken);
             CancelLightTests();
+            CancelReelAnimationTests();
             EventBus.UnsubscribeAll(this);
             base.OnUnloaded();
         }
@@ -474,7 +483,9 @@
             RaisePropertyChanged(nameof(TestModeToolTipDisabled));
 
             LightTestScreenHidden = true;
+            LightAnimationTestScreenHidden = true;
             ReelTestScreenHidden = true;
+            ReelAnimationTestScreenHidden = true;
             SettingsScreenHidden = false;
         }
         
@@ -524,6 +535,7 @@
             }
 
             ReelTestViewModel.ReelInfo = ReelInfo;
+            ReelAnimationTestViewModel.ReelInfo = ReelInfo;
         }
         
         /// <inheritdoc />
@@ -555,6 +567,7 @@
                     SetReelControllerStatus();
                     SetReelsState();
                     ReelTestViewModel.UpdateScreen();
+                    ReelAnimationTestViewModel.UpdateScreen();
                 });
         }
         
@@ -872,6 +885,7 @@
             }
 
             ReelTestViewModel.ReelInfo = ReelInfo;
+            ReelAnimationTestViewModel.ReelInfo = ReelInfo;
         }
 
         private void SetOffSets()
@@ -892,6 +906,11 @@
             LightAnimationTestViewModel?.CancelTest();
         }
 
+        private void CancelReelAnimationTests()
+        {
+            ReelAnimationTestViewModel?.CancelTest();
+        }
+
         private async Task FlashLights()
         {
             if (_animationCapabilities is null)
@@ -909,7 +928,7 @@
                     Step = -1,
                     LoopCount = -1,
                     ReelIndex = -1,
-                    Id = _animationCapabilities.AnimationFiles.FirstOrDefault(x => x.FriendlyName == SampleLightShowName)?.AnimationId ?? 0
+                    AnimationName = SampleLightShowName
                 };
 
                 await _animationCapabilities.StopAllLightShows();

@@ -6,6 +6,7 @@
     using System.Reflection;
     using System.Text;
     using Accounting.Contracts;
+    using Accounting.Contracts.HandCount;
     using Accounting.Contracts.TransferOut;
     using Application.Contracts;
     using Application.Contracts.Localization;
@@ -107,8 +108,8 @@
 
             systemDisable.Disable(GamingConstants.FatalGameErrorGuid, SystemDisablePriority.Immediate,
                 () => GameErrorCode.LiabilityLimit == log?.ErrorCode
-                    ? Localizer.For(CultureFor.Player).GetString(ResourceKeys.LiabilityCheckFailed)
-                    : Localizer.For(CultureFor.Player).GetString(ResourceKeys.LegitimacyCheckFailed));
+                    ? Localizer.ForLockup().GetString(ResourceKeys.LiabilityCheckFailed)
+                    : Localizer.ForLockup().GetString(ResourceKeys.LegitimacyCheckFailed));
         }
 
         private int CurrentLogIndex { get; set; }
@@ -504,12 +505,12 @@
             log.EndTransactionId = _idProvider.CurrentTransactionId;
             log.PlayState = PlayState.GameEnded;
             log.LastUpdate = endTime;
-            
+
             Logger.Debug($"[Game End {CurrentLogIndex}] End Time {endTime}");
         }
 
         /// <inheritdoc />
-        public void End()
+        public void End(IEnumerable<Jackpot> jackpotSnapshot)
         {
             // Do not persist replays but do in game recovery.
             if (_gameDiagnostics.IsActive)
@@ -524,6 +525,8 @@
             log.PlayState = PlayState.Idle;
             log.Events = _loggedEventContainer.HandOffEvents();
             log.LastUpdate = DateTime.UtcNow;
+            log.JackpotSnapshotEnd = jackpotSnapshot?.Select(item => new Jackpot(item)).ToList() ??
+                                     Enumerable.Empty<Jackpot>();
 
             Persist(log);
 
@@ -1079,6 +1082,14 @@
 
                 case VoucherOutTransaction voucherOutTransaction:
                     info.Amount = voucherOutTransaction.Amount;
+                    break;
+
+                case HardMeterOutTransaction hardMeterOutTransaction:
+                    info.Amount = hardMeterOutTransaction.Amount;
+                    break;
+
+                case ResidualCreditsTransaction residualCreditsTransaction:
+                    info.Amount = residualCreditsTransaction.Amount;
                     break;
 
                 case WatTransaction watTransaction:

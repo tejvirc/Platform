@@ -9,7 +9,9 @@
 
     internal class GamesMainPageLoader : OperatorMenuPageLoader
     {
-        public override string PageName => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Games);
+        private readonly string _pageNameResourceKey = ResourceKeys.Games;
+
+        public override string PageName => Localizer.For(CultureFor.Operator).GetString(_pageNameResourceKey);
 
         protected override IOperatorMenuPage CreatePage()
         {
@@ -18,7 +20,7 @@
 
         protected override IOperatorMenuPageViewModel CreateViewModel()
         {
-            return new GamesMainPageViewModel(PageName);
+            return new GamesMainPageViewModel(_pageNameResourceKey);
         }
     }
 }

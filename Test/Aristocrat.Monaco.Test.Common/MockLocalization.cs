@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Test.Common
 {
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
     using System.Reflection;
     using Application.Contracts.Localization;
@@ -32,6 +33,9 @@
 
             provider.Setup(x => x.IsCultureAvailable(It.IsAny<CultureInfo>()))
                 .Returns(true);
+
+            provider.SetupGet(x => x.AvailableCultures)
+                .Returns(new List<CultureInfo>() { CultureInfo.GetCultureInfo("en-US") });
 
             provider.Setup(x => x.GetObject<object>(It.IsAny<string>()))
                 .Returns(
@@ -71,7 +75,7 @@
 
             provider.Setup(x => x.GetString(It.IsAny<string>(), It.IsAny<Action<Exception>>()))
                 .Returns(
-                    (string key) => GetObject(key, CultureInfo.CurrentCulture));
+                    (string key, Action<Exception> exceptionHandler) => GetObject(key, CultureInfo.CurrentCulture));
 
             provider.Setup(x => x.GetString(It.IsAny<CultureInfo>(), It.IsAny<string>()))
                 .Returns(

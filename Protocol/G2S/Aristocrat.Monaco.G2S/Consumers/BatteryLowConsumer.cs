@@ -28,7 +28,7 @@
                 return;
             }
 
-            _eventLift.Report(cabinet, EventCode.G2S_CBE323);
+            _eventLift.Report(cabinet, EventCode.G2S_CBE323, batteryLowEvent);
         }
     }
 }

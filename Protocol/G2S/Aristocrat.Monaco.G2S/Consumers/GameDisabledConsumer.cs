@@ -71,7 +71,8 @@
             _eventLift.Report(
                 gamePlay,
                 eventCode,
-                gamePlay.DeviceList(status));
+                gamePlay.DeviceList(status),
+                theEvent);
         }
     }
 }

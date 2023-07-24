@@ -95,7 +95,8 @@
                     device,
                     eventCode,
                     device.DeviceList(status),
-                    null);
+                    metersList: null,
+                    theEvent);
             }
         }
     }

@@ -1,11 +1,14 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.OperatorMenu
 {
-    using Contracts.OperatorMenu;
     using System;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
     using System.Windows.Interactivity;
+    using System.Windows.Media;
+    using Contracts.Localization;
+    using Contracts.OperatorMenu;
+    using Localizer = Monaco.Localization.Markup.Localizer;
 
     /// <summary>
     ///     Use this base UserControl class when creating an Operator Menu WPF page
@@ -17,6 +20,8 @@
         protected OperatorMenuPage()
         {
             DataContextChanged += OnDataContextChanged;
+            Localizer.SetFor(this, CultureFor.Operator);
+            Background = Brushes.Transparent;
         }
 
         private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)

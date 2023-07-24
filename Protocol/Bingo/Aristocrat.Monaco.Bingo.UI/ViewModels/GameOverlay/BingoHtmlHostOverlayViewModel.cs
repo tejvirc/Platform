@@ -810,7 +810,12 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
         private async Task Handle(HostConnectedEvent e, CancellationToken token)
         {
             var helpAddress = _unitOfWorkFactory.GetHelpUri(_propertiesManager).ToString();
-            await _dispatcher.ExecuteAndWaitOnUIThread(() => BingoHelpAddress = helpAddress);
+            await _dispatcher.ExecuteAndWaitOnUIThread(
+                () =>
+                {
+                    BingoHelpAddress = helpAddress;
+                    ReloadBrowser(BingoHelpWebBrowser);
+                });
         }
 
         private async Task Handle(BankBalanceChangedEvent e, CancellationToken token)

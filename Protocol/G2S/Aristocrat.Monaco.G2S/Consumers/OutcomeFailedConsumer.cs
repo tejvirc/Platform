@@ -34,7 +34,8 @@
                 device,
                 EventCode.G2S_CLE102,
                 theEvent.Transaction.TransactionId,
-                device.TransactionList(theEvent.Transaction.ToCentralLog(_games)));
+                device.TransactionList(theEvent.Transaction.ToCentralLog(_games)),
+                theEvent);
         }
     }
 }

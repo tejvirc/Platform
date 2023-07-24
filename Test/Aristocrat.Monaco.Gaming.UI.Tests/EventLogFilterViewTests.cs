@@ -43,6 +43,8 @@
                 MoqServiceManager.CreateAndAddService<IOperatorMenuConfiguration>(MockBehavior.Strict);
             _operatorMenuConfiguration.Setup(o => o.GetPageName(It.IsAny<IOperatorMenuConfigObject>()))
                 .Returns(string.Empty);
+            _operatorMenuConfiguration.Setup(o => o.GetSetting<Boolean>(OperatorMenuSetting.UseOperatorCultureForCurrencyFormatting, false))
+                .Returns(false);
 
             _tiltLogger = MoqServiceManager.CreateAndAddService<ITiltLogger>(MockBehavior.Strict);
             _tiltLogger.Setup(t => t.GetEventsSubscribed(It.IsAny<string>())).Returns(1);

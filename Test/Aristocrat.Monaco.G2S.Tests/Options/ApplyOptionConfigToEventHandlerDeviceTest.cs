@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Client.Devices.v21;
     using Aristocrat.G2S.Protocol.v21;
@@ -28,7 +29,8 @@
             var device = new EventHandlerDevice(
                 DeviceId,
                 _deviceObserverMock.Object,
-                _eventPersistenceManagermMock.Object);
+                _eventPersistenceManagermMock.Object,
+                _eventLiftMock.Object);
 
             Assert.AreEqual(device.ConfigurationId, 0);
             Assert.IsTrue(device.RestartStatus);

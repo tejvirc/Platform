@@ -20,7 +20,8 @@
         public override void Consume(GameInitializationCompletedEvent theEvent)
         {
             if (_properties.GetValue(GamingConstants.AutocompleteSet, false) &&
-                _properties.GetValue(GamingConstants.AutocompleteExpired, false))
+                _properties.GetValue(GamingConstants.AutocompleteExpired, false) &&
+                _properties.GetValue(GamingConstants.AutocompleteGameRoundEnabled, true))
             {
                 _runtime.UpdateFlag(RuntimeCondition.AutoCompleteGameRound, true);
             }

@@ -79,6 +79,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Acceptance Rate.
+		/// </summary>
+		public static string AcceptanceRate {
+			get {
+				return ResourceManager.GetString("AcceptanceRate", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Accepted.
 		/// </summary>
         /// <remarks>
@@ -219,6 +228,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ActivationTimeLabel {
 			get {
 				return ResourceManager.GetString("ActivationTimeLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Active Connections.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string ActiveConnections {
+			get {
+				return ResourceManager.GetString("ActiveConnections", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -1051,6 +1072,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Any Key-Off.
+		/// </summary>
+		public static string AnyKeyOff {
+			get {
+				return ResourceManager.GetString("AnyKeyOff", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Application Performance.
 		/// </summary>
         /// <remarks>
@@ -1258,6 +1288,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to   Attendant Paid External Bonus Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string AttendantPaidExternalBonusWinLabel {
+			get {
+				return ResourceManager.GetString("AttendantPaidExternalBonusWinLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Attendant Paid (Jackpot).
 		/// </summary>
         /// <remarks>
@@ -1266,6 +1308,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string AttendantPaidJackpot {
 			get {
 				return ResourceManager.GetString("AttendantPaidJackpot", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to   Attendant Paid Paytable Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string AttendantPaidPaytableWinLabel {
+			get {
+				return ResourceManager.GetString("AttendantPaidPaytableWinLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to   Attendant Paid Progressive Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string AttendantPaidProgressiveWinLabel {
+			get {
+				return ResourceManager.GetString("AttendantPaidProgressiveWinLabel", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -1657,6 +1723,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Bad Read.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string BadRead {
+			get {
+				return ResourceManager.GetString("BadRead", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to BALL CALL.
 		/// </summary>
         /// <remarks>
@@ -1725,6 +1803,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string BankTooLong {
 			get {
 				return ResourceManager.GetString("BankTooLong", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Interleave 2 of 5.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Accounting.UI
+        /// </remarks>
+		public static string BarcodeInterleave2Of5 {
+			get {
+				return ResourceManager.GetString("BarcodeInterleave2Of5", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -1998,6 +2088,9 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///   Looks up a localized string similar to Bell Enabled.
 		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
 		public static string BellEnabled {
 			get {
 				return ResourceManager.GetString("BellEnabled", resourceCulture) ?? string.Empty;
@@ -2098,6 +2191,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Max Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string BetOptionMaxWin {
+			get {
+				return ResourceManager.GetString("BetOptionMaxWin", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Bet (Turnover).
 		/// </summary>
         /// <remarks>
@@ -2118,6 +2223,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string BigWinBeagleBoneLightShowText {
 			get {
 				return ResourceManager.GetString("BigWinBeagleBoneLightShowText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Note: After first COAM game is played, Bill Accept....
+		/// </summary>
+		public static string BillAcceptanceInHelpText {
+			get {
+				return ResourceManager.GetString("BillAcceptanceInHelpText", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -4054,6 +4168,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Cash Door Open.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CashDoorOpenLabel {
+			get {
+				return ResourceManager.GetString("CashDoorOpenLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Stacker Door Open Power Off Count.
 		/// </summary>
         /// <remarks>
@@ -4062,6 +4188,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string CashDoorOpenPowerOffCount {
 			get {
 				return ResourceManager.GetString("CashDoorOpenPowerOffCount", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Cash Door Open Power Off.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CashDoorOpenPowerOffLabel {
+			get {
+				return ResourceManager.GetString("CashDoorOpenPowerOffLabel", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -4222,6 +4360,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string CashoutTickets {
 			get {
 				return ResourceManager.GetString("CashoutTickets", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Cash Played.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CashPlayed {
+			get {
+				return ResourceManager.GetString("CashPlayed", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -5411,6 +5561,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Clear Selection.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string ClearSelection {
+			get {
+				return ResourceManager.GetString("ClearSelection", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Clock.
 		/// </summary>
         /// <remarks>
@@ -5503,6 +5665,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ClosingProtocol {
 			get {
 				return ResourceManager.GetString("ClosingProtocol", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to CLR Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string ClrMemoryLabel {
+			get {
+				return ResourceManager.GetString("ClrMemoryLabel", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -7706,6 +7880,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Active.
+		/// </summary>
+		public static string DeviceManagerActiveSelection {
+			get {
+				return ResourceManager.GetString("DeviceManagerActiveSelection", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Cancel Changes.
 		/// </summary>
         /// <remarks>
@@ -7927,6 +8110,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string DeviceManagerOwner {
 			get {
 				return ResourceManager.GetString("DeviceManagerOwner", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Owner.
+		/// </summary>
+		public static string DeviceManagerOwnerSelection {
+			get {
+				return ResourceManager.GetString("DeviceManagerOwnerSelection", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -8924,6 +9116,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Door.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Door {
+			get {
+				return ResourceManager.GetString("Door", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Door Events.
 		/// </summary>
         /// <remarks>
@@ -9385,6 +9589,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string EgmIdLabel {
 			get {
 				return ResourceManager.GetString("EgmIdLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Cash Won.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string EgmPaidGameWonAmtLabel {
+			get {
+				return ResourceManager.GetString("EgmPaidGameWonAmtLabel", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -10061,6 +10277,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to End Jackpot.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string EndJackpot {
+			get {
+				return ResourceManager.GetString("EndJackpot", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to End offset is negative.
 		/// </summary>
         /// <remarks>
@@ -10081,6 +10309,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string EndOffsetNegativeErrorMessage2 {
 			get {
 				return ResourceManager.GetString("EndOffsetNegativeErrorMessage2", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to End Performance Details.
+		/// </summary>
+		public static string EndPerformanceDetails {
+			get {
+				return ResourceManager.GetString("EndPerformanceDetails", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -11138,6 +11375,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Escrowed.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Escrowed {
+			get {
+				return ResourceManager.GetString("Escrowed", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Escrowed .
 		/// </summary>
         /// <remarks>
@@ -11324,12 +11573,12 @@ namespace Aristocrat.Monaco.Localization.Properties {
 			get {
 				return ResourceManager.GetString("ExcessiveThresholdDisableMessage", resourceCulture) ?? string.Empty;
 			}
-		}
+        }
 
-		/// <summary>
-		///   Looks up a localized string similar to Exit Configuration.
-		/// </summary>
-		public static string ExitConfigurationText {
+        /// <summary>
+        ///   Looks up a localized string similar to Exit Configuration.
+        /// </summary>
+        public static string ExitConfigurationText {
 			get {
 				return ResourceManager.GetString("ExitConfigurationText", resourceCulture) ?? string.Empty;
 			}
@@ -11609,6 +11858,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Extended Layout.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Accounting.UI
+        /// </remarks>
+		public static string ExtendedLayout {
+			get {
+				return ResourceManager.GetString("ExtendedLayout", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Extended Meters Supported.
 		/// </summary>
 		public static string ExtendedMetersSupported {
@@ -11623,19 +11884,59 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
-		public static string ExtraCoinOutRunaway {
+        public static string ExtraCoinOutRunaway
+        {
+            get
+            {
+                return ResourceManager.GetString("ExtraCoinOutRunaway", resourceCulture) ?? string.Empty;
+            }
+        }
+
+		/// <summary>
+		///   Looks up a localized string similar to Extra-High.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string ExtraHigh {
 			get {
-				return ResourceManager.GetString("ExtraCoinOutRunaway", resourceCulture) ?? string.Empty;
+				return ResourceManager.GetString("ExtraHigh", resourceCulture) ?? string.Empty;
 			}
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to  + {0} Extra Winnings.
+		///   Looks up a localized string similar to Extra Low.
 		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string ExtraLow {
+			get {
+				return ResourceManager.GetString("ExtraLow", resourceCulture) ?? string.Empty;
+			}
+		}
+		
+        /// <summary>
+        ///   Looks up a localized string similar to Extra Settings.
+        /// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+        public static string ExtraSettingsButtonText
+        {
+            get
+            {
+				return ResourceManager.GetString("ExtraSettingsButtonText", resourceCulture) ?? string.Empty;
+			}
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to  + {0} Extra Winnings.
+        /// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Hhr.UI
         /// </remarks>
-		public static string ExtraWinningsStringFormat {
+        public static string ExtraWinningsStringFormat {
 			get {
 				return ResourceManager.GetString("ExtraWinningsStringFormat", resourceCulture) ?? string.Empty;
 			}
@@ -11686,6 +11987,39 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string Failure {
 			get {
 				return ResourceManager.GetString("Failure", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to False.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FalseText {
+			get {
+				return ResourceManager.GetString("FalseText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Fast Flash.
+		/// </summary>
+		public static string FastFlash {
+			get {
+				return ResourceManager.GetString("FastFlash", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Fault.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Fault {
+			get {
+				return ResourceManager.GetString("Fault", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -11758,6 +12092,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string FileSizeText {
 			get {
 				return ResourceManager.GetString("FileSizeText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Filter By.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FilterBy {
+			get {
+				return ResourceManager.GetString("FilterBy", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -12104,6 +12450,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Free Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FreeMemoryLabel {
+			get {
+				return ResourceManager.GetString("FreeMemoryLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Friday.
 		/// </summary>
 		public static string Friday {
@@ -12133,6 +12491,114 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string FrontRightText {
 			get {
 				return ResourceManager.GetString("FrontRightText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Full.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Full {
+			get {
+				return ResourceManager.GetString("Full", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Full Reset.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullClearButtonContent {
+			get {
+				return ResourceManager.GetString("FullClearButtonContent", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to What will be cleared?.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullClearDetailsText1 {
+			get {
+				return ResourceManager.GetString("FullClearDetailsText1", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Static data, history data, meters..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullClearDetailsText2 {
+			get {
+				return ResourceManager.GetString("FullClearDetailsText2", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to What will be saved?.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullClearDetailsText3 {
+			get {
+				return ResourceManager.GetString("FullClearDetailsText3", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Games?.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullClearDetailsText4 {
+			get {
+				return ResourceManager.GetString("FullClearDetailsText4", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Full Reset.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullClearHeadingText {
+			get {
+				return ResourceManager.GetString("FullClearHeadingText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to This will reset the machine back to the state it w....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullClearSummaryText {
+			get {
+				return ResourceManager.GetString("FullClearSummaryText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to This operation cannot be reversed.&amp;#13;&amp;#1....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullResetDialogText {
+			get {
+				return ResourceManager.GetString("FullResetDialogText", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -12181,6 +12647,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string G2SDiagnosticTabTitle {
 			get {
 				return ResourceManager.GetString("G2SDiagnosticTabTitle", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to G2S Event Code.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.Common
+        /// </remarks>
+		public static string G2SEventCode {
+			get {
+				return ResourceManager.GetString("G2SEventCode", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to G2S Event Code Description.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.Common
+        /// </remarks>
+		public static string G2SEventCodeDescription {
+			get {
+				return ResourceManager.GetString("G2SEventCodeDescription", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -13148,6 +13638,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Games Lost.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string GamesLost {
+			get {
+				return ResourceManager.GetString("GamesLost", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Games.
 		/// </summary>
         /// <remarks>
@@ -13172,6 +13674,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Games Played since Door Closed.
+		/// </summary>
+		public static string GamesPlayedSinceDoorClosed {
+			get {
+				return ResourceManager.GetString("GamesPlayedSinceDoorClosed", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Games Played since Reboot.
+		/// </summary>
+		public static string GamesPlayedSinceReboot {
+			get {
+				return ResourceManager.GetString("GamesPlayedSinceReboot", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Settings cannot be changed after a game round has ....
 		/// </summary>
         /// <remarks>
@@ -13183,13 +13703,27 @@ namespace Aristocrat.Monaco.Localization.Properties {
 			}
 		}
 
-		/// <summary>
-		///   Looks up a localized string similar to Game Start/End Reporting.
-		/// </summary>
+        /// <summary>
+        ///   Looks up a localized string similar to GameSpecificOption
+        /// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+        public static string GameSpecificOptionLabel
+        {
+            get
+            {
+                return ResourceManager.GetString("GameSpecificOptionLabel", resourceCulture) ?? string.Empty;
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Game Start/End Reporting.
+        /// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Sas.UI
         /// </remarks>
-		public static string GameStartEndPortLabel {
+        public static string GameStartEndPortLabel {
 			get {
 				return ResourceManager.GetString("GameStartEndPortLabel", resourceCulture) ?? string.Empty;
 			}
@@ -13520,6 +14054,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to General Information.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string GeneralInformationPageTitle {
+			get {
+				return ResourceManager.GetString("GeneralInformationPageTitle", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to General Poll.
 		/// </summary>
         /// <remarks>
@@ -13756,6 +14302,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string HandpayModeLabel {
 			get {
 				return ResourceManager.GetString("HandpayModeLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Handpay Only.
+		/// </summary>
+		public static string HandpayOnly {
+			get {
+				return ResourceManager.GetString("HandpayOnly", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -14098,6 +14653,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string HardMeterLabel {
 			get {
 				return ResourceManager.GetString("HardMeterLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Payout.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		public static string HardMeterOut {
+			get {
+				return ResourceManager.GetString("HardMeterOut", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to HardMeterOutTransaction.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		public static string HardMeterOutTransactionName {
+			get {
+				return ResourceManager.GetString("HardMeterOutTransactionName", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -15992,6 +16571,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to In Escrow.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string InEscrow {
+			get {
+				return ResourceManager.GetString("InEscrow", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to InHouse1.
 		/// </summary>
         /// <remarks>
@@ -16064,6 +16655,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Initializing.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Initializing {
+			get {
+				return ResourceManager.GetString("Initializing", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Initializing Add-in Manager.
 		/// </summary>
         /// <remarks>
@@ -16120,6 +16723,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string InputsLabel {
 			get {
 				return ResourceManager.GetString("InputsLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to INSERT CREDITS TO CONTINUE..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string InsertCredits {
+			get {
+				return ResourceManager.GetString("InsertCredits", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Inserted.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Inserted {
+			get {
+				return ResourceManager.GetString("Inserted", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -16333,6 +16960,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string InterfaceTypeLabel {
 			get {
 				return ResourceManager.GetString("InterfaceTypeLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Interleave 2 of 5.
+		/// </summary>
+		public static string Interleave2of5 {
+			get {
+				return ResourceManager.GetString("Interleave2of5", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -17036,6 +17672,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Jammed.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Jammed {
+			get {
+				return ResourceManager.GetString("Jammed", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Join Ball.
 		/// </summary>
         /// <remarks>
@@ -17437,6 +18085,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string LAPSettingsLabel {
 			get {
 				return ResourceManager.GetString("LAPSettingsLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to COLLECT LIMIT REACHED. SEE ATTENDANT..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Account
+        /// </remarks>
+		public static string LargePayoutReached {
+			get {
+				return ResourceManager.GetString("LargePayoutReached", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Insert and turn Attendant Reset Key to clear the l....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Account
+        /// </remarks>
+		public static string LargePayoutReachedHelpMessage {
+			get {
+				return ResourceManager.GetString("LargePayoutReachedHelpMessage", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -18491,6 +19163,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Lobby.
+		/// </summary>
+		public static string Lobby {
+			get {
+				return ResourceManager.GetString("Lobby", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to LobbyAndGame.
+		/// </summary>
+		public static string LobbyAndGame {
+			get {
+				return ResourceManager.GetString("LobbyAndGame", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Lobby Volume Level.
 		/// </summary>
         /// <remarks>
@@ -18641,6 +19331,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Logic Door Open.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string LogicDoorOpen {
+			get {
+				return ResourceManager.GetString("LogicDoorOpen", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Logic Door Open Count.
 		/// </summary>
         /// <remarks>
@@ -18661,6 +19363,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string LogicDoorOpenPowerOffCount {
 			get {
 				return ResourceManager.GetString("LogicDoorOpenPowerOffCount", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Logic Door Open Power Off.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string LogicDoorOpenPowerOffLabel {
+			get {
+				return ResourceManager.GetString("LogicDoorOpenPowerOffLabel", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -18971,6 +19685,42 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to   Machine Paid External Bonus Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MachinePaidExternalBonusWinLabel {
+			get {
+				return ResourceManager.GetString("MachinePaidExternalBonusWinLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to   Machine Paid Paytable Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MachinePaidPaytableWinLabel {
+			get {
+				return ResourceManager.GetString("MachinePaidPaytableWinLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to   Machine Paid Progressive Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MachinePaidProgressiveWinLabel {
+			get {
+				return ResourceManager.GetString("MachinePaidProgressiveWinLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Machine Paid Progressive.
 		/// </summary>
         /// <remarks>
@@ -19177,6 +19927,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string MainDoorOpenLabel {
 			get {
 				return ResourceManager.GetString("MainDoorOpenLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Main Door Open Power Off.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MainDoorOpenPowerOff {
+			get {
+				return ResourceManager.GetString("MainDoorOpenPowerOff", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -19742,6 +20504,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to MB.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MBLabel {
+			get {
+				return ResourceManager.GetString("MBLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to MBR/BL Version.
 		/// </summary>
         /// <remarks>
@@ -20087,6 +20861,60 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Medium Flash.
+		/// </summary>
+		public static string MediumFlash {
+			get {
+				return ResourceManager.GetString("MediumFlash", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Medium Flash Reversed.
+		/// </summary>
+		public static string MediumFlashReversed {
+			get {
+				return ResourceManager.GetString("MediumFlashReversed", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Medium-High.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MediumHigh {
+			get {
+				return ResourceManager.GetString("MediumHigh", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Medium-Low.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MediumLow {
+			get {
+				return ResourceManager.GetString("MediumLow", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to MB.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MegabytesAbbr {
+			get {
+				return ResourceManager.GetString("MegabytesAbbr", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to PAY BY HAND.
 		/// </summary>
         /// <remarks>
@@ -20345,6 +21173,222 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to CLR Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricClrBytes {
+			get {
+				return ResourceManager.GetString("MetricClrBytes", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to CPU Temperature.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricCpuTemperature {
+			get {
+				return ResourceManager.GetString("MetricCpuTemperature", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Platform CPU.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricCpuTime {
+			get {
+				return ResourceManager.GetString("MetricCpuTime", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Free Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricFreeMemory {
+			get {
+				return ResourceManager.GetString("MetricFreeMemory", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Frame Drops.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MetricGdkFrameDrops {
+			get {
+				return ResourceManager.GetString("MetricGdkFrameDrops", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Framerate.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MetricGdkFramerate {
+			get {
+				return ResourceManager.GetString("MetricGdkFramerate", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Update Time.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MetricGdkGamesUpdateTimeMs {
+			get {
+				return ResourceManager.GetString("MetricGdkGamesUpdateTimeMs", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to IPC Blocking Time Acc.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MetricGdkIPCBlockingTimeAccMs {
+			get {
+				return ResourceManager.GetString("MetricGdkIPCBlockingTimeAccMs", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Game Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricGdkPrivateBytes {
+			get {
+				return ResourceManager.GetString("MetricGdkPrivateBytes", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Game CPU.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricGdkProcessorTime {
+			get {
+				return ResourceManager.GetString("MetricGdkProcessorTime", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Render Time.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MetricGdkRenderTimeMs {
+			get {
+				return ResourceManager.GetString("MetricGdkRenderTimeMs", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Runtime Update Time.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MetricGdkRuntimeUpdateTimeMs {
+			get {
+				return ResourceManager.GetString("MetricGdkRuntimeUpdateTimeMs", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Swapbuffer Time.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MetricGdkSwapbufferTimeMs {
+			get {
+				return ResourceManager.GetString("MetricGdkSwapbufferTimeMs", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Game Threads.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricGdkThreadCount {
+			get {
+				return ResourceManager.GetString("MetricGdkThreadCount", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to GPU Usage.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricGpuUsage {
+			get {
+				return ResourceManager.GetString("MetricGpuUsage", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Platform Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricMonacoPrivateBytes {
+			get {
+				return ResourceManager.GetString("MetricMonacoPrivateBytes", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Platform Threads.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricThreadCount {
+			get {
+				return ResourceManager.GetString("MetricThreadCount", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Total CPU.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricTotalCpu {
+			get {
+				return ResourceManager.GetString("MetricTotalCpu", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to NYL Host.
 		/// </summary>
 		public static string Mgam {
@@ -20374,6 +21418,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string MillisecondIntervalText {
 			get {
 				return ResourceManager.GetString("MillisecondIntervalText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to ms.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MillisecondLabel {
+			get {
+				return ResourceManager.GetString("MillisecondLabel", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -21023,6 +22079,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to No games are available for this language.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string NoGamesForThisLanguage {
+			get {
+				return ResourceManager.GetString("NoGamesForThisLanguage", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to No Keno Games Found.
 		/// </summary>
         /// <remarks>
@@ -21031,6 +22099,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string NoKenoGames {
 			get {
 				return ResourceManager.GetString("NoKenoGames", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to No Key-Off.
+		/// </summary>
+		public static string NoKeyOff {
+			get {
+				return ResourceManager.GetString("NoKeyOff", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -22592,6 +23669,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Operator.
+		/// </summary>
+		public static string OperatorRoleName {
+			get {
+				return ResourceManager.GetString("OperatorRoleName", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Options.
 		/// </summary>
         /// <remarks>
@@ -23182,9 +24268,9 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
-		public static string PartialClearSummeryText {
+		public static string PartialClearSummaryText {
 			get {
-				return ResourceManager.GetString("PartialClearSummeryText", resourceCulture) ?? string.Empty;
+				return ResourceManager.GetString("PartialClearSummaryText", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -23338,6 +24424,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string PayMethod {
 			get {
 				return ResourceManager.GetString("PayMethod", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Payout Limit.
+		/// </summary>
+		public static string PayoutLimit {
+			get {
+				return ResourceManager.GetString("PayoutLimit", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Note: After first COAM game is played, RAM clear i....
+		/// </summary>
+		public static string PayoutLimitHelpText {
+			get {
+				return ResourceManager.GetString("PayoutLimitHelpText", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -23615,6 +24719,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Ping.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Ping {
+			get {
+				return ResourceManager.GetString("Ping", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Pinging Network....
 		/// </summary>
         /// <remarks>
@@ -23695,6 +24811,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string PlatformIdText {
 			get {
 				return ResourceManager.GetString("PlatformIdText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Platform Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string PlatformMemoryLabel {
+			get {
+				return ResourceManager.GetString("PlatformMemoryLabel", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -23795,6 +24923,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Games Played.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string PlayedCountLabel {
+			get {
+				return ResourceManager.GetString("PlayedCountLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Player Card Must Be Inserted.
 		/// </summary>
         /// <remarks>
@@ -23827,6 +24967,27 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string PlayOnText {
 			get {
 				return ResourceManager.GetString("PlayOnText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Play/Spin/Draw.
+		/// </summary>
+		public static string PlaySpinDraw {
+			get {
+				return ResourceManager.GetString("PlaySpinDraw", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Animate.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string PlayStepperCurveButton {
+			get {
+				return ResourceManager.GetString("PlayStepperCurveButton", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -24211,6 +25372,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string PreviouslyActive {
 			get {
 				return ResourceManager.GetString("PreviouslyActive", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Primary Game Amount Won.
+		/// </summary>
+		public static string PrimaryWonAmountLabel {
+			get {
+				return ResourceManager.GetString("PrimaryWonAmountLabel", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -24865,6 +26035,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ProgressiveColumnHeader {
 			get {
 				return ResourceManager.GetString("ProgressiveColumnHeader", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Progressive Details.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string ProgressiveDetails {
+			get {
+				return ResourceManager.GetString("ProgressiveDetails", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -25531,6 +26713,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
+		public static string Protocol {
+			get {
+				return ResourceManager.GetString("Protocol", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Protocol.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
 		public static string ProtocolLabel {
 			get {
 				return ResourceManager.GetString("ProtocolLabel", resourceCulture) ?? string.Empty;
@@ -25627,6 +26821,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ReadErrorText2 {
 			get {
 				return ResourceManager.GetString("ReadErrorText2", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Reading.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Reading {
+			get {
+				return ResourceManager.GetString("Reading", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -25996,6 +27202,9 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///   Looks up a localized string similar to Reel Controller Enabled.
 		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
 		public static string ReelControllerEnabled {
 			get {
 				return ResourceManager.GetString("ReelControllerEnabled", resourceCulture) ?? string.Empty;
@@ -26053,6 +27262,9 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///   Looks up a localized string similar to Reel Controller Manufacturer.
 		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
 		public static string ReelControllerManufacturer {
 			get {
 				return ResourceManager.GetString("ReelControllerManufacturer", resourceCulture) ?? string.Empty;
@@ -26311,6 +27523,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string RemoveAllHardLockupsBeforeChange {
 			get {
 				return ResourceManager.GetString("RemoveAllHardLockupsBeforeChange", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Removed.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Removed {
+			get {
+				return ResourceManager.GetString("Removed", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -26813,6 +28037,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to ResidualCreditsTransaction.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		public static string ResidualCreditsTransactionName {
+			get {
+				return ResourceManager.GetString("ResidualCreditsTransactionName", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Resolver Error.
 		/// </summary>
         /// <remarks>
@@ -26968,6 +28204,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ReturnedText {
 			get {
 				return ResourceManager.GetString("ReturnedText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Returning.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Returning {
+			get {
+				return ResourceManager.GetString("Returning", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -27641,6 +28889,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Double Up Games Played.
+		/// </summary>
+		public static string SecondaryPlayedCountLabel {
+			get {
+				return ResourceManager.GetString("SecondaryPlayedCountLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to To clear this lockup, remove secondary storage and....
 		/// </summary>
         /// <remarks>
@@ -27665,6 +28922,33 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Double Up Games Won.
+		/// </summary>
+		public static string SecondaryTiedAndWonCountLabel {
+			get {
+				return ResourceManager.GetString("SecondaryTiedAndWonCountLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Double Up Amount Wagered.
+		/// </summary>
+		public static string SecondaryWageredAmountLabel {
+			get {
+				return ResourceManager.GetString("SecondaryWageredAmountLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Double Up Amount Won.
+		/// </summary>
+		public static string SecondaryWonAmountLabel {
+			get {
+				return ResourceManager.GetString("SecondaryWonAmountLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Seconds.
 		/// </summary>
         /// <remarks>
@@ -27673,6 +28957,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string Seconds {
 			get {
 				return ResourceManager.GetString("Seconds", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to secs.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Gaming.UI
+        /// </remarks>
+		public static string Secs {
+			get {
+				return ResourceManager.GetString("Secs", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -28273,6 +29569,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string Seed {
 			get {
 				return ResourceManager.GetString("Seed", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Select All.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string SelectAll {
+			get {
+				return ResourceManager.GetString("SelectAll", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Select a Date.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string SelectDate {
+			get {
+				return ResourceManager.GetString("SelectDate", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -29195,6 +30515,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Slow Flash.
+		/// </summary>
+		public static string SlowFlash {
+			get {
+				return ResourceManager.GetString("SlowFlash", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Slow Flash Reversed.
+		/// </summary>
+		public static string SlowFlashReversed {
+			get {
+				return ResourceManager.GetString("SlowFlashReversed", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Smart Card Expired.
 		/// </summary>
 		public static string SmartCardExpired {
@@ -29561,6 +30899,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Stacker Removed.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string StackerRemoved {
+			get {
+				return ResourceManager.GetString("StackerRemoved", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Stacking.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Stacking {
+			get {
+				return ResourceManager.GetString("Stacking", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Stalled.
 		/// </summary>
         /// <remarks>
@@ -29581,6 +30943,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string StandaloneProgressive {
 			get {
 				return ResourceManager.GetString("StandaloneProgressive", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Standard.
+		/// </summary>
+		public static string Standard {
+			get {
+				return ResourceManager.GetString("Standard", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -29875,6 +31246,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string StatusText {
 			get {
 				return ResourceManager.GetString("StatusText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Stop.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string StopButton {
+			get {
+				return ResourceManager.GetString("StopButton", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -30269,6 +31652,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Technician.
+		/// </summary>
+		public static string TechnicianRoleName {
+			get {
+				return ResourceManager.GetString("TechnicianRoleName", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Temperature Error.
 		/// </summary>
         /// <remarks>
@@ -30466,6 +31858,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string TestModeDisabledStatus {
 			get {
 				return ResourceManager.GetString("TestModeDisabledStatus", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Zero credits are required to enter Test Mode.
+		/// </summary>
+		public static string TestModeDisabledStatusCredits {
+			get {
+				return ResourceManager.GetString("TestModeDisabledStatusCredits", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -31043,6 +32444,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to TIME BEFORE CREDITS/HANDCOUNT IS RESET..
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Gaming.UI
+        /// </remarks>
+		public static string TimeBeforeHandCountReset {
+			get {
+				return ResourceManager.GetString("TimeBeforeHandCountReset", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to MM/dd/yyyy H:mm:ss.
 		/// </summary>
         /// <remarks>
@@ -31250,6 +32663,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Top Box Door Open.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TopBoxDoorOpen {
+			get {
+				return ResourceManager.GetString("TopBoxDoorOpen", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Top Box Door Open Count.
 		/// </summary>
         /// <remarks>
@@ -31270,6 +32695,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string TopBoxDoorOpenPowerOffCount {
 			get {
 				return ResourceManager.GetString("TopBoxDoorOpenPowerOffCount", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Top Box Door Open Power Off.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TopBoxDoorOpenPowerOffLabel {
+			get {
+				return ResourceManager.GetString("TopBoxDoorOpenPowerOffLabel", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -31409,6 +32846,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Total Coin In (Turnover).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TotalCoinInTurnoverLabel {
+			get {
+				return ResourceManager.GetString("TotalCoinInTurnoverLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Total Coin Out (Machine Paid).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TotalCoinOutMachinePaidLabel {
+			get {
+				return ResourceManager.GetString("TotalCoinOutMachinePaidLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Total Coin Out.
 		/// </summary>
         /// <remarks>
@@ -31457,6 +32918,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Total - Bills, Vouchers.
+		/// </summary>
+		public static string TotalDashBillsAndVouchers {
+			get {
+				return ResourceManager.GetString("TotalDashBillsAndVouchers", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Total - Coin In.
 		/// </summary>
         /// <remarks>
@@ -31477,6 +32947,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string TotalDashCoinsAndBills {
 			get {
 				return ResourceManager.GetString("TotalDashCoinsAndBills", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Total - Coins, Bills, Vouchers.
+		/// </summary>
+		public static string TotalDashCoinsBillsAndVouchers {
+			get {
+				return ResourceManager.GetString("TotalDashCoinsBillsAndVouchers", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -31550,6 +33029,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Total In.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TotalInLabel {
+			get {
+				return ResourceManager.GetString("TotalInLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Total Jackpot (Attendant Paid).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TotalJackpotAttendantPaidLabel {
+			get {
+				return ResourceManager.GetString("TotalJackpotAttendantPaidLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Jurisdictional Total RTP.
 		/// </summary>
         /// <remarks>
@@ -31606,6 +33109,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string TotalMoneyOut {
 			get {
 				return ResourceManager.GetString("TotalMoneyOut", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Total Out.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TotalOutLabel {
+			get {
+				return ResourceManager.GetString("TotalOutLabel", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -31912,6 +33427,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string TouchScreenCalibrationDisabledLabel {
 			get {
 				return ResourceManager.GetString("TouchScreenCalibrationDisabledLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to 1. With a single finger, touch the monitor that di....
+		/// </summary>
+		public static string TouchScreenCalibrationInstructions {
+			get {
+				return ResourceManager.GetString("TouchScreenCalibrationInstructions", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Touch Screen Calibration Process.
+		/// </summary>
+		public static string TouchScreenCalibrationProcess {
+			get {
+				return ResourceManager.GetString("TouchScreenCalibrationProcess", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -32257,6 +33790,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string TriggerLabel {
 			get {
 				return ResourceManager.GetString("TriggerLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to True.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TrueText {
+			get {
+				return ResourceManager.GetString("TrueText", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -33137,6 +34682,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Validated.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Validated {
+			get {
+				return ResourceManager.GetString("Validated", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Validate Handpays.
 		/// </summary>
 		public static string ValidateHandpays {
@@ -33154,6 +34711,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string Validating {
 			get {
 				return ResourceManager.GetString("Validating", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Validating.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string ValidatingText {
+			get {
+				return ResourceManager.GetString("ValidatingText", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -33485,7 +35054,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to EKey device is required to perform game re-configu....
+		///   Looks up a localized string similar to EKey device is required to perform configuration.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -33493,6 +35062,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string VerifiedEKeyRequired {
 			get {
 				return ResourceManager.GetString("VerifiedEKeyRequired", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to EKey device is required to perform game re-configu....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string VerifiedEKeyRequiredGameConfiguration {
+			get {
+				return ResourceManager.GetString("VerifiedEKeyRequiredGameConfiguration", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -33614,6 +35195,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to View Memory.
+		/// </summary>
+		public static string ViewMemory {
+			get {
+				return ResourceManager.GetString("ViewMemory", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to View Performance Details.
+		/// </summary>
+		public static string ViewPerformanceDetails {
+			get {
+				return ResourceManager.GetString("ViewPerformanceDetails", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to View Progressive Summary.
 		/// </summary>
         /// <remarks>
@@ -33670,6 +35269,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string VignetteText2 {
 			get {
 				return ResourceManager.GetString("VignetteText2", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Vip.
+		/// </summary>
+		public static string Vip {
+			get {
+				return ResourceManager.GetString("Vip", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -34358,6 +35966,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Cash Played.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string WageredAmountLabel {
+			get {
+				return ResourceManager.GetString("WageredAmountLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Wager Match Bonus.
 		/// </summary>
         /// <remarks>
@@ -34661,6 +36281,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Games Won.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string WonCountLabel {
+			get {
+				return ResourceManager.GetString("WonCountLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Yes.
 		/// </summary>
         /// <remarks>
@@ -34782,6 +36414,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string Accept {
 			get {
 				return "Accept";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Acceptance Rate.
+		/// </summary>
+		public static string AcceptanceRate {
+			get {
+				return "AcceptanceRate";
 			}
 		}
 
@@ -34926,6 +36567,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ActivationTimeLabel {
 			get {
 				return "ActivationTimeLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Active Connections.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string ActiveConnections {
+			get {
+				return "ActiveConnections";
 			}
 		}
 
@@ -35758,6 +37411,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Any Key-Off.
+		/// </summary>
+		public static string AnyKeyOff {
+			get {
+				return "AnyKeyOff";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Application Performance.
 		/// </summary>
         /// <remarks>
@@ -35965,6 +37627,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to   Attendant Paid External Bonus Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string AttendantPaidExternalBonusWinLabel {
+			get {
+				return "AttendantPaidExternalBonusWinLabel";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Attendant Paid (Jackpot).
 		/// </summary>
         /// <remarks>
@@ -35973,6 +37647,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string AttendantPaidJackpot {
 			get {
 				return "AttendantPaidJackpot";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to   Attendant Paid Paytable Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string AttendantPaidPaytableWinLabel {
+			get {
+				return "AttendantPaidPaytableWinLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to   Attendant Paid Progressive Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string AttendantPaidProgressiveWinLabel {
+			get {
+				return "AttendantPaidProgressiveWinLabel";
 			}
 		}
 
@@ -36364,6 +38062,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Bad Read.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string BadRead {
+			get {
+				return "BadRead";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to BALL CALL.
 		/// </summary>
         /// <remarks>
@@ -36432,6 +38142,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string BankTooLong {
 			get {
 				return "BankTooLong";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Interleave 2 of 5.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Accounting.UI
+        /// </remarks>
+		public static string BarcodeInterleave2Of5 {
+			get {
+				return "BarcodeInterleave2Of5";
 			}
 		}
 
@@ -36705,6 +38427,9 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///		Looks up a localized string similar to Bell Enabled.
 		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
 		public static string BellEnabled {
 			get {
 				return "BellEnabled";
@@ -36805,6 +38530,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Max Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string BetOptionMaxWin {
+			get {
+				return "BetOptionMaxWin";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Bet (Turnover).
 		/// </summary>
         /// <remarks>
@@ -36825,6 +38562,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string BigWinBeagleBoneLightShowText {
 			get {
 				return "BigWinBeagleBoneLightShowText";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Note: After first COAM game is played, Bill Accept....
+		/// </summary>
+		public static string BillAcceptanceInHelpText {
+			get {
+				return "BillAcceptanceInHelpText";
 			}
 		}
 
@@ -38761,6 +40507,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Cash Door Open.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CashDoorOpenLabel {
+			get {
+				return "CashDoorOpenLabel";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Stacker Door Open Power Off Count.
 		/// </summary>
         /// <remarks>
@@ -38769,6 +40527,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string CashDoorOpenPowerOffCount {
 			get {
 				return "CashDoorOpenPowerOffCount";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Cash Door Open Power Off.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CashDoorOpenPowerOffLabel {
+			get {
+				return "CashDoorOpenPowerOffLabel";
 			}
 		}
 
@@ -38928,6 +40698,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string CashoutTickets {
 			get {
 				return "CashoutTickets";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Cash Played.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CashPlayed {
+			get {
+				return "CashPlayed";
 			}
 		}
 
@@ -40117,6 +41899,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Clear Selection.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string ClearSelection {
+			get {
+				return "ClearSelection";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Clock.
 		/// </summary>
         /// <remarks>
@@ -40209,6 +42003,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ClosingProtocol {
 			get {
 				return "ClosingProtocol";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to CLR Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string ClrMemoryLabel {
+			get {
+				return "ClrMemoryLabel";
 			}
 		}
 
@@ -42412,6 +44218,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Active.
+		/// </summary>
+		public static string DeviceManagerActiveSelection {
+			get {
+				return "DeviceManagerActiveSelection";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Cancel Changes.
 		/// </summary>
         /// <remarks>
@@ -42633,6 +44448,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string DeviceManagerOwner {
 			get {
 				return "DeviceManagerOwner";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Owner.
+		/// </summary>
+		public static string DeviceManagerOwnerSelection {
+			get {
+				return "DeviceManagerOwnerSelection";
 			}
 		}
 
@@ -43630,6 +45454,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Door.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Door {
+			get {
+				return "Door";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Door Events.
 		/// </summary>
         /// <remarks>
@@ -44091,6 +45927,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string EgmIdLabel {
 			get {
 				return "EgmIdLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Cash Won.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string EgmPaidGameWonAmtLabel {
+			get {
+				return "EgmPaidGameWonAmtLabel";
 			}
 		}
 
@@ -44767,6 +46615,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to End Jackpot.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string EndJackpot {
+			get {
+				return "EndJackpot";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to End offset is negative.
 		/// </summary>
         /// <remarks>
@@ -44787,6 +46647,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string EndOffsetNegativeErrorMessage2 {
 			get {
 				return "EndOffsetNegativeErrorMessage2";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to End Performance Details.
+		/// </summary>
+		public static string EndPerformanceDetails {
+			get {
+				return "EndPerformanceDetails";
 			}
 		}
 
@@ -45844,6 +47713,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Escrowed.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Escrowed {
+			get {
+				return "Escrowed";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Escrowed .
 		/// </summary>
         /// <remarks>
@@ -46315,6 +48196,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Extended Layout.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Accounting.UI
+        /// </remarks>
+		public static string ExtendedLayout {
+			get {
+				return "ExtendedLayout";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Extended Meters Supported.
 		/// </summary>
 		public static string ExtendedMetersSupported {
@@ -46333,7 +48226,45 @@ namespace Aristocrat.Monaco.Localization.Properties {
 			get {
 				return "ExtraCoinOutRunaway";
 			}
+        }
+
+		/// <summary>
+		///		Looks up a localized string similar to Extra-High.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string ExtraHigh {
+			get {
+				return "ExtraHigh";
+			}
 		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Extra Low.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string ExtraLow {
+			get {
+				return "ExtraLow";
+			}
+		}
+
+        /// <summary>
+        ///		Looks up a localized string similar to Extra Settings.
+        /// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+        public static string ExtraSettingsButtonText
+        {
+            get
+            {
+                return "ExtraSettingsButtonText";
+            }
+        }
 
 		/// <summary>
 		///		Looks up a localized string similar to  + {0} Extra Winnings.
@@ -46341,7 +48272,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// <remarks>
         /// Aristocrat.Monaco.Hhr.UI
         /// </remarks>
-		public static string ExtraWinningsStringFormat {
+        public static string ExtraWinningsStringFormat {
 			get {
 				return "ExtraWinningsStringFormat";
 			}
@@ -46392,6 +48323,39 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string Failure {
 			get {
 				return "Failure";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to False.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FalseText {
+			get {
+				return "FalseText";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Fast Flash.
+		/// </summary>
+		public static string FastFlash {
+			get {
+				return "FastFlash";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Fault.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Fault {
+			get {
+				return "Fault";
 			}
 		}
 
@@ -46464,6 +48428,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string FileSizeText {
 			get {
 				return "FileSizeText";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Filter By.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FilterBy {
+			get {
+				return "FilterBy";
 			}
 		}
 
@@ -46810,6 +48786,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Free Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FreeMemoryLabel {
+			get {
+				return "FreeMemoryLabel";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Friday.
 		/// </summary>
 		public static string Friday {
@@ -46839,6 +48827,114 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string FrontRightText {
 			get {
 				return "FrontRightText";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Full.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Full {
+			get {
+				return "Full";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Full Reset.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullClearButtonContent {
+			get {
+				return "FullClearButtonContent";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to What will be cleared?.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullClearDetailsText1 {
+			get {
+				return "FullClearDetailsText1";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Static data, history data, meters..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullClearDetailsText2 {
+			get {
+				return "FullClearDetailsText2";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to What will be saved?.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullClearDetailsText3 {
+			get {
+				return "FullClearDetailsText3";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Games?.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullClearDetailsText4 {
+			get {
+				return "FullClearDetailsText4";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Full Reset.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullClearHeadingText {
+			get {
+				return "FullClearHeadingText";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to This will reset the machine back to the state it w....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullClearSummaryText {
+			get {
+				return "FullClearSummaryText";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to This operation cannot be reversed.&amp;#13;&amp;#1....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string FullResetDialogText {
+			get {
+				return "FullResetDialogText";
 			}
 		}
 
@@ -46887,6 +48983,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string G2SDiagnosticTabTitle {
 			get {
 				return "G2SDiagnosticTabTitle";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to G2S Event Code.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.Common
+        /// </remarks>
+		public static string G2SEventCode {
+			get {
+				return "G2SEventCode";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to G2S Event Code Description.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.Common
+        /// </remarks>
+		public static string G2SEventCodeDescription {
+			get {
+				return "G2SEventCodeDescription";
 			}
 		}
 
@@ -47854,6 +49974,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Games Lost.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string GamesLost {
+			get {
+				return "GamesLost";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Games.
 		/// </summary>
         /// <remarks>
@@ -47878,6 +50010,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Games Played since Door Closed.
+		/// </summary>
+		public static string GamesPlayedSinceDoorClosed {
+			get {
+				return "GamesPlayedSinceDoorClosed";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Games Played since Reboot.
+		/// </summary>
+		public static string GamesPlayedSinceReboot {
+			get {
+				return "GamesPlayedSinceReboot";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Settings cannot be changed after a game round has ....
 		/// </summary>
         /// <remarks>
@@ -47887,15 +50037,29 @@ namespace Aristocrat.Monaco.Localization.Properties {
 			get {
 				return "GamesPlayedWarning";
 			}
-		}
+        }
 
-		/// <summary>
-		///		Looks up a localized string similar to Game Start/End Reporting.
-		/// </summary>
+        /// <summary>
+        ///		Looks up a localized string similar to Game Start/End Reporting.
+        /// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Sas.UI
         /// </remarks>
-		public static string GameStartEndPortLabel {
+        public static string GameSpecificOptionLabel
+        {
+            get
+            {
+                return "GameSpecificOptionLabel";
+            }
+        }
+
+        /// <summary>
+        ///		Looks up a localized string similar to Game Start/End Reporting.
+        /// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Sas.UI
+        /// </remarks>
+        public static string GameStartEndPortLabel {
 			get {
 				return "GameStartEndPortLabel";
 			}
@@ -48226,6 +50390,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to General Information.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string GeneralInformationPageTitle {
+			get {
+				return "GeneralInformationPageTitle";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to General Poll.
 		/// </summary>
         /// <remarks>
@@ -48462,6 +50638,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string HandpayModeLabel {
 			get {
 				return "HandpayModeLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Handpay Only.
+		/// </summary>
+		public static string HandpayOnly {
+			get {
+				return "HandpayOnly";
 			}
 		}
 
@@ -48804,6 +50989,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string HardMeterLabel {
 			get {
 				return "HardMeterLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Payout.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		public static string HardMeterOut {
+			get {
+				return "HardMeterOut";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to HardMeterOutTransaction.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		public static string HardMeterOutTransactionName {
+			get {
+				return "HardMeterOutTransactionName";
 			}
 		}
 
@@ -50698,6 +52907,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to In Escrow.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string InEscrow {
+			get {
+				return "InEscrow";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to InHouse1.
 		/// </summary>
         /// <remarks>
@@ -50770,6 +52991,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Initializing.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Initializing {
+			get {
+				return "Initializing";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Initializing Add-in Manager.
 		/// </summary>
         /// <remarks>
@@ -50826,6 +53059,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string InputsLabel {
 			get {
 				return "InputsLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to INSERT CREDITS TO CONTINUE..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string InsertCredits {
+			get {
+				return "InsertCredits";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Inserted.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Inserted {
+			get {
+				return "Inserted";
 			}
 		}
 
@@ -51039,6 +53296,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string InterfaceTypeLabel {
 			get {
 				return "InterfaceTypeLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Interleave 2 of 5.
+		/// </summary>
+		public static string Interleave2of5 {
+			get {
+				return "Interleave2of5";
 			}
 		}
 
@@ -51742,6 +54008,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Jammed.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Jammed {
+			get {
+				return "Jammed";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Join Ball.
 		/// </summary>
         /// <remarks>
@@ -52143,6 +54421,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string LAPSettingsLabel {
 			get {
 				return "LAPSettingsLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to COLLECT LIMIT REACHED. SEE ATTENDANT..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Account
+        /// </remarks>
+		public static string LargePayoutReached {
+			get {
+				return "LargePayoutReached";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Insert and turn Attendant Reset Key to clear the l....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Account
+        /// </remarks>
+		public static string LargePayoutReachedHelpMessage {
+			get {
+				return "LargePayoutReachedHelpMessage";
 			}
 		}
 
@@ -53197,6 +55499,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Lobby.
+		/// </summary>
+		public static string Lobby {
+			get {
+				return "Lobby";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to LobbyAndGame.
+		/// </summary>
+		public static string LobbyAndGame {
+			get {
+				return "LobbyAndGame";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Lobby Volume Level.
 		/// </summary>
         /// <remarks>
@@ -53347,6 +55667,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Logic Door Open.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string LogicDoorOpen {
+			get {
+				return "LogicDoorOpen";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Logic Door Open Count.
 		/// </summary>
         /// <remarks>
@@ -53367,6 +55699,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string LogicDoorOpenPowerOffCount {
 			get {
 				return "LogicDoorOpenPowerOffCount";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Logic Door Open Power Off.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string LogicDoorOpenPowerOffLabel {
+			get {
+				return "LogicDoorOpenPowerOffLabel";
 			}
 		}
 
@@ -53677,6 +56021,42 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to   Machine Paid External Bonus Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MachinePaidExternalBonusWinLabel {
+			get {
+				return "MachinePaidExternalBonusWinLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to   Machine Paid Paytable Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MachinePaidPaytableWinLabel {
+			get {
+				return "MachinePaidPaytableWinLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to   Machine Paid Progressive Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MachinePaidProgressiveWinLabel {
+			get {
+				return "MachinePaidProgressiveWinLabel";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Machine Paid Progressive.
 		/// </summary>
         /// <remarks>
@@ -53883,6 +56263,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string MainDoorOpenLabel {
 			get {
 				return "MainDoorOpenLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Main Door Open Power Off.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MainDoorOpenPowerOff {
+			get {
+				return "MainDoorOpenPowerOff";
 			}
 		}
 
@@ -54448,6 +56840,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to MB.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MBLabel {
+			get {
+				return "MBLabel";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to MBR/BL Version.
 		/// </summary>
         /// <remarks>
@@ -54793,6 +57197,60 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Medium Flash.
+		/// </summary>
+		public static string MediumFlash {
+			get {
+				return "MediumFlash";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Medium Flash Reversed.
+		/// </summary>
+		public static string MediumFlashReversed {
+			get {
+				return "MediumFlashReversed";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Medium-High.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MediumHigh {
+			get {
+				return "MediumHigh";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Medium-Low.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MediumLow {
+			get {
+				return "MediumLow";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to MB.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MegabytesAbbr {
+			get {
+				return "MegabytesAbbr";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to PAY BY HAND.
 		/// </summary>
         /// <remarks>
@@ -55051,6 +57509,222 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to CLR Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricClrBytes {
+			get {
+				return "MetricClrBytes";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to CPU Temperature.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricCpuTemperature {
+			get {
+				return "MetricCpuTemperature";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Platform CPU.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricCpuTime {
+			get {
+				return "MetricCpuTime";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Free Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricFreeMemory {
+			get {
+				return "MetricFreeMemory";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Frame Drops.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MetricGdkFrameDrops {
+			get {
+				return "MetricGdkFrameDrops";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Framerate.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MetricGdkFramerate {
+			get {
+				return "MetricGdkFramerate";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Update Time.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MetricGdkGamesUpdateTimeMs {
+			get {
+				return "MetricGdkGamesUpdateTimeMs";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to IPC Blocking Time Acc.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MetricGdkIPCBlockingTimeAccMs {
+			get {
+				return "MetricGdkIPCBlockingTimeAccMs";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Game Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricGdkPrivateBytes {
+			get {
+				return "MetricGdkPrivateBytes";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Game CPU.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricGdkProcessorTime {
+			get {
+				return "MetricGdkProcessorTime";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Render Time.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MetricGdkRenderTimeMs {
+			get {
+				return "MetricGdkRenderTimeMs";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Runtime Update Time.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MetricGdkRuntimeUpdateTimeMs {
+			get {
+				return "MetricGdkRuntimeUpdateTimeMs";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Swapbuffer Time.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MetricGdkSwapbufferTimeMs {
+			get {
+				return "MetricGdkSwapbufferTimeMs";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Game Threads.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricGdkThreadCount {
+			get {
+				return "MetricGdkThreadCount";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to GPU Usage.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricGpuUsage {
+			get {
+				return "MetricGpuUsage";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Platform Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricMonacoPrivateBytes {
+			get {
+				return "MetricMonacoPrivateBytes";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Platform Threads.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricThreadCount {
+			get {
+				return "MetricThreadCount";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Total CPU.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		public static string MetricTotalCpu {
+			get {
+				return "MetricTotalCpu";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to NYL Host.
 		/// </summary>
 		public static string Mgam {
@@ -55080,6 +57754,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string MillisecondIntervalText {
 			get {
 				return "MillisecondIntervalText";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to ms.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MillisecondLabel {
+			get {
+				return "MillisecondLabel";
 			}
 		}
 
@@ -55729,6 +58415,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to No games are available for this language.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string NoGamesForThisLanguage {
+			get {
+				return "NoGamesForThisLanguage";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to No Keno Games Found.
 		/// </summary>
         /// <remarks>
@@ -55737,6 +58435,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string NoKenoGames {
 			get {
 				return "NoKenoGames";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to No Key-Off.
+		/// </summary>
+		public static string NoKeyOff {
+			get {
+				return "NoKeyOff";
 			}
 		}
 
@@ -57298,6 +60005,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Operator.
+		/// </summary>
+		public static string OperatorRoleName {
+			get {
+				return "OperatorRoleName";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Options.
 		/// </summary>
         /// <remarks>
@@ -57888,9 +60604,9 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
-		public static string PartialClearSummeryText {
+		public static string PartialClearSummaryText {
 			get {
-				return "PartialClearSummeryText";
+				return "PartialClearSummaryText";
 			}
 		}
 
@@ -58044,6 +60760,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string PayMethod {
 			get {
 				return "PayMethod";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Payout Limit.
+		/// </summary>
+		public static string PayoutLimit {
+			get {
+				return "PayoutLimit";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Note: After first COAM game is played, RAM clear i....
+		/// </summary>
+		public static string PayoutLimitHelpText {
+			get {
+				return "PayoutLimitHelpText";
 			}
 		}
 
@@ -58321,6 +61055,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Ping.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Ping {
+			get {
+				return "Ping";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Pinging Network....
 		/// </summary>
         /// <remarks>
@@ -58401,6 +61147,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string PlatformIdText {
 			get {
 				return "PlatformIdText";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Platform Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string PlatformMemoryLabel {
+			get {
+				return "PlatformMemoryLabel";
 			}
 		}
 
@@ -58501,6 +61259,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Games Played.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string PlayedCountLabel {
+			get {
+				return "PlayedCountLabel";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Player Card Must Be Inserted.
 		/// </summary>
         /// <remarks>
@@ -58533,6 +61303,27 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string PlayOnText {
 			get {
 				return "PlayOnText";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Play/Spin/Draw.
+		/// </summary>
+		public static string PlaySpinDraw {
+			get {
+				return "PlaySpinDraw";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Animate.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string PlayStepperCurveButton {
+			get {
+				return "PlayStepperCurveButton";
 			}
 		}
 
@@ -58917,6 +61708,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string PreviouslyActive {
 			get {
 				return "PreviouslyActive";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Primary Game Amount Won.
+		/// </summary>
+		public static string PrimaryWonAmountLabel {
+			get {
+				return "PrimaryWonAmountLabel";
 			}
 		}
 
@@ -59571,6 +62371,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ProgressiveColumnHeader {
 			get {
 				return "ProgressiveColumnHeader";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Progressive Details.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string ProgressiveDetails {
+			get {
+				return "ProgressiveDetails";
 			}
 		}
 
@@ -60237,6 +63049,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
+		public static string Protocol {
+			get {
+				return "Protocol";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Protocol.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
 		public static string ProtocolLabel {
 			get {
 				return "ProtocolLabel";
@@ -60333,6 +63157,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ReadErrorText2 {
 			get {
 				return "ReadErrorText2";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Reading.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Reading {
+			get {
+				return "Reading";
 			}
 		}
 
@@ -60702,6 +63538,9 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///		Looks up a localized string similar to Reel Controller Enabled.
 		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
 		public static string ReelControllerEnabled {
 			get {
 				return "ReelControllerEnabled";
@@ -60759,6 +63598,9 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///		Looks up a localized string similar to Reel Controller Manufacturer.
 		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
 		public static string ReelControllerManufacturer {
 			get {
 				return "ReelControllerManufacturer";
@@ -61017,6 +63859,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string RemoveAllHardLockupsBeforeChange {
 			get {
 				return "RemoveAllHardLockupsBeforeChange";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Removed.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Removed {
+			get {
+				return "Removed";
 			}
 		}
 
@@ -61519,6 +64373,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to ResidualCreditsTransaction.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		public static string ResidualCreditsTransactionName {
+			get {
+				return "ResidualCreditsTransactionName";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Resolver Error.
 		/// </summary>
         /// <remarks>
@@ -61674,6 +64540,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ReturnedText {
 			get {
 				return "ReturnedText";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Returning.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Returning {
+			get {
+				return "Returning";
 			}
 		}
 
@@ -62347,6 +65225,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Double Up Games Played.
+		/// </summary>
+		public static string SecondaryPlayedCountLabel {
+			get {
+				return "SecondaryPlayedCountLabel";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to To clear this lockup, remove secondary storage and....
 		/// </summary>
         /// <remarks>
@@ -62371,6 +65258,33 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Double Up Games Won.
+		/// </summary>
+		public static string SecondaryTiedAndWonCountLabel {
+			get {
+				return "SecondaryTiedAndWonCountLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Double Up Amount Wagered.
+		/// </summary>
+		public static string SecondaryWageredAmountLabel {
+			get {
+				return "SecondaryWageredAmountLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Double Up Amount Won.
+		/// </summary>
+		public static string SecondaryWonAmountLabel {
+			get {
+				return "SecondaryWonAmountLabel";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Seconds.
 		/// </summary>
         /// <remarks>
@@ -62379,6 +65293,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string Seconds {
 			get {
 				return "Seconds";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to secs.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Gaming.UI
+        /// </remarks>
+		public static string Secs {
+			get {
+				return "Secs";
 			}
 		}
 
@@ -62979,6 +65905,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string Seed {
 			get {
 				return "Seed";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Select All.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string SelectAll {
+			get {
+				return "SelectAll";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Select a Date.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string SelectDate {
+			get {
+				return "SelectDate";
 			}
 		}
 
@@ -63901,6 +66851,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Slow Flash.
+		/// </summary>
+		public static string SlowFlash {
+			get {
+				return "SlowFlash";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Slow Flash Reversed.
+		/// </summary>
+		public static string SlowFlashReversed {
+			get {
+				return "SlowFlashReversed";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Smart Card Expired.
 		/// </summary>
 		public static string SmartCardExpired {
@@ -64267,6 +67235,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Stacker Removed.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string StackerRemoved {
+			get {
+				return "StackerRemoved";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Stacking.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Stacking {
+			get {
+				return "Stacking";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Stalled.
 		/// </summary>
         /// <remarks>
@@ -64287,6 +67279,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string StandaloneProgressive {
 			get {
 				return "StandaloneProgressive";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Standard.
+		/// </summary>
+		public static string Standard {
+			get {
+				return "Standard";
 			}
 		}
 
@@ -64581,6 +67582,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string StatusText {
 			get {
 				return "StatusText";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Stop.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string StopButton {
+			get {
+				return "StopButton";
 			}
 		}
 
@@ -64975,6 +67988,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Technician.
+		/// </summary>
+		public static string TechnicianRoleName {
+			get {
+				return "TechnicianRoleName";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Temperature Error.
 		/// </summary>
         /// <remarks>
@@ -65172,6 +68194,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string TestModeDisabledStatus {
 			get {
 				return "TestModeDisabledStatus";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Zero credits are required to enter Test Mode.
+		/// </summary>
+		public static string TestModeDisabledStatusCredits {
+			get {
+				return "TestModeDisabledStatusCredits";
 			}
 		}
 
@@ -65749,6 +68780,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to TIME BEFORE CREDITS/HANDCOUNT IS RESET..
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Gaming.UI
+        /// </remarks>
+		public static string TimeBeforeHandCountReset {
+			get {
+				return "TimeBeforeHandCountReset";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to MM/dd/yyyy H:mm:ss.
 		/// </summary>
         /// <remarks>
@@ -65956,6 +68999,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Top Box Door Open.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TopBoxDoorOpen {
+			get {
+				return "TopBoxDoorOpen";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Top Box Door Open Count.
 		/// </summary>
         /// <remarks>
@@ -65976,6 +69031,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string TopBoxDoorOpenPowerOffCount {
 			get {
 				return "TopBoxDoorOpenPowerOffCount";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Top Box Door Open Power Off.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TopBoxDoorOpenPowerOffLabel {
+			get {
+				return "TopBoxDoorOpenPowerOffLabel";
 			}
 		}
 
@@ -66115,6 +69182,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Total Coin In (Turnover).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TotalCoinInTurnoverLabel {
+			get {
+				return "TotalCoinInTurnoverLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Total Coin Out (Machine Paid).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TotalCoinOutMachinePaidLabel {
+			get {
+				return "TotalCoinOutMachinePaidLabel";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Total Coin Out.
 		/// </summary>
         /// <remarks>
@@ -66163,6 +69254,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Total - Bills, Vouchers.
+		/// </summary>
+		public static string TotalDashBillsAndVouchers {
+			get {
+				return "TotalDashBillsAndVouchers";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Total - Coin In.
 		/// </summary>
         /// <remarks>
@@ -66183,6 +69283,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string TotalDashCoinsAndBills {
 			get {
 				return "TotalDashCoinsAndBills";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Total - Coins, Bills, Vouchers.
+		/// </summary>
+		public static string TotalDashCoinsBillsAndVouchers {
+			get {
+				return "TotalDashCoinsBillsAndVouchers";
 			}
 		}
 
@@ -66256,6 +69365,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Total In.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TotalInLabel {
+			get {
+				return "TotalInLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Total Jackpot (Attendant Paid).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TotalJackpotAttendantPaidLabel {
+			get {
+				return "TotalJackpotAttendantPaidLabel";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Jurisdictional Total RTP.
 		/// </summary>
         /// <remarks>
@@ -66312,6 +69445,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string TotalMoneyOut {
 			get {
 				return "TotalMoneyOut";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Total Out.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TotalOutLabel {
+			get {
+				return "TotalOutLabel";
 			}
 		}
 
@@ -66618,6 +69763,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string TouchScreenCalibrationDisabledLabel {
 			get {
 				return "TouchScreenCalibrationDisabledLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to 1. With a single finger, touch the monitor that di....
+		/// </summary>
+		public static string TouchScreenCalibrationInstructions {
+			get {
+				return "TouchScreenCalibrationInstructions";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Touch Screen Calibration Process.
+		/// </summary>
+		public static string TouchScreenCalibrationProcess {
+			get {
+				return "TouchScreenCalibrationProcess";
 			}
 		}
 
@@ -66963,6 +70126,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string TriggerLabel {
 			get {
 				return "TriggerLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to True.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TrueText {
+			get {
+				return "TrueText";
 			}
 		}
 
@@ -67843,6 +71018,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Validated.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string Validated {
+			get {
+				return "Validated";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Validate Handpays.
 		/// </summary>
 		public static string ValidateHandpays {
@@ -67860,6 +71047,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string Validating {
 			get {
 				return "Validating";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Validating.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string ValidatingText {
+			get {
+				return "ValidatingText";
 			}
 		}
 
@@ -68191,7 +71390,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to EKey device is required to perform game re-configu....
+		///		Looks up a localized string similar to EKey device is required to perform configuration.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -68199,6 +71398,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string VerifiedEKeyRequired {
 			get {
 				return "VerifiedEKeyRequired";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to EKey device is required to perform game re-configu....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string VerifiedEKeyRequiredGameConfiguration {
+			get {
+				return "VerifiedEKeyRequiredGameConfiguration";
 			}
 		}
 
@@ -68320,6 +71531,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to View Memory.
+		/// </summary>
+		public static string ViewMemory {
+			get {
+				return "ViewMemory";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to View Performance Details.
+		/// </summary>
+		public static string ViewPerformanceDetails {
+			get {
+				return "ViewPerformanceDetails";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to View Progressive Summary.
 		/// </summary>
         /// <remarks>
@@ -68376,6 +71605,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string VignetteText2 {
 			get {
 				return "VignetteText2";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Vip.
+		/// </summary>
+		public static string Vip {
+			get {
+				return "Vip";
 			}
 		}
 
@@ -69064,6 +72302,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Cash Played.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string WageredAmountLabel {
+			get {
+				return "WageredAmountLabel";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Wager Match Bonus.
 		/// </summary>
         /// <remarks>
@@ -69367,6 +72617,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Games Won.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string WonCountLabel {
+			get {
+				return "WonCountLabel";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Yes.
 		/// </summary>
         /// <remarks>
@@ -69488,6 +72750,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// </summary>
 		Accept,
 		/// <summary>
+		///   Looks up a localized string similar to Acceptance Rate.
+		/// </summary>
+		AcceptanceRate,
+		/// <summary>
 		///   Looks up a localized string similar to Accepted.
 		/// </summary>
         /// <remarks>
@@ -69571,6 +72837,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		ActivationTimeLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Active Connections.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		ActiveConnections,
 		/// <summary>
 		///   Looks up a localized string similar to Active Game.
 		/// </summary>
@@ -70040,6 +73313,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		AnotherTransferInProgress,
 		/// <summary>
+		///   Looks up a localized string similar to Any Key-Off.
+		/// </summary>
+		AnyKeyOff,
+		/// <summary>
 		///   Looks up a localized string similar to Application Performance.
 		/// </summary>
         /// <remarks>
@@ -70157,12 +73434,33 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		AttendantPaidCancelledCredit,
 		/// <summary>
+		///   Looks up a localized string similar to   Attendant Paid External Bonus Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		AttendantPaidExternalBonusWinLabel,
+		/// <summary>
 		///   Looks up a localized string similar to Attendant Paid (Jackpot).
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		AttendantPaidJackpot,
+		/// <summary>
+		///   Looks up a localized string similar to   Attendant Paid Paytable Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		AttendantPaidPaytableWinLabel,
+		/// <summary>
+		///   Looks up a localized string similar to   Attendant Paid Progressive Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		AttendantPaidProgressiveWinLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Attendant Paid Progressive.
 		/// </summary>
@@ -70386,6 +73684,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		Backward,
 		/// <summary>
+		///   Looks up a localized string similar to Bad Read.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		BadRead,
+		/// <summary>
 		///   Looks up a localized string similar to BALL CALL.
 		/// </summary>
         /// <remarks>
@@ -70427,6 +73732,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		BankTooLong,
+		/// <summary>
+		///   Looks up a localized string similar to Interleave 2 of 5.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Accounting.UI
+        /// </remarks>
+		BarcodeInterleave2Of5,
 		/// <summary>
 		///   Looks up a localized string similar to Barcode Type.
 		/// </summary>
@@ -70577,6 +73889,9 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///   Looks up a localized string similar to Bell Enabled.
 		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
 		BellEnabled,
 		/// <summary>
 		///   Looks up a localized string similar to Bell.
@@ -70632,6 +73947,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		BetOption,
 		/// <summary>
+		///   Looks up a localized string similar to Max Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		BetOptionMaxWin,
+		/// <summary>
 		///   Looks up a localized string similar to Bet (Turnover).
 		/// </summary>
         /// <remarks>
@@ -70645,6 +73967,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		BigWinBeagleBoneLightShowText,
+		/// <summary>
+		///   Looks up a localized string similar to Note: After first COAM game is played, Bill Accept....
+		/// </summary>
+		BillAcceptanceInHelpText,
 		/// <summary>
 		///   Looks up a localized string similar to Bill Acceptance Limit.
 		/// </summary>
@@ -71763,12 +75089,26 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		CashDoorOpenCount,
 		/// <summary>
+		///   Looks up a localized string similar to Cash Door Open.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		CashDoorOpenLabel,
+		/// <summary>
 		///   Looks up a localized string similar to Stacker Door Open Power Off Count.
 		/// </summary>
         /// <remarks>
         /// Localization.xml LOC_Cash Door Open Power Off Count
         /// </remarks>
 		CashDoorOpenPowerOffCount,
+		/// <summary>
+		///   Looks up a localized string similar to Cash Door Open Power Off.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		CashDoorOpenPowerOffLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Printing Ticket....
 		/// </summary>
@@ -71854,6 +75194,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Localization.xml LOC_Cashout Tickets
         /// </remarks>
 		CashoutTickets,
+		/// <summary>
+		///   Looks up a localized string similar to Cash Played.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		CashPlayed,
 		/// <summary>
 		///   Looks up a localized string similar to HISTORY - TICKETS OUT.
 		/// </summary>
@@ -72525,6 +75872,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// </summary>
 		ClearProgressiveDisconnectError,
 		/// <summary>
+		///   Looks up a localized string similar to Clear Selection.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		ClearSelection,
+		/// <summary>
 		///   Looks up a localized string similar to Clock.
 		/// </summary>
         /// <remarks>
@@ -72580,6 +75934,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.G2S
         /// </remarks>
 		ClosingProtocol,
+		/// <summary>
+		///   Looks up a localized string similar to CLR Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		ClrMemoryLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Coin Drop (Cash Box).
 		/// </summary>
@@ -73835,6 +77196,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		DeviceManagerActive,
 		/// <summary>
+		///   Looks up a localized string similar to Active.
+		/// </summary>
+		DeviceManagerActiveSelection,
+		/// <summary>
 		///   Looks up a localized string similar to Cancel Changes.
 		/// </summary>
         /// <remarks>
@@ -73964,6 +77329,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.G2S.UI
         /// </remarks>
 		DeviceManagerOwner,
+		/// <summary>
+		///   Looks up a localized string similar to Owner.
+		/// </summary>
+		DeviceManagerOwnerSelection,
 		/// <summary>
 		///   Looks up a localized string similar to Making bulk device changes....
 		/// </summary>
@@ -74528,6 +77897,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		Done2,
 		/// <summary>
+		///   Looks up a localized string similar to Door.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		Door,
+		/// <summary>
 		///   Looks up a localized string similar to Door Events.
 		/// </summary>
         /// <remarks>
@@ -74792,6 +78168,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		///   Looks up a localized string similar to EGM ID.
 		/// </summary>
 		EgmIdLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Cash Won.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		EgmPaidGameWonAmtLabel,
 		/// <summary>
 		///   Looks up a localized string similar to EGM Settings.
 		/// </summary>
@@ -75160,6 +78543,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// </summary>
 		EndGameRoundBeforeReplay,
 		/// <summary>
+		///   Looks up a localized string similar to End Jackpot.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		EndJackpot,
+		/// <summary>
 		///   Looks up a localized string similar to End offset is negative.
 		/// </summary>
         /// <remarks>
@@ -75173,6 +78563,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.G2S.Common - Changed from "EndOffsetNegativeErrorMessage"
         /// </remarks>
 		EndOffsetNegativeErrorMessage2,
+		/// <summary>
+		///   Looks up a localized string similar to End Performance Details.
+		/// </summary>
+		EndPerformanceDetails,
 		/// <summary>
 		///   Looks up a localized string similar to End.
 		/// </summary>
@@ -75782,6 +79176,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ErrorWhileFetchingData,
 		/// <summary>
+		///   Looks up a localized string similar to Escrowed.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		Escrowed,
+		/// <summary>
 		///   Looks up a localized string similar to Escrowed .
 		/// </summary>
         /// <remarks>
@@ -76038,6 +79439,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// </summary>
 		ExportSettingsText,
 		/// <summary>
+		///   Looks up a localized string similar to Extended Layout.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Accounting.UI
+        /// </remarks>
+		ExtendedLayout,
+		/// <summary>
 		///   Looks up a localized string similar to Extended Meters Supported.
 		/// </summary>
 		ExtendedMetersSupported,
@@ -76049,12 +79457,33 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ExtraCoinOutRunaway,
 		/// <summary>
+		///   Looks up a localized string similar to Extra-High.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		ExtraHigh,
+		/// <summary>
+		///   Looks up a localized string similar to Extra Low.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		ExtraLow,
+		/// <summary>
+        ///   Looks up a localized string similar to ExtraSettings.
+        /// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+        ExtraSettingsButtonText,
+		/// <summary>
 		///   Looks up a localized string similar to  + {0} Extra Winnings.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Hhr.UI
         /// </remarks>
-		ExtraWinningsStringFormat,
+        ExtraWinningsStringFormat,
 		/// <summary>
 		///   Looks up a localized string similar to Failed.
 		/// </summary>
@@ -76083,6 +79512,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application
         /// </remarks>
 		Failure,
+		/// <summary>
+		///   Looks up a localized string similar to False.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		FalseText,
+		/// <summary>
+		///   Looks up a localized string similar to Fast Flash.
+		/// </summary>
+		FastFlash,
+		/// <summary>
+		///   Looks up a localized string similar to Fault.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		Fault,
 		/// <summary>
 		///   Looks up a localized string similar to Trying to fetch the data.
 		/// </summary>
@@ -76125,6 +79572,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application
         /// </remarks>
 		FileSizeText,
+		/// <summary>
+		///   Looks up a localized string similar to Filter By.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		FilterBy,
 		/// <summary>
 		///   Looks up a localized string similar to Finish.
 		/// </summary>
@@ -76323,6 +79777,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		FpgaVersion,
 		/// <summary>
+		///   Looks up a localized string similar to Free Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		FreeMemoryLabel,
+		/// <summary>
 		///   Looks up a localized string similar to Friday.
 		/// </summary>
 		Friday,
@@ -76340,6 +79801,69 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		FrontRightText,
+		/// <summary>
+		///   Looks up a localized string similar to Full.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		Full,
+		/// <summary>
+		///   Looks up a localized string similar to Full Reset.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		FullClearButtonContent,
+		/// <summary>
+		///   Looks up a localized string similar to What will be cleared?.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		FullClearDetailsText1,
+		/// <summary>
+		///   Looks up a localized string similar to Static data, history data, meters..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		FullClearDetailsText2,
+		/// <summary>
+		///   Looks up a localized string similar to What will be saved?.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		FullClearDetailsText3,
+		/// <summary>
+		///   Looks up a localized string similar to Games?.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		FullClearDetailsText4,
+		/// <summary>
+		///   Looks up a localized string similar to Full Reset.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		FullClearHeadingText,
+		/// <summary>
+		///   Looks up a localized string similar to This will reset the machine back to the state it w....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		FullClearSummaryText,
+		/// <summary>
+		///   Looks up a localized string similar to This operation cannot be reversed.&amp;#13;&amp;#1....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		FullResetDialogText,
 		/// <summary>
 		///   Looks up a localized string similar to Functional group not found.
 		/// </summary>
@@ -76368,6 +79892,20 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		G2SDiagnosticTabTitle,
+		/// <summary>
+		///   Looks up a localized string similar to G2S Event Code.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.Common
+        /// </remarks>
+		G2SEventCode,
+		/// <summary>
+		///   Looks up a localized string similar to G2S Event Code Description.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.Common
+        /// </remarks>
+		G2SEventCodeDescription,
 		/// <summary>
 		///   Looks up a localized string similar to Double Up.
 		/// </summary>
@@ -76922,6 +80460,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		GameSetupMessage,
 		/// <summary>
+		///   Looks up a localized string similar to Games Lost.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		GamesLost,
+		/// <summary>
 		///   Looks up a localized string similar to Games.
 		/// </summary>
         /// <remarks>
@@ -76936,19 +80481,34 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		GamesPlayed,
 		/// <summary>
+		///   Looks up a localized string similar to Games Played since Door Closed.
+		/// </summary>
+		GamesPlayedSinceDoorClosed,
+		/// <summary>
+		///   Looks up a localized string similar to Games Played since Reboot.
+		/// </summary>
+		GamesPlayedSinceReboot,
+		/// <summary>
 		///   Looks up a localized string similar to Settings cannot be changed after a game round has ....
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		GamesPlayedWarning,
-		/// <summary>
-		///   Looks up a localized string similar to Game Start/End Reporting.
-		/// </summary>
+        /// <summary>
+        ///   Looks up a localized string similar to Settings cannot be changed after a game round has ....
+        /// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+        GameSpecificOptionLabel,
+        /// <summary>
+        ///   Looks up a localized string similar to Game Specific Option.
+        /// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Sas.UI
         /// </remarks>
-		GameStartEndPortLabel,
+        GameStartEndPortLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Game Start Method.
 		/// </summary>
@@ -77129,6 +80689,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		GeneralFailureText,
 		/// <summary>
+		///   Looks up a localized string similar to General Information.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		GeneralInformationPageTitle,
+		/// <summary>
 		///   Looks up a localized string similar to General Poll.
 		/// </summary>
         /// <remarks>
@@ -77268,6 +80835,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Sas.UI
         /// </remarks>
 		HandpayModeLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Handpay Only.
+		/// </summary>
+		HandpayOnly,
 		/// <summary>
 		///   Looks up a localized string similar to PAID.
 		/// </summary>
@@ -77465,6 +81036,20 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		HardMeterLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Payout.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		HardMeterOut,
+		/// <summary>
+		///   Looks up a localized string similar to HardMeterOutTransaction.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		HardMeterOutTransactionName,
 		/// <summary>
 		///   Looks up a localized string similar to Hard Meters Available Meter Mappings.
 		/// </summary>
@@ -78536,6 +82121,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		IncrementRate,
 		/// <summary>
+		///   Looks up a localized string similar to In Escrow.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		InEscrow,
+		/// <summary>
 		///   Looks up a localized string similar to InHouse1.
 		/// </summary>
         /// <remarks>
@@ -78578,6 +82170,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		InitializationFailedEventString,
 		/// <summary>
+		///   Looks up a localized string similar to Initializing.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		Initializing,
+		/// <summary>
 		///   Looks up a localized string similar to Initializing Add-in Manager.
 		/// </summary>
         /// <remarks>
@@ -78612,6 +82211,20 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		InputsLabel,
+		/// <summary>
+		///   Looks up a localized string similar to INSERT CREDITS TO CONTINUE..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		InsertCredits,
+		/// <summary>
+		///   Looks up a localized string similar to Inserted.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		Inserted,
 		/// <summary>
 		///   Looks up a localized string similar to INSERTED TIME.
 		/// </summary>
@@ -78735,6 +82348,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		InterfaceTypeLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Interleave 2 of 5.
+		/// </summary>
+		Interleave2of5,
 		/// <summary>
 		///   Looks up a localized string similar to And again every.
 		/// </summary>
@@ -79140,6 +82757,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		JackpotWinsText,
 		/// <summary>
+		///   Looks up a localized string similar to Jammed.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		Jammed,
+		/// <summary>
 		///   Looks up a localized string similar to Join Ball.
 		/// </summary>
         /// <remarks>
@@ -79374,6 +82998,20 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Bingo.UI
         /// </remarks>
 		LAPSettingsLabel,
+		/// <summary>
+		///   Looks up a localized string similar to COLLECT LIMIT REACHED. SEE ATTENDANT..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Account
+        /// </remarks>
+		LargePayoutReached,
+		/// <summary>
+		///   Looks up a localized string similar to Insert and turn Attendant Reset Key to clear the l....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Account
+        /// </remarks>
+		LargePayoutReachedHelpMessage,
 		/// <summary>
 		///   Looks up a localized string similar to Large Win Handpay Reset Method.
 		/// </summary>
@@ -79970,6 +83608,14 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		LoadUi,
 		/// <summary>
+		///   Looks up a localized string similar to Lobby.
+		/// </summary>
+		Lobby,
+		/// <summary>
+		///   Looks up a localized string similar to LobbyAndGame.
+		/// </summary>
+		LobbyAndGame,
+		/// <summary>
 		///   Looks up a localized string similar to Lobby Volume Level.
 		/// </summary>
         /// <remarks>
@@ -80055,6 +83701,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		LogicDoorName,
 		/// <summary>
+		///   Looks up a localized string similar to Logic Door Open.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		LogicDoorOpen,
+		/// <summary>
 		///   Looks up a localized string similar to Logic Door Open Count.
 		/// </summary>
         /// <remarks>
@@ -80068,6 +83721,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Localization.xml LOC_Logic Door Open Power Off Count
         /// </remarks>
 		LogicDoorOpenPowerOffCount,
+		/// <summary>
+		///   Looks up a localized string similar to Logic Door Open Power Off.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		LogicDoorOpenPowerOffLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Logic Seal Is Broken.
 		/// </summary>
@@ -80245,6 +83905,27 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		MachinePaidBonusTotalLabel,
 		/// <summary>
+		///   Looks up a localized string similar to   Machine Paid External Bonus Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		MachinePaidExternalBonusWinLabel,
+		/// <summary>
+		///   Looks up a localized string similar to   Machine Paid Paytable Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		MachinePaidPaytableWinLabel,
+		/// <summary>
+		///   Looks up a localized string similar to   Machine Paid Progressive Win.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		MachinePaidProgressiveWinLabel,
+		/// <summary>
 		///   Looks up a localized string similar to Machine Paid Progressive.
 		/// </summary>
         /// <remarks>
@@ -80364,6 +84045,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		MainDoorOpenLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Main Door Open Power Off.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		MainDoorOpenPowerOff,
 		/// <summary>
 		///   Looks up a localized string similar to Main Door Open Power Off Count.
 		/// </summary>
@@ -80681,6 +84369,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// </summary>
 		MaxWinAmount,
 		/// <summary>
+		///   Looks up a localized string similar to MB.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		MBLabel,
+		/// <summary>
 		///   Looks up a localized string similar to MBR/BL Version.
 		/// </summary>
         /// <remarks>
@@ -80881,6 +84576,35 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		Medium,
 		/// <summary>
+		///   Looks up a localized string similar to Medium Flash.
+		/// </summary>
+		MediumFlash,
+		/// <summary>
+		///   Looks up a localized string similar to Medium Flash Reversed.
+		/// </summary>
+		MediumFlashReversed,
+		/// <summary>
+		///   Looks up a localized string similar to Medium-High.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		MediumHigh,
+		/// <summary>
+		///   Looks up a localized string similar to Medium-Low.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		MediumLow,
+		/// <summary>
+		///   Looks up a localized string similar to MB.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		MegabytesAbbr,
+		/// <summary>
 		///   Looks up a localized string similar to PAY BY HAND.
 		/// </summary>
         /// <remarks>
@@ -81024,6 +84748,132 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		MetersWat,
 		/// <summary>
+		///   Looks up a localized string similar to CLR Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		MetricClrBytes,
+		/// <summary>
+		///   Looks up a localized string similar to CPU Temperature.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		MetricCpuTemperature,
+		/// <summary>
+		///   Looks up a localized string similar to Platform CPU.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		MetricCpuTime,
+		/// <summary>
+		///   Looks up a localized string similar to Free Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		MetricFreeMemory,
+		/// <summary>
+		///   Looks up a localized string similar to Frame Drops.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		MetricGdkFrameDrops,
+		/// <summary>
+		///   Looks up a localized string similar to Framerate.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		MetricGdkFramerate,
+		/// <summary>
+		///   Looks up a localized string similar to Update Time.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		MetricGdkGamesUpdateTimeMs,
+		/// <summary>
+		///   Looks up a localized string similar to IPC Blocking Time Acc.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		MetricGdkIPCBlockingTimeAccMs,
+		/// <summary>
+		///   Looks up a localized string similar to Game Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		MetricGdkPrivateBytes,
+		/// <summary>
+		///   Looks up a localized string similar to Game CPU.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		MetricGdkProcessorTime,
+		/// <summary>
+		///   Looks up a localized string similar to Render Time.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		MetricGdkRenderTimeMs,
+		/// <summary>
+		///   Looks up a localized string similar to Runtime Update Time.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		MetricGdkRuntimeUpdateTimeMs,
+		/// <summary>
+		///   Looks up a localized string similar to Swapbuffer Time.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		MetricGdkSwapbufferTimeMs,
+		/// <summary>
+		///   Looks up a localized string similar to Game Threads.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		MetricGdkThreadCount,
+		/// <summary>
+		///   Looks up a localized string similar to GPU Usage.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		MetricGpuUsage,
+		/// <summary>
+		///   Looks up a localized string similar to Platform Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		MetricMonacoPrivateBytes,
+		/// <summary>
+		///   Looks up a localized string similar to Platform Threads.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		MetricThreadCount,
+		/// <summary>
+		///   Looks up a localized string similar to Total CPU.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application
+        /// </remarks>
+		MetricTotalCpu,
+		/// <summary>
 		///   Looks up a localized string similar to NYL Host.
 		/// </summary>
 		Mgam,
@@ -81041,6 +84891,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		MillisecondIntervalText,
+		/// <summary>
+		///   Looks up a localized string similar to ms.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		MillisecondLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Minimum Jackpot Value.
 		/// </summary>
@@ -81402,12 +85259,23 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		NoGameOptionsAtMaxBetLimit,
 		/// <summary>
+		///   Looks up a localized string similar to No games are available for this language.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		NoGamesForThisLanguage,
+		/// <summary>
 		///   Looks up a localized string similar to No Keno Games Found.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		NoKenoGames,
+		/// <summary>
+		///   Looks up a localized string similar to No Key-Off.
+		/// </summary>
+		NoKeyOff,
 		/// <summary>
 		///   Looks up a localized string similar to No Limit.
 		/// </summary>
@@ -82306,6 +86174,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		OperatorResetRequiredMessage,
 		/// <summary>
+		///   Looks up a localized string similar to Operator.
+		/// </summary>
+		OperatorRoleName,
+		/// <summary>
 		///   Looks up a localized string similar to Options.
 		/// </summary>
         /// <remarks>
@@ -82651,7 +86523,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
-		PartialClearSummeryText,
+		PartialClearSummaryText,
 		/// <summary>
 		///   Looks up a localized string similar to Partial Handpays.
 		/// </summary>
@@ -82740,6 +86612,14 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		PayMethod,
+		/// <summary>
+		///   Looks up a localized string similar to Payout Limit.
+		/// </summary>
+		PayoutLimit,
+		/// <summary>
+		///   Looks up a localized string similar to Note: After first COAM game is played, RAM clear i....
+		/// </summary>
+		PayoutLimitHelpText,
 		/// <summary>
 		///   Looks up a localized string similar to Paytable.
 		/// </summary>
@@ -82899,6 +86779,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		PhysicalText,
 		/// <summary>
+		///   Looks up a localized string similar to Ping.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		Ping,
+		/// <summary>
 		///   Looks up a localized string similar to Pinging Network....
 		/// </summary>
         /// <remarks>
@@ -82947,6 +86834,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application
         /// </remarks>
 		PlatformIdText,
+		/// <summary>
+		///   Looks up a localized string similar to Platform Memory.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		PlatformMemoryLabel,
 		/// <summary>
 		///   Looks up a localized string similar to VLT Platform Package.
 		/// </summary>
@@ -83004,6 +86898,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		PlayCount,
 		/// <summary>
+		///   Looks up a localized string similar to Games Played.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		PlayedCountLabel,
+		/// <summary>
 		///   Looks up a localized string similar to Player Card Must Be Inserted.
 		/// </summary>
         /// <remarks>
@@ -83024,6 +86925,17 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		PlayOnText,
+		/// <summary>
+		///   Looks up a localized string similar to Play/Spin/Draw.
+		/// </summary>
+		PlaySpinDraw,
+		/// <summary>
+		///   Looks up a localized string similar to Animate.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		PlayStepperCurveButton,
 		/// <summary>
 		///   Looks up a localized string similar to Please Do Not Power Off The Gaming Machine.
 		/// </summary>
@@ -83243,6 +87155,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		///   Looks up a localized string similar to Previously Active.
 		/// </summary>
 		PreviouslyActive,
+		/// <summary>
+		///   Looks up a localized string similar to Primary Game Amount Won.
+		/// </summary>
+		PrimaryWonAmountLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Print Audit Ticket.
 		/// </summary>
@@ -83623,6 +87539,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ProgressiveColumnHeader,
 		/// <summary>
+		///   Looks up a localized string similar to Progressive Details.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		ProgressiveDetails,
+		/// <summary>
 		///   Looks up a localized string similar to Progressive Disable.
 		/// </summary>
         /// <remarks>
@@ -84000,6 +87923,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
+		Protocol,
+		/// <summary>
+		///   Looks up a localized string similar to Protocol.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
 		ProtocolLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Progressive Protocol.
@@ -84054,6 +87984,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI - Changed from "ReadErrorText"
         /// </remarks>
 		ReadErrorText2,
+		/// <summary>
+		///   Looks up a localized string similar to Reading.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		Reading,
 		/// <summary>
 		///   Looks up a localized string similar to Read-Only Configuration Error.
 		/// </summary>
@@ -84260,6 +88197,9 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///   Looks up a localized string similar to Reel Controller Enabled.
 		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
 		ReelControllerEnabled,
 		/// <summary>
 		///   Looks up a localized string similar to Reel Controller Error.
@@ -84292,6 +88232,9 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///   Looks up a localized string similar to Reel Controller Manufacturer.
 		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
 		ReelControllerManufacturer,
 		/// <summary>
 		///   Looks up a localized string similar to Reel Controller Error.
@@ -84438,6 +88381,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		RemoveAllHardLockupsBeforeChange,
+		/// <summary>
+		///   Looks up a localized string similar to Removed.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		Removed,
 		/// <summary>
 		///   Looks up a localized string similar to Done - Press Exit to quit Replay.
 		/// </summary>
@@ -84722,6 +88672,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ResetValue,
 		/// <summary>
+		///   Looks up a localized string similar to ResidualCreditsTransaction.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		ResidualCreditsTransactionName,
+		/// <summary>
 		///   Looks up a localized string similar to Resolver Error.
 		/// </summary>
         /// <remarks>
@@ -84810,6 +88767,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		ReturnedText,
+		/// <summary>
+		///   Looks up a localized string similar to Returning.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		Returning,
 		/// <summary>
 		///   Looks up a localized string similar to Reverting Changes.
 		/// </summary>
@@ -85190,6 +89154,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		SecondaryCashDoorName,
 		/// <summary>
+		///   Looks up a localized string similar to Double Up Games Played.
+		/// </summary>
+		SecondaryPlayedCountLabel,
+		/// <summary>
 		///   Looks up a localized string similar to To clear this lockup, remove secondary storage and....
 		/// </summary>
         /// <remarks>
@@ -85204,12 +89172,31 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		SecondaryStorageMediaNotConnectedMessage,
 		/// <summary>
+		///   Looks up a localized string similar to Double Up Games Won.
+		/// </summary>
+		SecondaryTiedAndWonCountLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Double Up Amount Wagered.
+		/// </summary>
+		SecondaryWageredAmountLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Double Up Amount Won.
+		/// </summary>
+		SecondaryWonAmountLabel,
+		/// <summary>
 		///   Looks up a localized string similar to Seconds.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		Seconds,
+		/// <summary>
+		///   Looks up a localized string similar to secs.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Gaming.UI
+        /// </remarks>
+		Secs,
 		/// <summary>
 		///   Looks up a localized string similar to Secure Enhanced.
 		/// </summary>
@@ -85560,6 +89547,20 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		Seed,
+		/// <summary>
+		///   Looks up a localized string similar to Select All.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		SelectAll,
+		/// <summary>
+		///   Looks up a localized string similar to Select a Date.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		SelectDate,
 		/// <summary>
 		///   Looks up a localized string similar to Select the end date..
 		/// </summary>
@@ -86089,6 +90090,14 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		SlotGameSummary,
 		/// <summary>
+		///   Looks up a localized string similar to Slow Flash.
+		/// </summary>
+		SlowFlash,
+		/// <summary>
+		///   Looks up a localized string similar to Slow Flash Reversed.
+		/// </summary>
+		SlowFlashReversed,
+		/// <summary>
 		///   Looks up a localized string similar to Smart Card Expired.
 		/// </summary>
 		SmartCardExpired,
@@ -86290,6 +90299,20 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		StackerLabel,
 		/// <summary>
+		///   Looks up a localized string similar to Stacker Removed.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		StackerRemoved,
+		/// <summary>
+		///   Looks up a localized string similar to Stacking.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		Stacking,
+		/// <summary>
 		///   Looks up a localized string similar to Stalled.
 		/// </summary>
         /// <remarks>
@@ -86303,6 +90326,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		StandaloneProgressive,
+		/// <summary>
+		///   Looks up a localized string similar to Standard.
+		/// </summary>
+		Standard,
 		/// <summary>
 		///   Looks up a localized string similar to Game Start.
 		/// </summary>
@@ -86472,6 +90499,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming
         /// </remarks>
 		StatusText,
+		/// <summary>
+		///   Looks up a localized string similar to Stop.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		StopButton,
 		/// <summary>
 		///   Looks up a localized string similar to Stopped Responding.
 		/// </summary>
@@ -86698,6 +90732,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		TechnicianCardRequired,
 		/// <summary>
+		///   Looks up a localized string similar to Technician.
+		/// </summary>
+		TechnicianRoleName,
+		/// <summary>
 		///   Looks up a localized string similar to Temperature Error.
 		/// </summary>
         /// <remarks>
@@ -86813,6 +90851,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		TestModeDisabledStatus,
+		/// <summary>
+		///   Looks up a localized string similar to Zero credits are required to enter Test Mode.
+		/// </summary>
+		TestModeDisabledStatusCredits,
 		/// <summary>
 		///   Looks up a localized string similar to Device must be connected and not in fault state to....
 		/// </summary>
@@ -87127,6 +91169,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		TimeAndZoneConfiguration,
 		/// <summary>
+		///   Looks up a localized string similar to TIME BEFORE CREDITS/HANDCOUNT IS RESET..
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Gaming.UI
+        /// </remarks>
+		TimeBeforeHandCountReset,
+		/// <summary>
 		///   Looks up a localized string similar to MM/dd/yyyy H:mm:ss.
 		/// </summary>
         /// <remarks>
@@ -87244,6 +91293,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		TopBoxDoorName,
 		/// <summary>
+		///   Looks up a localized string similar to Top Box Door Open.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		TopBoxDoorOpen,
+		/// <summary>
 		///   Looks up a localized string similar to Top Box Door Open Count.
 		/// </summary>
         /// <remarks>
@@ -87257,6 +91313,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Localization.xml LOC_Top Box Door Open Power Off Count
         /// </remarks>
 		TopBoxDoorOpenPowerOffCount,
+		/// <summary>
+		///   Looks up a localized string similar to Top Box Door Open Power Off.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		TopBoxDoorOpenPowerOffLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Top Box Optic Door Closed.
 		/// </summary>
@@ -87333,6 +91396,20 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		TotalCoinInText,
 		/// <summary>
+		///   Looks up a localized string similar to Total Coin In (Turnover).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		TotalCoinInTurnoverLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Total Coin Out (Machine Paid).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		TotalCoinOutMachinePaidLabel,
+		/// <summary>
 		///   Looks up a localized string similar to Total Coin Out.
 		/// </summary>
         /// <remarks>
@@ -87361,6 +91438,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		TotalDashBillIn,
 		/// <summary>
+		///   Looks up a localized string similar to Total - Bills, Vouchers.
+		/// </summary>
+		TotalDashBillsAndVouchers,
+		/// <summary>
 		///   Looks up a localized string similar to Total - Coin In.
 		/// </summary>
         /// <remarks>
@@ -87374,6 +91455,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Localization.xml LOC_Total - Coins and Bills
         /// </remarks>
 		TotalDashCoinsAndBills,
+		/// <summary>
+		///   Looks up a localized string similar to Total - Coins, Bills, Vouchers.
+		/// </summary>
+		TotalDashCoinsBillsAndVouchers,
 		/// <summary>
 		///   Looks up a localized string similar to Total Debit.
 		/// </summary>
@@ -87414,6 +91499,20 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// </summary>
 		TotalHidden,
 		/// <summary>
+		///   Looks up a localized string similar to Total In.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		TotalInLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Total Jackpot (Attendant Paid).
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		TotalJackpotAttendantPaidLabel,
+		/// <summary>
 		///   Looks up a localized string similar to Jurisdictional Total RTP.
 		/// </summary>
         /// <remarks>
@@ -87448,6 +91547,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		TotalMoneyOut,
+		/// <summary>
+		///   Looks up a localized string similar to Total Out.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		TotalOutLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Total Overflow.
 		/// </summary>
@@ -87624,6 +91730,14 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		TouchScreenCalibrationDisabledLabel,
+		/// <summary>
+		///   Looks up a localized string similar to 1. With a single finger, touch the monitor that di....
+		/// </summary>
+		TouchScreenCalibrationInstructions,
+		/// <summary>
+		///   Looks up a localized string similar to Touch Screen Calibration Process.
+		/// </summary>
+		TouchScreenCalibrationProcess,
 		/// <summary>
 		///   Looks up a localized string similar to Touch Screen {0}.
 		/// </summary>
@@ -87824,6 +91938,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		TriggerLabel,
+		/// <summary>
+		///   Looks up a localized string similar to True.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		TrueText,
 		/// <summary>
 		///   Looks up a localized string similar to Tuesday.
 		/// </summary>
@@ -88321,6 +92442,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		Validate,
 		/// <summary>
+		///   Looks up a localized string similar to Validated.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		Validated,
+		/// <summary>
 		///   Looks up a localized string similar to Validate Handpays.
 		/// </summary>
 		ValidateHandpays,
@@ -88331,6 +92459,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		Validating,
+		/// <summary>
+		///   Looks up a localized string similar to Validating.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		ValidatingText,
 		/// <summary>
 		///   Looks up a localized string similar to Validation.
 		/// </summary>
@@ -88519,12 +92654,19 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		VerificationTicketTitle,
 		/// <summary>
-		///   Looks up a localized string similar to EKey device is required to perform game re-configu....
+		///   Looks up a localized string similar to EKey device is required to perform configuration.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		VerifiedEKeyRequired,
+		/// <summary>
+		///   Looks up a localized string similar to EKey device is required to perform game re-configu....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		VerifiedEKeyRequiredGameConfiguration,
 		/// <summary>
 		///   Looks up a localized string similar to Verifying CRC Signatures.
 		/// </summary>
@@ -88593,6 +92735,14 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		VideoLotteryText,
 		/// <summary>
+		///   Looks up a localized string similar to View Memory.
+		/// </summary>
+		ViewMemory,
+		/// <summary>
+		///   Looks up a localized string similar to View Performance Details.
+		/// </summary>
+		ViewPerformanceDetails,
+		/// <summary>
 		///   Looks up a localized string similar to View Progressive Summary.
 		/// </summary>
         /// <remarks>
@@ -88627,6 +92777,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.Contracts - Changed from "VignetteText"
         /// </remarks>
 		VignetteText2,
+		/// <summary>
+		///   Looks up a localized string similar to Vip.
+		/// </summary>
+		Vip,
 		/// <summary>
 		///   Looks up a localized string similar to Virtual Buttons.
 		/// </summary>
@@ -89022,6 +93176,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		Wagered,
 		/// <summary>
+		///   Looks up a localized string similar to Cash Played.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		WageredAmountLabel,
+		/// <summary>
 		///   Looks up a localized string similar to Wager Match Bonus.
 		/// </summary>
         /// <remarks>
@@ -89194,6 +93355,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		///   Looks up a localized string similar to WIN LEVEL.
 		/// </summary>
 		WinLevelHeader,
+		/// <summary>
+		///   Looks up a localized string similar to Games Won.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		WonCountLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Yes.
 		/// </summary>

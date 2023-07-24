@@ -1,4 +1,4 @@
-﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.IdReaderPage"
+<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.IdReaderPage"
                                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -15,6 +15,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="Label"
                    BasedOn="{StaticResource MonacoLabel}">
@@ -92,215 +93,161 @@
                            Grid.Column="0"
                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.ManufacturerLabel}}"
                            AutomationProperties.AutomationId="Label19_B32EFF41" />
-                    <TextBlock Grid.Row="0"
-                               Grid.Column="1"
-                               Name="Manufacturer"
-                               VerticalAlignment="Center"
-                               Foreground="{Binding ManufacturerForeground}"
-                               AutomationProperties.AutomationId="TextBlock20_B32EFF41">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock"
-                                   BasedOn="{StaticResource TextBlockStyle}">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ManufacturerText, Mode=OneWay, TargetNullValue=''}"
-                                                 Value=""
-                                                 AutomationProperties.AutomationId="DataTrigger21_B32EFF41">
-                                        <Setter Property="Text"
-                                                Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                                <Setter Property="Text"
-                                        Value="{Binding ManufacturerText, Mode=OneWay}" />
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
+                    <StackPanel Grid.Row="0"
+                                Grid.Column="1"
+                                Orientation="Vertical"
+                                AutomationProperties.AutomationId="StackPanel0_FB07E67B">
+                        <TextBlock Name="Manufacturer"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock20_B32EFF41"
+                                   Text="{Binding ManufacturerText}"
+                                   Visibility="{Binding ManufacturerText, Converter={StaticResource EmptyStringIsCollapsedConverter}}"/>
+
+                        <TextBlock Name="ManufacturerNA"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock21_B32EFF41"
+                                   Text="{lex:Loc Key={x:Static loc:ResourceKeys.NotAvailable}}"
+                                   Visibility="{Binding ManufacturerText, Converter={StaticResource EmptyStringIsVisibleConverter}}"/>
+                    </StackPanel>
                     <Label Grid.Row="1"
                            Grid.Column="0"
                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.ModelLabel}}"
                            AutomationProperties.AutomationId="Label22_B32EFF41" />
-                    <TextBlock Grid.Row="1"
-                               Grid.Column="1"
-                               Name="Model"
-                               VerticalAlignment="Center"
-                               Foreground="{Binding ModelForeground}"
-                               AutomationProperties.AutomationId="TextBlock23_B32EFF41">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock"
-                                   BasedOn="{StaticResource TextBlockStyle}">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ModelText, Mode=OneWay, TargetNullValue=''}"
-                                                 Value=""
-                                                 AutomationProperties.AutomationId="DataTrigger24_B32EFF41">
-                                        <Setter Property="Text"
-                                                Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                                <Setter Property="Text"
-                                        Value="{Binding ModelText, Mode=OneWay}" />
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
+                    <StackPanel Grid.Row="1"
+                                Grid.Column="1"
+                                Orientation="Vertical"
+                                AutomationProperties.AutomationId="StackPanel1_FB07E67B">
+                        <TextBlock Name="Model"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock22_B32EFF41"
+                                   Text="{Binding ModelText}"
+                                   Visibility="{Binding ModelText, Converter={StaticResource EmptyStringIsCollapsedConverter}}"/>
+
+                        <TextBlock Name="ModelNA"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock23_B32EFF41"
+                                   Text="{lex:Loc Key={x:Static loc:ResourceKeys.NotAvailable}}"
+                                   Visibility="{Binding ModelText, Converter={StaticResource EmptyStringIsVisibleConverter}}"/>
+                    </StackPanel>
                     <Label Grid.Row="2"
                            Grid.Column="0"
                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.ProtocolLabel}}"
                            AutomationProperties.AutomationId="Label25_B32EFF41" />
-                    <TextBlock Grid.Row="2"
-                               Grid.Column="1"
-                               Name="Protocol"
-                               VerticalAlignment="Center"
-                               Foreground="{Binding ProtocolForeground}"
-                               AutomationProperties.AutomationId="TextBlock26_B32EFF41">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock"
-                                   BasedOn="{StaticResource TextBlockStyle}">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ProtocolText, Mode=OneWay, TargetNullValue=''}"
-                                                 Value=""
-                                                 AutomationProperties.AutomationId="DataTrigger27_B32EFF41">
-                                        <Setter Property="Text"
-                                                Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                                <Setter Property="Text"
-                                        Value="{Binding ProtocolText, Mode=OneWay}" />
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
+                    <StackPanel Grid.Row="2"
+                                Grid.Column="1"
+                                Orientation="Vertical"
+                                AutomationProperties.AutomationId="StackPanel2_FB07E67B">
+                        <TextBlock Name="Protocol"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock24_B32EFF41"
+                                   Text="{Binding ProtocolText}"
+                                   Visibility="{Binding ProtocolText, Converter={StaticResource EmptyStringIsCollapsedConverter}}"/>
+
+                        <TextBlock Name="ProtocolNA"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock25_B32EFF41"
+                                   Text="{lex:Loc Key={x:Static loc:ResourceKeys.NotAvailable}}"
+                                   Visibility="{Binding ProtocolText, Converter={StaticResource EmptyStringIsVisibleConverter}}"/>
+
+                    </StackPanel>
                     <Label Grid.Row="3"
                            Grid.Column="0"
                            Name="PortLabel"
                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.Port}}"
                            Visibility="{Binding PortVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                            AutomationProperties.AutomationId="Label28_B32EFF41" />
-                    <TextBlock Grid.Row="3"
-                               Grid.Column="1"
-                               Name="Port"
-                               VerticalAlignment="Center"
-                               Foreground="{Binding PortForeground}"
-                               Visibility="{Binding PortVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                               AutomationProperties.AutomationId="TextBlock29_B32EFF41">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock"
-                                   BasedOn="{StaticResource TextBlockStyle}">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding PortText, Mode=OneWay, TargetNullValue=''}"
-                                                 Value=""
-                                                 AutomationProperties.AutomationId="DataTrigger30_B32EFF41">
-                                        <Setter Property="Text"
-                                                Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                                <Setter Property="Text"
-                                        Value="{Binding PortText, Mode=OneWay}" />
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
+                    <StackPanel Grid.Row="3"
+                                Grid.Column="1"
+                                Orientation="Vertical"
+                                Visibility="{Binding PortVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                AutomationProperties.AutomationId="StackPanel3_FB07E67B">
+                        <TextBlock Name="Port"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock26_B32EFF41"
+                                   Text="{Binding PortText}"
+                                   Visibility="{Binding PortText, Converter={StaticResource EmptyStringIsCollapsedConverter}}"/>
+                        <TextBlock Name="PortNA"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock27_B32EFF41"
+                                   Text="{lex:Loc Key={x:Static loc:ResourceKeys.NotAvailable}}"
+                                   Visibility="{Binding PortText, Converter={StaticResource EmptyStringIsVisibleConverter}}"/>
+                    </StackPanel>
                     <Label Grid.Row="4"
                            Grid.Column="0"
                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.SerialNumberLabel}}"
                            AutomationProperties.AutomationId="Label31_B32EFF41" />
-                    <TextBlock Grid.Row="4"
-                               Grid.Column="1"
-                               Name="SerialNumber"
-                               VerticalAlignment="Center"
-                               Foreground="{Binding SerialNumberForeground}"
-                               AutomationProperties.AutomationId="TextBlock32_B32EFF41">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock"
-                                   BasedOn="{StaticResource TextBlockStyle}">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding SerialNumberText, Mode=OneWay, TargetNullValue=''}"
-                                                 Value=""
-                                                 AutomationProperties.AutomationId="DataTrigger33_B32EFF41">
-                                        <Setter Property="Text"
-                                                Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                                <Setter Property="Text"
-                                        Value="{Binding SerialNumberText, Mode=OneWay}" />
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
+                    <StackPanel Grid.Row="4"
+                                Grid.Column="1"
+                                Orientation="Vertical"
+                                AutomationProperties.AutomationId="StackPanel4_FB07E67B">
+                        <TextBlock Name="SerialNumber"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock28_B32EFF41"
+                                   Text="{Binding SerialNumberText}"
+                                   Visibility="{Binding SerialNumberText, Converter={StaticResource EmptyStringIsCollapsedConverter}}"/>
+                        <TextBlock Name="SerialNumberNA"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock29_B32EFF41"
+                                   Text="{lex:Loc Key={x:Static loc:ResourceKeys.NotAvailable}}"
+                                   Visibility="{Binding SerialNumberText, Converter={StaticResource EmptyStringIsVisibleConverter}}"/>
+                    </StackPanel>
                     <Label Grid.Row="5"
                            Grid.Column="0"
                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareVersionLabel}}"
                            AutomationProperties.AutomationId="Label34_B32EFF41" />
-                    <TextBlock Grid.Row="5"
-                               Grid.Column="1"
-                               Name="FirmwareVersion"
-                               VerticalAlignment="Center"
-                               Foreground="{Binding FirmwareVersionForeground}"
-                               AutomationProperties.AutomationId="TextBlock35_B32EFF41">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock"
-                                   BasedOn="{StaticResource TextBlockStyle}">
-                                <Style.Triggers>
-                                    <DataTrigger
-                                            Binding="{Binding FirmwareVersionText, Mode=OneWay, TargetNullValue=''}"
-                                                 Value=""
-                                                 AutomationProperties.AutomationId="DataTrigger36_B32EFF41">
-                                        <Setter Property="Text"
-                                                Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                                <Setter Property="Text"
-                                        Value="{Binding FirmwareVersionText, Mode=OneWay}" />
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
+                    <StackPanel Grid.Row="5"
+                                Grid.Column="1"
+                                Orientation="Vertical"
+                                AutomationProperties.AutomationId="StackPanel5_FB07E67B">
+                        <TextBlock Name="FirmwareVersion"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock30_B32EFF41"
+                                   Text="{Binding FirmwareVersionText}"
+                                   Visibility="{Binding FirmwareVersionText, Converter={StaticResource EmptyStringIsCollapsedConverter}}"/>
+                        <TextBlock Name="FirmwareVersionNA"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock31_B32EFF41"
+                                   Text="{lex:Loc Key={x:Static loc:ResourceKeys.NotAvailable}}"
+                                   Visibility="{Binding FirmwareVersionText, Converter={StaticResource EmptyStringIsVisibleConverter}}"/>
+                    </StackPanel>
                     <Label Grid.Row="6"
                            Grid.Column="0"
                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareRevisionLabel}}"
                            AutomationProperties.AutomationId="Label37_B32EFF41" />
-                    <TextBlock Grid.Row="6"
-                               Grid.Column="1"
-                               Name="FirmwareRevision"
-                               VerticalAlignment="Center"
-                               Foreground="{Binding FirmwareRevisionForeground}"
-                               AutomationProperties.AutomationId="TextBlock38_B32EFF41">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock"
-                                   BasedOn="{StaticResource TextBlockStyle}">
-                                <Style.Triggers>
-                                    <DataTrigger
-                                            Binding="{Binding FirmwareRevisionText, Mode=OneWay, TargetNullValue=''}"
-                                                 Value=""
-                                                 AutomationProperties.AutomationId="DataTrigger39_B32EFF41">
-                                        <Setter Property="Text"
-                                                Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                                <Setter Property="Text"
-                                        Value="{Binding FirmwareRevisionText, Mode=OneWay}" />
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
+                    <StackPanel Grid.Row="6"
+                                Grid.Column="1"
+                                Orientation="Vertical"
+                                AutomationProperties.AutomationId="StackPanel6_FB07E67B">
+                        <TextBlock Name="FirmwareRevision"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock32_B32EFF41"
+                                   Text="{Binding FirmwareRevisionText}"
+                                   Visibility="{Binding FirmwareRevisionText, Converter={StaticResource EmptyStringIsCollapsedConverter}}"/>
+                        <TextBlock Name="FirmwareRevisionNA"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock33_B32EFF41"
+                                   Text="{lex:Loc Key={x:Static loc:ResourceKeys.NotAvailable}}"
+                                   Visibility="{Binding FirmwareRevisionText, Converter={StaticResource EmptyStringIsVisibleConverter}}"/>
+                    </StackPanel>
                     <Label Grid.Row="7"
                            Grid.Column="0"
                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareCRCLabel}}"
                            AutomationProperties.AutomationId="Label40_B32EFF41" />
-                    <TextBlock Grid.Row="7"
-                               Grid.Column="1"
-                               Name="FirmwareCrc"
-                               VerticalAlignment="Center"
-                               Foreground="{Binding FirmwareCrcForeground}"
-                               AutomationProperties.AutomationId="TextBlock41_B32EFF41">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock"
-                                   BasedOn="{StaticResource TextBlockStyle}">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding FirmwareCrcText, Mode=OneWay, TargetNullValue=''}"
-                                                 Value=""
-                                                 AutomationProperties.AutomationId="DataTrigger42_B32EFF41">
-                                        <Setter Property="Text"
-                                                Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                                <Setter Property="Text"
-                                        Value="{Binding FirmwareCrcText, Mode=OneWay}" />
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
+                    <StackPanel Grid.Row="7"
+                                Grid.Column="1"
+                                Orientation="Vertical"
+                                AutomationProperties.AutomationId="StackPanel7_FB07E67B">
+                        <TextBlock Name="FirmwareCrc"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock34_B32EFF41"
+                                   Text="{Binding FirmwareCrcText}"
+                                   Visibility="{Binding FirmwareCrcText, Converter={StaticResource EmptyStringIsCollapsedConverter}}"/>
+                        <TextBlock Name="FirmwareCrcNA"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock35_B32EFF41"
+                                   Text="{lex:Loc Key={x:Static loc:ResourceKeys.NotAvailable}}"
+                                   Visibility="{Binding FirmwareCrcText, Converter={StaticResource EmptyStringIsVisibleConverter}}"/>
+                    </StackPanel>
                 </Grid>
                 <Grid Grid.Row="0"
                       Grid.Column="1"
@@ -330,7 +277,6 @@
                                Grid.Column="1"
                                Name="IdCardReadData"
                                Text="{Binding IdCardReadData}"
-                               Foreground="{Binding IdCardReadDataForeground}"
                                AutomationProperties.AutomationId="TextBlock51_B32EFF41" />
                     <Label Grid.Row="0"
                            Grid.Column="0"
@@ -339,8 +285,7 @@
                     <TextBlock Grid.Row="0"
                                Grid.Column="1"
                                Name="State"
-                               Text="{Binding StateText}"
-                               Foreground="{Binding StateForeground}"
+                               Text="{Binding StateTextLocalized}"
                                AutomationProperties.AutomationId="TextBlock53_B32EFF41" />
                     <Label Grid.Row="1"
                            Grid.Column="0"
@@ -350,7 +295,6 @@
                                Grid.Column="1"
                                Name="SelfTestStatus"
                                Text="{Binding SelfTestText}"
-                               Foreground="{Binding SelfTestForeground}"
                                AutomationProperties.AutomationId="TextBlock55_B32EFF41" />
                     <Label Grid.Row="2"
                            Grid.Column="0"
@@ -360,7 +304,6 @@
                                Grid.Column="1"
                                Name="Status"
                                Text="{Binding StatusText}"
-                               Foreground="{Binding StatusForeground}"
                                AutomationProperties.AutomationId="TextBlock57_B32EFF41" />
                 </Grid>
             </Grid>

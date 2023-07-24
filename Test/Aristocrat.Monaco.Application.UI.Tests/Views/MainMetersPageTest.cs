@@ -10,23 +10,24 @@
     using System.Windows;
     using System.Windows.Threading;
     using Accounting.Contracts;
-    using Aristocrat.Monaco.Hardware.Contracts.Button;
-    using Aristocrat.Monaco.Hardware.Contracts.IO;
-    using Aristocrat.Monaco.UI.Common.Events;
     using Contracts;
+    using Contracts.Localization;
     using Contracts.MeterPage;
     using Contracts.OperatorMenu;
     using Contracts.Tickets;
     using Events;
     using Hardware.Contracts;
+    using Hardware.Contracts.Button;
     using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.Door;
+    using Hardware.Contracts.IO;
     using Hardware.Contracts.Printer;
     using Hardware.Contracts.SharedDevice;
     using Hardware.Contracts.Ticket;
     using Kernel;
     using Kernel.Contracts;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Monaco.UI.Common.Events;
     using Mono.Addins;
     using Moq;
     using OperatorMenu;
@@ -226,6 +227,7 @@
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<DialogClosedEvent>>()));
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<OperatorMenuPrintJobStartedEvent>>()));
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<OperatorMenuPrintJobCompletedEvent>>()));
+            _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<OperatorCultureChangedEvent>>()));
 
             _eventBus.Setup(m => m.Publish(It.IsAny<OperatorMenuPageLoadedEvent>())).Verifiable();
             _eventBus.Setup(m => m.Publish(It.IsAny<OperatorMenuPrintJobStartedEvent>())).Verifiable();
@@ -389,6 +391,7 @@
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<DialogClosedEvent>>()));
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<OperatorMenuPrintJobStartedEvent>>()));
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<OperatorMenuPrintJobCompletedEvent>>()));
+            _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<OperatorCultureChangedEvent>>()));
             _eventBus.Setup(m => m.Publish(It.IsAny<LampTestLampStateEvent>()));
             _accessor.LoadedCommand.Execute(null);
             _accessor.UnloadedCommand.Execute(null);

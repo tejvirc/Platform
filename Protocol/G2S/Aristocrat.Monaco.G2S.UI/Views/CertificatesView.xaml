@@ -12,7 +12,6 @@
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance viewModels:CertificatesViewModel, IsDesignTimeCreatable=False}"
                                FocusManager.FocusedElement="{Binding ElementName=MainMenu}"
-                               Background="Transparent"
                                common:DialogParticipation.Register="{Binding}">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -24,7 +23,7 @@
                    TargetType="Button"
                    BasedOn="{StaticResource MonacoButton1}">
                 <Setter Property="Margin"
-                        Value="5 5 0 5" />
+                        Value="5 0 0 0" />
                 <Setter Property="VerticalAlignment"
                         Value="Bottom" />
                 <Setter Property="HorizontalAlignment"
@@ -48,6 +47,7 @@
                            AutomationProperties.AutomationId="RowDefinition5_2F3D0D04" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0"
+              loc:Localizer.For="Operator"
               AutomationProperties.AutomationId="Grid6_2F3D0D04">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"
@@ -69,7 +69,7 @@
                     IsEnabled="{Binding Path=RenewEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     VerticalAlignment="Bottom"
                     HorizontalAlignment="Right"
-                    Margin="5,5,0,5"
+                    Margin="5 0 0 0"
                     AutomationProperties.AutomationId="Button13_2F3D0D04" />
             <Button Grid.Column="5"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.CertificateRemoveButtonTitle}}"
@@ -77,7 +77,7 @@
                     IsEnabled="{Binding Path=RemoveEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     VerticalAlignment="Bottom"
                     HorizontalAlignment="Right"
-                    Margin="5,5,0,5"
+                    Margin="5 0 0 0"
                     AutomationProperties.AutomationId="Button14_2F3D0D04" />
             <Button Grid.Column="2"
                     Command="{Binding RollUpCommand, Mode=OneWay}"
@@ -119,13 +119,14 @@
                     <Label Grid.Row="0"
                            Grid.Column="0"
                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.CertificatePreSharedSecretTitle}}"
+                           VerticalAlignment="Center"
                            Margin="10,5,0,0"
                            AutomationProperties.AutomationId="Label25_2F3D0D04" />
                     <TextBox Grid.Row="0"
                              Grid.Column="1"
                              Name="PreSharedSecret"
                              Width="200"
-                             Margin="5,5,0,0"
+                             Margin="5 0 0 0"
                              IsEnabled="{Binding IsScepEnabled, Mode=OneWay}"
                              AutomationProperties.AutomationId="TextBox26_2F3D0D04">
                         <TextBox.Text>
@@ -137,7 +138,7 @@
                             Grid.Column="3"
                             Content="{lex:Loc Key={x:Static loc:ResourceKeys.CertificateEnrollButtonTitle}}"
                             Command="{Binding EnrollCertificateCommand, Mode=OneWay}"
-                            Margin="5,5,0,0"
+                            Margin="5 0 0 0"
                             VerticalAlignment="Bottom"
                             HorizontalAlignment="Right"
                             AutomationProperties.AutomationId="Button27_2F3D0D04">
@@ -167,36 +168,44 @@
                   Grid.Row="1"
                   ItemsSource="{Binding CertificateInfoData, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding SelectedCertificate}"
+                  loc:Localizer.For="Operator"
                   AutomationProperties.AutomationId="DataGrid29_2F3D0D04">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.NameLabel}}"
                                     Width="Auto"
                                     Binding="{Binding CommonName}"
+                                    loc:Localizer.For="Operator"
                                     AutomationProperties.AutomationId="DataGridTextColumn30_2F3D0D04" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CertificateThumbprint}}"
                                     Width="Auto"
                                     Binding="{Binding Thumbprint}"
                                     FontSize="14"
+                                    loc:Localizer.For="Operator"
                                     AutomationProperties.AutomationId="DataGridTextColumn31_2F3D0D04" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CertificateNotBefore}}"
                                     Width="Auto"
                                     Binding="{Binding NotBefore}"
+                                    loc:Localizer.For="Operator"
                                     AutomationProperties.AutomationId="DataGridTextColumn32_2F3D0D04" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CertificateNotAfter}}"
                                     Width="Auto"
                                     Binding="{Binding NotAfter}"
+                                    loc:Localizer.For="Operator"
                                     AutomationProperties.AutomationId="DataGridTextColumn33_2F3D0D04" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CertificateVerifyDate}}"
                                     Width="Auto"
                                     Binding="{Binding VerificationDate}"
+                                    loc:Localizer.For="Operator"
                                     AutomationProperties.AutomationId="DataGridTextColumn34_2F3D0D04" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.StatusText}}"
                                     Width="Auto"
                                     Binding="{Binding Status}"
+                                    loc:Localizer.For="Operator"
                                     AutomationProperties.AutomationId="DataGridTextColumn35_2F3D0D04" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CertificateOcspOfflineDate}}"
                                     Width="Auto"
                                     Binding="{Binding OcspOfflineDate}"
+                                    loc:Localizer.For="Operator"
                                     AutomationProperties.AutomationId="DataGridTextColumn36_2F3D0D04" />
             </DataGrid.Columns>
         </DataGrid>

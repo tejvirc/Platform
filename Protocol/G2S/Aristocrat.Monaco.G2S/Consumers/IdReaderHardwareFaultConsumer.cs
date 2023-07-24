@@ -77,7 +77,7 @@
                 {
                     var status = new idReaderStatus();
                     _commandBuilder.Build(idReader, status);
-                    _eventLift.Report(idReader, eventCode, idReader.DeviceList(status));
+                    _eventLift.Report(idReader, eventCode, idReader.DeviceList(status), theEvent);
                 }
             }
         }

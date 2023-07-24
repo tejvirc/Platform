@@ -31,5 +31,10 @@
         ///     Gets the value of each credit wagered as part of the game
         /// </summary>
         public decimal Denomination { get; set; }
+
+        /// <summary>
+        ///     Gets the variation of the game.
+        /// </summary>
+        public string Variation { get; set; }
     }
 }

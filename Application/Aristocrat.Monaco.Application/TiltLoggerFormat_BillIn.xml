@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BlockFormat name="TiltLoggerFormat_BillIn" version="1">
+  <Fields>
+    <Field DataType="String" Size="256" Count="0" Offset="0" FieldName="Events" />
+  </Fields>
+</BlockFormat>
+
