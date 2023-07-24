@@ -73,6 +73,7 @@ as follows:
     <string>Door</string>
     <string>Protocol</string>
   </LogTypesAllowedForDisplay>
+  <Clock Enabled="true" Format="24" />
   <Cashout ClearWins="false" />
   <MultiGame RestoreRebootStateAfterSwitch="false" StateStorageLocation="game" />
   <PlatformEnhancedDisplay Enabled="false" />
