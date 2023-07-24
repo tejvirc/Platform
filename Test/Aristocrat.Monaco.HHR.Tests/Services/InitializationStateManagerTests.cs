@@ -16,6 +16,7 @@
     using Moq;
     using Storage.Helpers;
 
+    [DoNotParallelize]
     [TestClass]
     public class InitializationStateManagerTests
     {
