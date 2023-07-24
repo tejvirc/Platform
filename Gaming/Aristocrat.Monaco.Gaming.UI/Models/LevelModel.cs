@@ -3,6 +3,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using Application.Contracts.Extensions;
     using Aristocrat.Monaco.UI.Common.MVVM;
@@ -246,21 +247,11 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
         /// <summary>
         ///     Gets or sets the initial value.
         /// </summary>
+        [CustomValidation(typeof(LevelModel), nameof(ValidateCurrency))]
         public decimal InitialValue
         {
             get => _initialValue;
-            set
-            {
-                // Initial value should be >= reset value
-                _initialValue = value;
-                var errors = _initialValue.Validate(
-                    ResetValue <= 0M,
-                    MaxValue.DollarsToMillicents(),
-                    ResetValue.DollarsToMillicents());
-                ClearOrSetError(errors, nameof(InitialValue));
-
-                OnPropertyChanged(nameof(InitialValue));
-            }
+            set => SetProperty(ref _initialValue, value, nameof(InitialValue));
         }
 
         public decimal ResetValue
@@ -348,20 +339,6 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
         }
 
         public int GameCount { get; }
-        
-        private void ClearOrSetError(string errors, string propertyName)
-        {
-            if (string.IsNullOrEmpty(errors))
-            {
-                ClearErrors(propertyName);
-                OnPropertyChanged(nameof(CanSave));
-            }
-            else
-            {
-                SetError(propertyName, errors);
-                OnPropertyChanged(nameof(CanSave));
-            }
-        }
 
         private string DetermineSelectableLevelType()
         {
@@ -446,6 +423,22 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
                 SelectableLevel = selectableLevels.FirstOrDefault(
                     x => x.AssignmentKey == AssignedProgressiveInfo.AssignedProgressiveKey);
             }
+        }
+
+        public static ValidationResult ValidateCurrency(decimal dollars, ValidationContext context)
+        {
+            LevelModel instance = (LevelModel)context.ObjectInstance;
+            var errors = dollars.Validate(
+                    instance.ResetValue <= 0M,
+                    instance.MaxValue.DollarsToMillicents(),
+                    instance.ResetValue.DollarsToMillicents());
+
+            if (errors == null)
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(errors);
         }
 
         public class LevelDefinition
