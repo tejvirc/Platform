@@ -24,6 +24,10 @@
             ReelLogicalState.Stopping,
             ReelLogicalState.SpinningBackwards,
             ReelLogicalState.SpinningForward,
+            ReelLogicalState.SpinningBackwardsAccelerating,
+            ReelLogicalState.SpinningBackwardsDecelerating,
+            ReelLogicalState.SpinningForwardAccelerating,
+            ReelLogicalState.SpinningForwardDecelerating,
             ReelLogicalState.Tilted
         };
 

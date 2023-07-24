@@ -15,6 +15,21 @@
         {
             ReelId = reelId;
             Step = -1;
+            IsAccelerating = IsDecelerating = false;
+        }
+
+        /// <summary>
+        ///     Creates an instance of <see cref="ReelSpinningEventArgs"/>
+        /// </summary>
+        /// <param name="reelId">The reel Id for this event</param>
+        /// <param name="accelerating"></param>
+        /// <param name="decelerating"></param>
+        public ReelSpinningEventArgs(int reelId, bool accelerating, bool decelerating)
+        {
+            ReelId = reelId;
+            Step = -1;
+            IsAccelerating = accelerating;
+            IsDecelerating = decelerating;
         }
 
         /// <summary>
@@ -26,6 +41,7 @@
         {
             ReelId = reelId;
             Step = step;
+            IsAccelerating = IsDecelerating = false;
         }
 
         /// <summary>
@@ -37,5 +53,15 @@
         ///     Gets the reel step of the reel if known or -1 if unknown
         /// </summary>
         public int Step { get; }
+
+        /// <summary>
+        ///     Is the reel accelerating?
+        /// </summary>
+        public bool IsAccelerating { get; }
+
+        /// <summary>
+        ///     Is the reel decelerating?
+        /// </summary>
+        public bool IsDecelerating { get; }
     }
 }

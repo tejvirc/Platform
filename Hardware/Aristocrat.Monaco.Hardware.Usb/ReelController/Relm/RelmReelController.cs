@@ -501,11 +501,11 @@
             }
             else if (evt.Accelerating)
             {
-                ReelSpinning?.Invoke(this, new ReelSpinningEventArgs(evt.ReelId));
+                ReelSpinning?.Invoke(this, new ReelSpinningEventArgs(evt.ReelId, true, false));
             }
             else if (evt.Decelerating)
             {
-                ReelSpinning?.Invoke(this, new ReelSpinningEventArgs(evt.ReelId));
+                ReelSpinning?.Invoke(this, new ReelSpinningEventArgs(evt.ReelId, false, true));
             }
         }
 
