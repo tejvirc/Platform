@@ -1,6 +1,7 @@
 namespace Aristocrat.Monaco.G2S.UI.ViewModels
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
@@ -58,33 +59,24 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         /// <summary>
         ///     Gets or sets the host identifier
         /// </summary>
+        [CustomValidation(typeof(EditHostViewModel), nameof(ValidateHostId))]
         public int? HostId
         {
             get => _hostId;
             set
             {
-                if (SetProperty(ref _hostId, value, nameof(HostId)))
-                {
-                    ValidateHostId(_hostId);
-                    OnPropertyChanged(nameof(CanSave));
-                }
+                SetProperty(ref _hostId, value, nameof(HostId), nameof(CanSave));
             }
         }
 
         /// <summary>
         ///     Gets or sets the host address
         /// </summary>
+        [CustomValidation(typeof(EditHostViewModel), nameof(ValidateAddress))]
         public string Address
         {
             get => _address;
-            set
-            {
-                if (SetProperty(ref _address, value, nameof(Address)))
-                {
-                    ValidateAddress(_address);
-                    OnPropertyChanged(nameof(CanSave));
-                }
-            }
+            set => SetProperty(ref _address, value, nameof(Address), nameof(CanSave));
         }
 
         /// <summary>
@@ -125,23 +117,29 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             }
         }
 
-        private void ValidateHostId(int? hostId)
+        public static ValidationResult ValidateHostId(int? hostId, ValidationContext context)
         {
-            ClearErrors(nameof(HostId));
-
-            if (hostId.HasValue && _originalHostId == hostId.Value)
+            EditHostViewModel instance = (EditHostViewModel)context.ObjectInstance;
+            instance.ClearErrors(nameof(HostId));
+            var errors = "";
+            if (hostId.HasValue && instance._originalHostId == hostId.Value)
             {
-                return;
+                return ValidationResult.Success;
             }
 
             if (!hostId.HasValue || hostId.Value <= 0)
             {
-                SetError(nameof(HostId), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HostIdGreaterThanZero));
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HostIdGreaterThanZero);
             }
-            else if (HostIdExists(hostId.Value))
+            else if (instance.HostIdExists(hostId.Value))
             {
-                SetError(nameof(HostId), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HostExists));
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HostExists);
             }
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+            return new(errors);
         }
 
         private bool HostIdExists(int hostId)
@@ -151,14 +149,21 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 .Any(host => host.Id == hostId);
         }
 
-        private void ValidateAddress(string address)
+        public static ValidationResult ValidateAddress(string address, ValidationContext context)
         {
-            ClearErrors(nameof(Address));
+            EditHostViewModel instance = (EditHostViewModel)context.ObjectInstance;
+            var errors = "";
+            instance.ClearErrors(nameof(Address));
 
             if (!IsAddressValid(address))
             {
-                SetError(nameof(Address), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HostAddressNotValid));
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HostAddressNotValid);
             }
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+            return new(errors);
         }
 
         private static bool IsAddressValid(string address)
