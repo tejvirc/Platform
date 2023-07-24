@@ -283,7 +283,7 @@
         {
             if (_propertiesManager.GetValue(AccountingConstants.DisableCoinAcceptorWhenCreditLimitReached, false))
             {
-                var coinAcceptor = ServiceManager.GetInstance().TryGetService<ICoinAcceptorService>();
+                var coinAcceptor = ServiceManager.GetInstance().TryGetService<ICoinAcceptor>();
 
                 if (coinAcceptor == null)
                 {
@@ -301,7 +301,7 @@
             }
         }
 
-        private void EnableCoinAcceptorBasedOnConfig(ICoinAcceptorService coinAcceptor)
+        private void EnableCoinAcceptorBasedOnConfig(ICoinAcceptor coinAcceptor)
         {
             if (!coinAcceptor.Enabled && (coinAcceptor.ReasonDisabled & DisabledReasons.Configuration) > 0)
             {
@@ -310,7 +310,7 @@
             }
         }
 
-        private void DisableCoinAcceptorBasedOnConfig(ICoinAcceptorService coinAcceptor)
+        private void DisableCoinAcceptorBasedOnConfig(ICoinAcceptor coinAcceptor)
         {
             if (coinAcceptor.Enabled || !coinAcceptor.Enabled &&
                 !((coinAcceptor.ReasonDisabled & DisabledReasons.Configuration) > 0))

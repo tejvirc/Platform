@@ -22,7 +22,7 @@
         private readonly List<CoinAcceptorDisableNode> _configuredDisableNodes = new List<CoinAcceptorDisableNode>();
         private readonly List<CoinAcceptorDisableNode> _pendingEnableRequests = new List<CoinAcceptorDisableNode>();
         private readonly object _locker = new object();
-        private ICoinAcceptorService _device;
+        private ICoinAcceptor _device;
         private bool _disposed;
         private IPropertiesManager _propertiesManager;
 
@@ -107,7 +107,7 @@
             {
                 if (_device == null)
                 {
-                    _device = ServiceManager.GetInstance().TryGetService<ICoinAcceptorService>();
+                    _device = ServiceManager.GetInstance().TryGetService<ICoinAcceptor>();
                 }
 
                 if (_device != null)
@@ -147,7 +147,7 @@
                 var remaining = _pendingEnableRequests.Count(r => r.DisabledReason == disableNode.DisabledReason);
                 if (remaining == 0)
                 {
-                    var device = ServiceManager.GetInstance().TryGetService<ICoinAcceptorService>();
+                    var device = ServiceManager.GetInstance().TryGetService<ICoinAcceptor>();
                     if (device == null)
                     {
                         Logger.Warn("Cannot enable Coin acceptor because Coin acceptor service not avaiable.");
@@ -213,7 +213,7 @@
                 Logger.Debug(
                     $"Enable Event received: {receivedEventType} with disable nodes count {disableNodesToEnable.Count}");
 
-                var device = ServiceManager.GetInstance().TryGetService<ICoinAcceptorService>();
+                var device = ServiceManager.GetInstance().TryGetService<ICoinAcceptor>();
                 if (device != null)
                 {
                     // *NOTE* This will enable the coin acceptor if it was disabled by the system but there is no disable node.  This may be

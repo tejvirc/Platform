@@ -36,13 +36,13 @@
         private readonly IMessageDisplay _messageDisplay;
         private readonly ITransactionHistory _transactions;
         private readonly IIdProvider _idProvider;
-        private ICoinAcceptorService _coinAcceptorService;
+        private ICoinAcceptor _coinAcceptorService;
         private IPropertiesManager _propertiesManager;
 
 
         public CoinProvider()
             : this(
-                ServiceManager.GetInstance().TryGetService<ICoinAcceptorService>(),
+                ServiceManager.GetInstance().TryGetService<ICoinAcceptor>(),
                 ServiceManager.GetInstance().GetService<IBank>(),
                 ServiceManager.GetInstance().GetService<ITransactionCoordinator>(),
                 ServiceManager.GetInstance().GetService<ITransactionHistory>(),
@@ -57,7 +57,7 @@
 
         [CLSCompliant(false)]
         public CoinProvider(
-            ICoinAcceptorService coinAcceptorService,
+            ICoinAcceptor coinAcceptor,
             IBank bank,
             ITransactionCoordinator coordinator,
             ITransactionHistory transactionHistory,
@@ -68,7 +68,7 @@
             IMessageDisplay messageDisplay,
             IPropertiesManager propertiesManager)
         {
-            _coinAcceptorService = coinAcceptorService ?? throw new ArgumentNullException(nameof(coinAcceptorService));
+            _coinAcceptorService = coinAcceptor ?? throw new ArgumentNullException(nameof(coinAcceptor));
             _coordinator = coordinator ?? throw new ArgumentNullException(nameof(coordinator));
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
             _transactions = transactionHistory ?? throw new ArgumentNullException(nameof(transactionHistory));

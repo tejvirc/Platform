@@ -10,12 +10,14 @@
     using System.Xml;
     using System.Xml.Serialization;
     using Aristocrat.Monaco.Kernel.Contracts;
+    using CoinAcceptor;
     using Contracts;
     using Contracts.Communicator;
     using Contracts.IdReader;
     using Contracts.NoteAcceptor;
     using Contracts.Persistence;
     using Contracts.Printer;
+    using Contracts.PWM;
     using Contracts.Reel;
     using Contracts.SharedDevice;
     using Kernel;
@@ -279,6 +281,9 @@
                             config,
                             data,
                             inspectedDevice);
+                        break;
+                    case DeviceType.CoinAcceptor:
+                        adapter = HandleServiceRegistration<ICoinAcceptor>(new CoinAcceptorAdapter(), config, data, inspectedDevice);
                         break;
                 }
 

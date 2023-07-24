@@ -24,6 +24,7 @@
     using Hardware.Contracts.IdReader;
     using Hardware.Contracts.NoteAcceptor;
     using Hardware.Contracts.Printer;
+    using Hardware.Contracts.PWM;
     using Hardware.Contracts.Reel;
     using Hardware.Contracts.SerialPorts;
     using Hardware.Contracts.SharedDevice;
@@ -45,6 +46,8 @@
     using PrinterInspectionSucceededEvent = Hardware.Contracts.Printer.InspectedEvent;
     using ReelInspectedEvent = Hardware.Contracts.Reel.Events.InspectedEvent;
     using ReelInspectionFailedEvent = Hardware.Contracts.Reel.Events.InspectionFailedEvent;
+    using CoinAcceptorInspectionFailedEvent = Hardware.Contracts.PWM.InspectionFailedEvent;
+    using CoinAcceptorInspectionSucceededEvent = Hardware.Contracts.PWM.InspectedEvent;
 
     [CLSCompliant(false)]
     public abstract class HardwareConfigBaseViewModel : ConfigWizardViewModelBase
@@ -72,7 +75,8 @@
             { DeviceType.NoteAcceptor, false },
             { DeviceType.Printer, false },
             { DeviceType.IdReader, false },
-            { DeviceType.ReelController, false }
+            { DeviceType.ReelController, false },
+            { DeviceType.CoinAcceptor, false }
         };
 
         private readonly Dictionary<DeviceType, string> _deviceLastValidated = new Dictionary<DeviceType, string>
@@ -80,7 +84,8 @@
             { DeviceType.NoteAcceptor, string.Empty },
             { DeviceType.Printer, string.Empty },
             { DeviceType.IdReader, string.Empty },
-            { DeviceType.ReelController , string.Empty }
+            { DeviceType.ReelController , string.Empty },
+            { DeviceType.CoinAcceptor , string.Empty }
         };
 
         private readonly DeviceAddinHelper _addinHelper = new DeviceAddinHelper();
@@ -774,6 +779,9 @@
 
             eventBus.Subscribe<IdReaderInspectionSucceededEvent>(this, HandleEvent);
             eventBus.Subscribe<IdReaderInspectionFailedEvent>(this, HandleEvent);
+
+            eventBus.Subscribe<CoinAcceptorInspectionSucceededEvent>(this, HandleEvent);
+            eventBus.Subscribe<CoinAcceptorInspectionFailedEvent>(this, HandleEvent);
         }
 
         private void HandleEvent(IEvent e)
@@ -858,6 +866,17 @@
                             break;
                         }
 
+                    case CoinAcceptorInspectionSucceededEvent _:
+                    {
+                        if (_serviceManager.IsServiceAvailable<ICoinAcceptor>())
+                        {
+                            var device = GetDevice<ICoinAcceptor>();
+                            SetDeviceStatusAndValidate(DeviceType.CoinAcceptor, GetUpdateStatus(device), GetUpdateStatusType(device), true);
+                        }
+
+                        break;
+                    }
+
                     case IdReaderInspectionFailedEvent _:
                         _deviceDiscoveryStatus[DeviceType.IdReader] = false;
                         SetDeviceStatusAndValidate(DeviceType.IdReader, errorText, DeviceState.ErrorText, false);
@@ -873,6 +892,11 @@
                     case PrinterInspectionFailedEvent _:
                         _deviceDiscoveryStatus[DeviceType.Printer] = false;
                         SetDeviceStatusAndValidate(DeviceType.Printer, errorText, DeviceState.ErrorText, false);
+                        break;
+
+                    case CoinAcceptorInspectionFailedEvent _:
+                        _deviceDiscoveryStatus[DeviceType.CoinAcceptor] = false;
+                        SetDeviceStatusAndValidate(DeviceType.CoinAcceptor, errorText, DeviceState.ErrorText, false);
                         break;
 
                     default:
@@ -1086,6 +1110,11 @@
                     }
 
                     break;
+
+                case DeviceType.CoinAcceptor:
+                    device = GetDevice<ICoinAcceptor>();
+                    ValidateDevice(device);
+                    break;
             }
 
             return validated;
@@ -1261,11 +1290,11 @@
                 _hardMetersEnabled = _propertiesManager.GetValue(HardwareConstants.HardMetersEnabledKey, false);
             }
 
-            ShowCoinAcceptor = configuredDevices.Excluded.All(d => d.Type != CoinAcceptorDeviceType);
-            if (ShowCoinAcceptor)
-            {
-                _coinAcceptorEnabled = _propertiesManager.GetValue(HardwareConstants.CoinAcceptorEnabledKey, false);
-            }
+            //ShowCoinAcceptor = configuredDevices.Excluded.All(d => d.Type != CoinAcceptorDeviceType);
+            //if (ShowCoinAcceptor)
+            //{
+            //    _coinAcceptorEnabled = _propertiesManager.GetValue(HardwareConstants.CoinAcceptorEnabledKey, false);
+            //}
 
             var configurableHardMeters = _propertiesManager.GetValue(
                 ApplicationConstants.ConfigWizardHardMetersConfigConfigurable,

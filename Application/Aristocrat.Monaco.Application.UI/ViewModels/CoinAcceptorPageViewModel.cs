@@ -26,7 +26,7 @@
         private string _infoText;
         private bool _resetInfo; //to keep info text label value for hardware warnings
 
-        private readonly ICoinAcceptorService _coinAcceptor;
+        private readonly ICoinAcceptor _coinAcceptor;
         private string _coinEntry;
         public Dictionary<DivertorState, string> DiverterDirections { get; }
         private int _coinToHopper;
@@ -35,7 +35,7 @@
 
         public CoinAcceptorPageViewModel()
         {
-            _coinAcceptor = ServiceManager.GetInstance().TryGetService<ICoinAcceptorService>();
+            _coinAcceptor = ServiceManager.GetInstance().TryGetService<ICoinAcceptor>();
 
             DiverterDirections = Enum.GetValues(typeof(DivertorState))
                 .Cast<DivertorState>()
@@ -54,7 +54,7 @@
             EventBus.Subscribe<HardwareFaultEvent>(this, HandleEvent);
             EventBus.Subscribe<OperatorMenuExitingEvent>(this, HandleEvent);
 
-            CoinEntry = _coinAcceptor.DeviceName;
+            CoinEntry = "CC_62";//_coinAcceptor.DeviceName;
             SelectedDiverterDirection = _coinAcceptor.DiverterDirection;
             SelectedCoinEntryStates = AcceptorState.Reject;
             CoinToHopper = 0;

@@ -1,10 +1,12 @@
-﻿namespace Aristocrat.Monaco.Hardware.Contracts.PWM
+﻿namespace Aristocrat.Monaco.Hardware.Contracts
 {
-    using SharedDevice;
+    using System;
+    using PWM;
+
     /// <summary>
     /// 
     /// </summary>
-    public interface ICoinAcceptor : IDeviceAdapter
+    public interface ICoinAcceptorImplementation : IGdsDevice
     {
         /// <summary>Enable Reject Mechanishm.</summary>
         void CoinRejectMechOn();
@@ -19,16 +21,15 @@
         void DivertToCashbox();
 
         /// <summary>Reset the device.</summary>
-        void Reset();
+        void DeviceReset();
 
         /// <summary>Enable diverter towards hopper or cashbox.</summary>
         void DivertMechanismOnOff();
 
-        /// <summary>Gets the current direction of the diverter.</summary>
-        DivertorState DiverterDirection { get; }
+                /// <summary>Event fired when fault is cleared.</summary>
+        event EventHandler<CoinEventType> CoinInStatusReported;
 
-        /// <summary>Gets the current faults.</summary>
-        /// <value>The current faults.</value>
-        CoinFaultTypes Faults { get; set; }
+        /// <summary>Event fired when fault is detected.</summary>
+        event EventHandler<CoinFaultTypes> FaultOccurred;
     }
 }

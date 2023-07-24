@@ -86,7 +86,6 @@
     <Service type="Aristocrat.Monaco.Hardware.Services.DfuProvider" />
     <Service type="Aristocrat.Monaco.Hardware.Services.SerialDeviceSearcher" />
     <Service type="Aristocrat.Monaco.Hardware.SerialTouch.SerialTouchService" />
-    <Service type="Aristocrat.Monaco.Hardware.PWM.CoinAcceptorService" />
   </Extension>
 
   <Extension path="/Kernel/CommandLineArguments">
@@ -130,6 +129,10 @@
 
   <Extension path="/Hardware/ReelController">
     <ReelControllerService type="Aristocrat.Monaco.Hardware.Reel.ReelControllerAdapter" />
+  </Extension>
+
+  <Extension path="/Hardware/CoinAcceptor">
+    <CoinAcceptorService type="Aristocrat.Monaco.Hardware.CoinAcceptor.CoinAcceptorAdapter" />
   </Extension>
 
   <Extension path="/Hardware/PropertyProviders">
@@ -182,6 +185,10 @@
    <ExtensionNode name="BeagleBoneControllerService"/>
   </ExtensionPoint>
 
+  <ExtensionPoint path="/Hardware/CoinAcceptor">
+    <ExtensionNode name="CoinAcceptorService" />
+  </ExtensionPoint>
+
   <ExtensionPoint path="/Hardware/IO/IOImplementations">
     <ExtensionNode name="DeviceImplementation"
                    type="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceImplementationExtensionNode" />
@@ -203,6 +210,11 @@
   </ExtensionPoint>
 
   <ExtensionPoint path="/Hardware/ReelController/ReelControllerImplementations">
+    <ExtensionNode name="DeviceImplementation"
+                   type="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceImplementationExtensionNode" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Hardware/CoinAcceptor/CoinAcceptorImplementations">
     <ExtensionNode name="DeviceImplementation"
                    type="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceImplementationExtensionNode" />
   </ExtensionPoint>

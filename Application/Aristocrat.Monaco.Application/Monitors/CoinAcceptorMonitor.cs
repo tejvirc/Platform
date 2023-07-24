@@ -17,12 +17,12 @@
         private readonly ISystemDisableManager _disableManager;
         private readonly IEventBus _bus;
         private readonly IPropertiesManager _properties;
-        private readonly ICoinAcceptorService _coinAcceptorService;
+        private readonly ICoinAcceptor _coinAcceptorService;
         private Alarm _alarm;
 
         public CoinAcceptorMonitor()
             : this(
-                ServiceManager.GetInstance().GetService<ICoinAcceptorService>(),
+                ServiceManager.GetInstance().GetService<ICoinAcceptor>(),
                 ServiceManager.GetInstance().GetService<ISystemDisableManager>(),
                 ServiceManager.GetInstance().GetService<IPropertiesManager>(),
                 ServiceManager.GetInstance().GetService<IEventBus>())
@@ -30,7 +30,7 @@
         }
 
         public CoinAcceptorMonitor(
-            ICoinAcceptorService coinAcceptorService,
+            ICoinAcceptor coinAcceptorService,
             ISystemDisableManager disableManager,
             IPropertiesManager propertiesManager,
             IEventBus eventBus)

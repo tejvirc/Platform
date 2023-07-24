@@ -23,7 +23,7 @@
         private const int RequestTimeoutLength = 1000; // It's in milliseconds
         private static readonly Guid RequestorId = new Guid("{EBB8B24C-771F-474A-8315-4F25DDBDBEA3}");
         private static readonly Guid TransactionId = new Guid("{0241B14C-C962-4DBA-B080-260412CA7435}");
-        private Mock<ICoinAcceptorService> _coinAcceptor;
+        private Mock<ICoinAcceptor> _coinAcceptor;
         private Mock<IBank> _bank;
         private Mock<ITransactionCoordinator> _transactionCoordinator;
         private Mock<ITransactionHistory> _transactionHistory;
@@ -59,7 +59,7 @@
             AddinManager.Registry.Update();
 
             MoqServiceManager.CreateInstance(MockBehavior.Default);
-            _coinAcceptor = new Mock<ICoinAcceptorService>(MockBehavior.Default);
+            _coinAcceptor = new Mock<ICoinAcceptor>(MockBehavior.Default);
             _bank = MoqServiceManager.CreateAndAddService<IBank>(MockBehavior.Default);
             _transactionCoordinator = new Mock<ITransactionCoordinator>(MockBehavior.Default);
             _transactionHistory = new Mock<ITransactionHistory>(MockBehavior.Default);

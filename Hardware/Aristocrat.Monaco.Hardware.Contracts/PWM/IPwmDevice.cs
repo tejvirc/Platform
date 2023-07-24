@@ -52,35 +52,35 @@
         /// <summary>Transaction id for .</summary>
         public byte changeId;
     };
-    /// <summary>Definition of the Pwm Device interface.</summary>
-    [CLSCompliant(false)]
-    public interface IPwmDevice
-    {
-        /// <summary>Provides the interface to connect with phyical device.</summary>
-        /// <returns>Device interface.</returns>
-        PwmDeviceConfig DeviceConfig { get; }
+    ///// <summary>Definition of the Pwm Device interface.</summary>
+    //[CLSCompliant(false)]
+    //public interface IPwmDevice
+    //{
+    //    /// <summary>Provides the interface to connect with phyical device.</summary>
+    //    /// <returns>Device interface.</returns>
+    //    PwmDeviceConfig DeviceConfig { get; }
 
-        /// <summary>We initialize the device here.</summary>
-        void ConfigureDevice();
+    //    /// <summary>We initialize the device here.</summary>
+    //    void ConfigureDevice();
 
-        /// <summary>We initialize the device here.</summary>
-        void Initialize();
+    //    /// <summary>We initialize the device here.</summary>
+    //    void Initialize();
 
-        /// <summary>We cleanup the device here.</summary>
-        void Cleanup();
-        /// <summary>Gets available inputs synchronously.</summary>
-        /// <returns>ChangeRecord of inputs and read status.</returns>
-        (bool, ChangeRecord) ReadSync();
+    //    /// <summary>We cleanup the device here.</summary>
+    //    void Cleanup();
+    //    /// <summary>Gets available inputs synchronously.</summary>
+    //    /// <returns>ChangeRecord of inputs and read status.</returns>
+    //    (bool, ChangeRecord) ReadSync();
 
-        /// <summary>Gets available inputs asynchronously.</summary>
-        /// <returns>ChangeRecord of inputs and read status.</returns>
-        (bool, ChangeRecord) ReadAsync();
+    //    /// <summary>Gets available inputs asynchronously.</summary>
+    //    /// <returns>ChangeRecord of inputs and read status.</returns>
+    //    (bool, ChangeRecord) ReadAsync();
 
-        /// <summary>Gets available inputs.</summary>
-        /// <returns>ChangeRecord of inputs and read status.</returns>
-        (bool, ChangeRecord) Read();
+    //    /// <summary>Gets available inputs.</summary>
+    //    /// <returns>ChangeRecord of inputs and read status.</returns>
+    //    (bool, ChangeRecord) Read();
 
-        /// <summary>Provides the device name.</summary>
-        string Name { get; }
-    }
+    //    /// <summary>Provides the device name.</summary>
+    //    string Name { get; }
+    //}
 }
