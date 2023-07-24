@@ -45,6 +45,6 @@
         ///     Gets the interval at which the progressive host offline timer will trigger
         ///     (Currently only used if the progressive host is selectable)
         /// </summary>
-        TimeSpan OfflineTimerInterval { get; }
+        TimeSpan ProgressiveHostOfflineTimerInterval { get; }
     }
 }

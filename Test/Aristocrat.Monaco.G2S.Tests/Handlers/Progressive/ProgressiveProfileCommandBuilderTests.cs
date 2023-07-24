@@ -9,7 +9,7 @@
     using Gaming.Contracts.Progressives;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
-    using Aristocrat.Monaco.G2S.Services.Progressive;
+    using Aristocrat.Monaco.G2S.Services;
 
     [TestClass]
     public class ProgressiveProfileCommandBuilderTests

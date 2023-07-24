@@ -7,7 +7,7 @@
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Protocol.v21;
-    using Aristocrat.Monaco.G2S.Services.Progressive;
+    using Aristocrat.Monaco.G2S.Services;
     using G2S.Handlers.Meters;
     using G2S.Meters;
     using Microsoft.VisualStudio.TestTools.UnitTesting;

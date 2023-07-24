@@ -61,9 +61,8 @@
             response.Command.configComplete = device.ConfigComplete;
             response.Command.maxPaybackPct = game.MaximumPaybackPercent.ToMeter();
             response.Command.minPaybackPct = game.MinimumPaybackPercent.ToMeter();
-
-            int variation = 0;
-            int.TryParse((game.VariationId ?? String.Empty).ToString(), out variation);
+            
+            int.TryParse((game.VariationId ?? "0").ToString(), out var variation);
             response.Command.variation = variation;
             response.Command.linkThemeId = game.ThemeId;
 

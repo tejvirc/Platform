@@ -20,7 +20,7 @@
     using Aristocrat.G2S.Emdi;
     using Aristocrat.Monaco.G2S.Common;
     using Aristocrat.Monaco.G2S.Common.Data.Models;
-    using Aristocrat.Monaco.G2S.Services.Progressive;
+    using Aristocrat.Monaco.G2S.Services;
     using Common.CertificateManager;
     using Data.Hosts;
     using Data.Profile;
@@ -160,9 +160,9 @@
             @this.Register<ITarArchive, TarArchive>(Lifestyle.Singleton);
             @this.Register<IPackageService, PackageService>(Lifestyle.Singleton);
             @this.Register<IManifest<Image>, ImageManifest>(Lifestyle.Singleton);
-            @this.Register<IProgressiveService, ProgressiveService>(Lifestyle.Singleton);
             @this.Register<IProgressiveDeviceManager, ProgressiveDeviceManager>(Lifestyle.Singleton);
             @this.Register<IProgressiveLevelManager, ProgressiveLevelManager>(Lifestyle.Singleton);
+            @this.Register<IProgressiveService, ProgressiveService>(Lifestyle.Singleton);
         }
 
         private static void ConfigureMeterProviders(this Container @this)

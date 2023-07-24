@@ -104,7 +104,7 @@
                                     Registered = h.Registered,
                                     RequiredForPlay = h.RequiredForPlay,
                                     IsProgressiveHost = h.IsProgressiveHost,
-                                    OfflineTimerInterval = h.OfflineTimerInterval.TotalSeconds
+                                    OfflineTimerInterval = h.ProgressiveHostOfflineTimerInterval.TotalSeconds
                                 }));
                     }
 
@@ -121,6 +121,10 @@
                             JsonConvert.SerializeObject(propertyValue, Formatting.None);
                     }
 
+                    break;
+
+                case Constants.Port:
+                    _persistentStorageAccessor[Constants.Port] = propertyValue;
                     break;
             }
 
@@ -149,7 +153,7 @@
                         Registered = h.Registered,
                         RequiredForPlay = h.RequiredForPlay,
                         IsProgressiveHost = h.IsProgressiveHost,
-                        OfflineTimerInterval = TimeSpan.FromSeconds(h.OfflineTimerInterval)
+                        ProgressiveHostOfflineTimerInterval = TimeSpan.FromSeconds(h.OfflineTimerInterval)
                     });
         }
 

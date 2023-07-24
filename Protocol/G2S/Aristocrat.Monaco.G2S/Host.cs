@@ -28,7 +28,7 @@
         public bool IsProgressiveHost { get; internal set; }
 
         /// <inheritdoc />
-        public TimeSpan OfflineTimerInterval { get; internal set; }
+        public TimeSpan ProgressiveHostOfflineTimerInterval { get; internal set; }
 
         /// <summary>
         ///     Determines whether the specified <see cref="System.Object" />, is equal to this instance.

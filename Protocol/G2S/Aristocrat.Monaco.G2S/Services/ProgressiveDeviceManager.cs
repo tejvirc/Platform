@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.G2S.Services.Progressive
+﻿namespace Aristocrat.Monaco.G2S.Services
 {
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.Monaco.G2S.Options;
@@ -27,7 +27,7 @@
 
         public ProgressiveDeviceManager(
             IG2SEgm egm,
-            IEventLift eventLift, 
+            IEventLift eventLift,
             IGameProvider gameProvider,
             IDeviceFactory deviceFactory,
             IPropertiesManager propertiesManager,
@@ -62,7 +62,7 @@
             {
                 AddProgressiveDevices();
             }
-            
+
             if (fromConfig)
             {
                 ServiceManager.GetInstance().TryGetService<IEventBus>().Publish(new RestartProtocolEvent());
@@ -83,8 +83,8 @@
             var hosts = _propertiesManager.GetValues<IHost>(G2S.Constants.RegisteredHosts).ToList();
             var registeredGuests = hosts.Where(h => !h.IsEgm() && h.Registered).ToList();
             var progressiveHost = hosts.FirstOrDefault(h => h.IsProgressiveHost);
-            var egmHost = _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId) as IHost;
-            var defaultNoProgInfoTimeout = (int)(progressiveHost?.OfflineTimerInterval.TotalMilliseconds ??
+            var egmHost = _egm.GetHostById(Constants.EgmHostId) as IHost;
+            var defaultNoProgInfoTimeout = (int)(progressiveHost?.ProgressiveHostOfflineTimerInterval.TotalMilliseconds ??
                                           G2S.Constants.DefaultNoProgInfoTimeout);
 
             //check which games (and thereby which progressives) are currently active. No need to create devices for disabled games. 
@@ -97,7 +97,7 @@
                 .Where(ll => enabledProgressives.Any(l => l.AssignedProgressiveId.AssignedProgressiveKey == ll.LevelName))
                 .Select(ll => ll.ProgressiveGroupId)
                 .Distinct().ToList();
-            
+
             foreach (var deviceId in progressiveDeviceIdsToCreate)
             {
                 if (!initialCreation && _egm.GetDevice<IProgressiveDevice>(deviceId) != null) continue;

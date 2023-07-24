@@ -9,7 +9,6 @@
     using Aristocrat.G2S.Protocol.v21;
     using Aristocrat.Monaco.G2S.Handlers;
     using Aristocrat.Monaco.G2S.Services;
-    using Aristocrat.Monaco.G2S.Services.Progressive;
     using Aristocrat.Monaco.Gaming.Contracts.Progressives;
     using G2S.Handlers.Progressive;
     using Microsoft.VisualStudio.TestTools.UnitTesting;

@@ -12,7 +12,7 @@
     using Aristocrat.G2S.Protocol.v21;
     using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
     using Aristocrat.Monaco.G2S.Handlers;
-    using Aristocrat.Monaco.G2S.Services.Progressive;
+    using Aristocrat.Monaco.G2S.Services;
     using Aristocrat.Monaco.Kernel;
 
     public class OperatorMenuSettingsChangedConsumer : Consumes<OperatorMenuSettingsChangedEvent>

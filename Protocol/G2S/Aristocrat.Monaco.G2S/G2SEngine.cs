@@ -11,6 +11,7 @@
     using Aristocrat.G2S.Client.Devices.v21;
     using Aristocrat.G2S.Emdi;
     using Aristocrat.Monaco.Application.Contracts.Protocol;
+    using Aristocrat.Monaco.G2S.Services;
     using Common.CertificateManager;
     using Gaming.Contracts;
     using Hardware.Contracts;

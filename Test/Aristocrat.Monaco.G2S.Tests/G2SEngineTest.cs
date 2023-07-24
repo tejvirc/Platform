@@ -3,7 +3,6 @@
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Emdi;
-    using Aristocrat.Monaco.G2S.Services.Progressive;
     using Common.CertificateManager;
     using G2S.Meters;
     using G2S.Services;

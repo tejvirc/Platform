@@ -301,7 +301,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                     RegisteredDisplayText = GetBooleanDisplayText(h.Registered),
                     RequiredForPlayDisplayText = GetBooleanDisplayText(h.RequiredForPlay),
                     IsProgressiveHost = h.IsProgressiveHost,
-                    OfflineTimerInterval = h.OfflineTimerInterval
+                    ProgressiveHostOfflineTimerInterval = h.ProgressiveHostOfflineTimerInterval
                 };
 
                 Hosts.Add(host);
@@ -338,7 +338,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                         RegisteredDisplayText = GetBooleanDisplayText(host.Registered),
                         RequiredForPlayDisplayText = GetBooleanDisplayText(host.RequiredForPlay),
                         IsProgressiveHost = host.IsProgressiveHost,
-                        OfflineTimerInterval = host.OfflineTimerInterval
+                        ProgressiveHostOfflineTimerInterval = host.ProgressiveHostOfflineTimerInterval
                     });
             }
 
@@ -374,7 +374,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                     Registered = h.Registered,
                     RequiredForPlay = h.RequiredForPlay,
                     IsProgressiveHost = h.IsProgressiveHost,
-                    OfflineTimerInterval = h.OfflineTimerInterval
+                    ProgressiveHostOfflineTimerInterval = h.ProgressiveHostOfflineTimerInterval
                 };
 
                 _originalHosts.Add(host);
@@ -404,7 +404,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                     Registered = viewModel.Registered,
                     RequiredForPlay = viewModel.RequiredForPlay,
                     IsProgressiveHost = viewModel.IsProgressiveHost,
-                    OfflineTimerInterval = TimeSpan.FromSeconds(viewModel.OfflineTimerInterval)
+                    ProgressiveHostOfflineTimerInterval = TimeSpan.FromSeconds(viewModel.OfflineTimerInterval)
                 };
 
                 Hosts.Add(host);
@@ -425,7 +425,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 host.Registered,
                 host.RequiredForPlay,
                 host.IsProgressiveHost,
-                host.OfflineTimerInterval.TotalSeconds);
+                host.ProgressiveHostOfflineTimerInterval.TotalSeconds);
 
             var result = _dialogService.ShowDialog<EditHostView>(
                 this,
@@ -462,7 +462,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                             Registered = host.Registered,
                             RequiredForPlay = host.RequiredForPlay,
                             IsProgressiveHost = host.IsProgressiveHost,
-                            OfflineTimerInterval = host.OfflineTimerInterval
+                            ProgressiveHostOfflineTimerInterval = host.ProgressiveHostOfflineTimerInterval
                         });
                 }
 
@@ -473,7 +473,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 host.Registered = viewModel.Registered;
                 host.RequiredForPlay = viewModel.RequiredForPlay;
                 host.IsProgressiveHost = viewModel.IsProgressiveHost;
-                host.OfflineTimerInterval = TimeSpan.FromSeconds(viewModel.OfflineTimerInterval);
+                host.ProgressiveHostOfflineTimerInterval = TimeSpan.FromSeconds(viewModel.OfflineTimerInterval);
 
                 RefreshHosts();
 
@@ -711,7 +711,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                             Registered = id == 1,
                             RequiredForPlay = false,
                             IsProgressiveHost = false,
-                            OfflineTimerInterval = _defaultProgressiveHostOfflineInterval
+                            ProgressiveHostOfflineTimerInterval = _defaultProgressiveHostOfflineInterval
                         });
                 }
             }
@@ -744,7 +744,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                             Registered = true,
                             RequiredForPlay = requiredForPlay,
                             IsProgressiveHost = false,
-                            OfflineTimerInterval = _defaultProgressiveHostOfflineInterval
+                            ProgressiveHostOfflineTimerInterval = _defaultProgressiveHostOfflineInterval
                         });
                 }
             }
@@ -795,7 +795,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                         Registered = true,
                         RequiredForPlay = false,
                         IsProgressiveHost = false,
-                        OfflineTimerInterval = _defaultProgressiveHostOfflineInterval
+                        ProgressiveHostOfflineTimerInterval = _defaultProgressiveHostOfflineInterval
                     });
 
                 RefreshHosts();

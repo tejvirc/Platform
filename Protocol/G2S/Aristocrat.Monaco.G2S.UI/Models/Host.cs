@@ -31,6 +31,6 @@
         public bool IsProgressiveHost { get; set; }
 
         /// <inheritdoc />
-        public TimeSpan OfflineTimerInterval { get; set; }
+        public TimeSpan ProgressiveHostOfflineTimerInterval { get; set; }
     }
 }

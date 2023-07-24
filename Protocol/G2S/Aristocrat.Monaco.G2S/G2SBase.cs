@@ -33,7 +33,6 @@
     using SimpleInjector;
     using Aristocrat.Monaco.Application.Contracts.Protocol;
     using System.Collections.Generic;
-    using Aristocrat.Monaco.G2S.Services.Progressive;
     using DisableProvider;
 
     /// <summary>

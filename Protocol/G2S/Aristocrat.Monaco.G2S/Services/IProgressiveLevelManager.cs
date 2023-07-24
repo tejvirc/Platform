@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.G2S.Services.Progressive
+﻿namespace Aristocrat.Monaco.G2S.Services
 {
     using Aristocrat.G2S.Protocol.v21;
     using Aristocrat.Monaco.Gaming.Contracts.Progressives.Linked;

@@ -63,7 +63,7 @@
                 return _egm.Hosts.Single(h => h.IsEgm());
             }
 
-            var registeredHost = _egm.RegisterHost(host.Id, host.Address, host.RequiredForPlay, host.Index, host.IsProgressiveHost, host.OfflineTimerInterval);
+            var registeredHost = _egm.RegisterHost(host.Id, host.Address, host.RequiredForPlay, host.Index, host.IsProgressiveHost, host.ProgressiveHostOfflineTimerInterval);
 
             RegisterHostOrientedDevices(registeredHost);
 

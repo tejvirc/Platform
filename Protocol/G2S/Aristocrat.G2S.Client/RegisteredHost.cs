@@ -39,7 +39,7 @@
             Index = index;
 
             IsProgressiveHost = isProgressiveHost;
-            OfflineTimerInterval = offlineTimerInterval;
+            ProgressiveHostOfflineTimerInterval = offlineTimerInterval;
 
             Queue = queue ?? throw new ArgumentNullException(nameof(queue));
             Queue.DisableSend();
@@ -74,7 +74,7 @@
         public bool IsProgressiveHost { get; }
 
         /// <inheritdoc />
-        public TimeSpan OfflineTimerInterval { get; }
+        public TimeSpan ProgressiveHostOfflineTimerInterval { get; }
 
         /// <inheritdoc />
         public void Start()

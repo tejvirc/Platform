@@ -33,7 +33,7 @@
     using log4net;
     using Newtonsoft.Json;
 
-    public class ProgressiveService : IProgressiveService, IDisposable, IProtocolProgressiveEventHandler
+    public class ProgressiveService : IProgressiveService, IService, IDisposable, IProtocolProgressiveEventHandler
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 

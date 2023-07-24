@@ -40,25 +40,19 @@
         private const int DefaultSyncInterval = 15000;
 
         private readonly Uri _address;
-
         private readonly ICommunicationsStateObserver _communicationsStateObserver;
-
         private readonly StateMachine<t_commsStates, CommunicationTrigger> _state;
-
         private readonly object _timerLock = new object();
         private readonly ITransportStateObserver _transportStateObserver;
-        private int _commsDisabledInterval = DefaultCommunicationsInterval;
-
         private readonly IEventLift _eventLift;
 
         private Timer _commsOnlineTimer;
         private Timer _commsTimer;
-
         private ICommunicationContext _context;
-
-        private bool _disposed;
         private IHostQueue _hostQueue;
         private int _keepAliveInterval = DefaultKeepAliveInterval;
+        private int _commsDisabledInterval = DefaultCommunicationsInterval;
+        private bool _disposed;
         private bool _open;
         private bool _configurationChanged;
 
@@ -131,8 +125,7 @@
         public bool DisplayFault { get; protected set; }
 
         /// <inheritdoc />
-        public bool AllowMulticast { get; protected set;
-        }
+        public bool AllowMulticast { get; protected set; }
 
         /// <inheritdoc />
         public override void Open(IStartupContext context)

@@ -327,13 +327,6 @@
         }
 
         /// <inheritdoc />
-        public void Receive(MulticastCommand command)
-        {
-            // We are using Receive(ClassCommand command) above to queue multicast commands
-            throw new NotImplementedException();
-        }
-
-        /// <inheritdoc />
         public TimeSpan DefaultSessionTimeout => Constants.DefaultTimeout;
 
         /// <inheritdoc />
