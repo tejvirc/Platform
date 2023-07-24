@@ -7,7 +7,7 @@
     ///     Represents the properties of a Jackpot
     /// </summary>
     [Serializable]
-    public class Jackpot : ICloneable
+    public class Jackpot : ICloneable, IEquatable<Jackpot>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="Jackpot" /> class.
@@ -74,6 +74,29 @@
         public override string ToString()
         {
             return Invariant($"Jackpot [{DeviceId} {LevelId} {Value}]");
+        }
+/// <inheritdoc/>
+
+        public bool Equals(Jackpot other)
+        {
+            if (other == null)
+                return false;
+
+            return DeviceId == other.DeviceId &&
+                   LevelId == other.LevelId &&
+                   LevelName == other.LevelName &&
+                   Value == other.Value;
+        }
+/// <inheritdoc/>
+
+        public override int GetHashCode()
+        {
+            int hashCode = DeviceId.GetHashCode();
+            // implement the GetHashCode() method
+            hashCode = (hashCode * 397) ^ LevelId.GetHashCode();
+            hashCode = (hashCode * 397) ^ LevelName.GetHashCode();
+            hashCode = (hashCode * 397) ^ Value.GetHashCode();
+            return hashCode;
         }
     }
 }

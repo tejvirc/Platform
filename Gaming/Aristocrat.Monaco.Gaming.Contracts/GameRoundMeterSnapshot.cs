@@ -6,7 +6,7 @@
     ///     An extended snapshot of game meters recording during gameplay.
     /// </summary>
     [Serializable]
-    public class GameRoundMeterSnapshot
+    public class GameRoundMeterSnapshot : IEquatable<GameRoundMeterSnapshot>
     {
         /// <summary>
         ///     The playstate of the game at the time of the snapshot.
@@ -207,5 +207,128 @@
         /// Gets of sets the HardMeterOut Amount;
         /// </summary>
         public long HardMeterOutAmount { get; set; }
+/// <inheritdoc/>
+
+        public bool Equals(GameRoundMeterSnapshot other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            return PlayState == other.PlayState &&
+                   CurrentCredits == other.CurrentCredits &&
+                   WageredAmount == other.WageredAmount &&
+                   EgmPaidGameWonAmount == other.EgmPaidGameWonAmount &&
+                   EgmPaidGameWinBonusAmount == other.EgmPaidGameWinBonusAmount &&
+                   EgmPaidBonusCashableInAmount == other.EgmPaidBonusCashableInAmount &&
+                   EgmPaidBonusNonCashInAmount == other.EgmPaidBonusNonCashInAmount &&
+                   EgmPaidBonusPromoInAmount == other.EgmPaidBonusPromoInAmount &&
+                   HandPaidGameWinBonusAmount == other.HandPaidGameWinBonusAmount &&
+                   HandPaidGameWonAmount == other.HandPaidGameWonAmount &&
+                   HandPaidProgWonAmount == other.HandPaidProgWonAmount &&
+                   HandPaidBonusCashableInAmount == other.HandPaidBonusCashableInAmount &&
+                   HandPaidBonusNonCashInAmount == other.HandPaidBonusNonCashInAmount &&
+                   HandPaidBonusPromoInAmount == other.HandPaidBonusPromoInAmount &&
+                   TrueCoinIn == other.TrueCoinIn &&
+                   CurrencyInAmount == other.CurrencyInAmount &&
+                   VoucherInCashableAmount == other.VoucherInCashableAmount &&
+                   VoucherInCashablePromoAmount == other.VoucherInCashablePromoAmount &&
+                   VoucherInNonCashableAmount == other.VoucherInNonCashableAmount &&
+                   VoucherInNonTransferableAmount == other.VoucherInNonTransferableAmount &&
+                   TrueCoinOut == other.TrueCoinOut && VoucherOutCashableAmount == other.VoucherOutCashableAmount &&
+                   VoucherOutCashablePromoAmount == other.VoucherOutCashablePromoAmount &&
+                   VoucherOutNonCashableAmount == other.VoucherOutNonCashableAmount &&
+                   HandpaidCancelAmount == other.HandpaidCancelAmount &&
+                   CoinDrop == other.CoinDrop && HandPaidBonusAmount == other.HandPaidBonusAmount &&
+                   EgmPaidBonusAmount == other.EgmPaidBonusAmount &&
+                   SecondaryPlayedCount == other.SecondaryPlayedCount &&
+                   SecondaryWageredAmount == other.SecondaryWageredAmount &&
+                   SecondaryWonAmount == other.SecondaryWonAmount &&
+                   WatOnCashableAmount == other.WatOnCashableAmount &&
+                   WatOffCashableAmount == other.WatOffCashableAmount &&
+                   WatOnNonCashableAmount == other.WatOnNonCashableAmount &&
+                   WatOffNonCashableAmount == other.WatOffNonCashableAmount &&
+                   WatOnCashablePromoAmount == other.WatOnCashablePromoAmount &&
+                   WatOffCashablePromoAmount == other.WatOffCashablePromoAmount &&
+                   EgmPaidProgWonAmount == other.EgmPaidProgWonAmount &&
+                   WageredPromoAmount == other.WageredPromoAmount &&
+                   HardMeterOutAmount == other.HardMeterOutAmount;
+        }
+/// <inheritdoc/>
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+
+            return Equals((GameRoundMeterSnapshot)obj);
+        }
+/// <inheritdoc/>
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = (int)PlayState;
+                hashCode = (hashCode * 397) ^ CurrentCredits.GetHashCode();
+                hashCode = (hashCode * 397) ^ WageredAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ EgmPaidGameWonAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ EgmPaidGameWinBonusAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ EgmPaidBonusCashableInAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ EgmPaidBonusNonCashInAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ EgmPaidBonusPromoInAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ HandPaidGameWinBonusAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ HandPaidGameWonAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ HandPaidProgWonAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ HandPaidBonusCashableInAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ HandPaidBonusNonCashInAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ HandPaidBonusPromoInAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ TrueCoinIn.GetHashCode();
+                hashCode = (hashCode * 397) ^ CurrencyInAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ VoucherInCashableAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ VoucherInCashablePromoAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ VoucherInNonCashableAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ VoucherInNonTransferableAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ TrueCoinOut.GetHashCode();
+                hashCode = (hashCode * 397) ^ VoucherOutCashableAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ VoucherOutCashablePromoAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ VoucherOutNonCashableAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ HandpaidCancelAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ CoinDrop.GetHashCode();
+                hashCode = (hashCode * 397) ^ HandPaidBonusAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ EgmPaidBonusAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ SecondaryPlayedCount.GetHashCode();
+                hashCode = (hashCode * 397) ^ SecondaryWageredAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ SecondaryWonAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ WatOnCashableAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ WatOffCashableAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ WatOnNonCashableAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ WatOffNonCashableAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ WatOnCashablePromoAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ WatOffCashablePromoAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ EgmPaidProgWonAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ WageredPromoAmount.GetHashCode();
+                hashCode = (hashCode * 397) ^ HardMeterOutAmount.GetHashCode();
+                return hashCode;
+            }
+        }
     }
 }

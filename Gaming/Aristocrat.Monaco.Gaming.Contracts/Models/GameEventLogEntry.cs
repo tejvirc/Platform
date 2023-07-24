@@ -6,7 +6,7 @@
     ///     Used for displaying events that happened during a particular game
     /// </summary>
     [Serializable]
-    public class GameEventLogEntry
+    public class GameEventLogEntry : IEquatable<GameEventLogEntry>
     {
         /// <summary>
         ///     A constructor for GameEventLogEntry
@@ -42,5 +42,33 @@
         ///     The ID of the transaction
         /// </summary>
         public long TransactionId { get; set; }
+/// <inheritdoc/>
+
+        public bool Equals(GameEventLogEntry obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+
+            GameEventLogEntry other = (GameEventLogEntry)obj;
+
+            return EntryDate == other.EntryDate &&
+                   LogType == other.LogType &&
+                   LogEntry == other.LogEntry &&
+                   TransactionId == other.TransactionId;
+        }
+
+        /// <inheritdoc/>
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = EntryDate.GetHashCode();
+                hashCode = (hashCode * 397) ^ (LogType != null ? LogType.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (LogEntry != null ? LogEntry.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ TransactionId.GetHashCode();
+                return hashCode;
+            }
+        }
     }
 }

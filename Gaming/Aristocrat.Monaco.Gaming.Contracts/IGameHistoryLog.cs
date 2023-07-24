@@ -220,13 +220,27 @@
         ///     Gets the game round details
         /// </summary>
         GameRoundDetails GameRoundDetails { get; }
+
+        /// <summary>
+        ///     Gets or sets the zero-based index of the free game.
+        /// </summary>
+        /// <value>The free game index.</value>
+        public int FreeGameIndex { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the error code.
+        /// </summary>
+        /// <value>The error code.</value>
+        public GameErrorCode ErrorCode { get; set; }
+
+
     }
 
     /// <summary>
     ///     (Serializable) game configuration
     /// </summary>
     [Serializable]
-    public class GameConfiguration : IGameConfiguration
+    public class GameConfiguration : IGameConfiguration, IEquatable<GameConfiguration>
     {
         /// <inheritdoc />
         public int MinimumWagerCredits { get; set; }
@@ -251,6 +265,71 @@
 
         /// <inheritdoc />
         public bool LetItRideEnabled { get; set; }
+
+        /// <summary>
+        ///     Implements the operator ==.
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(GameConfiguration other)
+        {
+            if (ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            return MinimumWagerCredits == other.MinimumWagerCredits &&
+                   MaximumWagerCredits == other.MaximumWagerCredits &&
+                   MaximumWagerOutsideCredits == other.MaximumWagerOutsideCredits &&
+                   BetOption == other.BetOption &&
+                   LineOption == other.LineOption &&
+                   BonusBet == other.BonusBet &&
+                   SecondaryEnabled == other.SecondaryEnabled &&
+                   LetItRideEnabled == other.LetItRideEnabled;
+        }
+
+        /// <inheritdoc />
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+
+            return Equals((GameConfiguration)obj);
+        }
+
+        /// <inheritdoc />
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = MinimumWagerCredits;
+                hashCode = (hashCode * 397) ^ MaximumWagerCredits;
+                hashCode = (hashCode * 397) ^ MaximumWagerOutsideCredits;
+                hashCode = (hashCode * 397) ^ (BetOption != null ? BetOption.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (LineOption != null ? LineOption.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ BonusBet;
+                hashCode = (hashCode * 397) ^ SecondaryEnabled.GetHashCode();
+                hashCode = (hashCode * 397) ^ LetItRideEnabled.GetHashCode();
+                return hashCode;
+            }
+        }
     }
 
     /// <summary>
@@ -258,7 +337,7 @@
     /// </summary>
     /// <seealso cref="T:Aristocrat.Monaco.Gaming.Contracts.IFreeGameInfo" />
     [Serializable]
-    public class FreeGame : IFreeGameInfo
+    public class FreeGame : IFreeGameInfo, IEquatable<FreeGame>
     {
         /// <inheritdoc />
         public DateTime StartDateTime { get; set; }
@@ -291,5 +370,34 @@
 
         /// <inheritdoc />
         public long AmountOut { get; set; }
+/// <inheritdoc/>
+
+        public bool Equals(FreeGame other)
+        {
+            if (other == null)
+                return false;
+
+            return StartDateTime == other.StartDateTime &&
+                   EndDateTime == other.EndDateTime &&
+                   StartCredits == other.StartCredits &&
+                   EndCredits == other.EndCredits &&
+                   FinalWin == other.FinalWin &&
+                   AmountOut == other.AmountOut;
+        }
+/// <inheritdoc/>
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = StartDateTime.GetHashCode();
+                hashCode = (hashCode * 397) ^ EndDateTime.GetHashCode();
+                hashCode = (hashCode * 397) ^ StartCredits.GetHashCode();
+                hashCode = (hashCode * 397) ^ EndCredits.GetHashCode();
+                hashCode = (hashCode * 397) ^ FinalWin.GetHashCode();
+                hashCode = (hashCode * 397) ^ AmountOut.GetHashCode();
+                return hashCode;
+            }
+        }
     }
 }

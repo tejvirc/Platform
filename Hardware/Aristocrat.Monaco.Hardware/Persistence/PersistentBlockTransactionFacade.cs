@@ -2,7 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
+    using System.Reflection;
+    using Aristocrat.Monaco.Common;
     using Contracts.Persistence;
+    using log4net;
     using Newtonsoft.Json;
 
     /// <summary>
@@ -14,6 +18,7 @@
         private readonly PersistenceLevel _level;
         private readonly Dictionary<string, string> _updates = new Dictionary<string, string>();
         private readonly IPersistentStorageManager _persistentStorageManager;
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary>
         ///     Initializes a new instance of the Aristocrat.Monaco.Hardware.Persistence.PersistentTransactionFacade class.
@@ -103,7 +108,16 @@
         /// <inheritdoc/>
         protected override bool SetValueInternal<T>(string key, T value)
         {
-            var serialized = JsonConvert.SerializeObject(value, Formatting.None);
+            string serialized;
+            using (var _ = new Common.ScopedMethodTimer(
+                       Logger.DebugMethodLogger,
+                       Logger.DebugMethodTraceLogger,
+                       $"SetValueInternal type:",
+                       "JsonConvert_Serialize",
+                       "Done"))
+            {
+                serialized = JsonConvert.SerializeObject(value, Formatting.None);
+            }
 
             if (!_persistentStorageManager.BlockExists(key))
             {

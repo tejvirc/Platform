@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Reflection;
     using System.Text;
@@ -21,6 +22,8 @@
     using Kernel;
     using Localization.Properties;
     using log4net;
+    using Proto.Wrappers;
+    using Common;
 
     /// <summary>
     ///     An implementation of <see cref="IGameHistory" />
@@ -553,6 +556,33 @@
             return LoadReplay(CurrentLogIndex, out data);
         }
 
+        private bool SerializeToProtoBuf(IGameHistoryLog historyLog)
+        {
+            try
+            {
+                using (var _ = new Common.ScopedMethodTimer(
+                           Logger.DebugMethodLogger,
+                           Logger.DebugMethodTraceLogger,
+                           $"SerializeToProtoBuf type:",
+                           "ProtoBuf_Serialize",
+                           "Done"))
+                {
+
+                    var serializeable =
+                        new Aristocrat.Monaco.Gaming.Proto.Wrappers.GameHistoryLogDecorator().From(historyLog);
+
+                    var bytes = Proto.Wrappers.GameHistoryLogDecorator.SerializeToBinary(serializeable);
+
+                    return bytes != null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
+            }
+            return false;
+        }
+
         /// <inheritdoc />
         public void AssociateTransactions(IEnumerable<TransactionInfo> transactions, bool applyToFreeGame = false)
         {
@@ -583,6 +613,7 @@
                     }
 
                     persistentTransaction.SetValue(index, log);
+                    SerializeToProtoBuf(log);
                     persistentTransaction.Commit();
 
                     return;
@@ -601,6 +632,7 @@
                 }
 
                 persistentTransaction.SetValue(index, log);
+                SerializeToProtoBuf(log);
                 persistentTransaction.Commit();
             }
 
@@ -835,6 +867,7 @@
             }
 
             _persistentBlock.SetValue(index > -1 ? index : CurrentLogIndex, log);
+            SerializeToProtoBuf(log);
         }
 
         private void LoadGameHistory()
@@ -954,6 +987,7 @@
             using (var transaction = _persistentBlock.Transaction())
             {
                 transaction.SetValue(CurrentLogIndex, log);
+                SerializeToProtoBuf(log);
 
                 _currencyHandler.Reset();
 

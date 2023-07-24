@@ -1,9 +1,12 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Persistence
 {
     using System;
+    using System.Reflection;
     using Contracts.Persistence;
     using Kernel;
+    using log4net;
     using Newtonsoft.Json;
+    using Aristocrat.Monaco.Common;
 
     /// <summary>
     /// A persistent block facade.
@@ -14,6 +17,7 @@
     public class PersistentBlockFacade : KeyValueFacade, IPersistentBlock
     {
         private readonly IPersistentStorageManager _persistentStorageManager;
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary>
         ///     Initializes a new instance of the Aristocrat.Monaco.Hardware.Persistence.PersistentBlockFacade class.
@@ -94,14 +98,32 @@
                 return false;
             }
 
-            value = JsonConvert.DeserializeObject<T>(serialized);
+            using (var _ = new Common.ScopedMethodTimer(
+                       Logger.DebugMethodLogger,
+                       Logger.DebugMethodTraceLogger,
+                       $"GetValueInternal type:",
+                       "JsonConvert_Deserialize",
+                       "Done"))
+            {
+                value = JsonConvert.DeserializeObject<T>(serialized);
+            }
+
             return true;
         }
 
         /// <inheritdoc/>
         protected override bool SetValueInternal<T>(string key, T value)
         {
-            var serialized = JsonConvert.SerializeObject(value, Formatting.None);
+            string serialized;
+            using (var _ = new Common.ScopedMethodTimer(
+                       Logger.DebugMethodLogger,
+                       Logger.DebugMethodTraceLogger,
+                       $"SetValueInternal type:",
+                       "JsonConvert_Serialize",
+                       "Done"))
+            {
+                serialized = JsonConvert.SerializeObject(value, Formatting.None);
+            }
 
             IPersistentStorageAccessor block;
             if (!_persistentStorageManager.BlockExists(key))

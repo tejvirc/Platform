@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net472;netstandard2.0</TargetFrameworks>
+    <AssemblyTitle>Aristocrat.Monaco.Gaming.Proto</AssemblyTitle>
+    <Description>Aristocrat proto buf generated C# code from PROTO files</Description>
+    <Configurations>Debug;Release</Configurations>
+  </PropertyGroup>
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <PackageId>Aristocrat.Monaco.Gaming.Proto</PackageId>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>portable</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+  <Target Name="ProtoCompile" BeforeTargets="BeforeCompile">
+    <PropertyGroup>
+      <ProtoPath>$(ProjectDir)Proto</ProtoPath>
+      <ProtoOutputPath>$(ProjectDir)Generated</ProtoOutputPath>
+        <Protobuf_ProtocFullPath>$(ProjectDir)_protobuf\Release\bin\protoc</Protobuf_ProtocFullPath>
+    </PropertyGroup>
+    <ItemGroup>
+      <ProtoFiles Include="$(ProjectDir)Proto\*.proto" />
+      <ProtoCompileFiles Include="@(ProtoFiles->'Generated\%(FileName).cs')" />
+      <Compile Remove="@(ProtoCompileFiles)" />
+      <Compile Include="@(ProtoCompileFiles)" />
+    </ItemGroup>
+    <MakeDir Directories="$(ProtoOutputPath)" Condition="!Exists($(ProtoOutputPath))" />
+    <Exec Command="&quot;$(Protobuf_ProtocFullPath)&quot; -I &quot;$(ProtoPath)&quot; --proto_path=&quot;$(Protobuf_IncludePath)&quot; --csharp_out=&quot;$(ProtoOutputPath)&quot; %(ProtoFiles.FullPath)" />
+  </Target>
+  <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.19.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Aristocrat.Monaco.Gaming.Contracts\Aristocrat.Monaco.Gaming.Contracts.csproj" />
+  </ItemGroup>
+</Project>

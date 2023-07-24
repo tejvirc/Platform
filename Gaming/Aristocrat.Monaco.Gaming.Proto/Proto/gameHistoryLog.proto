@@ -1,0 +1,258 @@
+﻿syntax = "proto3";
+
+package Aristocrat.Monaco.Gaming.Proto;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+message GameHistoryLog {
+  int32 storage_index = 1;
+  bytes recovery_blob = 2;
+  GameConfiguration denom_configuration = 3;
+  int64 transaction_id = 4;
+  int64 log_sequence = 5;
+  google.protobuf.Timestamp start_date_time = 6;
+  google.protobuf.Timestamp end_date_time = 7;
+  int64 end_transaction_id = 8;
+  int32 game_id = 9;
+  int64 denom_id = 10;
+  int64 start_credits = 11;
+  int64 end_credits = 12;
+  PlayState play_state = 13;
+  GameErrorCode error_code = 14;
+  GameResult result = 15;
+  int64 initial_wager = 16;
+  int64 final_wager = 17;
+  int64 promo_wager = 18;
+  int64 uncommitted_win = 19;
+  int64 initial_win = 20;
+  int64 secondary_played = 21;
+  int64 secondary_wager = 22;
+  int64 secondary_win = 23;
+  int64 final_win = 24;
+  int64 game_win_bonus = 25;
+  int64 total_won = 26;
+  int64 amount_out = 27;
+  google.protobuf.Timestamp last_update = 28;
+  int32 last_commit_index = 29;
+  string game_round_descriptions = 30;
+  repeated Jackpot jackpot_snapshot = 31;
+  repeated Jackpot jackpot_snapshot_end = 32;
+  repeated JackpotInfo jackpots = 33;
+  repeated TransactionInfo transactions = 34;
+  repeated GameEventLogEntry events = 35;
+  repeated GameRoundMeterSnapshot meter_snapshots = 36;
+  repeated FreeGame free_games = 37;
+  int32 free_game_index = 38;
+  repeated CashOutInfo cash_out_info = 39;
+  repeated Outcome outcomes = 40;
+  string locale_code = 41;
+  string game_configuration = 42;
+  GameRoundDetails game_round_details = 43;
+}
+
+message GameConfiguration {
+  int32 minimum_wager_credits = 1;
+  int32 maximum_wager_credits = 2;
+  int32 maximum_wager_outside_credits = 3;
+  string bet_option = 4;
+  string line_option = 5;
+  int32 bonus_bet = 6;
+  bool secondary_enabled = 7;
+  bool let_it_ride_enabled = 8;
+}
+
+enum PlayState {
+  Idle = 0;
+  Initiated = 1;
+  PrimaryGameEscrow = 2;
+  PrimaryGamePlayed = 3;
+  PrimaryGameEnded= 4;
+  ProgressivePending = 5;
+  SecondaryGameChoice = 6;
+  SecondaryGameEscrow =7;
+  SecondaryGameStarted =8;
+  SecondaryGameEnded =9;
+  PayGameResults = 10;
+  FatalError = 11;
+  GameEnded = 12;
+  PresentationIdle = 13;
+}
+
+enum GameErrorCode {
+  None = 0;
+  LiabilityLimit = 1;
+  LegitimacyLimit = 2;
+}
+
+enum GameResult {
+  GameResultNone = 0;
+  Failed = 1;
+  Lost = 2;
+  Tied = 3;
+  Won = 4;
+}
+
+enum PayMethod {
+    Any = 0;
+    Handpay = 1;
+    Voucher = 2;
+}
+
+message Jackpot {
+    int32 device_id = 1;
+    int32 level_id =2;
+    string level_name =3;
+    int64 value = 4;
+}
+
+message JackpotInfo {
+  int64 transaction_id = 1;
+  google.protobuf.Timestamp hit_date_time = 2;
+  PayMethod pay_method = 3;
+  int32 device_id = 4;
+  string pack_name = 5;
+  int32 level_id = 6;
+  int64 win_amount = 7;
+  string win_text = 8;
+  int64 wager_credits = 9;
+}
+
+
+enum HandpayType {
+  GameWin = 0;
+  BonusPay = 1;
+  CancelCredit = 2;
+  HandpayTypeNotSet = 3;
+}
+
+enum KeyOffType {
+  LocalHandpay = 0;
+  LocalVoucher = 1;
+  LocalWat = 2;
+  LocalCredit = 3;
+  RemoteHandpay = 4;
+  RemoteVoucher = 5;
+  RemoteWat = 6;
+  RemoteCredit = 7;
+  Cancelled = 8;
+  Unknown = 9;
+  KeyOffTypeNotSet = 10;
+}
+
+message TransactionInfo {
+  string transaction_type = 1; // Actually this is System.Type
+  int64 amount = 2;
+  google.protobuf.Timestamp time = 3;
+  int64 transaction_id = 4;
+  int32 game_index = 5;
+  HandpayType handpay_type = 6;
+  KeyOffType key_off_type = 7;
+  int64 cashable_amount = 8;
+  int64 cashable_promo_amount = 9;
+  int64 non_cashable_promo_amount = 10;
+}
+
+message GameEventLogEntry {
+    google.protobuf.Timestamp entry_date = 1;
+    string log_type = 2;
+    string log_entry =3;
+    int64 transaction_id = 4;
+}
+
+message GameRoundMeterSnapshot {
+  PlayState play_state = 1;
+  int64 current_credits = 2;
+  int64 wagered_amount = 3;
+  int64 egm_paid_game_won_amount = 4;
+  int64 egm_paid_game_win_bonus_amount = 5;
+  int64 egm_paid_bonus_cashable_in_amount = 6;
+  int64 egm_paid_bonus_non_cash_in_amount = 7;
+  int64 egm_paid_bonus_promo_in_amount = 8;
+  int64 hand_paid_game_win_bonus_amount = 9;
+  int64 hand_paid_game_won_amount = 10;
+  int64 hand_paid_prog_won_amount = 11;
+  int64 hand_paid_bonus_cashable_in_amount = 12;
+  int64 hand_paid_bonus_non_cash_in_amount = 13;
+  int64 hand_paid_bonus_promo_in_amount = 14;
+  int64 true_coin_in = 15;
+  int64 currency_in_amount = 16;
+  int64 voucher_in_cashable_amount = 17;
+  int64 voucher_in_cashable_promo_amount = 18;
+  int64 voucher_in_non_cashable_amount = 19;
+  int64 voucher_in_non_transferable_amount = 20;
+  int64 true_coin_out = 21;
+  int64 voucher_out_cashable_amount = 22;
+  int64 voucher_out_cashable_promo_amount = 23;
+  int64 voucher_out_non_cashable_amount = 24;
+  int64 handpaid_cancel_amount = 25;
+  int64 coin_drop = 26;
+  int64 hand_paid_bonus_amount = 27;
+  int64 egm_paid_bonus_amount = 28;
+  int64 secondary_played_count = 29;
+  int64 secondary_wagered_amount = 30;
+  int64 secondary_won_amount = 31;
+  int64 wat_on_cashable_amount = 32;
+  int64 wat_off_cashable_amount = 33;
+  int64 wat_on_non_cashable_amount = 34;
+  int64 wat_off_non_cashable_amount = 35;
+  int64 wat_on_cashable_promo_amount = 36;
+  int64 wat_off_cashable_promo_amount = 37;
+  int64 egm_paid_prog_won_amount = 38;
+  int64 wagered_promo_amount = 39;
+  int64 hard_meter_out_amount = 40;
+}
+
+message FreeGame {
+  google.protobuf.Timestamp start_date_time = 1;
+  google.protobuf.Timestamp end_date_time = 2;
+  int64 start_credits = 3;
+  int64 end_credits = 4;
+  int64 final_win = 5;
+  GameResult result = 6;
+  int64 amount_out = 7;
+}
+
+message CashOutInfo {
+  int64 amount = 1;
+  int64 wager = 2;
+  TransferOutReason reason = 3;
+  bool handpay = 4;
+  bool complete = 5;
+  bytes trace_id = 6;
+  repeated int64 associated_transactions = 7;
+}
+
+enum TransferOutReason {
+    ReasonCashOut = 0;
+    ReasonLargeWin = 1;
+    ReasonBonusPay = 2;
+    ReasonCashWin = 3;
+}
+
+message Outcome {
+  int64 id = 1;
+  int64 game_set_id = 2;
+  int64 subset_id = 3;
+  OutcomeReference reference = 4;
+  OutcomeType type = 5;
+  int64 value = 6;
+  int32 win_level_index = 7;
+  string lookup_data = 8;
+}
+
+enum OutcomeReference {
+    Direct = 0;
+    Indirect = 1;
+}
+
+enum OutcomeType {
+    Standard = 0;
+    Progressive =1;
+    Fractional = 2;
+}
+
+
+message GameRoundDetails {
+    int64 presentation_index = 1;
+}
