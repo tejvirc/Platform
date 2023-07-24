@@ -801,16 +801,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 {
                     // We need to check all the denominations, not just the current one. If we find one that's invalid,
                     // prevent saving the config.
-                    foreach (var gameConfig in GameConfigurations)
-                    {
-                        gameConfig.SetWarningText();
-                        // If the warning is due to max denoms reached, we can still Save and don't need to set error for this page
-                        if (!string.IsNullOrEmpty(gameConfig.WarningText) && (!gameConfig.MaxDenomEntriesReached || !gameConfig.EnabledByHost))
-                        {
-                            SetError(nameof(InputStatusText), InputStatusText);
-                            break;
-                        }
-                    }
+                    ValidateProperty(InputStatusText, nameof(InputStatusText));
                 }
 
                 OnPropertyChanged(nameof(InputStatusText), nameof(CanSave), nameof(HasErrors));
