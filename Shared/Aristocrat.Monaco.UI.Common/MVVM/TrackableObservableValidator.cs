@@ -159,7 +159,11 @@
             property = value;
             OnPropertyChanged(propertyNames);
 
-            ValidateProperty(value, propertyNames.FirstOrDefault());
+            var primaryProperty = propertyNames.FirstOrDefault();
+            if (primaryProperty != null)
+            {
+                ValidateProperty(value, primaryProperty);
+            }
 
             return true;
         }
