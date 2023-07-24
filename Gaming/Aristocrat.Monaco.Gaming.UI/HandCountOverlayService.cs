@@ -99,7 +99,7 @@
 
             if (disposing)
             {
-                _timerDialogViewModel.Dispose();
+                _timerDialogViewModel?.Dispose();
                 _eventBus.UnsubscribeAll(this);
             }
 
