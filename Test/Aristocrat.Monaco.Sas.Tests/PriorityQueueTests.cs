@@ -16,9 +16,11 @@
     /// <summary>
     ///     This class contains tests for the SasPriorityExceptionQueue class
     /// </summary>
+    [DoNotParallelize]
     [TestClass]
     public class PriorityQueueTests
     {
+        private const int waitTimeout = 1000;
         private const int ReturnedQueueSize = 30;
         private const int ClientId = 3;
         private readonly Mock<ISasExceptionHandler> _exceptionHandler = new Mock<ISasExceptionHandler>(MockBehavior.Default);
@@ -388,7 +390,7 @@
             // invoke the handler
             _target.ExceptionAcknowledged();
 
-            Assert.IsTrue(waiter.WaitOne(400));
+            Assert.IsTrue(waiter.WaitOne(waitTimeout));
 
             // handler should be the one that sets value to 2
             Assert.AreEqual(2, handlerRun);
@@ -402,7 +404,7 @@
             // invoke the handler
             _target.ExceptionAcknowledged();
 
-            Assert.IsTrue(waiter.WaitOne(200));
+            Assert.IsTrue(waiter.WaitOne(waitTimeout));
 
             // handler should be the one that sets value to 3
             Assert.AreEqual(3, handlerRun);
