@@ -455,7 +455,7 @@
                 if (_progressiveRecovery)
                 {
                     ProcessProgressiveLevels(evt.LinkedProgressiveLevels);
-
+                    _progressiveRecovery = false;
                     return;
                 }
 
