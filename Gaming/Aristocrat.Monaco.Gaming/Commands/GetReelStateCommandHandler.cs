@@ -55,6 +55,14 @@
                     case ReelLogicalState.Tilted:
                         command.States.Add(reelState.Key, ReelState.Faulted);
                         break;
+                    case ReelLogicalState.SpinningForwardAccelerating:
+                    case ReelLogicalState.SpinningBackwardsAccelerating:
+                        command.States.Add(reelState.Key, ReelState.Accelerating);
+                        break;
+                    case ReelLogicalState.SpinningForwardDecelerating:
+                    case ReelLogicalState.SpinningBackwardsDecelerating:
+                        command.States.Add(reelState.Key, ReelState.Decelerating);
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

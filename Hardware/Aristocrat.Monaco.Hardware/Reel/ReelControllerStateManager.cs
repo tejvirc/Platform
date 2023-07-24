@@ -373,6 +373,10 @@
         {
             var stateMachine = new StateMachine<ReelLogicalState, ReelControllerTrigger>(state);
             var reelStoppedTriggerParameters = stateMachine.SetTriggerParameters<ReelLogicalState, ReelEventArgs>(ReelControllerTrigger.ReelStopped);
+            var reelAccelerationForwardParameters = stateMachine.SetTriggerParameters<ReelEventArgs>(ReelControllerTrigger.SpinForwardAccelerate);
+            var reelAccelerationBackwardParameters = stateMachine.SetTriggerParameters<ReelEventArgs>(ReelControllerTrigger.SpinBackwardAccelerate);
+            var reelDecelerationForwardParameters = stateMachine.SetTriggerParameters<ReelEventArgs>(ReelControllerTrigger.SpinForwardDecelerate);
+            var reelDecelerationBackwardParameters = stateMachine.SetTriggerParameters<ReelEventArgs>(ReelControllerTrigger.SpinBackwardDecelerate);
 
             stateMachine.Configure(ReelLogicalState.IdleUnknown)
                 .Permit(ReelControllerTrigger.Disconnected, ReelLogicalState.Disconnected)
@@ -414,10 +418,14 @@
 
             stateMachine.Configure(ReelLogicalState.SpinningForward).SubstateOf(ReelLogicalState.Spinning);
             stateMachine.Configure(ReelLogicalState.SpinningBackwards).SubstateOf(ReelLogicalState.Spinning);
-            stateMachine.Configure(ReelLogicalState.SpinningForwardAccelerating).SubstateOf(ReelLogicalState.Spinning);
-            stateMachine.Configure(ReelLogicalState.SpinningForwardDecelerating).SubstateOf(ReelLogicalState.Spinning);
-            stateMachine.Configure(ReelLogicalState.SpinningBackwardsAccelerating).SubstateOf(ReelLogicalState.Spinning);
-            stateMachine.Configure(ReelLogicalState.SpinningBackwardsDecelerating).SubstateOf(ReelLogicalState.Spinning);
+            stateMachine.Configure(ReelLogicalState.SpinningForwardAccelerating).SubstateOf(ReelLogicalState.Spinning)
+                .OnEntryFrom(reelAccelerationForwardParameters, args => _eventBus.Publish(new ReelAcceleratingEvent(args.ReelId, SpinDirection.Forward)));
+            stateMachine.Configure(ReelLogicalState.SpinningForwardDecelerating).SubstateOf(ReelLogicalState.Spinning)
+                .OnEntryFrom(reelDecelerationForwardParameters, args => _eventBus.Publish(new ReelDeceleratingEvent(args.ReelId, SpinDirection.Forward)));
+            stateMachine.Configure(ReelLogicalState.SpinningBackwardsAccelerating).SubstateOf(ReelLogicalState.Spinning)
+                .OnEntryFrom(reelAccelerationBackwardParameters, args => _eventBus.Publish(new ReelAcceleratingEvent(args.ReelId, SpinDirection.Backwards)));
+            stateMachine.Configure(ReelLogicalState.SpinningBackwardsDecelerating).SubstateOf(ReelLogicalState.Spinning)
+                .OnEntryFrom(reelDecelerationBackwardParameters, args => _eventBus.Publish(new ReelDeceleratingEvent(args.ReelId, SpinDirection.Backwards)));
 
             stateMachine.OnTransitioned(
                 transition =>

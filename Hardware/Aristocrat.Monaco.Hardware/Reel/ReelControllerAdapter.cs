@@ -371,6 +371,16 @@
         private void ReelControllerSpinning(object sender, ReelSpinningEventArgs e)
         {
             Logger.Debug($"ReelControllerSpinning reel {e.ReelId}");
+
+            if (e.IsAccelerating)
+            {
+                _stateManager?.Fire(ReelControllerTrigger.SpinForwardAccelerate, e.ReelId);
+            }
+            else if (e.IsDecelerating)
+            {
+                _stateManager?.Fire(ReelControllerTrigger.SpinForwardDecelerate, e.ReelId);
+            }
+
             _stateManager?.Fire(ReelControllerTrigger.SpinReel, e.ReelId);
         }
 
