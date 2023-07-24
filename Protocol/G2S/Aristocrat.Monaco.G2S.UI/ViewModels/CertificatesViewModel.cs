@@ -3,6 +3,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Reflection;
     using System.Security.Cryptography.X509Certificates;
@@ -345,15 +346,14 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         /// <summary>
         ///     Gets or sets Manual Polling Interval in seconds for SCEP protocol.
         /// </summary>
+        [CustomValidation(typeof(CertificatesViewModel), nameof(ValidateManualPollingInterval))]
         public int ManualPollingInterval
         {
             get => _manualPollingInterval;
 
             set
             {
-                ValidateManualPollingInterval(value);
-                _manualPollingInterval = value;
-                OnPropertyChanged(nameof(ManualPollingInterval));
+                SetProperty(ref _manualPollingInterval, value, true);
                 RenewCertificateCommand.NotifyCanExecuteChanged();
             }
         }
@@ -681,14 +681,21 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 .Publish(new CertificateStatusUpdatedEvent(result.Status));
         }
 
-        private void ValidateManualPollingInterval(int interval)
+        public static ValidationResult ValidateManualPollingInterval(int interval, ValidationContext context)
         {
-            ClearErrors(nameof(ManualPollingInterval));
+            CertificatesViewModel instance = (CertificatesViewModel)context.ObjectInstance;
+            instance.ClearErrors(nameof(ManualPollingInterval));
+            var errors = "";
 
             if (interval <= 0)
             {
-                SetError(nameof(ManualPollingInterval), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ScepManualPollingInterval_GreaterThanZero));
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ScepManualPollingInterval_GreaterThanZero);
             }
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+            return new(errors);
         }
 
         private void StatusCheckCountdown(object sender, EventArgs e)
