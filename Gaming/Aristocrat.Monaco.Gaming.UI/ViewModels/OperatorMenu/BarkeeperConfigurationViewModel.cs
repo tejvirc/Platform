@@ -11,6 +11,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
     using Kernel;
     using Aristocrat.Monaco.Gaming.Contracts;
     using CommunityToolkit.Mvvm.Input;
+    using System.ComponentModel.DataAnnotations;
 
     public class BarkeeperConfigurationViewModel : OperatorMenuPageViewModelBase
     {
@@ -63,16 +64,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             set => SetProperty(ref _coinInSessionMeter, value, nameof(CoinInSessionMeter));
         }
 
+        [CustomValidation(typeof(BarkeeperConfigurationViewModel), nameof(ValidateCoinInRate))]
         public long RewardLevelCoinInAmount
         {
             get => _rewardLevelCoinInAmount;
-            set
-            {
-                if (SetProperty(ref _rewardLevelCoinInAmount, value, nameof(RewardLevelCoinInAmount)))
-                {
-                    ValidateCoinInRate();
-                }
-            }
+            set => SetProperty(ref _rewardLevelCoinInAmount, value, true, nameof(RewardLevelCoinInAmount));
         }
 
         public bool CoinInRateEnabled
@@ -80,9 +76,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             get => _coinInRateEnabled;
             set
             {
-                SetProperty(ref _coinInRateEnabled, value, nameof(CoinInRateEnabled));
-                ValidateCoinInRate();
-                OnPropertyChanged(nameof(RewardLevelCoinInAmount));
+                SetProperty(ref _coinInRateEnabled, value, nameof(CoinInRateEnabled), nameof(RewardLevelCoinInAmount));
+                ValidateProperty(nameof(RewardLevelCoinInAmount));
             }
         }
 
@@ -158,7 +153,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
             UpdateRewardLevels();
             RewardLevelCoinInAmount = _rewardLevels.CoinInStrategy.CoinInRate.Amount;
-            CoinInRateEnabled = ValidateCoinInRate() && _rewardLevels.CoinInStrategy.CoinInRate.Enabled;
+            CoinInRateEnabled = _rewardLevels.CoinInStrategy.CoinInRate.Enabled;
         }
 
         protected override void OnUnloaded()
@@ -172,7 +167,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             base.OnCommitted();
             UpdateRewardLevels();
 
-            RewardLevels.CoinInStrategy.CoinInRate.Enabled = CoinInRateEnabled && ValidateCoinInRate();
+            RewardLevels.CoinInStrategy.CoinInRate.Enabled = CoinInRateEnabled;
 
             if (RewardLevels.CoinInStrategy.CoinInRate.Enabled)
             {
@@ -187,33 +182,23 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             _barkeeperHandler.RewardLevels = RewardLevels;
         }
 
-        protected override void SetError(string propertyName, string error)
+        public static ValidationResult ValidateCoinInRate(long coinInRate, ValidationContext context)
         {
-            if (string.IsNullOrEmpty(error))
-            {
-                ClearErrors(propertyName);
-            }
-            else
-            {
-                base.SetError(propertyName, error);
-            }
-        }
-
-        private bool ValidateCoinInRate()
-        {
-            var coinInRateValidate = ((decimal)RewardLevelCoinInAmount.CentsToDollars()).Validate(
-                false,
-                PropertiesManager.GetValue(GamingConstants.GambleWagerLimit, GamingConstants.DefaultGambleWagerLimit));
-
-            SetError(nameof(RewardLevelCoinInAmount), coinInRateValidate);
-            return string.IsNullOrEmpty(coinInRateValidate);
+            var instance = (BarkeeperConfigurationViewModel)context.ObjectInstance;
+            var coinInRateValidate = coinInRate
+                .CentsToDollars()
+                .Validate(
+                    false,
+                    instance.PropertiesManager.GetValue(GamingConstants.GambleWagerLimit, GamingConstants.DefaultGambleWagerLimit)
+                );
+            return string.IsNullOrEmpty(coinInRateValidate) ? ValidationResult.Success : new(coinInRateValidate);
         }
 
         private void UpdateRewardLevels()
         {
-            CoinInRewardLevels?.Where(lvl => !lvl.ValidateThresholdInCents() && lvl.Enabled).ToList()
+            CoinInRewardLevels?.Where(lvl => lvl.Enabled).ToList()
                 .ForEach(lvl => lvl.Enabled = false);
-            CashInRewardLevels?.Where(lvl => !lvl.ValidateThresholdInCents() && lvl.Enabled).ToList()
+            CashInRewardLevels?.Where(lvl => lvl.Enabled).ToList()
                 .ForEach(lvl => lvl.Enabled = false);
 
             foreach (var rewardLevel in RewardLevels.RewardLevels.Where(CoinInStrategyPredicate))
