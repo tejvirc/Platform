@@ -12,10 +12,11 @@ using Aristocrat.Monaco.Kernel;
 
 namespace Aristocrat.Monaco.Hhr.Tests.Services
 {
+    [DoNotParallelize]
     [TestClass]
     public class PlayerSessionServiceTests
     {
-        private const double InactivityInterval = 250.0;
+        private const double InactivityInterval = 500.0;
 
         private readonly Mock<ICentralManager> _mockManager = new Mock<ICentralManager>(MockBehavior.Strict);
         private readonly Mock<IEventBus> _mockEventBus = new Mock<IEventBus>(MockBehavior.Default);

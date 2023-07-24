@@ -11,6 +11,7 @@
     using System.Threading;
     using Test.Common;
 
+    [DoNotParallelize]
     [TestClass]
     public class OperatingHoursMonitorTest
     {

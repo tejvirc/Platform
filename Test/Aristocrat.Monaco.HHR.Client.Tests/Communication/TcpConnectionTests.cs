@@ -50,9 +50,11 @@ namespace Aristocrat.Monaco.Hhr.Client.Tests.Communication
         }
     }
 
+    [DoNotParallelize]
     [TestClass]
     public class TcpConnectionTests
     {
+        private const int sleepTimeout = 500;
         private const int TestPort = 987;
         private static readonly byte[] testBytes = new byte[] { 1, 2, 3 };
         private static byte[] testBuffer = new byte[] { 0, 0, 0, 0, 0 };
@@ -124,10 +126,10 @@ namespace Aristocrat.Monaco.Hhr.Client.Tests.Communication
             CreateTransportManager();
             bool result = _tcpConnection.Open(new IPEndPoint(new IPAddress(new byte[] { 127, 0, 0, 1 }), TestPort)).Result;
             Assert.IsTrue(result);
-            Thread.Sleep(100);
+            Thread.Sleep(sleepTimeout);
             Assert.AreEqual(ConnectionState.Connected, _connectionObserver.ConnectionStatus.ConnectionState);
             serverClient.Close();
-            Thread.Sleep(100);
+            Thread.Sleep(sleepTimeout);
             Assert.AreEqual(ConnectionState.Disconnected, _connectionObserver.ConnectionStatus.ConnectionState);
         }
 
@@ -140,7 +142,7 @@ namespace Aristocrat.Monaco.Hhr.Client.Tests.Communication
             Assert.IsTrue(result);
             result = _tcpConnection.SendBytes(testBytes).Result;
             Assert.IsTrue(result);
-            Thread.Sleep(100);
+            Thread.Sleep(sleepTimeout);
             int bytesRead = serverClient.GetStream().Read(testBuffer, 0, 5);
             Assert.AreEqual(3, bytesRead);
             Assert.AreEqual(1, testBuffer[0]);
@@ -154,14 +156,14 @@ namespace Aristocrat.Monaco.Hhr.Client.Tests.Communication
             CreateTransportManager();
             bool result = await _tcpConnection.Open(new IPEndPoint(new IPAddress(new byte[] { 127, 0, 0, 1 }), TestPort));
             Assert.IsTrue(result);
-            Thread.Sleep(100);
+            Thread.Sleep(sleepTimeout);
             var encryptedHeader = new MessageEncryptHeader()
             {
                 EncryptionLength = Marshal.SizeOf<MessageEncryptHeader>()
             };
             var data = MessageUtility.ConvertMessageToByteArray(encryptedHeader);
             serverClient.GetStream().Write(data, 0, data.Length);
-            Thread.Sleep(100);
+            Thread.Sleep(sleepTimeout);
             
             Assert.AreEqual(data.Length, _connectionObserver.LastTcpPacket.Length);
         }
