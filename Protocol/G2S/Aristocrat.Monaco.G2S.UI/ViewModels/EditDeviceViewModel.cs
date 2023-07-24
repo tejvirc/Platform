@@ -9,6 +9,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
     using System.Linq;
     using Localization.Properties;
     using Aristocrat.Toolkit.Mvvm.Extensions;
+    using System.ComponentModel.DataAnnotations;
 
     public class EditDeviceViewModel : OperatorMenuSaveViewModelBase
     {
@@ -61,6 +62,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             }
         }
 
+        [CustomValidation(typeof(EditDeviceViewModel), nameof(OwnerIdValidate))]
         public int OwnerId
         {
             get => _ownerId;
@@ -131,16 +133,24 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         protected override void ValidateAll()
         {
             base.ValidateAll();
-            ValidateHostId(OwnerId);
+            ValidateProperty(OwnerId, nameof(OwnerId));
         }
 
-        private void ValidateHostId(int ownerId)
+        public static ValidationResult OwnerIdValidate(int ownerId, ValidationContext context)
         {
-            ClearErrors(nameof(OwnerId));
+            EditDeviceViewModel instance = (EditDeviceViewModel)context.ObjectInstance;
+            var errors = "";
+            instance.ClearErrors(nameof(ownerId));
             if (ownerId <= 0)
             {
-                SetError(nameof(OwnerId), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HostIdGreaterThanZero));
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HostIdGreaterThanZero);
             }
+            if (errors == null)
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(errors);
         }
 
         private void HandleOperatorMenuEntered(IEvent theEvent)
