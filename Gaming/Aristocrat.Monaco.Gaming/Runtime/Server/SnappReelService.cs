@@ -80,17 +80,7 @@
             throw new NotImplementedException();
         }
 
-        public override MessageResponse PrepareStepperCurves(PrepareStepperCurvesRequest request)
-        {
-            throw new NotImplementedException();
-        }
-
         public override MessageResponse PrepareStepperRule(PrepareStepperRuleRequest request)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override MessageResponse PrepareStopReel(PrepareStopReelRequest request)
         {
             throw new NotImplementedException();
         }
@@ -125,11 +115,6 @@
         }
 
         public override MessageResponse StartAnimations(Empty request)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override MessageResponse StopAllAnimationTags(StopAllAnimationTagsRequest request)
         {
             throw new NotImplementedException();
         }
@@ -170,11 +155,6 @@
             return new UpdateReelsSpeedResponse { Result = command.Success };
         }
 
-        public override MessageResponse PrepareLightShowAnimations(PrepareLightShowAnimationsRequest request)
-        {
-            throw new NotImplementedException();
-        }
-
         public override MessageResponse PrepareStepperCurves(PrepareStepperCurvesRequest request)
         {
             Logger.Debug("PrepareStepperCurves");
@@ -193,21 +173,6 @@
                 .Handle(command);
 
             return new MessageResponse { Result = command.Success };
-        }
-
-        public override MessageResponse StartAnimations(Empty request)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override MessageResponse StopLightshowAnimation(StopLightshowAnimationRequest request)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override MessageResponse StopAllLightshowAnimations(Empty request)
-        {
-            throw new NotImplementedException();
         }
 
         public override MessageResponse StopAllAnimationTags(StopAllAnimationTagsRequest request)
@@ -240,21 +205,6 @@
                 .Handle(command);
 
             return new MessageResponse { Result = command.Success };
-        }
-
-        public override MessageResponse PrepareStepperRule(PrepareStepperRuleRequest request)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override MessageResponse SynchronizeReels(SynchronizeReelsRequest request)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override MessageResponse SetBrightness(SetBrightnessRequest request)
-        {
-            throw new NotImplementedException();
         }
     }
 }
