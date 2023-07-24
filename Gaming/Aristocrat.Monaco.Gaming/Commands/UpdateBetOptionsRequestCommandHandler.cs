@@ -42,7 +42,6 @@
                 return;
             }
 
-            // HHR UPC appears to match the UniqueGameId in BetDetails
             var mainGame = command.BetDetails.Single(x => currentGame.ProductCode.HasValue ? x.GameId == currentGame.ProductCode.Value : x.GameId == 0);
 
             _properties.SetProperty(GamingConstants.SelectedBetMultiplier, mainGame.BetMultiplier);
