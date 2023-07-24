@@ -3887,6 +3887,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private void UpdateDisplayedGames()
         {
+            if (_enabledGameList == null)
+            {
+                return;
+            }
+
             DisplayedGameList.Clear();
             DisplayedGameList.AddRange(_enabledGameList?.Where(g => g.ImagePath != null));
 
