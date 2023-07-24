@@ -53,6 +53,9 @@
             webApiBuilder.WebHost.ConfigureServices(services =>
             {
                 services.AddControllers().AddApplicationPart(typeof(TestControllerEngine).Assembly);
+                var controllerEngine = new TestControllerEngine();
+                controllerEngine.SubscribeToEvents();
+                services.AddSingleton(controllerEngine);
             });
 
             var urls = new[]
