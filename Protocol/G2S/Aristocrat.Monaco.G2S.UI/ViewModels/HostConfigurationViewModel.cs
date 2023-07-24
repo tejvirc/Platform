@@ -3,11 +3,14 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Net;
     using System.Threading.Tasks;
     using System.Windows.Data;
     using System.Windows.Input;
+    using Newtonsoft.Json;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Application.Contracts;
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
@@ -15,7 +18,6 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Client.Devices.v21;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Common.DHCP;
     using Common.Events;
     using CommunityToolkit.Mvvm.Input;
@@ -24,7 +26,6 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
     using Localization.Properties;
     using Models;
     using Monaco.Common;
-    using Newtonsoft.Json;
     using Views;
     using Constants = Constants;
 
@@ -132,18 +133,11 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             }
         }
 
+        [CustomValidation(typeof(HostConfigurationViewModel), nameof(ValidatePort))]
         public int Port
         {
             get => _port;
-            set
-            {
-                if (_port != value)
-                {
-                    ValidatePort(value);
-                    _port = value;
-                    OnPropertyChanged(nameof(Port));
-                }
-            }
+            set => SetProperty(ref _port, value, nameof(Port));
         }
 
         protected override void OnUnloaded()
@@ -202,13 +196,6 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             base.OnCommitted();
         }
 
-        protected override void ValidateAll()
-        {
-            base.ValidateAll();
-
-            ValidatePort(_port);
-        }
-
         private static void RegisteredFilter(object sender, FilterEventArgs e)
         {
             if (e.Item is Host host)
@@ -217,14 +204,23 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             }
         }
 
-        private void ValidatePort(int value)
+        public static ValidationResult ValidatePort(int value, ValidationContext context)
         {
-            ClearErrors(nameof(Port));
+
+            HostConfigurationViewModel instance = (HostConfigurationViewModel)context.ObjectInstance;
+            var errors = "";
+
+            instance.ClearErrors(nameof(Port));
 
             if (value < 0 || value > ushort.MaxValue)
             {
-                SetError(nameof(Port), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Port_MustBeInRange));
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Port_MustBeInRange);
             }
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+            return new(errors);
         }
 
         private void ResetEditState()
@@ -253,8 +249,6 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                     Address = h.Address,
                     Registered = h.Registered,
                     RequiredForPlay = h.RequiredForPlay,
-                    RegisteredDisplayText = GetBooleanDisplayText(h.Registered),
-                    RequiredForPlayDisplayText = GetBooleanDisplayText(h.RequiredForPlay)
                 };
 
                 Hosts.Add(host);
@@ -288,8 +282,6 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                         Address = host.Address,
                         Registered = host.IsEgm() || host.Registered,
                         RequiredForPlay = host.RequiredForPlay,
-                        RegisteredDisplayText = GetBooleanDisplayText(host.Registered),
-                        RequiredForPlayDisplayText = GetBooleanDisplayText(host.RequiredForPlay)
                     });
             }
 
