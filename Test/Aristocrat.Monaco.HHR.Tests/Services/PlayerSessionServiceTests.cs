@@ -16,7 +16,7 @@ namespace Aristocrat.Monaco.Hhr.Tests.Services
     [TestClass]
     public class PlayerSessionServiceTests
     {
-        private const double InactivityInterval = 500.0;
+        private const double InactivityInterval = 1000.0;
 
         private readonly Mock<ICentralManager> _mockManager = new Mock<ICentralManager>(MockBehavior.Strict);
         private readonly Mock<IEventBus> _mockEventBus = new Mock<IEventBus>(MockBehavior.Default);

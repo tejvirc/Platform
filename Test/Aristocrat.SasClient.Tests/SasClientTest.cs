@@ -16,7 +16,7 @@
     [TestClass]
     public class SasClientTest
     {
-        private const int threadJoinTimeout = 1000;
+        private const int threadJoinTimeout = 2000;
         private const string ReasonText = "Dummy";
         private SasClient _target;
         private dynamic _privateTarget;

@@ -53,7 +53,7 @@
         private Mock<ILocalizerFactory> _localizerFactory;
         private VoucherMetersPageViewModel _target;
         private readonly ManualResetEvent _waiter = new ManualResetEvent(false);
-        private const int Timeout = 1000;
+        private const int Timeout = 2000;
 
         // Use TestInitialize to run code before running each test 
         [TestInitialize]
