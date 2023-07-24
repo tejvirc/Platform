@@ -11689,6 +11689,14 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>Too many transaction requests are pending with the Server. This lockup will be removed when the Server acknowledges the requests.</value>
     <comment>Aristocrat.Monaco.Bingo</comment>
   </data>
+  <data name="ProgressiveHostDisconnected" xml:space="preserve">
+    <value>Progressive Host Disconnected</value>
+    <comment>Aristocrat.Monaco.Bingo</comment>
+  </data>
+  <data name="DisabledByProgressiveHost" xml:space="preserve">
+    <value>Disabled By Progressive Host</value>
+    <comment>Aristocrat.Monaco.Bingo</comment>
+  </data>
   <data name="AcceptanceRate" xml:space="preserve">
     <value>Acceptance Rate</value>
   </data>
@@ -11978,6 +11986,14 @@ Do you really want to do full reset?</value>
   </data>
   <data name="WageredAmountLabel" xml:space="preserve">
     <value>Cash Played</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="ExtraSettingsButtonText" xml:space="preserve">
+    <value>Extra Settings</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="GameSpecificOptionLabel" xml:space="preserve">
+    <value>Game Specific Options</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="WonCountLabel" xml:space="preserve">
@@ -12272,19 +12288,17 @@ Do you really want to do full reset?</value>
   <data name="PayoutLimitHelpText" xml:space="preserve">
     <value>Note: After first COAM game is played, RAM clear is required to change payout limit.</value>
   </data>
-  <data name="ExtraSettingsButtonText" xml:space="preserve">
-    <value>Extra Settings</value>
-    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  <data name="ProgressiveHostRegistrationFailed" xml:space="preserve">
+    <value>Progressive Host Registration Failed</value>
+    <comment>Aristocrat.Monaco.Bingo</comment>
   </data>
-  <data name="GameSpecificOptionLabel" xml:space="preserve">
-    <value>Game Specific Options</value>
-    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  <data name="ProgressiveHostRegistrationFailedHelp" xml:space="preserve">
+    <value>Ensure the EGM is configured for progressives on the AMC and progressive system. Reboot the machine  to reestablish communication.</value>
+    <comment>Aristocrat.Monaco.Bingo</comment>
   </data>
-  <data name="GamesPlayedSinceDoorClosed" xml:space="preserve">
-    <value>Games Played since Door Closed</value>
-  </data>
-  <data name="GamesPlayedSinceReboot" xml:space="preserve">
-    <value>Games Played since Reboot</value>
+  <data name="ProgressiveHostDisconnectedHelp" xml:space="preserve">
+    <value>Ensure communication cable is properly connected and host is online. If lockup persists after connection is restored, host system may need to send enable command, or reboot the machine to reestablish communication.</value>
+    <comment>Aristocrat.Monaco.Bingo</comment>
   </data>
   <data name="DeviceManagerHostEnabled" xml:space="preserve">
     <value>Host Enabled</value>

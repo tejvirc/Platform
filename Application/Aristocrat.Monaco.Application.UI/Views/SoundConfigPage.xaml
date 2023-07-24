@@ -71,6 +71,7 @@
                     AutomationProperties.AutomationId="StackPanel13_529054B4">
             <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.EnterSoundTest}}"
                     Command="{Binding ToggleTestModeCommand}"
+                    IsEnabled="{Binding TestModeEnabled, UpdateSourceTrigger=PropertyChanged}"
                     Visibility="{Binding InTestMode, Converter={StaticResource TrueCollapsedFalseVisible}}"
                     AutomationProperties.AutomationId="Button14_529054B4" />
             <Button Name="ExitTestModeButton"

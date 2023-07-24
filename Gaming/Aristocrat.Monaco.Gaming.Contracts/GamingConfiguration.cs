@@ -13,8 +13,8 @@
 // 
 namespace Aristocrat.Monaco.Gaming.Contracts {
     using System.Xml.Serialization;
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-    
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member    
+
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -135,6 +135,8 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         private GamingConfigurationWin winField;
         
         private GamingConfigurationDisplayGamePayMessage displayGamePayMessageField;
+        
+        private GamingConfigurationInstructions instructionsField;
         
         private GamingConfigurationWagerLimits wagerLimitsField;
         
@@ -729,6 +731,16 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         }
         
         /// <remarks/>
+        public GamingConfigurationInstructions Instructions {
+            get {
+                return this.instructionsField;
+            }
+            set {
+                this.instructionsField = value;
+            }
+        }
+        
+        /// <remarks/>
         public GamingConfigurationWagerLimits WagerLimits {
             get {
                 return this.wagerLimitsField;
@@ -853,7 +865,6 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             get {
                 return this.autoCompleteGameRoundField;
             }
-
             set {
                 this.autoCompleteGameRoundField = value;
             }
@@ -4100,6 +4111,33 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class GamingConfigurationInstructions {
+        
+        private string gameRulesInstructionsField;
+        
+        public GamingConfigurationInstructions() {
+            this.gameRulesInstructionsField = "";
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute("")]
+        public string GameRulesInstructions {
+            get {
+                return this.gameRulesInstructionsField;
+            }
+            set {
+                this.gameRulesInstructionsField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
     public partial class GamingConfigurationWagerLimits {
         
         private bool useField;
@@ -4466,7 +4504,7 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        [System.ComponentModel.DefaultValueAttribute(true)]
+        [System.ComponentModel.DefaultValueAttribute(false)]
         public bool WinTuneCapping {
             get {
                 return this.winTuneCappingField;

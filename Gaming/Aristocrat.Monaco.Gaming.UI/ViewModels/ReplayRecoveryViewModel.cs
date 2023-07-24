@@ -26,8 +26,6 @@
     /// </summary>
     public class ReplayRecoveryViewModel : BaseEntityViewModel, IDisposable
     {
-        private static readonly string CompletionText =
-            Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReplayCompletedText);
         private const double CashOutMessagesCycleIntervalInSeconds = 3.0;
 
         private readonly IEventBus _eventBus;
@@ -286,6 +284,8 @@
             _cashoutMessageTimer = null;
             _disposed = true;
         }
+
+        private string CompletionText => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReplayCompletedText);
 
         private void ExitButtonPressed(object parameter)
         {

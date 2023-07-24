@@ -4,6 +4,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
+    using System.Reflection;
     using System.Text;
     using Accounting.Contracts;
     using Application.Contracts;
@@ -22,6 +23,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
     using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.EdgeLighting;
     using Kernel;
+    using log4net;
     using Runtime;
     using Runtime.Client;
     using PlayMode = Contracts.PlayMode;
@@ -32,7 +34,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
     public class ConfigureClientCommandHandler : ICommandHandler<ConfigureClient>
     {
         private static readonly IReadOnlyCollection<ContinuousPlayButton> DefaultContinuousPlayButtons = new[] { ContinuousPlayButton.Play };
-
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IAudio _audio;
         private readonly IGameHistory _gameHistory;
         private readonly IGameRecovery _gameRecovery;
@@ -308,6 +310,20 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 {
                     parameters.Add("/Runtime/DenomSelectionLobby&optional", "true");
                 }
+            }
+
+            var subGames = _gameProvider.GetEnabledSubGames(currentGame);
+            if (!subGames.IsNullOrEmpty())
+            {
+                var subGameConfiguration = subGames.Serialize();
+                Logger.Debug(subGameConfiguration);
+                parameters.Add("/Runtime/SimultaneousPlayGames", subGameConfiguration);
+            }
+            
+            var gameRulesInstructions = _properties.GetValue(GamingConstants.GameRulesInstructions, string.Empty);
+            if (!string.IsNullOrEmpty(gameRulesInstructions))
+            {
+                parameters["/Runtime/Instructions/GameRulesInstructions1"] = gameRulesInstructions;
             }
 
             AddHandCountSettings(parameters);

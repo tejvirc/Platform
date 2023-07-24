@@ -6,7 +6,6 @@
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Protocol.v21;
-    using Aristocrat.Monaco.G2S.Services.Progressive;
     using Aristocrat.Monaco.Test.Common;
     using G2S.Handlers;
     using G2S.Handlers.Progressive;

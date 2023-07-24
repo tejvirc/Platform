@@ -1,29 +1,60 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Tests
 {
     using System;
+    using System.Collections.Generic;
+    using System.Data;
     using System.Linq;
     using System.Security.Cryptography.X509Certificates;
     using System.Threading;
     using System.Threading.Tasks;
+    using Application.Contracts;
     using Aristocrat.Bingo.Client;
     using Aristocrat.Bingo.Client.Configuration;
+    using Aristocrat.Bingo.Client.Messages;
+    using Aristocrat.Bingo.Client.Messages.Interceptor;
+    using Aristocrat.Monaco.Gaming.Contracts;
     using Commands;
     using Common;
     using Common.Events;
     using Common.Exceptions;
+    using Common.Storage.Model;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
+    using Protocol.Common.Storage.Entity;
 
     [TestClass]
     public class BingoClientConnectionStateTests
     {
-        private BingoClientConnectionState _target;
+        public class BingoClientConnectionStateTester : BingoClientConnectionState
+        {
+            public BingoClientConnectionStateTester(
+                IEventBus eventBus,
+                IEnumerable<IClient> clients,
+                IClientConfigurationProvider configurationProvider,
+                IPropertiesManager propertiesManager,
+                ISystemDisableManager systemDisable,
+                IUnitOfWorkFactory unitOfWorkFactory,
+                ICommandHandlerFactory commandFactory) :
+                base(eventBus, clients, configurationProvider, propertiesManager, systemDisable, unitOfWorkFactory, commandFactory)
+            {
+            }
+
+            public void SetClients(IEnumerable<IClient> clients)
+            {
+                Clients = clients;
+            }
+        }
+
+        private BingoClientConnectionStateTester _target;
         private readonly Mock<IEventBus> _eventBus = new(MockBehavior.Default);
         private readonly Mock<IClient> _client = new(MockBehavior.Default);
         private readonly Mock<ICommandHandlerFactory> _commandFactory = new(MockBehavior.Default);
+        private readonly Mock<IPropertiesManager> _propertiesManager = new(MockBehavior.Default);
         private readonly Mock<ISystemDisableManager> _systemDisableManager = new(MockBehavior.Default);
         private readonly Mock<IClientConfigurationProvider> _configurationProvider = new(MockBehavior.Default);
+        private readonly Mock<IUnitOfWork> _unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
+        private readonly Mock<IUnitOfWorkFactory> _unitOfWorkFactory = new Mock<IUnitOfWorkFactory>(MockBehavior.Strict);
 
         // This will point to the HandleRestartingEvent function due to reconnection
         private Func<ForceReconnectionEvent, CancellationToken, Task> _handleForceReconnectionEvent;
@@ -38,6 +69,7 @@
                     uriBuilder.Uri,
                     TimeSpan.FromSeconds(2),
                     Enumerable.Empty<X509Certificate2>()));
+            _client.Setup(m => m.FirewallRuleName).Returns("TestFirewall");
 
             _eventBus.Setup(
                     x => x.Subscribe(
@@ -49,13 +81,42 @@
                         It.IsAny<object>(),
                         It.IsAny<Func<PropertyChangedEvent, CancellationToken, Task>>(),
                         It.IsAny<Predicate<PropertyChangedEvent>>()));
+            _unitOfWork.Setup(x => x.BeginTransaction(IsolationLevel.ReadCommitted));
+            _unitOfWork.Setup(x => x.Commit());
+            _unitOfWork.Setup(x => x.Dispose());
+            _unitOfWorkFactory.Setup(x => x.Create()).Returns(_unitOfWork.Object);
 
-            _target = new BingoClientConnectionState(
+            // Setup for cross game progressive check
+            var gameId = 1;
+            var gameDetail = new Mock<IGameDetail>();
+            var denomination = new Mock<IDenomination>();
+            denomination.Setup(m => m.Value).Returns(1L);
+            gameDetail.Setup(m => m.Id).Returns(gameId);
+            var listOfDenominations = new List<IDenomination>();
+            listOfDenominations.Add(denomination.Object);
+            gameDetail.Setup(m => m.Denominations).Returns(listOfDenominations);
+            var listOfGames = new List<IGameDetail>();
+            listOfGames.Add(gameDetail.Object);
+            _propertiesManager.Setup(m => m.GetProperty(GamingConstants.IsGameRunning, false)).Returns(true);
+            _propertiesManager.Setup(m => m.GetProperty(GamingConstants.SelectedGameId, 0)).Returns(gameId);
+            _propertiesManager.Setup(m => m.GetProperty(GamingConstants.SelectedDenom, 0L)).Returns(1L);
+            _propertiesManager.Setup(m => m.GetProperty(GamingConstants.Games, null)).Returns(listOfGames);
+            var bingoConfig = new BingoServerSettingsModel();
+            _unitOfWorkFactory.Setup(x => x.Invoke(It.IsAny<Func<IUnitOfWork, BingoServerSettingsModel>>()))
+                .Returns(bingoConfig);
+
+            var clients = new List<IClient> { _client.Object };
+            _target = new BingoClientConnectionStateTester(
                 _eventBus.Object,
-                _client.Object,
-                _commandFactory.Object,
+                clients,
+                _configurationProvider.Object,
+                _propertiesManager.Object,
                 _systemDisableManager.Object,
-                _configurationProvider.Object);
+                _unitOfWorkFactory.Object,
+               _commandFactory.Object);
+
+            // Force the clients for unit testing
+            _target.SetClients(new List<IClient> { _client.Object });
         }
 
         [TestCleanup]
@@ -65,26 +126,32 @@
             _target.Dispose();
         }
 
-        [DataRow(true, false, false, false, false, DisplayName = "EventBus null")]
-        [DataRow(false, true, false, false, false, DisplayName = "Client null")]
-        [DataRow(false, false, true, false, false, DisplayName = "CommandFactory null")]
-        [DataRow(false, false, false, true, false, DisplayName = "SystemDisableManager null")]
-        [DataRow(false, false, false, false, true, DisplayName = "ConfigurationProvider null")]
+        [DataRow(true, false, false, false, false, false, false, DisplayName = "EventBus null")]
+        [DataRow(false, true, false, false, false, false, false, DisplayName = "Client null")]
+        [DataRow(false, false, true, false, false, false, false, DisplayName = "ConfigurationProvider null")]
+        [DataRow(false, false, false, true, false, false, false, DisplayName = "PropertiesManager null")]
+        [DataRow(false, false, false, false, true, false, false, DisplayName = "SystemDisableManager null")]
+        [DataRow(false, false, false, false, false, true, false, DisplayName = "UnitOfWorkFactory null")]
+        [DataRow(false, false, false, false, false, false, true, DisplayName =  "CommandFactory null")]
         [DataTestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorTest(
             bool eventBusNull,
             bool clientNull,
             bool commandFactoryNull,
+            bool configurationNull,
+            bool propertiesManagerNull,
             bool systemDisableManagerNull,
-            bool configurationNull)
+            bool unitOfWorkFactoryNull)
         {
-            _target = new BingoClientConnectionState(
+            _target = new BingoClientConnectionStateTester(
                 eventBusNull ? null : _eventBus.Object,
-                clientNull ? null : _client.Object,
-                commandFactoryNull ? null : _commandFactory.Object,
+                clientNull ? null : new List<IClient> { _client.Object },
+                configurationNull ? null : _configurationProvider.Object,
+                propertiesManagerNull ? null : _propertiesManager.Object,
                 systemDisableManagerNull ? null : _systemDisableManager.Object,
-                configurationNull ? null : _configurationProvider.Object);
+                unitOfWorkFactoryNull ? null : _unitOfWorkFactory.Object,
+                commandFactoryNull ? null : _commandFactory.Object);
         }
 
         [TestMethod]
@@ -140,6 +207,7 @@
             // set up mocks for OnConnected
             _eventBus.Setup(m => m.Publish(It.IsAny<HostConnectedEvent>()));
             _systemDisableManager.Setup(m => m.Enable(BingoConstants.BingoHostDisconnectedKey));
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.SerialNumber, string.Empty)).Returns("1");
 
             // raise the Connected event which will call OnClientConnected
             // which will send the Trigger.Connected to the state machine
@@ -174,6 +242,7 @@
 
             _eventBus.Setup(m => m.Publish(It.IsAny<HostConnectedEvent>()));
             _systemDisableManager.Setup(m => m.Enable(BingoConstants.BingoHostDisconnectedKey));
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.SerialNumber, string.Empty)).Returns("1");
 
             _client.Raise(m => m.Connected += null, new ConnectedEventArgs());
 
@@ -205,6 +274,7 @@
 
             _eventBus.Setup(m => m.Publish(It.IsAny<HostConnectedEvent>()));
             _systemDisableManager.Setup(m => m.Enable(BingoConstants.BingoHostDisconnectedKey));
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.SerialNumber, string.Empty)).Returns("1");
 
             _client.Raise(m => m.Connected += null, new ConnectedEventArgs());
 
@@ -242,6 +312,7 @@
 
             _eventBus.Setup(m => m.Publish(It.IsAny<HostConnectedEvent>()));
             _systemDisableManager.Setup(m => m.Enable(BingoConstants.BingoHostDisconnectedKey));
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.SerialNumber, string.Empty)).Returns("1");
 
             _client.Raise(m => m.Connected += null, new ConnectedEventArgs());
 
@@ -281,6 +352,7 @@
 
             _eventBus.Setup(m => m.Publish(It.IsAny<HostConnectedEvent>()));
             _systemDisableManager.Setup(m => m.Enable(BingoConstants.BingoHostDisconnectedKey));
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.SerialNumber, string.Empty)).Returns("1");
 
             _client.Raise(m => m.Connected += null, new ConnectedEventArgs());
 
@@ -321,6 +393,7 @@
 
             _eventBus.Setup(m => m.Publish(It.IsAny<HostConnectedEvent>()));
             _systemDisableManager.Setup(m => m.Enable(BingoConstants.BingoHostDisconnectedKey));
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.SerialNumber, string.Empty)).Returns("1");
 
             _client.Raise(m => m.Connected += null, new ConnectedEventArgs());
 
@@ -367,6 +440,7 @@
 
             _eventBus.Setup(m => m.Publish(It.IsAny<HostConnectedEvent>()));
             _systemDisableManager.Setup(m => m.Enable(BingoConstants.BingoHostDisconnectedKey));
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.SerialNumber, string.Empty)).Returns("1");
 
             _client.Raise(m => m.Connected += null, new ConnectedEventArgs());
 
@@ -409,6 +483,7 @@
 
             _eventBus.Setup(m => m.Publish(It.IsAny<HostConnectedEvent>()));
             _systemDisableManager.Setup(m => m.Enable(BingoConstants.BingoHostDisconnectedKey));
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.SerialNumber, string.Empty)).Returns("1");
 
             _client.Raise(m => m.Connected += null, new ConnectedEventArgs());
 

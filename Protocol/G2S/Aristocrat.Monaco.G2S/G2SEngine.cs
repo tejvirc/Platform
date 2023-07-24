@@ -11,7 +11,6 @@
     using Aristocrat.G2S.Client.Devices.v21;
     using Aristocrat.G2S.Emdi;
     using Aristocrat.Monaco.Application.Contracts.Protocol;
-    using Aristocrat.Monaco.G2S.Services;
     using Common.CertificateManager;
     using Gaming.Contracts;
     using Hardware.Contracts;
@@ -22,7 +21,6 @@
     using log4net;
     using Meters;
     using Services;
-    using Services.Progressive;
 
     /// <summary>
     ///     The G2S Engine.  Responsible for starting the G2S client.

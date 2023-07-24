@@ -5,7 +5,7 @@
     using Polly;
     using ServerApiGateway;
 
-    public sealed class StatusReportingService : BaseClientCommunicationService, IStatusReportingService
+    public sealed class StatusReportingService : BaseClientCommunicationService<ClientApi.ClientApiClient>, IStatusReportingService
     {
         private readonly IAsyncPolicy _retryPolicy;
 

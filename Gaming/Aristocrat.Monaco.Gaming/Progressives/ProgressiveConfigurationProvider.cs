@@ -51,6 +51,8 @@
             _multiplier = properties.GetValue(ApplicationConstants.CurrencyMultiplierKey, 1d);
             AddLevelCacheData(_levelProvider.GetProgressiveLevels());
             _eventBus.Subscribe<GameAddedEvent>(this, Handle);
+
+            _levelProvider.ProgressivesLoaded += UpdateLevelCache;
         }
 
         public IReadOnlyCollection<IViewableProgressiveLevel> AssignLevelsToGame(
@@ -411,6 +413,11 @@
             {
                 postEvent();
             }
+        }
+
+        private void UpdateLevelCache(object sender, ProgressivesLoadedEventArgs eventArgs)
+        {
+            AddLevelCacheData(eventArgs.ProgressiveLevels);
         }
 
         private void ValidateProgressiveConfiguration(IEnumerable<ProgressiveLevel> levels)

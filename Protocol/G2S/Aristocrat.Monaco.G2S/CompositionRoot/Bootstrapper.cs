@@ -43,7 +43,6 @@
     using PackageManifest.Models;
     using Protocol.Common.Installer;
     using Security;
-    using Services;
     using SimpleInjector;
     using SimpleInjector.Lifestyles;
     using Constants = G2S.Constants;

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.G2S.Services.Progressive
+﻿namespace Aristocrat.Monaco.G2S.Services
 {
     using System;
     using System.Collections.Concurrent;
@@ -102,7 +102,7 @@
             _progressiveStatusBuilder = progressiveStatusBuilder ?? throw new ArgumentNullException(nameof(progressiveStatusBuilder));
             _progressiveHitBuilder = progressiveHitBuilder ?? throw new ArgumentNullException(nameof(progressiveHitBuilder));
             _progressiveCommitBuilder = progressiveCommitBuilder ?? throw new ArgumentNullException(nameof(progressiveCommitBuilder));
-            
+
             _g2sProgressivesEnabled = (bool)propertiesManager.GetProperty(G2S.Constants.G2SProgressivesEnabled, false);
             if (_g2sProgressivesEnabled)
             {
@@ -382,7 +382,7 @@
         private void OnCommunicationsStateChanged(CommunicationsStateChangedEvent evt)
         {
             var host = _egm.GetHostById(evt.HostId);
-            if(!host.IsProgressiveHost) return;
+            if (!host.IsProgressiveHost) return;
 
             if (evt.Online)
             {
@@ -393,7 +393,7 @@
             {
                 _disableProvider.Disable(SystemDisablePriority.Immediate, G2SDisableStates.ProgressiveHostCommsOffline);
             }
-            
+
         }
 
         private void HandleEvent(LinkedProgressiveCommitEvent evt)
@@ -575,7 +575,7 @@
             var vertexLevelIds = (Dictionary<int, (int linkedGroupId, int linkedLevelId)>)propertiesManager.GetProperty(GamingConstants.ProgressiveConfiguredLinkedLevelIds,
                 new Dictionary<int, (int linkedGroupId, int linkedLevelId)>());
 
-            
+
 
             try
             {
@@ -585,18 +585,18 @@
 
                 var pools =
                     (from level in enabledLinkedLevels
-                        join linkConfig in vertexLevelIds on level.DeviceId equals linkConfig.Key
-                        group level by new
-                        {
-                            level.GameId,
-                            PackName = level.ProgressivePackName,
-                            ProgId = linkConfig.Value.linkedGroupId,
-                            LevelId = linkConfig.Value.linkedLevelId,
-                            level.LevelName,
-                        }
+                     join linkConfig in vertexLevelIds on level.DeviceId equals linkConfig.Key
+                     group level by new
+                     {
+                         level.GameId,
+                         PackName = level.ProgressivePackName,
+                         ProgId = linkConfig.Value.linkedGroupId,
+                         LevelId = linkConfig.Value.linkedLevelId,
+                         level.LevelName,
+                     }
                         into pool
-                        orderby pool.Key.GameId, pool.Key.PackName, pool.Key.ProgId, pool.Key.LevelId
-                        select pool).ToArray();
+                     orderby pool.Key.GameId, pool.Key.PackName, pool.Key.ProgId, pool.Key.LevelId
+                     select pool).ToArray();
 
                 foreach (var pool in pools)
                 {
@@ -786,7 +786,7 @@
         private void UpdatePendingAwards()
         {
             using var unitOfWork = _unitOfWorkFactory.Create();
-            
+
             var pendingJackpots = unitOfWork.Repository<PendingJackpotAwards>().Queryable().SingleOrDefault() ??
                                   new PendingJackpotAwards();
             pendingJackpots.Awards = JsonConvert.SerializeObject(_pendingAwards);

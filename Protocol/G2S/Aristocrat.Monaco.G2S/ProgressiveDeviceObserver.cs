@@ -15,7 +15,6 @@
     using Aristocrat.Monaco.G2S.Handlers;
     using Aristocrat.Monaco.Kernel;
     using Gaming.Contracts.Progressives;
-    using Services.Progressive;
 
     public class ProgressiveDeviceObserver : DeviceObserver, IProgressiveDeviceObserver
     {

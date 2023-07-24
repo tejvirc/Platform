@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Bingo.Client.Messages
 {
     using System;
+    using System.Collections.Generic;
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
@@ -12,14 +13,14 @@
     using ServerApiGateway;
 
     public sealed class CommandService :
-        BaseClientCommunicationService,
+        BaseClientCommunicationService<ClientApi.ClientApiClient>,
         ICommandService,
         IDisposable
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly ICommandProcessorFactory _processorFactory;
-        private readonly IClient _bingoClient;
+        private readonly IEnumerable<IClient> _clients;
         private readonly SemaphoreSlim _locker = new(1);
         private readonly IAsyncPolicy _commandRetryPolicy;
 
@@ -32,14 +33,17 @@
         public CommandService(
             IClientEndpointProvider<ClientApi.ClientApiClient> endpointProvider,
             ICommandProcessorFactory processorFactory,
-            IClient bingoClient)
+            IEnumerable<IClient> clients)
             : base(endpointProvider)
         {
             _processorFactory = processorFactory ?? throw new ArgumentNullException(nameof(processorFactory));
-            _bingoClient = bingoClient ?? throw new ArgumentNullException(nameof(bingoClient));
+            _clients = clients ?? throw new ArgumentNullException(nameof(clients));
             _commandRetryPolicy = CreatePolicy();
 
-            _bingoClient.ConnectionStateChanged += HandleConnectionStateChanges;
+            foreach (var client in _clients)
+            {
+                client.ConnectionStateChanged += HandleConnectionStateChanges;
+            }
         }
 
         public async Task<bool> HandleCommands(string machineSerial, CancellationToken cancellationToken)
@@ -123,7 +127,11 @@
                 return;
             }
 
-            _bingoClient.ConnectionStateChanged -= HandleConnectionStateChanges;
+            foreach (var client in _clients)
+            {
+                client.ConnectionStateChanged -= HandleConnectionStateChanges;
+            }
+
             _tokenSource?.Cancel();
             _tokenSource?.Dispose();
             _tokenSource = null;

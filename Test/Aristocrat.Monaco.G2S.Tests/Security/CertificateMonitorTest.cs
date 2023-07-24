@@ -11,8 +11,6 @@
     using Common.CertificateManager.Models;
     using G2S.Meters;
     using G2S.Security;
-    using G2S.Services;
-    using G2S.Services.Progressive;
     using Hardware.Contracts;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;

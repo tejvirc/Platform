@@ -295,9 +295,14 @@
         public const string SelectedWagerCategory = @"GamePlay.SelectedWagerCategory";
 
         /// <summary>
-        ///     The currently selected bet details
+        ///     The currently selected bet details for main/single game
         /// </summary>
         public const string SelectedBetDetails = @"GamePlay.SelectedBetDetails";
+
+        /// <summary>
+        ///     The currently selected bet details for multiple games
+        /// </summary>
+        public const string SelectedMultiGameBetDetails = @"GamePlay.SelectedMultiGameBetDetails";
 
         /// <summary>
         ///     The currently Game Configuration
@@ -1397,6 +1402,11 @@
         ///     Flag will control the showing of the Player Menu Popup when pressed on the game UPI
         /// </summary>
         public const string ShowPlayerMenuPopup = @"GamePlay.ShowPlayerMenuPopup";
+
+        /// <summary>
+        ///     The Game Rules instructions message to display
+        /// </summary>
+        public const string GameRulesInstructions = @"Instructions.GameRulesInstructions";
 
         /// <summary>
         ///     Flag will control the background cycling of the RNG by the platform

@@ -6,7 +6,7 @@ namespace Aristocrat.Bingo.Client.Messages
     using Polly;
     using ServerApiGateway;
 
-    public sealed class ActivityReportService : BaseClientCommunicationService, IActivityReportService
+    public sealed class ActivityReportService : BaseClientCommunicationService<ClientApi.ClientApiClient>, IActivityReportService
     {
         private readonly IAsyncPolicy _policy;
 

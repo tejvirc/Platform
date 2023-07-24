@@ -2,7 +2,6 @@
 {
     using System;
     using Aristocrat.G2S.Client;
-    using Aristocrat.Monaco.G2S.Services.Progressive;
 
     /// <summary>
     ///     Initializes and starts a service.

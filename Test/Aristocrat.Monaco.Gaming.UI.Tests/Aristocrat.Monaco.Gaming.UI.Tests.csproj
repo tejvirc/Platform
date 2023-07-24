@@ -21,6 +21,6 @@
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Localization\Aristocrat.Monaco.Localization.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.22" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.24" />
   </ItemGroup>
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.G2S.Services.Progressive
+﻿namespace Aristocrat.Monaco.G2S.Services
 {
     using System.Collections.Generic;
 
