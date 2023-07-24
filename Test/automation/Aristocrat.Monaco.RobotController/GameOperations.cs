@@ -35,7 +35,7 @@
         private bool _requestGameIsInProgress;
         private bool _gameIsRunning;
 
-        private readonly int CashoutDialogDismiss = TimeSpan.FromSeconds(1).Milliseconds;
+        private readonly int CashoutDialogDismiss = (int)TimeSpan.FromSeconds(3).TotalMilliseconds;
 
         public GameOperations(IEventBus eventBus, RobotLogger logger, Automation automator, StateChecker sc, IPropertiesManager pm, RobotController robotController, IGameService gameService)
         {
@@ -378,7 +378,9 @@
                 {
                     Task.Delay(CashoutDialogDismiss).ContinueWith(task =>
                     {
-                        _eventBus.Publish(new CashoutAmountAuthorizationReceivedEvent(false));
+                        var cashOut = GetRandomBoolean();
+                            
+                        _eventBus.Publish(new CashoutAmountAuthorizationReceivedEvent(cashOut));
                     });
                 });
         }
@@ -494,5 +496,8 @@
         {
             return _robotController.InProgressRequests.Contains(RobotStateAndOperations.RegularMode);
         }
+
+        private bool GetRandomBoolean() => new Random((int)DateTime.Now.Ticks).Next() % 2 != 0;
+        
     }
 }
