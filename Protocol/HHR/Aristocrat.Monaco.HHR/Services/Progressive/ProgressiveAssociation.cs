@@ -181,7 +181,7 @@
 
         private void UpdateCurrentAmount(LinkedProgressiveLevel linkedLevel)
         {
-            if(_progressiveUpdateService.IsProgressiveLevelUpdateLocked(linkedLevel))
+            if (_progressiveUpdateService.IsProgressiveLevelUpdateLocked(linkedLevel))
             {
                 return;
             }

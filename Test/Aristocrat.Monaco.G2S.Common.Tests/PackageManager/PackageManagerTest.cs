@@ -9,8 +9,8 @@
     using Common.PackageManager;
     using Common.PackageManager.Storage;
     using Common.Transfer;
-    using Data.Model;
-    using Data.Packages;
+    using G2S.Data.Model;
+    using G2S.Data.Packages;
     using Protocol.Common.Installer;
     using Kernel;
     using Kernel.Contracts.Components;

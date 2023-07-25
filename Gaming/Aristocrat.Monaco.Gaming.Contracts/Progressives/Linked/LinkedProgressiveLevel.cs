@@ -25,6 +25,16 @@
         public int LevelId { get; set; }
 
         /// <summary>
+        ///     Gets or sets the progressive value sequence.
+        /// </summary>
+        public long ProgressiveValueSequence { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the progressive value text.
+        /// </summary>
+        public string ProgressiveValueText { get; set; }
+
+        /// <summary>
         ///     Gets or the name of the level. This should always be unique as it is
         ///     a concatenation of ProtocolName, ProgressiveGroupId, and LevelId.
         /// </summary>

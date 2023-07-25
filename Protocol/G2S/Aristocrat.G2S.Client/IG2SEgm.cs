@@ -14,5 +14,10 @@
         ///     <c>true</c> if running; otherwise, <c>false</c>.
         /// </value>
         bool Running { get; }
+
+        /// <summary>
+        ///     Signals to the EGM that the MTP client should start.
+        /// </summary>
+        void StartMtp();
     }
 }

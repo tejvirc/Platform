@@ -1,11 +1,15 @@
 ﻿namespace Aristocrat.Monaco.G2S.Handlers.Meters
 {
     using System;
+    using System.Linq;
     using System.Threading.Tasks;
     using Aristocrat.G2S;
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Protocol.v21;
+    using Aristocrat.Monaco.G2S.Services;
+    using Aristocrat.Monaco.Gaming.Contracts.Progressives;
+    using Aristocrat.Monaco.Kernel;
     using G2S.Meters;
 
     /// <summary>
@@ -15,6 +19,8 @@
     {
         private readonly IG2SEgm _egm;
         private readonly IMetersSubscriptionManager _metersSubscriptionManager;
+        private readonly IProgressiveLevelManager _progressiveLevelManager;
+        private readonly IProgressiveDeviceManager _progressiveDeviceManager;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="GetMeterInfo" /> class.
@@ -22,11 +28,17 @@
         /// </summary>
         /// <param name="egm">A G2S egm</param>
         /// <param name="metersSubscriptionManager">Meters subscription manager</param>
-        public GetMeterInfo(IG2SEgm egm, IMetersSubscriptionManager metersSubscriptionManager)
+        public GetMeterInfo(
+            IG2SEgm egm,
+            IMetersSubscriptionManager metersSubscriptionManager,
+            IProgressiveLevelManager progressiveLevelManager,
+            IProgressiveDeviceManager progressiveDeviceManager)
         {
             _egm = egm ?? throw new ArgumentNullException(nameof(egm));
             _metersSubscriptionManager = metersSubscriptionManager ??
                                          throw new ArgumentNullException(nameof(metersSubscriptionManager));
+            _progressiveLevelManager = progressiveLevelManager ?? throw new ArgumentNullException(nameof(progressiveLevelManager));
+            _progressiveDeviceManager = progressiveDeviceManager ?? throw new ArgumentNullException(nameof(progressiveDeviceManager));
         }
 
         /// <inheritdoc />
@@ -50,7 +62,16 @@
                     response.Command.meterInfoType = cmd.meterInfoType;
                     response.Command.gameDenomMeters = meterInfo.gameDenomMeters;
                     response.Command.currencyMeters = meterInfo.currencyMeters;
-                    response.Command.deviceMeters = meterInfo.deviceMeters;
+
+                    if(cmd.getDeviceMeters != null)
+                    { 
+                        var progIndex = Array.FindIndex(cmd.getDeviceMeters, q =>
+                        q.deviceClass.Equals(DeviceClass.G2S_progressive, StringComparison.Ordinal));
+                        response.Command.deviceMeters = progIndex >= 0 ?
+                            GetProgressiveDeviceMeters(cmd.getDeviceMeters[progIndex].deviceId) :
+                            meterInfo.deviceMeters;
+                    }
+
                     response.Command.wagerMeters = meterInfo.wagerMeters;
                 }
                 else
@@ -60,6 +81,25 @@
             }
 
             await Task.CompletedTask;
+        }
+
+        // This is required because somebody created a ProgressiveMeterManager
+        // It's not tied into the same mechanisms
+        private deviceMeters[] GetProgressiveDeviceMeters(int progDeviceId)
+        {
+            if (_progressiveLevelManager == null) return null;
+
+            return new[]
+                    {
+                            new deviceMeters
+                            {
+                                deviceClass = DeviceClass.G2S_progressive,
+                                deviceId = progDeviceId,
+                                simpleMeter = _progressiveLevelManager.GetProgressiveLevelMeters(
+                                    _progressiveDeviceManager.VertexDeviceIds.FirstOrDefault(x => x.Value == progDeviceId).Key,
+                                    ProgressiveMeters.WageredAmount, ProgressiveMeters.PlayedCount).ToArray()
+                            }
+                        };
         }
     }
 }

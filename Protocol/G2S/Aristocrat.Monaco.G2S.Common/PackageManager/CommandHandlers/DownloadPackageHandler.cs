@@ -7,7 +7,7 @@
     using System.Text;
     using System.Threading;
     using Application.Contracts.Authentication;
-    using Data.Model;
+    using G2S.Data.Model;
     using Kernel;
     using log4net;
     using Monaco.Common.CommandHandlers;

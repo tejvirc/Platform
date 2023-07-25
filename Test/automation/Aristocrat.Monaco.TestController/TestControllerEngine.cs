@@ -1748,18 +1748,18 @@
         {
 
         }
-    }
 
-    class DisplayableMessageComparer : IEqualityComparer<DisplayableMessage>
-    {
-        public bool Equals(DisplayableMessage x, DisplayableMessage y)
+        private class DisplayableMessageComparer : IEqualityComparer<DisplayableMessage>
         {
-            return x.Message.Trim().ToLower().Equals(y.Message.Trim().ToLower());
-        }
+            public bool Equals(DisplayableMessage x, DisplayableMessage y)
+            {
+                return x.Message.Trim().ToLower().Equals(y.Message.Trim().ToLower());
+            }
 
-        public int GetHashCode(DisplayableMessage obj)
-        {
-            return obj.Message.GetHashCode();
+            public int GetHashCode(DisplayableMessage obj)
+            {
+                return obj.Message.GetHashCode();
+            }
         }
     }
 }

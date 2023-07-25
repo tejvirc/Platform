@@ -148,7 +148,7 @@
 
                 _eventBus.Publish(new GameDenomChangedEvent(game.Id, game, denom, _multiplier));
             }
-            
+
             using var storage = _storage.ScopedTransaction();
             if (sharedSapLevels.Any())
             {

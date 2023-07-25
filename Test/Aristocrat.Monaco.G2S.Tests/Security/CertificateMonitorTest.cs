@@ -2,14 +2,15 @@
 {
     using System;
     using System.Threading;
+    using Application.Contracts.Protocol;
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Emdi;
+    using Aristocrat.Monaco.G2S.Services;
     using Common.CertificateManager;
     using Common.CertificateManager.Models;
     using G2S.Meters;
     using G2S.Security;
-    using G2S.Services;
     using Hardware.Contracts;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -35,6 +36,7 @@
             var scriptManager = new Mock<IScriptManager>();
             var packageDownloadManager = new Mock<IPackageDownloadManager>();
             var deviceObserver = new Mock<IDeviceObserver>();
+            var progressiveDeviceManager = new Mock<IProgressiveDeviceManager>();
             var egmStateObserver = new Mock<IEgmStateObserver>();
             var deviceRegistryService = new Mock<IDeviceRegistryService>();
             var gatComponentFactory = new Mock<IGatComponentFactory>();
@@ -48,6 +50,7 @@
             var emdi = new Mock<IEmdi>();
             var central = new Mock<ICentralService>();
             var eventLift = new Mock<IEventLift>();
+            var multiProtocolConfigurationProvider = new Mock<IMultiProtocolConfigurationProvider>();
 
             _g2sEngineMock = new Mock<G2SEngine>(
                 egm.Object,
@@ -57,6 +60,7 @@
                 scriptManager.Object,
                 packageDownloadManager.Object,
                 deviceObserver.Object,
+                progressiveDeviceManager.Object,
                 egmStateObserver.Object,
                 deviceRegistryService.Object,
                 gatComponentFactory.Object,
@@ -69,7 +73,8 @@
                 certificateMonitor.Object,
                 emdi.Object,
                 central.Object,
-                eventLift.Object);
+                eventLift.Object,
+                multiProtocolConfigurationProvider.Object);
             MoqServiceManager.AddService(_g2sEngineMock);
         }
 

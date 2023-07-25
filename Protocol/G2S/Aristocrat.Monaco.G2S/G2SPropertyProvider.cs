@@ -22,6 +22,7 @@
 
         private readonly IG2SDataFactory _dataFactory;
         private readonly IPersistentStorageAccessor _persistentStorageAccessor;
+        private readonly IPersistentStorageManager _storageManager;
 
         private readonly Dictionary<string, object> _properties;
 
@@ -32,7 +33,8 @@
         {
             _dataFactory = ServiceManager.GetInstance().GetService<IG2SDataFactory>();
 
-            _persistentStorageAccessor = ServiceManager.GetInstance().GetService<IPersistentStorageManager>()
+            _storageManager = ServiceManager.GetInstance().GetService<IPersistentStorageManager>();
+            _persistentStorageAccessor = _storageManager
                 .GetAccessor(PersistenceLevel.Critical, GetType().ToString());
 
             var port = (int)InitFromStorage(Constants.Port);
@@ -42,7 +44,8 @@
                 { Constants.EgmId, BuildEgmId() },
                 { Constants.RegisteredHosts, InitHostsFromStorage() },
                 { Constants.StartupContext, InitStartupContext() },
-                { Constants.Port, port != 0 ? port : Constants.DefaultPort }
+                { Constants.Port, port != 0 ? port : Constants.DefaultPort },
+                { Constants.G2SProgressivesEnabled, false }
             };
         }
 
@@ -99,7 +102,9 @@
                                     HostId = h.Id,
                                     Address = h.Address.ToString(),
                                     Registered = h.Registered,
-                                    RequiredForPlay = h.RequiredForPlay
+                                    RequiredForPlay = h.RequiredForPlay,
+                                    IsProgressiveHost = h.IsProgressiveHost,
+                                    OfflineTimerInterval = h.ProgressiveHostOfflineTimerInterval.TotalSeconds
                                 }));
                     }
 
@@ -146,7 +151,9 @@
                             ? null
                             : new Uri(h.Address),
                         Registered = h.Registered,
-                        RequiredForPlay = h.RequiredForPlay
+                        RequiredForPlay = h.RequiredForPlay,
+                        IsProgressiveHost = h.IsProgressiveHost,
+                        ProgressiveHostOfflineTimerInterval = TimeSpan.FromSeconds(h.OfflineTimerInterval)
                     });
         }
 

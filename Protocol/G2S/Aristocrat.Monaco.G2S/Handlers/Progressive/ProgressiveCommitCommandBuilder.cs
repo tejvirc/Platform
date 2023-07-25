@@ -1,11 +1,13 @@
 ﻿namespace Aristocrat.Monaco.G2S.Handlers.Progressive
 {
+    using System;
     using System.Threading.Tasks;
     using Accounting.Contracts;
     using Accounting.Contracts.Transactions;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Protocol.v21;
     using Gaming.Contracts.Progressives;
+    using Gaming.Contracts.Progressives.Linked;
 
     /// <summary>
     ///     A progressive commit command builder.
@@ -15,14 +17,17 @@
     public class ProgressiveCommitCommandBuilder : ICommandBuilder<IProgressiveDevice, progressiveCommit>
     {
         private readonly ITransactionHistory _transactionHistory;
+        private readonly IProtocolLinkedProgressiveAdapter _protocolLinkedProgressiveAdapter;
 
         /// <summary>
         ///     Initializes a new instance of the Aristocrat.Monaco.G2S.Handlers.Progressive.ProgressiveCommitCommandBuilder class.
         /// </summary>
         /// <param name="transactionHistory">The transaction history.</param>
-        public ProgressiveCommitCommandBuilder(ITransactionHistory transactionHistory)
+        public ProgressiveCommitCommandBuilder(ITransactionHistory transactionHistory,
+            IProtocolLinkedProgressiveAdapter protocolLinkedProgressiveAdapter)
         {
-            _transactionHistory = transactionHistory;
+            _transactionHistory = transactionHistory ?? throw new ArgumentNullException(nameof(transactionHistory));
+            _protocolLinkedProgressiveAdapter = protocolLinkedProgressiveAdapter ?? throw new ArgumentNullException(nameof(protocolLinkedProgressiveAdapter));
         }
 
         /// <inheritdoc />
@@ -35,8 +40,10 @@
                 return Task.CompletedTask;
             }
 
-            command.progId = transaction.ProgressiveId;
-            command.levelId = transaction.LevelId;
+            _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevel(transaction.AssignedProgressiveKey, out var linkedLevel);
+
+            command.progId = linkedLevel.ProgressiveGroupId;
+            command.levelId = linkedLevel.LevelId;
             command.progWinAmt = transaction.WinAmount;
             command.progWinText = transaction.WinText;
             command.progWinSeq = transaction.WinSequence;

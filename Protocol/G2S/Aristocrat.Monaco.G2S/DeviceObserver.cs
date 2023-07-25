@@ -29,7 +29,7 @@
         }
 
         /// <inheritdoc cref="IDeviceObserver.Notify" />
-        public void Notify(IDevice device, string propertyName)
+        public virtual void Notify(IDevice device, string propertyName)
         {
             switch (propertyName)
             {

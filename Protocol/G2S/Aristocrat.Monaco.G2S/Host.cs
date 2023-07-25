@@ -24,6 +24,12 @@
         /// <inheritdoc />
         public bool RequiredForPlay { get; internal set; }
 
+        /// <inheritdoc />
+        public bool IsProgressiveHost { get; internal set; }
+
+        /// <inheritdoc />
+        public TimeSpan ProgressiveHostOfflineTimerInterval { get; internal set; }
+
         /// <summary>
         ///     Determines whether the specified <see cref="System.Object" />, is equal to this instance.
         /// </summary>

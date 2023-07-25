@@ -76,6 +76,12 @@
             base.Save();
         }
 
+        public override void Cancel()
+        {
+            _viewModel?.Cancel();
+            base.Cancel();
+        }
+
         public override bool HasChanges()
         {
             return _viewModel == null || _viewModel.HasChanges();

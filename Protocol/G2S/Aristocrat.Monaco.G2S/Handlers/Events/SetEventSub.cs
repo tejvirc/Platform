@@ -49,7 +49,7 @@
         {
             if (command.Class.sessionType == t_sessionTypes.G2S_request)
             {
-                var eventHandlerDevice = _egm.GetDevice<IEventHandlerDevice>(command.IClass.deviceId);
+                var eventHandlerDevice = _egm.GetDevice<IEventHandlerDevice>(command.HostId);
                 if (eventHandlerDevice == null)
                 {
                     return;

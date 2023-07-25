@@ -38,7 +38,7 @@
         {
             var status = new progressiveStatus();
 
-            _commandBuilder.Build(device, status);
+            _commandBuilder.Build(device, status).Wait();
 
             _eventLift.Report(
                 device,
