@@ -169,7 +169,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
         }
 
         [IgnoreTracking]
-        public string InputStatusText
+        public virtual string InputStatusText
         {
             get => _inputStatusText;
             set

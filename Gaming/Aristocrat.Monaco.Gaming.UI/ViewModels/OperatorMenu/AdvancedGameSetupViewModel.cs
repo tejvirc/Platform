@@ -4,6 +4,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     using System.Globalization;
     using System.Linq;
     using System.Threading;
@@ -17,6 +18,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
     using Application.Contracts.OperatorMenu;
     using Application.Contracts.Settings;
     using Application.UI.OperatorMenu;
+    using Aristocrat.Monaco.UI.Common.MVVM;
     using Aristocrat.Toolkit.Mvvm.Extensions;
     using Commands;
     using Common;
@@ -31,7 +33,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
     using Contracts.Progressives.SharedSap;
     using Kernel;
     using Localization.Properties;
-    using Microsoft.Expression.Interactivity.Core;
     using Models;
     using Progressives;
     using Settings;
@@ -403,6 +404,15 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             get => _saveWarningText;
             set => SetProperty(ref _saveWarningText, value);
         }
+
+        [IgnoreTracking]
+        [CustomValidation(typeof(AdvancedGameSetupViewModel), nameof(ValidateInputStatusText))]
+        public override string InputStatusText
+        {
+            get => base.InputStatusText;
+            set => base.InputStatusText = value;
+        }
+
         public void HandlePropertyChangedEvent(PropertyChangedEvent eventObject)
         {
             Execute.OnUIThread(
@@ -799,22 +809,30 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
                 else if (GameConfigurations != null)
                 {
-                    // We need to check all the denominations, not just the current one. If we find one that's invalid,
-                    // prevent saving the config.
-                    foreach (var gameConfig in GameConfigurations)
-                    {
-                        gameConfig.SetWarningText();
-                        // If the warning is due to max denoms reached, we can still Save and don't need to set error for this page
-                        if (!string.IsNullOrEmpty(gameConfig.WarningText) && (!gameConfig.MaxDenomEntriesReached || !gameConfig.EnabledByHost))
-                        {
-                            SetError(nameof(InputStatusText), InputStatusText);
-                            break;
-                        }
-                    }
+                    ValidateProperty(InputStatusText, nameof(InputStatusText));
                 }
 
                 OnPropertyChanged(nameof(InputStatusText), nameof(CanSave), nameof(HasErrors));
             }
+        }
+
+        public static ValidationResult ValidateInputStatusText(string inputStatusText, ValidationContext context)
+        {
+            var instance = (AdvancedGameSetupViewModel)context.ObjectInstance;
+
+            // We need to check all the denominations, not just the current one. If we find one that's invalid,
+            // prevent saving the config.
+            foreach (var gameConfig in instance.GameConfigurations)
+            {
+                gameConfig.SetWarningText();
+                // If the warning is due to max denoms reached, we can still Save and don't need to set error for this page
+                if (!string.IsNullOrEmpty(gameConfig.WarningText) && (!gameConfig.MaxDenomEntriesReached || !gameConfig.EnabledByHost))
+                {
+                    return new(gameConfig.WarningText);
+                }
+            }
+
+            return ValidationResult.Success;
         }
 
         private void UpdateSaveWarning()
