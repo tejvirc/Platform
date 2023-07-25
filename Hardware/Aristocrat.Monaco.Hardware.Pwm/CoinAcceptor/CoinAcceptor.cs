@@ -36,6 +36,7 @@
                 DeviceType = NativeConstants.CoinAcceptorDeviceType
             };
             Model = "CC-62";
+            Manufacturer = "CC-62";
 
             return true;
         }

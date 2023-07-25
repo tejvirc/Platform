@@ -176,6 +176,10 @@
         /// </summary>
         public const string CoinAcceptorEnabledKey = "Hardware.CoinAcceptorEnabled";
 
+        // <summary>
+        ///     Key used to get a value indicating whether or not Coin Acceptor is enabled
+        /// </summary>
+        public const string CoinAcceptorManufacturer = "Hardware.CoinAcceptorManufacturer";
         /// <summary>
         ///     Key used to get a coin token value.
         /// </summary>

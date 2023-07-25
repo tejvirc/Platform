@@ -15,6 +15,9 @@
         private static readonly Timer PollTimer = new Timer();
         private static readonly AutoResetEvent Poll = new AutoResetEvent(true);
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected override bool StartDeviceMonitoring()
         {
             _running = true;

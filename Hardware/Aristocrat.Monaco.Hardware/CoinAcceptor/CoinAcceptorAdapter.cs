@@ -34,7 +34,7 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
             ? $"{ServiceProtocol} Coin Acceptor Service"
             : "Unknown Coin Acceptor Service";
 
-        public override bool Connected => !Implementation?.IsConnected ?? false;
+        public override bool Connected => Implementation?.IsConnected ?? false;
 
         public override ICollection<Type> ServiceTypes => new[] { typeof(ICoinAcceptor) };
 

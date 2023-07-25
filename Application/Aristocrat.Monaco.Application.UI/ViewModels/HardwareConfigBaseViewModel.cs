@@ -108,6 +108,7 @@
         private string _printerManufacturer;
         private string _idReaderManufacturer;
         private string _reelControllerManufacturer;
+        private string _coincceptorManufacturer;
         private string _hardMeterMapSelection;
         private bool _configurableBellyPanelDoor;
         private bool _bellyPanelDoorEnabled;
@@ -537,6 +538,11 @@
                             case DeviceType.ReelController:
                                 _propertiesManager.SetProperty(
                                     ApplicationConstants.ReelControllerManufacturer,
+                                    device.Manufacturer ?? string.Empty);
+                                break;
+                            case DeviceType.CoinAcceptor:
+                                _propertiesManager.SetProperty(
+                                    HardwareConstants.CoinAcceptorManufacturer,
                                     device.Manufacturer ?? string.Empty);
                                 break;
                         }
@@ -1016,6 +1022,8 @@
                             return nameof(PrinterInspectionFailedEvent);
                         case DeviceType.ReelController:
                             return nameof(ReelInspectionFailedEvent);
+                        case DeviceType.CoinAcceptor:
+                            return nameof(CoinAcceptorInspectionFailedEvent);
                     }
 
                     return string.Empty;
@@ -1272,6 +1280,17 @@
                                             ApplicationConstants.ReelControllerManufacturer,
                                             string.Empty);
                                     }
+                                    break;
+                                case DeviceType.CoinAcceptor:
+                                    isEnabled = _propertiesManager.GetValue(
+                                        HardwareConstants.CoinAcceptorEnabledKey,
+                                        false);
+                                    if (isEnabled)
+                                    {
+                                        _coincceptorManufacturer = _propertiesManager.GetValue(
+                                            HardwareConstants.CoinAcceptorManufacturer,
+                                            string.Empty);
+                                    }
 
                                     break;
                             }
@@ -1410,6 +1429,9 @@
                         break;
                     case DeviceType.ReelController when !string.IsNullOrEmpty(_reelControllerManufacturer):
                         LoadDevice(device, _reelControllerManufacturer);
+                        break;
+                    case DeviceType.CoinAcceptor when !string.IsNullOrEmpty(_coincceptorManufacturer):
+                        LoadDevice(device, _coincceptorManufacturer);
                         break;
                 }
             }

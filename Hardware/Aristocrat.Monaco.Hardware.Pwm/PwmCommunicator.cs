@@ -375,7 +375,7 @@
 
         //-------------
 
-        public string Manufacturer => string.Empty;
+        public virtual string Manufacturer { get; set; }
 
         public virtual string Model { get; set; }
 
