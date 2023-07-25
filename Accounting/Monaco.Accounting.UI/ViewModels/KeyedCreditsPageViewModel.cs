@@ -15,6 +15,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
     using Localization.Properties;
     using Aristocrat.Toolkit.Mvvm.Extensions;
     using CommunityToolkit.Mvvm.Input;
+    using System.ComponentModel.DataAnnotations;
 
     [CLSCompliant(false)]
     public class KeyedCreditsPageViewModel : OperatorMenuPageViewModelBase
@@ -84,17 +85,11 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             set => SetProperty(ref _selectedCredit, value, nameof(SelectedCredit));
         }
 
+        [CustomValidation(typeof(KeyedCreditsPageViewModel), nameof(ValidateKeyedOnCredits))]
         public decimal KeyedOnCreditAmount
         {
             get => _keyedOnCreditAmount;
-            set
-            {
-                if (SetProperty(ref _keyedOnCreditAmount, value, nameof(KeyedOnCreditAmount)))
-                {
-                    ValidateKeyedOnCredits();
-                    OnPropertyChanged(nameof(KeyedOnCreditsAllowed));
-                }
-            }
+            set => SetProperty(ref _keyedOnCreditAmount, value, nameof(KeyedOnCreditAmount), nameof(KeyedOnCreditsAllowed));
         }
 
         public List<Credit> Credits
@@ -296,18 +291,17 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             KeyedOnCreditAmount = 0m;
         }
 
-        private void ValidateKeyedOnCredits()
+        public static ValidationResult ValidateKeyedOnCredits(decimal keyedOnCredits, ValidationContext context)
         {
-            var error = KeyedOnCreditAmount.Validate(true, _creditLimit - _currentCredits);
+            KeyedCreditsPageViewModel instance = (KeyedCreditsPageViewModel)context.ObjectInstance;
+            var errors = keyedOnCredits.Validate(true, instance._creditLimit - instance._currentCredits);
 
-            if (string.IsNullOrEmpty(error))
+            if (string.IsNullOrEmpty(errors))
             {
-                ClearErrors(nameof(KeyedOnCreditAmount));
+                return ValidationResult.Success;
             }
-            else
-            {
-                SetError(nameof(KeyedOnCreditAmount), error);
-            }
+
+            return new(errors);
         }
 
         public class Credit : BaseObservableObject
