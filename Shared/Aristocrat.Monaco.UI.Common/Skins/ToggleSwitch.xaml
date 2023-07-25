@@ -6,17 +6,25 @@
                     xmlns:behaviours="http://schemas.microsoft.com/xaml/behaviors">
     <converters:InverseBooleanConverter x:Key="InverseBoolConverter"/>
     <converters:ScaleConverter x:Key="ScaleConv"/>
-    <Style x:Key="Aristocrat.Monaco.UI.Common.Skins.ToggleSwitchButton" TargetType="{x:Type controls:ToggleSwitch}">
-        <Setter Property="BorderThickness" Value="2" />
-        <Setter Property="Height" Value="35" />
-        <Setter Property="IsTabStop" Value="False" />
-        <Setter Property="Padding" Value="0" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
+    <Style x:Key="Aristocrat.Monaco.UI.Common.Skins.ToggleSwitchButton"
+           TargetType="{x:Type controls:ToggleSwitch}">
+        <Setter Property="BorderThickness"
+                Value="2" />
+        <Setter Property="Height"
+                Value="35" />
+        <Setter Property="IsTabStop"
+                Value="False" />
+        <Setter Property="Padding"
+                Value="0" />
+        <Setter Property="SnapsToDevicePixels"
+                Value="True" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type controls:ToggleSwitch}" x:Name="ControlTemplateParent">
+                <ControlTemplate TargetType="{x:Type controls:ToggleSwitch}"
+                                 x:Name="ControlTemplateParent">
                     <Grid AutomationProperties.AutomationId="Grid0_35CD297B">
-                        <Grid x:Name="PART_SwitchTrack" AutomationProperties.AutomationId="Grid1_35CD297B">
+                        <Grid x:Name="PART_SwitchTrack"
+                              AutomationProperties.AutomationId="Grid1_35CD297B">
                             <Border x:Name="normal"
                                     Background="{TemplateBinding Background}"
                                     BorderBrush="{TemplateBinding BorderBrush}"
@@ -113,9 +121,10 @@
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                         <behaviours:Interaction.Triggers>
-                            <behaviours:EventTrigger EventName="PreviewMouseDown">
-                                <behaviours:ChangePropertyAction TargetObject="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:ToggleSwitch}}}"  
-                                                                 PropertyName="IsOn" 
+                            <behaviours:EventTrigger EventName="PreviewMouseDown"
+                                                     AutomationProperties.AutomationId="EventTrigger1_35CD297B">
+                                <behaviours:ChangePropertyAction TargetObject="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:ToggleSwitch}}}"
+                                                                 PropertyName="IsOn"
                                                                  Value="{Binding IsOn,RelativeSource={RelativeSource AncestorType={x:Type controls:ToggleSwitch}}, 
                                                                             Converter={StaticResource ResourceKey=InverseBoolConverter}}"/>
                             </behaviours:EventTrigger>
@@ -135,43 +144,69 @@
                                     Property="Opacity"
                                     Value="0.55" />
                         </Trigger>
-                        <Trigger Property="IsOn" Value="True"
+                        <Trigger Property="IsOn"
+                                 Value="True"
                                  AutomationProperties.AutomationId="Trigger22_35CD297B">
-                            <Setter TargetName="PART_OnContent" Property="Foreground" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(helpers:ToggleSwitchButtonHelper.OnBrush)}" />
-                            <Setter TargetName="PART_OffContent" Property="Foreground"  Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(helpers:ToggleSwitchButtonHelper.OffBrush)}" />
-                            <Trigger.EnterActions >
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation Duration="00:00:00.1" From="0" To="100" Storyboard.TargetProperty="X" Storyboard.TargetName="PART_ThumbTranslate">
-                                            <DoubleAnimation.EasingFunction >
-                                                <PowerEase Power="5" EasingMode="EaseOut"/>
+                            <Setter TargetName="PART_OnContent"
+                                    Property="Foreground"
+                                    Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(helpers:ToggleSwitchButtonHelper.OnBrush)}" />
+                            <Setter TargetName="PART_OffContent"
+                                    Property="Foreground"
+                                    Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(helpers:ToggleSwitchButtonHelper.OffBrush)}" />
+                            <Trigger.EnterActions>
+                                <BeginStoryboard AutomationProperties.AutomationId="BeginStoryboard1_35CD297B">
+                                    <Storyboard AutomationProperties.AutomationId="Storyboard1_35CD297B">
+                                        <DoubleAnimation Duration="00:00:00.1"
+                                                         From="0"
+                                                         To="100"
+                                                         Storyboard.TargetProperty="X"
+                                                         Storyboard.TargetName="PART_ThumbTranslate"
+                                                         AutomationProperties.AutomationId="DoubleAnimation1_35CD297B">
+                                            <DoubleAnimation.EasingFunction>
+                                                <PowerEase Power="5"
+                                                           EasingMode="EaseOut"
+                                                           AutomationProperties.AutomationId="PowerEase1_35CD297B" />
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.EnterActions>
                             <Trigger.ExitActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation Duration="00:00:00.1" From="100" To="0" Storyboard.TargetProperty="X" Storyboard.TargetName="PART_ThumbTranslate">
-                                            <DoubleAnimation.EasingFunction >
-                                                <PowerEase Power="5" EasingMode="EaseOut"/>
+                                <BeginStoryboard AutomationProperties.AutomationId="BeginStoryboard2_35CD297B">
+                                    <Storyboard AutomationProperties.AutomationId="Storyboard2_35CD297B">
+                                        <DoubleAnimation Duration="00:00:00.1"
+                                                         From="100"
+                                                         To="0"
+                                                         Storyboard.TargetProperty="X"
+                                                         Storyboard.TargetName="PART_ThumbTranslate"
+                                                         AutomationProperties.AutomationId="DoubleAnimation2_35CD297B">
+                                            <DoubleAnimation.EasingFunction>
+                                                <PowerEase Power="5"
+                                                           EasingMode="EaseOut"
+                                                           AutomationProperties.AutomationId="PowerEase2_35CD297B" />
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.ExitActions>
                         </Trigger>
-                        <Trigger Property="IsOn" Value="False"
+                        <Trigger Property="IsOn"
+                                 Value="False"
                                  AutomationProperties.AutomationId="Trigger23_35CD297B">
-                            <Setter TargetName="PART_OnContent" Property="Foreground"  Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(helpers:ToggleSwitchButtonHelper.OffBrush)}" />
-                            <Setter TargetName="PART_OffContent" Property="Foreground" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(helpers:ToggleSwitchButtonHelper.OnBrush)}" />
+                            <Setter TargetName="PART_OnContent"
+                                    Property="Foreground"
+                                    Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(helpers:ToggleSwitchButtonHelper.OffBrush)}" />
+                            <Setter TargetName="PART_OffContent"
+                                    Property="Foreground"
+                                    Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(helpers:ToggleSwitchButtonHelper.OnBrush)}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
-        <Setter Property="Width" Value="70" />
+        <Setter Property="BorderBrush"
+                Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+        <Setter Property="Width"
+                Value="70" />
     </Style>
 </ResourceDictionary>

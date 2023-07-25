@@ -7,8 +7,9 @@
              xmlns:loc="http://monaco.aristocrat.com/localization"
              xmlns:lex="http://wpflocalizeextension.codeplex.com"
              lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
-             lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
-             mc:Ignorable="d">
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources"
+             mc:Ignorable="d"
+             AutomationProperties.AutomationId="UserControl0_3AB56F25">
     <UserControl.Resources>
         <src:CommsStatusToStringConverter x:Key="CommsStatusToStringConverter" />
     </UserControl.Resources>
