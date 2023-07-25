@@ -253,24 +253,24 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice__ctor_System_Int32_Aristocrat_G2S_Client_Devices_IDeviceObserver_Aristocrat_G2S_Client_IEventLift_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.%23ctor(System.Int32%2CAristocrat.G2S.Client.Devices.IDeviceObserver%2CAristocrat.G2S.Client.IEventLift)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice__ctor_System_Int32_Aristocrat_G2S_Client_Devices_IProgressiveDeviceObserver_Aristocrat_G2S_Client_IEventLift_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.%23ctor(System.Int32%2CAristocrat.G2S.Client.Devices.IProgressiveDeviceObserver%2CAristocrat.G2S.Client.IEventLift%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L33" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L46" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice__ctor_" data-uid="Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.#ctor*"></a>
   
-  <h4 id="Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice__ctor_System_Int32_Aristocrat_G2S_Client_Devices_IDeviceObserver_Aristocrat_G2S_Client_IEventLift_" data-uid="Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.#ctor(System.Int32,Aristocrat.G2S.Client.Devices.IDeviceObserver,Aristocrat.G2S.Client.IEventLift)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice__ctor_System_Int32_Aristocrat_G2S_Client_Devices_IDeviceObserver_Aristocrat_G2S_Client_IEventLift_" class="expander" data-toggle="collapse">ProgressiveDevice(Int32, IDeviceObserver, IEventLift)</a></h4>
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice__ctor_System_Int32_Aristocrat_G2S_Client_Devices_IProgressiveDeviceObserver_Aristocrat_G2S_Client_IEventLift_System_Int32_" data-uid="Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.#ctor(System.Int32,Aristocrat.G2S.Client.Devices.IProgressiveDeviceObserver,Aristocrat.G2S.Client.IEventLift,System.Int32)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice__ctor_System_Int32_Aristocrat_G2S_Client_Devices_IProgressiveDeviceObserver_Aristocrat_G2S_Client_IEventLift_System_Int32_" class="expander" data-toggle="collapse">ProgressiveDevice(Int32, IProgressiveDeviceObserver, IEventLift, Int32)</a></h4>
   
-  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice__ctor_System_Int32_Aristocrat_G2S_Client_Devices_IDeviceObserver_Aristocrat_G2S_Client_IEventLift_" class="collapse in">
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice__ctor_System_Int32_Aristocrat_G2S_Client_Devices_IProgressiveDeviceObserver_Aristocrat_G2S_Client_IEventLift_System_Int32_" class="collapse in">
   <div class="markdown level1 summary"><p>ProgressiveDevice constructor</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ProgressiveDevice(int deviceId, IDeviceObserver deviceStateObserver, IEventLift eventLift)</code></pre>
+    <pre><code class="lang-csharp hljs">public ProgressiveDevice(int deviceId, IProgressiveDeviceObserver deviceStateObserver, IEventLift eventLift, int defaultNoProgInfoTimeout)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -279,13 +279,13 @@
       <td>
         <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a></span>
         <span class="parametername">deviceId</span>
-        <p><p>that is device id of progressive</p>
+        <p><p>the device id of this progressive instance</p>
 </p>
       </td>
     </tr>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.Devices.IDeviceObserver.html">IDeviceObserver</a></span>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.Devices.IProgressiveDeviceObserver.html">IProgressiveDeviceObserver</a></span>
         <span class="parametername">deviceStateObserver</span>
         <p><p>deviceStateObserver instance</p>
 </p>
@@ -296,6 +296,14 @@
         <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.IEventLift.html">IEventLift</a></span>
         <span class="parametername">eventLift</span>
         <p><p>The event lift</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">defaultNoProgInfoTimeout</span>
+        <p><p>default value for the progressive updates timer length in milliseconds. This can be modified by a configuration server</p>
 </p>
       </td>
     </tr>
@@ -320,7 +328,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_NoProgressiveInfo.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.NoProgressiveInfo%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L48" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L63" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_NoProgressiveInfo_" data-uid="Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.NoProgressiveInfo*"></a>
@@ -366,7 +374,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_NoResponseTimer.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.NoResponseTimer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L63" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L93" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_NoResponseTimer_" data-uid="Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.NoResponseTimer*"></a>
@@ -412,7 +420,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_ProgressiveId.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.ProgressiveId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L43" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L58" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_ProgressiveId_" data-uid="Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.ProgressiveId*"></a>
@@ -455,10 +463,56 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_ProgressiveInfoValid.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.ProgressiveInfoValid%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L78" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_ProgressiveInfoValid_" data-uid="Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.ProgressiveInfoValid*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_ProgressiveInfoValid" data-uid="Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.ProgressiveInfoValid"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_ProgressiveInfoValid" class="expander" data-toggle="collapse">ProgressiveInfoValid</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_ProgressiveInfoValid" class="collapse in">
+  <div class="markdown level1 summary"><p>Whether progressive values are valid and updated</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ProgressiveInfoValid { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.IProgressiveDevice.html#Aristocrat_G2S_Client_Devices_IProgressiveDevice_ProgressiveInfoValid">IProgressiveDevice.ProgressiveInfoValid</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_RestartStatus.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.RestartStatus%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L58" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L88" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_RestartStatus_" data-uid="Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.RestartStatus*"></a>
@@ -504,7 +558,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_TimeToLive.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.TimeToLive%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L53" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L83" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_TimeToLive_" data-uid="Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.TimeToLive*"></a>
@@ -552,7 +606,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_ApplyOptions_Aristocrat_G2S_Client_Devices_DeviceOptionConfigValues_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.ApplyOptions(Aristocrat.G2S.Client.Devices.DeviceOptionConfigValues)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L72" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L102" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_ApplyOptions_" data-uid="Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.ApplyOptions*"></a>
@@ -602,7 +656,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_Close.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.Close%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L66" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L96" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_Close_" data-uid="Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.Close*"></a>
@@ -641,7 +695,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_ConfigureDefaults.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.ConfigureDefaults%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L411" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L489" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_ConfigureDefaults_" data-uid="Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.ConfigureDefaults*"></a>
@@ -678,7 +732,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L377" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L448" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_Dispose_" data-uid="Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.Dispose*"></a>
@@ -726,7 +780,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_GetProgressiveHostInfo_Aristocrat_G2S_Protocol_v21_getProgressiveHostInfo_System_TimeSpan_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.GetProgressiveHostInfo(Aristocrat.G2S.Protocol.v21.getProgressiveHostInfo%2CSystem.TimeSpan)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L140" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L170" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_GetProgressiveHostInfo_" data-uid="Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.GetProgressiveHostInfo*"></a>
@@ -792,7 +846,7 @@ the host supports</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_Open_Aristocrat_G2S_Client_IStartupContext_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.Open(Aristocrat.G2S.Client.IStartupContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L134" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L164" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_Open_" data-uid="Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.Open*"></a>
@@ -842,7 +896,7 @@ the host supports</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_ProgressiveCommit_Aristocrat_G2S_Protocol_v21_progressiveCommit_Aristocrat_G2S_Protocol_v21_progressiveLog_Aristocrat_G2S_Protocol_v21_t_progStates_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.ProgressiveCommit(Aristocrat.G2S.Protocol.v21.progressiveCommit%2CAristocrat.G2S.Protocol.v21.progressiveLog%2CAristocrat.G2S.Protocol.v21.t_progStates)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L215" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L245" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_ProgressiveCommit_" data-uid="Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.ProgressiveCommit*"></a>
@@ -916,7 +970,7 @@ the host supports</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_ProgressiveHit_Aristocrat_G2S_Protocol_v21_progressiveHit_Aristocrat_G2S_Protocol_v21_t_progStates_Aristocrat_G2S_Protocol_v21_progressiveLog_System_TimeSpan_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.ProgressiveHit(Aristocrat.G2S.Protocol.v21.progressiveHit%2CAristocrat.G2S.Protocol.v21.t_progStates%2CAristocrat.G2S.Protocol.v21.progressiveLog%2CSystem.TimeSpan)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L280" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L309" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_ProgressiveHit_" data-uid="Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.ProgressiveHit*"></a>
@@ -998,7 +1052,7 @@ the host supports</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_RegisterEvents.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.RegisterEvents%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L113" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L143" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_RegisterEvents_" data-uid="Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.RegisterEvents*"></a>
@@ -1026,6 +1080,91 @@ the host supports</p>
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="Aristocrat.G2S.Client.Devices.IDeviceControl.html#Aristocrat_G2S_Client_Devices_IDeviceControl_RegisterEvents">IDeviceControl.RegisterEvents()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_ResetProgressiveInfoTimer.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.ResetProgressiveInfoTimer%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L405" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_ResetProgressiveInfoTimer_" data-uid="Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.ResetProgressiveInfoTimer*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_ResetProgressiveInfoTimer" data-uid="Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.ResetProgressiveInfoTimer"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_ResetProgressiveInfoTimer" class="expander" data-toggle="collapse">ResetProgressiveInfoTimer()</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_ResetProgressiveInfoTimer" class="collapse in">
+  <div class="markdown level1 summary"><p>Restarts the timer monitoring for frequent progressive value updates.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ResetProgressiveInfoTimer()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.IProgressiveDevice.html#Aristocrat_G2S_Client_Devices_IProgressiveDevice_ResetProgressiveInfoTimer">IProgressiveDevice.ResetProgressiveInfoTimer()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_SetProgressiveState_Aristocrat_G2S_Protocol_v21_setProgressiveState_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.SetProgressiveState(Aristocrat.G2S.Protocol.v21.setProgressiveState)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L417" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_SetProgressiveState_" data-uid="Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.SetProgressiveState*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_SetProgressiveState_Aristocrat_G2S_Protocol_v21_setProgressiveState_" data-uid="Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice.SetProgressiveState(Aristocrat.G2S.Protocol.v21.setProgressiveState)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_SetProgressiveState_Aristocrat_G2S_Protocol_v21_setProgressiveState_" class="expander" data-toggle="collapse">SetProgressiveState(setProgressiveState)</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice_SetProgressiveState_Aristocrat_G2S_Protocol_v21_setProgressiveState_" class="collapse in">
+  <div class="markdown level1 summary"><p>Processes an update to this device&apos;s state from the owner host</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetProgressiveState(setProgressiveState progressiveState)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><span class="xref">Aristocrat.G2S.Protocol.v21.setProgressiveState</span></span>
+        <span class="parametername">progressiveState</span>
+        <p><p>the received message from the host</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.IProgressiveDevice.html#Aristocrat_G2S_Client_Devices_IProgressiveDevice_SetProgressiveState_Aristocrat_G2S_Protocol_v21_setProgressiveState_">IProgressiveDevice.SetProgressiveState(setProgressiveState)</a></div>
   
   
   
@@ -1101,7 +1240,7 @@ the host supports</p>
           </div>
           <div class="contribution-panel mobile-hide">
               <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_ProgressiveDevice.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.ProgressiveDevice%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
-              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L13" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/ProgressiveDevice.cs/#L21" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">

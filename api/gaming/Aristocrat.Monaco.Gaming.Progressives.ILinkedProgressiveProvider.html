@@ -262,7 +262,7 @@ and level id must be unique.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Progressives_ILinkedProgressiveProvider_ClaimAndAwardLinkedProgressiveLevel_System_String_System_Int64_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Progressives.ILinkedProgressiveProvider.ClaimAndAwardLinkedProgressiveLevel(System.String%2CSystem.Int64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Progressives/ILinkedProgressiveProvider.cs/#L106" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Progressives/ILinkedProgressiveProvider.cs/#L114" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Progressives_ILinkedProgressiveProvider_ClaimAndAwardLinkedProgressiveLevel_" data-uid="Aristocrat.Monaco.Gaming.Progressives.ILinkedProgressiveProvider.ClaimAndAwardLinkedProgressiveLevel*"></a>
@@ -835,6 +835,70 @@ that can be awarded.</p>
       <td>
         <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.Linked.IViewableLinkedProgressiveLevel.html">IViewableLinkedProgressiveLevel</a>&gt;
         <p><p>Linked progressive levels</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Progressives_ILinkedProgressiveProvider_ViewLinkedProgressiveLevels_System_Collections_Generic_IEnumerable_System_String__System_Collections_Generic_IReadOnlyCollection_Aristocrat_Monaco_Gaming_Contracts_Progressives_Linked_IViewableLinkedProgressiveLevel___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Progressives.ILinkedProgressiveProvider.ViewLinkedProgressiveLevels(System.Collections.Generic.IEnumerable%7BSystem.String%7D%2CSystem.Collections.Generic.IReadOnlyCollection%7BAristocrat.Monaco.Gaming.Contracts.Progressives.Linked.IViewableLinkedProgressiveLevel%7D%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Progressives/ILinkedProgressiveProvider.cs/#L108" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Progressives_ILinkedProgressiveProvider_ViewLinkedProgressiveLevels_" data-uid="Aristocrat.Monaco.Gaming.Progressives.ILinkedProgressiveProvider.ViewLinkedProgressiveLevels*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Progressives_ILinkedProgressiveProvider_ViewLinkedProgressiveLevels_System_Collections_Generic_IEnumerable_System_String__System_Collections_Generic_IReadOnlyCollection_Aristocrat_Monaco_Gaming_Contracts_Progressives_Linked_IViewableLinkedProgressiveLevel___" data-uid="Aristocrat.Monaco.Gaming.Progressives.ILinkedProgressiveProvider.ViewLinkedProgressiveLevels(System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IReadOnlyCollection{Aristocrat.Monaco.Gaming.Contracts.Progressives.Linked.IViewableLinkedProgressiveLevel}@)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Progressives_ILinkedProgressiveProvider_ViewLinkedProgressiveLevels_System_Collections_Generic_IEnumerable_System_String__System_Collections_Generic_IReadOnlyCollection_Aristocrat_Monaco_Gaming_Contracts_Progressives_Linked_IViewableLinkedProgressiveLevel___" class="expander" data-toggle="collapse">ViewLinkedProgressiveLevels(IEnumerable&lt;String&gt;, out IReadOnlyCollection&lt;IViewableLinkedProgressiveLevel&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Progressives_ILinkedProgressiveProvider_ViewLinkedProgressiveLevels_System_Collections_Generic_IEnumerable_System_String__System_Collections_Generic_IReadOnlyCollection_Aristocrat_Monaco_Gaming_Contracts_Progressives_Linked_IViewableLinkedProgressiveLevel___" class="collapse in">
+  <div class="markdown level1 summary"><p>Attempts to retrieve a group of linked progressive levels by their names</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool ViewLinkedProgressiveLevels(IEnumerable&lt;string&gt; levelNames, out IReadOnlyCollection&lt;IViewableLinkedProgressiveLevel&gt; levels)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>&gt;</span>
+        <span class="parametername">levelNames</span>
+        <p><p>The unique levels name</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlycollection-1">IReadOnlyCollection</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.Linked.IViewableLinkedProgressiveLevel.html">IViewableLinkedProgressiveLevel</a>&gt;</span>
+        <span class="parametername">levels</span>
+        <p><p>The matching linked levels if valid</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if the levels are found. False if any not found</p>
 </p>
       </td>
     </tr>

@@ -134,17 +134,17 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_Meters_GetMeterInfo__ctor_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_G2S_Meters_IMetersSubscriptionManager_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.Meters.GetMeterInfo.%23ctor(Aristocrat.G2S.Client.IG2SEgm%2CAristocrat.Monaco.G2S.Meters.IMetersSubscriptionManager)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_Meters_GetMeterInfo__ctor_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_G2S_Meters_IMetersSubscriptionManager_Aristocrat_Monaco_G2S_Services_IProgressiveLevelManager_Aristocrat_Monaco_G2S_Services_IProgressiveDeviceManager_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.Meters.GetMeterInfo.%23ctor(Aristocrat.G2S.Client.IG2SEgm%2CAristocrat.Monaco.G2S.Meters.IMetersSubscriptionManager%2CAristocrat.Monaco.G2S.Services.IProgressiveLevelManager%2CAristocrat.Monaco.G2S.Services.IProgressiveDeviceManager)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/Meters/GetMeterInfo.cs/#L25" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/Meters/GetMeterInfo.cs/#L31" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_G2S_Handlers_Meters_GetMeterInfo__ctor_" data-uid="Aristocrat.Monaco.G2S.Handlers.Meters.GetMeterInfo.#ctor*"></a>
   
-  <h4 id="Aristocrat_Monaco_G2S_Handlers_Meters_GetMeterInfo__ctor_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_G2S_Meters_IMetersSubscriptionManager_" data-uid="Aristocrat.Monaco.G2S.Handlers.Meters.GetMeterInfo.#ctor(Aristocrat.G2S.Client.IG2SEgm,Aristocrat.Monaco.G2S.Meters.IMetersSubscriptionManager)"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_Meters_GetMeterInfo__ctor_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_G2S_Meters_IMetersSubscriptionManager_" class="expander" data-toggle="collapse">GetMeterInfo(IG2SEgm, IMetersSubscriptionManager)</a></h4>
+  <h4 id="Aristocrat_Monaco_G2S_Handlers_Meters_GetMeterInfo__ctor_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_G2S_Meters_IMetersSubscriptionManager_Aristocrat_Monaco_G2S_Services_IProgressiveLevelManager_Aristocrat_Monaco_G2S_Services_IProgressiveDeviceManager_" data-uid="Aristocrat.Monaco.G2S.Handlers.Meters.GetMeterInfo.#ctor(Aristocrat.G2S.Client.IG2SEgm,Aristocrat.Monaco.G2S.Meters.IMetersSubscriptionManager,Aristocrat.Monaco.G2S.Services.IProgressiveLevelManager,Aristocrat.Monaco.G2S.Services.IProgressiveDeviceManager)"><a href="#collapsible-Aristocrat_Monaco_G2S_Handlers_Meters_GetMeterInfo__ctor_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_G2S_Meters_IMetersSubscriptionManager_Aristocrat_Monaco_G2S_Services_IProgressiveLevelManager_Aristocrat_Monaco_G2S_Services_IProgressiveDeviceManager_" class="expander" data-toggle="collapse">GetMeterInfo(IG2SEgm, IMetersSubscriptionManager, IProgressiveLevelManager, IProgressiveDeviceManager)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_Meters_GetMeterInfo__ctor_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_G2S_Meters_IMetersSubscriptionManager_" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_G2S_Handlers_Meters_GetMeterInfo__ctor_Aristocrat_G2S_Client_IG2SEgm_Aristocrat_Monaco_G2S_Meters_IMetersSubscriptionManager_Aristocrat_Monaco_G2S_Services_IProgressiveLevelManager_Aristocrat_Monaco_G2S_Services_IProgressiveDeviceManager_" class="collapse in">
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.Monaco.G2S.Handlers.Meters.GetMeterInfo.html">GetMeterInfo</a> class.
 Creates a new instance of the GetMeterInfo handler</p>
 </div>
@@ -152,7 +152,7 @@ Creates a new instance of the GetMeterInfo handler</p>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public GetMeterInfo(IG2SEgm egm, IMetersSubscriptionManager metersSubscriptionManager)</code></pre>
+    <pre><code class="lang-csharp hljs">public GetMeterInfo(IG2SEgm egm, IMetersSubscriptionManager metersSubscriptionManager, IProgressiveLevelManager progressiveLevelManager, IProgressiveDeviceManager progressiveDeviceManager)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -171,6 +171,20 @@ Creates a new instance of the GetMeterInfo handler</p>
         <span class="parametername">metersSubscriptionManager</span>
         <p><p>Meters subscription manager</p>
 </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Services.IProgressiveLevelManager.html">IProgressiveLevelManager</a></span>
+        <span class="parametername">progressiveLevelManager</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.G2S.Services.IProgressiveDeviceManager.html">IProgressiveDeviceManager</a></span>
+        <span class="parametername">progressiveDeviceManager</span>
+        <p>
       </td>
     </tr>
   </table>
@@ -194,7 +208,7 @@ Creates a new instance of the GetMeterInfo handler</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_Meters_GetMeterInfo_Handle_Aristocrat_G2S_ClassCommand_Aristocrat_G2S_Protocol_v21_meters_Aristocrat_G2S_Protocol_v21_getMeterInfo__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.Meters.GetMeterInfo.Handle(Aristocrat.G2S.ClassCommand%7BAristocrat.G2S.Protocol.v21.meters%2CAristocrat.G2S.Protocol.v21.getMeterInfo%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/Meters/GetMeterInfo.cs/#L39" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/Meters/GetMeterInfo.cs/#L51" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_G2S_Handlers_Meters_GetMeterInfo_Handle_" data-uid="Aristocrat.Monaco.G2S.Handlers.Meters.GetMeterInfo.Handle*"></a>
@@ -251,7 +265,7 @@ Creates a new instance of the GetMeterInfo handler</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_Meters_GetMeterInfo_Verify_Aristocrat_G2S_ClassCommand_Aristocrat_G2S_Protocol_v21_meters_Aristocrat_G2S_Protocol_v21_getMeterInfo__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.Meters.GetMeterInfo.Verify(Aristocrat.G2S.ClassCommand%7BAristocrat.G2S.Protocol.v21.meters%2CAristocrat.G2S.Protocol.v21.getMeterInfo%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/Meters/GetMeterInfo.cs/#L33" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/Meters/GetMeterInfo.cs/#L45" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_G2S_Handlers_Meters_GetMeterInfo_Verify_" data-uid="Aristocrat.Monaco.G2S.Handlers.Meters.GetMeterInfo.Verify*"></a>
@@ -309,7 +323,7 @@ exception indicating the error to be returned</p>
           </div>
           <div class="contribution-panel mobile-hide">
               <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Handlers_Meters_GetMeterInfo.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Handlers.Meters.GetMeterInfo%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
-              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/Meters/GetMeterInfo.cs/#L14" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Handlers/Meters/GetMeterInfo.cs/#L18" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">

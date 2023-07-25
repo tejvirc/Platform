@@ -243,7 +243,7 @@ host system and EGMs.</p>
   
   <h5 id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class CommunicationsDevice : HostOrientedDevice&lt;communications&gt;, IDisposable, ICommunicationsDevice, ICommunicationsDevice&lt;t_transportStates, t_commsStates&gt;, IDevice, IRequiredForPlay, IDeviceControl, INoResponseTimer</code></pre>
+    <pre><code class="lang-csharp hljs">public class CommunicationsDevice : HostOrientedDevice&lt;communications&gt;, ICommunicationsDevice, ICommunicationsDevice&lt;t_transportStates, t_commsStates&gt;, IDevice, IRequiredForPlay, IDeviceControl, INoResponseTimer, IMtpConnectionControl, IMtpClient, IDisposable</code></pre>
   </div>
   
   
@@ -272,7 +272,7 @@ used by a host to send messages to a plurality of EGMs.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice__ctor_System_Int32_Aristocrat_G2S_Client_Devices_IDeviceObserver_System_Uri_System_Boolean_Aristocrat_G2S_Client_Devices_v21_ITransportStateObserver_Aristocrat_G2S_Client_Devices_v21_ICommunicationsStateObserver_Aristocrat_G2S_Client_IEventLift_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.%23ctor(System.Int32%2CAristocrat.G2S.Client.Devices.IDeviceObserver%2CSystem.Uri%2CSystem.Boolean%2CAristocrat.G2S.Client.Devices.v21.ITransportStateObserver%2CAristocrat.G2S.Client.Devices.v21.ICommunicationsStateObserver%2CAristocrat.G2S.Client.IEventLift)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.cs/#L71" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.cs/#L69" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice__ctor_" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.#ctor*"></a>
@@ -743,7 +743,7 @@ public t_transportStates TransportState { get; }</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_ApplyOptions_Aristocrat_G2S_Client_Devices_DeviceOptionConfigValues_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.ApplyOptions(Aristocrat.G2S.Client.Devices.DeviceOptionConfigValues)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.cs/#L169" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.cs/#L171" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_ApplyOptions_" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.ApplyOptions*"></a>
@@ -829,10 +829,95 @@ public t_transportStates TransportState { get; }</code></pre>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_CloseMtpConnection_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.CloseMtpConnection(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.MtpClient.cs/#L88" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_CloseMtpConnection_" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.CloseMtpConnection*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_CloseMtpConnection_System_String_" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.CloseMtpConnection(System.String)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_CloseMtpConnection_System_String_" class="expander" data-toggle="collapse">CloseMtpConnection(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_CloseMtpConnection_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Closes an existing MTP connection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void CloseMtpConnection(string multicastId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">multicastId</span>
+        <p><p>Multicast identifier.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.v21.IMtpClient.html#Aristocrat_G2S_Client_Devices_v21_IMtpClient_CloseMtpConnection_System_String_">IMtpClient.CloseMtpConnection(String)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_CloseMtpConnections.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.CloseMtpConnections%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.MtpClient.cs/#L80" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_CloseMtpConnections_" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.CloseMtpConnections*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_CloseMtpConnections" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.CloseMtpConnections"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_CloseMtpConnections" class="expander" data-toggle="collapse">CloseMtpConnections()</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_CloseMtpConnections" class="collapse in">
+  <div class="markdown level1 summary"><p>Leaves all known multicast groups.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void CloseMtpConnections()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.v21.IMtpClient.html#Aristocrat_G2S_Client_Devices_v21_IMtpClient_CloseMtpConnections">IMtpClient.CloseMtpConnections()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_Configure_System_Int64_System_Boolean_System_Boolean_System_Int32_System_Int32_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.Configure(System.Int64%2CSystem.Boolean%2CSystem.Boolean%2CSystem.Int32%2CSystem.Int32%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.cs/#L250" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.cs/#L252" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_Configure_" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.Configure*"></a>
@@ -924,7 +1009,7 @@ channel is unavailable.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_ConfigureDefaults.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.ConfigureDefaults%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.cs/#L372" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.cs/#L379" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_ConfigureDefaults_" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.ConfigureDefaults*"></a>
@@ -958,10 +1043,213 @@ channel is unavailable.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_ConfigureMtpClient.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.ConfigureMtpClient%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.MtpClient.cs/#L23" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_ConfigureMtpClient_" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.ConfigureMtpClient*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_ConfigureMtpClient" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.ConfigureMtpClient"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_ConfigureMtpClient" class="expander" data-toggle="collapse">ConfigureMtpClient()</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_ConfigureMtpClient" class="collapse in">
+  <div class="markdown level1 summary"><p>Default constructor</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ConfigureMtpClient()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_ConnectConsumer_Aristocrat_G2S_Client_Communications_IMessageConsumer_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.ConnectConsumer(Aristocrat.G2S.Client.Communications.IMessageConsumer)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.MtpClient.cs/#L111" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_ConnectConsumer_" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.ConnectConsumer*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_ConnectConsumer_Aristocrat_G2S_Client_Communications_IMessageConsumer_" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.ConnectConsumer(Aristocrat.G2S.Client.Communications.IMessageConsumer)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_ConnectConsumer_Aristocrat_G2S_Client_Communications_IMessageConsumer_" class="expander" data-toggle="collapse">ConnectConsumer(IMessageConsumer)</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_ConnectConsumer_Aristocrat_G2S_Client_Communications_IMessageConsumer_" class="collapse in">
+  <div class="markdown level1 summary"><p>Connects a message consumer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ConnectConsumer(IMessageConsumer consumer)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.G2S.Client.Communications.IMessageConsumer.html">IMessageConsumer</a></span>
+        <span class="parametername">consumer</span>
+        <p><p>Message Consumer that will be routed MTP messages.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Communications.IMtpConnectionControl.html#Aristocrat_G2S_Client_Communications_IMtpConnectionControl_ConnectConsumer_Aristocrat_G2S_Client_Communications_IMessageConsumer_">IMtpConnectionControl.ConnectConsumer(IMessageConsumer)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_CreateDeviceConnection_System_String_System_Int32_System_Int32_System_String_System_String_System_Byte___System_Int64_System_Byte___System_Int64_System_Int64_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.CreateDeviceConnection(System.String%2CSystem.Int32%2CSystem.Int32%2CSystem.String%2CSystem.String%2CSystem.Byte%5B%5D%2CSystem.Int64%2CSystem.Byte%5B%5D%2CSystem.Int64%2CSystem.Int64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.MtpClient.cs/#L32" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_CreateDeviceConnection_" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.CreateDeviceConnection*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_CreateDeviceConnection_System_String_System_Int32_System_Int32_System_String_System_String_System_Byte___System_Int64_System_Byte___System_Int64_System_Int64_" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.CreateDeviceConnection(System.String,System.Int32,System.Int32,System.String,System.String,System.Byte[],System.Int64,System.Byte[],System.Int64,System.Int64)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_CreateDeviceConnection_System_String_System_Int32_System_Int32_System_String_System_String_System_Byte___System_Int64_System_Byte___System_Int64_System_Int64_" class="expander" data-toggle="collapse">CreateDeviceConnection(String, Int32, Int32, String, String, Byte[], Int64, Byte[], Int64, Int64)</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_CreateDeviceConnection_System_String_System_Int32_System_Int32_System_String_System_String_System_Byte___System_Int64_System_Byte___System_Int64_System_Int64_" class="collapse in">
+  <div class="markdown level1 summary"><p>Creates a new MTP connection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void CreateDeviceConnection(string multicastId, int deviceId, int communicationId, string deviceClass, string address, byte[] currentKey, long currentMsgId, byte[] newKey, long keyChangeId, long lastMessageId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">multicastId</span>
+        <p><p>Multicast identifier.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">deviceId</span>
+        <p><p>The device identifier.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">communicationId</span>
+        <p><p>The communication device identifier.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">deviceClass</span>
+        <p><p>The G2S class.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">address</span>
+        <p><p>The Multicast address of the connection.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">currentKey</span>
+        <p><p>The current encryption key.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">currentMsgId</span>
+        <p><p>The current MTP message ID.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">newKey</span>
+        <p><p>The next encryption key.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">keyChangeId</span>
+        <p><p>The new message ID after a planned key change.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">lastMessageId</span>
+        <p><p>The last message ID processed with the first decryption key.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Communications.IMtpConnectionControl.html#Aristocrat_G2S_Client_Communications_IMtpConnectionControl_CreateDeviceConnection_System_String_System_Int32_System_Int32_System_String_System_String_System_Byte___System_Int64_System_Byte___System_Int64_System_Int64_">IMtpConnectionControl.CreateDeviceConnection(String, Int32, Int32, String, String, Byte[], Int64, Byte[], Int64, Int64)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_Dispose_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.Dispose(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.cs/#L315" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.cs/#L317" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_Dispose_" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.Dispose*"></a>
@@ -1010,7 +1298,7 @@ resources.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_NotifyConfigurationChanged.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.NotifyConfigurationChanged%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.cs/#L299" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.cs/#L301" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_NotifyConfigurationChanged_" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.NotifyConfigurationChanged*"></a>
@@ -1036,6 +1324,43 @@ resources.</p>
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="Aristocrat.G2S.Client.Devices.ICommunicationsDevice-2.html#Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_NotifyConfigurationChanged">ICommunicationsDevice&lt;TTransportState, TCommsState&gt;.NotifyConfigurationChanged()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_Open.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.Open%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.MtpClient.cs/#L56" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_Open_" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.Open*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_Open" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.Open"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_Open" class="expander" data-toggle="collapse">Open()</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_Open" class="collapse in">
+  <div class="markdown level1 summary"><p>Joins all registered multicast groups.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Open()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.v21.IMtpClient.html#Aristocrat_G2S_Client_Devices_v21_IMtpClient_Open">IMtpClient.Open()</a></div>
   
   
   
@@ -1094,10 +1419,95 @@ resources.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_Open_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.Open(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.MtpClient.cs/#L67" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_Open_" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.Open*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_Open_System_String_" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.Open(System.String)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_Open_System_String_" class="expander" data-toggle="collapse">Open(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_Open_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Joins the specified multicast group.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Open(string multicastId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">multicastId</span>
+        <p><p>Multicast identifier.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Devices.v21.IMtpClient.html#Aristocrat_G2S_Client_Devices_v21_IMtpClient_Open_System_String_">IMtpClient.Open(String)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_OpenMtp.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.OpenMtp%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.MtpClient.cs/#L119" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_OpenMtp_" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.OpenMtp*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_OpenMtp" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.OpenMtp"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_OpenMtp" class="expander" data-toggle="collapse">OpenMtp()</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_OpenMtp" class="collapse in">
+  <div class="markdown level1 summary"><p>Opens the MTP connections.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void OpenMtp()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Communications.IMtpConnectionControl.html#Aristocrat_G2S_Client_Communications_IMtpConnectionControl_OpenMtp">IMtpConnectionControl.OpenMtp()</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_RegisterEvents.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.RegisterEvents%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.cs/#L175" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.cs/#L177" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_RegisterEvents_" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.RegisterEvents*"></a>
@@ -1133,10 +1543,116 @@ resources.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_RemoveDeviceConnection_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.RemoveDeviceConnection(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.MtpClient.cs/#L98" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_RemoveDeviceConnection_" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.RemoveDeviceConnection*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_RemoveDeviceConnection_System_String_" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.RemoveDeviceConnection(System.String)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_RemoveDeviceConnection_System_String_" class="expander" data-toggle="collapse">RemoveDeviceConnection(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_RemoveDeviceConnection_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Removes an existing MTP connection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RemoveDeviceConnection(string multicastId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">multicastId</span>
+        <p><p>Multicast identifier.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Communications.IMtpConnectionControl.html#Aristocrat_G2S_Client_Communications_IMtpConnectionControl_RemoveDeviceConnection_System_String_">IMtpConnectionControl.RemoveDeviceConnection(String)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_SendKeyUpdateRequest_System_Object_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.SendKeyUpdateRequest(System.Object)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.MtpClient.cs/#L125" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_SendKeyUpdateRequest_" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.SendKeyUpdateRequest*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_SendKeyUpdateRequest_System_Object_" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.SendKeyUpdateRequest(System.Object)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_SendKeyUpdateRequest_System_Object_" class="expander" data-toggle="collapse">SendKeyUpdateRequest(Object)</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_SendKeyUpdateRequest_System_Object_" class="collapse in">
+  <div class="markdown level1 summary"><p>Requests updated MTP security parameters for a particular connection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Session SendKeyUpdateRequest(object command)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">Object</a></span>
+        <span class="parametername">command</span>
+        <p><p>getMcastKeyUpdate Command.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="xref">Aristocrat.G2S.Session</span>
+        <p><p>Sending session.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Communications.IMtpConnectionControl.html#Aristocrat_G2S_Client_Communications_IMtpConnectionControl_SendKeyUpdateRequest_System_Object_">IMtpConnectionControl.SendKeyUpdateRequest(Object)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_SetKeepAlive_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.SetKeepAlive(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.cs/#L220" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.cs/#L222" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_SetKeepAlive_" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.SetKeepAlive*"></a>
@@ -1184,7 +1700,7 @@ resources.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_TriggerStateChange_Aristocrat_G2S_Client_Devices_CommunicationTrigger_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.TriggerStateChange(Aristocrat.G2S.Client.Devices.CommunicationTrigger)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.cs/#L236" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.cs/#L238" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_TriggerStateChange_" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.TriggerStateChange*"></a>
@@ -1232,7 +1748,7 @@ resources.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_TriggerStateChange_Aristocrat_G2S_Client_Devices_CommunicationTrigger_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.TriggerStateChange(Aristocrat.G2S.Client.Devices.CommunicationTrigger%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.cs/#L242" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.cs/#L244" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_TriggerStateChange_" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.TriggerStateChange*"></a>
@@ -1277,6 +1793,94 @@ resources.</p>
   
   <h5 class="implements">Implements</h5>
       <div><a class="xref" href="Aristocrat.G2S.Client.Devices.ICommunicationsDevice-2.html#Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_TriggerStateChange_Aristocrat_G2S_Client_Devices_CommunicationTrigger_System_String_">ICommunicationsDevice&lt;TTransportState, TCommsState&gt;.TriggerStateChange(CommunicationTrigger, String)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_UpdateSecurityParameters_System_String_System_Byte___System_Int64_System_Byte___System_Int64_System_Int64_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.UpdateSecurityParameters(System.String%2CSystem.Byte%5B%5D%2CSystem.Int64%2CSystem.Byte%5B%5D%2CSystem.Int64%2CSystem.Int64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.MtpClient.cs/#L46" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_UpdateSecurityParameters_" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.UpdateSecurityParameters*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_UpdateSecurityParameters_System_String_System_Byte___System_Int64_System_Byte___System_Int64_System_Int64_" data-uid="Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice.UpdateSecurityParameters(System.String,System.Byte[],System.Int64,System.Byte[],System.Int64,System.Int64)"><a href="#collapsible-Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_UpdateSecurityParameters_System_String_System_Byte___System_Int64_System_Byte___System_Int64_System_Int64_" class="expander" data-toggle="collapse">UpdateSecurityParameters(String, Byte[], Int64, Byte[], Int64, Int64)</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice_UpdateSecurityParameters_System_String_System_Byte___System_Int64_System_Byte___System_Int64_System_Int64_" class="collapse in">
+  <div class="markdown level1 summary"><p>Updates MTP security parameters for the specified multicastId.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void UpdateSecurityParameters(string multicastId, byte[] currentKey, long currentMsgId, byte[] newKey, long keyChangeId, long lastMessageId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">multicastId</span>
+        <p><p>Multicast identifier.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">currentKey</span>
+        <p><p>The current encryption key.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">currentMsgId</span>
+        <p><p>The current MTP message ID.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">Byte</a>[]</span>
+        <span class="parametername">newKey</span>
+        <p><p>The next encryption key.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">keyChangeId</span>
+        <p><p>The new message ID after the planned key change.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">lastMessageId</span>
+        <p><p>The last message ID decrypted with the first key.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.Communications.IMtpConnectionControl.html#Aristocrat_G2S_Client_Communications_IMtpConnectionControl_UpdateSecurityParameters_System_String_System_Byte___System_Int64_System_Byte___System_Int64_System_Int64_">IMtpConnectionControl.UpdateSecurityParameters(String, Byte[], Int64, Byte[], Int64, Int64)</a></div>
   
   
   
@@ -1352,7 +1956,7 @@ resources.</p>
           </div>
           <div class="contribution-panel mobile-hide">
               <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_v21_CommunicationsDevice.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.v21.CommunicationsDevice%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
-              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.cs/#L29" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/v21/CommunicationsDevice.MtpClient.cs/#L13" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">

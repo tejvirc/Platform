@@ -167,6 +167,24 @@
     <div>
       <a class="xref" href="Aristocrat.G2S.Client.Devices.INoResponseTimer.html#Aristocrat_G2S_Client_Devices_INoResponseTimer_NoResponseTimer">INoResponseTimer.NoResponseTimer</a>
     </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Communications.IMtpConnectionControl.html#Aristocrat_G2S_Client_Communications_IMtpConnectionControl_CreateDeviceConnection_System_String_System_Int32_System_Int32_System_String_System_String_System_Byte___System_Int64_System_Byte___System_Int64_System_Int64_">IMtpConnectionControl.CreateDeviceConnection(String, Int32, Int32, String, String, Byte[], Int64, Byte[], Int64, Int64)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Communications.IMtpConnectionControl.html#Aristocrat_G2S_Client_Communications_IMtpConnectionControl_RemoveDeviceConnection_System_String_">IMtpConnectionControl.RemoveDeviceConnection(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Communications.IMtpConnectionControl.html#Aristocrat_G2S_Client_Communications_IMtpConnectionControl_ConnectConsumer_Aristocrat_G2S_Client_Communications_IMessageConsumer_">IMtpConnectionControl.ConnectConsumer(IMessageConsumer)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Communications.IMtpConnectionControl.html#Aristocrat_G2S_Client_Communications_IMtpConnectionControl_OpenMtp">IMtpConnectionControl.OpenMtp()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Communications.IMtpConnectionControl.html#Aristocrat_G2S_Client_Communications_IMtpConnectionControl_UpdateSecurityParameters_System_String_System_Byte___System_Int64_System_Byte___System_Int64_System_Int64_">IMtpConnectionControl.UpdateSecurityParameters(String, Byte[], Int64, Byte[], Int64, Int64)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.G2S.Client.Communications.IMtpConnectionControl.html#Aristocrat_G2S_Client_Communications_IMtpConnectionControl_SendKeyUpdateRequest_System_Object_">IMtpConnectionControl.SendKeyUpdateRequest(Object)</a>
+    </div>
   </div>
   
   <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.G2S.Client.Devices.html">Aristocrat.G2S.Client.Devices</a></h6>
@@ -174,7 +192,7 @@
   
   <h5 id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface ICommunicationsDevice&lt;out TTransportState, out TCommsState&gt; : IDevice, IRequiredForPlay, IDeviceControl, INoResponseTimer</code></pre>
+    <pre><code class="lang-csharp hljs">public interface ICommunicationsDevice&lt;out TTransportState, out TCommsState&gt; : IDevice, IRequiredForPlay, IDeviceControl, INoResponseTimer, IMtpConnectionControl</code></pre>
   </div>
   
   
@@ -206,7 +224,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_AllowMulticast.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ICommunicationsDevice%602.AllowMulticast%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L99" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L102" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_AllowMulticast_" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.AllowMulticast*"></a>
@@ -250,7 +268,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_DisplayFault.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ICommunicationsDevice%602.DisplayFault%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L105" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L108" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_DisplayFault_" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.DisplayFault*"></a>
@@ -295,7 +313,7 @@ displayed if the communications channel is unavailable.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_InboundOverflow.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ICommunicationsDevice%602.InboundOverflow%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L79" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L82" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_InboundOverflow_" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.InboundOverflow*"></a>
@@ -339,7 +357,7 @@ displayed if the communications channel is unavailable.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_OutboundOverflow.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ICommunicationsDevice%602.OutboundOverflow%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L74" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L77" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_OutboundOverflow_" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.OutboundOverflow*"></a>
@@ -383,7 +401,7 @@ displayed if the communications channel is unavailable.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_State.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ICommunicationsDevice%602.State%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L89" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L92" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_State_" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.State*"></a>
@@ -427,7 +445,7 @@ displayed if the communications channel is unavailable.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_TimeToLive.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ICommunicationsDevice%602.TimeToLive%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L94" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L97" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_TimeToLive_" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.TimeToLive*"></a>
@@ -471,7 +489,7 @@ displayed if the communications channel is unavailable.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_TransportState.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ICommunicationsDevice%602.TransportState%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L84" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L87" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_TransportState_" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.TransportState*"></a>
@@ -517,7 +535,7 @@ displayed if the communications channel is unavailable.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_Configure_System_Int64_System_Boolean_System_Boolean_System_Int32_System_Int32_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ICommunicationsDevice%602.Configure(System.Int64%2CSystem.Boolean%2CSystem.Boolean%2CSystem.Int32%2CSystem.Int32%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L147" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L150" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_Configure_" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.Configure*"></a>
@@ -607,7 +625,7 @@ channel is unavailable.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_NotifyConfigurationChanged.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ICommunicationsDevice%602.NotifyConfigurationChanged%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L158" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L161" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_NotifyConfigurationChanged_" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.NotifyConfigurationChanged*"></a>
@@ -642,7 +660,7 @@ channel is unavailable.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_SetKeepAlive_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ICommunicationsDevice%602.SetKeepAlive(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L111" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L114" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_SetKeepAlive_" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.SetKeepAlive*"></a>
@@ -688,7 +706,7 @@ channel is unavailable.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_TriggerStateChange_Aristocrat_G2S_Client_Devices_CommunicationTrigger_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ICommunicationsDevice%602.TriggerStateChange(Aristocrat.G2S.Client.Devices.CommunicationTrigger)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L117" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L120" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_TriggerStateChange_" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.TriggerStateChange*"></a>
@@ -734,7 +752,7 @@ channel is unavailable.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_TriggerStateChange_Aristocrat_G2S_Client_Devices_CommunicationTrigger_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ICommunicationsDevice%602.TriggerStateChange(Aristocrat.G2S.Client.Devices.CommunicationTrigger%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L124" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L127" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2_TriggerStateChange_" data-uid="Aristocrat.G2S.Client.Devices.ICommunicationsDevice`2.TriggerStateChange*"></a>
@@ -852,7 +870,7 @@ channel is unavailable.</p>
           </div>
           <div class="contribution-panel mobile-hide">
               <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_Devices_ICommunicationsDevice_2.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.Devices.ICommunicationsDevice%602%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
-              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L69" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/Devices/ICommunicationsDevice.cs/#L72" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">

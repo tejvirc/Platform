@@ -134,24 +134,24 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_RegisteredHost__ctor_System_Int32_System_Uri_System_Boolean_System_Int32_Aristocrat_G2S_Client_Communications_ISendEndpointProvider_Aristocrat_G2S_Client_IHostQueue_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.RegisteredHost.%23ctor(System.Int32%2CSystem.Uri%2CSystem.Boolean%2CSystem.Int32%2CAristocrat.G2S.Client.Communications.ISendEndpointProvider%2CAristocrat.G2S.Client.IHostQueue)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_RegisteredHost__ctor_System_Int32_System_Uri_System_Boolean_System_Int32_Aristocrat_G2S_Client_Communications_ISendEndpointProvider_Aristocrat_G2S_Client_IHostQueue_System_Boolean_System_TimeSpan_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.RegisteredHost.%23ctor(System.Int32%2CSystem.Uri%2CSystem.Boolean%2CSystem.Int32%2CAristocrat.G2S.Client.Communications.ISendEndpointProvider%2CAristocrat.G2S.Client.IHostQueue%2CSystem.Boolean%2CSystem.TimeSpan)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/RegisteredHost.cs/#L24" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/RegisteredHost.cs/#L26" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_RegisteredHost__ctor_" data-uid="Aristocrat.G2S.Client.RegisteredHost.#ctor*"></a>
   
-  <h4 id="Aristocrat_G2S_Client_RegisteredHost__ctor_System_Int32_System_Uri_System_Boolean_System_Int32_Aristocrat_G2S_Client_Communications_ISendEndpointProvider_Aristocrat_G2S_Client_IHostQueue_" data-uid="Aristocrat.G2S.Client.RegisteredHost.#ctor(System.Int32,System.Uri,System.Boolean,System.Int32,Aristocrat.G2S.Client.Communications.ISendEndpointProvider,Aristocrat.G2S.Client.IHostQueue)"><a href="#collapsible-Aristocrat_G2S_Client_RegisteredHost__ctor_System_Int32_System_Uri_System_Boolean_System_Int32_Aristocrat_G2S_Client_Communications_ISendEndpointProvider_Aristocrat_G2S_Client_IHostQueue_" class="expander" data-toggle="collapse">RegisteredHost(Int32, Uri, Boolean, Int32, ISendEndpointProvider, IHostQueue)</a></h4>
+  <h4 id="Aristocrat_G2S_Client_RegisteredHost__ctor_System_Int32_System_Uri_System_Boolean_System_Int32_Aristocrat_G2S_Client_Communications_ISendEndpointProvider_Aristocrat_G2S_Client_IHostQueue_System_Boolean_System_TimeSpan_" data-uid="Aristocrat.G2S.Client.RegisteredHost.#ctor(System.Int32,System.Uri,System.Boolean,System.Int32,Aristocrat.G2S.Client.Communications.ISendEndpointProvider,Aristocrat.G2S.Client.IHostQueue,System.Boolean,System.TimeSpan)"><a href="#collapsible-Aristocrat_G2S_Client_RegisteredHost__ctor_System_Int32_System_Uri_System_Boolean_System_Int32_Aristocrat_G2S_Client_Communications_ISendEndpointProvider_Aristocrat_G2S_Client_IHostQueue_System_Boolean_System_TimeSpan_" class="expander" data-toggle="collapse">RegisteredHost(Int32, Uri, Boolean, Int32, ISendEndpointProvider, IHostQueue, Boolean, TimeSpan)</a></h4>
   
-  <div id="collapsible-Aristocrat_G2S_Client_RegisteredHost__ctor_System_Int32_System_Uri_System_Boolean_System_Int32_Aristocrat_G2S_Client_Communications_ISendEndpointProvider_Aristocrat_G2S_Client_IHostQueue_" class="collapse in">
+  <div id="collapsible-Aristocrat_G2S_Client_RegisteredHost__ctor_System_Int32_System_Uri_System_Boolean_System_Int32_Aristocrat_G2S_Client_Communications_ISendEndpointProvider_Aristocrat_G2S_Client_IHostQueue_System_Boolean_System_TimeSpan_" class="collapse in">
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.G2S.Client.RegisteredHost.html">RegisteredHost</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public RegisteredHost(int hostId, Uri address, bool requiredForPlay, int index, ISendEndpointProvider endpointProvider, IHostQueue queue)</code></pre>
+    <pre><code class="lang-csharp hljs">public RegisteredHost(int hostId, Uri address, bool requiredForPlay, int index, ISendEndpointProvider endpointProvider, IHostQueue queue, bool isProgressiveHost, TimeSpan offlineTimerInterval)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -204,6 +204,22 @@
 </p>
       </td>
     </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
+        <span class="parametername">isProgressiveHost</span>
+        <p><p>Is the host the default progressive host</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></span>
+        <span class="parametername">offlineTimerInterval</span>
+        <p><p>The interval at which the host offline timer will be triggered</p>
+</p>
+      </td>
+    </tr>
   </table>
   
   
@@ -225,7 +241,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_RegisteredHost_Address.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.RegisteredHost.Address%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/RegisteredHost.cs/#L55" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/RegisteredHost.cs/#L62" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_RegisteredHost_Address_" data-uid="Aristocrat.G2S.Client.RegisteredHost.Address*"></a>
@@ -271,7 +287,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_RegisteredHost_Id.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.RegisteredHost.Id%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/RegisteredHost.cs/#L49" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/RegisteredHost.cs/#L56" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_RegisteredHost_Id_" data-uid="Aristocrat.G2S.Client.RegisteredHost.Id*"></a>
@@ -317,7 +333,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_RegisteredHost_Index.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.RegisteredHost.Index%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/RegisteredHost.cs/#L61" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/RegisteredHost.cs/#L68" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_RegisteredHost_Index_" data-uid="Aristocrat.G2S.Client.RegisteredHost.Index*"></a>
@@ -364,10 +380,105 @@ static once it&apos;s assigned.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_RegisteredHost_IsProgressiveHost.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.RegisteredHost.IsProgressiveHost%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/RegisteredHost.cs/#L74" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_RegisteredHost_IsProgressiveHost_" data-uid="Aristocrat.G2S.Client.RegisteredHost.IsProgressiveHost*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_RegisteredHost_IsProgressiveHost" data-uid="Aristocrat.G2S.Client.RegisteredHost.IsProgressiveHost"><a href="#collapsible-Aristocrat_G2S_Client_RegisteredHost_IsProgressiveHost" class="expander" data-toggle="collapse">IsProgressiveHost</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_RegisteredHost_IsProgressiveHost" class="collapse in">
+  <div class="markdown level1 summary"><p>Determines whether this host will default to the host of a given progressiveDevice.
+(Currently only used/modifiable for G2S vertex progressives.)
+(true = Will be the default progressive host, false = Will not be the default progressive host)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsProgressiveHost { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.IHost.html#Aristocrat_G2S_Client_IHost_IsProgressiveHost">IHost.IsProgressiveHost</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_RegisteredHost_ProgressiveHostOfflineTimerInterval.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.RegisteredHost.ProgressiveHostOfflineTimerInterval%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/RegisteredHost.cs/#L77" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_G2S_Client_RegisteredHost_ProgressiveHostOfflineTimerInterval_" data-uid="Aristocrat.G2S.Client.RegisteredHost.ProgressiveHostOfflineTimerInterval*"></a>
+  
+  <h4 id="Aristocrat_G2S_Client_RegisteredHost_ProgressiveHostOfflineTimerInterval" data-uid="Aristocrat.G2S.Client.RegisteredHost.ProgressiveHostOfflineTimerInterval"><a href="#collapsible-Aristocrat_G2S_Client_RegisteredHost_ProgressiveHostOfflineTimerInterval" class="expander" data-toggle="collapse">ProgressiveHostOfflineTimerInterval</a></h4>
+  
+  <div id="collapsible-Aristocrat_G2S_Client_RegisteredHost_ProgressiveHostOfflineTimerInterval" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the interval at which the progressive host offline timer will trigger
+(Currently only used if the progressive host is selectable)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TimeSpan ProgressiveHostOfflineTimerInterval { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.G2S.Client.IHost.html#Aristocrat_G2S_Client_IHost_ProgressiveHostOfflineTimerInterval">IHost.ProgressiveHostOfflineTimerInterval</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_RegisteredHost_Queue.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.RegisteredHost.Queue%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/RegisteredHost.cs/#L58" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/RegisteredHost.cs/#L65" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_RegisteredHost_Queue_" data-uid="Aristocrat.G2S.Client.RegisteredHost.Queue*"></a>
@@ -413,7 +524,7 @@ static once it&apos;s assigned.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_RegisteredHost_Registered.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.RegisteredHost.Registered%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/RegisteredHost.cs/#L52" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/RegisteredHost.cs/#L59" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_RegisteredHost_Registered_" data-uid="Aristocrat.G2S.Client.RegisteredHost.Registered*"></a>
@@ -459,7 +570,7 @@ static once it&apos;s assigned.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_RegisteredHost_RequiredForPlay.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.RegisteredHost.RequiredForPlay%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/RegisteredHost.cs/#L64" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/RegisteredHost.cs/#L71" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_RegisteredHost_RequiredForPlay_" data-uid="Aristocrat.G2S.Client.RegisteredHost.RequiredForPlay*"></a>
@@ -509,7 +620,7 @@ played.
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_RegisteredHost_Close.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.RegisteredHost.Close%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/RegisteredHost.cs/#L105" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/RegisteredHost.cs/#L118" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_RegisteredHost_Close_" data-uid="Aristocrat.G2S.Client.RegisteredHost.Close*"></a>
@@ -544,7 +655,7 @@ played.
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_RegisteredHost_SetAddress_System_Uri_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.RegisteredHost.SetAddress(System.Uri)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/RegisteredHost.cs/#L79" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/RegisteredHost.cs/#L92" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_RegisteredHost_SetAddress_" data-uid="Aristocrat.G2S.Client.RegisteredHost.SetAddress*"></a>
@@ -592,7 +703,7 @@ played.
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_RegisteredHost_SetRequiredForPlay_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.RegisteredHost.SetRequiredForPlay(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/RegisteredHost.cs/#L92" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/RegisteredHost.cs/#L105" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_RegisteredHost_SetRequiredForPlay_" data-uid="Aristocrat.G2S.Client.RegisteredHost.SetRequiredForPlay*"></a>
@@ -640,7 +751,7 @@ played.
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_RegisteredHost_Start.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.RegisteredHost.Start%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/RegisteredHost.cs/#L67" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/RegisteredHost.cs/#L80" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_RegisteredHost_Start_" data-uid="Aristocrat.G2S.Client.RegisteredHost.Start*"></a>
@@ -677,7 +788,7 @@ played.
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_G2S_Client_RegisteredHost_Stop.md&amp;value=---%0Auid%3A%20Aristocrat.G2S.Client.RegisteredHost.Stop%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/RegisteredHost.cs/#L73" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.G2S.Client/RegisteredHost.cs/#L86" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_G2S_Client_RegisteredHost_Stop_" data-uid="Aristocrat.G2S.Client.RegisteredHost.Stop*"></a>
