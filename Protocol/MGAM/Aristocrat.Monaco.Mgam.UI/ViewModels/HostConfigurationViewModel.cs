@@ -339,7 +339,6 @@
         /// <remarks />
         public static ValidationResult ValidateDirectoryPort(int directoryPort, ValidationContext context)
         {
-            HostConfigurationViewModel instance = (HostConfigurationViewModel)context.ObjectInstance;
             var errors = "";
 
             if (directoryPort <= 0 || directoryPort > ushort.MaxValue)
