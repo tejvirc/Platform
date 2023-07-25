@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Commands
 {
     using System.Collections.Generic;
+    using JetBrains.Annotations;
 
     /// <summary>
     ///     Get jackpot values command
@@ -12,10 +13,14 @@
         /// </summary>
         /// <param name="poolName">The pool name</param>
         /// <param name="recovering">true if recovering</param>
-        public GetJackpotValues(string poolName, bool recovering)
+        /// <param name="gameName">Name of a game that is enabled, is optional</param>
+        /// <param name="denom">Denomination we are interested in, is optional</param>
+        public GetJackpotValues(string poolName, bool recovering, string gameName = null, ulong? denom = null)
         {
             PoolName = poolName;
             Recovering = recovering;
+            GameName = gameName;
+            Denomination = denom;
 
             JackpotValues = new Dictionary<int, long>();
         }
@@ -29,6 +34,11 @@
         ///     Gets a value indicating whether this command is being called during recovery
         /// </summary>
         public bool Recovering { get; }
+
+        [CanBeNull]
+        public string GameName { get; }
+
+        public ulong? Denomination { get; }
 
         /// <summary>
         ///     Gets the captured jackpot values for the current game round.

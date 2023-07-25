@@ -538,12 +538,24 @@
 
         public override LevelInfoResponse GetJackpotValues(GetJackpotValuesRequest request)
         {
-            var command = new GetJackpotValues(request.PoolName, request.PlayMode == GameRoundPlayMode.ModeRecovery || request.PlayMode == GameRoundPlayMode.ModeReplay);
-
-            _handlerFactory.Create<GetJackpotValues>()
-                .Handle(command);
-
             var response = new LevelInfoResponse();
+            GetJackpotValues command;
+
+            if (!string.IsNullOrEmpty(request.GameName))
+            {
+                command = new GetJackpotValues(request.PoolName, false, request.GameName, request.Denomination);
+
+                Logger.Debug($"GetJackpotValuesPerDenom Response poolName:{request.PoolName} ");
+            }
+            else
+            {
+                command = new GetJackpotValues(
+                    request.PoolName,
+                    request.PlayMode == GameRoundPlayMode.ModeRecovery ||
+                    request.PlayMode == GameRoundPlayMode.ModeReplay);
+            }
+
+            _handlerFactory.Create<GetJackpotValues>().Handle(command);
 
             response.LevelInfo.Add(
                 command.JackpotValues.Select(
@@ -681,22 +693,22 @@
             return response;
         }
 
-        public override LevelInfoResponse GetJackpotValuesPerDenom(GetJackpotValuesPerDenomRequest request)
-        {
-            var command = new GetJackpotValuesPerDenom(request.GameName, request.PackName, request.Denomination);
-            // Add Jackpot Values and Extract into LevelInfoResponse
-            _handlerFactory.Create<GetJackpotValuesPerDenom>().Handle(command);
+        //public override LevelInfoResponse GetJackpotValuesPerDenom(GetJackpotValuesPerDenomRequest request)
+        //{
+        //    var command = new GetJackpotValuesPerDenom(request.GameName, request.PackName, request.Denomination);
+        //    // Add Jackpot Values and Extract into LevelInfoResponse
+        //    _handlerFactory.Create<GetJackpotValuesPerDenom>().Handle(command);
 
-            var response = new LevelInfoResponse();
+        //    var response = new LevelInfoResponse();
 
-            response.LevelInfo.Add(
-                command.JackpotValues.Select(
-                    r => new LevelInfo { LevelId = (uint)r.Key, Value = (ulong)r.Value.MillicentsToCents() }));
+        //    response.LevelInfo.Add(
+        //        command.JackpotValues.Select(
+        //            r => new LevelInfo { LevelId = (uint)r.Key, Value = (ulong)r.Value.MillicentsToCents() }));
 
-            Logger.Debug(
-                $"GetJackpotValuesPerDenom Response poolName:{request.PackName} ");
+        //    Logger.Debug(
+        //        $"GetJackpotValuesPerDenom Response poolName:{request.PackName} ");
 
-            return response;
-        }
+        //    return response;
+        //}
     }
 }
