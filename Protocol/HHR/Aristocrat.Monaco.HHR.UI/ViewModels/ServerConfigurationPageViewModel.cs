@@ -12,6 +12,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
     using Monaco.UI.Common;
     using Vgt.Client12.Application.OperatorMenu;
     using CommunityToolkit.Mvvm.Input;
+    using System.ComponentModel.DataAnnotations;
 
     public class ServerConfigurationPageViewModel : ConfigWizardViewModelBase
     {
@@ -53,9 +54,9 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
 
         protected override void Loaded()
         {
-            ValidateNetworkAddress(IpAddress);
-            ValidateTcpPort(TcpPortNumber);
-            ValidateUdpPort(UdpPortNumber);
+            ValidateProperty(IpAddress, nameof(IpAddress));
+            ValidateProperty(TcpPortNumber, nameof(TcpPortNumber));
+            ValidateProperty(UdpPortNumber, nameof(UdpPortNumber));
         }
 
         public RelayCommand<object> ApplyServerConfigurationCommand { get; set; }
@@ -83,88 +84,25 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
             }
         }
 
+        [CustomValidation(typeof(ServerConfigurationPageViewModel), nameof(ValidateNetworkAddress))]
         public string IpAddress
         {
             get => _ipAddress;
-
-            set
-            {
-                if (value == _ipAddress)
-                {
-                    return;
-                }
-
-                if (SetProperty(ref _ipAddress, value, nameof(IpAddress)))
-                {
-                    ValidateNetworkAddress(value);
-                }
-            }
+            set => SetProperty(ref _ipAddress, value, nameof(IpAddress));
         }
 
+        [CustomValidation(typeof(ServerConfigurationPageViewModel), nameof(ValidatePortNumber))]
         public string TcpPortNumber
         {
             get => _tcpPortNumber;
-
-            set
-            {
-                if (value == _tcpPortNumber)
-                {
-                    return;
-                }
-
-                if (SetProperty(ref _tcpPortNumber, value, nameof(TcpPortNumber)))
-                {
-                    ValidateTcpPort(value);
-                }
-            }
+            set => SetProperty(ref _tcpPortNumber, value, nameof(TcpPortNumber));
         }
 
-        private void ValidateTcpPort(string value)
-        {
-            var errorMessage = GetPortErrorMessage(value);
-            SetError(nameof(TcpPortNumber), errorMessage);
-        }
-
-        private string GetPortErrorMessage(string value)
-        {
-            var errorMessage = string.Empty;
-
-            if (string.IsNullOrEmpty(value))
-            {
-                errorMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CannotBeLeftBlankErrorMessage);
-            }
-            else if (IsValueInvalidPortNumber(value))
-            {
-                errorMessage = string.Format(
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LessThanOrEqualErrorMessage),
-                    MaxPortNumber);
-            }
-
-            return errorMessage;
-        }
-
+        [CustomValidation(typeof(ServerConfigurationPageViewModel), nameof(ValidatePortNumber))]
         public string UdpPortNumber
         {
             get => _udpPortNumber;
-
-            set
-            {
-                if (value == _udpPortNumber)
-                {
-                    return;
-                }
-
-                if (SetProperty(ref _udpPortNumber, value, nameof(UdpPortNumber)))
-                {
-                    ValidateUdpPort(value);
-                }
-            }
-        }
-
-        private void ValidateUdpPort(string value)
-        {
-            var errorMessage = GetPortErrorMessage(value);
-            SetError(nameof(UdpPortNumber), errorMessage);
+            set => SetProperty(ref _udpPortNumber, value, true, nameof(UdpPortNumber));
         }
 
         public string EncryptionKey
@@ -212,25 +150,6 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
             }
         }
 
-        private bool IsValueInvalidPortNumber(string value)
-        {
-            if (int.TryParse(value, out var parsedValue))
-            {
-                return parsedValue > MaxPortNumber || parsedValue < 1;
-            }
-
-            return true;
-        }
-
-        private void ValidateNetworkAddress(string address)
-        {
-            SetError(
-                nameof(IpAddress),
-                IpValidation.IsIpV4AddressValid(address)
-                    ? string.Empty
-                    : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AddressNotValid));
-        }
-
         private void Apply(object parameter)
         {
             EventBus.Publish(new OperatorMenuSettingsChangedEvent());
@@ -254,12 +173,12 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
                 _propertiesManager.SetProperty(HHRPropertyNames.ServerTcpIp, IpAddress);
             }
 
-            if (!string.IsNullOrEmpty(TcpPortNumber) && !IsValueInvalidPortNumber(TcpPortNumber))
+            if (!string.IsNullOrEmpty(TcpPortNumber) && IsValidPortNumber(TcpPortNumber))
             {
                 _propertiesManager.SetProperty(HHRPropertyNames.ServerTcpPort, int.Parse(TcpPortNumber));
             }
 
-            if (!string.IsNullOrEmpty(UdpPortNumber) && !IsValueInvalidPortNumber(UdpPortNumber))
+            if (!string.IsNullOrEmpty(UdpPortNumber) && IsValidPortNumber(UdpPortNumber))
             {
                 _propertiesManager.SetProperty(HHRPropertyNames.ServerUdpPort, int.Parse(UdpPortNumber));
             }
@@ -267,21 +186,6 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
             _propertiesManager.SetProperty(HHRPropertyNames.EncryptionKey, EncryptionKey);
 
             _propertiesManager.SetProperty(HHRPropertyNames.ManualHandicapMode, ManualHandicapMode);
-        }
-
-        protected override void SetError(string propertyName, string error)
-        {
-            if (string.IsNullOrEmpty(error))
-            {
-                ClearErrors(propertyName);
-            }
-            else
-            {
-                base.SetError(propertyName, error);
-                IsConfigChanged = false;
-            }
-
-            CheckNavigation();
         }
 
         private void CheckNavigation()
@@ -297,5 +201,48 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
             HhrConstants.QuickPickMode,
             HhrConstants.AutoPickMode
         };
+
+        public static ValidationResult ValidateNetworkAddress(string address, ValidationContext context)
+        {
+            var errors = "";
+
+            if (!IpValidation.IsIpV4AddressValid(address))
+            {
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AddressNotValid);
+            }
+
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+            return new(errors);
+        }
+
+        public static ValidationResult ValidatePortNumber(string portNumber, ValidationContext context)
+        {
+            if (string.IsNullOrWhiteSpace(portNumber))
+            {
+                return new(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CannotBeLeftBlankErrorMessage));
+            }
+            if (!IsValidPortNumber(portNumber))
+            {
+                return new(
+                    string.Format(
+                        Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LessThanOrEqualErrorMessage),
+                        MaxPortNumber
+                    )
+                );
+            }
+            return ValidationResult.Success;
+        }
+
+        private static bool IsValidPortNumber(string portNumber)
+        {
+            if (int.TryParse(portNumber, out var parsedPortNumber))
+            {
+                return parsedPortNumber is >= 1 and <= MaxPortNumber;
+            }
+            return false;
+        }
     }
 }
