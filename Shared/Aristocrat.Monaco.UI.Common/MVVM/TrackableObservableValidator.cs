@@ -140,16 +140,24 @@
         }
 
         /// <summary>
-        ///     Sets the backing field value and raises the PropertyChanged 
-        ///     event for each property name listed. 
+        ///     Sets the backing field value and raises the following events for each property listed:<br />
+        ///     - OnPropertyChanging<br />
+        ///     - OnPropertyChanged<br />
+        ///     <br />
+        ///     The primary property is then validated.
         /// </summary>
         /// <typeparam name="T">The type of the field being changed</typeparam>
         /// <param name="property">The backing field for the property</param>
         /// <param name="value">The new value to set</param>
-        /// <param name="propertyNames">Optional array of names to send in PropertyChanged events</param>
+        /// <param name="propertyNames">Array of property names to emit events for. The first property is treated as the primary property to attempt validation for.</param>
         /// <returns>false if the new and existing values are equal, true if they are not</returns>
         protected bool SetProperty<T>(ref T property, T value, params string[] propertyNames)
         {
+            if ((propertyNames?.Length ?? 0) == 0)
+            {
+                throw new ArgumentException($"Expected at least one element in {nameof(propertyNames)}, but received none.");
+            }
+
             if (EqualityComparer<T>.Default.Equals(property, value))
             {
                 return false;
