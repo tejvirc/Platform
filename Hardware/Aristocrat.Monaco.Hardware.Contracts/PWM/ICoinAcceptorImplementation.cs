@@ -31,5 +31,9 @@
 
         /// <summary>Event fired when fault is detected.</summary>
         event EventHandler<CoinFaultTypes> FaultOccurred;
+
+        /// <summary>Gets the current faults.</summary>
+        /// <value>The current faults.</value>
+        CoinFaultTypes Faults { get; set; }
     }
 }

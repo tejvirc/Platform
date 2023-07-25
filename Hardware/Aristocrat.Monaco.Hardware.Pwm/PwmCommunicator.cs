@@ -92,7 +92,7 @@
                     IntPtr.Zero);
             }
 
-            return !_deviceHandle.IsInvalid;
+            return _deviceHandle.IsInvalid;
 
         }
 

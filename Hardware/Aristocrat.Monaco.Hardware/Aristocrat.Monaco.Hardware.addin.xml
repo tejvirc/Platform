@@ -240,13 +240,4 @@
     <ExtensionNode name="SerialTouchService"/>
   </ExtensionPoint>
 
-  <ExtensionPoint path="/Hardware/CoinAcceptorDevice">
-    <ExtensionNode name="DeviceImplementation" type="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceImplementationExtensionNode" />
-  </ExtensionPoint>
-
-  <Extension path="/Hardware/CoinAcceptorDevice">
-    <DeviceImplementation ProtocolName="None" type="Aristocrat.Monaco.Hardware.PWM.CoinAcceptor"/>
-    <DeviceImplementation ProtocolName="NV" type="Aristocrat.Monaco.Hardware.PWM.NVCoinAcceptor"/>
-  </Extension>
-
 </Addin>

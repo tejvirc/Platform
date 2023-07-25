@@ -21,6 +21,11 @@
         /// <summary>
         /// 
         /// </summary>
+        public CoinFaultTypes Faults { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public event EventHandler<CoinEventType> CoinInStatusReported;
 
         /// <summary>

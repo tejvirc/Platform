@@ -44,9 +44,24 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
 
         protected override string Path => Kernel.Contracts.Components.Constants.CoinAcceptorPath;
 
-        public Contracts.PWM.DivertorState DiverterDirection => throw new NotImplementedException();
+        public DivertorState DiverterDirection => DivertorState.DivertToHopper;
 
-        public Contracts.PWM.CoinFaultTypes Faults { get; set; }
+
+        public CoinFaultTypes Faults
+        {
+            get
+            {
+                return Implementation?.Faults ?? CoinFaultTypes.None;
+            }
+            set
+            {
+                if(Implementation != null)
+                {
+                    Implementation.Faults = value;
+                }
+            }
+        }
+
 
         public int CoinAcceptorId { get; set; } = 1; // Default to deviceId 1 since 0 isn't valid in G2S
         protected override void DisabledDetected()
