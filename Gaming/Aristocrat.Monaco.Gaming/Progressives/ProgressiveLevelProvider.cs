@@ -260,13 +260,32 @@ namespace Aristocrat.Monaco.Gaming.Progressives
             LevelDetail levelDetail,
             IReadOnlyCollection<ProgressiveLevel> persistedLevels)
         {
-            var currentLevel = persistedLevels.FirstOrDefault(
-                l => l.LevelId == levelDetail.LevelId);
 
             var betOption = betOptions?.FirstOrDefault(
-                b => !string.IsNullOrEmpty(b.BetLinePreset) && b.BetLinePreset == progressive?.BetLinePreset);
+                    b => !string.IsNullOrEmpty(b.BetLinePreset) && b.BetLinePreset == progressive?.BetLinePreset);
 
-            yield return ToProgressiveLevel(gameId, denominations, betOption, progressive, levelDetail, currentLevel, 0);
+            IViewableProgressiveLevel currentLevel;
+
+            if (betOption is not null)
+            {
+                currentLevel = persistedLevels.FirstOrDefault(
+                    l => l.LevelId == levelDetail.LevelId &&
+                    l.BetOption.Equals(betOption.Name, StringComparison.InvariantCulture));
+            }
+            else
+            {
+                currentLevel = persistedLevels.FirstOrDefault(
+                    l => l.LevelId == levelDetail.LevelId);
+            }
+
+            yield return ToProgressiveLevel(
+                gameId,
+                denominations,
+                betOption,
+                progressive,
+                levelDetail,
+                currentLevel,
+                0);
         }
 
         private IEnumerable<ProgressiveLevel> GenerateProgressiveLevelsPerGamePerDenomPerBetOption(
@@ -431,19 +450,19 @@ namespace Aristocrat.Monaco.Gaming.Progressives
         {
             var currentValues = new List<ProgressiveLevel>();
 
-            foreach (var denom in denominations)
-            {
-                if (_gameStorage.TryGetValues(
-                    gameId,
-                    denom,
-                    packName,
-                    out IEnumerable<ProgressiveLevel> persistedValues))
+                foreach (var denom in denominations)
                 {
-                    currentValues.AddRange(persistedValues);
+                    if (_gameStorage.TryGetValues(
+                            gameId,
+                            denom,
+                            packName,
+                            out IEnumerable<ProgressiveLevel> persistedValues))
+                    {
+                        currentValues.AddRange(persistedValues);
+                    }
                 }
-            }
 
-            return currentValues;
+                return currentValues;
         }
 
         private IEnumerable<ProgressiveLevel> GenerateLevelsPerGamePerDenomPerWager(
