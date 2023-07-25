@@ -702,7 +702,7 @@
             _initialGambleWinLimit = GambleWinLimit;
             BillAcceptanceLimit = _initialBillAcceptanceLimit = PropertiesManager.GetValue(PropertyKey.MaxCreditsIn, ApplicationConstants.DefaultMaxCreditsIn).MillicentsToDollars();
             BillAcceptanceLimitCheckboxEnabled = PropertiesManager.GetValue(AccountingConstants.BillAcceptanceLimitVisible, false);
-            BillAcceptanceLimitIsChecked = BillAcceptanceLimit < ApplicationConstants.DefaultMaxCreditsIn.MillicentsToDollars() && BillAcceptanceLimitCheckboxEnabled;
+            BillAcceptanceLimitIsChecked = BillAcceptanceLimit < ApplicationConstants.DefaultMaxCreditsIn.MillicentsToDollars() && PropertiesManager.GetValue(AccountingConstants.BillAcceptanceLimitVisible, false);
             HandCountPayoutLimit = _initialHandCountPayoutLimit = PropertiesManager.GetValue(AccountingConstants.HandCountPayoutLimit, 0L).MillicentsToDollars();
             OnInputStatusChanged();
 
