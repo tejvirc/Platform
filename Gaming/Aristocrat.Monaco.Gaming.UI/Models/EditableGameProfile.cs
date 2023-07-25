@@ -7,13 +7,12 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using Aristocrat.Monaco.Application.Contracts.Localization;
-    using CommunityToolkit.Mvvm.ComponentModel;
-
+    using Aristocrat.Monaco.UI.Common.MVVM;
     using Contracts.Configuration;
     using Localization.Properties;
     using Monaco.UI.Common.Extensions;
 
-    public class EditableGameProfile : ObservableValidator, IDisposable
+    public class EditableGameProfile : TrackableObservableValidator, IDisposable
     {
         private readonly bool _enableRtpScaling;
         private IConfigurationRestriction _selectedRestriction;
@@ -62,7 +61,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
         public string RestrictionWarningText
         {
             get => _restrictionWarningText;
-            set => SetProperty(ref _restrictionWarningText, value, true);
+            set => SetProperty(ref _restrictionWarningText, value, nameof(RestrictionWarningText));
         }
 
         public bool Enabled => GameConfigurations.Any(c => c.Enabled);
@@ -143,7 +142,6 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
             if (hasError)
             {
                 RestrictionWarningText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PackagesMustMatch);
-                SetError(nameof(RestrictionWarningText), RestrictionWarningText);
             }
             else
             {
