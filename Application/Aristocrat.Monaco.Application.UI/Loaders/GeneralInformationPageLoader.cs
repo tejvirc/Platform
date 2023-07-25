@@ -19,6 +19,7 @@
         {
             return new GeneralInformationPageViewModel();
         }
+
         public override bool GetVisible()
         {
             return Configuration.GetSetting(OperatorMenuSetting.ShowGeneralInformationPage, false);
