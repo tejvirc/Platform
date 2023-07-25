@@ -8823,7 +8823,7 @@ See manual for details</value>
     <value>Current Machine Settings Summary</value>
   </data>
   <data name="ExportSettingsNoteText" xml:space="preserve">
-    <value>Note: You can only export settings to an EGM that is being configured for the first time or after a RAM clear has been performed on the EGM.</value>
+    <value>Note: You can only import settings to an EGM that is being configured for the first time or after a RAM clear has been performed on the EGM.</value>
   </data>
   <data name="ExportSettingsErrorText" xml:space="preserve">
     <value>Export encountered errors.</value>
@@ -12267,6 +12267,6 @@ Do you really want to do full reset?</value>
     <value>Games Played since Reboot</value>
   </data>
   <data name="DisplayConnected" xml:space="preserve">
-	  <value>Display Connected - Restart Required</value>
+    <value>Display Connected - Restart Required</value>
   </data>
 </root>
