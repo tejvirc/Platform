@@ -15,8 +15,8 @@
     using Contracts.Reel.ImplementationCapabilities;
     using Contracts.SharedDevice;
     using log4net;
-    using ReelStatus = Contracts.Reel.ReelStatus;
     using MonacoLightStatus = Contracts.Reel.LightStatus;
+    using ReelStatus = Contracts.Reel.ReelStatus;
 
     /// <summary>
     ///     The Relm Reel Controller control class
@@ -469,7 +469,6 @@
                 select new AnimationFile(file, type)).ToList();
 
             await _communicator.RemoveAllControllerAnimations();
-            
             Logger.Debug($"Loading {animationFiles.Count} platform sample animations");
             if (animationFiles.Count > 0)
             {

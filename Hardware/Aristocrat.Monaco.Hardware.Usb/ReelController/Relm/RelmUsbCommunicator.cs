@@ -9,6 +9,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Common;
+    using Contracts;
     using Contracts.Communicator;
     using Contracts.Reel;
     using Contracts.Reel.ControlData;
@@ -37,6 +38,7 @@
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IEventBus _eventBus;
+        private readonly IPropertiesManager _propertiesManager;
         private readonly HashSet<AnimationFile> _animationFiles = new();
         private readonly ConcurrentDictionary<string, uint> _tags = new();
 
@@ -50,7 +52,8 @@
         /// </summary>
         public RelmUsbCommunicator()
             : this(new RelmCommunicator(new VerificationFactory(), RelmConstants.DefaultKeepAlive),
-                ServiceManager.GetInstance().GetService<IEventBus>())
+                ServiceManager.GetInstance().GetService<IEventBus>(),
+                ServiceManager.GetInstance().GetService<IPropertiesManager>())
         {
         }
 
@@ -59,10 +62,12 @@
         /// </summary>
         /// <param name="communicator">The Relm communicator</param>
         /// <param name="eventBus">The event bus</param>
-        public RelmUsbCommunicator(RelmReels.Communicator.IRelmCommunicator communicator, IEventBus eventBus)
+        /// <param name="propertiesManager">The properties manager</param>
+        public RelmUsbCommunicator(RelmReels.Communicator.IRelmCommunicator communicator, IEventBus eventBus, IPropertiesManager propertiesManager)
         {
             _eventBus = eventBus;
             _relmCommunicator = communicator;
+            _propertiesManager = propertiesManager;
         }
 
 #pragma warning disable 67
@@ -168,7 +173,11 @@
                 return;
             }
 
-            await _relmCommunicator?.SendCommandAsync(new Reset())!;
+            if (!_propertiesManager.GetValue(HardwareConstants.DoNotResetRelmController, false))
+            {
+                await _relmCommunicator?.SendCommandAsync(new Reset())!;
+            }
+
             _relmCommunicator!.KeepAliveEnabled = true;
             _relmCommunicator.InterruptReceived += OnInterruptReceived;
             _relmCommunicator.PingTimeoutCleared += OnPingTimeoutCleared;
@@ -252,10 +261,18 @@
 
                 try
                 {
-                    Logger.Debug($"Downloading Animation file: {file.Path}");
-                    var storedFile = await _relmCommunicator.Download(file.Path, BitmapVerification.CRC32, token);
+                    if (!_propertiesManager.GetValue(HardwareConstants.DoNotResetRelmController, false))
+                    {
+                        Logger.Debug($"Downloading Animation file: {file.Path}");
+                        var storedFile = await _relmCommunicator.Download(file.Path, BitmapVerification.CRC32, token);
+                        file.AnimationId = storedFile.FileId;
+                    }
+                    else
+                    {
+                        var id = Path.GetFileName(file.Path).HashDjb2();
+                        file.AnimationId = id;
+                    }
 
-                    file.AnimationId = storedFile.FileId;
                     _animationFiles.Add(file);
                 }
                 catch (Exception e)
@@ -381,6 +398,12 @@
             if (_relmCommunicator is null)
             {
                 return false;
+            }
+
+            if (_propertiesManager is not null &&
+                _propertiesManager.GetValue(HardwareConstants.DoNotResetRelmController, false))
+            {
+                return true;
             }
 
             Logger.Debug("Removing all animation files from controller");
