@@ -67,7 +67,6 @@
       <Field DataType="Bool" FieldName="Battery1Low" />
       <Field DataType="Bool" FieldName="Battery2Low" />
       <Field DataType="Bool" FieldName="Hardware.BellEnabled" />
-      <Field DataType="Bool" FieldName="Hardware.CoinAcceptorEnabled" />
       <Field DataType="Int32" FieldName="Hardware.CoinAcceptorFaults" />
     </Fields>
   </BlockFormat>

@@ -452,45 +452,26 @@
                       AutomationProperties.AutomationId="ComboBox62_3A60546D" />
         </Grid>
 
-        <Grid Grid.Row="6" Visibility="{Binding ShowCoinAcceptor, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-              IsEnabled="{Binding InputEnabled}" AutomationProperties.AutomationId="Grid63_3A60546D">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition64_3A60546D"/>
-                <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition65_3A60546D"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition MaxWidth="208" AutomationProperties.AutomationId="ColumnDefinition66_3A60546D"/>
-                <ColumnDefinition MaxWidth="80" AutomationProperties.AutomationId="ColumnDefinition67_3A60546D"/>
-            </Grid.ColumnDefinitions>
-
-            <Label Grid.Row="0" Grid.Column="0" 
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.CoinAcceptorLabel}}" AutomationProperties.AutomationId="Label68_3A60546D"/>
-            <CheckBox Grid.Row="0" Grid.Column="1" Name="CoinAcceptorEnabled"
-                      IsChecked="{Binding Path=CoinAcceptorEnabled, Mode=TwoWay}"
-                      Style="{DynamicResource MonacoCheckBoxGeneral}" HorizontalAlignment="Left"
-                      Margin="8 4 0 0"  AutomationProperties.AutomationId="CheckBox69_3A60546D"/>
-        </Grid>
-
         <StackPanel Grid.Row="7"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Orientation="Horizontal"
                     Margin="5 20 0 0"
-                    AutomationProperties.AutomationId="StackPanel70_3A60546D">
+                    AutomationProperties.AutomationId="StackPanel63_3A60546D">
             <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.Validate}}"
                     Visibility="{Binding ShowValidateButton, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     Command="{Binding ValidateCommand}"
-                    AutomationProperties.AutomationId="Button71_3A60546D" />
+                    AutomationProperties.AutomationId="Button64_3A60546D" />
             <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ApplyLabel}}"
                     Visibility="{Binding ShowApplyButton, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     IsEnabled="{Binding InputEnabled}"
                     Command="{Binding ApplyHardwareSettingsCommand}"
-                    AutomationProperties.AutomationId="Button72_3A60546D" />
+                    AutomationProperties.AutomationId="Button65_3A60546D" />
             <Button Style="{StaticResource MonacoWarningButton}"
                     Name="ApplyInfoButton"
                     Command="{Binding ShowInfoPopupCommand}"
                     Visibility="{Binding ShowApplyButton, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                    AutomationProperties.AutomationId="Button73_3A60546D">
+                    AutomationProperties.AutomationId="Button66_3A60546D">
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource MultiValueConverter}">
                         <Binding ElementName="ApplyInfoButton" />
@@ -505,7 +486,7 @@
                    Style="{StaticResource MonacoWarningLabel}"
                    FontSize="{StaticResource LabelFontSize}"
                    Foreground="{Binding ValidationStatus, Converter={StaticResource BrushConverter}}"
-                   AutomationProperties.AutomationId="Label74_3A60546D" />
+                   AutomationProperties.AutomationId="Label67_3A60546D" />
         </StackPanel>
         <controls:ProgressRing Grid.Row="0"
                                Grid.RowSpan="2"

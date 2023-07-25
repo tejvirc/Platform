@@ -42,7 +42,7 @@
                 case DeviceType.ReelController:
                     return ApplicationConstants.ReelControllerEnabled;
                 case DeviceType.CoinAcceptor:
-                    return HardwareConstants.CoinAcceptorEnabledKey;
+                    return ApplicationConstants.CoinAcceptorEnabled;
                 default:
                     return string.Empty;
             }

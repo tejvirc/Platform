@@ -114,10 +114,6 @@
                     HardwareConstants.DoorAlarmEnabledKey, Tuple.Create((object)true, false)
                 },
                 {
-                    HardwareConstants.CoinAcceptorEnabledKey,
-                    Tuple.Create((object)InitFromStorage<bool>(HardwareConstants.CoinAcceptorEnabledKey, false), true)
-                },
-                {
                     HardwareConstants.CoinAcceptorFaults,
                     Tuple.Create((object)InitFromStorage<int>(HardwareConstants.CoinAcceptorFaults, (int)CoinFaultTypes.None), true)
                 },

@@ -17,6 +17,8 @@
     {
         private bool _noteAcceptorEnabled;
         private string _noteAcceptorManufacturer;
+        private bool _coinAcceptorEnabled;
+        private string _coinAcceptorManufacturer;
         private bool _printerEnabled;
         private string _printerManufacturer;
         private string _currencyId;
@@ -81,6 +83,26 @@
             get => _noteAcceptorManufacturer;
 
             set => SetProperty(ref _noteAcceptorManufacturer, value);
+        }
+
+        /// <summary>
+        ///     Gets or sets a value that indicates whether the coin acceptor is enabled.
+        /// </summary>
+        public bool CoinAcceptorEnabled
+        {
+            get => _coinAcceptorEnabled;
+
+            set => SetProperty(ref _coinAcceptorEnabled, value, nameof(CoinAcceptorEnabled));
+        }
+
+        /// <summary>
+        ///     Gets or sets the coin acceptor manufacturer.
+        /// </summary>
+        public string CoinAcceptorManufacturer
+        {
+            get => _coinAcceptorManufacturer;
+
+            set => SetProperty(ref _coinAcceptorManufacturer, value);
         }
 
         /// <summary>

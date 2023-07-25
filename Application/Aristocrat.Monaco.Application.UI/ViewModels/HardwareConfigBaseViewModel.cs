@@ -98,7 +98,6 @@
         private string _validationStatus;
         private bool _isDetecting;
         private bool _hardMetersEnabled;
-        private bool _coinAcceptorEnabled;
         private bool _configurableHardMeters;
         private bool _configurableDoorOpticSensor;
         private bool _bellEnabled;
@@ -108,7 +107,7 @@
         private string _printerManufacturer;
         private string _idReaderManufacturer;
         private string _reelControllerManufacturer;
-        private string _coincceptorManufacturer;
+        private string _coinAcceptorManufacturer;
         private string _hardMeterMapSelection;
         private bool _configurableBellyPanelDoor;
         private bool _bellyPanelDoorEnabled;
@@ -276,34 +275,7 @@
                 }
             }
         }
-
-        // <summary>
-        /// To visible Coin Acceptor on Hardware selection UI.
-        /// </summary>
-        public bool ShowCoinAcceptor { get; private set; }
-
-        /// <summary>
-        /// To Enable Coin Acceptor on Hardware selection UI.
-        /// </summary>
-        public bool CoinAcceptorEnabled
-        {
-            get => _coinAcceptorEnabled;
-            set
-            {
-                if (_coinAcceptorEnabled != value)
-                {
-                    _coinAcceptorEnabled = value;
-                    RaisePropertyChanged(nameof(CoinAcceptorEnabled));
-                    UpdateChanges?.Invoke();
-
-                    if (IsWizardPage)
-                    {
-                        Device_OnPropertyChanged(null, null);
-                    }
-                }
-            }
-        }
-
+        
         public bool VisibleBell { get; private set; }
 
         public bool BellEnabled
@@ -542,7 +514,7 @@
                                 break;
                             case DeviceType.CoinAcceptor:
                                 _propertiesManager.SetProperty(
-                                    HardwareConstants.CoinAcceptorManufacturer,
+                                    ApplicationConstants.CoinAcceptorManufacturer,
                                     device.Manufacturer ?? string.Empty);
                                 break;
                         }
@@ -561,7 +533,6 @@
             _propertiesManager.SetProperty(ApplicationConstants.ConfigWizardDoorOpticsEnabled, EnabledDoorOpticSensor);
             _propertiesManager.SetProperty(HardwareConstants.BellEnabledKey, BellEnabled);
             _propertiesManager.SetProperty(ApplicationConstants.ConfigWizardBellyPanelDoorEnabled, BellyPanelDoorEnabled);
-            _propertiesManager.SetProperty(HardwareConstants.CoinAcceptorEnabledKey, CoinAcceptorEnabled);
 
             CheckBellyPanelDoor();
         }
@@ -1283,12 +1254,12 @@
                                     break;
                                 case DeviceType.CoinAcceptor:
                                     isEnabled = _propertiesManager.GetValue(
-                                        HardwareConstants.CoinAcceptorEnabledKey,
+                                        ApplicationConstants.CoinAcceptorEnabled,
                                         false);
                                     if (isEnabled)
                                     {
-                                        _coincceptorManufacturer = _propertiesManager.GetValue(
-                                            HardwareConstants.CoinAcceptorManufacturer,
+                                        _coinAcceptorManufacturer = _propertiesManager.GetValue(
+                                            ApplicationConstants.CoinAcceptorManufacturer,
                                             string.Empty);
                                     }
 
@@ -1308,12 +1279,6 @@
             {
                 _hardMetersEnabled = _propertiesManager.GetValue(HardwareConstants.HardMetersEnabledKey, false);
             }
-
-            //ShowCoinAcceptor = configuredDevices.Excluded.All(d => d.Type != CoinAcceptorDeviceType);
-            //if (ShowCoinAcceptor)
-            //{
-            //    _coinAcceptorEnabled = _propertiesManager.GetValue(HardwareConstants.CoinAcceptorEnabledKey, false);
-            //}
 
             var configurableHardMeters = _propertiesManager.GetValue(
                 ApplicationConstants.ConfigWizardHardMetersConfigConfigurable,
@@ -1430,8 +1395,8 @@
                     case DeviceType.ReelController when !string.IsNullOrEmpty(_reelControllerManufacturer):
                         LoadDevice(device, _reelControllerManufacturer);
                         break;
-                    case DeviceType.CoinAcceptor when !string.IsNullOrEmpty(_coincceptorManufacturer):
-                        LoadDevice(device, _coincceptorManufacturer);
+                    case DeviceType.CoinAcceptor when !string.IsNullOrEmpty(_coinAcceptorManufacturer):
+                        LoadDevice(device, _coinAcceptorManufacturer);
                         break;
                 }
             }

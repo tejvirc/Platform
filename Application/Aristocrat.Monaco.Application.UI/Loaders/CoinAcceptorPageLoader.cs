@@ -1,8 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.Loaders
 {
+    using Contracts;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
-    using Hardware.Contracts;
     using Kernel;
     using Monaco.Localization.Properties;
     using ViewModels;
@@ -36,7 +36,7 @@
 
         public override bool GetVisible()
         {
-            return PropertiesManager.GetValue(HardwareConstants.CoinAcceptorEnabledKey, false);
+            return PropertiesManager.GetValue(ApplicationConstants.CoinAcceptorEnabled, false);
         }
     }
 }

@@ -26,7 +26,6 @@
         private readonly bool _initialDoorOpticSensor;
         private readonly bool _initialBellyPanelDoor;
         private readonly bool _initialBell;
-        private readonly bool _initialCoinAcceptor;
 
         public HardwareManagerPageViewModel()
             : base(false)
@@ -37,7 +36,6 @@
             _initialDoorOpticSensor = DoorOpticSensorEnabled;
             _initialBellyPanelDoor = BellyPanelDoorEnabled;
             _initialBell = BellEnabled;
-            _initialCoinAcceptor = CoinAcceptorEnabled;
             UpdateChanges = () => IsDirty = AreChangesMade();
         }
 
@@ -169,8 +167,7 @@
         private bool AreChangesMade()
         {
             if (InitialHardMeter != HardMetersEnabled || _initialDoorOpticSensor != DoorOpticSensorEnabled
-                || _initialBellyPanelDoor != BellyPanelDoorEnabled || _initialBell != BellEnabled
-                || _initialCoinAcceptor != CoinAcceptorEnabled)
+                || _initialBellyPanelDoor != BellyPanelDoorEnabled || _initialBell != BellEnabled)
             {
                 return true;
             }

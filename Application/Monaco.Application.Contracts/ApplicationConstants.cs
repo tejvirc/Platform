@@ -1489,5 +1489,15 @@
         ///     True if re-directing topper overlay to top screen
         /// </summary>
         public const string IsTopperOverlayRedirecting = @"Application.IsTopperOverlayRedirecting";
+
+        // <summary>
+        ///     Key used to get a value indicating whether or not Coin Acceptor is enabled
+        /// </summary>
+        public const string CoinAcceptorEnabled = "Application.CoinAcceptorEnabled";
+
+        // <summary>
+        ///     Key used to get a value indicating whether or not Coin Acceptor is enabled
+        /// </summary>
+        public const string CoinAcceptorManufacturer = "Application.CoinAcceptorManufacturer";
     }
 }
