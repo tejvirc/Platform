@@ -8,6 +8,7 @@
     using UI.ViewModels;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
+    using System.Threading.Tasks;
 
     [TestClass]
     public class RaceStatsPageViewModelTest
@@ -44,9 +45,9 @@
         }
 
         [TestMethod]
-        public void RaceStaPageLoaded_Init_VerifyPageTimeout()
+        public async Task RaceStaPageLoaded_Init_VerifyPageTimeout()
         {
-            _target.Init(Menu.Command.RaceStats);
+            await _target.Init(Menu.Command.RaceStats);
 
             Assert.AreEqual(ClientProperties.RaceStatTimeOut, _target.TimerInfo.Timeout);
         }
