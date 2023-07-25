@@ -193,8 +193,7 @@ namespace Aristocrat.Monaco.Mgam.UI.ViewModels
                                 },
                                 error =>
                                 {
-                                    Execute.OnUIThread(
-                                        () => { SetError(nameof(RegisteredInstances), string.Empty); });
+                                    Execute.OnUIThread(() => CommitCommand.NotifyCanExecuteChanged());
                                 })));
 
                     _subscriptions.Add(
@@ -208,8 +207,7 @@ namespace Aristocrat.Monaco.Mgam.UI.ViewModels
                                 messages => { Execute.OnUIThread(() => Populate(messages)); },
                                 error =>
                                 {
-                                    Execute.OnUIThread(
-                                        () => { SetError(nameof(Messages), string.Empty); });
+                                    Execute.OnUIThread(() => CommitCommand.NotifyCanExecuteChanged());
                                 })));
                 }
                 finally
