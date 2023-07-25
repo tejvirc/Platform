@@ -61,11 +61,11 @@
                     {
                         if(mode.RejectOnOff)
                         {
-                            CoinRejectMechOn();
+                            CoinRejectMechOff();
                         }
                         else
                         {
-                            CoinRejectMechOff();
+                            CoinRejectMechOn();
                         }
 
                         break;
