@@ -20,7 +20,7 @@ as follows:
   <Setting Name="CreditBalanceVisible" Value="true" />
   <Setting Name="HardwareDiagnosticsEnabled" Value="true" />
   <Setting Name="ShowOperatorRole" Value="true" />
-  <Setting Name="ShowGeneralInformationPage" Value="true" />"
+  <Setting Name="ShowGeneralInformationPage" Value="true" />
   <Menu Type="StatusMainPageLoader">
     <Page Type="StatusPageViewModel" Access="GameIdleZeroCredits" />
   </Menu>
