@@ -3,6 +3,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     using System.Drawing;
     using System.IO;
     using System.Linq;
@@ -333,20 +334,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             }
         }
 
+        [CustomValidation(typeof(GamePreferencesViewModel), nameof(ValidateShowProgramPin))]
         public string ShowProgramPin
         {
             get => _showProgramPin;
-            set
-            {
-                if (_showProgramPin == value)
-                {
-                    return;
-                }
-
-                _showProgramPin = value;
-                OnPropertyChanged(nameof(ShowProgramPin));
-                ValidateShowProgramPin();
-            }
+            set => SetProperty(ref _showProgramPin, value, nameof(ShowProgramPin));
         }
 
         public bool ShowProgramEnableResetCredits
@@ -1087,18 +1079,17 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             base.DisposeInternal();
         }
 
-        private void ValidateShowProgramPin()
+        public static ValidationResult ValidateShowProgramPin(string showProgramPin, ValidationContext context)
         {
-            if (ShowProgramPin.Length < 4)
+            GamePreferencesViewModel instance = (GamePreferencesViewModel)context.ObjectInstance;
+            if (showProgramPin.Length < 4)
             {
-                SetError(
-                    nameof(ShowProgramPin),
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PinLengthLessThanFourErrorMessage));
+                return new(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PinLengthLessThanFourErrorMessage));
             }
             else
             {
-                ClearErrors(nameof(ShowProgramPin));
-                Save(GamingConstants.ShowProgramPin, _showProgramPin);
+                instance.Save(GamingConstants.ShowProgramPin, instance._showProgramPin);
+                return ValidationResult.Success;
             }
         }
 
