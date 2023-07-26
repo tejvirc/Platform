@@ -9,7 +9,7 @@
     using Views;
 
     /// <summary>
-    /// CoinAcceptorPageLoader contains the logic for Loading coin acceptor page.
+    ///     CoinAcceptorPageLoader contains the logic for Loading coin acceptor page.
     /// </summary>
     public class CoinAcceptorPageLoader
         : OperatorMenuPageLoader
@@ -17,7 +17,7 @@
         public override string PageName => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CoinAcceptorLabel);
 
         /// <summary>
-        /// Login to initialise coin acceptor page.
+        ///     Login to initialise coin acceptor page.
         /// </summary>
         /// <returns></returns>
         protected override IOperatorMenuPage CreatePage()
@@ -26,14 +26,14 @@
         }
 
         /// <summary>
-        /// Login to create CoinAcceptor Page view model.
+        ///     Login to create CoinAcceptor Page view model.
         /// </summary>
         /// <returns></returns>
         protected override IOperatorMenuPageViewModel CreateViewModel()
         {
             return new CoinAcceptorPageViewModel();
         }
-
+        /// <inheritdoc />
         public override bool GetVisible()
         {
             return PropertiesManager.GetValue(ApplicationConstants.CoinAcceptorEnabled, false);

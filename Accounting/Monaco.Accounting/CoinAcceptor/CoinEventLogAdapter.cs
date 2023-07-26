@@ -14,7 +14,7 @@
     using Kernel;
     using Localization.Properties;
     using log4net;
-
+    
     /// <summary>
     ///     Log adapter for handling/transforming Coin events/transactions.
     /// </summary>

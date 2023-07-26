@@ -8,14 +8,14 @@
     using Application.Contracts.Localization;
     using Contracts;
     using Contracts.CoinAcceptor;
-    using Hardware.Contracts;
     using Contracts.Transactions;
+    using Hardware.Contracts;
     using Hardware.Contracts.Persistence;
     using Hardware.Contracts.PWM;
     using Kernel;
     using Localization.Properties;
     using log4net;
-
+    
     [CLSCompliant(false)]
     public class CoinProvider : IService, IDisposable
     {

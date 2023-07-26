@@ -8,10 +8,9 @@
     using Contracts;
     using Hardware.Contracts;
     using Hardware.Contracts.Persistence;
-    using Hardware.Contracts.PWM;
     using Kernel;
     using log4net;
-
+    
     /// <summary>
     ///     Provides coin meters pertaining to currency accepted by the EGM.
     /// </summary>

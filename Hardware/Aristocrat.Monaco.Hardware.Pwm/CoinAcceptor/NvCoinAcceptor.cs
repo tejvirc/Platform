@@ -4,9 +4,14 @@ using System;
 
 namespace Aristocrat.Monaco.Hardware.Pwm.CoinAcceptor
 {
+    /// <summary>
+    ///     Class to manage communication with Non volatile coin acceptor device.
+    ///     Which us based in pulse width modulated signal <see cref="CoinAcceptorCommunicator".
+    ///     Non volatile coin acceptor device is based on kernel driver which is saving all the events
+    ///     in persisted memory and in case of power failure events will be recovered.
+    ///     Read operation is not destructive. So we need to destruct the events explicitly after reading them.
     public class NvCoinAcceptor : CoinAcceptorCommunicator
     {
-
         public override bool Configure(IComConfiguration comConfiguration)
         {
             DeviceConfig = new PwmDeviceConfig

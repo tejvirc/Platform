@@ -56,7 +56,6 @@
         private const string IncludedDevicesPath = "/Platform/Discovery/Configuration";
         private const string CommunicatorDriversAddinPath = "/Hardware/CommunicatorDrivers";
         private const string HardMetersDeviceType = @"HardMeters";
-        private const string CoinAcceptorDeviceType = @"CoinAcceptor";
         private const int DiscoveryTimeoutSeconds = 60;
         private const int MilliSecondsPerSecond = 1000;
 

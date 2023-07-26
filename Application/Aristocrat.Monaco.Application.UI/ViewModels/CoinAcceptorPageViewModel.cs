@@ -1,19 +1,19 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
-    using Monaco.Localization.Properties;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Contracts.HardwareDiagnostics;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
     using Events;
+    using Hardware.Contracts;
     using Hardware.Contracts.PWM;
     using Kernel;
-    using Hardware.Contracts;
-    using OperatorMenu;
-    using System.Linq;
-    using System.Collections.Generic;
-    using Contracts.HardwareDiagnostics;
     using Monaco.Common;
-
+    using Monaco.Localization.Properties;
+    using OperatorMenu;
+    
     /// <summary>
     ///     A CoinAcceptorViewModel contains the logic for CoinAcceptorViewModel.xaml.cs
     /// </summary>
@@ -54,7 +54,7 @@
             EventBus.Subscribe<HardwareFaultEvent>(this, HandleEvent);
             EventBus.Subscribe<OperatorMenuExitingEvent>(this, HandleEvent);
 
-            CoinEntry = "CC_62";//_coinAcceptor.DeviceName;
+            CoinEntry = _coinAcceptor.Name;
             SelectedDiverterDirection = _coinAcceptor.DiverterDirection;
             SelectedCoinEntryStates = AcceptorState.Reject;
             CoinToHopper = 0;

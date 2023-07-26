@@ -1,41 +1,40 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Pwm.Protocol
 {
-    using Aristocrat.Monaco.Hardware.Contracts.Communicator;
-    using Aristocrat.Monaco.Hardware.Contracts.Gds;
-    using Aristocrat.Monaco.Hardware.Contracts.PWM;
+    using System;
+    using System.Reflection;
+    using System.Runtime.InteropServices;
+    using System.Threading;
+    using System.Timers;
+    using Contracts.Communicator;
+    using Contracts.Gds;
+    using Contracts.PWM;
+    using Contracts.SharedDevice;
     using log4net;
     using Microsoft.Win32.SafeHandles;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
-    using System.Text;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Aristocrat.Monaco.Hardware.Contracts.SharedDevice;
-    using System.Runtime.InteropServices;
     using Timer = System.Timers.Timer;
-    using System.Timers;
 
+    /// <summary>Class to manage protocol for pulse width devices </summary>
     public abstract class PwmDeviceProtocol : IGdsCommunicator
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private char[] device_ = new char[256];
-        private System.Threading.NativeOverlapped _overlapped;
-        private SafeFileHandle _deviceHandle;
-        protected IntPtr _dataPtr { get; set; }
-        protected PwmDeviceConfig DeviceConfig { get; set; }
-
-        protected bool _waitingForRx;
-        protected bool _disposed;
-        protected bool _running;
-        protected Thread _monitoringThread;
-        protected static readonly Timer PollTimer = new Timer();
+        protected static readonly Timer PollTimer = new ();
         protected static readonly AutoResetEvent Poll = new AutoResetEvent(true);
 
+        private readonly char[] _device = new char[256];
+        private NativeOverlapped _overlapped;
+        private SafeFileHandle _deviceHandle;
+        private IntPtr _dataPtr;
+        private bool _waitingForRx;
+        private bool _disposed;
+        private Thread _monitoringThread;
+
+        protected PwmDeviceConfig DeviceConfig { get; set; }
+        protected bool Running;
+
+        /// <summary>Create instance of PwmDeviceProtocol</summary>
         protected PwmDeviceProtocol()
         {
-            _overlapped = new System.Threading.NativeOverlapped()
+            _overlapped = new NativeOverlapped()
             {
                 OffsetLow = 0,
                 OffsetHigh = 0,
@@ -46,46 +45,70 @@
             _disposed = false;
         }
 
-
+        /// <inheritdoc/>
         public virtual string Manufacturer { get; set; }
 
+        /// <inheritdoc/>
         public virtual string Model { get; set; }
 
+        /// <inheritdoc/>
         public string Firmware => string.Empty;
 
+        /// <inheritdoc/>
         public string SerialNumber => string.Empty;
 
+        /// <inheritdoc/>
         public bool IsOpen { get; set; }
 
+        /// <inheritdoc/>
         public int VendorId { get; set; } = -1;
 
+        /// <inheritdoc/>
         public int ProductId { get; set; } = -1;
 
+        /// <inheritdoc/>
         public int ProductIdDfu { get; set; } = -1;
 
+        /// <inheritdoc/>
         public string Protocol => "Pwm";
 
-       public DeviceType DeviceType { get; set; }
+        /// <inheritdoc/>
+        public DeviceType DeviceType { get; set; }
+
+        /// <inheritdoc/>
         public IDevice Device { get; set; }
 
+        /// <inheritdoc/>
         public string FirmwareVersion => string.Empty;
 
+        /// <inheritdoc/>
         public string FirmwareRevision => string.Empty;
 
+        /// <inheritdoc/>
         public int FirmwareCrc => -1;
 
+        /// <inheritdoc/>
         public string BootVersion => string.Empty;
 
+        /// <inheritdoc/>
         public string VariantName => string.Empty;
 
+        /// <inheritdoc/>
         public string VariantVersion => string.Empty;
 
+        /// <inheritdoc/>
         public bool IsDfuCapable => false;
 
+        /// <inheritdoc/>
         public event EventHandler<EventArgs> DeviceAttached;
+
+        /// <inheritdoc/>
         public event EventHandler<EventArgs> DeviceDetached;
+
+        /// <inheritdoc/>
         public event EventHandler<GdsSerializableMessage> MessageReceived;
 
+        /// <inheritdoc/>
         public bool Close()
         {
             _ = StopDeviceMonitoring();
@@ -100,6 +123,7 @@
             return true;
         }
 
+        /// <inheritdoc/>
         public bool Open()
         {
             if (GetDevice())
@@ -112,63 +136,24 @@
             return IsOpen;
         }
 
-        private bool GetDevice()
-        {
-            var _deviceInterface = DeviceConfig.DeviceInterface;
-
-            var cr = NativeMethods.CM_Get_Device_Interface_List_Size(out uint size,
-                ref _deviceInterface, null, NativeConstants.CmGetDeviceInterfaceListPresent);
-
-            if (cr != NativeConstants.CrSuccess || size == 0)
-            {
-                Logger.Error($"{nameof(Device)}: Cannot find device list for {_deviceInterface}");
-                return false;
-            }
-
-            cr = NativeMethods.CM_Get_Device_Interface_List(ref _deviceInterface,
-                null, device_, (uint)device_.Length, NativeConstants.CmGetDeviceInterfaceListPresent);
-            if (cr != NativeConstants.CrSuccess || device_.Length == 0)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        private bool OpenDevice()
-        {
-            Logger.Info($"{nameof(Device)}: Opening device {device_}");
-
-            if (DeviceConfig.Mode == CreateFileOption.Overlapped)
-            {
-                _deviceHandle = NativeMethods.CreateFile(new string(device_),
-                NativeConstants.GenericRead | NativeConstants.GenericWrite,
-                NativeConstants.FileShareRead | NativeConstants.FileShareWrite,
-                IntPtr.Zero,
-                NativeConstants.OpenExisting,
-                NativeConstants.FileFlagOverlapped,
-                IntPtr.Zero);
-
-            }
-            else
-            {
-                _deviceHandle = NativeMethods.CreateFile(new string(device_),
-                    NativeConstants.GenericRead | NativeConstants.GenericWrite,
-                    NativeConstants.FileShareRead | NativeConstants.FileShareWrite,
-                    IntPtr.Zero,
-                    NativeConstants.OpenExisting,
-                    0,
-                    IntPtr.Zero);
-            }
-
-            return !_deviceHandle.IsInvalid;
-
-        }
-
+        /// <inheritdoc/>
         public void ResetConnection()
         {
-            throw new NotImplementedException();
+            // Method intentionally left empty.
         }
+
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <inheritdoc/>
+        public abstract bool Configure(IComConfiguration comConfiguration);
+
+        /// <inheritdoc/>
+        public abstract void SendMessage(GdsSerializableMessage message, CancellationToken token);
 
         /// <summary>Raises the <see cref="DeviceAttached"/> event.</summary>
         protected virtual void OnDeviceAttached()
@@ -208,17 +193,12 @@
             {
                 // TODO: dispose managed state (managed objects).
             }
-
             Close();
-
             _disposed = true;
         }
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
 
+        /// <summary>Sync read</summary>
+        /// <returns>Tuple of data and read status. <see cref="ChangeRecord"</returns>
         protected virtual (bool, ChangeRecord) ReadSync()
         {
             if (_deviceHandle.IsInvalid)
@@ -233,12 +213,12 @@
                   _deviceHandle,
                   _dataPtr,
                   (uint)size,
-                  out var bytesRead,
+                  out _,
                   IntPtr.Zero);
 
                 if (success)
                 {
-                    ChangeRecord record = (ChangeRecord)Marshal.PtrToStructure(_dataPtr, typeof(ChangeRecord));
+                    var record = (ChangeRecord)Marshal.PtrToStructure(_dataPtr, typeof(ChangeRecord));
                     Marshal.FreeHGlobal(_dataPtr);
                     _dataPtr = Marshal.AllocHGlobal(size);
                     return (true, record);
@@ -247,6 +227,8 @@
             return (false, new ChangeRecord());
         }
 
+        /// <summary>Async read</summary>
+        /// <returns>Tuple of data and read status. <see cref="ChangeRecord"</returns>
         protected virtual (bool, ChangeRecord) ReadAsync()
         {
             if (_deviceHandle.IsInvalid)
@@ -280,7 +262,6 @@
                     }
                 }
 
-
                 if (_waitingForRx)
                 {
                     var result = NativeMethods.WaitForSingleObject(_overlapped.EventHandle, DeviceConfig.waitPeriod);
@@ -300,7 +281,7 @@
 
                 if (!_waitingForRx && numberOfBytesRead > 0)
                 {
-                    ChangeRecord record = (ChangeRecord)Marshal.PtrToStructure(_dataPtr, typeof(ChangeRecord));
+                    var record = (ChangeRecord)Marshal.PtrToStructure(_dataPtr, typeof(ChangeRecord));
                     Marshal.FreeHGlobal(_dataPtr);
                     _dataPtr = Marshal.AllocHGlobal(size);
                     return (true, record);
@@ -308,12 +289,19 @@
             }
             return (false, new ChangeRecord());
         }
+
+        /// <summary>Read call to pwm device</summary>
+        /// <returns>Tuple of data and read status. <see cref="ChangeRecord"</returns>
         protected virtual (bool, ChangeRecord) Read()
         {
 
             return DeviceConfig.Mode == CreateFileOption.Overlapped ? ReadAsync() : ReadSync();
         }
 
+        /// <summary>IOCTL call to pwm device</summary>
+        /// <param name="command">command to device</param>
+        /// <param name="data">input.</param>
+        /// <returns>True if success. <see cref="ChangeRecord"</returns>
         protected bool Ioctl<T, C>(C command, T data) where C : struct, IConvertible
         {
             if (_deviceHandle.IsInvalid)
@@ -353,6 +341,12 @@
                 }
             }
         }
+
+        /// <summary>Aysnc IOCTL call to pwm device</summary>
+        /// <param name="command">command to device.</param>
+        /// <param name="data">input.</param>
+        /// <param name="outData">output.</param>
+        /// <returns>True if success. <see cref="ChangeRecord"</returns>
         protected bool IoctlAsync<T, C, R>(C command, T data, ref R outData) where C : struct, IConvertible
         {
             if (_deviceHandle.IsInvalid)
@@ -371,9 +365,9 @@
                 if (!_waitingForRx)
                 {
                     var status = NativeMethods.DeviceIoControl(_deviceHandle,
-                NativeConstants.COINACCEPTOR_MAKE_IOCTL(DeviceConfig.DeviceType, CoinAcceptorCommands.CoinAcceptorPeek),
+                NativeConstants.PWMDEVICE_MAKE_IOCTL(DeviceConfig.DeviceType, command),
                 IntPtr.Zero,
-                0,
+                Marshal.SizeOf(data),
                 _dataPtr,
                 (uint)size,
                 out numberOfBytesRead,
@@ -415,8 +409,13 @@
                 }
             }
             return false;
-
         }
+
+        /// <summary>IOCTL call to pwm device</summary>
+        /// <param name="command">command to device.</param>
+        /// <param name="data">input.</param>
+        /// <param name="outData">output.</param>
+        /// <returns>True if success. <see cref="ChangeRecord"</returns>
         protected bool Ioctl<T, C, R>(C command, T data, ref R outData) where C : struct, IConvertible
         {
             if (_deviceHandle.IsInvalid)
@@ -466,13 +465,12 @@
                 }
             }
         }
-        public abstract bool Configure(IComConfiguration comConfiguration);
-        public abstract void SendMessage(GdsSerializableMessage message, CancellationToken token);
 
-        protected abstract void Run();
-        protected  bool StartDeviceMonitoring()
+        /// <summary>call to start monitoring thread for pwm device</summary>
+        /// <returns>True if success. <see cref="ChangeRecord"</returns>
+        protected bool StartDeviceMonitoring()
         {
-            _running = true;
+            Running = true;
             _monitoringThread = new Thread(Run)
             {
                 Name = "CoinValidatorCommunicatorMonitor",
@@ -486,21 +484,78 @@
 
             _monitoringThread.Start();
             PollTimer.Start();
-
-
             return true;
         }
 
-        protected  bool StopDeviceMonitoring()
+        /// <summary>call to stop monitoring thread for pwm device</summary>
+        /// <returns>True if success. <see cref="ChangeRecord"</returns>
+        protected bool StopDeviceMonitoring()
         {
-            _running = false;
+            Running = false;
             _monitoringThread?.Join();
             return true;
         }
+
+        protected abstract void Run();
+
         private static void OnPollTimeout(object sender, ElapsedEventArgs e)
         {
             // Set to poll.
             Poll.Set();
+        }
+
+        /// <summary>call get the device path</summary>
+        /// <returns>True if success.<see cref="ChangeRecord"</returns>
+        private bool GetDevice()
+        {
+            var _deviceInterface = DeviceConfig.DeviceInterface;
+
+            var cr = NativeMethods.CM_Get_Device_Interface_List_Size(out uint size,
+                ref _deviceInterface, null, NativeConstants.CmGetDeviceInterfaceListPresent);
+
+            if (cr != NativeConstants.CrSuccess || size == 0)
+            {
+                Logger.Error($"{nameof(Device)}: Cannot find device list for {_deviceInterface}");
+                return false;
+            }
+
+            cr = NativeMethods.CM_Get_Device_Interface_List(ref _deviceInterface,
+                null, _device, (uint)_device.Length, NativeConstants.CmGetDeviceInterfaceListPresent);
+            if (cr != NativeConstants.CrSuccess || _device.Length == 0)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>call open the device</summary>
+        /// <returns>True if success.<see cref="ChangeRecord"</returns>
+        private bool OpenDevice()
+        {
+            Logger.Info($"{nameof(Device)}: Opening device {_device}");
+
+            if (DeviceConfig.Mode == CreateFileOption.Overlapped)
+            {
+                _deviceHandle = NativeMethods.CreateFile(new string(_device),
+                NativeConstants.GenericRead | NativeConstants.GenericWrite,
+                NativeConstants.FileShareRead | NativeConstants.FileShareWrite,
+                IntPtr.Zero,
+                NativeConstants.OpenExisting,
+                NativeConstants.FileFlagOverlapped,
+                IntPtr.Zero);
+
+            }
+            else
+            {
+                _deviceHandle = NativeMethods.CreateFile(new string(_device),
+                    NativeConstants.GenericRead | NativeConstants.GenericWrite,
+                    NativeConstants.FileShareRead | NativeConstants.FileShareWrite,
+                    IntPtr.Zero,
+                    NativeConstants.OpenExisting,
+                    0,
+                    IntPtr.Zero);
+            }
+            return !_deviceHandle.IsInvalid;
         }
     }
 }

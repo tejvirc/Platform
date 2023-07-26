@@ -12,7 +12,7 @@
     public class CoinInStartedEvent : BaseEvent
     {
         /// <summary>
-        /// Constructor
+        ///     Constructor
         /// </summary>
         /// <param name="coin"></param>
         public CoinInStartedEvent(ICoin coin)

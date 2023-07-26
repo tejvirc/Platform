@@ -1,18 +1,19 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Pwm.CoinAcceptor
 {
-    using Aristocrat.Monaco.Hardware.Contracts.Communicator;
-    using Aristocrat.Monaco.Hardware.Contracts.PWM;
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+    using Contracts.Communicator;
+    using Contracts.PWM;
 
     /// <summary>
-    /// 
+    ///     Class to manage communication with Volatile coin acceptor device.
+    ///     Which us based in pulse width modulated signal <see cref="CoinAcceptorCommunicator".
+    ///     Volatile coin acceptor device is based on kernel driver which is saving all the events
+    ///     in non persisted memory and in case of power failure will not be recovered.
+    ///     Plus read operation is destructive read.
     /// </summary>
     public class CoinAcceptor : CoinAcceptorCommunicator
     {
+        /// <inheritdoc/>
         public override bool Configure(IComConfiguration comConfiguration)
         {
             DeviceConfig = new PwmDeviceConfig
@@ -27,6 +28,5 @@
             Manufacturer = "CC-62";
             return true;
         }
-
     }
 }
