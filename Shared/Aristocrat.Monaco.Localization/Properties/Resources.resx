@@ -12331,6 +12331,7 @@ Do you really want to do full reset?</value>
   <data name="VertexIdLabel" xml:space="preserve">
     <value>VERTEX ID</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
   <data name="CoinToCashBox" xml:space="preserve">
     <value>Coin In To CashBox</value>
     <comment>Monaco.Accounting.Contracts</comment>

@@ -43,13 +43,13 @@
     [CLSCompliant(false)]
     public struct ChangeRecord
     {
-        /// <summary>oldValue on device.</summary>
-        public byte oldValue;
-        /// <summary>newValue on device.</summary>
-        public byte newValue;
-        /// <summary>elapsedSinceLastChange for new value.</summary>
-        public LARGE_INTEGER elapsedSinceLastChange;
+        /// <summary>OldValue on device.</summary>
+        public byte OldValue { get; set; }
+        /// <summary>NewValue on device.</summary>
+        public byte NewValue { get; set; }
+        /// <summary>ElapsedSinceLastChange for new value.</summary>
+        public LARGE_INTEGER ElapsedSinceLastChange { get; set; }
         /// <summary>Transaction id for .</summary>
-        public byte changeId;
+        public byte ChangeId { get; set; }
     };
 }

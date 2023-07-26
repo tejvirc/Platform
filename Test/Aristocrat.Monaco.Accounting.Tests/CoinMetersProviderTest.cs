@@ -28,8 +28,6 @@
         private Mock<IEventBus> _eventBus;
         private Mock<IMeterManager> _meterManager;
         private Mock<ISystemDisableManager> _disableManager;
-        private readonly PrivateType _staticAccessor = new PrivateType(typeof(CoinMetersProvider));
-        private Mock<ICoinAcceptor> _coinAcceptor;
         private CoinMetersProvider _target;
         private DateTime _periodClearDate;
 
@@ -59,7 +57,6 @@
             _propertiesManager.Setup(a => a.SetProperty(It.IsAny<string>(), It.IsAny<object>()));
             _disableManager = MoqServiceManager.CreateAndAddService<ISystemDisableManager>(MockBehavior.Strict);
             _disableManager.Setup(a => a.Enable(It.IsAny<Guid>()));
-            _coinAcceptor = MoqServiceManager.CreateAndAddService<ICoinAcceptor>(MockBehavior.Strict);
             _eventBus = MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Strict);
 
             _eventBus.Setup(a => a.Subscribe(It.IsAny<object>(), It.IsAny<Action<PeriodMetersClearedEvent>>()));
@@ -100,8 +97,8 @@
 
             // Get the block and verify its data
             _propertiesManager.Setup(
-                    mock => mock.GetProperty(HardwareConstants.CoinValue, It.IsAny<int>()))
-                .Returns(100000);
+                    mock => mock.GetProperty(HardwareConstants.CoinValue, It.IsAny<long>()))
+                .Returns(100000L);
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.OccurrenceMeterRolloverText, It.IsAny<int>()))
                 .Returns(100L);
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.CurrencyMeterRolloverText, It.IsAny<long>()))

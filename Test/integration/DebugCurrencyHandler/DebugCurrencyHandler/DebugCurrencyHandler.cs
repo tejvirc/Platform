@@ -569,42 +569,8 @@
             _transaction.NewAccountBalance = (long)block["NewAccountBalance"];
         }
 
-        private int count = 0;
-        private bool HandleEvent()
-        {
-            #region debug coin event
-            var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-            eventBus.Publish(new CoinInEvent(new Coin() { Value = 100000L}));
-            switch (count)
-            {
-                case 0:
-                    eventBus.Publish(new CoinToCashboxInEvent());
-                    break;
-                case 1:
-                    eventBus.Publish(new CoinToHopperInEvent());
-                    break;
-                case 2:
-                    eventBus.Publish(new CoinToCashboxInsteadOfHopperEvent());
-                    break;
-                case 3:
-                    eventBus.Publish(new CoinToHopperInsteadOfCashboxEvent());
-                    break;
-            }
-
-            count += 1;
-            if (count == 4)
-                count = 0;
-
-            #endregion
-
-            return true;
-        }
-
         private void ReceiveEvent(IEvent data)
         {
-            if (HandleEvent())
-                return;
-
             if (typeof(DebugNoteEvent) == data.GetType())
             {
                 var debugNoteEvent = (DebugNoteEvent)data;

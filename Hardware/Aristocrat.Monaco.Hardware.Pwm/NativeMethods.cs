@@ -1,16 +1,15 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Pwm
 {
-    using Microsoft.Win32.SafeHandles;
     using System;
     using System.Runtime.InteropServices;
     using System.Threading;
-
+    using Microsoft.Win32.SafeHandles;
+    
     /// <summary>
     ///     Groups the native Win32 APIs used for the serial communications
     /// </summary>
-    internal class NativeMethods
+    internal static class NativeMethods
     {
-
         /// <summary> Opening, Testing and Closing the Port Handle. </summary>
         [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         internal static extern SafeFileHandle CreateFile(

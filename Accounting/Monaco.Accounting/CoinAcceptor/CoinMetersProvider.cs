@@ -14,17 +14,13 @@
     /// <summary>
     ///     Provides coin meters pertaining to currency accepted by the EGM.
     /// </summary>
-    public class CoinMetersProvider : BaseMeterProvider, IDisposable
+    public sealed class CoinMetersProvider : BaseMeterProvider, IDisposable
     {
         private const PersistenceLevel Level = PersistenceLevel.Critical;
-
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
         private readonly IPropertiesManager _properties;
         private readonly IPersistentStorageManager _persistentStorage;
         private readonly IEventBus _eventBus;
-
-        private static long _multiplier;
+        private readonly long _multiplier;
         private DateTime _lastPeriodClearTime;
 
         private readonly List<Tuple<string, MeterClassification>> _meters = new List<Tuple<string, MeterClassification>>
@@ -62,14 +58,12 @@
 
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _eventBus.Subscribe<PeriodMetersClearedEvent>(this, HandleEvent);
-
+            _multiplier = _properties.GetValue(HardwareConstants.CoinValue, AccountingConstants.DefaultTokenValue);
             Init();
         }
 
         public void Init()
         {
-            _multiplier = _properties.GetValue(HardwareConstants.CoinValue, 100000);
-
             var blockName = GetType().ToString();
 
             AddMeters(_persistentStorage.GetAccessor(Level, blockName));
@@ -90,7 +84,7 @@
             AddMeter(
                 new CompositeMeter(
                     AccountingMeters.TrueCoinIn,
-                    (timeFrame) => GetMeter(AccountingMeters.TrueCoinInCount).GetValue(timeFrame) * (long)_multiplier,
+                    (timeFrame) => GetMeter(AccountingMeters.TrueCoinInCount).GetValue(timeFrame) * _multiplier,
                     new List<string>
                     {
                         AccountingMeters.TrueCoinInCount
@@ -100,7 +94,7 @@
             AddMeter(
                 new CompositeMeter(
                     AccountingMeters.TrueCoinOut,
-                    (timeFrame) => GetMeter(AccountingMeters.TrueCoinOutCount).GetValue(timeFrame) * (long)_multiplier,
+                    (timeFrame) => GetMeter(AccountingMeters.TrueCoinOutCount).GetValue(timeFrame) * _multiplier,
                     new List<string>
                     {
                         AccountingMeters.TrueCoinOutCount
@@ -125,7 +119,7 @@
             AddMeter(
                 new CompositeMeter(
                     AccountingMeters.CoinsToCashBox,
-                    (timeFrame) => GetMeter(AccountingMeters.CoinToCashBoxCount).GetValue(timeFrame) * (long)_multiplier,
+                    (timeFrame) => GetMeter(AccountingMeters.CoinToCashBoxCount).GetValue(timeFrame) * _multiplier,
                     new List<string>
                     {
                         AccountingMeters.CoinToCashBoxCount
@@ -135,7 +129,7 @@
             AddMeter(
                 new CompositeMeter(
                     AccountingMeters.CoinsToHopper,
-                    (timeFrame) => GetMeter(AccountingMeters.CoinToHopperCount).GetValue(timeFrame) * (long)_multiplier,
+                    (timeFrame) => GetMeter(AccountingMeters.CoinToHopperCount).GetValue(timeFrame) * _multiplier,
                     new List<string>
                     {
                         AccountingMeters.CoinToHopperCount
@@ -145,7 +139,7 @@
             AddMeter(
                 new CompositeMeter(
                     AccountingMeters.CoinsToCashBoxInsteadHopper,
-                    (timeFrame) => GetMeter(AccountingMeters.CoinToCashBoxInsteadHopperCount).GetValue(timeFrame) * (long)_multiplier,
+                    (timeFrame) => GetMeter(AccountingMeters.CoinToCashBoxInsteadHopperCount).GetValue(timeFrame) * _multiplier,
                     new List<string>
                     {
                         AccountingMeters.CoinToCashBoxInsteadHopperCount
@@ -155,7 +149,7 @@
             AddMeter(
                 new CompositeMeter(
                     AccountingMeters.CoinsToHopperInsteadCashBox,
-                    (timeFrame) => GetMeter(AccountingMeters.CoinToHopperInsteadCashBoxCount).GetValue(timeFrame) * (long)_multiplier,
+                    (timeFrame) => GetMeter(AccountingMeters.CoinToHopperInsteadCashBoxCount).GetValue(timeFrame) * _multiplier,
                     new List<string>
                     {
                         AccountingMeters.CoinToHopperInsteadCashBoxCount
@@ -181,7 +175,7 @@
             AddMeter(
                 new CompositeMeter(
                     AccountingMeters.CurrentHopperLevel,
-                    (timeFrame) => GetMeter(AccountingMeters.CurrentHopperLevelCount).GetValue(timeFrame) * (long)_multiplier,
+                    (timeFrame) => GetMeter(AccountingMeters.CurrentHopperLevelCount).GetValue(timeFrame) * _multiplier,
                     new List<string>
                     {
                         AccountingMeters.CurrentHopperLevelCount
@@ -191,7 +185,7 @@
             AddMeter(
                 new CompositeMeter(
                     AccountingMeters.ExcessCoinOutAmount,
-                    (timeFrame) => GetMeter(AccountingMeters.ExcessCoinOutCount).GetValue(timeFrame) * (long)_multiplier,
+                    (timeFrame) => GetMeter(AccountingMeters.ExcessCoinOutCount).GetValue(timeFrame) * _multiplier,
                     new List<string>
                     {
                         AccountingMeters.ExcessCoinOutCount

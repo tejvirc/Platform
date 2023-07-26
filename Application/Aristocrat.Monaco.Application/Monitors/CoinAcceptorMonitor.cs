@@ -12,7 +12,7 @@
     /// <summary>
     ///     Handle Lockup events from coin acceptor.
     /// </summary>
-    public class CoinAcceptorMonitor : IService, IDisposable
+    public sealed class CoinAcceptorMonitor : IService, IDisposable
     {
         private readonly ISystemDisableManager _disableManager;
         private readonly IEventBus _bus;
@@ -22,10 +22,10 @@
 
         public CoinAcceptorMonitor()
             : this(
-                ServiceManager.GetInstance().GetService<ICoinAcceptor>(),
-                ServiceManager.GetInstance().GetService<ISystemDisableManager>(),
-                ServiceManager.GetInstance().GetService<IPropertiesManager>(),
-                ServiceManager.GetInstance().GetService<IEventBus>())
+                ServiceManager.GetInstance().TryGetService<ICoinAcceptor>(),
+                ServiceManager.GetInstance().TryGetService<ISystemDisableManager>(),
+                ServiceManager.GetInstance().TryGetService<IPropertiesManager>(),
+                ServiceManager.GetInstance().TryGetService<IEventBus>())
         {
         }
 
@@ -35,7 +35,7 @@
             IPropertiesManager propertiesManager,
             IEventBus eventBus)
         {
-            _coinAcceptorService = coinAcceptorService ?? throw new ArgumentNullException(nameof(coinAcceptorService));
+            _coinAcceptorService = coinAcceptorService;
             _disableManager = disableManager ?? throw new ArgumentNullException(nameof(disableManager));
             _properties = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _bus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
@@ -50,6 +50,11 @@
         /// <inheritdoc />
         public void Initialize()
         {
+            if(_coinAcceptorService == null)
+            {
+                return;
+            }
+
             SubscribeEvents();
 
             _alarm = new Alarm();

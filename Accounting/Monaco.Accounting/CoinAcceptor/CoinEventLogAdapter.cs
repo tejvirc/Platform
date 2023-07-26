@@ -33,7 +33,7 @@
             var dateTimeFormat = $"{dateFormat} {ApplicationConstants.DefaultTimeFormat}";
 
             //will be set at configuration and fetched from there.
-            long tokenValue = propertiesManager.GetValue(HardwareConstants.CoinValue, 100000);
+            long tokenValue = propertiesManager.GetValue(HardwareConstants.CoinValue, AccountingConstants.DefaultTokenValue);
 
             var timeService = ServiceManager.GetInstance().GetService<ITime>();
 

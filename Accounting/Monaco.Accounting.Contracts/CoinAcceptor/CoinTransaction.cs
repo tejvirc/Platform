@@ -12,7 +12,7 @@
     ///     CoinTransaction defines the data necessary to store a coin.
     /// </summary>
     [Serializable]
-    public class CoinTransaction : BaseTransaction
+    public sealed class CoinTransaction : BaseTransaction, IEquatable<CoinTransaction>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="CoinTransaction" /> class.
@@ -97,6 +97,12 @@
             return coinTransaction1.Equals(coinTransaction2);
         }
 
+        /// <inheritdoc />
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as CoinTransaction);
+        }
+
         /// <summary>
         ///     Checks two transactions to see if they are different.
         /// </summary>
@@ -152,12 +158,6 @@
                 CurrencyAccountingExtensions.GetDetailsMessage(CurrencyState.Accepted, Exception));
 
             return builder.ToString();
-        }
-
-        /// <inheritdoc />
-        public override bool Equals(object obj)
-        {
-            return Equals(obj as CoinTransaction);
         }
 
         /// <inheritdoc />

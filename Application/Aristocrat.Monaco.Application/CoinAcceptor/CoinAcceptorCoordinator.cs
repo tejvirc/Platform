@@ -46,7 +46,7 @@
 
         public void Initialize()
         {
-            Logger.Info("Initializing CoinAcceptorCoordinator...");
+            Logger.Info($"Initializing {nameof(CoinAcceptorCoordinator)} ...");
 
             _propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
 
@@ -125,7 +125,7 @@
                         // No, coin acceptor service is already disabled.  Are we disabling for some reason other than error and the coin acceptor service is not already disabled for this reason?
                         // *NOTE* This prevents duplicate system/back-end disables from being logged.
                         if (disableNode.DisabledReason != DisabledReasons.Error &&
-                            (_device.ReasonDisabled & disableNode.DisabledReason) > 0 == false)
+                                ((_device.ReasonDisabled & disableNode.DisabledReason) <= 0))
                         {
                             // Yes, disable for this reason.
                             _device.Disable(disableNode.DisabledReason);
@@ -225,7 +225,15 @@
                         Logger.Info("Enabling the coin acceptor");
                         device.Enable(EnabledReasons.System);
                     }
+                    else
+                    {
+                        // do nothing
+                    }
                 }
+            }
+            else
+            {
+                // do nothing
             }
         }
     }

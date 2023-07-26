@@ -19,7 +19,7 @@
             AlarmState = AlarmSignalState.HighToLow;
             SenseToCreditTime = 0;
             DivertingTo = DivertorState.None;
-            currentState = Cc62Signals.None;
+            CurrentState = Cc62Signals.None;
         }
 
         internal Int64 SenseTime { get; set; } = 0;
@@ -31,6 +31,6 @@
         internal AlarmSignalState AlarmState { get; set; } = AlarmSignalState.HighToLow;
         internal Int64 SenseToCreditTime { get; set; } = 0;
         internal DivertorState DivertingTo { get; set; } = DivertorState.None;
-        internal Cc62Signals currentState { get; set; } = Cc62Signals.None;
+        internal Cc62Signals CurrentState { get; set; } = Cc62Signals.None;
     }
 }

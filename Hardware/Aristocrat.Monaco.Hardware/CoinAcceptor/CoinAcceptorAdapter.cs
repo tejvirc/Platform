@@ -11,11 +11,11 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
     using Contracts.SharedDevice;
     using Kernel;
     using log4net;
-    
+
     /// <summary>A coin acceptor adapter.</summary>
     /// <seealso
-    ///     cref="T:Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter{Aristocrat.Monaco.Hardware.Contracts.PWM.ICoinAcceptorImplementation}" />
-    /// <seealso cref="T:Aristocrat.Monaco.Hardware.Contracts.PWM.ICoinAcceptor" />
+    ///     cref="T:Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter{Aristocrat.Monaco.Hardware.Contracts.CoinAcceptor.ICoinAcceptorImplementation}" />
+    /// <seealso cref="T:Aristocrat.Monaco.Hardware.Contracts.CoinAcceptor.ICoinAcceptor" />
     public class CoinAcceptorAdapter : DeviceAdapter<ICoinAcceptorImplementation>, ICoinAcceptor
     {
         private const long DefaultTokenValue = 100000L;
@@ -23,7 +23,7 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
         private const string DeviceImplementationsExtensionPath = "/Hardware/CoinAcceptor/CoinAcceptorImplementations";
         private ICoinAcceptorImplementation _coinAcceptor;
         private readonly IEventBus _bus;
-        private long _tokenValue;
+        private readonly long _tokenValue;
 
         /// <summary>
         ///     Initializes a new instance of the Aristocrat.Monaco.Hardware.CoinAcceptor.CoinAcceptorAdapter class.
@@ -39,7 +39,7 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
         public override DeviceType DeviceType => DeviceType.CoinAcceptor;
 
         /// <inheritdoc />
-        public override string Name => string.IsNullOrEmpty(ServiceProtocol) == false
+        public override string Name => !string.IsNullOrEmpty(ServiceProtocol)
             ? $"{ServiceProtocol} Coin Acceptor Service"
             : "Unknown Coin Acceptor Service";
 
@@ -114,18 +114,7 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
         {
 
             //TODO: implement hopper's properties with realtime values once hopper feature is available..
-            bool isHopperInstalled = false;
-            //bool isHopperFull = false;
-
-            // if (PropertiesManager.GetValue(HardwareConstants.HopperEnabledKey, false) && isHopperInstalled && (!isHopperFull))
-            if (!isHopperInstalled)
-            {
-                DivertToHopper();
-            }
-            else
-            {
-                DivertToCashbox();
-            }
+            DivertToCashbox();
         }
 
         /// <inheritdoc />

@@ -196,6 +196,8 @@
                 case AcceptorState.Reject:
                     _coinAcceptor.CoinRejectMechOn();
                     break;
+                default:
+                    break;
             }
         }
         private void SetDiverterDirection(DivertorState diverterState)
@@ -207,6 +209,8 @@
                     break;
                 case DivertorState.DivertToCashbox:
                     _coinAcceptor.DivertToCashbox();
+                    break;
+                default:
                     break;
             }
         }

@@ -27,12 +27,12 @@
         /// <summary>
         ///     Polling frequnecy of device
         /// </summary>
-        public int pollingFrequency { get; set; }
+        public int PollingFrequency { get; set; }
 
         /// <summary>
         ///     read/Write wait period on device
         /// </summary>
-        public int waitPeriod { get; set; }
+        public int WaitPeriod { get; set; }
 #pragma warning disable CS3003 // Argument type is not CLS-compliant
         /// <summary>
         ///     Type of PwmDevice device

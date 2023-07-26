@@ -17,7 +17,7 @@
     using log4net;
     
     [CLSCompliant(false)]
-    public class CoinProvider : IService, IDisposable
+    public sealed class CoinProvider : IService, IDisposable
     {
         private const int DIVERT_TOLERANCE = 5;
         private const int DeviceId = 1;
@@ -36,8 +36,8 @@
         private readonly IMessageDisplay _messageDisplay;
         private readonly ITransactionHistory _transactions;
         private readonly IIdProvider _idProvider;
-        private ICoinAcceptor _coinAcceptorService;
-        private IPropertiesManager _propertiesManager;
+        private readonly ICoinAcceptor _coinAcceptorService;
+        private readonly IPropertiesManager _propertiesManager;
 
 
         public CoinProvider()
@@ -68,7 +68,7 @@
             IMessageDisplay messageDisplay,
             IPropertiesManager propertiesManager)
         {
-            _coinAcceptorService = coinAcceptor ?? throw new ArgumentNullException(nameof(coinAcceptor));
+            _coinAcceptorService = coinAcceptor;
             _coordinator = coordinator ?? throw new ArgumentNullException(nameof(coordinator));
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
             _transactions = transactionHistory ?? throw new ArgumentNullException(nameof(transactionHistory));
@@ -98,12 +98,54 @@
             _bus.Subscribe<CoinToHopperInsteadOfCashboxEvent>(this, Handle);
             _bus.Subscribe<TransferOutCompletedEvent>(this, _ => _coinAcceptorService?.DivertMechanismOnOff());
         }
-
-        private bool Commit(
-            CoinTransaction transaction,
-            Guid transactionId, ICoin coin)
+        
+        private void DisplayMessage(long acceptedAmount = 0)
         {
-            Commit(transactionId, transaction, coin);
+            _messageDisplay.DisplayMessage(
+                new DisplayableMessage(
+                    () => Localizer.For(CultureFor.Player).FormatString(ResourceKeys.CoinAccepted) +
+                          " " + acceptedAmount.MillicentsToDollars().FormattedCurrencyString(),
+                    DisplayableMessageClassification.Informative,
+                    DisplayableMessagePriority.Normal,
+                    typeof(CoinInCompletedEvent)));
+        }
+
+        private CoinTransaction CreateCoinTransaction(int deviceId) =>
+            CreateCoinTransaction(
+                deviceId,
+                CoinInDetails.None,
+                CurrencyInExceptionCode.None);
+
+        private CoinTransaction CreateCoinTransaction(
+            int deviceId,
+            CoinInDetails detailsCode,
+            CurrencyInExceptionCode exceptionCode)
+        {
+            return new CoinTransaction(
+                deviceId,
+                DateTime.UtcNow,
+                (int)detailsCode,
+                (int)exceptionCode);
+        }
+
+        private bool Commit(Guid transactionId, CoinTransaction transaction, ICoin coin)
+        {
+            using (var scope = _storage.ScopedTransaction())
+            {
+                transaction.Accepted = DateTime.UtcNow;
+
+                _transactions.UpdateTransaction(transaction);
+
+                _bank.Deposit(transaction.TypeOfAccount, coin.Value, transactionId);
+
+                _meters.GetMeter(AccountingMeters.TrueCoinInCount).Increment(1);
+
+                _coordinator.ReleaseTransaction(transactionId);
+
+                scope.Complete();
+            }
+
+            _bus.Publish(new CoinInCompletedEvent(coin, transaction));
             return true;
         }
 
@@ -141,65 +183,16 @@
 
             transaction.Exception = (int)CurrencyInExceptionCode.None;
 
-            if (!Commit(transaction, transactionId, evt.Coin))
+            if (!Commit(transactionId, transaction, evt.Coin))
             {
                 return;
             }
 
             Logger.Info($"Accepted coin: {evt}");
 
-            DisplayMessage((CurrencyInExceptionCode)transaction.Exception, evt.Coin.Value);
+            DisplayMessage(evt.Coin.Value);
 
             _coinAcceptorService?.DivertMechanismOnOff();
-        }
-
-        private void DisplayMessage(CurrencyInExceptionCode exceptionCode, long acceptedAmount = 0)
-        {
-            _messageDisplay.DisplayMessage(
-                new DisplayableMessage(
-                    () => Localizer.For(CultureFor.Player).FormatString(ResourceKeys.CoinAccepted) +
-                          " " + acceptedAmount.MillicentsToDollars().FormattedCurrencyString(),
-                    DisplayableMessageClassification.Informative,
-                    DisplayableMessagePriority.Normal,
-                    typeof(CoinInCompletedEvent)));
-        }
-
-        private CoinTransaction CreateCoinTransaction(int deviceId) =>
-            CreateCoinTransaction(
-                deviceId,
-                CoinInDetails.None,
-                CurrencyInExceptionCode.None);
-
-        private CoinTransaction CreateCoinTransaction(
-            int deviceId,
-            CoinInDetails detailsCode,
-            CurrencyInExceptionCode exceptionCode)
-        {
-            return new CoinTransaction(
-                deviceId,
-                DateTime.UtcNow,
-                (int)detailsCode,
-                (int)exceptionCode);
-        }
-
-        private void Commit(Guid transactionId, CoinTransaction transaction, ICoin coin)
-        {
-            using (var scope = _storage.ScopedTransaction())
-            {
-                transaction.Accepted = DateTime.UtcNow;
-
-                _transactions.UpdateTransaction(transaction);
-
-                _bank.Deposit(transaction.TypeOfAccount, coin.Value, transactionId);
-
-                _meters.GetMeter(AccountingMeters.TrueCoinInCount).Increment(1);
-
-                _coordinator.ReleaseTransaction(transactionId);
-
-                scope.Complete();
-            }
-
-            _bus.Publish(new CoinInCompletedEvent(coin, transaction));
         }
 
         private void Handle(CoinToCashboxInEvent evt)

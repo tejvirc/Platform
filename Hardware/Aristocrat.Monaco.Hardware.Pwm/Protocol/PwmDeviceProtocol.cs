@@ -126,12 +126,9 @@
         /// <inheritdoc/>
         public bool Open()
         {
-            if (GetDevice())
+            if (GetDevice() && OpenDevice())
             {
-                if (OpenDevice())
-                {
-                    IsOpen = StartDeviceMonitoring();
-                }
+                IsOpen = StartDeviceMonitoring();
             }
             return IsOpen;
         }
@@ -264,7 +261,7 @@
 
                 if (_waitingForRx)
                 {
-                    var result = NativeMethods.WaitForSingleObject(_overlapped.EventHandle, DeviceConfig.waitPeriod);
+                    var result = NativeMethods.WaitForSingleObject(_overlapped.EventHandle, DeviceConfig.WaitPeriod);
 
                     switch (result)
                     {
@@ -385,7 +382,7 @@
 
                 if (_waitingForRx)
                 {
-                    var result = NativeMethods.WaitForSingleObject(_overlapped.EventHandle, DeviceConfig.waitPeriod);
+                    var result = NativeMethods.WaitForSingleObject(_overlapped.EventHandle, DeviceConfig.WaitPeriod);
 
                     switch (result)
                     {
@@ -480,7 +477,7 @@
 
             // Set poll timer to elapsed event.
             PollTimer.Elapsed += OnPollTimeout;
-            PollTimer.Interval = DeviceConfig.pollingFrequency;
+            PollTimer.Interval = DeviceConfig.PollingFrequency;
 
             _monitoringThread.Start();
             PollTimer.Start();
@@ -555,7 +552,7 @@
                     0,
                     IntPtr.Zero);
             }
-            return _deviceHandle.IsInvalid;
+            return !_deviceHandle.IsInvalid;
         }
     }
 }

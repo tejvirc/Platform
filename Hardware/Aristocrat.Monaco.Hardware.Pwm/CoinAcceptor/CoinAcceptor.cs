@@ -13,6 +13,8 @@
     /// </summary>
     public class CoinAcceptor : CoinAcceptorCommunicator
     {
+        private const int PollingFrequency = 20;
+        private const int WaitPeriod = 20;
         /// <inheritdoc/>
         public override bool Configure(IComConfiguration comConfiguration)
         {
@@ -20,8 +22,8 @@
             {
                 DeviceInterface = new Guid("{e72a476b-664e-4a6b-9439-aa8cfa294ff2}"),
                 Mode = CreateFileOption.Overlapped,
-                pollingFrequency = 20,//ms
-                waitPeriod = 20,//ms
+                PollingFrequency = PollingFrequency,//ms
+                WaitPeriod = WaitPeriod,//ms
                 DeviceType = NativeConstants.CoinAcceptorDeviceType
             };
             Model = "CC-62";

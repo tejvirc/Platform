@@ -10,7 +10,7 @@
 
     /// <summary>A GDS coin acceptor.</summary>
     /// <seealso cref="T:Aristocrat.Monaco.Hardware.GdsDeviceBase" />
-    /// <seealso cref="T:Aristocrat.Monaco.Hardware.Contracts.PWM.ICoinAcceptorImplementation" />
+    /// <seealso cref="T:Aristocrat.Monaco.Hardware.Contracts.CoinAcceptor.ICoinAcceptorImplementation" />
     public class CoinAcceptorGds : GdsDeviceBase, ICoinAcceptorImplementation
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
@@ -44,21 +44,6 @@
         public void CoinRejectMechOn()
         {
             SendCommand(new RejectMode { RejectOnOff = false });
-        }
-
-        /// <inheritdoc />
-        public void DivertMechanismOnOff()
-        {
-            //TODO: Once hopper service done then we can apply proper logic.
-            bool isHopperInstalled = false;
-            if (isHopperInstalled)
-            {
-                DivertToHopper();
-            }
-            else
-            {
-                DivertToCashbox();
-            }
         }
 
         /// <inheritdoc />

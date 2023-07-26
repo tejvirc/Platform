@@ -12,14 +12,16 @@ namespace Aristocrat.Monaco.Hardware.Pwm.CoinAcceptor
     ///     Read operation is not destructive. So we need to destruct the events explicitly after reading them.
     public class NvCoinAcceptor : CoinAcceptorCommunicator
     {
+        private const int PollingFrequency = 20;
+        private const int WaitPeriod = 20;
         public override bool Configure(IComConfiguration comConfiguration)
         {
             DeviceConfig = new PwmDeviceConfig
             {
                 DeviceInterface = new Guid("{fc444f85-8973-4e71-8f96-d1a9614fe9d9}"),
                 Mode = CreateFileOption.Overlapped,
-                pollingFrequency = 20,//ms
-                waitPeriod = 20,//ms
+                PollingFrequency = PollingFrequency,//ms
+                WaitPeriod = WaitPeriod,//ms
                 DeviceType = NativeConstants.NVCoinAcceptorDeviceType
             };
 

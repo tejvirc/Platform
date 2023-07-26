@@ -818,5 +818,10 @@
         ///     The amount that can be cashed out per hand count
         /// </summary>
         public const string CashoutAmountPerHandCount = "CashoutAmountPerHandCount";
+
+        /// <summary>
+        ///     Default Coin Value in millicents.
+        /// </summary>
+        public const long DefaultTokenValue = 100000L;
     }
 }

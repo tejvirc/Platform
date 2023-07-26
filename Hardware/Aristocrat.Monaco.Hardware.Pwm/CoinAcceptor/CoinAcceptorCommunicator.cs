@@ -19,6 +19,7 @@
         protected readonly object Lock = new();
         protected CoinAcceptorState AcceptorState = new();
         protected CoinEntryState CoinEntryState = new();
+        private const int DeviceTimeToMilliseconds = 10000;
 
         /// <inheritdoc/>
         public override void SendMessage(GdsSerializableMessage message, CancellationToken token)
@@ -134,7 +135,7 @@
                     {
                         if (AcceptorState.CoinTransmitTimer < CoinSignalsConsts.CoinTransitTime)
                         {
-                            AcceptorState.CoinTransmitTimer += record.elapsedSinceLastChange.QuadPart / 10000;
+                            AcceptorState.CoinTransmitTimer += record.ElapsedSinceLastChange.QuadPart / DeviceTimeToMilliseconds;
                         }
 
                         if (AcceptorState.State == Contracts.CoinAcceptor.AcceptorState.Accept || AcceptorState.CoinTransmitTimer < CoinSignalsConsts.CoinTransitTime)
@@ -142,7 +143,7 @@
                             DataProcessor(record);
                         }
 
-                        AckRead(record.changeId);
+                        AckRead(record.ChangeId);
 
                         if ((AcceptorState.PendingDiverterAction != DivertorAction.None)
                             && AcceptorState.CoinTransmitTimer >= CoinSignalsConsts.CoinTransitTime)
@@ -169,7 +170,7 @@
         /// <summary>Process data</summary>
         private void DataProcessor(ChangeRecord record)
         {
-            CoinEntryState.currentState = Cc62Signals.None;
+            CoinEntryState.CurrentState = Cc62Signals.None;
             ProcessDiverterSignal(record);
             ProcessSenseSignal(record);
             ProcessCreditSignal(record);
@@ -179,14 +180,14 @@
         /// <summary>Process diverter signal</summary>
         private void ProcessDiverterSignal(ChangeRecord record)
         {
-            if (CoinEntryState.currentState != Cc62Signals.None)
+            if (CoinEntryState.CurrentState != Cc62Signals.None)
             {
                 //Panic
                 throw new InvalidOperationException();
             }
 
-            CoinEntryState.currentState = Cc62Signals.SolenoidSignal;
-            CoinEntryState.DivertingTo = ((record.newValue & (int)Cc62Signals.SolenoidSignal) != 0)
+            CoinEntryState.CurrentState = Cc62Signals.SolenoidSignal;
+            CoinEntryState.DivertingTo = ((record.NewValue & (int)Cc62Signals.SolenoidSignal) != 0)
                                             ? DivertorState.DivertToCashbox
                                             : DivertorState.DivertToHopper;
         }
@@ -194,17 +195,17 @@
         /// <summary>Process sense signal</summary>
         private void ProcessSenseSignal(ChangeRecord record)
         {
-            if (CoinEntryState.currentState != Cc62Signals.SolenoidSignal)
+            if (CoinEntryState.CurrentState != Cc62Signals.SolenoidSignal)
             {
                 //Panic
                 throw new InvalidOperationException();
             }
 
-            CoinEntryState.currentState = Cc62Signals.SenseSignal;
+            CoinEntryState.CurrentState = Cc62Signals.SenseSignal;
             switch (CoinEntryState.SenseState)
             {
                 case SenseSignalState.HighToLow:
-                    if ((record.newValue & (int)Cc62Signals.SenseSignal) == 0)
+                    if ((record.NewValue & (int)Cc62Signals.SenseSignal) == 0)
                     {
                         CoinEntryState.SenseState = SenseSignalState.LowToHigh;
                         CoinEntryState.SenseTime = 0;
@@ -212,7 +213,7 @@
                     }
                     break;
                 case SenseSignalState.LowToHigh:
-                    CoinEntryState.SenseTime += record.elapsedSinceLastChange.QuadPart / 10000;
+                    CoinEntryState.SenseTime += record.ElapsedSinceLastChange.QuadPart / DeviceTimeToMilliseconds;
                     if (CoinEntryState.SenseTime > CoinSignalsConsts.SensePulseMax)
                     {
                         CoinEntryState.SenseState = SenseSignalState.Fault;
@@ -220,7 +221,7 @@
                         break;
                     }
 
-                    if ((record.newValue & (int)Cc62Signals.SenseSignal) != 0)
+                    if ((record.NewValue & (int)Cc62Signals.SenseSignal) != 0)
                     {
                         CoinEntryState.SenseState = SenseSignalState.HighToLow;
                         if (CoinEntryState.SenseTime < CoinSignalsConsts.SensePulseMin)
@@ -242,18 +243,18 @@
         /// <summary>Process credit signal</summary>
         private void ProcessCreditSignal(ChangeRecord record)
         {
-            if (CoinEntryState.currentState != Cc62Signals.SenseSignal)
+            if (CoinEntryState.CurrentState != Cc62Signals.SenseSignal)
             {
                 //Panic
                 throw new InvalidOperationException();
             }
 
-            CoinEntryState.currentState = Cc62Signals.CreditSignal;
+            CoinEntryState.CurrentState = Cc62Signals.CreditSignal;
             switch (CoinEntryState.CreditState)
             {
                 case CreditSignalState.HighToLow:
-                    CheckCreditToSensePulse(record.elapsedSinceLastChange.QuadPart / 10000);
-                    if ((record.newValue & (int)Cc62Signals.CreditSignal) == 0)
+                    CheckCreditToSensePulse(record.ElapsedSinceLastChange.QuadPart / DeviceTimeToMilliseconds);
+                    if ((record.NewValue & (int)Cc62Signals.CreditSignal) == 0)
                     {
                         CoinEntryState.CreditState = CreditSignalState.LowToHigh;
                         CoinEntryState.CreditTime = 0;
@@ -262,8 +263,8 @@
 
                     break;
                 case CreditSignalState.LowToHigh:
-                    CheckCreditToSensePulse(record.elapsedSinceLastChange.QuadPart / 10000);
-                    CoinEntryState.CreditTime += record.elapsedSinceLastChange.QuadPart / 10000;
+                    CheckCreditToSensePulse(record.ElapsedSinceLastChange.QuadPart / DeviceTimeToMilliseconds);
+                    CoinEntryState.CreditTime += record.ElapsedSinceLastChange.QuadPart / DeviceTimeToMilliseconds;
                     if (CoinEntryState.CreditTime > CoinSignalsConsts.CreditPulseMax)
                     {
                         CoinEntryState.CreditState = CreditSignalState.Fault;
@@ -271,7 +272,7 @@
                         break;
                     }
 
-                    if ((record.newValue & (int)Cc62Signals.CreditSignal) != 0)
+                    if ((record.NewValue & (int)Cc62Signals.CreditSignal) != 0)
                     {
                         CoinEntryState.CreditState = CreditSignalState.HighToLow;
                         if (CoinEntryState.CreditTime < CoinSignalsConsts.CreditPulseMin)
@@ -327,17 +328,17 @@
         /// <summary>Process alarm signal</summary>
         private void ProcessAlarmSignal(ChangeRecord record)
         {
-            if (CoinEntryState.currentState != Cc62Signals.CreditSignal)
+            if (CoinEntryState.CurrentState != Cc62Signals.CreditSignal)
             {
                 //Panic
                 throw new InvalidOperationException();
             }
 
-            CoinEntryState.currentState = Cc62Signals.AlarmSignal;
+            CoinEntryState.CurrentState = Cc62Signals.AlarmSignal;
             switch (CoinEntryState.AlarmState)
             {
                 case AlarmSignalState.HighToLow:
-                    if ((record.newValue & (int)Cc62Signals.AlarmSignal) == 0)
+                    if ((record.NewValue & (int)Cc62Signals.AlarmSignal) == 0)
                     {
                         CoinEntryState.AlarmState = AlarmSignalState.LowToHigh;
                         CoinEntryState.AlarmTime = 0;
@@ -346,7 +347,7 @@
                     break;
                 case AlarmSignalState.LowToHigh:
 
-                    CoinEntryState.AlarmTime += record.elapsedSinceLastChange.QuadPart / 10000;
+                    CoinEntryState.AlarmTime += record.ElapsedSinceLastChange.QuadPart / DeviceTimeToMilliseconds;
                     if (CoinEntryState.AlarmTime > CoinSignalsConsts.AlarmPulseMax)
                     {
                         CoinEntryState.AlarmState = AlarmSignalState.Fault;
@@ -354,7 +355,7 @@
                         break;
                     }
 
-                    if ((record.newValue & (int)Cc62Signals.AlarmSignal) != 0)
+                    if ((record.NewValue & (int)Cc62Signals.AlarmSignal) != 0)
                     {
                         CoinEntryState.AlarmState = AlarmSignalState.HighToLow;
                         if (CoinEntryState.AlarmTime < CoinSignalsConsts.AlarmPulseMin)
