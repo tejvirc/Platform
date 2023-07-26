@@ -6,6 +6,7 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
     using System.Reflection;
     using Aristocrat.Monaco.Kernel;
     using Common;
+    using Contracts;
     using Contracts.Communicator;
     using Contracts.PWM;
     using Contracts.SharedDevice;
@@ -17,10 +18,12 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
     /// <seealso cref="T:Aristocrat.Monaco.Hardware.Contracts.PWM.ICoinAcceptor" />
     public class CoinAcceptorAdapter : DeviceAdapter<ICoinAcceptorImplementation>, ICoinAcceptor
     {
+        private const long DefaultTokenValue = 100000L;
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private const string DeviceImplementationsExtensionPath = "/Hardware/CoinAcceptor/CoinAcceptorImplementations";
         private ICoinAcceptorImplementation _coinAcceptor;
         private readonly IEventBus _bus;
+        private long _tokenValue;
 
         /// <summary>
         ///     Initializes a new instance of the Aristocrat.Monaco.Hardware.CoinAcceptor.CoinAcceptorAdapter class.
@@ -28,6 +31,8 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
         public CoinAcceptorAdapter()
         {
             _bus = ServiceManager.GetInstance().GetService<IEventBus>();
+            var properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+            _tokenValue = properties.GetValue(HardwareConstants.CoinValue, DefaultTokenValue);
         }
 
         /// <inheritdoc />
@@ -266,7 +271,7 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
             {
                 case CoinEventType.CoinInEvent:
                     {
-                        _bus?.Publish(new CoinInEvent(new Coin { Value = 100000 }));
+                        _bus?.Publish(new CoinInEvent(new Coin { Value = _tokenValue }));
                         break;
                     }
                 case CoinEventType.CoinToCashboxInEvent:

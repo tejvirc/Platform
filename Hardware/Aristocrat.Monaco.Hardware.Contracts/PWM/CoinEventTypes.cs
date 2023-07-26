@@ -1,30 +1,17 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts.PWM
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public enum CoinEventType : int
+    /// <summary>enum to specifying coin event types.</summary>
+    public enum CoinEventType
     {
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <summary>Coin in event.</summary>
         CoinInEvent,
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <summary>Coin to hopper instead of cashboxEvent.</summary>
         CoinToHopperInsteadOfCashboxEvent,
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <summary>Coin to hopper in event.</summary>
         CoinToHopperInEvent,
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <summary>Coin to cashbox in event.</summary>
         CoinToCashboxInEvent,
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <summary>Coin to cashbox instead of hopper event.</summary>
         CoinToCashboxInsteadOfHopperEvent
-
     }
 }
