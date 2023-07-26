@@ -1,21 +1,23 @@
-﻿namespace Aristocrat.Monaco.Hardware.Pwm
+﻿namespace Aristocrat.Monaco.Hardware.Pwm.Protocol
 {
     using Aristocrat.Monaco.Hardware.Contracts.Communicator;
     using Aristocrat.Monaco.Hardware.Contracts.Gds;
     using Aristocrat.Monaco.Hardware.Contracts.PWM;
-    using Aristocrat.Monaco.Hardware.Contracts.SharedDevice;
     using log4net;
     using Microsoft.Win32.SafeHandles;
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Reflection;
-    using System.Runtime.InteropServices;
+    using System.Text;
     using System.Threading;
- 
+    using System.Threading.Tasks;
+    using Aristocrat.Monaco.Hardware.Contracts.SharedDevice;
+    using System.Runtime.InteropServices;
+    using Timer = System.Timers.Timer;
+    using System.Timers;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    public abstract class PwmCommunicator: IGdsCommunicator
+    public abstract class PwmDeviceProtocol : IGdsCommunicator
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private char[] device_ = new char[256];
@@ -26,11 +28,12 @@
 
         protected bool _waitingForRx;
         protected bool _disposed;
+        protected bool _running;
+        protected Thread _monitoringThread;
+        protected static readonly Timer PollTimer = new Timer();
+        protected static readonly AutoResetEvent Poll = new AutoResetEvent(true);
 
-
-        // TBD just divider
-
-        public PwmCommunicator()
+        protected PwmDeviceProtocol()
         {
             _overlapped = new System.Threading.NativeOverlapped()
             {
@@ -41,6 +44,72 @@
             _dataPtr = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(ChangeRecord)));
             _waitingForRx = false;
             _disposed = false;
+        }
+
+
+        public virtual string Manufacturer { get; set; }
+
+        public virtual string Model { get; set; }
+
+        public string Firmware => string.Empty;
+
+        public string SerialNumber => string.Empty;
+
+        public bool IsOpen { get; set; }
+
+        public int VendorId { get; set; } = -1;
+
+        public int ProductId { get; set; } = -1;
+
+        public int ProductIdDfu { get; set; } = -1;
+
+        public string Protocol => "Pwm";
+
+       public DeviceType DeviceType { get; set; }
+        public IDevice Device { get; set; }
+
+        public string FirmwareVersion => string.Empty;
+
+        public string FirmwareRevision => string.Empty;
+
+        public int FirmwareCrc => -1;
+
+        public string BootVersion => string.Empty;
+
+        public string VariantName => string.Empty;
+
+        public string VariantVersion => string.Empty;
+
+        public bool IsDfuCapable => false;
+
+        public event EventHandler<EventArgs> DeviceAttached;
+        public event EventHandler<EventArgs> DeviceDetached;
+        public event EventHandler<GdsSerializableMessage> MessageReceived;
+
+        public bool Close()
+        {
+            _ = StopDeviceMonitoring();
+            if (_deviceHandle != null && !_deviceHandle.IsInvalid)
+            {
+                NativeMethods.CancelIoEx(_deviceHandle, IntPtr.Zero);
+                _deviceHandle.Close();
+                _deviceHandle.SetHandleAsInvalid();
+                IsOpen = false;
+            }
+
+            return true;
+        }
+
+        public bool Open()
+        {
+            if (GetDevice())
+            {
+                if (OpenDevice())
+                {
+                    IsOpen = StartDeviceMonitoring();
+                }
+            }
+            return IsOpen;
         }
 
         private bool GetDevice()
@@ -96,20 +165,61 @@
 
         }
 
-        public bool Open()
+        public void ResetConnection()
         {
-            if(GetDevice())
-            {
-               if(OpenDevice())
-                {
-                    IsOpen =  StartDeviceMonitoring();
-                }
-            }
-            return IsOpen;
+            throw new NotImplementedException();
         }
 
+        /// <summary>Raises the <see cref="DeviceAttached"/> event.</summary>
+        protected virtual void OnDeviceAttached()
+        {
+            DeviceAttached?.Invoke(this, EventArgs.Empty);
+        }
 
-        public virtual (bool, ChangeRecord) ReadSync()
+        /// <summary>Raises the <see cref="DeviceDetached"/> event.</summary>
+        protected virtual void OnDeviceDetached()
+        {
+            //Reset cached FirmwareCrc to UnknownCrc, so that the latest crc will be read on device attach again.
+            DeviceDetached?.Invoke(this, EventArgs.Empty);
+        }
+
+        /// <summary>Raises the <see cref="MessageReceived"/> event.</summary>
+        /// <param name="message">The message to send back.</param>
+        /// <returns>True if sent.</returns>
+        protected virtual bool OnMessageReceived(GdsSerializableMessage message)
+        {
+            var invoker = MessageReceived;
+            if (null != invoker)
+            {
+                invoker.Invoke(this, message);
+                return true;
+            }
+            return false;
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                // TODO: dispose managed state (managed objects).
+            }
+
+            Close();
+
+            _disposed = true;
+        }
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual (bool, ChangeRecord) ReadSync()
         {
             if (_deviceHandle.IsInvalid)
             {
@@ -137,7 +247,7 @@
             return (false, new ChangeRecord());
         }
 
-        public virtual (bool, ChangeRecord) ReadAsync()
+        protected virtual (bool, ChangeRecord) ReadAsync()
         {
             if (_deviceHandle.IsInvalid)
             {
@@ -198,29 +308,13 @@
             }
             return (false, new ChangeRecord());
         }
-        public virtual (bool, ChangeRecord) Read()
+        protected virtual (bool, ChangeRecord) Read()
         {
 
             return DeviceConfig.Mode == CreateFileOption.Overlapped ? ReadAsync() : ReadSync();
         }
 
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-            {
-                return;
-            }
-
-            if (disposing)
-            {
-                // TODO: dispose managed state (managed objects).
-            }
-
-            Close();
-
-            _disposed = true;
-        }
-        public bool Ioctl<T, C>(C command, T data) where C : struct, IConvertible
+        protected bool Ioctl<T, C>(C command, T data) where C : struct, IConvertible
         {
             if (_deviceHandle.IsInvalid)
             {
@@ -259,7 +353,7 @@
                 }
             }
         }
-        public bool IoctlAsync<T, C, R>(C command, T data, ref R outData) where C : struct, IConvertible
+        protected bool IoctlAsync<T, C, R>(C command, T data, ref R outData) where C : struct, IConvertible
         {
             if (_deviceHandle.IsInvalid)
             {
@@ -323,7 +417,7 @@
             return false;
 
         }
-        public bool Ioctl<T, C, R>(C command, T data, ref R outData) where C : struct, IConvertible
+        protected bool Ioctl<T, C, R>(C command, T data, ref R outData) where C : struct, IConvertible
         {
             if (_deviceHandle.IsInvalid)
             {
@@ -372,105 +466,41 @@
                 }
             }
         }
+        public abstract bool Configure(IComConfiguration comConfiguration);
+        public abstract void SendMessage(GdsSerializableMessage message, CancellationToken token);
 
-        //-------------
-
-        public virtual string Manufacturer { get; set; }
-
-        public virtual string Model { get; set; }
-
-        public string Firmware => string.Empty;
-
-        public string SerialNumber => string.Empty;
-
-        public bool IsOpen { get; set; }
-
-        public int VendorId { get; set; } = -1;
-
-        public int ProductId { get; set; } = -1;
-
-        public int ProductIdDfu { get; set; } = -1;
-
-        public string Protocol => "Pwm";
-
-        public DeviceType DeviceType { get; set; }
-        public IDevice Device { get; set; }
-
-        public string FirmwareVersion => string.Empty;
-
-        public string FirmwareRevision => string.Empty;
-
-        public int FirmwareCrc => -1;
-
-        public string BootVersion => string.Empty;
-
-        public string VariantName => string.Empty;
-
-        public string VariantVersion => string.Empty;
-
-        public bool IsDfuCapable => false;
-
-        public event EventHandler<EventArgs> DeviceAttached;
-        public event EventHandler<EventArgs> DeviceDetached;
-        public event EventHandler<GdsSerializableMessage> MessageReceived;
-
-        public bool Close()
+        protected abstract void Run();
+        protected  bool StartDeviceMonitoring()
         {
-            _ = StopDeviceMonitoring();
-            if (_deviceHandle != null && !_deviceHandle.IsInvalid)
+            _running = true;
+            _monitoringThread = new Thread(Run)
             {
-                NativeMethods.CancelIoEx(_deviceHandle, IntPtr.Zero);
-                _deviceHandle.Close();
-                _deviceHandle.SetHandleAsInvalid();
-                IsOpen = false;
-            }
+                Name = "CoinValidatorCommunicatorMonitor",
+                CurrentCulture = Thread.CurrentThread.CurrentCulture,
+                CurrentUICulture = Thread.CurrentThread.CurrentUICulture
+            };
+
+            // Set poll timer to elapsed event.
+            PollTimer.Elapsed += OnPollTimeout;
+            PollTimer.Interval = DeviceConfig.pollingFrequency;
+
+            _monitoringThread.Start();
+            PollTimer.Start();
+
 
             return true;
         }
 
-
-        public void ResetConnection()
+        protected  bool StopDeviceMonitoring()
         {
-            throw new NotImplementedException();
+            _running = false;
+            _monitoringThread?.Join();
+            return true;
         }
-
-
-        protected abstract bool StartDeviceMonitoring();
-        protected abstract bool StopDeviceMonitoring();
-        /// <summary>Raises the <see cref="DeviceAttached"/> event.</summary>
-        protected virtual void OnDeviceAttached()
+        private static void OnPollTimeout(object sender, ElapsedEventArgs e)
         {
-            DeviceAttached?.Invoke(this, EventArgs.Empty);
+            // Set to poll.
+            Poll.Set();
         }
-
-        /// <summary>Raises the <see cref="DeviceDetached"/> event.</summary>
-        protected virtual void OnDeviceDetached()
-        {
-            //Reset cached FirmwareCrc to UnknownCrc, so that the latest crc will be read on device attach again.
-            DeviceDetached?.Invoke(this, EventArgs.Empty);
-        }
-
-        /// <summary>Raises the <see cref="MessageReceived"/> event.</summary>
-        /// <param name="message">The message to send back.</param>
-        /// <returns>True if sent.</returns>
-        protected virtual bool OnMessageReceived(GdsSerializableMessage message)
-        {
-            var invoker = MessageReceived;
-            if (null != invoker)
-            {
-                invoker.Invoke(this, message);
-                return true;
-            }
-            return false;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        public abstract bool Configure(IComConfiguration comConfiguration);
-        public abstract void SendMessage(GdsSerializableMessage message, CancellationToken token);
     }
 }

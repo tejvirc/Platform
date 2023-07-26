@@ -10,7 +10,7 @@
   </Dependencies>
 
   <Extension path="/Hardware/CommunicatorDrivers">
-    <DeviceImplementation ProtocolName="Pwm-CoinAcceptor" type="Aristocrat.Monaco.Hardware.Pwm.CoinAcceptor.CoinAcceptorCommunicator"/>
+    <DeviceImplementation ProtocolName="Pwm-CoinAcceptor" type="Aristocrat.Monaco.Hardware.Pwm.CoinAcceptor.CoinAcceptor"/>
     <DeviceImplementation ProtocolName="Pwm-Hopper" type="Aristocrat.Monaco.Hardware.Pwm.Hopper.Hopper"/>
   </Extension>
 

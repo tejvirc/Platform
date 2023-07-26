@@ -1,57 +1,28 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Pwm.CoinAcceptor
 {
-    using Aristocrat.Monaco.Hardware.Contracts;
+    using Aristocrat.Monaco.Hardware.Contracts.Communicator;
     using Aristocrat.Monaco.Hardware.Contracts.Gds;
     using Aristocrat.Monaco.Hardware.Contracts.PWM;
+    using Aristocrat.Monaco.Hardware.Pwm.Protocol;
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
     using System.Threading;
-    using System.Timers;
-    using Timer = System.Timers.Timer;
+    using System.Threading.Tasks;
 
-    public class CoinAcceptorCommunicator : CoinAcceptor
+    /// <summary>
+    /// 
+    /// </summary>
+    public abstract class CoinAcceptorCommunicator : PwmDeviceProtocol
     {
-        private bool _running;
-        private Thread _monitoringThread;
-        private static readonly Timer PollTimer = new Timer();
-        private static readonly AutoResetEvent Poll = new AutoResetEvent(true);
+        protected readonly object Lock = new();
+        protected CoinAcceptorState AcceptorState = new();
+        protected CoinEntryState CoinEntryState = new();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        protected override bool StartDeviceMonitoring()
-        {
-            _running = true;
-            _monitoringThread = new Thread(Run)
-            {
-                Name = "CoinValidatorCommunicatorMonitor",
-                CurrentCulture = Thread.CurrentThread.CurrentCulture,
-                CurrentUICulture = Thread.CurrentThread.CurrentUICulture
-            };
 
-            // Set poll timer to elapsed event.
-            PollTimer.Elapsed += OnPollTimeout;
-            PollTimer.Interval = DeviceConfig.pollingFrequency;
 
-            _monitoringThread.Start();
-            PollTimer.Start();
-
-            
-            return true;
-        }
-
-        protected override bool StopDeviceMonitoring()
-        {
-            _running = false;
-            _monitoringThread?.Join();
-            return true;
-        }
-
-        public override void SendMessage(GdsSerializableMessage message, CancellationToken token)
-        {
-            ProcessMessage(message, token);
-        }
-
-        private void Run()
+        protected override void Run()
         {
             while (_running)
             {
@@ -100,7 +71,7 @@
             }
         }
 
-        private void DataProcessor(ChangeRecord record)
+        private void DataProcessor(Contracts.PWM.ChangeRecord record)
         {
             CoinEntryState.currentState = Cc62Signals.None;
 
@@ -339,11 +310,150 @@
                 CoinEntryState.SensePulses = 0;
             }
         }
-        
-        private static void OnPollTimeout(object sender, ElapsedEventArgs e)
+
+        protected bool CoinRejectMechOn()
         {
-            // Set to poll.
-            Poll.Set();
+            lock (Lock)
+            {
+                if (AcceptorState.pendingDiverterAction == DivertorAction.None)
+                {
+                    RejectMechanishOnOff(true);
+                }
+
+                AcceptorState.State = Contracts.PWM.AcceptorState.Reject;
+                return true;
+            }
         }
+
+        private bool CoinRejectMechOff()
+        {
+            lock (Lock)
+            {
+                if (AcceptorState.pendingDiverterAction == DivertorAction.None)
+                {
+                    RejectMechanishOnOff(false);
+                }
+                AcceptorState.State = Contracts.PWM.AcceptorState.Accept;
+                return true;
+            }
+        }
+
+
+        private bool DivertToHopper()
+        {
+            lock (Lock)
+            {
+                if (AcceptorState.DivertTo == DivertorState.DivertToCashbox)
+                {
+                    RejectMechanishOnOff(true);
+                    AcceptorState.pendingDiverterAction = DivertorAction.DivertToHopper;
+                    AcceptorState.CoinTransmitTimer = 0;
+
+                }
+                return true;
+            }
+        }
+
+        private bool DivertToCashbox()
+        {
+            lock (Lock)
+            {
+                if (AcceptorState.DivertTo == DivertorState.DivertToHopper)
+                {
+                    RejectMechanishOnOff(true);
+                    AcceptorState.pendingDiverterAction = DivertorAction.DivertToCashbox;
+                    AcceptorState.CoinTransmitTimer = 0;
+
+                }
+                return true;
+            }
+        }
+
+        protected void Reset()
+        {
+            lock (Lock)
+            {
+                System.Console.WriteLine("Clearing lockup");
+                StopPolling();
+                CoinEntryState.Reset();
+                AcceptorState.Reset();
+                StartPolling();
+            }
+        }
+
+        protected virtual bool AckRead(uint txnId)
+        {
+            //Non Non-Volatile Coin acceptor has nothing do with ACK
+            return true;
+        }
+
+        protected bool RejectMechanishOnOff(bool OnOff)
+        {
+            return Ioctl(OnOff ?
+                CoinAcceptorCommands.CoinAcceptorRejectOn
+                : CoinAcceptorCommands.CoinAcceptorRejectOff, 0);
+        }
+        protected bool DivertorMechanishOnOff(bool OnOff)
+        {
+            return Ioctl(OnOff ?
+                CoinAcceptorCommands.CoinAcceptorDivertorOn
+                : CoinAcceptorCommands.CoinAcceptorDivertorOff, 0);
+        }
+
+        private bool StartPolling()
+        {
+            return Ioctl(CoinAcceptorCommands.CoinAcceptorStartPolling, 0);
+        }
+
+        private bool StopPolling()
+        {
+            return Ioctl(CoinAcceptorCommands.CoinAcceptorStopPolling, 0);
+        }
+
+
+        public override void SendMessage(GdsSerializableMessage message, CancellationToken token)
+        {
+            ProcessMessage(message, token);
+        }
+
+        protected void ProcessMessage(GdsSerializableMessage message, CancellationToken token)
+        {
+            switch (message)
+            {
+                case DivertorMode mode:
+                    {
+                        if (mode.DivertorOnOff)
+                        {
+                            DivertToHopper();
+                        }
+                        else
+                        {
+                            DivertToCashbox();
+                        }
+                        break;
+                    }
+                case RejectMode mode:
+                    {
+                        if (mode.RejectOnOff)
+                        {
+                            CoinRejectMechOff();
+                        }
+                        else
+                        {
+                            CoinRejectMechOn();
+                        }
+
+                        break;
+                    }
+                case DeviceReset:
+                    {
+                        Reset();
+                        break;
+                    }
+                default:
+                    break;
+            }
+        }
+
     }
 }
