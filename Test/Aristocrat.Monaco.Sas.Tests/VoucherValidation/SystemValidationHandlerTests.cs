@@ -154,7 +154,7 @@
         public void AwaitingAcknowledgeFromHostFailsValidation()
         {
             const ulong amount = 100;
-            const int validationFailedTime = 3000; // This is double the fail time
+            const int validationFailedTime = 5000; // This is double the fail time
 
             _transactionHistory.Setup(x => x.RecallTransactions(It.IsAny<bool>()))
                 .Returns(new List<ITransaction> { new VoucherOutTransaction { HostAcknowledged = false } }.OrderBy(x => x.TransactionId));

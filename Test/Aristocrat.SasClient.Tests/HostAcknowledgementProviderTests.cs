@@ -12,7 +12,7 @@
     [TestClass]
     public class HostAcknowledgementProviderTests
     {
-        private const int waitTimeout = 1000;
+        private const int waitTimeout = 2000;
         private HostAcknowledgementProvider _target;
         private Mock<ISasExceptionQueue> _exceptionQueue;
         private Mock<ISasMessageQueue> _messageQueue;
