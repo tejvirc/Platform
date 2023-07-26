@@ -3,8 +3,8 @@
     using System;
     using Kernel;
     using Properties;
-    using static System.FormattableString;
     using static CoinEventsDescriptor;
+    using static System.FormattableString;
 
     /// <summary> Definition of the <see cref="HardwareFaultClearEvent"/> class.</summary>
     /// <remarks>

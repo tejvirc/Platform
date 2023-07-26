@@ -1,53 +1,56 @@
 ﻿
 namespace Aristocrat.Monaco.Hardware.CoinAcceptor
 {
-    using Aristocrat.Monaco.Common;
-    using Aristocrat.Monaco.Hardware.Contracts;
-    using Aristocrat.Monaco.Hardware.Contracts.Communicator;
-    using Aristocrat.Monaco.Hardware.Contracts.PWM;
-    using Aristocrat.Monaco.Hardware.Contracts.SharedDevice;
-    using Aristocrat.Monaco.Kernel;
-    using Aristocrat.Monaco.Kernel.Contracts.Components;
-    using log4net;
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    /// <summary>
-    /// 
-    /// </summary>
+    using Aristocrat.Monaco.Kernel;
+    using Common;
+    using Contracts.Communicator;
+    using Contracts.PWM;
+    using Contracts.SharedDevice;
+    using log4net;
+
+    /// <summary>A coin acceptor adapter.</summary>
+    /// <seealso
+    ///     cref="T:Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter{Aristocrat.Monaco.Hardware.Contracts.PWM.ICoinAcceptorImplementation}" />
+    /// <seealso cref="T:Aristocrat.Monaco.Hardware.Contracts.PWM.ICoinAcceptor" />
     public class CoinAcceptorAdapter : DeviceAdapter<ICoinAcceptorImplementation>, ICoinAcceptor
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private const string DeviceImplementationsExtensionPath = "/Hardware/CoinAcceptor/CoinAcceptorImplementations";
         private ICoinAcceptorImplementation _coinAcceptor;
         private readonly IEventBus _bus;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
-
+        /// <summary>
+        ///     Initializes a new instance of the Aristocrat.Monaco.Hardware.CoinAcceptor.CoinAcceptorAdapter class.
+        /// </summary>
         public CoinAcceptorAdapter()
         {
             _bus = ServiceManager.GetInstance().GetService<IEventBus>();
         }
 
+        /// <inheritdoc />
         public override DeviceType DeviceType => DeviceType.CoinAcceptor;
 
+        /// <inheritdoc />
         public override string Name => string.IsNullOrEmpty(ServiceProtocol) == false
             ? $"{ServiceProtocol} Coin Acceptor Service"
             : "Unknown Coin Acceptor Service";
 
+        /// <inheritdoc />
         public override bool Connected => Implementation?.IsConnected ?? false;
 
+        /// <inheritdoc />
         public override ICollection<Type> ServiceTypes => new[] { typeof(ICoinAcceptor) };
 
-        protected override ICoinAcceptorImplementation Implementation => _coinAcceptor;
-
-        protected override string Description => "Coin Acceptor";
-
-        protected override string Path => Kernel.Contracts.Components.Constants.CoinAcceptorPath;
-
+        /// <inheritdoc />
         public DivertorState DiverterDirection { get; set; }
+
+        /// <inheritdoc />
         public AcceptorState InputState { get; set; }
 
-
+        /// <inheritdoc />
         public CoinFaultTypes Faults
         {
             get
@@ -63,19 +66,86 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
             }
         }
 
-
+        /// <inheritdoc />
         public int CoinAcceptorId { get; set; } = 1; // Default to deviceId 1 since 0 isn't valid in G2S
+
+        /// <inheritdoc />
+        public void CoinRejectMechOn()
+        {
+            InputState = AcceptorState.Reject;
+            Implementation.CoinRejectMechOn();
+        }
+
+        /// <inheritdoc />
+        public void CoinRejectMechOff()
+        {
+            InputState = AcceptorState.Accept;
+            Implementation.CoinRejectMechOff();
+        }
+
+        /// <inheritdoc />
+        public void DivertToHopper()
+        {
+            DiverterDirection = DivertorState.DivertToHopper;
+            Implementation.DivertToHopper();
+        }
+
+        /// <inheritdoc />
+        public void DivertToCashbox()
+        {
+            DiverterDirection = DivertorState.DivertToCashbox;
+            Implementation.DivertToCashbox();
+        }
+
+        /// <inheritdoc />
+        public void Reset()
+        {
+            Implementation.DeviceReset();
+            DivertMechanismOnOff();
+        }
+
+        /// <inheritdoc />
+        public void DivertMechanismOnOff()
+        {
+
+            //TODO: implement hopper's properties with realtime values once hopper feature is available..
+            bool isHopperInstalled = false;
+            //bool isHopperFull = false;
+
+            // if (PropertiesManager.GetValue(HardwareConstants.HopperEnabledKey, false) && isHopperInstalled && (!isHopperFull))
+            if (!isHopperInstalled)
+            {
+                DivertToHopper();
+            }
+            else
+            {
+                DivertToCashbox();
+            }
+        }
+
+        /// <inheritdoc />
+        protected override ICoinAcceptorImplementation Implementation => _coinAcceptor;
+
+        /// <inheritdoc />
+        protected override string Description => "Coin Acceptor";
+
+        /// <inheritdoc />
+        protected override string Path => Kernel.Contracts.Components.Constants.CoinAcceptorPath;
+
+        /// <inheritdoc />
         protected override void DisabledDetected()
         {
             PostEvent(new DisabledEvent(CoinAcceptorId, ReasonDisabled));
         }
 
+        /// <inheritdoc />
         protected override void Disabling(DisabledReasons reason)
         {
             CoinRejectMechOn();
 
         }
 
+        /// <inheritdoc />
         protected override void Enabling(EnabledReasons reason, DisabledReasons remedied)
         {
             if (Enabled)
@@ -88,6 +158,7 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
             }
         }
 
+        /// <inheritdoc />
         protected override void Initializing()
         {
             // Load an instance of the given protocol implementation.
@@ -112,56 +183,9 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
         {
         }
 
+        /// <inheritdoc />
         protected override void SubscribeToEvents(IEventBus eventBus)
         {
-        }
-
-        public void CoinRejectMechOn()
-        {
-            InputState = AcceptorState.Reject;
-            Implementation.CoinRejectMechOn();
-        }
-
-        public void CoinRejectMechOff()
-        {
-            InputState = AcceptorState.Accept;
-            Implementation.CoinRejectMechOff();
-        }
-
-        public void DivertToHopper()
-        {
-            DiverterDirection = DivertorState.DivertToHopper;
-            Implementation.DivertToHopper();
-        }
-
-        public void DivertToCashbox()
-        {
-            DiverterDirection = DivertorState.DivertToCashbox;
-            Implementation.DivertToCashbox();
-        }
-
-        public void Reset()
-        {
-            Implementation.DeviceReset();
-            DivertMechanismOnOff();
-        }
-
-        public void DivertMechanismOnOff()
-        {
-
-            //TODO: implement hopper's properties with realtime values once hopper feature is available..
-            bool isHopperInstalled = false;
-            //bool isHopperFull = false;
-
-           // if (PropertiesManager.GetValue(HardwareConstants.HopperEnabledKey, false) && isHopperInstalled && (!isHopperFull))
-            if(!isHopperInstalled)
-            {
-                DivertToHopper();
-            }
-            else
-            {
-                DivertToCashbox();
-            }
         }
 
         /// <inheritdoc />
@@ -188,6 +212,7 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
 
             base.Dispose(disposing);
         }
+
         private void ImplementationInitialized(object sender, EventArgs e)
         {
             if ((ReasonDisabled & DisabledReasons.Device) != 0)
@@ -241,7 +266,7 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
             {
                 case CoinEventType.CoinInEvent:
                     {
-                        _bus?.Publish(new CoinInEvent(new Coin {Value = 100000}));
+                        _bus?.Publish(new CoinInEvent(new Coin { Value = 100000 }));
                         break;
                     }
                 case CoinEventType.CoinToCashboxInEvent:

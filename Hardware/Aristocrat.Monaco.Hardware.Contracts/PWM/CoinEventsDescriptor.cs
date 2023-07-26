@@ -8,7 +8,7 @@
     public static class CoinEventsDescriptor
     {
         /// <summary>
-        /// Descriptor struct
+        ///     Descriptor struct
         /// </summary>
         public struct FaultDescriptor
         {

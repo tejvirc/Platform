@@ -3,7 +3,7 @@
     using System;
     using Kernel;
     using static System.FormattableString;
-    using static Aristocrat.Monaco.Hardware.Contracts.PWM.CoinEventsDescriptor;
+    using static CoinEventsDescriptor;
 
     /// <summary> Definition of the <see cref="HardwareFaultEvent"/> class.</summary>
     /// <remarks>

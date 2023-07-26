@@ -1,11 +1,8 @@
-﻿namespace Aristocrat.Monaco.Hardware.Contracts
+﻿namespace Aristocrat.Monaco.Hardware.Contracts.PWM
 {
     using System;
-    using PWM;
 
-    /// <summary>
-    /// 
-    /// </summary>
+    /// <summary>Interface for coin acceptor implementation.</summary>
     public interface ICoinAcceptorImplementation : IGdsDevice
     {
         /// <summary>Enable Reject Mechanishm.</summary>
@@ -30,7 +27,6 @@
         event EventHandler<CoinFaultTypes> FaultOccurred;
 
         /// <summary>Gets the current faults.</summary>
-        /// <value>The current faults.</value>
         CoinFaultTypes Faults { get; set; }
     }
 }

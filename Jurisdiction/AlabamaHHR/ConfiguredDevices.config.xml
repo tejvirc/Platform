@@ -27,7 +27,6 @@ as follows:
   </Included>
 
   <Excluded>
-    <Device Type="CoinAcceptor" />
     <Device Type="HardMeters" />
   </Excluded>
 </ConfiguredDevices>

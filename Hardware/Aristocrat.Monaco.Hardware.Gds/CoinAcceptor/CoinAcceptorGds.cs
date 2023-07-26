@@ -1,76 +1,56 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Gds.CoinAcceptor
 {
-    using Aristocrat.Monaco.Hardware.Contracts;
-    using Aristocrat.Monaco.Kernel;
     using System;
+    using System.Reflection;
     using System.Threading.Tasks;
+    using Contracts.PWM;
     using Contracts.SharedDevice;
     using log4net;
-    using System.Reflection;
-    using Aristocrat.Monaco.Hardware.Contracts.PWM;
 
-    /// <summary>
-    /// 
-    /// </summary>
-    public class CoinAcceptorGds : GdsDeviceBase,
-        ICoinAcceptorImplementation
+    /// <summary>A GDS coin acceptor.</summary>
+    /// <seealso cref="T:Aristocrat.Monaco.Hardware.GdsDeviceBase" />
+    /// <seealso cref="T:Aristocrat.Monaco.Hardware.Contracts.PWM.ICoinAcceptorImplementation" />
+    public class CoinAcceptorGds : GdsDeviceBase, ICoinAcceptorImplementation
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
-        private readonly IPropertiesManager _propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
-
+    
         /// <summary>
-        /// 
-        /// </summary>
-        public CoinFaultTypes Faults { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public event EventHandler<CoinEventType> CoinInStatusReported;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public event EventHandler<CoinFaultTypes> FaultOccurred;
-
-        /// <summary>
-        /// 
+        ///     Initializes a new instance of the Aristocrat.Monaco.Hardware.Gds.CoinAcceptor.CoinAcceptorGds class.
         /// </summary>
         public CoinAcceptorGds()
         {
             DeviceType = DeviceType.CoinAcceptor;
             RegisterCallback<CoinInStatus>(StatusReported);
-            RegisterCallback<CoinInFaultStatus>(CoinInFaultReported);    
+            RegisterCallback<CoinInFaultStatus>(CoinInFaultReported);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc />
+        public CoinFaultTypes Faults { get; set; }
+
+        /// <inheritdoc />
+        public event EventHandler<CoinEventType> CoinInStatusReported;
+
+        /// <inheritdoc />
+        public event EventHandler<CoinFaultTypes> FaultOccurred;
+
+        /// <inheritdoc />
         public void CoinRejectMechOff()
         {
             SendCommand(new RejectMode { RejectOnOff = true });
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc />
         public void CoinRejectMechOn()
         {
             SendCommand(new RejectMode { RejectOnOff = false });
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <inheritdoc />
         public void DivertMechanismOnOff()
         {
-            //TODO: implement hopper's properties with realtime values once hopper feature is available..
-            bool isHopperInstalled = true;
-            bool isHopperFull = false;
-
-            if (_propertiesManager.GetValue(HardwareConstants.HopperEnabledKey, false) && isHopperInstalled && (!isHopperFull))
+            //TODO: Once hopper service done then we can apply proper logic.
+            bool isHopperInstalled = false;
+            if (isHopperInstalled)
             {
                 DivertToHopper();
             }
@@ -80,40 +60,25 @@
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc />
         public void DivertToCashbox()
         {
             SendCommand(new DivertorMode { DivertorOnOff = false });
-
         }
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc />
         public void DivertToHopper()
         {
             SendCommand(new DivertorMode { DivertorOnOff = true });
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="nvm"></param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public override Task<bool> SelfTest(bool nvm)
         {
             throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc />
         protected override Task<bool> Reset()
         {
             DeviceReset();

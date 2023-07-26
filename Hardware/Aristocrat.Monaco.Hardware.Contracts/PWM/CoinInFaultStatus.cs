@@ -1,12 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts.PWM
 {
-    using Aristocrat.Monaco.Hardware.Contracts.Gds;
-    using Aristocrat.Monaco.Hardware.Contracts.PWM;
+    using Gds;
     using BinarySerialization;
     using static System.FormattableString;
 
     /// <summary>
-    /// 
+    ///     Coin Fault Status
     /// </summary>
     public class CoinInFaultStatus : GdsSerializableMessage
     {

@@ -46,7 +46,7 @@
             return true;
         }
 
-        /// <summary>Enable/Disbale Reject Mechanish</summary>
+        /// <summary>Enable/Disable Reject Mechanism</summary>
         /// <param name="OnOff">Flag to enable/disable</param>
         protected bool RejectMechanishOnOff(bool OnOff)
         {
@@ -55,7 +55,7 @@
                 : CoinAcceptorCommands.CoinAcceptorRejectOff, 0);
         }
 
-        /// <summary>Enable/Disble the Divertor </summary>
+        /// <summary>Enable/Disable the Diverter </summary>
         /// <param name="OnOff">Flag to enable/disable</param>
         protected bool DivertorMechanishOnOff(bool OnOff)
         {
@@ -125,7 +125,7 @@
             while (Running)
             {
                 Poll.WaitOne();
-                (var status, var record) = Read();
+                var (status, record) = Read();
 
                 if (status)
                 {
@@ -383,7 +383,7 @@
             }
         }
 
-        /// <summary>Disable reject mechanish</summary>
+        /// <summary>Disable reject mechanism</summary>
         private void CoinRejectMechOff()
         {
             lock (Lock)
@@ -396,7 +396,7 @@
             }
         }
 
-        /// <summary>Divert divetor toward hopper</summary>
+        /// <summary>Divert diverter toward hopper</summary>
         private void DivertToHopper()
         {
             lock (Lock)
@@ -411,7 +411,7 @@
             }
         }
 
-        /// <summary>Divert divetor toward cashbox</summary>
+        /// <summary>Divert diverter toward cashbox</summary>
         private void DivertToCashbox()
         {
             lock (Lock)
