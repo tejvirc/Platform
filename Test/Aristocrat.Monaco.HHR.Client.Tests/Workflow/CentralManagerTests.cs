@@ -161,7 +161,7 @@
                 Assert.AreEqual(returnedResponse.MessageStatus, MessageStatus.UnexpectedResponse);
                 Assert.IsTrue(returnedResponse is CloseTranErrorResponse);
                 Assert.AreEqual(returnedResponse.ReplyId, request.SequenceId);
-                Thread.Sleep(1000);
+                Thread.Sleep(2000);
                 _messageFlow.Verify(x => x.Send(request, It.IsAny<CancellationToken>()), Times.Exactly(_retry + 1));
                 _messageFlow.Verify(x => x.Receive(_packet, It.IsAny<CancellationToken>()), Times.AtLeast(_retry + 1));
             }
