@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
+    using System.Runtime.CompilerServices;
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
 
@@ -149,14 +150,12 @@
         /// <typeparam name="T">The type of the field being changed</typeparam>
         /// <param name="property">The backing field for the property</param>
         /// <param name="value">The new value to set</param>
-        /// <param name="propertyNames">Array of property names to emit events for. The first property is treated as the primary property to attempt validation for.</param>
+        /// <param name="primaryPropertyName">The primary property to set and attempt validation for.</param>
+        /// <param name="otherPropertyNames">Optional array of property names to emit property changed events for.</param>
         /// <returns>false if the new and existing values are equal, true if they are not</returns>
-        protected bool SetProperty<T>(ref T property, T value, params string[] propertyNames)
+        protected bool SetProperty<T>(ref T property, T value, string primaryPropertyName, params string[] otherPropertyNames)
         {
-            if ((propertyNames?.Length ?? 0) == 0)
-            {
-                throw new ArgumentException($"Expected at least one element in {nameof(propertyNames)}, but received none.");
-            }
+            var propertyNames = (otherPropertyNames == null ? new[] { primaryPropertyName } : otherPropertyNames.Append(primaryPropertyName)).ToArray();
 
             if (EqualityComparer<T>.Default.Equals(property, value))
             {
@@ -167,11 +166,7 @@
             property = value;
             OnPropertyChanged(propertyNames);
 
-            var primaryProperty = propertyNames.FirstOrDefault();
-            if (primaryProperty != null)
-            {
-                ValidateProperty(value, primaryProperty);
-            }
+            ValidateProperty(value, primaryPropertyName);
 
             return true;
         }
