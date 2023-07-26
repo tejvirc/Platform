@@ -14,16 +14,15 @@
     using Aristocrat.Monaco.Gaming.Contracts;
     using Aristocrat.Monaco.Hardware.Contracts;
     using Aristocrat.Monaco.Hardware.Contracts.Button;
+    using Aristocrat.Monaco.Hardware.Contracts.CoinAcceptor;
     using Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor;
     using Aristocrat.Monaco.Hardware.Contracts.Persistence;
     using Aristocrat.Monaco.Hardware.Contracts.SharedDevice;
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Kernel.Contracts.Events;
     using log4net;
-    using Aristocrat.Monaco.Hardware.Contracts.PWM;
     using DisabledEvent = Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.DisabledEvent;
     using EnabledEvent = Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.EnabledEvent;
-    using HardwareFaultEvent = Aristocrat.Monaco.Hardware.Contracts.PWM.HardwareFaultEvent;
 
     /// <summary>
     ///     Listens for currency-escrowed events and, upon receiving one,
@@ -570,8 +569,42 @@
             _transaction.NewAccountBalance = (long)block["NewAccountBalance"];
         }
 
+        private int count = 0;
+        private bool HandleEvent()
+        {
+            #region debug coin event
+            var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
+            eventBus.Publish(new CoinInEvent(new Coin() { Value = 100000L}));
+            switch (count)
+            {
+                case 0:
+                    eventBus.Publish(new CoinToCashboxInEvent());
+                    break;
+                case 1:
+                    eventBus.Publish(new CoinToHopperInEvent());
+                    break;
+                case 2:
+                    eventBus.Publish(new CoinToCashboxInsteadOfHopperEvent());
+                    break;
+                case 3:
+                    eventBus.Publish(new CoinToHopperInsteadOfCashboxEvent());
+                    break;
+            }
+
+            count += 1;
+            if (count == 4)
+                count = 0;
+
+            #endregion
+
+            return true;
+        }
+
         private void ReceiveEvent(IEvent data)
         {
+            if (HandleEvent())
+                return;
+
             if (typeof(DebugNoteEvent) == data.GetType())
             {
                 var debugNoteEvent = (DebugNoteEvent)data;

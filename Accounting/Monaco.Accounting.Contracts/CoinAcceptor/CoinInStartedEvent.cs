@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Accounting.Contracts.CoinAcceptor
 {
     using System;
-    using Hardware.Contracts.PWM;
+    using Hardware.Contracts.CoinAcceptor;
     using Kernel;
 
     /// <summary>

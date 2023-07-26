@@ -5,7 +5,7 @@
     using System.Threading;
     using Contracts.Gds;
     using Contracts.Gds.CoinAcceptor;
-    using Contracts.PWM;
+    using Contracts.CoinAcceptor;
     using Protocol;
     using log4net;
 
@@ -116,7 +116,7 @@
                     RejectMechanishOnOff(true);
                 }
 
-                AcceptorState.State = Contracts.PWM.AcceptorState.Reject;
+                AcceptorState.State = Contracts.CoinAcceptor.AcceptorState.Reject;
             }
         }
 
@@ -137,7 +137,7 @@
                             AcceptorState.CoinTransmitTimer += record.elapsedSinceLastChange.QuadPart / 10000;
                         }
 
-                        if (AcceptorState.State == Contracts.PWM.AcceptorState.Accept || AcceptorState.CoinTransmitTimer < CoinSignalsConsts.CoinTransitTime)
+                        if (AcceptorState.State == Contracts.CoinAcceptor.AcceptorState.Accept || AcceptorState.CoinTransmitTimer < CoinSignalsConsts.CoinTransitTime)
                         {
                             DataProcessor(record);
                         }
@@ -159,7 +159,7 @@
                             }
 
                             AcceptorState.PendingDiverterAction = DivertorAction.None;
-                            RejectMechanishOnOff(AcceptorState.State != Contracts.PWM.AcceptorState.Accept);
+                            RejectMechanishOnOff(AcceptorState.State != Contracts.CoinAcceptor.AcceptorState.Accept);
                         }
                     }
                 }
@@ -393,7 +393,7 @@
                 {
                     RejectMechanishOnOff(false);
                 }
-                AcceptorState.State = Contracts.PWM.AcceptorState.Accept;
+                AcceptorState.State = Contracts.CoinAcceptor.AcceptorState.Accept;
             }
         }
 

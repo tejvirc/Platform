@@ -5,9 +5,9 @@
     using Kernel;
     using Hardware.Contracts;
     using Hardware.Contracts.Button;
-    using Hardware.Contracts.PWM;
+    using Hardware.Contracts.CoinAcceptor;
     using System.Collections.Generic;
-    using static Hardware.Contracts.PWM.CoinEventsDescriptor;
+    using static Hardware.Contracts.CoinAcceptor.CoinEventsDescriptor;
 
     /// <summary>
     ///     Handle Lockup events from coin acceptor.

@@ -5,8 +5,8 @@
     using System.Linq;
     using System.Reflection;
     using Contracts;
+    using Contracts.CoinAcceptor;
     using Contracts.Persistence;
-    using Contracts.PWM;
     using Kernel;
     using log4net;
 

@@ -1,23 +1,22 @@
-﻿namespace Aristocrat.Monaco.Hardware.Contracts.PWM
+﻿namespace Aristocrat.Monaco.Hardware.Contracts.CoinAcceptor
 {
     using System;
     using Kernel;
-    using Properties;
-    using static CoinEventsDescriptor;
     using static System.FormattableString;
+    using static CoinEventsDescriptor;
 
-    /// <summary> Definition of the <see cref="HardwareFaultClearEvent"/> class.</summary>
+    /// <summary> Definition of the <see cref="HardwareFaultEvent"/> class.</summary>
     /// <remarks>
-    ///     This event is posted if the coin acceptor faults are cleared.
+    ///     This event is posted if the any fault occurred from coin acceptor.
     /// </remarks>
     [Serializable]
-    public class HardwareFaultClearEvent : BaseEvent
+    public class HardwareFaultEvent : CoinAcceptorBaseEvent
     {
         /// <summary>
-        ///     Initializes a new instance of the <see cref="HardwareFaultClearEvent" /> class.
+        ///     Initializes a new instance of the <see cref="HardwareFaultEvent" /> class.
         /// </summary>
         /// <param name="fault">The fault.</param>
-        public HardwareFaultClearEvent(CoinFaultTypes fault)
+        public HardwareFaultEvent(CoinFaultTypes fault)
         {
             Fault = fault;
         }
@@ -31,8 +30,7 @@
         {
             if (FaultTexts.ContainsKey(Fault))
             {
-                var result = FaultTexts[Fault].EventText;
-                return result != string.Empty ? result + $" {Resources.ClearedText}" : result;
+                return FaultTexts[Fault].EventText;
             }
 
             return Invariant($"{base.ToString()} [Fault={Fault}]");

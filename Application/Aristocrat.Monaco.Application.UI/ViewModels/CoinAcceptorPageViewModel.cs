@@ -8,7 +8,7 @@
     using Contracts.OperatorMenu;
     using Events;
     using Hardware.Contracts;
-    using Hardware.Contracts.PWM;
+    using Hardware.Contracts.CoinAcceptor;
     using Kernel;
     using Monaco.Common;
     using Monaco.Localization.Properties;

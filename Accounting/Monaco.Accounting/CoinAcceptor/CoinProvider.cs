@@ -11,7 +11,7 @@
     using Contracts.Transactions;
     using Hardware.Contracts;
     using Hardware.Contracts.Persistence;
-    using Hardware.Contracts.PWM;
+    using Hardware.Contracts.CoinAcceptor;
     using Kernel;
     using Localization.Properties;
     using log4net;

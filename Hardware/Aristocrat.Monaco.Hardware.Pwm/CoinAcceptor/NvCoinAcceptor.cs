@@ -1,5 +1,5 @@
 ﻿using Aristocrat.Monaco.Hardware.Contracts.Communicator;
-using Aristocrat.Monaco.Hardware.Contracts.PWM;
+using Aristocrat.Monaco.Hardware.Contracts.CoinAcceptor;
 using System;
 
 namespace Aristocrat.Monaco.Hardware.Pwm.CoinAcceptor

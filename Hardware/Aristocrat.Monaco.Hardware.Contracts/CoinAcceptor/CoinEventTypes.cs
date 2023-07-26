@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Hardware.Contracts.PWM
+﻿namespace Aristocrat.Monaco.Hardware.Contracts.CoinAcceptor
 {
     /// <summary>enum to specifying coin event types.</summary>
     public enum CoinEventType

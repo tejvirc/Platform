@@ -7,7 +7,7 @@
     using System.Timers;
     using Contracts.Communicator;
     using Contracts.Gds;
-    using Contracts.PWM;
+    using Contracts.CoinAcceptor;
     using Contracts.SharedDevice;
     using log4net;
     using Microsoft.Win32.SafeHandles;
@@ -555,7 +555,7 @@
                     0,
                     IntPtr.Zero);
             }
-            return !_deviceHandle.IsInvalid;
+            return _deviceHandle.IsInvalid;
         }
     }
 }

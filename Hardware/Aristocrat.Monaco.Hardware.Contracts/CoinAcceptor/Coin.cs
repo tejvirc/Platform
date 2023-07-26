@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Hardware.Contracts.PWM
+﻿namespace Aristocrat.Monaco.Hardware.Contracts.CoinAcceptor
 {
     using System;
     using static System.FormattableString;

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Hardware.Contracts.PWM
+﻿namespace Aristocrat.Monaco.Hardware.Contracts.CoinAcceptor
 {
     /// <summary>Interface for coin.</summary>
     public interface ICoin

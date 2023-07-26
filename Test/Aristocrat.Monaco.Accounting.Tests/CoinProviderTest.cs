@@ -10,7 +10,7 @@
     using Contracts;
     using Hardware.Contracts;
     using Hardware.Contracts.Persistence;
-    using Hardware.Contracts.PWM;
+    using Hardware.Contracts.CoinAcceptor;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Mono.Addins;

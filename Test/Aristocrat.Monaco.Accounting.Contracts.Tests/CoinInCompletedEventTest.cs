@@ -3,7 +3,7 @@
     using System;
     using System.Reflection;
     using Accounting.Contracts.CoinAcceptor;
-    using Hardware.Contracts.PWM;
+    using Hardware.Contracts.CoinAcceptor;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]

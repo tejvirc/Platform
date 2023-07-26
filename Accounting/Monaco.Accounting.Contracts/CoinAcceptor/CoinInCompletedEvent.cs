@@ -2,7 +2,7 @@
 {
     using System;
     using System.Globalization;
-    using Hardware.Contracts.PWM;
+    using Hardware.Contracts.CoinAcceptor;
     using Kernel;
 
     /// <summary>

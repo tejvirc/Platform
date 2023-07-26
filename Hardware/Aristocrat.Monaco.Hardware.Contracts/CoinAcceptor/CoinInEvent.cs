@@ -1,11 +1,10 @@
-﻿namespace Aristocrat.Monaco.Hardware.Contracts.PWM
+﻿namespace Aristocrat.Monaco.Hardware.Contracts.CoinAcceptor
 {
     using System;
-    using Kernel;
     
     /// <summary>Definition of the Coin acceptor coin in event class.</summary>
     [Serializable]
-    public class CoinInEvent : BaseEvent
+    public class CoinInEvent : CoinAcceptorBaseEvent
     {
         /// <summary>
         ///     Coin In Event.

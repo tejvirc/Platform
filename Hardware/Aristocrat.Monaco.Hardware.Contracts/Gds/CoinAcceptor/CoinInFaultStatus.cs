@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts.Gds.CoinAcceptor
 {
-    using PWM;
     using BinarySerialization;
+    using Contracts.CoinAcceptor;
     using static System.FormattableString;
 
     /// <summary>

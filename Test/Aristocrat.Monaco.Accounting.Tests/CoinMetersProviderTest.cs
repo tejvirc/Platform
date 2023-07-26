@@ -6,8 +6,8 @@
     using Application.Contracts;
     using Aristocrat.Monaco.Accounting.CoinAcceptor;
     using Hardware.Contracts;
+    using Hardware.Contracts.CoinAcceptor;
     using Hardware.Contracts.Persistence;
-    using Hardware.Contracts.PWM;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Mono.Addins;

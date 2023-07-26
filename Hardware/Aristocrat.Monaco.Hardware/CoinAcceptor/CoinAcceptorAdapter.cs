@@ -4,14 +4,14 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    using Aristocrat.Monaco.Kernel;
     using Common;
     using Contracts;
+    using Contracts.CoinAcceptor;
     using Contracts.Communicator;
-    using Contracts.PWM;
     using Contracts.SharedDevice;
+    using Kernel;
     using log4net;
-
+    
     /// <summary>A coin acceptor adapter.</summary>
     /// <seealso
     ///     cref="T:Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter{Aristocrat.Monaco.Hardware.Contracts.PWM.ICoinAcceptorImplementation}" />

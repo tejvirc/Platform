@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Pwm.CoinAcceptor
 {
     using System;
-    using Contracts.PWM;
+    using Contracts.CoinAcceptor;
 
     /// <summary>
     ///     Class to maintain the coin acceptor state.

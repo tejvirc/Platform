@@ -11,8 +11,8 @@
     using Contracts.Lobby;
     using Hardware.Contracts;
     using Hardware.Contracts.NoteAcceptor;
+    using Hardware.Contracts.CoinAcceptor;
     using Hardware.Contracts.Persistence;
-    using Hardware.Contracts.PWM;
     using Hardware.Contracts.SharedDevice;
     using Kernel;
     using Kernel.Contracts;

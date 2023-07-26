@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Reflection;
     using Hardware.Contracts;
-    using Hardware.Contracts.PWM;
+    using Hardware.Contracts.CoinAcceptor;
     using Hardware.Contracts.SharedDevice;
     using Kernel;
     using log4net;

@@ -17,7 +17,7 @@
     using Contracts.NoteAcceptor;
     using Contracts.Persistence;
     using Contracts.Printer;
-    using Contracts.PWM;
+    using Contracts.CoinAcceptor;
     using Contracts.Reel;
     using Contracts.SharedDevice;
     using Kernel;

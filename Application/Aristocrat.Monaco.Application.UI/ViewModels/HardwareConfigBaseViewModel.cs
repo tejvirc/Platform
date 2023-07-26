@@ -23,8 +23,8 @@
     using Hardware.Contracts.HardMeter;
     using Hardware.Contracts.IdReader;
     using Hardware.Contracts.NoteAcceptor;
+    using Hardware.Contracts.CoinAcceptor;
     using Hardware.Contracts.Printer;
-    using Hardware.Contracts.PWM;
     using Hardware.Contracts.Reel;
     using Hardware.Contracts.SerialPorts;
     using Hardware.Contracts.SharedDevice;
@@ -46,8 +46,8 @@
     using PrinterInspectionSucceededEvent = Hardware.Contracts.Printer.InspectedEvent;
     using ReelInspectedEvent = Hardware.Contracts.Reel.Events.InspectedEvent;
     using ReelInspectionFailedEvent = Hardware.Contracts.Reel.Events.InspectionFailedEvent;
-    using CoinAcceptorInspectionFailedEvent = Hardware.Contracts.PWM.InspectionFailedEvent;
-    using CoinAcceptorInspectionSucceededEvent = Hardware.Contracts.PWM.InspectedEvent;
+    using CoinAcceptorInspectionFailedEvent = Hardware.Contracts.CoinAcceptor.InspectionFailedEvent;
+    using CoinAcceptorInspectionSucceededEvent = Hardware.Contracts.CoinAcceptor.InspectedEvent;
 
     [CLSCompliant(false)]
     public abstract class HardwareConfigBaseViewModel : ConfigWizardViewModelBase

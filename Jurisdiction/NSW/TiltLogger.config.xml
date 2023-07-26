@@ -97,8 +97,8 @@ as follows:
     <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Audio.EnabledEvent, Aristocrat.Monaco.Hardware.Contracts" Level="info" Type="General" />
     <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Audio.DisabledEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="General" />
     <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Printer.LoadingRegionsAndTemplatesEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
-    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.PWM.HardwareFaultEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
-    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.PWM.HardwareFaultClearEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="General" />
+    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.CoinAcceptor.HardwareFaultEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
+    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.CoinAcceptor.HardwareFaultClearEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="General" />
     <EventDescription Name="Aristocrat.Monaco.Kernel.Contracts.ExitRequestedEvent, Aristocrat.Monaco.Kernel.Contracts" Level="tilt" Type="Power" />
     <EventDescription Name="Aristocrat.Monaco.Kernel.PlatformBootedEvent, Aristocrat.Monaco.Kernel.Contracts" Level="tilt" Type="Power" />
     <EventDescription Name="Aristocrat.Monaco.Kernel.SystemDisabledEvent, Aristocrat.Monaco.Kernel.Contracts" Level="tilt" Type="General" />

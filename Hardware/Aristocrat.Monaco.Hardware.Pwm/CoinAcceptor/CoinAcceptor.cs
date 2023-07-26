@@ -2,7 +2,7 @@
 {
     using System;
     using Contracts.Communicator;
-    using Contracts.PWM;
+    using Contracts.CoinAcceptor;
 
     /// <summary>
     ///     Class to manage communication with Volatile coin acceptor device.
