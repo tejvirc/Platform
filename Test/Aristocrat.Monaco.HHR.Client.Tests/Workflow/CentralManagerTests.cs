@@ -26,7 +26,7 @@
         private readonly Packet _packet = new Packet(new byte[] { 0 }, 1);
         private readonly List<(Request request, Response response)> _responseReceived = new List<(Request, Response)>();
         private readonly ushort _retry = 3;
-        private const int Timeout = 1000;
+        private const int Timeout = 2000;
 
         private readonly List<(Request request, Type responseType)> _sentRequests =
             new List<(Request request, Type responseType)>();

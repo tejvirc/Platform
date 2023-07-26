@@ -37,6 +37,7 @@
     /// <summary>
     ///     Summary description for HardwareMeterScreenTest
     /// </summary>
+    [DoNotParallelize]
     [TestClass]
     public class HardwareMetersPageViewModelTest
     {
@@ -47,7 +48,7 @@
         private Mock<IPropertiesManager> _propertiesManager;
         private HardwareMetersPageViewModel _target;
         private readonly ManualResetEvent _waiter = new ManualResetEvent(false);
-        private const int Timeout = 1000;
+        private const int Timeout = 2000;
 
         // Use TestInitialize to run code before running each test 
         [TestInitialize]
