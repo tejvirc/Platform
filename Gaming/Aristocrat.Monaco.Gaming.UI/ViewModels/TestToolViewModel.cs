@@ -29,10 +29,10 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Monaco.UI.Common.Controls;
     using DisabledEvent = Hardware.Contracts.NoteAcceptor.DisabledEvent;
     using EnabledEvent = Hardware.Contracts.NoteAcceptor.EnabledEvent;
-#if !(RETAIL)
-    using Vgt.Client12.Testing.Tools;
     using Aristocrat.Toolkit.Mvvm.Extensions;
     using CommunityToolkit.Mvvm.Input;
+#if !(RETAIL)
+    using Vgt.Client12.Testing.Tools;
 #endif
 
     /// <summary>
