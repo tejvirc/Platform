@@ -126,30 +126,30 @@
                 return;
             }
 
-            var protocolCapabilityAttribute = (ProtocolCapabilityAttribute)Attribute.GetCustomAttribute(
+            _protocolCapabilities = (ProtocolCapabilityAttribute)Attribute.GetCustomAttribute(
                 protocolNode.Type,
                 typeof(ProtocolCapabilityAttribute));
             
             var protocolCapabilityList = new List<string>();
 
-            if (protocolCapabilityAttribute != null)
+            if (_protocolCapabilities != null)
             {
-                if (protocolCapabilityAttribute.IsValidationSupported)
+                if (_protocolCapabilities.IsValidationSupported)
                 {
                     protocolCapabilityList.Add(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Validation));
                 }
 
-                if (protocolCapabilityAttribute.IsFundTransferSupported)
+                if (_protocolCapabilities.IsFundTransferSupported)
                 {
                     protocolCapabilityList.Add(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.FundTransfer));
                 }
 
-                if (protocolCapabilityAttribute.IsProgressivesSupported)
+                if (_protocolCapabilities.IsProgressivesSupported)
                 {
                     protocolCapabilityList.Add(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Progressive));
                 }
 
-                if (protocolCapabilityAttribute.IsCentralDeterminationSystemSupported)
+                if (_protocolCapabilities.IsCentralDeterminationSystemSupported)
                 {
                     protocolCapabilityList.Add(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CentralDeterminationSystem));
                 }
