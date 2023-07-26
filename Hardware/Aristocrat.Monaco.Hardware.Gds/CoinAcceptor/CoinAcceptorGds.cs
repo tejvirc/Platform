@@ -10,7 +10,7 @@
 
     /// <summary>A GDS coin acceptor.</summary>
     /// <seealso cref="T:Aristocrat.Monaco.Hardware.GdsDeviceBase" />
-    /// <seealso cref="T:Aristocrat.Monaco.Hardware.Contracts.PWM.ICoinAcceptorImplementation" />
+    /// <seealso cref="T:Aristocrat.Monaco.Hardware.Contracts.CoinAcceptor.ICoinAcceptorImplementation" />
     public class CoinAcceptorGds : GdsDeviceBase, ICoinAcceptorImplementation
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);

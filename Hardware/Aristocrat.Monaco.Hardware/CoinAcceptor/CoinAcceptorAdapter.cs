@@ -11,11 +11,11 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
     using Contracts.SharedDevice;
     using Kernel;
     using log4net;
-    
+
     /// <summary>A coin acceptor adapter.</summary>
     /// <seealso
-    ///     cref="T:Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter{Aristocrat.Monaco.Hardware.Contracts.PWM.ICoinAcceptorImplementation}" />
-    /// <seealso cref="T:Aristocrat.Monaco.Hardware.Contracts.PWM.ICoinAcceptor" />
+    ///     cref="T:Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter{Aristocrat.Monaco.Hardware.Contracts.CoinAcceptor.ICoinAcceptorImplementation}" />
+    /// <seealso cref="T:Aristocrat.Monaco.Hardware.Contracts.CoinAcceptor.ICoinAcceptor" />
     public class CoinAcceptorAdapter : DeviceAdapter<ICoinAcceptorImplementation>, ICoinAcceptor
     {
         private const long DefaultTokenValue = 100000L;
