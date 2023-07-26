@@ -283,7 +283,6 @@
                         if (CoinEntryState.SensePulses > 0)
                         {
                             CoinEntryState.SensePulses--;
-                            System.Console.WriteLine("Firing " + nameof(CoinInEvent));
                             OnMessageReceived(new CoinInStatus { EventType = CoinEventType.CoinInEvent });
                             if (CoinEntryState.DivertingTo == DivertorState.DivertToHopper)
                             {
