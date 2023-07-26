@@ -374,11 +374,14 @@
 
             if (e.IsAccelerating)
             {
-                _stateManager?.Fire(ReelControllerTrigger.SpinForwardAccelerate, e.ReelId);
+                _stateManager?.FireReelAccelerate(ReelControllerTrigger.Accelerate, e.ReelId, e);
+                return;
             }
-            else if (e.IsDecelerating)
+
+            if (e.IsDecelerating)
             {
-                _stateManager?.Fire(ReelControllerTrigger.SpinForwardDecelerate, e.ReelId);
+                _stateManager?.FireReelDecelerate(ReelControllerTrigger.Decelerate, e.ReelId, e);
+                return;
             }
 
             _stateManager?.Fire(ReelControllerTrigger.SpinReel, e.ReelId);

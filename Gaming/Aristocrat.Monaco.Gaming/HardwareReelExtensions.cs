@@ -34,6 +34,12 @@
                 case ReelLogicalState.Tilted:
                     reelState = ReelState.Faulted;
                     break;
+                case ReelLogicalState.Accelerating:
+                    reelState = ReelState.Accelerating;
+                    break;
+                case ReelLogicalState.Decelerating:
+                    reelState = ReelState.Decelerating;
+                    break;
             }
 
             return reelState;

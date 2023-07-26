@@ -24,10 +24,8 @@
             ReelLogicalState.Stopping,
             ReelLogicalState.SpinningBackwards,
             ReelLogicalState.SpinningForward,
-            ReelLogicalState.SpinningBackwardsAccelerating,
-            ReelLogicalState.SpinningBackwardsDecelerating,
-            ReelLogicalState.SpinningForwardAccelerating,
-            ReelLogicalState.SpinningForwardDecelerating,
+            ReelLogicalState.Accelerating,
+            ReelLogicalState.Decelerating,
             ReelLogicalState.Tilted
         };
 
@@ -369,14 +367,76 @@
             }
         }
 
+        public bool FireReelAccelerate(ReelControllerTrigger trigger, int reelId, ReelSpinningEventArgs args)
+        {
+            Logger.Debug($"FireReelAccelerate with trigger {trigger} for reel {reelId}");
+            _stateLock.EnterWriteLock();
+            try
+            {
+                var canFire = _reelStates.TryGetValue(reelId, out var reelState);
+                if (!canFire)
+                {
+                    Logger.Debug($"FireReelAccelerate - FAILED getting reel state for trigger {trigger} and reel {reelId} in state {_state.State}");
+                    return false;
+                }
+                else
+                {
+                    canFire = CanFire(trigger, reelId);
+                    if (!canFire)
+                    {
+                        Logger.Debug($"FireReelAccelerate - FAILED CanFire for trigger {trigger} and reel {reelId} with reelState {reelState.StateMachine} in state {_state.State}");
+                        return false;
+                    }
+                }
+
+                Logger.Debug($"Accelerating with trigger {trigger} from state {reelState.StateMachine.State}");
+                reelState.StateMachine.Fire(reelState.AccelerateTrigger, args);
+                return Fire(trigger);
+            }
+            finally
+            {
+                _stateLock.ExitWriteLock();
+            }
+        }
+
+        public bool FireReelDecelerate(ReelControllerTrigger trigger, int reelId, ReelSpinningEventArgs args)
+        {
+            Logger.Debug($"FireReelDecelerate with trigger {trigger} for reel {reelId}");
+            _stateLock.EnterWriteLock();
+            try
+            {
+                var canFire = _reelStates.TryGetValue(reelId, out var reelState);
+                if (!canFire)
+                {
+                    Logger.Debug($"FireReelDecelerate - FAILED getting reel state for trigger {trigger} and reel {reelId} in state {_state.State}");
+                    return false;
+                }
+                else
+                {
+                    canFire = CanFire(trigger, reelId);
+                    if (!canFire)
+                    {
+                        Logger.Debug($"FireReelDecelerate - FAILED CanFire for trigger {trigger} and reel {reelId} with reelState {reelState.StateMachine} in state {_state.State}");
+                        return false;
+                    }
+                }
+
+                Logger.Debug($"Decelerating with trigger {trigger} from state {reelState.StateMachine.State}");
+                reelState.StateMachine.Fire(reelState.DecelerateTrigger, args);
+                return Fire(trigger);
+            }
+            finally
+            {
+                _stateLock.ExitWriteLock();
+            }
+        }
+
         private StateMachineWithStoppingTrigger CreateReelStateMachine(ReelLogicalState state = ReelLogicalState.IdleUnknown)
         {
             var stateMachine = new StateMachine<ReelLogicalState, ReelControllerTrigger>(state);
             var reelStoppedTriggerParameters = stateMachine.SetTriggerParameters<ReelLogicalState, ReelEventArgs>(ReelControllerTrigger.ReelStopped);
-            var reelAccelerationForwardParameters = stateMachine.SetTriggerParameters<ReelEventArgs>(ReelControllerTrigger.SpinForwardAccelerate);
-            var reelAccelerationBackwardParameters = stateMachine.SetTriggerParameters<ReelEventArgs>(ReelControllerTrigger.SpinBackwardAccelerate);
-            var reelDecelerationForwardParameters = stateMachine.SetTriggerParameters<ReelEventArgs>(ReelControllerTrigger.SpinForwardDecelerate);
-            var reelDecelerationBackwardParameters = stateMachine.SetTriggerParameters<ReelEventArgs>(ReelControllerTrigger.SpinBackwardDecelerate);
+            var reelAccelerationParameters = stateMachine.SetTriggerParameters<ReelSpinningEventArgs>(ReelControllerTrigger.Accelerate);
+            var reelDecelerationParameters = stateMachine.SetTriggerParameters<ReelSpinningEventArgs>(ReelControllerTrigger.Decelerate);
 
             stateMachine.Configure(ReelLogicalState.IdleUnknown)
                 .Permit(ReelControllerTrigger.Disconnected, ReelLogicalState.Disconnected)
@@ -389,10 +449,8 @@
                 .Permit(ReelControllerTrigger.TiltReels, ReelLogicalState.Tilted)
                 .Permit(ReelControllerTrigger.SpinReel, ReelLogicalState.SpinningForward)
                 .Permit(ReelControllerTrigger.SpinReelBackwards, ReelLogicalState.SpinningBackwards)
-                .Permit(ReelControllerTrigger.SpinForwardAccelerate, ReelLogicalState.SpinningForwardAccelerating)
-                .Permit(ReelControllerTrigger.SpinBackwardAccelerate, ReelLogicalState.SpinningBackwardsAccelerating)
-                .Permit(ReelControllerTrigger.SpinForwardDecelerate, ReelLogicalState.SpinningForwardDecelerating)
-                .Permit(ReelControllerTrigger.SpinBackwardDecelerate, ReelLogicalState.SpinningBackwardsDecelerating)
+                .Permit(ReelControllerTrigger.Accelerate, ReelLogicalState.Accelerating)
+                .Permit(ReelControllerTrigger.Decelerate, ReelLogicalState.Decelerating)
                 .Permit(ReelControllerTrigger.HomeReels, ReelLogicalState.Homing)
                 .OnEntryFrom(reelStoppedTriggerParameters, (logicalState, args) => _eventBus?.Publish(new ReelStoppedEvent(args.ReelId, args.Step, logicalState == ReelLogicalState.Homing)));
 
@@ -404,11 +462,7 @@
             stateMachine.Configure(ReelLogicalState.Spinning)
                 .Permit(ReelControllerTrigger.Disconnected, ReelLogicalState.Disconnected)
                 .Permit(ReelControllerTrigger.ReelStopped, ReelLogicalState.IdleAtStop)
-                .Permit(ReelControllerTrigger.TiltReels, ReelLogicalState.Tilted)
-                .Permit(ReelControllerTrigger.SpinForwardAccelerate, ReelLogicalState.SpinningForwardAccelerating)
-                .Permit(ReelControllerTrigger.SpinForwardDecelerate, ReelLogicalState.SpinningForwardDecelerating)
-                .Permit(ReelControllerTrigger.SpinBackwardAccelerate, ReelLogicalState.SpinningBackwardsAccelerating)
-                .Permit(ReelControllerTrigger.SpinBackwardDecelerate, ReelLogicalState.SpinningBackwardsDecelerating);
+                .Permit(ReelControllerTrigger.TiltReels, ReelLogicalState.Tilted);
 
             stateMachine.Configure(ReelLogicalState.Homing)
                 .SubstateOf(ReelLogicalState.Spinning);
@@ -416,16 +470,21 @@
             stateMachine.Configure(ReelLogicalState.Disconnected)
                 .Permit(ReelControllerTrigger.Connected, ReelLogicalState.IdleUnknown);
 
-            stateMachine.Configure(ReelLogicalState.SpinningForward).SubstateOf(ReelLogicalState.Spinning);
+            stateMachine.Configure(ReelLogicalState.SpinningForward).SubstateOf(ReelLogicalState.Spinning)
+                .Permit(ReelControllerTrigger.Accelerate, ReelLogicalState.Accelerating)
+                .Permit(ReelControllerTrigger.Decelerate, ReelLogicalState.Decelerating);
+
             stateMachine.Configure(ReelLogicalState.SpinningBackwards).SubstateOf(ReelLogicalState.Spinning);
-            stateMachine.Configure(ReelLogicalState.SpinningForwardAccelerating).SubstateOf(ReelLogicalState.Spinning)
-                .OnEntryFrom(reelAccelerationForwardParameters, args => _eventBus.Publish(new ReelAcceleratingEvent(args.ReelId, SpinDirection.Forward)));
-            stateMachine.Configure(ReelLogicalState.SpinningForwardDecelerating).SubstateOf(ReelLogicalState.Spinning)
-                .OnEntryFrom(reelDecelerationForwardParameters, args => _eventBus.Publish(new ReelDeceleratingEvent(args.ReelId, SpinDirection.Forward)));
-            stateMachine.Configure(ReelLogicalState.SpinningBackwardsAccelerating).SubstateOf(ReelLogicalState.Spinning)
-                .OnEntryFrom(reelAccelerationBackwardParameters, args => _eventBus.Publish(new ReelAcceleratingEvent(args.ReelId, SpinDirection.Backwards)));
-            stateMachine.Configure(ReelLogicalState.SpinningBackwardsDecelerating).SubstateOf(ReelLogicalState.Spinning)
-                .OnEntryFrom(reelDecelerationBackwardParameters, args => _eventBus.Publish(new ReelDeceleratingEvent(args.ReelId, SpinDirection.Backwards)));
+
+            stateMachine.Configure(ReelLogicalState.Accelerating).SubstateOf(ReelLogicalState.Spinning)
+                .Permit(ReelControllerTrigger.Decelerate, ReelLogicalState.Decelerating)
+                .Permit(ReelControllerTrigger.SpinReel, ReelLogicalState.SpinningForward)
+                .OnEntryFrom(reelAccelerationParameters, args => _eventBus.Publish(new ReelAcceleratingEvent(args.ReelId)));
+
+            stateMachine.Configure(ReelLogicalState.Decelerating).SubstateOf(ReelLogicalState.Spinning)
+                .Permit(ReelControllerTrigger.Accelerate, ReelLogicalState.Accelerating)
+                .Permit(ReelControllerTrigger.SpinReel, ReelLogicalState.SpinningForward)
+                .OnEntryFrom(reelDecelerationParameters, args => _eventBus.Publish(new ReelDeceleratingEvent(args.ReelId)));
 
             stateMachine.OnTransitioned(
                 transition =>
@@ -440,7 +499,7 @@
                     Logger.Error($"ReelStateMachine(Reel) - Invalid State {unHandledState} For Trigger {trigger}");
                 });
 
-            return new StateMachineWithStoppingTrigger(stateMachine, reelStoppedTriggerParameters);
+            return new StateMachineWithStoppingTrigger(stateMachine, reelStoppedTriggerParameters, reelAccelerationParameters, reelDecelerationParameters);
         }
 
         private StateMachine<ReelControllerState, ReelControllerTrigger> CreateStateMachine()
@@ -478,6 +537,8 @@
                 .Permit(ReelControllerTrigger.Disconnected, ReelControllerState.Disconnected)
                 .Permit(ReelControllerTrigger.SpinReel, ReelControllerState.Spinning)
                 .Permit(ReelControllerTrigger.SpinReelBackwards, ReelControllerState.Spinning)
+                .Permit(ReelControllerTrigger.Accelerate, ReelControllerState.Spinning)
+                .Permit(ReelControllerTrigger.Decelerate, ReelControllerState.Spinning)
                 .Permit(ReelControllerTrigger.TiltReels, ReelControllerState.Tilted)
                 .Permit(ReelControllerTrigger.HomeReels, ReelControllerState.Homing)
                 .Permit(ReelControllerTrigger.Disable, ReelControllerState.Disabled);
@@ -512,6 +573,8 @@
             stateMachine.Configure(ReelControllerState.Spinning)
                 .PermitReentry(ReelControllerTrigger.SpinReel)
                 .PermitReentry(ReelControllerTrigger.SpinReelBackwards)
+                .PermitReentry(ReelControllerTrigger.Accelerate)
+                .PermitReentry(ReelControllerTrigger.Decelerate)
                 .Permit(ReelControllerTrigger.TiltReels, ReelControllerState.Tilted)
                 .Permit(ReelControllerTrigger.Disconnected, ReelControllerState.Disconnected)
                 .PermitDynamic(
@@ -606,10 +669,8 @@
                     ReelLogicalState.Spinning or
                         ReelLogicalState.SpinningBackwards or
                         ReelLogicalState.SpinningForward or
-                        ReelLogicalState.SpinningForwardAccelerating or
-                        ReelLogicalState.SpinningBackwardsAccelerating or
-                        ReelLogicalState.SpinningForwardDecelerating or
-                        ReelLogicalState.SpinningBackwardsDecelerating or
+                        ReelLogicalState.Accelerating or
+                        ReelLogicalState.Decelerating or
                         ReelLogicalState.Stopping => ReelControllerState.Spinning,
                     ReelLogicalState.Homing => ReelControllerState.Homing,
                     ReelLogicalState.Tilted => ReelControllerState.Tilted,
@@ -630,12 +691,20 @@
 
             public StateMachine<ReelLogicalState, ReelControllerTrigger>.TriggerWithParameters<ReelLogicalState, ReelEventArgs> StoppingTrigger { get; }
 
+            public StateMachine<ReelLogicalState, ReelControllerTrigger>.TriggerWithParameters<ReelSpinningEventArgs> AccelerateTrigger { get; }
+
+            public StateMachine<ReelLogicalState, ReelControllerTrigger>.TriggerWithParameters<ReelSpinningEventArgs> DecelerateTrigger { get; }
+
             public StateMachineWithStoppingTrigger(
                 StateMachine<ReelLogicalState, ReelControllerTrigger> stateMachine,
-                StateMachine<ReelLogicalState, ReelControllerTrigger>.TriggerWithParameters<ReelLogicalState, ReelEventArgs> stoppingTrigger)
+                StateMachine<ReelLogicalState, ReelControllerTrigger>.TriggerWithParameters<ReelLogicalState, ReelEventArgs> stoppingTrigger,
+                StateMachine<ReelLogicalState, ReelControllerTrigger>.TriggerWithParameters<ReelSpinningEventArgs> accelerateTrigger,
+                StateMachine<ReelLogicalState, ReelControllerTrigger>.TriggerWithParameters<ReelSpinningEventArgs> decelerateTrigger)
             {
                 StateMachine = stateMachine;
                 StoppingTrigger = stoppingTrigger;
+                AccelerateTrigger = accelerateTrigger;
+                DecelerateTrigger = decelerateTrigger;
             }
         }
     }

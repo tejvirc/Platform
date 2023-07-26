@@ -13,5 +13,9 @@
         void UpdateReelState(IDictionary<int, ReelLogicalState> updateData);
 
         void AnimationUpdated(AnimationUpdatedNotification updateData);
+
+        void NotifyReelSynchronized(int reelIndex);
+
+        void NotifyReelSynchronizeStarted(int reelIndex);
     }
 }

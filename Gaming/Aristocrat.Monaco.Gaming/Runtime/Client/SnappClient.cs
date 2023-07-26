@@ -224,6 +224,26 @@
             Invoke(x => x.AnimationUpdated(animationUpdatedNotification));
         }
 
+        public void NotifyReelSynchronized(int reelIndex)
+        {
+            var stateRequest = new UpdateReelStateNotification
+            {
+                States = { { reelIndex, ReelState.Synchronized } }
+            };
+
+            Invoke(x => x.UpdateReelState(stateRequest));
+        }
+
+        public void NotifyReelSynchronizeStarted(int reelIndex)
+        {
+            var stateRequest = new UpdateReelStateNotification
+            {
+                States = { {reelIndex, ReelState.SynchronizationStarted } }
+            };
+
+            Invoke(x => x.UpdateReelState(stateRequest));
+        }
+
         public void PresentOverriddenPresentation(IList<PresentationOverrideData> presentations)
         {
             var overriddenPresentationMessage = new OverriddenPresentationMessage();

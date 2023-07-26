@@ -11,22 +11,15 @@
         ///     Initializes a new instance of the <see cref="ReelAcceleratingEvent" /> class.
         /// </summary>
         /// <param name="reelId">the reel id</param>
-        /// <param name="direction">the direction</param>
-        public ReelAcceleratingEvent(int reelId, SpinDirection direction)
+        public ReelAcceleratingEvent(int reelId)
         {
             ReelId = reelId;
-            Direction = direction;
         }
 
         /// <summary>
         ///     The reel Id that is accelerating
         /// </summary>
         public int ReelId { get; }
-
-        /// <summary>
-        ///     The direction of the acceleration
-        /// </summary>
-        public SpinDirection Direction { get; }
 
         /// <inheritdoc />
         public override string ToString()

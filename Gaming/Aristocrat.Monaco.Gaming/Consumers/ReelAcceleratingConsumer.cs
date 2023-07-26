@@ -30,13 +30,9 @@
                 return;
             }
 
-            var logicalState = theEvent.Direction == SpinDirection.Forward ?
-                ReelLogicalState.SpinningForwardAccelerating :
-                ReelLogicalState.SpinningBackwardsAccelerating;
-
             var reelState = new Dictionary<int, ReelLogicalState>
             {
-                { theEvent.ReelId, logicalState }
+                { theEvent.ReelId, ReelLogicalState.Accelerating }
             };
 
             _reelService.UpdateReelState(reelState);

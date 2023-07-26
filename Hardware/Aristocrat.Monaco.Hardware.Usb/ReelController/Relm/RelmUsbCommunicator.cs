@@ -723,6 +723,14 @@
                 case ReelFinishedAnimation reelFinishedAnimation:
                     PublishReelAnimationUpdated(reelFinishedAnimation.AnimationId, reelFinishedAnimation.ReelIndex, AnimationState.Stopped);
                     break;
+
+                case ReelSynchronized reelSynchronized:
+                    _eventBus?.Publish(new ReelSynchronizedEvent(reelSynchronized.ReelIndex));
+                    break;
+
+                case ReelSyncStarted reelSyncStarted:
+                    _eventBus?.Publish(new ReelSynchronizeStartedEvent(reelSyncStarted.ReelIndex));
+                    break;
             }
 
             void RaiseStatus(Action<MonacoReelStatus> configure)

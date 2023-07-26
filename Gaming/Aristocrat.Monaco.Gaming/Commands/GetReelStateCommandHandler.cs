@@ -55,12 +55,10 @@
                     case ReelLogicalState.Tilted:
                         command.States.Add(reelState.Key, ReelState.Faulted);
                         break;
-                    case ReelLogicalState.SpinningForwardAccelerating:
-                    case ReelLogicalState.SpinningBackwardsAccelerating:
+                    case ReelLogicalState.Accelerating:
                         command.States.Add(reelState.Key, ReelState.Accelerating);
                         break;
-                    case ReelLogicalState.SpinningForwardDecelerating:
-                    case ReelLogicalState.SpinningBackwardsDecelerating:
+                    case ReelLogicalState.Decelerating:
                         command.States.Add(reelState.Key, ReelState.Decelerating);
                         break;
                     default:

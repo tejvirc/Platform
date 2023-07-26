@@ -26,5 +26,15 @@
         {
             _serviceProvider.Client?.AnimationUpdated(updateData);
         }
+
+        public void NotifyReelSynchronized(int reelIndex)
+        {
+            _serviceProvider.Client?.NotifyReelSynchronized(reelIndex);
+        }
+
+        public void NotifyReelSynchronizeStarted(int reelIndex)
+        {
+            _serviceProvider.Client?.NotifyReelSynchronizeStarted(reelIndex);
+        }
     }
 }
