@@ -101,7 +101,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 if (_hostEnabled != value)
                 {
                     _hostEnabled = value;
-                    RaisePropertyChanged(nameof(HostEnabled));
+                    OnPropertyChanged(nameof(HostEnabled));
                 }
             }
         }

@@ -140,7 +140,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             set
             {
                 _progressiveGroupId = value;
-                RaisePropertyChanged(nameof(ProgressiveGroupId));
+                OnPropertyChanged(nameof(ProgressiveGroupId));
             }
         }
 

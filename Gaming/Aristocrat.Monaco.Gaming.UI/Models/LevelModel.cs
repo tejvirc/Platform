@@ -315,7 +315,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
             set
             {
                 _configurableLinkedLevelId = value;
-                RaisePropertyChanged(nameof(ConfigurableLinkedLevelId));
+                OnPropertyChanged(nameof(ConfigurableLinkedLevelId));
             }
         }
 

@@ -161,7 +161,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             set
             {
                 _configurableProgressiveHost = value;
-                RaisePropertyChanged(nameof(ConfigurableProgressiveHost));
+                OnPropertyChanged(nameof(ConfigurableProgressiveHost));
             }
         }
 

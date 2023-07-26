@@ -261,7 +261,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (_popupText != value)
                 {
                     _popupText = value;
-                    RaisePropertyChanged(nameof(PopupText));
+                    OnPropertyChanged(nameof(PopupText));
                     PopupOpen = !string.IsNullOrEmpty(PopupText);
                 }
             }
@@ -275,7 +275,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 if (_popupOpen != value)
                 {
                     _popupOpen = value;
-                    RaisePropertyChanged(nameof(PopupOpen));
+                    OnPropertyChanged(nameof(PopupOpen));
 
                     if (_popupOpen)
                     {
@@ -318,9 +318,9 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 _popupPlacementTarget = value;
-                RaisePropertyChanged(nameof(PopupPlacement));
-                RaisePropertyChanged(nameof(PopupPlacementTarget));
-                RaisePropertyChanged(nameof(PopupFontSize));
+                OnPropertyChanged(nameof(PopupPlacement));
+                OnPropertyChanged(nameof(PopupPlacementTarget));
+                OnPropertyChanged(nameof(PopupFontSize));
             }
         }
 

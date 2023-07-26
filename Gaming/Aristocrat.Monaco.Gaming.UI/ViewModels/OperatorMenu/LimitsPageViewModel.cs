@@ -1138,11 +1138,12 @@
 
         public static ValidationResult ValidateBillAcceptanceLimit(decimal billAcceptanceLimit, ValidationContext context)
         {
-            if (BillAcceptanceLimit < ApplicationConstants.MaxCreditsInMin || BillAcceptanceLimit > ApplicationConstants.MaxCreditsInMax)
+            return billAcceptanceLimit switch
             {
-                return new(errors);
-            }
-            return ValidationResult.Success;
+                < ApplicationConstants.MaxCreditsInMin => new(Localizer.For(CultureFor.Player).GetString(ResourceKeys.MaxCreditsInInvalid)),
+                > ApplicationConstants.MaxCreditsInMax => new(string.Format(Localizer.For(CultureFor.Player).GetString(ResourceKeys.LessThanOrEqualErrorMessage), ApplicationConstants.MaxCreditsInMax.FormattedCurrencyString())),
+                _ => ValidationResult.Success
+            };
         }
 
         public static ValidationResult ValidateHandCountPayoutLimit(decimal handCountPayoutLimit, ValidationContext context)

@@ -522,7 +522,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                     return;
 
                 _hostEnabled = value;
-                RaisePropertyChanged(nameof(HostEnabled));
+                OnPropertyChanged(nameof(HostEnabled));
             }
         }
 

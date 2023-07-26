@@ -109,17 +109,14 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         /// <summary>
         ///     Gets or Sets the Progressive Host Offline Check Frequency
         /// </summary>
+        [CustomValidation(typeof(EditHostViewModel), nameof(ValidateOfflineTimerInterval))]
         public double OfflineTimerInterval
         {
             get => _offlineTimerInterval.TotalSeconds;
             set
             {
-                if (SetProperty(ref _offlineTimerInterval, TimeSpan.FromSeconds(value), nameof(OfflineTimerInterval)))
-                {
-                    ValidateOfflineTimerInterval(value);
-                    RaisePropertyChanged(nameof(CanSave));
-                }
-                RaisePropertyChanged(nameof(IsOfflineTimerIntervalUnderRecommended));
+                SetProperty(ref _offlineTimerInterval, TimeSpan.FromSeconds(value), nameof(OfflineTimerInterval), nameof(CanSave));
+                OnPropertyChanged(nameof(IsOfflineTimerIntervalUnderRecommended));
             }
         }
 
@@ -147,7 +144,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             set
             {
                 _commonAddresses = value;
-                RaisePropertyChanged(nameof(CommonAddresses));
+                OnPropertyChanged(nameof(CommonAddresses));
             }
         }
 
@@ -161,7 +158,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             {
                 _selectedCommonAddress = value;
                 Address = value.ToString();
-                RaisePropertyChanged(nameof(SelectedCommonAddress));
+                OnPropertyChanged(nameof(SelectedCommonAddress));
             }
         }
 
@@ -171,7 +168,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             set
             {
                 _addressComboBoxVisibility = value;
-                RaisePropertyChanged(nameof(AddressComboBoxVisibility));
+                OnPropertyChanged(nameof(AddressComboBoxVisibility));
             }
         }
 
@@ -181,7 +178,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             set
             {
                 _specificProgressiveHostCheckboxVisibility = value;
-                RaisePropertyChanged(nameof(SpecificProgressiveHostCheckboxVisibility));
+                OnPropertyChanged(nameof(SpecificProgressiveHostCheckboxVisibility));
             }
         }
 
@@ -191,7 +188,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             set
             {
                 _addressTextBoxColumnSpan = value;
-                RaisePropertyChanged(nameof(AddressTextBoxColumnSpan));
+                OnPropertyChanged(nameof(AddressTextBoxColumnSpan));
             }
         }
 
@@ -257,7 +254,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
 
         public static ValidationResult ValidateHostId(int? hostId, ValidationContext context)
         {
-            EditHostViewModel instance = (EditHostViewModel)context.ObjectInstance;
+            var instance = (EditHostViewModel)context.ObjectInstance;
             instance.ClearErrors(nameof(HostId));
             var errors = "";
             if (hostId.HasValue && instance._originalHostId == hostId.Value)
@@ -289,7 +286,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
 
         public static ValidationResult ValidateAddress(string address, ValidationContext context)
         {
-            EditHostViewModel instance = (EditHostViewModel)context.ObjectInstance;
+            var instance = (EditHostViewModel)context.ObjectInstance;
             var errors = "";
             instance.ClearErrors(nameof(Address));
 
@@ -311,14 +308,17 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                    && EndpointUtilities.IsSchemeValid(uri);
         }
 
-        private void ValidateOfflineTimerInterval(double seconds)
+        public static ValidationResult ValidateOfflineTimerInterval(double seconds, ValidationContext context)
         {
-            ClearErrors(nameof(OfflineTimerInterval));
+            var instance = (EditHostViewModel)context.ObjectInstance;
+            instance.ClearErrors(nameof(OfflineTimerInterval));
 
             if (seconds <= 0)
             {
-                SetError(nameof(OfflineTimerInterval), string.Format(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GreaterThanErrorMessage), 0));
+                return new(string.Format(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GreaterThanErrorMessage), 0));
             }
+
+            return ValidationResult.Success;
         }
     }
 }

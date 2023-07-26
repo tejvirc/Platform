@@ -1599,7 +1599,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 gameConfiguration.GameOptionsEnabled = GameOptionsEnabled;
             }
 
-            RaisePropertyChanged(nameof(CanSave));
+            OnPropertyChanged(nameof(CanSave));
         }
 
         private void CalculateTopAward()
