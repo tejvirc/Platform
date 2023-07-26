@@ -139,22 +139,6 @@
             }
         }
 
-        protected void DivertMechanismOnOff()
-        {
-            //TODO: implement hopper's properties with realtime values once hopper feature is available..
-            bool isHopperInstalled = true;
-            bool isHopperFull = false;
-
-            if (PropertiesManager.GetValue(HardwareConstants.HopperEnabledKey, false) && isHopperInstalled && (!isHopperFull))
-            {
-                DivertToHopper();
-            }
-            else
-            {
-                DivertToCashbox();
-            }
-        }
-
         protected void Reset()
         {
             lock (Lock)
@@ -164,7 +148,6 @@
                 CoinEntryState.Reset();
                 AcceptorState.Reset();
                 StartPolling();
-                DivertMechanismOnOff();
             }
         }
 

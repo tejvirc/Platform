@@ -23,10 +23,7 @@
         /// <summary>Reset the device.</summary>
         void DeviceReset();
 
-        /// <summary>Enable diverter towards hopper or cashbox.</summary>
-        void DivertMechanismOnOff();
-
-                /// <summary>Event fired when fault is cleared.</summary>
+        /// <summary>Event fired when fault is cleared.</summary>
         event EventHandler<CoinEventType> CoinInStatusReported;
 
         /// <summary>Event fired when fault is detected.</summary>

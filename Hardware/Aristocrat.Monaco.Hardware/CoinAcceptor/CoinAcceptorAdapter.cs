@@ -44,7 +44,8 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
 
         protected override string Path => Kernel.Contracts.Components.Constants.CoinAcceptorPath;
 
-        public DivertorState DiverterDirection => DivertorState.DivertToHopper;
+        public DivertorState DiverterDirection { get; set; }
+        public AcceptorState InputState { get; set; }
 
 
         public CoinFaultTypes Faults
@@ -55,7 +56,7 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
             }
             set
             {
-                if(Implementation != null)
+                if (Implementation != null)
                 {
                     Implementation.Faults = value;
                 }
@@ -117,32 +118,75 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
 
         public void CoinRejectMechOn()
         {
+            InputState = AcceptorState.Reject;
             Implementation.CoinRejectMechOn();
         }
 
         public void CoinRejectMechOff()
         {
+            InputState = AcceptorState.Accept;
             Implementation.CoinRejectMechOff();
         }
 
         public void DivertToHopper()
         {
+            DiverterDirection = DivertorState.DivertToHopper;
             Implementation.DivertToHopper();
         }
 
         public void DivertToCashbox()
         {
+            DiverterDirection = DivertorState.DivertToCashbox;
             Implementation.DivertToCashbox();
         }
 
         public void Reset()
         {
             Implementation.DeviceReset();
+            DivertMechanismOnOff();
         }
 
         public void DivertMechanismOnOff()
         {
-            Implementation.DivertMechanismOnOff();
+
+            //TODO: implement hopper's properties with realtime values once hopper feature is available..
+            bool isHopperInstalled = false;
+            //bool isHopperFull = false;
+
+           // if (PropertiesManager.GetValue(HardwareConstants.HopperEnabledKey, false) && isHopperInstalled && (!isHopperFull))
+            if(!isHopperInstalled)
+            {
+                DivertToHopper();
+            }
+            else
+            {
+                DivertToCashbox();
+            }
+        }
+
+        /// <inheritdoc />
+        protected override void Dispose(bool disposing)
+        {
+            if (Disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                Disable(DisabledReasons.Service);
+                if (Implementation != null)
+                {
+                    Implementation.Connected -= ImplementationConnected;
+                    Implementation.Disconnected -= ImplementationDisconnected;
+                    Implementation.Initialized -= ImplementationInitialized;
+                    Implementation.InitializationFailed -= ImplementationInitializationFailed;
+                    Implementation.Dispose();
+                    _coinAcceptor = null;
+                }
+            }
+
+            base.Dispose(disposing);
         }
         private void ImplementationInitialized(object sender, EventArgs e)
         {
@@ -230,7 +274,19 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
         {
             Logger.Info("ImplementationStatusFaultOccurred: device fault occured");
             _bus?.Publish(new HardwareFaultEvent(type));
+        }
 
+        private void ImplementationConnected(object sender, EventArgs e)
+        {
+            Logger.Info("ImplementationConnected: device connected");
+            Reset();
+            CoinRejectMechOn();
+        }
+
+
+        private void ImplementationDisconnected(object sender, EventArgs e)
+        {
+            Logger.Warn("ImplementationDisconnected: device disconnected");
         }
 
     }

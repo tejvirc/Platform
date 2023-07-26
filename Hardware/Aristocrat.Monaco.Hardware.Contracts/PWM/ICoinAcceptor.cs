@@ -25,7 +25,10 @@
         void DivertMechanismOnOff();
 
         /// <summary>Gets the current direction of the diverter.</summary>
-        DivertorState DiverterDirection { get; }
+        DivertorState DiverterDirection { get; set; }
+
+        /// <summary>Gets the current input state of the coin acceptor.</summary>
+        AcceptorState InputState { get; set; }
 
         /// <summary>Gets the current faults.</summary>
         /// <value>The current faults.</value>

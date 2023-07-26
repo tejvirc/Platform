@@ -28,10 +28,6 @@
                 CurrentUICulture = Thread.CurrentThread.CurrentUICulture
             };
 
-            Reset();
-            DivertMechanismOnOff();
-            CoinRejectMechOn();
-
             // Set poll timer to elapsed event.
             PollTimer.Elapsed += OnPollTimeout;
             PollTimer.Interval = DeviceConfig.pollingFrequency;
