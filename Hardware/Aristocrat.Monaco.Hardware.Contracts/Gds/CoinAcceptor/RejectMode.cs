@@ -1,13 +1,10 @@
-﻿namespace Aristocrat.Monaco.Hardware.Contracts.PWM
+﻿namespace Aristocrat.Monaco.Hardware.Contracts.Gds.CoinAcceptor
 {
-    using System;
-    using Aristocrat.Monaco.Hardware.Contracts.Gds;
+    using Contracts.Gds;
     using BinarySerialization;
     using static System.FormattableString;
 
-    /// <summary>
-    /// 
-    /// </summary>
+    /// <summary>(Serializable) a reject mode command.</summary>
     public class RejectMode : GdsSerializableMessage
     {
         /// <summary>Constructor</summary>

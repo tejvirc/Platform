@@ -1,10 +1,9 @@
-﻿namespace Aristocrat.Monaco.Hardware.Contracts.PWM
+﻿namespace Aristocrat.Monaco.Hardware.Contracts.Gds.CoinAcceptor
 {
-    using Gds;
+    using System;
 
-    /// <summary>
-    /// 
-    /// </summary>
+    /// <summary>(Serializable) a device reset.</summary>
+    [Serializable]
     public class DeviceReset : GdsSerializableMessage
     {
         /// <summary>

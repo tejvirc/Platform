@@ -3,6 +3,7 @@
     using System;
     using System.Reflection;
     using System.Threading.Tasks;
+    using Contracts.Gds.CoinAcceptor;
     using Contracts.PWM;
     using Contracts.SharedDevice;
     using log4net;

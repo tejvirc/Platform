@@ -4,6 +4,7 @@
     using System.Reflection;
     using System.Threading;
     using Contracts.Gds;
+    using Contracts.Gds.CoinAcceptor;
     using Contracts.PWM;
     using Protocol;
     using log4net;

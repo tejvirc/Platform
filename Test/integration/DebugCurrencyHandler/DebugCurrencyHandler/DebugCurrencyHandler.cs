@@ -574,8 +574,6 @@
         {
             if (typeof(DebugNoteEvent) == data.GetType())
             {
-                var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-                eventBus.Publish(new HardwareFaultEvent(CoinFaultTypes.Optic));
                 var debugNoteEvent = (DebugNoteEvent)data;
 
                 if (debugNoteEvent.Denomination == 0)
