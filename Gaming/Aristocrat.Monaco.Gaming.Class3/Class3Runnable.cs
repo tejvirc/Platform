@@ -17,6 +17,9 @@
 
     public sealed class Class3Runnable : GamingRunnable
     {
+        public Class3Runnable() {
+            return;
+        }
         protected override void ConfigureContainer(Container container)
         {   
             container.Register<ILobby, LobbyLauncher>(Lifestyle.Singleton);

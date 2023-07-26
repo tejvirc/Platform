@@ -2243,6 +2243,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 case LobbyState.Disabled:
                     OnDisabled();
                     break;
+                //*** OnRecovery
                 case LobbyState.Recovery:
                     if (obj is bool processExited)
                     {
@@ -2319,6 +2320,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 return;
             }
 
+            Logger.Debug($"_lobbyStateManager.AllowSingleGameAutoLaunch:{_lobbyStateManager.AllowSingleGameAutoLaunch}");
+
             if (_lobbyStateManager.AllowSingleGameAutoLaunch)
             {
                 if (!GameReady && !IsInState(LobbyState.GameLoading))
@@ -2353,6 +2356,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             Debug.Assert(!(CurrentState == LobbyState.Chooser && IsIdleTextScrolling));
             MessageOverlayDisplay.ShowProgressiveGameDisabledNotification = false;
 
+            //*** Showing Recovering message 
             UpdateUI();
 
             PlayerMenuPopupViewModel.IsMenuVisible = false;
@@ -2543,6 +2547,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
             Logger.Debug($"Preparing to launch game {game.Name} with an id of {game.GameId}");
 
+            //*** Show/Hide ? Recovering message
             UpdateUI();
 
             if (!string.IsNullOrEmpty(game.LoadingScreenPath))
@@ -2849,6 +2854,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 return;
             }
 
+            //*** Showing Recovering Message
             HandleMessageOverlayText();
 
             MediaPlayersResizing = ContainsAnyState(LobbyState.MediaPlayerResizing);
@@ -3066,6 +3072,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     RaisePropertyChanged(nameof(IsVirtualButtonDeckDisabled));
                     RaisePropertyChanged(nameof(GameControlHeight));
                     RaisePropertyChanged(nameof(IsMainInfoBarVisible));
+                    //*** Game Recovery Show
+                    _eventBus.Publish(new GameControlSizeChangedEvent(GameControlHeight));
                     break;
                 case nameof(MessageOverlayDisplay.IsLockupMessageVisible):
                     RaisePropertyChanged(nameof(IsVirtualButtonDeckDisabled));

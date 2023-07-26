@@ -428,6 +428,7 @@
 
                 // 1) Added IsDisabled check for VLT-2112.  If the process is killed while we are
                 // locked up, then do not recover now.  We will recover upon coming out of lockup.
+                //*** SendTrigger 
                 if (_gameHistory.IsRecoveryNeeded && !_systemDisableManager.DisableImmediately)
                 {
                     Logger.Debug("Sending InitiateRecovery Trigger");

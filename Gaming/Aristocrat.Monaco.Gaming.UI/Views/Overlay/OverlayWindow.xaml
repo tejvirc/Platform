@@ -30,13 +30,16 @@
 
                 <ResourceDictionary Source="../../Skins/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <common:BoolToVisibilityConverter x:Key="BoolToVisible" TrueValue="Visible" FalseValue="Hidden"/>
-
-            <Storyboard x:Key="FadeInStoryboard" x:Shared="false">
-                <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" 
-                                 Duration="0:0:0.1" BeginTime="0:0:0" AutoReverse="False">
-                </DoubleAnimation>
+            <Storyboard x:Key="FadeInStoryboard"
+                        x:Shared="false"
+                        AutomationProperties.AutomationId="Storyboard0_8838AAEA">
+                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                 From="0.0"
+                                 To="1.0"
+                                 Duration="0:0:1"
+                                 BeginTime="0:0:0"
+                                 AutoReverse="False"
+                                 AutomationProperties.AutomationId="DoubleAnimation1_8838AAEA"></DoubleAnimation>
             </Storyboard>
 
             <Storyboard x:Key="FadeOutStoryboard" x:Shared="false" Completed="FadeOutStoryboard_OnCompleted">

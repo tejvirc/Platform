@@ -368,6 +368,7 @@
         {
             IsLockupMessageVisible = _lobbyStateManager.IsInState(LobbyState.Disabled);
 
+            //*** Condition for showing RecoveryDialog or not
             IsReplayRecoveryDlgVisible = _lobbyStateManager.CurrentState == LobbyState.GameLoadingForDiagnostics ||
                                          _lobbyStateManager.CurrentState == LobbyState.GameDiagnostics ||
                                          _lobbyStateManager.CurrentState == LobbyState.GameLoading && _gameRecovery.IsRecovering;

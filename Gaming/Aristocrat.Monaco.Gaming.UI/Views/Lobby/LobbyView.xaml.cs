@@ -195,6 +195,7 @@
             _eventBus.Subscribe<OverlayWindowVisibilityChangedEvent>(this, HandleOverlayWindowVisibilityChanged);
         }
 
+        //*** Show Overlay Window
         private void HandleOverlayWindowVisibilityChanged(OverlayWindowVisibilityChangedEvent e)
         {
             MvvmHelper.ExecuteOnUI(() =>
@@ -831,7 +832,7 @@
             }
 
         }
-
+        //*** Show Overlay Window
         private void ViewModel_OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "IsOverlayWindowVisible")

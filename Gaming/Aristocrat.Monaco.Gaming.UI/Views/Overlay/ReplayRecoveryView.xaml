@@ -32,11 +32,15 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-
-        <Label Grid.Row="0" Margin="0 240 0 0"  FontSize="48" Foreground="Gold" 
-               VerticalAlignment="Top" HorizontalAlignment="Center"
-               Content="{Binding Path=ReplayRecovery.MessageText}"/>
-
+        <!--Content="{Binding Path=ReplayRecovery.MessageText}"-->
+        <Label Grid.Row="0"
+               Margin="0 240 0 0"
+               FontSize="48"
+               Foreground="Gold"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Center"
+               Content="Your are seeing me doing Recovery!"
+               AutomationProperties.AutomationId="Label5_41B007DA" />
         <Border Grid.Row="1"
                 SizeChanged="OnNavigationBarSizeChanged"
                 Visibility="{Binding Path=ReplayRecovery.IsReplayNavigationVisible, Converter={StaticResource BoolToVisible}}">

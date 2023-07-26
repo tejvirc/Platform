@@ -107,7 +107,13 @@
 
         public bool IsLoadingGameForRecovery { get; set; }
 
-        public bool AllowGameInCharge { get; set; }
+        private bool _allowGameInCharge;
+        public bool AllowGameInCharge {
+            get => _allowGameInCharge;
+            set {
+                _allowGameInCharge = value;
+            }
+        }
 
         public bool AllowGameAutoLaunch { private get; set; }
 
@@ -204,6 +210,7 @@
                     }
                     else if (trigger == LobbyTrigger.GameUnexpectedExit && parameter is bool stat)
                     {
+                        //*** From Game -> Chooser -> Recovery
                         _state.Fire(LobbyTrigger.GameUnexpectedExit);
                         _state.Fire(_initiateRecoveryTrigger, stat);
                     }
