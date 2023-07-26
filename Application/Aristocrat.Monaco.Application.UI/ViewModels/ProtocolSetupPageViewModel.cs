@@ -113,23 +113,6 @@
 
         public string RequiredFunctionalityProtocolSelectionMessage => GetMandatoryProtocolSelectionMessage();
 
-        private ProtocolCapabilityAttribute GetProtocolCapabilityAttribute(string protocolName)
-        {
-            var protocolNode = AddinManager.GetExtensionNodes<ProtocolTypeExtensionNode>(ProtocolExtensionPath)
-                .SingleOrDefault(x => x.ProtocolId == protocolName);
-
-            if (protocolNode == null)
-            {
-                return null;
-            }
-
-            var protocolCapabilityAttribute = (ProtocolCapabilityAttribute)Attribute.GetCustomAttribute(
-                protocolNode.Type,
-                typeof(ProtocolCapabilityAttribute));
-
-            return protocolCapabilityAttribute;
-        }
-
         private void ProtocolSelection_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName != nameof(ProtocolSelection.Selected))
