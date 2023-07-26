@@ -150,7 +150,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             AllowOperatorMenuExit();
         }
 
-        protected virtual void Cancel()
+        public virtual void Cancel()
         {
             DialogResult = false;
         }

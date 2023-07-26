@@ -83,7 +83,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
         {
         }
 
-        protected virtual void Cancel()
+        public virtual void Cancel()
         {
             DialogResult = false;
         }

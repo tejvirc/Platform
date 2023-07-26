@@ -17,6 +17,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
+    using Application.Contracts.Protocol;
     using Application.UI.Events;
     using Application.UI.OperatorMenu;
     using Aristocrat.Toolkit.Mvvm.Extensions;
@@ -1253,7 +1254,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                     assignedProgressiveType == AssignableProgressiveType.Linked)
                 {
                     _protocolLinkedProgressiveAdapter?.ViewLinkedProgressiveLevel(
-                        level.AssignedProgressiveId?.AssignedProgressiveKey,
+                        level?.AssignedProgressiveId?.AssignedProgressiveKey,
                         out linkedLevel);
                 }
 

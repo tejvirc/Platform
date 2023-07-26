@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Globalization;
     using System.Text;
-    using Data.Model;
+    using G2S.Data.Model;
     using Monaco.Common.Storage;
 
     /// <summary>

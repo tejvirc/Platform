@@ -1,6 +1,6 @@
 ﻿namespace Aristocrat.Monaco.G2S.Common.PackageManager
 {
-    using Data.Model;
+    using G2S.Data.Model;
     using System;
 
     /// <summary>

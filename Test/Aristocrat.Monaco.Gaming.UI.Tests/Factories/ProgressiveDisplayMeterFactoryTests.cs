@@ -70,8 +70,10 @@
             CheckValues(ProgressiveDisplayMeterFactory.Build(_progressiveMeterManager.Object, _progressiveLevel.Object, _meterNode, false, 1000, 0), "WagerBetLevelsDisplayName", "$0.00");
         }
 
-        [DataRow(ProgressiveMeters.ProgressiveLevelWageredAmount, "ProgressiveLevelWageredAmountDisplayName", "$10.00", true, true)]
-        [DataRow(ProgressiveMeters.ProgressiveLevelWageredAmount, "ProgressiveLevelWageredAmountDisplayName", "$0.00", false, true)]
+        [DataRow(ProgressiveMeters.WageredAmount, "WageredAmountDisplayName", "$10.00", true, true)]
+        [DataRow(ProgressiveMeters.WageredAmount, "WageredAmountDisplayName", "$0.00", false, true)]
+        [DataRow(ProgressiveMeters.PlayedCount, "PlayedCountDisplayName", "1,000,000", true, false)]
+        [DataRow(ProgressiveMeters.PlayedCount, "PlayedCountDisplayName", "0", false, false)]
         [DataRow(ProgressiveMeters.ProgressiveLevelBulkContribution, "ProgressiveLevelBulkContributionDisplayName", "$10.00", true, true)]
         [DataRow(ProgressiveMeters.ProgressiveLevelBulkContribution, "ProgressiveLevelBulkContributionDisplayName", "$0.00", false, true)]
         [DataRow(ProgressiveMeters.ProgressiveLevelWinAccumulation, "ProgressiveLevelWinAccumulationDisplayName", "$10.00", true, true)]
@@ -143,6 +145,8 @@
             _progressiveMeter.SetupGet(p => p.Session).Returns(meterValue);
             _progressiveMeterManager.Setup(p => p.IsMeterProvided(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>())).Returns(meterShouldExist);
             _progressiveMeterManager.Setup(p => p.GetMeter(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>())).Returns(_progressiveMeter.Object);
+            _progressiveMeterManager.Setup(p => p.IsMeterProvided(It.IsAny<int>(), It.IsAny<string>())).Returns(meterShouldExist);
+            _progressiveMeterManager.Setup(p => p.GetMeter(It.IsAny<int>(), It.IsAny<string>())).Returns(_progressiveMeter.Object);
         }
     }
 }

@@ -18,6 +18,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         private int _deviceId;
         private int _ownerId;
         private bool _enabled;
+        private bool _hostEnabled;
         private bool _active;
         private List<IHostControl> _hosts;
 
@@ -87,6 +88,20 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 {
                     _enabled = value;
                     OnPropertyChanged(nameof(Enabled));
+                }
+            }
+        }
+
+        public bool HostEnabled
+        {
+            get => _hostEnabled;
+
+            set
+            {
+                if (_hostEnabled != value)
+                {
+                    _hostEnabled = value;
+                    RaisePropertyChanged(nameof(HostEnabled));
                 }
             }
         }

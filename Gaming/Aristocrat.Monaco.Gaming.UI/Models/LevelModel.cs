@@ -34,13 +34,15 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
         private LevelDefinition _selectableLevel;
         private bool _selectableLevelNameTooLong;
         private readonly bool _canEdit;
+        private int _configurableLinkedLevelId;
 
         public LevelModel(
             IViewableProgressiveLevel level,
             IReadOnlyCollection<IViewableSharedSapLevel> customSapLevels,
             IReadOnlyCollection<IViewableLinkedProgressiveLevel> linkedLevels,
             int gameCount,
-            IViewableSharedSapLevel sharedSapLevel)
+            IViewableSharedSapLevel sharedSapLevel,
+            int configurableLinkedLevelLevelId)
         {
             GameCount = gameCount;
 
@@ -80,6 +82,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
             _selectableLevelType = DetermineSelectableLevelType();
             _canEdit = level.CanEdit;
             _selectableLevel = new LevelDefinition(LevelName, AssignedProgressiveInfo.AssignedProgressiveKey);
+            OriginalConfigurableLinkedLevelId = ConfigurableLinkedLevelId = configurableLinkedLevelLevelId;
 
             LoadSelectableTypes();
             LoadSelectableNames();
@@ -302,6 +305,26 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
                 OnPropertyChanged(nameof(MinimumRequiredValue));
             }
         }
+
+        /// <summary>
+        /// Gets or sets the configurable linked level id for use with Vertex and G2S progressives
+        /// </summary>
+        public int ConfigurableLinkedLevelId
+        {
+            get => _configurableLinkedLevelId;
+            set
+            {
+                _configurableLinkedLevelId = value;
+                RaisePropertyChanged(nameof(ConfigurableLinkedLevelId));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the original configurable linked level id this model was constructed with (for change tracking)
+        /// </summary>
+        public int OriginalConfigurableLinkedLevelId { get; }
+
+        public bool IsLevelLinked => LevelType == ProgressiveLevelType.LP;
 
         public bool CanSetInitialValue => LevelType == ProgressiveLevelType.Sap && _canEdit;
 

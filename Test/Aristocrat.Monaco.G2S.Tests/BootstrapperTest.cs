@@ -24,6 +24,7 @@
     using System.IO;
     using System.Linq;
     using Application.Contracts.Localization;
+    using Application.Contracts.Protocol;
     using Gaming.Contracts.Bonus;
     using Gaming.Contracts.Central;
     using Protocol.Common.Installer;
@@ -57,6 +58,7 @@
             properties.Setup(m => m.GetProperty(Constants.Port, Constants.DefaultPort)).Returns(Constants.DefaultPort);
             properties.Setup(m => m.GetProperty(ApplicationConstants.DemonstrationMode, false)).Returns(false);
             properties.Setup(m => m.GetProperty(ApplicationConstants.HandpayReceiptPrintingEnabled, It.IsAny<bool>())).Returns(false);
+            properties.Setup(m => m.GetProperty(G2S.Constants.G2SProgressivesEnabled, It.IsAny<bool>())).Returns(true);
 
             MoqServiceManager.CreateAndAddService<IMessageDisplay>(MockBehavior.Default);
             MoqServiceManager.CreateAndAddService<ITime>(MockBehavior.Default);
@@ -97,10 +99,12 @@
             MoqServiceManager.CreateAndAddService<IOperatorMenuLauncher>(MockBehavior.Default);
             MoqServiceManager.CreateAndAddService<ICentralProvider>(MockBehavior.Default);
             MoqServiceManager.CreateAndAddService<IProtocolLinkedProgressiveAdapter>(MockBehavior.Default);
+            MoqServiceManager.CreateAndAddService<IProtocolProgressiveEventsRegistry>(MockBehavior.Default);
             MoqServiceManager.CreateAndAddService<IProgressiveLevelProvider>(MockBehavior.Default);
+            MoqServiceManager.CreateAndAddService<IProgressiveMeterManager>(MockBehavior.Default);
             MoqServiceManager.CreateAndAddService<IOSInstaller>(MockBehavior.Default);
             MoqServiceManager.CreateAndAddService<IPrinterFirmwareInstaller>(MockBehavior.Default);
-            MoqServiceManager.CreateAndAddService<INoteAcceptorFirmwareInstaller>(MockBehavior.Default);
+            MoqServiceManager.CreateAndAddService<IMultiProtocolConfigurationProvider>(MockBehavior.Default);
 
             var persistence = MoqServiceManager.CreateAndAddService<IPersistenceProvider>(MockBehavior.Default);
             persistence.Setup(a => a.GetOrCreateBlock(It.IsAny<string>(), It.IsAny<PersistenceLevel>())).Returns(new Mock<IPersistentBlock>().Object);

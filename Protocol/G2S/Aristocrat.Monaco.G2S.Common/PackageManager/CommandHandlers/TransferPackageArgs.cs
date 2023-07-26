@@ -2,7 +2,7 @@
 {
     using System;
     using System.Threading;
-    using Data.Model;
+    using G2S.Data.Model;
     using Storage;
 
     /// <summary>

@@ -205,6 +205,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                     Id = d.Id,
                     Owner = d.Owner,
                     Enabled = d.Enabled,
+                    HostEnabled = d.HostEnabled,
                     Active = d.Active,
                     IsHostOriented = d.IsHostOriented(),
                     ActiveDisplayText = GetBooleanDisplayText(d.Active),
@@ -235,7 +236,8 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 DeviceId = device.Id,
                 OwnerId = device.Owner,
                 Enabled = device.Enabled,
-                Active = device.Active
+                HostEnabled = device.HostEnabled,
+                Active = device.Active,
             };
 
             var result = _dialogService.ShowDialog<EditDeviceView>(
@@ -436,6 +438,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         private int _owner;
         private bool _active;
         private bool _enabled;
+        private bool _hostEnabled;
         private bool _isHostOriented;
         private bool _edited;
         private string _activeDisplayText;
@@ -507,6 +510,19 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
 
                 _enabled = value;
                 OnPropertyChanged(nameof(Enabled));
+            }
+        }
+
+        public bool HostEnabled
+        {
+            get => _hostEnabled;
+            set
+            {
+                if (_hostEnabled == value)
+                    return;
+
+                _hostEnabled = value;
+                RaisePropertyChanged(nameof(HostEnabled));
             }
         }
 

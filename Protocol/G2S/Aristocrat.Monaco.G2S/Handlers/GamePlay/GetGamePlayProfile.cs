@@ -61,6 +61,10 @@
             response.Command.configComplete = device.ConfigComplete;
             response.Command.maxPaybackPct = game.MaximumPaybackPercent.ToMeter();
             response.Command.minPaybackPct = game.MinimumPaybackPercent.ToMeter();
+            
+            int.TryParse((game.VariationId ?? "0").ToString(), out var variation);
+            response.Command.variation = variation;
+            response.Command.linkThemeId = game.ThemeId;
 
             response.Command.denomMeterType = device.DenomMeterType;
             response.Command.themeName = game.ThemeName;
@@ -86,7 +90,21 @@
                         }).ToArray()
             };
 
-            response.Command.EmptyWinLevelList();
+            response.Command.winLevelList = new winLevelList
+            {
+                winLevelItem =
+                    game.WinLevels.Select(l => new winLevelItem
+                    {
+                        progressiveAllowed = l.ProgressiveAllowed,
+                        winLevelCombo = l.WinLevelCombo,
+                        winLevelIndex = l.WinLevelIndex
+                    }).ToArray()
+            };
+
+            if(response.Command.winLevelList.winLevelItem.Length == 0)
+            {
+                response.Command.EmptyWinLevelList();
+            }
 
             await Task.CompletedTask;
         }

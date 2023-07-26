@@ -26,14 +26,19 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
     public class ProgressiveSetupViewModel : OperatorMenuSaveViewModelBase
     {
         private readonly IProgressiveConfigurationProvider _progressives;
+        private readonly ILinkedProgressiveProvider _linkedProgressives;
         private readonly IGameService _gameService;
         private readonly IGameProvider _gameProvider;
+        private readonly IPropertiesManager _propertiesManager;
 
         private readonly ReadOnlyGameConfiguration _selectedGame;
         private readonly IReadOnlyCollection<IViewableProgressiveLevel> _validProgressiveLevels;
         private readonly IReadOnlyCollection<IViewableSharedSapLevel> _configSharedSapLevels;
         private readonly IReadOnlyCollection<string> _configLinkedProgressiveNames;
         private readonly bool _isAssociatedSap;
+
+        private int _progressiveGroupId;
+        private int _originalProgressiveGroupId;
 
         private string _selectedGameInfo;
         private ObservableCollection<LevelModel> _levelModels;
@@ -42,7 +47,21 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
         private bool _isSap;
         private bool _isLP;
 
+        private Dictionary<int, (int linkedGroupId, int linkedLevelId)> _configuredLinkedLevelIds;
+
         private List<(LevelModel.LevelDefinition SelectableLevel, string SelectableLevelType)> _originalNonSapProgressiveLevels;
+
+        /// <summary>
+        ///     Used to determine whether or not the game is fully setup, prevents saving in the AdvancedGameSetupViewModel if false.
+        ///     (Currently only used if the Progressive Id is configurable, i.e. Vertex Progressives)
+        /// </summary>
+        public bool SetupCompleted = false;
+
+        /// <summary>
+        ///     Used to determine whether or not the progressive levels have been altered since the opening of the setup menu, prevents saving in the AdvancedGameSetupViewModel if false.
+        ///     (Currently only used if the Progressive Id is configurable, i.e. Vertex Progressives)
+        /// </summary>
+        public bool ConfigurableProgressiveLevelsChanged = false;
 
         public ProgressiveSetupViewModel(
             ReadOnlyGameConfiguration selectedGame,
@@ -65,8 +84,10 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
             var container = ServiceManager.GetInstance().GetService<IContainerService>();
             _progressives = container.Container.GetInstance<IProgressiveConfigurationProvider>();
+            _linkedProgressives = container.Container.GetInstance<ILinkedProgressiveProvider>();
             _gameService = ServiceManager.GetInstance().GetService<IGameService>();
             _gameProvider = ServiceManager.GetInstance().GetService<IGameProvider>();
+            _propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
 
             IsSummaryView = isSummaryView;
             SelectedGameInfo = $"{_selectedGame.ThemeName} | {selectedGame.PaytableId} | {_selectedGame.Denomination}";
@@ -86,6 +107,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
             _isAssociatedSap = _validProgressiveLevels.Any(
                 p => p.AssignedProgressiveId.AssignedProgressiveType == AssignableProgressiveType.AssociativeSap);
+
+            IsConfigurableLinkedLevelId = _propertiesManager.GetValue(GamingConstants.ProgressiveConfigurableLinkedLeveId, false) &&
+                                          _validProgressiveLevels.Any(l => l.LevelType == ProgressiveLevelType.LP);
         }
 
         public ProgressiveSetupViewModel(
@@ -96,8 +120,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 selectedGame,
                 betOption,
                 isSummaryView,
-                new List<IViewableProgressiveLevel>(), 
-                new List<IViewableSharedSapLevel>(), 
+                new List<IViewableProgressiveLevel>(),
+                new List<IViewableSharedSapLevel>(),
                 new List<string>())
         {
         }
@@ -109,6 +133,16 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                                                  ProgressiveLevels.Any(
                                                      p => p.LevelType == ProgressiveLevelType.Selectable &&
                                                           p.SelectableLevelType.Equals(Resources.StandaloneProgressive));
+
+        public int ProgressiveGroupId
+        {
+            get => _progressiveGroupId;
+            set
+            {
+                _progressiveGroupId = value;
+                RaisePropertyChanged(nameof(ProgressiveGroupId));
+            }
+        }
 
         public override bool CanSave => (ProgressiveLevels?.All(x => x.CanSave) ?? true) && !OverMaximumAllowableProgressives;
 
@@ -184,6 +218,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
         public bool IsSelectableOrLP => IsSelectable || IsLP;
 
+        /// <summary>
+        ///    G2S Vertex progressives aren't discoverable in advance. So they must be configured in the UI, then validated against Vertex.
+        ///    This results in needing this UI to allows editing fields to configured the Progressive Group for all these levels to link to
+        ///    and the specific vertex level id for each individual level. This property controls the logic related to these configurable ids
+        /// </summary>
+        public bool IsConfigurableLinkedLevelId { get; set; }
+
         public bool ProgressiveTypeEditable => !IsSummaryView && IsSelectable;
 
         public bool ProgressiveTypeReadOnly => IsSummaryView && IsSelectable || IsSapOrLP;
@@ -233,6 +274,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
         /// <inheritdoc/>
         public override void Save()
         {
+            SetupCompleted = true;
+
             if (IsProgressiveLevelsUnchanged())
             {
                 return;
@@ -255,13 +298,38 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             {
                 _gameService.ShutdownBegin();
             }
-
             _progressives.AssignLevelsToGame(levelAssignmentList);
+
+            if (IsConfigurableLinkedLevelId)
+            {
+                Dictionary<int, (int linkedGroupId, int linkedLevelId)> configuredLevelIds = _propertiesManager.GetValue(GamingConstants.ProgressiveConfiguredLinkedLevelIds, new Dictionary<int, (int linkedGroupId, int linkedLevelId)>());
+                foreach (var progLevel in ProgressiveLevels)
+                {
+                    (int linkedGroupId, int linkedLevelId) newConfig = (ProgressiveGroupId, progLevel.ConfigurableLinkedLevelId);
+
+                    if (!configuredLevelIds.ContainsKey(progLevel.AssociatedProgressiveLevel.DeviceId))
+                    {
+                        ConfigurableProgressiveLevelsChanged = true;
+                    }
+                    else if (configuredLevelIds.TryGetValue(progLevel.AssociatedProgressiveLevel.DeviceId, out (int linkedGroupId, int linkedLevelId) levelConfig))
+                    {
+                        if (!ConfigurableProgressiveLevelsChanged)
+                        {
+                            ConfigurableProgressiveLevelsChanged = (newConfig != levelConfig);
+                        }
+                    }
+
+                    configuredLevelIds[progLevel.AssociatedProgressiveLevel.DeviceId] = newConfig;
+                }
+
+                _propertiesManager.SetProperty(GamingConstants.ProgressiveConfiguredLinkedLevelIds, configuredLevelIds);
+            }
         }
 
         /// <inheritdoc/>
         protected override void OnLoaded()
         {
+            LoadConfigurableLinkedLevelsData();
             LoadData();
             base.OnLoaded();
         }
@@ -281,10 +349,14 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
         {
             var nonSapLevels = ProgressiveLevels.Where(l => l.LevelType != ProgressiveLevelType.Sap).ToList();
 
+            var configurableLevelIdsUnchanged = ProgressiveLevels.All(l => l.OriginalConfigurableLinkedLevelId == l.ConfigurableLinkedLevelId);
+
             return _selectedGame.ProgressiveSetupConfigured &&
                 nonSapLevels.Count != 0 &&
                 _originalNonSapProgressiveLevels.Count != 0 &&
-                nonSapLevels.Select(x => (x.SelectableLevel, x.SelectableLevelType)).SequenceEqual(_originalNonSapProgressiveLevels);
+                nonSapLevels.Select(x => (x.SelectableLevel, x.SelectableLevelType)).SequenceEqual(_originalNonSapProgressiveLevels) &&
+                _progressiveGroupId == _originalProgressiveGroupId &&
+                configurableLevelIdsUnchanged;
         }
 
         private void GenerateCSAPLevelsPressed(object obj)
@@ -313,6 +385,32 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             }
         }
 
+        private void LoadConfigurableLinkedLevelsData()
+        {
+            if (!IsConfigurableLinkedLevelId) { return; }
+
+            _configuredLinkedLevelIds = _propertiesManager.GetValue(
+                GamingConstants.ProgressiveConfiguredLinkedLevelIds,
+                new Dictionary<int, (int linkedGroupId, int linkedLevelId)>());
+
+            //look to see if this set of levels has been configured previously. If so, initialize data to match.
+            //otherwise, default to highest configured group + 1
+            var firstValidProgressive = _validProgressiveLevels.First();
+            if (_configuredLinkedLevelIds.TryGetValue(firstValidProgressive.DeviceId, out (int configuredGroupId, int _) ret))
+            {
+                ProgressiveGroupId = ret.configuredGroupId;
+            }
+            else
+            {
+                var maxConfiguredGroupId = _configuredLinkedLevelIds.Any()
+                    ? _configuredLinkedLevelIds.Values.Select(val => val.linkedGroupId).Max()
+                    : 0;
+                ProgressiveGroupId = maxConfiguredGroupId + 1;
+            }
+
+            _originalProgressiveGroupId = ProgressiveGroupId;
+        }
+
         private void LoadData()
         {
             ProgressiveLevels = new ObservableCollection<LevelModel>();
@@ -334,7 +432,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                     _originalNonSapProgressiveLevels.Add((levelModel.SelectableLevel, levelModel.SelectableLevelType));
                 }
             }
- 
+
             UpdateValidSelectableLevels();
 
             OnPropertyChanged(nameof(ProgressiveLevels)); // required so the grid will update
@@ -366,7 +464,21 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 gameCount = gameThemes.Count;
             }
 
-            return new LevelModel(level, customSapLevels, linkedLevels, gameCount, sharedLevel);
+            var configurableLinkedLevelId = 0;
+            if (IsConfigurableLinkedLevelId)
+            {
+                if (_configuredLinkedLevelIds.TryGetValue(level.DeviceId, out (int _, int configuredLevelId) ret))
+                {
+                    configurableLinkedLevelId = ret.configuredLevelId;
+                }
+                else
+                {
+                    //vertex Ids are 1-indexed, so try to provide a helpful default
+                    configurableLinkedLevelId = level.LevelId + 1; 
+                }
+            }
+
+            return new LevelModel(level, customSapLevels, linkedLevels, gameCount, sharedLevel, configurableLinkedLevelId);
         }
 
         private IReadOnlyCollection<IViewableSharedSapLevel> GenerateValidSharedSapLevels(

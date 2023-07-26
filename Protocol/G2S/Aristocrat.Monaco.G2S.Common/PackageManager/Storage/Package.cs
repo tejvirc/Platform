@@ -3,7 +3,7 @@
     using System.Globalization;
     using System.Text;
     using Monaco.Common.Storage;
-    using Data.Model;
+    using G2S.Data.Model;
 
     /// <summary>
     ///     Implementation of package entity.

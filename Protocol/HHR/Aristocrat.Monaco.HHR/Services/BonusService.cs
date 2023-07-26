@@ -186,18 +186,18 @@
             return new TransactionRequest
             {
                 PlayerId = await _playerSessionService.GetCurrentPlayerId(),
-                TransactionId = (uint) _transactionIdProvider.GetNextTransactionId(),
+                TransactionId = (uint)_transactionIdProvider.GetNextTransactionId(),
                 TransactionType = transType,
                 Credit = (uint)amountMillicents.MillicentsToCents(),
                 Flags = flags,
-                CashBalance = (uint) _bank.QueryBalance(AccountType.Cashable).MillicentsToCents() +
-                              (uint) _bank.QueryBalance(AccountType.Promo).MillicentsToCents(),
-                NonCashBalance = (uint) _bank.QueryBalance(AccountType.NonCash).MillicentsToCents(),
+                CashBalance = (uint)_bank.QueryBalance(AccountType.Cashable).MillicentsToCents() +
+                              (uint)_bank.QueryBalance(AccountType.Promo).MillicentsToCents(),
+                NonCashBalance = (uint)_bank.QueryBalance(AccountType.NonCash).MillicentsToCents(),
                 LastGamePlayTime = _propertiesManager.GetValue(HHRPropertyNames.LastGamePlayTime, 0u),
                 GameMapId = await _gameDataService.GetDefaultGameMapIdAsync(),
                 TimeoutInMilliseconds = HhrConstants.MsgTransactionTimeoutMs,
                 RetryCount = HhrConstants.RetryCount,
-                HandpayType = (uint) handPayType,
+                HandpayType = (uint)handPayType,
                 RequestTimeout = new LockupRequestTimeout
                 {
                     LockupKey = HhrConstants.BonusCmdTransactionErrorKey,
@@ -214,7 +214,7 @@
                 // Because SonarQube will freak out if I make this function async void, we have to explicitly wait here.
                 _centralManager.Send<TransactionRequest, CloseTranResponse>(
                     CreateTransactionRequest(
-                        amountMillicents, transType, (uint) flags, handpayType).Result).Wait();
+                        amountMillicents, transType, (uint)flags, handpayType).Result).Wait();
                 Logger.Debug($"Bonus info sent : (TransType{transType}, Bonus credit type={flags})");
             }
             catch (UnexpectedResponseException respEx)
@@ -223,7 +223,7 @@
             }
             catch (InvalidOperationException ex)
             {
-                Logger.Error( $"No player ID available for Bonus transaction : (TransType{transType}, Bonus credit type={flags})", ex);
+                Logger.Error($"No player ID available for Bonus transaction : (TransType{transType}, Bonus credit type={flags})", ex);
             }
             catch (Exception ex)
             {

@@ -82,8 +82,8 @@
                             .Where(
                                 x => x.LevelType == ProgressiveLevelType.LP &&
                                      _gameProvider.GetGames().Where(g => g.EgmEnabled)
-                                         .Any(g => g.VariationId == x.Variation))
-                        group level by new
+                                         .Any(g => g.VariationId == x.Variation || x.Variation.ToUpper() == "ALL"))
+                     group level by new
                         {
                             level.GameId,
                             PackName = level.ProgressivePackName,

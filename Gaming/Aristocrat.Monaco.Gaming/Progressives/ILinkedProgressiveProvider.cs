@@ -100,6 +100,14 @@
         bool ViewLinkedProgressiveLevel(string levelName, out IViewableLinkedProgressiveLevel level);
 
         /// <summary>
+        ///     Attempts to retrieve a group of linked progressive levels by their names
+        /// </summary>
+        /// <param name="levelNames">The unique levels name</param>
+        /// <param name="levels">The matching linked levels if valid</param>
+        /// <returns>True if the levels are found. False if any not found</returns>
+        bool ViewLinkedProgressiveLevels(IEnumerable<string> levelNames, out IReadOnlyCollection<IViewableLinkedProgressiveLevel> levels);
+
+        /// <summary>
         ///    Transitions linked level claim status from claimed to awarded in one scoped transaction.
         ///    This call must be done on any level that can be awarded
         /// </summary>

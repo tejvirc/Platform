@@ -1,15 +1,27 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.Models
 {
     using System;
+    using Aristocrat.Monaco.Application.Contracts.Localization;
+    using CefSharp.DevTools.CSS;
+    using System.Collections.Generic;
+    using System.Linq;
     using Aristocrat.Toolkit.Mvvm.Extensions;
     using CommunityToolkit.Mvvm.Input;
+    using Aristocrat.Monaco.Application.Contracts;
+    using Aristocrat.Monaco.Application.Protocol;
+    using Monaco.Localization.Properties;
+    using Mono.Addins;
 
     [CLSCompliant(false)]
     public class ProtocolSelection : BaseObservableObject
     {
+        private const string ProtocolExtensionPath = "/Protocol/Runnables";
+
         private bool _selected;
         private bool _enabled;
         private string _protocolName;
+        private string _protocolCapabilitiesList;
+        private ProtocolCapabilityAttribute _protocolCapabilities;
 
         public void Initialize(string protocolName)
         {
@@ -58,6 +70,94 @@
 
                 SetProperty(ref _enabled, value, nameof(Enabled));
             }
+        }
+
+        public string ProtocolCapabilitiesList
+        {
+            get
+            {
+                if (_protocolCapabilitiesList == null)
+                {
+                    DiscoverCapabilities();
+                }
+
+                return _protocolCapabilitiesList;
+            }
+            set
+            {
+                if (value == _protocolCapabilitiesList)
+                {
+                    return;
+                }
+
+                SetProperty(ref _protocolCapabilitiesList, value, nameof(ProtocolCapabilitiesList));
+            }
+        }
+
+        public ProtocolCapabilityAttribute ProtocolCapabilities
+        {
+            get
+            {
+                if (_protocolCapabilities == null)
+                {
+                    DiscoverCapabilities();
+                }
+
+                return _protocolCapabilities;
+            }
+            set
+            {
+                if (value == _protocolCapabilities)
+                {
+                    return;
+                }
+
+                SetProperty(ref _protocolCapabilities, value, nameof(ProtocolCapabilities));
+            }
+        }
+
+        private void DiscoverCapabilities()
+        {
+            var protocolNode = AddinManager.GetExtensionNodes<ProtocolTypeExtensionNode>(ProtocolExtensionPath)
+                .SingleOrDefault(x => x.ProtocolId == ProtocolName);
+
+            if (protocolNode == null)
+            {
+                return;
+            }
+
+            var protocolCapabilityAttribute = (ProtocolCapabilityAttribute)Attribute.GetCustomAttribute(
+                protocolNode.Type,
+                typeof(ProtocolCapabilityAttribute));
+            
+            var protocolCapabilityList = new List<string>();
+
+            if (protocolCapabilityAttribute != null)
+            {
+                if (protocolCapabilityAttribute.IsValidationSupported)
+                {
+                    protocolCapabilityList.Add(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Validation));
+                }
+
+                if (protocolCapabilityAttribute.IsFundTransferSupported)
+                {
+                    protocolCapabilityList.Add(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.FundTransfer));
+                }
+
+                if (protocolCapabilityAttribute.IsProgressivesSupported)
+                {
+                    protocolCapabilityList.Add(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Progressive));
+                }
+
+                if (protocolCapabilityAttribute.IsCentralDeterminationSystemSupported)
+                {
+                    protocolCapabilityList.Add(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CentralDeterminationSystem));
+                }
+            }
+
+            ProtocolCapabilitiesList = protocolCapabilityList.Count == 0
+                ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.None)
+                : string.Join(", ", protocolCapabilityList);
         }
     }
 }

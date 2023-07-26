@@ -18,6 +18,7 @@
                 { DeviceClass.G2S_noteAcceptor, CurrencyInMeters },
                 { DeviceClass.G2S_handpay, HandpayMeters },
                 { DeviceClass.G2S_bonus, BonusMeters },
+                { DeviceClass.G2S_progressive, ProgressiveMeters },
                 // { DeviceClass.G2S_noteDispenser, CurrencyOutMeters }
             };
             // DeviceMeters.Add(DeviceClass.G2S_gamePlay, WagerCategoryMeters);
@@ -136,6 +137,12 @@
             { PerformanceMeterName.EgmPaidGameWonAmount, GamingMeters.EgmPaidGameWonAmount },
             { PerformanceMeterName.TournamentCreditsWageredCount, "" }
             // { PerformanceMeterName.TournamentCreditsWonCount, "" },
+        };
+
+        public static IDictionary<string, string> ProgressiveMeters { get; } = new Dictionary<string, string>
+        {
+            { ProgressiveMeterName.WageredAmount, Gaming.Contracts.Progressives.ProgressiveMeters.WageredAmount },
+            { ProgressiveMeterName.PlayedCount, Gaming.Contracts.Progressives.ProgressiveMeters.PlayedCount } 
         };
 
         public static IDictionary<string, string> BonusMeters { get; } = new Dictionary<string, string>
