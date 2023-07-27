@@ -76,6 +76,11 @@
                 return;
             }
 
+            if (!_hardMeters.IsHardwareOperational)
+            {
+                HandleStoppedRespondingEvent();
+            }
+
             Subscribe();
 
             if (!_hardMeters.Enabled)
