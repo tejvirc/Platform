@@ -141,11 +141,12 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         public static ValidationResult ValidateMaxCreditsIn(decimal maxCreditsIn, ValidationContext context)
         {
-            if (maxCreditsIn < ApplicationConstants.MaxCreditsInMin)
+            return maxCreditsIn switch
             {
-                return new(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MaxCreditsInInvalid));
-            }
-            return ValidationResult.Success;
+                < ApplicationConstants.MaxCreditsInMin => new(Localizer.For(CultureFor.Player).GetString(ResourceKeys.MaxCreditsInInvalid)),
+                > ApplicationConstants.MaxCreditsInMax => new(string.Format(Localizer.For(CultureFor.Player).GetString(ResourceKeys.LessThanOrEqualErrorMessage), ApplicationConstants.MaxCreditsInMax.FormattedCurrencyString())),
+                _ => ValidationResult.Success
+            };
         }
     }
 }
