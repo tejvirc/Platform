@@ -24,6 +24,7 @@
 
     <Extension path="/Kernel/Processes">
         <Process Name="GDKRuntimeHost"/>
+        <Process Name="HrgRuntimeHost"/>
     </Extension>
 
     <Extension path="/Hardware/Services">
