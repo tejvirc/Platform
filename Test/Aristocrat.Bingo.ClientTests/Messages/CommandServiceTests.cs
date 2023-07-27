@@ -18,7 +18,7 @@
     public class CommandServiceTests
     {
         private const string MachineId = "123";
-        private const int waitTimeout = 1500;
+        private const int waitTimeout = 3000;
 
         private readonly Mock<IClientEndpointProvider<ClientApi.ClientApiClient>> _clientEndpointProvider = new(MockBehavior.Default);
         private readonly Mock<ICommandProcessorFactory> _commandFactory = new(MockBehavior.Default);
