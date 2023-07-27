@@ -373,6 +373,7 @@
                                          _lobbyStateManager.CurrentState == LobbyState.GameDiagnostics ||
                                          _lobbyStateManager.CurrentState == LobbyState.GameLoading && _gameRecovery.IsRecovering;
 
+
             IsAgeWarningDlgVisible = _lobbyStateManager.ContainsAnyState(LobbyState.AgeWarningDialog);
 
             IsResponsibleGamingInfoOverlayDlgVisible = _lobbyStateManager.ContainsAnyState(LobbyState.ResponsibleGamingInfoLayeredLobby, LobbyState.ResponsibleGamingInfoLayeredGame);

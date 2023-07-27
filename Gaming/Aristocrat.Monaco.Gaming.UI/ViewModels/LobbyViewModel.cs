@@ -2547,7 +2547,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
             Logger.Debug($"Preparing to launch game {game.Name} with an id of {game.GameId}");
 
-            //*** Show/Hide ? Recovering message
+            //*** Show Recovering message
             UpdateUI();
 
             if (!string.IsNullOrEmpty(game.LoadingScreenPath))

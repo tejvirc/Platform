@@ -230,6 +230,7 @@
 
             var accessor = _storageManager.GetAccessor(Level, GetType().ToString());
 
+            //*** IOConfiguration
             var config = _io.GetConfiguration();
 
             foreach (var item in config.Doors)
@@ -361,7 +362,7 @@
                                 _bus.Publish(new OpenEvent(doorId, whilePoweredDown, GetDoorName(doorId)));
                             }
                             else
-                            {
+                            {      
                                 _bus.Publish(new ClosedEvent(doorId, whilePoweredDown, GetDoorName(doorId)));
                             }
 
