@@ -17,6 +17,7 @@ namespace Aristocrat.Monaco.Inspection
     using Application.Contracts.ConfigWizard;
     using Application.Contracts.HardwareDiagnostics;
     using Application.Contracts.OperatorMenu;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Cabinet.Contracts;
     using Kernel;
     using Kernel.Contracts;
@@ -266,7 +267,7 @@ namespace Aristocrat.Monaco.Inspection
 
         private void PerformCurrentAction(InspectionAutomationConfigurationPageAutomationAction action)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (action.final)
@@ -391,7 +392,7 @@ namespace Aristocrat.Monaco.Inspection
 
         private void DecorateControl(UIElement element)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     KillControlDecoration();
@@ -463,7 +464,7 @@ namespace Aristocrat.Monaco.Inspection
                 return;
             }
 
-            MvvmHelper.ExecuteOnUI(() => _wizard.CanStartAutoTest = enable);
+            Execute.OnUIThread(() => _wizard.CanStartAutoTest = enable);
         }
 
         private bool IsWindowConditionMet(Control control, InspectionAutomationConfigurationPageAutomationAction action)
