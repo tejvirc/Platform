@@ -14,7 +14,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using Vgt.Client12.Application.OperatorMenu;
 
     [CLSCompliant(false)]
-    public class HardwareManagerPageViewModel : HardwareConfigBaseObservableObject
+    public class HardwareManagerPageViewModel : HardwareConfigBaseViewModel
     {
         private readonly IOperatorMenuLauncher _operatorMenuLauncher;
 

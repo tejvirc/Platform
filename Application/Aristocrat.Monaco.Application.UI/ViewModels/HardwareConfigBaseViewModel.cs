@@ -47,7 +47,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using ReelInspectionFailedEvent = Hardware.Contracts.Reel.Events.InspectionFailedEvent;
 
     [CLSCompliant(false)]
-    public abstract class HardwareConfigBaseObservableObject : ConfigWizardViewModelBase
+    public abstract class HardwareConfigBaseViewModel : ConfigWizardViewModelBase
     {
         private const string RS232 = "RS232";
         private const string IncludedDevicesPath = "/Platform/Discovery/Configuration";
@@ -113,7 +113,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         private TowerLightTierTypes _towerLightTierTypeSelection;
         private readonly ConfigWizardConfiguration _configWizardConfiguration;
 
-        protected HardwareConfigBaseObservableObject(bool isWizardPage)
+        protected HardwareConfigBaseViewModel(bool isWizardPage)
             : base(isWizardPage)
         {
             _serviceManager = ServiceManager.GetInstance();
