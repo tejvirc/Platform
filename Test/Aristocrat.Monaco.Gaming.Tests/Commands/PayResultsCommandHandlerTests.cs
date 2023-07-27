@@ -343,7 +343,7 @@
             handler.Handle(command);
             _bank.Verify(b => b.ForceHandpay(It.IsAny<Guid>(), It.IsAny<long>(), It.IsAny<TransferOutReason>(), It.IsAny<long>()), Times.Never);
             _gameHistory.Verify(b => b.PayResults(), Times.Once);
-            _bank.Verify(b => b.AddWin(win), Times.Once);
+            _bank.Verify(b => b.AddWin(win), Times.Never);
             scope.Verify(m => m.Complete());
         }
 

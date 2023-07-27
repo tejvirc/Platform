@@ -350,10 +350,7 @@
             {
                 if (SetProperty(ref _billAcceptanceLimitIsChecked, value, nameof(BillAcceptanceLimitIsChecked)))
                 {
-                    if (value)
-                    {
-                        BillAcceptanceLimit = _initialBillAcceptanceLimit;
-                    }
+                    BillAcceptanceLimit = value ? _initialBillAcceptanceLimit : ApplicationConstants.DefaultMaxCreditsIn.MillicentsToDollars();
                 }
             }
         }
@@ -444,7 +441,7 @@
 
         public decimal BillAcceptanceLimit
         {
-            get => BillAcceptanceLimitIsChecked ? _billAcceptanceLimit : PropertiesManager.GetValue(PropertyKey.MaxCreditsIn, ApplicationConstants.DefaultMaxCreditsIn).MillicentsToDollars();
+            get => _billAcceptanceLimit;
             set
             {
                 if (SetProperty(ref _billAcceptanceLimit, value, nameof(BillAcceptanceLimit)))
@@ -503,7 +500,7 @@
 
         public bool BillAcceptanceLimitCheckboxEnabled
         {
-            get => _billAcceptanceLimitCheckboxEnabled && PageEnabled;
+            get => _billAcceptanceLimitCheckboxEnabled && InputEnabled;
             set => SetProperty(ref _billAcceptanceLimitCheckboxEnabled, value, nameof(BillAcceptanceLimitCheckboxEnabled));
         }
 
@@ -685,7 +682,6 @@
             CelebrationLockupLimit = _initialCelebrationLockupLimit = PropertiesManager.GetValue(AccountingConstants.CelebrationLockupLimit, 0L).MillicentsToDollars();
             CelebrationLockupLimitIsChecked = _celebrationLockupLimit > 0;
             MaxBetLimitIsChecked = PropertiesManager.GetValue(AccountingConstants.MaxBetLimitEnabled, true);
-            BillAcceptanceLimitIsChecked = PropertiesManager.GetValue(AccountingConstants.BillAcceptanceLimitVisible, false);
             HandCountPayoutLimitIsChecked = PropertiesManager.GetValue(AccountingConstants.HandCountPayoutLimitVisible, false);
 
             _maxCreditMeter = PropertiesManager.GetValue(AccountingConstants.MaxCreditMeterMaxAllowed, long.MaxValue);
@@ -705,6 +701,8 @@
             _initialGambleWagerLimit = GambleWagerLimit;
             _initialGambleWinLimit = GambleWinLimit;
             BillAcceptanceLimit = _initialBillAcceptanceLimit = PropertiesManager.GetValue(PropertyKey.MaxCreditsIn, ApplicationConstants.DefaultMaxCreditsIn).MillicentsToDollars();
+            BillAcceptanceLimitCheckboxEnabled = PropertiesManager.GetValue(AccountingConstants.BillAcceptanceLimitVisible, false);
+            BillAcceptanceLimitIsChecked = BillAcceptanceLimit < ApplicationConstants.DefaultMaxCreditsIn.MillicentsToDollars() && PropertiesManager.GetValue(AccountingConstants.BillAcceptanceLimitVisible, false);
             HandCountPayoutLimit = _initialHandCountPayoutLimit = PropertiesManager.GetValue(AccountingConstants.HandCountPayoutLimit, 0L).MillicentsToDollars();
             OnInputStatusChanged();
 
@@ -1165,7 +1163,13 @@
 
         private bool ValidateBillAcceptanceLimit()
         {
-            var billAcceptanceLimitValidate = BillAcceptanceLimit.Validate(false, ApplicationConstants.DefaultMaxCreditsIn, ApplicationConstants.MaxCreditsInMin.DollarsToMillicents());
+            var billAcceptanceLimitValidate = BillAcceptanceLimit < ApplicationConstants.MaxCreditsInMin ? Localizer.For(CultureFor.Player).GetString(ResourceKeys.MaxCreditsInInvalid) : null;
+
+            if (BillAcceptanceLimit > ApplicationConstants.MaxCreditsInMax)
+            {
+                billAcceptanceLimitValidate = string.Format(Localizer.For(CultureFor.Player).GetString(ResourceKeys.LessThanOrEqualErrorMessage), ApplicationConstants.MaxCreditsInMax.FormattedCurrencyString());
+            }
+
             SetError(nameof(BillAcceptanceLimit), billAcceptanceLimitValidate);
             return string.IsNullOrEmpty(billAcceptanceLimitValidate);
         }
@@ -1226,6 +1230,7 @@
             RaisePropertyChanged(nameof(LargeWinLimitCheckboxIsEnabled));
             RaisePropertyChanged(nameof(LargeWinRatioCheckboxIsEnabled));
             RaisePropertyChanged(nameof(LargeWinRatioThresholdCheckboxIsEnabled));
+            RaisePropertyChanged(nameof(BillAcceptanceLimitCheckboxEnabled));
             RaisePropertyChanged(nameof(MaxBetLimitCheckboxIsEnabled));
             RaisePropertyChanged(nameof(CelebrationLockupLimitCheckboxIsEnabled));
             RaisePropertyChanged(nameof(AllowRemoteHandpayResetIsEnabled));
