@@ -51,6 +51,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 {
                     _windowWidth = value;
                     OnPropertyChanged(nameof(WindowWidth));
+                    SetContentSize();
                 }
             }
         }
@@ -65,6 +66,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 {
                     _windowHeight = value;
                     OnPropertyChanged(nameof(WindowHeight));
+                    SetContentSize();
                 }
             }
         }
@@ -81,16 +83,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             ScreenType = screenType;
 
             _eventBus.Subscribe<BrowserProcessTerminatedEvent>(this, e => BrowserProcessTerminated?.Invoke(this, e.MediaPlayerId));
-        }
-
-        protected new void OnPropertyChanged(string propertyName)
-        {
-            base.OnPropertyChanged(propertyName);
-
-            if (propertyName == "WindowWidth" || propertyName == "WindowHeight")
-            {
-                SetContentSize();
-            }
         }
 
         private void LoadProvider()
