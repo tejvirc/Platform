@@ -64,6 +64,8 @@
         /// <returns>Whether or not the timer was started</returns>
         public bool StartTimer(bool restart = false)
         {
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(StartTimer)}-0] - [{GetHashCode()}] - [{Environment.CurrentManagedThreadId}]");
+
             lock (_lockObject)
             {
                 if (_timer.Enabled && !restart)
@@ -79,6 +81,8 @@
                     return false;
                 }
 
+                Console.WriteLine($"[{DateTime.Now}] - [{nameof(StartTimer)}-1] - [{_clientNumber.HasValue}] - [{Environment.CurrentManagedThreadId}]");
+
                 if (_clientNumber.HasValue)
                 {
                     _exceptionHandler.ReportException(new GenericExceptionBuilder(sasExceptionType.Value), _clientNumber.Value);
@@ -87,6 +91,8 @@
                 {
                     _exceptionHandler.ReportException(new GenericExceptionBuilder(sasExceptionType.Value));
                 }
+
+                Console.WriteLine($"[{DateTime.Now}] - [{nameof(StartTimer)}-2] - [{_clientNumber.HasValue}] - [{Environment.CurrentManagedThreadId}]");
 
                 _timer.Enabled = true;
                 _timer.Start();

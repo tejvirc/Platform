@@ -107,6 +107,8 @@
         /// <inheritdoc/>
         public SendAuthenticationInfoResponse Handle(SendAuthenticationInfoCommand data)
         {
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(Handle)}-0] - [{data.Action}] - [{Environment.CurrentManagedThreadId}]");
+
             Logger.Debug($"Handling action {data.Action}");
             Component component;
             switch (data.Action)
@@ -143,6 +145,8 @@
 
                 case AuthenticationAction.AuthenticateComponent:
                     component = FindAddressedComponent(data);
+
+                    Console.WriteLine($"[{DateTime.Now}] - [{nameof(Handle)}-1] - [{data.Action}] - [{Environment.CurrentManagedThreadId}]");
 
                     if (component == null)
                     {
@@ -207,6 +211,9 @@
                         .Start();
 
                     _authResponseData.Status = AuthenticationStatus.AuthenticationCurrentlyInProgress;
+
+                    Console.WriteLine($"[{DateTime.Now}] - [{nameof(Handle)}-2] - [{_authResponseData.Status}] - [{Environment.CurrentManagedThreadId}]");
+
                     Logger.Debug("Authentication started");
                     break;
 
@@ -312,12 +319,16 @@
 
         private void GenerateComponentStatus(Component component)
         {
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(GenerateComponentStatus)}-0] - [{_authResponseData.Status}] - [{Environment.CurrentManagedThreadId}]");
+
             _authResponseData.ComponentName = component.ComponentId;
             _authResponseData.ComponentSize = component.Size;
             _authResponseData.AvailableMethods = AvailableAuthenticationMethods;
 
             if (component.ComponentId == _currentVerification.ComponentId)
             {
+                Console.WriteLine($"[{DateTime.Now}] - [{nameof(GenerateComponentStatus)}-1] - [{_authResponseData.Status}] - [{Environment.CurrentManagedThreadId}]");
+
                 _authResponseData.Status = _currentVerification.ResultTime == DateTime.MinValue
                     ? AuthenticationStatus.AuthenticationCurrentlyInProgress
                     : AuthenticationStatus.AuthenticationComplete;
@@ -330,6 +341,9 @@
             {
                 _authResponseData.Status = (component.Available ? AuthenticationStatus.Success : AuthenticationStatus.ComponentDisabledOrUnavailable);
             }
+
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(GenerateComponentStatus)}-2] - [{_authResponseData.Status}] - [{Environment.CurrentManagedThreadId}]");
+
         }
 
         private Component FindAddressedComponent(SendAuthenticationInfoCommand data)
@@ -359,6 +373,8 @@
 
         private void HandleComponentHashCompleteEvent(ComponentHashCompleteEvent evt)
         {
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(HandleComponentHashCompleteEvent)}-0] - [{_authResponseData.Status}] - [{Environment.CurrentManagedThreadId}]");
+
             if (_cancellationTokenSource == null || evt.TaskToken != _cancellationTokenSource.Token)
             {
                 Logger.Debug("Unexpected ComponentHashCompleteEvent");
@@ -368,6 +384,8 @@
             Logger.Debug($"receive ComponentHashCompleteEvent with id={evt.ComponentVerification.ComponentId}");
             _currentVerification = evt.ComponentVerification;
             StartTimer();
+
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(HandleComponentHashCompleteEvent)}-1] - [{_authResponseData.Status}] - [{Environment.CurrentManagedThreadId}]");
         }
 
         private void HandleAllComponentsHashCompleteEvent(AllComponentsHashCompleteEvent evt)
@@ -386,15 +404,21 @@
 
         private void CancelCurrentAuthentication(bool cancelledByComponentListChange)
         {
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(CancelCurrentAuthentication)}-0] - [{cancelledByComponentListChange}] - [{Environment.CurrentManagedThreadId}]");
+
             if (_currentVerification.ResultTime == DateTime.MinValue &&
                 !string.IsNullOrEmpty(_currentVerification.ComponentId))
             {
                 _cancellationTokenSource?.Cancel();
                 CancelTimer();
 
+                Console.WriteLine($"[{DateTime.Now}] - [{nameof(CancelCurrentAuthentication)}-1] - [{_authResponseData.Status}] - [{Environment.CurrentManagedThreadId}]");
+
                 if (cancelledByComponentListChange)
                 {
                     _authResponseData.Status = AuthenticationStatus.AuthenticationAborted;
+
+                    Console.WriteLine($"[{DateTime.Now}] - [{nameof(CancelCurrentAuthentication)}-2] - [{_authResponseData.Status}] - [{Environment.CurrentManagedThreadId}]");
                 }
             }
         }

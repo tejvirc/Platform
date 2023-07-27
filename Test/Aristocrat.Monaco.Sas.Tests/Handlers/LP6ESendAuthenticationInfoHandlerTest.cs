@@ -378,7 +378,11 @@
                 Action = AuthenticationAction.InterrogateAuthenticationStatus
             };
 
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(HandleRequestAuthenticationAbortedTest)}-0] - [{GetHashCode()}] - [{Environment.CurrentManagedThreadId}]");
+
             var output = _target.Handle(input);
+
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(HandleRequestAuthenticationAbortedTest)}-1] - [{GetHashCode()}] - [{Environment.CurrentManagedThreadId}]");
 
             Assert.AreEqual(AuthenticationStatus.AuthenticationAborted, output.Status);
             Assert.AreEqual(CrcHash, output.ComponentListCrc);
