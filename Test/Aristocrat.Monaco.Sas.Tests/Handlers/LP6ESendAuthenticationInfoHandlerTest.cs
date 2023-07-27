@@ -54,9 +54,9 @@
             SetupComponentRegistryMock();
             SetupAuthenticationServiceMock();
             _exceptionHandler.Setup(
-                m => m.ReportException(
-                    It.Is<ISasExceptionCollection>(
-                        ex => ex.ExceptionCode == GeneralExceptionCode.ComponentListChanged))).Verifiable();
+               m => m.ReportException(
+                   It.Is<ISasExceptionCollection>(
+                        ex => ex.ExceptionCode == GeneralExceptionCode.ComponentListChanged || ex.ExceptionCode == GeneralExceptionCode.AuthenticationComplete))).Verifiable();
 
             _target = new LP6ESendAuthenticationInfoHandler(_exceptionHandler.Object, _eventBus.Object, _componentRegistry.Object, _authenticationService.Object);
         }

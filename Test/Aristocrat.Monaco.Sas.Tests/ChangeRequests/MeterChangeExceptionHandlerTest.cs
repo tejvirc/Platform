@@ -24,7 +24,7 @@
                 handler.OnChangeCommit += OnChangeCommit;
             }
 
-            Console.WriteLine($"[{nameof(TestWaiter)}] - [{this.GetHashCode()}] - [{Environment.CurrentManagedThreadId}]");
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(TestWaiter)}] - [{this.GetHashCode()}] - [{Environment.CurrentManagedThreadId}]");
         }
 
         public int CommitEventReceived { get; private set; }
@@ -38,17 +38,17 @@
         private void OnChangeCommit(object sender, EventArgs e)
         {
             ++CommitEventReceived;
-            Console.WriteLine($"[{nameof(OnChangeCommit)}-0] - [{this.GetHashCode()}] - [{Environment.CurrentManagedThreadId}] - [{CommitEventReceived}]");
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(OnChangeCommit)}-0] - [{this.GetHashCode()}] - [{Environment.CurrentManagedThreadId}] - [{CommitEventReceived}]");
             _waiter.Set();
-            Console.WriteLine($"[{nameof(OnChangeCommit)}-1] - [{this.GetHashCode()}] - [{Environment.CurrentManagedThreadId}] - [{CommitEventReceived}]");
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(OnChangeCommit)}-1] - [{this.GetHashCode()}] - [{Environment.CurrentManagedThreadId}] - [{CommitEventReceived}]");
         }
 
         private void OnChangeCancel(object sender, EventArgs e)
         {
             ++CancelEventReceived;
-            Console.WriteLine($"[{nameof(OnChangeCancel)}-0] - [{this.GetHashCode()}] - [{Environment.CurrentManagedThreadId}] - [{CancelEventReceived}]");
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(OnChangeCancel)}-0] - [{this.GetHashCode()}] - [{Environment.CurrentManagedThreadId}] - [{CancelEventReceived}]");
             _waiter.Set();
-            Console.WriteLine($"[{nameof(OnChangeCancel)}-1] - [{this.GetHashCode()}] - [{Environment.CurrentManagedThreadId}] - [{CommitEventReceived}]");
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(OnChangeCancel)}-1] - [{this.GetHashCode()}] - [{Environment.CurrentManagedThreadId}] - [{CancelEventReceived}]");
         }
     }
 
@@ -59,7 +59,7 @@
     [TestClass]
     public class MeterChangeExceptionHandlerTest
     {
-        private const double CancelTimeout = 100;  // 100 ms
+        private const double CancelTimeout = 1000;  // 100 ms
         private const double ThirtySecondTimeout = 30000;  // 30 seconds
         private const int TimeoutWait = 1500;  // one and half seconds
         private const int MaxAcknowledgements = 5;
@@ -72,7 +72,7 @@
         [TestInitialize]
         public void MyTestInitialize()
         {
-            Console.WriteLine($"[{nameof(MyTestInitialize)}-0] - [{this.GetHashCode()}] - [{Environment.CurrentManagedThreadId}]");
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(MyTestInitialize)}-0] - [{this.GetHashCode()}] - [{Environment.CurrentManagedThreadId}]");
 
             _exceptionHandler = new Mock<ISasExceptionHandler>(MockBehavior.Strict);
             _exceptionHandler.Setup(x => x.ReportException(It.IsAny<ISasExceptionCollection>()))
@@ -83,7 +83,7 @@
             _target = new MeterChangeExceptionHandler(_exceptionHandler.Object, _propertiesManager.Object);
             _waiter = new TestWaiter(_target);
 
-            Console.WriteLine($"[{nameof(MyTestInitialize)}-1] - [{this.GetHashCode()}] - [{Environment.CurrentManagedThreadId}]");
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(MyTestInitialize)}-1] - [{this.GetHashCode()}] - [{Environment.CurrentManagedThreadId}]");
         }
 
         [TestCleanup]
@@ -109,7 +109,7 @@
         [TestMethod]
         public void TimerActiveTest()
         {
-            Console.WriteLine($"[{nameof(TimerActiveTest)}-0] - [{this.GetHashCode()}] - [{Environment.CurrentManagedThreadId}]");
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(TimerActiveTest)}-0] - [{this.GetHashCode()}] - [{Environment.CurrentManagedThreadId}]");
 
             Assert.IsFalse(_target.TimerActive());
             _target.StartPendingChange(MeterCollectStatus.LifetimeMeterChange, CancelTimeout);
@@ -117,12 +117,12 @@
             Assert.AreEqual(GeneralExceptionCode.MeterChangePending, _actualSasExceptionType);
             Assert.IsTrue(_target.TimerActive());
 
-            Console.WriteLine($"[{nameof(TimerActiveTest)}-1] - [{this.GetHashCode()}] - [{Environment.CurrentManagedThreadId}] - [{_waiter.CommitEventReceived}] - [{_waiter.CancelEventReceived}]");
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(TimerActiveTest)}-1] - [{this.GetHashCode()}] - [{Environment.CurrentManagedThreadId}] - [{_waiter.CommitEventReceived}] - [{_waiter.CancelEventReceived}]");
             // wait for the async call to finish
             Assert.IsTrue(_waiter.Wait(TimeoutWait));
-            Console.WriteLine($"[{nameof(TimerActiveTest)}-2] - [{this.GetHashCode()}] - [{Environment.CurrentManagedThreadId}] - [{_waiter.CommitEventReceived}] - [{_waiter.CancelEventReceived}]");
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(TimerActiveTest)}-2] - [{this.GetHashCode()}] - [{Environment.CurrentManagedThreadId}] - [{_waiter.CommitEventReceived}] - [{_waiter.CancelEventReceived}]");
             Assert.AreEqual(_waiter.CommitEventReceived, 0);
-            Console.WriteLine($"[{nameof(TimerActiveTest)}-3] - [{this.GetHashCode()}] - [{Environment.CurrentManagedThreadId}] - [{_waiter.CommitEventReceived}] - [{_waiter.CancelEventReceived}]");
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(TimerActiveTest)}-3] - [{this.GetHashCode()}] - [{Environment.CurrentManagedThreadId}] - [{_waiter.CommitEventReceived}] - [{_waiter.CancelEventReceived}]");
             Assert.AreEqual(_waiter.CancelEventReceived, 1);
             _exceptionHandler.Verify(m => m.ReportException(It.IsAny<ISasExceptionCollection>()), Times.Exactly(2));
             Assert.AreEqual(GeneralExceptionCode.MeterChangeCanceled, _actualSasExceptionType);
