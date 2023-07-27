@@ -240,9 +240,9 @@
         public const string PackagesPath = "/Packages";
 
         /// <summary>
-        ///     Gets the runtime executable name
+        ///     Gets the meaningful portion of the runtime executable name
         /// </summary>
-        public const string RuntimeHostName = @"GDKRuntimeHost";
+        public const string RuntimeHostName = @"RuntimeHost";
 
         /// <summary>
         ///     Gets the runtime file name

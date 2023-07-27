@@ -22,6 +22,7 @@
         private readonly IProcessManager _processManager;
         private readonly IPropertiesManager _properties;
         private readonly IDisplayService _display;
+        private readonly IRuntimeProvider _runtimeProvider;
 
         private readonly object _lock = new object();
 
@@ -35,12 +36,18 @@
         /// <param name="processManager">The process manager</param>
         /// <param name="pathMapper">The path mapper</param>
         /// <param name="display">The display service</param>
-        public GameProcess(IPropertiesManager properties, IProcessManager processManager, IPathMapper pathMapper, IDisplayService display)
+        /// <param name="runtimeProvider">The runtime provider</param>
+        public GameProcess(IPropertiesManager properties,
+            IProcessManager processManager,
+            IPathMapper pathMapper,
+            IDisplayService display,
+            IRuntimeProvider runtimeProvider)
         {
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _processManager = processManager ?? throw new ArgumentNullException(nameof(processManager));
             _pathMapper = pathMapper ?? throw new ArgumentNullException(nameof(pathMapper));
             _display = display ?? throw new ArgumentNullException(nameof(display));
+            _runtimeProvider = runtimeProvider ?? throw new ArgumentNullException(nameof(runtimeProvider));
 
             _gamesPath = pathMapper.GetDirectory(GamingConstants.GamesPath).FullName;
             _runtimeRoot = pathMapper.GetDirectory(GamingConstants.RuntimePath).FullName;
@@ -75,7 +82,8 @@
                 _properties.GetValue(GamingConstants.RuntimeArgs, string.Empty));
 
             var fullGamePath = Path.Combine(_gamesPath, game.Folder);
-            var fullRuntimePath = Path.Combine(_runtimeRoot, game.TargetRuntime, GamingConstants.RuntimeHost);
+            var runtimeFolder = Path.Combine(_runtimeRoot, game.TargetRuntime);
+            var fullRuntimePath = Path.Combine(runtimeFolder, _runtimeProvider.GetRuntimeHostFilename(runtimeFolder));
 
             lock (_lock)
             {

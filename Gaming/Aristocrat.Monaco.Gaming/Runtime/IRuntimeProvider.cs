@@ -34,5 +34,12 @@
         /// </summary>
         /// <param name="runtimeId">The runtime identifier (it's the package id)</param>
         void Unload(string runtimeId);
+
+        /// <summary>
+        ///     Gets the name of the runtime host executable file.
+        /// </summary>
+        /// <param name="runtimeFolder">Runtime folder to look in</param>
+        /// <returns>Name of runtime host executable file</returns>
+        string GetRuntimeHostFilename(string runtimeFolder);
     }
 }
