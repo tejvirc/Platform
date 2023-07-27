@@ -136,14 +136,14 @@
                 _noteAcceptor.SetupGet(x => x.LastDocumentResult).Returns(DocumentResult.Escrowed);
             }
 
-            await Task.Run(
-                async () =>
-                {
+            //await Task.Run(
+            //    async () =>
+            //    {
                     await Task.Delay((int)(timeOut * 0.1));
                     _noteAcceptor.Verify(x => x.Return(), Times.Never);
                     await Task.Delay(timeOut);
                     _noteAcceptor.Verify(x => x.Return(), Times.Once);
-                });
+                //});
         }
 
         private void SetupProperties()
