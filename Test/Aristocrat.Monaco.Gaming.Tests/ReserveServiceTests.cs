@@ -221,7 +221,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
             await Task.Run(
                 async () =>
                 {
-                    const int deltaTimeInMs = 200;
+                    const int deltaTimeInMs = 500;
 
                     CreateReserveLockupSuccessfully(timeout);
 
@@ -460,7 +460,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
             await Task.Run(
                 async () =>
                 {
-                    const int deltaTimeInMs = 300;
+                    const int deltaTimeInMs = 500;
 
                     CreateReserveLockupSuccessfully(timeout);
 

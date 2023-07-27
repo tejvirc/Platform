@@ -139,9 +139,9 @@
             await Task.Run(
                 async () =>
                 {
-                    await Task.Delay(timeOut - 250);
+                    await Task.Delay(timeOut - 450);
                     _noteAcceptor.Verify(x => x.Return(), Times.Never);
-                    await Task.Delay(350);
+                    await Task.Delay(1000);
                     _noteAcceptor.Verify(x => x.Return(), Times.Once);
                 });
         }

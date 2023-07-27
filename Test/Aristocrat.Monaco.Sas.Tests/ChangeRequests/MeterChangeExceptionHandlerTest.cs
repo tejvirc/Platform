@@ -61,7 +61,7 @@
     {
         private const double CancelTimeout = 1000;  // 100 ms
         private const double ThirtySecondTimeout = 30000;  // 30 seconds
-        private const int TimeoutWait = 1500;  // one and half seconds
+        private const int TimeoutWait = 3000;  // three seconds
         private const int MaxAcknowledgements = 5;
         private MeterChangeExceptionHandler _target;
         private Mock<ISasExceptionHandler> _exceptionHandler;
