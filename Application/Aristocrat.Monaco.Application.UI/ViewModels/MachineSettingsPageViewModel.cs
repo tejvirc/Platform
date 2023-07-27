@@ -222,7 +222,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         }
 
         [CustomValidation(typeof(MachineSettingsPageViewModel), nameof(ValidateHardMeterIsOperational))]
-        private bool IsVariableDataLoaded
+        public bool IsVariableDataLoaded
         {
             get => _isVariableDataLoaded;
             set => SetProperty(ref _isVariableDataLoaded, value, true);
