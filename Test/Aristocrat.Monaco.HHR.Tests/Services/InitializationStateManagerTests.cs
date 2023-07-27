@@ -195,8 +195,13 @@
             _eventBus.ResetCalls();
             _playerSessionService.ResetCalls();
 
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(ReceiveParameterRequestDuringInitializationExpectInitializationFailedAndReInitialization)}-0] - [{GetHashCode()}] - [{Environment.CurrentManagedThreadId}]");
+
             _waitForReadyToPlay.WaitOne();
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(ReceiveParameterRequestDuringInitializationExpectInitializationFailedAndReInitialization)}-1] - [{GetHashCode()}] - [{Environment.CurrentManagedThreadId}]");
             SimulateServerResponse(GtCommand.Play);
+
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(ReceiveParameterRequestDuringInitializationExpectInitializationFailedAndReInitialization)}-2] - [{GetHashCode()}] - [{Environment.CurrentManagedThreadId}]");
 
             Success();
         }
@@ -300,13 +305,21 @@
 
         private void SimulateServerResponse(GtCommand command)
         {
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(SimulateServerResponse)}-0] - [{command}] - [{Environment.CurrentManagedThreadId}]");
+
             _responseSubject.OnNext(new CommandResponse { ECommand = command });
+
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(SimulateServerResponse)}-1] - [{command}] - [{Environment.CurrentManagedThreadId}]");
         }
 
         private void Success()
         {
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(Success)}-0] - [{GetHashCode()}] - [{Environment.CurrentManagedThreadId}]");
+
             _eventBus.Verify(x => x.Publish(It.IsAny<ProtocolInitializationInProgress>()), Times.AtLeastOnce);
             _eventBus.Verify(x => x.Publish(It.IsAny<ProtocolInitializationFailed>()), Times.Never);
+
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(Success)}-1] - [{GetHashCode()}] - [{Environment.CurrentManagedThreadId}]");
             _eventBus.Verify(x => x.Publish(It.IsAny<ProtocolInitializationComplete>()), Times.Once);
 
             _gameDataService.Verify();

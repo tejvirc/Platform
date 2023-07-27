@@ -135,6 +135,8 @@
 
         private async void UnsolicitedResponseReceived(Response obj)
         {
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(UnsolicitedResponseReceived)}-0] - [{obj}] - [{Environment.CurrentManagedThreadId}]");
+
             switch (obj)
             {
                 case CommandResponse res when obj.Command == Command.CmdCommand:
@@ -144,6 +146,8 @@
                             _readyToPlayTimer.Start();
                             break;
                         case GtCommand.Play:
+                            Console.WriteLine($"[{DateTime.Now}] - [{nameof(UnsolicitedResponseReceived)}-1] - [{obj}] - [{Environment.CurrentManagedThreadId}]");
+
                             _stateMachine.Fire(Trigger.Ready);
                             break;
                     }
@@ -156,6 +160,8 @@
                     _systemDisableManager.Enable(HhrConstants.GameSelectionMismatchKey);
                     break;
             }
+
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(UnsolicitedResponseReceived)}-3] - [{obj}] - [{Environment.CurrentManagedThreadId}]");
         }
 
         private void InitializationTimerOnElapsed(object sender, ElapsedEventArgs e)
@@ -243,9 +249,13 @@
 
         private void OnReady()
         {
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(OnReady)}-0] - [{GetHashCode()}] - [{Environment.CurrentManagedThreadId}]");
+
             Logger.Debug("Protocol initialization complete");
 
             _eventBus.Publish(new ProtocolInitializationComplete());
+
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(OnReady)}-1] - [{GetHashCode()}] - [{Environment.CurrentManagedThreadId}]");
             _readyToPlayTimer.Stop();
         }
 
