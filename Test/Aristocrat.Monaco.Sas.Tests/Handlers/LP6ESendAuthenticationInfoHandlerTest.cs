@@ -424,8 +424,6 @@
 
             var output = _target.Handle(input);
 
-            Thread.Sleep(100);
-
             Assert.AreEqual(AuthenticationStatus.AuthenticationAborted, output.Status);
             Assert.AreEqual(CrcHash, output.ComponentListCrc);
         }
