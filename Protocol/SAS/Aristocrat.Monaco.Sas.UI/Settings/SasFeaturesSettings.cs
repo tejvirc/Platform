@@ -65,7 +65,7 @@
             {
                 var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
                 var creditLimit = propertiesManager.GetValue(AccountingConstants.MaxCreditMeter, long.MaxValue).MillicentsToDollars();
-                return TransferLimit.CentsToDollars() < creditLimit
+                return TransferLimit.CentsToDollars() <= creditLimit
                     ? TransferLimit.CentsToDollars().FormattedCurrencyString()
                     : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoLimit);
             }

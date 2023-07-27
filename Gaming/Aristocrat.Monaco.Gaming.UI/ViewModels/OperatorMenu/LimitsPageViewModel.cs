@@ -720,6 +720,7 @@
             LargeWinRatioIsChecked = LargeWinRatio > AccountingConstants.DefaultLargeWinRatio;
             LargeWinRatioThresholdIsChecked = LargeWinRatioThreshold > AccountingConstants.DefaultLargeWinRatioThreshold.MillicentsToDollars();
             MaxBetLimitIsChecked = MaxBetLimit < long.MaxValue.MillicentsToDollars();
+            HandpayLimitIsChecked = HandpayLimit <= CreditLimit;
 
             EventBus?.Subscribe<PropertyChangedEvent>(this, HandleEvent);
             if (IsWizardPage)

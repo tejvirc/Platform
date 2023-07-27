@@ -177,14 +177,14 @@
                                                   MinWidth="200"
                                                   IsReadOnly="False"
                                                   PreventNegatives="True"
-                                                  Number="{                                                     Binding AftTransferLimit,                                                      Mode=TwoWay,                                                      UpdateSourceTrigger=PropertyChanged,                                                      ValidatesOnDataErrors=True,                                                      NotifyOnValidationError=True}"
-                                                  Visibility="{                                                     Binding AftTransferLimitEnabled,                                                     Converter={StaticResource TrueVisibleFalseHidden},                                                     UpdateSourceTrigger=PropertyChanged}" />
+                                                  Number="{Binding AftTransferLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                                  Visibility="{Binding AftTransferLimitEnabled, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}" />
                         <TextBlock x:Name="AftTransferLimitTextBlock"
                                    Grid.Row="0"
                                    Grid.Column="1"
                                    Margin="20 14 0 0"
                                    Text="{lex:BLoc Key={x:Static loc:ResourceKeys.NoLimit}}"
-                                   Visibility="{                                     Binding AftTransferLimitEnabled,                                     Converter={StaticResource TrueHiddenFalseVisible},                                     UpdateSourceTrigger=PropertyChanged}"
+                                   Visibility="{Binding AftTransferLimitEnabled, Converter={StaticResource TrueHiddenFalseVisible}, UpdateSourceTrigger=PropertyChanged}"
                                    AutomationProperties.AutomationId="TextBlock31_B5E5742A" />
                     </Grid>
                 </StackPanel>
