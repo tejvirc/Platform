@@ -15559,6 +15559,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -15643,6 +15646,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -25759,9 +25765,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -43438,9 +43441,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -50778,7 +50778,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.GamingConstants.html",
-          "hash": "MLm9LDFAOVBB4U1iMhadCmsHW49weK1C2Kx2PvpEGK4="
+          "hash": "z62D7yL3nUOxpzX7NBwrE0co1s8hWL7/3yXTDsYA9Ho="
         }
       },
       "is_incremental": false,
@@ -56202,7 +56202,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Runtime.GameProcess.html",
-          "hash": "vizKMJklaxrfPTrYw9uaWbr0PILNSDG1X/5uc+rjRXU="
+          "hash": "dcYbfe+R+TOjgAjRZ9jk+P35ax/BghUW1yeNuRqF9dg="
         }
       },
       "is_incremental": false,
@@ -56298,7 +56298,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Runtime.IRuntimeProvider.html",
-          "hash": "UCLRZBCSqI+vBWvnoQc6gkSh3dzE6IwlkY2D3LrbGqc="
+          "hash": "Xf4qqqn05Z7sQ53Mzdmf2Rg4eEWt6fminMocylcsn5A="
         }
       },
       "is_incremental": false,
@@ -56370,7 +56370,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Runtime.RuntimeProvider.html",
-          "hash": "k249+LpxuoGitwPeEd2Gbn7IycdJqomBVVXmcoGeuAk="
+          "hash": "QaW2boOAxfu7REgsb98qsyjVls17zH1erZtaEfR3KA4="
         }
       },
       "is_incremental": false,
