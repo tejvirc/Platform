@@ -17,6 +17,13 @@
         private readonly Mock<IClientEndpointProvider<ClientApi.ClientApiClient>> _endpointProvider = new(MockBehavior.Default);
         private ActivityReportService _target;
 
+        [AssemblyInitialize]
+        public static void AssemblyInitialize(TestContext context)
+        {
+            // Disable parallel test execution at the assembly level.
+            context.Properties["microsoft.testfx.testrun.isparallel"] = false;
+        }
+
         [TestInitialize]
         public void MyTestInitialize()
         {
