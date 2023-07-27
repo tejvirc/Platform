@@ -141,7 +141,7 @@
                 ReplyId = request.SequenceId
             };
             _messageFlow.Setup(x => x.Send(It.IsAny<Request>(), It.IsAny<CancellationToken>()))
-                .Callback<Request, CancellationToken>((r, c) => Task.Delay(Timeout / 2).ContinueWith(x => _subject.OnNext(_packet), c))
+                .Callback<Request, CancellationToken>((r, c) => Task.Delay(Timeout / 10).ContinueWith(x => _subject.OnNext(_packet), c))
                 .Returns(Task.FromResult(true));
 
             _messageFlow.Setup(x => x.Receive(It.IsAny<Packet>(), It.IsAny<CancellationToken>()))
@@ -281,7 +281,7 @@
                 ReplyId = request.SequenceId
             };
             _messageFlow.Setup(x => x.Send(It.IsAny<Request>(), It.IsAny<CancellationToken>()))
-                .Callback<Request, CancellationToken>((r, c) => Task.Delay(Timeout / 2).ContinueWith(x => _subject.OnNext(_packet), c))
+                .Callback<Request, CancellationToken>((r, c) => Task.Delay(Timeout / 5).ContinueWith(x => _subject.OnNext(_packet), c))
                 .Returns(Task.FromResult(true));
 
             _messageFlow.Setup(x => x.Receive(It.IsAny<Packet>(), It.IsAny<CancellationToken>()))
