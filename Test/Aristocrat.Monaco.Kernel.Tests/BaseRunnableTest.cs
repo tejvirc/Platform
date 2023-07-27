@@ -14,6 +14,16 @@
     public class BaseRunnableTest
     {
         /// <summary>
+        ///     Initialize the test assembly before execution
+        /// </summary>
+        /// <param name="context"></param>
+        [AssemblyInitialize]
+        public static void AssemblyInitialize(TestContext context)
+        {
+            // Disable parallel test execution at the assembly level.
+            context.Properties["microsoft.testfx.testrun.isparallel"] = false;
+        }
+        /// <summary>
         ///     A test for State
         /// </summary>
         [TestMethod]

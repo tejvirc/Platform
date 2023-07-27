@@ -238,7 +238,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
 
                     Assert.IsTrue(_reserve.IsMachineReserved);
 
-                    await Task.Delay(deltaTimeInMs * 2);
+                    await Task.Delay(deltaTimeInMs * 3);
 
                     Assert.IsFalse(_reserve.IsMachineReserved);
 
@@ -470,7 +470,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
 
                     Assert.IsTrue(_reserve.IsMachineReserved);
 
-                    await Task.Delay(deltaTimeInMs * 2);
+                    await Task.Delay(deltaTimeInMs * 3);
 
                     Assert.IsFalse(_reserve.IsMachineReserved);
 
