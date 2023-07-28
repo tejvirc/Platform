@@ -1,8 +1,10 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Services;
 
+using System.Threading.Tasks;
+
 public interface ILayoutManager
 {
-    void CreateWindows();
+    Task InitializeAsync();
 
     void DestroyWindows();
 }

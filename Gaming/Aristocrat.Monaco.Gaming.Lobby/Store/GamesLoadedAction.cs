@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Store;
 
 using System.Collections.Generic;
-using Models;
+using UI.Models;
 
 public record GamesLoadedAction
 {

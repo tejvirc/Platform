@@ -350,7 +350,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             _cashoutController = cashoutController ?? throw new ArgumentNullException(nameof(cashoutController));
             _attractInfoProvider = attractInfoProvider ?? throw new ArgumentNullException(nameof(attractInfoProvider));
             _progressiveProvider = progressiveProvider ?? throw new ArgumentNullException(nameof(progressiveProvider));
-            ProgressiveLabelDisplay = new ProgressiveLobbyIndicatorViewModel(this);
+            // ProgressiveLabelDisplay = new ProgressiveLobbyIndicatorViewModel(this);
+            ProgressiveLabelDisplay = new ProgressiveLobbyIndicatorViewModel(_gameList);
 
             _operatorMenu = containerService.Container.GetInstance<IOperatorMenuLauncher>();
             _gameRecovery = containerService.Container.GetInstance<IGameRecovery>();

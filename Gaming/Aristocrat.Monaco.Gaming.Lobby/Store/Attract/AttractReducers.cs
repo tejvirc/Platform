@@ -26,21 +26,21 @@ public static class AttractReducers
         };
 
     [ReducerMethod]
-    public static AttractState Reduce(AttractState state, UpdateAttractIndexAction payload) =>
-        state with { CurrentAttractIndex = payload.AttractIndex };
+    public static AttractState Reduce(AttractState state, UpdateAttractIndexAction action) =>
+        state with { CurrentAttractIndex = action.AttractIndex };
 
     [ReducerMethod]
-    public static AttractState Reduce(AttractState state, UpdateAttractModeTopperImageIndex payload) =>
+    public static AttractState Reduce(AttractState state, UpdateAttractModeTopperImageIndex action) =>
         state with
         {
-            AttractModeTopperImageIndex = payload.Index,
+            AttractModeTopperImageIndex = action.Index,
         };
 
     [ReducerMethod]
-    public static AttractState Reduce(AttractState state, UpdateAttractModeTopImageIndex payload) =>
+    public static AttractState Reduce(AttractState state, UpdateAttractModeTopImageIndex action) =>
         state with
         {
-            AttractModeTopImageIndex = payload.Index,
+            AttractModeTopImageIndex = action.Index,
         };
 
     [ReducerMethod]

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Fluxor;
-using Models;
+using UI.Models;
 using Services;
 
 public class RehydrateGamesMiddleware : Middleware

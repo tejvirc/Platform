@@ -4,7 +4,7 @@ using System;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Windows.Controls;
-using UI.Common;
+using Monaco.UI.Common;
 
 public class ContentControlRegionAdapter : RegionAdapter<ContentControl>
 {

@@ -70,7 +70,7 @@
     <Service type="Aristocrat.Monaco.Application.Identification.IdentificationProvider" />
     <Service type="Aristocrat.Monaco.Application.Identification.EmployeeLoginService" />
     <Service type="Aristocrat.Monaco.Application.Monitors.SecondaryStorageMonitor" />
-    <Service type="Aristocrat.Monaco.Application.PerformanceCounter.PerformanceCounterManager" />
+    <!--<Service type="Aristocrat.Monaco.Application.PerformanceCounter.PerformanceCounterManager" />-->
     <Service type="Aristocrat.Monaco.Application.Monitors.FirmwareCrcMonitor" />
     <Service type="Aristocrat.Monaco.Application.Detection.DeviceDetection" />
   </Extension>

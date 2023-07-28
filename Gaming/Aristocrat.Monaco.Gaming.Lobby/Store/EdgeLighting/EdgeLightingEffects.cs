@@ -60,9 +60,9 @@ public class EdgeLightingEffects
     }
 
     [EffectMethod]
-    public Task Effect(UpdateEdgeLightStateAction payload, IDispatcher _)
+    public Task Effect(UpdateEdgeLightStateAction action, IDispatcher _)
     {
-        _edgeLightingService.SetEdgeLighting(payload.EdgeLightState);
+        _edgeLightingService.SetEdgeLighting(action.EdgeLightState);
 
         return Task.CompletedTask;
     }

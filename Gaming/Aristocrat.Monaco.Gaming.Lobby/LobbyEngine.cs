@@ -3,6 +3,7 @@
 using System;
 using Aristocrat.Monaco.Application;
 using Aristocrat.Monaco.Application.Contracts;
+using Aristocrat.PackageManifest.Extension.v100;
 using Commands;
 using Contracts.Lobby;
 using Fluxor;
@@ -16,6 +17,7 @@ internal class LobbyEngine : ILobby
     private readonly ILogger<LobbyEngine> _logger;
     private readonly IStore _store;
     private readonly IDispatcher _dispatcher;
+    private readonly LobbyConfiguration _configuration;
     private readonly IOperatorMenuLauncher _operatorMenuLauncher;
     private readonly ILayoutManager _layoutManager;
     private readonly IApplicationCommands _commands;
@@ -24,6 +26,7 @@ internal class LobbyEngine : ILobby
         ILogger<LobbyEngine> logger,
         IStore store,
         IDispatcher dispatcher,
+        LobbyConfiguration configuration,
         IOperatorMenuLauncher operatorMenuLauncher,
         ILayoutManager layoutManager,
         IApplicationCommands commands)
@@ -31,6 +34,7 @@ internal class LobbyEngine : ILobby
         _logger = logger;
         _store = store;
         _dispatcher = dispatcher;
+        _configuration = configuration;
         _operatorMenuLauncher = operatorMenuLauncher;
         _layoutManager = layoutManager;
         _commands = commands;
@@ -38,13 +42,13 @@ internal class LobbyEngine : ILobby
 
     public void CreateWindow()
     {
-        _layoutManager.CreateWindows();
+        _store.InitializeAsync().Wait();
+
+        _dispatcher.Dispatch(new StartupAction(_configuration));
 
         _operatorMenuLauncher.EnableKey(ApplicationConstants.OperatorMenuInitializationKey);
 
-        _store.InitializeAsync().Wait();
-
-        _dispatcher.Dispatch(new StartupAction());
+        _layoutManager.InitializeAsync().Wait();
     }
 
     public void Show() => throw new NotSupportedException();

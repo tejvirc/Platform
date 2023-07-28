@@ -4,6 +4,7 @@
     using System.Globalization;
     using System.Reflection;
     using System.Threading;
+    using System.Windows;
     using Application.Contracts;
     using Application.Contracts.Localization;
     using Application.Contracts.Media;
@@ -51,23 +52,24 @@
         /// <inheritdoc />
         protected override void OnInitialize()
         {
-            //var dispatcher = Application.Current.Dispatcher;
+            var dispatcher = Application.Current.Dispatcher;
 
-            //dispatcher.BeginInvoke(
-            //    new Action(
-            //        () =>
-            //        {
+            dispatcher.BeginInvoke(
+                new Action(
+                    () =>
+                    {
                         _container = Bootstrapper.InitializeContainer();
 
-            _container.Options.AllowOverridingRegistrations = true;
+                        _container.Options.AllowOverridingRegistrations = true;
 
-            ConfigureContainer(_container);
+                        ConfigureContainer(_container);
 
-            _container.Options.AllowOverridingRegistrations = false;
+                        _container.Options.AllowOverridingRegistrations = false;
 
                         // This will forcibly resolve all instances, which will create the Consumers
                         _container.Verify();
-                    //})).Wait();
+                    }))
+                .Wait();
 
             Logger.Info("Initialized");
         }

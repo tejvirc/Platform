@@ -2,12 +2,12 @@
 
 using System.Collections.Immutable;
 using Fluxor;
-using Models;
+using UI.Models;
 
 [FeatureState]
 public record AttractState
 {
-    public IImmutableList<AttractVideoInfo> AttractVideos { get; set; } = ImmutableList<AttractVideoInfo>.Empty;
+    public IImmutableList<AttractVideoDetails> AttractVideos { get; set; } = ImmutableList<AttractVideoDetails>.Empty;
 
     public int CurrentAttractIndex { get; set; }
 

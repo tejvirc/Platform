@@ -21,15 +21,17 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Platform.Consumers;
+using Monaco.UI.Common;
+using Consumers;
+using Progressives;
 using Regions;
 using Services;
 using Services.Attract;
 using Services.EdgeLighting;
+using Services.Translate;
 using SimpleInjector;
 using SimpleInjector.Packaging;
 using Store.Middleware;
-using UI.Common;
 using Vgt.Client12.Application.OperatorMenu;
 
 public class LobbyPackage : IPackage
@@ -227,6 +229,7 @@ public class LobbyPackage : IPackage
 
         services.AddSingleton<IAttractService, AttractService>();
         services.AddSingleton<IEdgeLightingService, EdgeLightingService>();
+        services.AddSingleton<ITranslateService, TranslateService>();
 
         services.AddSingleton(_ => ServiceManager.GetInstance().GetService<IWpfWindowLauncher>());
 
@@ -235,6 +238,8 @@ public class LobbyPackage : IPackage
         services.AddSingleton(
             provider => provider.GetRequiredService<Container>().GetInstance<IOperatorMenuLauncher>());
         services.AddSingleton(provider => provider.GetRequiredService<Container>().GetInstance<IGameOrderSettings>());
+        services.AddSingleton(provider => provider.GetRequiredService<Container>().GetInstance<IGameStorage>());
+        services.AddSingleton(provider => provider.GetRequiredService<Container>().GetInstance<IProgressiveConfigurationProvider>());
         services.AddSingleton(provider => provider.GetRequiredService<Container>().GetInstance<ILocalizerFactory>());
         services.AddSingleton(
             provider => provider.GetRequiredService<Container>().GetInstance<IEdgeLightingStateManager>());

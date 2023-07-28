@@ -5,18 +5,18 @@ using Fluxor;
 public static class CommonReducers
 {
     [ReducerMethod]
-    public static CommonState Reduce(CommonState state, SystemEnabledAction payload) =>
+    public static CommonState Reduce(CommonState state, SystemEnabledAction action) =>
         state with
         {
-            IsSystemDisabled = payload.IsDisabled,
-            IsSystemDisableImmediately = payload.IsDisableImmediately
+            IsSystemDisabled = action.IsSystemDisabled,
+            IsSystemDisableImmediately = action.IsSystemDisableImmediately
         };
 
     [ReducerMethod]
-    public static CommonState Reduce(CommonState state, SystemDisabledAction payload) =>
+    public static CommonState Reduce(CommonState state, SystemDisabledAction action) =>
         state with
         {
-            IsSystemDisabled = payload.IsDisabled,
-            IsSystemDisableImmediately = payload.IsDisableImmediately
+            IsSystemDisabled = action.IsSystemDisabled,
+            IsSystemDisableImmediately = action.IsSystemDisableImmediately
         };
 }

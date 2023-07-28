@@ -6,7 +6,7 @@ using Aristocrat.Monaco.Application.Contracts.EdgeLight;
 using Contracts.Lobby;
 using Contracts.Models;
 using Fluxor;
-using Models;
+using UI.Models;
 
 [FeatureState]
 public partial record LobbyState

@@ -6,6 +6,7 @@
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                  xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
                  xmlns:views="clr-namespace:Aristocrat.Monaco.Gaming.Lobby.Views"
+                 xmlns:mediaDisplay="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay;assembly=Aristocrat.Monaco.Gaming.UI"
                  xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.Lobby.ViewModels"
                  xmlns:regions="clr-namespace:Aristocrat.Monaco.Gaming.Lobby.Regions"
                  xmlns:behaviors="clr-namespace:Aristocrat.Monaco.Gaming.Lobby.Behaviors"
@@ -42,8 +43,13 @@
         <behaviors:ScreenMapBehavior x:Name="ScreenMapBehavior" DisplayRole="{Binding DisplayRole, Mode=OneTime}" />
     </i:Interaction.Behaviors>
 
-    <Grid>
-        <mah:MetroContentControl regions:RegionManager.Region="{x:Static views:RegionNames.Main}" />
-    </Grid>
+    <mediaDisplay:LayoutTemplateDockPanel x:Name="LayoutTemplate" ScreenType="Primary">
+        <Grid x:Name="GameLayout"
+              ClipToBounds="True">
+            <Viewbox x:Name="ViewBoxLobby" Stretch="Uniform">
+                <mah:MetroContentControl regions:RegionManager.Region="{x:Static views:RegionNames.Main}" />
+            </Viewbox>
+        </Grid>
+    </mediaDisplay:LayoutTemplateDockPanel>
 
 </mah:MetroWindow>

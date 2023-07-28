@@ -4,14 +4,12 @@ using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Media;
-using Application.Contracts.Localization;
-using Aristocrat.Monaco.Gaming.Contracts;
-using Aristocrat.Monaco.Gaming.Contracts.Models;
+using Contracts;
 using Contracts.Lobby;
 using Fluxor;
 using Kernel;
+using Monaco.UI.Common;
 using Store;
-using UI.Common;
 
 public class IdleTextService
 {

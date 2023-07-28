@@ -23,8 +23,6 @@ internal class CommandHandlerFactory : ICommandHandlerFactory, IDisposable
         }
 
         _scope = serviceScopeFactory.CreateScope();
-
-        var commandHandlers = _scope.ServiceProvider.GetServices(typeof(ICommandHandler<>));
     }
 
     /// <inheritdoc />

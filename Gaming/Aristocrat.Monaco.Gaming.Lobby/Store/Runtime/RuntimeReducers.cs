@@ -5,18 +5,18 @@ using Fluxor;
 public static class RuntimeReducers
 {
     [ReducerMethod]
-    public static RuntimeState Reduce(RuntimeState state, GameMainWindowLoadedAction payload) =>
-        state with { GameMainHandle = payload.Handle };
+    public static RuntimeState Reduce(RuntimeState state, GameMainWindowLoadedAction action) =>
+        state with { GameMainHandle = action.Handle };
 
     [ReducerMethod]
-    public static RuntimeState Reduce(RuntimeState state, GameTopWindowLoadedAction payload) =>
-        state with { GameTopHandle = payload.Handle };
+    public static RuntimeState Reduce(RuntimeState state, GameTopWindowLoadedAction action) =>
+        state with { GameTopHandle = action.Handle };
 
     [ReducerMethod]
-    public static RuntimeState Reduce(RuntimeState state, GameTopperWindowLoadedAction payload) =>
-        state with { GameTopperHandle = payload.Handle };
+    public static RuntimeState Reduce(RuntimeState state, GameTopperWindowLoadedAction action) =>
+        state with { GameTopperHandle = action.Handle };
 
     [ReducerMethod]
-    public static RuntimeState Reduce(RuntimeState state, GameButtonDeckWindowLoadedAction payload) =>
-        state with { GameButtonDeckHandle = payload.Handle };
+    public static RuntimeState Reduce(RuntimeState state, GameButtonDeckWindowLoadedAction action) =>
+        state with { GameButtonDeckHandle = action.Handle };
 }

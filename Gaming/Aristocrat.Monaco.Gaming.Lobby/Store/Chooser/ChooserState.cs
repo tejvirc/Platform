@@ -11,11 +11,7 @@ public record ChooserState
 {
     public IImmutableList<GameInfo> Games { get; set; } = ImmutableList<GameInfo>.Empty;
 
-    public int UniqueThemesCount { get; set; }
-
     public bool AllowGameInCharge { get; set; }
-
-    public bool IsSingleGame { get; set; }
 
     public bool IsTabView { get; set; }
 

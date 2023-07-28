@@ -7,22 +7,18 @@ using System.Linq;
 public static class ChooserReducers
 {
     [ReducerMethod]
-    public static ChooserState Reduce(ChooserState state, GamesLoadedAction payload)
+    public static ChooserState Reduce(ChooserState state, GamesLoadedAction action)
     {
-        var themesCount = payload.Games.Where(g => g.Enabled).Select(o => o.ThemeId).Distinct().Count();
-
         return state with
         {
-            Games = ImmutableList.CreateRange(payload.Games),
-            UniqueThemesCount = themesCount,
-            IsSingleGame = themesCount <= 1 && state.AllowGameInCharge,
+            Games = ImmutableList.CreateRange(action.Games)
         };
     }
 
     [ReducerMethod]
-    public static ChooserState Reduce(ChooserState state, UpdateTabViewAction payload) =>
+    public static ChooserState Reduce(ChooserState state, UpdateTabViewAction action) =>
         state with
         {
-            IsTabView = payload.IsTabView
+            IsTabView = action.IsTabView
         };
 }

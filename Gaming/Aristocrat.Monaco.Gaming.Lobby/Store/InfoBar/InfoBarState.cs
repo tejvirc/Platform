@@ -2,10 +2,10 @@
 
 using System.Collections.Immutable;
 using Fluxor;
-using Models;
+using UI.Models;
 
 [FeatureState]
 public record InfoBarState
 {
-    public ImmutableList<InfoOverlayText>? InfoOverlayTextItems { get; set; }
+    // public ImmutableList<InfoOverlayText>? InfoOverlayTextItems { get; set; }
 }

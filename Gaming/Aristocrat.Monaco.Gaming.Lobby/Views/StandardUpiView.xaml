@@ -4,14 +4,286 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:views="clr-namespace:Aristocrat.Monaco.Gaming.Lobby.Views"
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.Lobby.ViewModels"
+             xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters;assembly=Aristocrat.Monaco.Gaming.UI"
+             xmlns:commonConverters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
+             xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance Type=viewModels:StandardUpiViewModel, IsDesignTimeCreatable=False}"
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <Grid>
-        <TextBlock Text="{Binding}" Foreground="White" TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Aristocrat.Monaco.Gaming.UI;component/Skins/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        <converters:IntToBoolConverter x:Key="IntToBool" />
+        <converters:EnumToBoolConverter x:Key="EnumToBool" />
+        <commonConverters:InverseBooleanConverter x:Key="InverseBoolConverter" />
+        <converters:IndexToVisibilityConverter x:Key="IndexConverter" />
+        <commonConverters:CollectionConverter x:Key="CollectionConverter" />
+        <system:Int32 x:Key="AllDenom">-1</system:Int32>
+        <system:Int32 x:Key="DenomA">1</system:Int32>
+        <system:Int32 x:Key="DenomB">5</system:Int32>
+        <system:Int32 x:Key="DenomC">25</system:Int32>
+
+        <Style x:Key="TextStyle" TargetType="controls:TextPath">
+            <Setter Property="Fill" Value="White"/>
+            <Setter Property="FontFamily" Value="Impact"/>
+            <Setter Property="FontSize" Value="46"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Stroke" Value="Black"/>
+            <Setter Property="StrokeThickness" Value="2.0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Width="1880"
+          AutomationProperties.AutomationId="Grid155_74910100">
+        <Image Source="{DynamicResource UpiBackground}"
+                   AutomationProperties.AutomationId="Image156_74910100">
+            <Image.Style>
+                <Style TargetType="Image">
+                    <Setter Property="Visibility"
+                                Value="Collapsed" />
+                    <Style.Triggers>
+                        <MultiDataTrigger AutomationProperties.AutomationId="MultiDataTrigger157_74910100">
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding VolumeButtonVisible}"
+                                               Value="True" />
+                                <Condition Binding="{Binding ServiceButtonVisible}"
+                                               Value="True" />
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="Visibility"
+                                            Value="Visible" />
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Image.Style>
+        </Image>
+        <Image Source="{DynamicResource UpiBackgroundNoService}"
+                   AutomationProperties.AutomationId="Image158_74910100">
+            <Image.Style>
+                <Style TargetType="Image">
+                    <Setter Property="Visibility"
+                                Value="Collapsed" />
+                    <Style.Triggers>
+                        <MultiDataTrigger AutomationProperties.AutomationId="MultiDataTrigger159_74910100">
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding VolumeButtonVisible}"
+                                               Value="True" />
+                                <Condition Binding="{Binding ServiceButtonVisible}"
+                                               Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="Visibility"
+                                            Value="Visible" />
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Image.Style>
+        </Image>
+        <Image Source="{DynamicResource UpiBackgroundNoVolume}"
+                   AutomationProperties.AutomationId="Image160_74910100">
+            <Image.Style>
+                <Style TargetType="Image">
+                    <Setter Property="Visibility"
+                                Value="Collapsed" />
+                    <Style.Triggers>
+                        <MultiDataTrigger AutomationProperties.AutomationId="MultiDataTrigger161_74910100">
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding VolumeButtonVisible}"
+                                               Value="False" />
+                                <Condition Binding="{Binding ServiceButtonVisible}"
+                                               Value="True" />
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="Visibility"
+                                            Value="Visible" />
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Image.Style>
+        </Image>
+        <Image Source="{DynamicResource UpiBackgroundNoVolumeNoService}"
+                   AutomationProperties.AutomationId="Image162_74910100">
+            <Image.Style>
+                <Style TargetType="Image">
+                    <Setter Property="Visibility"
+                                Value="Collapsed" />
+                    <Style.Triggers>
+                        <MultiDataTrigger AutomationProperties.AutomationId="MultiDataTrigger163_74910100">
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding VolumeButtonVisible}"
+                                               Value="False" />
+                                <Condition Binding="{Binding ServiceButtonVisible}"
+                                               Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="Visibility"
+                                            Value="Visible" />
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Image.Style>
+        </Image>
+        <Canvas AutomationProperties.AutomationId="Canvas164_74910100">
+            <Grid Canvas.Left="98"
+                      Canvas.Top="40"
+                      Visibility="{Binding VolumeButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                      AutomationProperties.AutomationId="Grid165_74910100">
+                <Button x:Name="btnVolume0"
+                            Command="{Binding Volume.VolumeCommand}"
+                            Style="{StaticResource stlFlatButton}"
+                            Visibility="{Binding Volume.VolumeValue, Converter={StaticResource IndexConverter}, ConverterParameter=0}"
+                            AutomationProperties.AutomationId="Button166_74910100">&gt;
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Image common:ImageHelper.SourceResourceKey="{Binding Volume.ResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=0}"
+                                       AutomationProperties.AutomationId="Image167_74910100" />
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button x:Name="btnVolume1"
+                            Command="{Binding Volume.VolumeCommand}"
+                            Style="{StaticResource stlFlatButton}"
+                            Visibility="{Binding Volume.VolumeValue, Converter={StaticResource IndexConverter}, ConverterParameter=1}"
+                            AutomationProperties.AutomationId="Button168_74910100">&gt;
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Image common:ImageHelper.SourceResourceKey="{Binding Volume.ResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=1}"
+                                       AutomationProperties.AutomationId="Image169_74910100" />
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button x:Name="btnVolume2"
+                            Command="{Binding Volume.VolumeCommand}"
+                            Style="{StaticResource stlFlatButton}"
+                            Visibility="{Binding Volume.VolumeValue, Converter={StaticResource IndexConverter}, ConverterParameter=2}"
+                            AutomationProperties.AutomationId="Button170_74910100">&gt;
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Image common:ImageHelper.SourceResourceKey="{Binding Volume.ResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=2}"
+                                       AutomationProperties.AutomationId="Image171_74910100" />
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button x:Name="btnVolume3"
+                            Command="{Binding Volume.VolumeCommand}"
+                            Style="{StaticResource stlFlatButton}"
+                            Visibility="{Binding Volume.VolumeValue, Converter={StaticResource IndexConverter}, ConverterParameter=3}"
+                            AutomationProperties.AutomationId="Button172_74910100">&gt;
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Image common:ImageHelper.SourceResourceKey="{Binding Volume.ResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=3}"
+                                       AutomationProperties.AutomationId="Image173_74910100" />
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button x:Name="btnVolume4"
+                            Command="{Binding Volume.VolumeCommand}"
+                            Style="{StaticResource stlFlatButton}"
+                            Visibility="{Binding Volume.VolumeValue, Converter={StaticResource IndexConverter}, ConverterParameter=4}"
+                            AutomationProperties.AutomationId="Button174_74910100">&gt;
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Image common:ImageHelper.SourceResourceKey="{Binding Volume.ResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=4}"
+                                       AutomationProperties.AutomationId="Image175_74910100" />
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button x:Name="btnVolume5"
+                            Command="{Binding Volume.VolumeCommand}"
+                            Style="{StaticResource stlFlatButton}"
+                            Visibility="{Binding Volume.VolumeValue, Converter={StaticResource IndexConverter}, ConverterParameter=5}"
+                            AutomationProperties.AutomationId="Button176_74910100">&gt;
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Image common:ImageHelper.SourceResourceKey="{Binding Volume.ResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=5}"
+                                       AutomationProperties.AutomationId="Image177_74910100" />
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+            <Button x:Name="btnService"
+                        Canvas.Left="285"
+                        Canvas.Top="40"
+                        Visibility="{Binding ServiceButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                        IsEnabled="{Binding Path=VbdServiceButtonDisabled, Converter={StaticResource InverseBoolConverter}}"
+                        Command="{Binding Path=ServiceCommand}"
+                        Style="{StaticResource stlFlatButton}"
+                        AutomationProperties.AutomationId="Button178_74910100">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Image Name="serviceImage"
+                                   Source="{DynamicResource ServiceNormal}"
+                                   AutomationProperties.AutomationId="Image179_74910100" />
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled"
+                                         Value="false"
+                                         AutomationProperties.AutomationId="Trigger180_74910100">
+                                <Setter TargetName="serviceImage"
+                                            Property="Source"
+                                            Value="{DynamicResource ServiceDisabled}" />
+                            </Trigger>
+                            <DataTrigger Binding="{Binding IsServiceRequested}"
+                                             Value="True"
+                                             AutomationProperties.AutomationId="DataTrigger181_74910100">
+                                <Setter TargetName="serviceImage"
+                                            Property="Source"
+                                            Value="{DynamicResource ServicePressed}" />
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Label Canvas.Left="740"
+                       Canvas.Top="44"
+                       Width="400"
+                       Height="77"
+                       Content="{Binding FormattedCredits}"
+                       FontSize="44"
+                       FontFamily="Impact"
+                       Foreground="White"
+                       HorizontalContentAlignment="Center"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       AutomationProperties.AutomationId="Label182_74910100"></Label>
+            <Button x:Name="btnCashOut"
+                        Canvas.Left="1459"
+                        Canvas.Top="41"
+                        IsEnabled="{Binding Path=CashOutEnabled}"
+                        Command="{Binding Path=CashOutCommand}"
+                        Style="{StaticResource stlFlatButton}"
+                        AutomationProperties.AutomationId="Button183_74910100">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Image Name="cashOutImage"
+                                   Source="{DynamicResource CashOutNormal}"
+                                   AutomationProperties.AutomationId="Image184_74910100" />
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled"
+                                         Value="false"
+                                         AutomationProperties.AutomationId="Trigger185_74910100">
+                                <Setter TargetName="cashOutImage"
+                                            Property="Source"
+                                            Value="{DynamicResource CashOutDisabled}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Canvas>
     </Grid>
 
 </UserControl>

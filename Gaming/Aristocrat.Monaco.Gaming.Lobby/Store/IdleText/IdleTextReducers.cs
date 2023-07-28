@@ -5,16 +5,16 @@ using Fluxor;
 public static class IdleTextReducers
 {
     [ReducerMethod]
-    public static IdleTextState Reduce(IdleTextState state, UpdateIdleTextAction payload) =>
+    public static IdleTextState Reduce(IdleTextState state, UpdateIdleTextAction action) =>
         state with
         {
-            IdleText = payload.IdleText,
+            IdleText = action.IdleText,
         };
 
     [ReducerMethod]
-    public static IdleTextState Reduce(IdleTextState state, UpdateBannerDisplayModeAction payload) =>
+    public static IdleTextState Reduce(IdleTextState state, UpdateBannerDisplayModeAction action) =>
         state with
         {
-            BannerDisplayMode = payload.Mode,
+            BannerDisplayMode = action.Mode,
         };
 }

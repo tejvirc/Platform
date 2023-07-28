@@ -8,26 +8,26 @@ using Fluxor;
 public static class LobbyReducers
 {
     //[ReducerMethod]
-    //public static LobbyState Reduce(LobbyState state, StartupAction payload) =>
+    //public static LobbyState Reduce(LobbyState state, StartupAction action) =>
     //    state with
     //    {
-    //        IsMultiLanguage = payload.Configuration.MultiLanguageEnabled,
-    //        IsAgeWarningNeeded = payload.Configuration.DisplayAgeWarning,
-    //        UseGen8IdleModeEdgeLightingOverride = payload.Configuration.EdgeLightingOverrideUseGen8IdleMode,
-    //        HideIdleTextOnCashIn = payload.Configuration.HideIdleTextOnCashIn,
-    //        HasAttractIntroVideo = payload.Configuration.HasAttractIntroVideo,
-    //        ConsecutiveAttractVideos = payload.Configuration.ConsecutiveAttractVideos,
-    //        IsRotateTopImageAfterAttractVideo = payload.Configuration.RotateTopImageAfterAttractVideo is { Length: > 0 },
-    //        RotateTopImageAfterAttractVideo = ImmutableList.CreateRange(payload.Configuration.RotateTopImageAfterAttractVideo ?? Array.Empty<string>()),
-    //        RotateTopImageAfterAttractVideoCount = payload.Configuration.RotateTopImageAfterAttractVideo?.Length ?? 0,
-    //        IsRotateTopperImageAfterAttractVideo = payload.Configuration.RotateTopperImageAfterAttractVideo is { Length: > 0 },
-    //        RotateTopperImageAfterAttractVideo = ImmutableList.CreateRange(payload.Configuration.RotateTopperImageAfterAttractVideo ?? Array.Empty<string>()),
-    //        RotateTopperImageAfterAttractVideoCount = payload.Configuration.RotateTopperImageAfterAttractVideo?.Length ?? 0,
+    //        IsMultiLanguage = action.Configuration.MultiLanguageEnabled,
+    //        IsAgeWarningNeeded = action.Configuration.DisplayAgeWarning,
+    //        UseGen8IdleModeEdgeLightingOverride = action.Configuration.EdgeLightingOverrideUseGen8IdleMode,
+    //        HideIdleTextOnCashIn = action.Configuration.HideIdleTextOnCashIn,
+    //        HasAttractIntroVideo = action.Configuration.HasAttractIntroVideo,
+    //        ConsecutiveAttractVideos = action.Configuration.ConsecutiveAttractVideos,
+    //        IsRotateTopImageAfterAttractVideo = action.Configuration.RotateTopImageAfterAttractVideo is { Length: > 0 },
+    //        RotateTopImageAfterAttractVideo = ImmutableList.CreateRange(action.Configuration.RotateTopImageAfterAttractVideo ?? Array.Empty<string>()),
+    //        RotateTopImageAfterAttractVideoCount = action.Configuration.RotateTopImageAfterAttractVideo?.Length ?? 0,
+    //        IsRotateTopperImageAfterAttractVideo = action.Configuration.RotateTopperImageAfterAttractVideo is { Length: > 0 },
+    //        RotateTopperImageAfterAttractVideo = ImmutableList.CreateRange(action.Configuration.RotateTopperImageAfterAttractVideo ?? Array.Empty<string>()),
+    //        RotateTopperImageAfterAttractVideoCount = action.Configuration.RotateTopperImageAfterAttractVideo?.Length ?? 0,
     //    };
 
 
     //[ReducerMethod]
-    //public static LobbyState Reduce(LobbyState state, GamePlayEnabledAction payload) =>
+    //public static LobbyState Reduce(LobbyState state, GamePlayEnabledAction action) =>
     //    state with { AllowGameAutoLaunch = true };
 
 }

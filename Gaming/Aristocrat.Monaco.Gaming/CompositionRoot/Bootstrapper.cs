@@ -70,7 +70,7 @@
 
             container.RegisterPackages(
                 Directory.GetFiles(
-                    Path.GetDirectoryName(Assembly.GetEntryAssembly().Location),
+                    Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)!,
                     "Aristocrat.Monaco.Gaming.*.dll").Select(
                     file => AssemblyLoadContext.Default.LoadFromAssemblyPath(file)));
 

@@ -19,7 +19,7 @@
 
     public class ProgressiveLobbyIndicatorViewModel : BaseEntityViewModel, IDisposable
     {
-        private readonly LobbyViewModel _lobby;
+        private readonly IReadOnlyList<GameInfo> _games;
         private readonly IProgressiveConfigurationProvider _progressiveConfiguration;
         private readonly ISharedSapProvider _sharedSap;
         private readonly ILinkedProgressiveProvider _linkedProgressive;
@@ -39,9 +39,9 @@
         private const string GrandJackpotLevelName = "Grand";
         private const string MajorJackpotLevelName = "Major";
 
-        public ProgressiveLobbyIndicatorViewModel(LobbyViewModel lobby)
+        public ProgressiveLobbyIndicatorViewModel(IReadOnlyList<GameInfo> games)
             : this(
-                lobby,
+                games,
                 ServiceManager.GetInstance().GetService<IProgressiveConfigurationProvider>(),
                 ServiceManager.GetInstance().GetService<ISharedSapProvider>(),
                 ServiceManager.GetInstance().GetService<ILinkedProgressiveProvider>(),
@@ -55,7 +55,7 @@
         }
 
         public ProgressiveLobbyIndicatorViewModel(
-            LobbyViewModel lobby,
+            IReadOnlyList<GameInfo> games,
             IProgressiveConfigurationProvider progressiveConfiguration,
             ISharedSapProvider sharedSap,
             ILinkedProgressiveProvider linkedProgressive,
@@ -66,7 +66,7 @@
             IProgressiveLevelProvider progressiveLevelProvider,
             ISharedSapProvider sharedSapProvider)
         {
-            _lobby = lobby ?? throw new ArgumentNullException(nameof(lobby));
+            _games = games ?? throw new ArgumentNullException(nameof(games));
             _progressiveConfiguration = progressiveConfiguration ?? throw new ArgumentNullException(nameof(progressiveConfiguration));
             _sharedSap = sharedSap ?? throw new ArgumentNullException(nameof(sharedSap));
             _linkedProgressive = linkedProgressive ?? throw new ArgumentNullException(nameof(linkedProgressive));
@@ -83,7 +83,7 @@
             _eventBus.Subscribe<ProgressiveGameEnabledEvent>(this, evt => MvvmHelper.ExecuteOnUI(() => Handler(evt)));
             _eventBus.Subscribe<PropertyChangedEvent>(
                 this,
-                _ => MvvmHelper.ExecuteOnUI(() => UpdateProgressiveIndicator(_lobby.GameList)),
+                _ => MvvmHelper.ExecuteOnUI(() => UpdateProgressiveIndicator(_games)),
                 evt => evt.PropertyName == GamingConstants.ProgressiveLobbyIndicatorType);
         }
 
@@ -219,7 +219,7 @@
             string majorJackpotText = string.Empty;
 
             // Currently, lobby display for associated sap levels apply only to games in the LightningLink category
-            var games = _lobby.GameList.Where(g => g.Category == GameCategory.LightningLink);
+            var games = _games.Where(g => g.Category == GameCategory.LightningLink);
 
             if (!games.Any())
             {
@@ -327,7 +327,7 @@
 
         private void Handler(ProgressiveGameEnabledEvent evt)
         {
-            var gameInfo = _lobby.GameList.FirstOrDefault(
+            var gameInfo = _games.FirstOrDefault(
                 x => x.GameId == evt.GameId && x.Denomination == evt.Denom &&
                      (string.IsNullOrEmpty(evt.BetOption) || x.BetOption == evt.BetOption));
             if (gameInfo is null)
@@ -343,7 +343,7 @@
 
         private void Handler(ProgressiveGameDisabledEvent evt)
         {
-            var gameInfo = _lobby.GameList.FirstOrDefault(
+            var gameInfo = _games.FirstOrDefault(
                 x => x.GameId == evt.GameId && x.Denomination == evt.Denom &&
                      (string.IsNullOrEmpty(evt.BetOption) || evt.BetOption == x.BetOption));
             if (gameInfo is null)
@@ -366,7 +366,7 @@
                              l => l.LevelName == x.AssignedProgressiveId.AssignedProgressiveKey))
                 .SelectMany(
                     l => l.Denomination.Select(
-                        x => _lobby.GameList.FirstOrDefault(
+                        x => _games.FirstOrDefault(
                             g => g.GameId == l.GameId && g.Denomination == x &&
                                  (string.IsNullOrEmpty(l.BetOption) || l.BetOption == g.BetOption))))
                 .Where(x => x != null).Distinct();

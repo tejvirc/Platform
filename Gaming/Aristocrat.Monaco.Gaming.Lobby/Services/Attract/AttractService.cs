@@ -1,19 +1,18 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Services.Attract;
 
 using System;
-using System.Threading.Tasks;
-using Aristocrat.Monaco.Gaming.Lobby;
+using System.Linq;
 using Contracts;
 using Contracts.Events;
 using Fluxor;
 using Kernel;
 using Microsoft.Extensions.Logging;
-using Models;
+using Monaco.UI.Common;
+using Monaco.UI.Common.Extensions;
 using Store;
 using Store.Attract;
 using Store.Lobby;
-using UI.Common;
-using UI.Common.Extensions;
+using UI.Models;
 
 public sealed class AttractService : IAttractService, IDisposable
 {
@@ -85,11 +84,11 @@ public sealed class AttractService : IAttractService, IDisposable
 
     public void SetAttractVideoPaths(int currAttractIndex)
     {
-        AttractVideoInfo? attract = null;
+        AttractVideoDetails? attract = null;
 
         if (_attractState.Value.AttractVideos.Count > 0)
         {
-            attract = _attractState.Value.AttractVideos[currAttractIndex];
+            attract = _attractState.Value.AttractVideos.ElementAtOrDefault(currAttractIndex);
         }
 
         if (_configuration.AlternateAttractModeLanguage)

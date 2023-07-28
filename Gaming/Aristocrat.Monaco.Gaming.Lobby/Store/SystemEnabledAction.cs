@@ -1,15 +1,28 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Store;
 
-using System.Collections.Immutable;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
-public class SystemEnabledAction
+public record SystemEnabledAction
 {
-    public bool IsDisabled { get; init; }
+    public SystemEnabledAction(
+        bool isSystemDisabled,
+        bool isSystemDisableImmediately,
+        IEnumerable<Guid> disableKeys,
+        IEnumerable<Guid> immediateDisableKeys)
+    {
+        IsSystemDisabled = isSystemDisabled;
+        IsSystemDisableImmediately = isSystemDisableImmediately;
+        DisableKeys = disableKeys.ToList();
+        ImmediateDisableKeys = immediateDisableKeys.ToList();
+    }
 
-    public bool IsDisableImmediately { get; init; }
+    public bool IsSystemDisabled { get; }
 
-    public IImmutableList<Guid>? DisableKeys { get; init; }
+    public bool IsSystemDisableImmediately { get; }
 
-    public IImmutableList<Guid>? ImmediateDisableKeys { get; init; }
+    public IReadOnlyList<Guid> DisableKeys { get; }
+
+    public IReadOnlyList<Guid> ImmediateDisableKeys { get; }
 }

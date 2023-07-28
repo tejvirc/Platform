@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.Lobby.Models"
+                    xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models;assembly=Aristocrat.Monaco.Gaming.UI"
                     xmlns:managedBink="clr-namespace:ManagedBink;assembly=BinkViewerControl"
                     xmlns:gif="http://wpfanimatedgif.codeplex.com">
 
