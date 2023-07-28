@@ -6,7 +6,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using Application.Contracts.Extensions;
-    using Aristocrat.Monaco.UI.Common.MVVM;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.Progressives;
     using Contracts.Progressives.Linked;
     using Contracts.Progressives.SharedSap;
@@ -16,7 +16,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
     /// <summary>
     ///     Level model class
     /// </summary>
-    public class LevelModel : TrackableObservableValidator
+    public class LevelModel : ObservableValidator
     {
         private decimal _maxValue;
         private decimal _initialValue;
@@ -189,7 +189,8 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
 
                 AssignedProgressiveInfo = new AssignableProgressiveId(assignableType, value?.AssignmentKey);
                 _selectableLevel = value;
-                OnPropertyChanged(nameof(SelectableLevel), nameof(CanSave));
+                OnPropertyChanged(nameof(SelectableLevel));
+                OnPropertyChanged(nameof(CanSave));
             }
         }
 
@@ -357,7 +358,9 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
 
                 _selectableLevelType = value;
                 LoadSelectableNames();
-                OnPropertyChanged(nameof(SelectableLevelType), nameof(LevelSelectionEnabled), nameof(CanSave));
+                OnPropertyChanged(nameof(SelectableLevelType));
+                OnPropertyChanged(nameof(LevelSelectionEnabled));
+                OnPropertyChanged(nameof(CanSave));
             }
         }
 
