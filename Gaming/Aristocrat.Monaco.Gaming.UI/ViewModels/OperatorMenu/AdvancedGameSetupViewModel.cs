@@ -1008,7 +1008,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                                       gamesWithRestrictions.Any(g => g.SelectedRestriction?.Name != restriction.Name);
             foreach (var game in gamesWithRestrictions)
             {
-                game.SetRestrictionError(restrictionMismatch);
+                game.RestrictionWarningText = restrictionMismatch
+                    ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PackagesMustMatch)
+                    : string.Empty;
             }
         }
 

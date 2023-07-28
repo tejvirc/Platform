@@ -137,19 +137,6 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
             }
         }
 
-        public void SetRestrictionError(bool hasError)
-        {
-            if (hasError)
-            {
-                RestrictionWarningText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PackagesMustMatch);
-            }
-            else
-            {
-                RestrictionWarningText = string.Empty;
-                ClearErrors(nameof(RestrictionWarningText));
-            }
-        }
-
         private IEnumerable<IConfigurationRestriction> GetValidRestrictions()
         {
             return Restrictions
