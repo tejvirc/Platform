@@ -4933,4 +4933,27 @@ Do you really want to do partial reset????</value>
   <data name="TimeText" xml:space="preserve">
     <value>??TIME??</value>
   </data>
+  <data name="DisplayConnected" xml:space="preserve">
+    <value>???Display Connected - Restart Required???</value>
+  </data>
+  <data name="BetOption" xml:space="preserve">
+    <value>???Bet Option???</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="ForcedMinBet" xml:space="preserve">
+    <value>???Min Bet???</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="Gamble" xml:space="preserve">
+    <value>???Double Up???</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="LineOption" xml:space="preserve">
+    <value>???Line Option???</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="ProgressiveColumnHeader" xml:space="preserve">
+    <value>???Progressive???</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
 </root>
