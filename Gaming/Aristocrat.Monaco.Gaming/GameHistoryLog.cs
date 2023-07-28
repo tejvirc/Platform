@@ -67,14 +67,14 @@
                     case PlayState.Idle when FinalWager == 0:
                         return GameResult.Failed;
                     default:
+                    {
+                        if (PlayState != PlayState.GameEnded && PlayState != PlayState.Idle)
                         {
-                            if (PlayState != PlayState.GameEnded && PlayState != PlayState.Idle)
-                            {
-                                return GameResult.None;
-                            }
-
-                            return FinalWin > 0 ? GameResult.Won : GameResult.Lost;
+                            return GameResult.None;
                         }
+
+                        return TotalWon > 0 ? GameResult.Won : GameResult.Lost;
+                    }
                 }
             }
         }
