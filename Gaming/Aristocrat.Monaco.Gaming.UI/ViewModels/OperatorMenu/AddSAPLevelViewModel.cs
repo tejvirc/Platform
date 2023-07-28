@@ -76,10 +76,7 @@
         public string LevelName
         {
             get => _levelName;
-            set
-            {
-                SetProperty(ref _levelName, value, nameof(LevelName), nameof(CanSave));
-            }
+            set => SetProperty(ref _levelName, value, nameof(LevelName), nameof(CanSave));
         }
 
         [CustomValidation(typeof(AddSAPLevelViewModel), nameof(ValidateResetValue))]
