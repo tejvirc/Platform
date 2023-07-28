@@ -11,6 +11,8 @@
 
         public string Name { get; set; }
 
+        public abstract long ThresholdInCents { get; set; }
+
         public bool ThresholdError => HasErrors;
 
         protected IPropertiesManager PropertiesManager => _propertiesManager ??= ServiceManager.GetInstance().TryGetService<IPropertiesManager>();

@@ -15,7 +15,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
         private long _thresholdInCents;
 
         [CustomValidation(typeof(CoinInRewardLevel), nameof(ValidateCoinInRewardLevel))]
-        public long ThresholdInCents
+        public override long ThresholdInCents
         {
             get => _thresholdInCents;
             set => SetProperty(ref _thresholdInCents, value, true, nameof(ThresholdInCents));
