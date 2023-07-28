@@ -299,9 +299,13 @@
 
         private void UpdateComponentData()
         {
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(UpdateComponentData)}-0] - [{_authResponseData.Status}] - [{Environment.CurrentManagedThreadId}]");
+
             CancelCurrentAuthentication(true);
             _cancellationTokenSource?.Dispose();
             _cancellationTokenSource = new CancellationTokenSource();
+
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(UpdateComponentData)}-1] - [{_authResponseData.Status}] - [{Environment.CurrentManagedThreadId}]");
 
             // Create the string upon which the Component List CRC is calculated (p.
             var sb = new StringBuilder();
@@ -314,7 +318,11 @@
 
             Logger.Debug("Component list updated");
 
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(UpdateComponentData)}-2] - [{_authResponseData.Status}] - [{Environment.CurrentManagedThreadId}]");
+
             _exceptionHandler.ReportException(new GenericExceptionBuilder(GeneralExceptionCode.ComponentListChanged));
+
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(UpdateComponentData)}-3] - [{_authResponseData.Status}] - [{Environment.CurrentManagedThreadId}]");
         }
 
         private void GenerateComponentStatus(Component component)
