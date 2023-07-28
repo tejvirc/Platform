@@ -29,7 +29,7 @@
   <ItemGroup>
     <PackageReference Include="Aristocrat.MVVM" Version="2.0.16" />
     <PackageReference Include="Aristocrat.Simulation.HarkeyReels" Version="1.0.11" />
-    <PackageReference Include="Aristocrat.Simulation.RelmReels" Version="0.1.53" />
+    <PackageReference Include="Aristocrat.Simulation.RelmReels" Version="0.1.57" />
     <PackageReference Include="log4net" Version="2.0.8" />
   </ItemGroup>
   <ItemGroup>
