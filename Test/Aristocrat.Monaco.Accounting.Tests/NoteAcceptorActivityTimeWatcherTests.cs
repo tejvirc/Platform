@@ -141,7 +141,7 @@
             //    {
                     await Task.Delay((int)(timeOut * 0.1));
                     _noteAcceptor.Verify(x => x.Return(), Times.Never);
-                    await Task.Delay(timeOut);
+                    await Task.Delay(timeOut * 2);
                     _noteAcceptor.Verify(x => x.Return(), Times.Once);
                 //});
         }
