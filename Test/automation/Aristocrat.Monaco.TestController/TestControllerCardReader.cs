@@ -36,7 +36,6 @@
                 }
 
                 _selectedMagneticCard = value;
-                //OnPropertyChanged(nameof(SelectedMagneticCard));
                 Track1Data = SelectedMagneticCard.Track1;
             }
         }
@@ -53,7 +52,6 @@
                 }
 
                 _track1Data = value;
-                //OnPropertyChanged(nameof(Track1Data));
             }
         }
 
@@ -63,7 +61,6 @@
             set
             {
                 _cardStatusText = value;
-                //OnPropertyChanged(nameof(CardStatusText));
             }
         }
 
