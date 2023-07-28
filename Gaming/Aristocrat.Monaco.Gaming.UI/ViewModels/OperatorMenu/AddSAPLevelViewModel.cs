@@ -82,40 +82,25 @@
             }
         }
 
+        [CustomValidation(typeof(AddSAPLevelViewModel), nameof(ValidateResetValue))]
         public decimal ResetValue
         {
             get => _resetValue;
-            set
-            {
-                if (SetProperty(ref _resetValue, value, nameof(ResetValue)))
-                {
-                    ValidValueFields();
-                }
-            }
+            set => SetProperty(ref _resetValue, value, nameof(ResetValue));
         }
 
+        [CustomValidation(typeof(AddSAPLevelViewModel), nameof(ValidateInitialValue))]
         public decimal InitialValue
         {
             get => _initialValue;
-            set
-            {
-                if (SetProperty(ref _initialValue, value, nameof(InitialValue)))
-                {
-                    ValidValueFields();
-                }
-            }
+            set => SetProperty(ref _initialValue, value, nameof(InitialValue));
         }
 
+        [CustomValidation(typeof(AddSAPLevelViewModel), nameof(ValidateMaxValue))]
         public decimal MaxValue
         {
             get => _maxValue;
-            set
-            {
-                if (SetProperty(ref _maxValue, value, nameof(MaxValue)))
-                {
-                    ValidValueFields();
-                }
-            }
+            set => SetProperty(ref _maxValue, value, nameof(MaxValue));
         }
 
         public decimal MaximumIncrementRate =>
@@ -184,18 +169,6 @@
             IncrementRate = _sharedSapLevel.IncrementRate.ToPercentage();
         }
 
-        private void ValidValueFields()
-        {
-            ValidateProperty(ResetValue, nameof(ResetValue));
-            ValidateProperty(MaxValue, nameof(MaxValue));
-            ValidateProperty(InitialValue, nameof(InitialValue));
-
-            OnPropertyChanged(nameof(ResetValue));
-            OnPropertyChanged(nameof(MaxValue));
-            OnPropertyChanged(nameof(InitialValue));
-            OnPropertyChanged(nameof(CanSave));
-        }
-
         public static ValidationResult ValidateLevelName(string name, ValidationContext context)
         {
             var instance = (AddSAPLevelViewModel)context.ObjectInstance;
@@ -211,6 +184,38 @@
             }
 
             return ValidationResult.Success;
+        }
+
+        public static ValidationResult ValidateResetValue(decimal resetValue, ValidationContext context)
+        {
+            var instance = (AddSAPLevelViewModel)context.ObjectInstance;
+            var validationErrorMessage = resetValue.Validate(false, instance.MaxValue.DollarsToMillicents());
+            return string.IsNullOrEmpty(validationErrorMessage)
+                ? ValidationResult.Success
+                : new(validationErrorMessage);
+        }
+
+        public static ValidationResult ValidateInitialValue(decimal initialValue, ValidationContext context)
+        {
+            var instance = (AddSAPLevelViewModel)context.ObjectInstance;
+            var validationErrorMessage = initialValue.Validate(false, instance.MaxValue.DollarsToMillicents(), instance.ResetValue.DollarsToMillicents());
+            return string.IsNullOrEmpty(validationErrorMessage)
+                ? ValidationResult.Success
+                : new(validationErrorMessage);
+        }
+
+        public static ValidationResult ValidateMaxValue(decimal maxValue, ValidationContext context)
+        {
+            if (maxValue == 0M)
+            {
+                return ValidationResult.Success;
+            }
+
+            var instance = (AddSAPLevelViewModel)context.ObjectInstance;
+            var validationErrorMessage = maxValue.Validate(false, 0, instance.ResetValue.DollarsToMillicents());
+            return string.IsNullOrEmpty(validationErrorMessage)
+                ? ValidationResult.Success
+                : new(validationErrorMessage);
         }
     }
 }
