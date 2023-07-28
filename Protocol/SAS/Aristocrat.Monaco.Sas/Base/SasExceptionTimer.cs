@@ -92,7 +92,7 @@
                     _exceptionHandler.ReportException(new GenericExceptionBuilder(sasExceptionType.Value));
                 }
 
-                Console.WriteLine($"[{DateTime.Now}] - [{nameof(StartTimer)}-2] - [{_clientNumber.HasValue}] - [{Environment.CurrentManagedThreadId}]");
+                Console.WriteLine($"[{DateTime.Now}] - [{nameof(StartTimer)}-2] - [{sasExceptionType.Value}] - [{Environment.CurrentManagedThreadId}]");
 
                 _timer.Enabled = true;
                 _timer.Start();

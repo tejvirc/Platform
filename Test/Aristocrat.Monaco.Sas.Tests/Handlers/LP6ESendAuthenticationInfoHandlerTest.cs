@@ -809,6 +809,8 @@
                 Action = AuthenticationAction.InterrogateAuthenticationStatus
             };
 
+            _waiter.Reset();
+
             var output = _target.Handle(input);
 
             Assert.AreEqual(AuthenticationStatus.AuthenticationCurrentlyInProgress, output.Status);
