@@ -1,12 +1,14 @@
 ﻿namespace Aristocrat.Monaco.Hhr.Services
 {
     using System;
+    using System.Diagnostics;
     using System.Linq;
     using System.Net;
     using System.Reflection;
     using System.Threading.Tasks;
     using System.Timers;
     using Application.Contracts.Localization;
+    using Aristocrat.Monaco.Common;
     using Client.Data;
     using Client.Messages;
     using Client.WorkFlow;
@@ -249,7 +251,8 @@
 
         private void OnReady()
         {
-            Console.WriteLine($"[{DateTime.Now}] - [{nameof(OnReady)}-0] - [{GetHashCode()}] - [{Environment.CurrentManagedThreadId}]");
+            Console.WriteLine($"[{DateTime.Now}] - [{nameof(OnReady)}-0] - [{GetHashCode()}] - [{Environment.CurrentManagedThreadId}] - " +
+                $"{new StackTrace()}");
 
             Logger.Debug("Protocol initialization complete");
 
