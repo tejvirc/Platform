@@ -8,7 +8,7 @@
     using Test.Common;
     using SystemDisableManager = Kernel.SystemDisableManager;
 
-    [DoNotParallelize]
+    
     [TestClass]
     public class SystemDisableManagerTests
     {

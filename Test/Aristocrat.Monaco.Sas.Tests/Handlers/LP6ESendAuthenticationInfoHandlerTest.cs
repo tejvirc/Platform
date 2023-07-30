@@ -19,7 +19,7 @@
     /// <summary>
     ///     Contains tests for LP6ESendAuthenticationInfoHandler
     /// </summary>
-    [DoNotParallelize]
+    
     [TestClass]
     public class LP6ESendAuthenticationInfoHandlerTest
     {

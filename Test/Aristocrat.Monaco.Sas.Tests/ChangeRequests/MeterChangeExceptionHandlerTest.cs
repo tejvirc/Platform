@@ -55,7 +55,7 @@
     /// <summary>
     ///     Contains tests for MeterChangeExceptionHandlerTest
     /// </summary>
-    [DoNotParallelize]
+    
     [TestClass]
     public class MeterChangeExceptionHandlerTest
     {
