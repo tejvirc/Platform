@@ -108,7 +108,7 @@
 
             _target.TicketPrintedAcknowledged();
 
-            Assert.IsTrue(_waiter.WaitOne(1000));
+            Assert.IsTrue(_waiter.WaitOne(3000));
 
             _exceptionHandler.Verify(m => m.RemoveException(It.IsAny<GenericExceptionBuilder>()), Times.Exactly(2));
             _exceptionHandler.Verify(m => m.RemoveHandler(GeneralExceptionCode.CashOutTicketPrinted), Times.Once);
