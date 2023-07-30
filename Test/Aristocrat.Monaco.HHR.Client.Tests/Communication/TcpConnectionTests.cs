@@ -50,7 +50,7 @@ namespace Aristocrat.Monaco.Hhr.Client.Tests.Communication
         }
     }
 
-    
+    [DoNotParallelize]
     [TestClass]
     public class TcpConnectionTests
     {
