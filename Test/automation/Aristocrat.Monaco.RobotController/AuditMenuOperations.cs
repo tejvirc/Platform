@@ -44,6 +44,10 @@
 
         public void Execute()
         {
+            if (_robotController.Config.Active.IntervalLoadAuditMenu == 0)
+            {
+                return;
+            }
             _logger.Info("AuditMenuOperations Has Been Initiated!", GetType().Name);
             SubscribeToEvents();
             _loadAuditMenuTimer = new Timer(
