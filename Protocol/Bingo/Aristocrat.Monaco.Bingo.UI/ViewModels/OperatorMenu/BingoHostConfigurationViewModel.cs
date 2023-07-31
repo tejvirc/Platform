@@ -152,7 +152,7 @@
             if (Uri.CheckHostName(hostName) == UriHostNameType.Unknown)
             {
                 errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AddressNotValid);
-                  }
+            }
             if (string.IsNullOrEmpty(errors))
             {
                 return ValidationResult.Success;
