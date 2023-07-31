@@ -119,6 +119,25 @@
         [TestMethod]
         [DataRow(true)]
         [DataRow(false)]
+        public async Task StopLightShowAnimationsReturnsControllerResult(bool controllerResult)
+        {
+            var driver = new Mock<RelmReels.Communicator.IRelmCommunicator>();
+            driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
+                .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength)));
+            driver.Setup(x => x.SendCommandAsync(It.IsAny<StopLightShowAnimation>(), default))
+                .Returns(Task.FromResult(controllerResult));
+            var usbCommunicator = new RelmUsbCommunicator(driver.Object, null, _propertiesManager.Object);
+            
+            await usbCommunicator.LoadAnimationFile(_namedAnimationFile);
+            var result = await usbCommunicator.StopLightShowAnimations(new List<LightShowData> { _lightShow1 });
+            
+            driver.Verify(x => x.SendCommandAsync(It.IsAny<StopLightShowAnimation>(), default), Times.Once);
+            Assert.AreEqual(controllerResult, result);
+        }
+
+        [TestMethod]
+        [DataRow(true)]
+        [DataRow(false)]
         public async Task StopAllAnimationTagsReturnsControllerResultWhenShowExists(bool controllerResult)
         {
             var driver = new Mock<RelmReels.Communicator.IRelmCommunicator>();

@@ -234,9 +234,9 @@
         }
 
         /// <inheritdoc />
-        public async Task<bool> LoadAnimationFile(AnimationFile file, CancellationToken token = default)
+        public Task<bool> LoadAnimationFile(AnimationFile file, CancellationToken token = default)
         {
-            return await LoadAnimationFiles(new[] { file }, token);
+            return LoadAnimationFiles(new[] { file }, token);
         }
 
         /// <inheritdoc />
@@ -288,9 +288,9 @@
         }
 
         /// <inheritdoc />
-        public async Task<bool> PrepareAnimation(LightShowData showData, CancellationToken token = default)
+        public Task<bool> PrepareAnimation(LightShowData showData, CancellationToken token = default)
         {
-            return await PrepareAnimations(new[] { showData }, token);
+            return PrepareAnimations(new[] { showData }, token);
         }
 
         /// <inheritdoc />
@@ -337,9 +337,9 @@
         }
 
         /// <inheritdoc />
-        public async Task<bool> PrepareAnimation(ReelCurveData curveData, CancellationToken token = default)
+        public Task<bool> PrepareAnimation(ReelCurveData curveData, CancellationToken token = default)
         {
-            return await PrepareAnimations(new[] { curveData }, token);
+            return PrepareAnimations(new[] { curveData }, token);
         }
 
         /// <inheritdoc />
@@ -381,53 +381,53 @@
         }
 
         /// <inheritdoc />
-        public async Task<bool> PlayAnimations(CancellationToken token = default)
+        public Task<bool> PlayAnimations(CancellationToken token = default)
         {
             if (_relmCommunicator is null)
             {
-                return false;
+                return Task.FromResult(false);
             }
 
             Logger.Debug("Playing prepared animations");
-            return await _relmCommunicator.SendCommandAsync(new StartAnimations(), token);
+            return _relmCommunicator.SendCommandAsync(new StartAnimations(), token);
         }
 
         /// <inheritdoc />
-        public async Task<bool> RemoveAllControllerAnimations(CancellationToken token = default)
+        public Task<bool> RemoveAllControllerAnimations(CancellationToken token = default)
         {
             if (_relmCommunicator is null)
             {
-                return false;
+                return Task.FromResult(false);
             }
 
             if (_propertiesManager is not null &&
                 _propertiesManager.GetValue(HardwareConstants.DoNotResetRelmController, false))
             {
-                return true;
+                return Task.FromResult(true);
             }
 
             Logger.Debug("Removing all animation files from controller");
             _animationFiles.Clear();
-            return await _relmCommunicator.SendCommandAsync(new RemoveAllAnimationFiles(), token);
+            return _relmCommunicator.SendCommandAsync(new RemoveAllAnimationFiles(), token);
         }
 
         /// <inheritdoc />
-        public async Task<bool> StopAllAnimationTags(string animationName, CancellationToken token = default)
+        public Task<bool> StopAllAnimationTags(string animationName, CancellationToken token = default)
         {
             if (_relmCommunicator is null)
             {
-                return false;
+                return Task.FromResult(false);
             }
 
             var animationId = GetAnimationId(animationName);
             if (animationId == 0)
             {
                 Logger.Debug($"Can not find animation file with name {animationName}");
-                return false;
+                return Task.FromResult(false);
             }
 
             Logger.Debug($"Stopping all animations for {animationName} ({animationId})");
-            return await _relmCommunicator.SendCommandAsync(new StopAllAnimationTags
+            return _relmCommunicator.SendCommandAsync(new StopAllAnimationTags
             {
                 AnimationId = animationId,
             }, token);
@@ -436,8 +436,23 @@
         /// <inheritdoc />
         public Task<bool> StopLightShowAnimations(IEnumerable<LightShowData> showData, CancellationToken token = default)
         {
-            // TODO: Implement stop light show animations in driver and wire up here
-            throw new NotImplementedException();
+            if (_relmCommunicator is null)
+            {
+                return Task.FromResult(false);
+            }
+
+            var showDataArray = showData.ToArray();
+            var command = new StopLightShowAnimation
+            {
+                Count = (short)showDataArray.Length,
+                AnimationData = showDataArray.Select(x => new StopAnimationData
+                {
+                    AnimationId = GetAnimationId(x.AnimationName),
+                    TagId = x.Tag.HashDjb2()
+                }).ToList()
+            };
+
+            return _relmCommunicator.SendCommandAsync(command, token);
         }
 
         /// <inheritdoc />

@@ -190,7 +190,21 @@
 
         public override MessageResponse StopLightshowAnimation(StopLightshowAnimationRequest request)
         {
-            throw new NotImplementedException();
+            Logger.Debug("StopLightShowAnimations");
+
+            var lightShowData = new LightShowData[request.LightShowData.Count];
+
+            for (var i = 0; i < request.LightShowData.Count; ++i)
+            {
+                lightShowData[i] = new LightShowData(
+                    request.LightShowData[i].AnimationName,
+                    request.LightShowData[i].Tag);
+            }
+
+            var command = new StopLightShowAnimations(lightShowData);
+            _handlerFactory.Create<StopLightShowAnimations>().Handle(command);
+
+            return new MessageResponse { Result = command.Success };
         }
 
         public override MessageResponse StopAllLightshowAnimations(Empty request)
