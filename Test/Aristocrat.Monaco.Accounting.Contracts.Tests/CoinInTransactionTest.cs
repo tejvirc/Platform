@@ -14,7 +14,7 @@
     ///     Summary description for CoinTransactionTest
     /// </summary>
     [TestClass]
-    public class CoinTransactionTest
+    public class CoinInTransactionTest
     {
         [TestInitialize]
         public void MyTestInitialize()
@@ -34,7 +34,7 @@
             int details = (int)CoinInDetails.CoinToCashBox;
             int exception = (int)CurrencyInExceptionCode.None;
 
-            var target = new CoinTransaction(
+            var target = new CoinInTransaction(
                 deviceId,
                 transactionDateTime,
                 details,
@@ -55,12 +55,12 @@
             int details = (int)CoinInDetails.None;
             int exception = (int)CurrencyInExceptionCode.None;
 
-            var target1 = new CoinTransaction(
+            var target1 = new CoinInTransaction(
                 deviceId,
                 transactionDateTime,
                 details,
                 exception);
-            var target2 = new CoinTransaction(
+            var target2 = new CoinInTransaction(
                 deviceId,
                 transactionDateTime,
                 details,
@@ -86,14 +86,14 @@
             int details = (int)CoinInDetails.None;
             int exception = (int)CurrencyInExceptionCode.None;
 
-            var target = new CoinTransaction(
+            var target = new CoinInTransaction(
                 deviceId,
                 transactionDateTime,
                 details,
                 exception);
 
             var expected =
-                "Aristocrat.Monaco.Accounting.Contracts.CoinAcceptor.CoinTransaction [DeviceId=1, LogSequence=0, DateTime=12/31/9999 23:59:59, TransactionId=0, TypeOfAccount=Cashable, Details=None, Exception=Accepted]";
+                "Aristocrat.Monaco.Accounting.Contracts.CoinAcceptor.CoinInTransaction [DeviceId=1, LogSequence=0, DateTime=12/31/9999 23:59:59, TransactionId=0, TypeOfAccount=Cashable, Details=None, Exception=Accepted]";
             Assert.AreEqual(expected, target.ToString());
         }
 
@@ -105,12 +105,12 @@
             int details = (int)CoinInDetails.None;
             int exception = (int)CurrencyInExceptionCode.None;
 
-            var target = new CoinTransaction(
+            var target = new CoinInTransaction(
                 deviceId,
                 transactionDateTime,
                 details,
                 exception);
-            var cloned = (CoinTransaction)target.Clone();
+            var cloned = (CoinInTransaction)target.Clone();
 
             // use == to test for equality since it checks member variables
             Assert.IsTrue(target == cloned);
@@ -137,7 +137,7 @@
                 { "Exception", exception }
             };
 
-            var target = new CoinTransaction(
+            var target = new CoinInTransaction(
                 expectedDeviceId,
                 DateTime.MaxValue,
                 details,
@@ -167,7 +167,7 @@
                 { "Exception", exception }
             };
 
-            var target = new CoinTransaction(
+            var target = new CoinInTransaction(
                 expectedDeviceId,
                 DateTime.MaxValue,
                 (int)CoinInDetails.CoinToCashBox,
@@ -180,7 +180,7 @@
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void ReceivePersistenceElementErrorTest()
         {
-            var target = new CoinTransaction(
+            var target = new CoinInTransaction(
                 1,
                 DateTime.MaxValue,
                 (int)CoinInDetails.None,
@@ -197,7 +197,7 @@
             var storageAccessor = new Mock<IPersistentStorageAccessor>(MockBehavior.Strict);
             storageAccessor.Setup(m => m.Count).Returns(3);
 
-            var target = new CoinTransaction(
+            var target = new CoinInTransaction(
                 1,
                 DateTime.MaxValue,
                 (int)CoinInDetails.CoinToCashBox,
