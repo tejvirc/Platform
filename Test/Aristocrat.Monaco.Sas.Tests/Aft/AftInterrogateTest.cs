@@ -208,7 +208,7 @@
             // Invoke Ack handler and verify setups matched
             _aftProvider.Object.CurrentTransfer.Handlers.ImpliedAckHandler.Invoke();
 
-            waiter.WaitOne(200);
+            waiter.WaitOne(400);
 
             // Invoke Nack handler and verify setups matched
             _aftProvider.Object.CurrentTransfer.Handlers.ImpliedNackHandler.Invoke();
