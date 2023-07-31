@@ -457,7 +457,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             IdleTextScrollingCompletedCommand = new RelayCommand<object>(OnIdleTextScrollingCompleted);
             CashOutWrapperMouseDownCommand = new RelayCommand<object>(OnCashOutWrapperMouseDown);
             UpiPreviewMouseDownCommand = new RelayCommand<object>(OnUpiPreviewMouseDown);
-            UserInterRelayCommand = new RelayCommand<object>(obj => OnUserInteraction());
+            UserInteractionCommand = new RelayCommand<object>(obj => OnUserInteraction());
             ExitResponsibleGamingInfoCommand = new RelayCommand<object>(obj => ExitResponsibleGamingInfoDialog());
             TouchResponsibleGamingInfoCommand = new RelayCommand<object>(obj => TouchResponsibleGamingInfoDialog());
             ClockSwitchCommand = new RelayCommand<object>(OnClockSwitchPressed);
@@ -700,7 +700,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         public ICommand UpiPreviewMouseDownCommand { get; set; }
 
-        public ICommand UserInterRelayCommand { get; set; }
+        public ICommand UserInteractionCommand { get; set; }
 
         public ICommand ExitResponsibleGamingInfoCommand { get; set; }
 
