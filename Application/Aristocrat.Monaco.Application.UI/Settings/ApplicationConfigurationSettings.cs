@@ -124,6 +124,7 @@
 
             var noteAcceptorEnabled = _propertiesManager.GetValue(ApplicationConstants.NoteAcceptorEnabled, false);
             var coinAcceptorEnabled = _propertiesManager.GetValue(ApplicationConstants.CoinAcceptorEnabled, false);
+            var hopperEnabled = _propertiesManager.GetValue(ApplicationConstants.HopperEnabled, false);
             var printerEnabled = _propertiesManager.GetValue(ApplicationConstants.PrinterEnabled, false);
             var idReaderEnabled = _propertiesManager.GetValue(ApplicationConstants.IdReaderEnabled, false);
             var reelControllerEnabled = _propertiesManager.GetValue(ApplicationConstants.ReelControllerEnabled, false);
@@ -138,6 +139,9 @@
                     CoinAcceptorEnabled = coinAcceptorEnabled,
                     CoinAcceptorManufacturer = coinAcceptorEnabled ?
                         _propertiesManager.GetValue(ApplicationConstants.CoinAcceptorManufacturer, string.Empty) : notAvailable,
+                    HopperEnabled = hopperEnabled,
+                    HopperManufacturer = hopperEnabled ?
+                        _propertiesManager.GetValue(ApplicationConstants.HopperManufacturer, string.Empty) : notAvailable,
                     PrinterEnabled = printerEnabled,
                     PrinterManufacturer = printerEnabled ?
                         _propertiesManager.GetValue(ApplicationConstants.PrinterManufacturer, string.Empty): notAvailable,

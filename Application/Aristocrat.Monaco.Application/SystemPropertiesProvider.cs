@@ -255,6 +255,14 @@ namespace Aristocrat.Monaco.Application
                     ApplicationConstants.CoinAcceptorManufacturer,
                     Tuple.Create((object)InitFromStorage<string>("CoinAcceptorManufacturer"), "CoinAcceptorManufacturer")
                 },
+                {
+                    ApplicationConstants.HopperEnabled,
+                    Tuple.Create((object)InitFromStorage<bool>("HopperEnabled"), "HopperEnabled")
+                },
+                {
+                    ApplicationConstants.HopperManufacturer,
+                    Tuple.Create((object)InitFromStorage<string>("HopperManufacturer"), "HopperManufacturer")
+                },
             };
 
             _blockExists = true;

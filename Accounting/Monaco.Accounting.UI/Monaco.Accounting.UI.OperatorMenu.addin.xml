@@ -10,6 +10,10 @@
     <Addin id="Monaco.Application.UI" version="1.0" />
   </Dependencies>
 
+  <Extension path="/Application/OperatorMenu/HardwareMenu">
+    <HardwareMenu type="Aristocrat.Monaco.Accounting.UI.Loaders.HopperPageLoader" order="150"/>
+  </Extension>
+  
   <Extension path="/Application/OperatorMenu/MetersMenu">
     <MetersMenu type="Aristocrat.Monaco.Accounting.UI.Loaders.BillsMetersPageLoader" order="210"/>
     <MetersMenu type="Aristocrat.Monaco.Accounting.UI.Loaders.VoucherMetersPageLoader" order="220"/>

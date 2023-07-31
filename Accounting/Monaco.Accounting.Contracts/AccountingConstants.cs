@@ -823,5 +823,63 @@
         ///     Default Coin Value in millicents.
         /// </summary>
         public const long DefaultTokenValue = 100000L;
+
+
+        /// <summary> Hopper Refill min value </summary>
+        public const string HopperRefillMinValue = "Hopper.Refill.MinValue";
+
+        /// <summary> Hopper Refill Default value </summary>
+        public const string HopperRefillDefaultValue = "Hopper.Refill.DefaultValue";
+
+        /// <summary> Hopper Refill max value </summary>
+        public const string HopperRefillMaxValue = "Hopper.Refill.MaxValue";
+
+        /// <summary> Hopper Collect Min value </summary>
+        public const string HopperCollectMinValue = "Hopper.Collect.MinValue";
+
+        /// <summary> Hopper Collect Default value </summary>
+        public const string HopperCollectDefaultValue = "Hopper.Collect.DefaultValue";
+
+        /// <summary> Hopper Collect Max value </summary>
+        public const string HopperCollectMaxValue = "Hopper.Collect.MaxValue";
+
+        /// <summary> Hopper Threshold Min value </summary>
+        public const string HopperThresholdMinValue = "HopperTicket.Threshold.MinValue";
+
+        /// <summary> Hopper Threshold Default value </summary>
+        public const string HopperThresholdDefaultValue = "HopperTicket.Threshold.DefaultValue";
+
+        /// <summary> Hopper Split Supported </summary>
+        public const string HopperTicketSplitSupported = "HopperTicket.Split.Supported";
+
+        /// <summary> Hopper Split Configurable </summary>
+        public const string HopperTicketSplitConfigurable = "HopperTicket.Split.Configurable";
+
+        /// <summary>
+        ///     Key used to get a hopper ticket split value.
+        /// </summary>
+        public const string HopperTicketSplit = "HopperTicket.Split";
+
+        /// <summary>
+        ///     Key used to get a current hopper refill value.
+        /// </summary>
+        public const string HopperCurrentRefillValue = "Hopper.CurrentRefill.Value";
+
+        /// <summary>
+        ///     Key used to get a hopper collect limit value.
+        /// </summary>
+        public const string HopperCollectLimit = "Hopper.Collect.Limit";
+
+        /// <summary>
+        ///     Key used to get a hopper ticket threshold value.
+        /// </summary>
+        public const string HopperTicketThreshold = "HopperTicket.Threshold";
+
+        /// <summary>   Minimum Hopper Split value in millicents </summary>
+        public const long HopperTicketSplitMinTicketValue = 500000L;
+
+        /// <summary>   Hopper ticket split increment value in millicents </summary>
+        public const long HopperTicketSplitIncrement = 1000000L;
+
     }
 }

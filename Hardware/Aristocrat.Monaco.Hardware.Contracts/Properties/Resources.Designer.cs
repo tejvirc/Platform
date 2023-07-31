@@ -124,6 +124,60 @@ namespace Aristocrat.Monaco.Hardware.Contracts.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hopper Disconnected.
+        /// </summary>
+        public static string HopperFaultTypes_Disconnected {
+            get {
+                return ResourceManager.GetString("HopperFaultTypes_Disconnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hopper Empty.
+        /// </summary>
+        public static string HopperFaultTypes_Empty {
+            get {
+                return ResourceManager.GetString("HopperFaultTypes_Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coin Out Error - Excess Payout.
+        /// </summary>
+        public static string HopperFaultTypes_IllegalCoin {
+            get {
+                return ResourceManager.GetString("HopperFaultTypes_IllegalCoin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hopper Jam.
+        /// </summary>
+        public static string HopperFaultTypes_Jam {
+            get {
+                return ResourceManager.GetString("HopperFaultTypes_Jam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hopper Test In Progress.
+        /// </summary>
+        public static string HopperTestFault {
+            get {
+                return ResourceManager.GetString("HopperTestFault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GoTo Hardware -&gt; Hopper.
+        /// </summary>
+        public static string HopperTestFaultHelp {
+            get {
+                return ResourceManager.GetString("HopperTestFaultHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Inspection Failed.
         /// </summary>
         public static string InspectionFailedText {

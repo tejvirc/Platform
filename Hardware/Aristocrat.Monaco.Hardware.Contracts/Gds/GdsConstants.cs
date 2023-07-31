@@ -285,8 +285,16 @@
 
             /// <summary> The reel controller response to a tilt reels command</summary>
             CoinInStatus = 0x104,
+
             /// <summary> The reel controller response to a tilt reels command</summary>
-            CoinInFaultStatus = 0x105
+            CoinInFaultStatus = 0x105,
+
+            /// <summary> The hopper max out amount control command.</summary>
+            MaxCoinOutControll = 0x106,
+
+            /// <summary> The hopper motor control command.</summary>
+            HopperMotorControl = 0x107
+            
         }
 
         /// <summary>The default seed value used to calculate the CRC.</summary>

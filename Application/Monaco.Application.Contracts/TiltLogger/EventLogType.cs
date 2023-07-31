@@ -54,5 +54,9 @@
             [Description("HardMeterOut")] HardMeterOut = 22,
             /// <summary>CoinIn</summary>
             [Description("CoinIn")] CoinIn = 23,
+            /// <summary>HopperRefill</summary>
+            [Description("HopperRefill")] HopperRefill = 24,
+            /// <summary>CoinOut</summary>
+            [Description("CoinOut")] CoinOut = 25,
     }
 }

@@ -736,6 +736,11 @@
         public const string DefaultDateTimeFormat = "yyyy-MM-dd HH:mm:ss";
 
         /// <summary>
+        ///     Long date time format e.g Jan 1 2023 10:00:00.
+        /// </summary>
+        public const string LongDateTimeFormat = "ddd, dd MMM yyyy HH:mm:ss";
+
+        /// <summary>
         ///     Property manager key for LocalizationCurrentCulture
         /// </summary>
         public const string LocalizationCurrentCulture = "Localization.CurrentCulture";
@@ -1499,5 +1504,15 @@
         ///     Key used to get a value indicating whether or not Coin Acceptor is enabled
         /// </summary>
         public const string CoinAcceptorManufacturer = "Application.CoinAcceptorManufacturer";
+
+        // <summary>
+        ///     Key used to get a value indicating whether or not Hopper is enabled
+        /// </summary>
+        public const string HopperEnabled = "Application.HopperEnabled";
+
+        // <summary>
+        ///     Property Manager key for HopperManufacturer.
+        /// </summary>
+        public const string HopperManufacturer = "Application.HopperManufacturer";
     }
 }

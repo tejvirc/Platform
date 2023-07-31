@@ -433,6 +433,8 @@
       <Field DataType="String" FieldName="Protocol.HostAddresses" />
       <Field DataType="Bool" FieldName="CoinAcceptorEnabled" />
       <Field DataType="String" Size="32" FieldName="CoinAcceptorManufacturer" />
+      <Field DataType="Bool" FieldName="HopperEnabled" />
+      <Field DataType="String" Size="32" FieldName="HopperManufacturer" />
     </Fields>
   </BlockFormat>
 </ArrayOfBlockFormat>

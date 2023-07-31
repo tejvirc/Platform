@@ -93,7 +93,7 @@
                 exception);
 
             var expected =
-                "Aristocrat.Monaco.Accounting.Contracts.CoinAcceptor.CoinTransaction [DeviceId=1, LogSequence=0, DateTime=12/31/9999 23:59:59, TransactionId=0, TypeOfAccount=Cashable, Details=None, Exception=Accepted]";
+                "Aristocrat.Monaco.Accounting.Contracts.CoinAcceptor.CoinInTransaction [DeviceId=1, LogSequence=0, DateTime=12/31/9999 23:59:59, TransactionId=0, TypeOfAccount=Cashable, Details=None, Exception=Accepted]";
             Assert.AreEqual(expected, target.ToString());
         }
 

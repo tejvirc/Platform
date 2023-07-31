@@ -1,0 +1,19 @@
+﻿<?xml version="1.0"?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Aristocrat.Monaco.Accounting.CoinOutTransaction">
+    <Fields>
+      <Field DataType="Int64" FieldName="TransactionId" />
+      <Field DataType="Int64" FieldName="LogSequence" />
+      <Field DataType="Int32" FieldName="DeviceId" />
+      <Field DataType="DateTime" FieldName="TransactionDateTime" />
+      <Field DataType="Int64" FieldName="CashableAmount" />
+      <Field DataType="Int64" FieldName="AuthorizedCashableAmount" />
+      <Field DataType="Int64" FieldName="TransferredCashableAmount" />
+      <Field DataType="Bool" FieldName="Exception" />
+      <Field DataType="Guid" FieldName="BankTransactionId" />
+      <Field DataType="String" FieldName="AssociatedTransactions" />
+      <Field DataType="Guid" FieldName="TraceId" />
+      <Field DataType="Int32" FieldName="Reason" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

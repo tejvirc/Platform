@@ -750,6 +750,18 @@
         /// <summary> total hopper refill coin in value. Always 0 unless we accept tokens/coins </summary>
         public const string HopperRefillAmount = "HopperRefillAmount";
 
+        /// <summary> Test coin out count from hopper. </summary>
+        public const string HopperTestCoinsOut = "Test.Hopper.CoinsOut";
+
+        /// <summary> Test coin in from coin acceptor. </summary>
+        public const string HopperTestCoinsIn = "Test.Hopper.CoinsIn";
+
+        /// <summary> extra test coin in count. </summary>
+        public const string ExtraCoinInWhenHopperTest = "Test.Hopper.ExtraCoinIn";
+
+        /// <summary> extra coin out count from hopper. </summary>
+        public const string ExtraCoinOutWhenHopperTest = "Test.Hopper.ExtraCoinOut";
+
         /// <summary> excess coin out count from hopper. </summary>
         public const string ExcessCoinOutCount = "ExcessCoinOutCount";
 

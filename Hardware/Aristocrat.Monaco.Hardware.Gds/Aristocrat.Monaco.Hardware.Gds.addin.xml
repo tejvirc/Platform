@@ -29,5 +29,8 @@
   <Extension path="/Hardware/CoinAcceptor/CoinAcceptorImplementations">
     <DeviceImplementation ProtocolName="Any" type="Aristocrat.Monaco.Hardware.Gds.CoinAcceptor.CoinAcceptorGds"/>
   </Extension>
+  <Extension path="/Hardware/Hopper/HopperImplementations">
+    <DeviceImplementation ProtocolName="Any" type="Aristocrat.Monaco.Hardware.Gds.Hopper.HopperGds"/>
+  </Extension>
 
 </Addin>
