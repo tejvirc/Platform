@@ -785,31 +785,31 @@
                 CreditLimit = _initialCreditLimit;
             }
 
-            if (HandpayLimitVisible && PropertyHasErrors(nameof(HandpayLimitVisible)))
+            if (HandpayLimitVisible && PropertyHasErrors(nameof(HandpayLimit)))
             {
                 HandpayLimitIsChecked = true;
                 HandpayLimit = _initialHandpayLimit;
             }
 
-            if (LargeWinLimitVisible && PropertyHasErrors(nameof(LargeWinLimitVisible)))
+            if (LargeWinLimitVisible && PropertyHasErrors(nameof(LargeWinLimit)))
             {
                 LargeWinLimitIsChecked = true;
                 LargeWinLimit = Math.Min(_initialLargeWinLimit, HandpayLimit);
             }
 
-            if (LargeWinRatioVisible && PropertyHasErrors(nameof(LargeWinRatioVisible)))
+            if (LargeWinRatioVisible && PropertyHasErrors(nameof(LargeWinRatio)))
             {
                 LargeWinRatioIsChecked = true;
                 LargeWinRatio = _initialLargeWinRatio;
             }
 
-            if (LargeWinRatioThresholdVisible && PropertyHasErrors(nameof(LargeWinRatioThresholdVisible)))
+            if (LargeWinRatioThresholdVisible && PropertyHasErrors(nameof(LargeWinRatioThreshold)))
             {
                 LargeWinRatioThresholdIsChecked = true;
                 LargeWinRatioThreshold = _initialLargeWinRatioThreshold;
             }
 
-            if (MaxBetLimitVisible && PropertyHasErrors(nameof(MaxBetLimitVisible)))
+            if (MaxBetLimitVisible && PropertyHasErrors(nameof(MaxBetLimit)))
             {
                 MaxBetLimitIsChecked = true;
                 MaxBetLimit = _initialMaxBetLimit;
@@ -821,13 +821,13 @@
                 PropertiesManager.SetProperty(AccountingConstants.MaxBetLimit, MaxBetLimit.DollarsToMillicents());
             }
 
-            if (HandCountPayoutLimitVisible && PropertyHasErrors(nameof(HandCountPayoutLimitVisible)))
+            if (HandCountPayoutLimitVisible && PropertyHasErrors(nameof(HandCountPayoutLimit)))
             {
                 HandCountPayoutLimitIsChecked = true;
                 HandCountPayoutLimit = _initialHandCountPayoutLimit;
             }
 
-            if (BillAcceptanceLimitVisible && PropertyHasErrors(nameof(BillAcceptanceLimitVisible)))
+            if (BillAcceptanceLimitVisible && PropertyHasErrors(nameof(BillAcceptanceLimit)))
             {
                 BillAcceptanceLimitIsChecked = true;
                 BillAcceptanceLimit = _initialBillAcceptanceLimit;
@@ -845,7 +845,7 @@
                 PropertiesManager.SetProperty(PropertyKey.MaxCreditsIn, BillAcceptanceLimit.DollarsToMillicents());
             }
 
-            if (CelebrationLockupLimitVisible && PropertyHasErrors(nameof(CelebrationLockupLimitVisible)))
+            if (CelebrationLockupLimitVisible && PropertyHasErrors(nameof(CelebrationLockupLimit)))
             {
                 CelebrationLockupLimitIsChecked = true;
                 CelebrationLockupLimit = Math.Min(_initialCelebrationLockupLimit, CurrentMaximumLockupLimit);
