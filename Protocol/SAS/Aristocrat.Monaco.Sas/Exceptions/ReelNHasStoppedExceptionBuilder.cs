@@ -44,5 +44,6 @@ public class ReelNHasStoppedExceptionBuilder : List<byte>, ISasExceptionCollecti
     }
 
     /// <inheritdoc />
-    public GeneralExceptionCode ExceptionCode => GeneralExceptionCode.ReelNHasStopped;
+    public GeneralExceptionCode ExceptionCode =>
+        Count > 0 ? GeneralExceptionCode.ReelNHasStopped : GeneralExceptionCode.None;
 }

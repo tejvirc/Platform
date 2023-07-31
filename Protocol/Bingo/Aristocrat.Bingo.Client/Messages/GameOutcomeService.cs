@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Bingo.Client.Messages
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using System.Threading;
@@ -11,11 +12,16 @@
     using ServerApiGateway;
     using GameOutcome = GamePlay.GameOutcome;
 
-    public class GameOutcomeService : BaseClientCommunicationService, IGameOutcomeService
+    /// <summary>
+    ///     Provides outcomes of bingo games
+    /// </summary>
+    public class GameOutcomeService :
+        BaseClientCommunicationService<ClientApi.ClientApiClient>,
+        IGameOutcomeService
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private const char BallCallDelimiter = ',';
-
+        private const uint ThemeId = 1U;
         private readonly IMessageHandlerFactory _messageHandlerFactory;
 
         public GameOutcomeService(
@@ -27,16 +33,18 @@
                 messageHandlerFactory ?? throw new ArgumentNullException(nameof(messageHandlerFactory));
         }
 
-        public Task<bool> RequestGame(RequestGameOutcomeMessage message, CancellationToken token)
+        /// <inheritdoc/>
+        public Task<bool> RequestMultiGame(RequestMultipleGameOutcomeMessage message, CancellationToken token)
         {
             if (message == null)
             {
                 throw new ArgumentNullException(nameof(message));
             }
 
-            return RequestGameInternal(message, token);
+            return RequestMultiGameInternal(message, token);
         }
 
+        /// <inheritdoc/>
         public Task<ClaimWinResults> ClaimWin(RequestClaimWinMessage message, CancellationToken token)
         {
             if (message == null)
@@ -47,49 +55,49 @@
             return ClaimWinInternal(message, token);
         }
 
-        public async Task<ReportGameOutcomeResponse> ReportGameOutcome(ReportGameOutcomeMessage message, CancellationToken token)
+        /// <inheritdoc/>
+        public Task<ReportMultiGameOutcomeResponse> ReportMultiGameOutcome(ReportMultiGameOutcomeMessage message, CancellationToken token)
         {
-            var result = await Invoke(async x => await x.ReportGameOutcomeAsync(message.ToGameOutcome()))
-                .ConfigureAwait(false);
-            return new ReportGameOutcomeResponse(result.Succeeded ? ResponseCode.Ok : ResponseCode.Rejected);
+            // TODO: fill this in as part of the report game outcomes story
+            //var result = await Invoke(async x => await x.ReportMultiGameOutcomeAsync(message.ToGameOutcome()))
+            //    .ConfigureAwait(false);
+            return Task.FromResult(new ReportMultiGameOutcomeResponse(ResponseCode.Rejected));
         }
 
-        private static GameOutcome ProcessRejectedResponse(GamePlayResponse gamePlayOutcome, GamePlayRequest request)
+        private static GameOutcomes ProcessAcceptedResponse(MultiGamePlayResponse gamePlayOutcome, RequestMultipleGameOutcomeMessage request)
         {
-            if (uint.TryParse(request.ActiveGameTitles, out var themeId))
+            Logger.Debug("ProcessAcceptedResponses");
+
+            var gamePlayResponse = gamePlayOutcome.MultiGamePlayResponseMeta.Unpack<BingoMultiGamePlayResponseMeta>();
+            var ballCall = string.IsNullOrEmpty(gamePlayResponse.BallCall)
+                ? Array.Empty<int>()
+                : gamePlayResponse.BallCall.Split(BallCallDelimiter).Select(int.Parse).ToArray();
+
+            var joinBallNumber = gamePlayResponse.JoinBallNumber;
+            var gameEndWinEligibility = gamePlayResponse.GameEndWinEligibility;
+
+            var response = new List<GameOutcome>();
+            foreach (var game in gamePlayOutcome.GamePlayResponses)
             {
-                Logger.Warn($"Invalid theme id: {request.ActiveGameTitles}");
+                var uniqueGameId = request.GameRequests.First(x => x.GameIndex == game.GameNumber).UniqueGameId;
+                AddResponseToOutcomes(game, ballCall, joinBallNumber, gameEndWinEligibility, response, uniqueGameId);
             }
 
-            var bingoDetails = new GameOutcomeBingoDetails(0, Array.Empty<CardPlayed>(), Array.Empty<int>(), 0);
-            var gameDetails = new GameOutcomeGameDetails(
-                gamePlayOutcome.FacadeKey,
-                gamePlayOutcome.GameTitleId,
-                themeId,
-                gamePlayOutcome.Denomination,
-                string.Empty,
-                gamePlayOutcome.GameSerial);
-            var winDetails = new GameOutcomeWinDetails(0, gamePlayOutcome.ProgressiveLevels, Array.Empty<WinResult>());
-            var outcome = new GameOutcome(
-                ResponseCode.Rejected,
-                winDetails,
-                gameDetails,
-                bingoDetails,
-                gamePlayOutcome.Status,
-                gamePlayOutcome.ReportType == GamePlayResponse.Types.ReportType.End);
-
-            Logger.Warn("Outcome response rejected");
-            return outcome;
+            return new GameOutcomes(ResponseCode.Ok, response);
         }
 
-        private static GameOutcome ProcessAcceptedResponse(GamePlayResponse gamePlayOutcome, GamePlayRequest request)
+        private static void AddResponseToOutcomes(SingleGamePlayResponse game, IReadOnlyCollection<int> ballCall, int joinBallNumber, int gameEndWinEligibility, ICollection<GameOutcome> outcomes, int uniqueGameId)
         {
-            var serverBingoOutcome = gamePlayOutcome.GamePlayResponseMeta.Unpack<BingoGamePlayResponseMeta>();
+            Logger.Debug($"Processing game play outcome for game: gameNumber={game.GameNumber} gameSerial={game.GameSerial} titleId={game.GameTitleId} totalWin={game.TotalWinAmount} denom={game.Denomination} uniqueGameId={uniqueGameId}");
 
-            var cards = serverBingoOutcome.Cards.Select(
-                cardMeta => new CardPlayed(cardMeta.Serial, cardMeta.DaubBitPattern, cardMeta.GewClaimable)).ToList();
+            var meta = game.GamePlayResponseMeta.Unpack<BingoSingleGamePlayResponseMeta>();
 
-            var wins = serverBingoOutcome.WinResults.Select(
+            Logger.Debug($"BingoSingleGamePlayResponseMeta = {meta}");
+
+            var cards = meta.Cards.Select(
+                cardMeta => new CardPlayed(cardMeta.Serial, cardMeta.DaubBitPattern, cardMeta.GewClaimable, cardMeta.CardType == CardType.Golden)).ToList();
+
+            var wins = meta.WinResults.Select(
                     winMeta => new WinResult(
                         winMeta.PatternId,
                         winMeta.Payout,
@@ -99,65 +107,116 @@
                         winMeta.PatternName,
                         winMeta.CardSerial,
                         winMeta.IsGew,
-                        winMeta.WinIndex))
+                        winMeta.WinIndex,
+                        winMeta.ProgressiveWins))
                 .ToList();
-            var ballCall = string.IsNullOrEmpty(serverBingoOutcome.BallCall)
-                ? Array.Empty<int>()
-                : serverBingoOutcome.BallCall.Split(BallCallDelimiter).Select(int.Parse).ToArray();
 
-            Logger.Debug(
-                $"Outcome response: {cards.Count} cards, {serverBingoOutcome.BallCall} balls, {wins.Count} wins, Status={gamePlayOutcome.Status} StatusMessage={gamePlayOutcome.StatusMessage} ReportType={gamePlayOutcome.ReportType}");
-
-            if (uint.TryParse(request.ActiveGameTitles, out var themeId))
+            foreach (var win in wins)
             {
-                Logger.Warn($"Invalid theme id: {request.ActiveGameTitles}");
+                Logger.Debug($"Win: patternId={win.PatternId} patternName={win.PatternName} balls={win.BallQuantity} paytableId={win.PaytableId} payout={win.Payout}");
             }
 
+            Logger.Debug($"Outcome response GameNumber {game.GameNumber}: {cards.Count} cards, {ballCall} balls," +
+                         $" {wins.Count} wins, Status={game.Status} StatusMessage={game.StatusMessage} ReportType={game.ReportType}");
+
             var bingoDetails = new GameOutcomeBingoDetails(
-                serverBingoOutcome.GameEndWinEligibility,
+                gameEndWinEligibility,
                 cards,
                 ballCall,
-                serverBingoOutcome.JoinBallNumber);
+                joinBallNumber);
+
             var gameDetails = new GameOutcomeGameDetails(
-                gamePlayOutcome.FacadeKey,
-                gamePlayOutcome.GameTitleId,
-                themeId,
-                gamePlayOutcome.Denomination,
-                serverBingoOutcome.Paytable,
-                gamePlayOutcome.GameSerial);
+                game.FacadeKey,
+                game.GameTitleId,
+                ThemeId,
+                game.Denomination,
+                meta.Paytable,
+                game.GameSerial);
+
             var winDetails = new GameOutcomeWinDetails(
-                gamePlayOutcome.TotalWinAmount,
-                gamePlayOutcome.ProgressiveLevels,
+                game.TotalWinAmount,
+                string.Empty, // TODO there is no progressive levels available (gamePlayOutcome.ProgressiveLevels)
                 wins);
-            return new GameOutcome(
+
+            outcomes.Add(new GameOutcome(
                 ResponseCode.Ok,
                 winDetails,
                 gameDetails,
                 bingoDetails,
-                gamePlayOutcome.Status,
-                gamePlayOutcome.ReportType == GamePlayResponse.Types.ReportType.End);
+                game.Status,
+                game.ReportType == SingleGamePlayResponse.Types.ReportType.End,
+                uniqueGameId,
+                game.GameNumber));
         }
 
-        private async Task<bool> RequestGameInternal(RequestGameOutcomeMessage message, CancellationToken token)
+        private static GameOutcomes ProcessRejectedResponse(MultiGamePlayResponse gamePlayOutcome, RequestMultipleGameOutcomeMessage request)
         {
-            Logger.Debug("Request new game");
-            var request = new GamePlayRequest
+            Logger.Debug("ProcessRejectedResponse");
+
+            var response = new List<GameOutcome>();
+            foreach (var game in gamePlayOutcome.GamePlayResponses)
+            {
+                var bingoDetails = new GameOutcomeBingoDetails(0, Array.Empty<CardPlayed>(), Array.Empty<int>(), 0);
+
+                var gameDetails = new GameOutcomeGameDetails(
+                    game.FacadeKey,
+                    game.GameTitleId,
+                    ThemeId,
+                    game.Denomination,
+                    string.Empty,
+                    game.GameSerial);
+
+                var winDetails = new GameOutcomeWinDetails(0, string.Empty, Array.Empty<WinResult>());
+                var uniqueGameId = request.GameRequests.First(x => x.GameIndex == game.GameNumber).UniqueGameId;
+                Logger.Debug($"Outcome response GameNumber {game.GameNumber}: {bingoDetails.CardsPlayed.Count} cards, {bingoDetails.BallCall.Count} balls," +
+                             $" {winDetails.WinResults.Count} wins, Status={game.Status} StatusMessage={game.StatusMessage} ReportType={game.ReportType}" +
+                             $" UniqueGameId {uniqueGameId}");
+
+                response.Add(new GameOutcome(
+                    ResponseCode.Rejected,
+                    winDetails,
+                    gameDetails,
+                    bingoDetails,
+                    game.Status,
+                    game.ReportType == SingleGamePlayResponse.Types.ReportType.End,
+                    uniqueGameId));
+
+                Logger.Warn($"Outcome response GameNumber {game.GameNumber} rejected");
+            }
+
+            return new GameOutcomes(ResponseCode.Rejected, response);
+        }
+
+        private async Task<bool> RequestMultiGameInternal(RequestMultipleGameOutcomeMessage message, CancellationToken token)
+        {
+            var requests = new MultiGamePlayRequest
             {
                 MachineSerial = message.MachineSerial,
-                BetAmount = message.BetAmount,
-                ActiveDenomination = message.ActiveDenomination,
-                BetLinePresetId = message.BetLinePresetId,
-                LineBet = message.LineBet,
-                Lines = message.Lines,
-                Ante = message.Ante,
-                ActiveGameTitles = message.ActiveGameTitles,
-                GamePlayMeta = Any.Pack(new BingoGamePlayMeta())
             };
 
-            using var caller = Invoke((x, c) => x.RequestGamePlay(request, null, null, c), token);
+            foreach (var singleRequest in message.GameRequests)
+            {
+                Logger.Debug($"Request game: GameNumber{singleRequest.GameIndex}, Bet={singleRequest.BetAmount}, denom={singleRequest.ActiveDenomination}, title={singleRequest.ActiveGameTitle }");
+
+                requests.GamePlayRequests.Add(
+                    new SingleGamePlayRequest
+                    {
+                        Ante = singleRequest.Ante,
+                        Lines = singleRequest.Lines,
+                        LineBet = singleRequest.LineBet,
+                        BetLinePresetId = singleRequest.BetLinePresetId,
+                        ActiveDenomination = (int)singleRequest.ActiveDenomination,
+                        BetAmount = singleRequest.BetAmount,
+                        GameNumber = singleRequest.GameIndex,
+                        TitleId = singleRequest.ActiveGameTitle,
+                        GamePlayMeta = Any.Pack(new BingoGamePlayMeta())
+                    });
+            }
+
+            using var caller = Invoke((x, c) => x.RequestMultiGamePlay(requests, null, null, c), token);
             var responseStream = caller.ResponseStream;
             while (await responseStream.MoveNext(token).ConfigureAwait(false) &&
-                   await ReadGameOutcome(responseStream.Current, request, token).ConfigureAwait(false))
+                   await ReadMultiGameOutcome(responseStream.Current, message, token).ConfigureAwait(false))
             {
             }
 
@@ -188,14 +247,33 @@
             return result;
         }
 
-        private async Task<bool> ReadGameOutcome(GamePlayResponse gamePlayOutcome, GamePlayRequest request, CancellationToken token)
+        private async Task<bool> ReadMultiGameOutcome(MultiGamePlayResponse gamePlayOutcome, RequestMultipleGameOutcomeMessage request, CancellationToken token)
         {
-            var outcome = gamePlayOutcome.Status
+            if (gamePlayOutcome.GamePlayResponses.Count != request.GameRequests.Count())
+            {
+                throw new ArgumentException("Game play responses do not match the number of game play requests");
+            }
+
+            var status = true;
+
+            // This assumes if the first game play response has a Rejected status then
+            // all the responses should be rejected. We can't have a rejected and ok status in
+            // the same outcome.
+            var responseStatus = gamePlayOutcome.GamePlayResponses.First().Status;
+            var outcome = responseStatus
                 ? ProcessAcceptedResponse(gamePlayOutcome, request)
                 : ProcessRejectedResponse(gamePlayOutcome, request);
-            var handlerResult = await _messageHandlerFactory.Handle<GameOutcomeResponse, GameOutcome>(outcome, token)
+
+            var handlerResult = await _messageHandlerFactory
+                .Handle<GameOutcomeResponse, GameOutcomes>(outcome, token)
                 .ConfigureAwait(false);
-            return gamePlayOutcome.Status && !outcome.IsFinal && handlerResult.ResponseCode == ResponseCode.Ok;
+
+            if (!responseStatus || outcome.Outcomes.Any(g => g.IsFinal) && handlerResult.ResponseCode != ResponseCode.Ok)
+            {
+                status = false;
+            }
+
+            return status;
         }
     }
 }

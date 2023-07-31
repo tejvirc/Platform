@@ -19,6 +19,7 @@
     using Services;
     using Services.Configuration;
     using Services.GamePlay;
+    using Services.Progressives;
     using Services.Reporting;
     using Services.Security;
     using SimpleInjector;
@@ -28,13 +29,14 @@
 
     public static class InternalServiceBuilder
     {
-        public static Container AddInternalServices(this Container container)
+        public static Container AddInternalServices(this Container container, bool isBingoProgressiveEnabled)
         {
             container.RegisterSingleton<IClientConfigurationProvider, BingoClientConfigurationProvider>();
             container.RegisterSingleton<INetworkInformationProvider, NetworkInformationProvider>();
             return container
                 .SetupBingoGamePlay()
-                .SetupCommandHandlers()
+                .SetupProgressives(isBingoProgressiveEnabled)
+                .SetupCommandHandlers(isBingoProgressiveEnabled)
                 .SetupCommandFactory()
                 .SetupGameEndWinStrategy()
                 .SetupJackpotStrategy();
@@ -57,8 +59,8 @@
             container.RegisterSingleton<IAcknowledgedQueueHelper<ReportTransactionMessage, long>, TransactionAcknowledgedQueueHelper>();
             container.RegisterSingleton<IAcknowledgedQueue<ReportEventMessage, long>, AcknowledgedQueue<ReportEventMessage, long>>();
             container.RegisterSingleton<IAcknowledgedQueueHelper<ReportEventMessage, long>, EventAcknowledgedQueueHelper>();
-            container.RegisterSingleton<IAcknowledgedQueue<ReportGameOutcomeMessage, long>, AcknowledgedQueue<ReportGameOutcomeMessage, long>>();
-            container.RegisterSingleton<IAcknowledgedQueueHelper<ReportGameOutcomeMessage, long>, GameHistoryReportAcknowledgeQueueHelper>();
+            container.RegisterSingleton<IAcknowledgedQueue<ReportMultiGameOutcomeMessage, long>, AcknowledgedQueue<ReportMultiGameOutcomeMessage, long>>();
+            container.RegisterSingleton<IAcknowledgedQueueHelper<ReportMultiGameOutcomeMessage, long>, GameHistoryReportAcknowledgeQueueHelper>();
             container.RegisterSingleton<IBingoGameProvider, BingoGameProvider>();
             container.RegisterSingleton<IEgmStatusService, EgmStatusHandler>();
             container.RegisterSingleton<IGameRoundPrintFormatter, BingoRoundPrintFormatter>();
@@ -71,10 +73,30 @@
             return container;
         }
 
-        private static Container SetupCommandHandlers(this Container container)
+        private static Container SetupProgressives(this Container container, bool isBingoProgressiveEnabled)
+        {
+            if (isBingoProgressiveEnabled)
+            {
+                container.RegisterSingleton<IProgressiveClientConnectionState, ProgressiveClientConnectionState>();
+                container.RegisterSingleton<IProgressiveUpdateHandler, ProgressiveHandler>();
+                container.RegisterSingleton<IProgressiveLevelInfoProvider, ProgressiveLevelInfoProvider>();
+                container.RegisterSingleton<IProgressiveInfoHandler, ProgressiveHandler>();
+            }
+
+            return container;
+        }
+
+        private static Container SetupCommandHandlers(this Container container, bool isBingoProgressiveEnabled)
         {
             container.Register(typeof(ICommandHandler<>), Assembly.GetExecutingAssembly());
             container.RegisterSingleton<ICommandHandlerFactory, CommandHandlerFactory>();
+
+            if (isBingoProgressiveEnabled)
+            {
+                container.Register(typeof(IProgressiveCommandHandler<>), Assembly.GetExecutingAssembly());
+                container.RegisterSingleton<IProgressiveCommandHandlerFactory, ProgressiveCommandHandlerFactory>();
+            }
+
             return container;
         }
 

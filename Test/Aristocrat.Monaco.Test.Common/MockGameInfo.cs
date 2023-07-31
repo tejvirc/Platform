@@ -190,8 +190,29 @@
 
         public GameSubCategory SubCategory => GameSubCategory.FiveHand;
 
-        public bool NextToMaxBetTopAwardMultiplier { get; set; }
+        public IEnumerable<Feature> Features { get; set; }
 
+        public int MechanicalReels { get; set; }
+
+        public int[] MechanicalReelHomeSteps { get; set; }
+
+        public IEnumerable<ISubGameDetails> SupportedSubGames { get; set; }
+
+        public IEnumerable<ISubGameDetails> ActiveSubGames { get; set; }
+
+        public bool NextToMaxBetTopAwardMultiplier { get; set; }
+        
+        public int MaximumWagerInsideCredits
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
+
+        public int MaximumWagerOutsideCredits
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
         public static IEnumerable<IGameDetail> GetMockGameDetailInfo()
         {
             var gameDetail = new List<IGameDetail>();
@@ -256,23 +277,6 @@
             return gameGraphics;
         }
 
-        public IEnumerable<Feature> Features { get; set; }
-
-        public int MechanicalReels { get; set; }
-
-        public int[] MechanicalReelHomeSteps { get; set; }
-
-        public int MaximumWagerInsideCredits
-        {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
-        }
-
-        public int MaximumWagerOutsideCredits
-        {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
-        }
     }
 
     public class MockLocalGameGraphics : ILocaleGameGraphics
@@ -286,6 +290,10 @@
         public string LargeTopPickIcon { get; set; }
 
         public string SmallTopPickIcon { get; set; }
+
+        public string DenomButtonIcon { get; set; }
+
+        public string DenomPanel { get; set; }
 
         public string TopAttractVideo { get; set; }
 

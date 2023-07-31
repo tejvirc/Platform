@@ -2,7 +2,6 @@
 {
     using System;
     using System.Diagnostics;
-    using Contracts.OperatorMenu;
     using OperatorMenu;
 
     /// <summary>
@@ -20,8 +19,7 @@
         /// <summary>
         ///     Initializes a new instance of the <see cref="NetworkMainPageViewModel" /> class.
         /// </summary>
-        public NetworkMainPageViewModel(IOperatorMenuPageLoader mainPage)
-            : base(mainPage, MenuExtensionPointPath)
+        public NetworkMainPageViewModel(string pageNameResourceKey) : base(pageNameResourceKey, MenuExtensionPointPath)
         {
         }
 

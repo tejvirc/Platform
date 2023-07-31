@@ -46,6 +46,7 @@ namespace Aristocrat.Monaco.Gaming.Progressives
             _mysteryProgressiveProvider = mysteryProgressiveProvider ?? throw new ArgumentNullException(nameof(mysteryProgressiveProvider));
         }
 
+        /// <inheritdoc />
         public event EventHandler<ProgressivesAddedEventArgs> ProgressivesAdded;
 
         public void LoadProgressiveLevels(IGameDetail gameDetails, IEnumerable<ProgressiveDetail> progressiveDetails)

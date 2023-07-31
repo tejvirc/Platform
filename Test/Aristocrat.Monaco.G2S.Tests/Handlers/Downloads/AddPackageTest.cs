@@ -1,5 +1,10 @@
 ﻿namespace Aristocrat.Monaco.G2S.Tests.Handlers.Downloads
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Application.Contracts;
     using Aristocrat.G2S;
     using Aristocrat.G2S.Client;
@@ -17,11 +22,6 @@
     using Kernel.Contracts.Components;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;
 
     [TestClass]
     public class AddPackageTest

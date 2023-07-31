@@ -53,9 +53,17 @@
             webApiBuilder.WebHost.ConfigureServices(services =>
             {
                 services.AddControllers().AddApplicationPart(typeof(TestControllerEngine).Assembly);
+                var controllerEngine = new TestControllerEngine();
+                controllerEngine.SubscribeToEvents();
+                services.AddSingleton(controllerEngine);
             });
 
-            webApiBuilder.WebHost.UseUrls($"http://{GetLocalIPAddress()}:8087/").ConfigureKestrel((context, option) =>
+            var urls = new[]
+            {
+                $"http://{GetLocalIPAddress()}:8087/",
+                $"http://{GetLocalIPAddress()}:9099/"
+            };
+            webApiBuilder.WebHost.UseUrls(urls).ConfigureKestrel((context, option) =>
             {
                 option.AllowSynchronousIO = true;
             });

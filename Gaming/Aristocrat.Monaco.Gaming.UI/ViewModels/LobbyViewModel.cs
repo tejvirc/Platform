@@ -223,6 +223,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private int _displayedPageNumber = 1;
         private GameType _gameFilter = GameType.Undefined;
         private ObservableCollection<GameInfo> _gameList = new ObservableCollection<GameInfo>();
+        private List<GameInfo> _enabledGameList = new List<GameInfo>();
         private string _gameLoadingScreenPath;
         private int _gamesPerPage;
         private string _idleText;
@@ -240,7 +241,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private string _topAttractVideoPath;
         private LobbyVbdVideoState _vbdVideoState = LobbyVbdVideoState.Disabled;
         private DateTime _denomCheck = DateTime.UtcNow;
-        private int _gameCount;
         private bool _disableLobbyInput;
         private double _aspectRatio;
         private double _mainInfoBarHeight;
@@ -590,6 +590,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public bool IsExtraLargeGameIconTabActive => IsTabView && GameTabInfo.SelectedCategory == GameCategory.LightningLink;
 
         /// <summary>
+        ///     Is the combined jackpot banner visible
+        /// </summary>
+        public bool IsJackpotBannerVisible => IsExtraLargeGameIconTabActive &&
+                                              ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelOneEnabled &&
+                                              ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelTwoEnabled;
+
+        /// <summary>
         ///     Gets the game selected command
         /// </summary>
         public ICommand GameSelectCommand { get; }
@@ -803,7 +810,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             set => SetProperty(ref _multiLanguageEnabled, value);
         }
 
-        public bool NoGamesForThisLanguageErrorIsVisible => MultiLanguageEnabled && DisplayedGameList.Any() && DisplayedGameList.All(g => g.ImagePath == null);
+        public bool NoGamesForThisLanguageErrorIsVisible => MultiLanguageEnabled && !DisplayedGameList.Any() && !_systemDisableManager.IsDisabled;
 
         /// <summary>
         ///     Gets or sets a value indicating whether VBD rendering is disabled (as it is in system lockup).
@@ -1117,7 +1124,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         /// <summary>
         ///     Gets a value indicating whether icon of only one game is displayed in lobby
         /// </summary>
-        public bool IsSingleGameDisplayed => DisplayedGameList?.Count == 1;
+        public bool IsSingleGameDisplayed => GameCount == 1;
 
         /// <summary>
         ///     Gets or sets a value indicating whether the bottom attract feature is visible or not
@@ -1428,17 +1435,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             set => SetProperty(ref _vbdVideoState, value, nameof(VbdVideoState), nameof(IsLobbyVbdBackgroundBlank));
         }
 
-        public int GameCount
-        {
-            get => _gameCount;
-            set
-            {
-                _gameCount = value;
-                _lobbyStateManager.IsSingleGame = UniqueThemeIds <= 1;
-                RaisePropertyChanged(nameof(GameCount));
-                RaisePropertyChanged(nameof(MarginInputs));
-            }
-        }
+        public int GameCount => DisplayedGameList.Count;
 
         private bool UseSmallIcons => !IsTabView && GameCount > 8;
 
@@ -1499,13 +1496,12 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         {
             get
             {
-                var gameCount = DisplayedGameList?.Count ?? 0;
                 var gameControlHeight = GameControlHeight;
                 var gameIconSize = DisplayedGameList?.FirstOrDefault()?.GameIconSize ?? Size.Empty;
                 var anyVisibleGameHasProgressiveLabel = DisplayedGameList?.Any(x => x.HasProgressiveLabelDisplay) ?? false;
                 Logger.Debug($"MarginInputs: GameWindowHeight={gameControlHeight}, GameIconSize={gameIconSize}");
                 return new GameGridMarginInputs(
-                    gameCount,
+                    GameCount,
                     IsTabView,
                     GameTabInfo.SelectedSubTab?.IsVisible ?? false,
                     anyVisibleGameHasProgressiveLabel,
@@ -2127,6 +2123,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                                   IsNew = GameIsNew(game.GameTags),
                                   Category = game.Category,
                                   SubCategory = game.SubCategory,
+                                  DenomButtonPath = game.LocaleGraphics[ActiveLocaleCode].DenomButtonIcon,
+                                  DenomPanelPath = game.LocaleGraphics[ActiveLocaleCode].DenomPanel,
                                   RequiresMechanicalReels = game.MechanicalReels > 0
                               }).ToList();
 
@@ -3149,6 +3147,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             RaisePropertyChanged(nameof(IsServiceRequested));
             RaisePropertyChanged(nameof(ReturnToLobbyAllowed));
             RaisePropertyChanged(nameof(ReserveMachineAllowed));
+            RaisePropertyChanged(nameof(NoGamesForThisLanguageErrorIsVisible));
 
 #if !(RETAIL)
             _eventBus?.Publish(new CashoutButtonStatusEvent(CashOutEnabledInPlayerMenu));
@@ -3832,7 +3831,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                         .Skip((DisplayedPageNumber - 1) * GamesPerPage)
                         .Take(GamesPerPage);
 
-                DisplayedGameList.Clear();
+                _enabledGameList = new List<GameInfo>();
 
                 // When the tab is hosting extra large icons (i.e., for Lightning Link), a list of denoms PER game will appear
                 // below the icon for the user to pick.
@@ -3849,7 +3848,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                         var game = _gameList.First(g => g.Name == gameName);
                         var denominations = _gameList.Where(g => g.Name == gameName).Select(d => d.Denomination);
                         game.SetDenominations(denominations);
-                        DisplayedGameList.Add(game);
+                        _enabledGameList.Add(game);
                     }
                 }
                 else
@@ -3857,11 +3856,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     // Add subset of GameInfo items to display.
                     foreach (var gi in subset)
                     {
-                        DisplayedGameList.Add(gi);
+                        _enabledGameList.Add(gi);
                     }
                 }
 
-                GameCount = DisplayedGameList.Count;
+                UpdateDisplayedGames();
             }
 
             if (_lobbyStateManager?.IsTabView ?? false)
@@ -3882,6 +3881,22 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             RaisePropertyChanged(nameof(IsSingleTabView));
             RaisePropertyChanged(nameof(IsSingleDenomDisplayed));
             RaisePropertyChanged(nameof(IsSingleGameDisplayed));
+            RaisePropertyChanged(nameof(IsJackpotBannerVisible));
+        }
+
+        private void UpdateDisplayedGames()
+        {
+            if (_enabledGameList == null)
+            {
+                return;
+            }
+
+            DisplayedGameList.Clear();
+            DisplayedGameList.AddRange(_enabledGameList?.Where(g => g.ImagePath != null));
+
+            _lobbyStateManager.IsSingleGame = UniqueThemeIds <= 1;
+            RaisePropertyChanged(nameof(GameCount));
+            RaisePropertyChanged(nameof(MarginInputs));
         }
 
         private void SelectFirstDisplayedGame()
@@ -3966,7 +3981,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             {
                 case SelectionNavigation.NextGame:
                 case SelectionNavigation.PreviousGame:
-                    if (_selectedGame == null || DisplayedGameList.Count == 0)
+                    if (_selectedGame == null || GameCount == 0)
                     {
                         return;
                     }
@@ -3979,13 +3994,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     }
 
                     selectedGameIndex = (navigationOption == SelectionNavigation.NextGame)
-                        ? (selectedGameIndex + 1) % DisplayedGameList.Count
+                        ? (selectedGameIndex + 1) % GameCount
                         : selectedGameIndex - 1;
 
                     // Wrap selection back around to last game if navigating left while first game is selected
                     if (selectedGameIndex < 0)
                     {
-                        selectedGameIndex = DisplayedGameList.Count - 1;
+                        selectedGameIndex = GameCount - 1;
                     }
 
                     var gameToSelect = DisplayedGameList[selectedGameIndex];
@@ -4021,6 +4036,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
                 game.SelectLocaleGraphics(ActiveLocaleCode);
             }
+
+            UpdateDisplayedGames();
 
             if (IsExtraLargeGameIconTabActive)
             {
@@ -5064,7 +5081,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 Logger.Debug($"Consecutive Attract Video count: {_consecutiveAttractCount}");
 
                 if (_consecutiveAttractCount >= Config.ConsecutiveAttractVideos ||
-                    _consecutiveAttractCount >= _gameCount)
+                    _consecutiveAttractCount >= GameCount)
                 {
                     Logger.Debug("Stopping attract video sequence");
                     return false;
@@ -5408,6 +5425,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 LocaleGraphics = game.LocaleGraphics,
                 ThemeId = game.ThemeId,
                 IsNew = GameIsNew(game.GameTags),
+                DenomButtonPath = game.LocaleGraphics[ActiveLocaleCode].DenomButtonIcon,
+                DenomPanelPath = game.LocaleGraphics[ActiveLocaleCode].DenomPanel,
                 RequiresMechanicalReels = game.MechanicalReels > 0
             };
         }

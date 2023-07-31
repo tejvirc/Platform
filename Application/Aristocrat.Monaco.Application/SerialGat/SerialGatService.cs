@@ -182,7 +182,9 @@
         {
             if (_gatApplication.Connected)
             {
-                _systemDisableManager.Disable(_disableGuid, SystemDisablePriority.Immediate, GetStatus);
+                // Get status right now, rather than having disable manager check later when it's too late
+                var status = GetStatus();
+                _systemDisableManager.Disable(_disableGuid, SystemDisablePriority.Immediate, () => status);
             }
             else
             {

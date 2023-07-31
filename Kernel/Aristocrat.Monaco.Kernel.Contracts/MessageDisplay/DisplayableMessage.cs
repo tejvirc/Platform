@@ -81,7 +81,7 @@
             Priority = (DisplayableMessagePriority)priority;
             ReasonEvent = (Type)info.GetValue("ReasonEvent", typeof(Type));
 
-            var id = info.GetValue("id", typeof(Guid));
+            var id = info.GetValue("Id", typeof(Guid));
             if (id == null)
                 throw new ArgumentException("Serialization info does not contain Id field.");
             Id = (Guid)id;

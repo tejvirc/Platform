@@ -1,12 +1,13 @@
 ﻿namespace Aristocrat.Monaco.Accounting.UI.Tests
 {
-    using Application.Contracts;
-    using Application.Contracts.Localization;
-    using Accounting.Contracts.Transactions;
-    using Contracts;
     using System;
     using System.Globalization;
     using System.Linq;
+    using Application.Contracts;
+    using Application.Contracts.Localization;
+    using Accounting.Contracts.Transactions;
+    using Application.Contracts.OperatorMenu;
+    using Contracts;
     using Hardware.Contracts.Persistence;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -14,7 +15,6 @@
     using Test.Common;
     using Test.Common.UnitTesting;
     using UI.ViewModels;
-    using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
 
     /// <summary>
     ///     Summary description for KeyedCreditsPageViewModelTest

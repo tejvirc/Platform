@@ -14,11 +14,13 @@
         /// <param name="ballCall">A <see cref="BingoBallCall"/>.</param>
         /// <param name="daubs">the card daubs</param>
         /// <param name="isRecovery">Whether or not this is for recovery</param>
-        public BingoGameBallCallEvent(BingoBallCall ballCall, int daubs, bool isRecovery = false)
+        /// <param name="gameIndex">The game this ball call event belongs to</param>
+        public BingoGameBallCallEvent(BingoBallCall ballCall, int daubs, bool isRecovery = false, int gameIndex = 0)
         {
             BallCall = ballCall;
             Daubs = daubs;
             IsRecovery = isRecovery;
+            GameIndex = gameIndex;
         }
 
         /// <summary>
@@ -35,5 +37,10 @@
         ///     Gets whether or not the ball call is for recovery
         /// </summary>
         public bool IsRecovery { get; }
+
+        /// <summary>
+        ///     Gets the game the daubs belong to
+        /// </summary>
+        public int GameIndex { get; }
     }
 }

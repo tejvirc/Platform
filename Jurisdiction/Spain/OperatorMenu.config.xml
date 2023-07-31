@@ -167,10 +167,10 @@ as follows:
             <Rule DeviceName="Logic" />
         </AccessRuleSet>
 		<AccessRuleSet Name="LogicMainZeroCreditsZeroGamesPlayed">
+			<Rule Restriction="ZeroGamesPlayed" />
 			<Rule Restriction="ZeroCredits" />
 			<Rule DeviceName="Logic" />
 			<Rule DeviceName="Main" />
-			<Rule Restriction="ZeroGamesPlayed" />
 		</AccessRuleSet>
 		<AccessRuleSet Name="MainDoorGameIdle">
 			<Rule Restriction="GameIdle" />

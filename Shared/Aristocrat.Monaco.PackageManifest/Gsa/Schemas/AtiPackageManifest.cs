@@ -2782,6 +2782,8 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         
         private string denominationsField;
         
+        private c_cdsInfoList cdsInfoListField;
+        
         private string uniqueGameIdField;
         
         private string titleIdField;
@@ -2793,6 +2795,16 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
             }
             set {
                 this.denominationsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public c_cdsInfoList CdsInfoList {
+            get {
+                return this.cdsInfoListField;
+            }
+            set {
+                this.cdsInfoListField = value;
             }
         }
         

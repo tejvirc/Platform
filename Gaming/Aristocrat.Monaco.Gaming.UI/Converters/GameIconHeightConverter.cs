@@ -6,6 +6,7 @@
     using System.Windows.Data;
     using log4net;
 
+    // This is for the height of the game icons AND any decorators (new star, jackpot banner, denom buttons, etc.)
     public class GameIconHeightConverter : IValueConverter
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
@@ -17,10 +18,7 @@
         private const int GameHeightWithSubTabAdjustment = 30;
 
         // Extra height for denom button panel on ExtraLargeIconLayout tabs
-        private const double DenomPanelHeight = 85;
-
-        // Extra height for individual Major jackpot banner on ExtraLargeIconLayout tabs
-        private const double MajorJackpotHeight = 30;
+        private const double DenomPanelHeight = 45;
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -30,10 +28,6 @@
                 if (inputs.ExtraLargeIconLayout)
                 {
                     result = DenomPanelHeight + inputs.GameIconSize.Height;
-                    if (!inputs.MultipleGameAssociatedSapLevelTwoEnabled)
-                    {
-                        result += MajorJackpotHeight;
-                    }
                 }
                 else
                 {

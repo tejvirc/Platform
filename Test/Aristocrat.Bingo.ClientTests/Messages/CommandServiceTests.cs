@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Bingo.Client.Tests.Messages
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Client.Messages;
@@ -269,7 +270,7 @@
             return new CommandService(
                 nullEndpoint ? null : _clientEndpointProvider.Object,
                 nullCommandFactory ? null : _commandFactory.Object,
-                nullClient ? null : _client.Object);
+                nullClient ? null : new List<IClient>() { _client.Object });
         }
 
         private class StreamReader : IAsyncStreamReader<Command>

@@ -14,9 +14,8 @@
     [CLSCompliant(false)]
     public abstract class OperatorMenuMultiPageViewModelBase : OperatorMenuPageViewModelBase
     {
-        private readonly IOperatorMenuPageLoader _mainPage;
-
         protected readonly string MenuExtensionPath;
+        protected readonly string PageNameResourceKey;
         private bool _buttonsEnabled = true;
         private IOperatorMenuPageLoader _selectedPage;
         private string _warningMessageText;
@@ -24,13 +23,13 @@
         /// <summary>
         ///     Constructor
         /// </summary>
-        /// <param name="mainPage">Page loader for the main page for this view model</param>
-        /// <param name="extensionPath">The path of the extension point to load the sub-pages</param>;
-        protected OperatorMenuMultiPageViewModelBase(IOperatorMenuPageLoader mainPage, string extensionPath)
+        /// <param name="pageNameResourceKey">Resource key for the localized page name</param>
+        /// <param name="extensionPath">The path of the extension point to load the sub-pages</param>
+        protected OperatorMenuMultiPageViewModelBase(string pageNameResourceKey, string extensionPath)
         {
-            _mainPage = mainPage;
-            DisplayPageTitle = mainPage?.PageName ?? string.Empty;
             MenuExtensionPath = extensionPath;
+            PageNameResourceKey = pageNameResourceKey;
+            DisplayPageTitle = Localizer.For(CultureFor.Operator).GetString(PageNameResourceKey, _ => { }) ?? string.Empty;
             Pages = new ObservableCollection<IOperatorMenuPageLoader>();
             LoadPages();
         }
@@ -263,7 +262,7 @@
         {
             if (!ParentIsMultiPage)
             {
-                DisplayPageTitle = _mainPage.PageName;
+                DisplayPageTitle = Localizer.For(CultureFor.Operator).GetString(PageNameResourceKey, _ => { }) ?? string.Empty;
 
                 if (!string.IsNullOrEmpty(DisplayPageTitle))
                 {
