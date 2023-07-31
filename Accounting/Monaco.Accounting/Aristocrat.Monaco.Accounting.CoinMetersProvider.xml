@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0"?>
 <ArrayOfBlockFormat>
-  <BlockFormat version="1" name="Aristocrat.Monaco.Accounting.CoinAcceptor.CoinMetersProvider">
+  <BlockFormat version="1" name="Aristocrat.Monaco.Accounting.CoinMetersProvider">
     <Fields>
       <Field DataType="Int64" FieldName="TrueCoinInCountPeriod" />
       <Field DataType="Int64" FieldName="TrueCoinInCountLifetime" />

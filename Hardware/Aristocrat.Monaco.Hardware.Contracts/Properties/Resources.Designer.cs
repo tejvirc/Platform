@@ -79,6 +79,15 @@ namespace Aristocrat.Monaco.Hardware.Contracts.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Coin Acceptor.
+        /// </summary>
+        public static string CoinAcceptorText {
+            get {
+                return ResourceManager.GetString("CoinAcceptorText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Coin-in Error: Diverter Fault.
         /// </summary>
         public static string CoinFaultTypes_Divert {

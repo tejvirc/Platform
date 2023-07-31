@@ -23,8 +23,8 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Aristocrat.Monaco.Accounting.CoinAcceptor.CoinMetersProvider.xml" />
-    <None Remove="Aristocrat.Monaco.Accounting.Contracts.CoinAcceptor.CoinTransaction.xml" />
+    <None Remove="Aristocrat.Monaco.Accounting.CoinMetersProvider.xml" />
+    <None Remove="Aristocrat.Monaco.Accounting.Contracts.CoinAcceptor.CoinInTransaction.xml" />
     <None Remove="Aristocrat.Monaco.Accounting.Contracts.KeyedOffCreditsTransaction.xml" />
     <None Remove="Aristocrat.Monaco.Accounting.Contracts.KeyedOnCreditsTransaction.xml" />
   </ItemGroup>
@@ -35,10 +35,10 @@
     <CodeAnalysisDictionary Include="..\..\CustomDictionary.xml">
       <Link>CustomDictionary.xml</Link>
     </CodeAnalysisDictionary>
-    <Content Include="Aristocrat.Monaco.Accounting.CoinAcceptor.CoinMetersProvider.xml">
+    <Content Include="Aristocrat.Monaco.Accounting.CoinMetersProvider.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Aristocrat.Monaco.Accounting.Contracts.CoinAcceptor.CoinTransaction.xml">
+    <Content Include="Aristocrat.Monaco.Accounting.Contracts.CoinAcceptor.CoinInTransaction.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Aristocrat.Monaco.Accounting.Contracts.KeyedOffCreditsTransaction.xml">
