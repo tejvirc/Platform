@@ -259,4 +259,7 @@
     <value>To reset this fault
 Turn the Jackpot key ON then OFF.</value>
   </data>
+	<data name="CoinAcceptorText" xml:space="preserve">
+    <value>Coin Acceptor</value>
+  </data>
 </root>

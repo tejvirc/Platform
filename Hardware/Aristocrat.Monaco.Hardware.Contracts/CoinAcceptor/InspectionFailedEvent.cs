@@ -32,7 +32,7 @@
         /// <inheritdoc />
         public override string ToString()
         {
-            return $"CoinAcceptor {Resources.InspectionFailedText}";
+            return $"{Resources.CoinAcceptorText} {Resources.InspectionFailedText}";
         }
     }
 }
