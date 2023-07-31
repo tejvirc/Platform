@@ -162,10 +162,6 @@
       </VbdTouchDeadZones>
     </GameProfile>
   </GameProfiles>
-  <GameScreen>
-    <Width>2560</Width>
-    <Height>1560</Height>
-  </GameScreen>
   <VirtualButtonDeck>
     <Width>1921</Width>
     <Height>720</Height>

@@ -345,11 +345,9 @@
 
     public class Screen
     {
-        [XmlElement]
-        public int Width { get; set; } = 2560;
+        public int Width { get; set; }
 
-        [XmlElement]
-        public int Height { get; set; } = 1560;
+        public int Height { get; set; }
     }
 
     public class Configuration
@@ -371,23 +369,6 @@
             ActiveType = ModeType.Regular;
             Speed = "1.0";
             Modes = new List<Mode>();
-
-            var width = 2560;
-            var height = 1560;
-
-            try
-            {
-                width = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
-                height = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height;
-            }
-            catch (Exception e)
-            {
-                Logger.Error(
-                    $"Failed to detect screen size for Robot touch automation. (Width, Height) = ({width}, {height})",
-                    e);
-            }
-
-            GameScreen = new Screen { Width = width, Height = height };
             VirtualButtonDeck = new Screen { Width = 1921, Height = 720 };
             CurrentGame = "";
         }
@@ -405,9 +386,6 @@
         [XmlArray]
         [XmlArrayItem("GameProfile")]
         public List<GameProfile> GameProfiles { get; set; }
-
-        [XmlElement]
-        public Screen GameScreen { get; set; }
 
         [XmlElement]
         public Screen VirtualButtonDeck { get; set; }
@@ -642,7 +620,6 @@
             ActiveType = ModeType.Regular;
             Speed = "1.0";
             Modes = new List<Mode> { new Mode() };
-            GameScreen = new Screen { Width = 2560, Height = 1560 };
             VirtualButtonDeck = new Screen { Width = 1921, Height = 720 };
             CurrentGame = "";
         }

@@ -159,8 +159,8 @@
 
         private void TouchGameScreen(Random Rng)
         {
-            var x = Rng.Next(_robotController.Config.GameScreen.Width);
-            var y = Rng.Next(_robotController.Config.GameScreen.Height);
+            var x = Rng.Next(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width);
+            var y = Rng.Next(System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height);
             if (CheckDeadZones(_robotController.Config.CurrentGameProfile.MainTouchDeadZones, x, y))
             {
                 _automator.TouchMainScreen(x, y);
