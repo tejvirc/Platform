@@ -20,7 +20,7 @@
     using Moq;
     using Test.Common;
 
-    [DoNotParallelize]
+    
     [TestClass]
     public class ChecksumCalculatorTest
     {

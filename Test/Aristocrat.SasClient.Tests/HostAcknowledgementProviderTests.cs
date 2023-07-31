@@ -8,7 +8,7 @@
     using Sas.Client;
     using Timer = System.Timers.Timer;
 
-    [DoNotParallelize]
+    
     [TestClass]
     public class HostAcknowledgementProviderTests
     {

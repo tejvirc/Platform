@@ -12,7 +12,7 @@ using Aristocrat.Monaco.Kernel;
 
 namespace Aristocrat.Monaco.Hhr.Tests.Services
 {
-    [DoNotParallelize]
+    
     [TestClass]
     public class PlayerSessionServiceTests
     {

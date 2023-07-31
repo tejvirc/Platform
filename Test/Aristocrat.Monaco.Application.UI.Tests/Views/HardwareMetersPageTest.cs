@@ -37,7 +37,7 @@
     /// <summary>
     ///     Summary description for HardwareMeterScreenTest
     /// </summary>
-    [DoNotParallelize]
+    
     [TestClass]
     public class HardwareMetersPageViewModelTest
     {

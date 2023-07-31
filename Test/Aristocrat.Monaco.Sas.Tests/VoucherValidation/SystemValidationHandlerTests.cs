@@ -17,7 +17,7 @@
     using Moq;
     using Sas.VoucherValidation;
 
-    [DoNotParallelize]
+    
     [TestClass]
     public class SystemValidationHandlerTests
     {
