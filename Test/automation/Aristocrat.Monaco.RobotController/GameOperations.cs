@@ -352,7 +352,7 @@
                     LoadGameWithDelay(Constants.loadGameDelayDuration);
                 });
 
-            HandleCashoutRequest();
+            CashoutBannerSupport();
 
             InitGameProcessHungEvent();
         }
@@ -371,16 +371,18 @@
             };
         }
 
-        private void HandleCashoutRequest()
+        private void CashoutBannerSupport()
         {
             _eventBus.Subscribe<CashoutAmountAuthorizationRequestedEvent>(this,
                 evt =>
                 {
+                    _robotController.BlockOtherOperations(RobotStateAndOperations.CashoutBannerSupport);
                     Task.Delay(CashoutDialogDismiss).ContinueWith(task =>
                     {
                         var cashOut = GetRandomBoolean();
                             
                         _eventBus.Publish(new CashoutAmountAuthorizationReceivedEvent(cashOut));
+                        _robotController.UnBlockOtherOperations(RobotStateAndOperations.CashoutBannerSupport);
                     });
                 });
         }
