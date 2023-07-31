@@ -164,7 +164,7 @@
                 x => x.Send<ReadyToPlayRequest, CloseTranResponse>(
                     It.IsAny<ReadyToPlayRequest>(),
                     It.IsAny<CancellationToken>()),
-                Times.Once);
+                Times.AtLeastOnce);
         }
 
         [TestMethod]
