@@ -342,7 +342,7 @@ namespace Aristocrat.Monaco.Hardware.Fake
         }
 
         /// <inheritdoc/>
-        public Task<bool> Synchronize(ReelSynchronizationData data, CancellationToken token)
+        public Task<bool> Synchronize(ReelSynchronizationData syncData, CancellationToken token = default)
         {
             throw new NotImplementedException();
         }

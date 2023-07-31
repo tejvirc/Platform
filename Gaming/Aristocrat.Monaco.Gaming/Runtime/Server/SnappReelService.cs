@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Runtime.Server
 {
     using System;
+    using System.Collections.Generic;
     using System.Reflection;
     using Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData;
     using Commands;
@@ -256,7 +257,53 @@
 
         public override MessageResponse SynchronizeReels(SynchronizeReelsRequest request)
         {
-            throw new NotImplementedException();
+            Logger.Debug("SynchronizeReels");
+
+            var reelSyncStepData = new List<ReelSyncStepData>();
+            var syncData = new ReelSynchronizationData();
+
+            if (request.SynchronizationData.Is(SynchronizeReelsData.Descriptor))
+            {
+                var snappSyncData = request.SynchronizationData.Unpack<SynchronizeReelsData>();
+
+                foreach (var data in request.Data)
+                {
+                    reelSyncStepData.Add(new(
+                            (byte)data.ReelIndex,
+                            (short)data.SynchronizationStep));
+                }
+
+                syncData.Duration = (short)snappSyncData.Duration;
+                syncData.ReelSyncStepData = reelSyncStepData;
+                syncData.SyncType = SynchronizeType.Regular;
+            }
+            else if (request.SynchronizationData.Is(EnhancedSynchronizeReelsData.Descriptor))
+            {
+                var snappEnhancedSyncData = request.SynchronizationData.Unpack<EnhancedSynchronizeReelsData>();
+
+                foreach (var data in request.Data)
+                {
+                    reelSyncStepData.Add(new(
+                        (byte)data.ReelIndex,
+                        (short)data.SynchronizationStep));
+                }
+
+                for(var i = 0; i < snappEnhancedSyncData.Duration.Count; i++)
+                {
+                    reelSyncStepData[i].Duration = (short)snappEnhancedSyncData.Duration[i];
+                }
+
+                syncData.MasterReelIndex = (byte)snappEnhancedSyncData.MasterReelIndex;
+                syncData.MasterReelStep = (short)snappEnhancedSyncData.MasterReelSynchronizationStep;
+                syncData.ReelSyncStepData = reelSyncStepData;
+                syncData.SyncType = SynchronizeType.Enhanced;
+            }
+
+            var command = new PrepareSynchronizeReels(syncData);
+            _handlerFactory.Create<PrepareSynchronizeReels>()
+                .Handle(command);
+
+            return new MessageResponse { Result = command.Success };
         }
 
         public override MessageResponse SetBrightness(SetBrightnessRequest request)
