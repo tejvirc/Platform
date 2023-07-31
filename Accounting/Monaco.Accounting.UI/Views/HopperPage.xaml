@@ -1,0 +1,213 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Accounting.UI.Views.HopperPage"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                               xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               xmlns:helpers="http://monaco.aristocrat.com/common"
+                               xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                               d:DataContext="{d:DesignInstance viewModels:HopperPageViewModel}"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Accounting.UI.ViewModels"
+                               common:DialogParticipation.Register="{Binding}"
+                               mc:Ignorable="d"
+                               d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="Label" BasedOn="{StaticResource MonacoLabel}">
+                <Setter Property="Margin" Value="0 0 10 10" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style TargetType="TextBlock" BasedOn="{StaticResource MonacoTextBlock}">
+                <Setter Property="Margin" Value="0 0 0 10" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
+            <Style TargetType="Button" BasedOn="{StaticResource MonacoButton}">
+                <Setter Property="Margin" Value="0 15 15 0" />
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="Width" Value="200"/>
+            </Style>
+
+            <Style TargetType="TextBox" BasedOn="{StaticResource MonacoTextBox}">
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="MinWidth" Value="300" />
+            </Style>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <AdornerDecorator>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" MinHeight="350"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Row="0" Name="HopperInfo">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.TimeOfLastRefill}}"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Foreground="Gray">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding TimeOfLastRefill, Mode=OneWay, TargetNullValue=''}" Value="">
+                                    <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NoRecordedRefill}}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                            <Setter Property="Text" Value="{Binding TimeOfLastRefill, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+
+                <Label Grid.Row="1" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ValueOfLastRefill}}"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" Foreground="White">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding TimeOfLastRefill, Mode=OneWay, TargetNullValue=''}" Value="">
+                                    <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NoRecordedRefill}}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                            <Setter Property="Text" Value="{Binding ValueOfLastRefill, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+
+                <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.RefillCount}}"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding RefillCount}" Foreground="White"/>
+
+                <Label Grid.Row="3" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.HopperRefill}}"/>
+                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding HopperRefill}" Foreground="White"/>
+
+                <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.HopperLevel}}"/>
+                <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding HopperLevel}" Foreground="White"/>
+
+                <Label Grid.Row="5" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.CurrentRefillValue}}"/>
+                <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding CurrentRefillValue}" Foreground="White"/>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="0">
+                    <Button x:Name="HopperRefillButton" Content="{lex:Loc Key={x:Static loc:ResourceKeys.PerformHopperRefill}}" 
+                            Command="{Binding PerformHopperRefillCommand}"
+                            IsEnabled="{Binding HopperRefillEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button Margin="0 15 0 0" HorizontalAlignment="Left"
+                            Style="{StaticResource MonacoWarningButton}"
+                            Command="{Binding ShowInfoPopupCommand}"
+                            Visibility="{Binding HopperRefillWarningEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                        Converter={StaticResource TrueVisibleFalseCollapsed}}">
+                        <Button.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiValueConverter}">
+                                <Binding ElementName="HopperRefillButton"/>
+                                <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=Control}" Path="DataContext.HopperRefillWarningText" />
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+                </StackPanel>
+                <Button x:Name="HopperTestButton" Grid.Row="7" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.HopperTest}}" 
+                        Command="{Binding HopperTestCommand}"
+                        IsEnabled="{Binding InputEnabled, UpdateSourceTrigger=PropertyChanged}" />
+            </Grid>
+
+            <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column= "1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="45" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="45" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="45" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0"  Content="{lex:Loc Key={x:Static loc:ResourceKeys.HopperTicketSplit}}" Visibility="{Binding HopperTicketSplitSupported, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
+                <Grid Grid.Column="1" Grid.Row="0" Visibility="{Binding HopperTicketSplitSupported, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                      IsEnabled="{Binding HopperTicketSplitConfigurable}">
+                    <controls:ToggleSwitchButton 
+                                                 IsChecked="{Binding HopperTicketSplitEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                 IsEnabled="{Binding InputEnabledByRuleOverride}"
+                                                 Visibility="{Binding ShowHopperTicketSplit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                                 controls:ControlsHelper.ContentCharacterCasing="Upper"
+                                                 controls:ControlsHelper.CornerRadius="0"
+                                                 helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.OffText}}"
+                                                 helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.OnText}}" />
+                    <TextBlock Text="N/A" Visibility="{Binding ShowHopperTicketSplit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
+                </Grid>
+
+                <Label Grid.Row="2" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.HopperCollectLimit}}" Visibility="{Binding HopperCollectVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
+
+                <Grid Grid.Column="1" Grid.Row="2" Visibility="{Binding HopperCollectVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                      IsEnabled="{Binding HopperTicketSplitConfigurable}">
+                    <helpers:CurrencyTextBox IsReadOnly="False" Width="250" HorizontalAlignment="Left"
+                                             Number="{Binding HopperCollectLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                                                        ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                             IsEnabled="{Binding InputEnabledByRuleOverride}"
+                                             Visibility="{Binding ShowHopperCollectLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
+                    <TextBlock Text="N/A" Visibility="{Binding ShowHopperCollectLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
+                </Grid>
+
+                <Label Grid.Row="4" Grid.Column="0" Content="{lex:Loc Key={x:Static loc:ResourceKeys.HopperTicketThreshold}}" Visibility="{Binding HopperThresholdVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
+
+                <Grid Grid.Column="1" Grid.Row="4" Visibility="{Binding HopperThresholdVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                      IsEnabled="{Binding HopperTicketSplitConfigurable}">
+                    <helpers:CurrencyTextBox  Width="250" HorizontalAlignment="Left"
+                                             Number="{Binding HopperTicketThreshold, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                                                    ValidatesOnDataErrors=True, NotifyOnValidationError=True}" 
+                                             IsEnabled="{Binding InputEnabledByRuleOverride}"
+                                             Visibility="{Binding ShowHopperTicketThreshold, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
+                    <TextBlock Text="N/A" Visibility="{Binding ShowHopperTicketThreshold, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TrueCollapsedFalseVisible}}"/>
+
+                </Grid>
+
+                <Label Grid.Row="6" Grid.Column="0"
+                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.HopperRefillValue}}"/>
+                <helpers:CurrencyTextBox Grid.Row="6" Grid.Column="1" Width="250" HorizontalAlignment="Left"
+                                         Number="{Binding Path=HopperRefillValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                         IsEnabled="{Binding InputEnabledByRuleOverride}"/>
+
+                <Button Grid.Row="8" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60" Content="{lex:Loc Key={x:Static loc:ResourceKeys.ApplyLabel}}" 
+                                    Command="{Binding ApplyCollectOptionsCommand}">
+                    <Button.IsEnabled>
+                        <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                            <Binding Path="InputEnabledByRuleOverride"/>
+                            <Binding Path="ApplyCommandEnabled"/>
+                        </MultiBinding>
+                    </Button.IsEnabled>
+                </Button>
+            </Grid>
+        </Grid>
+    </AdornerDecorator>
+</operatorMenu:OperatorMenuPage>

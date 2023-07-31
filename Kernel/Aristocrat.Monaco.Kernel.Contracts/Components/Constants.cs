@@ -34,5 +34,10 @@
         ///     Defines a Coin Acceptor for GAT purposes
         /// </summary>
         public const string CoinAcceptorPath = @"coinAcceptor";
+
+        /// <summary>
+        ///     Defines a Hopper for GAT purposes
+        /// </summary>
+        public const string HopperPath = @"hopper";
     }
 }

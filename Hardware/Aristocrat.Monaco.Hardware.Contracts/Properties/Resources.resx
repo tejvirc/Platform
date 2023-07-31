@@ -237,6 +237,24 @@
   <data name="CoinFaultTypes_YoYo" xml:space="preserve">
     <value>Coin-in Error: YoYo Fault</value>
   </data>
+	<data name="HopperFaultTypes_Disconnected" xml:space="preserve">
+    <value>Hopper Disconnected</value>
+  </data>
+	<data name="HopperFaultTypes_Empty" xml:space="preserve">
+    <value>Hopper Empty</value>
+  </data>
+	<data name="HopperFaultTypes_IllegalCoin" xml:space="preserve">
+    <value>Coin Out Error - Excess Payout</value>
+  </data>
+	<data name="HopperFaultTypes_Jam" xml:space="preserve">
+    <value>Hopper Jam</value>
+  </data>
+	<data name="HopperTestFault" xml:space="preserve">
+    <value>Hopper Test In Progress</value>
+  </data>
+	<data name="HopperTestFaultHelp" xml:space="preserve">
+    <value>GoTo Hardware -&gt; Hopper</value>
+  </data>
   <data name="ResetFault" xml:space="preserve">
     <value>To reset this fault
 Turn the Jackpot key ON then OFF.</value>

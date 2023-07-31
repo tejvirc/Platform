@@ -86,6 +86,7 @@
     <TransactionService type="Aristocrat.Monaco.Accounting.Vouchers.VoucherOutProvider" />
     <TransactionService type="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider" />
     <TransactionService type="Aristocrat.Monaco.Accounting.Handpay.HandpayProvider" />
+    <TransactionService type="Aristocrat.Monaco.Accounting.Hopper.CoinOutProvider" />
   </Extension>
 
   <Extension path="/Application/PersistenceClearRules">

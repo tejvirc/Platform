@@ -1996,7 +1996,7 @@ Global
 		{B1A5D17C-2B7E-4949-BAE9-49E12DEA2DBB} = {E5EFE08F-33C0-4930-9E02-3C9EB3EC9B88}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_RemoveEmptyEntries = True
 		SolutionGuid = {5A170623-08DF-4BB8-8565-F39C24A4ACA7}
+		RESX_RemoveEmptyEntries = True
 	EndGlobalSection
 EndGlobal

@@ -135,6 +135,10 @@
     <CoinAcceptorService type="Aristocrat.Monaco.Hardware.CoinAcceptor.CoinAcceptorAdapter" />
   </Extension>
 
+  <Extension path="/Hardware/Hopper">
+    <HopperService type="Aristocrat.Monaco.Hardware.Hopper.HopperAdapter" />
+  </Extension>
+  
   <Extension path="/Hardware/PropertyProviders">
     <PropertyProvider type="Aristocrat.Monaco.Hardware.HardwarePropertyProvider" />
   </Extension>
@@ -189,6 +193,10 @@
     <ExtensionNode name="CoinAcceptorService" />
   </ExtensionPoint>
 
+  <ExtensionPoint path="/Hardware/Hopper">
+    <ExtensionNode name="HopperService" />
+  </ExtensionPoint>
+
   <ExtensionPoint path="/Hardware/IO/IOImplementations">
     <ExtensionNode name="DeviceImplementation"
                    type="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceImplementationExtensionNode" />
@@ -215,6 +223,11 @@
   </ExtensionPoint>
 
   <ExtensionPoint path="/Hardware/CoinAcceptor/CoinAcceptorImplementations">
+    <ExtensionNode name="DeviceImplementation"
+                   type="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceImplementationExtensionNode" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Hardware/Hopper/HopperImplementations">
     <ExtensionNode name="DeviceImplementation"
                    type="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceImplementationExtensionNode" />
   </ExtensionPoint>

@@ -220,6 +220,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Activate Payout.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string ActivatePayout {
+			get {
+				return ResourceManager.GetString("ActivatePayout", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Activation Time.
 		/// </summary>
         /// <remarks>
@@ -3820,6 +3832,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to can not be less than.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CannotLessThanText {
+			get {
+				return ResourceManager.GetString("CannotLessThanText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Cannot Mix Non-cashable Credits.
 		/// </summary>
         /// <remarks>
@@ -5633,6 +5657,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Close main door and reinsert {0} coins.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CloseDoorReinsert {
+			get {
+				return ResourceManager.GetString("CloseDoorReinsert", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Closed.
 		/// </summary>
         /// <remarks>
@@ -5860,9 +5896,57 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///   Looks up a localized string similar to Coin Out.
 		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.UI
+        /// </remarks>
+		public static string CoinOut {
+			get {
+				return ResourceManager.GetString("CoinOut", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Coin Out.
+		/// </summary>
 		public static string CoinOutText {
 			get {
 				return ResourceManager.GetString("CoinOutText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Cash Out.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting
+        /// </remarks>
+		public static string CoinOutTransactionName {
+			get {
+				return ResourceManager.GetString("CoinOutTransactionName", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Coins Reinserted :.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CoinsReinserted {
+			get {
+				return ResourceManager.GetString("CoinsReinserted", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Coins Reinserted For Extra Payout :.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CoinsReinsertedForExtraPayout {
+			get {
+				return ResourceManager.GetString("CoinsReinsertedForExtraPayout", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -7204,6 +7288,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string CurrentErrors {
 			get {
 				return ResourceManager.GetString("CurrentErrors", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Current Refill Value.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CurrentRefillValue {
+			get {
+				return ResourceManager.GetString("CurrentRefillValue", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -10643,6 +10739,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Please enter in multiples of.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string EnteredValueMultipleOf {
+			get {
+				return ResourceManager.GetString("EnteredValueMultipleOf", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Entering Out-of-Service mode requires Zero credits....
 		/// </summary>
         /// <remarks>
@@ -12151,6 +12259,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ExtraLow {
 			get {
 				return ResourceManager.GetString("ExtraLow", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Extra Payout During Test :.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string ExtraPayoutDuringTest {
+			get {
+				return ResourceManager.GetString("ExtraPayoutDuringTest", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -15731,6 +15851,222 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Hopper Collect Limit.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperCollectLimit {
+			get {
+				return ResourceManager.GetString("HopperCollectLimit", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Hopper must be empty to perform refill..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperEmptyText {
+			get {
+				return ResourceManager.GetString("HopperEmptyText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Hopper Fault -.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperFault {
+			get {
+				return ResourceManager.GetString("HopperFault", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Hopper Level.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperLevel {
+			get {
+				return ResourceManager.GetString("HopperLevel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Hopper Pay Out.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting
+        /// </remarks>
+		public static string HopperPayOut {
+			get {
+				return ResourceManager.GetString("HopperPayOut", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to This Option Is Only Available If Both Hopper AND P....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperPrinterConfigured {
+			get {
+				return ResourceManager.GetString("HopperPrinterConfigured", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Hopper Refill.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperRefill {
+			get {
+				return ResourceManager.GetString("HopperRefill", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Invalid Value!&amp;#13;&amp;#10;Please note that t....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperRefillInvalidValueText {
+			get {
+				return ResourceManager.GetString("HopperRefillInvalidValueText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Hopper Refill Transaction.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		public static string HopperRefillTransactionName {
+			get {
+				return ResourceManager.GetString("HopperRefillTransactionName", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Hopper Refill Value.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperRefillValue {
+			get {
+				return ResourceManager.GetString("HopperRefillValue", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Hopper/Ticket Split Enabled - not allowed to setup.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperSplitEnabledWarningText {
+			get {
+				return ResourceManager.GetString("HopperSplitEnabledWarningText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Hopper Test.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperTest {
+			get {
+				return ResourceManager.GetString("HopperTest", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Test Mode in progress.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperTestInProgress {
+			get {
+				return ResourceManager.GetString("HopperTestInProgress", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Hopper test is not available as hopper or coin ent....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperTestNotAvailable {
+			get {
+				return ResourceManager.GetString("HopperTestNotAvailable", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Hopper Test Payout :.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperTestPayout {
+			get {
+				return ResourceManager.GetString("HopperTestPayout", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Hopper/Ticket Split.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperTicketSplit {
+			get {
+				return ResourceManager.GetString("HopperTicketSplit", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Can not enable unless Hopper Collect Limit is set ....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperTicketSplitEnableCheck {
+			get {
+				return ResourceManager.GetString("HopperTicketSplitEnableCheck", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Hopper/Ticket Threshold.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperTicketThreshold {
+			get {
+				return ResourceManager.GetString("HopperTicketThreshold", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Host 0.
 		/// </summary>
         /// <remarks>
@@ -18425,6 +18761,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Last Divertor Event :.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string LastDivertorEvent {
+			get {
+				return ResourceManager.GetString("LastDivertorEvent", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Last Document Result.
 		/// </summary>
         /// <remarks>
@@ -18433,6 +18781,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string LastDocumentResultLabel {
 			get {
 				return ResourceManager.GetString("LastDocumentResultLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Last Hopper Event :.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string LastHopperEvent {
+			get {
+				return ResourceManager.GetString("LastHopperEvent", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -20612,6 +20972,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Maximum Hopper Refill Value is.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MaxHopperRefillValueText {
+			get {
+				return ResourceManager.GetString("MaxHopperRefillValueText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Maximum Time taken by GP.
 		/// </summary>
         /// <remarks>
@@ -21935,11 +22307,35 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Must be greater than or Equal to.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MustBeGreaterThan {
+			get {
+				return ResourceManager.GetString("MustBeGreaterThan", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Must be less than {0} characters..
 		/// </summary>
 		public static string MustBeLessThan {
 			get {
 				return ResourceManager.GetString("MustBeLessThan", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to must be less than.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MustLessThanText {
+			get {
+				return ResourceManager.GetString("MustLessThanText", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -22222,6 +22618,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string NoDeviceDetected {
 			get {
 				return ResourceManager.GetString("NoDeviceDetected", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to No Devices configured - Not Allowed to setup Hoppe....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string NoDevicesConfiguredText {
+			get {
+				return ResourceManager.GetString("NoDevicesConfiguredText", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -22603,6 +23011,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string NoProgressiveWinText {
 			get {
 				return ResourceManager.GetString("NoProgressiveWinText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to No Recorded Refill.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string NoRecordedRefill {
+			get {
+				return ResourceManager.GetString("NoRecordedRefill", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -24794,6 +25214,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Perform Hopper Refill.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string PerformHopperRefill {
+			get {
+				return ResourceManager.GetString("PerformHopperRefill", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Please press Yes to &amp;#13;&amp;#10;Perform Hopp....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string PerformHopperRefillDialog {
+			get {
+				return ResourceManager.GetString("PerformHopperRefillDialog", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Period.
 		/// </summary>
         /// <remarks>
@@ -25882,6 +26326,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string PrinterManufacturer {
 			get {
 				return ResourceManager.GetString("PrinterManufacturer", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Printer Only Configured - Not Allowed to setup Hop....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string PrinterOnlyConfiguredText {
+			get {
+				return ResourceManager.GetString("PrinterOnlyConfiguredText", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -27746,6 +28202,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Current Refill Value.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string RefillCount {
+			get {
+				return ResourceManager.GetString("RefillCount", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Registered Instance.
 		/// </summary>
         /// <remarks>
@@ -27775,6 +28243,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string Regulator {
 			get {
 				return ResourceManager.GetString("Regulator", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Reinsert {0} coins..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string ReinsertCoins {
+			get {
+				return ResourceManager.GetString("ReinsertCoins", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -32852,6 +33332,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Time Of Last Refill.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TimeOfLastRefill {
+			get {
+				return ResourceManager.GetString("TimeOfLastRefill", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Time Remaining.
 		/// </summary>
 		public static string TimeRemaining {
@@ -34223,6 +34715,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Turn reset key to reactivate.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TurnResetKey {
+			get {
+				return ResourceManager.GetString("TurnResetKey", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Turn.
 		/// </summary>
         /// <remarks>
@@ -35296,6 +35800,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ValueNotNullErrorMessage {
 			get {
 				return ResourceManager.GetString("ValueNotNullErrorMessage", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Value Of Last Refill.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string ValueOfLastRefill {
+			get {
+				return ResourceManager.GetString("ValueOfLastRefill", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -36963,6 +37479,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ActionLabel {
 			get {
 				return "ActionLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Activate Payout.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string ActivatePayout {
+			get {
+				return "ActivatePayout";
 			}
 		}
 
@@ -40567,6 +41095,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to can not be less than.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CannotLessThanText {
+			get {
+				return "CannotLessThanText";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Cannot Mix Non-cashable Credits.
 		/// </summary>
         /// <remarks>
@@ -42379,6 +42919,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Close main door and reinsert {0} coins.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CloseDoorReinsert {
+			get {
+				return "CloseDoorReinsert";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Closed.
 		/// </summary>
         /// <remarks>
@@ -42606,9 +43158,57 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///		Looks up a localized string similar to Coin Out.
 		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.UI
+        /// </remarks>
+		public static string CoinOut {
+			get {
+				return "CoinOut";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Coin Out.
+		/// </summary>
 		public static string CoinOutText {
 			get {
 				return "CoinOutText";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Cash Out.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting
+        /// </remarks>
+		public static string CoinOutTransactionName {
+			get {
+				return "CoinOutTransactionName";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Coins Reinserted :.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CoinsReinserted {
+			get {
+				return "CoinsReinserted";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Coins Reinserted For Extra Payout :.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CoinsReinsertedForExtraPayout {
+			get {
+				return "CoinsReinsertedForExtraPayout";
 			}
 		}
 
@@ -43950,6 +44550,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string CurrentErrors {
 			get {
 				return "CurrentErrors";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Current Refill Value.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CurrentRefillValue {
+			get {
+				return "CurrentRefillValue";
 			}
 		}
 
@@ -47389,6 +48001,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Please enter in multiples of.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string EnteredValueMultipleOf {
+			get {
+				return "EnteredValueMultipleOf";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Entering Out-of-Service mode requires Zero credits....
 		/// </summary>
         /// <remarks>
@@ -48897,6 +49521,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ExtraLow {
 			get {
 				return "ExtraLow";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Extra Payout During Test :.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string ExtraPayoutDuringTest {
+			get {
+				return "ExtraPayoutDuringTest";
 			}
 		}
 
@@ -52477,6 +53113,222 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Hopper Collect Limit.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperCollectLimit {
+			get {
+				return "HopperCollectLimit";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Hopper must be empty to perform refill..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperEmptyText {
+			get {
+				return "HopperEmptyText";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Hopper Fault -.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperFault {
+			get {
+				return "HopperFault";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Hopper Level.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperLevel {
+			get {
+				return "HopperLevel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Hopper Pay Out.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting
+        /// </remarks>
+		public static string HopperPayOut {
+			get {
+				return "HopperPayOut";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to This Option Is Only Available If Both Hopper AND P....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperPrinterConfigured {
+			get {
+				return "HopperPrinterConfigured";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Hopper Refill.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperRefill {
+			get {
+				return "HopperRefill";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Invalid Value!&amp;#13;&amp;#10;Please note that t....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperRefillInvalidValueText {
+			get {
+				return "HopperRefillInvalidValueText";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Hopper Refill Transaction.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		public static string HopperRefillTransactionName {
+			get {
+				return "HopperRefillTransactionName";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Hopper Refill Value.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperRefillValue {
+			get {
+				return "HopperRefillValue";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Hopper/Ticket Split Enabled - not allowed to setup.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperSplitEnabledWarningText {
+			get {
+				return "HopperSplitEnabledWarningText";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Hopper Test.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperTest {
+			get {
+				return "HopperTest";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Test Mode in progress.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperTestInProgress {
+			get {
+				return "HopperTestInProgress";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Hopper test is not available as hopper or coin ent....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperTestNotAvailable {
+			get {
+				return "HopperTestNotAvailable";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Hopper Test Payout :.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperTestPayout {
+			get {
+				return "HopperTestPayout";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Hopper/Ticket Split.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperTicketSplit {
+			get {
+				return "HopperTicketSplit";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Can not enable unless Hopper Collect Limit is set ....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperTicketSplitEnableCheck {
+			get {
+				return "HopperTicketSplitEnableCheck";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Hopper/Ticket Threshold.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperTicketThreshold {
+			get {
+				return "HopperTicketThreshold";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Host 0.
 		/// </summary>
         /// <remarks>
@@ -55171,6 +56023,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Last Divertor Event :.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string LastDivertorEvent {
+			get {
+				return "LastDivertorEvent";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Last Document Result.
 		/// </summary>
         /// <remarks>
@@ -55179,6 +56043,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string LastDocumentResultLabel {
 			get {
 				return "LastDocumentResultLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Last Hopper Event :.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string LastHopperEvent {
+			get {
+				return "LastHopperEvent";
 			}
 		}
 
@@ -57358,6 +58234,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Maximum Hopper Refill Value is.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MaxHopperRefillValueText {
+			get {
+				return "MaxHopperRefillValueText";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Maximum Time taken by GP.
 		/// </summary>
         /// <remarks>
@@ -58681,11 +59569,35 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Must be greater than or Equal to.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MustBeGreaterThan {
+			get {
+				return "MustBeGreaterThan";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Must be less than {0} characters..
 		/// </summary>
 		public static string MustBeLessThan {
 			get {
 				return "MustBeLessThan";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to must be less than.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string MustLessThanText {
+			get {
+				return "MustLessThanText";
 			}
 		}
 
@@ -58968,6 +59880,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string NoDeviceDetected {
 			get {
 				return "NoDeviceDetected";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to No Devices configured - Not Allowed to setup Hoppe....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string NoDevicesConfiguredText {
+			get {
+				return "NoDevicesConfiguredText";
 			}
 		}
 
@@ -59349,6 +60273,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string NoProgressiveWinText {
 			get {
 				return "NoProgressiveWinText";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to No Recorded Refill.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string NoRecordedRefill {
+			get {
+				return "NoRecordedRefill";
 			}
 		}
 
@@ -61540,6 +62476,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Perform Hopper Refill.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string PerformHopperRefill {
+			get {
+				return "PerformHopperRefill";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Please press Yes to &amp;#13;&amp;#10;Perform Hopp....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string PerformHopperRefillDialog {
+			get {
+				return "PerformHopperRefillDialog";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Period.
 		/// </summary>
         /// <remarks>
@@ -62628,6 +63588,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string PrinterManufacturer {
 			get {
 				return "PrinterManufacturer";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Printer Only Configured - Not Allowed to setup Hop....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string PrinterOnlyConfiguredText {
+			get {
+				return "PrinterOnlyConfiguredText";
 			}
 		}
 
@@ -64492,6 +65464,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Current Refill Value.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string RefillCount {
+			get {
+				return "RefillCount";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Registered Instance.
 		/// </summary>
         /// <remarks>
@@ -64521,6 +65505,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string Regulator {
 			get {
 				return "Regulator";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Reinsert {0} coins..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string ReinsertCoins {
+			get {
+				return "ReinsertCoins";
 			}
 		}
 
@@ -69598,6 +70594,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Time Of Last Refill.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TimeOfLastRefill {
+			get {
+				return "TimeOfLastRefill";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Time Remaining.
 		/// </summary>
 		public static string TimeRemaining {
@@ -70969,6 +71977,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Turn reset key to reactivate.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TurnResetKey {
+			get {
+				return "TurnResetKey";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Turn.
 		/// </summary>
         /// <remarks>
@@ -72042,6 +73062,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ValueNotNullErrorMessage {
 			get {
 				return "ValueNotNullErrorMessage";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Value Of Last Refill.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string ValueOfLastRefill {
+			get {
+				return "ValueOfLastRefill";
 			}
 		}
 
@@ -73648,6 +74680,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		ActionLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Activate Payout.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		ActivatePayout,
 		/// <summary>
 		///   Looks up a localized string similar to Activation Time.
 		/// </summary>
@@ -75704,6 +76743,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// </summary>
 		CannotConfigureAfterGamePlayed,
 		/// <summary>
+		///   Looks up a localized string similar to can not be less than.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		CannotLessThanText,
+		/// <summary>
 		///   Looks up a localized string similar to Cannot Mix Non-cashable Credits.
 		/// </summary>
         /// <remarks>
@@ -76732,6 +77778,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		Close,
 		/// <summary>
+		///   Looks up a localized string similar to Close main door and reinsert {0} coins.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		CloseDoorReinsert,
+		/// <summary>
 		///   Looks up a localized string similar to Closed.
 		/// </summary>
         /// <remarks>
@@ -76864,7 +77917,35 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		/// <summary>
 		///   Looks up a localized string similar to Coin Out.
 		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.UI
+        /// </remarks>
+		CoinOut,
+		/// <summary>
+		///   Looks up a localized string similar to Coin Out.
+		/// </summary>
 		CoinOutText,
+		/// <summary>
+		///   Looks up a localized string similar to Cash Out.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting
+        /// </remarks>
+		CoinOutTransactionName,
+		/// <summary>
+		///   Looks up a localized string similar to Coins Reinserted :.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		CoinsReinserted,
+		/// <summary>
+		///   Looks up a localized string similar to Coins Reinserted For Extra Payout :.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		CoinsReinsertedForExtraPayout,
 		/// <summary>
 		///   Looks up a localized string similar to Coin In To CashBox.
 		/// </summary>
@@ -77631,6 +78712,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		CurrentErrors,
+		/// <summary>
+		///   Looks up a localized string similar to Current Refill Value.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		CurrentRefillValue,
 		/// <summary>
 		///   Looks up a localized string similar to Current Status.
 		/// </summary>
@@ -79572,6 +80660,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		EnterDisplayColorTest,
 		/// <summary>
+		///   Looks up a localized string similar to Please enter in multiples of.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		EnteredValueMultipleOf,
+		/// <summary>
 		///   Looks up a localized string similar to Entering Out-of-Service mode requires Zero credits....
 		/// </summary>
         /// <remarks>
@@ -80428,6 +81523,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		ExtraLow,
+		/// <summary>
+		///   Looks up a localized string similar to Extra Payout During Test :.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		ExtraPayoutDuringTest,
 		/// <summary>
 		///   Looks up a localized string similar to Extra Settings.
 		/// </summary>
@@ -82485,6 +83587,132 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		Homing,
 		/// <summary>
+		///   Looks up a localized string similar to Hopper Collect Limit.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		HopperCollectLimit,
+		/// <summary>
+		///   Looks up a localized string similar to Hopper must be empty to perform refill..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		HopperEmptyText,
+		/// <summary>
+		///   Looks up a localized string similar to Hopper Fault -.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		HopperFault,
+		/// <summary>
+		///   Looks up a localized string similar to Hopper Level.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		HopperLevel,
+		/// <summary>
+		///   Looks up a localized string similar to Hopper Pay Out.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting
+        /// </remarks>
+		HopperPayOut,
+		/// <summary>
+		///   Looks up a localized string similar to This Option Is Only Available If Both Hopper AND P....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		HopperPrinterConfigured,
+		/// <summary>
+		///   Looks up a localized string similar to Hopper Refill.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		HopperRefill,
+		/// <summary>
+		///   Looks up a localized string similar to Invalid Value!&amp;#13;&amp;#10;Please note that t....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		HopperRefillInvalidValueText,
+		/// <summary>
+		///   Looks up a localized string similar to Hopper Refill Transaction.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		HopperRefillTransactionName,
+		/// <summary>
+		///   Looks up a localized string similar to Hopper Refill Value.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		HopperRefillValue,
+		/// <summary>
+		///   Looks up a localized string similar to Hopper/Ticket Split Enabled - not allowed to setup.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		HopperSplitEnabledWarningText,
+		/// <summary>
+		///   Looks up a localized string similar to Hopper Test.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		HopperTest,
+		/// <summary>
+		///   Looks up a localized string similar to Test Mode in progress.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		HopperTestInProgress,
+		/// <summary>
+		///   Looks up a localized string similar to Hopper test is not available as hopper or coin ent....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		HopperTestNotAvailable,
+		/// <summary>
+		///   Looks up a localized string similar to Hopper Test Payout :.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		HopperTestPayout,
+		/// <summary>
+		///   Looks up a localized string similar to Hopper/Ticket Split.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		HopperTicketSplit,
+		/// <summary>
+		///   Looks up a localized string similar to Can not enable unless Hopper Collect Limit is set ....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		HopperTicketSplitEnableCheck,
+		/// <summary>
+		///   Looks up a localized string similar to Hopper/Ticket Threshold.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		HopperTicketThreshold,
+		/// <summary>
 		///   Looks up a localized string similar to Host 0.
 		/// </summary>
         /// <remarks>
@@ -84019,12 +85247,26 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		LastCashoutTicketSequenceText,
 		/// <summary>
+		///   Looks up a localized string similar to Last Divertor Event :.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		LastDivertorEvent,
+		/// <summary>
 		///   Looks up a localized string similar to Last Document Result.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		LastDocumentResultLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Last Hopper Event :.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		LastHopperEvent,
 		/// <summary>
 		///   Looks up a localized string similar to Last Link Down.
 		/// </summary>
@@ -85261,6 +86503,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		MaxEnabledDenomsReached,
 		/// <summary>
+		///   Looks up a localized string similar to Maximum Hopper Refill Value is.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		MaxHopperRefillValueText,
+		/// <summary>
 		///   Looks up a localized string similar to Maximum Time taken by GP.
 		/// </summary>
         /// <remarks>
@@ -86009,9 +87258,23 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		MultiProtocolValidationSelection,
 		/// <summary>
+		///   Looks up a localized string similar to Must be greater than or Equal to.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		MustBeGreaterThan,
+		/// <summary>
 		///   Looks up a localized string similar to Must be less than {0} characters..
 		/// </summary>
 		MustBeLessThan,
+		/// <summary>
+		///   Looks up a localized string similar to must be less than.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		MustLessThanText,
 		/// <summary>
 		///   Looks up a localized string similar to Mystery Shared Standalone.
 		/// </summary>
@@ -86169,6 +87432,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		NoDeviceDetected,
+		/// <summary>
+		///   Looks up a localized string similar to No Devices configured - Not Allowed to setup Hoppe....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		NoDevicesConfiguredText,
 		/// <summary>
 		///   Looks up a localized string similar to NO DOLLARS EXACTLY.
 		/// </summary>
@@ -86385,6 +87655,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		///   Looks up a localized string similar to No Progressive Jackpot Win for Selected Game.
 		/// </summary>
 		NoProgressiveWinText,
+		/// <summary>
+		///   Looks up a localized string similar to No Recorded Refill.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		NoRecordedRefill,
 		/// <summary>
 		///   Looks up a localized string similar to .
 		/// </summary>
@@ -87648,6 +88925,20 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		PerformanceCountersPlotting,
 		/// <summary>
+		///   Looks up a localized string similar to Perform Hopper Refill.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		PerformHopperRefill,
+		/// <summary>
+		///   Looks up a localized string similar to Please press Yes to &amp;#13;&amp;#10;Perform Hopp....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		PerformHopperRefillDialog,
+		/// <summary>
 		///   Looks up a localized string similar to Period.
 		/// </summary>
         /// <remarks>
@@ -88274,6 +89565,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		PrinterManufacturer,
+		/// <summary>
+		///   Looks up a localized string similar to Printer Only Configured - Not Allowed to setup Hop....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		PrinterOnlyConfiguredText,
 		/// <summary>
 		///   Looks up a localized string similar to Printer Open.
 		/// </summary>
@@ -89330,6 +90628,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ReferenceNumberText,
 		/// <summary>
+		///   Looks up a localized string similar to Current Refill Value.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		RefillCount,
+		/// <summary>
 		///   Looks up a localized string similar to Registered Instance.
 		/// </summary>
         /// <remarks>
@@ -89347,6 +90652,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Monaco.Accounting.Contracts
         /// </remarks>
 		Regulator,
+		/// <summary>
+		///   Looks up a localized string similar to Reinsert {0} coins..
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		ReinsertCoins,
 		/// <summary>
 		///   Looks up a localized string similar to Rejected - Power Failure.
 		/// </summary>
@@ -92226,6 +93538,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		TimeLabel,
 		/// <summary>
+		///   Looks up a localized string similar to Time Of Last Refill.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		TimeOfLastRefill,
+		/// <summary>
 		///   Looks up a localized string similar to Time Remaining.
 		/// </summary>
 		TimeRemaining,
@@ -93007,6 +94326,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		TurnoverText,
 		/// <summary>
+		///   Looks up a localized string similar to Turn reset key to reactivate.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		TurnResetKey,
+		/// <summary>
 		///   Looks up a localized string similar to Turn.
 		/// </summary>
         /// <remarks>
@@ -93618,6 +94944,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Common
         /// </remarks>
 		ValueNotNullErrorMessage,
+		/// <summary>
+		///   Looks up a localized string similar to Value Of Last Refill.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		ValueOfLastRefill,
 		/// <summary>
 		///   Looks up a localized string similar to Value out of range for protocol SAS..
 		/// </summary>

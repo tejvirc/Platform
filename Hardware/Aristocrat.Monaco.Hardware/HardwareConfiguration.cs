@@ -25,6 +25,8 @@
     using NoteAcceptor;
     using Printer;
     using Reel;
+    using Aristocrat.Monaco.Hardware.Contracts.Hopper;
+    using Aristocrat.Monaco.Hardware.Hopper;
 
     public class HardwareConfiguration : IHardwareConfiguration, IDisposable
     {
@@ -284,6 +286,9 @@
                         break;
                     case DeviceType.CoinAcceptor:
                         adapter = HandleServiceRegistration<ICoinAcceptor>(new CoinAcceptorAdapter(), config, data, inspectedDevice);
+                        break;
+                    case DeviceType.Hopper:
+                        adapter = HandleServiceRegistration<IHopper>(new HopperAdapter(), config, data, inspectedDevice);
                         break;
                 }
 
