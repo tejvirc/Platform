@@ -1,0 +1,13 @@
+{
+  "Version": "1.0",
+  "Project": {
+    "Url": "https://monacoconfigurationmanager.alpha.cyberitas.com",
+    "Namespace": "Aristocrat.Monaco.Kernel.MarketConfig.Models",
+    "SchemaFile": "Kernel/Aristocrat.Monaco.Kernel/MarketConfig/schema.json",
+    "ModelOutputDirectory": "Kernel/Aristocrat.Monaco.Kernel/MarketConfig/Models",
+    "ConfigOutputDirectory": "MarketConfig/DeveloperConfigs",
+    "DeleteExistingModels": true,
+    "DeleteExistingConfigurations": true,
+    "RevisionSet": "main"
+  }
+}

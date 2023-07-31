@@ -111,6 +111,10 @@
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <ItemGroup>
+      <MarketConfigTestFixtures Include="MarketConfig\TestFixtures\**\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(MarketConfigTestFixtures)" DestinationFolder="$(OutputPath)\MarketConfig\TestFixtures\%(RecursiveDir)" SkipUnchangedFiles="true" />
+    <ItemGroup>
       <AssemblySource1 Include="$(MSBuildThisFileDirectory)AssemblyResolver\AssemblyToFind.dll">
       </AssemblySource1>
       <AssemblyDest1 Include="$(OutputPath)AssemblyResolver\DirectoryToSearch\AssemblyToFind.tmp">

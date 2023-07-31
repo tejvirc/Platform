@@ -1,0 +1,97 @@
+{
+  "allow_credits_in_above_max_credit": false,
+  "bill_clearance_enabled": false,
+  "cashout_on_carrier_board_removal_enabled": false,
+  "celebration_lockup_limit": 0,
+  "handpay": {
+    "note_acceptor_connected_required": false,
+    "large_win_forced_key_off": false,
+    "large_win_key_off_strategy": "LocalHandpay",
+    "handpay_pending_exit_enabled": false,
+    "can_key_off_while_in_lock_up": true,
+    "handpay_receipts_required": false,
+    "remote_handpay_reset_allowed": true,
+    "remote_handpay_reset_configurable": false,
+    "print_handpay_receipt_enabled": true,
+    "print_handpay_receipt_editable": true,
+    "allow_game_win_receipt_enabled": true
+  },
+  "handpay_limit": 999999999900000,
+  "handpay_reset_visible": true,
+  "large_win_limit": {
+    "default": 120000000,
+    "max_allowed": 120000000,
+    "editable": true,
+    "override_transaction_name": false
+  },
+  "large_win_ratio": {
+    "default": 30000,
+    "editable": false,
+    "visible": true
+  },
+  "large_win_ratio_threshold": {
+    "default": 60000000,
+    "editable": false,
+    "visible": true
+  },
+  "max_bet_limit": {
+    "default": 10000000000,
+    "editable": false,
+    "limit_max": 9223372036854775807
+  },
+  "max_credit_meter": {
+    "default": 500000000,
+    "max_allowed": 9999999000,
+    "show_message_when_credit_limit_reached": false,
+    "disable_bank_note_acceptor_when_credit_limit_reached": false
+  },
+  "money_laundering_monitor": {
+    "enabled": false,
+    "visible": false,
+    "sound_file_path": ""
+  },
+  "mystery_progressive": {
+    "win_as_external_bonus": false
+  },
+  "note_acceptor_time_limit": {
+    "enabled": false,
+    "value": 5000
+  },
+  "note_in_enabled": false,
+  "reboot_while_printing_behavior": "Reprint",
+  "reprint_logged_voucher": {
+    "behavior": "Last",
+    "title_override": true,
+    "door_open_requirement": "Main"
+  },
+  "tender_in": {
+    "check_credits_in": "None",
+    "allow_credit_under_limit": false,
+    "max_credits_in_default": 10000000000,
+    "max_credits_in_editable": true,
+    "max_tender_in_limit": 300000000,
+    "check_laundry_limit": false
+  },
+  "test_ticket_type": "",
+  "voucher_in": {
+    "enabled": true,
+    "enable_limit": true,
+    "limit_default": 499999000,
+    "limit_max": 9223372036854775807,
+    "allow_limit_edit": true
+  },
+  "voucher_out": {
+    "enabled": true,
+    "enable_limit": true,
+    "limit_default": 499999000,
+    "limit_max": 9223372036854775807,
+    "allow_limit_edit": true,
+    "expiration_days": 0,
+    "expiration_editable": true,
+    "allow_cash_win_ticket": true,
+    "allow_non_cashable_ticket": false,
+    "offline": false,
+    "max_sequence": 9999,
+    "separate_metering_cashable_and_promo_amounts": false
+  }
+}

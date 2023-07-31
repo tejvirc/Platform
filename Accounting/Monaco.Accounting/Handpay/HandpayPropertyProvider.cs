@@ -10,7 +10,7 @@
     using Hardware.Contracts.Persistence;
     using Kernel;
     using Kernel.MarketConfig;
-    using Kernel.MarketConfig.Accounting;
+    using Kernel.MarketConfig.Models.Accounting;
     using log4net;
 
     public class HandpayPropertyProvider : IPropertyProvider

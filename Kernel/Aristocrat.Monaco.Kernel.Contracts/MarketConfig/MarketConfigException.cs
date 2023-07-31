@@ -16,4 +16,13 @@ public class MarketConfigException : Exception
         : base(message)
     {
     }
+
+    /// <summary>
+    ///     Initialize a new instance of the <see cref="MarketConfigException" /> class from another exception.
+    /// </summary>
+    /// <param name="parentException">The exception that we are wrapping</param>
+    public MarketConfigException(Exception parentException)
+        : base("An exception occurred while attempting to load the market configuration.", parentException)
+    {
+    }
 }

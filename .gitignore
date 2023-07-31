@@ -400,3 +400,5 @@ FodyWeavers.xsd
 
 # Remote controls APIs that are placed inside Monaco to build
 /MonacoWebAPIs
+/MarketConfigModelGen.local.config.json
+/Kernel/Aristocrat.Monaco.Kernel/MarketConfig/schema.json
