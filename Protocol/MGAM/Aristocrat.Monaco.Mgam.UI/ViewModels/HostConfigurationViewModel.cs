@@ -94,7 +94,7 @@
 
             set
             {
-                SetProperty(ref _directoryIpAddress, value, nameof(DirectoryIpAddress));
+                SetProperty(ref _directoryIpAddress, value.Trim(), nameof(DirectoryIpAddress));
                 SetupNavigation();
             }
         }
