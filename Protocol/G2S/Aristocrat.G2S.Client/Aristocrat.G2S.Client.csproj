@@ -48,5 +48,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
+    <ProjectReference Include="..\..\Aristocrat.Monaco.Protocol.Common\Aristocrat.Monaco.Protocol.Common.csproj" />
   </ItemGroup>
 </Project>

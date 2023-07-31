@@ -83,6 +83,7 @@
             _eventBus.Setup(a => a.Subscribe(It.IsAny<SelectionWindow>(), It.IsAny<Action<CloseConfigWindowEvent>>()));
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<OperatorMenuPageLoadedEvent>>()));
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<SystemDownEvent>>()));
+            _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<OperatorMenuPopupEvent>>()));
 
             _cabinetDetection.Setup(mock => mock.GetDisplayDeviceByItsRole(It.IsAny<DisplayRole>())).Returns(new DisplayDevice());
 

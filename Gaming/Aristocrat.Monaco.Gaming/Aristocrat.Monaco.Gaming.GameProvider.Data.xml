@@ -110,7 +110,7 @@
       <Field FieldName="Game.MaximumPaybackPercent" DataType="String" Size="32768" />
     </Fields>
   </BlockFormat>
-  <BlockFormat version="6" Name="Aristocrat.Monaco.Gaming.GameProvider.Data">
+  <BlockFormat version="7" Name="Aristocrat.Monaco.Gaming.GameProvider.Data">
     <Fields>
       <Field FieldName="Game.Id" DataType="Int32" />
       <Field FieldName="Game.ThemeId" DataType="String" Size="64" />

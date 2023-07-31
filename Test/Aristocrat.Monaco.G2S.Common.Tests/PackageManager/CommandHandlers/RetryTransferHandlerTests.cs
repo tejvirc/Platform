@@ -6,7 +6,7 @@
     using System.Threading;
     using Common.PackageManager.CommandHandlers;
     using Common.PackageManager.Storage;
-    using Data.Model;
+    using G2S.Data.Model;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Monaco.Common.Exceptions;
     using Moq;

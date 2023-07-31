@@ -79,6 +79,11 @@
                                     Width="Auto"
                                     loc:Localizer.For="Operator"
                                     AutomationProperties.AutomationId="DataGridTextColumn9_C13828E5" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerHostEnabled}}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding HostEnabled}"
+                                    Width="150"
+                                    AutomationProperties.AutomationId="DataGridTextColumn10_C13828E5" />
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Orientation="Horizontal"

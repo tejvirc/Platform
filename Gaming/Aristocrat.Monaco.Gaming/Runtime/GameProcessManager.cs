@@ -125,7 +125,7 @@
         public IEnumerable<int> GetRunningProcesses()
         {
             return Process.GetProcesses()
-                .Where(p => string.Equals(p.ProcessName, GamingConstants.RuntimeHostName, StringComparison.InvariantCultureIgnoreCase) && !p.HasExited)
+                .Where(p => p.ProcessName.Contains(GamingConstants.RuntimeHostName) && !p.HasExited)
                 .Select(x => x.Id);
         }
 
@@ -133,7 +133,7 @@
         {
             var process = Process.GetProcesses().FirstOrDefault(p => p.Id == processId);
             if (process == null ||
-                !string.Equals(process.ProcessName, GamingConstants.RuntimeHostName, StringComparison.InvariantCultureIgnoreCase))
+                !process.ProcessName.Contains(GamingConstants.RuntimeHostName))
             {
                 throw new InvalidOperationException($"The specified process id ({processId}) is not valid.");
             }

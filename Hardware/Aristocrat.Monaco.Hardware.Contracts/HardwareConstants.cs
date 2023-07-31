@@ -157,6 +157,11 @@
         public const string SerialTouchDisabled = "serialTouchDisabled";
 
         /// <summary>
+        ///     Property manager key for resetting the reel controller (command line option)
+        /// </summary>
+        public const string DoNotResetRelmController = "doNotResetRelmController";
+
+        /// <summary>
         ///     Regex value used to identify LS cabinet types
         /// </summary>
         public const string CabinetTypeRegexLs = "^LS";

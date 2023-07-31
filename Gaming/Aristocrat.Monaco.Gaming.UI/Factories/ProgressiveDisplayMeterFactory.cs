@@ -117,7 +117,7 @@
                         progressiveLevel.CreationType != LevelCreationType.Default ? progressiveLevel.WagerCredits * denomMillicents : 0,
                         val => val.MillicentsToDollars().FormattedCurrencyString(),
                         meterNode.Order);
-                case ProgressiveMeters.ProgressiveLevelWageredAmount:
+                case ProgressiveMeters.WageredAmount:
                 case ProgressiveMeters.ProgressiveLevelBulkContribution:
                 case ProgressiveMeters.ProgressiveLevelWinAccumulation:
                     return CreateValueDisplayMeter(
@@ -125,6 +125,7 @@
                         progressiveLevel,
                         meterNode,
                         showLifetime);
+                case ProgressiveMeters.PlayedCount:
                 case ProgressiveMeters.ProgressiveLevelWinOccurrence:
                     return CreateDisplayMeter(
                         progressiveManager,
@@ -139,9 +140,20 @@
 
         private static IMeter GetIMeter(IProgressiveMeterManager progressiveManager, int deviceId, int levelId, string meterName)
         {
-            return progressiveManager.IsMeterProvided(deviceId, levelId, meterName)
-                ? progressiveManager.GetMeter(deviceId, levelId, meterName)
-                : null;
+            switch (meterName)
+            {
+                //meters of group 'progressive' are named differently from meters of group 'progressiveLevel'
+                //as defined in Aristocrat.Monaco.Gaming.addin.xml
+                case ProgressiveMeters.WageredAmount:
+                case ProgressiveMeters.PlayedCount:
+                    return progressiveManager.IsMeterProvided(deviceId, meterName)
+                        ? progressiveManager.GetMeter(deviceId, meterName)
+                        : null;
+                default:
+                    return progressiveManager.IsMeterProvided(deviceId, levelId, meterName)
+                        ? progressiveManager.GetMeter(deviceId, levelId, meterName)
+                        : null;
+            }
         }
 
         private static DisplayMeter CreateValueDisplayMeter(

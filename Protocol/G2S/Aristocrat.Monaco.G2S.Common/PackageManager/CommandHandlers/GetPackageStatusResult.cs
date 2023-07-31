@@ -1,6 +1,6 @@
 ﻿namespace Aristocrat.Monaco.G2S.Common.PackageManager.CommandHandlers
 {
-    using Data.Model;
+    using G2S.Data.Model;
     using Storage;
 
     /// <summary>

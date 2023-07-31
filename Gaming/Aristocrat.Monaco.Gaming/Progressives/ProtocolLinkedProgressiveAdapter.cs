@@ -75,6 +75,11 @@
             return _linkedProgressiveProvider.ViewLinkedProgressiveLevel(levelName, out level);
         }
 
+        public bool ViewLinkedProgressiveLevels(IEnumerable<string> levelNames, out IReadOnlyCollection<IViewableLinkedProgressiveLevel> levels)
+        {
+            return _linkedProgressiveProvider.ViewLinkedProgressiveLevels(levelNames, out levels);
+        }
+
         public void ClaimLinkedProgressiveLevel(string levelName, string protocolName)
         {
             if (protocolName == _progressiveProtocol)

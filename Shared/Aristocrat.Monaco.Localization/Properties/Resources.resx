@@ -12300,4 +12300,36 @@ Do you really want to do full reset?</value>
     <value>Ensure communication cable is properly connected and host is online. If lockup persists after connection is restored, host system may need to send enable command, or reboot the machine to reestablish communication.</value>
     <comment>Aristocrat.Monaco.Bingo</comment>
   </data>
+  <data name="DeviceManagerHostEnabled" xml:space="preserve">
+    <value>Host Enabled</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="ProgressiveFaultTypes_MeterRollback" xml:space="preserve">
+    <value>Progressive meter rollback</value>
+    <comment>Aristocrat.Monaco.G2S</comment>
+  </data>
+  <data name="ProgressiveFaultTypes_StateDisabledByHost" xml:space="preserve">
+    <value>Progressive State Disabled by Host</value>
+    <comment>Aristocrat.Monaco.G2S</comment>
+  </data>
+  <data name="ProgressiveHost" xml:space="preserve">
+    <value>Progressive Host</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="ProgressiveHostOfflineIntervalLabel" xml:space="preserve">
+    <value>Offline Timer Interval (seconds)</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="ProgressiveHostOfflineIntervalWarning" xml:space="preserve">
+    <value>Setting this lower than the default 30 seconds can result in excessive EGM lockups. </value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="VertexGameIdLabel" xml:space="preserve">
+    <value>Vertex Game Id</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="VertexIdLabel" xml:space="preserve">
+    <value>VERTEX ID</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
 </root>

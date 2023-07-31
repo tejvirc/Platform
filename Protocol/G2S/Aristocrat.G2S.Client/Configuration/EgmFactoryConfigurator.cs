@@ -68,11 +68,9 @@
             var handlerConnector = new HandlerConnector();
             var commandDispatcher = new CommandDispatcher(handlerConnector, deviceConnector);
 
-            var receiveEndpointProvider = _app.GetRequiredService<IReceiveEndpointProvider>();
-
-            var receiver = new ReceiveEndpoint(_address, _certificate, _certificateValidator, _app);
-
-            var messageConsumer = new MessageConsumer(egm);
+            var service = new G2SService(receiveEndpointProvider);
+            var receiver = new ReceiveEndpoint(service, _address, _certificate, _certificateValidator);
+            var messageConsumer = new MessageConsumer(egm, deviceConnector);
             receiveEndpointProvider.ConnectConsumer(messageConsumer);
             var hostConnector = new HostConnector(
                 egm,
@@ -81,7 +79,7 @@
                 idProvider,
                 messageConsumer);
 
-            return new G2SEgm(egm.Id, hostConnector, deviceConnector, handlerConnector, receiver);
+            return new G2SEgm(egm.Id, hostConnector, deviceConnector, handlerConnector, receiver, messageConsumer);
         }
 
         /// <inheritdoc />

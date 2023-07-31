@@ -56,6 +56,7 @@
             _broadcastTimer.Timer.Elapsed += CheckLevelExpiration;
 
             _eventBus.Subscribe<ProgressiveHitEvent>(this, Handle);
+            _eventBus.Subscribe<ProgressiveCommitEvent>(this, Handle);
         }
 
         public void Dispose()
@@ -89,7 +90,9 @@
                     Amount = level.Amount,
                     Expiration = level.Expiration,
                     CurrentErrorStatus = ProgressiveErrors.None,
-                    ClaimStatus = new LinkedProgressiveClaimStatus()
+                    ClaimStatus = new LinkedProgressiveClaimStatus(),
+                    ProgressiveValueSequence = level.ProgressiveValueSequence,
+                    ProgressiveValueText = level.ProgressiveValueText
                 };
 
                 if (_linkedProgressiveIndex.TryAdd(level.LevelName, levelToAdd))
@@ -151,7 +154,9 @@
                         Expiration = linkedLevel.Expiration.ToUniversalTime(),
                         CurrentErrorStatus = ProgressiveErrors.None,
                         ClaimStatus = new LinkedProgressiveClaimStatus(),
-                        WagerCredits = linkedLevel.WagerCredits
+                        WagerCredits = linkedLevel.WagerCredits,
+                        ProgressiveValueSequence = linkedLevel.ProgressiveValueSequence,
+                        ProgressiveValueText = linkedLevel.ProgressiveValueText
                     },
                     (linkedKey, level) =>
                     {
@@ -172,6 +177,9 @@
                         level.WagerCredits = linkedLevel.WagerCredits;
 
                         level.Expiration = linkedLevel.Expiration.ToUniversalTime();
+
+                        level.ProgressiveValueSequence = linkedLevel.ProgressiveValueSequence;
+                        level.ProgressiveValueText = linkedLevel.ProgressiveValueText;
 
                         return level;
                     });
@@ -317,6 +325,31 @@
             var lookupResult = _linkedProgressiveIndex.TryGetValue(levelName, out var level);
             levelOut = level;
             return lookupResult;
+        }
+
+        /// <inheritdoc />
+        public bool ViewLinkedProgressiveLevels(IEnumerable<string> levelNames, out IReadOnlyCollection<IViewableLinkedProgressiveLevel> levelsOut)
+        {
+            var result = true;
+            var returnList = new List<IViewableLinkedProgressiveLevel>();
+
+            foreach (var name in levelNames)
+            {
+                result &= ViewLinkedProgressiveLevel(name, out var level);
+
+                if (result)
+                {
+                    returnList.Add(level);
+                }
+                else
+                {
+                    returnList.Clear();
+                    break;
+                }
+            }
+
+            levelsOut = returnList;
+            return result;
         }
 
         /// <inheritdoc />
@@ -530,7 +563,32 @@
             Save();
 
             _eventBus.Publish(new LinkedProgressiveHitEvent(
-                progressiveLevel, new List<IViewableLinkedProgressiveLevel> { level }));
+                progressiveLevel, new List<IViewableLinkedProgressiveLevel> { level }, transaction));
+        }
+
+        private void Handle(ProgressiveCommitEvent theEvent)
+        {
+            var assignedLevelId = theEvent.Level.AssignedProgressiveId;
+
+            if (assignedLevelId.AssignedProgressiveType != AssignableProgressiveType.Linked)
+            {
+                return;
+            }
+
+            ProcessCommit(theEvent.Level, theEvent.Jackpot);
+        }
+
+        private void ProcessCommit(IViewableProgressiveLevel progressiveLevel, JackpotTransaction transaction)
+        {
+            var levelName = progressiveLevel.AssignedProgressiveId.AssignedProgressiveKey;
+
+            if (!_linkedProgressiveIndex.TryGetValue(levelName, out var level))
+            {
+                throw new InvalidOperationException($"Unable to find progressive level to process commit: {levelName}");
+            }
+
+            _eventBus.Publish(new LinkedProgressiveCommitEvent(
+                progressiveLevel, new List<IViewableLinkedProgressiveLevel> { level }, transaction));
         }
     }
 }

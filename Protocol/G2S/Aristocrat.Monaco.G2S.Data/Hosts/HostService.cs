@@ -75,6 +75,8 @@
                     host.Address = update.Address;
                     host.Registered = update.Registered;
                     host.RequiredForPlay = update.RequiredForPlay;
+                    host.IsProgressiveHost = update.IsProgressiveHost;
+                    host.OfflineTimerInterval = update.OfflineTimerInterval;
 
                     _hostRepository.Update(context, host);
                 }

@@ -85,7 +85,7 @@
 
             SetupProgressiveHitService();
             _linkedProgressiveHitEventHandler?.Invoke(new LinkedProgressiveHitEvent(progressiveLevel,
-                new List<IViewableLinkedProgressiveLevel> {linkedLevel}));
+                new List<IViewableLinkedProgressiveLevel> {linkedLevel}, new JackpotTransaction()));
         }
     }
 }

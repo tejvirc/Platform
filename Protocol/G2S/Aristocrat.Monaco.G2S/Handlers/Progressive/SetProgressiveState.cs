@@ -39,18 +39,10 @@
             {
                 return;
             }
-
-            var progressiveState = command.Command;
-
-            if (progressiveDevice.HostEnabled != progressiveState.enable)
-            {
-                progressiveDevice.DisableText = progressiveState.disableText;
-                progressiveDevice.HostEnabled = progressiveState.enable;
-            }
+            progressiveDevice.SetProgressiveState(command.Command);
 
             var response = command.GenerateResponse<progressiveStatus>();
             var status = response.Command;
-
             await _commandBuilder.Build(progressiveDevice, status);
         }
     }

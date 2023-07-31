@@ -1599,18 +1599,18 @@
         private class RecoveryCompletePlaceHolder
         {
         }
-    }
 
-    public class DisplayableMessageComparer : IEqualityComparer<DisplayableMessage>
-    {
-        public bool Equals(DisplayableMessage x, DisplayableMessage y)
+        private class DisplayableMessageComparer : IEqualityComparer<DisplayableMessage>
         {
-            return string.Compare(x.Message.Trim(), y.Message.Trim(), true) == 0;
-        }
+            public bool Equals(DisplayableMessage x, DisplayableMessage y)
+            {
+                return x.Message.Trim().ToLower().Equals(y.Message.Trim().ToLower());
+            }
 
-        public int GetHashCode(DisplayableMessage obj)
-        {
-            return obj.Message.GetHashCode(StringComparison.InvariantCulture);
+            public int GetHashCode(DisplayableMessage obj)
+            {
+                return obj.Message.GetHashCode();
+            }
         }
     }
 }

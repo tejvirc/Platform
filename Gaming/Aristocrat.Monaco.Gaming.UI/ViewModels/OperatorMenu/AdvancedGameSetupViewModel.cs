@@ -91,6 +91,8 @@
 
         private bool _extraSettingsVisibility;
         private readonly IGameSpecificOptionProvider _gameSpecificOptionProvider;
+        private bool _isConfigurableLinkedLevelIds = false;
+        private bool _progressiveLevelChanged;
 
         public AdvancedGameSetupViewModel()
         {
@@ -140,10 +142,12 @@
 
             GameTypes = new List<GameType>(
                 games.Select(g => g.GameType).OrderBy(g => g.GetDescription(typeof(GameType))).Distinct());
-            _selectedGameType = GameTypes.FirstOrDefault();
             _settingsManager = ServiceManager.GetInstance().GetService<IConfigurationSettingsManager>();
 
             CancelButtonText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExitConfigurationText);
+
+            _isConfigurableLinkedLevelIds = (bool)ServiceManager.GetInstance().GetService<IPropertiesManager>()
+                .GetProperty(GamingConstants.ProgressiveConfigurableLinkedLeveId, false);
         }
 
         public ICommand ShowRtpSummaryCommand { get; }
@@ -198,7 +202,7 @@
         public bool InitialConfigComplete => PropertiesManager.GetValue(GamingConstants.OperatorMenuGameConfigurationInitialConfigComplete, false);
 
         public override bool CanSave => HasNoErrors && InputEnabled && !Committed &&
-                                        (HasChanges() || !InitialConfigComplete) && !IsEnabledGamesLimitExceeded;
+                                        (HasChanges() || !InitialConfigComplete || ProgressiveLevelChanged) && !IsEnabledGamesLimitExceeded;
 
         public bool HasNoErrors => !HasErrors && !_editableGames.Any(g => g.Value.HasErrors);
 
@@ -288,6 +292,43 @@
         {
             get => _selectedConfig;
             set => SetProperty(ref _selectedConfig, value);
+        }
+
+        /// <summary> 
+        ///     This property is used to determine whether or not progressive ID configuration is complete 
+        /// </summary> 
+        public bool ConfigurationComplete
+        {
+            get
+            {
+                if (_isConfigurableLinkedLevelIds)
+                {
+                    return GameConfigurations.Any(g => g.Enabled) && GameConfigurations.Where(g => g.Enabled).All(g => g.ProgressiveSetupConfigured);
+                }
+
+                return true;
+            }
+        }
+
+        /// <summary> 
+        ///     This property is used to determine whether or not the progressive level Ids have been changed 
+        ///     Defaults to false if the isConfigurableId field is false in order to not always register that changes have been made 
+        /// </summary> 
+        public bool ProgressiveLevelChanged
+        {
+            get
+            {
+                if (_isConfigurableLinkedLevelIds)
+                {
+                    return _progressiveLevelChanged;
+                }
+
+                return false;
+            }
+            private set
+            {
+                _progressiveLevelChanged = value;
+            }
         }
 
         public EditableGameProfile SelectedGame
@@ -589,7 +630,7 @@
             }
         }
 
-        protected override void Cancel()
+        public override void Cancel()
         {
             if (!IsInEditMode)
             {
@@ -1202,7 +1243,7 @@
             {
                 SaveImportSettings();
             }
-            else if (hasChanges || forceSave)
+            else if (hasChanges || forceSave || ProgressiveLevelChanged)
             {
                 var currentGame = _gameProvider.GetGame(PropertiesManager.GetValue(GamingConstants.SelectedGameId, 0));
 
@@ -1307,6 +1348,8 @@
             {
                 game.OnSave();
             }
+
+            _progressiveLevelChanged = false;
 
             RaisePropertyChanged(nameof(CanSave));
         }
@@ -1537,6 +1580,8 @@
             {
                 gameConfiguration.GameOptionsEnabled = GameOptionsEnabled;
             }
+
+            RaisePropertyChanged(nameof(CanSave));
         }
 
         private void CalculateTopAward()
@@ -1912,6 +1957,13 @@
                 this,
                 viewModel,
                 Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveSetupDialogCaption));
+
+            if (viewModel.SetupCompleted && _isConfigurableLinkedLevelIds)
+            {
+                _progressiveLevelChanged |= viewModel.ConfigurableProgressiveLevelsChanged;
+
+                gameConfig.ProgressiveSetupConfigured = true;
+            }
 
             ApplyGameOptionsEnabled();
         }

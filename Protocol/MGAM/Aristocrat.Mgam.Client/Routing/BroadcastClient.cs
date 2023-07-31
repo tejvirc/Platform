@@ -3,12 +3,12 @@
     using System;
     using System.Net;
     using System.Net.Sockets;
-    using UdpClient = Monaco.Protocol.Common.Communication.UdpClient;
+    using CustomUdpClient = Monaco.Protocol.Common.Communication.CustomUdpClient;
 
     /// <summary>
-    ///     Wrapper class around <see cref="UdpClient"/> for raising event notifications.
+    ///     Wrapper class around <see cref="CustomUdpClient"/> for raising event notifications.
     /// </summary>
-    internal class BroadcastClient : UdpClient, IBroadcastClient
+    internal class BroadcastClient : CustomUdpClient, IBroadcastClient
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="BroadcastClient"/> class.

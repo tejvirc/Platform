@@ -240,9 +240,9 @@
         public const string PackagesPath = "/Packages";
 
         /// <summary>
-        ///     Gets the runtime executable name
+        ///     Gets the meaningful portion of the runtime executable name
         /// </summary>
-        public const string RuntimeHostName = @"GDKRuntimeHost";
+        public const string RuntimeHostName = @"RuntimeHost";
 
         /// <summary>
         ///     Gets the runtime file name
@@ -685,6 +685,16 @@
         ///     Property manager key for the progressive lobby indicator type
         /// </summary>
         public const string ProgressiveLobbyIndicatorType = @"Progressive.LobbyIndicator";
+
+        /// <summary> 
+        ///     Property manager for the configurable progressive id boolean 
+        /// </summary> 
+        public const string ProgressiveConfigurableLinkedLeveId = @"Progressive.ConfigurableId";
+
+        /// <summary> 
+        ///     Property Manager for the collection of configured level ids 
+        /// </summary> 
+        public const string ProgressiveConfiguredLinkedLevelIds = @"Progressive.ConfiguredLinkedLevelIds";
 
         /// <summary>
         ///     Property manager key for CensorshipEnforced.

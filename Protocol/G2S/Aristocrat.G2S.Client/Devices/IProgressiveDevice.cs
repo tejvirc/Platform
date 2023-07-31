@@ -21,6 +21,11 @@
         int NoProgressiveInfo { get; }
 
         /// <summary>
+        ///     Get whether valid progressive info has been received.
+        /// </summary>
+        bool ProgressiveInfoValid { get; }
+
+        /// <summary>
         ///     Gets the time-to-live value for requests originated by the device.
         /// </summary>
         int TimeToLive { get; }
@@ -59,5 +64,17 @@
             t_progStates progressiveStates,
             progressiveLog progressiveLog,
             TimeSpan timeout);
+
+        /// <summary>
+        /// Inform the device that new progressive values were received
+        /// and the monitoring timer should be restarted. 
+        /// </summary>
+        void ResetProgressiveInfoTimer();
+
+        /// <summary>
+        /// Update the progressive device with new state information from the host
+        /// </summary>
+        /// <param name="command">the received message from the host</param>
+        void SetProgressiveState(setProgressiveState command);
     }
 }

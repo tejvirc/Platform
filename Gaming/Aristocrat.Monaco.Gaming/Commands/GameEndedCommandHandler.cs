@@ -28,7 +28,7 @@
     [CounterDescription("Game End", PerformanceCounterType.AverageTimer32)]
     public class GameEndedCommandHandler : ICommandHandler<GameEnded>
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IPlayerBank _bank;
         private readonly IGameHistory _gameHistory;
@@ -36,7 +36,6 @@
         private readonly IPersistentStorageManager _persistentStorage;
         private readonly IPlayerService _players;
         private readonly IPropertiesManager _properties;
-        private readonly IGameRecovery _recovery;
         private readonly IRuntime _runtime;
         private readonly IGameProvider _gameProvider;
         private readonly ITransactionHistory _transactionHistory;
@@ -59,7 +58,6 @@
             IPropertiesManager properties,
             IGameMeterManager meters,
             IPlayerService players,
-            IGameRecovery recovery,
             ITransactionHistory transactionHistory,
             IBarkeeperHandler barkeeperHandler,
             IProgressiveGameProvider progressiveGameProvider,
@@ -74,11 +72,10 @@
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _meters = meters ?? throw new ArgumentNullException(nameof(meters));
             _players = players ?? throw new ArgumentNullException(nameof(players));
-            _recovery = recovery ?? throw new ArgumentNullException(nameof(recovery));
             _transactionHistory = transactionHistory ?? throw new ArgumentNullException(nameof(transactionHistory));
             _barkeeperHandler = barkeeperHandler ?? throw new ArgumentNullException(nameof(barkeeperHandler));
             _progressiveGameProvider = progressiveGameProvider ?? throw new ArgumentNullException(nameof(progressiveGameProvider));
-            _progressiveLevelProvider = progressiveLevelProvider ?? throw new ArgumentNullException(nameof(progressiveGameProvider));
+            _progressiveLevelProvider = progressiveLevelProvider ?? throw new ArgumentNullException(nameof(progressiveLevelProvider));
             _balanceUpdateService = balanceUpdateService ?? throw new ArgumentNullException(nameof(balanceUpdateService));
 
             _meterFreeGames = _properties.GetValue(GamingConstants.MeterFreeGamesIndependently, false);
@@ -89,6 +86,7 @@
         {
             using (var scope = _persistentStorage.ScopedTransaction())
             {
+                _bank.Lock();
                 _gameHistory.EndGame();
 
                 IncrementMeters();
@@ -118,7 +116,7 @@
             var log = _gameHistory.CurrentLog;
 
             if ((!_meterFreeGames || denomination.SecondaryAllowed) &&
-                (log.Result == GameResult.Won || log.Result == GameResult.Lost || log.Result == GameResult.Tied))
+                log.Result is GameResult.Won or GameResult.Lost or GameResult.Tied)
             {
                 var wagerCategory = _properties.GetValue<IWagerCategory>(GamingConstants.SelectedWagerCategory, null);
 

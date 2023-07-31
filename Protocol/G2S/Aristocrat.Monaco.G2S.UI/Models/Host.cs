@@ -26,5 +26,11 @@
         public string RegisteredDisplayText { get; set; }
 
         public string RequiredForPlayDisplayText { get; set; }
+
+        /// <inheritdoc />
+        public bool IsProgressiveHost { get; set; }
+
+        /// <inheritdoc />
+        public TimeSpan ProgressiveHostOfflineTimerInterval { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 {
     using System;
     using Application.Contracts.Localization;
-    using Data.Model;
+    using G2S.Data.Model;
     using Localization.Properties;
     using Monaco.Common.CommandHandlers;
     using Monaco.Common.Exceptions;

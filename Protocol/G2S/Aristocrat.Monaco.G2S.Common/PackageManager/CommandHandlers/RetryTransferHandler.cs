@@ -2,7 +2,7 @@
 {
     using Application.Contracts.Authentication;
     using Kernel;
-    using Data.Model;
+    using G2S.Data.Model;
     using Monaco.Common.CommandHandlers;
     using Monaco.Common.Exceptions;
     using Monaco.Common.Storage;

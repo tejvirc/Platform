@@ -2,12 +2,16 @@
 {
     using ProtoBuf;
     using System.Collections.Generic;
+    using System.Diagnostics;
 
     /// <summary>
     ///     The fundamental data structure for a progressive level defined by a game. <see cref="IProgressiveLevelProvider" />
     ///     will manage all progressive levels for all games.
     /// </summary>
     [ProtoContract]
+#if DEBUG
+    [DebuggerDisplay("{nameof(ProgressiveLevel),nq} D:{DeviceId} T:{LevelType} P:{ProgressivePackName,nq} G:{GameId} L:{LevelId}-{LevelName,nq} V:{CurrentValue/100000.0}")]
+#endif
     public class ProgressiveLevel : IViewableProgressiveLevel
     {
         /// <summary>

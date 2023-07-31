@@ -1,6 +1,8 @@
 ﻿namespace Aristocrat.G2S.Client.Communications
 {
     using System;
+    using System.Globalization;
+    using System.Linq;
     using System.Net;
     using System.Security.Authentication.ExtendedProtection;
     using System.ServiceModel;
@@ -163,6 +165,58 @@
         public static bool IsSecure(this Uri @this)
         {
             return @this.Scheme == Uri.UriSchemeHttps;
+        }
+
+        /// <summary>
+        ///     Converts a Uri string into an IPEndPoint.
+        /// </summary>
+        /// <param name="endPoint">The Uri string</param>
+        /// <returns>An IPEndPoint representation of endPoint</returns>
+        public static IPEndPoint CreateIPEndPoint(string endPoint)
+        {
+            // Strip the protocol
+            int i = endPoint.IndexOf("://");
+            if (i >= 0) endPoint = endPoint.Substring(i + 3);
+
+            string[] ep = endPoint.Split(':');
+            if (ep.Length < 2) throw new FormatException("Invalid endpoint format");
+            IPAddress ip;
+
+            if (ep.Length > 2)
+            {
+                if (!IPAddress.TryParse(string.Join(":", ep, 0, ep.Length - 1), out ip))
+                {
+                    throw new FormatException("Invalid IP address");
+                }
+            }
+            else
+            {
+                if (!IPAddress.TryParse(ep[0], out ip))
+                {
+                    throw new FormatException("Invalid IP address");
+                }
+            }
+            int port;
+            if (!int.TryParse(ep[ep.Length - 1], NumberStyles.None, NumberFormatInfo.CurrentInfo, out port))
+            {
+                var portString = ep[ep.Length - 1];
+                if (!int.TryParse(portString.Remove(portString.Length - 1, 1), NumberStyles.None, NumberFormatInfo.CurrentInfo, out port))
+                {
+                    throw new FormatException("Invalid port");
+                }
+            }
+            return new IPEndPoint(ip, port);
+        }
+
+        /// <summary>
+        ///     Converts a key string to a byte array for G2S endpoint security.
+        /// </summary>
+        /// <param name="key">The key represented as a comma separated string</param>
+        /// <returns>The key represented as a byte array</returns>
+        public static byte[] EncryptorKeyStringToArray(string key)
+        {
+            string[] bytes = key.Split(',');
+            return bytes.Select(b => byte.Parse(b)).ToArray();
         }
     }
 }
