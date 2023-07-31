@@ -30,6 +30,9 @@
     using Helpers;
     using Kernel;
     using Kernel.Contracts;
+    using Kernel.MarketConfig;
+    using Kernel.MarketConfig.Models.Accounting;
+    using Kernel.MarketConfig.Models.ConfiguredDevices;
     using Monaco.Common;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common.Extensions;
@@ -50,7 +53,6 @@
     public abstract class HardwareConfigBaseViewModel : ConfigWizardViewModelBase
     {
         private const string RS232 = "RS232";
-        private const string IncludedDevicesPath = "/Platform/Discovery/Configuration";
         private const string CommunicatorDriversAddinPath = "/Hardware/CommunicatorDrivers";
         private const string HardMetersDeviceType = @"HardMeters";
         private const int DiscoveryTimeoutSeconds = 60;
@@ -586,20 +588,18 @@
                     return CheckHardware(d, ref device) != true;
                 });
 
-        private static ConfiguredDevices GetConfiguredDevices()
+        private static ConfiguredDevicesConfigSegment GetConfiguredDevices()
         {
-            var node = MonoAddinsHelper.GetSingleSelectedExtensionNode<FilePathExtensionNode>(IncludedDevicesPath);
+            var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+            var marketConfigManager = ServiceManager.GetInstance().GetService<IMarketConfigManager>();
 
-            var settings = new XmlReaderSettings();
+            // Get the current jurisdiction installation id that was selected
+            var jurisdictionInstallationId = propertiesManager.GetValue(
+                ApplicationConstants.JurisdictionKey, string.Empty);
 
-            using (var reader = XmlReader.Create(node.FilePath, settings))
-            {
-                var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(ConfiguredDevices))
-                    .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
-                var serializer = new XmlSerializer(typeof(ConfiguredDevices), theXmlRootAttribute ?? new XmlRootAttribute(nameof(ConfiguredDevices)));
-
-                return (ConfiguredDevices)serializer.Deserialize(reader);
-            }
+            // Use the MarketConfigManager to get the accounting configuration
+            return marketConfigManager.GetMarketConfiguration<ConfiguredDevicesConfigSegment>(
+                jurisdictionInstallationId);
         }
 
         private static void LoadDevice(DeviceConfigViewModel configViewModel, string manufacturer)
@@ -1130,12 +1130,12 @@
             // Add enabled hardware configurations & set defaults from platform config file
             foreach (var config in available.Devices)
             {
-                if (configuredDevices.Excluded.Any(c => c.Type == config.Type))
+                if (configuredDevices.ExcludedDeviceTypes.Any(c => c == config.Type))
                 {
                     continue;
                 }
 
-                if (configuredDevices.Included.Any() && configuredDevices.Included.All(d => d.Name != config.Name))
+                if (configuredDevices.IncludedDevices.Any() && configuredDevices.IncludedDevices.All(d => d.Name != config.Name))
                 {
                     continue;
                 }
@@ -1145,7 +1145,7 @@
                 {
                     if (config.Enabled && !config.Type.Contains(ApplicationConstants.Fake))
                     {
-                        var deviceDefault = configuredDevices.Defaults.FirstOrDefault(d => d.Name == config.Name);
+                        var deviceDefault = configuredDevices.DefaultDevices.FirstOrDefault(d => d.Name == config.Name);
                         var hasDefaults = deviceDefault != null;
                         var isEnabled = deviceDefault?.Enabled ?? false;
                         var isRequired = false;
@@ -1227,7 +1227,7 @@
 
             Devices.AddRange(_deviceConfigurationDictionary.Values.Where(d => d.IsVisible));
 
-            ShowHardMeters = configuredDevices.Excluded.All(d => d.Type != HardMetersDeviceType);
+            ShowHardMeters = configuredDevices.ExcludedDeviceTypes.All(d => d != HardMetersDeviceType);
             if (ShowHardMeters)
             {
                 _hardMetersEnabled = _propertiesManager.GetValue(HardwareConstants.HardMetersEnabledKey, false);

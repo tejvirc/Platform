@@ -136,10 +136,6 @@
     <PropertyProvider type="Aristocrat.Monaco.Hardware.HardwarePropertyProvider" />
   </Extension>
 
-  <ExtensionPoint path="/Platform/Discovery/Configuration">
-    <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
-  </ExtensionPoint>
-
   <!--Must implement IGdsCommunicator-->
   <ExtensionPoint path = "/Hardware/CommunicatorDrivers">
     <ExtensionNode name="DeviceImplementation" type="Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceImplementationExtensionNode"/>
