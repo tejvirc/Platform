@@ -17,13 +17,6 @@
         private Mock<IBank> _bank;
         private Mock<IDisposable> _disposable;
 
-        [AssemblyInitialize]
-        public static void AssemblyInitialize(TestContext context)
-        {
-            // Disable parallel test execution at the assembly level.
-            context.Properties["microsoft.testfx.testrun.isparallel"] = false;
-        }
-
         [TestInitialize]
         public void Initialize()
         {

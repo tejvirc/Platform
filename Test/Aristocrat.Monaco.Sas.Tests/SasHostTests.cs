@@ -21,13 +21,6 @@
         private readonly Mock<IAftTransferProvider> _aftTransferProvider = new Mock<IAftTransferProvider>();
         private readonly Mock<ISasVoucherInProvider> _sasVoucherInProvider = new Mock<ISasVoucherInProvider>();
 
-        [AssemblyInitialize]
-        public static void AssemblyInitialize(TestContext context)
-        {
-            // Disable parallel test execution at the assembly level.
-            context.Properties["microsoft.testfx.testrun.isparallel"] = false;
-        }
-
         [TestInitialize]
         public void MyTestInitialize()
         {
