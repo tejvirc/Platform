@@ -37,5 +37,9 @@
 
         /// <summary>Get the status report of hopper.</summary>
         byte GetStatusReport();
+
+        /// <summary>Gets the current faults.</summary>
+        /// <value>The current faults.</value>
+        HopperFaultTypes Faults { get; set; }
     }
 }

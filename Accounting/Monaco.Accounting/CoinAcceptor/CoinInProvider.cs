@@ -15,7 +15,8 @@
     using Kernel;
     using Localization.Properties;
     using log4net;
-    
+    using Aristocrat.Monaco.Accounting.Contracts.Hopper;
+
     [CLSCompliant(false)]
     public sealed class CoinInProvider : IService, IDisposable
     {
@@ -97,6 +98,7 @@
             _bus.Subscribe<CoinToCashboxInsteadOfHopperEvent>(this, Handle);
             _bus.Subscribe<CoinToHopperInsteadOfCashboxEvent>(this, Handle);
             _bus.Subscribe<TransferOutCompletedEvent>(this, _ => _coinAcceptorService?.DivertMechanismOnOff());
+            _bus.Subscribe<HopperRefillStartedEvent>(this, Handle);
         }
         
         private void DisplayMessage(long acceptedAmount = 0)
@@ -275,6 +277,49 @@
 
             _diverterErrors++;
             CheckDivertError();
+        }
+        private void Handle(HopperRefillStartedEvent evt)
+        {
+            var currentRefillValue = _propertiesManager.GetValue(AccountingConstants.HopperCurrentRefillValue, 0L);
+            var transaction = CreateHopperRefillTransaction(DeviceId, currentRefillValue);
+
+            using (var scope = _storage.ScopedTransaction())
+            {
+                var transactionId = _coordinator.RequestTransaction(
+                    RequestorId,
+                    RequestTimeoutLength,
+                    TransactionType.Write);
+
+                if (transactionId == Guid.Empty)
+                {
+                    Logger.Error("Hopper Refill Event : Failed to acquire a transaction.");
+
+                    return;
+                }
+
+                // Unique log sequence number assigned by the EGM; a series that strictly increases by 1 (one) starting at 1 (one).
+                transaction.LogSequence = _idProvider.GetNextLogSequence<HopperRefillTransaction>();
+                _transactions.AddTransaction(transaction);
+
+                _meters.GetMeter(AccountingMeters.HopperRefillCount).Increment(1);
+                _meters.GetMeter(AccountingMeters.HopperRefillAmount).Increment(currentRefillValue);
+
+                _coordinator.ReleaseTransaction(transactionId);
+
+                scope.Complete();
+            }
+
+            Logger.Info($"Hopper Refill Accepted.: {evt}");
+            _bus.Publish(new HopperRefillCompletedEvent(transaction.TransactionDateTime));
+        }
+
+        private HopperRefillTransaction CreateHopperRefillTransaction(
+            int deviceId, long refillValue)
+        {
+            return new HopperRefillTransaction(
+                deviceId,
+                DateTime.UtcNow,
+                refillValue);
         }
 
         private void CheckDivertError()

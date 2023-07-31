@@ -68,6 +68,7 @@
       <Field DataType="Bool" FieldName="Battery2Low" />
       <Field DataType="Bool" FieldName="Hardware.BellEnabled" />
       <Field DataType="Int32" FieldName="Hardware.CoinAcceptorFaults" />
+      <Field DataType="Int32" FieldName="Hardware.HopperFaults" />
     </Fields>
   </BlockFormat>
 </ArrayOfBlockFormat>

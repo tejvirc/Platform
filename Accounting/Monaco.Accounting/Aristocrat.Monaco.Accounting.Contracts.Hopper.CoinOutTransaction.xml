@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0"?>
 <ArrayOfBlockFormat>
-  <BlockFormat version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Aristocrat.Monaco.Accounting.CoinOutTransaction">
+  <BlockFormat version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Aristocrat.Monaco.Accounting.Hopper.CoinOutTransaction">
     <Fields>
       <Field DataType="Int64" FieldName="TransactionId" />
       <Field DataType="Int64" FieldName="LogSequence" />

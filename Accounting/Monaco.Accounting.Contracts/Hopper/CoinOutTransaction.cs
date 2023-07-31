@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Accounting.Contracts
+﻿namespace Aristocrat.Monaco.Accounting.Contracts.Hopper
 {
     using System;
     using System.Collections.Generic;

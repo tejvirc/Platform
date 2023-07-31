@@ -9,6 +9,7 @@ namespace Aristocrat.Monaco.Accounting
     using System.Threading.Tasks;
     using Common;
     using Contracts;
+    using Contracts.Hopper;
     using Contracts.Transactions;
     using Contracts.TransferOut;
     using Handpay;
@@ -676,6 +677,15 @@ namespace Aristocrat.Monaco.Accounting
 
                         handled = true;
 
+                        break;
+                    }
+
+                    //check weather we need to continue to other provider or not.
+                    var coinOutException = provider is ICoinOutProvider coinOutProvider &&
+                                           coinOutProvider.CheckCoinOutException(result.TransferredCashable, cashableRemaining);
+                    if (coinOutException)
+                    {
+                        handled = false;
                         break;
                     }
 

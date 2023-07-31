@@ -73,6 +73,7 @@
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Accounting/TransferOutProviders">
         <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Wat.WatOffProvider" order="0" filterid="WAAccountingTransferProviders" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Hopper.CoinOutProvider" order="0" filterid="NSWAccountingTransferProviders" />
         <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Vouchers.VoucherOutProvider" order="1" filterid="WAAccountingTransferProviders" />
         <NodeSpecification addinId="Client12Addins.Monaco.Accounting" typeName="Aristocrat.Monaco.Accounting.Handpay.HandpayProvider" order="2" filterid="WAAccountingTransferProviders" />
       </ExtensionPointConfiguration>

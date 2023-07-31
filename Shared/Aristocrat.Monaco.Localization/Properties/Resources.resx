@@ -12589,4 +12589,8 @@ Perform Hopper Refill</value>
     <value>Value Of Last Refill</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
+  <data name="HopperLabel" xml:space="preserve">
+    <value>Hopper</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
 </root>

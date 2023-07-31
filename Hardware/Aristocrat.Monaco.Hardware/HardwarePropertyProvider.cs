@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using Aristocrat.Monaco.Hardware.Contracts.Hopper;
     using Contracts;
     using Contracts.CoinAcceptor;
     using Contracts.Persistence;
@@ -117,6 +118,14 @@
                     HardwareConstants.CoinAcceptorFaults,
                     Tuple.Create((object)InitFromStorage<int>(HardwareConstants.CoinAcceptorFaults, (int)CoinFaultTypes.None), true)
                 },
+                {
+                    HardwareConstants.HopperFaults,
+                    Tuple.Create((object)InitFromStorage<int>(HardwareConstants.HopperFaults, (int)HopperFaultTypes.None), true)
+                },
+                {
+                    HardwareConstants.HopperDiagnosticMode,
+                    Tuple.Create((object)InitFromStorage<bool>(HardwareConstants.HopperDiagnosticMode, false), true)
+                }
             };
 
             if (!_blockExists)

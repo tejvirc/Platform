@@ -98,6 +98,7 @@ as follows:
   <LogTypesAllowedForDisplay>
     <string>BillIn</string>
     <string>CoinIn</string>
+    <string>CoinOut</string>
     <string>Handpay</string>
     <string>VoucherIn</string>
     <string>VoucherOut</string>

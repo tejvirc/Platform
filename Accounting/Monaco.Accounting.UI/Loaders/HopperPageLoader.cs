@@ -4,7 +4,6 @@
     using Application.Contracts.OperatorMenu;
     using Application.UI.Loaders;
     using Aristocrat.Monaco.Application.Contracts;
-    using Hardware.Contracts;
     using Kernel;
     using Monaco.Localization.Properties;
     using ViewModels;
@@ -16,7 +15,7 @@
     public class HopperPageLoader
         : OperatorMenuPageLoader
     {
-        public override string PageName => "Hopper";// Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HopperLabel);
+        public override string PageName => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HopperLabel);
 
         /// <summary>
         ///     Login to initialise hopper page.
