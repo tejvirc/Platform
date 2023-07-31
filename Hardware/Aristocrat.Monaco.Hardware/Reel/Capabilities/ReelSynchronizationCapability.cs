@@ -17,9 +17,9 @@
             _stateManager = stateManager;
         }
 
-        public Task<bool> Synchronize(ReelSynchronizationData data, CancellationToken token)
+        public Task<bool> Synchronize(ReelSynchronizationData syncData, CancellationToken token = default)
         {
-            return _implementation.Synchronize(data, token);
+            return _implementation.Synchronize(syncData, token);
         }
     }
 }
