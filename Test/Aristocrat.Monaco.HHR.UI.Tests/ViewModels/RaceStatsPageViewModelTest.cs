@@ -9,6 +9,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using System.Threading.Tasks;
+    using Aristocrat.Monaco.Gaming.Contracts;
 
     [TestClass]
     public class RaceStatsPageViewModelTest
@@ -25,6 +26,7 @@
         {
             _serviceManagerMock = MoqServiceManager.CreateInstance(MockBehavior.Default);
             _propertiesManagerMock = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Default);
+            _propertiesManagerMock.Setup(x => x.GetProperty(GamingConstants.SelectedGameId, It.IsAny<int>())).Returns(0);
             _eventBusMock = MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Strict);
             _prizeDeterminationService = new Mock<IPrizeDeterminationService>(MockBehavior.Default);
 
