@@ -510,10 +510,34 @@
         }
 
         /// <inheritdoc />
-        public Task<bool> Synchronize(ReelSynchronizationData data, CancellationToken token = default)
+        public async Task<bool> Synchronize(ReelSynchronizationData syncData, CancellationToken token = default)
         {
-            // TODO: Implement synchronize in driver and wire up here
-            throw new NotImplementedException();
+            if (_relmCommunicator is null)
+            {
+                return false;
+            }
+
+            if (syncData.SyncType == SynchronizeType.Regular)
+            {
+                var syncDataList = syncData.ReelSyncStepData.Select(
+                    x => new ReelSyncData { ReelIndex = x.ReelIndex, SynchronizationStep = x.SyncStep });
+
+                await _relmCommunicator.SendCommandAsync(new PrepareSynchronizeReels(syncData.Duration, syncDataList), token);
+            }
+            else if (syncData.SyncType == SynchronizeType.Enhanced)
+            {
+                var syncDataList = syncData.ReelSyncStepData.Select(
+                    x => new EnhancedReelSyncData { ReelIndex = x.ReelIndex, SyncStep = x.SyncStep, Duration = x.Duration });
+
+                await _relmCommunicator.SendCommandAsync(
+                    new PrepareEnhancedSynchronizeReels(
+                        syncData.MasterReelIndex,
+                        syncData.MasterReelStep,
+                        syncDataList),
+                    token);
+            }
+
+            return true;
         }
 
         /// <inheritdoc />
