@@ -25,8 +25,6 @@
         private int _totalPauseCount = 0;
         private int _maxCoinoutAllowed = 0;
         private int _currentCoinout = 0;
-       // private long _tokenValue;
-        //private const int _hopperDataReadTimeout = 10;    // Hopper Data read timeout 10 milli sec
         protected readonly object Lock = new();
         private readonly CoinOutState _coinOutState = new CoinOutState();
         private readonly HopperState _hopperState = new HopperState();
@@ -34,6 +32,7 @@
 
         /// <summary>Defines the hopper type</summary>
         public abstract HopperType Type { get; }
+
         /// <inheritdoc/>
         public override void SendMessage(GdsSerializableMessage message, CancellationToken token)
         {
@@ -115,7 +114,7 @@
                         _coinOutState.State = HopperTaskState.WaitingForReset;
                         _totalPauseCount = 0;
                         StopHopperMotor();
-                        //TBD_bus.Publish(new HardwareFaultEvent(HopperFaultTypes.HopperEmpty));
+                        OnMessageReceived(new HopperFaultStatus { FaultType = HopperFaultTypes.HopperEmpty });
                         WriteConsoleMessage("****************HCD_OUT_OF_COINS_EVENT*****************");
 
                     }
@@ -123,7 +122,7 @@
                     {
                         _coinOutState.State = HopperTaskState.WaitingForTimeout;
                         _coinOutState.Timer = HopperConsts.HopperPauseTime;
-                       MotorOff();//TBC, If this realy required. This is same as linux
+                        MotorOff();
                         WriteConsoleMessage("****************HCD_HOPPER_PAUSE_EVENT*****************");
                     }
 
@@ -145,7 +144,7 @@
                 if ((_hopperState.State & HopperMasks.HopperMotorDriveMask) != 0)
                 {
                     _coinOutState.Timer = HopperConsts.HopperEmptyTime;
-                    //_bus.Publish(new CoinOutEvent(new Coin() { Value = _tokenValue }));
+                    OnMessageReceived(new CoinOutStatus { Legal = true });
                     WriteConsoleMessage("****************HCD_COINOUT_EVENT*****************");
                     _currentCoinout++;
                     if (_currentCoinout >= _maxCoinoutAllowed)
@@ -159,11 +158,11 @@
                     _currentCoinout++;
                     if (_currentCoinout <= _maxCoinoutAllowed)
                     {
-                        //TBD_bus.Publish(new CoinOutEvent(new Coin() { Value = _tokenValue }));
+                        OnMessageReceived(new CoinOutStatus { Legal = true });
                     }
                     else
                     {
-                        //TBD_bus.Publish(new HardwareFaultEvent(HopperFaultTypes.IllegalCoinOut));
+                        OnMessageReceived(new CoinOutStatus { Legal = false });
                         WriteConsoleMessage("****************HCD_ILLEGAL_COINOUT_EVENT*****************");
                     }
                 }
@@ -175,7 +174,7 @@
                 _coinOutState.State = HopperTaskState.WaitingForReset;
                 _totalPauseCount = 0;
                 StopHopperMotor();
-                //TBD_bus.Publish(new HardwareFaultEvent(HopperFaultTypes.HopperJam));
+                OnMessageReceived(new HopperFaultStatus { FaultType  = HopperFaultTypes.HopperJam });
                 WriteConsoleMessage("****************HCD_JAMMED_EVENT*****************");
 
             }
@@ -225,7 +224,7 @@
                 _coinOutState.State = HopperTaskState.WaitingForReset;
                 _totalPauseCount = 0;
                 StopHopperMotor();
-                //TBD_bus.Publish(new HardwareFaultEvent(HopperFaultTypes.HopperDisconnected));
+                OnMessageReceived(new HopperFaultStatus { FaultType = HopperFaultTypes.HopperDisconnected });
                 WriteConsoleMessage("****************HCD_DISCONNECTED_EVENT*****************");
                 return true;
             }
@@ -399,7 +398,7 @@
                 if (!IsConnected())
                 {
                     _coinOutState.State = HopperTaskState.WaitingForReset;
-                    //TBD_bus.Publish(new HardwareFaultEvent(HopperFaultTypes.HopperDisconnected));
+                    OnMessageReceived(new HopperFaultStatus { FaultType = HopperFaultTypes.HopperDisconnected });
                     WriteConsoleMessage("****************HCD_DISCONNECTED_EVENT*****************");
                     _hopperState.IsConnected = false;
                 }

@@ -30,6 +30,12 @@
         public HopperFaultTypes Faults { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
 
+        /// <inheritdoc />
+        public event EventHandler<CoinOutEventType> CoinOutStatusReported;
+
+        /// <inheritdoc />
+        public event EventHandler<HopperFaultTypes> FaultOccurred;
+
         /// <inheritdoc/>
         public bool DisableHopper()
         {
@@ -98,5 +104,25 @@
             SendCommand(new DeviceReset());
         }
 
+        /// <summary>Called when a coin in report is received.</summary>
+        /// <param name="report">The report.</param>
+        protected virtual void StatusReported(CoinOutStatus report)
+        {
+            Logger.Debug($"CoinOutStatus: {report}");
+
+            PublishReport(report);
+            CoinOutStatusReported(this, report.Legal ?
+                CoinOutEventType.LegalCoinOut :
+                CoinOutEventType.IllegalCoinOut);
+        }
+
+        /// <summary>Called when a failure status report is received.</summary>
+        /// <param name="report">The report.</param>
+        protected virtual void HopperFaultReported(HopperFaultStatus report)
+        {
+            Logger.Debug($"FailureStatus: {report}");
+            PublishReport(report);
+            FaultOccurred(this, report.FaultType);
+        }
     }
 }
