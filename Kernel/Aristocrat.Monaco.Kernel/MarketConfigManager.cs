@@ -8,6 +8,7 @@ using System.Reflection;
 using log4net;
 using MarketConfig;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 
 /// <inheritdoc />
@@ -15,7 +16,7 @@ public sealed class MarketConfigManager: IMarketConfigManager
 {
     private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
-    private bool _serviceInitialized = false;
+    private bool _serviceInitialized;
 
     private MarketConfigManifest _marketConfigManifest;
 
@@ -23,8 +24,13 @@ public sealed class MarketConfigManager: IMarketConfigManager
 
     private readonly Dictionary<string, string> _segmentIdToModelClassMap = new();
 
+    /// <summary>
+    ///    Gets or sets the assembly containing the model objects. Primarily to be used for unit testing.
+    /// </summary>
+    public Assembly ModelObjectAssembly { get; set; } = Assembly.GetExecutingAssembly();
+
     /// <inheritdoc />
-    public string Name => "ConfigurationManager";
+    public string Name => "MarketConfigManager";
 
     /// <inheritdoc />
     public ICollection<Type> ServiceTypes => new[] { typeof(IMarketConfigManager) };
@@ -50,20 +56,26 @@ public sealed class MarketConfigManager: IMarketConfigManager
 
         _configurationLinkPath = configurationLinkPath;
 
-        // Parse the manifest.json file
-        var manifestJson = File.ReadAllText(Path.Combine(configurationLinkPath, "manifest.json"));
-        _marketConfigManifest = JsonConvert.DeserializeObject<MarketConfigManifest>(manifestJson, new JsonSerializerSettings
+        try
         {
-            ContractResolver = new CamelCasePropertyNamesContractResolver()
-        });
+            // Parse the manifest.json file
+            var manifestJson = File.ReadAllText(Path.Combine(configurationLinkPath, "manifest.json"));
+            _marketConfigManifest = JsonConvert.DeserializeObject<MarketConfigManifest>(
+                manifestJson,
+                new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
+        }
+        catch (Exception ex)
+        {
+            throw new MarketConfigException(ex);
+        }
 
         _serviceInitialized = true;
 
-        Logger.Debug($"Loaded {_marketConfigManifest.Jurisdictions.Count} jurisdictions from manifest.json");
+        Logger.Debug($"Loaded {_marketConfigManifest!.Jurisdictions.Count} jurisdictions from manifest.json");
 
         // Scan the assembly for classes decorated with MarketConfigSegmentAttribute and build a map of segment ID to
         // class name
-        Assembly.GetExecutingAssembly().GetExportedTypes()
+        ModelObjectAssembly.GetExportedTypes()
             .Where(t => t.GetCustomAttribute(typeof(MarketConfigSegmentAttribute), false) != null)
             .ToList()
             .ForEach(t =>
@@ -104,6 +116,8 @@ public sealed class MarketConfigManager: IMarketConfigManager
     /// <inheritdoc />
     public T GetMarketConfiguration<T>(string jurisdictionInstallationId)
     {
+        Logger.Debug("Getting market configuration for " + jurisdictionInstallationId + " for type " + typeof(T).FullName);
+
         if (!_serviceInitialized) throw new MarketConfigException("Service not initialized");
 
         var jurisdiction = GetMarketJurisdictionByInstallationId(jurisdictionInstallationId);
@@ -117,13 +131,21 @@ public sealed class MarketConfigManager: IMarketConfigManager
         }
 
         // Parse the json file and create the configuration model object
-        var json = File.ReadAllText(Path.Combine(_configurationLinkPath, filename));
-        var options = new JsonSerializerSettings
+        try
         {
-            ContractResolver = new CamelCasePropertyNamesContractResolver()
-        };
-        var config = JsonConvert.DeserializeObject<T>(json, options);
+            var json = File.ReadAllText(Path.Combine(_configurationLinkPath, filename));
+            var options = new JsonSerializerSettings
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver(),
+                Converters = new List<JsonConverter> { new StringEnumConverter { NamingStrategy = new CamelCaseNamingStrategy() } }
+            };
+            var config = JsonConvert.DeserializeObject<T>(json, options);
 
-        return config;
+            return config;
+        }
+        catch (Exception ex)
+        {
+            throw new MarketConfigException(ex);
+        }
     }
 }

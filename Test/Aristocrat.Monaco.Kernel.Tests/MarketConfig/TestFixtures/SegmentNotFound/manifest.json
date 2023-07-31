@@ -1,0 +1,12 @@
+{
+  "jurisdictions": [
+    {
+      "machineId": "test_jurisdiction",
+      "jurisdictionInstallationId": "Test Jurisdiction",
+      "label": "Test Jurisdiction",
+      "segments": {
+        "simple_test": "test_jurisdiction\\simple_test.json"
+      }
+    }
+  ]
+}
