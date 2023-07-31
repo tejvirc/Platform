@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Accounting.CoinAcceptor
+﻿namespace Aristocrat.Monaco.Accounting
 {
     using System;
     using System.Collections.Generic;
