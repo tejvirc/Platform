@@ -624,7 +624,7 @@
                     Visibility="{Binding ConfigureVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     Width="Auto"
                     AutomationProperties.AutomationId="Button71_FA38938A" />
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExtraSettingsButtonText}}"
+            <Button Content="{lex:Loc ExtraSettingsButtonText}"
                     Command="{Binding ExtraSettingsSetupCommand, Mode=OneWay}"
                     IsEnabled="{Binding ExtraSettingsEnabled, UpdateSourceTrigger=PropertyChanged}"
                     Visibility="{Binding ExtraSettingsVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}}"
