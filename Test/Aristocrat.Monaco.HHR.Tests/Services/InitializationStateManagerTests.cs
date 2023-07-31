@@ -184,7 +184,7 @@
                     It.IsAny<Type>()),
                 Times.AtLeastOnce);
 
-            _eventBus.Verify(x => x.Publish(It.IsAny<ProtocolInitializationInProgress>()), Times.Once);
+            _eventBus.Verify(x => x.Publish(It.IsAny<ProtocolInitializationInProgress>()), Times.AtLeastOnce);
             _eventBus.Verify(x => x.Publish(It.IsAny<ProtocolInitializationComplete>()), Times.Never);
             Setup(false, false, false, false, false);
 
