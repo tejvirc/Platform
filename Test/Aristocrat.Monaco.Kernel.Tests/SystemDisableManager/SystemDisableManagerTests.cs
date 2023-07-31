@@ -8,7 +8,6 @@
     using Test.Common;
     using SystemDisableManager = Kernel.SystemDisableManager;
 
-    
     [TestClass]
     public class SystemDisableManagerTests
     {

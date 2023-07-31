@@ -18,7 +18,6 @@
     using Moq;
     using Sas.VoucherValidation;
 
-    
     [TestClass]
     public class SecureEnhancedValidationHandlerTests
     {

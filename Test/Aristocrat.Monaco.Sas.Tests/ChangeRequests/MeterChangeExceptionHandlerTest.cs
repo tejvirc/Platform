@@ -55,7 +55,6 @@
     /// <summary>
     ///     Contains tests for MeterChangeExceptionHandlerTest
     /// </summary>
-    
     [TestClass]
     public class MeterChangeExceptionHandlerTest
     {

@@ -13,7 +13,6 @@
     using ServerApiGateway;
     using IMessage = Google.Protobuf.IMessage;
 
-    
     [TestClass]
     public class CommandServiceTests
     {

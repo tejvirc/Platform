@@ -16,7 +16,6 @@
     /// <summary>
     ///     This class contains tests for the SasPriorityExceptionQueue class
     /// </summary>
-    
     [TestClass]
     public class PriorityQueueTests
     {

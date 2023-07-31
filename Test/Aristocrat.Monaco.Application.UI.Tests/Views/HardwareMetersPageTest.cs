@@ -37,7 +37,6 @@
     /// <summary>
     ///     Summary description for HardwareMeterScreenTest
     /// </summary>
-    
     [TestClass]
     public class HardwareMetersPageViewModelTest
     {

@@ -14,7 +14,6 @@
     using PathMapper = Kernel.PathMapper;
 
     [TestClass]
-    
     public class PathMapperTests
     {
         private static readonly List<string> _unwantedFiles = new List<string> { "PlatformDirectories.addin.xml" };

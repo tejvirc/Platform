@@ -37,7 +37,6 @@
     /// <summary>
     ///     Provides tests for the MetersMainPage class
     /// </summary>
-    
     [TestClass]
     public class MainMetersPageViewModelTest
     {

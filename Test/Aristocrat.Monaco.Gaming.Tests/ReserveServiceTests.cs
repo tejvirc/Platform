@@ -12,7 +12,6 @@ namespace Aristocrat.Monaco.Gaming.Tests
     using Moq;
     using Test.Common;
 
-    
     [TestClass]
     public class ReserveServiceTests
     {

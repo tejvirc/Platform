@@ -19,7 +19,6 @@
     /// <summary>
     ///     Contains tests for LP6ESendAuthenticationInfoHandler
     /// </summary>
-    
     [TestClass]
     public class LP6ESendAuthenticationInfoHandlerTest
     {

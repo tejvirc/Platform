@@ -20,7 +20,6 @@
     using Moq;
     using Test.Common;
 
-    
     [TestClass]
     public class ChecksumCalculatorTest
     {

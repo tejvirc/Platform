@@ -190,7 +190,6 @@
         }
 
         [TestMethod]
-        
         public void RemapHandpayNoBarcodePrintCommandTest()
         {
             const string establishmentName = "My Casino";
@@ -249,7 +248,6 @@
         }
 
         [TestMethod]
-        
         public void RemapHandPayReceiptTest()
         {
             const string barCode = "123456789";

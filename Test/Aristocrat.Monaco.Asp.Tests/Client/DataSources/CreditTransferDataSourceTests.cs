@@ -16,7 +16,6 @@
     using Moq;
     using static Aristocrat.Monaco.Asp.Client.DataSources.LogicSealDataSource;
 
-    
     [TestClass]
     public class CreditTransferDataSourceTests
     {

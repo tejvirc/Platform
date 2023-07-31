@@ -12,7 +12,6 @@ using Aristocrat.Monaco.Kernel;
 
 namespace Aristocrat.Monaco.Hhr.Tests.Services
 {
-    
     [TestClass]
     public class PlayerSessionServiceTests
     {

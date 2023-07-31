@@ -14,7 +14,6 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
 
-    
     [TestClass]
     public class CentralManagerTests
     {
