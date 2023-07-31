@@ -816,12 +816,7 @@
 
         public static ValidationResult ValidateTextBoxValue(string text, ValidationContext context)
         {
-            SecurityConfigurationViewModel instance =  (SecurityConfigurationViewModel)context.ObjectInstance;
-
             var errors = "";
-
-            instance.ClearErrors(nameof(text));
-
             if (TooManyCharactersInTextBox(text)) // VLT-9004
             {
                 errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.StringTooLong);
