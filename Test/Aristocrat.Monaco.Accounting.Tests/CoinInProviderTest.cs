@@ -18,7 +18,7 @@
     using Test.Common;
 
     [TestClass]
-    public class CoinProviderTest
+    public class CoinInProviderTest
     {
         private const int RequestTimeoutLength = 1000; // It's in milliseconds
         private static readonly Guid RequestorId = new Guid("{EBB8B24C-771F-474A-8315-4F25DDBDBEA3}");
@@ -42,7 +42,7 @@
         private Mock<IMeter> _coinToHopperInsteadCashBoxCount;
         private Mock<IMeter> _currentHopperLevelCount;
         private Mock<IDisposable> _disposable;
-        private CoinProvider _target;
+        private CoinInProvider _target;
         private dynamic _accessor;
         private ITransaction _result;
         private Action<CoinInEvent> _onCoinInEvent;
@@ -219,7 +219,7 @@
 
             _onCoinToCashBoxEvent(new CoinToCashboxInEvent());
 
-            _transactionHistory.Verify(x => x.UpdateTransaction(It.IsAny<CoinTransaction>()), Times.Once);
+            _transactionHistory.Verify(x => x.UpdateTransaction(It.IsAny<CoinInTransaction>()), Times.Once);
             _scopedTransaction.Verify(x => x.Complete(), Times.Once);
         }
 
@@ -238,7 +238,7 @@
 
             _onCoinToCashBoxEvent(new CoinToCashboxInEvent());
 
-            _transactionHistory.Verify(x => x.UpdateTransaction(It.IsAny<CoinTransaction>()), Times.Never);
+            _transactionHistory.Verify(x => x.UpdateTransaction(It.IsAny<CoinInTransaction>()), Times.Never);
             _scopedTransaction.Verify(x => x.Complete(), Times.Never);
         }
 
@@ -258,7 +258,7 @@
 
             _onCoinToHopperEvent(new CoinToHopperInEvent());
 
-            _transactionHistory.Verify(x => x.UpdateTransaction(It.IsAny<CoinTransaction>()), Times.Once);
+            _transactionHistory.Verify(x => x.UpdateTransaction(It.IsAny<CoinInTransaction>()), Times.Once);
             _scopedTransaction.Verify(x => x.Complete(), Times.Once);
         }
 
@@ -277,7 +277,7 @@
 
             _onCoinToHopperEvent(new CoinToHopperInEvent());
 
-            _transactionHistory.Verify(x => x.UpdateTransaction(It.IsAny<CoinTransaction>()), Times.Never);
+            _transactionHistory.Verify(x => x.UpdateTransaction(It.IsAny<CoinInTransaction>()), Times.Never);
             _scopedTransaction.Verify(x => x.Complete(), Times.Never);
         }
 
@@ -298,7 +298,7 @@
 
             _onCoinToCashBoxInsteadHopperEvent(new CoinToCashboxInsteadOfHopperEvent());
 
-            _transactionHistory.Verify(x => x.UpdateTransaction(It.IsAny<CoinTransaction>()), Times.Once);
+            _transactionHistory.Verify(x => x.UpdateTransaction(It.IsAny<CoinInTransaction>()), Times.Once);
             _scopedTransaction.Verify(x => x.Complete(), Times.Once);
             _eventBus.Verify(x => x.Publish(It.IsAny<HardwareFaultEvent>()), Times.Once);
         }
@@ -320,7 +320,7 @@
 
             _onCoinToCashBoxInsteadHopperEvent(new CoinToCashboxInsteadOfHopperEvent());
 
-            _transactionHistory.Verify(x => x.UpdateTransaction(It.IsAny<CoinTransaction>()), Times.Never);
+            _transactionHistory.Verify(x => x.UpdateTransaction(It.IsAny<CoinInTransaction>()), Times.Never);
             _scopedTransaction.Verify(x => x.Complete(), Times.Never);
             _eventBus.Verify(x => x.Publish(It.IsAny<HardwareFaultEvent>()), Times.Never);
         }
@@ -343,7 +343,7 @@
 
             _onCoinToHopperInsteadCashBoxEvent(new CoinToHopperInsteadOfCashboxEvent());
 
-            _transactionHistory.Verify(x => x.UpdateTransaction(It.IsAny<CoinTransaction>()), Times.Once);
+            _transactionHistory.Verify(x => x.UpdateTransaction(It.IsAny<CoinInTransaction>()), Times.Once);
             _scopedTransaction.Verify(x => x.Complete(), Times.Once);
             _eventBus.Verify(x => x.Publish(It.IsAny<HardwareFaultEvent>()), Times.Once);
         }
@@ -365,7 +365,7 @@
 
             _onCoinToHopperInsteadCashBoxEvent(new CoinToHopperInsteadOfCashboxEvent());
 
-            _transactionHistory.Verify(x => x.UpdateTransaction(It.IsAny<CoinTransaction>()), Times.Never);
+            _transactionHistory.Verify(x => x.UpdateTransaction(It.IsAny<CoinInTransaction>()), Times.Never);
             _scopedTransaction.Verify(x => x.Complete(), Times.Never);
             _eventBus.Verify(x => x.Publish(It.IsAny<HardwareFaultEvent>()), Times.Never);
         }
@@ -376,9 +376,9 @@
             var coinInEvent = new CoinInEvent(coin);
             return coinInEvent;
         }
-        private CoinProvider GetTarget()
+        private CoinInProvider GetTarget()
         {
-            var target = new CoinProvider(
+            var target = new CoinInProvider(
                 _coinAcceptor.Object,
                 _bank.Object,
                 _transactionCoordinator.Object,
@@ -424,7 +424,7 @@
                    .Callback<object, Action<CoinToHopperInsteadOfCashboxEvent>>(
                        (tar, func) => { _onCoinToHopperInsteadCashBoxEvent = func; }).Verifiable();
 
-            _iidProvider.Setup(m => m.GetNextLogSequence<CoinTransaction>()).Returns(1);
+            _iidProvider.Setup(m => m.GetNextLogSequence<CoinInTransaction>()).Returns(1);
 
             var meterMock = new Mock<IMeter>(MockBehavior.Default);
             _meterManager.Setup(m => m.GetMeter(It.IsAny<string>())).Returns(meterMock.Object);
@@ -446,9 +446,9 @@
                 .Setup(m => m.RequestTransaction(RequestorId, RequestTimeoutLength, TransactionType.Write))
                 .Returns(TransactionId);
 
-            IReadOnlyCollection<CoinTransaction> emptyTrans =
-                new ReadOnlyCollection<CoinTransaction>(new[] { new CoinTransaction() });
-            _transactionHistory.Setup(m => m.RecallTransactions<CoinTransaction>()).Returns(emptyTrans);
+            IReadOnlyCollection<CoinInTransaction> emptyTrans =
+                new ReadOnlyCollection<CoinInTransaction>(new[] { new CoinInTransaction() });
+            _transactionHistory.Setup(m => m.RecallTransactions<CoinInTransaction>()).Returns(emptyTrans);
         }
 
         private void SetupStorage()
