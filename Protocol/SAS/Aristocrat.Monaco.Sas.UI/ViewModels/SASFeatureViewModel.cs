@@ -274,7 +274,14 @@
         public decimal AftTransferLimit
         {
             get => _aftTransferLimit;
-            set => SetProperty(ref _aftTransferLimit, value, true);
+            set
+            {
+                if (_maxAftTransferLimit > value && PreviousAftTransferLimit != value)
+                {
+                    PreviousAftTransferLimit = _aftTransferLimit;
+                }
+                SetProperty(ref _aftTransferLimit, value, true);
+            }
         }
 
         /// <summary>
