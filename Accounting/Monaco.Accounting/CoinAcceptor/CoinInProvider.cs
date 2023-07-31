@@ -17,7 +17,7 @@
     using log4net;
     
     [CLSCompliant(false)]
-    public sealed class CoinProvider : IService, IDisposable
+    public sealed class CoinInProvider : IService, IDisposable
     {
         private const int DIVERT_TOLERANCE = 5;
         private const int DeviceId = 1;
@@ -40,7 +40,7 @@
         private readonly IPropertiesManager _propertiesManager;
 
 
-        public CoinProvider()
+        public CoinInProvider()
             : this(
                 ServiceManager.GetInstance().TryGetService<ICoinAcceptor>(),
                 ServiceManager.GetInstance().GetService<IBank>(),
@@ -56,7 +56,7 @@
         }
 
         [CLSCompliant(false)]
-        public CoinProvider(
+        public CoinInProvider(
             ICoinAcceptor coinAcceptor,
             IBank bank,
             ITransactionCoordinator coordinator,
@@ -85,9 +85,9 @@
             _bus.UnsubscribeAll(this);
         }
 
-        public string Name => nameof(CoinProvider);
+        public string Name => nameof(CoinInProvider);
 
-        public ICollection<Type> ServiceTypes => new[] { typeof(CoinProvider) };
+        public ICollection<Type> ServiceTypes => new[] { typeof(CoinInProvider) };
 
         public void Initialize()
         {
@@ -110,25 +110,25 @@
                     typeof(CoinInCompletedEvent)));
         }
 
-        private CoinTransaction CreateCoinTransaction(int deviceId) =>
+        private CoinInTransaction CreateCoinTransaction(int deviceId) =>
             CreateCoinTransaction(
                 deviceId,
                 CoinInDetails.None,
                 CurrencyInExceptionCode.None);
 
-        private CoinTransaction CreateCoinTransaction(
+        private CoinInTransaction CreateCoinTransaction(
             int deviceId,
             CoinInDetails detailsCode,
             CurrencyInExceptionCode exceptionCode)
         {
-            return new CoinTransaction(
+            return new CoinInTransaction(
                 deviceId,
                 DateTime.UtcNow,
                 (int)detailsCode,
                 (int)exceptionCode);
         }
 
-        private bool Commit(Guid transactionId, CoinTransaction transaction, ICoin coin)
+        private bool Commit(Guid transactionId, CoinInTransaction transaction, ICoin coin)
         {
             using (var scope = _storage.ScopedTransaction())
             {
@@ -173,7 +173,7 @@
                 }
 
                 // Unique log sequence number assigned by the EGM; a series that strictly increases by 1 (one) starting at 1 (one).
-                transaction.LogSequence = _idProvider.GetNextLogSequence<CoinTransaction>();
+                transaction.LogSequence = _idProvider.GetNextLogSequence<CoinInTransaction>();
                 _transactions.AddTransaction(transaction);
 
                 scope.Complete();
@@ -201,7 +201,7 @@
             {
                 return;
             }
-            var transaction = _transactions.GetLast<CoinTransaction>();
+            var transaction = _transactions.GetLast<CoinInTransaction>();
             using (var scope = _storage.ScopedTransaction())
             {
                 transaction.Details = (int)CoinInDetails.CoinToCashBox;
@@ -222,7 +222,7 @@
             {
                 return;
             }
-            var transaction = _transactions.GetLast<CoinTransaction>();
+            var transaction = _transactions.GetLast<CoinInTransaction>();
             using (var scope = _storage.ScopedTransaction())
             {
                 transaction.Details = (int)CoinInDetails.CoinToHopper;
@@ -241,7 +241,7 @@
             {
                 return;
             }
-            var transaction = _transactions.GetLast<CoinTransaction>();
+            var transaction = _transactions.GetLast<CoinInTransaction>();
             using (var scope = _storage.ScopedTransaction())
             {
                 transaction.Details = (int)CoinInDetails.CoinToCashBoxInsteadHopper;
@@ -262,7 +262,7 @@
             {
                 return;
             }
-            var transaction = _transactions.GetLast<CoinTransaction>();
+            var transaction = _transactions.GetLast<CoinInTransaction>();
             using (var scope = _storage.ScopedTransaction())
             {
                 transaction.Details = (int)CoinInDetails.CoinToHopperInsteadCashBox;

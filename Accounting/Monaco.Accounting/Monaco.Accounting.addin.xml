@@ -36,7 +36,7 @@
     <Service type="Aristocrat.Monaco.Accounting.TransferOutHandler" />
     <Service type="Aristocrat.Monaco.Accounting.WatOnHandler" />
     <Service type="Aristocrat.Monaco.Accounting.CurrencyInProvider" />
-    <Service type="Aristocrat.Monaco.Accounting.CoinAcceptor.CoinProvider" />
+    <Service type="Aristocrat.Monaco.Accounting.CoinAcceptor.CoinInProvider" />
     <Service type="Aristocrat.Monaco.Accounting.NoteAcceptorActivityTimeWatcher" />
     <Service type="Aristocrat.Monaco.Accounting.VoucherInProvider" />
     <Service type="Aristocrat.Monaco.Accounting.CabinetSwapDetectionService" />

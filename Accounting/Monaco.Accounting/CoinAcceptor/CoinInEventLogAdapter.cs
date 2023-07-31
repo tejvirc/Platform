@@ -18,10 +18,10 @@
     /// <summary>
     ///     Log adapter for handling/transforming Coin events/transactions.
     /// </summary>
-    public class CoinEventLogAdapter : BaseEventLogAdapter, IEventLogAdapter
+    public class CoinInEventLogAdapter : BaseEventLogAdapter, IEventLogAdapter
 
     {
-        protected readonly ILog Logger = LogManager.GetLogger(typeof(CoinEventLogAdapter));
+        protected readonly ILog Logger = LogManager.GetLogger(typeof(CoinInEventLogAdapter));
 
         public string LogType => EventLogType.CoinIn.GetDescription(typeof(EventLogType));
 
@@ -39,7 +39,7 @@
 
             var transactionHistory = ServiceManager.GetInstance().GetService<ITransactionHistory>();
 
-            var coinTransactions = Enumerable.OrderByDescending(transactionHistory.RecallTransactions<CoinTransaction>(), x => x.TransactionId);
+            var coinTransactions = Enumerable.OrderByDescending(transactionHistory.RecallTransactions<CoinInTransaction>(), x => x.TransactionId);
             var events = (from transaction in coinTransactions
                           let additionalInfo = new[]{
                     (ResourceKeys.DenominationHeader, tokenValue.MillicentsToDollars().FormattedCurrencyString()),
@@ -64,7 +64,7 @@
         public long GetMaxLogSequence()
         {
             var transactionHistory = ServiceManager.GetInstance().GetService<ITransactionHistory>();
-            var coinTransactions = transactionHistory.RecallTransactions<CoinTransaction>()
+            var coinTransactions = transactionHistory.RecallTransactions<CoinInTransaction>()
                 .OrderByDescending(x => x.LogSequence).ToList();
             return coinTransactions.Any() ? coinTransactions.First().LogSequence : -1;
         }
