@@ -5023,7 +5023,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private void UpdateLcdButtonDeckVideo()
         {
-            if (_lobbyButtonDeckRenderer != null)
+            if (_lobbyButtonDeckRenderer != null && !IsGameVbdVisible)
             {
                 if (HasZeroCredits && IsPrimaryLanguageSelected)
                 {
