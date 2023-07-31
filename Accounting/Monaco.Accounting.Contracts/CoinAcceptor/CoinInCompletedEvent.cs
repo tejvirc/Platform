@@ -15,7 +15,7 @@
         /// <summary>
         ///     Initializes a new instance of the <see cref="CoinInCompletedEvent" /> class.
         /// </summary>
-        public CoinInCompletedEvent(ICoin coin, CoinTransaction transaction)
+        public CoinInCompletedEvent(ICoin coin, CoinInTransaction transaction)
         {
             CoinTransaction = transaction;
             Coin = coin;
@@ -36,7 +36,7 @@
         /// <summary>
         ///     Gets the transaction that was accepted.
         /// </summary>
-        public CoinTransaction CoinTransaction { get; }
+        public CoinInTransaction CoinTransaction { get; }
 
         /// <inheritdoc />
         public override string ToString()

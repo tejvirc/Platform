@@ -175,7 +175,7 @@ namespace Aristocrat.Monaco.Accounting
         {
             var logAdapterService = ServiceManager.GetInstance().GetService<ILogAdaptersService>();
             logAdapterService.RegisterLogAdapter(new BillEventLogAdapter());
-            logAdapterService.RegisterLogAdapter(new CoinEventLogAdapter());
+            logAdapterService.RegisterLogAdapter(new CoinInEventLogAdapter());
             logAdapterService.RegisterLogAdapter(new HandpayEventLogAdapter());
             logAdapterService.RegisterLogAdapter(new TransferInEventLogAdapter());
             logAdapterService.RegisterLogAdapter(new TransferOutEventLogAdapter());

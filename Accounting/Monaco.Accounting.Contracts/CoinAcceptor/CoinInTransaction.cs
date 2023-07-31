@@ -12,21 +12,21 @@
     ///     CoinTransaction defines the data necessary to store a coin.
     /// </summary>
     [Serializable]
-    public sealed class CoinTransaction : BaseTransaction, IEquatable<CoinTransaction>
+    public sealed class CoinInTransaction : BaseTransaction, IEquatable<CoinInTransaction>
     {
         /// <summary>
-        ///     Initializes a new instance of the <see cref="CoinTransaction" /> class.
+        ///     Initializes a new instance of the <see cref="CoinInTransaction" /> class.
         /// </summary>
-        public CoinTransaction()
+        public CoinInTransaction()
         {
         }
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="CoinTransaction" /> class.
+        ///     Initializes a new instance of the <see cref="CoinInTransaction" /> class.
         /// </summary>
         /// <param name="deviceId">Value to set as DeviceId.</param>
         /// <param name="transactionDateTime">Value to set as TransactionDateTime.</param>
-        public CoinTransaction(
+        public CoinInTransaction(
             int deviceId,
             DateTime transactionDateTime)
             : base(deviceId, transactionDateTime)
@@ -35,13 +35,13 @@
         }
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="CoinTransaction" /> class.
+        ///     Initializes a new instance of the <see cref="CoinInTransaction" /> class.
         /// </summary>
         /// <param name="deviceId">Value to set as DeviceId.</param>
         /// <param name="transactionDateTime">Value to set as TransactionDateTime.</param>
         /// <param name="details">Value to set as details code.</param>
         /// <param name="exception">An exception code</param>
-        public CoinTransaction(
+        public CoinInTransaction(
             int deviceId,
             DateTime transactionDateTime,
             int details,
@@ -82,7 +82,7 @@
         /// <param name="coinTransaction1">The first transaction</param>
         /// <param name="coinTransaction2">The second transaction</param>
         /// <returns>True if the object are equivalent, false otherwise.</returns>
-        public static bool operator ==(CoinTransaction coinTransaction1, CoinTransaction coinTransaction2)
+        public static bool operator ==(CoinInTransaction coinTransaction1, CoinInTransaction coinTransaction2)
         {
             if (ReferenceEquals(coinTransaction1, coinTransaction2))
             {
@@ -100,7 +100,7 @@
         /// <inheritdoc />
         public override bool Equals(object obj)
         {
-            return Equals(obj as CoinTransaction);
+            return Equals(obj as CoinInTransaction);
         }
 
         /// <summary>
@@ -109,7 +109,7 @@
         /// <param name="coinTransaction1">The first transaction</param>
         /// <param name="coinTransaction2">The second transaction</param>
         /// <returns>False if the object are equivalent, true otherwise.</returns>
-        public static bool operator !=(CoinTransaction coinTransaction1, CoinTransaction coinTransaction2)
+        public static bool operator !=(CoinInTransaction coinTransaction1, CoinInTransaction coinTransaction2)
         {
             return !(coinTransaction1 == coinTransaction2);
         }
@@ -169,7 +169,7 @@
         /// <inheritdoc />
         public override object Clone()
         {
-            return new CoinTransaction(DeviceId, TransactionDateTime, Details, Exception)
+            return new CoinInTransaction(DeviceId, TransactionDateTime, Details, Exception)
             {
                 LogSequence = LogSequence,
                 TransactionId = TransactionId,
@@ -182,11 +182,11 @@
         /// <summary>
         ///     Checks that two CoinTransaction are the same by value.
         /// </summary>
-        /// <param name="coinTransaction">The transaction to check against.</param>
+        /// <param name="other">The transaction to check against.</param>
         /// <returns>True if they are the same, false otherwise.</returns>
-        public bool Equals(CoinTransaction coinTransaction)
+        public bool Equals(CoinInTransaction other)
         {
-            return base.Equals(coinTransaction);
+            return base.Equals(other);
         }
     }
 }
