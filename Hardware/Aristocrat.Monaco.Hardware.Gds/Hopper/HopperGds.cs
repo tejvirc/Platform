@@ -27,7 +27,7 @@
         }
 
         /// <inheritdoc/>
-        public HopperFaultTypes Faults { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public HopperFaultTypes Faults { get; set; }
 
 
         /// <inheritdoc />

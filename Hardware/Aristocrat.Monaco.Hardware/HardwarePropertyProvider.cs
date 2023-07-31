@@ -34,10 +34,6 @@
             _properties = new Dictionary<string, Tuple<object, bool>>
             {
                 {
-                    HardwareConstants.HardMetersEnabledKey,
-                    Tuple.Create((object)InitFromStorage<bool>(HardwareConstants.HardMetersEnabledKey), true)
-                },
-                {
                     HardwareConstants.Display1, Tuple.Create(
                         (object)InitFromStorage<string>(HardwareConstants.Display1) ??
                         defaultProvider.GetValue<string>(HardwareConstants.Display1, null),
