@@ -122,7 +122,7 @@
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;bool&gt; Synchronize(ReelSynchronizationData data, CancellationToken token)</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;bool&gt; Synchronize(ReelSynchronizationData syncData, CancellationToken token = default(CancellationToken))</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -130,7 +130,7 @@
     <tr>
       <td>
         <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData.ReelSynchronizationData.html">ReelSynchronizationData</a></span>
-        <span class="parametername">data</span>
+        <span class="parametername">syncData</span>
         <p><p>The synchronization data.</p>
 </p>
       </td>
