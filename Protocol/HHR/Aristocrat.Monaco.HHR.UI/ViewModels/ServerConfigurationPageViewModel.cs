@@ -84,7 +84,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
             }
         }
 
-        [CustomValidation(typeof(ServerConfigurationPageViewModel), nameof(ValidateNetworkAddress))]
+        [CustomValidation(typeof(ServerConfigurationPageViewModel), nameof(ValidateIpAddress))]
         public string IpAddress
         {
             get => _ipAddress;
@@ -202,7 +202,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
             HhrConstants.AutoPickMode
         };
 
-        public static ValidationResult ValidateNetworkAddress(string address, ValidationContext context)
+        public static ValidationResult ValidateIpAddress(string address, ValidationContext context)
         {
             var errors = "";
 
