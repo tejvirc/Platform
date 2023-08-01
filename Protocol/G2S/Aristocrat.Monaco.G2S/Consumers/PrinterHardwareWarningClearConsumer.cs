@@ -48,7 +48,6 @@
 
             var status = new printerStatus();
             _commandBuilder.Build(printer, status);
-            printer.Enabled = false;
 
             foreach (PrinterWarningTypes value in Enum.GetValues(typeof(PrinterFaultTypes)))
             {
