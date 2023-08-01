@@ -198,6 +198,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private bool _serviceButtonVisible;
         private bool _volumeButtonVisible;
         private bool _overlimitCashoutProcessed;
+        private bool _playerCashoutProcessed;
         private string _bottomAttractVideoPath;
         private double _chooseGameOffsetY;
         private double _cashoutDialogOpacity;
