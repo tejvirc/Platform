@@ -316,6 +316,11 @@
 
         private void HandleEvent(OperatorMenuExitedEvent evt)
         {
+            if (!IsCalibrating)
+            {
+                return;
+            }
+
             Logger.Info("Operator Menu exited -- Touch calibration cancelled.");
 
             FinalizeCalibration(true, "Touch calibration aborted via exit Operator Menu.");
