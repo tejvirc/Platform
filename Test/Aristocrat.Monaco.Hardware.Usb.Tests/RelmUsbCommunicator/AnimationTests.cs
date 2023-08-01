@@ -1,9 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Usb.Tests.RelmUsbCommunicator
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using Aristocrat.Monaco.Application.Contracts.Localization;
     using Aristocrat.Monaco.Test.Common;
     using Contracts;
     using Contracts.Reel;
@@ -52,6 +54,7 @@
         [TestMethod]
         public async Task LoadedAnimationsShouldBeInCollectionTest()
         {
+            SetupMocks();
             var driver = new Mock<RelmReels.Communicator.IRelmCommunicator>();
             driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength)));
@@ -69,6 +72,7 @@
         [TestMethod]
         public async Task DuplicateAnimationsShouldNotBeInCollectionTest()
         {
+            SetupMocks();
             var driver = new Mock<RelmReels.Communicator.IRelmCommunicator>();
             driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength)));
@@ -76,7 +80,7 @@
                 .Returns(Task.FromResult(true));
             var usbCommunicator = new RelmUsbCommunicator(driver.Object, null, _propertiesManager.Object);
 
-            await usbCommunicator.LoadAnimationFiles(new[] {_namedAnimationFile, _namedAnimationFile});
+            await usbCommunicator.LoadAnimationFiles(new[] {_namedAnimationFile, _namedAnimationFile}, new Progress<LoadingAnimationFileModel>());
 
             Assert.AreEqual(usbCommunicator.AnimationFiles.Count, 1);
             Assert.AreEqual(usbCommunicator.AnimationFiles.First().FriendlyName, FriendlyName);
@@ -103,6 +107,7 @@
         [TestMethod]
         public async Task AnimationCollectionShouldBeEmptyAfterRemoveTest()
         {
+            SetupMocks();
             var driver = new Mock<RelmReels.Communicator.IRelmCommunicator>();
             driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(new StoredFile(string.Empty, AnimationId, FileLength)));
@@ -167,6 +172,7 @@
         [TestMethod]
         public async Task LightShowPrepareAnimationsFailsWhenOneNotLoaded()
         {
+            SetupMocks();
             var driver = new Mock<RelmReels.Communicator.IRelmCommunicator>();
             driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength)));
@@ -187,6 +193,7 @@
         [DataRow(false)]
         public async Task LightShowPrepareAnimationReturnsControllerResult(bool controllerResult)
         {
+            SetupMocks();
             var driver = new Mock<RelmReels.Communicator.IRelmCommunicator>();
             driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength)));
@@ -204,6 +211,7 @@
         [TestMethod]
         public async Task CurvePrepareAnimationsFailsWhenOneNotLoaded()
         {
+            SetupMocks();
             var driver = new Mock<RelmReels.Communicator.IRelmCommunicator>();
             driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength)));
@@ -224,6 +232,7 @@
         [DataRow(false)]
         public async Task CurvePrepareAnimationReturnsControllerResult(bool controllerResult)
         {
+            SetupMocks();
             var driver = new Mock<RelmReels.Communicator.IRelmCommunicator>();
             driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength)));
@@ -236,6 +245,17 @@
             var result = await usbCommunicator.PrepareAnimation(_curve1);
 
             Assert.AreEqual(controllerResult, result);
+        }
+
+        private void SetupMocks()
+        {
+            MoqServiceManager.CreateInstance(MockBehavior.Default);
+            var disableManager = MoqServiceManager.CreateAndAddService<ISystemDisableManager>(MockBehavior.Default);
+            var localizerFactory = MoqServiceManager.CreateAndAddService<ILocalizerFactory>(MockBehavior.Default);
+            localizerFactory.Setup(x => x.For(It.IsAny<string>())).Returns(new Mock<ILocalizer>().Object);
+            var localizer = new Mock<ILocalizer>();
+            localizer.Setup(x => x.GetString(It.IsAny<string>())).Returns("empty");
+            localizerFactory.Setup(x => x.For(It.IsAny<string>())).Returns(localizer.Object);
         }
     }
 }

@@ -196,6 +196,8 @@
 
         public int[] MechanicalReelHomeSteps { get; set; }
 
+        public IEnumerable<AnimationFile> PreloadedAnimationFiles { get; set; }
+
         public IEnumerable<ISubGameDetails> SupportedSubGames { get; set; }
 
         public IEnumerable<ISubGameDetails> ActiveSubGames { get; set; }

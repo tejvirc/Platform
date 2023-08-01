@@ -355,6 +355,11 @@
         public static Guid ReelCountMismatchDisableKey => new("{0C45B33C-BA5A-4363-8337-935CB69F151F}");
 
         /// <summary>
+        ///     Key used to disable the system while loading animation files to the reel controller
+        /// </summary>
+        public static Guid ReelLoadingAnimationFilesDisableKey => new("{5EF31199-D255-4428-8327-630046BC6394}");
+
+        /// <summary>
         ///     Key used to disable the system when the reel controller is disconnected
         /// </summary>
         public static readonly Guid ReelControllerDisconnectedGuid = new Guid("{47402BA4-420B-4E89-936A-385D760B53C3}");

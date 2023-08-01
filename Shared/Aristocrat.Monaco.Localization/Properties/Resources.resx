@@ -12332,4 +12332,8 @@ Do you really want to do full reset?</value>
     <value>VERTEX ID</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
+  <data name="ReelController_LoadingAnimationFile" xml:space="preserve">
+    <value>Loading Animation File {0}</value>
+    <comment>Aristocrat.Monaco.Gaming</comment>
+  </data>  
 </root>

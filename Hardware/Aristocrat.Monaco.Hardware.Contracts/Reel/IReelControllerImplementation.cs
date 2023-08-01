@@ -57,10 +57,9 @@
         IReadOnlyDictionary<int, ReelStatus> ReelStatuses { get; }
 
         /// <summary>
-        ///     Homes the reels to the requested stop
+        ///     Gets the default home step for the controller
         /// </summary>
-        /// <returns>Whether or not the reels were homed</returns>
-        Task<bool> HomeReels();
+        int DefaultHomeStep { get; }
 
         /// <summary>
         ///     Homes the reel to the requested stop

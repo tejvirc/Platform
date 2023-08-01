@@ -35,6 +35,7 @@
     internal class RelmUsbCommunicator : IRelmCommunicator
     {
         private const ReelControllerFaults PingTimeoutFault = ReelControllerFaults.CommunicationError;
+        private const int DefaultHomeStepValue = 5;
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IEventBus _eventBus;
@@ -159,6 +160,9 @@
         public int DefaultReelBrightness { get; set; }
 
         /// <inheritdoc />
+        public int DefaultHomeStep => DefaultHomeStepValue;
+
+        /// <inheritdoc />
         public void Dispose()
         {
             Dispose(true);
@@ -236,34 +240,42 @@
         /// <inheritdoc />
         public Task<bool> LoadAnimationFile(AnimationFile file, CancellationToken token = default)
         {
-            return LoadAnimationFiles(new[] { file }, token);
+            return LoadAnimationFiles(new[] { file }, null, token);
         }
 
         /// <inheritdoc />
-        public async Task<bool> LoadAnimationFiles(IEnumerable<AnimationFile> files, CancellationToken token = default)
+        public async Task<bool> LoadAnimationFiles(IEnumerable<AnimationFile> files, IProgress<LoadingAnimationFileModel> progress, CancellationToken token = default)
         {
             if (_relmCommunicator is null)
             {
                 return false;
             }
 
+            var animationFilesLoaded = 0;
             var animationFiles = files as AnimationFile[] ?? files.ToArray();
-            Logger.Debug($"Downloading {animationFiles.Length} Animation files");
+            var loadingAnimationFileModel = new LoadingAnimationFileModel();
+            Logger.Debug($"Checking {animationFiles.Length} animation files to download");
 
-            var success = true;
+            var count = 1;
             foreach (var file in animationFiles)
             {
                 if (_animationFiles.Contains(file))
                 {
-                    Logger.Debug($"Animation file already loaded: {file.Path}");
+                    Logger.Debug($"Animation file already downloaded: {file.Path}");
                     continue;
                 }
+
+                loadingAnimationFileModel.Count = count;
+                loadingAnimationFileModel.Total = animationFiles.Length;
+                loadingAnimationFileModel.Filename = Path.GetFileName(file.Path);
 
                 try
                 {
                     if (!_propertiesManager.GetValue(HardwareConstants.DoNotResetRelmController, false))
                     {
-                        Logger.Debug($"Downloading Animation file: {file.Path}");
+                        Logger.Debug($"Downloading animation file {loadingAnimationFileModel.Count + "/" + loadingAnimationFileModel.Total} {file.Path}");
+                        loadingAnimationFileModel.State = LoadingAnimationState.Loading;
+                        progress?.Report(loadingAnimationFileModel);
                         var storedFile = await _relmCommunicator.Download(file.Path, BitmapVerification.CRC32, token);
                         file.AnimationId = storedFile.FileId;
                     }
@@ -274,17 +286,30 @@
                     }
 
                     _animationFiles.Add(file);
+                    animationFilesLoaded++;
                 }
                 catch (Exception e)
                 {
-                    success = false;
-                    Logger.Debug($"Error downloading {file}: {e}");
+                    Logger.Error($"Error while loading animation file  {loadingAnimationFileModel.Count + "/" + loadingAnimationFileModel.Total} {loadingAnimationFileModel.Filename}: {e}");
+                    loadingAnimationFileModel.State = LoadingAnimationState.Error;
+                    progress?.Report(loadingAnimationFileModel);
+                    return false;
                 }
 
-                Logger.Debug($"Finished downloading animation file: [{file.Path}], Name: {file.FriendlyName}, AnimationId: {file.AnimationId}");
+                Logger.Debug($"Finished downloading animation file {count} of {animationFiles.Length}: [{file.Path}], Name: {file.FriendlyName}, AnimationId: {file.AnimationId}");
+                count++;
             }
 
-            return success;
+            if (animationFilesLoaded <= 0)
+            {
+                return true;
+            }
+
+            Logger.Debug($"Completed downloading {animationFilesLoaded} animation files");
+            loadingAnimationFileModel.State = LoadingAnimationState.Completed;
+            progress?.Report(loadingAnimationFileModel);
+
+            return true;
         }
 
         /// <inheritdoc />
@@ -594,13 +619,10 @@
                 return Task.FromResult(false);
             }
 
-            // TODO: Use proper home positions and number of reels
-            var defaultHomeStep = 5;
             var homeData = new List<short>();
-
             for (int i = 0; i < ReelCount; i++)
             {
-                homeData.Add((short)(defaultHomeStep + _reelOffsets[i]));
+                homeData.Add((short)(DefaultHomeStep + _reelOffsets[i]));
             }
 
             _relmCommunicator?.SendCommandAsync(new HomeReels(homeData));

@@ -231,5 +231,10 @@
         ///     Specifies that a game uses the next-to-highest bet-multiplier when calculating its Top Award.
         /// </summary>
         public bool NextToMaxBetTopAwardMultiplier { get; set; }
+
+        /// <summary>
+        ///     Gets for sets the animation files to pre-load.
+        /// </summary>
+        public IEnumerable<AnimationFile> PreloadedAnimationFiles { get; set; }
     }
 }
