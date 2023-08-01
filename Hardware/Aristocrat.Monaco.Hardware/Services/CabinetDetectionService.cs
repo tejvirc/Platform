@@ -2,10 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Reflection;
     using System.Text.RegularExpressions;
     using System.Windows.Input;
+    using System.Xml;
     using Cabinet;
     using Cabinet.Contracts;
     using Common;
@@ -32,7 +34,7 @@
         private readonly List<(IDisplayDevice, ITouchDevice)> _displayToTouchMappings = new List<(IDisplayDevice, ITouchDevice)>();
         private IPersistentStorageAccessor _accessor;
         private ICabinet _cabinet = new Cabinet();
-        
+
         private readonly List<DisplayRole> _displayOrderInCabinet = new List<DisplayRole>
         {
             DisplayRole.Topper,
@@ -140,7 +142,7 @@
         public bool IsDisplayExpectedAndConnected(DisplayRole role)
         {
             var display = GetDisplayDeviceByItsRole(role);
-            return display != null && display.Status == DeviceStatus.Connected;
+            return display is { Status: DeviceStatus.Connected };
         }
 
         public CabinetType Type
@@ -253,7 +255,7 @@
                     var expectedDisplayDevicesWithSerialTouch = new List<IDisplayDevice>();
                     expectedDisplayDevicesWithSerialTouch.Add(mainDisplayDevice);
                     ExpectedDisplayDevicesWithSerialTouch = expectedDisplayDevicesWithSerialTouch;
- 
+
                     // Try to get serial touch model and firmware
                     if (serialTouchService != null && serialTouchService.Initialized)
                     {
@@ -307,8 +309,8 @@
                 // If missing some displays (developer mode) then we return true for success but with an empty mappings collection.
                 if (!ExpectedDisplayDevices.Any() || !ExpectedTouchDevices.Any())
                 {
-                     Logger.Debug($"MapTouchscreens - ExpectedDisplayDevices.Any() {ExpectedDisplayDevices.Any()} ExpectedTouchDevices.Any() {ExpectedTouchDevices.Any()}, returning TouchscreensMapped TRUE");
-                     return TouchscreensMapped = true;
+                    Logger.Debug($"MapTouchscreens - ExpectedDisplayDevices.Any() {ExpectedDisplayDevices.Any()} ExpectedTouchDevices.Any() {ExpectedTouchDevices.Any()}, returning TouchscreensMapped TRUE");
+                    return TouchscreensMapped = true;
                 }
 
                 // Persist if requested
@@ -374,6 +376,8 @@
 
         public ICollection<Type> ServiceTypes => new[] { typeof(ICabinetDetectionService) };
 
+        public bool IsSimulatedCabinet { get; private set; }
+
         public void Initialize()
         {
             Logger.Info("Initializing");
@@ -382,6 +386,9 @@
             if (string.IsNullOrEmpty(CabinetXml))
             {
                 _cabinet = _cabinetManager.IdentifiedCabinet.First();
+
+                CheckForSimulationOverride();
+
                 CabinetXml = _cabinet.ToXml();
                 Logger.Info($"Persisted cabinet null or empty. Detected cabinet :- {CabinetXml}");
             }
@@ -404,5 +411,124 @@
                 ? _storageManager.GetBlock(blockName)
                 : _storageManager.CreateBlock(PersistenceLevel.Transient, blockName, 1);
         }
+
+        private void CheckForSimulationOverride()
+        {
+#if !RETAIL
+            var cabinet = (Cabinet)_cabinet;
+            var simCabinetType = (string)_propertiesManager.GetProperty("simulateCabinet", string.Empty);
+            IsSimulatedCabinet = !string.IsNullOrEmpty(simCabinetType);
+            Logger.Debug($"simulateCabinet={simCabinetType}");
+
+            if (!IsSimulatedCabinet)
+            {
+                return;
+            }
+
+            CabinetType newCabinetType;
+            if (!Enum.TryParse(simCabinetType, out newCabinetType))
+            {
+                return;
+            }
+
+            cabinet.CabinetType = newCabinetType;
+            Logger.Debug("Set cabinet type");
+
+            // look for Main display
+            var cabinetDllPath = Path.Combine(Environment.CurrentDirectory, "Aristocrat.Cabinet.dll");
+            var cabinetAssembly = Assembly.LoadFile(cabinetDllPath);
+            Logger.Debug("Loaded cab assy");
+
+            var xmlCabinetsStream = cabinetAssembly.GetManifestResourceStream("Aristocrat.Cabinet.xml.CabinetDefinitions.xml");
+            var xmlCabinetsDoc = new XmlDocument();
+            xmlCabinetsDoc.Load(xmlCabinetsStream);
+            var peripherals = xmlCabinetsDoc.SelectNodes($"//cabinets/cabinet[@name='{simCabinetType}']/peripherals/peripheral").Cast<XmlNode>();
+            Logger.Debug($"Found {peripherals.Count()} peripherals from cab node");
+
+            var xmlPeripheralsStream = cabinetAssembly.GetManifestResourceStream("Aristocrat.Cabinet.xml.Peripherals.xml");
+            var xmlPeripheralsDoc = new XmlDocument();
+            xmlPeripheralsDoc.Load(xmlPeripheralsStream);
+
+            XmlNode desiredTopDisplay = null;
+
+            foreach (var peripheral in peripherals)
+            {
+                var peripheralId = int.Parse(peripheral.Attributes["id"].Value);
+                var displayNode = xmlPeripheralsDoc.SelectSingleNode($"//Peripherals/Display[@Id='{peripheralId}'][@Role='Top']");
+                if (displayNode != null)
+                {
+                    desiredTopDisplay = displayNode;
+                    continue;
+                }
+
+                displayNode = xmlPeripheralsDoc.SelectSingleNode($"//Peripherals/Display[@Id='{peripheralId}'][@Role='Main']");
+                if (displayNode is null)
+                {
+                    Logger.Debug($"peripheral node didn't qualify: {peripheral.OuterXml}");
+                    continue;
+                }
+
+                Logger.Debug("found Main display from cab assy");
+                var desiredRotation = (DisplayRotation) Enum.Parse(typeof(DisplayRotation), displayNode.SelectSingleNode("Rotation").InnerText);
+                var isPivot = desiredRotation == DisplayRotation.Degrees90 || desiredRotation == DisplayRotation.Degrees270;
+
+                var resolution = displayNode.SelectSingleNode("Resolution");
+                var desiredWidth = int.Parse(resolution.Attributes[isPivot ? "Y" : "X"].InnerText);
+                var desiredHeight = int.Parse(resolution.Attributes[isPivot ? "X" : "Y"].InnerText);
+                Logger.Debug($"pivot?{isPivot} WxH={desiredWidth}x{desiredHeight}");
+
+                var actualMainDisplay = _cabinet.IdentifiedDevices
+                    .Where(d => d.DeviceType == DeviceType.Display)
+                    .Cast<IDisplayDevice>()
+                    .FirstOrDefault(t => t.Role == DisplayRole.Main);
+                if (actualMainDisplay == null)
+                {
+                    continue;
+                }
+                Logger.Debug($"actual main display {actualMainDisplay.Resolution.X}x{actualMainDisplay.Resolution.Y}");
+                ((DisplayDevice)actualMainDisplay).RotationValue = 0;
+
+                // Desire portrait but won't fit?
+                if (desiredHeight > desiredWidth &&
+                    (desiredHeight > actualMainDisplay.Resolution.Y ||
+                    desiredWidth > actualMainDisplay.Resolution.X))
+                {
+                    var scale = Math.Min(
+                        (double)actualMainDisplay.Resolution.Y / desiredHeight,
+                        (double)actualMainDisplay.Resolution.X / desiredWidth);
+                    Logger.Debug($"scale by {scale}");
+                    var newResolution = new Resolution
+                    {
+                        X = (int)(scale * (isPivot ? actualMainDisplay.Resolution.Y : actualMainDisplay.Resolution.X)),
+                        Y = (int)(scale * (isPivot ? actualMainDisplay.Resolution.X : actualMainDisplay.Resolution.Y))
+                    };
+                    Logger.Debug($"new resolution = {newResolution.X}x{newResolution.Y}");
+
+                    ((DisplayDevice)actualMainDisplay).Resolution = newResolution;
+
+                    _propertiesManager.SetProperty(Constants.WindowedScreenWidthPropertyName, newResolution.X.ToString());
+                    _propertiesManager.SetProperty(Constants.WindowedScreenHeightPropertyName, newResolution.Y.ToString());
+                }
+
+                break;
+            }
+
+            if (desiredTopDisplay == null)
+            {
+                // remove identified Top monitor if true cabinet description has none.
+                var actualTopDisplay = _cabinet.IdentifiedDevices
+                    .Where(d => d.DeviceType == DeviceType.Display)
+                    .Cast<IDisplayDevice>()
+                    .FirstOrDefault(t => t.Role == DisplayRole.Top);
+                if (actualTopDisplay != null)
+                {
+                    _cabinet.IdentifiedDevices.Remove(actualTopDisplay);
+                    Logger.Debug("removed actual top display as not desired");
+                }
+            }
+
+            Logger.Debug("done");
+        }
+#endif
     }
 }

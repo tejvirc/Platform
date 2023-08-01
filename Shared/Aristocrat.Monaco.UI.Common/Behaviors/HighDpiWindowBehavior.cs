@@ -126,6 +126,14 @@
 
         private void ProcessWindowDpi(Window window)
         {
+            var properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+            var simulateWindowRectString = (string)properties.GetProperty("Main", string.Empty);
+            if (!string.IsNullOrEmpty(simulateWindowRectString))
+            {
+                Logger.Debug($"Don't do HighDpi on '{window.Title}'");
+                return;
+            }
+
             _scale = CalculateScale(TargetResolutionWidth, TargetResolutionHeight, _screenWidth, _screenHeight);
 
             // Adjust scale to compensate for any DPI scaling the operating system is doing

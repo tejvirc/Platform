@@ -7,6 +7,7 @@
     using System.Windows;
     using System.Windows.Forms;
     using Hardware.Contracts.Display;
+    using Monaco.Common;
 
     public sealed partial class StatusDisplayView : IDisposable
     {
@@ -108,10 +109,10 @@
                 // check if the user set the display property on the bootstrap command line.
                 var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
                 Width = int.Parse(
-                    (string)propertiesManager.GetProperty(WindowedScreenWidthPropertyName, DefaultWindowedWidth),
+                    (string)propertiesManager.GetProperty(Constants.WindowedScreenWidthPropertyName, DefaultWindowedWidth),
                     CultureInfo.CurrentCulture);
                 Height = int.Parse(
-                    (string)propertiesManager.GetProperty(WindowedScreenHeightPropertyName, DefaultWindowedHeight),
+                    (string)propertiesManager.GetProperty(Constants.WindowedScreenHeightPropertyName, DefaultWindowedHeight),
                     CultureInfo.CurrentCulture);
             }
             else

@@ -17,16 +17,6 @@
         public static readonly string DefaultWindowedWidth = "1920";
 
         /// <summary>
-        ///     The property name from command line arguments for the windowed screen width
-        /// </summary>
-        public static readonly string WindowedScreenWidthPropertyName = "width";
-
-        /// <summary>
-        ///     The property name from command line arguments for the windowed screen height
-        /// </summary>
-        public static readonly string WindowedScreenHeightPropertyName = "height";
-
-        /// <summary>
         ///     Gets the release target screen size in pixels. Modify this value in the ResourceLibrary.xaml file.
         /// </summary>
         public int TargetScreenHeight { get; private set; }
@@ -44,6 +34,12 @@
             get
             {
                 var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+                var simulatedCabinet = (string)propertiesManager.GetProperty("simulateCabinet", string.Empty);
+                if (!string.IsNullOrEmpty(simulatedCabinet))
+                {
+                    return true;
+                }
+
                 var display = ((string)propertiesManager.GetProperty(
                     Constants.DisplayPropertyKey,
                     Constants.DisplayPropertyFullScreen))
@@ -58,7 +54,7 @@
         {
             if (Resources != null)
             {
-                TargetScreenHeight = (int)(Resources["TargetScreenHeight"] ?? 1080);
+                TargetScreenHeight = (int)(Resources["TargetScreenHeight"] ?? int.Parse(DefaultWindowedHeight));
             }
 
             base.OnInitialized(e);

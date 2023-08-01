@@ -8,9 +8,9 @@ namespace Aristocrat.Monaco.Application.UI.Views
     using Cabinet.Contracts;
     using Kernel;
     using Kernel.Contracts;
+    using Monaco.Common;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common;
-    using MVVM;
 
     /// <summary>
     ///     Interaction logic for InspectionWindow.xaml
@@ -67,21 +67,21 @@ namespace Aristocrat.Monaco.Application.UI.Views
                 // check if the user set the display property on the bootstrap command line.
                 Height = int.Parse(
                     (string)propertyManager.GetProperty(
-                        BaseWindow.WindowedScreenHeightPropertyName,
+                        Constants.WindowedScreenHeightPropertyName,
                         BaseWindow.DefaultWindowedHeight),
                     CultureInfo.InvariantCulture);
                 Width = int.Parse(
                     (string)propertyManager.GetProperty(
-                        BaseWindow.WindowedScreenWidthPropertyName,
+                        Constants.WindowedScreenWidthPropertyName,
                         BaseWindow.DefaultWindowedWidth),
                     CultureInfo.InvariantCulture);
             }
             else
             {
                 ResizeMode = ResizeMode.NoResize;
-
-                _screenMapper.MapWindow(this);
             }
+
+            _screenMapper.MapWindow(this);
 
             Activate();
         }

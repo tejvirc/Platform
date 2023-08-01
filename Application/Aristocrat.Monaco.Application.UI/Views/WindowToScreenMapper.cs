@@ -15,7 +15,7 @@
 
     public class WindowToScreenMapper
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
         private readonly IDisplayDevice _device;
         private readonly DisplayRole _role;
@@ -73,12 +73,22 @@
         /// <returns>The screen bounds. The origin point is at the top left of the virtual screen space (composed of all screens).</returns>
         public static Rectangle GetScreenBounds(Screen screen)
         {
-            var ratio = screen.Primary
+            var isSimulate = ServiceManager.GetInstance().GetService<ICabinetDetectionService>().IsSimulatedCabinet;
+            var properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+            var baseWidth = isSimulate
+                ? int.Parse((string)properties.GetProperty(Constants.WindowedScreenWidthPropertyName, "1920"))
+                : Screen.PrimaryScreen.Bounds.Width;
+            var baseHeight = isSimulate
+                ? int.Parse((string)properties.GetProperty(Constants.WindowedScreenHeightPropertyName, "1080"))
+                : Screen.PrimaryScreen.Bounds.Height;
+
+            var ratio = screen.Primary && !isSimulate
                 ? 1.0
                 : Math.Max(
-                    Screen.PrimaryScreen.Bounds.Width / SystemParameters.PrimaryScreenWidth,
-                    Screen.PrimaryScreen.Bounds.Height / SystemParameters.PrimaryScreenHeight);
-            var rect = screen.Primary
+                    baseWidth / SystemParameters.PrimaryScreenWidth,
+                    baseHeight / SystemParameters.PrimaryScreenHeight);
+            var rect = isSimulate ? new Rectangle(0, 0, baseWidth, baseHeight)
+                : screen.Primary
                 ? new Rectangle(
                     0,
                     0,
@@ -123,7 +133,7 @@
             }
 
             var isCorrectScreen = TryGetScreenForDisplayDevice(_device, out var screen);
-            if (!isCorrectScreen)
+            if (!isCorrectScreen && IsFullscreen)
             {
                 Logger.Error($"Invalid arguments for role: {_role} screen is null.");
                 return;
@@ -194,14 +204,18 @@
 
         private static void SetWindowMode(Window window, Screen screen)
         {
+            var simulateCabinet = ServiceManager.GetInstance().GetService<ICabinetDetectionService>().IsSimulatedCabinet;
+
             window.ResizeMode = ResizeMode.CanResize;
-            window.WindowStyle = window.AllowsTransparency ? WindowStyle.None : WindowStyle.SingleBorderWindow;
+            window.WindowStyle = window.AllowsTransparency || simulateCabinet ? WindowStyle.None : WindowStyle.SingleBorderWindow;
 
             var rect = GetScreenBounds(screen);
+            Logger.Debug($"SetWindowMode, GetScreenBounds -> x:{rect.X} y:{rect.Y} w:{rect.Width} h:{rect.Height}");
             rect.X += 10;
             rect.Y += 10;
             rect.Width = Math.Min((int)window.Width, rect.Width - 10);
             rect.Height = Math.Min((int)window.Height, rect.Height - 10);
+            Logger.Debug($"SetWindowMode, new rect -> x:{rect.X} y:{rect.Y} w:{rect.Width} h:{rect.Height}");
 
             SetWindowSize(window, rect);
         }

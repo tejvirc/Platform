@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Diagnostics;
+    using System.Drawing;
     using System.Reflection;
     using System.Windows;
     using System.Windows.Controls;
@@ -123,8 +124,12 @@
                 _properties.GetValue("display", string.Empty) == "windowed" ||
                 _cabinetDetectionService.GetDisplayDeviceByItsRole(DisplayRole.Topper) != null)
             {
-                Logger.Debug("Creating topper view");
-                _topperView = new LobbyTopperView();
+                var topperDimensions = (Rectangle)_properties.GetProperty("Topper", Rectangle.Empty);
+                if (topperDimensions != Rectangle.Empty)
+                {
+                    Logger.Debug("Creating topper view");
+                    _topperView = new LobbyTopperView();
+                }
             }
 
             Logger.Debug("Creating overlay view");

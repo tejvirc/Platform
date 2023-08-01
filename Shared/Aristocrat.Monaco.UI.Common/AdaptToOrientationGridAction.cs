@@ -4,7 +4,9 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Interactivity;
-    using Application.Contracts.Media;
+    using Cabinet.Contracts;
+    using Hardware.Contracts.Cabinet;
+    using Kernel;
 
     /// <summary>
     ///     Resizes the first row of the Grid to 0 if the containing Window has a Landscape aspect-ratio.
@@ -45,8 +47,9 @@
 
         private bool GetIsPortrait()
         {
-            var window = TreeHelper.FindParent<Window>(AssociatedObject);
-            return window?.IsPortrait() ?? false;
+            var cabinetDetectionService = ServiceManager.GetInstance().GetService<ICabinetDetectionService>();
+            var device = cabinetDetectionService.GetDisplayDeviceByItsRole(DisplayRole.Main);
+            return device.Resolution.X < device.Resolution.Y;
         }
     }
 }

@@ -29,22 +29,5 @@
         {
             return (int)Math.Round(@this.Height * width / (double)@this.Width);
         }
-
-        /// <summary>
-        ///     Gets whether the given window has a portrait aspect ratio
-        /// </summary>
-        /// <param name="window">The window to test</param>
-        /// <returns>True if the window has a portrait aspect ratio</returns>
-        public static bool IsPortrait(this Window window)
-        {
-            if (window == null)
-            {
-                return false;
-            }
-
-            var aspectRatio = window.ActualWidth / window.ActualHeight;
-            var isPortrait = aspectRatio < 1.0;
-            return isPortrait;
-        }
     }
 }

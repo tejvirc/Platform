@@ -185,5 +185,11 @@
         /// <param name="role">The display role</param>
         /// <returns></returns>
         bool IsDisplayExpectedAndConnected(DisplayRole role);
+
+        /// <summary>
+        ///     Is the cabinet simulated (as opposed to using detected hardware)?
+        ///     (Always false in Retail build)
+        /// </summary>
+        bool IsSimulatedCabinet { get; }
     }
 }
