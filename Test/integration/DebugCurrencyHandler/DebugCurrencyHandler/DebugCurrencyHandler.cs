@@ -385,7 +385,9 @@
 
                     transaction.NewAccountBalance = currentBalance + transaction.Amount;
                     _transaction = transaction;
+
                     Persist();
+
                     bank.Deposit(creditType, transaction.Amount, transaction.Guid);
 
                     if (!_restrictDebugCreditsIn && checkCreditsIn != CheckCreditsStrategy.None)

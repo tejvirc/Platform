@@ -62,6 +62,7 @@
                 return;
             }
 
+            //**** Send new Credit Balance to GDKRuntime
             _runtime.UpdateBalance(_playerBank.Credits);
 
             if (theEvent.NewBalance == 0)

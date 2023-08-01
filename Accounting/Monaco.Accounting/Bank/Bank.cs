@@ -323,6 +323,7 @@ namespace Aristocrat.Monaco.Accounting
 
             _properties.SetProperty(PropertyKey.CurrentBalance, newBalance);
 
+            //**** Send new Credit Balance to GDKRuntime
             _bus.Publish(new BankBalanceChangedEvent(oldBalance, newBalance, transactionId));
 
             _noteAcceptorMonitor?.SetCurrentCredits(newBalance);

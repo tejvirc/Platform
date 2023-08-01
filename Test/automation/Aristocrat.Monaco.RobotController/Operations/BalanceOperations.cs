@@ -50,7 +50,7 @@
         public void Execute()
         {
             _logger.Info("BalanceOperations Has Been Initiated!", GetType().Name);
-            SubscribeToEvents();
+            //SubscribeToEvents();
             _balanceCheckTimer = new Timer(
                                 (sender) =>
                                 {
@@ -58,7 +58,8 @@
                                 },
                                 null,
                                 _robotController.Config.Active.IntervalBalanceCheck,
-                                _robotController.Config.Active.IntervalBalanceCheck);
+                                0);
+                                //_robotController.Config.Active.IntervalBalanceCheck);
         }
 
         protected virtual void Dispose(bool disposing)
@@ -139,16 +140,18 @@
 
         private void InsertCredit()
         {
+            _logger.Info($"InsertCredit from Robot.", GetType().Name);
+
             var bankBalanceInDollars = CurrencyExtensions.MillicentsToDollars(_bank.QueryBalance());
             var minBalanceInDollars = CurrencyExtensions.CentsToMillicents(_robotController.Config.GetMinimumBalance());
             var enoughBlanace = !CurrencyExtensions.IsBelowMinimum(bankBalanceInDollars, minBalanceInDollars);
             var hasEdgeCase = _robotController.Config?.Active?.InsertCreditsDuringGameRound == true;
             //inserting credits can lead to race conditions that make the platform not update the runtime balance
             //we now support inserting credits during game round for some jurisdictions
-            if (enoughBlanace || (!_stateChecker.IsIdle && !hasEdgeCase))
-            {
-                return;
-            }
+            //if (enoughBlanace || (!_stateChecker.IsIdle && !hasEdgeCase))
+            //{
+            //    return;
+            //}
             _logger.Info($"Insufficient balance.", GetType().Name);
             _automator.InsertDollars(_robotController.Config.GetDollarsInserted());
         }
