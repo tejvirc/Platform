@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Addin id="Aristocrat.Monaco.RobotApiServer" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.RobotApiServer.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Bootstrap" version="1.0" />
+    <Addin id="AccountingRunnable" version="1.0" />
+    <Addin id="ApplicationRunnable" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Accounting/Services">
+    <Service type="Aristocrat.Monaco.RobotApiServer.ApiServerService" />
+  </Extension>
+
+</Addin>
