@@ -23,6 +23,8 @@
         public HopperGds()
         {
             DeviceType = DeviceType.CoinAcceptor;
+            RegisterCallback<CoinOutStatus>(StatusReported);
+            RegisterCallback<HopperFaultStatus>(HopperFaultReported);
 
         }
 
