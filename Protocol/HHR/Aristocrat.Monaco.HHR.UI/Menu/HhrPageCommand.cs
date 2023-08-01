@@ -1,13 +1,12 @@
 ﻿namespace Aristocrat.Monaco.Hhr.UI.Menu
 {
     using System;
-    using System.Windows.Input;
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
 
     public class HhrPageCommand : ObservableObject, IRelayCommand<object>
     {
-        private readonly Action<object> _execute;
+        private readonly RelayCommand<object> _relayCommand;
 
         private bool _visibility;
 
@@ -28,26 +27,18 @@
         /// <summary>
         /// Constructor
         /// </summary>
-        public HhrPageCommand(Action<object> execute, bool visibility, Command command)
+        public HhrPageCommand(Action<object> action, bool visibility, Command command)
         {
-            _execute = execute;
+            _relayCommand = new RelayCommand<object>(action);
+            _relayCommand.CanExecuteChanged += (sender, args) => CanExecuteChanged?.Invoke(sender, args);
             _visibility = visibility;
             Command = command;
         }
 
-        public bool CanExecute(object parameter) => true;
+        public bool CanExecute(object parameter) => _relayCommand.CanExecute(parameter);
 
-        public void Execute(object parameter) => _execute?.Invoke(parameter);
+        public void Execute(object parameter) => _relayCommand.Execute(parameter);
 
-        void IRelayCommand<object>.Execute(object parameter) => ((ICommand)this).Execute(parameter);
-
-        bool IRelayCommand<object>.CanExecute(object parameter) => ((ICommand)this).CanExecute(parameter);
-
-        void IRelayCommand.NotifyCanExecuteChanged() => OnCanExecuteChanged();
-
-        private void OnCanExecuteChanged()
-        {
-            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
-        }
+        public void NotifyCanExecuteChanged() => _relayCommand.NotifyCanExecuteChanged();
     }
 }
