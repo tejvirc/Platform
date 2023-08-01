@@ -267,12 +267,6 @@
             MvvmHelper.ExecuteOnUI(
                 () =>
                 {
-                    if (PlayerMenuPopupViewModel.IsMenuVisible)
-                    {
-                        PlayerMenuPopupViewModel.IsMenuVisible = false;
-                        HandleMessageOverlayVisibility();
-                    }
-
                     if (_systemDisableManager.IsDisabled)
                     {
                         if (!MessageOverlayDisplay.ShowProgressiveGameDisabledNotification && ContainsAnyState(LobbyState.CashOutFailure))
@@ -336,12 +330,6 @@
                     if (IsLobbyVisible && !_systemDisableManager.IsDisabled)
                     {
                         OnUserInteraction();
-                    }
-
-                    if (PlayerMenuPopupViewModel.IsMenuVisible)
-                    {
-                        PlayerMenuPopupViewModel.IsMenuVisible = false;
-                        HandleMessageOverlayVisibility();
                     }
                 });
         }
