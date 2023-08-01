@@ -183,7 +183,7 @@
       <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities.IReelAnimationCapabilities.html#Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_LoadAnimationFile_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_AnimationFile_System_Threading_CancellationToken_">IReelAnimationCapabilities.LoadAnimationFile(AnimationFile, CancellationToken)</a>
     </div>
     <div>
-      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities.IReelAnimationCapabilities.html#Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_LoadAnimationFiles_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_AnimationFile__System_Threading_CancellationToken_">IReelAnimationCapabilities.LoadAnimationFiles(IEnumerable&lt;AnimationFile&gt;, CancellationToken)</a>
+      <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities.IReelAnimationCapabilities.html#Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_LoadAnimationFiles_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_AnimationFile__System_IProgress_Aristocrat_Monaco_Hardware_Contracts_Reel_LoadingAnimationFileModel__System_Threading_CancellationToken_">IReelAnimationCapabilities.LoadAnimationFiles(IEnumerable&lt;AnimationFile&gt;, IProgress&lt;LoadingAnimationFileModel&gt;, CancellationToken)</a>
     </div>
     <div>
       <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities.IReelAnimationCapabilities.html#Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_PrepareAnimation_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_LightShowData_System_Threading_CancellationToken_">IReelAnimationCapabilities.PrepareAnimation(LightShowData, CancellationToken)</a>
@@ -242,6 +242,52 @@ public interface IRelmCommunicator : ICommunicator, IDfuDriver, IDisposable, IRe
   
   
   
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_DefaultHomeStep.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.DefaultHomeStep%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L23" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_DefaultHomeStep_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.DefaultHomeStep*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_DefaultHomeStep" data-uid="Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.DefaultHomeStep"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_DefaultHomeStep" class="expander" data-toggle="collapse">DefaultHomeStep</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_DefaultHomeStep" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the default home step.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int DefaultHomeStep { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
   <h3 id="methods">Methods
   </h3>
   
@@ -250,7 +296,7 @@ public interface IRelmCommunicator : ICommunicator, IDfuDriver, IDisposable, IRe
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_HomeReel_System_Int32_System_Int32_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.HomeReel(System.Int32%2CSystem.Int32%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L64" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L63" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_HomeReel_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.HomeReel*"></a>
@@ -319,55 +365,10 @@ public interface IRelmCommunicator : ICommunicator, IDfuDriver, IDisposable, IRe
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_HomeReels.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.HomeReels%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L55" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
-  
-  <a id="Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_HomeReels_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.HomeReels*"></a>
-  
-  <h4 id="Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_HomeReels" data-uid="Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.HomeReels"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_HomeReels" class="expander" data-toggle="collapse">HomeReels()</a></h4>
-  
-  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_HomeReels" class="collapse in">
-  <div class="markdown level1 summary"><p>Homes the reels to the requested stop</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;bool&gt; HomeReels()</code></pre>
-  </div>
-  
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>&gt;
-        <p><p>Whether or not the reels were homed</p>
-</p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  </div>
-  
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_Initialize.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.Initialize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L49" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L54" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_Initialize_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.Initialize*"></a>
@@ -411,7 +412,7 @@ public interface IRelmCommunicator : ICommunicator, IDfuDriver, IDisposable, IRe
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_RemoveAllControllerAnimations_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.RemoveAllControllerAnimations(System.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L88" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L87" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_RemoveAllControllerAnimations_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.RemoveAllControllerAnimations*"></a>
@@ -466,7 +467,7 @@ public interface IRelmCommunicator : ICommunicator, IDfuDriver, IDisposable, IRe
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_RequestDeviceStatuses.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.RequestDeviceStatuses%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L82" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L81" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_RequestDeviceStatuses_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.RequestDeviceStatuses*"></a>
@@ -510,7 +511,7 @@ public interface IRelmCommunicator : ICommunicator, IDfuDriver, IDisposable, IRe
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_SetReelOffsets_System_Int32___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.SetReelOffsets(System.Int32%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L71" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L70" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_SetReelOffsets_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.SetReelOffsets*"></a>
@@ -566,7 +567,7 @@ public interface IRelmCommunicator : ICommunicator, IDfuDriver, IDisposable, IRe
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_TiltReels.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.TiltReels%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L77" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L76" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_TiltReels_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.TiltReels*"></a>
@@ -613,7 +614,7 @@ public interface IRelmCommunicator : ICommunicator, IDfuDriver, IDisposable, IRe
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_ControllerFaultCleared.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.ControllerFaultCleared%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L33" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L38" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   
@@ -656,7 +657,7 @@ public interface IRelmCommunicator : ICommunicator, IDfuDriver, IDisposable, IRe
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_ControllerFaultOccurred.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.ControllerFaultOccurred%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L28" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L33" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   
@@ -699,7 +700,7 @@ public interface IRelmCommunicator : ICommunicator, IDfuDriver, IDisposable, IRe
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_LightStatusReceived.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.LightStatusReceived%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L38" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L43" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   
@@ -742,7 +743,7 @@ public interface IRelmCommunicator : ICommunicator, IDfuDriver, IDisposable, IRe
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_ReelIdleInterruptReceived.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.ReelIdleInterruptReceived%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L44" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L49" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   
@@ -785,7 +786,7 @@ public interface IRelmCommunicator : ICommunicator, IDfuDriver, IDisposable, IRe
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_ReelStatusReceived.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.ReelStatusReceived%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L23" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L28" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   

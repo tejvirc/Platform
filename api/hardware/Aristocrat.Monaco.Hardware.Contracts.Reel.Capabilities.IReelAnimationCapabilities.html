@@ -215,24 +215,24 @@ public interface IReelAnimationCapabilities : IReelControllerCapability</code></
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_LoadAnimationFiles_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_AnimationFile__System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities.IReelAnimationCapabilities.LoadAnimationFiles(System.Collections.Generic.IEnumerable%7BAristocrat.Monaco.Hardware.Contracts.Reel.ControlData.AnimationFile%7D%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_LoadAnimationFiles_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_AnimationFile__System_IProgress_Aristocrat_Monaco_Hardware_Contracts_Reel_LoadingAnimationFileModel__System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities.IReelAnimationCapabilities.LoadAnimationFiles(System.Collections.Generic.IEnumerable%7BAristocrat.Monaco.Hardware.Contracts.Reel.ControlData.AnimationFile%7D%2CSystem.IProgress%7BAristocrat.Monaco.Hardware.Contracts.Reel.LoadingAnimationFileModel%7D%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Capabilities/IReelAnimationCapabilities.cs/#L33" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Capabilities/IReelAnimationCapabilities.cs/#L34" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_LoadAnimationFiles_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities.IReelAnimationCapabilities.LoadAnimationFiles*"></a>
   
-  <h4 id="Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_LoadAnimationFiles_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_AnimationFile__System_Threading_CancellationToken_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities.IReelAnimationCapabilities.LoadAnimationFiles(System.Collections.Generic.IEnumerable{Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData.AnimationFile},System.Threading.CancellationToken)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_LoadAnimationFiles_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_AnimationFile__System_Threading_CancellationToken_" class="expander" data-toggle="collapse">LoadAnimationFiles(IEnumerable&lt;AnimationFile&gt;, CancellationToken)</a></h4>
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_LoadAnimationFiles_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_AnimationFile__System_IProgress_Aristocrat_Monaco_Hardware_Contracts_Reel_LoadingAnimationFileModel__System_Threading_CancellationToken_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities.IReelAnimationCapabilities.LoadAnimationFiles(System.Collections.Generic.IEnumerable{Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData.AnimationFile},System.IProgress{Aristocrat.Monaco.Hardware.Contracts.Reel.LoadingAnimationFileModel},System.Threading.CancellationToken)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_LoadAnimationFiles_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_AnimationFile__System_IProgress_Aristocrat_Monaco_Hardware_Contracts_Reel_LoadingAnimationFileModel__System_Threading_CancellationToken_" class="expander" data-toggle="collapse">LoadAnimationFiles(IEnumerable&lt;AnimationFile&gt;, IProgress&lt;LoadingAnimationFileModel&gt;, CancellationToken)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_LoadAnimationFiles_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_AnimationFile__System_Threading_CancellationToken_" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_LoadAnimationFiles_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_AnimationFile__System_IProgress_Aristocrat_Monaco_Hardware_Contracts_Reel_LoadingAnimationFileModel__System_Threading_CancellationToken_" class="collapse in">
   <div class="markdown level1 summary"><p>Loads animation files onto the controller.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task&lt;bool&gt; LoadAnimationFiles(IEnumerable&lt;AnimationFile&gt; files, CancellationToken token = default(CancellationToken))</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;bool&gt; LoadAnimationFiles(IEnumerable&lt;AnimationFile&gt; files, IProgress&lt;LoadingAnimationFileModel&gt; progress, CancellationToken token = default(CancellationToken))</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -242,6 +242,14 @@ public interface IReelAnimationCapabilities : IReelControllerCapability</code></
         <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData.AnimationFile.html">AnimationFile</a>&gt;</span>
         <span class="parametername">files</span>
         <p><p>The animation files.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iprogress-1">IProgress</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.LoadingAnimationFileModel.html">LoadingAnimationFileModel</a>&gt;</span>
+        <span class="parametername">progress</span>
+        <p><p>The progress report.</p>
 </p>
       </td>
     </tr>
@@ -281,7 +289,7 @@ public interface IReelAnimationCapabilities : IReelControllerCapability</code></
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_PlayAnimations_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities.IReelAnimationCapabilities.PlayAnimations(System.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Capabilities/IReelAnimationCapabilities.cs/#L67" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Capabilities/IReelAnimationCapabilities.cs/#L68" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_PlayAnimations_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities.IReelAnimationCapabilities.PlayAnimations*"></a>
@@ -336,7 +344,7 @@ public interface IReelAnimationCapabilities : IReelControllerCapability</code></
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_PrepareAnimation_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_LightShowData_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities.IReelAnimationCapabilities.PrepareAnimation(Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData.LightShowData%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Capabilities/IReelAnimationCapabilities.cs/#L40" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Capabilities/IReelAnimationCapabilities.cs/#L41" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_PrepareAnimation_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities.IReelAnimationCapabilities.PrepareAnimation*"></a>
@@ -399,7 +407,7 @@ public interface IReelAnimationCapabilities : IReelControllerCapability</code></
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_PrepareAnimation_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelCurveData_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities.IReelAnimationCapabilities.PrepareAnimation(Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData.ReelCurveData%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Capabilities/IReelAnimationCapabilities.cs/#L54" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Capabilities/IReelAnimationCapabilities.cs/#L55" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_PrepareAnimation_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities.IReelAnimationCapabilities.PrepareAnimation*"></a>
@@ -462,7 +470,7 @@ public interface IReelAnimationCapabilities : IReelControllerCapability</code></
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_PrepareAnimations_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_LightShowData__System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities.IReelAnimationCapabilities.PrepareAnimations(System.Collections.Generic.IEnumerable%7BAristocrat.Monaco.Hardware.Contracts.Reel.ControlData.LightShowData%7D%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Capabilities/IReelAnimationCapabilities.cs/#L47" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Capabilities/IReelAnimationCapabilities.cs/#L48" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_PrepareAnimations_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities.IReelAnimationCapabilities.PrepareAnimations*"></a>
@@ -525,7 +533,7 @@ public interface IReelAnimationCapabilities : IReelControllerCapability</code></
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_PrepareAnimations_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelCurveData__System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities.IReelAnimationCapabilities.PrepareAnimations(System.Collections.Generic.IEnumerable%7BAristocrat.Monaco.Hardware.Contracts.Reel.ControlData.ReelCurveData%7D%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Capabilities/IReelAnimationCapabilities.cs/#L61" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Capabilities/IReelAnimationCapabilities.cs/#L62" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_PrepareAnimations_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities.IReelAnimationCapabilities.PrepareAnimations*"></a>
@@ -588,7 +596,7 @@ public interface IReelAnimationCapabilities : IReelControllerCapability</code></
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_PrepareNudgeReels_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_NudgeReelData__System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities.IReelAnimationCapabilities.PrepareNudgeReels(System.Collections.Generic.IEnumerable%7BAristocrat.Monaco.Hardware.Contracts.Reel.ControlData.NudgeReelData%7D%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Capabilities/IReelAnimationCapabilities.cs/#L101" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Capabilities/IReelAnimationCapabilities.cs/#L102" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_PrepareNudgeReels_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities.IReelAnimationCapabilities.PrepareNudgeReels*"></a>
@@ -651,7 +659,7 @@ public interface IReelAnimationCapabilities : IReelControllerCapability</code></
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_PrepareStopReels_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_ReelStopData__System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities.IReelAnimationCapabilities.PrepareStopReels(System.Collections.Generic.IEnumerable%7BAristocrat.Monaco.Hardware.Contracts.Reel.ControlData.ReelStopData%7D%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Capabilities/IReelAnimationCapabilities.cs/#L94" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Capabilities/IReelAnimationCapabilities.cs/#L95" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_PrepareStopReels_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities.IReelAnimationCapabilities.PrepareStopReels*"></a>
@@ -714,7 +722,7 @@ public interface IReelAnimationCapabilities : IReelControllerCapability</code></
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_StopAllAnimationTags_System_String_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities.IReelAnimationCapabilities.StopAllAnimationTags(System.String%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Capabilities/IReelAnimationCapabilities.cs/#L87" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Capabilities/IReelAnimationCapabilities.cs/#L88" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_StopAllAnimationTags_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities.IReelAnimationCapabilities.StopAllAnimationTags*"></a>
@@ -777,7 +785,7 @@ public interface IReelAnimationCapabilities : IReelControllerCapability</code></
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_StopAllLightShows_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities.IReelAnimationCapabilities.StopAllLightShows(System.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Capabilities/IReelAnimationCapabilities.cs/#L80" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Capabilities/IReelAnimationCapabilities.cs/#L81" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_StopAllLightShows_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities.IReelAnimationCapabilities.StopAllLightShows*"></a>
@@ -832,7 +840,7 @@ public interface IReelAnimationCapabilities : IReelControllerCapability</code></
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_StopLightShowAnimations_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_LightShowData__System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities.IReelAnimationCapabilities.StopLightShowAnimations(System.Collections.Generic.IEnumerable%7BAristocrat.Monaco.Hardware.Contracts.Reel.ControlData.LightShowData%7D%2CSystem.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Capabilities/IReelAnimationCapabilities.cs/#L74" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Capabilities/IReelAnimationCapabilities.cs/#L75" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_StopLightShowAnimations_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities.IReelAnimationCapabilities.StopLightShowAnimations*"></a>
