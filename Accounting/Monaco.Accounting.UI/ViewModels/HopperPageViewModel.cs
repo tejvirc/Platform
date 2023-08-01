@@ -145,7 +145,7 @@
             set => SetProperty(ref _hopperRefillEnabled, value, nameof(HopperRefillEnabled));
         }
 
-        public string HopperRefillWarningText => "Hopper must be empty to perform refill.";// Resources.HopperEmptyText;
+        public string HopperRefillWarningText => Resources.HopperEmptyText;
 
         public bool HopperTicketSplitEnabled
         {

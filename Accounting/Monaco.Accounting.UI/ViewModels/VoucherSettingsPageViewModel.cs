@@ -9,6 +9,7 @@
     using Application.Contracts.OperatorMenu;
     using Application.UI.OperatorMenu;
     using Contracts;
+    using Hardware.Contracts;
     using Kernel;
     using Kernel.Contracts;
     using Localization.Properties;
@@ -199,7 +200,7 @@
                 if (SetProperty(ref _voucherOutLimit, value, nameof(VoucherOutLimit)))
                 {
                     SetError(nameof(VoucherOutLimit),
-                        _voucherOutLimit.Validate(maximum: MaxVoucherOutAllowed));
+                        ValidateVoucherOutLimit());
                 }
             }
         }
@@ -475,7 +476,10 @@
                 PropertiesManager.GetValue(AccountingConstants.VoucherOutLimit, 0L).MillicentsToDollars() !=
                 VoucherOutLimit)
             {
-                PropertiesManager.SetProperty(AccountingConstants.VoucherOutLimit, VoucherOutLimit.DollarsToMillicents());
+                if (ValidateHopperLimit())
+                {
+                    PropertiesManager.SetProperty(AccountingConstants.VoucherOutLimit, VoucherOutLimit.DollarsToMillicents());
+                }
             }
 
             if ((int)PropertiesManager.GetProperty(AccountingConstants.VoucherOutExpirationDays, AccountingConstants.DefaultVoucherExpirationDays) != VoucherExpirationDays)
@@ -678,6 +682,39 @@
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Set voucher out limit when hopper installed and enabled.
+        /// </summary>
+        /// <returns></returns>
+        private bool ValidateHopperLimit()
+        {
+            if (PropertiesManager.GetValue(ApplicationConstants.HopperEnabled, false))
+            {
+                return !PropertiesManager.GetValue(AccountingConstants.HopperTicketSplit, false)
+                    ? VoucherOutLimit >= PropertiesManager.GetValue(AccountingConstants.HopperCollectLimit, 0L).MillicentsToDollars()
+                    : VoucherOutLimit >= PropertiesManager.GetValue(AccountingConstants.HopperTicketThreshold, 0L).MillicentsToDollars() + AccountingConstants.HopperTicketSplitMinTicketValue.MillicentsToDollars();
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// To Validate Voucher Out Limit greater than Hopper Collect Limit and Hopper Threshold limit.
+        /// </summary>
+        private string ValidateVoucherOutLimit()
+        {
+            var errorInfo = _voucherOutLimit.Validate(maximum: MaxVoucherOutAllowed);
+            if (string.IsNullOrEmpty(errorInfo) && !ValidateHopperLimit())
+            {
+                return !PropertiesManager.GetValue(AccountingConstants.HopperTicketSplit, false)
+                    ? $"{Resources.VoucherOutLimit} {Resources.MustBeGreaterThan} {Resources.HopperCollectLimit}"
+                    : $"{Resources.VoucherOutLimit} {Resources.MustBeGreaterThan} {Resources.HopperTicketThreshold}";
+            }
+
+            return errorInfo;
+
         }
     }
 }

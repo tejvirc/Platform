@@ -12,15 +12,15 @@
         /// <summary>
         ///     Initializes a new instance of the <see cref="HopperPayOutCompletedEvent" /> class.
         /// </summary>
-        /// <param name="transaction">Coin Out Transaction</param>
-        public HopperPayOutCompletedEvent(CoinOutTransaction transaction)
+        /// <param name="amount">Transferred amount</param>
+        public HopperPayOutCompletedEvent(long amount)
         {
-            Transaction = transaction;
+            Amount = amount;
         }
 
         /// <summary>
-        ///     Gets the coin out transaction
+        ///     Gets the transferred amount
         /// </summary>
-        public CoinOutTransaction Transaction { get; }
+        public long Amount { get; }
     }
 }

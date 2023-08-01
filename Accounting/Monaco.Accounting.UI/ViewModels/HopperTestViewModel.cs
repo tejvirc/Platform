@@ -3,7 +3,7 @@
     using System;
     using System.Linq;
     using System.Windows.Input;
-    using Accounting.Hopper;
+    using Hopper;
     using Application.Contracts;
     using Application.Contracts.OperatorMenu;
     using Application.UI.OperatorMenu;
