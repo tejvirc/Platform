@@ -161,6 +161,9 @@
         public IReadOnlyDictionary<int, ReelStatus> ReelStatuses => _reelStatuses;
 
         /// <inheritdoc />
+        public int DefaultHomeStep => _communicator?.DefaultHomeStep ?? 0;
+
+        /// <inheritdoc />
         public void Dispose()
         {
             Dispose(true);
@@ -275,12 +278,6 @@
         /// <inheritdoc />
         public void UpdateConfiguration(IDeviceConfiguration internalConfiguration)
         {
-        }
-
-        /// <inheritdoc />
-        public Task<bool> HomeReels()
-        {
-            return _communicator.HomeReels();
         }
 
         /// <inheritdoc />
@@ -473,7 +470,7 @@
             if (animationFiles.Count > 0)
             {
                 Logger.Debug($"Loading {animationFiles.Select(x => x.FriendlyName)} platform sample animations");
-                await _communicator.LoadAnimationFiles(animationFiles);
+                await _communicator.LoadAnimationFiles(animationFiles, new Progress<LoadingAnimationFileModel>());
             }
         }
 

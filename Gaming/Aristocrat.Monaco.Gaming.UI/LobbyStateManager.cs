@@ -408,7 +408,7 @@ namespace Aristocrat.Monaco.Gaming.UI
             _state.Configure(LobbyState.GameLoading)
                 .OnEntryFrom(_launchGameTrigger, CallStateEntry)
                 .Permit(LobbyTrigger.GameLoaded, LobbyState.Game)
-                .PermitIf(LobbyTrigger.Disable, LobbyState.Disabled, () => AllowSingleGameAutoLaunch || (_gameHistory.IsRecoveryNeeded && IsLoadingGameForRecovery))
+                .PermitIf(LobbyTrigger.Disable, LobbyState.Disabled, () => !AllowSingleGameAutoLaunch || (_gameHistory.IsRecoveryNeeded && IsLoadingGameForRecovery))
                 .PermitDynamic(
                     LobbyTrigger.GameNormalExit,
                     () => IsLoadingGameForRecovery ? LobbyState.Recovery : GetDefaultChooserState())

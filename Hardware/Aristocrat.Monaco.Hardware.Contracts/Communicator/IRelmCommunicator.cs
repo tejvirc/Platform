@@ -18,6 +18,11 @@
         IReelBrightnessCapabilities
     {
         /// <summary>
+        ///     Gets the default home step.
+        /// </summary>
+        int DefaultHomeStep { get; }
+
+        /// <summary>
         ///     Event that occurs when component statuses are received.
         /// </summary>
         event EventHandler<ReelStatusReceivedEventArgs> ReelStatusReceived;
@@ -47,12 +52,6 @@
         ///     Initializes the communicator.
         /// </summary>
         Task Initialize();
-
-        /// <summary>
-        ///     Homes the reels to the requested stop
-        /// </summary>
-        /// <returns>Whether or not the reels were homed</returns>
-        Task<bool> HomeReels();
 
         /// <summary>
         ///     Homes the reel to the requested stop

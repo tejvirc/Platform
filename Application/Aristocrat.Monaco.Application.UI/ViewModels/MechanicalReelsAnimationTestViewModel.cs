@@ -25,7 +25,6 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         private const string SampleStepperCurve = "SampleStepperCurve";
         private const int StopReelsMs = 50;
         private const int DefaultRpm = 20;
-        private const int DefaultHomeStep = 5;
 
         private const int MinStop = 0;
         private const int MaxStop = 21;
@@ -40,7 +39,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         private readonly Action _updateScreenCallback;
         private ObservableCollection<ReelInfoItem> _reelInfo;
         private bool _checkHasFault = true;
-        private bool _homeEnabled;
+        private bool _homeEnabled = true;
         private bool _nudgeEnabled;
         private bool _spinEnabled;
         private bool _allReelsIdle;
@@ -297,7 +296,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
 
                 var activeReel = GetActiveReel(i);
-                homeData.Add(i, DefaultHomeStep);
+                homeData.Add(i, _reelController.ReelHomeSteps[i]);
 
                 activeReel.IsHoming = true;
                 activeReel.IsSpinning = false;

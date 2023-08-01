@@ -27284,6 +27284,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Loading Animation File {0}.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming
+        /// </remarks>
+		public static string ReelController_LoadingAnimationFile {
+			get {
+				return ResourceManager.GetString("ReelController_LoadingAnimationFile", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Connected Reels Mismatch.
 		/// </summary>
         /// <remarks>
@@ -63790,6 +63802,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Loading Animation File {0}.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming
+        /// </remarks>
+		public static string ReelController_LoadingAnimationFile {
+			get {
+				return "ReelController_LoadingAnimationFile";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Connected Reels Mismatch.
 		/// </summary>
         /// <remarks>
@@ -88587,6 +88611,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		ReelController_IdleUnknown,
+		/// <summary>
+		///   Looks up a localized string similar to Loading Animation File {0}.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming
+        /// </remarks>
+		ReelController_LoadingAnimationFile,
 		/// <summary>
 		///   Looks up a localized string similar to Connected Reels Mismatch.
 		/// </summary>

@@ -3,6 +3,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Aristocrat.Monaco.Application.Contracts.Localization;
+    using Aristocrat.Monaco.Kernel;
+    using Aristocrat.Monaco.Test.Common;
     using Contracts.Communicator;
     using Contracts.Reel;
     using Contracts.Reel.Events;
@@ -19,6 +22,7 @@
         public void Initialize()
         {
             _communicator.Setup(x => x.IsOpen).Returns(true);
+            SetupMocks();
         }
 
         [DataTestMethod]
@@ -110,6 +114,17 @@
 
             await controller.HomeReel(2, 2);
             Assert.IsFalse(inFault);
+        }
+
+        private void SetupMocks()
+        {
+            MoqServiceManager.CreateInstance(MockBehavior.Default);
+            var disableManager = MoqServiceManager.CreateAndAddService<ISystemDisableManager>(MockBehavior.Default);
+            var localizerFactory = MoqServiceManager.CreateAndAddService<ILocalizerFactory>(MockBehavior.Default);
+            localizerFactory.Setup(x => x.For(It.IsAny<string>())).Returns(new Mock<ILocalizer>().Object);
+            var localizer = new Mock<ILocalizer>();
+            localizer.Setup(x => x.GetString(It.IsAny<string>())).Returns("empty");
+            localizerFactory.Setup(x => x.For(It.IsAny<string>())).Returns(localizer.Object);
         }
     }
 }

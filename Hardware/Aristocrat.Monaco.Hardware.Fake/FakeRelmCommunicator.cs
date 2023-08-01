@@ -24,12 +24,14 @@ namespace Aristocrat.Monaco.Hardware.Fake
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IEventBus _eventBus;
         private readonly IPathMapper _pathMapper;
-        private int[] _reelOffsets;
+        private readonly string _baseName = "FakeRelm";
+
         private const string SimWindowNamePartial = "ReelLayout_";
         private const string GamesDirectory = "/Games";
         private const string PackagesDirectory = "/Packages";
-        private readonly string _baseName = "FakeRelm";
+        private const int DefaultHomeStepValue = 5;
 
+        private int[] _reelOffsets;
         private int _id;
         private bool _disposed;
 
@@ -81,7 +83,10 @@ namespace Aristocrat.Monaco.Hardware.Fake
         
         /// <inheritdoc/>
         public int DefaultReelBrightness { get; set; }
-        
+
+        /// <inheritdoc />
+        public int DefaultHomeStep => DefaultHomeStepValue;
+
         /// <inheritdoc/>
         public string Manufacturer => _baseName + DeviceType;
         
@@ -260,12 +265,14 @@ namespace Aristocrat.Monaco.Hardware.Fake
         /// <inheritdoc/>
         public Task<bool> LoadAnimationFile(AnimationFile file, CancellationToken token)
         {
+            Thread.Sleep(500);
             return Task.FromResult(true);
         }
         
         /// <inheritdoc/>
-        public Task<bool> LoadAnimationFiles(IEnumerable<AnimationFile> files, CancellationToken token)
+        public Task<bool> LoadAnimationFiles(IEnumerable<AnimationFile> files, IProgress<LoadingAnimationFileModel> progress, CancellationToken token)
         {
+            Thread.Sleep(500);
             return Task.FromResult(true);
         }
 

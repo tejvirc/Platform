@@ -195,6 +195,9 @@
         public int[] MechanicalReelHomeSteps { get; set; }
 
         /// <inheritdoc />>
+        public IEnumerable<AnimationFile> PreloadedAnimationFiles { get; set; }
+
+        /// <inheritdoc />>
         public GameCategory Category { get; set; }
 
         /// <inheritdoc />>
