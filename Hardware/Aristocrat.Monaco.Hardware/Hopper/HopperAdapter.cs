@@ -91,8 +91,8 @@
 
             Implementation.Initialized += ImplementationInitialized;
             Implementation.InitializationFailed += ImplementationInitializationFailed;
-          //  Implementation.FaultOccurred += ImplementationStatusFaultOccurred;
-            //Implementation.CoinInStatusReported += ImplementationStatusReportedd;
+            Implementation.FaultOccurred += ImplementationStatusFaultOccurred;
+            Implementation.CoinOutStatusReported += ImplementationStatusReportedd;
         }
 
 
@@ -179,6 +179,33 @@
         public byte GetStatusReport()
         {
             return Implementation.GetStatusReport();
+        }
+
+        private void ImplementationStatusReportedd(object sender, CoinOutEventType type)
+        {
+            Logger.Info("ImplementationStatusReportedd: coin in event reported");
+
+            switch (type)
+            {
+                case CoinOutEventType.LegalCoinOut:
+                    {
+                        _bus?.Publish(new CoinOutEvent(new Contracts.CoinAcceptor.Coin { Value = _tokenValue }));
+                        break;
+                    }
+                case CoinOutEventType.IllegalCoinOut:
+                    {
+                        ImplementationStatusFaultOccurred(sender, HopperFaultTypes.IllegalCoinOut);
+                        break;
+                    }
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        private void ImplementationStatusFaultOccurred(object sender, HopperFaultTypes type)
+        {
+            Logger.Info("ImplementationStatusFaultOccurred: device fault occured");
+            _bus?.Publish(new HardwareFaultEvent(type));
         }
     }
 }

@@ -5,6 +5,7 @@
     using Application;
     using Application.Contracts.Extensions;
     using Application.Contracts.TiltLogger;
+    using Accounting.Contracts.Hopper;
     using Common;
     using Contracts;
     using Hardware.Contracts;

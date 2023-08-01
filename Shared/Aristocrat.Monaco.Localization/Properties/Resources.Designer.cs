@@ -15887,6 +15887,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Hopper.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperLabel {
+			get {
+				return ResourceManager.GetString("HopperLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Hopper Level.
 		/// </summary>
         /// <remarks>
@@ -53149,6 +53161,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Hopper.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string HopperLabel {
+			get {
+				return "HopperLabel";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Hopper Level.
 		/// </summary>
         /// <remarks>
@@ -83607,6 +83631,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		HopperFault,
+		/// <summary>
+		///   Looks up a localized string similar to Hopper.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		HopperLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Hopper Level.
 		/// </summary>

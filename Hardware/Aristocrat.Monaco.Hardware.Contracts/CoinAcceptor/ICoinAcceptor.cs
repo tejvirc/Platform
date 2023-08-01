@@ -1,9 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts.CoinAcceptor
 {
     using SharedDevice;
-    /// <summary>
-    /// 
-    /// </summary>
+
+    /// <summary>Interface for Coin acceptor.</summary>
     public interface ICoinAcceptor : IDeviceAdapter
     {
         /// <summary>Enable Reject Mechanishm.</summary>

@@ -182,6 +182,11 @@
         public const string CoinAcceptorFaults = "Hardware.CoinAcceptorFaults";
 
         /// <summary>
+        ///     Key used to get a value indicating current hopper faults
+        /// </summary>
+        public const string HopperFaults = "Hardware.HopperFaults";
+
+        /// <summary>
         ///     True if Coin Acceptor Diagnostic screen is opened in Operator Menu
         /// </summary>
         public const string CoinAcceptorDiagnosticMode = "Hardware.CoinAcceptorDiagnosticMode";

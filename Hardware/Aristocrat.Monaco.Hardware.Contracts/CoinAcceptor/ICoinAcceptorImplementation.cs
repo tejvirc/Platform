@@ -20,7 +20,7 @@
         /// <summary>Reset the device.</summary>
         void DeviceReset();
 
-        /// <summary>Event fired when fault is cleared.</summary>
+        /// <summary>Event to report coin in.</summary>
         event EventHandler<CoinEventType> CoinInStatusReported;
 
         /// <summary>Event fired when fault is detected.</summary>
