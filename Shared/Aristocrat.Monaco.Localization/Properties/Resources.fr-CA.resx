@@ -4955,4 +4955,7 @@ Consulter le manuel pour plus de détails</value>
   <data name="ReadyToInsert" xml:space="preserve">
     <value>??Ready to insert bill or voucher.??</value>
   </data>
+  <data name="Printer_DfuInProgress" xml:space="preserve">
+    <value>??Printer DFU Download In Progress: Please Do Not Power Off The Gaming Machine??</value>
+  </data>
 </root>
