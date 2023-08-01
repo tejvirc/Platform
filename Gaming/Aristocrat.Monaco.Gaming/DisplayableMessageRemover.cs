@@ -9,6 +9,7 @@
     using Accounting.Contracts.HandCount;
     using Accounting.Contracts.CoinAcceptor;
     using Accounting.Contracts.Handpay;
+    using Accounting.Contracts.Hopper;
     using Accounting.Contracts.Wat;
     using Contracts;
     using Hardware.Contracts.Door;
@@ -34,7 +35,8 @@
             typeof(HardMeterOutCompletedEvent),
             typeof(WatTransferCommittedEvent),
             typeof(WatOnCompleteEvent),
-            typeof(HandpayKeyedOffEvent)
+            typeof(HandpayKeyedOffEvent),
+            typeof(HopperPayOutCompletedEvent)
         };
 
         private readonly IEventBus _eventBus;

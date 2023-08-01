@@ -173,7 +173,7 @@
 
                 await Transfer(transaction.AuthorizedCashableAmount);
                 transaction = _transactions.RecallTransactions<CoinOutTransaction>().FirstOrDefault(t => t.BankTransactionId == _transactionGuid);
-                _bus.Publish(new HopperPayOutCompletedEvent(transaction));
+                _bus.Publish(new HopperPayOutCompletedEvent(transaction.TransferredCashableAmount));
                 return new TransferResult(transaction.TransferredCashableAmount, 0L, 0L, transaction.Exception);
             }
             finally
