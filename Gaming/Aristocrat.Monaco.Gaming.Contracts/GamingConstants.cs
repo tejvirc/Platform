@@ -1484,6 +1484,12 @@
         public const string GameSpecificOptions = "GameSpecificOptions";
 
         /// <summary>
+        ///     Key for the LinkedProgressiveVerificationEnabled property in Property Manager. If set to true, the platform will
+        ///     verify all Linked Progressive RTP values for all games that have Linked Progressives.
+        /// </summary>
+        public static string LinkedProgressiveVerificationEnabled = "LinkedProgressiveVerificationEnabled";
+
+        /// <summary>
         ///     encapsulate Player Information Display options
         /// </summary>
         public static class PlayerInformationDisplay

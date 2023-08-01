@@ -5,6 +5,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using System.Runtime.Serialization.Json;
     using System.Threading.Tasks;
     using Application.Contracts;
     using Aristocrat.G2S;
@@ -29,6 +30,7 @@
     using Gaming.Contracts.Progressives;
     using Handlers;
     using Handlers.Progressive;
+    using JetBrains.Annotations;
     using Kernel;
     using log4net;
     using Newtonsoft.Json;
@@ -47,6 +49,7 @@
         private readonly ITransactionHistory _transactionHistory;
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
         private readonly IG2SDisableProvider _disableProvider;
+        private readonly IPropertiesManager _propertiesManager;
         private readonly IProgressiveLevelManager _progressiveLevelManager;
         private readonly IProtocolProgressiveEventsRegistry _protocolProgressiveEventsRegistry;
         private readonly ICommandBuilder<IProgressiveDevice, progressiveHit> _progressiveHitBuilder;
@@ -98,12 +101,14 @@
             _transactionHistory = transactionHistory ?? throw new ArgumentNullException(nameof(transactionHistory));
             _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
             _disableProvider = disableProvider ?? throw new ArgumentNullException(nameof(disableProvider));
+            _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _progressiveLevelManager = progressiveLevelManager ?? throw new ArgumentNullException(nameof(progressiveLevelManager));
             _progressiveStatusBuilder = progressiveStatusBuilder ?? throw new ArgumentNullException(nameof(progressiveStatusBuilder));
             _progressiveHitBuilder = progressiveHitBuilder ?? throw new ArgumentNullException(nameof(progressiveHitBuilder));
             _progressiveCommitBuilder = progressiveCommitBuilder ?? throw new ArgumentNullException(nameof(progressiveCommitBuilder));
 
             _g2sProgressivesEnabled = (bool)propertiesManager.GetProperty(G2S.Constants.G2SProgressivesEnabled, false);
+
             if (_g2sProgressivesEnabled)
             {
                 SubscribeEvents();
@@ -200,6 +205,13 @@
                 .GroupBy(ll => ll.ProgressiveGroupId)
                 .ToDictionary(ll => ll.Key, ll => ll.ToList());
 
+
+            var linkedLevelNames = linkedLevels.Values.SelectMany(l => l).Select(ll => ll.LevelName).ToList();
+            var monacoLevelsByLevelName = _protocolLinkedProgressiveAdapter.ViewProgressiveLevels()
+                .Where(l => linkedLevelNames.Contains(l.AssignedProgressiveId?.AssignedProgressiveKey ?? string.Empty))
+                .GroupBy(l => l.AssignedProgressiveId.AssignedProgressiveKey)
+                .ToDictionary(group => group.Key, group => group.ToList());
+
             foreach (var progressiveHostInfo in progressiveHostInfos)
             {
                 var progressiveDevice = devices.FirstOrDefault(d => d.ProgressiveId == progressiveHostInfo.progressiveLevel.FirstOrDefault().progId);
@@ -234,6 +246,16 @@
                 {
                     _disableProvider.Disable(SystemDisablePriority.Immediate, G2SDisableStates.ProgressiveLevelsMismatch);
                     return;
+                }
+
+                if (_propertiesManager.GetValue(GamingConstants.LinkedProgressiveVerificationEnabled, false))
+                {
+                    var x = from vertexLevel in matchedProgressives
+                        join progLevel in progLevels on vertexLevel.levelId equals progLevel.LevelId into
+                            monacoLinkedLevel
+                        select (vertexLevel, monacoLinkedLevel.Single());
+
+                    BoostCheck(monacoLevelsByLevelName, x);
                 }
 
                 _disableProvider.Enable(G2SDisableStates.ProgressiveLevelsMismatch);
@@ -575,8 +597,6 @@
             var vertexLevelIds = (Dictionary<int, (int linkedGroupId, int linkedLevelId)>)propertiesManager.GetProperty(GamingConstants.ProgressiveConfiguredLinkedLevelIds,
                 new Dictionary<int, (int linkedGroupId, int linkedLevelId)>());
 
-
-
             try
             {
                 var enabledGames = _gameProvider.GetGames().Where(g => g.EgmEnabled).ToList();
@@ -825,6 +845,45 @@
                                        .Single(info => info.ProgId == progId && info.LevelId == levelId);
 
             return returnValue;
+        }
+
+        /// <summary>
+        ///     Ensure the RTP values from the Vertex progressive levels match the values from the Monaco progressive levels.
+        /// </summary>
+        /// <param name="monacoLevelsByLevelName">A dictionary of ProgressiveLevel objects by LevelName</param>
+        /// <param name="progLevels">A list of tuples for Vertex progressiveLevel and LinkedProgressiveLevel objects</param>
+        private void BoostCheck(IReadOnlyDictionary<string, List<IViewableProgressiveLevel>> monacoLevelsByLevelName, IEnumerable<(progressiveLevel, IViewableLinkedProgressiveLevel)> progLevels)
+        {
+            HashSet<int> failedGameIds = new();
+
+            foreach (var progLevel in progLevels)
+            {
+                var matchedLevels = monacoLevelsByLevelName[progLevel.Item2.LevelName];
+
+                foreach(var matchedLevel in matchedLevels)
+                {
+                    if ((progLevel.Item1.incrementRate != matchedLevel.IncrementRate) ||
+                        (progLevel.Item1.resetValue != matchedLevel.ResetValue))
+                    {
+                        failedGameIds.Add(matchedLevel.GameId);
+                    }
+
+                    // May need to change mystery check to use the flavor type
+                    if (matchedLevel.TriggerControl == TriggerType.Mystery)
+                        if ((progLevel.Item1.mustBeWonByHigh != matchedLevel.MaximumValue) ||
+                            (progLevel.Item1.mustBeWonByLow != matchedLevel.ResetValue))
+                    {
+                        failedGameIds.Add(matchedLevel.GameId);
+                    }
+                }
+            }
+
+            foreach (var failedGameId in failedGameIds)
+            {
+                // TODO: Field to be added with Casey's RTP changes
+                // gameDetail[failedGameId].LinkedProgressiveVerificationResult = false;
+                // TODO: Ensure setting a value triggers validation of gameDetail[failedGameId].LinkedProgressiveVerificationResult
+            }
         }
     }
 }
