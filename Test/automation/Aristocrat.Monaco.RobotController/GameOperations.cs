@@ -7,11 +7,13 @@
     using Aristocrat.Monaco.Hhr.Events;
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Test.Automation;
+    using Aristocrat.Monaco.Accounting.Contracts.HandCount;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using System.Security.Cryptography;
 
     internal class GameOperations : IRobotOperations
     {
@@ -33,6 +35,9 @@
         private bool _forceGameExitIsInProgress;
         private bool _requestGameIsInProgress;
         private bool _gameIsRunning;
+        private const int RandomNumberMax = 2; 
+
+        private readonly int CashoutDialogDismiss = (int)TimeSpan.FromSeconds(3).TotalMilliseconds;
 
         public GameOperations(IEventBus eventBus, RobotLogger logger, Automation automator, StateChecker sc, IPropertiesManager pm, RobotController robotController, IGameService gameService)
         {
@@ -348,6 +353,9 @@
                     _logger.Info($"SystemEnabledEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                     LoadGameWithDelay(Constants.loadGameDelayDuration);
                 });
+
+            CashoutBannerSupport();
+
             InitGameProcessHungEvent();
         }
 
@@ -363,6 +371,22 @@
                     _robotController.Enabled = false;
                 });
             };
+        }
+
+        private void CashoutBannerSupport()
+        {
+            _eventBus.Subscribe<CashoutAmountAuthorizationRequestedEvent>(this,
+                evt =>
+                {
+                    _robotController.BlockOtherOperations(RobotStateAndOperations.CashoutBannerSupport);
+                    Task.Delay(CashoutDialogDismiss).ContinueWith(task =>
+                    {
+                        var cashOut = GetRandomBoolean();
+                            
+                        _eventBus.Publish(new CashoutAmountAuthorizationReceivedEvent(cashOut));
+                        _robotController.UnBlockOtherOperations(RobotStateAndOperations.CashoutBannerSupport);
+                    });
+                });
         }
 
         private void SelectNextGame(bool goToNextGame)
@@ -476,5 +500,19 @@
         {
             return _robotController.InProgressRequests.Contains(RobotStateAndOperations.RegularMode);
         }
+
+        private bool GetRandomBoolean()
+        {
+            var rndGenerator = RandomNumberGenerator.Create();
+
+            var bytes = new byte[2];
+
+            rndGenerator.GetBytes(bytes);
+
+            ushort ranNumber = BitConverter.ToUInt16(bytes, 0);
+
+            return ranNumber % 2 != 0;
+        }
+        
     }
 }
