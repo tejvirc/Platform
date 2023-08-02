@@ -2747,9 +2747,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private void CheckMaxBalance(string message)
         {
-            if (_gameState.Idle && !_transferOutHandler.InProgress && !_gameHistory.IsRecoveryNeeded && !_gameHistory.HasPendingCashOut)
+            if (_gameState.Idle && !_transferOutHandler.InProgress && !_gameHistory.IsRecoveryNeeded &&
+                !_gameHistory.HasPendingCashOut || _gameState.Enabled &&
+                _gameState.CurrentState != PlayState.Idle && _gameHistory.IsRecoveryNeeded &&
+                !_transferOutHandler.InProgress)
             {
-                Logger.Debug(message);
                 _commandFactory.Create<CheckBalance>().Handle(new CheckBalance());
             }
         }
