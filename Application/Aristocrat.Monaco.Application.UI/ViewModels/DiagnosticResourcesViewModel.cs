@@ -115,6 +115,8 @@
 
             GetAllMetricsSnapShot();
 
+            MvvmHelper.ExecuteOnUI(UpdateMetricLabels);
+
             SetXAxisScale(DateTime.Now);
 
             StartTimer();
