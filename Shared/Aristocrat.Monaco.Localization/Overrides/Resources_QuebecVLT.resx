@@ -117,17 +117,56 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Asset Number" xml:space="preserve">
+    <value>Asset Number</value>
+  </data>
+  <data name="CallAttendantText" xml:space="preserve">
+    <value>Call the attendant</value>
+  </data>
+  <data name="CashingOutText" xml:space="preserve">
+    <value>Printing Ticket...</value>
+  </data>
+  <data name="Cent" xml:space="preserve">
+    <value>Cent</value>
+  </data>
+  <data name="Cents" xml:space="preserve">
+    <value>Cents</value>
+  </data>
+  <data name="CoinInText" xml:space="preserve">
+    <value>Coin In</value>
+  </data>
+  <data name="CreditsWageredText" xml:space="preserve">
+    <value>Bet</value>
+  </data>
+  <data name="CreditsWonText" xml:space="preserve">
+    <value>Won</value>
+  </data>
+  <data name="DisableCountdownMessage" xml:space="preserve">
+    <value>Machine will be disabled:</value>
+  </data>
   <data name="DisableEGM" xml:space="preserve">
     <value>Local Offline Mode</value>
     <comment>Jurisdiction override for Out of Service Mode button</comment>
+  </data>
+  <data name="Dollars" xml:space="preserve">
+    <value>Dollars</value>
+  </data>
+  <data name="EnabledDenominationsLabel" xml:space="preserve">
+    <value>Enabled Denominations:</value>
   </data>
   <data name="EnableEGM" xml:space="preserve">
     <value>Exit Offline Mode</value>
     <comment>Jurisdiction override for Put EGM Into Service (Out of Service Mode button)</comment>
   </data>
+  <data name="EndCreditsText" xml:space="preserve">
+    <value>End Credit</value>
+  </data>
   <data name="EndGameRoundBeforeOutOfServiceText" xml:space="preserve">
     <value>Offline mode is not available during a game round</value>
     <comment>Jurisdiction override for Out of Service game idle text</comment>
+  </data>
+  <data name="EndTimeText2" xml:space="preserve">
+    <value>END TIME</value>
   </data>
   <data name="EnteringOutOfServiceModeRequiresZeroCreditsText" xml:space="preserve">
     <value>Entering Offline mode requires Zero Credits</value>
@@ -135,6 +174,39 @@
   </data>
   <data name="EventLogTitle" xml:space="preserve">
     <value>History</value>
+  </data>
+  <data name="GameHistoryStatusText" xml:space="preserve">
+    <value>STATUS</value>
+  </data>
+  <data name="GameNameText2" xml:space="preserve">
+    <value>GAME/EVENT</value>
+  </data>
+  <data name="GameOrderTestMessage" xml:space="preserve">
+    <value>Select game and use up/down arrows to rearrange the order</value>
+  </data>
+  <data name="GamesPlayed" xml:space="preserve">
+    <value>Games Played</value>
+  </data>
+  <data name="GamesWon" xml:space="preserve">
+    <value>Games Won</value>
+  </data>
+  <data name="Handpay" xml:space="preserve">
+    <value>Handpay</value>
+  </data>
+  <data name="HostTransactionId" xml:space="preserve">
+    <value>Host Transaction ID</value>
+  </data>
+  <data name="HostTranscriptsCommandId" xml:space="preserve">
+    <value>Command Id</value>
+  </data>
+  <data name="IdleText" xml:space="preserve">
+    <value>Could you or someone you know have a problem with gambling? For help call 1-800-461-1234. Pourriez-vous ou quelqu'un que vous connaissez avoir un problème avec le jeu? Pour obtenir de l'aide, composez le 1-800-461-1234.</value>
+  </data>
+  <data name="IdleTextDefault" xml:space="preserve">
+    <value>INSERT MONEY TO PLAY</value>
+  </data>
+  <data name="MaximumValueReachedCashOutText2" xml:space="preserve">
+    <value>A cash out ticket is being produced.</value>
   </data>
   <data name="OutOfService" xml:space="preserve">
     <value>Offline</value>
@@ -144,11 +216,71 @@
     <value>Exit Offline Mode from operator menu</value>
     <comment>Jurisdiction override for Out of Service additional info text</comment>
   </data>
+  <data name="PaidMeterLabel" xml:space="preserve">
+    <value>PAID:</value>
+  </data>
+  <data name="PaperLevelText" xml:space="preserve">
+    <value>Paper Level</value>
+  </data>
   <data name="PeriodicResetTicketTitle" xml:space="preserve">
     <value>PERIODIC RESET COUPON</value>
     <comment>Jurisdiction override for Periodic Reset</comment>
   </data>
+  <data name="PlayableOnly" xml:space="preserve">
+    <value>PLAYABLE ONLY</value>
+  </data>
+  <data name="PrintHandPayText" xml:space="preserve">
+    <value>Printing Receipt...</value>
+  </data>
   <data name="Protocol" xml:space="preserve">
     <value>G2S</value>
+  </data>
+  <data name="RecoveryFailedText" xml:space="preserve">
+    <value>RECOVERY FAILED</value>
+  </data>
+  <data name="SequenceNumber" xml:space="preserve">
+    <value>Sequence Number</value>
+  </data>
+  <data name="SequenceNumberText" xml:space="preserve">
+    <value>SEQ NO</value>
+  </data>
+  <data name="Sixty" xml:space="preserve">
+    <value>Sixty</value>
+  </data>
+  <data name="StartCreditsText" xml:space="preserve">
+    <value>Start Credit</value>
+  </data>
+  <data name="StartTimeText2" xml:space="preserve">
+    <value>START TIME</value>
+  </data>
+  <data name="StatusLow" xml:space="preserve">
+    <value>LOW</value>
+  </data>
+  <data name="StatusOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="TestText" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="TopBoxDoorOpenCount" xml:space="preserve">
+    <value>Top Box Door Open Count</value>
+  </data>
+  <data name="TopBoxDoorOpenPowerOffCount" xml:space="preserve">
+    <value>Top Box Door Open Power Off Count</value>
+  </data>
+  <data name="TotalCoinInText" xml:space="preserve">
+    <value>Total Coin In</value>
+  </data>
+  <data name="TotalDashBillIn" xml:space="preserve">
+    <value>Total - Bill In</value>
+  </data>
+  <data name="TotalDashCoinIn" xml:space="preserve">
+    <value>Total - Coin In</value>
+  </data>
+  <data name="TotalDashCoinsAndBills" xml:space="preserve">
+    <value>Total - Coins and Bills</value>
+  </data>
+  <data name="UnknownMeterValueText" xml:space="preserve">
+    <value>Meter Not Found</value>
   </data>
 </root>

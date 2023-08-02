@@ -151,145 +151,136 @@
   <data name="Protocol" xml:space="preserve">
     <value>???G2S???</value>
   </data>
-  <data name="AssetNumber">
+  <data name="AssetNumber" xml:space="preserve">
     <value>Numéro d’actif</value>
   </data>
-  <data name="CallAttendantText">
+  <data name="CallAttendantText" xml:space="preserve">
     <value>Appeler un préposé</value>
   </data>
-  <data name="CashingOutText">
+  <data name="CashingOutText" xml:space="preserve">
     <value>Encaissement en cours…</value>
   </data>
-  <data name="Cent">
+  <data name="Cent" xml:space="preserve">
     <value>Sous</value>
   </data>
-  <data name="Cents">
+  <data name="Cents" xml:space="preserve">
     <value>Sous</value>
   </data>
-  <data name="CreditsWageredText">
+  <data name="CreditsWageredText" xml:space="preserve">
     <value>en espèces misés</value>
   </data>
-  <data name="CreditsWonText">
+  <data name="CreditsWonText" xml:space="preserve">
     <value>en espèces gagnés</value>
   </data>
-  <data name="DisableCountdownMessage">
+  <data name="DisableCountdownMessage" xml:space="preserve">
     <value>L’appareil sera désactivé dans :</value>
   </data>
-  <data name="Dollars">
+  <data name="Dollars" xml:space="preserve">
     <value>Dollars</value>
   </data>
-  <data name="EnabledDenominationsLabel">
+  <data name="EnabledDenominationsLabel" xml:space="preserve">
     <value>Valeurs de crédits activées :</value>
   </data>
-  <data name="EndCreditsText">
+  <data name="EndCreditsText" xml:space="preserve">
     <value>en espèces finaux</value>
   </data>
-  <data name="EndTimeText2">
+  <data name="EndTimeText2" xml:space="preserve">
     <value>Heure de fin</value>
   </data>
-  <data name="Five">
-    <value>Cinq </value>
-  </data>
-  <data name="">
-    <value>Souhaitez-vous vraiment faire une réinitialisation partielle?</value>
-  </data>
-  <data name="GameHistoryStatusText">
+  <data name="GameHistoryStatusText" xml:space="preserve">
     <value>État</value>
   </data>
-  <data name="GameNameText2">
+  <data name="GameNameText2" xml:space="preserve">
     <value>Jeu/événement</value>
   </data>
-  <data name="GamesPlayed">
+  <data name="GamesPlayed" xml:space="preserve">
     <value>Parties jouées</value>
   </data>
-  <data name="GamesWon">
+  <data name="GamesWon" xml:space="preserve">
     <value>Parties gagnées</value>
   </data>
-  <data name="Handpay">
+  <data name="Handpay" xml:space="preserve">
     <value>Paiement manuel</value>
   </data>
-  <data name="IdleText">
+  <data name="IdleText" xml:space="preserve">
     <value>Could you or someone you know have a problem with gambling? For help call 1-800-461-1234. Pourriez-vous ou quelqu’un que vous connaissez pourrait-il avoir un problème avec le jeu? Pour obtenir de l’aide, composez le 1-800-461-1234.</value>
   </data>
-  <data name="MaximumValueReachedCashOutText2">
+  <data name="MaximumValueReachedCashOutText2" xml:space="preserve">
     <value>Un coupon de remboursement est en cours d’impression.</value>
   </data>
-  <data name="One">
-    <value>Un  </value>
-  </data>
-  <data name="PaidMeterLabel">
+  <data name="PaidMeterLabel" xml:space="preserve">
     <value>Payé :</value>
   </data>
-  <data name="PaperLevelText">
+  <data name="PaperLevelText" xml:space="preserve">
     <value>Niveau de papier</value>
   </data>
-  <data name="PlayableOnly">
+  <data name="PlayableOnly" xml:space="preserve">
     <value>Jouable uniquement</value>
   </data>
-  <data name="PrintHandPayText">
+  <data name="PrintHandPayText" xml:space="preserve">
     <value>Impression du reçu…</value>
   </data>
-  <data name="RecoveryFailedText">
+  <data name="RecoveryFailedText" xml:space="preserve">
     <value>Échec du rétablissement</value>
   </data>
-  <data name="SequenceNumber">
+  <data name="SequenceNumber" xml:space="preserve">
     <value>No du coupon</value>
   </data>
-  <data name="SequenceNumberText">
+  <data name="SequenceNumberText" xml:space="preserve">
     <value>Numéro séquentiel</value>
   </data>
-  <data name="Sixty">
+  <data name="Sixty" xml:space="preserve">
     <value>Soixante </value>
   </data>
-  <data name="StartCreditsText">
+  <data name="StartCreditsText" xml:space="preserve">
     <value>en crédits initiaux</value>
   </data>
-  <data name="StartTimeText2">
+  <data name="StartTimeText2" xml:space="preserve">
     <value>Heure de début</value>
   </data>
-  <data name="StatusLow">
+  <data name="StatusLow" xml:space="preserve">
     <value>Bas</value>
   </data>
-  <data name="StatusOk">
+  <data name="StatusOk" xml:space="preserve">
     <value>Bon</value>
   </data>
-  <data name="TestText">
+  <data name="TestText" xml:space="preserve">
     <value>Test</value>
   </data>
-  <data name="TopBoxDoorOpenCount">
+  <data name="TopBoxDoorOpenCount" xml:space="preserve">
     <value>Ouvertures de la partie supérieure</value>
   </data>
-  <data name="TopBoxDoorOpenPowerOffCount">
+  <data name="TopBoxDoorOpenPowerOffCount" xml:space="preserve">
     <value>Ouvertures de la partie supérieure hors tension</value>
   </data>
-  <data name="TotalDashBillIn">
+  <data name="TotalDashBillIn" xml:space="preserve">
     <value>Total des billets insérés</value>
   </data>
-  <data name="TotalDashCoinIn">
+  <data name="TotalDashCoinIn" xml:space="preserve">
     <value>Total des pièces insérées</value>
   </data>
-  <data name="TotalDashCoinsAndBills">
+  <data name="TotalDashCoinsAndBills" xml:space="preserve">
     <value>Total des insertions (billets et pièces)</value>
   </data>
-  <data name="UnknownMeterValueText">
+  <data name="UnknownMeterValueText" xml:space="preserve">
     <value>Valeur de compteur introuvable</value>
   </data>
-  <data name="CoinInText">
+  <data name="CoinInText" xml:space="preserve">
     <value>Pièces de</value>
   </data>
-  <data name="GameOrderTestMessage">
+  <data name="GameOrderTestMessage" xml:space="preserve">
     <value>Choisissez un jeu et utilisez les flèches vers le haut/vers le bas pour modifier l’ordre</value>
   </data>
-  <data name="HostTransactionId">
+  <data name="HostTransactionId" xml:space="preserve">
     <value>ID de transaction hôte</value>
   </data>
-  <data name="HostTranscriptsCommandId">
+  <data name="HostTranscriptsCommandId" xml:space="preserve">
     <value>ID de commande</value>
   </data>
-  <data name="IdleTextDefault">
+  <data name="IdleTextDefault" xml:space="preserve">
     <value>INSÉRER DE L’ARGENT</value>
   </data>
-  <data name="TotalCoinInText">
+  <data name="TotalCoinInText" xml:space="preserve">
     <value>Total des pièces en</value>
   </data>
 </root>

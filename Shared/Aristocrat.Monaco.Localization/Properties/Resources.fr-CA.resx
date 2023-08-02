@@ -2016,7 +2016,7 @@ Consulter le manuel pour plus de détails</value>
     <value>Paiement manuel – montant encaissé {0}</value>
   </data>
   <data name="CashOutHandpayKeyedOffTotalSuffix" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="Close" xml:space="preserve">
     <value>Fermer</value>
@@ -2499,7 +2499,7 @@ Consulter le manuel pour plus de détails</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="PartialResetDialogText" xml:space="preserve">
-    <value>Cette opération n’est pas réversible.</value>
+    <value>Cette opération n’est pas réversible. Souhaitez-vous vraiment faire une réinitialisation partielle?</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="TotalInLabel" xml:space="preserve">

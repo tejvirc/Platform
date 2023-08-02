@@ -61,11 +61,110 @@ namespace Aristocrat.Monaco.Localization.Overrides {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Asset Number.
+        /// </summary>
+        internal static string Asset_Number {
+            get {
+                return ResourceManager.GetString("Asset Number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Call the attendant.
+        /// </summary>
+        internal static string CallAttendantText {
+            get {
+                return ResourceManager.GetString("CallAttendantText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Printing Ticket....
+        /// </summary>
+        internal static string CashingOutText {
+            get {
+                return ResourceManager.GetString("CashingOutText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cent.
+        /// </summary>
+        internal static string Cent {
+            get {
+                return ResourceManager.GetString("Cent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cents.
+        /// </summary>
+        internal static string Cents {
+            get {
+                return ResourceManager.GetString("Cents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coin In.
+        /// </summary>
+        internal static string CoinInText {
+            get {
+                return ResourceManager.GetString("CoinInText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bet.
+        /// </summary>
+        internal static string CreditsWageredText {
+            get {
+                return ResourceManager.GetString("CreditsWageredText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Won.
+        /// </summary>
+        internal static string CreditsWonText {
+            get {
+                return ResourceManager.GetString("CreditsWonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Machine will be disabled:.
+        /// </summary>
+        internal static string DisableCountdownMessage {
+            get {
+                return ResourceManager.GetString("DisableCountdownMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Local Offline Mode.
         /// </summary>
         internal static string DisableEGM {
             get {
                 return ResourceManager.GetString("DisableEGM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dollars.
+        /// </summary>
+        internal static string Dollars {
+            get {
+                return ResourceManager.GetString("Dollars", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enabled Denominations:.
+        /// </summary>
+        internal static string EnabledDenominationsLabel {
+            get {
+                return ResourceManager.GetString("EnabledDenominationsLabel", resourceCulture);
             }
         }
         
@@ -79,11 +178,29 @@ namespace Aristocrat.Monaco.Localization.Overrides {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to End Credit.
+        /// </summary>
+        internal static string EndCreditsText {
+            get {
+                return ResourceManager.GetString("EndCreditsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Offline mode is not available during a game round.
         /// </summary>
         internal static string EndGameRoundBeforeOutOfServiceText {
             get {
                 return ResourceManager.GetString("EndGameRoundBeforeOutOfServiceText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to END TIME.
+        /// </summary>
+        internal static string EndTimeText2 {
+            get {
+                return ResourceManager.GetString("EndTimeText2", resourceCulture);
             }
         }
         
@@ -106,6 +223,105 @@ namespace Aristocrat.Monaco.Localization.Overrides {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to STATUS.
+        /// </summary>
+        internal static string GameHistoryStatusText {
+            get {
+                return ResourceManager.GetString("GameHistoryStatusText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GAME/EVENT.
+        /// </summary>
+        internal static string GameNameText2 {
+            get {
+                return ResourceManager.GetString("GameNameText2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select game and use up/down arrows to rearrange the order.
+        /// </summary>
+        internal static string GameOrderTestMessage {
+            get {
+                return ResourceManager.GetString("GameOrderTestMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Games Played.
+        /// </summary>
+        internal static string GamesPlayed {
+            get {
+                return ResourceManager.GetString("GamesPlayed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Games Won.
+        /// </summary>
+        internal static string GamesWon {
+            get {
+                return ResourceManager.GetString("GamesWon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Handpay.
+        /// </summary>
+        internal static string Handpay {
+            get {
+                return ResourceManager.GetString("Handpay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Host Transaction ID.
+        /// </summary>
+        internal static string HostTransactionId {
+            get {
+                return ResourceManager.GetString("HostTransactionId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Command Id.
+        /// </summary>
+        internal static string HostTranscriptsCommandId {
+            get {
+                return ResourceManager.GetString("HostTranscriptsCommandId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could you or someone you know have a problem with gambling? For help call 1-800-461-1234. Pourriez-vous ou quelqu&apos;un que vous connaissez avoir un problème avec le jeu? Pour obtenir de l&apos;aide, composez le 1-800-461-1234..
+        /// </summary>
+        internal static string IdleText {
+            get {
+                return ResourceManager.GetString("IdleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to INSERT MONEY TO PLAY.
+        /// </summary>
+        internal static string IdleTextDefault {
+            get {
+                return ResourceManager.GetString("IdleTextDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A cash out ticket is being produced..
+        /// </summary>
+        internal static string MaximumValueReachedCashOutText2 {
+            get {
+                return ResourceManager.GetString("MaximumValueReachedCashOutText2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Offline.
         /// </summary>
         internal static string OutOfService {
@@ -124,6 +340,24 @@ namespace Aristocrat.Monaco.Localization.Overrides {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PAID:.
+        /// </summary>
+        internal static string PaidMeterLabel {
+            get {
+                return ResourceManager.GetString("PaidMeterLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paper Level.
+        /// </summary>
+        internal static string PaperLevelText {
+            get {
+                return ResourceManager.GetString("PaperLevelText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PERIODIC RESET COUPON.
         /// </summary>
         internal static string PeriodicResetTicketTitle {
@@ -133,11 +367,173 @@ namespace Aristocrat.Monaco.Localization.Overrides {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PLAYABLE ONLY.
+        /// </summary>
+        internal static string PlayableOnly {
+            get {
+                return ResourceManager.GetString("PlayableOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Printing Receipt....
+        /// </summary>
+        internal static string PrintHandPayText {
+            get {
+                return ResourceManager.GetString("PrintHandPayText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to G2S.
         /// </summary>
         internal static string Protocol {
             get {
                 return ResourceManager.GetString("Protocol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RECOVERY FAILED.
+        /// </summary>
+        internal static string RecoveryFailedText {
+            get {
+                return ResourceManager.GetString("RecoveryFailedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sequence Number.
+        /// </summary>
+        internal static string SequenceNumber {
+            get {
+                return ResourceManager.GetString("SequenceNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SEQ NO.
+        /// </summary>
+        internal static string SequenceNumberText {
+            get {
+                return ResourceManager.GetString("SequenceNumberText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sixty.
+        /// </summary>
+        internal static string Sixty {
+            get {
+                return ResourceManager.GetString("Sixty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Credit.
+        /// </summary>
+        internal static string StartCreditsText {
+            get {
+                return ResourceManager.GetString("StartCreditsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to START TIME.
+        /// </summary>
+        internal static string StartTimeText2 {
+            get {
+                return ResourceManager.GetString("StartTimeText2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LOW.
+        /// </summary>
+        internal static string StatusLow {
+            get {
+                return ResourceManager.GetString("StatusLow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        internal static string StatusOk {
+            get {
+                return ResourceManager.GetString("StatusOk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test.
+        /// </summary>
+        internal static string TestText {
+            get {
+                return ResourceManager.GetString("TestText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Top Box Door Open Count.
+        /// </summary>
+        internal static string TopBoxDoorOpenCount {
+            get {
+                return ResourceManager.GetString("TopBoxDoorOpenCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Top Box Door Open Power Off Count.
+        /// </summary>
+        internal static string TopBoxDoorOpenPowerOffCount {
+            get {
+                return ResourceManager.GetString("TopBoxDoorOpenPowerOffCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Coin In.
+        /// </summary>
+        internal static string TotalCoinInText {
+            get {
+                return ResourceManager.GetString("TotalCoinInText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total - Bill In.
+        /// </summary>
+        internal static string TotalDashBillIn {
+            get {
+                return ResourceManager.GetString("TotalDashBillIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total - Coin In.
+        /// </summary>
+        internal static string TotalDashCoinIn {
+            get {
+                return ResourceManager.GetString("TotalDashCoinIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total - Coins and Bills.
+        /// </summary>
+        internal static string TotalDashCoinsAndBills {
+            get {
+                return ResourceManager.GetString("TotalDashCoinsAndBills", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meter Not Found.
+        /// </summary>
+        internal static string UnknownMeterValueText {
+            get {
+                return ResourceManager.GetString("UnknownMeterValueText", resourceCulture);
             }
         }
     }
