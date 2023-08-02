@@ -8606,6 +8606,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Disabled By Progressive Host.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		public static string DisabledByProgressiveHost {
+			get {
+				return ResourceManager.GetString("DisabledByProgressiveHost", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Disabled By .
 		/// </summary>
         /// <remarks>
@@ -11375,7 +11387,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Escrowed .
+		///   Looks up a localized string similar to Escrowed.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -11573,12 +11585,12 @@ namespace Aristocrat.Monaco.Localization.Properties {
 			get {
 				return ResourceManager.GetString("ExcessiveThresholdDisableMessage", resourceCulture) ?? string.Empty;
 			}
-		}
+        }
 
-		/// <summary>
-		///   Looks up a localized string similar to Exit Configuration.
-		/// </summary>
-		public static string ExitConfigurationText {
+        /// <summary>
+        ///   Looks up a localized string similar to Exit Configuration.
+        /// </summary>
+        public static string ExitConfigurationText {
 			get {
 				return ResourceManager.GetString("ExitConfigurationText", resourceCulture) ?? string.Empty;
 			}
@@ -11884,11 +11896,11 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
-		public static string ExtraCoinOutRunaway {
-			get {
-				return ResourceManager.GetString("ExtraCoinOutRunaway", resourceCulture) ?? string.Empty;
-			}
-		}
+        public static string ExtraCoinOutRunaway {
+            get {
+                return ResourceManager.GetString("ExtraCoinOutRunaway", resourceCulture) ?? string.Empty;
+            }
+        }
 
 		/// <summary>
 		///   Looks up a localized string similar to Extra-High.
@@ -11913,14 +11925,28 @@ namespace Aristocrat.Monaco.Localization.Properties {
 				return ResourceManager.GetString("ExtraLow", resourceCulture) ?? string.Empty;
 			}
 		}
+		
+        /// <summary>
+        ///   Looks up a localized string similar to Extra Settings.
+        /// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+        public static string ExtraSettingsButtonText
+        {
+            get
+            {
+				return ResourceManager.GetString("ExtraSettingsButtonText", resourceCulture) ?? string.Empty;
+			}
+        }
 
-		/// <summary>
-		///   Looks up a localized string similar to  + {0} Extra Winnings.
-		/// </summary>
+        /// <summary>
+        ///   Looks up a localized string similar to  + {0} Extra Winnings.
+        /// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Hhr.UI
         /// </remarks>
-		public static string ExtraWinningsStringFormat {
+        public static string ExtraWinningsStringFormat {
 			get {
 				return ResourceManager.GetString("ExtraWinningsStringFormat", resourceCulture) ?? string.Empty;
 			}
@@ -13658,6 +13684,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Games Played since Door Closed.
+		/// </summary>
+		public static string GamesPlayedSinceDoorClosed {
+			get {
+				return ResourceManager.GetString("GamesPlayedSinceDoorClosed", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Games Played since Reboot.
+		/// </summary>
+		public static string GamesPlayedSinceReboot {
+			get {
+				return ResourceManager.GetString("GamesPlayedSinceReboot", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Settings cannot be changed after a game round has ....
 		/// </summary>
         /// <remarks>
@@ -13669,13 +13713,27 @@ namespace Aristocrat.Monaco.Localization.Properties {
 			}
 		}
 
-		/// <summary>
-		///   Looks up a localized string similar to Game Start/End Reporting.
-		/// </summary>
+        /// <summary>
+        ///   Looks up a localized string similar to GameSpecificOption
+        /// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+        public static string GameSpecificOptionLabel
+        {
+            get
+            {
+                return ResourceManager.GetString("GameSpecificOptionLabel", resourceCulture) ?? string.Empty;
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Game Start/End Reporting.
+        /// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Sas.UI
         /// </remarks>
-		public static string GameStartEndPortLabel {
+        public static string GameStartEndPortLabel {
 			get {
 				return ResourceManager.GetString("GameStartEndPortLabel", resourceCulture) ?? string.Empty;
 			}
@@ -26128,6 +26186,54 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ProgressiveFeatureLabel {
 			get {
 				return ResourceManager.GetString("ProgressiveFeatureLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Progressive Host Disconnected.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		public static string ProgressiveHostDisconnected {
+			get {
+				return ResourceManager.GetString("ProgressiveHostDisconnected", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Ensure communication cable is properly connected a....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		public static string ProgressiveHostDisconnectedHelp {
+			get {
+				return ResourceManager.GetString("ProgressiveHostDisconnectedHelp", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Progressive Host Registration Failed.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		public static string ProgressiveHostRegistrationFailed {
+			get {
+				return ResourceManager.GetString("ProgressiveHostRegistrationFailed", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Ensure the EGM is configured for progressives on t....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		public static string ProgressiveHostRegistrationFailedHelp {
+			get {
+				return ResourceManager.GetString("ProgressiveHostRegistrationFailedHelp", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -44896,6 +45002,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Disabled By Progressive Host.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		public static string DisabledByProgressiveHost {
+			get {
+				return "DisabledByProgressiveHost";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Disabled By .
 		/// </summary>
         /// <remarks>
@@ -47665,7 +47783,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Escrowed .
+		///		Looks up a localized string similar to Escrowed.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -48178,7 +48296,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 			get {
 				return "ExtraCoinOutRunaway";
 			}
-		}
+        }
 
 		/// <summary>
 		///		Looks up a localized string similar to Extra-High.
@@ -48204,13 +48322,27 @@ namespace Aristocrat.Monaco.Localization.Properties {
 			}
 		}
 
+        /// <summary>
+        ///		Looks up a localized string similar to Extra Settings.
+        /// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+        public static string ExtraSettingsButtonText
+        {
+            get
+            {
+                return "ExtraSettingsButtonText";
+            }
+        }
+
 		/// <summary>
 		///		Looks up a localized string similar to  + {0} Extra Winnings.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Hhr.UI
         /// </remarks>
-		public static string ExtraWinningsStringFormat {
+        public static string ExtraWinningsStringFormat {
 			get {
 				return "ExtraWinningsStringFormat";
 			}
@@ -48864,7 +48996,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 			}
 		}
 
-		/// <summary>
+        /// <summary>
 		///		Looks up a localized string similar to This operation cannot be reversed.&amp;#13;&amp;#1....
 		/// </summary>
         /// <remarks>
@@ -49948,6 +50080,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Games Played since Door Closed.
+		/// </summary>
+		public static string GamesPlayedSinceDoorClosed {
+			get {
+				return "GamesPlayedSinceDoorClosed";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Games Played since Reboot.
+		/// </summary>
+		public static string GamesPlayedSinceReboot {
+			get {
+				return "GamesPlayedSinceReboot";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Settings cannot be changed after a game round has ....
 		/// </summary>
         /// <remarks>
@@ -49957,15 +50107,29 @@ namespace Aristocrat.Monaco.Localization.Properties {
 			get {
 				return "GamesPlayedWarning";
 			}
-		}
+        }
 
-		/// <summary>
-		///		Looks up a localized string similar to Game Start/End Reporting.
-		/// </summary>
+        /// <summary>
+        ///		Looks up a localized string similar to Game Start/End Reporting.
+        /// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Sas.UI
         /// </remarks>
-		public static string GameStartEndPortLabel {
+        public static string GameSpecificOptionLabel
+        {
+            get
+            {
+                return "GameSpecificOptionLabel";
+            }
+        }
+
+        /// <summary>
+        ///		Looks up a localized string similar to Game Start/End Reporting.
+        /// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Sas.UI
+        /// </remarks>
+        public static string GameStartEndPortLabel {
 			get {
 				return "GameStartEndPortLabel";
 			}
@@ -62418,6 +62582,54 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ProgressiveFeatureLabel {
 			get {
 				return "ProgressiveFeatureLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Progressive Host Disconnected.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		public static string ProgressiveHostDisconnected {
+			get {
+				return "ProgressiveHostDisconnected";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Ensure communication cable is properly connected a....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		public static string ProgressiveHostDisconnectedHelp {
+			get {
+				return "ProgressiveHostDisconnectedHelp";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Progressive Host Registration Failed.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		public static string ProgressiveHostRegistrationFailed {
+			get {
+				return "ProgressiveHostRegistrationFailed";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Ensure the EGM is configured for progressives on t....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		public static string ProgressiveHostRegistrationFailedHelp {
+			get {
+				return "ProgressiveHostRegistrationFailedHelp";
 			}
 		}
 
@@ -77518,6 +77730,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		DisabledByHost2,
 		/// <summary>
+		///   Looks up a localized string similar to Disabled By Progressive Host.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		DisabledByProgressiveHost,
+		/// <summary>
 		///   Looks up a localized string similar to Disabled By .
 		/// </summary>
         /// <remarks>
@@ -79082,7 +79301,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ErrorWhileFetchingData,
 		/// <summary>
-		///   Looks up a localized string similar to Escrowed .
+		///   Looks up a localized string similar to Escrowed.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -79377,12 +79596,19 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ExtraLow,
 		/// <summary>
+        ///   Looks up a localized string similar to ExtraSettings.
+        /// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+        ExtraSettingsButtonText,
+		/// <summary>
 		///   Looks up a localized string similar to  + {0} Extra Winnings.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Hhr.UI
         /// </remarks>
-		ExtraWinningsStringFormat,
+        ExtraWinningsStringFormat,
 		/// <summary>
 		///   Looks up a localized string similar to Failed.
 		/// </summary>
@@ -80380,19 +80606,34 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		GamesPlayed,
 		/// <summary>
+		///   Looks up a localized string similar to Games Played since Door Closed.
+		/// </summary>
+		GamesPlayedSinceDoorClosed,
+		/// <summary>
+		///   Looks up a localized string similar to Games Played since Reboot.
+		/// </summary>
+		GamesPlayedSinceReboot,
+		/// <summary>
 		///   Looks up a localized string similar to Settings cannot be changed after a game round has ....
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		GamesPlayedWarning,
-		/// <summary>
-		///   Looks up a localized string similar to Game Start/End Reporting.
-		/// </summary>
+        /// <summary>
+        ///   Looks up a localized string similar to Settings cannot be changed after a game round has ....
+        /// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+        GameSpecificOptionLabel,
+        /// <summary>
+        ///   Looks up a localized string similar to Game Specific Option.
+        /// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Sas.UI
         /// </remarks>
-		GameStartEndPortLabel,
+        GameStartEndPortLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Game Start Method.
 		/// </summary>
@@ -87503,6 +87744,34 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Sas.UI
         /// </remarks>
 		ProgressiveFeatureLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Progressive Host Disconnected.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		ProgressiveHostDisconnected,
+		/// <summary>
+		///   Looks up a localized string similar to Ensure communication cable is properly connected a....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		ProgressiveHostDisconnectedHelp,
+		/// <summary>
+		///   Looks up a localized string similar to Progressive Host Registration Failed.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		ProgressiveHostRegistrationFailed,
+		/// <summary>
+		///   Looks up a localized string similar to Ensure the EGM is configured for progressives on t....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Bingo
+        /// </remarks>
+		ProgressiveHostRegistrationFailedHelp,
 		/// <summary>
 		///   Looks up a localized string similar to Progressive Id.
 		/// </summary>

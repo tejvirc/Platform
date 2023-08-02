@@ -258,7 +258,7 @@
         }
 
         /// <inheritdoc />
-        public void Start(long initialWager, byte[] data, bool recovering)
+        public void Start(long initialWager, byte[] data, bool recovering, IEnumerable<IAdditionalGamePlayInfo> additionalInfo)
         {
             SetGamePlayData();
 

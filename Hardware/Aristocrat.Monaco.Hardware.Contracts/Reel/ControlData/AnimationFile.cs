@@ -13,7 +13,7 @@
         /// </summary>
         /// <param name="path">The path to the animation file</param>
         /// <param name="animationType">The type of the animation file</param>
-        public AnimationFile(string path, AnimationType animationType) : this(path, animationType, System.IO.Path.GetFileNameWithoutExtension(path))
+        public AnimationFile(string path, AnimationType animationType) : this(path, animationType, CalculateFriendlyName(path))
         {
         }
 
@@ -70,7 +70,7 @@
 
             return Equals((AnimationFile)obj);
         }
-        
+
         /// <inheritdoc/>
         public override int GetHashCode()
         {
@@ -82,6 +82,24 @@
                 hashCode = (hashCode * 397) ^ (int)AnimationType;
                 return hashCode;
             }
+        }
+
+        /// <summary>
+        ///     Obtains the friendly name from the path specified.
+        /// </summary>
+        /// <param name="path">The path string from which to obtain the friendly file name..</param>
+        /// <returns>The friendly name extracted from the path, basically it is the name of the file without extension.</returns>
+        protected static string CalculateFriendlyName(string path)
+        {
+            var res = System.IO.Path.GetFileNameWithoutExtension(path);
+
+            if (string.IsNullOrEmpty(res) && !string.IsNullOrEmpty(path))
+            {
+                res = System.IO.Path.GetFileNameWithoutExtension(
+                    path[(path.LastIndexOfAny(new[] { System.IO.Path.DirectorySeparatorChar, System.IO.Path.AltDirectorySeparatorChar }) + 1)..]);
+            }
+
+            return res;
         }
 
         /// <summary>

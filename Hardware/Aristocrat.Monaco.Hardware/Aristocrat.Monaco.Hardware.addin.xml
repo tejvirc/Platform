@@ -82,7 +82,6 @@
     <Service type="Aristocrat.Monaco.Hardware.Services.PrinterFirmwareInstaller" />
     <Service type="Aristocrat.Monaco.Hardware.OSInstaller" />
     <Service type="Aristocrat.Monaco.Hardware.Services.BatteryService" />
-    <Service type="Aristocrat.Monaco.Hardware.Services.SerialDeviceSearcher" />
     <Service type="Aristocrat.Monaco.Hardware.Services.TowerLightService" />
     <Service type="Aristocrat.Monaco.Hardware.Services.DfuProvider" />
     <Service type="Aristocrat.Monaco.Hardware.Services.SerialDeviceSearcher" />

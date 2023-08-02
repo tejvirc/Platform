@@ -808,7 +808,7 @@ namespace Aristocrat.Monaco.Accounting
         {
             _bus.Publish(new TransferOutStartedEvent(CurrentTransaction.TransactionId, 0, 0, 0));
 
-            foreach (var (instance, _) in _providers)
+            foreach (var (instance, _) in _providers.Where(p => p.permitted))
             {
                 if (await instance.Recover(transaction, token))
                 {

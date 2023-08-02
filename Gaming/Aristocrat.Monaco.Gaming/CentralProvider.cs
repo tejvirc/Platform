@@ -81,10 +81,7 @@
 
         public bool RequestOutcomes(
             int gameId,
-            long denomination,
             string wagerCategory,
-            string templateId,
-            long wager,
             IOutcomeRequest request,
             bool recovering)
         {
@@ -94,9 +91,8 @@
                 return false;
             }
 
-            if (wager == 0 || request.Quantity == 0)
+            if (!ValidateGameInformation(request))
             {
-                Logger.Error($"Wager({wager}) and Count({request.Quantity}) must be non-zero");
                 return false;
             }
 
@@ -127,17 +123,15 @@
                 }
             }
 
-            if (transaction == null)
+            if (transaction is null)
             {
                 transaction = new CentralTransaction(
                     DeviceId,
                     DateTime.UtcNow,
                     gameId,
-                    denomination,
                     wagerCategory,
-                    templateId,
-                    wager,
-                    request.Quantity)
+                    request.Quantity,
+                    request.AdditionalInfo)
                 {
                     Exception = OutcomeException.Pending,
                     AssociatedTransactions = new List<long> { _gameHistory.CurrentLog.TransactionId }
@@ -217,8 +211,6 @@
             }
 
             NotifyRuntime(transaction);
-
-            Logger.Info($"Outcomes received: {transaction}");
 
             _bus.Publish(new OutcomeReceivedEvent(transaction));
         }
@@ -342,5 +334,28 @@
             return _protocolProvider.MultiProtocolConfiguration.ToList()
                 .Any(x => x.Protocol == EnumParser.ParseOrThrow<CommsProtocol>(protocol) && x.IsCentralDeterminationHandled);
         }
+
+        private static bool ValidateGameInformation(IOutcomeRequest request)
+        {
+            if (request.Quantity == 0)
+            {
+                Logger.Error($"Count({request.Quantity}) must be non-zero");
+                return false;
+            }
+
+            foreach (var gameInfo in request.AdditionalInfo)
+            {
+                if (gameInfo?.WagerAmount != 0)
+                {
+                    continue;
+                }
+
+                Logger.Error($"Wager({gameInfo.WagerAmount}) must be non-zero");
+                return false;
+            }
+
+            return true;
+        }
+
     }
 }

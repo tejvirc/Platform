@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
-    using Contracts.OperatorMenu;
     using OperatorMenu;
 
     [CLSCompliant(false)]
@@ -9,7 +8,7 @@
     {
         private const string MenuExtensionPointPath = "/Application/OperatorMenu/StatusMenu";
 
-        public StatusMainPageViewModel(IOperatorMenuPageLoader mainPage) : base(mainPage, MenuExtensionPointPath)
+        public StatusMainPageViewModel(string pageNameResourceKey) : base(pageNameResourceKey, MenuExtensionPointPath)
         {
         }
     }

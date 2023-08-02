@@ -26,11 +26,9 @@
         <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
         <!-- Jurisdiction xaml dictionary is loaded dynamically; see SkinLoader -->
     </ResourceDictionary.MergedDictionaries>
-    <converters:AttractActiveToVisibilityConverter x:Key="AttractToVisibilityConv" />
     <converters:ViewFiltersToBoolConverter x:Key="FiltersToBoolConv" />
     <converters:DecoratorIconVisibilityConverter x:Key="AnimatedIconVisibilityConv" />
-    <converters:DecoratorIconVisibilityConverter x:Key="StaticIconVisibilityConv"
-                                                 InvertEnabledValue="True" />
+    <converters:DecoratorIconVisibilityConverter x:Key="StaticIconVisibilityConv" InvertEnabledValue="True" />
     <converters:ProgressiveLabelVisibilityConverter x:Key="ProgressiveLabelVisibilityConv" />
     <converters:MarginConverter x:Key="MarginConverter" />
     <converters:DenomPanelWidthConverter x:Key="DenomPanelWidthConv" />
@@ -45,35 +43,16 @@
     <converters:ProgressiveLabelSizeConverter x:Key="ProgressiveLabelSizeConv" />
     <converters:MultiParameterCommandConverter x:Key="MultiParameterCommandConv" />
     <converters:CharacterToResourceImageConverter x:Key="CharacterToResourceImageConv" />
-    <converters:ScaleByResolutionConverter x:Key="ScaleByResolutionConv" />
-    <converters:LobbyProgressiveBannerVisibilityConverter x:Key="LobbyProgressiveBannerVisibilityConv" />
     <converters:GameIconJackpotTextVisibilityConverter x:Key="GameIconJackpotTextVisibilityConv" />
-    <converters:CommaMarginConverter x:Key="CommaMarginConv" />
-    
+    <converters:GameTileMarginConverter x:Key="GameTileMarginConv" />
+
     <sys:Boolean x:Key="FalseValue">False</sys:Boolean>
     <sys:Boolean x:Key="TrueValue">True</sys:Boolean>
-    <sys:Double x:Key="ExtraLargeGameIconDenomIconWidth">110</sys:Double>
-    <sys:Double x:Key="ExtraLargeGameIconDenomIconHeight">70</sys:Double>
-    <sys:Double x:Key="ExtraLargeGameIconDenomPanelMaxWidth">620</sys:Double>
-    <sys:Double x:Key="ExtraLargeGameIconDenomPanelMaxHeight">150</sys:Double>
-    <Thickness x:Key="ExtraLargeGameIconDenomIconMargin"
-               Left="15"
-               Top="30"
-               Right="15"
-               Bottom="30" />
-    <Thickness x:Key="LightningLinkGrandCommaShiftMargin"
-               Left="0"
-               Top="20"
-               Right="0"
-               Bottom="0" />
-    <Thickness x:Key="LightningLinkMajorCommaShiftMargin"
-               Left="0"
-               Top="9"
-               Right="0"
-               Bottom="0" />
-    
-    <Storyboard x:Key="AttractHaloFadeInStoryboard"
-                AutomationProperties.AutomationId="Storyboard0_ADFE09ED">
+    <sys:Double x:Key="ExtraLargeGameIconDenomIconWidth">80</sys:Double>
+    <sys:Double x:Key="ExtraLargeGameIconDenomIconHeight">52</sys:Double>
+    <Thickness x:Key="ExtraLargeGameIconDenomIconMargin" Left="15" Top="25" Right="15" Bottom="25" />
+
+    <Storyboard x:Key="AttractHaloFadeInStoryboard" AutomationProperties.AutomationId="Storyboard0_ADFE09ED">
         <DoubleAnimation Storyboard.TargetProperty="Opacity"
                          From="0.0"
                          To="1.0"
@@ -87,7 +66,7 @@
             </DoubleAnimation.EasingFunction>
         </DoubleAnimation>
     </Storyboard>
-    
+
     <Storyboard x:Key="AttractHaloFadeOutStoryboard"
                 AutomationProperties.AutomationId="Storyboard3_ADFE09ED">
         <DoubleAnimation Storyboard.TargetProperty="Opacity"
@@ -103,7 +82,7 @@
             </DoubleAnimation.EasingFunction>
         </DoubleAnimation>
     </Storyboard>
-    
+
     <Storyboard x:Key="AttractFadeInStoryboard"
                 AutomationProperties.AutomationId="Storyboard6_ADFE09ED">
         <DoubleAnimation Storyboard.TargetProperty="Opacity"
@@ -119,7 +98,7 @@
             </DoubleAnimation.EasingFunction>
         </DoubleAnimation>
     </Storyboard>
-    
+
     <Storyboard x:Key="AttractFadeOutStoryboard"
                 AutomationProperties.AutomationId="Storyboard9_ADFE09ED">
         <DoubleAnimation Storyboard.TargetProperty="Opacity"
@@ -135,7 +114,7 @@
             </DoubleAnimation.EasingFunction>
         </DoubleAnimation>
     </Storyboard>
-    
+
     <LinearGradientBrush x:Key="JackpotTextGradient"
                          StartPoint=".5,0"
                          EndPoint=".5,1"
@@ -160,33 +139,59 @@
                       Offset=".95"
                       AutomationProperties.AutomationId="GradientStop18_ADFE09ED" />
     </LinearGradientBrush>
-    
-    <DataTemplate x:Key="LobbyViewLandscapeTemplate"
-                  DataType="{x:Type viewModels:LobbyViewModel}">
+
+    <Style x:Key="DenomTextStyle" TargetType="controls:TextPath">
+        <Setter Property="Fill" Value="White" />
+        <Setter Property="FontFamily" Value="Impact" />
+        <Setter Property="FontSize" Value="28" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="IsHitTestVisible" Value="False" />
+        <Setter Property="Stroke" Value="Black" />
+        <Setter Property="StrokeThickness" Value="2.0" />
+        <Setter Property="VerticalAlignment" Value="Bottom" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsSelected}"
+                         Value="True"
+                         AutomationProperties.AutomationId="DataTrigger0_837D385B">
+                <Setter Property="Fill" Value="Red" />
+                <Setter Property="Stroke" Value="Yellow" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="SharedDenomTextStyle"
+           TargetType="controls:TextPath"
+           BasedOn="{StaticResource DenomTextStyle}">
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect ShadowDepth="0"
+                                  Color="Black"
+                                  BlurRadius="4"
+                                  AutomationProperties.AutomationId="DropShadowEffect1_837D385B" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Fill" Value="LightBlue" />
+    </Style>
+
+    <DataTemplate x:Key="LobbyViewLandscapeTemplate" DataType="{x:Type viewModels:LobbyViewModel}">
         <Grid AutomationProperties.AutomationId="Grid0_1F333AB0">
             <Grid.Background>
-                <ImageBrush ImageSource="{DynamicResource BottomBackground}"
-                            AutomationProperties.AutomationId="ImageBrush27_ADFE09ED" />
+                <ImageBrush ImageSource="{DynamicResource BottomBackground}" AutomationProperties.AutomationId="ImageBrush27_ADFE09ED" />
             </Grid.Background>
             <Viewbox AutomationProperties.AutomationId="Viewbox1_1F333AB0">
                 <Grid Width="1920"
                       Height="1080"
                       AutomationProperties.AutomationId="Grid2_1F333AB0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height=".04*"
-                                       AutomationProperties.AutomationId="RowDefinition3_1F333AB0" />
-                        <RowDefinition Height=".77*"
-                                       AutomationProperties.AutomationId="RowDefinition4_1F333AB0" />
-                        <RowDefinition Height=".06*"
-                                       AutomationProperties.AutomationId="RowDefinition5_1F333AB0" />
-                        <RowDefinition Height=".13*"
-                                       AutomationProperties.AutomationId="RowDefinition6_1F333AB0" />
+                        <RowDefinition Height=".04*" AutomationProperties.AutomationId="RowDefinition3_1F333AB0" />
+                        <RowDefinition Height=".70*" AutomationProperties.AutomationId="RowDefinition4_1F333AB0" />
+                        <RowDefinition Height=".08*" AutomationProperties.AutomationId="RowDefinition2_837D385B" />
+                        <RowDefinition Height=".05*" AutomationProperties.AutomationId="RowDefinition5_1F333AB0" />
+                        <RowDefinition Height=".13*" AutomationProperties.AutomationId="RowDefinition6_1F333AB0" />
                     </Grid.RowDefinitions>
-                    
+
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition
-                                Width="{Binding IsExtraLargeGameIconTabActive, Converter={StaticResource LobbyOuterColumnWidthConv}}"
-                                          AutomationProperties.AutomationId="ColumnDefinition7_1F333AB0">
+                        <ColumnDefinition Width="{Binding IsExtraLargeGameIconTabActive, Converter={StaticResource LobbyOuterColumnWidthConv}}" AutomationProperties.AutomationId="ColumnDefinition7_1F333AB0">
                             <ColumnDefinition.MinWidth>
                                 <MultiBinding Converter="{StaticResource ColumnMinWidthConv}">
                                     <Binding Path="GameCount" />
@@ -204,9 +209,7 @@
                                 </MultiBinding>
                             </ColumnDefinition.Width>
                         </ColumnDefinition>
-                        <ColumnDefinition
-                                Width="{Binding IsExtraLargeGameIconTabActive, Converter={StaticResource LobbyOuterColumnWidthConv}}"
-                                          AutomationProperties.AutomationId="ColumnDefinition9_1F333AB0">
+                        <ColumnDefinition Width="{Binding IsExtraLargeGameIconTabActive, Converter={StaticResource LobbyOuterColumnWidthConv}}" AutomationProperties.AutomationId="ColumnDefinition9_1F333AB0">
                             <ColumnDefinition.MinWidth>
                                 <MultiBinding Converter="{StaticResource ColumnMinWidthConv}">
                                     <Binding Path="GameCount" />
@@ -216,7 +219,7 @@
                             </ColumnDefinition.MinWidth>
                         </ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    
+
                     <!-- **** HEADER **** -->
                     <Viewbox Grid.Row="0"
                              Grid.Column="1"
@@ -235,29 +238,25 @@
                             </Image.RenderTransform>
                         </Image>
                     </Viewbox>
-                    <Viewbox Grid.Row="0"
-                             Grid.Column="2"
-                             Visibility="{Binding IsResponsibleGamingInfoVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                             AutomationProperties.AutomationId="Viewbox0_1071BF36">
-                        <Button Style="{StaticResource stlFlatButton}"
-                                Command="{Binding Path=ResponsibleGamingDialogOpenCommand}"
-                                Margin="0,0,0,-20"
-                                RenderTransformOrigin="0.5 0.5"
-                                AutomationProperties.AutomationId="Button1_1071BF36">
-                            <Image Source="{DynamicResource ResponsibleGaming}"
-                                   Stretch="None"
-                                   AutomationProperties.AutomationId="Image2_1071BF36"/>
-                            <Button.RenderTransform>
-                                <TranslateTransform X="-50" 
-                                                    Y="{Binding ChooseGameOffsetY}"
-                                                    AutomationProperties.AutomationId="TranslateTransform3_1071BF36"/>
-                            </Button.RenderTransform>
-                        </Button>
-                    </Viewbox>
-                    
+
+                    <!-- **** Responsible Gaming Info Button **** -->
+                    <Button Grid.Row="0"
+                            Grid.Column="2"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Margin="0 40 40 0"
+                            Style="{StaticResource stlFlatButton}"
+                            Command="{Binding Path=ResponsibleGamingDialogOpenCommand}"
+                            Visibility="{Binding IsResponsibleGamingInfoVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                            AutomationProperties.AutomationId="Button1_1071BF36" >
+                        <Image Source="{DynamicResource ResponsibleGaming}"
+                               Stretch="None"
+                               AutomationProperties.AutomationId="Image2_1071BF36" />
+                    </Button>
+
                     <!-- **** Bartop UI **** -->
                     <Grid Grid.Row="0"
-                          Grid.RowSpan="3"
+                          Grid.RowSpan="4"
                           Grid.Column="0"
                           Grid.ColumnSpan="3"
                           Width="1920"
@@ -294,8 +293,7 @@
                                         <b:Interaction.Triggers>
                                             <b:EventTrigger EventName="MouseLeftButtonDown"
                                                             AutomationProperties.AutomationId="EventTrigger18_1F333AB0">
-                                                <b:InvokeCommandAction
-                                                        Command="{Binding DataContext.GameTabPressedCommand, ElementName=TabsControl}"
+                                                <b:InvokeCommandAction Command="{Binding DataContext.GameTabPressedCommand, ElementName=TabsControl}"
                                                                        CommandParameter="{Binding}" />
                                             </b:EventTrigger>
                                         </b:Interaction.Triggers>
@@ -306,7 +304,7 @@
                         <ItemsControl x:Name="TabLabelsControl"
                                       ItemsSource="{Binding GameTabInfo.Tabs}"
                                       VerticalAlignment="Top"
-                                      Margin="60 62 60 0"
+                                      Margin="55 51 55 0"
                                       AutomationProperties.AutomationId="ItemsControl19_1F333AB0">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -318,28 +316,41 @@
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate DataType="{x:Type viewModels:GameTabInfo}">
                                     <Viewbox Stretch="Uniform"
-                                             StretchDirection="DownOnly"
                                              VerticalAlignment="Center"
                                              HorizontalAlignment="Center"
                                              IsHitTestVisible="False"
-                                             Visibility="{Binding Enabled}"
+                                             Margin="{Binding Converter={StaticResource GameTabMarginConv}}"
                                              AutomationProperties.AutomationId="Viewbox21_1F333AB0">
-                                        <Grid AutomationProperties.AutomationId="Grid22_1F333AB0">
+                                        <Grid Height="98" AutomationProperties.AutomationId="Grid22_1F333AB0">
                                             <Image common:ImageHelper.SourceResourceKey="{Binding LabelResourceKey}"
-                                                   Margin="{Binding Path=., Converter={StaticResource GameTabMarginConv}}"
+                                                   Margin="10 0"
                                                    Visibility="{Binding HasAnimatedResource, Converter={StaticResource TrueCollapsedFalseVisible}}"
                                                    AutomationProperties.AutomationId="Image23_1F333AB0" />
-                                            <Image
-                                                    gif:ImageBehavior.AnimatedSource="{Binding LabelAnimatedResourcePath}"
-                                                   Margin="{Binding Path=., Converter={StaticResource GameTabMarginConv}}"
+                                            <Image gif:ImageBehavior.AnimatedSource="{Binding LabelAnimatedResourcePath}"
+                                                   Stretch="None"
+                                                   VerticalAlignment="Top"
                                                    Visibility="{Binding HasAnimatedResource, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                                                   AutomationProperties.AutomationId="Image24_1F333AB0" />
+                                                   AutomationProperties.AutomationId="Image24_1F333AB0">
+                                                <Image.Style>
+                                                    <Style TargetType="{x:Type Image}">
+                                                        <Setter Property="Height" Value="Auto" />
+                                                        <Style.Triggers>
+                                                            <!-- Cut off the bottom bit of the image so it doesn't overlap the tab border that's at a lower z-index since this control is higher -->
+                                                            <DataTrigger Binding="{Binding Enabled}"
+                                                                         Value="False"
+                                                                         AutomationProperties.AutomationId="DataTrigger3_837D385B">
+                                                                <Setter Property="Height" Value="82" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Image.Style>
+                                            </Image>
                                         </Grid>
                                     </Viewbox>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                        
+
                         <ItemsControl Panel.ZIndex="11"
                                       x:Name="SubTabsControl"
                                       ItemsSource="{Binding GameTabInfo.SubTabs}"
@@ -356,16 +367,14 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate DataType="{x:Type viewModels:SubTabInfoViewModel}">
-                                    <Grid
-                                            Visibility="{Binding IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                    <Grid Visibility="{Binding IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                           AutomationProperties.AutomationId="Grid27_1F333AB0">
                                         <Image Source="{DynamicResource SubTabNormal}"
                                                AutomationProperties.AutomationId="Image28_1F333AB0">
                                             <b:Interaction.Triggers>
                                                 <b:EventTrigger EventName="MouseLeftButtonDown"
                                                                 AutomationProperties.AutomationId="EventTrigger29_1F333AB0">
-                                                    <b:InvokeCommandAction
-                                                            Command="{Binding DataContext.SubTabPressedCommand, ElementName=SubTabsControl}"
+                                                    <b:InvokeCommandAction Command="{Binding DataContext.SubTabPressedCommand, ElementName=SubTabsControl}"
                                                                            CommandParameter="{Binding}" />
                                                 </b:EventTrigger>
                                             </b:Interaction.Triggers>
@@ -382,7 +391,7 @@
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
                     </Grid>
-                    
+
                     <!-- **** GAME GRID **** -->
                     <ItemsControl x:Name="GameList"
                                   FocusVisualStyle="{x:Null}"
@@ -397,8 +406,7 @@
                         <ItemsControl.ItemsPanel>
                             <!-- Swap out the panel that arranges the items -->
                             <ItemsPanelTemplate>
-                                <controls:GameLayoutPanel
-                                        Spacing="{Binding MarginInputs, Converter={StaticResource GridSpacingConverter}}"
+                                <controls:GameLayoutPanel Spacing="{Binding MarginInputs, Converter={StaticResource GridSpacingConverter}}"
                                                           IsTabView="{Binding IsTabView}"
                                                           IsExtraLargeGameIconTabActive="{Binding IsExtraLargeGameIconTabActive}" />
                             </ItemsPanelTemplate>
@@ -409,20 +417,24 @@
                                 <Grid x:Name="GameTile"
                                       VerticalAlignment="Top"
                                       AutomationProperties.AutomationId="Grid32_1F333AB0">
-                                    <Border Width="Auto"
-                                            Height="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconHeightConv}}"
-                                            AutomationProperties.AutomationId="Border33_1F333AB0">
+                                    <Grid.Margin>
+                                        <MultiBinding Converter="{StaticResource GameTileMarginConv}">
+                                            <Binding Path="DataContext.MarginInputs" RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
+                                            <Binding Path="DataContext.ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelTwoEnabled" RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
+                                        </MultiBinding>
+                                    </Grid.Margin>
+                                    <Border AutomationProperties.AutomationId="Border33_1F333AB0">
                                         <Grid HorizontalAlignment="Left"
                                               VerticalAlignment="Top"
                                               Height="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconHeightConv}}"
                                               AutomationProperties.AutomationId="Grid34_1F333AB0">
+                                            <!-- Progressive label below non-premium game icons -->
                                             <Grid HorizontalAlignment="Center"
                                                   VerticalAlignment="Bottom"
                                                   Margin="0 0 0 46"
                                                   AutomationProperties.AutomationId="Grid35_1F333AB0">
                                                 <Grid.Visibility>
-                                                    <MultiBinding
-                                                            Converter="{StaticResource ProgressiveLabelVisibilityConv}">
+                                                    <MultiBinding Converter="{StaticResource ProgressiveLabelVisibilityConv}">
                                                         <Binding Path="HasProgressiveLabelDisplay" />
                                                         <Binding Path="DataContext.IsExtraLargeGameIconTabActive"
                                                                  RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
@@ -467,7 +479,7 @@
                                                            Foreground="{StaticResource JackpotTextGradient}"
                                                            AutomationProperties.AutomationId="TextBlock40_1F333AB0" />
                                             </Grid>
-                                            
+
                                             <!-- Use DataContext of ItemsControl instead of current GameInfo for SelectCommand -->
                                             <Button x:Name="GameIconButton"
                                                     Style="{StaticResource stlFlatButton}"
@@ -496,33 +508,27 @@
                                                     <ContentControl x:Name="ButtonImage"
                                                                     HorizontalAlignment="Center"
                                                                     VerticalAlignment="Top"
-                                                                    Margin="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource MarginConverter}, ConverterParameter=GameIcon}"
+                                                                    Margin="0"
                                                                     AutomationProperties.AutomationId="ContentControl43_1F333AB0">
                                                         <ContentControl.Style>
                                                             <Style TargetType="ContentControl">
                                                                 <Style.Triggers>
-                                                                    <DataTrigger
-                                                                            Binding="{Binding ImageIsBink, UpdateSourceTrigger=PropertyChanged}"
+                                                                    <DataTrigger Binding="{Binding ImageIsBink, UpdateSourceTrigger=PropertyChanged}"
                                                                                  Value="True"
                                                                                  AutomationProperties.AutomationId="DataTrigger44_1F333AB0">
                                                                         <Setter Property="Content">
                                                                             <Setter.Value>
-                                                                                <bink:BinkViewerControl
-                                                                                        Stretch="Uniform"
-                                                                                                        Filename="{Binding ImagePath}"
-                                                                                                        Width="Auto"
-                                                                                                        Height="{Binding Path=DataContext.MarginInputs, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource GameIconImageHeightConv}}" />
+                                                                                <bink:BinkViewerControl Stretch="None"
+                                                                                                        Filename="{Binding ImagePath}" />
                                                                             </Setter.Value>
                                                                         </Setter>
                                                                     </DataTrigger>
-                                                                    <DataTrigger
-                                                                            Binding="{Binding ImageIsBink, UpdateSourceTrigger=PropertyChanged}"
+                                                                    <DataTrigger Binding="{Binding ImageIsBink, UpdateSourceTrigger=PropertyChanged}"
                                                                                  Value="False"
                                                                                  AutomationProperties.AutomationId="DataTrigger45_1F333AB0">
                                                                         <Setter Property="Content">
                                                                             <Setter.Value>
-                                                                                <Image
-                                                                                        RenderOptions.BitmapScalingMode="HighQuality"
+                                                                                <Image RenderOptions.BitmapScalingMode="HighQuality"
                                                                                        Stretch="Uniform"
                                                                                        gif:ImageBehavior.AnimatedSource="{Binding ImagePath}"
                                                                                        Width="Auto"
@@ -535,7 +541,7 @@
                                                             </Style>
                                                         </ContentControl.Style>
                                                     </ContentControl>
-                                                    
+
                                                     <Image x:Name="SelectedImage"
                                                            Source="{DynamicResource GameSelectedOverlay}"
                                                            RenderOptions.BitmapScalingMode="HighQuality"
@@ -545,34 +551,30 @@
                                                            VerticalAlignment="Top"
                                                            AutomationProperties.AutomationId="Image47_1F333AB0">
                                                         <Image.Visibility>
-                                                            <MultiBinding
-                                                                    Converter="{StaticResource LogicalAndTrueVisibleFalseCollapsed}">
+                                                            <MultiBinding Converter="{StaticResource LogicalAndTrueVisibleFalseCollapsed}">
                                                                 <Binding Path="IsSelected" />
-                                                                <Binding
-                                                                        Path="DataContext.IsExtraLargeGameIconTabActive"
+                                                                <Binding Path="DataContext.IsExtraLargeGameIconTabActive"
                                                                          RelativeSource="{RelativeSource AncestorType=ItemsControl}"
                                                                          Converter="{StaticResource InverseBoolConverter}" />
                                                             </MultiBinding>
                                                         </Image.Visibility>
                                                     </Image>
-                                                    
+
                                                     <Image Source="{DynamicResource PlatinumIcon}"
                                                            AutomationProperties.AutomationId="Image48_1F333AB0">
                                                         <Image.Visibility>
-                                                            <MultiBinding
-                                                                    Converter="{StaticResource StaticIconVisibilityConv}">
+                                                            <MultiBinding Converter="{StaticResource StaticIconVisibilityConv}">
                                                                 <Binding Path="PlatinumSeries" />
                                                                 <Binding Path="DataContext.IsLobbyVisible"
                                                                          RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
                                                                 <Binding Path="IsEnabled"
                                                                          RelativeSource="{RelativeSource AncestorType=Button}" />
-                                                                <Binding
-                                                                        Path="DataContext.IsExtraLargeGameIconTabActive"
+                                                                <Binding Path="DataContext.IsExtraLargeGameIconTabActive"
                                                                          RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
                                                             </MultiBinding>
                                                         </Image.Visibility>
                                                     </Image>
-                                                    
+
                                                     <StackPanel Background="Transparent"
                                                                 Orientation="Horizontal"
                                                                 Margin="{Binding DataContext.GameCount, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource MarginConverter}, ConverterParameter=Bonus}"
@@ -580,11 +582,9 @@
                                                                 VerticalAlignment="Top"
                                                                 AutomationProperties.AutomationId="StackPanel49_1F333AB0">
                                                         <StackPanel.Visibility>
-                                                            <MultiBinding
-                                                                    Converter="{StaticResource GameIconJackpotTextVisibilityConv}">
+                                                            <MultiBinding Converter="{StaticResource GameIconJackpotTextVisibilityConv}">
                                                                 <Binding Path="HasProgressiveOrBonusValue" />
-                                                                <Binding
-                                                                        Path="DataContext.IsExtraLargeGameIconTabActive"
+                                                                <Binding Path="DataContext.IsExtraLargeGameIconTabActive"
                                                                          RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
                                                             </MultiBinding>
                                                         </StackPanel.Visibility>
@@ -605,28 +605,26 @@
                                                                    Foreground="{StaticResource JackpotTextGradient}"
                                                                    AutomationProperties.AutomationId="TextBlock51_1F333AB0" />
                                                     </StackPanel>
-                                                    
+
                                                     <bink:BinkViewerControl HorizontalAlignment="Left"
                                                                             VerticalAlignment="Top"
                                                                             Margin="{Binding DataContext.GameCount, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource MarginConverter}, ConverterParameter=NewStar}"
                                                                             Stretch="None"
                                                                             Filename="{DynamicResource NewStarPath}">
                                                         <bink:BinkViewerControl.Visibility>
-                                                            <MultiBinding
-                                                                    Converter="{StaticResource AnimatedIconVisibilityConv}">
+                                                            <MultiBinding Converter="{StaticResource AnimatedIconVisibilityConv}">
                                                                 <Binding Path="IsNew"
                                                                          UpdateSourceTrigger="PropertyChanged" />
                                                                 <Binding Path="DataContext.IsLobbyVisible"
                                                                          RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
                                                                 <Binding Path="IsEnabled"
                                                                          RelativeSource="{RelativeSource AncestorType=Button}" />
-                                                                <Binding
-                                                                        Path="DataContext.IsExtraLargeGameIconTabActive"
+                                                                <Binding Path="DataContext.IsExtraLargeGameIconTabActive"
                                                                          RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
                                                             </MultiBinding>
                                                         </bink:BinkViewerControl.Visibility>
                                                     </bink:BinkViewerControl>
-                                                    
+
                                                     <!-- Tint disabled game buttons to make them look disabled. -->
                                                     <Rectangle Fill="Black"
                                                                Opacity="0.5"
@@ -636,12 +634,10 @@
                                                                Height="{Binding ElementName=ButtonImage, Path=ActualHeight}"
                                                                AutomationProperties.AutomationId="Rectangle52_1F333AB0">
                                                         <Rectangle.Visibility>
-                                                            <MultiBinding
-                                                                    Converter="{StaticResource LogicalOrTrueCollapsedFalseVisible}">
+                                                            <MultiBinding Converter="{StaticResource LogicalOrTrueCollapsedFalseVisible}">
                                                                 <Binding Path="IsEnabled"
                                                                          RelativeSource="{RelativeSource AncestorType=Button}" />
-                                                                <Binding
-                                                                        Path="DataContext.IsExtraLargeGameIconTabActive"
+                                                                <Binding Path="DataContext.IsExtraLargeGameIconTabActive"
                                                                          RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
                                                             </MultiBinding>
                                                         </Rectangle.Visibility>
@@ -650,7 +646,7 @@
                                                                         AutomationProperties.AutomationId="ImageBrush53_1F333AB0" />
                                                         </Rectangle.OpacityMask>
                                                     </Rectangle>
-                                                    
+
                                                     <!-- The following needs to come after to prevent double blending disabled look -->
                                                     <!-- Static star is only visible when it is disabled -->
                                                     <Grid x:Name="StaticStarGroup"
@@ -659,16 +655,14 @@
                                                           VerticalAlignment="Top"
                                                           AutomationProperties.AutomationId="Grid54_1F333AB0">
                                                         <Grid.Visibility>
-                                                            <MultiBinding
-                                                                    Converter="{StaticResource StaticIconVisibilityConv}">
+                                                            <MultiBinding Converter="{StaticResource StaticIconVisibilityConv}">
                                                                 <Binding Path="IsNew"
                                                                          UpdateSourceTrigger="PropertyChanged" />
                                                                 <Binding Path="DataContext.IsLobbyVisible"
                                                                          RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
                                                                 <Binding Path="IsEnabled"
                                                                          RelativeSource="{RelativeSource AncestorType=Button}" />
-                                                                <Binding
-                                                                        Path="DataContext.IsExtraLargeGameIconTabActive"
+                                                                <Binding Path="DataContext.IsExtraLargeGameIconTabActive"
                                                                          RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
                                                             </MultiBinding>
                                                         </Grid.Visibility>
@@ -684,99 +678,40 @@
                                                                    Height="{Binding ElementName=StaticStarImage, Path=ActualHeight}"
                                                                    AutomationProperties.AutomationId="Rectangle56_1F333AB0">
                                                             <Rectangle.OpacityMask>
-                                                                <ImageBrush
-                                                                        ImageSource="{DynamicResource StaticStarIcon}"
+                                                                <ImageBrush ImageSource="{DynamicResource StaticStarIcon}"
                                                                             AutomationProperties.AutomationId="ImageBrush57_1F333AB0" />
                                                             </Rectangle.OpacityMask>
                                                         </Rectangle>
                                                     </Grid>
                                                 </Grid>
                                             </Button>
-                                            
-                                            <!-- Lightning link major banner that can appear right above the extra large game icon -->
-                                            <Viewbox x:Name="LightningLinkMajorBannerForSingleGame"
-                                                     Stretch="Uniform"
-                                                     HorizontalAlignment="Center"
-                                                     VerticalAlignment="Top"
-                                                     Width="{Binding ElementName=LightningLinkMajorBannerImageForSingleGame, Path=ActualWidth, Converter={StaticResource ScaleByResolutionConv}}"
-                                                     AutomationProperties.AutomationId="Viewbox58_1F333AB0">
-                                                <Viewbox.Visibility>
-                                                    <MultiBinding
-                                                            Converter="{StaticResource LobbyProgressiveBannerVisibilityConv}">
-                                                        <Binding Source="{StaticResource FalseValue}" />
-                                                        <!-- Is banner positioned as pool for all games -->
-                                                        <Binding
-                                                                Path="DataContext.ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelTwoEnabled"
-                                                                 RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
-                                                        <Binding Path="DataContext.IsExtraLargeGameIconTabActive"
-                                                                 RelativeSource="{RelativeSource AncestorType=ItemsControl}" />
-                                                        <Binding Path="HasProgressiveLabelDisplay" />
-                                                        <!-- Is the progressive configured -->
-                                                    </MultiBinding>
-                                                </Viewbox.Visibility>
-                                                <Grid HorizontalAlignment="Center"
-                                                      VerticalAlignment="Center"
-                                                      AutomationProperties.AutomationId="Grid59_1F333AB0">
-                                                    <Image x:Name="LightningLinkMajorBannerImageForSingleGame"
-                                                           HorizontalAlignment="Center"
-                                                           VerticalAlignment="Top"
-                                                           gif:ImageBehavior.AnimatedSource="{DynamicResource LightningLinkMajor}"
-                                                           AutomationProperties.AutomationId="Image60_1F333AB0" />
-                                                    <ItemsControl FocusVisualStyle="{x:Null}"
-                                                                  Margin="0 44 0 0"
-                                                                  ItemsSource="{Binding Path=ProgressiveIndicatorText}"
-                                                                  HorizontalAlignment="Center"
-                                                                  VerticalAlignment="Top"
-                                                                  AutomationProperties.AutomationId="ItemsControl61_1F333AB0">
-                                                        <ItemsControl.ItemsPanel>
-                                                            <ItemsPanelTemplate>
-                                                                <controls:ResizingStackPanel Orientation="Horizontal"
-                                                                                             Padding="70 0 70 0"
-                                                                                             HorizontalAlignment="Center"
-                                                                                             VerticalAlignment="Center"
-                                                                                             Width="{Binding Path=ActualWidth, ElementName=LightningLinkMajorBannerImageForSingleGame}" />
-                                                            </ItemsPanelTemplate>
-                                                        </ItemsControl.ItemsPanel>
-                                                        <ItemsControl.ItemTemplate>
-                                                            <DataTemplate>
-                                                                <Image Stretch="UniformToFill"
-                                                                       Height="62"
-                                                                       Margin="{Binding ., Converter={StaticResource CommaMarginConv}, ConverterParameter={StaticResource LightningLinkMajorCommaShiftMargin}}"
-                                                                       Source="{Binding ., Converter={StaticResource CharacterToResourceImageConv}, ConverterParameter=LightningLinkMajor}"
-                                                                       AutomationProperties.AutomationId="Image62_1F333AB0" />
-                                                            </DataTemplate>
-                                                        </ItemsControl.ItemTemplate>
-                                                    </ItemsControl>
-                                                </Grid>
-                                            </Viewbox>
-                                            
+
                                             <!-- Denomination button panel displayed per game when tab is showing extra large icons -->
                                             <Grid x:Name="SingleGameDenominationControl"
                                                   HorizontalAlignment="Center"
                                                   VerticalAlignment="Bottom"
-                                                  MaxWidth="{Binding Source={StaticResource ExtraLargeGameIconDenomPanelMaxWidth}, Converter={StaticResource ScaleByResolutionConv}}"
-                                                  MaxHeight="{Binding Source={StaticResource ExtraLargeGameIconDenomPanelMaxHeight}, Converter={StaticResource ScaleByResolutionConv}}"
                                                   Visibility="{Binding Path=DataContext.IsExtraLargeGameIconTabActive, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                                   AutomationProperties.AutomationId="Grid63_1F333AB0">
+                                                <Image common:ImageHelper.SourceResourceKey="{Binding DenomPanelKey}"
+                                                       Stretch="None"
+                                                       Visibility="{Binding HasCustomDenomPanel, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                                       AutomationProperties.AutomationId="Image4_837D385B" />
+                                                <!-- If no panel is provided, generate a custom sized denom panel -->
                                                 <StackPanel Orientation="Horizontal"
                                                             HorizontalAlignment="Center"
                                                             VerticalAlignment="Top"
+                                                            Visibility="{Binding HasCustomDenomPanel, Converter={StaticResource TrueCollapsedFalseVisible}}"
                                                             AutomationProperties.AutomationId="StackPanel64_1F333AB0">
                                                     <Image x:Name="DenominationPanelLeftImage"
                                                            Stretch="Fill"
                                                            common:ImageHelper.SourceResourceKey="DenominationPanelLeft"
                                                            RenderOptions.BitmapScalingMode="HighQuality"
-                                                           Width="30"
+                                                           Width="20"
                                                            AutomationProperties.AutomationId="Image65_1F333AB0">
                                                         <Image.Height>
-                                                            <MultiBinding
-                                                                    Converter="{StaticResource DenomPanelHeightConv}">
-                                                                <Binding
-                                                                        Source="{StaticResource ExtraLargeGameIconDenomIconMargin}" />
-                                                                <Binding
-                                                                        Source="{StaticResource ExtraLargeGameIconDenomIconHeight}" />
-                                                                <Binding Source="{StaticResource FalseValue}" />
-                                                                <!-- Perform scale -->
+                                                            <MultiBinding Converter="{StaticResource DenomPanelHeightConv}">
+                                                                <Binding Source="{StaticResource ExtraLargeGameIconDenomIconMargin}" />
+                                                                <Binding Source="{StaticResource ExtraLargeGameIconDenomIconHeight}" />
                                                             </MultiBinding>
                                                         </Image.Height>
                                                     </Image>
@@ -786,28 +721,16 @@
                                                            RenderOptions.BitmapScalingMode="HighQuality"
                                                            AutomationProperties.AutomationId="Image66_1F333AB0">
                                                         <Image.Width>
-                                                            <MultiBinding
-                                                                    Converter="{StaticResource DenomPanelWidthConv}">
+                                                            <MultiBinding Converter="{StaticResource DenomPanelWidthConv}">
                                                                 <Binding Path="Denominations" />
-                                                                <Binding
-                                                                        Source="{StaticResource ExtraLargeGameIconDenomIconMargin}" />
-                                                                <Binding
-                                                                        Source="{StaticResource ExtraLargeGameIconDenomIconWidth}" />
-                                                                <Binding Source="{StaticResource FalseValue}" />
-                                                                <!-- Perform scale -->
-                                                                <Binding Source="{StaticResource FalseValue}" />
-                                                                <!-- Need extraPadding on left and right side -->
+                                                                <Binding Source="{StaticResource ExtraLargeGameIconDenomIconMargin}" />
+                                                                <Binding Source="{StaticResource ExtraLargeGameIconDenomIconWidth}" />
                                                             </MultiBinding>
                                                         </Image.Width>
                                                         <Image.Height>
-                                                            <MultiBinding
-                                                                    Converter="{StaticResource DenomPanelHeightConv}">
-                                                                <Binding
-                                                                        Source="{StaticResource ExtraLargeGameIconDenomIconMargin}" />
-                                                                <Binding
-                                                                        Source="{StaticResource ExtraLargeGameIconDenomIconHeight}" />
-                                                                <Binding Source="{StaticResource FalseValue}" />
-                                                                <!-- Scale -->
+                                                            <MultiBinding Converter="{StaticResource DenomPanelHeightConv}">
+                                                                <Binding Source="{StaticResource ExtraLargeGameIconDenomIconMargin}" />
+                                                                <Binding Source="{StaticResource ExtraLargeGameIconDenomIconHeight}" />
                                                             </MultiBinding>
                                                         </Image.Height>
                                                     </Image>
@@ -815,22 +738,16 @@
                                                            Stretch="Fill"
                                                            common:ImageHelper.SourceResourceKey="DenominationPanelRight"
                                                            RenderOptions.BitmapScalingMode="HighQuality"
-                                                           Width="30"
+                                                           Width="20"
                                                            AutomationProperties.AutomationId="Image67_1F333AB0">
                                                         <Image.Height>
-                                                            <MultiBinding
-                                                                    Converter="{StaticResource DenomPanelHeightConv}">
-                                                                <Binding
-                                                                        Source="{StaticResource ExtraLargeGameIconDenomIconMargin}" />
-                                                                <Binding
-                                                                        Source="{StaticResource ExtraLargeGameIconDenomIconHeight}" />
-                                                                <Binding Source="{StaticResource FalseValue}" />
-                                                                <!-- Scale -->
+                                                            <MultiBinding Converter="{StaticResource DenomPanelHeightConv}">
+                                                                <Binding Source="{StaticResource ExtraLargeGameIconDenomIconMargin}" />
+                                                                <Binding Source="{StaticResource ExtraLargeGameIconDenomIconHeight}" />
                                                             </MultiBinding>
                                                         </Image.Height>
                                                     </Image>
                                                 </StackPanel>
-                                                
                                                 <ItemsControl x:Name="DenominationPanelItemsControl"
                                                               VerticalAlignment="Center"
                                                               HorizontalAlignment="Center"
@@ -843,31 +760,25 @@
                                                         </ItemsPanelTemplate>
                                                     </ItemsControl.ItemsPanel>
                                                     <ItemsControl.ItemTemplate>
-                                                        <DataTemplate
-                                                                DataType="{x:Type viewModels:DenominationInfoViewModel}">
+                                                        <DataTemplate DataType="{x:Type viewModels:DenominationInfoViewModel}">
                                                             <Grid HorizontalAlignment="Center"
                                                                   VerticalAlignment="Center"
                                                                   AutomationProperties.AutomationId="Grid70_1F333AB0">
-                                                                <Image
-                                                                        common:ImageHelper.SourceResourceKey="{Binding DenomButtonSingleKey}"
+                                                                <Image common:ImageHelper.SourceResourceKey="{Binding DenomButtonSingleKey}"
                                                                        HorizontalAlignment="Center"
                                                                        VerticalAlignment="Center"
                                                                        RenderOptions.BitmapScalingMode="HighQuality"
-                                                                       Margin="{StaticResource ExtraLargeGameIconDenomIconMargin}"
-                                                                       Stretch="Fill"
-                                                                       Width="{Binding Source={StaticResource ExtraLargeGameIconDenomIconWidth}}"
-                                                                       Height="{Binding Source={StaticResource ExtraLargeGameIconDenomIconHeight}}"
+                                                                       Margin="15"
+                                                                       Stretch="None"
                                                                        Grid.Column="0"
                                                                        Grid.Row="0"
                                                                        AutomationProperties.AutomationId="Image71_1F333AB0">
                                                                     <b:Interaction.Triggers>
                                                                         <b:EventTrigger EventName="MouseLeftButtonDown"
                                                                                         AutomationProperties.AutomationId="EventTrigger72_1F333AB0">
-                                                                            <b:InvokeCommandAction
-                                                                                    Command="{Binding DataContext.DenominationForSpecificGamePressedCommand, ElementName=GameList}">
+                                                                            <b:InvokeCommandAction Command="{Binding DataContext.DenominationForSpecificGamePressedCommand, ElementName=GameList}">
                                                                                 <b:InvokeCommandAction.CommandParameter>
-                                                                                    <MultiBinding
-                                                                                            Converter="{StaticResource MultiParameterCommandConv}">
+                                                                                    <MultiBinding Converter="{StaticResource MultiParameterCommandConv}">
                                                                                         <Binding Path="Tag"
                                                                                                  ElementName="GameIconButton" />
                                                                                         <Binding Path="Denomination" />
@@ -877,52 +788,22 @@
                                                                         </b:EventTrigger>
                                                                     </b:Interaction.Triggers>
                                                                 </Image>
-                                                                
-                                                                <controls:TextPath HorizontalAlignment="Center"
-                                                                                   VerticalAlignment="Center"
-                                                                                   FontFamily="Impact"
-                                                                                   FontSize="64"
-                                                                                   FontWeight="Light"
-                                                                                   StrokeThickness="2.0"
-                                                                                   Margin="0 0 0 20"
-                                                                                   Text="{Binding DenomText}">
-                                                                    <controls:TextPath.Effect>
-                                                                        <DropShadowEffect ShadowDepth="0"
-                                                                                          Color="Black"
-                                                                                          BlurRadius="4"
-                                                                                          AutomationProperties.AutomationId="DropShadowEffect73_1F333AB0" />
-                                                                    </controls:TextPath.Effect>
-                                                                    <controls:TextPath.LayoutTransform>
-                                                                        <ScaleTransform ScaleX="0.66"
-                                                                                        AutomationProperties.AutomationId="ScaleTransform74_1F333AB0" />
-                                                                    </controls:TextPath.LayoutTransform>
-                                                                    <controls:TextPath.RenderTransform>
-                                                                        <TranslateTransform X="0"
-                                                                                            Y="-4"
-                                                                                            AutomationProperties.AutomationId="TranslateTransform75_1F333AB0" />
-                                                                    </controls:TextPath.RenderTransform>
-                                                                    <controls:TextPath.Style>
-                                                                        <Style TargetType="controls:TextPath">
-                                                                            <Setter Property="Fill"
-                                                                                    Value="White" />
-                                                                            <Setter Property="Stroke"
-                                                                                    Value="Black" />
-                                                                            <Setter Property="IsHitTestVisible"
-                                                                                    Value="False" />
-                                                                            <Style.Triggers>
-                                                                                <DataTrigger
-                                                                                        Binding="{Binding IsSelected}"
-                                                                                             Value="True"
-                                                                                             AutomationProperties.AutomationId="DataTrigger76_1F333AB0">
-                                                                                    <Setter Property="Fill"
-                                                                                            Value="Red" />
-                                                                                    <Setter Property="Stroke"
-                                                                                            Value="Yellow" />
-                                                                                </DataTrigger>
-                                                                            </Style.Triggers>
-                                                                        </Style>
-                                                                    </controls:TextPath.Style>
-                                                                </controls:TextPath>
+
+                                                                <StackPanel HorizontalAlignment="Center"
+                                                                            VerticalAlignment="Center"
+                                                                            Margin="0 0 0 18"
+                                                                            Orientation="Horizontal"
+                                                                            AutomationProperties.AutomationId="StackPanel5_837D385B">
+                                                                    <!-- Larger text for value -->
+                                                                    <controls:TextPath FontSize="48"
+                                                                                       Style="{StaticResource DenomTextStyle}"
+                                                                                       Text="{Binding DenomText}" />
+                                                                    <!-- Smaller text for denom symbol -->
+                                                                    <controls:TextPath FontSize="24"
+                                                                                       Margin="3 0 0 -4"
+                                                                                       Style="{StaticResource DenomTextStyle}"
+                                                                                       Text="{Binding DenomSymbol}" />
+                                                                </StackPanel>
                                                             </Grid>
                                                         </DataTemplate>
                                                     </ItemsControl.ItemTemplate>
@@ -934,135 +815,81 @@
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-                    
-                    <!-- Lightning link grand banner that appears at the top of the page -->
-                    <Viewbox x:Name="LightningLinkGrandBanner"
-                             Width="{Binding ElementName=LightningLinkGrandBannerImage, Path=ActualWidth, Converter={StaticResource ScaleByResolutionConv}}"
-                             Stretch="Uniform"
-                             Grid.Row="1"
-                             Grid.Column="1"
-                             HorizontalAlignment="Center"
-                             VerticalAlignment="Top"
-                             AutomationProperties.AutomationId="Viewbox77_1F333AB0">
-                        <Viewbox.Visibility>
-                            <MultiBinding Converter="{StaticResource LobbyProgressiveBannerVisibilityConv}">
-                                <Binding Source="{StaticResource TrueValue}" />
-                                <!-- Is banner positioned as pool for all games -->
-                                <Binding Path="ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelOneEnabled" />
-                                <Binding Path="IsExtraLargeGameIconTabActive" />
-                                <Binding Source="{StaticResource TrueValue}" />
-                            </MultiBinding>
-                        </Viewbox.Visibility>
-                        <Grid Margin="0 110 0 0"
-                              AutomationProperties.AutomationId="Grid78_1F333AB0">
-                            <Image x:Name="LightningLinkGrandBannerImage"
-                                   gif:ImageBehavior.AnimatedSource="{DynamicResource LightningLinkGrand}"
-                                   AutomationProperties.AutomationId="Image79_1F333AB0" />
-                            <ItemsControl FocusVisualStyle="{x:Null}"
-                                          ItemsSource="{Binding ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelOneAmount}"
-                                          HorizontalAlignment="Center"
-                                          VerticalAlignment="Top"
-                                          Margin="0 42 0 0"
-                                          AutomationProperties.AutomationId="ItemsControl80_1F333AB0">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <controls:ResizingStackPanel Orientation="Horizontal"
-                                                                     Padding="100 0 100 0"
-                                                                     HorizontalAlignment="Center"
-                                                                     VerticalAlignment="Center"
-                                                                     Width="{Binding Path=ActualWidth, ElementName=LightningLinkGrandBannerImage}" />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Image Stretch="UniformToFill"
-                                               Height="86"
-                                               Margin="{Binding ., Converter={StaticResource CommaMarginConv}, ConverterParameter={StaticResource LightningLinkGrandCommaShiftMargin}}"
-                                               Source="{Binding ., Converter={StaticResource CharacterToResourceImageConv}, ConverterParameter=LightningLinkGrand}"
-                                               AutomationProperties.AutomationId="Image81_1F333AB0" />
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </Grid>
-                    </Viewbox>
-                    
-                    <!-- Lightning link major that can appear below the grand banner -->
-                    <Viewbox x:Name="LightningLinkMajorBanner"
-                             Stretch="Uniform"
-                             Grid.Row="1"
-                             Grid.Column="1"
-                             HorizontalAlignment="Center"
-                             VerticalAlignment="Top"
-                             Width="{Binding ElementName=LightningLinkMajorBannerImage, Path=ActualWidth, Converter={StaticResource ScaleByResolutionConv}}"
-                             AutomationProperties.AutomationId="Viewbox82_1F333AB0">
-                        <Viewbox.Visibility>
-                            <MultiBinding Converter="{StaticResource LobbyProgressiveBannerVisibilityConv}">
-                                <Binding Source="{StaticResource TrueValue}" />
-                                <!-- Is banner positioned as pool for all games -->
-                                <Binding Path="ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelTwoEnabled" />
-                                <Binding Path="IsExtraLargeGameIconTabActive" />
-                                <Binding Source="{StaticResource TrueValue}" />
-                                <!-- HasProgressiveLabelDisplay -->
-                            </MultiBinding>
-                        </Viewbox.Visibility>
-                        <Grid Margin="0 260 0 0"
-                              AutomationProperties.AutomationId="Grid83_1F333AB0">
-                            <Image x:Name="LightningLinkMajorBannerImage"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Top"
-                                   gif:ImageBehavior.AnimatedSource="{DynamicResource LightningLinkMajor}"
-                                   AutomationProperties.AutomationId="Image84_1F333AB0" />
-                            <ItemsControl FocusVisualStyle="{x:Null}"
-                                          Margin="0 44 0 0"
-                                          ItemsSource="{Binding Path=ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelTwoAmount}"
-                                          HorizontalAlignment="Center"
-                                          VerticalAlignment="Top"
-                                          AutomationProperties.AutomationId="ItemsControl85_1F333AB0">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <controls:ResizingStackPanel Orientation="Horizontal"
-                                                                     Padding="70 0 70 0"
-                                                                     HorizontalAlignment="Center"
-                                                                     VerticalAlignment="Center"
-                                                                     Width="{Binding Path=ActualWidth, ElementName=LightningLinkMajorBannerImage}" />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Image Stretch="UniformToFill"
-                                               Height="62"
-                                               Margin="{Binding ., Converter={StaticResource CommaMarginConv}, ConverterParameter={StaticResource LightningLinkMajorCommaShiftMargin}}"
-                                               Source="{Binding ., Converter={StaticResource CharacterToResourceImageConv}, ConverterParameter=LightningLinkMajor}"
-                                               AutomationProperties.AutomationId="Image86_1F333AB0" />
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </Grid>
-                    </Viewbox>
-                    
-                    <!-- Message saying to select a denom from under the extra large game icon height: 44/88 -->
-                    <Viewbox Stretch="Uniform"
-                             Grid.Row="1"
-                             Grid.Column="1"
-                             Width="{Binding ElementName=TouchScreenToMakeSelectionImage, Path=ActualWidth, Converter={StaticResource ScaleByResolutionConv}}"
-                             VerticalAlignment="Bottom"
-                             HorizontalAlignment="Center"
-                             Visibility="{Binding Path=IsExtraLargeGameIconTabActive, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                             AutomationProperties.AutomationId="Viewbox87_1F333AB0">
-                        <Image x:Name="TouchScreenToMakeSelectionImage"
-                               common:ImageHelper.SourceResourceKey="TouchScreenToMakeSelection"
-                               RenderOptions.BitmapScalingMode="HighQuality"
-                               Margin="0 6 0 -18"
-                               AutomationProperties.AutomationId="Image88_1F333AB0" />
-                    </Viewbox>
-                    
-                    <ItemsControl x:Name="MultiGameDenominationControl"
+
+                    <!-- Combined animated jackpot banners -->
+                    <bink:BinkViewerControl Grid.Column="1"
+                                            Grid.Row="0"
+                                            Grid.RowSpan="3"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Top"
+                                            Stretch="None"
+                                            IsHitTestVisible="False"
+                                            Filename="{DynamicResource LobbyJackpotMeters}"
+                                            Visibility="{Binding IsJackpotBannerVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
+
+                    <!-- Grand jackpot text -->
+                    <ItemsControl Grid.Column="1"
                                   Grid.Row="1"
+                                  Margin="200 210 0 0"
+                                  FocusVisualStyle="{x:Null}"
+                                  ItemsSource="{Binding ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelOneAmount}"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Top"
+                                  Visibility="{Binding IsJackpotBannerVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                  AutomationProperties.AutomationId="ItemsControl6_837D385B">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <controls:ResizingStackPanel Orientation="Horizontal"
+                                                             HorizontalAlignment="Center"
+                                                             VerticalAlignment="Center"
+                                                             Width="430" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Image Stretch="Uniform"
+                                       Height="60"
+                                       Source="{Binding ., Converter={StaticResource CharacterToResourceImageConv}, ConverterParameter=LightningLinkGrand}"
+                                       AutomationProperties.AutomationId="Image7_837D385B" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <!-- Major jackpot text -->
+                    <ItemsControl Grid.Column="1"
+                                  Grid.Row="1"
+                                  Margin="670 210 0 0"
+                                  FocusVisualStyle="{x:Null}"
+                                  ItemsSource="{Binding Path=ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelTwoAmount}"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Top"
+                                  Visibility="{Binding IsJackpotBannerVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                  AutomationProperties.AutomationId="ItemsControl8_837D385B">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <controls:ResizingStackPanel Orientation="Horizontal"
+                                                             HorizontalAlignment="Center"
+                                                             VerticalAlignment="Center"
+                                                             Width="362" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Image Stretch="UniformToFill"
+                                       Height="60"
+                                       Source="{Binding ., Converter={StaticResource CharacterToResourceImageConv}, ConverterParameter=LightningLinkMajor}"
+                                       AutomationProperties.AutomationId="Image9_837D385B" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <!-- Bottom denomination buttons shared with all games on page -->
+                    <ItemsControl x:Name="MultiGameDenominationControl"
+                                  Grid.Row="2"
                                   Grid.RowSpan="2"
                                   Grid.Column="0"
                                   Grid.ColumnSpan="3"
                                   ItemsSource="{Binding GameTabInfo.Denominations}"
-                                  Height="90"
                                   VerticalAlignment="Bottom"
                                   HorizontalAlignment="Center"
                                   Visibility="{Binding Path=IsExtraLargeGameIconTabActive, Converter={StaticResource TrueCollapsedFalseVisible}}"
@@ -1076,77 +903,48 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate DataType="{x:Type viewModels:DenominationInfoViewModel}">
-                                <Grid AutomationProperties.AutomationId="Grid90_1F333AB0">
-                                    <Image common:ImageHelper.SourceResourceKey="{Binding DenomButtonSharedKey}"
-                                           Stretch="Uniform"
-                                           Grid.Column="0"
-                                           Grid.Row="0"
-                                           AutomationProperties.AutomationId="Image91_1F333AB0">
-                                        <b:Interaction.Triggers>
-                                            <b:EventTrigger EventName="MouseLeftButtonDown"
-                                                            AutomationProperties.AutomationId="EventTrigger92_1F333AB0">
-                                                <b:InvokeCommandAction
-                                                        Command="{Binding DataContext.DenominationPressedCommand, ElementName=MultiGameDenominationControl}"
-                                                        CommandParameter="{Binding}" />
-                                            </b:EventTrigger>
-                                        </b:Interaction.Triggers>
-                                    </Image>
-                                    <Viewbox MaxWidth="80"
-                                             Stretch="Uniform"
-                                             StretchDirection="DownOnly"
-                                             Grid.Column="0"
-                                             Grid.Row="0"
-                                             IsHitTestVisible="False"
-                                             AutomationProperties.AutomationId="Viewbox93_1F333AB0">
-                                        <controls:TextPath HorizontalAlignment="Center"
-                                                           FontFamily="Impact"
-                                                           FontSize="32"
-                                                           FontWeight="Bold"
-                                                           StrokeThickness="2.0"
-                                                           Text="{Binding DenomText}">
-                                            <controls:TextPath.Effect>
-                                                <DropShadowEffect ShadowDepth="0"
-                                                                  Color="Black"
-                                                                  BlurRadius="4"
-                                                                  AutomationProperties.AutomationId="DropShadowEffect94_1F333AB0" />
-                                            </controls:TextPath.Effect>
-                                            <controls:TextPath.RenderTransform>
-                                                <TranslateTransform X="0"
-                                                                    Y="-4"
-                                                                    AutomationProperties.AutomationId="TranslateTransform95_1F333AB0" />
-                                            </controls:TextPath.RenderTransform>
-                                            <controls:TextPath.Style>
-                                                <Style TargetType="controls:TextPath">
-                                                    <Setter Property="Fill"
-                                                            Value="LightBlue" />
-                                                    <Setter Property="Stroke"
-                                                            Value="Black" />
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding IsSelected}"
-                                                                     Value="True"
-                                                                     AutomationProperties.AutomationId="DataTrigger96_1F333AB0">
-                                                            <Setter Property="Fill"
-                                                                    Value="Red" />
-                                                            <Setter Property="Stroke"
-                                                                    Value="Yellow" />
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </controls:TextPath.Style>
-                                        </controls:TextPath>
-                                    </Viewbox>
-                                </Grid>
+                                <Viewbox Stretch="Uniform" AutomationProperties.AutomationId="Viewbox10_837D385B">
+                                    <Grid AutomationProperties.AutomationId="Grid90_1F333AB0">
+                                        <Image common:ImageHelper.SourceResourceKey="{Binding DenomButtonSharedKey}"
+                                               Stretch="Uniform"
+                                               Grid.Column="0"
+                                               Grid.Row="0"
+                                               AutomationProperties.AutomationId="Image91_1F333AB0">
+                                            <b:Interaction.Triggers>
+                                                <b:EventTrigger EventName="MouseLeftButtonDown"
+                                                                AutomationProperties.AutomationId="EventTrigger92_1F333AB0">
+                                                    <b:InvokeCommandAction Command="{Binding DataContext.DenominationPressedCommand, ElementName=MultiGameDenominationControl}" CommandParameter="{Binding}" />
+                                                </b:EventTrigger>
+                                            </b:Interaction.Triggers>
+                                        </Image>
+                                        <StackPanel HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Margin="0 0 0 16"
+                                                    Orientation="Horizontal"
+                                                    AutomationProperties.AutomationId="StackPanel11_837D385B">
+                                            <!-- Larger text for value -->
+                                            <controls:TextPath FontSize="42"
+                                                               Style="{StaticResource SharedDenomTextStyle}"
+                                                               Text="{Binding DenomText}" />
+                                            <!-- Smaller text for denom symbol -->
+                                            <controls:TextPath Margin="3 0 0 -4"
+                                                               Style="{StaticResource SharedDenomTextStyle}"
+                                                               Text="{Binding DenomSymbol}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Viewbox>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-                    
-                    <Grid Grid.Row="2"
+
+                    <!-- Notification/banner text -->
+                    <Grid Grid.Row="3"
                           Grid.Column="0"
                           Grid.ColumnSpan="3"
                           Margin="19 0 20 8"
                           AutomationProperties.AutomationId="Grid97_1F333AB0">
                         <lobby:LobbyBannerView />
-                        <Viewbox HorizontalAlignment="Left"
+                         <Viewbox HorizontalAlignment="Left"
                                  AutomationProperties.AutomationId="Viewbox98_1F333AB0">
                             <Border Background="#FF000000"
                                     HorizontalAlignment="Left"
@@ -1175,7 +973,7 @@
                                 </StackPanel>
                             </Border>
                         </Viewbox>
-                        
+
                         <Viewbox HorizontalAlignment="Right"
                                  VerticalAlignment="Bottom"
                                  AutomationProperties.AutomationId="Viewbox103_1F333AB0">
@@ -1196,19 +994,17 @@
                             </Border>
                         </Viewbox>
                     </Grid>
-                    
+
                     <!-- UPI should be in a viewbox to scale entire user control correctly -->
                     <!-- Setting Margin to match old UPI sizing for Responsible Gaming Overlays -->
-                    <Viewbox Grid.Row="3"
+                    <Viewbox Grid.Row="4"
                              Grid.Column="0"
                              Grid.ColumnSpan="3"
                              Margin="19 2 19 0"
                              AutomationProperties.AutomationId="Viewbox106_1F333AB0">
                         <Grid AutomationProperties.AutomationId="Grid107_1F333AB0">
-                            <lobby:StandardUpi
-                                    Visibility="{Binding MultiLanguageEnabled, Converter={StaticResource TrueCollapsedFalseVisible}}" />
-                            <lobby:MultiLanguageUpi
-                                    Visibility="{Binding MultiLanguageEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
+                            <lobby:StandardUpi Visibility="{Binding MultiLanguageEnabled, Converter={StaticResource TrueCollapsedFalseVisible}}" />
+                            <lobby:MultiLanguageUpi Visibility="{Binding MultiLanguageEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
                         </Grid>
                     </Viewbox>
                 </Grid>

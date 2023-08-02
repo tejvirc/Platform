@@ -13,7 +13,7 @@
     public class StopAllAnimationTagsCommandHandlerTests
     {
         private readonly AnimationFile _animationFile =
-            new AnimationFile(string.Empty, AnimationType.GameStepperCurve, "Test1") { AnimationId = 1 };
+            new(string.Empty, AnimationType.GameStepperCurve, "Test1") { AnimationId = 1 };
 
         [TestInitialize]
         public void TestInitialization()

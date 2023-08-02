@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
-    using Contracts.OperatorMenu;
     using OperatorMenu;
 
     /// <summary>
@@ -14,7 +13,7 @@
 
         private const string PagesExtensionPath = @"/Application/OperatorMenu/DiagnosticMenu";
 
-        public DiagnosticMainPageViewModel(IOperatorMenuPageLoader mainPage) : base(mainPage, PagesExtensionPath)
+        public DiagnosticMainPageViewModel(string pageNameResourceKey) : base(pageNameResourceKey, PagesExtensionPath)
         {
         }
     }

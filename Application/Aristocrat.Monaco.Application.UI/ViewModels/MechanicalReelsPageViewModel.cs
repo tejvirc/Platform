@@ -33,7 +33,8 @@
         private const int LightTestOnTime = 500;
         private const string SampleLightShowName = "SampleLightShow";
         private const string AllTag = "ALL";
-        
+        private const int RelmReelMaximumOffset = 3;
+
         private readonly IReelBrightnessCapabilities _brightnessCapabilities;
         private readonly IReelAnimationCapabilities _animationCapabilities;
         private readonly IEdgeLightingController _edgeLightController;
@@ -61,6 +62,7 @@
         private bool _selfTestEnabled = true;
         private int _initialBrightness;
         private int _brightness;
+        private int _maxReelOffset = 199;
         private bool _brightnessChanging;
         private IEdgeLightToken _offToken;
 
@@ -92,6 +94,7 @@
             if (ReelController.HasCapability<IReelAnimationCapabilities>())
             {
                 _animationCapabilities = ReelController.GetCapability<IReelAnimationCapabilities>();
+                MaxReelOffset = RelmReelMaximumOffset;
             }
 
             MinimumBrightness = 1;
@@ -222,7 +225,6 @@
             {
                 _reelCount = value;
                 RaisePropertyChanged(nameof(ReelCount));
-                RaisePropertyChanged(nameof(ReelCountForeground));
             }
         }
 
@@ -243,9 +245,9 @@
         }
 
         /// <summary>
-        ///     Gets the reel count foreground color
+        ///     Gets the info foreground color
         /// </summary>
-        public SolidColorBrush ReelCountForeground => Brushes.White;
+        public SolidColorBrush InfoForeground => Brushes.White;
 
         /// <summary>
         ///     Gets the show light test command
@@ -381,6 +383,25 @@
             }
         }
 
+        /// <summary>
+        ///     The max number of steps to offset by
+        /// </summary>
+        public int MaxReelOffset
+        {
+            set
+            {
+                _maxReelOffset = value;
+                RaisePropertyChanged(nameof(MaxReelOffset));
+                RaisePropertyChanged(nameof(MinReelOffset));
+            }
+            get => _maxReelOffset;
+        }
+
+        /// <summary>
+        ///     The minimum number of steps to offset by
+        /// </summary>
+        public int MinReelOffset => _maxReelOffset * -1;
+
         private int ReelControllerDefaultBrightness
         {
             get => _brightnessCapabilities?.DefaultReelBrightness ?? MaximumBrightness;
@@ -513,13 +534,14 @@
                 {
                     if (IsReelActive(i) == false)
                     {
-                        ReelInfo.Add(
-                            new ReelInfoItem(
-                                i,
-                                true,
-                                true,
-                                ReelLogicalState.Disconnected.ToString(),
-                                offsets.Length >= i ? offsets[i - 1] : 0));
+                        var infoItem = new ReelInfoItem(
+                            i,
+                            true,
+                            true,
+                            ReelLogicalState.Disconnected.ToString(),
+                            offsets.Length >= i ? offsets[i - 1] : 0);
+
+                        ReelInfo.Add(infoItem);
                     }
                     else
                     {
@@ -933,14 +955,7 @@
             }
             else
             {
-                var lightShow = new LightShowData
-                {
-                    Tag = AllTag,
-                    Step = -1,
-                    LoopCount = -1,
-                    ReelIndex = -1,
-                    AnimationName = SampleLightShowName
-                };
+                var lightShow = new LightShowData(-1, SampleLightShowName, AllTag, ReelConstants.RepeatForever, -1);
 
                 await _animationCapabilities.StopAllLightShows();
                 await _animationCapabilities.PrepareAnimation(lightShow);

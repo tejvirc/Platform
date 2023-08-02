@@ -1,6 +1,4 @@
-﻿
-
-namespace Aristocrat.Monaco.Gaming.UI.Models
+﻿namespace Aristocrat.Monaco.Gaming.UI.Models
 {
     using Application.Contracts.Extensions;
     using Contracts.Central;
@@ -21,11 +19,9 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
 
         public int GameId => _centralTransaction?.GameId ?? -1;
 
-        public string Denomination => (_centralTransaction?.Denomination ?? 0).MillicentsToDollars().FormattedCurrencyString();
+        public IEnumerable<IAdditionalGamePlayInfo> GameInfo => _centralTransaction?.AdditionalInfo;
 
         public string WagerCategory => _centralTransaction?.WagerCategory ?? string.Empty;
-
-        public string WagerAmount => (_centralTransaction?.WagerAmount ?? 0).MillicentsToDollars().FormattedCurrencyString();
 
         public int OutcomesRequested => _centralTransaction?.OutcomesRequested ?? 0;
 
@@ -33,7 +29,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
 
         public string OutcomeException => (_centralTransaction?.Exception ?? Contracts.Central.OutcomeException.None).ToString();
 
-        public List<OutcomeData> Outcomes { get; } = new List<OutcomeData>();
+        public List<OutcomeData> Outcomes { get; } = new();
 
         private void CreateOutcomes()
         {

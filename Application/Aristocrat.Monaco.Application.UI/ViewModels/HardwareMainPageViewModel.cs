@@ -2,7 +2,6 @@
 {
     using System;
     using System.Diagnostics;
-    using Contracts.OperatorMenu;
     using OperatorMenu;
 
     [CLSCompliant(false)]
@@ -16,8 +15,7 @@
         /// <summary>
         ///     Initializes a new instance of the <see cref="HardwareMainPageViewModel" /> class.
         /// </summary>
-        public HardwareMainPageViewModel(IOperatorMenuPageLoader mainPage)
-            : base(mainPage, MenuExtensionPointPath)
+        public HardwareMainPageViewModel(string pageNameResourceKey) : base(pageNameResourceKey, MenuExtensionPointPath)
         {
         }
 

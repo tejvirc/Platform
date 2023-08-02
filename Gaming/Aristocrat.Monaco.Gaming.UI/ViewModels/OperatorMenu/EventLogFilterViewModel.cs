@@ -552,6 +552,11 @@
 
         private void ShowAdditionalInfo(object obj)
         {
+            if (SelectedItem == null)
+            {
+                return;
+            }
+
             // Show a popup window with additional info
             var dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
 

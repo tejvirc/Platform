@@ -29,11 +29,15 @@
     using Protocol.Common.Storage.Entity;
     using GameEndWinFactory =
         Common.IBingoStrategyFactory<GameEndWin.IGameEndWinStrategy, Common.Storage.Model.GameEndWinStrategy>;
+    using GameOutcome = Aristocrat.Bingo.Client.Messages.GamePlay.GameOutcome;
 
     public class CentralHandler : ICentralHandler, IBingoGameOutcomeHandler, IDisposable
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
-        private static readonly IBetDetails DefaultBetDetails = new BetDetails(0, 0, 0, 0, 0);
+        private static readonly IReadOnlyCollection<IBetDetails> DefaultBetDetails = new[]
+        {
+            new BetDetails(0,0,0,0,0,0,0,0)
+        };
         private static readonly IComparer<WinResult> DefaultWinResultComparer = new WinResultComparer();
 
         private static readonly IReadOnlyCollection<Guid> AllowedGameDisables = new[]
@@ -62,6 +66,7 @@
         private TaskCompletionSource<bool> _waitingForPlayersTask;
         private long _lastDenom;
         private BetDetails _lastBetDetail;
+        private IEnumerable<int> _activeGames;
 
         public CentralHandler(
             IEventBus eventBus,
@@ -96,19 +101,21 @@
         private CentralTransaction CurrentTransaction =>
             _centralProvider.Transactions.FirstOrDefault(x => x.TransactionId == _currentGameTransactionId);
 
-        private BingoGameDescription GameDescription =>
-            CurrentTransaction?.Descriptions?.FirstOrDefault() as BingoGameDescription ?? new BingoGameDescription();
+        private List<BingoGameDescription> GameDescription =>
+            CurrentTransaction?.Descriptions?.OfType<BingoGameDescription>().ToList() ?? new List<BingoGameDescription>();
 
-        public Task<bool> ProcessGameOutcome(GameOutcome outcome, CancellationToken token)
+        /// <inheritdoc/>
+        public Task<bool> ProcessGameOutcomes(GameOutcomes outcomes, CancellationToken token)
         {
-            if (outcome == null)
+            if (outcomes == null)
             {
-                throw new ArgumentNullException(nameof(outcome));
+                throw new ArgumentNullException(nameof(outcomes));
             }
 
-            return ProcessGameOutcomeInternal(outcome, token);
+            return ProcessGameOutcomesInternal(outcomes, token);
         }
 
+        /// <inheritdoc/>
         public Task<bool> ProcessClaimWin(ClaimWinResults claim, CancellationToken token)
         {
             Logger.Debug($"Received a claim win response with Accepted={claim.Accepted}");
@@ -121,25 +128,22 @@
 
             if (!_gameState.InGameRound)
             {
-                throw new BingoGamePlayException("Game is inactive");
+                throw new BingoGamePlayException("Got a Claim Game End Win when Game is inactive");
             }
 
-            var transactionId = _currentGameTransactionId;
             BingoPattern gewPattern;
             lock (_lock)
             {
-                var description = GameDescription;
-                gewPattern = description.Patterns.FirstOrDefault(x => x.IsGameEndWin);
+                var description = GameDescription.FirstOrDefault(d => d.Cards.Any(x => x.IsGameEndWin));
+                gewPattern = description?.Patterns?.FirstOrDefault(x => x.IsGameEndWin);
 
                 if (gewPattern is null)
                 {
                     throw new BingoGamePlayException("Game End Win pattern is not found");
                 }
-
-                Logger.Debug("Game is active, provide claim win");
             }
 
-            return ProcessClaimWinInternal(gewPattern, transactionId, token);
+            return ProcessClaimWinInternal(gewPattern, _currentGameTransactionId, token);
         }
 
         /// <inheritdoc />
@@ -153,6 +157,7 @@
             return RequestOutcomesInternal(transaction);
         }
 
+        /// <inheritdoc/>
         public void Dispose()
         {
             Dispose(true);
@@ -198,7 +203,9 @@
             OutcomeType.Standard,
             0,
             0,
-            string.Empty);
+            string.Empty,
+            outcome.GameId,
+            outcome.GameIndex);
 
         private static bool ShouldHandleWatTransferCompleted(WatTransferCommittedEvent evt)
         {
@@ -234,18 +241,18 @@
             await gamePlayTask.ConfigureAwait(false);
         }
 
-        private async Task<bool> ProcessGameOutcomeInternal(GameOutcome outcome, CancellationToken token)
+        private async Task<bool> ProcessGameOutcomesInternal(GameOutcomes outcomes, CancellationToken token)
         {
             try
             {
                 token.ThrowIfCancellationRequested();
-                if (!outcome.IsSuccessful || !_gameState.InGameRound)
+                if (outcomes.Outcomes.All(x => !x.IsSuccessful) || !_gameState.InGameRound)
                 {
                     CheckForOutcomeResponseFailure();
                     return false;
                 }
 
-                await HandleBingoOutcomes(outcome, token).ConfigureAwait(false);
+                await HandleBingoOutcomes(outcomes, token).ConfigureAwait(false);
             }
             catch (Exception e) when (e is OperationCanceledException or ObjectDisposedException)
             {
@@ -279,12 +286,15 @@
 
                 lock (_lock)
                 {
-                    var description = GameDescription ?? new BingoGameDescription();
-                    description.GameEndWinClaimAccepted = accepted;
+                    foreach (var description in GameDescription.Where(description => description.Cards.Any(g => g.IsGameEndWin)))
+                    {
+                        description.GameEndWinClaimAccepted = accepted;
+                    }
+
                     _centralProvider.UpdateOutcomeDescription(
                         transactionId,
-                        new List<IOutcomeDescription> { description });
-                    return description.GameEndWinClaimAccepted;
+                        GameDescription);
+                    return accepted;
                 }
             }
             finally
@@ -293,118 +303,219 @@
             }
         }
 
-        private async Task HandleBingoOutcomes(GameOutcome outcome, CancellationToken token)
+        private async Task HandleBingoOutcomes(GameOutcomes gameOutcomes, CancellationToken token)
         {
             var outcomeTasks = new List<Task>();
 
             lock (_lock)
             {
-                var description = GameDescription;
+                var descriptions = GameDescription;
+
+                // Make sure we have a description for every game index
+                foreach (var outcome in gameOutcomes.Outcomes)
+                {
+                    if (descriptions.All(x => x.GameIndex != outcome.GameIndex))
+                    {
+                        descriptions.Add(new BingoGameDescription { GameIndex = outcome.GameIndex });
+                    }
+                }
 
                 // Feed the card overlay. We only care about new card data in the outcome response.
-                var newCard = ProcessBingoCards(outcome, description);
+                var newCard = ProcessBingoCards(gameOutcomes, descriptions);
                 var outcomes = new List<Outcome>();
-                if (outcome.WinDetails.WinResults.Any() || newCard)
+                var setWaitingForPlayersTaskResult = true;
+                var processBingoOutcomes = false;
+
+                foreach (var gameOutcome in gameOutcomes.Outcomes)
                 {
-                    var orderedPayout = GetOrderedWinResults(outcome.WinDetails);
-                    outcomeTasks.AddRange(
-                        orderedPayout.Select(
-                            winResult => ProcessWins(outcome, winResult, outcomes, description, token)));
-                    if (outcomes.Any())
+                    var description = descriptions.First(x => x.GameIndex == gameOutcome.GameIndex);
+                    if (gameOutcome.WinDetails.WinResults.Any() || newCard)
                     {
-                        _eventBus.Publish(new AllowCombinedOutcomesEvent(AllowCombinedOutcomes(outcomes)));
+                        AddProcessWinTasks(gameOutcome, description, outcomes, outcomeTasks, token);
                     }
-                }
 
-                token.ThrowIfCancellationRequested();
+                    token.ThrowIfCancellationRequested();
 
-                // When waiting for players, the server sends a game outcome with an empty ball call.
-                if (!outcome.BingoDetails.BallCall.Any())
-                {
-                    _eventBus.Publish(new BingoGamePatternEvent(description.Patterns.ToList()));
-                }
-                else
-                {
-                    if (_waitingForPlayersTask?.TrySetResult(true) ?? false)
+                    // When waiting for players, the server sends a game outcome with an empty ball call.
+                    // TODO: this seems wrong - if not any balls then there shouldn't be any patterns
+                    // TODO: could just send an empty list of BingoPatterns if we need this to clear the overlay
+                    if (!gameOutcome.BingoDetails.BallCall.Any())
                     {
-                        description.JoinTime = DateTime.UtcNow;
-                        description.GameSerial = outcome.GameDetails.GameSerial;
-                        description.GameTitleId = outcome.GameDetails.GameTitleId;
-                        description.ThemeId = outcome.GameDetails.ThemeId;
-                        description.DenominationId = outcome.GameDetails.DenominationId;
-                        description.Paytable = outcome.GameDetails.Paytable;
-                        description.GameEndWinEligibility = outcome.BingoDetails.GameEndWinEligibility;
-                        _eventBus.Publish(new PlayersFoundEvent());
-                        if (!outcomes.Any())
+                        _eventBus.Publish(new BingoGamePatternEvent(description.Patterns.ToList(), false, gameOutcome.GameIndex));
+                    }
+                    else
+                    {
+                        // Attempt to set the task result once and use the return status to determine if
+                        // the bingo outcomes should be processed.
+                        if (setWaitingForPlayersTaskResult)
                         {
-                            // We need to send an outcome otherwise we can't recover correctly
-                            outcomes.Add(GetLosingGameOutcome(outcome));
+                            setWaitingForPlayersTaskResult = false;
+                            processBingoOutcomes = _waitingForPlayersTask?.TrySetResult(true) ?? false;
+
+                            if (processBingoOutcomes)
+                            {
+                                _eventBus.Publish(new PlayersFoundEvent());
+                            }
                         }
 
-                        foreach (var card in description.Cards)
+                        if (processBingoOutcomes)
                         {
-                            card.InitialDaubedBits = card.DaubedBits;
+                            ProcessBingoOutcome(gameOutcome, description, outcomes);
                         }
                     }
 
-                    AddBalls(outcome, description);
-                    UpdateCentralTransaction(outcomes, newCard, description);
+                    AddBalls(gameOutcomes, descriptions);
                 }
+
+                UpdateCentralTransaction(outcomes, newCard, processBingoOutcomes, descriptions);
             }
 
             await Task.WhenAll(outcomeTasks).ConfigureAwait(false);
         }
 
+        private void AddProcessWinTasks(
+            GameOutcome gameOutcome,
+            BingoGameDescription description,
+            List<Outcome> processedOutcomes,
+            List<Task> outcomeTasks,
+            CancellationToken token)
+        {
+            var orderedPayout = GetOrderedWinResults(gameOutcome.WinDetails);
+            outcomeTasks.AddRange(
+                orderedPayout.Select(
+                    winResult => ProcessWins(gameOutcome, winResult, processedOutcomes, description, token)));
+
+            // Only the main game will allow combined outcomes event. Side bet games are always assumed to combine outcomes.
+            if (processedOutcomes.Any() && gameOutcome.GameIndex == 0)
+            {
+                _eventBus.Publish(new AllowCombinedOutcomesEvent(AllowCombinedOutcomes(processedOutcomes)));
+            }
+        }
+
+        private void ProcessBingoOutcome(GameOutcome gameOutcome, BingoGameDescription description, List<Outcome> processedOutcomes)
+        {
+            description.JoinTime = DateTime.UtcNow;
+            description.GameSerial = gameOutcome.GameDetails.GameSerial;
+            description.GameTitleId = gameOutcome.GameDetails.GameTitleId;
+            description.ThemeId = gameOutcome.GameDetails.ThemeId;
+            description.DenominationId = gameOutcome.GameDetails.DenominationId;
+            description.Paytable = gameOutcome.GameDetails.Paytable;
+            description.GameEndWinEligibility = gameOutcome.BingoDetails.GameEndWinEligibility;
+
+            var gameHasAnyOutcomes = processedOutcomes.FirstOrDefault(x => x.GameId == gameOutcome.GameId && x.GameIndex == gameOutcome.GameIndex) != null;
+            if (!gameHasAnyOutcomes)
+            {
+                // We need to send an outcome otherwise we can't recover correctly
+                processedOutcomes.Add(GetLosingGameOutcome(gameOutcome));
+            }
+
+            foreach (var card in description.Cards)
+            {
+                card.InitialDaubedBits = card.DaubedBits;
+            }
+        }
+
         private void UpdateCentralTransaction(
             IReadOnlyCollection<Outcome> outcomes,
             bool newCard,
-            BingoGameDescription description)
+            bool processOutcomes,
+            IEnumerable<BingoGameDescription> gameDescriptions)
         {
-            var descriptions = new List<IOutcomeDescription> { description };
-            if (outcomes.Any() || newCard)
+            var bingoGameDescriptions = gameDescriptions.ToList();
+            Logger.Debug($"UpdateCentralTransaction, outcomes count ={outcomes.Count}, newCard={newCard}, processOutcomes={processOutcomes}, gameDescriptions.Count={bingoGameDescriptions.Count}");
+
+            // Send bingo pattern events for each bingo game description with wins
+            foreach (var description in bingoGameDescriptions)
+            {
+                if (description.Patterns.Any())
+                {
+                    _eventBus.Publish(
+                        new BingoGamePatternEvent(description.Patterns.ToList(), false, description.GameIndex));
+                }
+            }
+
+            if ((outcomes.Any() || newCard) && processOutcomes)
             {
                 _centralProvider.OutcomeResponse(
                     _currentGameTransactionId,
                     outcomes,
                     OutcomeException.None,
-                    descriptions);
-                _eventBus.Publish(new BingoGamePatternEvent(description.Patterns.ToList()));
+                    bingoGameDescriptions);
             }
             else
             {
-                _centralProvider.UpdateOutcomeDescription(_currentGameTransactionId, descriptions);
+                _centralProvider.UpdateOutcomeDescription(_currentGameTransactionId, bingoGameDescriptions);
             }
         }
 
-        private bool ProcessBingoCards(GameOutcome outcome, BingoGameDescription description)
+        private bool ProcessBingoCards(
+            GameOutcomes outcomes,
+            IEnumerable<BingoGameDescription> descriptions)
         {
             var newCard = false;
-            var cards = description.Cards.ToList();
-            foreach (var cardPlayed in outcome.BingoDetails.CardsPlayed)
+            var gamesInPlay = new HashSet<int>();
+
+            // for multi-game there will be 2 sets of cards, one for main game, and one for secondary game(s)
+            // get the cards for each game
+            foreach (var description in descriptions)
             {
-                var bingoCard = cards.FirstOrDefault(c => c.SerialNumber == cardPlayed.SerialNumber);
-                if (bingoCard is null)
+                var cards = description.Cards.ToList();
+
+                foreach (var outcome in outcomes.Outcomes.Where(x => x.GameIndex == description.GameIndex))
                 {
-                    var card = _cardProvider.GetCardBySerial(cardPlayed.SerialNumber);
-                    card.DaubedBits = cardPlayed.BitPattern;
-                    card.IsGameEndWin = cardPlayed.IsGameEndWin;
-                    newCard = true;
-                    Logger.Debug($"New card: {card}");
-                    cards.Add(card);
-                    _eventBus.Publish(new BingoGameNewCardEvent(card));
-                }
-                else
-                {
-                    bingoCard.DaubedBits = cardPlayed.BitPattern;
+                    gamesInPlay.Add(outcome.GameIndex);
+                    foreach (var cardPlayed in outcome.BingoDetails.CardsPlayed)
+                    {
+                        var bingoCard = cards.FirstOrDefault(c => c.SerialNumber == cardPlayed.SerialNumber);
+                        if (bingoCard is null)
+                        {
+                            var card = _cardProvider.GetCardBySerial(cardPlayed.SerialNumber);
+                            card.DaubedBits = cardPlayed.BitPattern;
+                            card.IsGameEndWin = cardPlayed.IsGameEndWin;
+                            newCard = true;
+                            Logger.Debug($"New card: {card}");
+                            cards.Add(card);
+                            _eventBus.Publish(new BingoGameNewCardEvent(card, outcome.GameIndex));
+                        }
+                        else
+                        {
+                            bingoCard.DaubedBits = cardPlayed.BitPattern;
+                            bingoCard.IsGameEndWin = cardPlayed.IsGameEndWin;
+                            
+                            if (cardPlayed.IsGolden && cardPlayed.IsGolden != bingoCard.IsGolden)
+                            {
+                                bingoCard.IsGolden = cardPlayed.IsGolden;
+                                _eventBus.Publish(new BingoGameGoldenCardEvent(cardPlayed.IsGolden, outcome.GameIndex));
+                            }
+                        }
+                    }
+
+                    if (!newCard)
+                    {
+                        continue;
+                    }
+
+                    description.Cards = cards;
+                    description.GameEndWinEligibility = outcome.BingoDetails.GameEndWinEligibility;
                 }
             }
 
-            if (newCard)
-            {
-                description.Cards = cards;
-            }
-
+            DisableCards(gamesInPlay);
+            _activeGames = gamesInPlay;
             return newCard;
+        }
+
+        private void DisableCards(IEnumerable<int> gamesInPlay)
+        {
+            if (_activeGames is null)
+            {
+                return;
+            }
+            foreach (var gameIndex in _activeGames.Where(x => !gamesInPlay.Contains(x)))
+            {
+                Logger.Debug($"Disabling card for out-of-play game index {gameIndex}");
+                _eventBus.Publish(new BingoGameDisableCardEvent(gameIndex));
+            }
         }
 
         private async Task HandleOutcomeRequest(CentralTransaction transaction)
@@ -423,20 +534,18 @@
 
                 var machineSerial = _properties.GetValue(ApplicationConstants.SerialNumber, string.Empty);
                 var details = _properties.GetValue(
-                    GamingConstants.SelectedBetDetails,
+                    GamingConstants.SelectedMultiGameBetDetails,
                     DefaultBetDetails);
 
                 WaitingForPlayers(transaction, source.Token).FireAndForget();
+                var subGameTitleId = currentGame.GetSubGameTitleId(transaction);
+                var requests = transaction.GenerateMultiPlayRequest(
+                    machineSerial,
+                    details,
+                    currentGame.GetBingoTitleIdInt(),
+                    subGameTitleId < 0 ? null : subGameTitleId);
                 await _commandFactory.Execute(
-                    new RequestPlayCommand(
-                        machineSerial,
-                        transaction.WagerAmount.MillicentsToCents(),
-                        (int)transaction.Denomination.MillicentsToCents(),
-                        details.BetLinePresetId,
-                        details.BetPerLine,
-                        details.NumberLines,
-                        details.Ante,
-                        currentGame.GetBingoTitleId()),
+                    requests,
                     source.Token).ConfigureAwait(false);
             }
             catch (Exception ex)
@@ -590,7 +699,7 @@
                         _properties.GetValue(ApplicationConstants.SerialNumber, string.Empty),
                         outcome.GameDetails.GameSerial,
                         pattern.CardSerial,
-                        CurrentTransaction.WagerAmount.MillicentsToCents()),
+                        CurrentTransaction.AdditionalInfo.First().WagerAmount),
                     token).ConfigureAwait(false);
             }
             // Otherwise it's a standard win.
@@ -605,7 +714,9 @@
                         OutcomeType.Standard,
                         winAmount.CentsToMillicents(),
                         winResult.WinIndex,
-                        winResult.PatternName));
+                        winResult.PatternName,
+                        outcome.GameId,
+                        outcome.GameIndex));
 
                 Logger.Debug($"New pattern:{pattern}, win:{winAmount}");
             }
@@ -616,30 +727,44 @@
             _cancellationTokenSource?.Cancel();
         }
 
-        private void AddBalls(GameOutcome outcome, BingoGameDescription description)
+        private void AddBalls(GameOutcomes outcomes, IEnumerable<BingoGameDescription> descriptions)
         {
-            var balls = outcome.BingoDetails.BallCall.ToList();
+            var balls = outcomes.Outcomes.First().BingoDetails.BallCall.ToList();
             if (!balls.Any())
             {
-                description.JoinBallIndex = -1;
+                foreach (var description in descriptions)
+                {
+                    description.JoinBallIndex = -1;
+                }
+
                 return;
             }
 
             List<BingoNumber> bingoNumbers = new();
             for (var index = 0; index < balls.Count; index++)
             {
-                var state = index >= BingoConstants.InitialBallDraw ? BingoNumberState.BallCallLate : BingoNumberState.BallCallInitial;
+                var state = index >= BingoConstants.InitialBallDraw
+                    ? BingoNumberState.BallCallLate
+                    : BingoNumberState.BallCallInitial;
                 bingoNumbers.Add(new BingoNumber(balls[index], state));
             }
 
             var ballCall = new BingoBallCall(bingoNumbers);
-            description.BallCallNumbers = bingoNumbers;
-            if (description.JoinBallIndex < 0)
+
+            foreach (var description in descriptions)
             {
-                description.JoinBallIndex = outcome.BingoDetails.JoinBallNumber;
+                description.BallCallNumbers = bingoNumbers;
+                if (description.JoinBallIndex < 0)
+                {
+                    description.JoinBallIndex = outcomes.Outcomes.First().BingoDetails.JoinBallNumber;
+                }
             }
 
-            _eventBus.Publish(new BingoGameBallCallEvent(ballCall, outcome.BingoDetails.CardsPlayed.First().BitPattern));
+            foreach (var outcome in outcomes.Outcomes)
+            {
+                _eventBus.Publish(
+                new BingoGameBallCallEvent(ballCall, outcome.BingoDetails.CardsPlayed.First().BitPattern, false, outcome.GameIndex));
+            }
         }
 
         private bool AllowCombinedOutcomes(IReadOnlyCollection<Outcome> outcomes)

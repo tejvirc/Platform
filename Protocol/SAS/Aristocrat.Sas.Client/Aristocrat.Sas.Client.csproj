@@ -4,7 +4,7 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>Aristocrat.Sas.Client</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
-    <OutputPath>..\..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
+    <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

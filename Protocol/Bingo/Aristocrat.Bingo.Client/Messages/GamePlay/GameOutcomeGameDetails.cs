@@ -9,7 +9,7 @@
     public class GameOutcomeGameDetails
     {
         public GameOutcomeGameDetails(
-            int facadeKey,
+            string facadeKey,
             uint gameTitleId,
             uint themeId,
             int denominationId,
@@ -24,7 +24,7 @@
             GameSerial = gameSerial;
         }
 
-        public int FacadeKey { get; }
+        public string FacadeKey { get; }
 
         public uint GameTitleId { get; }
 

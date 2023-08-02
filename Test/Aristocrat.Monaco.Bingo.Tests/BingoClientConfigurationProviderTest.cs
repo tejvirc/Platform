@@ -32,7 +32,7 @@
                 "testHost2",
                 new X509Certificate2[]
                 {
-                    new(new byte[1]{ 0 })
+                    new Mock<X509Certificate2>().Object
                 },
                 true
             }

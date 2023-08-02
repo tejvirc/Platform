@@ -77,9 +77,7 @@
 
         public Task RecoverDisplay(CancellationToken token)
         {
-            var isDaubed = _unitOfWork.Invoke(x => x.Repository<BingoDaubsModel>().Queryable().SingleOrDefault())
-                ?.CardIsDaubed ?? true;
-            RecoverBingoDisplay(GetLastTransaction(), false, isDaubed, true);
+            RecoverBingoDisplay(GetLastTransaction(), false, true);
             return Task.CompletedTask;
         }
 
@@ -102,7 +100,7 @@
             }
             else
             {
-                RecoverBingoDisplay(transaction, true, true, false);
+                RecoverBingoDisplay(transaction, true, false);
             }
 
             return Task.CompletedTask;
@@ -148,17 +146,23 @@
         private void RecoverBingoDisplay(
             CentralTransaction transaction,
             bool initialBallCall,
-            bool showDaubs,
             bool isRecovery)
         {
-            if (transaction?.Descriptions?.FirstOrDefault() is not BingoGameDescription bingoGame)
+            if (transaction?.Descriptions is null)
             {
                 return;
             }
 
-            RecoverBingoCards(bingoGame);
-            RecoverBallCall(initialBallCall, showDaubs, isRecovery, bingoGame);
-            RecoverPatterns(showDaubs, isRecovery, bingoGame);
+            foreach (var bingoGame in transaction.Descriptions.OfType<BingoGameDescription>())
+            {
+                var isDaubed = _unitOfWork.Invoke(
+                    x => x.Repository<BingoDaubsModel>().Queryable()
+                        .SingleOrDefault(y => y.GameIndex == bingoGame.GameIndex))?.CardIsDaubed ?? true;
+
+                RecoverBingoCards(bingoGame);
+                RecoverBallCall(initialBallCall, isDaubed, isRecovery, bingoGame);
+                RecoverPatterns(isDaubed, isRecovery, bingoGame);
+            }
 
             // Recover GEW message, if any
             if (isRecovery)
@@ -176,7 +180,7 @@
 
             var bingoPatterns = bingoGame.Patterns.ToList();
             Logger.Debug($"Recovering the bingo patterns: {string.Join(Environment.NewLine, bingoPatterns)}");
-            _bus.Publish(new BingoGamePatternEvent(bingoPatterns, !_history.IsRecoveryNeeded && isRecovery));
+            _bus.Publish(new BingoGamePatternEvent(bingoPatterns, !_history.IsRecoveryNeeded && isRecovery, bingoGame.GameIndex));
         }
 
         private void RecoverBallCall(bool initialBallCall, bool showDaubs, bool isRecovery, BingoGameDescription bingoGame)
@@ -184,7 +188,7 @@
             var cardDaubs = showDaubs ? GetDaubs(bingoGame.Cards.First(), initialBallCall) : 0;
             var bingoNumbers = (initialBallCall ? bingoGame.GetJoiningBalls() : bingoGame.BallCallNumbers).ToList();
             Logger.Debug($"Recovering the ball call: {string.Join(", ", bingoNumbers)}");
-            _bus.Publish(new BingoGameBallCallEvent(new BingoBallCall(bingoNumbers), cardDaubs, isRecovery));
+            _bus.Publish(new BingoGameBallCallEvent(new BingoBallCall(bingoNumbers), cardDaubs, isRecovery, bingoGame.GameIndex));
         }
 
         private void RecoverBingoCards(BingoGameDescription bingoGame)
@@ -192,7 +196,7 @@
             foreach (var card in bingoGame.Cards)
             {
                 Logger.Debug($"Recovering the bingo card: {card}");
-                _bus.Publish(new BingoGameNewCardEvent(card));
+                _bus.Publish(new BingoGameNewCardEvent(card, bingoGame.GameIndex));
             }
         }
 

@@ -4,8 +4,8 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>Aristocrat.Monaco.Application</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
-    <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
     <RunAnalyzersDuringBuild>False</RunAnalyzersDuringBuild>
     <Platform>x64</Platform>
   </PropertyGroup>

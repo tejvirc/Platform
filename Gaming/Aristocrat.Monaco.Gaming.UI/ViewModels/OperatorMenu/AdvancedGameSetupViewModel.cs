@@ -22,6 +22,7 @@
     using Contracts;
     using Contracts.Configuration;
     using Contracts.Events.OperatorMenu;
+    using Contracts.GameSpecificOptions;
     using Contracts.Meters;
     using Contracts.Models;
     using Contracts.Progressives;
@@ -88,6 +89,9 @@
 
         private string _saveWarningText = string.Empty;
 
+        private bool _extraSettingsVisibility;
+        private readonly IGameSpecificOptionProvider _gameSpecificOptionProvider;
+
         public AdvancedGameSetupViewModel()
         {
             if (!InDesigner)
@@ -103,6 +107,7 @@
 
             ProgressiveSetupCommand = new ActionCommand<object>(ProgressiveSetup);
             ProgressiveViewCommand = new ActionCommand<object>(ProgressiveView);
+            ExtraSettingsSetupCommand = new ActionCommand(GameSpecificOptionSetup);
             ShowRtpSummaryCommand = new ActionCommand(ShowRtpSummary);
             ShowProgressiveSummaryCommand = new ActionCommand(ShowProgressiveSummary);
 
@@ -124,6 +129,7 @@
             _linkedProgressiveProvider = ServiceManager.GetInstance().GetService<ILinkedProgressiveProvider>();
             _gameConfiguration = ServiceManager.GetInstance().GetService<IGameConfigurationProvider>();
             _restrictionProvider = ServiceManager.GetInstance().GetService<IConfigurationProvider>();
+            _gameSpecificOptionProvider = ServiceManager.GetInstance().GetService<IGameSpecificOptionProvider>();
 
             _digitalRights = ServiceManager.GetInstance().GetService<IDigitalRights>();
 
@@ -153,6 +159,10 @@
         public ICommand ProgressiveSetupCommand { get; }
 
         public ICommand ProgressiveViewCommand { get; }
+
+        // ReSharper disable once UnusedAutoPropertyAccessor.Global - used by xaml
+        // ReSharper disable once MemberCanBePrivate.Global - used by xaml
+        public ICommand ExtraSettingsSetupCommand { get; }
 
         public string ReadOnlyStatus
         {
@@ -300,6 +310,7 @@
 
                 UpdateRestrictions();
                 ApplyGameOptionsEnabled();
+                SetExtraSettingsConfigured();
                 ResetScrollIntoView = true;
                 ResetScrollIntoView = false;
             }
@@ -414,6 +425,32 @@
             }
         }
 
+        public bool ExtraSettingsVisibility
+        {
+            get => _extraSettingsVisibility;
+            set => SetProperty(ref _extraSettingsVisibility, value);
+        }
+
+        public bool ExtraSettingsEnabled => ExtraSettingsVisibility && InputEnabled;
+        
+        private bool IsExtraSettingsAvailable()
+        {
+            return _gameSpecificOptionProvider.GetGameSpecificOptions(SelectedGame.ThemeId).Any();
+        }
+
+        private void SetExtraSettingsConfigured()
+        {
+            ExtraSettingsVisibility = IsExtraSettingsAvailable();
+
+            if (!ExtraSettingsVisibility)
+            {
+                return;
+            }
+
+            RaisePropertyChanged(nameof(ExtraSettingsVisibility));
+            RaisePropertyChanged(nameof(ExtraSettingsEnabled));
+        }
+
         public override void Save()
         {
             if (GameOptionsEnabled)
@@ -465,6 +502,7 @@
         protected override void OnInputEnabledChanged()
         {
             RaisePropertyChanged(nameof(GameOptionsEnabled));
+            RaisePropertyChanged(nameof(ExtraSettingsEnabled));
             base.OnInputEnabledChanged();
         }
 
@@ -731,6 +769,7 @@
             ApplyGameOptionsEnabled();
             RaisePropertyChanged(
                 nameof(GameOptionsEnabled),
+                nameof(ExtraSettingsEnabled),
                 nameof(ShowSaveButtonOverride),
                 nameof(ShowCancelButtonOverride),
                 nameof(ShowSummaryButtons),
@@ -1929,6 +1968,15 @@
                 linkedLevelNames);
         }
 
+        private void GameSpecificOptionSetup(object configObject)
+        {
+            var viewModel = new ExtraSettingsSetupViewModel(SelectedGame.ThemeId, _gameSpecificOptionProvider);
+            _dialogService.ShowDialog<ExtraSettingsSetupView>(
+                this,
+                viewModel,
+                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GameSpecificOptionLabel));
+        }
+
         private void ShowRtpSummary()
         {
             var viewModel = new GameRtpSummaryViewModel(_gameProvider.GetGames(), _denomMultiplier);
@@ -1957,7 +2005,7 @@
                 }
 
                 var configs = GameConfigurations?.ToList();
-                if (HasNoErrors && _editableGameConfigByGameTypeMapping.Keys.Count == 1 && configs != null && configs.Count == 1)
+                if (!InitialConfigComplete && HasNoErrors && _editableGameConfigByGameTypeMapping.Keys.Count == 1 && configs != null && configs.Count == 1)
                 {
                     var game = configs.Single();
                     if (game.Enabled && game.AvailablePaytables?.Count == 1)

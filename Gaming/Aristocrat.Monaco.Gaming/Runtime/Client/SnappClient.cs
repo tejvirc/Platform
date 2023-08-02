@@ -139,7 +139,9 @@
                         Type = (V1.Outcome.Types.OutcomeType)o.Type,
                         WinAmount = (ulong)o.Value.MillicentsToCents(),
                         LookupData = o.LookupData,
-                        WinLevelIndex = o.WinLevelIndex
+                        WinLevelIndex = o.WinLevelIndex,
+                        GameId = (uint)o.GameId,
+                        GameIndex = (uint)o.GameIndex
                     }));
 
             Invoke(client => client.BeginGameRoundResult(notification));
@@ -215,6 +217,11 @@
             };
 
             Invoke(x => x.UpdateReelState(stateRequest));
+        }
+
+        public void AnimationUpdated(AnimationUpdatedNotification animationUpdatedNotification)
+        {
+            Invoke(x => x.AnimationUpdated(animationUpdatedNotification));
         }
 
         public void PresentOverriddenPresentation(IList<PresentationOverrideData> presentations)
