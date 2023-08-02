@@ -39,6 +39,8 @@
             }
 
             _connectionString = ConnectionString(pathMapper, Constants.DatabasePassword);
+            using var context = new MonacoContext(_connectionString);
+            context.Database.EnsureCreated();
         }
 
         /// <inheritdoc />
@@ -120,7 +122,6 @@
             var context = new MonacoContext(_connectionString);
             try
             {
-                context.Database.EnsureCreated();
                 return context;
             }
             catch

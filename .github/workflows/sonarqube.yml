@@ -2,57 +2,21 @@ name: SonarQube
 
 on:
   workflow_dispatch:
-  
+
   push:
     branches:
-    - main
-    - release/*
-    - develop
-    paths:
-    - 'Accounting/**'
-    - 'Application/**'
-    - 'Gaming/**'
-    - 'Hardware/**'
-    - 'Jurisdiction/**'
-    - 'Kernel/**'
-    - 'Protocol/**'
-    - 'Shared/**'
-    - 'Test/**'
-
-    - develop
-    paths:
-    - 'Accounting/**'
-    - 'Application/**'
-    - 'Gaming/**'
-    - 'Hardware/**'
-    - 'Jurisdiction/**'
-    - 'Kernel/**'
-    - 'Protocol/**'
-    - 'Shared/**'
-    - 'Test/**'
-
-    - develop
-    paths:
-    - 'Accounting/**'
-    - 'Application/**'
-    - 'Gaming/**'
-    - 'Hardware/**'
-    - 'Jurisdiction/**'
-    - 'Kernel/**'
-    - 'Protocol/**'
-    - 'Shared/**'
-    - 'Test/**'
+      - main
+      - release/*
 
   pull_request:
     branches:
-    - main
-    - release/*
-    - develop
+      - main
+      - release/*
 
 jobs:
   analyze:
     name: Analyze
-    runs-on: windows-2019
+    runs-on: windows-2022
     steps:
     - uses: actions/checkout@v2
       with:
@@ -62,7 +26,6 @@ jobs:
       env:
         NUGET_AUTH_TOKEN: ${{secrets.REGISTRY_TOKEN}}
       with:
-        dotnet-version: '5.x'
         source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
     - name: Setup msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1.3
@@ -131,7 +94,7 @@ jobs:
         nuget restore .\Monaco.sln
     - name: Build - Debug
       run: |
-        msbuild -p:"Configuration=Debug" -p:"Platform=Any CPU" -t:Rebuild .\Monaco.sln
+        dotnet build -c Debug --no-restore .\Monaco.sln
     - name: Test
       run: >
         OpenCover.Console.exe

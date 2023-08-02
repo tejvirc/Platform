@@ -9,5 +9,18 @@
     [Serializable]
     public class DebugCurrencyAcceptedEvent : BaseEvent
     {
+        /// <summary>
+        ///     Debug Currency Accepted Event
+        /// </summary>
+        /// <param name="previousBalance">Bank balance before the debug currency is accepted</param>
+        public DebugCurrencyAcceptedEvent(long previousBalance)
+        {
+            PreviousBalance = previousBalance;
+        }
+
+        /// <summary>
+        ///     The value of the bank from before the debug currency was accepted
+        /// </summary>
+        public long PreviousBalance { get; }
     }
 }

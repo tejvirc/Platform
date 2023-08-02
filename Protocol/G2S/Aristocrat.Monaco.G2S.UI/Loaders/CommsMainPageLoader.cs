@@ -9,7 +9,9 @@
 
     public class CommsMainPageLoader : OperatorMenuPageLoader
     {
-        public override string PageName => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HostsInfoViewTitle);
+        private readonly string _pageNameResourceKey = ResourceKeys.HostsInfoViewTitle;
+
+        public override string PageName => Localizer.For(CultureFor.Operator).GetString(_pageNameResourceKey);
 
         protected override IOperatorMenuPage CreatePage()
         {
@@ -18,7 +20,7 @@
 
         protected override IOperatorMenuPageViewModel CreateViewModel()
         {
-            return new CommsMainPageViewModel(this);
+            return new CommsMainPageViewModel(_pageNameResourceKey);
         }
     }
 }

@@ -19,6 +19,7 @@
     using Contracts.Bonus;
     using Contracts.Central;
     using Contracts.Configuration;
+    using Contracts.GameSpecificOptions;
     using Contracts.Meters;
     using Contracts.Payment;
     using Contracts.Process;
@@ -26,6 +27,7 @@
     using Contracts.Progressives.SharedSap;
     using Contracts.Session;
     using GameRound;
+    using GameSpecificOptions;
     using Hardware.Contracts;
     using Kernel;
     using log4net;
@@ -85,6 +87,7 @@
             container.Register<IGameMeterManager, GameMeterManager>(Lifestyle.Singleton);
             container.Register<IManifest<GameContent>, GameManifest>(Lifestyle.Singleton);
             container.Register<IManifest<IEnumerable<ProgressiveDetail>>, ProgressiveManifest>(Lifestyle.Singleton);
+            container.Register<IManifest<GameSpecificOptionConfig>, GameSpecificOptionManifest>(Lifestyle.Singleton);
             container.Register<IManifest<Image>, ImageManifest>(Lifestyle.Singleton);
             container.Register<IGameProvider, GameProvider>(Lifestyle.Singleton);
             container.Register<IGameCategoryService, GameCategoryService>(Lifestyle.Singleton);
@@ -150,6 +153,8 @@
             progressiveCalculatorFactory.Register<BulkCalculator>(SapFundingType.BulkOnly);
             container.RegisterInstance<IProgressiveCalculatorFactory>(progressiveCalculatorFactory);
             container.Register<IProgressiveMeterManager, ProgressiveMeterManager>(Lifestyle.Singleton);
+
+            container.Register<IGameSpecificOptionProvider, GameSpecificOptionProvider>(Lifestyle.Singleton);
 
             container.Register<IGamingAccessEvaluation, AccessEvaluationService>(Lifestyle.Singleton);
             container.Register<IHandProvider, PokerHandProvider>(Lifestyle.Singleton);

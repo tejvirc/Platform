@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Commands
 {
     using System;
+    using System.Linq;
     using Application.Contracts.Extensions;
     using Contracts;
     using Contracts.Central;
@@ -31,7 +32,7 @@
 
         public void Handle(PrimaryGameEscrow command)
         {
-            var (game, denomination) = _properties.GetActiveGame();
+            var (game, _) = _properties.GetActiveGame();
             var wagerCategory = _properties.GetValue<IWagerCategory>(GamingConstants.SelectedWagerCategory, null);
 
             using var scope = _storage.ScopedTransaction();
@@ -51,10 +52,7 @@
             {
                 OutcomeRequest request => _central.RequestOutcomes(
                     game.Id,
-                    denomination.Value,
                     wagerCategory?.Id ?? string.Empty,
-                    request.TemplateId.ToString(),
-                    command.InitialWager.CentsToMillicents(),
                     command.Request,
                     _recovery.IsRecovering),
                 _ => throw new NotSupportedException()

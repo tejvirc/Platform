@@ -136,5 +136,9 @@
         public int MaximumWagerOutsideCredits { get; set; }
 
         public bool NextToMaxBetTopAwardMultiplier { get; set; }
+
+        public IEnumerable<ISubGameDetails> SupportedSubGames { get; }
+
+        public IEnumerable<ISubGameDetails> ActiveSubGames { get; }
     }
 }

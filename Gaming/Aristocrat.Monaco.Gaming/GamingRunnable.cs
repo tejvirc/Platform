@@ -18,11 +18,13 @@
     using Contracts.Bonus;
     using Contracts.Central;
     using Contracts.Configuration;
+    using Contracts.GameSpecificOptions;
     using Contracts.Meters;
     using Contracts.Payment;
     using Contracts.Progressives;
     using Contracts.Progressives.SharedSap;
     using Contracts.Session;
+    using GameSpecificOptions;
     using Hardware.Contracts;
     using Kernel;
     using Kernel.Contracts;
@@ -265,6 +267,7 @@
             serviceManager.AddService(_container.GetInstance<IPaymentDeterminationProvider>());
             serviceManager.AddService(_container.GetInstance<IGameStartConditionProvider>());
             serviceManager.AddService(_container.GetInstance<IOutcomeValidatorProvider>());
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<IGameSpecificOptionProvider>() as IService);
         }
 
         private void RemoveServices()
@@ -316,6 +319,7 @@
             serviceManager.RemoveService(_container.GetInstance<IGameStartConditionProvider>());
             serviceManager.RemoveService(_container.GetInstance<IOutcomeValidatorProvider>());
             serviceManager.RemoveService(_container.GetInstance<IHandCountResetService>());
+            serviceManager.RemoveService(_container.GetInstance<IGameSpecificOptionProvider>() as IService);
         }
 
         private void Unload()

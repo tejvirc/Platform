@@ -10,7 +10,7 @@
     {
         private const string MenuExtensionPointPath = "/Application/OperatorMenu/CommsMenu";
 
-        public CommsMainPageViewModel(IOperatorMenuPageLoader mainPage) : base(mainPage, MenuExtensionPointPath)
+        public CommsMainPageViewModel(string pageNameResourceKey) : base(pageNameResourceKey, MenuExtensionPointPath)
         {
         }
     }

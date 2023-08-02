@@ -4,6 +4,7 @@
     <RootNamespace>Aristocrat.Monaco.Accounting</RootNamespace>
     <AssemblyTitle>Monaco.Accounting</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
+    <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
     <TargetFramework>net6.0-windows</TargetFramework>
     <Platform>x64</Platform>
   </PropertyGroup>
@@ -127,7 +128,6 @@
     <ProjectReference Include="..\..\Hardware\Aristocrat.Monaco.Hardware.Contracts\Aristocrat.Monaco.Hardware.Contracts.csproj" />
     <ProjectReference Include="..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
     <ProjectReference Include="..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
-    <ProjectReference Include="..\..\Protocol\MGAM\Aristocrat.Monaco.Mgam.Common\Aristocrat.Monaco.Mgam.Common.csproj" />
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Localization\Aristocrat.Monaco.Localization.csproj" />
     <ProjectReference Include="..\Monaco.Accounting.Contracts\Monaco.Accounting.Contracts.csproj" />

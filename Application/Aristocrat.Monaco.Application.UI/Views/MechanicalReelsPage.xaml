@@ -114,7 +114,7 @@
                                    AutomationProperties.AutomationId="Label18_EA876383" />
                             <TextBlock Grid.Row="0"
                                        Grid.Column="1"
-                                       Foreground="{Binding ManufacturerForeground}"
+                                       Foreground="{Binding InfoForeground}"
                                        Margin="10 0 0 0"
                                        AutomationProperties.AutomationId="TextBlock19_EA876383">
                                 <TextBlock.Style>
@@ -140,7 +140,7 @@
                                    AutomationProperties.AutomationId="Label21_EA876383" />
                             <TextBlock Grid.Row="1"
                                        Grid.Column="1"
-                                       Foreground="{Binding ModelForeground}"
+                                       Foreground="{Binding InfoForeground}"
                                        Margin="10 0 0 0"
                                        AutomationProperties.AutomationId="TextBlock22_EA876383">
                                 <TextBlock.Style>
@@ -165,7 +165,7 @@
                                    AutomationProperties.AutomationId="Label24_EA876383" />
                             <TextBlock Grid.Row="2"
                                        Grid.Column="1"
-                                       Foreground="{Binding FirmwareVersionForeground}"
+                                       Foreground="{Binding InfoForeground}"
                                        Margin="10 0 0 0"
                                        AutomationProperties.AutomationId="TextBlock25_EA876383">
                                 <TextBlock.Style>
@@ -191,7 +191,7 @@
                                    AutomationProperties.AutomationId="Label27_EA876383" />
                             <TextBlock Grid.Row="3"
                                        Grid.Column="1"
-                                       Foreground="{Binding ReelCountForeground}"
+                                       Foreground="{Binding InfoForeground}"
                                        Margin="10 0 0 0"
                                        AutomationProperties.AutomationId="TextBlock28_EA876383">
                                 <TextBlock.Style>
@@ -216,7 +216,7 @@
                                    AutomationProperties.AutomationId="Label30_EA876383" />
                             <TextBlock Grid.Row="4"
                                        Grid.Column="1"
-                                       Foreground="{Binding StateForeground}"
+                                       Foreground="{Binding InfoForeground}"
                                        Margin="10 0 0 0"
                                        AutomationProperties.AutomationId="TextBlock31_EA876383">
                                 <TextBlock.Style>
@@ -293,13 +293,13 @@
                                                         Margin="10 0 0 0"
                                                         VerticalAlignment="Center"
                                                         Value="{Binding OffsetSteps}"
-                                                        Minimum="{Binding MinReelOffset}"
-                                                        Maximum="{Binding MaxReelOffset}"
+                                                        Minimum="{Binding DataContext.MinReelOffset, RelativeSource={RelativeSource AncestorType=operatorMenu:OperatorMenuPage}}"
+                                                        Maximum="{Binding DataContext.MaxReelOffset, RelativeSource={RelativeSource AncestorType=operatorMenu:OperatorMenuPage}}"
                                                         Increment="1"
                                                         AllowSpin="True"
                                                         FontSize="18"
                                                         Width="130"
-                                                        Height="45"></xctk:IntegerUpDown>
+                                                        Height="45" ValueChanged="IntegerUpDown_ValueChanged" />
                                 </StackPanel>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

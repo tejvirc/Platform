@@ -295,9 +295,14 @@
         public const string SelectedWagerCategory = @"GamePlay.SelectedWagerCategory";
 
         /// <summary>
-        ///     The currently selected bet details
+        ///     The currently selected bet details for main/single game
         /// </summary>
         public const string SelectedBetDetails = @"GamePlay.SelectedBetDetails";
+
+        /// <summary>
+        ///     The currently selected bet details for multiple games
+        /// </summary>
+        public const string SelectedMultiGameBetDetails = @"GamePlay.SelectedMultiGameBetDetails";
 
         /// <summary>
         ///     The currently Game Configuration
@@ -1389,6 +1394,11 @@
         public const string ShowPlayerMenuPopup = @"GamePlay.ShowPlayerMenuPopup";
 
         /// <summary>
+        ///     The Game Rules instructions message to display
+        /// </summary>
+        public const string GameRulesInstructions = @"Instructions.GameRulesInstructions";
+
+        /// <summary>
         ///     Flag will control the background cycling of the RNG by the platform
         /// </summary>
         public const string UseRngCycling = @"RngCycling.Enabled";
@@ -1457,6 +1467,11 @@
         ///     If true, platform will try to auto enable games that have a single variation and denomination
         /// </summary>
         public const string AutoEnableSimpleGames = @"AutoEnableSimpleGames";
+
+        /// <summary>
+        ///     Set GameSpecificOption when launching a game
+        /// </summary>
+        public const string GameSpecificOptions = "GameSpecificOptions";
 
         /// <summary>
         ///     encapsulate Player Information Display options

@@ -7,8 +7,9 @@
     {
         public MessageConfiguration(
             IPropertiesManager propertiesManager,
-            ISystemDisableManager systemDisableManager)
-            : base(propertiesManager, systemDisableManager)
+            ISystemDisableManager systemDisableManager,
+            IEventBus eventBus)
+            : base(propertiesManager, systemDisableManager, eventBus)
         {
         }
 

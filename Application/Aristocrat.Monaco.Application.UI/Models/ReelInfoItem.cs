@@ -14,9 +14,6 @@
     public class ReelInfoItem : BaseEntityViewModel
     {
         private const int MaximumReelSteps = 199;
-
-        private const int MaximumReelOffset = 199; // 200 & 0 are considered the same position
-
         private const int MaximumReelStops = 22;
 
         private readonly IEventBus _eventBus;
@@ -56,10 +53,6 @@
             _nudgeStopIndex = 1;
             _stopIndex = 1;
         }
-
-        public int MaxReelOffset => MaximumReelOffset;
-
-        public int MinReelOffset => MaximumReelOffset * -1;
 
         public int MaxReelStep => MaximumReelSteps;
 

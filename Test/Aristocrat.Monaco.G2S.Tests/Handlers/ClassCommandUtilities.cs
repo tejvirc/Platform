@@ -1,8 +1,8 @@
 ﻿namespace Aristocrat.Monaco.G2S.Tests.Handlers
 {
+    using System;
     using Aristocrat.G2S;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using System;
     using Test.Common.UnitTesting;
 
     internal static class ClassCommandUtilities

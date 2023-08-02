@@ -1,5 +1,11 @@
 ﻿namespace Vgt.Client12.Testing.Tools
 {
+    using System;
+    using System.Linq;
+    using System.Reflection;
+    using System.Runtime.InteropServices;
+    using System.Text;
+    using System.Threading;
     using Aristocrat.Monaco.Accounting.Contracts;
     using Aristocrat.Monaco.Accounting.Contracts.Handpay;
     using Aristocrat.Monaco.Application.Contracts;
@@ -14,13 +20,6 @@
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Kernel.Contracts.Events;
     using log4net;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
-    using System.Runtime.InteropServices;
-    using System.Text;
-    using System.Threading;
     using DisabledEvent = Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.DisabledEvent;
     using EnabledEvent = Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.EnabledEvent;
 
@@ -305,6 +304,7 @@
                 ISOCurrencySymbol = propertiesManager.GetValue(ApplicationConstants.CurrencyId, string.Empty)
             };
 
+            eventBus?.Publish(new CurrencyInStartedEvent(note));
             eventBus?.Publish(new CurrencyStackedEvent(note));
             eventBus?.Publish(new CurrencyInCompletedEvent(amount, note, transaction));
         }
@@ -382,9 +382,10 @@
                     }
 
                     Log.Debug($"Bank authorized amount {transaction.Amount}, depositing...");
-                    ServiceManager.GetInstance().GetService<IEventBus>()?.Publish(new DebugCurrencyAcceptedEvent());
 
                     var currentBalance = bank.QueryBalance(creditType);
+
+                    ServiceManager.GetInstance().GetService<IEventBus>()?.Publish(new DebugCurrencyAcceptedEvent(currentBalance));
 
                     transaction.NewAccountBalance = currentBalance + transaction.Amount;
                     _transaction = transaction;

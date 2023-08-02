@@ -31,6 +31,7 @@
         private readonly IGameHistory _gameHistory;
         private readonly IRuntime _runtime;
         private readonly IGameRecovery _recovery;
+        private readonly IGameProvider _gameProvider;
         private readonly IProgressiveGameProvider _progressiveGameProvider;
         private readonly IGameStartConditionProvider _gameStartConditions;
 
@@ -45,6 +46,7 @@
             IGameDiagnostics diagnostics,
             IGameHistory gameHistory,
             IEventBus eventBus,
+            IGameProvider gameProvider,
             IProgressiveGameProvider progressiveGameProvider,
             IGameStartConditionProvider gameStartConditions)
         {
@@ -55,6 +57,7 @@
             _gameDiagnostics = diagnostics ?? throw new ArgumentNullException(nameof(diagnostics));
             _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _progressiveGameProvider = progressiveGameProvider ?? throw new ArgumentNullException(nameof(progressiveGameProvider));
             _gameStartConditions = gameStartConditions ?? throw new ArgumentNullException(nameof(gameStartConditions));
         }
@@ -77,22 +80,32 @@
             }
 
             var (game, denomination) = _properties.GetActiveGame();
-            var wagerCategory = game?.WagerCategories?.FirstOrDefault(x => x.Id == command.WagerCategoryId.ToString());
+            if (game == null || denomination == null)
+            {
+                Failed("game is not running");
+                return;
+            }
+
+            var wagerCategory = game.WagerCategories?.FirstOrDefault(x => x.Id == command.WagerCategoryId.ToString());
             SetWagerCategory(wagerCategory);
 
             if (command.Request is not null)
             {
-                if (command.Request is ITemplateRequest request)
+                foreach (var gameInfo in command.Request.AdditionalInfo)
                 {
-                    var cdsInfo = game?.CdsGameInfos?.SingleOrDefault(w =>
-                        w.Id.Equals(request.TemplateId.ToString()));
-
-                    if (cdsInfo is null)
+                    if (gameInfo is not ITemplateRequest request)
                     {
-                        _gamePlayState.InitializationFailed();
-                        Failed($"wager category is null: {request.TemplateId}");
-                        return;
+                        continue;
                     }
+
+                    if (ValidateGameInfo(gameInfo, game, request))
+                    {
+                        continue;
+                    }
+
+                    _gamePlayState.InitializationFailed();
+                    Failed($"wager category is null: {request.TemplateId}");
+                    return;
                 }
 
                 // Special case for recovery and replay
@@ -121,7 +134,7 @@
                     Logger,
                     _progressiveGameProvider,
                     command.Wager,
-                    game?.Id ?? 0,
+                    game.Id,
                     denomination.Value.MillicentsToCents());
             }
             else
@@ -148,8 +161,32 @@
 
             void SetWagerCategory(IWagerCategory category)
             {
-                category ??= game?.WagerCategories?.FirstOrDefault();
+                category ??= game.WagerCategories?.FirstOrDefault();
                 _properties.SetProperty(GamingConstants.SelectedWagerCategory, category);
+            }
+        }
+
+        private bool ValidateGameInfo(
+            IAdditionalGamePlayInfo gameInfo,
+            IGameDetail game,
+            ITemplateRequest request)
+        {
+            if (gameInfo.GameIndex == 0)
+            {
+                var cdsInfo = game?.CdsGameInfos?.SingleOrDefault(
+                    w =>
+                        w.Id.Equals(request.TemplateId.ToString(), StringComparison.Ordinal));
+
+                return cdsInfo is not null;
+            }
+            else
+            {
+                var currentSubGame = _gameProvider.GetEnabledSubGames(game).First(x => x.Id == gameInfo.GameId);
+                var cdsInfo = currentSubGame.CdsGameInfos?.SingleOrDefault(
+                    w =>
+                        w.Id.Equals(request.TemplateId.ToString(), StringComparison.Ordinal));
+
+                return cdsInfo is not null;
             }
         }
     }

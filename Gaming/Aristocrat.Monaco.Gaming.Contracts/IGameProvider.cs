@@ -47,6 +47,12 @@
         IReadOnlyCollection<IGameCombo> GetGameCombos();
 
         /// <summary>
+        ///     Gets the collection of enabled sub games for the desired game
+        /// </summary>
+        /// <returns>A collection of sub game details</returns>
+        IReadOnlyCollection<ISubGameDetails> GetEnabledSubGames(IGameDetail currentGame);
+
+        /// <summary>
         ///     Gets the minimum number of mechanical reels needed to run a game
         /// </summary>
         /// <returns>The minimum number of mechanical reels</returns>
