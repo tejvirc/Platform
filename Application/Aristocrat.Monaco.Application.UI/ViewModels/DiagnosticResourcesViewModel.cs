@@ -114,6 +114,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
             GetAllMetricsSnapShot();
 
+            Execute.OnUIThread(UpdateMetricLabels);
+
             SetXAxisScale(DateTime.Now);
 
             StartTimer();

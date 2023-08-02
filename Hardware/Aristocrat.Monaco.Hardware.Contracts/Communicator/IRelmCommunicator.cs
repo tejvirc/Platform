@@ -15,7 +15,8 @@
         IDfuDriver,
         IReelAnimationCapabilities,
         IReelSynchronizationCapabilities,
-        IReelBrightnessCapabilities
+        IReelBrightnessCapabilities,
+        IStepperRuleCapabilities
     {
         /// <summary>
         ///     Gets the default home step.

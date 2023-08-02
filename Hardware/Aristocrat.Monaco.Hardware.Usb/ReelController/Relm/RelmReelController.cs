@@ -141,6 +141,7 @@
             }
         }
 
+        // TODO: Wire this up
         /// <inheritdoc />
         public bool IsEnabled { get; }
 
@@ -190,6 +191,7 @@
                     _supportedCapabilities.Add(typeof(IAnimationImplementation), new RelmAnimation(_communicator));
                     _supportedCapabilities.Add(typeof(IReelBrightnessImplementation), new RelmBrightness(_communicator));
                     _supportedCapabilities.Add(typeof(ISynchronizationImplementation), new RelmSynchronization(_communicator));
+                    _supportedCapabilities.Add(typeof(IStepperRuleImplementation), new RelmStepperRule(_communicator));
                     await LoadPlatformSampleShowsAndCurves();
 
                     IsInitialized = true;
@@ -411,6 +413,7 @@
                 _supportedCapabilities[typeof(IAnimationImplementation)] = null;
                 _supportedCapabilities[typeof(IReelBrightnessImplementation)] = null;
                 _supportedCapabilities[typeof(ISynchronizationImplementation)] = null;
+                _supportedCapabilities[typeof(IStepperRuleImplementation)] = null;
                 _supportedCapabilities.Clear();
 
                 UnregisterEventListeners();

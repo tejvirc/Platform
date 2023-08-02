@@ -391,6 +391,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
 
         protected override void OnLoaded()
         {
+            UpdateUI();
             ClearValidationOnUnload = true;
 
             MaxCreditMeterMaxAllowed = (long)PropertiesManager.GetProperty(AccountingConstants.MaxCreditMeterMaxAllowed, long.MaxValue);
@@ -517,20 +518,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            Execute.OnUIThread(() =>
-            {
-                LoadLocalizedLists();
-                OnPropertyChanged(nameof(SelectedBarcodeType), nameof(SelectedValidationLength), nameof(SelectedLayoutType), nameof(PrinterDisabledWarningText));
-            });
-
-            if (UseOperatorCultureForCurrencyFormatting)
-            {
-                OnPropertyChanged(nameof(CurrencyDisplayCulture));
-            }
-
-            OnPropertyChanged(nameof(VoucherInLimit));
-            OnPropertyChanged(nameof(VoucherOutLimit));
-
+            UpdateUI();
             base.OnOperatorCultureChanged(evt);
         }
 
@@ -601,6 +589,23 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
                     VoucherExpirationEditable = PropertiesManager.GetValue(AccountingConstants.EditableExpiration, true);
                     break;
             }
+        }
+
+        private void UpdateUI()
+        {
+            Execute.OnUIThread(() =>
+            {
+                LoadLocalizedLists();
+                OnPropertyChanged(nameof(SelectedBarcodeType), nameof(SelectedValidationLength), nameof(SelectedLayoutType), nameof(PrinterDisabledWarningText));
+            });
+
+            if (UseOperatorCultureForCurrencyFormatting)
+            {
+                OnPropertyChanged(nameof(CurrencyDisplayCulture));
+            }
+
+            OnPropertyChanged(nameof(VoucherInLimit));
+            OnPropertyChanged(nameof(VoucherOutLimit));
         }
 
         private bool HasChanges()

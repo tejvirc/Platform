@@ -239,7 +239,10 @@
                 overriddenPresentationMessage.OverridingMessages.Add(Any.Pack(presentationMessage));
             }
 
-            Invoke(x => x .PresentOverriddenPresentation(overriddenPresentationMessage));
+            if (_runtimePresentationStub is not null)
+            {
+                Invoke(x => x.PresentOverriddenPresentation(overriddenPresentationMessage));
+            }
         }
 
         protected virtual void Dispose(bool disposing)

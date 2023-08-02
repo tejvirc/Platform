@@ -119,14 +119,17 @@
         /// <inheritdoc />
         public bool IsOpen => _relmCommunicator?.IsOpen ?? false;
 
+        // TODO: Wire this up
         /// <inheritdoc />
-        public int VendorId { get; }
-
+        public int VendorId => 0;
+        
+        // TODO: Wire this up
         /// <inheritdoc />
-        public int ProductId { get; }
-
+        public int ProductId => 0;
+        
+        // TODO: Wire this up
         /// <inheritdoc />
-        public int ProductIdDfu { get; }
+        public int ProductIdDfu => 0;
 
         /// <inheritdoc />
         public string Protocol { get; private set; }
@@ -148,13 +151,13 @@
         public bool IsDfuCapable => true;
 
         /// <inheritdoc />
-        public bool InDfuMode { get; }
+        public bool InDfuMode => false;
 
         /// <inheritdoc />
-        public bool CanDownload { get; }
+        public bool CanDownload => false;
 
         /// <inheritdoc />
-        public bool IsDownloadInProgress { get; }
+        public bool IsDownloadInProgress => false;
 
         /// <inheritdoc />
         public int DefaultReelBrightness { get; set; }
@@ -233,7 +236,7 @@
         /// <inheritdoc />
         public void ResetConnection()
         {
-            // Implement resetting connection
+            // TODO: Implement resetting connection
             throw new NotImplementedException();
         }
 
@@ -683,6 +686,41 @@
 
             LightStatusReceived?.Invoke(this, new LightEventArgs(lightStatuses));
             ReelStatusReceived?.Invoke(this, new ReelStatusReceivedEventArgs(reelStatuses));
+        }
+        
+        /// <inheritdoc/>
+        public Task<bool> PrepareStepperRule(StepperRuleData ruleData, CancellationToken token = default)
+        {
+            if (_relmCommunicator is null)
+            {
+                return Task.FromResult(false);
+            }
+
+            RelmCommand command = ruleData.RuleType switch
+            {
+                StepperRuleType.AnticipationRule => new PrepareStepperAnticipationRule
+                {
+                    ReelIndex = ruleData.ReelIndex,
+                    StepToFollow = ruleData.StepToFollow,
+                    ReferenceStep = ruleData.ReferenceStep,
+                    Cycle = ruleData.Cycle,
+                    Delta = ruleData.Delta,
+                    EventId = ruleData.EventId
+                },
+                StepperRuleType.FollowRule => new PrepareStepperFollowRule
+                {
+                    ReelIndex = ruleData.ReelIndex,
+                    StepToFollow = ruleData.StepToFollow,
+                    ReferenceStep = ruleData.ReferenceStep,
+                    Cycle = ruleData.Cycle,
+                    EventId = ruleData.EventId
+                },
+                _ => null
+            };
+
+            return command == null
+                ? Task.FromResult(false)
+                : _relmCommunicator.SendCommandAsync(command, token);
         }
 
         private void OnInterruptReceived(object sender, RelmInterruptEventArgs e)

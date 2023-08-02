@@ -82,6 +82,16 @@
             }
         }
 
+        protected override void OnLoaded()
+        {
+            OnPropertyChanged(
+                nameof(Id),
+                nameof(LicenseConfiguration),
+                nameof(TimeRemaining),
+                nameof(JurisdictionId),
+                nameof(EnabledGamesLimit));
+        }
+
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             OnPropertyChanged(

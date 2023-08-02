@@ -396,6 +396,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
         protected override void OnLoaded()
         {
+            UpdateEventFilters();
             UpdateEventCount();
 
             Offset = PropertiesManager.GetValue(ApplicationConstants.TimeZoneOffsetKey, TimeSpan.Zero);
@@ -416,14 +417,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            foreach (var eventFilter in EventFilterCollection)
-            {
-                string newDisplayText = Localizer.For(CultureFor.Operator).GetString(eventFilter.EventType);
-                if (!string.IsNullOrEmpty(newDisplayText))
-                {
-                    eventFilter.DisplayText = newDisplayText;
-                }
-            }
+            UpdateEventFilters();
 
             SetupTiltLogAppendedTilt(false);
             ReloadEventHistory();
@@ -464,6 +458,18 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                     {
                         ((ISubscribableEventLogAdapter)logAdapter).Appended -= EventLogAppended;
                     }
+                }
+            }
+        }
+
+        private void UpdateEventFilters()
+        {
+            foreach (var eventFilter in EventFilterCollection)
+            {
+                string newDisplayText = Localizer.For(CultureFor.Operator).GetString(eventFilter.EventType);
+                if (!string.IsNullOrEmpty(newDisplayText))
+                {
+                    eventFilter.DisplayText = newDisplayText;
                 }
             }
         }
