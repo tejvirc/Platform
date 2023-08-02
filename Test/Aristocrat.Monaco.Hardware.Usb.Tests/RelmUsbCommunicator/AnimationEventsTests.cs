@@ -54,6 +54,12 @@
             _usbCommunicator = new RelmUsbCommunicator(_driver.Object, _eventBus.Object, _propertiesManager.Object);
         }
 
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            MoqServiceManager.RemoveInstance();
+        }
+
         [TestMethod]
         public async Task PrepareLightShowInterruptPublishesCorrectEvent()
         {

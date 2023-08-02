@@ -51,6 +51,12 @@
             _propertiesManager.Setup(m => m.GetProperty(HardwareConstants.DoNotResetRelmController, It.IsAny<bool>())).Returns(false);
         }
 
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            MoqServiceManager.RemoveInstance();
+        }
+
         [TestMethod]
         public async Task LoadedAnimationsShouldBeInCollectionTest()
         {

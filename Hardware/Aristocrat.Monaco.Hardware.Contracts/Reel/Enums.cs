@@ -347,4 +347,20 @@
         /// </summary>
         Enhanced
     }
+
+    /// <summary>
+    ///     The stepper rule type
+    /// </summary>
+    public enum StepperRuleType
+    {
+        /// <summary>
+        ///     Denotes an anticipation rule
+        /// </summary>
+        AnticipationRule,
+
+        /// <summary>
+        ///     Denotes a follow rule
+        /// </summary>
+        FollowRule
+    }
 }

@@ -252,7 +252,33 @@
 
         public override MessageResponse PrepareStepperRule(PrepareStepperRuleRequest request)
         {
-            throw new NotImplementedException();
+            Logger.Debug("PrepareStepperRule");
+
+            var ruleData = new StepperRuleData
+            {
+                ReelIndex = (byte)request.RuleData.ReelIndex,
+                Cycle = (short)request.RuleData.Cycle,
+                EventId = (int)request.RuleData.EventIdentifier,
+                ReferenceStep = (byte)request.RuleData.ReferenceStep,
+                StepToFollow = (byte)request.RuleData.StepToFollow
+            };
+
+            if (request.RuleTypeSpecificData.Is(PrepareStepperAnticipationRuleData.Descriptor))
+            {
+                var anticipationRuleData = request.RuleTypeSpecificData.Unpack<PrepareStepperAnticipationRuleData>();
+                ruleData.Delta = (byte)anticipationRuleData.Delta;
+                ruleData.RuleType = StepperRuleType.AnticipationRule;
+            }
+            else
+            {
+                ruleData.RuleType = StepperRuleType.FollowRule;
+            }
+
+            var command = new PrepareStepperRule(ruleData);
+            _handlerFactory.Create<PrepareStepperRule>()
+                .Handle(command);
+
+            return new MessageResponse { Result = command.Success };
         }
 
         public override MessageResponse SynchronizeReels(SynchronizeReelsRequest request)

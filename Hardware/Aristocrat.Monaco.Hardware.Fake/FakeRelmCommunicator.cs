@@ -395,6 +395,12 @@
         {
             return Task.FromResult(true);
         }
+        
+        /// <inheritdoc/>
+        public Task<bool> PrepareStepperRule(StepperRuleData ruleData, CancellationToken token = default)
+        {
+            throw new NotImplementedException();
+        }
 
         /// <inheritdoc/>
         public Task<bool> EnterDfuMode()
