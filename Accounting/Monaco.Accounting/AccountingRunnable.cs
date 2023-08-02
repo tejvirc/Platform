@@ -4,10 +4,13 @@ namespace Aristocrat.Monaco.Accounting
     using System.Globalization;
     using System.Reflection;
     using System.Threading;
+    using Application.Contracts;
     using Application.Contracts.Localization;
     using Application.Contracts.TiltLogger;
     using Common;
     using Kernel;
+    using Kernel.MarketConfig;
+    using Kernel.MarketConfig.Models.Application;
     using log4net;
     using Mono.Addins;
 
@@ -18,7 +21,7 @@ namespace Aristocrat.Monaco.Accounting
     public class AccountingRunnable : BaseRunnable
     {
         private const string PropertyProvidersPath = "/Accounting/PropertyProviders";
-        private const string TransactionCoordinatorExtensionPath = "/Accounting/TransactionCoordinator"; 
+        private const string TransactionCoordinatorExtensionPath = "/Accounting/TransactionCoordinator";
         private const string BankExtensionPath = "/Accounting/Bank";
         private const string TransactionHistoryExtensionPath = "/Accounting/TransactionHistory";
 
@@ -159,8 +162,20 @@ namespace Aristocrat.Monaco.Accounting
 
         private void RunBootExtender()
         {
-            var typeExtensionNode = MonoAddinsHelper.GetSelectedNode<TypeExtensionNode>(ExtenderExtensionPath);
-            _extender = (IRunnable)typeExtensionNode.CreateInstance();
+            var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+            var marketConfigManager = ServiceManager.GetInstance().GetService<IMarketConfigManager>();
+
+            // Get the current jurisdiction installation id that was selected
+            var jurisdictionInstallationId = propertiesManager.GetValue(
+                ApplicationConstants.JurisdictionKey, string.Empty);
+
+            // Use the MarketConfigManager to get the accounting configuration
+            var configuration = marketConfigManager.GetMarketConfiguration<ApplicationConfigSegment>(
+                jurisdictionInstallationId);
+
+            Logger.Debug($"Initializing accounting gaming runnable {configuration.GamingRunnable}");
+            _extender = MarketConfigHelper.CreateInstanceFromTypeName<IRunnable>(configuration.GamingRunnable);
+
             _extender.Initialize();
             if (RunState == RunnableState.Running)
             {
