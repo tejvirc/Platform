@@ -13596,7 +13596,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.ViewModels.DiagnosticResourcesViewModel.html",
-          "hash": "ZD55x8GxZq9F90cFWm3Sp3jqTAkHEaSkIhQ8vxbSTfQ="
+          "hash": "/d11BHz71AwSqRPalA3IEu6wDqahddxjPAqwU2rldY4="
         }
       },
       "is_incremental": false,
@@ -13740,7 +13740,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.ViewModels.FillingColors.html",
-          "hash": "JHRod/gOFxCWCZJTy45zdnmBI8TAVUVTvI/eYWMURG0="
+          "hash": "4A2YZkVDMc9u9u5Yo4n/p6kAQsD4+gU1h6YXVpkNWFw="
         }
       },
       "is_incremental": false,
@@ -14076,7 +14076,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.ViewModels.MeasureModel.html",
-          "hash": "CJ/XPi6MCibRy4XP1g1mkgGznLOqDkxbtd3k6ikgHuE="
+          "hash": "01fBTQstUDkCoLPHTTloALTalbBxlwwpFWBy3K6FZFw="
         }
       },
       "is_incremental": false,
@@ -14172,7 +14172,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.ViewModels.Metric.html",
-          "hash": "LgNain7Ap9gPdKfG0pC2iu1olBopEsUZ80ITduzv9Pc="
+          "hash": "PMuwCGvLIu/CkuJ83RZS5dhNLIxHlnEFeR3UUXrn9Ks="
         }
       },
       "is_incremental": false,
@@ -56214,7 +56214,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Runtime.Client.SnappClient.html",
-          "hash": "1XKtZQ51VlfUSWHB5nTMWiFu6qEvTl8ErF5Ffm0IPrA="
+          "hash": "c+2Vrv6PA4IohyFZDRy8h9racl6m2RqSUs9HaoMUy48="
         }
       },
       "is_incremental": false,
@@ -58986,7 +58986,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.EventLogFilterViewModel.html",
-          "hash": "09lZzMR9kH/TCH8DNN1LN/EsrhvNRzGUhomhw03OJO4="
+          "hash": "hLCA0RsmcgR/xB4YByqCh+mUepSoYWJDlochLGa9B3M="
         }
       },
       "is_incremental": false,
