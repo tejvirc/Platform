@@ -205,9 +205,6 @@
             InitHopperTest();
             _hopperService.SetMaxCoinoutAllowed(HopperTestPayoutLevel);
             _hopperService.StartHopperMotor();
-            UpdateHopperTest();
-            //TBC Status = $"{Resources.HopperFault} {Resources.TurnResetKey}";
-            Status = $"Hopper Fault - Turn reset key to reactivate";
         }
 
         public void CloseHopperTestDialog()
@@ -221,8 +218,7 @@
             if (!PropertiesManager.GetValue(ApplicationConstants.HopperEnabled, false) &&
                 !PropertiesManager.GetValue(ApplicationConstants.CoinAcceptorEnabled, false))
             {
-                //TBC Status = Resources.HopperTestNotAvailable;
-                Status = "Hopper test is not available as hopper or coin entry are not selected.";
+                Status = Resources.HopperTestNotAvailable;
                 CanActivatePayout = false;
             }
 
@@ -266,11 +262,9 @@
         {
             _disableManager.Disable(HardwareConstants.HopperTestLockKey,
                 SystemDisablePriority.Immediate,
-                //TBC () => Hardware.Contracts.Properties.Resources.HopperTestFault,
-                () => "Hopper Test In Progress",
+                () => Hardware.Contracts.Properties.Resources.HopperTestFault,
                 true,
-                //TBC () => Hardware.Contracts.Properties.Resources.HopperTestFaultHelp);
-                () => "GoTo Hardware -> Hopper");
+                () => Hardware.Contracts.Properties.Resources.HopperTestFaultHelp);
         }
         private void InitHopperTest()
         {
@@ -294,8 +288,7 @@
             }
             _hopperService.StopHopperMotor();
             LastHopperEvent = evt.Fault.GetDescription(typeof(HopperFaultTypes));
-            //TBC Status = $"{Resources.HopperFault} {Resources.TurnResetKey}";
-            Status = $"Hopper Fault -  Turn reset key to reactivate";
+            Status = $"{Resources.HopperFault} {Resources.TurnResetKey}";
             UpdateHopperTest();
         }
 
@@ -305,8 +298,7 @@
             {
                 LastDivertorEvent = evt.Fault.GetDescription(typeof(CoinFaultTypes));
                 _coinAcceptorService.CoinRejectMechOn();
-                //Status = $"{Resources.CoinEntryFault} {Resources.TurnResetKey}";
-                Status = $"Coin Entry Fault -  Turn reset key to reactivate";
+                Status = $"{Resources.CoinEntryFault} {Resources.TurnResetKey}";
             }
         }
 
@@ -335,8 +327,7 @@
 
         private void UpdateStatus()
         {
-            //TBC var msg = InputEnabled ? Resources.CloseDoorReinsert : Resources.ReinsertCoins;
-            var msg = InputEnabled ? "Close main door and reinsert {0} coins" : "Reinsert {0} coins.";
+            var msg = InputEnabled ? Resources.CloseDoorReinsert : Resources.ReinsertCoins;
             Status = TotalPayout > 0 ? string.Format(msg, TotalPayout) : string.Empty;
         }
 
@@ -352,8 +343,7 @@
                 }
             }
 
-            //Status = lockupExists ? $"{Resources.HopperFault} {Resources.TurnResetKey}" : string.Empty;
-            Status = lockupExists ? $"Hopper Fault -  Turn reset key to reactivate" : string.Empty;
+            Status = lockupExists ? $"{Resources.HopperFault} {Resources.TurnResetKey}" : string.Empty;
             return lockupExists;
         }
 

@@ -22,7 +22,7 @@
         /// </summary>
         public HopperGds()
         {
-            DeviceType = DeviceType.CoinAcceptor;
+            DeviceType = DeviceType.Hopper;
             RegisterCallback<CoinOutStatus>(StatusReported);
             RegisterCallback<HopperFaultStatus>(HopperFaultReported);
 

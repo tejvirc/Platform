@@ -2,8 +2,13 @@
 {
     using System;
     using System.Diagnostics;
+    using System.Linq;
+    using Application.Contracts.Localization;
+    using Hardware.Contracts;
+    using Kernel;
+    using Monaco.Localization.Properties;
     using OperatorMenu;
-
+    
     [CLSCompliant(false)]
     public sealed class HardwareMainPageViewModel : OperatorMenuMultiPageViewModelBase
     {
@@ -47,6 +52,18 @@
             }
 
             _calibrating = false;
+        }
+
+        protected override void OnLoaded()
+        {
+            base.OnLoaded();
+            if (PropertiesManager.GetValue(HardwareConstants.HopperDiagnosticMode, false) &&
+                Pages.FirstOrDefault(
+                    p => p.PageName == Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HopperLabel)) !=
+                null)
+            {
+                SelectedPage = Pages.FirstOrDefault(p => p.PageName == Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HopperLabel));
+            }
         }
     }
 }

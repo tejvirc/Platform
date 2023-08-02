@@ -95,7 +95,7 @@
             _bus.Subscribe<CoinOutEvent>(this, Handle);
             _bus.Subscribe<SystemDisabledEvent>(this, Handle);
 
-            _tokenValue = _properties.GetValue(HardwareConstants.CoinValue, 100000L);
+            _tokenValue = _properties.GetValue(HardwareConstants.CoinValue, AccountingConstants.DefaultTokenValue);
         }
 
         /// <summary>
