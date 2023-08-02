@@ -39,37 +39,13 @@
         public event EventHandler<HopperFaultTypes> FaultOccurred;
 
         /// <inheritdoc/>
-        public bool DisableHopper()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <inheritdoc/>
-        public bool EnableHopper()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <inheritdoc/>
         public byte GetStatusReport()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <inheritdoc/>
-        public bool HopperTestDisconnection()
         {
             throw new NotImplementedException();
         }
 
         /// <inheritdoc />
         public override Task<bool> SelfTest(bool nvm)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <inheritdoc/>
-        public bool SetHopperType(HopperType type)
         {
             throw new NotImplementedException();
         }
@@ -93,17 +69,17 @@
         }
 
         /// <inheritdoc />
-        protected override Task<bool> Reset()
-        {
-            SendCommand(new GdsSerializableMessage(GdsConstants.ReportId.DeviceReset));
-            return Task.FromResult(true);
-        }
-
-        /// <inheritdoc />
         public void DeviceReset()
         {
             //TBD : Need to move DeviceReset to common place
             SendCommand(new DeviceReset());
+        }
+
+        /// <inheritdoc />
+        protected override Task<bool> Reset()
+        {
+            SendCommand(new GdsSerializableMessage(GdsConstants.ReportId.DeviceReset));
+            return Task.FromResult(true);
         }
 
         /// <summary>Called when a coin in report is received.</summary>

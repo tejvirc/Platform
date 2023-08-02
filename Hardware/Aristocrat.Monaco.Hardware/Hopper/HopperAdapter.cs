@@ -81,7 +81,7 @@
 
         protected override void Disabling(DisabledReasons reason)
         {
-            //There is nothing to diable the hopper
+            //There is nothing to disable the hopper
         }
 
         protected override void Enabling(EnabledReasons reason, DisabledReasons remedied)
@@ -105,7 +105,7 @@
             Implementation.Initialized += ImplementationInitialized;
             Implementation.InitializationFailed += ImplementationInitializationFailed;
             Implementation.FaultOccurred += ImplementationStatusFaultOccurred;
-            Implementation.CoinOutStatusReported += ImplementationStatusReportedd;
+            Implementation.CoinOutStatusReported += ImplementationStatusReported;
         }
 
 
@@ -194,7 +194,7 @@
             return Implementation.GetStatusReport();
         }
 
-        private void ImplementationStatusReportedd(object sender, CoinOutEventType type)
+        private void ImplementationStatusReported(object sender, CoinOutEventType type)
         {
             Logger.Info("ImplementationStatusReportedd: coin in event reported");
 
