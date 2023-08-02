@@ -116,7 +116,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                     vm.Save();
                 }
 
-                SetProperty(ref _currentPageLoader, value, nameof(CurrentPage));
+                SetProperty(ref _currentPageLoader, value, nameof(CurrentPageLoader), nameof(CurrentPage));
 
                 if (_currentPageLoader != null)
                 {
