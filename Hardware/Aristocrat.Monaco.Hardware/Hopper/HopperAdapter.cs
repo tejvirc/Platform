@@ -59,8 +59,21 @@
         /// <inheritdoc />
         protected override string Path => Kernel.Contracts.Components.Constants.HopperPath;
 
-        public HopperFaultTypes Faults { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
+        /// <inheritdoc />
+        public HopperFaultTypes Faults
+        {
+            get
+            {
+                return Implementation?.Faults ?? HopperFaultTypes.None;
+            }
+            set
+            {
+                if (Implementation != null)
+                {
+                    Implementation.Faults = value;
+                }
+            }
+        }
         protected override void DisabledDetected()
         {
             PostEvent(new DisabledEvent(HopperId, ReasonDisabled));
