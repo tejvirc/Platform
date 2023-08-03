@@ -39,6 +39,8 @@
         private readonly int _cashOutHardMeterId;
         private bool _disposed;
 
+        private readonly TimeSpan _waitingPeriod = TimeSpan.FromSeconds(1);
+
         /// <summary>
         ///     Constructs the provider by retrieving all necessary services from the service manager. This
         ///     constructor is necessary because this is a service in the accounting layer where DI is not used.
@@ -327,6 +329,9 @@
             {
                 TraceId = traceId
             };
+
+            //To ensure payout is not persisted before the cashOutButtonEvent is persisted.
+            await Task.Delay(_waitingPeriod, token);
 
             await Commit();
 
