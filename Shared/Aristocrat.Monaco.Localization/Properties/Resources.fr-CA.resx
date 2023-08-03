@@ -2247,10 +2247,10 @@ Consulter le manuel pour plus de détails</value>
     <value>Accepteur de billets déconnecté</value>
   </data>
   <data name="Off" xml:space="preserve">
-    <value>Hors tension</value>
+    <value>Désactivé</value>
   </data>
   <data name="On" xml:space="preserve">
-    <value>Sous tension</value>
+    <value>Activé</value>
   </data>
   <data name="PendingCashInText" xml:space="preserve">
     <value>Argent entrant en attente :</value>
