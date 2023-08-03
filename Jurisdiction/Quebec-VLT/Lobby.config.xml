@@ -5,7 +5,7 @@
   <LargeGameIconsEnabled>true</LargeGameIconsEnabled>
   <HasIdleAttractVideo>false</HasIdleAttractVideo>
   <BottomAttractVideoEnabled>true</BottomAttractVideoEnabled>
-  <DaysAsNew>30.0</DaysAsNew>
+  <DaysAsNew>0</DaysAsNew>
   <ResponsibleGamingTimeLimits>
     <double>15</double>
     <double>30</double>
