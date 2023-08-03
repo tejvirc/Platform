@@ -97,7 +97,6 @@
             Assert.IsFalse(_accessor.HasErrors);
             Assert.IsNull(_accessor.GetErrors(nameof(_target.InspectorInitials)));
         }
-
         [TestMethod]
         public void VerifyHoursSetterUpdatesItemPickedFlag()
         {
