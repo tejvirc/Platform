@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.Tests.ViewModels
 {
+    using System;
     using System.Globalization;
     using System.Windows;
     using Application.Contracts.ConfigWizard;
@@ -35,7 +36,7 @@
             _propertiesManager.Setup(m => m.GetProperty(It.IsAny<string>(), It.IsAny<object>()))
                 .Returns<string, object>((s, o) => o);
 
-            _eventBus.Setup(m => m.Publish(It.IsAny<OperatorMenuWarningMessageEvent> ()));
+            _eventBus.Setup(m => m.Publish(It.IsAny<OperatorMenuWarningMessageEvent>()));
 
             _localizerFactory = MoqServiceManager.CreateAndAddService<ILocalizerFactory>(MockBehavior.Loose);
             _localizerFactory.Setup(m => m.For(It.IsAny<string>())).Returns<string>(
@@ -64,7 +65,6 @@
                 AddinManager.Shutdown();
             }
         }
-
 
         [TestMethod]
         public void VerifyEmptyOrderNumberErrorMessage()
@@ -96,6 +96,30 @@
             _target.InspectorInitials = "Anything";
             Assert.IsFalse(_accessor.HasErrors);
             Assert.IsNull(_accessor.GetErrors(nameof(_target.InspectorInitials)));
+        }
+
+        [TestMethod]
+        public void VerifyHoursSetterUpdatesItemPickedFlag()
+        {
+            _accessor._ItemsPicked = 0;
+            _target.Hour = 0;
+            Assert.AreEqual(4, Convert.ToInt32(_accessor._ItemsPicked));
+        }
+
+        [TestMethod]
+        public void VerifyMinutesSetterUpdatesItemPickedFlag()
+        {
+            _accessor._ItemsPicked = 0;
+            _target.Minute = 0;
+            Assert.AreEqual(2, Convert.ToInt32(_accessor._ItemsPicked));
+        }
+
+        [TestMethod]
+        public void VerifySecondsSetterUpdatesItemPickedFlag()
+        {
+            _accessor._ItemsPicked = 0;
+            _target.Second = 0;
+            Assert.AreEqual(1, Convert.ToInt32(_accessor._ItemsPicked));
         }
     }
 }
