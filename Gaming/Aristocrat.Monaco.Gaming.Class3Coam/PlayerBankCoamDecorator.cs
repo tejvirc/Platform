@@ -5,8 +5,9 @@
     using System.Reflection;
     using Accounting.Contracts.HandCount;
     using Accounting.Contracts.TransferOut;
-    using Kernel;
+    using Aristocrat.Monaco.Accounting.Contracts;
     using Contracts;
+    using Kernel;
     using log4net;
 
     /// <summary>
@@ -20,15 +21,20 @@
         private readonly IPlayerBank _decorated;
         private readonly IHandCountService _handCountService;
         private readonly ICashOutAmountCalculator _cashOutAmountCalculator;
+        private readonly ITransferOutHandler _transferOutHandler;
+
+        private static readonly object _lockObject = new();
 
         public PlayerBankCoamDecorator(
             IPlayerBank decorated,
             IHandCountService handCountService,
+            ITransferOutHandler transferOutHandler,
             ICashOutAmountCalculator cashOutAmountCalculator)
         {
             _decorated = decorated ?? throw new ArgumentNullException(nameof(decorated));
             _handCountService = handCountService ?? throw new ArgumentNullException(nameof(handCountService));
             _cashOutAmountCalculator = cashOutAmountCalculator ?? throw new ArgumentNullException(nameof(cashOutAmountCalculator));
+            _transferOutHandler = transferOutHandler ?? throw new ArgumentNullException(nameof(transferOutHandler));
         }
 
         public long Balance => _decorated.Balance;
@@ -48,15 +54,19 @@
             // Check if hand count calculations are active, and if so, fetch the calculator.
             if (_handCountService.HandCountServiceEnabled)
             {
-                var amountCashable = _cashOutAmountCalculator.GetCashableAmount(_decorated.Balance);
+                // There is no risk of deadlock, as long as all the CashOut calls are made from CashOutButtonPressedConsumer
+                // which is handled sequentially, guarantied by ActionBlock with capacity=1.
+                // this lock will ensure _transferOutHandler.InProgress check and _decorated.CashOut call are atomic.
+                lock (_lockObject)
+                {
+                    if (_transferOutHandler.InProgress)
+                    {
+                        Logger.Debug("CashOut: TransferOutHandler is in progress, returning false");
+                        return false;
+                    }
 
-                if (amountCashable > 0)
-                {
-                    return _decorated.CashOut(amountCashable);
-                }
-                else
-                {
-                    return true;
+                    var amountCashable = _cashOutAmountCalculator.GetCashableAmount(_decorated.Balance);
+                    return amountCashable > 0 ? _decorated.CashOut(amountCashable) : true;
                 }
             }
             else
