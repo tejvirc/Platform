@@ -65,6 +65,6 @@
                  Text="{Binding InspectorInitials, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                  AutomationProperties.AutomationId="TextBox1_282D57AA"
                  Visibility="{Binding IsInspection, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
-
+        
     </Grid>
 </operatorMenu:OperatorMenuPage>
