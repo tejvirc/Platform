@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts.Hopper
 {
     using System.Collections.Generic;
-    using System.Drawing;
 
     /// <summary>
     ///     Hopper events descriptor

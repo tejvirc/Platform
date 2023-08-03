@@ -1,14 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts.Hopper
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
-    /// <summary>
-    /// 
-    /// </summary>
+    /// <summary> Interface for hopper implementation. /// </summary>
     public interface IHopperImplementation : IGdsDevice
     {
 

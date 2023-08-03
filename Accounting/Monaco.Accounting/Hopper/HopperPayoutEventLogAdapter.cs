@@ -5,9 +5,9 @@
     using Application;
     using Application.Contracts.Extensions;
     using Application.Contracts.TiltLogger;
-    using Accounting.Contracts.Hopper;
     using Common;
     using Contracts;
+    using Contracts.Hopper;
     using Hardware.Contracts;
     using Kernel;
     using Localization.Properties;
@@ -21,8 +21,10 @@
     {
         protected readonly ILog Logger = LogManager.GetLogger(typeof(HopperPayoutEventLogAdapter));
 
+        /// <inheritdoc/>
         public string LogType => EventLogType.CoinOut.GetDescription(typeof(EventLogType));
 
+        /// <inheritdoc/>
         public IEnumerable<EventDescription> GetEventLogs()
         {
             var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
@@ -52,6 +54,7 @@
             return events;
         }
 
+        /// <inheritdoc/>
         public long GetMaxLogSequence()
         {
             var transactionHistory = ServiceManager.GetInstance().GetService<ITransactionHistory>();

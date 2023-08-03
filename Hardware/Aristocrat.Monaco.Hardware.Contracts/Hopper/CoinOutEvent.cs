@@ -1,8 +1,9 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts.Hopper
 {
-    using Aristocrat.Monaco.Hardware.Contracts.CoinAcceptor;
-    using Kernel;
     using System;
+    using CoinAcceptor;
+    using Kernel;
+
 
     /// <summary>Definition of the Coin out event.</summary>
     [Serializable]

@@ -1,17 +1,13 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Pwm.Hopper
 {
-    using Aristocrat.Monaco.Hardware.Contracts.CoinAcceptor;
-    using Aristocrat.Monaco.Hardware.Contracts.Hopper;
-    using Aristocrat.Monaco.Hardware.Contracts.Gds;
-    using Aristocrat.Monaco.Hardware.Pwm.Protocol;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Threading;
-    using System.Threading.Tasks;
-    using Aristocrat.Monaco.Hardware.Contracts.Gds.Hopper;
-    using Aristocrat.Monaco.Hardware.Contracts.Gds.CoinAcceptor;
+    using Contracts.CoinAcceptor;
+    using Contracts.Gds;
+    using Contracts.Gds.CoinAcceptor;
+    using Contracts.Gds.Hopper;
+    using Contracts.Hopper;
+    using Protocol;
+
 
     /// <summary>
     ///     Class to manage communication layer for hopper devices

@@ -5,12 +5,10 @@
     using System.Globalization;
     using System.Linq;
     using System.Text;
-    using Application.Contracts.Localization;
     using Hardware.Contracts.Persistence;
-    using Localization.Properties;
-    using Newtonsoft.Json;
     using Transactions;
     using TransferOut;
+    using Newtonsoft.Json;
 
     /// <summary>
     ///     Definition of the CoinOutTransaction class

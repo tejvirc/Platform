@@ -1,14 +1,15 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Gds.Hopper
 {
-    using Aristocrat.Monaco.Hardware.Contracts.Hopper;
-    using log4net;
     using System;
     using System.Reflection;
     using System.Threading.Tasks;
+    using Contracts.Gds;
+    using Contracts.Gds.CoinAcceptor;
+    using Contracts.Gds.Hopper;
+    using Contracts.Hopper;
     using Contracts.SharedDevice;
-    using Aristocrat.Monaco.Hardware.Contracts.Gds.Hopper;
-    using Aristocrat.Monaco.Hardware.Contracts.Gds.CoinAcceptor;
-    using Aristocrat.Monaco.Hardware.Contracts.Gds;
+    using log4net;
+
 
     /// <summary>A GDS hopper.</summary>
     /// <seealso cref="T:Aristocrat.Monaco.Hardware.GdsDeviceBase" />

@@ -1,15 +1,10 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Pwm.Hopper
 {
-    using Aristocrat.Monaco.Hardware.Contracts.CoinAcceptor;
-    using Aristocrat.Monaco.Hardware.Contracts.Communicator;
-    using Aristocrat.Monaco.Hardware.Contracts.Gds;
-    using Aristocrat.Monaco.Hardware.Contracts.Hopper;
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading;
-    using System.Threading.Tasks;
+    using Contracts.CoinAcceptor;
+    using Contracts.Communicator;
+    using Contracts.Hopper;
+
 
     /// <summary>
     ///     Class to manage communication with Volatile coin acceptor device.

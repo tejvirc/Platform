@@ -1,6 +1,5 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts.Hopper
 {
-    using Properties;
     using System;
     using Kernel;
     using static System.FormattableString;

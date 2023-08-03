@@ -24,8 +24,10 @@
     {
         protected readonly ILog Logger = LogManager.GetLogger(typeof(HopperRefillEventLogAdapter));
 
+        /// <inheritdoc/>
         public string LogType => EventLogType.HopperRefill.GetDescription(typeof(EventLogType));
 
+        /// <inheritdoc/>
         public IEnumerable<EventDescription> GetEventLogs()
         {
             var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
@@ -61,6 +63,7 @@
             return events;
         }
 
+        /// <inheritdoc/>
         public long GetMaxLogSequence()
         {
             var transactionHistory = ServiceManager.GetInstance().GetService<ITransactionHistory>();

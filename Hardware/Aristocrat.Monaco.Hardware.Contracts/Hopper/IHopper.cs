@@ -1,10 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts.Hopper
 {
-    using Aristocrat.Monaco.Hardware.Contracts.SharedDevice;
+    using SharedDevice;
 
-    /// <summary>
-    /// Hopper type to decide the type of hopper
-    /// </summary>
+    /// <summary> Hopper type to decide the type of hopper /// </summary>
     public enum HopperType
     {
         /// <summary> Undefine type</summary>
@@ -15,9 +13,7 @@
         Aristocrat
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
+    /// <summary> Interface for Hopper./// </summary>
     public interface IHopper: IDeviceAdapter
     {
         /// <summary>Gets or sets the id of the hopper.</summary>

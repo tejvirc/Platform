@@ -6,18 +6,16 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
-    using Accounting.Contracts.Hopper;
-    using Accounting.Contracts.Transactions;
     using Application.Contracts;
     using Application.Contracts.Extensions;
-    using Application.Contracts.Localization;
     using Contracts;
+    using Contracts.Hopper;
+    using Contracts.Transactions;
     using Contracts.TransferOut;
     using Hardware.Contracts;
     using Hardware.Contracts.Hopper;
     using Hardware.Contracts.Persistence;
     using Kernel;
-    using Localization.Properties;
     using log4net;
     using HardwareFaultEvent = Hardware.Contracts.Hopper.HardwareFaultEvent;
 
