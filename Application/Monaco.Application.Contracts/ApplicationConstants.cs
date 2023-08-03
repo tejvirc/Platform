@@ -318,22 +318,22 @@
         /// <summary>
         ///     Gets the ISystemDisableManager key used when the EKey Device is verified.
         /// </summary>
-        public static Guid EKeyVerifiedDisableKey => new Guid("{B237B7D0-8E96-4052-ACEE-9576BA79DE69}");
+        public static readonly Guid EKeyVerifiedDisableKey = new Guid("{B237B7D0-8E96-4052-ACEE-9576BA79DE69}");
 
         /// <summary>
         ///     Gets the ISystemDisableManager key used when operating hours are enabled.
         /// </summary>
-        public static Guid SystemDisableGuid => new Guid("{9705470A-33DA-4c7e-8F0A-886991B2AA4F}");
+        public static readonly Guid SystemDisableGuid = new Guid("{9705470A-33DA-4c7e-8F0A-886991B2AA4F}");
 
         /// <summary>
         ///     Gets the ISystemDisableManager key used when operating hours are enabled.
         /// </summary>
-        public static Guid OperatingHoursDisableGuid => new Guid("{A5210158-059B-4523-B6CA-F1145EEA1DF1}");
+        public static readonly Guid OperatingHoursDisableGuid = new Guid("{A5210158-059B-4523-B6CA-F1145EEA1DF1}");
 
         /// <summary>
         ///     Gets the ISystemDisableManager key used when the operator menu is launched.
         /// </summary>
-        public static Guid OperatorMenuLauncherDisableGuid => new Guid("{38B2CB9B-3113-4B6A-9F3F-91356BD5B8F8}");
+        public static readonly Guid OperatorMenuLauncherDisableGuid = new Guid("{38B2CB9B-3113-4B6A-9F3F-91356BD5B8F8}");
 
         /// <summary>
         ///     Key used to disable the operator menu during initialization
@@ -341,18 +341,18 @@
         /// <remarks>
         ///     The gaming layer (lobby) will typically be responsible for enabling the operator menu
         /// </remarks>
-        public static Guid OperatorMenuInitializationKey => new Guid("{AE1D1DC3-517B-46B8-9798-DF6EB06F6729}");
+        public static readonly Guid OperatorMenuInitializationKey = new Guid("{AE1D1DC3-517B-46B8-9798-DF6EB06F6729}");
 
         /// <summary>
         ///     Key used to disable the system when no games are enabled
         /// </summary>
-        public static Guid NoGamesEnabledDisableKey => new Guid("{A2E017C8-4510-4520-AA28-8C12A6C4A60C}");
+        public static readonly Guid NoGamesEnabledDisableKey = new Guid("{A2E017C8-4510-4520-AA28-8C12A6C4A60C}");
 
         /// <summary>
         ///     Key used to disable the system when the number of connected mechanical reels
         ///     doesn't match what the enabled game expects
         /// </summary>
-        public static Guid ReelCountMismatchDisableKey => new("{0C45B33C-BA5A-4363-8337-935CB69F151F}");
+        public static readonly Guid ReelCountMismatchDisableKey = new("{0C45B33C-BA5A-4363-8337-935CB69F151F}");
 
         /// <summary>
         ///     Key used to disable the system while loading animation files to the reel controller
@@ -490,12 +490,17 @@
         /// <summary>
         ///     Key used to disable the system when the display is disconnected
         /// </summary>
-        public static Guid DisplayDisconnectedLockupKey = new Guid("{29AFB89B-80AD-4CAD-A410-53F26FB87DFD}");
+        public static readonly Guid DisplayDisconnectedLockupKey = new Guid("{29AFB89B-80AD-4CAD-A410-53F26FB87DFD}");
+
+        /// <summary>
+        ///     Key used to disable the system when the display is connected
+        /// </summary>
+        public static readonly Guid DisplayConnectedLockupKey = new Guid("{29AFB89B-80AF-4CAD-A410-53F26FB87DFD}");
 
         /// <summary>
         ///     Key used to disable the system when the touch display is disconnected
         /// </summary>
-        public static Guid TouchDisplayDisconnectedLockupKey = new Guid("{34AFB79B-67BB-4CDC-A910-53F26FA87BFD}");
+        public static readonly Guid TouchDisplayDisconnectedLockupKey = new Guid("{34AFB79B-67BB-4CDC-A910-53F26FA87BFD}");
 
         /// <summary>
         ///     Key used to disable the system when the touch display is reconnected
@@ -528,7 +533,7 @@
         public static readonly Guid HostCashOutFailedDisableKey = new Guid("{AD40EFCE-63C0-42E9-8FE4-68B222D2DC8D}");
 
         /// <summary>
-        ///     Key used to disable the system when SAS Host request maintaince mode
+        ///     Key used to disable the system when SAS Host request maintenance mode
         /// </summary>
         public static readonly Guid MaintenanceModeGuid = new Guid("{D45C666A-C4AA-43b8-8E02-F6B5EB5C7B25}");
 
@@ -1240,12 +1245,12 @@
         /// <summary>
         ///      Excessive Meter Increment lockup GUID
         /// </summary>
-        public static Guid ExcessiveMeterIncrementErrorGuid = new Guid("{444D0667-F0B1-4346-BB3D-C0AB5BA4763D}");
+        public static readonly Guid ExcessiveMeterIncrementErrorGuid = new Guid("{444D0667-F0B1-4346-BB3D-C0AB5BA4763D}");
 
         /// <summary>
-        ///      Belly Door discrepency lockup GUID
+        ///      Belly Door discrepancy lockup GUID
         /// </summary>
-        public static Guid BellyDoorDiscrepencyGuid = new Guid("{E3307468-9863-49E4-AF9E-C3982B869B27}");
+        public static readonly Guid BellyDoorDiscrepencyGuid = new Guid("{E3307468-9863-49E4-AF9E-C3982B869B27}");
 
         /// <summary> Property manager key for SoundConfigurationAlertVolumeMinimum </summary>
         public const string SoundConfigurationAlertVolumeMinimum = "SoundConfiguration.AlertVolume.Minimum";
@@ -1323,12 +1328,12 @@
         /// <summary>
         ///     Key used to disable the system when secondary storage is connected but not supported
         /// </summary>
-        public static Guid SecondaryStorageMediaConnectedKey => new Guid("{DB7CA371-8606-405C-9BBA-65C4219C0623}");
+        public static readonly Guid SecondaryStorageMediaConnectedKey = new Guid("{DB7CA371-8606-405C-9BBA-65C4219C0623}");
 
         /// <summary>
         ///     Key used to disable the system when secondary storage is supported but not connected
         /// </summary>
-        public static Guid SecondaryStorageMediaNotConnectedKey => new Guid("{9512CE3D-FE74-4609-B2B4-7F74673B6F8A}");
+        public static readonly Guid SecondaryStorageMediaNotConnectedKey = new Guid("{9512CE3D-FE74-4609-B2B4-7F74673B6F8A}");
 
         /// <summary> The key used to indicate that the cabinet type affects what is displayed to the screen. </summary>
         public static readonly string CabinetControlsDisplayElements = "CabinetControlsDisplayElements";

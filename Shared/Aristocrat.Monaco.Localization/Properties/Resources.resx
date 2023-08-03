@@ -12335,5 +12335,8 @@ Do you really want to do full reset?</value>
   <data name="ReelController_LoadingAnimationFile" xml:space="preserve">
     <value>Loading Animation File {0}</value>
     <comment>Aristocrat.Monaco.Gaming</comment>
-  </data>  
+  </data>
+  <data name="DisplayConnected" xml:space="preserve">
+    <value>Display Connected - Restart Required</value>
+  </data>
 </root>

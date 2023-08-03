@@ -149,7 +149,10 @@
                         () => Localizer.ForLockup().GetString(ResourceKeys.DisplayDisconnected))
                 );
 
-                CheckDevicesCount();
+                if (CheckDevicesCount())
+                {
+                    _disableManager.Enable(ApplicationConstants.DisplayConnectedLockupKey);
+                }
             }
         }
 
@@ -373,7 +376,7 @@
                 ResourceKeys.ButtonDeckDisconnected);
         }
 
-        private void CheckDevicesCount()
+        private bool CheckDevicesCount()
         {
             lock (_lock)
             {
@@ -389,7 +392,10 @@
                 if (displayStatus && touchStatus)
                 {
                     _cabinetDetectionService.MapTouchscreens();
+                    return true;
                 }
+
+                return false;
             }
 
             bool CheckDisplayStatus()
@@ -436,6 +442,12 @@
             {
                 Logger.Debug($"Enabling {disableKey} reason key {resource}.");
                 _disableManager.Enable(disableKey);
+
+                // Lockup for restart after reconnect message
+                _disableManager.Disable(
+                    ApplicationConstants.DisplayConnectedLockupKey,
+                    SystemDisablePriority.Immediate,
+                    () => Localizer.ForLockup().GetString(ResourceKeys.DisplayConnected));
             }
             else
             {
