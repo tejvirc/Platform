@@ -28,7 +28,7 @@
             var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
             
             //will be set at configuration and fetched from there.
-            long tokenValue = propertiesManager.GetValue(HardwareConstants.CoinValue, 100000);
+            long tokenValue = propertiesManager.GetValue(HardwareConstants.CoinValue, AccountingConstants.DefaultTokenValue);
 
             var transactionHistory = ServiceManager.GetInstance().GetService<ITransactionHistory>();
 
@@ -40,8 +40,7 @@
                     (ResourceKeys.PaidAmount,transaction.TransactionAmount.MillicentsToDollars().FormattedCurrencyString())}
                           let name = string.Join(
                               EventLogUtilities.EventDescriptionNameDelimiter,
-                              //TBC Resources.HopperPayOut,
-                              "Hopper Pay Out {0}",
+                              Resources.HopperPayOut,
                               transaction.TransactionAmount.MillicentsToDollars().FormattedCurrencyString())
                           select new EventDescription(
                               name,
