@@ -403,7 +403,7 @@
                 return;
             }
 
-            var gameWinBonusText = Localizer.For(CultureFor.Player).FormatString(
+            var gameWinBonusText = Localizer.For(CultureFor.Operator).FormatString(
                 ResourceKeys.ReplayGameWinBonusAwarded,
                 context.Arguments.GameWinBonus.CentsToDollars().FormattedCurrencyString());
             _cashOutTexts.Add(gameWinBonusText);
@@ -436,7 +436,7 @@
             if (amountOut > 0)
             {
                 _cashOutTexts.Add(
-                    Localizer.For(CultureFor.Player)
+                    Localizer.For(CultureFor.Operator)
                         .FormatString(ResourceKeys.ReplayTicketPrinted) + " " + amountOut.MillicentsToDollars().FormattedCurrencyString());
             }
         }
@@ -452,7 +452,7 @@
             if (amountOut > 0)
             {
                 _cashOutTexts.Add(
-                    Localizer.For(CultureFor.Player)
+                    Localizer.For(CultureFor.Operator)
                         .FormatString(ResourceKeys.ReplayTicketPrinted) + " " +
                     (Convert.ToDecimal(amountOut / GamingConstants.Millicents) /
                      CurrencyExtensions.CurrencyMinorUnitsPerMajorUnit).FormattedCurrencyString());
