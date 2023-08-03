@@ -81,7 +81,11 @@
         public bool TestsEnabled
         {
             get => _testEnabled && TestModeEnabled;
-            set => SetProperty(ref _testEnabled, value, nameof(TestsEnabled));
+            set
+            {
+                SetProperty(ref _testEnabled, value, nameof(TestsEnabled));
+                RaisePropertyChanged(nameof(TouchScreenButtonsEnabled));
+            }
         }
 
         public int BrightnessValue
