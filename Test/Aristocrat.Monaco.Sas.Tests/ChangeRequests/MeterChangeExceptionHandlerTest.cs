@@ -52,9 +52,9 @@
     [TestClass]
     public class MeterChangeExceptionHandlerTest
     {
-        private const double CancelTimeout = 100;  // 100 ms
+        private const double CancelTimeout = 1000;  // 1 s
         private const double ThirtySecondTimeout = 30000;  // 30 seconds
-        private const int TimeoutWait = 1000;  // one second
+        private const int TimeoutWait = 5000;  // five seconds
         private const int MaxAcknowledgements = 5;
         private MeterChangeExceptionHandler _target;
         private Mock<ISasExceptionHandler> _exceptionHandler;

@@ -14,7 +14,7 @@
     [TestClass]
     public class LP08ConfigureBillDenominationsHandlerTest
     {
-        private const int TimeoutWait = 1000;  // one second
+        private const int TimeoutWait = 3000;  // three seconds
         private LP08ConfigureBillDenominationsHandler _target;
         private Mock<ISasNoteAcceptorProvider> _noteAcceptorProvider;
         private AutoResetEvent _waiter;

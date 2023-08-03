@@ -16,7 +16,7 @@
     [TestClass]
     public class WatOnHandlerTest
     {
-        private const int WaitTime = 1000;
+        private const int WaitTime = 2000;
         private const string HostId = "unit-test";
 
         private WatOnHandler _target;

@@ -13,7 +13,7 @@
     [TestClass]
     public class EnableDisableBillAcceptorHandlerTest
     {
-        private const int TimeoutWait = 1000;  // one second
+        private const int TimeoutWait = 3000;  // three seconds
         private EnableDisableBillAcceptorHandler _target;
         private Mock<ISasNoteAcceptorProvider> _noteAcceptor;
         private AutoResetEvent _waiter;

@@ -246,6 +246,7 @@
             Logger.Debug("Protocol initialization complete");
 
             _eventBus.Publish(new ProtocolInitializationComplete());
+
             _readyToPlayTimer.Stop();
         }
 

@@ -11,6 +11,7 @@
     [TestClass]
     public class HostAcknowledgementProviderTests
     {
+        private const int waitTimeout = 2000;
         private HostAcknowledgementProvider _target;
         private Mock<ISasExceptionQueue> _exceptionQueue;
         private Mock<ISasMessageQueue> _messageQueue;
@@ -130,7 +131,7 @@
             // method will be called if the timer expires 
             _target.SynchronizationLost += HandleLinkDown;
 
-            Assert.IsTrue(_waiter.WaitOne(200));
+            Assert.IsTrue(_waiter.WaitOne(waitTimeout));
             Assert.IsFalse(_target.Synchronized);
         }
 

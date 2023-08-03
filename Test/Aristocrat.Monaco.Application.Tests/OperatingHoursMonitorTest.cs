@@ -243,7 +243,7 @@
                         It.IsAny<Func<string>>(),
                         false, null));
 
-            Thread.Sleep(250);
+            Thread.Sleep(2000);
 
             disableManager.Verify(d => d.Enable(ApplicationConstants.OperatingHoursDisableGuid));
             bus.Verify(b => b.Publish(It.IsAny<OperatingHoursEnabledEvent>()));

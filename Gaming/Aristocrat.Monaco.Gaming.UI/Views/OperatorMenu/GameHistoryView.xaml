@@ -196,11 +196,6 @@
                                     Binding="{Binding EndTime, Converter={StaticResource DateTimeConverter}, ConverterParameter=MinDateBlank}"
                                     HeaderStyle="{StaticResource HeaderStyle}"
                                     AutomationProperties.AutomationId="DataGridTextColumn18_22F59A65" />
-                <DataGridTextColumn Header="{lex:Loc EndTimeText}"
-                                    loc:Localizer.For="Operator"
-                                    Binding="{Binding EndTime, Converter={StaticResource DateTimeConverter}, ConverterParameter=MinDateBlank}"
-                                    HeaderStyle="{StaticResource HeaderStyle}"
-                                    AutomationProperties.AutomationId="DataGridTextColumn18_22F59A65" />
                 <DataGridTextColumn Header="{lex:Loc AmountIn}"
                                     loc:Localizer.For="Operator"
                                     MinWidth="80"

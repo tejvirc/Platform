@@ -56,7 +56,8 @@
         </b:EventTrigger>
     </b:Interaction.Triggers>
 
-    <Grid Margin="20">
+    <Grid Margin="20"
+          AutomationProperties.AutomationId="Grid5_38500696">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"
                            AutomationProperties.AutomationId="RowDefinition6_38500696" />

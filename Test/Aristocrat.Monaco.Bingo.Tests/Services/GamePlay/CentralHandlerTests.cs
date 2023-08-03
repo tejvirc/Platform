@@ -327,7 +327,7 @@
             _properties.Setup(m => m.GetProperty(AccountingConstants.LargeWinLimit, AccountingConstants.DefaultLargeWinLimit)).Returns(largeWinLimit);
 
             // Must first request outcomes
-            RequestOutcomes();
+            await RequestOutcomes();
 
             await SetupSingleGamePlayNoBallCall(gameSerial, winAmount, ballCall, source.Token);
 
@@ -353,7 +353,7 @@
             _properties.Setup(m => m.GetProperty(AccountingConstants.LargeWinLimit, AccountingConstants.DefaultLargeWinLimit)).Returns(largeWinLimit);
 
             // Must first request outcomes
-            RequestOutcomes();
+            await RequestOutcomes();
 
             // Now you can process game outcomes
             await SetupSingleGamePlay(gameSerial, winAmount, ballCall, source.Token);
@@ -383,7 +383,7 @@
             _properties.Setup(m => m.GetProperty(AccountingConstants.LargeWinLimit, AccountingConstants.DefaultLargeWinLimit)).Returns(largeWinLimit);
 
             // Must first request outcomes
-            RequestOutcomes();
+            await RequestOutcomes();
 
             // Now you can process game outcomes
             await SetupSingleGamePlay(gameSerial, winAmount, ballCall, source.Token);
@@ -437,7 +437,7 @@
             _properties.Setup(m => m.GetProperty(AccountingConstants.LargeWinLimit, AccountingConstants.DefaultLargeWinLimit)).Returns(largeWinLimit);
 
             // Must first request outcomes
-            RequestOutcomes();
+            await RequestOutcomes();
 
             // Now you can process game outcomes
             await SetupMultiGamePlay(gameSerial, winAmount, winAmount2, ballCall, source.Token);
@@ -449,7 +449,7 @@
             _eventBus.Verify(x => x.Publish(It.IsAny<BingoGamePatternEvent>()), Times.Exactly(2));
         }
 
-        private async void RequestOutcomes()
+        private async Task RequestOutcomes()
         {
             var currentTransactionGameId = 3;
             var defaultBetDetails = new BetDetails(0, 0, 0, 0, 0, 0, 0, 0);

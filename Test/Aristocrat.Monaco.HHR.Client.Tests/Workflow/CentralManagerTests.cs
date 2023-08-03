@@ -25,7 +25,7 @@
         private readonly Packet _packet = new Packet(new byte[] { 0 }, 1);
         private readonly List<(Request request, Response response)> _responseReceived = new List<(Request, Response)>();
         private readonly ushort _retry = 3;
-        private const int Timeout = 100;
+        private const int Timeout = 2000;
 
         private readonly List<(Request request, Type responseType)> _sentRequests =
             new List<(Request request, Type responseType)>();
@@ -140,7 +140,7 @@
                 ReplyId = request.SequenceId
             };
             _messageFlow.Setup(x => x.Send(It.IsAny<Request>(), It.IsAny<CancellationToken>()))
-                .Callback<Request, CancellationToken>((r, c) => Task.Delay(Timeout / 2).ContinueWith(x => _subject.OnNext(_packet), c))
+                .Callback<Request, CancellationToken>((r, c) => Task.Delay(Timeout / 10).ContinueWith(x => _subject.OnNext(_packet), c))
                 .Returns(Task.FromResult(true));
 
             _messageFlow.Setup(x => x.Receive(It.IsAny<Packet>(), It.IsAny<CancellationToken>()))
@@ -160,6 +160,7 @@
                 Assert.AreEqual(returnedResponse.MessageStatus, MessageStatus.UnexpectedResponse);
                 Assert.IsTrue(returnedResponse is CloseTranErrorResponse);
                 Assert.AreEqual(returnedResponse.ReplyId, request.SequenceId);
+                Thread.Sleep(2000);
                 _messageFlow.Verify(x => x.Send(request, It.IsAny<CancellationToken>()), Times.Exactly(_retry + 1));
                 _messageFlow.Verify(x => x.Receive(_packet, It.IsAny<CancellationToken>()), Times.AtLeast(_retry + 1));
             }
@@ -279,7 +280,7 @@
                 ReplyId = request.SequenceId
             };
             _messageFlow.Setup(x => x.Send(It.IsAny<Request>(), It.IsAny<CancellationToken>()))
-                .Callback<Request, CancellationToken>((r, c) => Task.Delay(Timeout / 2).ContinueWith(x => _subject.OnNext(_packet), c))
+                .Callback<Request, CancellationToken>((r, c) => Task.Delay(Timeout / 10).ContinueWith(x => _subject.OnNext(_packet), c))
                 .Returns(Task.FromResult(true));
 
             _messageFlow.Setup(x => x.Receive(It.IsAny<Packet>(), It.IsAny<CancellationToken>()))

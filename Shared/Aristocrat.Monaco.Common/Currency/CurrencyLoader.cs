@@ -34,7 +34,7 @@
                     //empty string or special characters.
                     string currencyCode = culture.Name == WorldCultureName ? WorldCurrencySymbol : region.ISOCurrencySymbol;
 
-                    if (!string.IsNullOrEmpty(currencyCode) && !currencyList.ContainsKey(currencyCode))
+                    if (!string.IsNullOrEmpty(currencyCode) && currencyCode != "¤¤" && !currencyList.ContainsKey(currencyCode))
                     {
                         currencyList[currencyCode] = (CultureInfo) culture.Clone();
                     }
