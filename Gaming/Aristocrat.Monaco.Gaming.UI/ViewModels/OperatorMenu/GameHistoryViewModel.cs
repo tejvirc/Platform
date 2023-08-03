@@ -1085,7 +1085,7 @@
                 return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable);
             }
 
-            return string.Join(" ", jackpots.Select(j => j.Value.MillicentsToDollars().FormattedCurrencyStringForOperator()));
+            return string.Join(" ", jackpots.Select(j => j.Value.MillicentsToDollarsNoFraction().FormattedCurrencyStringForOperator()) );
         }
 
         private bool IsBaseGameCommitted(IGameHistoryLog gameHistory)
